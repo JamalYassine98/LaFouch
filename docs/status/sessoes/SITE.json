@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "recados da NUVEM: S6 (login no 'presentes' e no 'reservar'), S3 parte 2 (pedido pela porta 'pedido'), vistas (ramo esb-nuvem do catalogo)",
- "arquivos": [
-  "js/lf-site.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795215793.529312,
+   "r": "recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP"
+  },
   {
    "t": 1795201869.5060387,
    "r": "varredura com o site rodando (60% das funções rodam nas provas); 6 funções mortas certas fora da CÓPIA LIMPA (15 KB; comparador 0 diferenças; porteiro 207 provas, 0 falhas) — ainda NÃO publicado; porteiro ajustado aos dados novos da loja (nomes mudaram, 18 peças)"
@@ -40,10 +42,6 @@
   {
    "t": 1795177893.1567817,
    "r": "itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono"
-  },
-  {
-   "t": 1795148336.853361,
-   "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
  "leu": 1795214196.303737
