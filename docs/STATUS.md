@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 26: remendos parte 2b — iniLista e grpAbre numa função só | src/89-inicio.js, src/95-barra-grupos.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
-| SITE | tirar o tema escuro (código morto) na cópia limpa + varredura de código morto com o site rodando | index.html, js/lf-site.js |
 
 ## Fila
 
@@ -74,6 +73,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 13:14 — SITE: tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro
 - 20/11 12:55 — NUVEM: Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21).
 - 20/11 12:54 — APP: v577 publicado: remendos parte 2a (inicioGo e navOn numa função só; 42 destinos iguais, 0 diferenças em 60 telas, 332/332). Próximo: parte 2b (grupos), desenho em work/s436/remendos/parte2b_notas.md
 - 20/11 12:29 — SITE: PORTEIRO COM 0 FALHAS na cópia limpa (205 provas): ícone da conta consertado (saíram 3 regras de cor), 5 avisos da página da peça eram alarme falso da ferramenta (consertada). Cópia limpa pronta para o dono dizer 'publicar' — falta a resposta sobre a pasta teste-giro
@@ -98,4 +98,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 01:00 — APP: item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327
 - 20/11 00:36 — APP: v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326
 - 19/11 23:50 — ESBOCO: conferência
-- 19/11 23:50 — ESBOCO: status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)

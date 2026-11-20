@@ -1,11 +1,12 @@
 {
  "nome": "SITE",
- "agora": "tirar o tema escuro (código morto) na cópia limpa + varredura de código morto com o site rodando",
- "arquivos": [
-  "index.html",
-  "js/lf-site.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795191283.4172518,
+   "r": "tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro"
+  },
   {
    "t": 1795188547.3588982,
    "r": "PORTEIRO COM 0 FALHAS na cópia limpa (205 provas): ícone da conta consertado (saíram 3 regras de cor), 5 avisos da página da peça eram alarme falso da ferramenta (consertada). Cópia limpa pronta para o dono dizer 'publicar' — falta a resposta sobre a pasta teste-giro"
