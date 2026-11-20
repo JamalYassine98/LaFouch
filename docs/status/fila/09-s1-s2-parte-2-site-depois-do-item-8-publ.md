@@ -1,2 +1,2 @@
-na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
+✅ publicado no site 1795192682 (20/11 13:55, junto com a cópia limpa inteira)
 **S1/S2 parte 2 — SITE** (depois do item 8 publicado): (a) entrar com NOME de usuário → POST `conta` {acao:"entrar", user, senha} em vez de ler `usuarios/` e entrar com e-mail (achaEmail, lf-site.js ~1463); (b) criar conta: "nome já usado" → `conta` {acao:"livre"} em vez de ler `usuarios/` (~1501); (c) token de entrega do pedido pago → POST `reserva` {acao:"token", pedido, tel do pedido} em vez de ler `tok` em `reservas/` (~1691, 1699, 1913, 1920). Endereço: https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/conta
