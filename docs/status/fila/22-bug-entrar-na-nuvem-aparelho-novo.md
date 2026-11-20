@@ -1,0 +1,2 @@
+em andamento · APP · pedido 20/11 09:40
+**BUG: aparelho vazio/sem login › Início › cartão 'Seus dados estão na nuvem? · Entrar' dá tela vazia (#null).** Causa: duas ações com o nome nvIr (97-nuvem-segura.js × 99c-navegacao); a antiga procurava o campo do e-mail, hoje dentro da dobra 'Cópias e nuvem' fechada. Conserto (esboço work/s436/bug-nvir/): a ação do cartão vira nvEntrar e abre Ajustes com a dobra 'Cópias e nuvem' aberta e o cursor no e-mail; trava: teste do aparelho vazio + teto dos remendos desce. Dono 20/11 09:40: 'vamos fazer pela ordem recomendada'.
