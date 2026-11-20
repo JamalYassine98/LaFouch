@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 22: bug do Entrar na nuvem (aparelho novo) | src/97-nuvem-segura.js, tests/run.py, tests/teto-remendos.json |
 | NUVEM | limpeza 2 da nuvem (regra 12): peças comuns num lugar só | functions/, docs/NUVEM-COMO-FUNCIONA.md |
-| SITE | conserto do porteiro, parte 1: categoria vinda da loja em vez de nome fixo (work/fiscal/provas.py, fiscal.py) — esboço mandado ao dono 09:39; itens 9 e 20 na cópia limpa esperando o porteiro para ir ao ar; limpeza 5 (selos) parada | work/fiscal/provas.py, work/fiscal/fiscal.py |
 
 ## Fila
 
@@ -65,6 +64,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 09:55 — SITE: porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir
 - 20/11 09:31 — SITE: itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono
 - 20/11 09:25 — NUVEM: Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f).
 - 20/11 08:40 — NUVEM: item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo
