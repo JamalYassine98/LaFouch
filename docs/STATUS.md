@@ -48,6 +48,7 @@
 
 - para **APP**: Item 18 da Fila (S1/S2 parte 3 do app): tirar o tok de reservas/ e gravar reservasTok ANTES de reservas pago:true, em sequência. A parte da nuvem (item 11) já e
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
+- para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
 - para **SITE**: PEDIDO DO DONO PARA A NOITE (20/11 01:41, ele foi dormir; trabalhe sozinho, sem esperar resposta): ao terminar o serviço atual, (1) implemente, teste (porteiro 
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
