@@ -1,0 +1,288 @@
+[
+ {
+  "ref": "AC1050",
+  "tipo": "armacao",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "50-20-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Vinho"
+  ],
+  "preco": 5000,
+  "polarizado": ""
+ },
+ {
+  "ref": "AC1055",
+  "tipo": "armacao",
+  "formato": "Redondo",
+  "formato_novo": true,
+  "medidas": "48-21-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Feminino",
+  "cores": [
+   "Rosa"
+  ],
+  "preco": 110000,
+  "polarizado": ""
+ },
+ {
+  "ref": "BR44140",
+  "tipo": "armacao",
+  "formato": "Gatinho",
+  "formato_novo": true,
+  "medidas": "54-17-140",
+  "med_novo": true,
+  "material": "Metal",
+  "publico": "Feminino",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 117000,
+  "polarizado": ""
+ },
+ {
+  "ref": "BR44145",
+  "tipo": "armacao",
+  "formato": "Redondo",
+  "formato_novo": true,
+  "medidas": "47-22-145",
+  "med_novo": true,
+  "material": "Metal",
+  "publico": "Unissex",
+  "cores": [
+   "Dourado"
+  ],
+  "preco": 124000,
+  "polarizado": ""
+ },
+ {
+  "ref": "GR3340",
+  "tipo": "armacao",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "52-19-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 103000,
+  "polarizado": ""
+ },
+ {
+  "ref": "GR3345",
+  "tipo": "armacao",
+  "formato": "Retangular",
+  "formato_novo": true,
+  "medidas": "54-17-140",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Masculino",
+  "cores": [
+   "Marrom"
+  ],
+  "preco": 101000,
+  "polarizado": ""
+ },
+ {
+  "ref": "GR3350",
+  "tipo": "armacao",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "50-21-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Transparente"
+  ],
+  "preco": 130000,
+  "polarizado": ""
+ },
+ {
+  "ref": "PY-566",
+  "tipo": "armacao",
+  "formato": "Gatinho",
+  "formato_novo": true,
+  "medidas": "50-19-142",
+  "med_novo": false,
+  "material": "Acetato",
+  "publico": "Feminino",
+  "cores": [
+   "Vermelho",
+   "Bege translúcido"
+  ],
+  "preco": 47000,
+  "polarizado": ""
+ },
+ {
+  "ref": "SL2250",
+  "tipo": "solar",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "54-18-140",
+  "med_novo": true,
+  "material": "Metal",
+  "publico": "Masculino",
+  "cores": [
+   "Dourado"
+  ],
+  "preco": 155000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2255",
+  "tipo": "solar",
+  "formato": "Retangular",
+  "formato_novo": true,
+  "medidas": "59-17-130",
+  "med_novo": true,
+  "material": "Policarbonato",
+  "publico": "Masculino",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 142000,
+  "polarizado": "Polarizado"
+ },
+ {
+  "ref": "SL2260",
+  "tipo": "solar",
+  "formato": "Redondo",
+  "formato_novo": false,
+  "medidas": "49-22-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 135000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2265",
+  "tipo": "solar",
+  "formato": "Gatinho",
+  "formato_novo": false,
+  "medidas": "52-19-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Feminino",
+  "cores": [
+   "Transparente"
+  ],
+  "preco": 139000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2270",
+  "tipo": "solar",
+  "formato": "Hexagonal",
+  "formato_novo": false,
+  "medidas": "51-20-145",
+  "med_novo": true,
+  "material": "Metal",
+  "publico": "Feminino",
+  "cores": [
+   "Dourado"
+  ],
+  "preco": 149000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2275",
+  "tipo": "solar",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "54-19-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Masculino",
+  "cores": [
+   "Marrom"
+  ],
+  "preco": 157000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2280",
+  "tipo": "solar",
+  "formato": "Retangular",
+  "formato_novo": true,
+  "medidas": "57-17-140",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Masculino",
+  "cores": [
+   "Azul"
+  ],
+  "preco": 145000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2285",
+  "tipo": "solar",
+  "formato": "Redondo",
+  "formato_novo": true,
+  "medidas": "46-21-140",
+  "med_novo": true,
+  "material": "Metal e acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 133000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2290",
+  "tipo": "solar",
+  "formato": "Quadrado",
+  "formato_novo": true,
+  "medidas": "52-20-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Unissex",
+  "cores": [
+   "Marrom"
+  ],
+  "preco": 137000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2300",
+  "tipo": "solar",
+  "formato": "Gatinho",
+  "formato_novo": true,
+  "medidas": "53-19-145",
+  "med_novo": true,
+  "material": "Acetato",
+  "publico": "Feminino",
+  "cores": [
+   "Marrom"
+  ],
+  "preco": 143000,
+  "polarizado": "Não polarizado"
+ },
+ {
+  "ref": "SL2305",
+  "tipo": "solar",
+  "formato": "Aviador",
+  "formato_novo": true,
+  "medidas": "52-21-145",
+  "med_novo": true,
+  "material": "Metal e acetato",
+  "publico": "Masculino",
+  "cores": [
+   "Preto"
+  ],
+  "preco": 176000,
+  "polarizado": "Não polarizado"
+ }
+]
