@@ -42,7 +42,7 @@
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
-- **20-appcheck-parte-2-site** — esboço pronto no ramo esb-item20 do catalogo (em cima do esb-item9), testado no simulador com a nuvem imitada e passado no comparador — esperando o dono dizer onde entra (cópia limpa ou site no ar)
+- **20-appcheck-parte-2-site** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
 - **22-publicar-nuvem-pelo-github** — pronto no código (regra 6b) — falta o dono rodar a configuração única no Cloud Shell (docs/PUBLICAR-NUVEM-GITHUB.md)
 
