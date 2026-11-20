@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 32 URGENTE: câmera desfocada/rosada ao gravar (foco e branco só com o valor em uso)",
+ "arquivos": [
+  "src/98z-camera-u149f.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795216742.8093283,

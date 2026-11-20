@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 32 URGENTE: câmera desfocada/rosada ao gravar (foco e branco só com o valor em uso) | src/98z-camera-u149f.js, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 | SITE | varredura de código morto: roteiros de mapa, câmera do rosto, consulta do grau, atacado, conta e avaliação (só medição) | work/s430/varredura |
 
