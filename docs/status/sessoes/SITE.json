@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "varredura de código morto: roteiros de mapa, câmera do rosto, consulta do grau, atacado, conta e avaliação (só medição)",
+ "arquivos": [
+  "work/s430/varredura"
+ ],
  "ultimas": [
   {
    "t": 1795215793.529312,
@@ -44,5 +46,5 @@
    "r": "itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono"
   }
  ],
- "leu": 1795214196.303737
+ "leu": 1795215863.5455403
 }
