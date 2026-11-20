@@ -1,12 +1,12 @@
 {
  "nome": "SITE",
- "agora": "implementar na cópia limpa: selos v2 + faixa só no topo + sai o modo lista (ramo esb-selos → limpo); prova dos selos no porteiro",
- "arquivos": [
-  "js/lf-site.js",
-  "index.html",
-  "work/fiscal/provas.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795187251.5763078,
+   "r": "selos v2, faixa só no topo e fim do modo lista na cópia limpa; porteiro: 1 falha (ícone da conta sem cor no mouse) + 5 avisos visuais da página da peça; levantamento de código morto em work/s430/limpeza5/"
+  },
   {
    "t": 1795180680.9726496,
    "r": "limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir"
