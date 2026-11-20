@@ -23,3 +23,4 @@
 - 20/11 15:30 — Aprovado: tendência do Semp aponta o modelo; onde comprar só no microcentro de CDE (cadastradas e não cadastradas, mapa por link); se o dono já tem: postar (com estoque) ou repor (pouco), nunca 'comprar'.
 - 20/11 15:34 — Aprovado (ideia): Mercado + tela da tendência em 3 casos (não tem / tem / tem pouco) — work/semp/esboco_semp_mercado_*, _tendencia2_*.
 - 20/11 15:42 — Aprovado (ideia): Marketing › Criar com 6 formatos em linhas (Story = anel, Status = balão com relógio).
+- 20/11 15:53 — Aprovado: Ajustes em 3 blocos (Loja · Contas ligadas · Este aparelho) com Marca e Instagram; configuração vive só em Ajustes; Marketing com 4 setores.
