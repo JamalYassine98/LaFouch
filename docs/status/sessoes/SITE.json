@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "tirar o brilho da Black Friday do destaque (dono 13:45) e publicar",
+ "arquivos": [
+  "index.html",
+  "js/lf-site.js"
+ ],
  "ultimas": [
   {
    "t": 1795192986.3815396,
@@ -36,5 +39,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795191747.7735043
+ "leu": 1795193126.0228477
 }
