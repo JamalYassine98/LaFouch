@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | item 22: corrigir o script de configuração (não dizer ok com erro) | tools/configura-publicar-nuvem.sh |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila

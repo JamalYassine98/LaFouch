@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "item 22: corrigir o script de configuração (não dizer ok com erro)",
+ "arquivos": [
+  "tools/configura-publicar-nuvem.sh"
+ ],
  "ultimas": [
   {
    "t": 1795174401.8866496,
