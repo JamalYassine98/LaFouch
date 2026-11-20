@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "S3 parte 1: pedido pela nuvem",
- "arquivos": [
-  "functions/",
-  "tools/sonda-nuvem.sh"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795200121.8186638,
+   "r": "S3 parte 1 publicada e conferida no ar: porta 'pedido' (formato das regras, limites, comprovante só de pedido recebido e não pago); recado ao SITE com a parte 2."
+  },
   {
    "t": 1795199585.8374639,
    "r": "S6 publicado (VIP só para a cliente logada) e conferido no ar; recado ao SITE para mandar o login no presentes/reservar; tudo é teste até o lançamento (memória do projeto + recado a todas)."
@@ -41,10 +42,6 @@
   {
    "t": 1795179457.9645026,
    "r": "Limpeza 2+3 (regra 12) publicadas e conferidas no ar: Falha única (14 cópias), post()/corpo/tokenDe/falhou nas portas, CORS_SITE (3 listas), avisaAparelhos (3 cópias), ehVip, catalogoPisos, hash, urlFn, telefone e escape de HTML num lugar só; respostas das 15 portas iguais antes×depois; travas teste-portas (17); sonda no ar automática no fim de cada publicação (0 falhas); doc NUVEM-COMO-FUNCIONA. Parte 3 (item 11) refeita no ramo nuvem-parte3b sobre o main novo, com espera do token; recados ao SITE (09 primeiro) e ao APP (21 só depois do 11)."
-  },
-  {
-   "t": 1795177545.3605673,
-   "r": "Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f)."
   }
  ],
  "leu": 1795199579.1296916
