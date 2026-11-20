@@ -1,2 +1,2 @@
-em andamento · APP · URGENTE do dono 20/11 19:55 (celular real, via ESBOCO)
+✅ v584 (5.50.9, 20/11) — falta o dono testar no celular real · APP
 **URGENTE: Estúdio › Vídeo — a imagem fica toda branca ao tocar em 'Gravar a volta'**, a câmera não fecha sozinha e 'Qual é a frente?' mostra quadros brancos. Causa (confirmada pelo dono 19:58): a trava de luz c149Trava (src/98z-camera-u149f.js) liga exposureMode 'manual' sem o tempo de exposição que a câmera está usando (o aparelho não devolve) → exposição longa → branco → a volta nunca fecha. Jeito natural (ESBOCO): travar a luz só com o valor que a câmera usa agora; sem esse valor, trava só foco e branco; conferir 1 s depois e soltar a luz se o brilho estourar. Trava no porteiro. Por dentro (6b).
