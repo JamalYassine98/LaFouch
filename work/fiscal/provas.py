@@ -32,7 +32,26 @@ def novo(p, W=390, H=844, lang='pt-BR', ls=None, touch=True):
     pg = c.new_page(); erros = []
     pg.on('pageerror', lambda e: erros.append('erro: ' + str(e)[:200]))
     pg.on('console', lambda m: erros.append('console: ' + m.text[:200]) if m.type == 'error' and 'favicon' not in m.text and 'Failed to load resource' not in m.text else None)
+    if COB is not None: cob_liga(b, c, pg)
     return b, c, pg, erros
+
+# Varredura de código morto (CLAUDE.md 12d): com FISCAL_COB=1 as provas anotam quais funções do lf-site.js rodaram de verdade.
+COB = {} if os.environ.get('FISCAL_COB') else None
+def cob_liga(b, c, pg):
+    try:
+        cdp = c.new_cdp_session(pg); cdp.send('Profiler.enable'); cdp.send('Profiler.startPreciseCoverage', {'callCount': True, 'detailed': False})
+    except Exception: return
+    def colhe():
+        try:
+            for sc in cdp.send('Profiler.takePreciseCoverage')['result']:
+                if 'lf-site.js' not in sc['url']: continue
+                for f in sc['functions']:
+                    r = f['ranges'][0]; k = '%s|%d|%d' % (f['functionName'], r['startOffset'], r['endOffset']); COB[k] = COB.get(k, 0) or (1 if r['count'] > 0 else 0)
+        except Exception: pass
+    pg.on('request', lambda rq: colhe() if rq.is_navigation_request() and rq.frame == pg.main_frame else None)
+    fecha = b.close
+    def fim(): colhe(); fecha()
+    b.close = fim
 
 def carrega(pg, rota=''):
     pg.goto('about:blank'); pg.goto(URL + rota); pg.wait_for_timeout(2200)
@@ -208,9 +227,10 @@ def p3_busca(p, prods):
                     except SemPecas: continue
                 pg.click('#sbtn'); pg.wait_for_timeout(600); pg.fill('#q5', nome); pg.wait_for_timeout(400)
                 vist = pg.evaluate("r=>!![...document.querySelectorAll('#sores [data-open]')].find(e=>e.getAttribute('data-open')===r)", ref)
-                rep = pg.evaluate("""(()=>{const t=[...document.querySelectorAll('#sores button')].filter(e=>e.offsetParent).map(e=>(e.querySelector('b')||e).textContent.trim().toLowerCase());
-                   const d=t.filter((x,i)=>x.length>8&&t.indexOf(x)!==i);return d[0]||''})()""")
-                if rep: falha('4 conteúdo', f'Busca “{nome}” · repetido', f'“{rep}” aparece duas vezes na busca', pg, grave=False)
+                # repetida = a MESMA peça (mesmo código) duas vezes; duas peças diferentes podem ter o mesmo nome (tipo + marca + formato)
+                rep = pg.evaluate("""(()=>{const t=[...document.querySelectorAll('#sores [data-open]')].filter(e=>e.offsetParent).map(e=>e.getAttribute('data-open'));
+                   const d=t.filter((x,i)=>t.indexOf(x)!==i);return d[0]||''})()""")
+                if rep: falha('4 conteúdo', f'Busca “{nome}” · repetido', f'a peça {rep} aparece duas vezes na busca', pg, grave=False)
                 pg.keyboard.press('Enter'); pg.wait_for_timeout(1600); e = est(pg)
                 ok = e['path'] == '/p/' + ref or pg.evaluate("r=>!![...document.querySelectorAll('#grid [data-open]')].find(e=>e.getAttribute('data-open')===r&&e.offsetParent)", ref)
                 q = f'Busca “{nome}” a partir de {sn}'
@@ -427,10 +447,19 @@ def r_wa(p):
 def r_busca_solar(p):
     b, c, pg, E = novo(p)
     try:
-        carrega(pg); menu(pg, 'a[data-mf="tipo:solar"]'); pg.click('#sbtn'); pg.wait_for_timeout(600); pg.fill('#q5', 'leitura'); pg.keyboard.press('Enter'); pg.wait_for_timeout(1500)
-        n = pg.evaluate("[...document.querySelectorAll('#grid [data-open]')].filter(e=>e.offsetParent).length")
-        if n: passou('6 bug nunca volta', 'Busca “leitura” estando em Solar', f'{n} modelos')
-        else: falha('6 bug nunca volta', 'Busca “leitura” estando em Solar', '0 resultados de novo', pg)
+        # o que se busca vem da LOJA (uma peça de outra categoria que existe hoje), nunca uma palavra fixa no código
+        carrega(pg); outra = ''
+        for t in ('grau', 'armacao'):
+            try: a_cat(t)(pg)
+            except SemPecas: carrega(pg); continue
+            outra = pg.evaluate("(()=>{const e=[...document.querySelectorAll('#grid .open[data-open]')].find(e=>e.offsetParent);return e?[e.getAttribute('data-open'),(e.getAttribute('aria-label')||'').replace(/^(Ver|Abrir)\\s+/,'').split(/\\s+/).find(w=>w.length>3)||'']:''})()")
+            if outra: break
+            carrega(pg)
+        if not outra or not outra[1]: raise SemPecas('a loja só tem uma categoria com peça')
+        carrega(pg); menu(pg, 'a[data-mf="tipo:solar"]'); pg.click('#sbtn'); pg.wait_for_timeout(600); pg.fill('#q5', outra[1]); pg.keyboard.press('Enter'); pg.wait_for_timeout(1500)
+        n = pg.evaluate("r=>[...document.querySelectorAll('#grid [data-open]')].filter(e=>e.offsetParent&&e.getAttribute('data-open')===r).length", outra[0])
+        if n: passou('6 bug nunca volta', 'Busca de peça de outra categoria estando em Solar', f'“{outra[1]}” achou {outra[0]}')
+        else: falha('6 bug nunca volta', 'Busca de peça de outra categoria estando em Solar', f'buscando “{outra[1]}”, {outra[0]} não apareceu', pg)
     finally: b.close()
 
 @regressao('10/11', 'Bloco “Sugestões” repetia o produto (S110-3)')
@@ -1015,6 +1044,7 @@ with sync_playwright() as p:
      prova('5 situações difíceis', 'segundo plano', p5_segundo_plano, p)
      if not RAPIDO: prova('5 situações difíceis', 'rede', p5_rede, p)
 
+if COB is not None: json.dump(COB, open(os.path.join(OUT, 'cob' + os.environ.get('FISCAL_SUF', '') + '.json'), 'w'))
 json.dump({'rapido': RAPIDO, 'seg': round(time.time() - t0), 'res': RES}, open(os.path.join(OUT, 'provas' + os.environ.get('FISCAL_SUF', '') + '.json'), 'w'), ensure_ascii=False, indent=1)
 F = [r for r in RES if not r['ok']]
 print(f'fim {len(RES)} provas · {len(F)} falhas ({sum(1 for r in F if r.get("grave"))} graves) · {time.time() - t0:.0f} s')
