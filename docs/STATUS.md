@@ -63,6 +63,7 @@
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
 - **31-urgente-camera-branca-ao-gravar-a-volta** — ✅ v584 (5.50.9, 20/11) — falta o dono testar no celular real · APP
 - **31-visitas-num-lugar-so** — ✅ APP v583 lê da análise; regras fecham vistas/ (20:08, sonda 403) — falta só o SITE tirar o vistaEnvia (código morto, recado 20:10)
+- **32-urgente-camera-desfocada-ao-gravar** — em andamento · APP · URGENTE do dono 20/11 20:28 (celular real, v584)
 
 ## Recados esperando
 
