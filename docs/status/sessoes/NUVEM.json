@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "item 22: corrigir o script de configuração (não dizer ok com erro)",
- "arquivos": [
-  "tools/configura-publicar-nuvem.sh"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795174598.3996952,
+   "r": "script de configuração do item 22 corrigido (para com erro; espera a conta nova)"
+  },
   {
    "t": 1795174401.8866496,
    "r": "item 22 pronto: workflow publicar-nuvem.yml + tools/configura-publicar-nuvem.sh + docs/PUBLICAR-NUVEM-GITHUB.md; falta o dono configurar"
