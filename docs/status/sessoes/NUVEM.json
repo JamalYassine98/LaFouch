@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795199103.7760172,
+   "r": "texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava)."
+  },
+  {
    "t": 1795195934.7636204,
    "r": "S1/S2 completo: nuvem parte 3 (13:58) + app item 21 (v580). Prompt entregue ao ESBOCO para conferir 09/20/21 no comparador."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795174856.442682,
    "r": "item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo"
-  },
-  {
-   "t": 1795174598.3996952,
-   "r": "script de configuração do item 22 corrigido (para com erro; espera a conta nova)"
   }
  ],
  "leu": 1795199097.6207824
