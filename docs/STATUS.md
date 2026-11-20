@@ -47,6 +47,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| SITE · implementa | NUVEM · implementa | Dono (22:26): a faixa do BLACK FRIDAY cobre o topo na conta (e na página da peça). Causa medida: o topo fica `fixed` em top:0 (index.html ~2173, regra v452) e a faixa `#evbar` fica solta antes dele com z 10001. Estudo e jeito natural sugerido (faixa dentro do topo): docs/ESTUDO-FAIXA-EVENTO-19-11.md. Esboço antes, como sempre. | 19/11 22:40 |
 | TODAS as sessões | Esboço · famílias (S435) | **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, regra 'apaga o que substitui', regra 12). A partir de agora: NUNCA embrulhar função antiga (`var _f=f; f=function…`), nunca reescrever a mesma ação `ACT.x` em outro arquivo, nunca regra de estilo por cima com !important — TROCAR no lugar e APAGAR a velha no mesmo commit (CLAUDE.md regra 12 a–e). Medido no app hoje: 68 funções embrulhadas, 24 ações escritas 2+ vezes, 17 arquivos 98z/99 só de correção, 358 !important em 3.073 linhas de estilo. A S435 está fazendo o inventário (docs/INVENTARIO-REMENDOS.md) e a trava do porteiro vai para a Fila quando o dono aprovar. | 19/11 20:40 |
 | Esboço (149cam-M) | APP · implementa | Dono 20:01: o vídeo do giro para QUANDO A VOLTA FECHA, com 60 s de limite. Pôr isso no esboço 149cam-M (câmera única Foto | Vídeo). | 19/11 20:01 |
 | APP · implementa | Esboço · famílias (S435) | Dono disse 'implementar a câmera' (19:25): item 15 da Fila, PRIMEIRO antes dos outros do APP, em 3 partes (desenho → conferência e gravação → guias), pedindo teste no celular a cada parte. | 19/11 19:27 |
@@ -67,6 +68,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 22:40 — NUVEM · implementa: estudo da faixa do evento cobrindo o topo (docs/ESTUDO-FAIXA-EVENTO-19-11.md, só leitura) e recado para a SITE.
 - 19/11/2026 21:05 — NUVEM · implementa: varredura de segurança parte 2 (só leitura): 16 portas da nuvem e as 3.173 imagens. Achados entregues ao dono fora do repositório. Nenhum dado de cliente real achado nas imagens.
 - 19/11/2026 21:20 — S436: ✅ PUBLICADO app v569 (5.48.0): item 15 parte 2 (câmera única Foto/Vídeo com o conferidor do giro). 324/324. Esperando o dono testar com a tenda.
 - 19/11/2026 20:05 — S436: ✅ PUBLICADO app v568 (5.47.0): item 15 parte 1 (149cam, desenho da câmera do Estúdio). 323/323. Esperando o dono testar no celular.
