@@ -61,6 +61,7 @@
 - **29-s6-vip-nuvem** — ✅ publicado 20/11 15:40 (run 44793310738, sonda 0 falhas) — SITE manda o login no 'presentes' e no 'reservar' (recado 15:41)
 - **30-s3-pedido-pela-nuvem** — parte 1 ✅ publicada 20/11 15:55 (run 44794676943) — parte 2: SITE troca o pkEnviar para a porta 'pedido' (recado 15:56) — parte 3: NUVEM fecha a criação direta em pedidos/ nas regras
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
+- **31-urgente-camera-branca-ao-gravar-a-volta** — em andamento · APP · URGENTE do dono 20/11 19:55 (celular real, via ESBOCO)
 - **31-visitas-num-lugar-so** — nuvem ✅ (porPeca na análise, 20/11 16:05) — APP lê da análise → SITE tira o vistaEnvia → NUVEM fecha vistas/ nas regras
 
 ## Recados esperando
