@@ -727,19 +727,30 @@ def p7_icone_conta(p):
     finally: b.close()
 
 def p7_ultimas(p):
-    # S208 (13/11, dono): "Últimas N" fica ABAIXO da foto, em VERMELHO, sem fundo, com espaço da foto (nunca encostado nos óculos)
-    for W, H in ((390, 844), (1440, 900)):
-        for esc in ('light',):  # o site não tem tema escuro (só o app)
-            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+    # 121 (aprovado 19/11) + limpeza 5: "Últimas N" fica DENTRO da foto, no canto de selos, em VERMELHO, sem fundo,
+    # alinhado com o texto do cartão; nenhum selo cobre outro selo nem o coração. (substitui a regra S208 "abaixo da foto")
+    for W, H in ((390, 844), (768, 1024), (1440, 900)):
+        for rota, onde in (('', 'Início'), ('?r=armazones', 'Catálogo')):
+            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 1000)
             try:
-                carrega(pg)
-                if esc == 'dark': pg.evaluate("()=>document.documentElement.setAttribute('data-theme','dark')")
-                r = pg.evaluate("""()=>{const L=[...document.querySelectorAll('.hc .stk.u,.card .ph .stk.u,.hc .hci .ulin,.card .ph .ulin')].filter(e=>e.getBoundingClientRect().width);
-                  const M=[...document.querySelectorAll('.ulin')].filter(e=>e.getBoundingClientRect().width).map(e=>{const s=getComputedStyle(e),c=s.color.match(/\\d+/g).map(Number),im=e.closest('.hc,.card').querySelector('.hci,.ph'),gap=e.getBoundingClientRect().top-(im?im.getBoundingClientRect().bottom:0);
-                    return {v:c[0]>=180&&c[1]<=120&&c[2]<=120,bg:s.backgroundColor==='rgba(0, 0, 0, 0)'||s.backgroundColor==='transparent',gap:gap}});return {dentro:L.length,n:M.length,ruins:M.filter(x=>!x.v||!x.bg||x.gap<8).length}}""")
-                t = f'“Últimas N” abaixo da foto, vermelho · {W}px · {esc}'
-                if r['dentro'] or r['ruins']: falha(P7, t, f"{r['dentro']} dentro da foto · {r['ruins']} sem vermelho/sem espaço/com fundo", pg)
-                else: passou(P7, t, f"{r['n']} cartões")
+                carrega(pg, rota)
+                r = pg.evaluate("""()=>{const z=parseFloat(getComputedStyle(document.body).zoom)||1,R=e=>e.getBoundingClientRect(),bad=[];let n=0;
+                  for(const s of document.querySelectorAll('.selos')){if(!R(s).width)continue;const cd=s.closest('.hc,.card'),ft=s.closest('.hci,.ph'),tx=cd.querySelector('.nm,.hn,.ref'),fav=cd.querySelector('.fav');
+                    const it=[...s.children].filter(e=>R(e).width);if(!it.length)continue;n++;const ref=cd.getAttribute('data-open')||(cd.querySelector('[data-fav]')||{getAttribute(){return '?'}}).getAttribute('data-fav');
+                    if(!ft){bad.push(ref+': fora da foto');continue}
+                    if(Math.abs((R(it[0]).top-R(ft).top)/z-16)>1.5)bad.push(ref+': '+((R(it[0]).top-R(ft).top)/z).toFixed(1)+' px do alto (certo: 16)');
+                    for(let i=0;i<it.length;i++){for(let k=i+1;k<it.length;k++)if(R(it[k]).top<R(it[i]).bottom-.5)bad.push(ref+': selo em cima de selo');
+                      if(fav&&R(fav).width&&R(it[i]).right>R(fav).left+.5&&R(it[i]).bottom>R(fav).top&&R(it[i]).top<R(fav).bottom)bad.push(ref+': selo no coração');
+                      if(R(it[i]).bottom>R(ft).bottom+.5)bad.push(ref+': selo sai da foto')}
+                    const u=s.querySelector('.ulin');if(u){const k=getComputedStyle(u),c=k.color.match(/\\d+/g).map(Number);if(!(c[0]>=180&&c[1]<=120&&c[2]<=120))bad.push(ref+': Últimas sem vermelho');
+                      if(!(k.backgroundColor==='rgba(0, 0, 0, 0)'||k.backgroundColor==='transparent'))bad.push(ref+': Últimas com fundo');
+                      if(tx){const w=document.createTreeWalker(tx,4);let nd;while((nd=w.nextNode())&&!nd.textContent.trim());if(nd){const g=document.createRange();g.setStart(nd,0);g.setEnd(nd,1);
+                        const d=(R(u.querySelector('i')).left-g.getBoundingClientRect().left)/z;if(Math.abs(d)>1.5)bad.push(ref+': Últimas '+d.toFixed(1)+' px fora do texto')}}}}
+                  const soltos=[...document.querySelectorAll('.ulin,.evse,.sel1,.hb,.hidl')].filter(e=>R(e).width&&!e.closest('.selos')).length;if(soltos)bad.push(soltos+' selo(s) fora do canto de selos');
+                  return {n,bad}}""")
+                t = f'Canto de selos: dentro da foto, 16 px do alto, sem cobrir · {onde} · {W}px'
+                if r['bad']: falha(P7, t, ' | '.join(r['bad'][:4]), pg)
+                else: passou(P7, t, f"{r['n']} cartões com selo")
             finally: b.close()
 
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
