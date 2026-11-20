@@ -1,0 +1,254 @@
+[
+ {
+  "aparelho": "celular",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Últimas 3 unidades\""
+   ],
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Última unidade\""
+   ]
+  ],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 25→16, larg 121→155, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 25→16, larg 97→155, classe hlin ulin→ulin"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 97→111"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 97→111"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Últimas 3 unidades\""
+   ],
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Última unidade\""
+   ]
+  ],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 25→16, larg 121→155, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 25→16, larg 97→155, classe hlin ulin→ulin"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 97→111"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 97→111"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Início",
+  "falhas_novas": [
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Últimas 3 unidades\""
+   ],
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Última unidade\""
+   ]
+  ],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 1→4, topo 141→16, larg 122→168, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 1→4, topo 141→16, larg 98→168, classe hlin ulin→ulin"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 12→2, larg 122→124"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 12→2, larg 98→124"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 12→2, larg 98→124"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 12→2, larg 122→124"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Últimas 3 unidades\""
+   ],
+   [
+    "sobreposição",
+    "span.evse \"Black Friday\"",
+    "span.ulin \"Última unidade\""
+   ]
+  ],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 25→16, larg 98→290, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 25→16, larg 122→290, classe hlin ulin→ulin"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "larg 122→246"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 98→246"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "larg 98→246"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "larg 122→246"
+   ]
+  ],
+  "ruido_ignorado": 0
+ }
+]
