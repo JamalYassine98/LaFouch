@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "zerar o porteiro na cópia limpa: ícone da conta (cor no mouse) e os 5 avisos visuais da página da peça",
+ "arquivos": [
+  "index.html",
+  "js/lf-site.js"
+ ],
  "ultimas": [
   {
    "t": 1795187251.5763078,
@@ -24,5 +27,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795185636.6345894
+ "leu": 1795187558.1120977
 }
