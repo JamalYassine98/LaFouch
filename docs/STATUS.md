@@ -53,6 +53,7 @@
 
 ## Recados esperando
 
+- para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO anota bugs e a APP con
 - para **ESBOCO**: v575 (5.50.0) publicado 20/11 13:00 — item 16: peça incompleta não vai ao site (esboço work/s436/banco/esboco16_ficha_*.jpg). Para conferir: Inventário › ficha 
 - para **NUVEM**: Para saber (v575, item 16): o app agora só publica em produtos/ peça com a ficha completa (formato, medidas, material, público, marca, coleção, preço; polarizad
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
