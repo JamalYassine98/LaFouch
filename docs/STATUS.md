@@ -61,6 +61,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 08:12 — NUVEM: App Check parte 3 publicada e conferida (modo anotar). Próximo: ver seloDia/ depois da parte 2 do site; exigir só com novo ok do dono
 - 20/11 08:04 — NUVEM: App Check parte 3 no código (modo anotar, trava no teste); itens 19 (NUVEM) e 20 (SITE) na Fila; falta o dono publicar
 - 20/11 07:18 — NUVEM: esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva
 - 20/11 02:51 — APP: NOITE 20/11 (dono dormindo), nada mexido em src/ nem www/: (1) B3 item 05 já estava publicado (v572) e foi CONFERIDO EM CELULAR REAL no Test Lab, claro e escuro (prints work/s436/testlab/). (2) Item 16 NÃO implementado; esboço v2 pronto e passado no comparador, celular/tablet/PC (work/s436/banco/esboco16_ficha_*.jpg) — falta o dono dizer se marca e coleção são obrigatórias. (3) PLANO DOS REMENDOS em 10 partes: docs/PLANO-REMENDOS-20-11.md (62 funções com 104 remendos); parte 1 (render) ENSAIADA numa cópia: 0 diferenças em 60 telas x 3 aparelhos, 327/327 testes. (4) BUG ACHADO, não consertado: aparelho novo/desconectado › Início › 'Entrar' na nuvem dá tela vazia (esboço work/s436/bug-nvir/). DECISÕES DO DONO: a) consertar o bug do Entrar? b) implementar a parte 1 dos remendos? c) item 16: marca e coleção obrigatórias? Na Fila esperando o site: 18-s1-s2-parte-3-app.
