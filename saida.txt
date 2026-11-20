@@ -1,0 +1,31 @@
+
+Have questions, feedback, or issues? Get support by visiting:
+  https://firebase.google.com/support/
+
+Uploading [android/app/build/outputs/apk/debug/app-debug.apk] to Firebase Test Lab...
+Uploading [android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk] to Firebase Test Lab...
+Raw results will be stored in your GCS bucket at [https://console.developers.google.com/storage/browser/test-lab-pmrim496ah18z-j5twv63284snu/lf-44677208588/]
+
+Test [matrix-1z4v6vtjsh5rk] has been created in the Google Cloud.
+Creating individual test executions...
+...............................done.
+Firebase Test Lab will execute your instrumentation test on 1 device(s). More devices may be added later if flaky test attempts are specified.
+
+Test results will be streamed to [ https://console.firebase.google.com/project/lafouch-teste/testlab/histories/bh.fe1f977be66d6467/matrices/9091745492562615986 ].
+04:55:24 Test is Pending
+04:56:12 Firebase Test Lab is deprecated and will be fully shut down on September 30, 2027. To maintain your testing workflows, you can migrate to the Developer Device Platform on Google Cloud. See the Developer Device Platform Migration Guide (https://docs.cloud.google.com/developer-device-platform/device-run/migrate) and FAQ (https://docs.cloud.google.com/developer-device-platform/troubleshooting) for more details.
+04:56:12 Starting attempt 1.
+04:56:12 Test is Running
+04:58:13 Done. Test time = 37 (secs)
+04:58:13 Starting results processing. Attempt: 1
+04:58:13 Completed results processing. Time taken = 2 (secs)
+04:58:13 Test is Finished
+
+Instrumentation testing complete.
+
+More details are available at [ https://console.firebase.google.com/project/lafouch-teste/testlab/histories/bh.fe1f977be66d6467/matrices/9091745492562615986 ].
+┌─────────┬──────────────────────────┬─────────────────────┐
+│ OUTCOME │     TEST_AXIS_VALUE      │     TEST_DETAILS    │
+├─────────┼──────────────────────────┼─────────────────────┤
+│ Passed  │ SC-53C-36-pt_BR-portrait │ 1 test cases passed │
+└─────────┴──────────────────────────┴─────────────────────┘
