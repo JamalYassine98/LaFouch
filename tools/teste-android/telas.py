@@ -61,4 +61,7 @@ C=[
  ('catalogo-carrinho',["()=>{const S=%s.S;S.cart=S.items.filter(i=>i.qty>0&&!i.bulk).slice(0,2).map(i=>({it:i,qty:1,tab:S.tabAtiva,preco:null}));%s.setView('vendas')}"%(L,L),"()=>%s.ACT.cartopen()"%L]),
  ('catalogo-pagamento',["()=>{const S=%s.S;S.cart=S.items.filter(i=>i.qty>0&&!i.bulk).slice(0,1).map(i=>({it:i,qty:1,tab:S.tabAtiva,preco:null}));%s.setView('vendas')}"%(L,L),"()=>%s.ACT.cartopen()"%L,CL('button','Ir para o pagamento')]),
  ('catalogo-peca',[V('vendas'),CL('#vRows .pcard[data-ref]')]),
+ # B3 (v572): grupo Site e a tela Resumo
+ ('site-grupo',["()=>{const S=%s.S;S.nvG='g:site';S.nvP=['grp:g:site'];%s.setView('grp')}"%(L,L)]),
+ ('site-resumo',["()=>{const S=%s.S;S.nvG='g:site';S.nvP=['grp:g:site'];%s.setView('grp')}"%(L,L),CL('.nvL','Resumo')]),
 ]
