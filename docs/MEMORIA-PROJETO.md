@@ -3241,3 +3241,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 22:42 APROVADO (dono "Pode ser A"): faixa do evento como 1ª linha do topo, opção A (a faixa fica presa junto com o topo ao rolar). Ramo esb-faixa já entrou no `limpo`; opção B arquivada (work/obsoletos/s430). Ainda NÃO está no ar (o site de hoje continua com a faixa cobrindo o topo na conta e na peça).
 
 - 19/11/2026 22:43 (dono): o site está em FASE DE TESTE (fora do ar para clientes) — NADA de conserto rápido no site de hoje; tudo entra pela cópia limpa, polido e limpo, e só vai ao ar quando ela inteira estiver pronta.
+
+- 19/11/2026 22:43 (dono "Sim"): limpeza 4 aprovada e no limpo — função única "cabe" (data-cabe letra|escala|curto); Filtros dentro do título; abas da conta no PC corrigidas.

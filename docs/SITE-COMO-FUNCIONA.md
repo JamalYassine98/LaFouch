@@ -307,3 +307,5 @@ Regra do dono 09:49: os aprovados ficam escritos no próprio código numa cópia
 - 19/11/2026 20:34 (dono "Sim"): limpeza 1/5 aprovada e no ramo limpo — família WhatsApp num bloco só (/*FAMILIA-WHATSAPP*/); ao rolar a bola sai inteira; volta a animação bola↔lingueta do S239.
 
 - 19/11/2026 21:00 (dono "Sim"): limpezas 2 e 3 aprovadas e no ramo limpo — /*CAMADAS*/ (ordem única: telas < topo+faixa < flutuantes < gavetas < janelas < busca < avisos < sistema, variáveis --c-*) e medida única do topo (--hth = fim do topo na tela, ao vivo; #gw usa × --gz). Resolve o topo cortado do Mochi (print do dono) e o "‹ Início" escondido no catálogo.
+
+- 19/11/2026 22:43 (dono "Sim"): limpeza 4 aprovada e no limpo — função única "cabe" (data-cabe letra|escala|curto); Filtros dentro do título; abas da conta no PC corrigidas.
