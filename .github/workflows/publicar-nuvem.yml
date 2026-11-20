@@ -1,0 +1,53 @@
+name: Publicar a nuvem (funções e regras)
+
+# Item 22 da Fila (aprovado pelo dono 20/11/2026 08:21): a sessão NUVEM publica sem o dono rodar o Cloud Shell.
+# SEM CHAVE GUARDADA: o GitHub prova ao Google que é este repositório no ramo main (OIDC / Workload Identity),
+# e o Google só aceita essa prova para a conta "github-publica". Configuração feita uma vez pelo dono: docs/PUBLICAR-NUVEM-GITHUB.md
+# Roda só quando chamado (botão "Run workflow" ou gh api ... dispatches), só no main, e só depois de TODOS os testes da nuvem passarem.
+on:
+  workflow_dispatch:
+    inputs:
+      o_que:
+        description: 'O que publicar'
+        required: true
+        default: functions
+        type: choice
+        options: [functions, regras, tudo]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: nuvem
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar e rodar todos os testes da nuvem (para aqui se algum falhar)
+        working-directory: functions
+        run: |
+          npm install --no-audit --no-fund
+          for f in teste-*.js; do echo "== $f"; node "$f" || exit 1; done
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
+          service_account: github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+      - name: Publicar
+        env:
+          O_QUE: ${{ inputs.o_que }}
+        run: |
+          case "$O_QUE" in
+            functions) A=functions ;;
+            regras) A=firestore:rules ;;
+            *) A=functions,firestore:rules ;;
+          esac
+          # sem --force: se o Firebase quiser APAGAR alguma função, ele para (em vez de apagar sozinho)
+          npx --yes firebase-tools deploy --only "$A" --project lafouch-2f6bd --non-interactive
