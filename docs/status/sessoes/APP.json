@@ -1,16 +1,16 @@
 {
  "nome": "APP",
- "agora": "item 18: trava dos remendos no porteiro",
- "arquivos": [
-  "tools/remendos.py",
-  "tests/run.py",
-  "tests/teto-remendos.json"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795147235.4082952,
+   "r": "item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327"
+  },
   {
    "t": 1795145762.0943031,
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795146047.327709
+ "leu": 1795147232.0139256
 }

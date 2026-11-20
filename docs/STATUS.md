@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 18: trava dos remendos no porteiro | tools/remendos.py, tests/run.py, tests/teto-remendos.json |
 | SITE | test drive do comparador Hoje × Proposta (work/s430/comparador) | work/s430/comparador |
 
 ## Fila
@@ -55,6 +54,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 01:00 — APP: item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327
 - 20/11 00:36 — APP: v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326
 - 20/11 00:30 — NUVEM: plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono
 - 19/11 23:50 — ESBOCO: conferência
