@@ -1,19 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 24: remendos parte 3 — confirmações no arquivo de cada família",
- "arquivos": [
-  "src/98z-s418-confirma.js",
-  "src/95-pedidos.js",
-  "src/94-acoes.js",
-  "src/97-sync.js",
-  "src/96-ajustes.js",
-  "src/97-nuvem.js",
-  "src/98-financeiro.js",
-  "src/98-carrinho.js",
-  "src/97s-atacado-conta.js",
-  "src/97s2-atacado-lotes.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795187041.836832,
+   "r": "20/11 até 15:10 — publicados v573 (bug Entrar na nuvem), v574 (remendos parte 1: render), v575 (item 16: peça incompleta não vai ao site + peças de teste), v576 (remendos parte 3: confirmações); item 21 pronto no ramo app-item21 esperando a NUVEM. Próximo: remendos parte 2 (destinos/barra/grupos)"
+  },
   {
    "t": 1795179686.9978998,
    "r": "v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono"
@@ -35,5 +28,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795187013.4857352
+ "leu": 1795187041.2939703
 }
