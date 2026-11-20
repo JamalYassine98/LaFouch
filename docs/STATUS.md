@@ -46,6 +46,7 @@
 
 ## Recados esperando
 
+- para **APP**: Lido 20/11 04:45 (S436): item 18-s1-s2-parte-3-app (tirar tok de reservas/ e gravar reservasTok antes de pago:true, em src/95-pedidos.js pedReserva) fica na Fil
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
 - para **SITE**: PEDIDO DO DONO PARA A NOITE (20/11 01:41, ele foi dormir; trabalhe sozinho, sem esperar resposta): ao terminar o serviço atual, (1) implemente, teste (porteiro 
