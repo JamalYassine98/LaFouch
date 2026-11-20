@@ -16,7 +16,7 @@ for f in cupom mensagem conta volta analise novidades avaliacao atacado codigo r
 done
 p(){ curl -s -X POST "$B/$1" -H "Origin: $O" -H 'Content-Type: application/json' -H 'X-Firebase-AppCheck: selo-de-teste-invalido' -d "$2"; }
 t(){ if [[ "$2" == *"$3"* ]]; then echo "ok    $1 -> $2"; else echo "FALHA $1 -> $2 (esperado conter $3)"; F=1; fi; }
-t 'conta livre (nome que nao existe)'            "$(p conta '{"acao":"livre","user":"teste.porteiro.zz"}')" '"livre":true'
+t 'conta livre nao existe mais (a nuvem tirou na parte 3)' "$(p conta '{"acao":"livre","user":"teste.porteiro.zz"}')" '"motivo":"acao"'
 t 'conta entrar (nome que nao existe, senha errada)' "$(p conta '{"acao":"entrar","user":"teste.porteiro.zz","senha":"errada-de-proposito"}')" '"motivo":"login"'
 t 'conta entrar sem senha'                       "$(p conta '{"acao":"entrar","user":"teste.porteiro.zz"}')" '"motivo":"dados"'
 t 'reserva token (pedido invalido)'              "$(p reserva '{"acao":"token","pedido":"x","tel":"000"}')" '"motivo":"pedido"'
