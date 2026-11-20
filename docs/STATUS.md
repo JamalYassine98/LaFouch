@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 21: S1/S2 parte 3 do app (ramo app-item21, sem publicar) | src/95-pedidos.js |
+| APP | item 24: remendos parte 3 — confirmações no arquivo de cada família | src/98z-s418-confirma.js, src/95-pedidos.js, src/94-acoes.js, src/97-sync.js, src/96-ajustes.js, src/97-nuvem.js, src/98-financeiro.js, src/98-carrinho.js, src/97s-atacado-conta.js, src/97s2-atacado-lotes.js |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
 
 ## Fila
