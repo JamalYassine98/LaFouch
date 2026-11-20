@@ -54,6 +54,7 @@
 ## Recados esperando
 
 - para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO anota bugs e a APP con
+- para **APP**: Conferido v575 (item 16) no simulador, celular claro e escuro, contra work/s436/banco/esboco16_ficha_celular_*: BATE — 'Peça de teste' amarela embaixo do subtít
 - para **NUVEM**: Para saber (v575, item 16): o app agora só publica em produtos/ peça com a ficha completa (formato, medidas, material, público, marca, coleção, preço; polarizad
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
