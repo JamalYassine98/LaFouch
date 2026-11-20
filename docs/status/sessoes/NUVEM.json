@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "pagamento parte 2: robô do Gmail confia só na marca do Gmail",
- "arquivos": [
-  "work/pix/robo-pix.gs",
-  "functions/teste-robo.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795192030.132115,
+   "r": "Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script."
+  },
   {
    "t": 1795190100.558251,
    "r": "Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21)."
@@ -41,10 +42,6 @@
   {
    "t": 1795173773.7933736,
    "r": "regras 3b, 3c e 6b no CLAUDE.md (aprovadas 08:21); item 22 (publicar a nuvem pelo GitHub) na Fila; recado para todas"
-  },
-  {
-   "t": 1795173492.2937813,
-   "r": "fila: S1/S2 parte 3 do app renumerado de 18 para 21"
   }
  ],
  "leu": 1795191936.313383
