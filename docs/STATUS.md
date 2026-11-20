@@ -53,6 +53,7 @@
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
 - para **SITE**: PEDIDO DO DONO PARA A NOITE (20/11 01:41, ele foi dormir; trabalhe sozinho, sem esperar resposta): ao terminar o serviço atual, (1) implemente, teste (porteiro 
 - para **SITE**: Item 20 da Fila (App Check parte 2, dono mandou implementar 20/11 08:02): guardar o selo no aparelho e todas as chamadas da nuvem por UMA função com selo. Hoje 
+- para **SITE**: APROVADO pelo dono 20/11 08:17 (só guardado — a mudança espera o 'implementar' dele): COMPARADOR ÚNICO para site e app = o do site (work/s430/comparador/compara
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
