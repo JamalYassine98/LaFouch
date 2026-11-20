@@ -538,4 +538,5 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/98z-camera-u149f.js` → `cam149Modos(ov)` (chamado pelo `cam149Monta`): ícone `.ecModo`, disparo do vídeo `.ecDispRec`/`#ecRec`, disparo da foto embrulhado em `.ecDispFoto` (com "Fotografar"), lista `.ecLista`, `.ecTrava`, `.ecCrono`. Conferência a cada 0,28 s com `medeQuadro`/`confereGiro` (cópia do work/s296/conferir.js). `ov.__c149` = última conferência (testes).
 - Gravar: `giroGrava(stream, video, {k, fim}, ui)` em src/97-estudio-giro.js (o `estGiro` agora só abre a câmera no Vídeo). Para quando `gtFechou` acha a volta ou em `GIRO_MAX` = 60 s; câmera fechada no meio = descarta. Depois `estGiroAuto`/`estGiroEscolhe` como antes.
 - `c149Cabe(ov)`: a coluna da esquerda (deitado) sobe `data-cabe` 0→3 até a frase e a lista caberem (regra 14 L4).
+- Guias (149cam-G, v570): `c149Guias(ov, r, mm, vid)` desenha o SVG `.ecGuias` dentro do `.ecVf` a cada conferência (só Vídeo deitado, fora da gravação). Quadro 640×360 → vídeo → tela pelo mesmo `cover` (`X()`/`Y()`). CSS: bloco "guias na imagem (149cam-G)" no fim do style.css.
 

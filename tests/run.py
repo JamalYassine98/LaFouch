@@ -3669,7 +3669,7 @@ async def main():
             await pg.evaluate("() => document.querySelector('[data-e=nova]').click()"); await pg.wait_for_timeout(4500)
             le = """() => { const o = document.getElementById('estCam'); if (!o) return null; const c = o.__c149, r = o.querySelector('#ecRec');
               return [o.dataset.modo, o.querySelector('.ecTag').textContent, o.querySelectorAll('.ecLista span').length, !!(c && c.ok), !!r && !r.disabled, o.classList.contains('ecVok'),
-                (o.querySelector('.ecModo') || {}).getAttribute ? o.querySelector('.ecModo').getAttribute('aria-label') : '', getComputedStyle(o.querySelector('.ecDispFoto')).display, o.querySelector('.ecFrase').textContent] }"""
+                (o.querySelector('.ecModo') || {}).getAttribute ? o.querySelector('.ecModo').getAttribute('aria-label') : '', getComputedStyle(o.querySelector('.ecDispFoto')).display, o.querySelector('.ecFrase').textContent, (o.querySelector('.ecGuias') || { children: [] }).children.length, o.querySelector('.ecGuias') ? getComputedStyle(o.querySelector('.ecGuias')).display : ''] }"""
             v1 = await pg.evaluate(le)
             await pg.evaluate("() => document.querySelector('#estCam .ecModo').click()"); await pg.wait_for_timeout(600)
             f1 = await pg.evaluate(le)
@@ -3680,9 +3680,9 @@ async def main():
             fechou = await pg.evaluate("() => !document.getElementById('estCam')")
             total += 1
             ok = (v1 and v1[0] == 'video' and v1[1] == 'Giro · volta de 360°' and v1[2] == 10 and v1[3] and v1[4] and v1[5] and v1[6] == 'Mudar para foto' and v1[7] == 'none'
-                  and f1 and f1[0] == 'foto' and f1[2] == 4 and f1[6] == 'Mudar para vídeo' and f1[7] != 'none'
+                  and v1[9] >= 10 and v1[10] == 'block' and f1 and f1[0] == 'foto' and f1[2] == 4 and f1[6] == 'Mudar para vídeo' and f1[7] != 'none' and f1[10] == 'none'
                   and e1 and e1[0] == 'video' and not e1[4] and e1[8] == 'Deite o celular' and fechou and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '149cam-F/M2: câmera do Estúdio — Vídeo confere os 10 itens e libera Gravar no verde; ícone troca para Foto (4 itens); em pé pede para deitar')
+            print(('  ok  ' if ok else ' FALHA ') + '149cam-F/M2/G: câmera do Estúdio — Vídeo confere os 10 itens, guias na imagem e Gravar no verde; ícone troca para Foto (4 itens, sem guias); em pé pede para deitar')
             if not ok: falhas.append('camera estudio modos'); print('        veio', v1, f1, e1, fechou, pg.erros)
             await pg.close()
 

@@ -3100,3 +3100,7 @@ body.nvRail .nvVs{display:none}
 #estCam.ecP .ecCrono[hidden]{display:none}
 #estCam.ecP.ecGrav .ecModo,#estCam.ecP.ecGrav .ecGal{visibility:hidden}
 @media (prefers-reduced-motion:reduce){#estCam.ecP .ecRec i,#estCam.ecP[data-modo=video] .ecVf::after{transition:none}}
+/* ===== CÂMERA DO ESTÚDIO — guias na imagem (149cam-G, 19/11/2026): finas, sem texto, verde certo / amarelo errado ===== */
+#estCam.ecP .ecGuias{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;stroke-linecap:round;stroke-linejoin:round}
+#estCam.ecP:not([data-modo=video]) .ecGuias,#estCam.ecP.ecGrav .ecGuias,#estCam.ecPE .ecGuias{display:none}
+

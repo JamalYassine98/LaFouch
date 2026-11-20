@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 569;
+  var APP_BUILD = 570;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.48.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.49.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -50564,6 +50564,95 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     return a[a.length >> 1];
   }
+  // ===== 149cam-G (aprovado 19/11/2026; item 15 parte 3) — guias finas NA imagem, sem texto (esboço work/estudio-camera/esboco_149camG_deitado.jpg)
+  // As posições vêm da mesma medição do conferidor (caixa da peça no quadro 640×360) levada para a tela com o mesmo "cover" do vídeo.
+  //  · nível: linha do horizonte nas duas laterais (no meio da altura) — verde com o celular deitado
+  //  · meio: traço do centro em cima e embaixo + triângulos no centro da peça; fora do meio, seta ← ou → para onde virar
+  //  · distância: colchetes = faixa onde as pontas da peça devem ficar (36–62% da largura do quadro) + traços nas pontas da peça; errado = setas
+  //    para fora (aproxime) ou para dentro (afaste)
+  //  · altura: pontos nas laterais na altura do centro da peça
+  // Verde = certo, amarelo = errado. Só no Vídeo, com o celular deitado e fora da gravação.
+  var C149_V = '#2fe08f',
+    C149_A = '#e9b04a',
+    C149_B = 'rgba(255,255,255,.85)';
+  function c149Guias(ov, r, mm, vid) {
+    var vf = ov.querySelector('.ecVf'),
+      g = vf && vf.querySelector('.ecGuias');
+    if (!vf) return;
+    if (!g) {
+      g = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      g.setAttribute('class', 'ecGuias');
+      g.setAttribute('aria-hidden', 'true');
+      vf.appendChild(g);
+    }
+    var W = vf.clientWidth,
+      H = vf.clientHeight;
+    if (!r || !W || !H) return (g.innerHTML = '');
+    g.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var M = r.mapa || {},
+      cor = function (k) {
+        return k === true ? C149_V : C149_A;
+      },
+      ln = function (x1, y1, x2, y2, c, w) {
+        return '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="' + c + '" stroke-width="' + w + '"/>';
+      },
+      pa = function (d, c, w, f) {
+        return '<path d="' + d + '" ' + (f ? 'fill="' + c + '" stroke="none"' : 'stroke="' + c + '" stroke-width="' + w + '" fill="none"') + '/>';
+      },
+      sv = '';
+    // nível: horizonte nas laterais
+    sv += ln(W * 0.06, H / 2, W * 0.2, H / 2, cor(M.deitado), 2) + ln(W * 0.8, H / 2, W * 0.94, H / 2, cor(M.deitado), 2);
+    // meio: traço do centro da imagem
+    sv += ln(W / 2, H * 0.06, W / 2, H * 0.16, C149_B, 2) + ln(W / 2, H * 0.84, W / 2, H * 0.94, C149_B, 2);
+    var p = mm && mm.peca,
+      vw = vid.videoWidth,
+      vh = vid.videoHeight;
+    if (p && vw && vh) {
+      // quadro 640×360 → vídeo → tela (object-fit: cover)
+      var s = Math.max(W / vw, H / vh),
+        ox = (W - vw * s) / 2,
+        oy = (H - vh * s) / 2,
+        X = function (fx) {
+          return ox + (fx / 640) * vw * s;
+        },
+        Y = function (fy) {
+          return oy + (fy / 360) * vh * s;
+        },
+        l = X(p.x0),
+        rr = X(p.x1),
+        cx = (l + rr) / 2,
+        cy = (Y(p.y0) + Y(p.y1)) / 2,
+        larg = (p.x1 - p.x0) / 640;
+      sv += pa('M' + (cx - 7) + ' ' + H * 0.06 + ' L' + cx + ' ' + (H * 0.06 + 10) + ' L' + (cx + 7) + ' ' + H * 0.06 + 'Z', cor(M.meio), 0, 1);
+      sv += pa('M' + (cx - 7) + ' ' + H * 0.94 + ' L' + cx + ' ' + (H * 0.94 - 10) + ' L' + (cx + 7) + ' ' + H * 0.94 + 'Z', cor(M.meio), 0, 1);
+      if (M.meio === false) {
+        var dir = cx < W / 2 ? -1 : 1,
+          ax = W / 2 + dir * 40,
+          ay = H * 0.11;
+        sv += pa('M' + (W / 2 + dir * 14) + ' ' + ay + ' H' + ax + ' M' + (ax - dir * 8) + ' ' + (ay - 7) + ' L' + ax + ' ' + ay + ' L' + (ax - dir * 8) + ' ' + (ay + 7), C149_A, 3);
+      }
+      // distância: faixa das pontas (36–62% da largura) de cada lado + traços nas pontas da peça
+      // a faixa é medida no quadro inteiro (36–62% da largura dele), por isso passa pelo mesmo X() — no celular a imagem é cortada nos lados
+      [[0.5 - 0.18, 0.5 - 0.31], [0.5 + 0.18, 0.5 + 0.31]].forEach(function (z) {
+        var a1 = X(640 * Math.min(z[0], z[1])),
+          a2 = X(640 * Math.max(z[0], z[1]));
+        sv += pa('M' + a1 + ' ' + H * 0.74 + ' V' + H * 0.78 + ' H' + a2 + ' V' + H * 0.74, cor(M.dist), 2);
+      });
+      sv += ln(l, H * 0.7, l, H * 0.8, cor(M.dist), 3) + ln(rr, H * 0.7, rr, H * 0.8, cor(M.dist), 3);
+      if (M.dist === false) {
+        // perto demais: setas para dentro (afaste); longe: setas para fora (aproxime)
+        var dentro = larg > 0.5 ? 1 : -1,
+          yy = H * 0.75,
+          sl = function (x0, d) {
+            return 'M' + (x0 - d * 6) + ' ' + (yy - 6) + ' L' + x0 + ' ' + yy + ' L' + (x0 - d * 6) + ' ' + (yy + 6);
+          };
+        sv += pa(sl(l + dentro * 14, dentro), C149_A, 2.5) + pa(sl(rr - dentro * 14, -dentro), C149_A, 2.5);
+      }
+      // altura: pontos nas laterais na altura do centro da peça
+      sv += '<circle cx="' + W * 0.13 + '" cy="' + cy.toFixed(1) + '" r="5" fill="' + cor(M.altura) + '"/><circle cx="' + W * 0.87 + '" cy="' + cy.toFixed(1) + '" r="5" fill="' + cor(M.altura) + '"/>';
+    }
+    if (g.innerHTML !== sv) g.innerHTML = sv;
+  }
   // monta o modo Foto/Vídeo na câmera já desenhada pelo 149cam (chamado no fim do cam149Monta)
   function cam149Modos(ov) {
     if (!ov || ov._c149f) return;
@@ -50691,6 +50780,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (document.hidden) return;
       var m = ov.dataset.modo;
       if (m !== 'video') {
+        c149Guias(ov, null);
         if (ov.classList.contains('ecMedir')) return c149Lista(ov, []);
         var ch = q('#ecChips');
         return c149Lista(ov, C149_FT.map(function (i) {
@@ -50698,7 +50788,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return [i[0], i[1], !!(s && s.classList.contains('ok'))];
         }));
       }
-      if (V.grav) return; // gravando: não mede nada (o celular fica só gravando), igual ao conferir
+      if (V.grav) return c149Guias(ov, null); // gravando: não mede nada (o celular fica só gravando), igual ao conferir
       var vw = vid && vid.videoWidth,
         vh = vid && vid.videoHeight;
       if (!vw) return;
@@ -50754,6 +50844,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }));
       c149Frase(ov, r.tudo && !V.ok ? 'Quase… segure assim' : r.frase, V.ok);
       ov.classList.toggle('ecVok', V.ok);
+      c149Guias(ov, emPe ? null : r, mm, vid); // 149cam-G
       if (recB) {
         recB.disabled = !V.ok;
         recB.classList.toggle('pronto', V.ok);
