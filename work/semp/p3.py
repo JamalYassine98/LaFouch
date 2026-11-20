@@ -24,7 +24,7 @@ const rot=sec('Roteiro do Semp')+
  lin('5–8 s','Detalhe','a haste de perto, cortada do giro')+
  lin('8–12 s','Por que comprar','em alta: 31 vendidas em 30 dias')+
  lin('12–15 s','Preço e fechamento','G$ 60.000 · Veja no site');
-const mus=dob('Música · trilha livre do app','os cortes seguem o ritmo · sai também sem música');
+const mus=dob('Música · trilha livre do app','cortes no ritmo · sai também sem música');
 const why=dob('Por que estas peças','Óculos solar #13 · Kazwini · Ray-Ban de metal');
 // saem: Elegante|Rápido|Oferta (o Semp escolhe) e Versão A|B (vira "Outro jeito"); "Por que estas peças" vira dobra
 j.querySelector('#mkEsl').nextElementSibling.remove();j.querySelector('#mkEsl').remove();
