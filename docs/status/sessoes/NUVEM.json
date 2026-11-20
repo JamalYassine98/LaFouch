@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "App Check: registrar autorização de custo e esboço",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795169889.7779148,
+   "r": "esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva"
+  },
   {
    "t": 1795150052.0760403,
    "r": "noite 20/11: parte 3 de S1/S2 (item 11) PRONTA E TESTADA no ramo nuvem-parte3, sem publicar (espera o item 09 do site e o item 18 do app, criado na Fila com recado para a APP); travas no teste. Esboços S5+S7 e S6+S3 entregues ao dono fora do repositório."
