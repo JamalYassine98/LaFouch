@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | item 22: bug do Entrar na nuvem (aparelho novo) | src/97-nuvem-segura.js, tests/run.py, tests/teto-remendos.json |
-| NUVEM | limpeza 2 da nuvem (regra 12): código repetido em functions/ | functions/ |
+| NUVEM | limpeza 2 da nuvem (regra 12): peças comuns num lugar só | functions/, docs/NUVEM-COMO-FUNCIONA.md |
 | SITE | conserto do porteiro, parte 1: categoria vinda da loja em vez de nome fixo (work/fiscal/provas.py, fiscal.py) — esboço mandado ao dono 09:39; itens 9 e 20 na cópia limpa esperando o porteiro para ir ao ar; limpeza 5 (selos) parada | work/fiscal/provas.py, work/fiscal/fiscal.py |
 
 ## Fila

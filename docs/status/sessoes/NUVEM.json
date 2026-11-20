@@ -1,8 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "limpeza 2 da nuvem (regra 12): código repetido em functions/",
+ "agora": "limpeza 2 da nuvem (regra 12): peças comuns num lugar só",
  "arquivos": [
-  "functions/"
+  "functions/",
+  "docs/NUVEM-COMO-FUNCIONA.md"
  ],
  "ultimas": [
   {
