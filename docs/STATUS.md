@@ -59,8 +59,6 @@
 
 ## Recados esperando
 
-- para **APP**: Conferido v578 (item 26, iniLista e grpAbre numa função só) por fora: v577 × v578 no simulador, celular claro e escuro, Início em lista e em quadrados: Início i
-- para **APP**: item 11 publicado (20/11 13:58, run 44777476972; funções + regras; limpeza do token já rodada). Publique o item 21 agora (com a leitura do pixAuto em reservasTo
 - para **ESBOCO**: v579 (5.50.4) publicado 20/11 15:25 — item 27, remendos PARTE 2c: setView sem embrulho e nomes/frases das telas escritos uma vez (BARRA_NOME, GRP_FRASE, DT_FRAS
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
