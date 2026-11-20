@@ -319,3 +319,4 @@ Regra do dono 09:49: os aprovados ficam escritos no próprio código numa cópia
 - **Ícone da conta**: mesma família dos ícones do topo (saíram as 3 regras que forçavam a cor).
 - A pasta `teste-giro/` FICA no ar por enquanto (referência do dono para a câmera do app); `promo.mp4` saiu.
 - Ferramentas: comparador Hoje × Proposta (work/s430/comparador/compara.py, regra 11); porteiro com a categoria vinda da loja; teste contra a nuvem real (workflow teste-site-nuvem).
+- 20/11/2026 (site 1795194969): **foto da peça** — `vis(p)` sempre põe o lugar da foto (`img.pf[data-pf=ref]`, escondido enquanto vazio); quando a foto chega da nuvem, `poeFoto(p,d)` preenche todos os lugares daquela peça (antes, abrindo a peça por link direto, a tela aberta nunca recebia a foto). Saíram o óculos desenhado de reserva (`glasses()`, 9 lugares, campo `raio`) e o brilho da Black Friday no destaque (`.evfx .sh`, `evbri`). Prova: `p7_foto_link_direto`.

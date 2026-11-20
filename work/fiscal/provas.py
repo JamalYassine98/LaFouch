@@ -741,6 +741,26 @@ def p7_ultimas(p):
                 else: passou(P7, t, f"{r['n']} cartões · folga mínima {r['folga']} px")
             finally: b.close()
 
+def p7_foto_link_direto(p):
+    # dono 20/11 12:33/13:46: abrindo a peça por link direto, a FOTO tem que aparecer (antes ficava um óculos desenhado para sempre:
+    # a tela aberta não sabia que a foto tinha chegado). Sem desenho de reserva em lugar nenhum.
+    for W, H in ((390, 844), (1440, 900)):
+        b, c, pg, E = novo(p, W, H, 'pt-BR', touch=W < 700)
+        try:
+            carrega(pg); pg.wait_for_timeout(2500)
+            ref = pg.evaluate("(()=>{const e=[...document.querySelectorAll('[data-open]')].find(e=>{const i=e.querySelector('img');return i&&i.naturalWidth});return e?e.getAttribute('data-open'):''})()")
+            if not ref: raise SemPecas('nenhuma peça com foto no Início')
+            pg.goto('about:blank'); pg.evaluate("1"); c.clear_cookies(); pg.goto(URL + 'p/' + ref + '.html'); t = None
+            for k in range(15):
+                pg.wait_for_timeout(1000)
+                if pg.evaluate("(()=>{const i=document.querySelector('#layer .big img.pf');return !!(i&&i.naturalWidth)})()"): t = k + 1; break
+            des = pg.evaluate("document.querySelectorAll('#layer .big svg[viewBox=\"0 0 200 200\"], #grid .ph>svg[viewBox=\"0 0 200 200\"]').length")
+            nome = f'Peça por link direto: a foto aparece, sem óculos desenhado · {W}px'
+            if t is None: falha(P7, nome, f'{ref}: a foto não apareceu em 15 s', pg)
+            elif des: falha(P7, nome, f'{ref}: {des} óculos desenhado(s) na tela', pg)
+            else: passou(P7, nome, f'{ref}: foto em {t} s')
+        finally: b.close()
+
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
   const t=a.content.replace(/^"|"$/g,'');const cv=document.createElement('canvas').getContext('2d');cv.font=a.fontWeight+' '+a.fontSize+' '+a.fontFamily;
   const w=cv.measureText(t).width;const r=b.getBoundingClientRect(),aw=parseFloat(a.width)||0;
@@ -987,7 +1007,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
