@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "regras aprovadas 08:21 (lote, por dentro, ordem do SITE)",
+ "arquivos": [
+  "CLAUDE.md",
+  "docs/FALTA-APROVAR-15-11.md"
+ ],
  "ultimas": [
   {
    "t": 1795173492.2937813,
@@ -28,5 +31,5 @@
    "r": "plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono"
   }
  ],
- "leu": 1795173476.1576304
+ "leu": 1795173725.5633373
 }

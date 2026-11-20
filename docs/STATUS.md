@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | regras aprovadas 08:21 (lote, por dentro, ordem do SITE) | CLAUDE.md, docs/FALTA-APROVAR-15-11.md |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
