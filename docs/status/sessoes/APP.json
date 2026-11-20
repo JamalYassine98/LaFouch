@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 31 URGENTE: câmera branca ao gravar a volta (trava de luz)",
+ "arquivos": [
+  "src/98z-camera-u149f.js",
+  "src/97-estudio-giro.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795215206.7000966,
