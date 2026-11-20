@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| NUVEM | item 22: publicar a nuvem pelo GitHub | .github/workflows/publicar-nuvem.yml, tools/configura-publicar-nuvem.sh, docs/PUBLICAR-NUVEM-GITHUB.md |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
@@ -67,6 +66,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 08:33 — NUVEM: item 22 pronto: workflow publicar-nuvem.yml + tools/configura-publicar-nuvem.sh + docs/PUBLICAR-NUVEM-GITHUB.md; falta o dono configurar
 - 20/11 08:22 — NUVEM: regras 3b, 3c e 6b no CLAUDE.md (aprovadas 08:21); item 22 (publicar a nuvem pelo GitHub) na Fila; recado para todas
 - 20/11 08:18 — NUVEM: fila: S1/S2 parte 3 do app renumerado de 18 para 21
 - 20/11 08:18 — APP: guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código

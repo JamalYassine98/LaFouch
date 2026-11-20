@@ -1,12 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "item 22: publicar a nuvem pelo GitHub",
- "arquivos": [
-  ".github/workflows/publicar-nuvem.yml",
-  "tools/configura-publicar-nuvem.sh",
-  "docs/PUBLICAR-NUVEM-GITHUB.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795174401.8866496,
+   "r": "item 22 pronto: workflow publicar-nuvem.yml + tools/configura-publicar-nuvem.sh + docs/PUBLICAR-NUVEM-GITHUB.md; falta o dono configurar"
+  },
   {
    "t": 1795173773.7933736,
    "r": "regras 3b, 3c e 6b no CLAUDE.md (aprovadas 08:21); item 22 (publicar a nuvem pelo GitHub) na Fila; recado para todas"
