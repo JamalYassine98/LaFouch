@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "S6: VIP só para a cliente logada",
- "arquivos": [
-  "functions/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795199585.8374639,
+   "r": "S6 publicado (VIP só para a cliente logada) e conferido no ar; recado ao SITE para mandar o login no presentes/reservar; tudo é teste até o lançamento (memória do projeto + recado a todas)."
+  },
   {
    "t": 1795199103.7760172,
    "r": "texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava)."
@@ -40,10 +42,6 @@
   {
    "t": 1795177545.3605673,
    "r": "Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f)."
-  },
-  {
-   "t": 1795174856.442682,
-   "r": "item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo"
   }
  ],
  "leu": 1795199579.1296916
