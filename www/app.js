@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 582;
+  var APP_BUILD = 583;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.8'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -39707,33 +39707,35 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       saveSoon();
     });
   }
-  // S172-B: os mais vistos da semana (Analisador, 7 dias), no máximo a cada 12 h; só os códigos vão ao site
-  function dstMaisVistos() {
-    S.dstVis = { ts: Date.now(), refs: (S.dstVis && S.dstVis.refs) || [] };
+  // Resumo do Analisador do site (função "analise", com o login do dono) dos últimos N dias. UM lugar só para esta chamada:
+  // destaque (7 e 3 dias), o que o site pediu (siteAn) e as vistas por peça (vistasBusca). Devolve o resumo, ou null se a nuvem não deu.
+  function analiseResumo(dias) {
     return nvToken()
       .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 7 }) });
+        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: dias }) });
       })
       .then(function (r) {
         return r.json();
       })
       .then(function (j) {
-        if (!j || !j.ok) return;
+        return j && j.ok ? j : null;
+      });
+  }
+  // S172-B: os mais vistos da semana (Analisador, 7 dias), no máximo a cada 12 h; só os códigos vão ao site
+  function dstMaisVistos() {
+    S.dstVis = { ts: Date.now(), refs: (S.dstVis && S.dstVis.refs) || [] };
+    return analiseResumo(7)
+      .then(function (j) {
+        if (!j) return;
         S.dstVis = { ts: Date.now(), refs: (j.pecas || []).slice(0, 20).map(function (x) { return x[0]; }), an: j };
         saveSoon();
       })
       .catch(function () {});
   }
   function dstConfereToques(ref) {
-    return nvToken()
-      .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 3 }) });
-      })
-      .then(function (r) {
-        return r.json();
-      })
+    return analiseResumo(3)
       .then(function (j) {
-        if (!j || !j.ok) return;
+        if (!j) return;
         var v = (j.destaqueVistas || {})[ref] || 0,
           tq = (j.destaqueToques || {})[ref] || 0;
         if (dstFraca(v, tq)) {
@@ -41618,15 +41620,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (c && Date.now() - c.ts < 12 * 3600000) return c.j;
     if (!S.nuvem || !S.nuvem.rt || siteAn['p' + k]) return c ? c.j : null;
     siteAn['p' + k] = 1;
-    nvToken()
-      .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: dias }) });
-      })
-      .then(function (r) {
-        return r.json();
-      })
+    analiseResumo(dias)
       .then(function (j) {
-        if (!j || !j.ok) return;
+        if (!j) return;
         S.siteAn = S.siteAn || {};
         S.siteAn[k] = { ts: Date.now(), j: j };
         saveSoon();
@@ -43637,34 +43633,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (typeof lfToast === 'function') lfToast(S.msg);
   };
   // ===== Mais vistas e não vendidas (v445, aprovado 05/11/2026) =====
-  // O site manda, ao fim de cada visita, quantas vezes cada peça foi aberta (vistas/<visita>). O app soma os últimos
-  // 30 dias e o Marketing mostra as peças que interessam mas não fecham — para destacar no Status ou pôr em oferta.
+  // Quantas vezes cada peça foi aberta no site nos últimos 30 dias. A conta é da ANÁLISE do site (função "analise", com o login do dono):
+  // o app só pede o resumo (S3, 20/11/2026 — a coleção vistas/, aberta, deixou de ser lida). O Marketing mostra as peças que
+  // interessam mas não fecham — para destacar no Status ou pôr em oferta.
   S.vistas = {}; // ref -> aberturas em 30 dias
   S.vistasTs = 0;
   function vistasBusca() {
-    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvApi !== 'function') return Promise.resolve(0);
-    var lim = Date.now() - 30 * DAY,
-      soma = {},
-      pag = function (tok, n) {
-        return nvApi('GET', 'vistas?pageSize=300' + (tok ? '&pageToken=' + encodeURIComponent(tok) : '')).then(function (j) {
-          (j.documents || []).forEach(function (d) {
-            var f = d.fields || {},
-              ts = +((f.ts || {}).integerValue || 0),
-              r = ((f.r || {}).mapValue || {}).fields || {};
-            if (ts < lim) return;
-            Object.keys(r).forEach(function (k) {
-              soma[k] = (soma[k] || 0) + Math.min(50, +(r[k].integerValue || 0));
-            });
-          });
-          if (j.nextPageToken && n < 6) return pag(j.nextPageToken, n + 1);
-        });
-      };
-    return pag('', 0).then(
-      function () {
-        S.vistas = soma;
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve(0);
+    return analiseResumo(30).then(
+      function (j) {
+        if (!j || !j.porPeca) return 0;
+        S.vistas = j.porPeca;
         S.vistasTs = Date.now();
         saveSoon();
-        return Object.keys(soma).length;
+        return Object.keys(S.vistas).length;
       },
       function () {
         return 0;
@@ -53161,7 +53143,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

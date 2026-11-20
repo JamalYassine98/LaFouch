@@ -3655,6 +3655,29 @@ async def main():
             if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 30 (20/11/2026): vistas pela análise — o app pede o resumo de 30 dias à função analise (login do dono) e NÃO lê mais vistas/;
+            # a chamada à análise mora num lugar só (analiseResumo)
+            total += 1
+            fonte = ''.join(open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js'))
+            umLugar = fonte.count('cloudfunctions.net/analise') == 1 and "'vistas?" not in fonte
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem, f0 = window.fetch, ch = []; let resp = { ok: true, porPeca: { AAA1: 12, BBB2: 3 } };
+              window.fetch = async (u, o) => { u = String(u);
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 'tk1', refresh_token: 'teste' }), { status: 200 });
+                ch.push([u, (o && o.method) || 'GET', o && o.headers && o.headers.Authorization, o && o.body]);
+                if (/cloudfunctions.net\/analise/.test(u)) return new Response(JSON.stringify(resp), { status: 200 });
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' }; S.vistas = { VELHA: 9 };
+              const n = await L.vistasBusca(); const c = ch.find(x => /\/analise$/.test(x[0]));
+              const r1 = [n, JSON.stringify(S.vistas), !!c && c[1] === 'POST' && /^Bearer /.test(c[2] || '') && c[3] === JSON.stringify({ acao: 'resumo', dias: 30 }), !ch.some(x => /documents\/vistas/.test(x[0]))];
+              resp = { ok: false }; const n2 = await L.vistasBusca(); const mantem = n2 === 0 && S.vistas.AAA1 === 12;
+              window.fetch = f0; S.nuvem = nv0; S.vistas = {}; return r1.concat([mantem]); }""")
+            ok = umLugar and got == [2, '{"AAA1":12,"BBB2":3}', True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 30: vistas por peça vêm da análise (login do dono), sem ler vistas/; nuvem sem resposta mantém o que tinha')
+            if not ok: falhas.append('item 30 vistas pela análise'); print('        veio', umLugar, got, pg.erros)
+            await pg.close()
+
             # Item 29 (20/11/2026): remendos parte 4a — Dashboard, dia, Histórico e Pendências com UMA função cada (ninguém as troca);
             # a folha VER serve família, Dashboard e grupo comum; soltar um arraste da barra não escolhe aba
             total += 1

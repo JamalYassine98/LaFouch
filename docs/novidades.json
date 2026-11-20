@@ -1,7 +1,7 @@
 {
- "nome": "5.50.7",
+ "nome": "5.50.8",
  "notas": [
-  "Arrumação por dentro (parte 4a da limpeza): Dashboard, tela do dia, Histórico e Pendências passaram a ser desenhados por uma função só cada (eram 13 camadas). Nenhuma tela muda."
+  "Por dentro (segurança): as visitas por peça do site agora vêm só da análise protegida da nuvem; o app deixou de ler a contagem antiga, que ficava aberta. Nenhuma tela muda."
  ],
- "build": 582
+ "build": 583
 }

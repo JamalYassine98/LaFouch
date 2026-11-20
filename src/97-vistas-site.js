@@ -1,32 +1,18 @@
   // ===== Mais vistas e não vendidas (v445, aprovado 05/11/2026) =====
-  // O site manda, ao fim de cada visita, quantas vezes cada peça foi aberta (vistas/<visita>). O app soma os últimos
-  // 30 dias e o Marketing mostra as peças que interessam mas não fecham — para destacar no Status ou pôr em oferta.
+  // Quantas vezes cada peça foi aberta no site nos últimos 30 dias. A conta é da ANÁLISE do site (função "analise", com o login do dono):
+  // o app só pede o resumo (S3, 20/11/2026 — a coleção vistas/, aberta, deixou de ser lida). O Marketing mostra as peças que
+  // interessam mas não fecham — para destacar no Status ou pôr em oferta.
   S.vistas = {}; // ref -> aberturas em 30 dias
   S.vistasTs = 0;
   function vistasBusca() {
-    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvApi !== 'function') return Promise.resolve(0);
-    var lim = Date.now() - 30 * DAY,
-      soma = {},
-      pag = function (tok, n) {
-        return nvApi('GET', 'vistas?pageSize=300' + (tok ? '&pageToken=' + encodeURIComponent(tok) : '')).then(function (j) {
-          (j.documents || []).forEach(function (d) {
-            var f = d.fields || {},
-              ts = +((f.ts || {}).integerValue || 0),
-              r = ((f.r || {}).mapValue || {}).fields || {};
-            if (ts < lim) return;
-            Object.keys(r).forEach(function (k) {
-              soma[k] = (soma[k] || 0) + Math.min(50, +(r[k].integerValue || 0));
-            });
-          });
-          if (j.nextPageToken && n < 6) return pag(j.nextPageToken, n + 1);
-        });
-      };
-    return pag('', 0).then(
-      function () {
-        S.vistas = soma;
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve(0);
+    return analiseResumo(30).then(
+      function (j) {
+        if (!j || !j.porPeca) return 0;
+        S.vistas = j.porPeca;
         S.vistasTs = Date.now();
         saveSoon();
-        return Object.keys(soma).length;
+        return Object.keys(S.vistas).length;
       },
       function () {
         return 0;

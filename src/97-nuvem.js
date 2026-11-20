@@ -461,33 +461,35 @@
       saveSoon();
     });
   }
-  // S172-B: os mais vistos da semana (Analisador, 7 dias), no máximo a cada 12 h; só os códigos vão ao site
-  function dstMaisVistos() {
-    S.dstVis = { ts: Date.now(), refs: (S.dstVis && S.dstVis.refs) || [] };
+  // Resumo do Analisador do site (função "analise", com o login do dono) dos últimos N dias. UM lugar só para esta chamada:
+  // destaque (7 e 3 dias), o que o site pediu (siteAn) e as vistas por peça (vistasBusca). Devolve o resumo, ou null se a nuvem não deu.
+  function analiseResumo(dias) {
     return nvToken()
       .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 7 }) });
+        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: dias }) });
       })
       .then(function (r) {
         return r.json();
       })
       .then(function (j) {
-        if (!j || !j.ok) return;
+        return j && j.ok ? j : null;
+      });
+  }
+  // S172-B: os mais vistos da semana (Analisador, 7 dias), no máximo a cada 12 h; só os códigos vão ao site
+  function dstMaisVistos() {
+    S.dstVis = { ts: Date.now(), refs: (S.dstVis && S.dstVis.refs) || [] };
+    return analiseResumo(7)
+      .then(function (j) {
+        if (!j) return;
         S.dstVis = { ts: Date.now(), refs: (j.pecas || []).slice(0, 20).map(function (x) { return x[0]; }), an: j };
         saveSoon();
       })
       .catch(function () {});
   }
   function dstConfereToques(ref) {
-    return nvToken()
-      .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 3 }) });
-      })
-      .then(function (r) {
-        return r.json();
-      })
+    return analiseResumo(3)
       .then(function (j) {
-        if (!j || !j.ok) return;
+        if (!j) return;
         var v = (j.destaqueVistas || {})[ref] || 0,
           tq = (j.destaqueToques || {})[ref] || 0;
         if (dstFraca(v, tq)) {

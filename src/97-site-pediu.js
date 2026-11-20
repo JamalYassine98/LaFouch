@@ -7,15 +7,9 @@
     if (c && Date.now() - c.ts < 12 * 3600000) return c.j;
     if (!S.nuvem || !S.nuvem.rt || siteAn['p' + k]) return c ? c.j : null;
     siteAn['p' + k] = 1;
-    nvToken()
-      .then(function (t) {
-        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: dias }) });
-      })
-      .then(function (r) {
-        return r.json();
-      })
+    analiseResumo(dias)
       .then(function (j) {
-        if (!j || !j.ok) return;
+        if (!j) return;
         S.siteAn = S.siteAn || {};
         S.siteAn[k] = { ts: Date.now(), j: j };
         saveSoon();
