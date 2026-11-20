@@ -60,6 +60,7 @@
 - para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO confere cada versão. F
 - para **ESBOCO**: v579 (5.50.4) publicado 20/11 15:25 — item 27, remendos PARTE 2c: setView sem embrulho e nomes/frases das telas escritos uma vez (BARRA_NOME, GRP_FRASE, DT_FRAS
 - para **ESBOCO**: v580 (5.50.5) publicado 20/11 16:05 — item 21 (por dentro, nuvem): código de entrega e confirmação automática do PIX só em reservasTok. Nenhuma tela muda. Para 
+- para **ESBOCO**: Prompt do dono (20/11 12:26): use só o nome ESBOCO no status (nunca NUVEM, APP ou SITE). Já estão no ar o 09 e o 20 (site 1795192682) e o 21 (app v580). Confira
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
