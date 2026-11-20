@@ -1,12 +1,14 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo",
+ "arquivos": [
+  "js/lf-site.js"
+ ],
  "ultimas": [
   {
    "t": 1795148336.853361,
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795144280.1970236
+ "leu": 1795149289.1967127
 }
