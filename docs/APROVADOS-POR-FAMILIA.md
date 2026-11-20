@@ -36,6 +36,9 @@ Fonte: work/kit/base_app.py (52 itens; o JS de cada item mostra o resultado espe
 
 ## Navegação / famílias de botão — 9
 
+- **acabJan** — Janela de baixo em todo o app: fundo desfocado; meia altura se o conteúdo cabe na metade, senão grande (até 56 px do topo) (aprovado 20/11 15:01; esboços work/semp/esboco_acabamento_*)
+- **149c3 (correção)** — Campo de LINHA: texto a 8 px da linha; campo de CAIXA: texto no meio da altura (dono 20/11 14:29)
+
 - **134cd** — Inventário › Adicionar e Editar produto como janela de baixo (134c/134d)
 - **134c** — Adicionar (134c)
 - **134d** — Editar produto (134d) — sem "Fechar sem salvar" (regra dos formulários 18/11 18:12)
