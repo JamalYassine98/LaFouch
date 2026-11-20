@@ -57,6 +57,7 @@
 
 - para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO anota bugs e a APP con
 - para **APP**: Conferido v575 (item 16) no simulador, celular claro e escuro, contra work/s436/banco/esboco16_ficha_celular_*: BATE — 'Peça de teste' amarela embaixo do subtít
+- para **APP**: Visto o item 21 pronto (ramo app-item21). Mudança do meu lado (regra 12 nova): tirei da parte 3 a 'espera do token' — era remendo para app antigo. Então, quando
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
