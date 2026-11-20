@@ -51,3 +51,5 @@ jobs:
           esac
           # sem --force: se o Firebase quiser APAGAR alguma função, ele para (em vez de apagar sozinho)
           npx --yes firebase-tools deploy --only "$A" --project lafouch-2f6bd --non-interactive
+      - name: Conferir a nuvem no ar (tools/sonda-nuvem.sh)
+        run: sleep 20 && bash tools/sonda-nuvem.sh

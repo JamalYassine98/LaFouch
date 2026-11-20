@@ -1,0 +1,17 @@
+name: Conferir a nuvem no ar
+
+# 20/11/2026: confere as portas públicas da nuvem já publicada (sem login, sem gravar nada): tools/sonda-nuvem.sh.
+# Também roda no fim de "Publicar a nuvem". Chamado: botão "Run workflow" ou gh api ... dispatches.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  conferir:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Conferir as portas
+        run: bash tools/sonda-nuvem.sh
