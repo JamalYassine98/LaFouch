@@ -91,4 +91,28 @@ t('frete entra no mínimo', () => {
   assert.strictEqual(r.ok, false);
 });
 t('pagar a mais nunca é problema', () => { assert.ok(X.confere(ped([{ ref: 'KIT3C', q: 1 }], 120000), prods, pisos, null, false).ok); });
+// 20/11/2026 (varredura do pagamento): o valor que o robô do banco procura é conferido pelo servidor — TENTATIVAS DE BURLAR
+const KIT = [{ ref: 'KIT3C', q: 1 }], COT = 1400; // 100.000 Gs ≈ R$ 71,43 → o site cobra R$ 70 (arredonda para 5) menos o final único
+t('Banco Familiar certo: o valor a pagar (com o final único) e o teto (total cheio) saem do servidor', () => {
+  const r = X.confere(ped(KIT, 100000, { pag: 'alias', pagar: 99963, uq: 37 }), prods, pisos, null, false, COT);
+  assert.ok(r.ok, r.motivos.join()); assert.deepStrictEqual(r.pagar, { moeda: 'gs', valor: 99963, teto: 100000 });
+});
+t('BURLA: total certo mas "pagar" trocado para Gs. 1.000 → suspeito (o robô não confirma)', () => {
+  const r = X.confere(ped(KIT, 100000, { pag: 'alias', pagar: 1000, uq: 37 }), prods, pisos, null, false, COT);
+  assert.strictEqual(r.ok, false); assert.ok(!r.pagar);
+});
+t('BURLA: "pagar" acima do total → suspeito', () => { assert.strictEqual(X.confere(ped(KIT, 100000, { pag: 'alias', pagar: 900000, uq: 1 }), prods, pisos, null, false, COT).ok, false); });
+t('PIX certo: valor em centavos e teto = valor + final único', () => {
+  const r = X.confere(ped(KIT, 100000, { pag: 'pix', brl: 69.63, uq: 37 }), prods, pisos, null, false, COT);
+  assert.ok(r.ok, r.motivos.join()); assert.deepStrictEqual(r.pagar, { moeda: 'brl', valor: 6963, teto: 7000 });
+});
+t('BURLA: total certo mas PIX trocado para R$ 1,00 → suspeito', () => {
+  const r = X.confere(ped(KIT, 100000, { pag: 'pix', brl: 1, uq: 37 }), prods, pisos, null, false, COT);
+  assert.strictEqual(r.ok, false); assert.ok(!r.pagar);
+});
+t('BURLA: PIX 20% abaixo do preço → suspeito; cotação de ontem (3%) passa', () => {
+  assert.strictEqual(X.confere(ped(KIT, 100000, { pag: 'pix', brl: 57, uq: 0 }), prods, pisos, null, false, COT).ok, false);
+  assert.ok(X.confere(ped(KIT, 100000, { pag: 'pix', brl: 69.63, uq: 37 }), prods, pisos, null, false, COT * 1.03).ok);
+});
+t('BURLA: final único fora de 0–99 → suspeito', () => { assert.strictEqual(X.confere(ped(KIT, 100000, { pag: 'pix', brl: 69.63, uq: 5000 }), prods, pisos, null, false, COT).ok, false); });
 console.log('presente: ' + n + ' testes ok');

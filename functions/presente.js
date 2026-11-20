@@ -28,7 +28,7 @@ function podeSer(prods, pisos, pagas, vip) {
 
 // confere o pedido do site: devolve { ok, minimo, total, motivos[] }. ok=false = valor abaixo do mínimo possível ou presente fora da regra.
 // cup = o cartão usado (do servidor: { tipo, pct }) ou null; vip = o cliente é Cliente VIP
-function confere(f, prods, pisos, cup, vip) {
+function confere(f, prods, pisos, cup, vip, cot) {
   const mot = [], it = Array.isArray(f && f.itens) ? f.itens : [];
   let bruto = 0;
   for (const i of it) {
@@ -57,6 +57,27 @@ function confere(f, prods, pisos, cup, vip) {
   }
   const minimo = bruto - desc + frete, total = +(f && f.total) || 0;
   if (total < minimo - 1000) mot.push('valor abaixo do mínimo: ' + total + ' < ' + minimo);
-  return { ok: !mot.length, minimo, total, desc, bruto, motivos: mot };
+  const pagar = valorAPagar(f, total, minimo, it, cot, mot);
+  return Object.assign({ ok: !mot.length, minimo, total, desc, bruto, motivos: mot }, pagar ? { pagar } : {});
+}
+// 20/11/2026 (varredura do pagamento): o valor que o robô do banco procura é conferido AQUI, nunca aceito do navegador.
+// Devolve { moeda, valor, teto } (PIX em centavos de real; Banco Familiar em Gs.): valor = o que a cliente vê para pagar (com o final único),
+// teto = o total cheio (quem arredonda para cima até ele também paga certo). Abaixo do mínimo do catálogo → motivo (pedido suspeito).
+// cot = guaranis por 1 real (config/site.cotacao.brl). O site arredonda cada peça para 5 reais e pode estar com a cotação de ontem:
+// por isso o PIX aceita até 3% e 2,50 por peça abaixo do mínimo convertido — nunca o "qualquer valor" de antes.
+function valorAPagar(f, total, minimo, it, cot, mot) {
+  const pag = f && f.pag, uq = Math.round(+(f && f.uq) || 0);
+  if (pag !== 'pix' && pag !== 'alias') return null;
+  if (!(uq >= 0 && uq <= 99)) { mot.push('final único inválido: ' + (f && f.uq)); return null; }
+  if (pag === 'alias') {
+    const valor = Math.round(+f.pagar || 0);
+    if (!(valor > 0 && valor <= total) || valor < minimo - 1000 - 99) { mot.push('valor a pagar fora da regra: ' + valor + ' (mínimo ' + minimo + ')'); return null; }
+    return { moeda: 'gs', valor, teto: total };
+  }
+  const valor = Math.round((+f.brl || 0) * 100), r = +cot > 0 ? +cot : 1400;
+  const pecas = it.filter((i) => i && !i.pres).reduce((a, i) => a + Math.max(1, +i.q || 1), 0);
+  const min = Math.floor(((minimo - 1000) / r) * 0.97 * 100) - 250 * pecas - 100;
+  if (!(valor > 0) || valor < min) { mot.push('PIX abaixo do mínimo: R$ ' + valor / 100 + ' (mínimo R$ ' + min / 100 + ')'); return null; }
+  return { moeda: 'brl', valor, teto: valor + uq };
 }
 module.exports = { podeSer, confere, ofe, VIP_A_MAIS };

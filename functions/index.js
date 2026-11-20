@@ -137,8 +137,6 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
   if (!snap) return;
   const f = snap.data() || {};
   const t = texto(f);
-  // S197: pedido do site com PIX → guarda o valor exato para o robô do e-mail achar (o app apaga o pedido depois de importar)
-  if (f.pag === 'pix' && !f.tipo && +f.brl > 0) { try { await fsx().doc('pixEspera/' + ev.params.id).set({ tipo: 'site', brl: +f.brl, ts: +f.ts || Date.now(), cod: String(f.cod || '').slice(0, 8) }); } catch (e) { console.error('pixEspera', e); } }
   const campoSom = { novo: 'sn', comp: 'sc', cancel: 'sx', pago: 'sp', teste: 'sn' }[t.tipo]; // som escolhido para este tipo de aviso
   await avisaAparelhos((id, dd) => quer(dd, t.tipo), (dd) => ({
     notification: { title: t.titulo, body: t.corpo },
@@ -612,8 +610,15 @@ exports.conferePedido = onDocumentCreated({ document: 'pedidos/{id}', region: RE
     const cod = String(f.cup || '').toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 24);
     if (cod) { const c = await db.doc('cupons/' + cod).get(); if (c.exists) cup = { tipo: c.data().tipo, pct: +c.data().pct || 0 }; else cup = { tipo: '?', pct: 0 }; }
     const vip = await ehVip(telDe(f.tel));
-    const r = Presente.confere(f, prods, pisos, cup, vip);
-    if (r.ok) return;
+    const cfg = await db.doc('config/site').get(), cot = +(((cfg.exists && cfg.data()) || {}).cotacao || {}).brl || 0;
+    const r = Presente.confere(f, prods, pisos, cup, vip, cot);
+    if (r.ok) {
+      // 20/11/2026 (varredura do pagamento): a FICHA do pedido para o robô do banco — o valor a pagar conferido aqui, num lugar que o app não apaga
+      // (pixEspera/<pedido>, tipo 'site'). Só nasce para pedido dentro da regra: pedido suspeito ou com erro nunca é confirmado sozinho.
+      if (r.pagar) await db.doc('pixEspera/' + ev.params.id).set(Object.assign({ tipo: 'site', conf: true, ts: +f.ts || Date.now(), cod: String(f.cod || '').slice(0, 8),
+        nome: String(f.nome || '').slice(0, 80), itens: (f.itens || []).filter((i) => i && i.ref).slice(0, 30).map((i) => ({ ref: String(i.ref), cor: String(i.cor || ''), q: Math.max(1, Math.round(+i.q || 1)) })) }, r.pagar));
+      return;
+    }
     console.error('conferePedido SUSPEITO', ev.params.id, JSON.stringify(r));
     await db.doc('reservas/' + ev.params.id).set({ suspeito: r.motivos.slice(0, 5).join(' · ').slice(0, 300), minimo: r.minimo }, { merge: true });
     await db.collection('cupomAvisos').add({ ts: Date.now(), t: 'pedido', d: 'Pedido ' + String(f.cod || ev.params.id).slice(0, 8) + ' fora da regra: ' + r.motivos[0], cod: cod || '' });
@@ -662,25 +667,28 @@ const PIX_ROBO = defineSecret('PIX_ROBO');
 const pixDb = {
   jaVisto: async (m) => (await fsx().doc('pixVistos/' + hash(m, 40)).get()).exists,
   visto: (m, ts) => fsx().doc('pixVistos/' + hash(m, 40)).set({ ts }),
-  // só um filtro (sem índice composto); o pago/cancelado vem da reserva
-  // pedidos do site: a espera (pixEspera tipo 'site') nasce no avisarPedido; o pago/cancelado vem da reserva
-  pedidosPix: async (desde) => {
-    const L = (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs
-      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.tipo === 'site');
+  desvisto: (m) => fsx().doc('pixVistos/' + hash(m, 40)).delete(),
+  // fichas dos pedidos do site conferidas pelo servidor (nascem no conferePedido); o pago/cancelado/suspeito vem da reserva.
+  // Só um filtro (sem índice composto).
+  fichas: async (desde) => {
+    const L = (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(300).get()).docs
+      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.tipo === 'site' && p.conf === true);
     for (const p of L) {
       const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {};
       p.pago = !!(o.pago || o.cancelado || p.ok || o.suspeito); // S409: pedido suspeito não é confirmado pelo robô (o dono confere)
     }
     return L;
   },
-  pedidosItau: async (desde) => {
-    const L = (await fsx().collection('pedidos').where('ts', '>=', desde).limit(400).get()).docs
-      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.pag === 'alias' && !p.tipo);
-    for (const p of L) { const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {}; p.pago = !!(o.pago || o.cancelado || p.pixAuto || o.suspeito); } // S409: suspeito fica para o dono
-    return L;
-  },
   esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
+  // confirmar = segurar a peça como paga (a mesma regra do "pagar" do app); a peça já foi para outra pessoa → 'sem-peca', nunca "pago" sem a peça
   confirmaPedido: async (id, o) => {
+    if (await Reserva.ligada(fsx())) {
+      const fi = await fsx().doc('pixEspera/' + id).get(), itens = ((fi.exists && fi.data()) || {}).itens || [];
+      if (itens.length) try { await Reserva.pagar(fsx(), Date.now(), id, itens); } catch (e) {
+        if (e instanceof Falha && e.motivo === 'expirou') throw new Falha('sem-peca', 409, { falta: e.extra.falta });
+        throw e;
+      }
+    }
     const tok = crypto.randomBytes(6).toString('hex');
     // S1 (19/11): grava também em reservasTok (troca em 3 partes; ver docs/STATUS.md item S1/S2).
     await fsx().doc('reservasTok/' + id).set({ tok, pixAuto: o }, { merge: true });

@@ -20,6 +20,12 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 | `hash(t, n)`, `urlFn(nome)`, `criaUmaVez(ref, o)` | Resumo sha256, endereço de uma função e "cria só se não existe". |
 | `seloOk(req, res, porta)` | App Check (modo em functions/selo.js). |
 
+## Pagamento automático pelo e-mail do banco (pix.js; atualizado em 20/11/2026)
+- **Ficha do pedido:** `conferePedido` confere o pedido do site com o catálogo e o valor a pagar com a cotação de `config/site` (`Presente.confere` → `pagar`). Pedido dentro da regra ganha a ficha `pixEspera/<pedido>` (`tipo: 'site'`, `conf: true`, `moeda`, `valor`, `teto`, `nome`, `itens`), que o app não apaga. Pedido suspeito, de teste ou com erro não ganha ficha e nunca é confirmado sozinho.
+- **Robô (`Pix.recebe`):** uma regra só para Nubank, Itaú e Banco Familiar. Valor exato → esse pedido; a mais até o `teto` (total cheio) → também vale; a menos → "sem par". Nome e hora só desempatam.
+- **Confirmar = segurar a peça como paga** (`Reserva.pagar`, a mesma regra do app). Se a peça já foi para outra pessoa: "sem par" com `motivo: 'sem-peca'` e o pedido, nunca "pago" sem a peça.
+- **Tudo ou nada:** se der erro no meio, o e-mail volta a "não visto" e o robô tenta de novo.
+
 ## Travas (functions/teste-*.js; o GitHub roda todas antes de publicar)
 - `teste-portas.js`: as 15 portas respondem certo a método errado, corpo vazio, ação inválida, corpo em texto e dono sem login; as portas do site usam uma lista só; cada peça comum aparece num lugar só; os avisos ao celular.
 - `teste-email.js`: um só envio de e-mail · `teste-selo.js`: toda porta pública chama o selo.
