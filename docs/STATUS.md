@@ -44,7 +44,7 @@
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
-- **22-publicar-nuvem-pelo-github** — pronto no código (regra 6b) — falta o dono rodar a configuração única no Cloud Shell (docs/PUBLICAR-NUVEM-GITHUB.md)
+- **22-publicar-nuvem-pelo-github** — ✅ funcionando 20/11 08:41 — dono configurou (Cloud Shell); 1ª publicação de teste pelo GitHub: testes ok + Deploy complete
 
 ## Recados esperando
 
