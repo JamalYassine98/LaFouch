@@ -40,8 +40,8 @@ function escada(n) {
   if (c < 4) return { deg: 2, feitas: c - 1, tot: 3, n: n | 0 };
   return { deg: 3, feitas: c - 4, tot: 5, n: n | 0 };
 }
-const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
-const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
+const { EMAIL_OK } = require('./texto');
+const limpa = require('./texto').linha;
 const telN = (t) => String(t || '').replace(/\D/g, '').slice(-9); // compara pelos 9 últimos dígitos (com ou sem +595/0)
 const emN = (e) => limpa(e, 200).toLowerCase();
 const codN = (c) => limpa(c, 24).toUpperCase().replace(/\s/g, '');

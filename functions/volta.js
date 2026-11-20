@@ -9,10 +9,10 @@ const E = require('./email');
 
 const { Falha } = require('./falha');
 const REF_OK = /^[A-Za-z0-9._-]{1,30}$/;
-const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
+const { EMAIL_OK } = require('./texto');
 const MAX_POR_EMAIL = 10; // pedidos pendentes por e-mail (evita abuso)
 const hash = (t) => crypto.createHash('sha256').update(t).digest('hex').slice(0, 32);
-const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
+const limpa = require('./texto').linha;
 
 async function pedir(db, b, agora) {
   const ref = String(b.ref || '');

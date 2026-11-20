@@ -5,12 +5,11 @@
 const crypto = require('crypto');
 
 const { Falha } = require('./falha');
-const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
+const { EMAIL_OK } = require('./texto');
 const DESTINO = 'lafouch.eyewear@gmail.com';
 const PROCURA = ['Solar', 'Leitura', 'Armações'];
 const ESTADOS = ['novo', 'respondido', 'fechado'];
-function limpa(t, n) { return String(t == null ? '' : t).replace(/[\u0000-\u0008\u000b-\u001f<>]/g, ' ').replace(/[ \t]+/g, ' ').trim().slice(0, n); }
-function linha(t, n) { return limpa(t, n).replace(/\s+/g, ' '); }
+const { bloco: limpa, linha } = require('./texto');
 
 function valida(b) {
   const tipo = b.tipo === 'atacado' ? 'atacado' : b.tipo === 'contato' ? 'contato' : '';

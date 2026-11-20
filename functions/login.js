@@ -5,7 +5,7 @@ const { Falha } = require('./falha');
 const crypto = require('crypto');
 const PARA = 'lafouch.eyewear@gmail.com';
 const MAX_HORA = 10;
-const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
+const limpa = require('./texto').linha;
 // "Mozilla/5.0 (Linux; Android 14; SM-A546E) ... Chrome/130" -> "Android 14 · SM-A546E · Chrome"
 function aparelho(ua) {
   ua = String(ua || '');

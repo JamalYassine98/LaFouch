@@ -11,7 +11,7 @@ const crypto = require('crypto');
 const E = require('./email');
 const { Falha } = require('./falha');
 const DIA = 864e5, VALE_COD = 10 * 60000, TENT = 5, TROCAS_AVISO = 2;
-const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
+const limpa = require('./texto').linha;
 const emN = (e) => limpa(e, 200).toLowerCase();
 const h = (s) => crypto.createHash('sha256').update(String(s)).digest('hex');
 const devN = (d) => limpa(d, 60).replace(/[^A-Za-z0-9_-]/g, '');

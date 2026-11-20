@@ -5,7 +5,7 @@
 // A cópia some quando o pedido é cancelado ou sozinha em 30 dias (limpeza.js). Depois do "pago" ela fica esses 30 dias para o comprovante
 // (função comprovante: página que abre em qualquer aparelho, com o id do pedido + o token).
 const E = require('./email');
-const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+const { EMAIL_OK } = require('./texto');
 const lim = (s, n) => String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
 const gs = (n) => 'Gs. ' + String(Math.round(+n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 const brl = (n) => 'R$ ' + (Math.round((+n || 0) * 100) / 100).toLocaleString('pt-BR', { minimumFractionDigits: (+n || 0) % 1 ? 2 : 0, maximumFractionDigits: 2 });

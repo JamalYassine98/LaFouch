@@ -9,11 +9,9 @@ const crypto = require('crypto');
 const { Falha } = require('./falha');
 
 const REF_OK = /^[A-Za-z0-9._-]{1,30}$/;
-const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
+const { EMAIL_OK } = require('./texto');
 
-function limpa(t, n) {
-  return String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
-}
+const limpa = require('./texto').linha;
 // "Ana Paula Souza" -> "Ana S."  (nunca o nome completo no site)
 function nomeCurto(nome) {
   const p = limpa(nome, 60).split(' ').filter(Boolean);
