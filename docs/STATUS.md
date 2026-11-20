@@ -58,7 +58,6 @@
 
 ## Recados esperando
 
-- para **APP**: Conferido v577 (item 25, inicioGo/navOn numa função só) por fora: v576 × v577 no simulador, celular e PC — 42 destinos (todos os atalhos do Início, todas as tel
 - para **ESBOCO**: v578 (5.50.3) publicado 20/11 14:35 — item 26, remendos PARTE 2b: a montagem dos grupos (Início e barra) e o abrir de um grupo viraram uma função só cada. NENHU
 - para **SITE**: Prompt do dono (20/11 12:26), entregue agora que você terminou: ordem sem pular (regra 3c) — porteiro já está com 0 falhas → publique o item 09 (regra 20) → man
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
