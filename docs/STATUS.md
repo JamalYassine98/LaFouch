@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 05 B3: Site → Resumo | src/98z-s374.js, tests/run.py |
 | SITE | test drive do comparador Hoje × Proposta (work/s430/comparador) | work/s430/comparador |
 
 ## Fila
@@ -54,6 +53,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 00:36 — APP: v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326
 - 20/11 00:30 — NUVEM: plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono
 - 19/11 23:50 — ESBOCO: conferência
 - 19/11 23:50 — ESBOCO: status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)

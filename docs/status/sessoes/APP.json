@@ -1,10 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 05 B3: Site → Resumo",
- "arquivos": [
-  "src/98z-s374.js",
-  "tests/run.py"
+ "agora": "",
+ "arquivos": [],
+ "ultimas": [
+  {
+   "t": 1795145762.0943031,
+   "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
+  }
  ],
- "ultimas": [],
  "leu": 1795145752.8285174
 }
