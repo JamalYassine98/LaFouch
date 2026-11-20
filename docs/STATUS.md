@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | guardar aprovado: comparador único (site + app) | docs/FALTA-APROVAR-15-11.md |
 | SITE | item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo | js/lf-site.js |
 
 ## Fila
@@ -64,6 +63,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 08:18 — APP: guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código
 - 20/11 08:12 — NUVEM: App Check parte 3 publicada e conferida (modo anotar). Próximo: ver seloDia/ depois da parte 2 do site; exigir só com novo ok do dono
 - 20/11 08:04 — NUVEM: App Check parte 3 no código (modo anotar, trava no teste); itens 19 (NUVEM) e 20 (SITE) na Fila; falta o dono publicar
 - 20/11 07:18 — NUVEM: esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva

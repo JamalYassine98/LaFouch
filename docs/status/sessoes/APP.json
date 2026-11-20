@@ -1,10 +1,12 @@
 {
  "nome": "APP",
- "agora": "guardar aprovado: comparador único (site + app)",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795173483.918695,
+   "r": "guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código"
+  },
   {
    "t": 1795153871.5382085,
    "r": "NOITE 20/11 (dono dormindo), nada mexido em src/ nem www/: (1) B3 item 05 já estava publicado (v572) e foi CONFERIDO EM CELULAR REAL no Test Lab, claro e escuro (prints work/s436/testlab/). (2) Item 16 NÃO implementado; esboço v2 pronto e passado no comparador, celular/tablet/PC (work/s436/banco/esboco16_ficha_*.jpg) — falta o dono dizer se marca e coleção são obrigatórias. (3) PLANO DOS REMENDOS em 10 partes: docs/PLANO-REMENDOS-20-11.md (62 funções com 104 remendos); parte 1 (render) ENSAIADA numa cópia: 0 diferenças em 60 telas x 3 aparelhos, 327/327 testes. (4) BUG ACHADO, não consertado: aparelho novo/desconectado › Início › 'Entrar' na nuvem dá tela vazia (esboço work/s436/bug-nvir/). DECISÕES DO DONO: a) consertar o bug do Entrar? b) implementar a parte 1 dos remendos? c) item 16: marca e coleção obrigatórias? Na Fila esperando o site: 18-s1-s2-parte-3-app."
@@ -18,5 +20,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795173470.0190325
+ "leu": 1795173481.8183348
 }
