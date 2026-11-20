@@ -1,7 +1,11 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "implementar na cópia limpa: selos v2 + faixa só no topo + sai o modo lista (ramo esb-selos → limpo); prova dos selos no porteiro",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html",
+  "work/fiscal/provas.py"
+ ],
  "ultimas": [
   {
    "t": 1795180680.9726496,
@@ -20,5 +24,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795183644.605986
+ "leu": 1795185636.6345894
 }

@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 24: remendos parte 3 — confirmações no arquivo de cada família | src/98z-s418-confirma.js, src/95-pedidos.js, src/94-acoes.js, src/97-sync.js, src/96-ajustes.js, src/97-nuvem.js, src/98-financeiro.js, src/98-carrinho.js, src/97s-atacado-conta.js, src/97s2-atacado-lotes.js |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
+| SITE | implementar na cópia limpa: selos v2 + faixa só no topo + sai o modo lista (ramo esb-selos → limpo); prova dos selos no porteiro | js/lf-site.js, index.html, work/fiscal/provas.py |
 
 ## Fila
 
