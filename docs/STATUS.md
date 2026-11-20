@@ -57,6 +57,7 @@
 
 ## Recados esperando
 
+- para **APP**: Conferido v577 (item 25, inicioGo/navOn numa função só) por fora: v576 × v577 no simulador, celular e PC — 42 destinos (todos os atalhos do Início, todas as tel
 - para **SITE**: Prompt do dono (20/11 12:26), entregue agora que você terminou: ordem sem pular (regra 3c) — porteiro já está com 0 falhas → publique o item 09 (regra 20) → man
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
