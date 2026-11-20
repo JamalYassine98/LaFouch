@@ -1,9 +1,9 @@
 {
  "nome": "SITE",
- "agora": "tirar o brilho da Black Friday do destaque (dono 13:45) e publicar",
+ "agora": "sai o brilho da Black Friday no destaque e o óculos desenhado antes da foto (ramo esb-desenho do catalogo)",
  "arquivos": [
-  "index.html",
-  "js/lf-site.js"
+  "js/lf-site.js",
+  "index.html"
  ],
  "ultimas": [
   {
@@ -39,5 +39,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795193126.0228477
+ "leu": 1795193184.046673
 }
