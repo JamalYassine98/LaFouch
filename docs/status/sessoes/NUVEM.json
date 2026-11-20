@@ -1,7 +1,11 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "item 22: publicar a nuvem pelo GitHub",
+ "arquivos": [
+  ".github/workflows/publicar-nuvem.yml",
+  "tools/configura-publicar-nuvem.sh",
+  "docs/PUBLICAR-NUVEM-GITHUB.md"
+ ],
  "ultimas": [
   {
    "t": 1795173773.7933736,

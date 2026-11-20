@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | item 22: publicar a nuvem pelo GitHub | .github/workflows/publicar-nuvem.yml, tools/configura-publicar-nuvem.sh, docs/PUBLICAR-NUVEM-GITHUB.md |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
