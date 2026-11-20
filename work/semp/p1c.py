@@ -28,7 +28,7 @@ const dts=[...v.querySelectorAll('.mkDt')];
 const topo=v.querySelector('.top');
 [...v.children].forEach(e=>{if(e!==topo&&!e.contains(topo)&&!topo.contains(e)&&!e.classList.contains('nvVs'))e.remove()});
 const box=document.createElement('div');box.innerHTML=
-tit('O Semp sugere para hoje · 3')+
+tit('O Semp sugere para hoje · foco: Mais solar')+
 linha(I.mega,'Postar às 20h','Óculos solar #13 · 31 vendidas em 30 dias')+
 linha(I.etq,'Divulgar a oferta','Óculos de leitura #15 · parado · Guardião ok')+
 linha(I.sac,'Comprar a tendência','Solar polarizado · até US$ 6 · Guardião ok')+
@@ -36,8 +36,7 @@ tit('Setores')+
 linha(I.cal,'Agenda','0 de '+nAg[2]+' feitos · próximo: '+(prox||'Seg · Post · 20h'))+
 linha(I.tend,'Mercado','tendências · distribuidoras: 2 novidades')+
 linha(I.cria,'Criar','post · story · status · carrossel · vídeo · roteiro')+
-linha(I.res,'Resultados','o que deu certo · o Semp aprende com isso')+
-linha(I.marca,'Marca','foco do mês: Mais solar · kit · listas por perfil');
+linha(I.res,'Resultados','o que deu certo · o Semp aprende com isso');
 const wrap=topo.parentNode===v?v:topo.parentNode;wrap.appendChild(box);
 }"""
 def tira(pg,nome):
@@ -56,4 +55,4 @@ with sync_playwright() as pw:
       b,pg,w=ap.abre(pw,'mkt',esc,'celular',base=True)
       if fase=='prop': pg.evaluate(JS,dict(mega=MEGA,etq=ETQ,sac=SAC,tend=TEND,loja=LOJA,cal=CAL,cria=CRIA,res=RES,marca=MARCA));w(400)
       ims.append(tira(pg,fase+n));b.close()
-    quadro('esboco_semp1c_marketing_%s.jpg'%n,esc,[('HOJE · Marketing','objetivo em 4 botões · criar · plano',ims[0]),('PROPOSTA · Marketing = escritório do Semp','o que fazer hoje + 5 setores',ims[1])])
+    quadro('esboco_semp1c_marketing_%s.jpg'%n,esc,[('HOJE · Marketing','objetivo em 4 botões · criar · plano',ims[0]),('PROPOSTA · Marketing = escritório do Semp','o que fazer hoje + 4 setores',ims[1])])

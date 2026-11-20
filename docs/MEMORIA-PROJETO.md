@@ -24,3 +24,4 @@
 - 20/11 15:34 — Aprovado (ideia): Mercado + tela da tendência em 3 casos (não tem / tem / tem pouco) — work/semp/esboco_semp_mercado_*, _tendencia2_*.
 - 20/11 15:42 — Aprovado (ideia): Marketing › Criar com 6 formatos em linhas (Story = anel, Status = balão com relógio).
 - 20/11 15:53 — Aprovado: Ajustes em 3 blocos (Loja · Contas ligadas · Este aparelho) com Marca e Instagram; configuração vive só em Ajustes; Marketing com 4 setores.
+- 20/11 15:54 — Aprovado: foco do mês no título das sugestões do Semp; Listas do WhatsApp dentro do Criar; Marketing = sugestões + Agenda · Mercado · Criar · Resultados.
