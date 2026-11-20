@@ -25868,25 +25868,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   };
   // Avisa o site do cliente: grava só os campos pedidos em reservas/<id>.
+  // S1/S2 parte 3 (item 21): o token de entrega mora SÓ em reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função)
+  // e é gravado ANTES de reservas/ ficar paga, em sequência — o e-mail "pagamento confirmado" nasce quando reservas/ fica paga e lê o token de lá.
   function pedReserva(p, campos) {
-    var f = {},
+    var sid = encodeURIComponent(p.sid),
+      f = {},
       m = Object.keys(campos)
+        .filter(function (k) {
+          return k !== 'tok';
+        })
         .map(function (k) {
           f[k] = typeof campos[k] === 'boolean' ? { booleanValue: campos[k] } : { stringValue: String(campos[k]) };
           return 'updateMask.fieldPaths=' + k;
         })
-        .join('&');
-    var r = nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
-    // S1/S2 parte 2 (19/11): o token de entrega vai também para reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função).
-    // Por enquanto continua também em reservas/ (o site antigo ainda lê de lá); quem para de gravar lá é a parte 3 (NUVEM, item 11).
-    if (campos.tok)
-      r = Promise.all([
-        r,
-        nvApi('PATCH', 'reservasTok/' + encodeURIComponent(p.sid) + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } }))
-      ]).then(function (x) {
-        return x[0];
-      });
-    return r;
+        .join('&'),
+      grava = function () {
+        return m ? nvApi('PATCH', 'reservas/' + sid + '?' + m, JSON.stringify({ fields: f })) : Promise.resolve();
+      };
+    if (!campos.tok) return grava();
+    return nvApi('PATCH', 'reservasTok/' + sid + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } })).then(grava);
   }
   function pedFalhaSite() {
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');

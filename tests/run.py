@@ -3611,7 +3611,7 @@ async def main():
             if not ok: falhas.append('B1 cliente do pedido'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # S1/S2 parte 2 (19/11/2026): pagamento confirmado grava o token também em reservasTok/<pedido>
+            # S1/S2 parte 3 (item 21): pagamento confirmado grava o token SÓ em reservasTok/<pedido>, e ANTES de reservas/ ficar paga
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               const nv0 = S.nuvem, f0 = window.fetch, ch = [];
@@ -3626,10 +3626,10 @@ async def main():
               const rTok = ch.find(c => c[0] === 'PATCH' && /^reservasTok\\/SIDTOK1\\?updateMask.fieldPaths=tok$/.test(c[1]));
               const rRes = ch.find(c => c[0] === 'PATCH' && /^reservas\\/SIDTOK1\\?/.test(c[1]));
               window.fetch = f0; S.pedidos = S.pedidos.filter(x => x.id !== 'pTK'); S.nuvem = nv0;
-              return [!!tok, !!rTok && rTok[2].fields.tok.stringValue === tok, !!rRes && rRes[2].fields.pago.booleanValue === true && rRes[2].fields.tok.stringValue === tok]; }""")
+              return [!!tok, !!rTok && rTok[2].fields.tok.stringValue === tok, !!rRes && rRes[2].fields.pago.booleanValue === true && !('tok' in rRes[2].fields) && !/fieldPaths=tok/.test(rRes[1]), ch.indexOf(rTok) < ch.indexOf(rRes)]; }""")
             total += 1
-            ok = got == [True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 2: pagamento confirmado grava o token em reservasTok (e continua em reservas até a parte 3)')
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 3: pagamento confirmado grava o token só em reservasTok, antes de reservas/ ficar paga')
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
