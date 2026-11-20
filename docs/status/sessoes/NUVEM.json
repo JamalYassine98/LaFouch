@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "S3 parte 3: fechar pedidos/ e vistas/ nas regras",
+ "arquivos": [
+  "firestore.rules"
+ ],
  "ultimas": [
   {
    "t": 1795214722.8282707,
