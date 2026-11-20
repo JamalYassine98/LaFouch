@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "App Check parte 3: nuvem confere o selo (só anota)",
- "arquivos": [
-  "functions/",
-  "firestore.rules"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795172699.4233468,
+   "r": "App Check parte 3 no código (modo anotar, trava no teste); itens 19 (NUVEM) e 20 (SITE) na Fila; falta o dono publicar"
+  },
   {
    "t": 1795169889.7779148,
    "r": "esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva"
