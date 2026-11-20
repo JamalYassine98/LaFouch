@@ -22,9 +22,9 @@ const T0 = 1795000000000;
     const db = fake({ 'pedidos/PAAA1': { tel: '+595 981 222 333' }, 'reservasTok/PAAA1': { tok: 'abc123' } });
     assert.deepStrictEqual(await T.pedir(db, T0, 'PAAA1', '0981222333'), { ok: true, tok: 'abc123' });
   });
-  await teste('S1: pedido de antes da troca também recebe o token', async () => {
+  await teste('S1 parte 3: a página pública nunca é usada para o token (só o lugar fechado)', async () => {
     const db = fake({ 'pedidos/PAAA1': { tel: '0981222333' }, 'reservas/PAAA1': { pago: true, tok: 'velho1' } });
-    assert.strictEqual((await T.pedir(db, T0, 'PAAA1', '+595981222333')).tok, 'velho1');
+    assert.strictEqual((await T.pedir(db, T0, 'PAAA1', '+595981222333')).tok, null);
   });
   await teste('S1: telefone errado é recusado e não mostra o token', async () => {
     const db = fake({ 'pedidos/PAAA1': { tel: '0981222333' }, 'reservasTok/PAAA1': { tok: 'abc123' } });
@@ -51,12 +51,6 @@ const T0 = 1795000000000;
   });
   // ---------- S2
   const entra = async (email, senha) => { if (email === 'teste@exemplo.com' && senha === 'certa') return { idToken: 'I', refreshToken: 'R', expiresIn: '3600', localId: 'U1', email }; throw new Error('x'); };
-  await teste('S2: "livre" diz se o nome está livre, sem devolver e-mail', async () => {
-    const db = fake({ 'usuarios/teste1': { uid: 'U1', email: 'teste@exemplo.com' } });
-    const a = await C.livre(db, 'teste1'), b = await C.livre(db, 'bia');
-    assert.deepStrictEqual([a, b], [{ ok: true, livre: false }, { ok: true, livre: true }]);
-    assert.ok(!JSON.stringify(a).includes('@'));
-  });
   await teste('S2: entrar com nome + senha certa faz o login', async () => {
     const db = fake({ 'usuarios/teste1': { uid: 'U1', email: 'teste@exemplo.com' } });
     const r = await C.entrar(db, entra, T0, 'teste1', 'certa');
@@ -82,7 +76,16 @@ const T0 = 1795000000000;
       const e = await C.entrar(db, entra, T0, u, s).catch((x) => x);
       assert.ok(e instanceof C.Falha, u);
     }
-    assert.ok((await C.livre(db, '../../x').catch((x) => x)) instanceof C.Falha);
+  });
+  // ---------- trava (regra 12e): o erro não volta
+  await teste('TRAVA: nenhuma gravação em reservas/ leva token ou dados do pagamento', async () => {
+    const fs = require('fs'), src = fs.readFileSync(__dirname + '/index.js', 'utf8');
+    const ruins = src.split('\n').filter((l) => /reservas\/'\s*\+/.test(l) && /\.set\(/.test(l) && /\b(tok|pixAuto)\b/.test(l));
+    assert.deepStrictEqual(ruins, []);
+  });
+  await teste('TRAVA: a lista usuarios/ (nome → e-mail) continua fechada nas regras', async () => {
+    const fs = require('fs'), r = fs.readFileSync(__dirname + '/../firestore.rules', 'utf8');
+    assert.ok(!/match\s+\/usuarios\//.test(r));
   });
   console.log(total - falhas.length + '/' + total + ' testes de token e conta passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);

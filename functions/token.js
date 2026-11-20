@@ -24,14 +24,8 @@ async function pedir(db, agora, pid, tel) {
     await db.set('reservasTok/' + pid, erros >= ERROS_MAX ? { erros: 0, trava: agora + TRAVA_MS } : { erros });
     throw new Falha('telefone');
   }
-  // pedidos de antes da troca
-  let tok = priv.tok || '';
-  if (!tok) {
-    const pub = (await db.get('reservas/' + pid)) || {};
-    tok = pub.tok || '';
-  }
   if (priv.erros) await db.set('reservasTok/' + pid, { erros: 0 });
-  return { ok: true, tok: tok || null };
+  return { ok: true, tok: priv.tok || null };
 }
 
 module.exports = { Falha, pedir, mesmoTel, ERROS_MAX, TRAVA_MS };

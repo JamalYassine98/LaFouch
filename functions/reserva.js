@@ -14,24 +14,13 @@ const { Falha } = require('./falha');
 
 const norm = (s) => String(s || '').trim().toLowerCase();
 // P1 (19/11/2026, aprovado): a lista pública estoque/<ref> NÃO leva mais o número do pedido — só um código embaralhado (h).
-// O site só usa cor, q, exp e pago. Reserva no formato antigo (com pid) é convertida na primeira vez que o documento é mexido.
+// O site só usa cor, q, exp e pago. (O formato antigo, com o número, foi convertido e saiu na parte 3 de 20/11.)
 const H = (pid) => require('crypto').createHash('sha256').update('lf-res|' + String(pid || '')).digest('hex').slice(0, 20);
 const chave = (pid, cor) => H(pid) + '~' + norm(cor);
-const mesmo = (r, pid) => !!r && (r.h === H(pid) || (r.pid != null && r.pid === pid));
+const mesmo = (r, pid) => !!r && r.h === H(pid);
 const valida = (r, agora) => !!r && (r.pago === true || +r.exp > agora);
-function normaliza(estq) {
-  const res = (estq && estq.res) || {}, out = {};
-  Object.keys(res).forEach((k) => {
-    const r = res[k];
-    if (!r) return;
-    if (r.pid != null) {
-      const n = Object.assign({}, r, { h: H(r.pid) });
-      delete n.pid;
-      out[n.h + '~' + norm(n.cor)] = n;
-    } else out[k] = r;
-  });
-  return { res: out };
-}
+// cópia da lista de reservas de um documento estoque/<ref> (para mexer sem alterar o lido)
+const copia = (estq) => ({ res: Object.assign({}, (estq && estq.res) || {}) });
 function acha(estq, pid, cor) {
   const res = (estq && estq.res) || {};
   const k = Object.keys(res).find((x) => mesmo(res[x], pid) && norm(res[x].cor) === norm(cor));
@@ -62,7 +51,7 @@ function reservadoDe(estq, cor, agora, ignoraPid) {
 }
 
 function limpa(estq, agora) {
-  const res = normaliza(estq).res;
+  const res = copia(estq).res;
   Object.keys(res).forEach((k) => {
     if (!valida(res[k], agora)) delete res[k];
   });
@@ -153,8 +142,8 @@ async function soltar(db, agora, pid, refs, soCliente) {
     }
     let presas = 0;
     lidos.forEach(({ ref, e }) => {
-      const res = normaliza(e).res;
-      let mexeu = !!Object.keys(e.res || {}).find((k) => e.res[k] && e.res[k].pid != null); // formato antigo: regrava sem o número
+      const res = copia(e).res;
+      let mexeu = false;
       Object.keys(res).forEach((k) => {
         if (!mesmo(res[k], pid)) return;
         if (soCliente && (res[k].pago === true || res[k].comp === true)) { presas++; return; }
@@ -181,7 +170,7 @@ async function orfas(db, refs, conhecidos) {
   for (const ref of refs || []) {
     const es = await db.collection('estoque').doc(ref).get();
     if (!es.exists) continue;
-    const res = normaliza(es.data()).res;
+    const res = copia(es.data()).res;
     Object.keys(res).forEach((k) => {
       const r = res[k];
       if (r && r.pago === true && r.h && !sabe.has(r.h)) out.push({ ref, h: r.h, cor: r.cor || '', q: +r.q || 0 });
@@ -200,7 +189,7 @@ async function liberarH(db, agora, h, refs) {
       if (es.exists) lidos.push({ ref, e: es.data() });
     }
     lidos.forEach(({ ref, e }) => {
-      const res = normaliza(e).res;
+      const res = copia(e).res;
       let mexeu = false;
       Object.keys(res).forEach((k) => {
         if (res[k] && res[k].h === h) { delete res[k]; mexeu = true; }
@@ -210,7 +199,7 @@ async function liberarH(db, agora, h, refs) {
     return { ok: true };
   });
 }
-// limpeza diária: tira o número do pedido das reservas antigas e apaga as vencidas (documentos parados que ninguém mexeu)
+// limpeza diária: apaga as reservas vencidas de documentos parados que ninguém mexeu
 async function arruma(db, agora, refs) {
   let mexidos = 0;
   for (const ref of refs || []) {
