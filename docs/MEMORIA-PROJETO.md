@@ -3260,3 +3260,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 20/11 09:14 — Ideia: SEMP (personal de marketing: tendências, distribuidoras de CDE, momento de comprar com o contador, agenda de vendas, direção dos vídeos); Guardião + Contador viram um só.
 - 20/11 09:17 — Semp: distribuidoras publicam em site, Instagram e WhatsApp; tendências = dados do site + vendas + Google Trends (refinar aos poucos); Guardião + Contador = 'Guardião'.
 - 20/11 09:21 — Semp: compras em US$, mensagem ao fornecedor em espanhol; aprende cada distribuidora uma vez.
+- 20/11 09:25 — Instagram comercial da loja ainda não existe (conta parada usa o nome da marca); Semp aprende com o máximo de lojas de óculos.
