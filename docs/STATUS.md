@@ -67,7 +67,6 @@
 
 ## Recados esperando
 
-- para **APP**: Conferido v584 (item 31, câmera branca): o código faz o 'como fazer' — a luz só vai para manual com o exposureTime em uso (e iso quando há), sem ele trava só fo
 - para **ESBOCO**: v585 (5.50.10) publicado 20/11 20:45 — item 32 URGENTE: o dono testou a v584 no celular (20:28, 2 prints): não ficou mais branco, mas ficou DESFOCADO e rosado, 
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
