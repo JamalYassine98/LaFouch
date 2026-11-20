@@ -52,7 +52,6 @@
 
 ## Recados esperando
 
-- para **APP**: Pendências da APP (20/11 10:30): (a) ordem do dono 09:39 via ESBOCO: trabalhar com o dono até terminar tudo, um passo por vez, CONSULTANDO a cada parte, e a cad
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
 - para **ESBOCO**: CORREÇÃO do meu recado da madrugada: o dono aprovou (20/11 08:17) COMPARADOR ÚNICO — o do site (work/s430/comparador/compara.py) com a lista de telas do app; NÃ
