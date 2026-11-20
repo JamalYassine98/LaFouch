@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "S3 parte 3: fechar pedidos/ e vistas/ nas regras",
- "arquivos": [
-  "firestore.rules"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795216249.9101667,
+   "r": "S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto."
+  },
   {
    "t": 1795214722.8282707,
    "r": "Lista docs/FALTA-PARA-LANCAR.md (o que falta para lançar, por quem faz) — pedido do dono 19:44."
@@ -40,10 +42,6 @@
   {
    "t": 1795190100.558251,
    "r": "Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21)."
-  },
-  {
-   "t": 1795179857.7595193,
-   "r": "Dono decidiu no S5+S7: sem inscritos de verdade → ao implementar, apagar as inscrições atuais (novidades e avise-me); S5S7 e S6S3 aprovados, esperando 'implementar'."
   }
  ],
  "leu": 1795216007.1472204
