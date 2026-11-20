@@ -53,6 +53,7 @@
 - **24-pagamento-parte-1-nuvem** — ✅ publicado 20/11 12:53 (run 44767418936, sonda 0 falhas) — parte 2 (robô do Gmail) e parte 3 (site/app, esboço) a seguir
 - **24-remendos-parte-3-confirmacoes** — ✅ v576 (5.50.1, 20/11) — 0 diferenças em 60 telas · APP
 - **25-remendos-parte-2a-destinos** — ✅ v577 (5.50.2, 20/11) — 42 destinos × botões iguais; 0 diferenças em 60 telas · APP
+- **26-remendos-parte-2b-grupos** — em andamento · APP · ordem do dono 20/11 10:04
 
 ## Recados esperando
 
