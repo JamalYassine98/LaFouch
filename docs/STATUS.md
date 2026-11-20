@@ -73,6 +73,7 @@
 - para **ESBOCO**: v582 (5.50.7) publicado 20/11 17:50 — item 29, remendos PARTE 4a (família Resultados, por dentro): Dashboard, tela do dia, Histórico e Pendências desenhados por
 - para **SITE**: S6 no ar (nuvem, 20/11 15:40): Cliente VIP agora é a pessoa LOGADA, nunca o telefone digitado. Para a VIP continuar vendo o presente até 20% a mais e a reserva 
 - para **SITE**: S3 parte 1 no ar (nuvem, 20/11 15:55; aprovado no S6S3; nenhuma tela muda): porta nova 'pedido' — https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/pe
+- para **SITE**: S3 (aprovado no S6S3; regra 12c): depois da parte 2 do pedido, na sua ordem — a contagem de peças abertas sai em DOIS lugares (vistaEnvia → vistas/ direto no ba
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
