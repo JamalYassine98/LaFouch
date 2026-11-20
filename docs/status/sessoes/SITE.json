@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "tirar o tema escuro (código morto) na cópia limpa + varredura de código morto com o site rodando",
+ "arquivos": [
+  "index.html",
+  "js/lf-site.js"
+ ],
  "ultimas": [
   {
    "t": 1795188547.3588982,
