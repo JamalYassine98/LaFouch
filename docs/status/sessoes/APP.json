@@ -1,12 +1,15 @@
 {
  "nome": "APP",
- "agora": "item 26: remendos parte 2b — iniLista e grpAbre numa função só",
+ "agora": "item 27: remendos parte 2c — setView e tabelas de nomes",
  "arquivos": [
+  "src/90-navegacao-dashboard.js",
   "src/89-inicio.js",
-  "src/95-barra-grupos.js",
+  "src/98-dash-cabecalho.js",
+  "src/98z-grupo-flecha-s41.js",
   "src/98z-s374.js",
   "src/98z-s374c-site.js",
   "src/98z-s374d-padrao.js",
+  "src/98z-dashboard-s48.js",
   "tests/run.py"
  ],
  "ultimas": [
