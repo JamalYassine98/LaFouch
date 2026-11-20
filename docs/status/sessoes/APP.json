@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "noite 20/11 (dono dormindo): conferir B3 v572, deixar esboço 16 pronto (comparador), estudo+plano dos remendos — nada em src/",
+ "arquivos": [
+  "work/s436/remendos",
+  "work/s436/banco",
+  "docs/PLANO-REMENDOS-20-11.md"
+ ],
  "ultimas": [
   {
    "t": 1795147235.4082952,
@@ -12,5 +16,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795147232.0139256
+ "leu": 1795149665.8977199
 }

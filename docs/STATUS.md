@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | noite 20/11 (dono dormindo): conferir B3 v572, deixar esboço 16 pronto (comparador), estudo+plano dos remendos — nada em src/ | work/s436/remendos, work/s436/banco, docs/PLANO-REMENDOS-20-11.md |
 | SITE | item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo | js/lf-site.js |
 
 ## Fila
