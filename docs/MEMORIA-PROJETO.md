@@ -3247,3 +3247,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 - 19/11/2026 23:03 APROVADO (dono): planta do banco parte 1 (work/s430/banco/planta1.png) — a ficha da peça guarda só fatos; o site calcula num lugar só aviso/selos, nome, tag, uv, cor, raio, rosto, gq; sai lib, gvc e l2; nada inventado (formato ou medida vazios = o site não mostra). Dono: peça sem essas informações nem deveria estar no site (pendente: quais campos são obrigatórios).
 - 19/11/2026 23:07 (dono): na ficha da peça TODAS as informações são obrigatórias menos a descrição (medidas, cor, preço, formato, material, público, foto…); peça incompleta não vai ao site; pode remover as 19 de hoje — o dono vai cadastrar as peças de novo. Fila item 16 (APP, esboço antes).
+- 19/11/2026 23:10 (dono): as 19 peças de hoje são de TESTE — não remover; o APP · implementa preenche as informações que faltam (Fila item 16); a regra 'peça incompleta não vai ao site' continua.
