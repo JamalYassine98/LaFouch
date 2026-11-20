@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 18: trava dos remendos no porteiro",
+ "arquivos": [
+  "tools/remendos.py",
+  "tests/run.py",
+  "tests/teto-remendos.json"
+ ],
  "ultimas": [
   {
    "t": 1795145762.0943031,

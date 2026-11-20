@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 18: trava dos remendos no porteiro | tools/remendos.py, tests/run.py, tests/teto-remendos.json |
 | SITE | test drive do comparador Hoje × Proposta (work/s430/comparador) | work/s430/comparador |
 
 ## Fila
