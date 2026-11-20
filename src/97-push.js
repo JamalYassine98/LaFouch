@@ -55,8 +55,8 @@
     avTocar(a['s' + tipo]);
   }
   function avMin(h) {
-    var m = /^(\d{1,2}):(\d{2})$/.exec(h || '');
-    return m ? +m[1] * 60 + +m[2] : 0;
+    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
+    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
   }
   function avQuieto(a) {
     if (!a.q) return false;
@@ -204,10 +204,6 @@
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
   var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
   var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
-  function avMin(h) {
-    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
-    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
-  }
   // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
   function avFaixa(a) {
     var i = avMin(a.qi) / 14.4,

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 580;
+  var APP_BUILD = 581;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -31158,19 +31158,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.cupAvL = (S.cupAvL || []).concat([{ ts: Date.now(), t: t, d: d }]).slice(-30);
   }
   ACT.cupAbre = function () {
-    lfJanela({
-      titulo: 'Cartões de desconto',
-      monta: function (c, J) {
-        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Carregando…</div>';
-        cupCarrega(function (j, off) {
-          if (!j) {
-            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Entre na nuvem (Ajustes › Nuvem) e conecte à internet para ver os cartões.</div>';
-            return;
-          }
-          cupDesenha(c, j, off);
-        });
-      }
-    });
+    cupVista = '';
+    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
+    setView('cup');
   };
   function cupDesenha(c, j, off) {
     var T = j.tipos || {},
@@ -34162,59 +34152,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   var EST_PASSOS = [[4, '1 · Monte o estúdio'], [13, '2 · Meça o fundo'], [25, '3 · Posicione a peça'], [36, '4 · Fotografe'], [43, '5 · Confira a nota'], [51, '6 · Faça a 3/4'], [58, '7 · Escolha a peça'], [66, 'Dicas']];
   function estTutorial() {
+    var P = [
+      ['prep', '1 · Prepare', 'Acenda a luz da caixa', 'Celular no tripé, de frente para o prato.'],
+      ['peca', '2 · A peça', 'Ponha a peça no meio do prato', 'De frente para a câmera, hastes abertas.'],
+      ['giro', '3 · O giro', 'Ligue o prato e toque em Começar', 'O app grava, confere e fecha sozinho.'],
+      ['ok', '4 · Pronto', 'Confira e toque em Salvar', 'Fotos, giro e vídeo vão para a peça e para o site.']
+    ],
+      Q = [['“Falta luz”', 'acenda ou aproxime a luz da caixa'], ['“Afaste um pouco”', 'a peça está saindo do quadro'], ['“Prato rápido demais”', 'diminua a velocidade do prato'], ['“Deixe o prato vazio”', 'ele está medindo o fundo, 2 segundos']];
     lfJanela({
       titulo: 'Como fotografar',
-      cls: 'estGuiaJn',
+      cls: 'estGuiaJn estTut263',
       monta: function (c) {
-        var aba = 'est';
-        var lista = function (grupos) {
-          return grupos.map(function (g) {
-            return '<div class="egG">' + g[0] + '</div>' + g[1].map(function (x) {
-              return '<div class="egIt"><span class="egIc ' + x[1] + '">' + (x[1] === 'dot' ? '<i></i>' : esc(x[0])) + '</span><div><b>' + esc(x[2]) + '</b><small>' + esc(x[3]) + '</small></div></div>';
-            }).join('');
-          }).join('');
-        };
-        var pinta = function () {
-          var h = '<div class="hint" style="margin:0 0 10px">O que cada botão faz · vídeo no fim</div><div class="egTabs">' +
-            [['est', 'Estúdio'], ['cam', 'Câmera'], ['dep', 'Depois'], ['vid', '▶ Vídeo']].map(function (t) {
-              return '<button type="button" data-t="' + t[0] + '" class="' + (aba === t[0] ? 'on' : '') + '">' + t[1] + '</button>';
-            }).join('') + '</div>';
-          if (aba !== 'vid') h += lista(EST_GUIA[aba]);
-          else
-            h += '<video class="egVid" id="egVid" src="estudio-tutorial.mp4" muted playsinline controls preload="metadata"></video><div class="egG">No vídeo · toque para pular</div>' +
-              EST_PASSOS.map(function (p) {
-                return '<button type="button" class="egIt egPs" data-s="' + p[0] + '"><span class="egIc">' + Math.floor(p[0] / 60) + ':' + ('0' + (p[0] % 60)).slice(-2) + '</span><div><b>' + p[1] + '</b></div></button>';
-              }).join('');
-          c.innerHTML = h;
-          var v = $('egVid');
-          if (v) {
-            v.muted = true;
-            v.onerror = function () {
-              // APK antigo: o vídeo ainda não veio com o app → busca no site
-              if (!v._alt) {
-                v._alt = 1;
-                v.src = UPD_URL + 'estudio-tutorial.mp4';
-              }
-            };
-            v.play().catch(function () {});
-          }
-        };
-        pinta();
-        c.onclick = function (e) {
-          var b = e.target.closest('button');
-          if (!b) return;
-          if (b.dataset.t) {
-            aba = b.dataset.t;
-            return pinta();
-          }
-          if (b.dataset.s) {
-            var v = $('egVid');
-            if (v) {
-              v.currentTime = +b.dataset.s;
-              v.play().catch(function () {});
-            }
-          }
-        };
+        c.innerHTML = '<p class="t263S">Quatro passos. O resto o app faz sozinho.</p>' +
+          P.map(function (x) {
+            return '<div class="t263P"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + S263_ICO[x[0]] + '</svg><div><small>' + x[1] + '</small><b>' + x[2] + '</b><span>' + x[3] + '</span></div></div>';
+          }).join('') +
+          '<div class="lbl t263L">Se o app pedir</div>' + Q.map(function (x) { return '<div class="t263Q"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
       }
     });
   }
@@ -37849,12 +37802,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // ---- central ----
   function mkAbre() {
-    mkKit();
-    lfJanela({
-      titulo: 'Marketing',
-      cls: 'mkJn',
-      monta: function (c, J) { mkMonta(c, J); }
-    });
+    S._gAt = 'g:mkt';
+    setView('mkt');
   }
   // S374 (esboço 98): o conteúdo do Marketing é montado por mkMonta — na tela do app (#v-mkt) ou, antigo, numa janela
   function mkMonta(c, J) {
@@ -41148,8 +41097,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     avTocar(a['s' + tipo]);
   }
   function avMin(h) {
-    var m = /^(\d{1,2}):(\d{2})$/.exec(h || '');
-    return m ? +m[1] * 60 + +m[2] : 0;
+    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
+    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
   }
   function avQuieto(a) {
     if (!a.q) return false;
@@ -41297,10 +41246,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
   var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
   var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
-  function avMin(h) {
-    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
-    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
-  }
   // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
   function avFaixa(a) {
     var i = avMin(a.qi) / 14.4,
@@ -45282,7 +45227,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function famZera() { if (S._famV !== S.view) { S._fam = {}; S._famV = S.view; } }
   ACT.famAbre = function (k) { S._fam[k] = 1; render(); };
-  ACT.famNum = function () { S.dTab = 'hoje'; setView('dash'); };
+  // quem abre o Dashboard com o período em "Hoje" cai nos blocos do dia
+  ACT.famNum = function () { S.dTab = 'hoje'; if (S.per === 'hoje') S.per = 'mes'; setView('dash'); };
 
   function famDinheiro() {
     var v = $('v-caixa');
@@ -48501,9 +48447,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }).join(''));
   };
   ACT.dPer = function () {
+    var per = d48Hoje() ? 'hoje' : S.per;
     lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span></div>' + PER_OP.map(function (o) {
-      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), S.per === o[0], false);
-    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', S.per === 'custom' ? perDatas('custom') : 'de um dia até outro', S.per === 'custom', true));
+      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), per === o[0], false);
+    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', per === 'custom' ? perDatas('custom') : 'de um dia até outro', per === 'custom', true));
   };
   ACT.dFecha = function () {
     lfaFecha('dFolha');
@@ -48518,6 +48465,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.dPerEsc = function (id) {
     lfaFecha('dFolha');
     S.per = id;
+    if (id === 'hoje') { S.day = dayKey(Date.now()); return setView('dia'); }
+    S.dTab = 'hoje';
+    if (S.view !== 'dash') return setView('dash');
     renderDash();
   };
   // ===== Fechamento do caixa: automático (depois das 17h, ou dias passados sem registro) e flexível (o dono fecha quando quiser). =====
@@ -50594,26 +50544,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     giro: '<path d="M5 15c0 2 3 3 7 3s7-1 7-3-3-3-7-3-7 1-7 3zM12 12V7M8 5a4 4 0 0 1 8 0"/><path d="M16 3v2h-2"/>',
     ok: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'
   };
-  estTutorial = function () {
-    var P = [
-      ['prep', '1 · Prepare', 'Acenda a luz da caixa', 'Celular no tripé, de frente para o prato.'],
-      ['peca', '2 · A peça', 'Ponha a peça no meio do prato', 'De frente para a câmera, hastes abertas.'],
-      ['giro', '3 · O giro', 'Ligue o prato e toque em Começar', 'O app grava, confere e fecha sozinho.'],
-      ['ok', '4 · Pronto', 'Confira e toque em Salvar', 'Fotos, giro e vídeo vão para a peça e para o site.']
-    ],
-      Q = [['“Falta luz”', 'acenda ou aproxime a luz da caixa'], ['“Afaste um pouco”', 'a peça está saindo do quadro'], ['“Prato rápido demais”', 'diminua a velocidade do prato'], ['“Deixe o prato vazio”', 'ele está medindo o fundo, 2 segundos']];
-    lfJanela({
-      titulo: 'Como fotografar',
-      cls: 'estGuiaJn estTut263',
-      monta: function (c) {
-        c.innerHTML = '<p class="t263S">Quatro passos. O resto o app faz sozinho.</p>' +
-          P.map(function (x) {
-            return '<div class="t263P"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + S263_ICO[x[0]] + '</svg><div><small>' + x[1] + '</small><b>' + x[2] + '</b><span>' + x[3] + '</span></div></div>';
-          }).join('') +
-          '<div class="lbl t263L">Se o app pedir</div>' + Q.map(function (x) { return '<div class="t263Q"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
-      }
-    });
-  };
   // ===== 149cam (aprovado 19/11/2026 18:39; "implementar" 19:25 — item 15 da Fila, parte 1) — desenho da câmera do Estúdio =====
   // Esboços: work/estudio-camera/esboco_camera_deitado.jpg e esboco_camera_empe.jpg.
   // Deitado: a câmera ocupa a altura inteira; à esquerda (fora da imagem) o ×, a etiqueta da peça e o aviso; à direita ajustes, disparo e Galeria.
@@ -51351,22 +51281,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     renderDash();
     animEnter($('dtabBody'));
   };
-  ACT.dPer = function () {
-    var per = d48Hoje() ? 'hoje' : S.per;
-    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span></div>' + PER_OP.map(function (o) {
-      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), per === o[0], false);
-    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', per === 'custom' ? perDatas('custom') : 'de um dia até outro', per === 'custom', true));
-  };
-  ACT.dPerEsc = function (id) {
-    lfaFecha('dFolha');
-    S.per = id;
-    if (id === 'hoje') { S.day = dayKey(Date.now()); return setView('dia'); }
-    S.dTab = 'hoje';
-    if (S.view !== 'dash') return setView('dash');
-    renderDash();
-  };
-  // quem abre o Dashboard com o período em "Hoje" cai nos blocos do dia; "Ver todos os números" deixou de existir
-  ACT.famNum = function () { S.dTab = 'hoje'; if (S.per === 'hoje') S.per = 'mes'; setView('dash'); };
   // ===== S364 (16/11/2026) · UMA FOLHA SÓ — regra aprovada em 15/11 16:04 e corrigida em 15/11 16:54 =====
   // Toda folha do app fecha do mesmo jeito: a FAIXA DE CIMA inteira arrasta para baixo (dedo e mouse), tocar fora fecha e Esc fecha.
   // Cada tipo de folha continua com o seu código; este módulo só completa o que faltava em cada um:
@@ -52302,11 +52216,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   }
   aposRender(renderCup);
-  ACT.cupAbre = function () {
-    cupVista = '';
-    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
-    setView('cup');
-  };
 
   // ===== S374 · esboços 93–97 (aprovados 17/11/2026 10:36, "implementar tudo") =====
   // 94: o painel do site vira tela do app (sem topo/barra/título próprios; cores do app; ?app=2 liga o modo integrado no painel).
@@ -52551,11 +52460,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   aposRender(renderMkt);
-  mkAbre = function () {
-    S._gAt = 'g:mkt';
-    setView('mkt');
-  };
-  ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
   // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
   var _histLista99 = histLista;
   histLista = function () {

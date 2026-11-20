@@ -3655,6 +3655,23 @@ async def main():
             if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 28 (20/11/2026): trocas inteiras — cada uma ficou só com a versão que vale, no arquivo da família
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              L.inicioGo('mkt'); await w(250); R.push(S.view === 'mkt' && S._gAt === 'g:mkt');
+              L.ACT.cupAbre(); await w(250); R.push(S.view === 'cup');
+              L.ACT.stAbre('mkt'); await w(250); R.push(S.view === 'mkt');
+              S.per = 'hoje'; L.ACT.famNum(); await w(250); R.push(S.view === 'dash' && S.per === 'mes' && S.dTab === 'hoje');
+              L.ACT.dPer(); await w(300); R.push(!!document.querySelector('[data-act="dPerEsc"]'));
+              L.ACT.dPerEsc('hoje'); await w(300); R.push(S.view === 'dia');
+              L.estTutorial(); await w(350); R.push(document.querySelectorAll('.estTut263 .t263P').length === 4);
+              return R; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 28: Marketing, Cartões, período do Dashboard e tutorial do Estúdio abrem pela versão única')
+            if not ok: falhas.append('item 28 trocas inteiras'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Item 27 (20/11/2026): remendos parte 2c — ninguém troca o setView; nome/frase de tela escrito UMA vez
             # (chave que já está na lista inicial de BARRA_NOME, GRP_FRASE ou DT_FRASE não pode ser escrita de novo em outro lugar)
             total += 1

@@ -139,11 +139,6 @@
     }
   }
   aposRender(renderMkt);
-  mkAbre = function () {
-    S._gAt = 'g:mkt';
-    setView('mkt');
-  };
-  ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
   // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
   var _histLista99 = histLista;
   histLista = function () {

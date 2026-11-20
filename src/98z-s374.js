@@ -352,9 +352,4 @@
     });
   }
   aposRender(renderCup);
-  ACT.cupAbre = function () {
-    cupVista = '';
-    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
-    setView('cup');
-  };
 

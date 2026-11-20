@@ -86,23 +86,3 @@
     giro: '<path d="M5 15c0 2 3 3 7 3s7-1 7-3-3-3-7-3-7 1-7 3zM12 12V7M8 5a4 4 0 0 1 8 0"/><path d="M16 3v2h-2"/>',
     ok: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'
   };
-  estTutorial = function () {
-    var P = [
-      ['prep', '1 · Prepare', 'Acenda a luz da caixa', 'Celular no tripé, de frente para o prato.'],
-      ['peca', '2 · A peça', 'Ponha a peça no meio do prato', 'De frente para a câmera, hastes abertas.'],
-      ['giro', '3 · O giro', 'Ligue o prato e toque em Começar', 'O app grava, confere e fecha sozinho.'],
-      ['ok', '4 · Pronto', 'Confira e toque em Salvar', 'Fotos, giro e vídeo vão para a peça e para o site.']
-    ],
-      Q = [['“Falta luz”', 'acenda ou aproxime a luz da caixa'], ['“Afaste um pouco”', 'a peça está saindo do quadro'], ['“Prato rápido demais”', 'diminua a velocidade do prato'], ['“Deixe o prato vazio”', 'ele está medindo o fundo, 2 segundos']];
-    lfJanela({
-      titulo: 'Como fotografar',
-      cls: 'estGuiaJn estTut263',
-      monta: function (c) {
-        c.innerHTML = '<p class="t263S">Quatro passos. O resto o app faz sozinho.</p>' +
-          P.map(function (x) {
-            return '<div class="t263P"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + S263_ICO[x[0]] + '</svg><div><small>' + x[1] + '</small><b>' + x[2] + '</b><span>' + x[3] + '</span></div></div>';
-          }).join('') +
-          '<div class="lbl t263L">Se o app pedir</div>' + Q.map(function (x) { return '<div class="t263Q"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
-      }
-    });
-  };

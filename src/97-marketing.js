@@ -601,12 +601,8 @@
   }
   // ---- central ----
   function mkAbre() {
-    mkKit();
-    lfJanela({
-      titulo: 'Marketing',
-      cls: 'mkJn',
-      monta: function (c, J) { mkMonta(c, J); }
-    });
+    S._gAt = 'g:mkt';
+    setView('mkt');
   }
   // S374 (esboço 98): o conteúdo do Marketing é montado por mkMonta — na tela do app (#v-mkt) ou, antigo, numa janela
   function mkMonta(c, J) {

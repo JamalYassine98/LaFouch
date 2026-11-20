@@ -1,1 +1,1 @@
-{"v":580,"nat":1,"nome":"5.50.5","notas":["Segurança dos pedidos do site (parte 3): o código de entrega e a confirmação automática do PIX passam a ficar só na área fechada da nuvem. O app grava o código antes de marcar o pedido como pago e lê a confirmação do PIX de lá."]}
+{"v":581,"nat":1,"nome":"5.50.6","notas":["Arrumação por dentro: 8 funções que tinham sido reescritas em outro arquivo (Marketing, Cartões, tutorial do Estúdio, período do Dashboard…) ficaram só com a versão que vale, no lugar certo. Nenhuma tela muda."]}

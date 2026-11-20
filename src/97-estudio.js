@@ -1852,59 +1852,22 @@
   };
   var EST_PASSOS = [[4, '1 · Monte o estúdio'], [13, '2 · Meça o fundo'], [25, '3 · Posicione a peça'], [36, '4 · Fotografe'], [43, '5 · Confira a nota'], [51, '6 · Faça a 3/4'], [58, '7 · Escolha a peça'], [66, 'Dicas']];
   function estTutorial() {
+    var P = [
+      ['prep', '1 · Prepare', 'Acenda a luz da caixa', 'Celular no tripé, de frente para o prato.'],
+      ['peca', '2 · A peça', 'Ponha a peça no meio do prato', 'De frente para a câmera, hastes abertas.'],
+      ['giro', '3 · O giro', 'Ligue o prato e toque em Começar', 'O app grava, confere e fecha sozinho.'],
+      ['ok', '4 · Pronto', 'Confira e toque em Salvar', 'Fotos, giro e vídeo vão para a peça e para o site.']
+    ],
+      Q = [['“Falta luz”', 'acenda ou aproxime a luz da caixa'], ['“Afaste um pouco”', 'a peça está saindo do quadro'], ['“Prato rápido demais”', 'diminua a velocidade do prato'], ['“Deixe o prato vazio”', 'ele está medindo o fundo, 2 segundos']];
     lfJanela({
       titulo: 'Como fotografar',
-      cls: 'estGuiaJn',
+      cls: 'estGuiaJn estTut263',
       monta: function (c) {
-        var aba = 'est';
-        var lista = function (grupos) {
-          return grupos.map(function (g) {
-            return '<div class="egG">' + g[0] + '</div>' + g[1].map(function (x) {
-              return '<div class="egIt"><span class="egIc ' + x[1] + '">' + (x[1] === 'dot' ? '<i></i>' : esc(x[0])) + '</span><div><b>' + esc(x[2]) + '</b><small>' + esc(x[3]) + '</small></div></div>';
-            }).join('');
-          }).join('');
-        };
-        var pinta = function () {
-          var h = '<div class="hint" style="margin:0 0 10px">O que cada botão faz · vídeo no fim</div><div class="egTabs">' +
-            [['est', 'Estúdio'], ['cam', 'Câmera'], ['dep', 'Depois'], ['vid', '▶ Vídeo']].map(function (t) {
-              return '<button type="button" data-t="' + t[0] + '" class="' + (aba === t[0] ? 'on' : '') + '">' + t[1] + '</button>';
-            }).join('') + '</div>';
-          if (aba !== 'vid') h += lista(EST_GUIA[aba]);
-          else
-            h += '<video class="egVid" id="egVid" src="estudio-tutorial.mp4" muted playsinline controls preload="metadata"></video><div class="egG">No vídeo · toque para pular</div>' +
-              EST_PASSOS.map(function (p) {
-                return '<button type="button" class="egIt egPs" data-s="' + p[0] + '"><span class="egIc">' + Math.floor(p[0] / 60) + ':' + ('0' + (p[0] % 60)).slice(-2) + '</span><div><b>' + p[1] + '</b></div></button>';
-              }).join('');
-          c.innerHTML = h;
-          var v = $('egVid');
-          if (v) {
-            v.muted = true;
-            v.onerror = function () {
-              // APK antigo: o vídeo ainda não veio com o app → busca no site
-              if (!v._alt) {
-                v._alt = 1;
-                v.src = UPD_URL + 'estudio-tutorial.mp4';
-              }
-            };
-            v.play().catch(function () {});
-          }
-        };
-        pinta();
-        c.onclick = function (e) {
-          var b = e.target.closest('button');
-          if (!b) return;
-          if (b.dataset.t) {
-            aba = b.dataset.t;
-            return pinta();
-          }
-          if (b.dataset.s) {
-            var v = $('egVid');
-            if (v) {
-              v.currentTime = +b.dataset.s;
-              v.play().catch(function () {});
-            }
-          }
-        };
+        c.innerHTML = '<p class="t263S">Quatro passos. O resto o app faz sozinho.</p>' +
+          P.map(function (x) {
+            return '<div class="t263P"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + S263_ICO[x[0]] + '</svg><div><small>' + x[1] + '</small><b>' + x[2] + '</b><span>' + x[3] + '</span></div></div>';
+          }).join('') +
+          '<div class="lbl t263L">Se o app pedir</div>' + Q.map(function (x) { return '<div class="t263Q"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
       }
     });
   }

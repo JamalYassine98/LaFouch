@@ -60,9 +60,10 @@
     }).join(''));
   };
   ACT.dPer = function () {
+    var per = d48Hoje() ? 'hoje' : S.per;
     lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span></div>' + PER_OP.map(function (o) {
-      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), S.per === o[0], false);
-    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', S.per === 'custom' ? perDatas('custom') : 'de um dia até outro', S.per === 'custom', true));
+      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), per === o[0], false);
+    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', per === 'custom' ? perDatas('custom') : 'de um dia até outro', per === 'custom', true));
   };
   ACT.dFecha = function () {
     lfaFecha('dFolha');
@@ -77,5 +78,8 @@
   ACT.dPerEsc = function (id) {
     lfaFecha('dFolha');
     S.per = id;
+    if (id === 'hoje') { S.day = dayKey(Date.now()); return setView('dia'); }
+    S.dTab = 'hoje';
+    if (S.view !== 'dash') return setView('dash');
     renderDash();
   };

@@ -2,25 +2,6 @@
  "modulos": 166,
  "cadeias": [
   {
-   "nome": "avMin",
-   "forma": "função",
-   "elos": [
-    {
-     "f": "97-push.js",
-     "l": 57,
-     "linhas": 4,
-     "tipo": "MORTA (declarada de novo depois; nunca roda)"
-    },
-    {
-     "f": "97-push.js",
-     "l": 207,
-     "linhas": 4,
-     "tipo": "base"
-    }
-   ],
-   "mortasPorTroca": []
-  },
-  {
    "nome": "mcInicio",
    "forma": "função",
    "elos": [
@@ -324,7 +305,7 @@
     },
     {
      "f": "97y-familias-s265.js",
-     "l": 55,
+     "l": 56,
      "linhas": 5,
      "tipo": "acréscimo depois",
      "prof": 0,
@@ -345,7 +326,7 @@
     },
     {
      "f": "97y-familias-s265.js",
-     "l": 114,
+     "l": 115,
      "linhas": 5,
      "tipo": "acréscimo depois",
      "prof": 0,
@@ -424,29 +405,6 @@
     }
    ],
    "mortasPorTroca": []
-  },
-  {
-   "nome": "estTutorial",
-   "forma": "função",
-   "elos": [
-    {
-     "f": "97-estudio.js",
-     "l": 1854,
-     "linhas": 57,
-     "tipo": "base"
-    },
-    {
-     "f": "98z-camera-s262.js",
-     "l": 89,
-     "linhas": 20,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "97-estudio.js:1854"
-   ]
   },
   {
    "nome": "renderDash",
@@ -578,29 +536,6 @@
    "mortasPorTroca": []
   },
   {
-   "nome": "mkAbre",
-   "forma": "função",
-   "elos": [
-    {
-     "f": "97-marketing.js",
-     "l": 603,
-     "linhas": 8,
-     "tipo": "base"
-    },
-    {
-     "f": "98z-s374d-padrao.js",
-     "l": 142,
-     "linhas": 4,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "97-marketing.js:603"
-   ]
-  },
-  {
    "nome": "histLista",
    "forma": "função",
    "elos": [
@@ -612,7 +547,7 @@
     },
     {
      "f": "98z-s374d-padrao.js",
-     "l": 149,
+     "l": 144,
      "linhas": 5,
      "tipo": "acréscimo depois",
      "prof": 0,
@@ -633,7 +568,7 @@
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 164,
+     "l": 162,
      "linhas": 36,
      "tipo": "troca tudo",
      "prof": 1,
@@ -687,30 +622,6 @@
    "mortasPorTroca": []
   },
   {
-   "nome": "ACT.cupAbre",
-   "forma": "ação",
-   "elos": [
-    {
-     "f": "97-cupons.js",
-     "l": 203,
-     "linhas": 15,
-     "tipo": "base",
-     "prof": 0
-    },
-    {
-     "f": "98z-s374.js",
-     "l": 355,
-     "linhas": 5,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "97-cupons.js:203"
-   ]
-  },
-  {
    "nome": "ACT.hfopen",
    "forma": "ação",
    "elos": [
@@ -731,30 +642,6 @@
     }
    ],
    "mortasPorTroca": []
-  },
-  {
-   "nome": "ACT.famNum",
-   "forma": "ação",
-   "elos": [
-    {
-     "f": "97y-familias-s265.js",
-     "l": 43,
-     "linhas": 1,
-     "tipo": "base",
-     "prof": 0
-    },
-    {
-     "f": "98z-dashboard-s48.js",
-     "l": 235,
-     "linhas": 1,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "97y-familias-s265.js:43"
-   ]
   },
   {
    "nome": "ACT.cartrm",
@@ -821,36 +708,12 @@
    ]
   },
   {
-   "nome": "ACT.dPer",
-   "forma": "ação",
-   "elos": [
-    {
-     "f": "98-dash-cabecalho.js",
-     "l": 62,
-     "linhas": 5,
-     "tipo": "base",
-     "prof": 0
-    },
-    {
-     "f": "98z-dashboard-s48.js",
-     "l": 220,
-     "linhas": 6,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "98-dash-cabecalho.js:62"
-   ]
-  },
-  {
    "nome": "ACT.dVerEsc",
    "forma": "ação",
    "elos": [
     {
      "f": "98-dash-cabecalho.js",
-     "l": 70,
+     "l": 71,
      "linhas": 7,
      "tipo": "base",
      "prof": 0
@@ -873,31 +736,7 @@
     }
    ],
    "mortasPorTroca": [
-    "98-dash-cabecalho.js:70"
-   ]
-  },
-  {
-   "nome": "ACT.dPerEsc",
-   "forma": "ação",
-   "elos": [
-    {
-     "f": "98-dash-cabecalho.js",
-     "l": 77,
-     "linhas": 5,
-     "tipo": "base",
-     "prof": 0
-    },
-    {
-     "f": "98z-dashboard-s48.js",
-     "l": 226,
-     "linhas": 8,
-     "tipo": "troca tudo",
-     "prof": 0,
-     "guarda": ""
-    }
-   ],
-   "mortasPorTroca": [
-    "98-dash-cabecalho.js:77"
+    "98-dash-cabecalho.js:71"
    ]
   },
   {
@@ -942,28 +781,6 @@
      "tipo": "antes e depois",
      "prof": 0,
      "guarda": "_despAb74"
-    }
-   ],
-   "mortasPorTroca": []
-  },
-  {
-   "nome": "ACT.stAbre",
-   "forma": "ação",
-   "elos": [
-    {
-     "f": "98z-s374.js",
-     "l": 58,
-     "linhas": 5,
-     "tipo": "base",
-     "prof": 0
-    },
-    {
-     "f": "98z-s374d-padrao.js",
-     "l": 146,
-     "linhas": 1,
-     "tipo": "aponta para outra",
-     "prof": 0,
-     "guarda": ""
     }
    ],
    "mortasPorTroca": []
@@ -1079,14 +896,14 @@
    "de": "renderCaixa",
    "em": "_rcFam",
    "f": "97y-familias-s265.js",
-   "l": 54,
+   "l": 55,
    "prof": 0
   },
   {
    "de": "renderDay",
    "em": "_rdFam",
    "f": "97y-familias-s265.js",
-   "l": 113,
+   "l": 114,
    "prof": 0
   },
   {
@@ -1247,7 +1064,7 @@
    "de": "histLista",
    "em": "_histLista99",
    "f": "98z-s374d-padrao.js",
-   "l": 148,
+   "l": 143,
    "prof": 0
   }
  ],
@@ -1657,7 +1474,7 @@
    "poe": [
     {
      "f": "97-push.js",
-     "l": 385
+     "l": 381
     }
    ],
    "usa": 4,
@@ -1704,27 +1521,27 @@
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 65
+     "l": 63
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 66
+     "l": 64
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 73
+     "l": 71
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 74
+     "l": 72
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 80
+     "l": 78
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 81
+     "l": 79
     }
    ],
    "usa": 5,
@@ -1746,7 +1563,7 @@
     },
     {
      "f": "99c-navegacao-s435.js",
-     "l": 217
+     "l": 215
     }
    ],
    "usa": 1,
@@ -1825,7 +1642,7 @@
    "poe": [
     {
      "f": "97-push.js",
-     "l": 388
+     "l": 384
     }
    ],
    "usa": 2,
@@ -2098,7 +1915,7 @@
    "poe": [
     {
      "f": "97-push.js",
-     "l": 386
+     "l": 382
     }
    ],
    "usa": 0,
@@ -2109,7 +1926,7 @@
    "poe": [
     {
      "f": "97-push.js",
-     "l": 387
+     "l": 383
     }
    ],
    "usa": 0,
@@ -2335,7 +2152,7 @@
    "poe": [
     {
      "f": "99c-navegacao-s435.js",
-     "l": 86
+     "l": 84
     }
    ],
    "usa": 0,
@@ -2346,7 +2163,7 @@
    "poe": [
     {
      "f": "99c-navegacao-s435.js",
-     "l": 377
+     "l": 375
     }
    ],
    "usa": 0,
@@ -2357,7 +2174,7 @@
    "poe": [
     {
      "f": "99c-navegacao-s435.js",
-     "l": 394
+     "l": 392
     }
    ],
    "usa": 0,

@@ -201,19 +201,9 @@
     S.cupAvL = (S.cupAvL || []).concat([{ ts: Date.now(), t: t, d: d }]).slice(-30);
   }
   ACT.cupAbre = function () {
-    lfJanela({
-      titulo: 'Cartões de desconto',
-      monta: function (c, J) {
-        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Carregando…</div>';
-        cupCarrega(function (j, off) {
-          if (!j) {
-            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Entre na nuvem (Ajustes › Nuvem) e conecte à internet para ver os cartões.</div>';
-            return;
-          }
-          cupDesenha(c, j, off);
-        });
-      }
-    });
+    cupVista = '';
+    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
+    setView('cup');
   };
   function cupDesenha(c, j, off) {
     var T = j.tipos || {},

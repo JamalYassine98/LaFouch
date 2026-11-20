@@ -40,7 +40,8 @@
   }
   function famZera() { if (S._famV !== S.view) { S._fam = {}; S._famV = S.view; } }
   ACT.famAbre = function (k) { S._fam[k] = 1; render(); };
-  ACT.famNum = function () { S.dTab = 'hoje'; setView('dash'); };
+  // quem abre o Dashboard com o período em "Hoje" cai nos blocos do dia
+  ACT.famNum = function () { S.dTab = 'hoje'; if (S.per === 'hoje') S.per = 'mes'; setView('dash'); };
 
   function famDinheiro() {
     var v = $('v-caixa');
