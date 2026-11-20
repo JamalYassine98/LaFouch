@@ -1,0 +1,62 @@
+<!doctype html><html lang="pt"><meta charset="utf-8"><style>
+body{margin:0;background:#f6eef2;font:14px/1.4 Inter,system-ui,sans-serif;color:#2a1b24;width:420px}
+.pg{padding:24px 16px 32px}
+h1{font:600 24px/1.15 Georgia,serif;margin:0 0 4px}
+.sub{color:#6d5563;font-size:13px;margin:0 0 16px}
+.bx{background:#fff;border-radius:16px;padding:16px;margin:0 0 16px;border:1px solid #ead9e2}
+.bx h2{font:700 15px/1.2 Inter,sans-serif;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.bx p{margin:0 0 8px;color:#6d5563;font-size:13px}
+.d{width:12px;height:12px;border-radius:50%;flex:none}
+.ok .d{background:#2e7d32}.cal .d{background:#c9a227}.mo .d{background:#c62828}.pr .d{background:#8d3a69}
+.r{display:grid;grid-template-columns:76px 1fr;gap:8px;padding:8px 0;border-top:1px solid #f1e6ec;font-size:13px}
+.r b{font:600 12px/1.4 ui-monospace,Menlo,monospace;color:#8d3a69}
+.r span small{color:#8a7280}
+.seta{text-align:center;color:#8d3a69;font-size:13px;margin:-8px 0 8px}
+.nv{background:#2a1b24;color:#fff}.nv h2{color:#fff}.nv p{color:#e6d3de}.nv .r{border-color:#4a3542}.nv .r b{color:#f3b6d4}
+</style><body><div class="pg">
+<h1>Planta do banco · parte 1</h1>
+<p class="sub">A ficha da peça (coleção <b>produtos</b>), lida de verdade na nuvem em 19/11: 19 peças, 36 campos. Quem grava: o app. Quem lê: o site.</p>
+
+<div class="bx ok"><h2><i class="d"></i>Ficam: são fatos (25)</h2><p>Só o app sabe; o site não consegue calcular.</p>
+<div class="r"><b>ref</b><span>código da peça</span></div>
+<div class="r"><b>tipo</b><span>armação · leitura · solar · acessório</span></div>
+<div class="r"><b>n · de · ofAte</b><span>preço, preço antes da oferta, fim da oferta</span></div>
+<div class="r"><b>est</b><span>quantas peças tem</span></div>
+<div class="r"><b>cores · cn · qs</b><span>cor, nome da cor e quantidade de cada cor</span></div>
+<div class="r"><b>gen · mat · fm · mr</b><span>público, material, formato, marca</span></div>
+<div class="r"><b>med · pol</b><span>medidas, polarizado</span></div>
+<div class="r"><b>gr · gc</b><span>graus e quantidade de cada grau em cada cor</span></div>
+<div class="r"><b>cad</b><span>dia em que chegou</span></div>
+<div class="r"><b>desc · mv</b><span>descrição, posição nas mais vendidas</span></div>
+<div class="r"><b>fv · gv · gn</b><span>versão das fotos e do giro</span></div>
+<div class="r"><b>cmx · oculto</b><span>desconto máximo do cupom, escondida</span></div>
+</div>
+
+<div class="bx cal"><h2><i class="d"></i>Saem: o site calcula num lugar só (10)</h2><p>São contas feitas a partir dos fatos. Gravadas prontas, ficam velhas e brigam com o fato.</p>
+<div class="r"><b>aviso</b><span>"Últimas 3 unidades" escrito pronto <small>← vem de est. É a raiz do bug dos selos.</small></span></div>
+<div class="r"><b>nome</b><span>"Armação acetato roxa" <small>← vem de tipo + marca + formato</small></span></div>
+<div class="r"><b>tag · uv</b><span>"ARMAÇÃO", proteção UV <small>← vêm de tipo</small></span></div>
+<div class="r"><b>cor</b><span>= a primeira de cores</span></div>
+<div class="r"><b>raio · rosto</b><span>curva do desenho e rostos que combinam <small>← vêm do formato</small></span></div>
+<div class="r"><b>gq</b><span>= soma de gc de cada grau</span></div>
+<div class="r"><b>lib · gvc</b><span>sempre "sim" e sempre 0 nas 19 peças</span></div>
+</div>
+
+<div class="bx mo"><h2><i class="d"></i>Sai: morto (1)</h2>
+<div class="r"><b>l2</b><span>Leve 2. O código saiu do site; ninguém lê mais</span></div>
+</div>
+
+<div class="bx pr"><h2><i class="d"></i>Problemas achados na raiz</h2>
+<div class="r"><b>Inventado</b><span>16 de 19 peças dizem rosto "oval" só porque o formato está vazio. O "Ideal para o seu rosto" da câmera ia mentir.</span></div>
+<div class="r"><b>Inventado</b><span>18 de 19 peças estão sem medidas, e o site inventa medidas a partir do código da peça.</span></div>
+<div class="r"><b>Selo</b><span>Selo do tema decidido em 2 lugares do site; "Black Friday" vai em peça sem oferta.</span></div>
+<div class="r"><b>Estoque</b><span>2 fontes: est na ficha e a coleção estoque (reservas), que ainda guarda peça que não existe mais (SL2210).</span></div>
+<div class="r"><b>Remendo</b><span>No app, um arquivo de correção reescreve a função que monta a ficha (97-site-v2.js).</span></div>
+</div>
+
+<div class="bx nv"><h2>Como fica (proposta)</h2><p>O banco guarda só fatos. O site tem uma função <b style="color:#fff">ficha(p)</b> que calcula tudo o que sai, e uma função <b style="color:#fff">selos(p)</b> que decide os selos.</p>
+<div class="r"><b>selos(p)</b><span>esgotado · oferta/tema · últimas N — nessa ordem, no canto de selos</span></div>
+<div class="r"><b>Faltando</b><span>formato ou medida vazios = o site não mostra (não inventa)</span></div>
+<div class="r"><b>Texto</b><span>frases saem do banco; o site escreve em pt e es</span></div>
+</div>
+</div></body></html>
