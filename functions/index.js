@@ -7,6 +7,8 @@ const { onRequest } = require('firebase-functions/v2/https');
 const Reserva = require('./reserva');
 const Token = require('./token');
 const Conta = require('./conta');
+const Cupom = require('./cupom');
+const Email = require('./email');
 const admin = require('firebase-admin');
 
 admin.initializeApp();
@@ -23,7 +25,7 @@ const FUSO = 'America/Asuncion';
 const CORS_SITE = ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8766', 'http://localhost:8772'];
 const urlFn = (nome) => 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/' + nome;
 const hash = (t, n) => crypto.createHash('sha256').update(String(t)).digest('hex').slice(0, n);
-const telDe = (t) => String(t || '').replace(/\D/g, '').slice(-9); // os 9 últimos números do telefone
+const telDe = Cupom.telN; // os 9 últimos números do telefone (a regra mora no cupom.js)
 // corpo do pedido: JSON já lido, ou texto (o sendBeacon do site manda texto) → objeto; qualquer outra coisa → {}
 function corpo(req) {
   let b = req.body;
@@ -358,7 +360,6 @@ exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 1
     return res.status(400).json({ ok: false, motivo: 'acao' });
   } catch (e) { return falhou(res, 'avaliacao', e); }
 });
-const Email = require('./email');
 exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
   // S393: link "Não quero mais receber" do e-mail de novidades (GET ?sair=<id da inscrição>) — marca sair=true e mostra uma página simples
   if (req.method === 'GET' && req.query.sair) {
@@ -388,7 +389,7 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
       if ((await g.get()).exists) return res.json({ ok: true, ja: true });
       const envia = emailResend({ responder: true });
       if (!envia) return res.status(500).json({ ok: false, motivo: 'sem-chave' });
-      const esc2 = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]).slice(0, 600);
+      const esc2 = (t) => Email.esc(t || '').slice(0, 600);
       const q = await fsx().collection('inscricoes').limit(1000).get();
       // S400 (esboços 61h e 62): se o app mandar o código do cupom do evento (b.cupom), o e-mail leva o cartão do evento nas cores da temática
       let cupEv = null;
@@ -529,12 +530,11 @@ exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: RE
 // S400 (17/11/2026): todo dia às 10h do Paraguai — solta os presentes guardados que já podem sair (um por vez, 30 dias entre e-mails)
 // e manda os convites para indicar que completaram 2 semanas da entrega. A regra está em cupom.js (diario).
 exports.presentes = onSchedule({ schedule: '0 10 * * *', timeZone: FUSO, region: REGIAO, secrets: [RESEND_KEY] }, async () => {
-  const r = await require('./cupom').diario(cupDb, pmEnvia(), Date.now());
+  const r = await Cupom.diario(cupDb, pmEnvia(), Date.now());
   console.log('presentes', JSON.stringify(r));
 });
 
 // ---------- Cupons e cartões virtuais (12/11/2026, S174 v1+v2+v3) ----------
-const Cupom = require('./cupom');
 const compradorEm = (em) => 'compradores/e' + hash(em, 32); // comprador pelo e-mail (só o resumo do e-mail fica no banco)
 const cupDb = {
   get: async (k) => { if (!/^[A-Z0-9-]{4,24}$/.test(k)) return null; const d = await fsx().doc('cupons/' + k).get(); return d.exists ? d.data() : null; },

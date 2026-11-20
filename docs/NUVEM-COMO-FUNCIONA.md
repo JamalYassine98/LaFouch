@@ -14,7 +14,8 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 | `CORS_SITE` | Os endereços que podem chamar as portas do site (o site e as cópias de teste no computador). `seg` aceita só lafouch.com. |
 | `emailResend(op)` | O único envio de e-mail (Resend). |
 | `avisaAparelhos(filtra, msg)` | O único envio de aviso ao celular; tira da lista o aparelho que não existe mais. |
-| `ehVip(tel)`, `telDe(t)` | Cliente VIP e os 9 últimos números do telefone. |
+| `ehVip(tel)`, `telDe(t)` | Cliente VIP e os 9 últimos números do telefone (`telDe` = `Cupom.telN`). |
+| `Email.esc` (email.js) | O único escape de HTML dos e-mails. |
 | `catalogoPisos()` | Todas as peças com os pisos (presente especial). |
 | `hash(t, n)`, `urlFn(nome)`, `criaUmaVez(ref, o)` | Resumo sha256, endereço de uma função e "cria só se não existe". |
 | `seloOk(req, res, porta)` | App Check (modo em functions/selo.js). |

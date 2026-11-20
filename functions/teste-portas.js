@@ -83,6 +83,9 @@ function t(n, c) { if (c) { ok++; console.log('  ok  ' + n); } else { falhas.pus
   t('o envio de avisos ao celular num lugar só (avisaAparelhos)', conta(src, 'messaging().send') === 1);
   t('o erro esperado (Falha) existe só em falha.js', fs.readdirSync(__dirname).filter((f) => /\.js$/.test(f) && !/^teste-/.test(f)).every((f) => conta(fs.readFileSync(__dirname + '/' + f, 'utf8'), 'class Falha') === (f === 'falha.js' ? 1 : 0)));
   t('nenhuma porta trata o erro da sua cópia de Falha (só o falhou de todas)', !/instanceof \w+\.Falha/.test(src));
+  const modulos = fs.readdirSync(__dirname).filter((f) => /\.js$/.test(f) && !/^teste-/.test(f)).map((f) => [f, fs.readFileSync(__dirname + '/' + f, 'utf8')]);
+  t('o escape de HTML mora só no email.js', modulos.every(([f, s]) => conta(s, "'&amp;'") === (f === 'email.js' ? 1 : 0)));
+  t('os 9 últimos números do telefone: regra só no cupom.js (telN)', conta(src, 'replace(/\\D/g') === 0 && conta(src, 'slice(-9)') === 0);
   t('corpo em texto é lido igual ao corpo em JSON', nomes.every((n) => JSON.stringify(snap[n].respostas.texto) === JSON.stringify(snap[n].respostas['acao-invalida'])));
   const listas = nomes.map((n) => snap[n].cors).filter(Array.isArray);
   const site = listas.filter((l) => l.length > 1);

@@ -9,7 +9,7 @@ const E = require('./email');
 const VALE = 10 * 60000, ESPERA = 45000, TENT = 5;
 const { Falha } = require('./falha');
 const hash = (uid, c) => crypto.createHash('sha256').update(uid + ':' + c).digest('hex');
-const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const esc = E.esc;
 
 function emailHtml(nome, cod, es) {
   const pn = String(nome || '').trim().split(/\s+/)[0];
