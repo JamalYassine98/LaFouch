@@ -1,0 +1,2 @@
+em andamento · APP · ordem do dono 20/11 10:04
+**Remendos parte 2a (docs/PLANO-REMENDOS-20-11.md): destinos e barra** — inicioGo (6 camadas) e navOn (5 camadas) viram UMA função cada, em src/89-inicio.js, com todos os destinos; saem os 11 embrulhos de 97y-familias-s265, 98z-s374, 98z-s374c e 98z-s374d. Por dentro (6b): nenhuma tela muda; prova: tabela de todos os destinos × todos os botões acesos igual antes × depois + 60 telas.
