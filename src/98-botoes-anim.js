@@ -233,7 +233,6 @@
             seguro = true;
             vibrar(30);
             hold = null;
-            S._impDel = id;
             ACT.impdel(id);
             setTimeout(function () {
               seguro = false;

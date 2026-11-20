@@ -3633,6 +3633,26 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 24 (20/11/2026): remendos parte 3 — cada confirmação mora num lugar só (arquivo da família): sem guarda da ação velha (A0),
+            # sem calar o window.confirm e sem o "toque de novo"; a janela pergunta, Voltar não faz nada e confirmar faz UMA vez
+            total += 1
+            fonte = ''.join(open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js'))
+            sobras = [k for k in (' A0.', 'semConfirm', 'window.confirm = ', 'S.confEst', 'S._syncDel', 'S.pinOffConf', 'S._syncDesc', 'S._pedDel', 'S._impDel', 'S.bkImpConf') if k in fonte]
+            duas = [k for k in ('pedcanc', 'pedrecus', 'estorno', 'syncdesl', 'pinoff', 'nvSair', 'bkimp', 'ataCanc', 'ataLoteCanc', 'syncdesc', 'peddel', 'cartclear', 'notifLimpa', 'inicioReset', 'impdel')
+                    if len(re.findall(r'ACT\.%s = function|\n    %s: function' % (k, k), fonte)) != 1]
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.pedidos.push({ id: 'pC1', num: 'pC1', orig: 'loja', st: 'novo', pg: 'pagar', cli: 'Teste', itens: [] });
+              L.ACT.pedcanc('pC1'); await w(350); const abriu = !!document.querySelector('.lfCf .cf418B'), antes = S.pedidos.find(p => p.id === 'pC1').st;
+              document.querySelector('.lfCf .cf418V').click(); await w(350); const voltou = S.pedidos.find(p => p.id === 'pC1').st;
+              L.ACT.pedcanc('pC1'); await w(350); document.querySelector('.lfCf .cf418B').click(); await w(350); const fez = S.pedidos.find(p => p.id === 'pC1').st;
+              S.cart = [{ it: S.items[0], qty: 1 }]; L.ACT.cartclear(); await w(200); const esvaziou = S.cart.length === 0;
+              S.pedidos = S.pedidos.filter(p => p.id !== 'pC1'); return [abriu, antes, voltou, fez, esvaziou]; }""")
+            ok = not sobras and not duas and got == [True, 'novo', 'novo', 'canc', True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 24: confirmações num lugar só (sem A0, sem calar o confirm, sem toque de novo); pergunta, Voltar e confirmar funcionam')
+            if not ok: falhas.append('item 24 confirmações'); print('        veio', sobras, duas, got, pg.erros)
+            await pg.close()
+
             # Item 16 (20/11/2026): peça incompleta não vai ao site (regra em siteCheck); a conferência tira quem ficou incompleta, não quem só esgotou;
             # as 19 peças de teste ganham o que falta UMA vez (só o vazio) e a marca "Peça de teste"
             pg = await pagina()

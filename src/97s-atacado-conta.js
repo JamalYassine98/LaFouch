@@ -238,7 +238,22 @@
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
-  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada'); };
+  ACT.ataCanc = function (id) {
+    var c = (S.ataContas || {})[id];
+    if (!c) return;
+    lfConfirma({
+      k: 'ataCanc'+id,
+      t: 'Cancelar a conta atacadista?',
+      q: c.nome || '',
+      d: c.email || '',
+      f: 'O acesso ao catálogo de atacado é apagado. Para voltar, só com um convite novo.',
+      nv: 1,
+      b: 'Cancelar conta',
+      fn: function () {
+        ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada');
+      }
+    });
+  };
   ACT.ataLim = function (v) { var p = String(v).split('|'), c = S.ataContas[p[0]]; if (c) ataMuda(p[0], { dispMax: Math.max(1, Math.min(10, (c.dispMax || 3) + +p[1])) }); };
   ACT.ataApRm = function (v) {
     var p = String(v).split('|'), c = S.ataContas[p[0]];

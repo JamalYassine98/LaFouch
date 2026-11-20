@@ -333,16 +333,15 @@
   window.__restConfirma = restConfirma;
   ACT.bkexp = exportarBackup;
   ACT.bkimp = function () {
-    if ((S.sales.length || S.items.length) && !S.bkImpConf) {
-      S.bkImpConf = true;
-      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar para continuar.';
-      S._ajForce = true;
-      render();
-      return;
-    }
-    S.bkImpConf = false;
-    restConfirma('Você vai importar um arquivo de backup.', function () {
-      bkFile.click();
+    lfConfirma({
+      k: 'bkimp',
+      t: 'Importar um backup?',
+      f: 'Os dados deste aparelho (peças, vendas, caixa, clientes) são trocados pelos do arquivo.',
+      nv: 1,
+      b: 'Escolher o arquivo',
+      fn: function () {
+        bkFile.click();
+      }
     });
   };
   ACT.ratsel = function (id) {

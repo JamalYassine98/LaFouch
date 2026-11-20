@@ -282,21 +282,22 @@
     });
   };
   ACT.pinoff = function () {
-    if (!S.pinOffConf) {
-      S.pinOffConf = true;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    exigirAuth(function () {
-      S.pinOffConf = false;
-      S.pinHash = '';
-      S.pinSalt = '';
-      S.bioOn = false;
-      S.ajMsg = 'PIN desativado.';
-      S._ajForce = true;
-      saveSoon();
-      render();
+    lfConfirma({
+      k: 'pinoff',
+      t: 'Tirar o bloqueio do app?',
+      f: 'Qualquer pessoa com este celular na mão abre o app sem PIN, com vendas, caixa e clientes.',
+      b: 'Tirar o bloqueio',
+      fn: function () {
+        exigirAuth(function () {
+          S.pinHash = '';
+          S.pinSalt = '';
+          S.bioOn = false;
+          S.ajMsg = 'PIN desativado.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        });
+      }
     });
   };
   // ---------- Dados de exemplo (14 meses)

@@ -1,9 +1,5 @@
 {
  "acoes": {
-  "ataCanc": 2,
-  "ataLoteCanc": 2,
-  "bkimp": 2,
-  "cartclear": 2,
   "cartrm": 2,
   "cliab": 2,
   "clinovo": 2,
@@ -15,14 +11,7 @@
   "despAb": 2,
   "dfold": 2,
   "famNum": 2,
-  "hfopen": 2,
-  "nvSair": 2,
-  "pedcanc": 2,
-  "peddel": 2,
-  "pedrecus": 2,
-  "pinoff": 2,
-  "syncdesc": 2,
-  "syncdesl": 2
+  "hfopen": 2
  },
  "embrulhos": {
   "ACT.cliab @ 97u-navegacao-s184.js": 1,

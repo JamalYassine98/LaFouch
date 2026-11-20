@@ -90,7 +90,6 @@
   S.hf = 'all';
   S.hq = '';
   S.hOpen = '';
-  S.confEst = '';
   S.confRm = '';
   S.lotes = [
     { id: '#3140', ts: tAgo(60), usd: 0.46, txt: 'Pré-graduados' },

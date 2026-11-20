@@ -330,7 +330,7 @@
     if (pinAtivo()) {
       h +=
         '<div class="lnks"><button class="lnk" data-act="pintroca">Mudar PIN</button>' +
-        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + (S.pinOffConf ? 'Confirmar: tirar o bloqueio do app' : 'Tirar o bloqueio do app') + '</button>') +
+        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + 'Tirar o bloqueio do app' + '</button>') +
         '</div>';
     }
     h += '</section>';

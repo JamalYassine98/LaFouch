@@ -329,7 +329,7 @@
         '<div class="apLn"><span><b>' + esc(x.nome || x.ap) + (esse ? ' <small class="apEu">este aparelho</small>' : '') + '</b><small>' +
         (x.rev ? 'desconectado · apaga os dados ao abrir' : 'visto ' + (x.ts ? nvQuando(x.ts) : '—')) +
         '</small></span>' +
-        (esse || x.rev ? '' : '<button type="button" class="chip" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') +
+        (esse || x.rev ? '' : '<button type="button" class="chip" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + 'Desconectar' + '</button>') +
         '</div>';
     });
     if (!L.length) h += '<div class="hint" style="margin:0">Procurando aparelhos…</div>';

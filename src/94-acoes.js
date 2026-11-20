@@ -17,19 +17,35 @@
       renderCaixa();
     },
     notifLimpa: function () {
+      var vol = (S.notifs || []).slice();
       S.notifs = [];
       render();
+      if (vol.length)
+        lfDesfazer('Histórico limpo', function () {
+          S.notifs = vol;
+          saveSoon();
+          render();
+        });
     },
     inicioEd: function () {
       S.inicioEd = !S.inicioEd;
       render();
     },
     inicioReset: function () {
+      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos) };
       S.inicioFant = false;
       S.inicioT = null;
       S.barra = null;
       S.grupos = [];
       render();
+      lfDesfazer('Início voltou ao padrão', function () {
+        S.inicioFant = vol.f;
+        S.inicioT = vol.t;
+        S.barra = vol.b;
+        S.grupos = vol.g || [];
+        saveSoon();
+        render();
+      });
     },
     inicioRm: function (id) {
       iniSalvar(
@@ -135,82 +151,89 @@
       if (S.view === 'hist') histLista();
     },
     estorno: function (id) {
-      if (S.confEst !== id) {
-        S.confEst = id;
-        renderDay();
-        return;
-      }
       var s = S.sales.filter(function (x) {
         return x.id === id;
       })[0];
-      s.estorno = true;
-      S.confEst = '';
-      var lotOk = S.grp.some(function (g) {
-          return g.id === s.lote;
-        })
-          ? s.lote
-          : '';
-      var cands = S.items.filter(function (x) {
-        return (
-          x.tipo === s.tipo &&
-          x.ref === s.ref &&
-          x.cor === s.cor &&
-          x.grau === s.grau &&
-          x.vr === s.vr &&
-          (x.lote || '') === lotOk
-        );
-      });
-      // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
-      var it =
-        (s.custoPeca != null &&
-          cands.filter(function (x) {
-            return x.custo === s.custoPeca;
-          })[0]) ||
-        cands[0];
-      var recriada = false;
-      if (!it) {
-        it = {
-          custo: s.custoPeca,
-          lote: lotOk || undefined,
-          tipo: s.tipo,
-          grau: s.grau || '',
-          ref: s.ref,
-          med: s.medPeca || '',
-          vr: s.vr || '',
-          fmt: s.fmtPeca || '',
-          cor: s.cor,
-          qty: 0
-        };
-        S.items.push(it);
-        recriada = true;
-      }
-      if (s.pags) {
-        s.pags.forEach(function (l) {
-          S.cash[l.moeda] -= l.v - (l.fee || 0);
-        });
-        (s.troco || []).forEach(function (l) {
-          S.cash[l.moeda] += l.v;
-        });
-      } else S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
-      estornoBrinde(s);
-      if (it) {
-        it.qty += s.qty;
-        S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
-        if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
-        var eg =
-          it.lote &&
-          S.grp.filter(function (x) {
-            return x.id === it.lote;
-          })[0];
-        if (eg) {
-          eg.sold = Math.max(0, (eg.sold || 0) - s.qty);
-          if (it.custo != null && !it.bulk) {
-            eg.ownQ = Math.max(0, (eg.ownQ || 0) - s.qty);
-            eg.ownC = Math.max(0, (eg.ownC || 0) - s.qty * it.custo);
+      if (!s || s.estorno) return;
+      lfConfirma({
+        k: 'estorno'+id,
+        t: 'Estornar a venda?',
+        q: descOf(s),
+        d: s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts),
+        v: exatoDe(s),
+        f: 'A peça volta para o estoque e o valor sai do caixa e dos resultados.',
+        nv: 1,
+        b: 'Estornar venda',
+        fn: function () {
+          s.estorno = true;
+          var lotOk = S.grp.some(function (g) {
+              return g.id === s.lote;
+            })
+              ? s.lote
+              : '';
+          var cands = S.items.filter(function (x) {
+            return (
+              x.tipo === s.tipo &&
+              x.ref === s.ref &&
+              x.cor === s.cor &&
+              x.grau === s.grau &&
+              x.vr === s.vr &&
+              (x.lote || '') === lotOk
+            );
+          });
+          // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
+          var it =
+            (s.custoPeca != null &&
+              cands.filter(function (x) {
+                return x.custo === s.custoPeca;
+              })[0]) ||
+            cands[0];
+          var recriada = false;
+          if (!it) {
+            it = {
+              custo: s.custoPeca,
+              lote: lotOk || undefined,
+              tipo: s.tipo,
+              grau: s.grau || '',
+              ref: s.ref,
+              med: s.medPeca || '',
+              vr: s.vr || '',
+              fmt: s.fmtPeca || '',
+              cor: s.cor,
+              qty: 0
+            };
+            S.items.push(it);
+            recriada = true;
           }
+          if (s.pags) {
+            s.pags.forEach(function (l) {
+              S.cash[l.moeda] -= l.v - (l.fee || 0);
+            });
+            (s.troco || []).forEach(function (l) {
+              S.cash[l.moeda] += l.v;
+            });
+          } else S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
+          estornoBrinde(s);
+          if (it) {
+            it.qty += s.qty;
+            S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
+            if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
+            var eg =
+              it.lote &&
+              S.grp.filter(function (x) {
+                return x.id === it.lote;
+              })[0];
+            if (eg) {
+              eg.sold = Math.max(0, (eg.sold || 0) - s.qty);
+              if (it.custo != null && !it.bulk) {
+                eg.ownQ = Math.max(0, (eg.ownQ || 0) - s.qty);
+                eg.ownC = Math.max(0, (eg.ownC || 0) - s.qty * it.custo);
+              }
+            }
+          }
+          render();
         }
-      }
-      render();
+      });
     },
     exppay: function (id) {
       var e = S.exp.filter(function (x) {
@@ -468,23 +491,8 @@
     impdel: function (id) {
       var x = S.imprev[+id];
       if (!x) return;
-      if (S._impDel !== id) {
-        S._impDel = id;
-        S.cxMsg = '';
-        var b = document.querySelector('[data-act="impdel"][data-id="' + id + '"]');
-        if (b) {
-          b.textContent = 'Remover?';
-          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad)';
-        }
-        setTimeout(function () {
-          if (S._impDel === id) {
-            S._impDel = null;
-            renderDesp();
-          }
-        }, 3500);
-        return;
-      }
-      S._impDel = null;
+      var vi = copia(S.imprev),
+        vd = copia(S.dlog);
       S.imprev.splice(+id, 1);
       for (var i = S.dlog.length - 1; i >= 0; i--) {
         var d = S.dlog[i];
@@ -494,6 +502,12 @@
         }
       }
       render();
+      lfDesfazer('Imprevisto removido', function () {
+        S.imprev = vi;
+        S.dlog = vd;
+        saveSoon();
+        render();
+      });
     },
     impadd: function () {
       var d = $('impD').value.trim(),

@@ -495,14 +495,14 @@
           if (fl) S._apFlash = '';
           h += '<div class="ln' + fl + '" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : x.st === 'pend' ? 'aguardando aprovação' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
             '<button type="button" class="mini" data-act="syncver" data-id="' + esc(x.ap) + '">Ver o que fez</button>' +
-            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>' +
+            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + 'Desconectar' + '</button>') + '</div>' +
             '';
         });
       }
       h += '<button type="button" class="mini" data-act="syncver" data-id="">Atividade de todos os aparelhos</button>';
       h += '<button type="button" class="mini" data-act="fotolixabre">Fotos apagadas</button>';
       h += '<button type="button" class="mini" data-act="syncagora">Sincronizar agora</button>';
-      h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + (S._syncDel ? 'Desligar? Toque de novo' : 'Desligar neste aparelho') + '</button>';
+      h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + 'Desligar neste aparelho' + '</button>';
     } else {
       h +=
         '<div class="hint" style="margin:0">Ambiente de teste. Os aparelhos trocam estoque, caixa e vendas. Comece pelo aparelho principal (o que tem os dados certos); depois entre com os outros.</div>' +
@@ -536,25 +536,20 @@
   };
   ACT.syncdesc = function (ap) {
     if (!/^AP[A-Z0-9]{2,8}$/.test(ap || '')) return;
-    if (S._syncDesc !== ap) {
-      S._syncDesc = ap;
-      S._ajForce = true;
-      render();
-      setTimeout(function () {
-        if (S._syncDesc === ap) {
-          S._syncDesc = '';
-          S._ajForce = true;
-          if (S.view === 'ajustes') render();
-        }
-      }, 4000);
-      return;
-    }
-    S._syncDesc = '';
-    nvApi('PATCH', 'backups/zap-' + ap + '?updateMask.fieldPaths=rev', JSON.stringify({ fields: { rev: { booleanValue: true } } }))
-      .then(syncListaAp)
-      .catch(function () {
-        syncMsg('Não consegui desconectar agora (sem internet?). Tente de novo.', 'bad');
-      });
+    lfConfirma({
+      k: 'syncdesc'+ap,
+      t: 'Desconectar o aparelho?',
+      q: ap,
+      f: 'Esse aparelho para de receber as mudanças da loja e perde o acesso à nuvem.',
+      b: 'Desconectar',
+      fn: function () {
+        nvApi('PATCH', 'backups/zap-' + ap + '?updateMask.fieldPaths=rev', JSON.stringify({ fields: { rev: { booleanValue: true } } }))
+          .then(syncListaAp)
+          .catch(function () {
+            syncMsg('Não consegui desconectar agora (sem internet?). Tente de novo.', 'bad');
+          });
+      }
+    });
   };
   ACT.syncagora = function () {
     syncListaAp().catch(function () {});
@@ -563,19 +558,17 @@
     render();
   };
   ACT.syncdesl = function () {
-    if (!S._syncDel) {
-      S._syncDel = 1;
-      S._ajForce = true;
-      render();
-      setTimeout(function () {
-        S._syncDel = 0;
+    lfConfirma({
+      k: 'syncdesl',
+      t: 'Desligar a sincronização?',
+      q: 'Este aparelho',
+      d: 'para de receber e mandar mudanças',
+      f: 'Os outros aparelhos deixam de ver o que for feito aqui. O que já está neste celular continua.',
+      b: 'Desligar neste aparelho',
+      fn: function () {
+        syncDesliga();
         S._ajForce = true;
-        if (S.view === 'ajustes') render();
-      }, 3500);
-      return;
-    }
-    S._syncDel = 0;
-    syncDesliga();
-    S._ajForce = true;
-    render();
+        render();
+      }
+    });
   };

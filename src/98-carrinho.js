@@ -484,9 +484,15 @@
     $('dscModal').hidden = false;
   }
   ACT.cartclear = function () {
+    var vol = (S.cart || []).slice();
     S.cart = [];
     S.cartOpen = false;
     render();
+    if (vol.length)
+      lfDesfazer('Carrinho esvaziado', function () {
+        S.cart = vol;
+        render();
+      });
   };
   ACT.cartrm = function (id) {
     S.cart.splice(+id, 1);

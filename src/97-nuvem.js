@@ -137,11 +137,22 @@
       });
   };
   ACT.nvSair = function () {
-    S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' };
-    nvTok = { t: '', exp: 0 };
-    S.nvLista = null;
-    saveSoon();
-    nvMsg('Desconectado da nuvem.');
+    var n = S.nuvem || {};
+    lfConfirma({
+      k: 'nvSair',
+      t: 'Desconectar da nuvem?',
+      q: n.email || '',
+      d: n.ts ? 'última cópia: ' + fd(n.ts) + ' ' + fh(n.ts) : '',
+      f: 'A cópia automática para e a cotação da loja deixa de ir para o site. As cópias que já estão na nuvem continuam lá.',
+      b: 'Desconectar',
+      fn: function () {
+        S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' };
+        nvTok = { t: '', exp: 0 };
+        S.nvLista = null;
+        saveSoon();
+        nvMsg('Desconectado da nuvem.');
+      }
+    });
   };
   // ---------- backup
   // App "zerado": sem vendas, gastos, clientes, câmbios nem compras (primeiro uso ou reinstalação).

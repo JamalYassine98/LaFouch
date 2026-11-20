@@ -107,9 +107,18 @@
   ACT.ataLoteNovo = function () { ataLoteForm(null); };
   ACT.ataLoteEdita = function (id) { if (S.ataLotes[id]) ataLoteForm(Object.assign({}, S.ataLotes[id])); };
   ACT.ataLoteCanc = function (id) {
-    var L = S.ataLotes[id];
-    if (!L || !window.confirm('Encerrar o lote? O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.')) return;
-    L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+    var L = (S.ataLotes || {})[id];
+    if (!L) return;
+    lfConfirma({
+      k: 'ataLote'+id,
+      t: 'Encerrar o lote?',
+      q: L.nome || 'Lote',
+      f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
+      b: 'Encerrar lote',
+      fn: function () {
+        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+      }
+    });
   };
   ACT.ataLoteEnvia = function (v) {
     var p = String(v).split('|'), L = S.ataLotes[p[0]], c = S.ataContas[p[1]];

@@ -666,18 +666,31 @@
   // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
   ACT.pedrecus = function (id) {
     var p = pedAch(id);
-    pedAssumeAuto(p);
-    if (!p || !p.sid) return;
-    p.pg = 'pagar';
-    p.recus = true;
-    p.comp = '';
-    render();
-    pedReserva(p, { recusado: true })
-      .then(function () {
-        say('Comprovante recusado. O cliente vai enviar outro.');
-      })
-      .catch(pedFalhaSite);
-    resRecusar(p);
+    if (!p) return;
+    var tot = pedTotal(p);
+    lfConfirma({
+      k: 'pedrecus'+id,
+      t: 'Recusar o comprovante?',
+      q: p.cli || 'Sem nome',
+      d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : ''),
+      v: tot ? gs(tot) : '',
+      f: 'Ela recebe o aviso no site para mandar outro comprovante. A reserva continua valendo.',
+      b: 'Recusar comprovante',
+      fn: function () {
+        pedAssumeAuto(p);
+        if (!p.sid) return;
+        p.pg = 'pagar';
+        p.recus = true;
+        p.comp = '';
+        render();
+        pedReserva(p, { recusado: true })
+          .then(function () {
+            say('Comprovante recusado. O cliente vai enviar outro.');
+          })
+          .catch(pedFalhaSite);
+        resRecusar(p);
+      }
+    });
   };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
@@ -867,33 +880,40 @@
   };
   ACT.pedcanc = function (id) {
     var p = pedAch(id);
-    pedAssumeAuto(p);
     if (!p) return;
-    p.st = 'canc';
-    p.cancTs = Date.now();
-    S.pedTok = null;
-    S.pedF = 'canc';
-    render();
-    if (p.orig === 'site') {
-      resSolta(p);
-      // o site do cliente para o relógio e mostra "Cancelado pela loja"
-      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
-      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
-    }
+    var pago = p.pg === 'pago',
+      tot = pedTotal(p);
+    lfConfirma({
+      k: 'pedcanc'+id,
+      t: pago ? 'Cancelar o pedido?' : 'Cancelar a reserva?',
+      q: p.cli || 'Sem nome',
+      d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : p.pag === 'alias' ? ' · Banco Familiar' : ''),
+      v: tot ? gs(tot) : '',
+      f: pago
+        ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
+        : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
+      b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
+      fn: function () {
+        pedAssumeAuto(p);
+        p.st = 'canc';
+        p.cancTs = Date.now();
+        S.pedTok = null;
+        S.pedF = 'canc';
+        render();
+        if (p.orig === 'site') {
+          resSolta(p);
+          // o site do cliente para o relógio e mostra "Cancelado pela loja"
+          if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+          if (typeof cupPedido === 'function') cupPedido(p, 'libera');
+        }
+      }
+    });
   };
   ACT.peddel = function (id) {
-    if (S._pedDel !== String(id)) {
-      S._pedDel = String(id);
-      render();
-      setTimeout(function () {
-        if (S._pedDel === String(id)) {
-          S._pedDel = null;
-          render();
-        }
-      }, 3500);
-      return;
-    }
-    S._pedDel = null;
+    var p = pedAch(id);
+    if (!p) return;
+    var ix = S.pedidos.indexOf(p),
+      vol = copia(p);
     S.pedSel = null;
     S.pedProd = null;
     // pedido do site apagado: a peça que ele segurava no site volta a ficar livre (antes ficava presa para sempre)
@@ -907,4 +927,9 @@
       return String(p.id) !== String(id);
     });
     render();
+    lfDesfazer('Pedido ' + p.num + ' removido', function () {
+      S.pedidos.splice(Math.min(ix, S.pedidos.length), 0, vol);
+      saveSoon();
+      render();
+    });
   };

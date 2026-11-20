@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 575;
+  var APP_BUILD = 576;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -7281,7 +7281,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.hf = 'all';
   S.hq = '';
   S.hOpen = '';
-  S.confEst = '';
   S.confRm = '';
   S.lotes = [
     { id: '#3140', ts: tAgo(60), usd: 0.46, txt: 'Pré-graduados' },
@@ -13566,7 +13565,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (pinAtivo()) {
       h +=
         '<div class="lnks"><button class="lnk" data-act="pintroca">Mudar PIN</button>' +
-        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + (S.pinOffConf ? 'Confirmar: tirar o bloqueio do app' : 'Tirar o bloqueio do app') + '</button>') +
+        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + 'Tirar o bloqueio do app' + '</button>') +
         '</div>';
     }
     h += '</section>';
@@ -23910,19 +23909,35 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       renderCaixa();
     },
     notifLimpa: function () {
+      var vol = (S.notifs || []).slice();
       S.notifs = [];
       render();
+      if (vol.length)
+        lfDesfazer('Histórico limpo', function () {
+          S.notifs = vol;
+          saveSoon();
+          render();
+        });
     },
     inicioEd: function () {
       S.inicioEd = !S.inicioEd;
       render();
     },
     inicioReset: function () {
+      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos) };
       S.inicioFant = false;
       S.inicioT = null;
       S.barra = null;
       S.grupos = [];
       render();
+      lfDesfazer('Início voltou ao padrão', function () {
+        S.inicioFant = vol.f;
+        S.inicioT = vol.t;
+        S.barra = vol.b;
+        S.grupos = vol.g || [];
+        saveSoon();
+        render();
+      });
     },
     inicioRm: function (id) {
       iniSalvar(
@@ -24028,82 +24043,89 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (S.view === 'hist') histLista();
     },
     estorno: function (id) {
-      if (S.confEst !== id) {
-        S.confEst = id;
-        renderDay();
-        return;
-      }
       var s = S.sales.filter(function (x) {
         return x.id === id;
       })[0];
-      s.estorno = true;
-      S.confEst = '';
-      var lotOk = S.grp.some(function (g) {
-          return g.id === s.lote;
-        })
-          ? s.lote
-          : '';
-      var cands = S.items.filter(function (x) {
-        return (
-          x.tipo === s.tipo &&
-          x.ref === s.ref &&
-          x.cor === s.cor &&
-          x.grau === s.grau &&
-          x.vr === s.vr &&
-          (x.lote || '') === lotOk
-        );
-      });
-      // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
-      var it =
-        (s.custoPeca != null &&
-          cands.filter(function (x) {
-            return x.custo === s.custoPeca;
-          })[0]) ||
-        cands[0];
-      var recriada = false;
-      if (!it) {
-        it = {
-          custo: s.custoPeca,
-          lote: lotOk || undefined,
-          tipo: s.tipo,
-          grau: s.grau || '',
-          ref: s.ref,
-          med: s.medPeca || '',
-          vr: s.vr || '',
-          fmt: s.fmtPeca || '',
-          cor: s.cor,
-          qty: 0
-        };
-        S.items.push(it);
-        recriada = true;
-      }
-      if (s.pags) {
-        s.pags.forEach(function (l) {
-          S.cash[l.moeda] -= l.v - (l.fee || 0);
-        });
-        (s.troco || []).forEach(function (l) {
-          S.cash[l.moeda] += l.v;
-        });
-      } else S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
-      estornoBrinde(s);
-      if (it) {
-        it.qty += s.qty;
-        S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
-        if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
-        var eg =
-          it.lote &&
-          S.grp.filter(function (x) {
-            return x.id === it.lote;
-          })[0];
-        if (eg) {
-          eg.sold = Math.max(0, (eg.sold || 0) - s.qty);
-          if (it.custo != null && !it.bulk) {
-            eg.ownQ = Math.max(0, (eg.ownQ || 0) - s.qty);
-            eg.ownC = Math.max(0, (eg.ownC || 0) - s.qty * it.custo);
+      if (!s || s.estorno) return;
+      lfConfirma({
+        k: 'estorno'+id,
+        t: 'Estornar a venda?',
+        q: descOf(s),
+        d: s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts),
+        v: exatoDe(s),
+        f: 'A peça volta para o estoque e o valor sai do caixa e dos resultados.',
+        nv: 1,
+        b: 'Estornar venda',
+        fn: function () {
+          s.estorno = true;
+          var lotOk = S.grp.some(function (g) {
+              return g.id === s.lote;
+            })
+              ? s.lote
+              : '';
+          var cands = S.items.filter(function (x) {
+            return (
+              x.tipo === s.tipo &&
+              x.ref === s.ref &&
+              x.cor === s.cor &&
+              x.grau === s.grau &&
+              x.vr === s.vr &&
+              (x.lote || '') === lotOk
+            );
+          });
+          // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
+          var it =
+            (s.custoPeca != null &&
+              cands.filter(function (x) {
+                return x.custo === s.custoPeca;
+              })[0]) ||
+            cands[0];
+          var recriada = false;
+          if (!it) {
+            it = {
+              custo: s.custoPeca,
+              lote: lotOk || undefined,
+              tipo: s.tipo,
+              grau: s.grau || '',
+              ref: s.ref,
+              med: s.medPeca || '',
+              vr: s.vr || '',
+              fmt: s.fmtPeca || '',
+              cor: s.cor,
+              qty: 0
+            };
+            S.items.push(it);
+            recriada = true;
           }
+          if (s.pags) {
+            s.pags.forEach(function (l) {
+              S.cash[l.moeda] -= l.v - (l.fee || 0);
+            });
+            (s.troco || []).forEach(function (l) {
+              S.cash[l.moeda] += l.v;
+            });
+          } else S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
+          estornoBrinde(s);
+          if (it) {
+            it.qty += s.qty;
+            S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
+            if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
+            var eg =
+              it.lote &&
+              S.grp.filter(function (x) {
+                return x.id === it.lote;
+              })[0];
+            if (eg) {
+              eg.sold = Math.max(0, (eg.sold || 0) - s.qty);
+              if (it.custo != null && !it.bulk) {
+                eg.ownQ = Math.max(0, (eg.ownQ || 0) - s.qty);
+                eg.ownC = Math.max(0, (eg.ownC || 0) - s.qty * it.custo);
+              }
+            }
+          }
+          render();
         }
-      }
-      render();
+      });
     },
     exppay: function (id) {
       var e = S.exp.filter(function (x) {
@@ -24361,23 +24383,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     impdel: function (id) {
       var x = S.imprev[+id];
       if (!x) return;
-      if (S._impDel !== id) {
-        S._impDel = id;
-        S.cxMsg = '';
-        var b = document.querySelector('[data-act="impdel"][data-id="' + id + '"]');
-        if (b) {
-          b.textContent = 'Remover?';
-          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad)';
-        }
-        setTimeout(function () {
-          if (S._impDel === id) {
-            S._impDel = null;
-            renderDesp();
-          }
-        }, 3500);
-        return;
-      }
-      S._impDel = null;
+      var vi = copia(S.imprev),
+        vd = copia(S.dlog);
       S.imprev.splice(+id, 1);
       for (var i = S.dlog.length - 1; i >= 0; i--) {
         var d = S.dlog[i];
@@ -24387,6 +24394,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }
       }
       render();
+      lfDesfazer('Imprevisto removido', function () {
+        S.imprev = vi;
+        S.dlog = vd;
+        saveSoon();
+        render();
+      });
     },
     impadd: function () {
       var d = $('impD').value.trim(),
@@ -25932,18 +25945,31 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
   ACT.pedrecus = function (id) {
     var p = pedAch(id);
-    pedAssumeAuto(p);
-    if (!p || !p.sid) return;
-    p.pg = 'pagar';
-    p.recus = true;
-    p.comp = '';
-    render();
-    pedReserva(p, { recusado: true })
-      .then(function () {
-        say('Comprovante recusado. O cliente vai enviar outro.');
-      })
-      .catch(pedFalhaSite);
-    resRecusar(p);
+    if (!p) return;
+    var tot = pedTotal(p);
+    lfConfirma({
+      k: 'pedrecus'+id,
+      t: 'Recusar o comprovante?',
+      q: p.cli || 'Sem nome',
+      d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : ''),
+      v: tot ? gs(tot) : '',
+      f: 'Ela recebe o aviso no site para mandar outro comprovante. A reserva continua valendo.',
+      b: 'Recusar comprovante',
+      fn: function () {
+        pedAssumeAuto(p);
+        if (!p.sid) return;
+        p.pg = 'pagar';
+        p.recus = true;
+        p.comp = '';
+        render();
+        pedReserva(p, { recusado: true })
+          .then(function () {
+            say('Comprovante recusado. O cliente vai enviar outro.');
+          })
+          .catch(pedFalhaSite);
+        resRecusar(p);
+      }
+    });
   };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
@@ -26133,33 +26159,40 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.pedcanc = function (id) {
     var p = pedAch(id);
-    pedAssumeAuto(p);
     if (!p) return;
-    p.st = 'canc';
-    p.cancTs = Date.now();
-    S.pedTok = null;
-    S.pedF = 'canc';
-    render();
-    if (p.orig === 'site') {
-      resSolta(p);
-      // o site do cliente para o relógio e mostra "Cancelado pela loja"
-      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
-      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
-    }
+    var pago = p.pg === 'pago',
+      tot = pedTotal(p);
+    lfConfirma({
+      k: 'pedcanc'+id,
+      t: pago ? 'Cancelar o pedido?' : 'Cancelar a reserva?',
+      q: p.cli || 'Sem nome',
+      d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : p.pag === 'alias' ? ' · Banco Familiar' : ''),
+      v: tot ? gs(tot) : '',
+      f: pago
+        ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
+        : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
+      b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
+      fn: function () {
+        pedAssumeAuto(p);
+        p.st = 'canc';
+        p.cancTs = Date.now();
+        S.pedTok = null;
+        S.pedF = 'canc';
+        render();
+        if (p.orig === 'site') {
+          resSolta(p);
+          // o site do cliente para o relógio e mostra "Cancelado pela loja"
+          if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+          if (typeof cupPedido === 'function') cupPedido(p, 'libera');
+        }
+      }
+    });
   };
   ACT.peddel = function (id) {
-    if (S._pedDel !== String(id)) {
-      S._pedDel = String(id);
-      render();
-      setTimeout(function () {
-        if (S._pedDel === String(id)) {
-          S._pedDel = null;
-          render();
-        }
-      }, 3500);
-      return;
-    }
-    S._pedDel = null;
+    var p = pedAch(id);
+    if (!p) return;
+    var ix = S.pedidos.indexOf(p),
+      vol = copia(p);
     S.pedSel = null;
     S.pedProd = null;
     // pedido do site apagado: a peça que ele segurava no site volta a ficar livre (antes ficava presa para sempre)
@@ -26173,6 +26206,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return String(p.id) !== String(id);
     });
     render();
+    lfDesfazer('Pedido ' + p.num + ' removido', function () {
+      S.pedidos.splice(Math.min(ix, S.pedidos.length), 0, vol);
+      saveSoon();
+      render();
+    });
   };
   // ===== Reserva de peças do site (30 min) + baixa automática na entrega. =====
   // O app (dono) fala com a função "reserva" na nuvem; quem decide hora e estoque é sempre o servidor.
@@ -26912,16 +26950,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   window.__restConfirma = restConfirma;
   ACT.bkexp = exportarBackup;
   ACT.bkimp = function () {
-    if ((S.sales.length || S.items.length) && !S.bkImpConf) {
-      S.bkImpConf = true;
-      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar para continuar.';
-      S._ajForce = true;
-      render();
-      return;
-    }
-    S.bkImpConf = false;
-    restConfirma('Você vai importar um arquivo de backup.', function () {
-      bkFile.click();
+    lfConfirma({
+      k: 'bkimp',
+      t: 'Importar um backup?',
+      f: 'Os dados deste aparelho (peças, vendas, caixa, clientes) são trocados pelos do arquivo.',
+      nv: 1,
+      b: 'Escolher o arquivo',
+      fn: function () {
+        bkFile.click();
+      }
     });
   };
   ACT.ratsel = function (id) {
@@ -39057,7 +39094,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="apLn"><span><b>' + esc(x.nome || x.ap) + (esse ? ' <small class="apEu">este aparelho</small>' : '') + '</b><small>' +
         (x.rev ? 'desconectado · apaga os dados ao abrir' : 'visto ' + (x.ts ? nvQuando(x.ts) : '—')) +
         '</small></span>' +
-        (esse || x.rev ? '' : '<button type="button" class="chip" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') +
+        (esse || x.rev ? '' : '<button type="button" class="chip" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + 'Desconectar' + '</button>') +
         '</div>';
     });
     if (!L.length) h += '<div class="hint" style="margin:0">Procurando aparelhos…</div>';
@@ -39264,11 +39301,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
   };
   ACT.nvSair = function () {
-    S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' };
-    nvTok = { t: '', exp: 0 };
-    S.nvLista = null;
-    saveSoon();
-    nvMsg('Desconectado da nuvem.');
+    var n = S.nuvem || {};
+    lfConfirma({
+      k: 'nvSair',
+      t: 'Desconectar da nuvem?',
+      q: n.email || '',
+      d: n.ts ? 'última cópia: ' + fd(n.ts) + ' ' + fh(n.ts) : '',
+      f: 'A cópia automática para e a cotação da loja deixa de ir para o site. As cópias que já estão na nuvem continuam lá.',
+      b: 'Desconectar',
+      fn: function () {
+        S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' };
+        nvTok = { t: '', exp: 0 };
+        S.nvLista = null;
+        saveSoon();
+        nvMsg('Desconectado da nuvem.');
+      }
+    });
   };
   // ---------- backup
   // App "zerado": sem vendas, gastos, clientes, câmbios nem compras (primeiro uso ou reinstalação).
@@ -42210,14 +42258,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (fl) S._apFlash = '';
           h += '<div class="ln' + fl + '" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : x.st === 'pend' ? 'aguardando aprovação' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
             '<button type="button" class="mini" data-act="syncver" data-id="' + esc(x.ap) + '">Ver o que fez</button>' +
-            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>' +
+            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + 'Desconectar' + '</button>') + '</div>' +
             '';
         });
       }
       h += '<button type="button" class="mini" data-act="syncver" data-id="">Atividade de todos os aparelhos</button>';
       h += '<button type="button" class="mini" data-act="fotolixabre">Fotos apagadas</button>';
       h += '<button type="button" class="mini" data-act="syncagora">Sincronizar agora</button>';
-      h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + (S._syncDel ? 'Desligar? Toque de novo' : 'Desligar neste aparelho') + '</button>';
+      h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + 'Desligar neste aparelho' + '</button>';
     } else {
       h +=
         '<div class="hint" style="margin:0">Ambiente de teste. Os aparelhos trocam estoque, caixa e vendas. Comece pelo aparelho principal (o que tem os dados certos); depois entre com os outros.</div>' +
@@ -42251,25 +42299,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.syncdesc = function (ap) {
     if (!/^AP[A-Z0-9]{2,8}$/.test(ap || '')) return;
-    if (S._syncDesc !== ap) {
-      S._syncDesc = ap;
-      S._ajForce = true;
-      render();
-      setTimeout(function () {
-        if (S._syncDesc === ap) {
-          S._syncDesc = '';
-          S._ajForce = true;
-          if (S.view === 'ajustes') render();
-        }
-      }, 4000);
-      return;
-    }
-    S._syncDesc = '';
-    nvApi('PATCH', 'backups/zap-' + ap + '?updateMask.fieldPaths=rev', JSON.stringify({ fields: { rev: { booleanValue: true } } }))
-      .then(syncListaAp)
-      .catch(function () {
-        syncMsg('Não consegui desconectar agora (sem internet?). Tente de novo.', 'bad');
-      });
+    lfConfirma({
+      k: 'syncdesc'+ap,
+      t: 'Desconectar o aparelho?',
+      q: ap,
+      f: 'Esse aparelho para de receber as mudanças da loja e perde o acesso à nuvem.',
+      b: 'Desconectar',
+      fn: function () {
+        nvApi('PATCH', 'backups/zap-' + ap + '?updateMask.fieldPaths=rev', JSON.stringify({ fields: { rev: { booleanValue: true } } }))
+          .then(syncListaAp)
+          .catch(function () {
+            syncMsg('Não consegui desconectar agora (sem internet?). Tente de novo.', 'bad');
+          });
+      }
+    });
   };
   ACT.syncagora = function () {
     syncListaAp().catch(function () {});
@@ -42278,21 +42321,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   };
   ACT.syncdesl = function () {
-    if (!S._syncDel) {
-      S._syncDel = 1;
-      S._ajForce = true;
-      render();
-      setTimeout(function () {
-        S._syncDel = 0;
+    lfConfirma({
+      k: 'syncdesl',
+      t: 'Desligar a sincronização?',
+      q: 'Este aparelho',
+      d: 'para de receber e mandar mudanças',
+      f: 'Os outros aparelhos deixam de ver o que for feito aqui. O que já está neste celular continua.',
+      b: 'Desligar neste aparelho',
+      fn: function () {
+        syncDesliga();
         S._ajForce = true;
-        if (S.view === 'ajustes') render();
-      }, 3500);
-      return;
-    }
-    S._syncDel = 0;
-    syncDesliga();
-    S._ajForce = true;
-    render();
+        render();
+      }
+    });
   };
   // ===== Sincronização, parte 2: aprovação de aparelho novo, registro de atividade (30 dias) e fotos com lixeira (7 dias). =====
   // Telas e animações aprovadas pelo dono em 02/11/2026 (esboços "Animações La Fouch").
@@ -44225,7 +44266,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
-  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada'); };
+  ACT.ataCanc = function (id) {
+    var c = (S.ataContas || {})[id];
+    if (!c) return;
+    lfConfirma({
+      k: 'ataCanc'+id,
+      t: 'Cancelar a conta atacadista?',
+      q: c.nome || '',
+      d: c.email || '',
+      f: 'O acesso ao catálogo de atacado é apagado. Para voltar, só com um convite novo.',
+      nv: 1,
+      b: 'Cancelar conta',
+      fn: function () {
+        ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada');
+      }
+    });
+  };
   ACT.ataLim = function (v) { var p = String(v).split('|'), c = S.ataContas[p[0]]; if (c) ataMuda(p[0], { dispMax: Math.max(1, Math.min(10, (c.dispMax || 3) + +p[1])) }); };
   ACT.ataApRm = function (v) {
     var p = String(v).split('|'), c = S.ataContas[p[0]];
@@ -44355,9 +44411,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.ataLoteNovo = function () { ataLoteForm(null); };
   ACT.ataLoteEdita = function (id) { if (S.ataLotes[id]) ataLoteForm(Object.assign({}, S.ataLotes[id])); };
   ACT.ataLoteCanc = function (id) {
-    var L = S.ataLotes[id];
-    if (!L || !window.confirm('Encerrar o lote? O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.')) return;
-    L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+    var L = (S.ataLotes || {})[id];
+    if (!L) return;
+    lfConfirma({
+      k: 'ataLote'+id,
+      t: 'Encerrar o lote?',
+      q: L.nome || 'Lote',
+      f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
+      b: 'Encerrar lote',
+      fn: function () {
+        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+      }
+    });
   };
   ACT.ataLoteEnvia = function (v) {
     var p = String(v).split('|'), L = S.ataLotes[p[0]], c = S.ataContas[p[1]];
@@ -46608,7 +46673,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             seguro = true;
             vibrar(30);
             hold = null;
-            S._impDel = id;
             ACT.impdel(id);
             setTimeout(function () {
               seguro = false;
@@ -48194,9 +48258,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     $('dscModal').hidden = false;
   }
   ACT.cartclear = function () {
+    var vol = (S.cart || []).slice();
     S.cart = [];
     S.cartOpen = false;
     render();
+    if (vol.length)
+      lfDesfazer('Carrinho esvaziado', function () {
+        S.cart = vol;
+        render();
+      });
   };
   ACT.cartrm = function (id) {
     S.cart.splice(+id, 1);
@@ -48757,21 +48827,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   };
   ACT.pinoff = function () {
-    if (!S.pinOffConf) {
-      S.pinOffConf = true;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    exigirAuth(function () {
-      S.pinOffConf = false;
-      S.pinHash = '';
-      S.pinSalt = '';
-      S.bioOn = false;
-      S.ajMsg = 'PIN desativado.';
-      S._ajForce = true;
-      saveSoon();
-      render();
+    lfConfirma({
+      k: 'pinoff',
+      t: 'Tirar o bloqueio do app?',
+      f: 'Qualquer pessoa com este celular na mão abre o app sem PIN, com vendas, caixa e clientes.',
+      b: 'Tirar o bloqueio',
+      fn: function () {
+        exigirAuth(function () {
+          S.pinHash = '';
+          S.pinSalt = '';
+          S.bioOn = false;
+          S.ajMsg = 'PIN desativado.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        });
+      }
     });
   };
   // ---------- Dados de exemplo (14 meses)
@@ -52618,244 +52689,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return j;
   }
   window.__lfConfirma = lfConfirma;
-  (function () {
-    var A0 = {};
-    ['pedcanc', 'pedrecus', 'estorno', 'syncdesl', 'pinoff', 'nvSair', 'bkimp', 'ataCanc', 'ataLoteCanc', 'syncdesc', 'peddel', 'cartclear', 'notifLimpa', 'inicioReset', 'impdel'].forEach(function (k) {
-      A0[k] = ACT[k];
-    });
-    var semConfirm = function (fn) {
-      var c0 = window.confirm;
-      window.confirm = function () {
-        return true;
-      };
-      try {
-        fn();
-      } finally {
-        window.confirm = c0;
-      }
-    };
-    // ---------- grupo B
-    ACT.pedcanc = function (id) {
-      var p = pedAch(id);
-      if (!p) return;
-      var pago = p.pg === 'pago',
-        tot = pedTotal(p);
-      lfConfirma({
-        k: 'pedcanc'+id,
-        t: pago ? 'Cancelar o pedido?' : 'Cancelar a reserva?',
-        q: p.cli || 'Sem nome',
-        d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : p.pag === 'alias' ? ' · Banco Familiar' : ''),
-        v: tot ? gs(tot) : '',
-        f: pago
-          ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
-          : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
-        b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
-        fn: function () {
-          A0.pedcanc(id);
-        }
-      });
-    };
-    ACT.pedrecus = function (id) {
-      var p = pedAch(id);
-      if (!p) return;
-      var tot = pedTotal(p);
-      lfConfirma({
-        k: 'pedrecus'+id,
-        t: 'Recusar o comprovante?',
-        q: p.cli || 'Sem nome',
-        d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : ''),
-        v: tot ? gs(tot) : '',
-        f: 'Ela recebe o aviso no site para mandar outro comprovante. A reserva continua valendo.',
-        b: 'Recusar comprovante',
-        fn: function () {
-          A0.pedrecus(id);
-        }
-      });
-    };
-    ACT.estorno = function (id) {
-      var s = S.sales.filter(function (x) {
-        return x.id === id;
-      })[0];
-      if (!s || s.estorno) return;
-      lfConfirma({
-        k: 'estorno'+id,
-        t: 'Estornar a venda?',
-        q: descOf(s),
-        d: s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts),
-        v: exatoDe(s),
-        f: 'A peça volta para o estoque e o valor sai do caixa e dos resultados.',
-        nv: 1,
-        b: 'Estornar venda',
-        fn: function () {
-          S.confEst = id;
-          A0.estorno(id);
-        }
-      });
-    };
-    ACT.syncdesl = function () {
-      lfConfirma({
-        k: 'syncdesl',
-        t: 'Desligar a sincronização?',
-        q: 'Este aparelho',
-        d: 'para de receber e mandar mudanças',
-        f: 'Os outros aparelhos deixam de ver o que for feito aqui. O que já está neste celular continua.',
-        b: 'Desligar neste aparelho',
-        fn: function () {
-          S._syncDel = 1;
-          A0.syncdesl();
-        }
-      });
-    };
-    ACT.pinoff = function () {
-      lfConfirma({
-        k: 'pinoff',
-        t: 'Tirar o bloqueio do app?',
-        f: 'Qualquer pessoa com este celular na mão abre o app sem PIN, com vendas, caixa e clientes.',
-        b: 'Tirar o bloqueio',
-        fn: function () {
-          S.pinOffConf = true;
-          A0.pinoff();
-        }
-      });
-    };
-    ACT.nvSair = function () {
-      var n = S.nuvem || {};
-      lfConfirma({
-        k: 'nvSair',
-        t: 'Desconectar da nuvem?',
-        q: n.email || '',
-        d: n.ts ? 'última cópia: ' + fd(n.ts) + ' ' + fh(n.ts) : '',
-        f: 'A cópia automática para e a cotação da loja deixa de ir para o site. As cópias que já estão na nuvem continuam lá.',
-        b: 'Desconectar',
-        fn: function () {
-          A0.nvSair();
-        }
-      });
-    };
-    ACT.bkimp = function () {
-      lfConfirma({
-        k: 'bkimp',
-        t: 'Importar um backup?',
-        f: 'Os dados deste aparelho (peças, vendas, caixa, clientes) são trocados pelos do arquivo.',
-        nv: 1,
-        b: 'Escolher o arquivo',
-        fn: function () {
-          S.bkImpConf = false;
-          bkFile.click();
-        }
-      });
-    };
-    ACT.ataCanc = function (id) {
-      var c = (S.ataContas || {})[id];
-      if (!c) return;
-      lfConfirma({
-        k: 'ataCanc'+id,
-        t: 'Cancelar a conta atacadista?',
-        q: c.nome || '',
-        d: c.email || '',
-        f: 'O acesso ao catálogo de atacado é apagado. Para voltar, só com um convite novo.',
-        nv: 1,
-        b: 'Cancelar conta',
-        fn: function () {
-          semConfirm(function () {
-            A0.ataCanc(id);
-          });
-        }
-      });
-    };
-    ACT.ataLoteCanc = function (id) {
-      var L = (S.ataLotes || {})[id];
-      if (!L) return;
-      lfConfirma({
-        k: 'ataLote'+id,
-        t: 'Encerrar o lote?',
-        q: L.nome || 'Lote',
-        f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
-        b: 'Encerrar lote',
-        fn: function () {
-          semConfirm(function () {
-            A0.ataLoteCanc(id);
-          });
-        }
-      });
-    };
-    ACT.syncdesc = function (ap) {
-      if (!/^AP[A-Z0-9]{2,8}$/.test(ap || '')) return;
-      lfConfirma({
-        k: 'syncdesc'+ap,
-        t: 'Desconectar o aparelho?',
-        q: ap,
-        f: 'Esse aparelho para de receber as mudanças da loja e perde o acesso à nuvem.',
-        b: 'Desconectar',
-        fn: function () {
-          S._syncDesc = ap;
-          A0.syncdesc(ap);
-        }
-      });
-    };
-    // ---------- grupo A (faz na hora + Desfazer)
-    var copia = function (v) {
-      return JSON.parse(JSON.stringify(v == null ? null : v));
-    };
-    ACT.peddel = function (id) {
-      var p = pedAch(id);
-      if (!p) return;
-      var ix = S.pedidos.indexOf(p),
-        vol = copia(p);
-      S._pedDel = String(id);
-      A0.peddel(id);
-      lfDesfazer('Pedido ' + p.num + ' removido', function () {
-        S.pedidos.splice(Math.min(ix, S.pedidos.length), 0, vol);
-        saveSoon();
-        render();
-      });
-    };
-    ACT.cartclear = function () {
-      var vol = (S.cart || []).slice();
-      A0.cartclear();
-      if (vol.length)
-        lfDesfazer('Carrinho esvaziado', function () {
-          S.cart = vol;
-          render();
-        });
-    };
-    ACT.notifLimpa = function () {
-      var vol = (S.notifs || []).slice();
-      A0.notifLimpa();
-      if (vol.length)
-        lfDesfazer('Histórico limpo', function () {
-          S.notifs = vol;
-          saveSoon();
-          render();
-        });
-    };
-    ACT.inicioReset = function () {
-      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos) };
-      A0.inicioReset();
-      lfDesfazer('Início voltou ao padrão', function () {
-        S.inicioFant = vol.f;
-        S.inicioT = vol.t;
-        S.barra = vol.b;
-        S.grupos = vol.g || [];
-        saveSoon();
-        render();
-      });
-    };
-    ACT.impdel = function (id) {
-      var x = S.imprev[+id];
-      if (!x) return;
-      var vi = copia(S.imprev),
-        vd = copia(S.dlog);
-      S._impDel = id;
-      A0.impdel(id);
-      lfDesfazer('Imprevisto removido', function () {
-        S.imprev = vi;
-        S.dlog = vd;
-        saveSoon();
-        render();
-      });
-    };
-  })();
+  function copia(v) {
+    return JSON.parse(JSON.stringify(v == null ? null : v));
+  }
   // S418 (125c): moeda da retirada por toque (no lugar da lista do navegador)
   ACT.rtMoe = function (m) {
     if (!/^(pyg|usd|brl)$/.test(m)) return;
