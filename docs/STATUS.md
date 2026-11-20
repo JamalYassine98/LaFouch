@@ -47,7 +47,7 @@
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — ✅ publicado no site 1795192682 (20/11 13:55)
 - **21-limpeza-5-canto-de-selos** — ✅ publicado no site 1795192682 (20/11 13:55): selos v2, faixa só no topo, sem modo lista
-- **21-s1-s2-parte-3-app** — PRONTO E TESTADO no ramo app-item21 (330/330) — NÃO publicado; publica depois do recado da NUVEM 'item 11 publicado' · APP
+- **21-s1-s2-parte-3-app** — em andamento — publicando agora (item 11 no ar desde 13:58) · APP
 - **22-bug-entrar-na-nuvem-aparelho-novo** — ✅ v573 (5.49.3, 20/11) · APP · pedido 20/11 09:40
 - **22-publicar-nuvem-pelo-github** — ✅ funcionando 20/11 08:41 — dono configurou (Cloud Shell); 1ª publicação de teste pelo GitHub: testes ok + Deploy complete
 - **23-remendos-parte-1-render** — ✅ v574 (5.49.4, 20/11) — 0 diferenças em 60 telas · APP · pedido 20/11 09:40
