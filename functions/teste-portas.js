@@ -83,6 +83,9 @@ function t(n, c) { if (c) { ok++; console.log('  ok  ' + n); } else { falhas.pus
   t('o envio de avisos ao celular num lugar só (avisaAparelhos)', conta(src, 'messaging().send') === 1);
   t('o erro esperado (Falha) existe só em falha.js', fs.readdirSync(__dirname).filter((f) => /\.js$/.test(f) && !/^teste-/.test(f)).every((f) => conta(fs.readFileSync(__dirname + '/' + f, 'utf8'), 'class Falha') === (f === 'falha.js' ? 1 : 0)));
   t('nenhuma porta trata o erro da sua cópia de Falha (só o falhou de todas)', !/instanceof \w+\.Falha/.test(src));
+  // S3 parte 3: ninguém cria direto em pedidos/ nem em vistas/ (o site passa pelas funções pedido e analise)
+  const regras = fs.readFileSync(__dirname + '/../firestore.rules', 'utf8'), bloco = (m) => (regras.split('match /' + m + '/')[1] || '').split('}')[0];
+  t('regras: pedidos/ e vistas/ sem criação direta', bloco('pedidos').length > 0 && !/allow[^;]*create/.test(bloco('pedidos')) && !/allow[^;]*(create|update)/.test(bloco('vistas')));
   const modulos = fs.readdirSync(__dirname).filter((f) => /\.js$/.test(f) && !/^teste-/.test(f)).map((f) => [f, fs.readFileSync(__dirname + '/' + f, 'utf8')]);
   t('e-mail válido e limpar texto moram só no texto.js', modulos.every(([f, s]) => f === 'texto.js' || (!/const EMAIL_OK\s*=\s*\//.test(s) && !/(const|function) (limpa|linha)\s*[=(]\s*\(?t, n\)?/.test(s))));
   t('o escape de HTML mora só no email.js', modulos.every(([f, s]) => conta(s, "'&amp;'") === (f === 'email.js' ? 1 : 0)));

@@ -11,36 +11,6 @@ service cloud.firestore {
         && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'
         && request.auth.token.email == 'jamalaliyassine@gmail.com';
     }
-    function txt(k, n) {
-      return !(k in request.resource.data) || (request.resource.data[k] is string && request.resource.data[k].size() < n);
-    }
-    function pedidoOk() {
-      return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',
-                                                   'nac','doc','nasc','email','cidade','end','ent','endE','refE','depE','pag','uq','brl','pagar','teste','obsC','cup','cupd'])
-        && request.resource.data.nome is string && request.resource.data.nome.size() < 80
-        && request.resource.data.itens is list && request.resource.data.itens.size() <= 30
-        && txt('tel', 30) && txt('email', 200) && txt('doc', 30) && txt('obsC', 200)
-        && txt('endE', 300) && txt('refE', 200) && txt('depE', 80) && txt('cidade', 80)
-        && (!('total' in request.resource.data) || (request.resource.data.total is number && request.resource.data.total >= 0 && request.resource.data.total < 1000000000));
-    }
-    function comprovanteOk() {
-      return request.resource.data.keys().hasOnly(['tipo','ref','img','ts','cod'])
-        && request.resource.data.tipo == 'comp'
-        && request.resource.data.ref is string && request.resource.data.ref.size() < 40
-        && request.resource.data.img is string && request.resource.data.img.size() < 900000;
-    }
-    function cancelOk() {
-      return request.resource.data.keys().hasOnly(['tipo','ref','ts','cod'])
-        && request.resource.data.tipo == 'cancel'
-        && request.resource.data.ref is string && request.resource.data.ref.size() < 40;
-    }
-    function aviseOk() {
-      return request.resource.data.keys().hasOnly(['tipo','ref','nome','tel','pais','ts'])
-        && request.resource.data.tipo == 'avise'
-        && request.resource.data.ref is string && request.resource.data.ref.size() < 40
-        && request.resource.data.nome is string && request.resource.data.nome.size() < 80
-        && request.resource.data.tel is string && request.resource.data.tel.size() < 30;
-    }
     match /produtos/{d} {
       allow read: if true;
       allow write: if dono();
@@ -75,9 +45,9 @@ service cloud.firestore {
     match /pixEspera/{d} { allow read, write: if dono(); }
     match /pixSemPar/{d} { allow read, delete: if dono(); }
     match /pixVistos/{d} { allow read: if dono(); }
+    // S3 (20/11/2026): o site entrega pedido, comprovante, cancelamento e avise-me pela função "pedido" (formato e limite lá);
+    // ninguém cria direto aqui. pedidoIds/ e limite/ não têm "match": ficam fechadas, só o servidor usa.
     match /pedidos/{d} {
-      // o cliente só CRIA (nunca lê, muda ou apaga um pedido, nem o dele)
-      allow create: if pedidoOk() || comprovanteOk() || cancelOk() || aviseOk();
       allow read, delete: if dono();
     }
     match /mov/{d} {
@@ -103,12 +73,8 @@ service cloud.firestore {
     match /dispositivos/{t} {
       allow read, write: if dono();
     }
-    // vistas: o site soma as visitas de cada peça; só o dono lê (app › Vistas do site)
+    // S3 (20/11/2026): as visitas por peça ficam só na análise (função "analise"); vistas/ não recebe mais nada — o dono apaga o que sobrou
     match /vistas/{id} {
-      allow create, update: if request.resource.data.keys().hasOnly(['ts','r'])
-        && request.resource.data.ts is int
-        && request.resource.data.r is map
-        && request.resource.data.r.size() <= 60;
       allow read, delete: if dono();
     }
     match /clientes/{uid} {
