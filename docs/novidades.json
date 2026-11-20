@@ -1,7 +1,7 @@
 {
- "nome": "5.50.9",
+ "nome": "5.50.10",
  "notas": [
-  "Estúdio › Vídeo: consertada a imagem que ficava toda branca ao tocar em \"Gravar a volta\" em alguns celulares. A câmera agora só trava a luz no valor que está usando; se o aparelho não informar esse valor, trava só foco e branco. Se mesmo assim a imagem clarear ou escurecer de repente, a luz é solta e a gravação segue."
+  "Estúdio › Vídeo: consertada a imagem que ficava desfocada e rosada ao gravar a volta. A câmera só trava foco, luz e branco quando o celular informa o valor que está usando; se a imagem mudar depois de travar, ela solta tudo e grava no automático."
  ],
- "build": 584
+ "build": 585
 }

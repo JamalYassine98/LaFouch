@@ -114,65 +114,90 @@
       if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
     }
   }
-  // Trava foco, luz e branco NO VALOR que a câmera está usando agora (o que o aparelho deixar).
-  // Luz (item 31, 20/11/2026 — celular do dono ficava todo branco ao gravar): só trava quando o aparelho diz o tempo de exposição em uso;
-  // "manual" sem esse valor deixa a exposição no padrão do aparelho e a imagem estoura. Depois de travar a luz, confere a imagem (v = o vídeo
-  // da câmera): se o brilho saltou, solta a luz (volta ao automático) e segue só com foco e branco.
-  var C149_SALTO = 35; // de 0 a 255
-  function c149Brilho(v) {
+  // Trava foco, luz e branco NO VALOR que a câmera está usando agora — uma regra só para os três (itens 31 e 32, 20/11/2026; no celular
+  // do dono a imagem ficava branca, depois desfocada e rosada ao gravar): cada um só é travado quando o aparelho diz o valor em uso
+  // (getSettings); "manual" sem esse valor deixa a câmera no padrão do aparelho. Depois de travar, confere a imagem (v = o vídeo da câmera):
+  // se o brilho, a nitidez ou a cor mudaram, solta TUDO e a gravação segue no automático.
+  var C149_MUDOU = { brilho: 35, cor: 25, nitidez: 0.6 }; // brilho e cor de 0 a 255; nitidez = quanto sobrou (0.6 = perdeu 40%)
+  function c149Olha(v) {
     try {
       if (!v || v.readyState < 2) return null;
-      var cv = c149Brilho.cv || (c149Brilho.cv = document.createElement('canvas'));
-      cv.width = 32;
-      cv.height = 18;
+      var cv = c149Olha.cv || (c149Olha.cv = document.createElement('canvas')),
+        W = 96,
+        H = 54;
+      cv.width = W;
+      cv.height = H;
       var x = cv.getContext('2d', { willReadFrequently: true });
-      x.drawImage(v, 0, 0, 32, 18);
-      var d = x.getImageData(0, 0, 32, 18).data,
-        soma = 0;
-      for (var i = 0; i < d.length; i += 4) soma += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-      return soma / (d.length / 4);
+      x.drawImage(v, 0, 0, W, H);
+      var d = x.getImageData(0, 0, W, H).data,
+        L = new Float32Array(W * H),
+        br = 0,
+        cor = 0,
+        nit = 0,
+        i,
+        n = 0;
+      for (i = 0; i < W * H; i++) {
+        L[i] = 0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2];
+        br += L[i];
+        cor += d[i * 4] - d[i * 4 + 2]; // vermelho − azul: muda quando o branco da câmera muda
+      }
+      for (var y = 1; y < H - 1; y++)
+        for (var xx = 1; xx < W - 1; xx++) {
+          i = y * W + xx;
+          nit += Math.abs(4 * L[i] - L[i - 1] - L[i + 1] - L[i - W] - L[i + W]);
+          n++;
+        }
+      return { brilho: br / (W * H), cor: cor / (W * H), nitidez: nit / n };
     } catch (e) {
       return null;
     }
+  }
+  function c149Mudou(a, b) {
+    return !!(a && b && (Math.abs(b.brilho - a.brilho) > C149_MUDOU.brilho || Math.abs(b.cor - a.cor) > C149_MUDOU.cor || (a.nitidez > 1 && b.nitidez < a.nitidez * C149_MUDOU.nitidez)));
   }
   function c149Trava(t, v) {
     if (!t || !t.getCapabilities) return Promise.resolve('');
     var c = t.getCapabilities(),
       s = t.getSettings ? t.getSettings() : {},
       a = {},
+      solta = {},
       q = [],
-      txt = function () {
-        return 'Travado: ' + q.join(', ');
-      };
-    if (c.focusMode && c.focusMode.indexOf('manual') >= 0) {
+      pode = function (modo) {
+        return !!(c[modo] && c[modo].indexOf('manual') >= 0);
+      },
+      NAO = 'Este aparelho não deixa travar foco e luz';
+    if (pode('focusMode') && s.focusDistance > 0) {
       a.focusMode = 'manual';
-      if (s.focusDistance) a.focusDistance = s.focusDistance;
+      a.focusDistance = s.focusDistance;
+      solta.focusMode = 'continuous';
       q.push('foco');
     }
-    var luz = !!(c.exposureMode && c.exposureMode.indexOf('manual') >= 0 && s.exposureTime > 0);
-    if (luz) {
+    if (pode('exposureMode') && s.exposureTime > 0) {
       a.exposureMode = 'manual';
       a.exposureTime = s.exposureTime;
       if (c.iso && s.iso) a.iso = s.iso;
+      solta.exposureMode = 'continuous';
       q.push('luz');
     }
-    if (c.whiteBalanceMode && c.whiteBalanceMode.indexOf('manual') >= 0) {
+    if (pode('whiteBalanceMode') && s.colorTemperature > 0) {
       a.whiteBalanceMode = 'manual';
-      if (s.colorTemperature) a.colorTemperature = s.colorTemperature;
+      a.colorTemperature = s.colorTemperature;
+      solta.whiteBalanceMode = 'continuous';
       q.push('branco');
     }
-    if (!q.length) return Promise.resolve('Este aparelho não deixa travar foco e luz');
-    var antes = luz ? c149Brilho(v) : null;
+    if (!q.length) return Promise.resolve(NAO);
+    var antes = c149Olha(v);
     return t.applyConstraints({ advanced: [a] }).then(
       function () {
-        if (!luz || antes == null) return txt();
+        if (!antes) return 'Travado: ' + q.join(', ');
         return new Promise(function (ok) {
           setTimeout(ok, 900);
         }).then(function () {
-          var depois = c149Brilho(v);
-          if (depois == null || Math.abs(depois - antes) <= C149_SALTO) return txt();
-          q.splice(q.indexOf('luz'), 1);
-          return t.applyConstraints({ advanced: [{ exposureMode: 'continuous' }] }).then(txt, txt);
+          if (!c149Mudou(antes, c149Olha(v))) return 'Travado: ' + q.join(', ');
+          var nao = function () {
+            return NAO;
+          };
+          return t.applyConstraints({ advanced: [solta] }).then(nao, nao);
         });
       },
       function () {
