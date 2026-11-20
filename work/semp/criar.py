@@ -6,8 +6,8 @@ from PIL import Image,ImageDraw,ImageFont
 O='/home/claude/lafouch/work/semp/'
 F=lambda s:ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',s)
 SV=lambda p:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'
-I=dict(post=SV('<rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M4 16l4-4 4 4 3-3 5 5"></path>'),story=SV('<rect x="7" y="2" width="10" height="20" rx="2"></rect><circle cx="12" cy="9" r="2"></circle>'),
- status=SV('<path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12z"></path>'),carr=SV('<rect x="2" y="5" width="14" height="14" rx="2"></rect><path d="M19 7v10M22 9v6"></path>'),
+I=dict(post=SV('<rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M4 16l4-4 4 4 3-3 5 5"></path>'),story=SV('<circle cx="12" cy="12" r="9" stroke-dasharray="5 2.6"></circle><circle cx="12" cy="12" r="4.5"></circle>'),
+ status=SV('<path d="M20.5 12a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1-4.4A8.5 8.5 0 1 1 20.5 12z"></path><path d="M12 8.5V12l2.3 1.4"></path>'),carr=SV('<rect x="2" y="5" width="14" height="14" rx="2"></rect><path d="M19 7v10M22 9v6"></path>'),
  video=SV('<rect x="3" y="5" width="13" height="14" rx="2"></rect><path d="M16 10l5-3v10l-5-3z"></path>'),rot=SV('<path d="M5 4h14v16H5z"></path><path d="M8 8h8M8 12h8M8 16h5"></path>'))
 JS=r"""(I)=>{const v=document.getElementById('v-mkt');const R=getComputedStyle(v.querySelector('.mkSec')).color;
  const top=v.querySelector('.top');top.querySelector('h1').textContent='Criar';const cr=v.querySelector('.nvVs');
