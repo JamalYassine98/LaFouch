@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "v571 publicado (item 17); esperando o próximo item da fila",
- "arquivos": [],
+ "agora": "item 05 B3: Site → Resumo",
+ "arquivos": [
+  "src/98z-s374.js",
+  "tests/run.py"
+ ],
  "ultimas": [],
- "leu": 1795143157.867756
+ "leu": 1795144485.933877
 }

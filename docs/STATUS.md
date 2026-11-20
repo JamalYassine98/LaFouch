@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | v571 publicado (item 17); esperando o próximo item da fila | — |
+| APP | item 05 B3: Site → Resumo | src/98z-s374.js, tests/run.py |
 | SITE | test drive do comparador Hoje × Proposta (work/s430/comparador) | work/s430/comparador |
 
 ## Fila
