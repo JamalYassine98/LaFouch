@@ -1,7 +1,14 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 25: remendos parte 2a — inicioGo e navOn numa função só",
+ "arquivos": [
+  "src/89-inicio.js",
+  "src/97y-familias-s265.js",
+  "src/98z-s374.js",
+  "src/98z-s374c-site.js",
+  "src/98z-s374d-padrao.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795187041.836832,
