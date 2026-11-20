@@ -1,0 +1,9 @@
+  FALHA 2 navegação Filtros · a prova travou: Page.click: Timeout 30000ms exceeded.
+  FALHA 2 navegação Minha conta · abrir carrinho · o carrinho não abriu por cima
+  FALHA 5 situações difíceis 4G fraco · vitrine aparece · levou 99 s para aparecer o primeiro óculos (limite 10 s)
+  FALHA 7 olho do dono Animação · Busca (lupa) · 1440px · 5 quadros travados (>50 ms)
+  FALHA 7 olho do dono Animação · Busca (lupa) · 390px · 6 quadros travados (>50 ms)
+  FALHA 7 olho do dono Animação · Busca (lupa) · 820px · 6 quadros travados (>50 ms)
+  FALHA 7 olho do dono Animação · Menu · 1440px · 5 quadros travados (>50 ms)
+  FALHA 7 olho do dono Animação · Menu · 820px · 4 quadros travados (>50 ms)
+  FALHA 7 olho do dono Painel · texto legível · tema claro · 1 texto(s) com contraste abaixo de 3: v_cfg: "Salvar mensagem" 1
