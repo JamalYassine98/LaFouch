@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "pagamento parte 1 (regra 6b): valor a pagar conferido pelo servidor, sem venda dupla, sem pagamento perdido",
- "arquivos": [
-  "functions/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795190100.558251,
+   "r": "Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21)."
+  },
   {
    "t": 1795179857.7595193,
    "r": "Dono decidiu no S5+S7: sem inscritos de verdade → ao implementar, apagar as inscrições atuais (novidades e avise-me); S5S7 e S6S3 aprovados, esperando 'implementar'."
@@ -40,10 +42,6 @@
   {
    "t": 1795173492.2937813,
    "r": "fila: S1/S2 parte 3 do app renumerado de 18 para 21"
-  },
-  {
-   "t": 1795173178.0396068,
-   "r": "App Check parte 3 publicada e conferida (modo anotar). Próximo: ver seloDia/ depois da parte 2 do site; exigir só com novo ok do dono"
   }
  ],
  "leu": 1795190077.477099
