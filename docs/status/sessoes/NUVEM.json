@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "regras aprovadas 08:21 (lote, por dentro, ordem do SITE)",
- "arquivos": [
-  "CLAUDE.md",
-  "docs/FALTA-APROVAR-15-11.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795173773.7933736,
+   "r": "regras 3b, 3c e 6b no CLAUDE.md (aprovadas 08:21); item 22 (publicar a nuvem pelo GitHub) na Fila; recado para todas"
+  },
   {
    "t": 1795173492.2937813,
    "r": "fila: S1/S2 parte 3 do app renumerado de 18 para 21"

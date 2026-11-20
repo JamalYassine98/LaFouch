@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| NUVEM | regras aprovadas 08:21 (lote, por dentro, ordem do SITE) | CLAUDE.md, docs/FALTA-APROVAR-15-11.md |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
@@ -67,6 +66,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 08:22 — NUVEM: regras 3b, 3c e 6b no CLAUDE.md (aprovadas 08:21); item 22 (publicar a nuvem pelo GitHub) na Fila; recado para todas
 - 20/11 08:18 — NUVEM: fila: S1/S2 parte 3 do app renumerado de 18 para 21
 - 20/11 08:18 — APP: guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código
 - 20/11 08:12 — NUVEM: App Check parte 3 publicada e conferida (modo anotar). Próximo: ver seloDia/ depois da parte 2 do site; exigir só com novo ok do dono
