@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | item 30: vistas pela análise (recado da NUVEM) | src/97-vistas-site.js, src/97-nuvem.js, src/97-site-pediu.js, tests/run.py |
-| ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
 | SITE | recados da NUVEM: S6 (login no 'presentes' e no 'reservar'), S3 parte 2 (pedido pela porta 'pedido'), vistas (ramo esb-nuvem do catalogo) | js/lf-site.js |
 
 ## Fila
@@ -87,6 +86,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 19:44 — ESBOCO: Conferidos 09/20 (site) e 21 (app) no comparador + prova funcional: login por usuário e token do pedido pago batem; 0 falha nova na página da peça; recados para SITE e APP. Semp completo como ideia (todas as partes aprovadas). A seguir: conferir v579/v581/v582; esboço 'pagamento parte 3' pedido pela NUVEM; 'como fazer' dos 15 aprovados de Resultados/Preços pedido pela APP.
 - 20/11 16:11 — SITE: varredura com o site rodando (60% das funções rodam nas provas); 6 funções mortas certas fora da CÓPIA LIMPA (15 KB; comparador 0 diferenças; porteiro 207 provas, 0 falhas) — ainda NÃO publicado; porteiro ajustado aos dados novos da loja (nomes mudaram, 18 peças)
 - 20/11 15:58 — APP: v582 publicado: remendos parte 4a (Dashboard, dia, Histórico e Pendências com uma função cada; 0 diferenças em 60 telas; 337/337). Hoje: v573 a v582. Próximo: seguir por dentro (Preços, Peças, Site, Dinheiro…) enquanto a ESBOCO manda o 'como fazer' dos aprovados
 - 20/11 15:57 — NUVEM: Análise com porPeca publicada (base para tirar a coleção vistas/ aberta); recados ao APP (ler da análise) e ao SITE (tirar o vistaEnvia depois).
@@ -111,4 +111,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 10:03 — NUVEM: Anotado: dono aprovou S5+S7 e S6+S3 (esperando implementar; falta decidir inscritos atuais no S5+S7)
 - 20/11 10:01 — APP: v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono
 - 20/11 09:55 — SITE: porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir
-- 20/11 09:31 — SITE: itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono
