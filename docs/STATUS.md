@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 25: remendos parte 2a — inicioGo e navOn numa função só | src/89-inicio.js, src/97y-familias-s265.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
+| NUVEM | pagamento parte 1 (regra 6b): valor a pagar conferido pelo servidor, sem venda dupla, sem pagamento perdido | functions/ |
 | SITE | tirar o tema escuro (código morto) na cópia limpa + varredura de código morto com o site rodando | index.html, js/lf-site.js |
 
 ## Fila

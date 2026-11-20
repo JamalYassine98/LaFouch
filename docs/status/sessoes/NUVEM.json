@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "pagamento parte 1 (regra 6b): valor a pagar conferido pelo servidor, sem venda dupla, sem pagamento perdido",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795179857.7595193,
