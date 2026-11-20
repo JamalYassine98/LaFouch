@@ -45,7 +45,7 @@
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
 - **18-trava-dos-remendos** — na fila — o dono diz 'implementar' pelo prompt de 20/11 00:40 · APP
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
-- **20-appcheck-parte-2-site** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
+- **20-appcheck-parte-2-site** — ✅ publicado no site 1795192682 (20/11 13:55)
 - **21-limpeza-5-canto-de-selos** — na CÓPIA LIMPA (20/11 12:25): selos v2 + faixa só no topo + sai o modo lista — aprovado pelo dono 11:40; comparador só com as diferenças pedidas; prova dos selos 15/15; porteiro 205 provas, 1 falha (ícone da conta)
 - **21-s1-s2-parte-3-app** — PRONTO E TESTADO no ramo app-item21 (330/330) — NÃO publicado; publica depois do recado da NUVEM 'item 11 publicado' · APP
 - **22-bug-entrar-na-nuvem-aparelho-novo** — ✅ v573 (5.49.3, 20/11) · APP · pedido 20/11 09:40
