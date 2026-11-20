@@ -3237,3 +3237,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 - 19/11/2026 21:00 (dono "Sim"): limpezas 2 e 3 aprovadas e no ramo limpo — /*CAMADAS*/ (ordem única: telas < topo+faixa < flutuantes < gavetas < janelas < busca < avisos < sistema, variáveis --c-*) e medida única do topo (--hth = fim do topo na tela, ao vivo; #gw usa × --gz). Resolve o topo cortado do Mochi (print do dono) e o "‹ Início" escondido no catálogo.
 - 19/11 22:33 — Plano de limpeza dos remendos do app aprovado (trava → famílias a partir de Resultados/Preços → estilo → some 98z/99). Telas não mudam.
+
+- 19/11/2026 22:42 APROVADO (dono "Pode ser A"): faixa do evento como 1ª linha do topo, opção A (a faixa fica presa junto com o topo ao rolar). Ramo esb-faixa já entrou no `limpo`; opção B arquivada (work/obsoletos/s430). Ainda NÃO está no ar (o site de hoje continua com a faixa cobrindo o topo na conta e na peça).
