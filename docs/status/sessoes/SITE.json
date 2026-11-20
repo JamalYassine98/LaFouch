@@ -1,11 +1,12 @@
 {
  "nome": "SITE",
- "agora": "zerar o porteiro na cópia limpa: ícone da conta (cor no mouse) e os 5 avisos visuais da página da peça",
- "arquivos": [
-  "index.html",
-  "js/lf-site.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795188547.3588982,
+   "r": "PORTEIRO COM 0 FALHAS na cópia limpa (205 provas): ícone da conta consertado (saíram 3 regras de cor), 5 avisos da página da peça eram alarme falso da ferramenta (consertada). Cópia limpa pronta para o dono dizer 'publicar' — falta a resposta sobre a pasta teste-giro"
+  },
   {
    "t": 1795187251.5763078,
    "r": "selos v2, faixa só no topo e fim do modo lista na cópia limpa; porteiro: 1 falha (ícone da conta sem cor no mouse) + 5 avisos visuais da página da peça; levantamento de código morto em work/s430/limpeza5/"
