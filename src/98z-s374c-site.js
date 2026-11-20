@@ -12,23 +12,6 @@
   GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
-  var PNL95 = ['vit', 'prod', 'pre', 'cfg'];
-  var _inicioGo95 = inicioGo;
-  inicioGo = function (id) {
-    if (PNL95.indexOf(id) >= 0) return onlPainel(id);
-    return _inicioGo95.apply(this, arguments);
-  };
-  var _navOn95 = navOn;
-  navOn = function (id) {
-    var noPnl = S.view === 'onl';
-    if (PNL95.indexOf(id) >= 0) return noPnl && S.onlAba === id;
-    if (noPnl && (S.onlAba === 'anl' || S.onlAba === 'tem')) {
-      if (id === 'g:site') return false;
-      if (id === 'g:mkt') return true;
-    }
-    if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
-    return _navOn95.apply(this, arguments);
-  };
   // famílias (uma vez): Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
   var _iniLista95 = iniLista;
   iniLista = function () {

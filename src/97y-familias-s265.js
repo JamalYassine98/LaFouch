@@ -116,14 +116,3 @@
     try { famDashboard(); } catch (e) {}
     return r;
   };
-  // o atalho "Dashboard" abre a tela da família (o dia de hoje); os números do mês ficam a um toque
-  var _igFam = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'hoje') { S.day = dayKey(Date.now()); setView('dia'); return; }
-    return _igFam.apply(this, arguments);
-  };
-  var _noFam = navOn;
-  navOn = function (id) {
-    if (id === 'hoje' && S.view === 'dia') return true;
-    return _noFam.apply(this, arguments);
-  };

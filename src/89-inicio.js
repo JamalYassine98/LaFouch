@@ -240,17 +240,24 @@
     return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
   }
   /* toque num azulejo da tela Início */
+  // Abre uma tela pelo nome (Início, barra de baixo, grupos, busca). TODOS os destinos ficam aqui — nenhum arquivo embrulha esta função.
   function inicioGo(id) {
     if (grpGet(id)) return grpAbre(grpGet(id));
-    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
+    if (id === 'hoje') {
+      // o atalho "Dashboard" abre o dia de hoje; os números do mês ficam a um toque
+      S.day = dayKey(Date.now());
+      setView('dia');
+    } else if (id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
-    } else if (id === 'ata') {
-      setView('ata');
-    } else if (id === 'msg' || id === 'anl' || id === 'tem') {
-      onlPainel(id);
+    } else if (id === 'repo') {
+      return lcIrGiro();
+    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {
+      return onlPainel(id); // telas do painel do site
     } else if (id === 'mkt') {
-      mkAbre();
+      return mkAbre();
+    } else if (id === 'cup') {
+      return ACT.cupAbre();
     } else if (id === 'est') {
       estAbre();
     } else if (id === 'cli') {
@@ -264,7 +271,10 @@
     } else if (id === 'lotes') {
       S.lotesView = true;
       setView('estoque');
-    } else setView(id);
+    } else {
+      if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
+      setView(id);
+    }
   }
   /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
   var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
@@ -296,18 +306,31 @@
     var g = grpGet(id);
     return g ? g.nome : BARRA_NOME[id];
   }
+  // O botão da barra/menu está aceso? TODAS as telas ficam aqui — nenhum arquivo embrulha esta função.
   function navOn(id) {
     var v = S.view,
-      gg = grpGet(id);
+      noPnl = v === 'onl',
+      gg;
+    // painel do site: Vitrine, Modelos, Prévia e Ajustes do site são abas dele; Analisador e Temática contam para o Marketing
+    if (id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') return noPnl && S.onlAba === id;
+    if (noPnl && (S.onlAba === 'anl' || S.onlAba === 'tem')) {
+      if (id === 'g:site') return false;
+      if (id === 'g:mkt') return true;
+    }
+    if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
+    if (id === 'g:site' && noPnl && grpGet('g:site')) return true; // painel aberto = família Site
+    if (id === 'vendas' && noPnl && grpGet('g:site')) return false;
+    if (id === 'repo') return v === 'dash' && S.dTab === 'giro';
+    if (id === 'hoje' && v === 'dia') return true;
+    gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return v === 'vendas' || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'vendas') return v === 'vendas' || (noPnl && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
-    if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
-    if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
+    if (id === 'msg' || id === 'anl' || id === 'tem') return noPnl && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

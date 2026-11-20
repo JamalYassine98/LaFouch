@@ -3633,6 +3633,21 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 25 (20/11/2026): remendos parte 2a — inicioGo e navOn são UMA função cada (src/89-inicio.js); ninguém as troca.
+            # Cada destino abre a tela certa e acende o botão certo (tabela conferida antes × depois em work/s436/remendos/equiv_nav.py)
+            total += 1
+            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(inicioGo|navOn) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              for (const [id, view, aceso] of [['hoje', 'dia', 'hoje'], ['giro', 'dash', 'giro'], ['repo', 'dash', 'repo'], ['cli', 'clientes', 'cli'], ['site', 'site', 'site'], ['cup', 'cup', 'cup'], ['vit', 'onl', 'vit'], ['anl', 'onl', 'g:mkt'], ['caixa', 'caixa', 'caixa'], ['lotes', 'estoque', 'lotes']]) {
+                L.inicioGo(id); await w(250); R.push(S.view === view && L.navOn(aceso) === true ? 1 : id + '→' + S.view); }
+              L.inicioGo('vit'); await w(200); const pn = [L.navOn('vendas'), L.navOn('g:site'), L.navOn('prod')];
+              return [R.filter(x => x !== 1), pn]; }""")
+            ok = not troca and got == [[], [False, True, False]] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 25: inicioGo e navOn numa função só — cada destino abre a tela certa e acende o botão certo')
+            if not ok: falhas.append('item 25 destinos'); print('        veio', troca, got, pg.erros)
+            await pg.close()
+
             # Item 24 (20/11/2026): remendos parte 3 — cada confirmação mora num lugar só (arquivo da família): sem guarda da ação velha (A0),
             # sem calar o window.confirm e sem o "toque de novo"; a janela pergunta, Voltar não faz nada e confirmar faz UMA vez
             total += 1

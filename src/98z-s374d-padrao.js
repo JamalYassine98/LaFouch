@@ -144,11 +144,6 @@
     S._gAt = 'g:mkt';
     setView('mkt');
   };
-  var _inicioGo98 = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'mkt') return mkAbre();
-    return _inicioGo98.apply(this, arguments);
-  };
   ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
   var _grpAbre98 = grpAbre;
   grpAbre = function (g) {

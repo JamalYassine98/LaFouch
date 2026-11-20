@@ -49,18 +49,6 @@
     S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
     return _iniLista374.apply(this, arguments);
   };
-  // Reposição: a aba do Inventário vira tela da família Peças
-  var _inicioGo374 = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'repo') return lcIrGiro();
-    if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
-    return _inicioGo374.apply(this, arguments);
-  };
-  var _navOn374 = navOn;
-  navOn = function (id) {
-    if (id === 'repo') return S.view === 'dash' && S.dTab === 'giro';
-    return _navOn374.apply(this, arguments);
-  };
 
   // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
   // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
@@ -104,18 +92,6 @@
       if (g && g.itens.indexOf('site') < 0) g.itens.unshift('site');
     }
     return l;
-  };
-  var _inicioGo374b = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'site') return setView('site');
-    return _inicioGo374b.apply(this, arguments);
-  };
-  var _navOn374b = navOn;
-  navOn = function (id) {
-    if (id === 'site') return S.view === 'site';
-    if (id === 'g:site' && S.view === 'onl' && grpGet('g:site')) return true; // painel aberto = família Site
-    if (id === 'vendas' && S.view === 'onl' && grpGet('g:site')) return false;
-    return _navOn374b.apply(this, arguments);
   };
 
   // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
@@ -445,16 +421,6 @@
     cupVista = '';
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
     setView('cup');
-  };
-  var _inicioGo374c = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'cup') return ACT.cupAbre();
-    return _inicioGo374c.apply(this, arguments);
-  };
-  var _navOn374c = navOn;
-  navOn = function (id) {
-    if (id === 'cup') return S.view === 'cup';
-    return _navOn374c.apply(this, arguments);
   };
   // a família Marketing ganha a tela Cartões (uma vez)
   var _iniLista374c = iniLista;

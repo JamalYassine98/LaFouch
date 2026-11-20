@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 576;
+  var APP_BUILD = 577;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22297,17 +22297,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
   }
   /* toque num azulejo da tela Início */
+  // Abre uma tela pelo nome (Início, barra de baixo, grupos, busca). TODOS os destinos ficam aqui — nenhum arquivo embrulha esta função.
   function inicioGo(id) {
     if (grpGet(id)) return grpAbre(grpGet(id));
-    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
+    if (id === 'hoje') {
+      // o atalho "Dashboard" abre o dia de hoje; os números do mês ficam a um toque
+      S.day = dayKey(Date.now());
+      setView('dia');
+    } else if (id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
-    } else if (id === 'ata') {
-      setView('ata');
-    } else if (id === 'msg' || id === 'anl' || id === 'tem') {
-      onlPainel(id);
+    } else if (id === 'repo') {
+      return lcIrGiro();
+    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {
+      return onlPainel(id); // telas do painel do site
     } else if (id === 'mkt') {
-      mkAbre();
+      return mkAbre();
+    } else if (id === 'cup') {
+      return ACT.cupAbre();
     } else if (id === 'est') {
       estAbre();
     } else if (id === 'cli') {
@@ -22321,7 +22328,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } else if (id === 'lotes') {
       S.lotesView = true;
       setView('estoque');
-    } else setView(id);
+    } else {
+      if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
+      setView(id);
+    }
   }
   /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
   var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
@@ -22353,18 +22363,31 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var g = grpGet(id);
     return g ? g.nome : BARRA_NOME[id];
   }
+  // O botão da barra/menu está aceso? TODAS as telas ficam aqui — nenhum arquivo embrulha esta função.
   function navOn(id) {
     var v = S.view,
-      gg = grpGet(id);
+      noPnl = v === 'onl',
+      gg;
+    // painel do site: Vitrine, Modelos, Prévia e Ajustes do site são abas dele; Analisador e Temática contam para o Marketing
+    if (id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') return noPnl && S.onlAba === id;
+    if (noPnl && (S.onlAba === 'anl' || S.onlAba === 'tem')) {
+      if (id === 'g:site') return false;
+      if (id === 'g:mkt') return true;
+    }
+    if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
+    if (id === 'g:site' && noPnl && grpGet('g:site')) return true; // painel aberto = família Site
+    if (id === 'vendas' && noPnl && grpGet('g:site')) return false;
+    if (id === 'repo') return v === 'dash' && S.dTab === 'giro';
+    if (id === 'hoje' && v === 'dia') return true;
+    gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return v === 'vendas' || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'vendas') return v === 'vendas' || (noPnl && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
-    if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
-    if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
+    if (id === 'msg' || id === 'anl' || id === 'tem') return noPnl && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }
@@ -45266,17 +45289,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { famDashboard(); } catch (e) {}
     return r;
   };
-  // o atalho "Dashboard" abre a tela da família (o dia de hoje); os números do mês ficam a um toque
-  var _igFam = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'hoje') { S.day = dayKey(Date.now()); setView('dia'); return; }
-    return _igFam.apply(this, arguments);
-  };
-  var _noFam = navOn;
-  navOn = function (id) {
-    if (id === 'hoje' && S.view === 'dia') return true;
-    return _noFam.apply(this, arguments);
-  };
   // ===== S200 (aprovado 12/11/2026): LUCRO REAL por peça e do mês =====
   // Regra do dono: IVA da venda (10% dentro do preço) sai da receita (preço ÷ 1,10); IVA pago na compra vira CUSTO
   // (sem crédito fiscal); frete da compra já está rateado no custo da peça (lote); frete da entrega pago pela loja,
@@ -51919,18 +51931,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
     return _iniLista374.apply(this, arguments);
   };
-  // Reposição: a aba do Inventário vira tela da família Peças
-  var _inicioGo374 = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'repo') return lcIrGiro();
-    if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
-    return _inicioGo374.apply(this, arguments);
-  };
-  var _navOn374 = navOn;
-  navOn = function (id) {
-    if (id === 'repo') return S.view === 'dash' && S.dTab === 'giro';
-    return _navOn374.apply(this, arguments);
-  };
 
   // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
   // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
@@ -51974,18 +51974,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (g && g.itens.indexOf('site') < 0) g.itens.unshift('site');
     }
     return l;
-  };
-  var _inicioGo374b = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'site') return setView('site');
-    return _inicioGo374b.apply(this, arguments);
-  };
-  var _navOn374b = navOn;
-  navOn = function (id) {
-    if (id === 'site') return S.view === 'site';
-    if (id === 'g:site' && S.view === 'onl' && grpGet('g:site')) return true; // painel aberto = família Site
-    if (id === 'vendas' && S.view === 'onl' && grpGet('g:site')) return false;
-    return _navOn374b.apply(this, arguments);
   };
 
   // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
@@ -52316,16 +52304,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
     setView('cup');
   };
-  var _inicioGo374c = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'cup') return ACT.cupAbre();
-    return _inicioGo374c.apply(this, arguments);
-  };
-  var _navOn374c = navOn;
-  navOn = function (id) {
-    if (id === 'cup') return S.view === 'cup';
-    return _navOn374c.apply(this, arguments);
-  };
   // a família Marketing ganha a tela Cartões (uma vez)
   var _iniLista374c = iniLista;
   iniLista = function () {
@@ -52355,23 +52333,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
-  var PNL95 = ['vit', 'prod', 'pre', 'cfg'];
-  var _inicioGo95 = inicioGo;
-  inicioGo = function (id) {
-    if (PNL95.indexOf(id) >= 0) return onlPainel(id);
-    return _inicioGo95.apply(this, arguments);
-  };
-  var _navOn95 = navOn;
-  navOn = function (id) {
-    var noPnl = S.view === 'onl';
-    if (PNL95.indexOf(id) >= 0) return noPnl && S.onlAba === id;
-    if (noPnl && (S.onlAba === 'anl' || S.onlAba === 'tem')) {
-      if (id === 'g:site') return false;
-      if (id === 'g:mkt') return true;
-    }
-    if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
-    return _navOn95.apply(this, arguments);
-  };
   // famílias (uma vez): Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
   var _iniLista95 = iniLista;
   iniLista = function () {
@@ -52627,11 +52588,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   mkAbre = function () {
     S._gAt = 'g:mkt';
     setView('mkt');
-  };
-  var _inicioGo98 = inicioGo;
-  inicioGo = function (id) {
-    if (id === 'mkt') return mkAbre();
-    return _inicioGo98.apply(this, arguments);
   };
   ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
   var _grpAbre98 = grpAbre;
@@ -53370,7 +53326,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
-      barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo,
+      barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo, navOn: navOn,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
