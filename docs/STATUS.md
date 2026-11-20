@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 26: remendos parte 2b — iniLista e grpAbre numa função só | src/89-inicio.js, src/95-barra-grupos.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
 | SITE | tirar o tema escuro (código morto) na cópia limpa + varredura de código morto com o site rodando | index.html, js/lf-site.js |
 
