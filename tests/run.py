@@ -377,6 +377,14 @@ async def main():
     time.sleep(1)
     exe = next((p for p in ['/opt/pw-browsers/chromium'] + glob.glob('/opt/pw-browsers/chromium*/chrome-linux/chrome') if os.path.exists(p)), None)
     falhas, total = [], 0
+    # Item 18 (20/11/2026): trava dos remendos — embrulho novo, função reescrita em outro arquivo, ação ACT em 2+ lugares,
+    # !important ou seletor repetido a mais reprovam (teto em tests/teto-remendos.json, só desce: tools/remendos.py --grava)
+    sys.path.insert(0, os.path.join(RAIZ, 'tools'))
+    import remendos
+    sub = remendos.compara(remendos.conta(RAIZ), json.load(open(remendos.TETO)))
+    total += 1
+    print(('  ok  ' if not sub else ' FALHA ') + 'Item 18: nenhum remendo novo (regra 12: trocar no lugar e apagar o velho)')
+    if sub: falhas.append('remendo novo'); [print('        ', x) for x in sub]
     try:
         async with async_playwright() as p:
             b = await p.chromium.launch(executable_path=exe, args=['--no-sandbox']) if exe else await p.chromium.launch(args=['--no-sandbox'])

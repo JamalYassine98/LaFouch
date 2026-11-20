@@ -188,6 +188,8 @@ Um teste novo no `tests/run.py` que **reprova a publicação** se, em relação 
 - o número de `!important` ou de seletores repetidos subir.
 Enquanto a limpeza não termina, o teste guarda os números de hoje como teto e só deixa **descer**.
 
+**LIGADA em 20/11/2026 (item 18, S436):** `tools/remendos.py` conta; teto em `tests/teto-remendos.json` (72 embrulhos · 74 reescritas · 24 ações em 2+ lugares · 988 !important · 73 seletores 3+ vezes); é o 1º teste do `tests/run.py`. Quem limpar uma família roda `python3 tools/remendos.py --grava` no mesmo commit para baixar o teto.
+
 ## Site
 
 O site tem o mesmo problema; a SITE · implementa já está limpando os estilos na cópia limpa (ramo `limpo`, S430 "medidor de cascata"). Este inventário é só do APP.
