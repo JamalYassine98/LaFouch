@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 26: remendos parte 2b — iniLista e grpAbre numa função só | src/89-inicio.js, src/95-barra-grupos.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
+| NUVEM | pagamento parte 2: robô do Gmail confia só na marca do Gmail | work/pix/robo-pix.gs, functions/teste-robo.js |
 | SITE | varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py) | work/fiscal/provas.py |
 
 ## Fila

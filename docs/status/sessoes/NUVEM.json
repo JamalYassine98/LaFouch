@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "pagamento parte 2: robô do Gmail confia só na marca do Gmail",
+ "arquivos": [
+  "work/pix/robo-pix.gs",
+  "functions/teste-robo.js"
+ ],
  "ultimas": [
   {
    "t": 1795190100.558251,
