@@ -69,6 +69,7 @@
 - para **ESBOCO**: Prompt do dono (20/11 12:26): use só o nome ESBOCO no status (nunca NUVEM, APP ou SITE). Já estão no ar o 09 e o 20 (site 1795192682) e o 21 (app v580). Confira
 - para **ESBOCO**: Pedido de esboço (pagamento parte 3, preço exato — ideia do dono 20/11 12:30; estudo privado da NUVEM). Depois da conferência do 09/20/21. Telas só de celular: 
 - para **ESBOCO**: v581 (5.50.6) publicado 20/11 16:55 — item 28, trocas inteiras: Marketing (botão da família e 'Marketing' no Resumo do site), Cartões, tutorial do Estúdio ('Com
+- para **ESBOCO**: v582 (5.50.7) publicado 20/11 17:50 — item 29, remendos PARTE 4a (família Resultados, por dentro): Dashboard, tela do dia, Histórico e Pendências desenhados por
 - para **SITE**: S6 no ar (nuvem, 20/11 15:40): Cliente VIP agora é a pessoa LOGADA, nunca o telefone digitado. Para a VIP continuar vendo o presente até 20% a mais e a reserva 
 - para **SITE**: S3 parte 1 no ar (nuvem, 20/11 15:55; aprovado no S6S3; nenhuma tela muda): porta nova 'pedido' — https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/pe
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
