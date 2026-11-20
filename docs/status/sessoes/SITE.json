@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py, só medição)",
- "arquivos": [
-  "work/fiscal/provas.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795201869.5060387,
+   "r": "varredura com o site rodando (60% das funções rodam nas provas); 6 funções mortas certas fora da CÓPIA LIMPA (15 KB; comparador 0 diferenças; porteiro 207 provas, 0 falhas) — ainda NÃO publicado; porteiro ajustado aos dados novos da loja (nomes mudaram, 18 peças)"
+  },
   {
    "t": 1795195091.7655706,
    "r": "site 1795194969 no ar: foto da peça aparece por link direto (defeito de raiz), sem óculos desenhado nem brilho da Black Friday; porteiro 207 provas, 0 falhas. teste-giro fica. Próximo: varredura de código morto medindo durante as provas"
