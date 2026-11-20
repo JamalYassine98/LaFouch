@@ -2,6 +2,8 @@
 
 Pedido do dono (20:53, "Sim"): listar o que é remendo em cima de remendo, família por família, com o que substituir e o que apagar. Só leitura — nada foi mexido. Gerado por `work/remendos/varre.py` + `doc.py` (rodar de novo para atualizar).
 
+> **20/11/2026 (S436):** o plano em partes para limpar, com medição mais fina (leitor de JavaScript) e o ensaio da parte 1, está em **docs/PLANO-REMENDOS-20-11.md**.
+
 ## Números de hoje
 
 | O quê | Quantos |

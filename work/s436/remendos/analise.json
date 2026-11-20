@@ -1,0 +1,3497 @@
+{
+ "modulos": 165,
+ "cadeias": [
+  {
+   "nome": "avMin",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-push.js",
+     "l": 57,
+     "linhas": 4,
+     "tipo": "MORTA (declarada de novo depois; nunca roda)"
+    },
+    {
+     "f": "97-push.js",
+     "l": 207,
+     "linhas": 4,
+     "tipo": "base"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "mcInicio",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-modo-cliente.js",
+     "l": 108,
+     "linhas": 16,
+     "tipo": "base"
+    },
+    {
+     "f": "97-modo-cliente2-loja.js",
+     "l": 111,
+     "linhas": 1,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_mcInicio"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "limpaRefExcluido",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "05-movimentos.js",
+     "l": 94,
+     "linhas": 10,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 57,
+     "linhas": 7,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_limpaRefExcl0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "restaurarDados",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "96-ajustes.js",
+     "l": 19,
+     "linhas": 46,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 66,
+     "linhas": 14,
+     "tipo": "antes e depois",
+     "prof": 0,
+     "guarda": "_restaurar0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "syncAplica",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "05-sync.js",
+     "l": 137,
+     "linhas": 87,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 82,
+     "linhas": 11,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_syncAplica0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "nvToken",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-nuvem.js",
+     "l": 35,
+     "linhas": 23,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 225,
+     "linhas": 7,
+     "tipo": "só repassa",
+     "prof": 0,
+     "guarda": "_nvToken0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "salvarAgora",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 474,
+     "linhas": 56,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 261,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_salvarAgora0"
+    },
+    {
+     "f": "97z-voltar-tempo.js",
+     "l": 93,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_svVT"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "saveFotos",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 155,
+     "linhas": 28,
+     "tipo": "base"
+    },
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 266,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_saveFotos0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "vitProduto",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "96-loja-online.js",
+     "l": 158,
+     "linhas": 51,
+     "tipo": "base"
+    },
+    {
+     "f": "97-site-v2.js",
+     "l": 39,
+     "linhas": 6,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_vitProdutoV1"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "siteOfPct",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-ofertas-site.js",
+     "l": 88,
+     "linhas": 6,
+     "tipo": "base"
+    },
+    {
+     "f": "97r-temas-s183.js",
+     "l": 57,
+     "linhas": 7,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_sopTema"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "atencaoItens",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "89-dash-abas.js",
+     "l": 31,
+     "linhas": 80,
+     "tipo": "base"
+    },
+    {
+     "f": "97r-temas-s183.js",
+     "l": 129,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_atTema"
+    },
+    {
+     "f": "97w-guardiao.js",
+     "l": 91,
+     "linhas": 15,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_atGuard"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderDetail",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "10-estoque-detalhe.js",
+     "l": 61,
+     "linhas": 1582,
+     "tipo": "base"
+    },
+    {
+     "f": "97t-ficha-s190.js",
+     "l": 138,
+     "linhas": 16,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdFicha"
+    },
+    {
+     "f": "97u-navegacao-s184.js",
+     "l": 108,
+     "linhas": 20,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdNav"
+    },
+    {
+     "f": "97y-lucro-real.js",
+     "l": 106,
+     "linhas": 12,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdLR"
+    },
+    {
+     "f": "97z2-contador.js",
+     "l": 107,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdCnt"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "render",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 4,
+     "linhas": 43,
+     "tipo": "base"
+    },
+    {
+     "f": "97u-navegacao-s184.js",
+     "l": 172,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_renderNav"
+    },
+    {
+     "f": "97w-menu-pc-s234.js",
+     "l": 39,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_renderRx"
+    },
+    {
+     "f": "98-anim-novas.js",
+     "l": 568,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 1,
+     "guarda": "r0"
+    },
+    {
+     "f": "98-graus-cor.js",
+     "l": 307,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_renderGc"
+    },
+    {
+     "f": "98z-atacado-tela-s23.js",
+     "l": 112,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render23"
+    },
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 81,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render41"
+    },
+    {
+     "f": "98z-pc-s244.js",
+     "l": 32,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render244"
+    },
+    {
+     "f": "98z-pc-s244.js",
+     "l": 63,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render18"
+    },
+    {
+     "f": "98z-pc-s31-s33.js",
+     "l": 26,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render31"
+    },
+    {
+     "f": "98z-pc-s31-s33.js",
+     "l": 132,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render33"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 89,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render374"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 449,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render374c"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 61,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render99"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 148,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_render98"
+    },
+    {
+     "f": "99b-voltar-janela.js",
+     "l": 26,
+     "linhas": 17,
+     "tipo": "antes e depois",
+     "prof": 1,
+     "guarda": "_r"
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 384,
+     "linhas": 11,
+     "tipo": "acréscimo depois",
+     "prof": 1,
+     "guarda": "_r435"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "dashCompose",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "89-dash-abas.js",
+     "l": 112,
+     "linhas": 56,
+     "tipo": "base"
+    },
+    {
+     "f": "97u-navegacao-s184.js",
+     "l": 180,
+     "linhas": 5,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_dcNav"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderCaixa",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "95-caixa.js",
+     "l": 228,
+     "linhas": 84,
+     "tipo": "base"
+    },
+    {
+     "f": "97y-familias-s265.js",
+     "l": 55,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rcFam"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderDay",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "93-historico.js",
+     "l": 158,
+     "linhas": 226,
+     "tipo": "base"
+    },
+    {
+     "f": "97y-familias-s265.js",
+     "l": 114,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdFam"
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 199,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rdy48"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "inicioGo",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "89-inicio.js",
+     "l": 243,
+     "linhas": 26,
+     "tipo": "base"
+    },
+    {
+     "f": "97y-familias-s265.js",
+     "l": 121,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_igFam"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 54,
+     "linhas": 5,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_inicioGo374"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 114,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_inicioGo374b"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 460,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_inicioGo374c"
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 17,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_inicioGo95"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 158,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_inicioGo98"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "navOn",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "89-inicio.js",
+     "l": 299,
+     "linhas": 15,
+     "tipo": "base"
+    },
+    {
+     "f": "97y-familias-s265.js",
+     "l": 126,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_noFam"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 60,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_navOn374"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 119,
+     "linhas": 6,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_navOn374b"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 465,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_navOn374c"
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 22,
+     "linhas": 10,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_navOn95"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "backupHtml",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "59-seguranca.js",
+     "l": 173,
+     "linhas": 10,
+     "tipo": "base"
+    },
+    {
+     "f": "97z-voltar-tempo.js",
+     "l": 183,
+     "linhas": 4,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_bhVT"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderFx",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "91-cambio.js",
+     "l": 60,
+     "linhas": 9,
+     "tipo": "base"
+    },
+    {
+     "f": "98-anim-novas.js",
+     "l": 574,
+     "linhas": 7,
+     "tipo": "acréscimo depois",
+     "prof": 1,
+     "guarda": "rf0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderVendas",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "60-vendas.js",
+     "l": 78,
+     "linhas": 514,
+     "tipo": "base"
+    },
+    {
+     "f": "98-anim-novas.js",
+     "l": 582,
+     "linhas": 9,
+     "tipo": "acréscimo depois",
+     "prof": 1,
+     "guarda": "rv0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "estTutorial",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-estudio.js",
+     "l": 1854,
+     "linhas": 57,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-camera-s262.js",
+     "l": 89,
+     "linhas": 20,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "97-estudio.js:1854"
+   ]
+  },
+  {
+   "nome": "renderDash",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "90-navegacao-dashboard.js",
+     "l": 110,
+     "linhas": 232,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 154,
+     "linhas": 7,
+     "tipo": "antes e depois",
+     "prof": 0,
+     "guarda": "_rd48"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 67,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_renderDash99"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "contadorHtml",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97z2-contador.js",
+     "l": 71,
+     "linhas": 13,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-precos-s52.js",
+     "l": 6,
+     "linhas": 63,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_cnt52"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 291,
+     "linhas": 49,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_cnt74"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "iniLista",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "89-inicio.js",
+     "l": 64,
+     "linhas": 61,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 42,
+     "linhas": 10,
+     "tipo": "só repassa",
+     "prof": 0,
+     "guarda": "_iniLista374"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 104,
+     "linhas": 9,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_iniLista374b"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 156,
+     "linhas": 6,
+     "tipo": "só repassa",
+     "prof": 0,
+     "guarda": "_iniLista59"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 362,
+     "linhas": 10,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_iniLista74"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 471,
+     "linhas": 12,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_iniLista374c"
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 34,
+     "linhas": 19,
+     "tipo": "só repassa",
+     "prof": 0,
+     "guarda": "_iniLista95"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "grpAbre",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "95-barra-grupos.js",
+     "l": 59,
+     "linhas": 4,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 164,
+     "linhas": 7,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_grpAbre59"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 164,
+     "linhas": 8,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_grpAbre98"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "setView",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "90-navegacao-dashboard.js",
+     "l": 5,
+     "linhas": 43,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 210,
+     "linhas": 5,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_setView74"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderEstoqueAbas",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "14-estoque-abas.js",
+     "l": 298,
+     "linhas": 52,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 388,
+     "linhas": 15,
+     "tipo": "antes e depois",
+     "prof": 0,
+     "guarda": "_rEA74"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 75,
+     "linhas": 13,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_rEA102"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "onlUrl",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "96-loja-online.js",
+     "l": 629,
+     "linhas": 4,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 55,
+     "linhas": 4,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_onlUrl95"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "renderLojaOnline",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "96-loja-online.js",
+     "l": 581,
+     "linhas": 40,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 81,
+     "linhas": 22,
+     "tipo": "antes e depois",
+     "prof": 0,
+     "guarda": "_rlo95"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "mkAbre",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-marketing.js",
+     "l": 603,
+     "linhas": 8,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 153,
+     "linhas": 4,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "97-marketing.js:603"
+   ]
+  },
+  {
+   "nome": "histLista",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "97-hist-busca.js",
+     "l": 229,
+     "linhas": 4,
+     "tipo": "base"
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 174,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_histLista99"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "grpTitulo",
+   "forma": "função",
+   "elos": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 64,
+     "linhas": 1,
+     "tipo": "base"
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 164,
+     "linhas": 36,
+     "tipo": "troca tudo",
+     "prof": 1,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.pedrecus",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "95-pedidos.js",
+     "l": 667,
+     "linhas": 15,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 77,
+     "linhas": 17,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.pedcanc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "95-pedidos.js",
+     "l": 868,
+     "linhas": 16,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 57,
+     "linhas": 20,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.peddel",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "95-pedidos.js",
+     "l": 884,
+     "linhas": 27,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 219,
+     "linhas": 13,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.bkimp",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "96-ajustes.js",
+     "l": 335,
+     "linhas": 13,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 154,
+     "linhas": 13,
+     "tipo": "troca tudo",
+     "prof": 1,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.clinovo",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "96-clientes.js",
+     "l": 276,
+     "linhas": 6,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-pc-s244.js",
+     "l": 46,
+     "linhas": 6,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_cln17"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.cliab",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "96-clientes.js",
+     "l": 282,
+     "linhas": 6,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "97u-navegacao-s184.js",
+     "l": 199,
+     "linhas": 5,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_cliabNav"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.cupAbre",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-cupons.js",
+     "l": 203,
+     "linhas": 15,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 454,
+     "linhas": 5,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "97-cupons.js:203"
+   ]
+  },
+  {
+   "nome": "ACT.hfopen",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-hist-busca.js",
+     "l": 266,
+     "linhas": 4,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-pc-s244.js",
+     "l": 40,
+     "linhas": 5,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_hfo17"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.nvIr",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 290,
+     "linhas": 12,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 88,
+     "linhas": 7,
+     "tipo": "troca tudo",
+     "prof": 1,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.nvSair",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-nuvem.js",
+     "l": 139,
+     "linhas": 7,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 140,
+     "linhas": 14,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.syncdesc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-sync.js",
+     "l": 537,
+     "linhas": 22,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 201,
+     "linhas": 14,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.syncdesl",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97-sync.js",
+     "l": 565,
+     "linhas": 17,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 114,
+     "linhas": 14,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.ataCanc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97s-atacado-conta.js",
+     "l": 241,
+     "linhas": 1,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 167,
+     "linhas": 18,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.ataLoteCanc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97s2-atacado-lotes.js",
+     "l": 109,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 185,
+     "linhas": 16,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.famNum",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "97y-familias-s265.js",
+     "l": 43,
+     "linhas": 1,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 236,
+     "linhas": 1,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "97y-familias-s265.js:43"
+   ]
+  },
+  {
+   "nome": "ACT.cartrm",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-anim-novas.js",
+     "l": 78,
+     "linhas": 14,
+     "tipo": "base",
+     "prof": 1
+    },
+    {
+     "f": "98-carrinho.js",
+     "l": 491,
+     "linhas": 5,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "98-anim-novas.js:78"
+   ]
+  },
+  {
+   "nome": "ACT.cartclear",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-carrinho.js",
+     "l": 486,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 232,
+     "linhas": 9,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.dVer",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-dash-cabecalho.js",
+     "l": 57,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 205,
+     "linhas": 6,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    },
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 39,
+     "linhas": 11,
+     "tipo": "acréscimo depois",
+     "prof": 0,
+     "guarda": "_dVer41"
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 173,
+     "linhas": 5,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_dVer59"
+    }
+   ],
+   "mortasPorTroca": [
+    "98-dash-cabecalho.js:57"
+   ]
+  },
+  {
+   "nome": "ACT.dPer",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-dash-cabecalho.js",
+     "l": 62,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 221,
+     "linhas": 6,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "98-dash-cabecalho.js:62"
+   ]
+  },
+  {
+   "nome": "ACT.dVerEsc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-dash-cabecalho.js",
+     "l": 70,
+     "linhas": 7,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 211,
+     "linhas": 10,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 128,
+     "linhas": 4,
+     "tipo": "desvio antes",
+     "prof": 0,
+     "guarda": "_dVerEsc374"
+    }
+   ],
+   "mortasPorTroca": [
+    "98-dash-cabecalho.js:70"
+   ]
+  },
+  {
+   "nome": "ACT.dPerEsc",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-dash-cabecalho.js",
+     "l": 77,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 227,
+     "linhas": 8,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "98-dash-cabecalho.js:77"
+   ]
+  },
+  {
+   "nome": "ACT.pinoff",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-financeiro.js",
+     "l": 284,
+     "linhas": 18,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 128,
+     "linhas": 12,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.dfold",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98-financeiro.js",
+     "l": 331,
+     "linhas": 11,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 220,
+     "linhas": 47,
+     "tipo": "troca tudo",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": [
+    "98-financeiro.js:331"
+   ]
+  },
+  {
+   "nome": "ACT.despAb",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98z-s374.js",
+     "l": 3,
+     "linhas": 6,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 269,
+     "linhas": 20,
+     "tipo": "antes e depois",
+     "prof": 0,
+     "guarda": "_despAb74"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.stAbre",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "98z-s374.js",
+     "l": 94,
+     "linhas": 5,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 162,
+     "linhas": 1,
+     "tipo": "aponta para outra",
+     "prof": 0,
+     "guarda": ""
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.estorno",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "94-acoes.js",
+     "l": 137,
+     "linhas": 78,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 94,
+     "linhas": 20,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.notifLimpa",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "94-acoes.js",
+     "l": 19,
+     "linhas": 4,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 241,
+     "linhas": 10,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.inicioReset",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "94-acoes.js",
+     "l": 27,
+     "linhas": 7,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 251,
+     "linhas": 12,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  },
+  {
+   "nome": "ACT.impdel",
+   "forma": "ação",
+   "elos": [
+    {
+     "f": "94-acoes.js",
+     "l": 468,
+     "linhas": 30,
+     "tipo": "base",
+     "prof": 0
+    },
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 263,
+     "linhas": 14,
+     "tipo": "pergunta nova + chama a velha calando a pergunta dela (A0)",
+     "prof": 1,
+     "guarda": "A0"
+    }
+   ],
+   "mortasPorTroca": []
+  }
+ ],
+ "guarda": [
+  {
+   "de": "mcInicio",
+   "em": "_mcInicio",
+   "f": "97-modo-cliente2-loja.js",
+   "l": 110,
+   "prof": 0
+  },
+  {
+   "de": "limpaRefExcluido",
+   "em": "_limpaRefExcl0",
+   "f": "97-nuvem-segura.js",
+   "l": 56,
+   "prof": 0
+  },
+  {
+   "de": "restaurarDados",
+   "em": "_restaurar0",
+   "f": "97-nuvem-segura.js",
+   "l": 65,
+   "prof": 0
+  },
+  {
+   "de": "syncAplica",
+   "em": "_syncAplica0",
+   "f": "97-nuvem-segura.js",
+   "l": 81,
+   "prof": 0
+  },
+  {
+   "de": "nvToken",
+   "em": "_nvToken0",
+   "f": "97-nuvem-segura.js",
+   "l": 224,
+   "prof": 0
+  },
+  {
+   "de": "salvarAgora",
+   "em": "_salvarAgora0",
+   "f": "97-nuvem-segura.js",
+   "l": 260,
+   "prof": 0
+  },
+  {
+   "de": "saveFotos",
+   "em": "_saveFotos0",
+   "f": "97-nuvem-segura.js",
+   "l": 265,
+   "prof": 0
+  },
+  {
+   "de": "vitProduto",
+   "em": "_vitProdutoV1",
+   "f": "97-site-v2.js",
+   "l": 38,
+   "prof": 0
+  },
+  {
+   "de": "siteOfPct",
+   "em": "_sopTema",
+   "f": "97r-temas-s183.js",
+   "l": 56,
+   "prof": 0
+  },
+  {
+   "de": "atencaoItens",
+   "em": "_atTema",
+   "f": "97r-temas-s183.js",
+   "l": 128,
+   "prof": 0
+  },
+  {
+   "de": "renderDetail",
+   "em": "_rdFicha",
+   "f": "97t-ficha-s190.js",
+   "l": 137,
+   "prof": 0
+  },
+  {
+   "de": "renderDetail",
+   "em": "_rdNav",
+   "f": "97u-navegacao-s184.js",
+   "l": 107,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_renderNav",
+   "f": "97u-navegacao-s184.js",
+   "l": 171,
+   "prof": 0
+  },
+  {
+   "de": "dashCompose",
+   "em": "_dcNav",
+   "f": "97u-navegacao-s184.js",
+   "l": 179,
+   "prof": 0
+  },
+  {
+   "de": "ACT.cliab",
+   "em": "_cliabNav",
+   "f": "97u-navegacao-s184.js",
+   "l": 198,
+   "prof": 0
+  },
+  {
+   "de": "atencaoItens",
+   "em": "_atGuard",
+   "f": "97w-guardiao.js",
+   "l": 90,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_renderRx",
+   "f": "97w-menu-pc-s234.js",
+   "l": 38,
+   "prof": 0
+  },
+  {
+   "de": "renderCaixa",
+   "em": "_rcFam",
+   "f": "97y-familias-s265.js",
+   "l": 54,
+   "prof": 0
+  },
+  {
+   "de": "renderDay",
+   "em": "_rdFam",
+   "f": "97y-familias-s265.js",
+   "l": 113,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_igFam",
+   "f": "97y-familias-s265.js",
+   "l": 120,
+   "prof": 0
+  },
+  {
+   "de": "navOn",
+   "em": "_noFam",
+   "f": "97y-familias-s265.js",
+   "l": 125,
+   "prof": 0
+  },
+  {
+   "de": "renderDetail",
+   "em": "_rdLR",
+   "f": "97y-lucro-real.js",
+   "l": 105,
+   "prof": 0
+  },
+  {
+   "de": "salvarAgora",
+   "em": "_svVT",
+   "f": "97z-voltar-tempo.js",
+   "l": 92,
+   "prof": 0
+  },
+  {
+   "de": "backupHtml",
+   "em": "_bhVT",
+   "f": "97z-voltar-tempo.js",
+   "l": 182,
+   "prof": 0
+  },
+  {
+   "de": "renderDetail",
+   "em": "_rdCnt",
+   "f": "97z2-contador.js",
+   "l": 106,
+   "prof": 0
+  },
+  {
+   "de": "ACT.cartrm",
+   "em": "cartRm0",
+   "f": "98-anim-novas.js",
+   "l": 77,
+   "prof": 1
+  },
+  {
+   "de": "render",
+   "em": "r0",
+   "f": "98-anim-novas.js",
+   "l": 567,
+   "prof": 1
+  },
+  {
+   "de": "renderFx",
+   "em": "rf0",
+   "f": "98-anim-novas.js",
+   "l": 573,
+   "prof": 1
+  },
+  {
+   "de": "renderVendas",
+   "em": "rv0",
+   "f": "98-anim-novas.js",
+   "l": 581,
+   "prof": 1
+  },
+  {
+   "de": "render",
+   "em": "_renderGc",
+   "f": "98-graus-cor.js",
+   "l": 306,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render23",
+   "f": "98z-atacado-tela-s23.js",
+   "l": 111,
+   "prof": 0
+  },
+  {
+   "de": "renderDash",
+   "em": "_rd48",
+   "f": "98z-dashboard-s48.js",
+   "l": 153,
+   "prof": 0
+  },
+  {
+   "de": "renderDay",
+   "em": "_rdy48",
+   "f": "98z-dashboard-s48.js",
+   "l": 198,
+   "prof": 0
+  },
+  {
+   "de": "ACT.dVer",
+   "em": "_dVer41",
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 38,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render41",
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 80,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render244",
+   "f": "98z-pc-s244.js",
+   "l": 31,
+   "prof": 0
+  },
+  {
+   "de": "ACT.hfopen",
+   "em": "_hfo17",
+   "f": "98z-pc-s244.js",
+   "l": 39,
+   "prof": 0
+  },
+  {
+   "de": "ACT.clinovo",
+   "em": "_cln17",
+   "f": "98z-pc-s244.js",
+   "l": 45,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render18",
+   "f": "98z-pc-s244.js",
+   "l": 62,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render31",
+   "f": "98z-pc-s31-s33.js",
+   "l": 25,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render33",
+   "f": "98z-pc-s31-s33.js",
+   "l": 131,
+   "prof": 0
+  },
+  {
+   "de": "contadorHtml",
+   "em": "_cnt52",
+   "f": "98z-precos-s52.js",
+   "l": 5,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista374",
+   "f": "98z-s374.js",
+   "l": 41,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_inicioGo374",
+   "f": "98z-s374.js",
+   "l": 53,
+   "prof": 0
+  },
+  {
+   "de": "navOn",
+   "em": "_navOn374",
+   "f": "98z-s374.js",
+   "l": 59,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render374",
+   "f": "98z-s374.js",
+   "l": 88,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista374b",
+   "f": "98z-s374.js",
+   "l": 103,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_inicioGo374b",
+   "f": "98z-s374.js",
+   "l": 113,
+   "prof": 0
+  },
+  {
+   "de": "navOn",
+   "em": "_navOn374b",
+   "f": "98z-s374.js",
+   "l": 118,
+   "prof": 0
+  },
+  {
+   "de": "ACT.dVerEsc",
+   "em": "_dVerEsc374",
+   "f": "98z-s374.js",
+   "l": 127,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista59",
+   "f": "98z-s374.js",
+   "l": 155,
+   "prof": 0
+  },
+  {
+   "de": "grpAbre",
+   "em": "_grpAbre59",
+   "f": "98z-s374.js",
+   "l": 163,
+   "prof": 0
+  },
+  {
+   "de": "ACT.dVer",
+   "em": "_dVer59",
+   "f": "98z-s374.js",
+   "l": 172,
+   "prof": 0
+  },
+  {
+   "de": "setView",
+   "em": "_setView74",
+   "f": "98z-s374.js",
+   "l": 209,
+   "prof": 0
+  },
+  {
+   "de": "ACT.despAb",
+   "em": "_despAb74",
+   "f": "98z-s374.js",
+   "l": 268,
+   "prof": 0
+  },
+  {
+   "de": "contadorHtml",
+   "em": "_cnt74",
+   "f": "98z-s374.js",
+   "l": 290,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista74",
+   "f": "98z-s374.js",
+   "l": 361,
+   "prof": 0
+  },
+  {
+   "de": "renderEstoqueAbas",
+   "em": "_rEA74",
+   "f": "98z-s374.js",
+   "l": 387,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render374c",
+   "f": "98z-s374.js",
+   "l": 448,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_inicioGo374c",
+   "f": "98z-s374.js",
+   "l": 459,
+   "prof": 0
+  },
+  {
+   "de": "navOn",
+   "em": "_navOn374c",
+   "f": "98z-s374.js",
+   "l": 464,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista374c",
+   "f": "98z-s374.js",
+   "l": 470,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_inicioGo95",
+   "f": "98z-s374c-site.js",
+   "l": 16,
+   "prof": 0
+  },
+  {
+   "de": "navOn",
+   "em": "_navOn95",
+   "f": "98z-s374c-site.js",
+   "l": 21,
+   "prof": 0
+  },
+  {
+   "de": "iniLista",
+   "em": "_iniLista95",
+   "f": "98z-s374c-site.js",
+   "l": 33,
+   "prof": 0
+  },
+  {
+   "de": "onlUrl",
+   "em": "_onlUrl95",
+   "f": "98z-s374c-site.js",
+   "l": 54,
+   "prof": 0
+  },
+  {
+   "de": "renderLojaOnline",
+   "em": "_rlo95",
+   "f": "98z-s374c-site.js",
+   "l": 80,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render99",
+   "f": "98z-s374d-padrao.js",
+   "l": 60,
+   "prof": 0
+  },
+  {
+   "de": "renderDash",
+   "em": "_renderDash99",
+   "f": "98z-s374d-padrao.js",
+   "l": 66,
+   "prof": 0
+  },
+  {
+   "de": "renderEstoqueAbas",
+   "em": "_rEA102",
+   "f": "98z-s374d-padrao.js",
+   "l": 74,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_render98",
+   "f": "98z-s374d-padrao.js",
+   "l": 147,
+   "prof": 0
+  },
+  {
+   "de": "inicioGo",
+   "em": "_inicioGo98",
+   "f": "98z-s374d-padrao.js",
+   "l": 157,
+   "prof": 0
+  },
+  {
+   "de": "grpAbre",
+   "em": "_grpAbre98",
+   "f": "98z-s374d-padrao.js",
+   "l": 163,
+   "prof": 0
+  },
+  {
+   "de": "histLista",
+   "em": "_histLista99",
+   "f": "98z-s374d-padrao.js",
+   "l": 173,
+   "prof": 0
+  },
+  {
+   "de": "render",
+   "em": "_r",
+   "f": "99b-voltar-janela.js",
+   "l": 25,
+   "prof": 1
+  },
+  {
+   "de": "render",
+   "em": "_r435",
+   "f": "99c-navegacao-s435.js",
+   "l": 383,
+   "prof": 1
+  }
+ ],
+ "tabDup": {
+  "DT_FRASE": {
+   "hoje": [
+    {
+     "f": "98-dash-cabecalho.js",
+     "l": 3,
+     "v": "'Quanto vendeu e quanto separar'",
+     "lista": true
+    },
+    {
+     "f": "98z-dashboard-s48.js",
+     "l": 8,
+     "v": "'Vendido, lucro livre e meta'",
+     "prof": 0
+    }
+   ]
+  },
+  "BARRA_NOME": {
+   "vendas": [
+    {
+     "f": "89-inicio.js",
+     "l": 273,
+     "v": "'Catálogo'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 19,
+     "v": "'Vender'",
+     "prof": 0
+    }
+   ],
+   "mkt": [
+    {
+     "f": "89-inicio.js",
+     "l": 275,
+     "v": "'Marketing'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374d-padrao.js",
+     "l": 99,
+     "v": "BARRA_NOME.mkt || 'Marketing'",
+     "prof": 0
+    }
+   ]
+  },
+  "GRP_FRASE": {
+   "lotes": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 10,
+     "v": "'Compras e fornecedores'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 22,
+     "v": "'Compras e lotes'",
+     "prof": 0
+    }
+   ],
+   "caixa": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 7,
+     "v": "'O dinheiro da loja'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 24,
+     "v": "'O dinheiro da loja, por moeda'",
+     "prof": 0
+    }
+   ],
+   "desp": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 8,
+     "v": "'Contas do mês e quanto cada venda separa'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 25,
+     "v": "'Contas do mês e imprevistos'",
+     "prof": 0
+    }
+   ],
+   "fx": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 7,
+     "v": "'Cotação do dia e trocas de moeda'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 26,
+     "v": "'Cotações e trocas'",
+     "prof": 0
+    }
+   ],
+   "ped": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 10,
+     "v": "'Pedidos que chegaram pelo site'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 27,
+     "v": "'O que chegou pelo site'",
+     "prof": 0
+    }
+   ],
+   "anl": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 12,
+     "v": "'Visitas do site'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 28,
+     "v": "'Visitas e avisos do site'",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374c-site.js",
+     "l": 12,
+     "v": "'Visitas do site e o que trouxe cliente'",
+     "prof": 0
+    }
+   ],
+   "ata": [
+    {
+     "f": "98z-grupo-flecha-s41.js",
+     "l": 12,
+     "v": "'Orçamentos'",
+     "lista": true
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 29,
+     "v": "'Lojistas, lotes e tabela'",
+     "prof": 0
+    },
+    {
+     "f": "98z-s374.js",
+     "l": 142,
+     "v": "'Lojistas, lotes e tabela'",
+     "prof": 0
+    }
+   ]
+  }
+ },
+ "estilo": [],
+ "obs": [
+  {
+   "f": "88-movimento.js",
+   "l": 38,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "88-movimento.js",
+   "l": 71,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "97q-pin-s182.js",
+   "l": 39,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98-anim-novas.js",
+   "l": 24,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98-botoes-anim.js",
+   "l": 83,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98-botoes-anim.js",
+   "l": 105,
+   "q": "ResizeObserver"
+  },
+  {
+   "f": "98-botoes-anim.js",
+   "l": 274,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98-botoes-sistema.js",
+   "l": 135,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98-trava-rolagem.js",
+   "l": 52,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98z-camera-s262.js",
+   "l": 79,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98z-camera-t149cam.js",
+   "l": 69,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 70,
+   "q": "MutationObserver"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 126,
+   "q": "MutationObserver"
+  }
+ ],
+ "pontes": [
+  {
+   "nome": "__sync",
+   "poe": [
+    {
+     "f": "05-sync.js",
+     "l": 224
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__GAL",
+   "poe": [
+    {
+     "f": "10-estoque-detalhe.js",
+     "l": 195
+    },
+    {
+     "f": "10-estoque-detalhe.js",
+     "l": 798
+    },
+    {
+     "f": "13-estoque-lote-rapido.js",
+     "l": 444
+    },
+    {
+     "f": "31-foto-fila-cartao.js",
+     "l": 110
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__prodVolta",
+   "poe": [
+    {
+     "f": "10-estoque-detalhe.js",
+     "l": 837
+    },
+    {
+     "f": "10-estoque-detalhe.js",
+     "l": 839
+    },
+    {
+     "f": "98z-folha-unica.js",
+     "l": 109
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "10-estoque-detalhe.js",
+    "98z-folha-unica.js"
+   ]
+  },
+  {
+   "nome": "__atvPecaHtml",
+   "poe": [
+    {
+     "f": "97-sync2.js",
+     "l": 463
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "10-estoque-detalhe.js"
+   ]
+  },
+  {
+   "nome": "__syncOffline",
+   "poe": [
+    {
+     "f": "97-sync.js",
+     "l": 110
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "40-formatos-venda.js"
+   ]
+  },
+  {
+   "nome": "__parseLote",
+   "poe": [
+    {
+     "f": "52-lotes.js",
+     "l": 1245
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__parsePedido",
+   "poe": [
+    {
+     "f": "52-lotes.js",
+     "l": 1279
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__voaSrc",
+   "poe": [
+    {
+     "f": "60-vendas.js",
+     "l": 365
+    },
+    {
+     "f": "60-vendas.js",
+     "l": 385
+    },
+    {
+     "f": "60-vendas.js",
+     "l": 716
+    },
+    {
+     "f": "97-folha.js",
+     "l": 186
+    },
+    {
+     "f": "98-carrinho.js",
+     "l": 358
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "98-carrinho.js"
+   ]
+  },
+  {
+   "nome": "__noIC",
+   "poe": [
+    {
+     "f": "70-camera.js",
+     "l": 664
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "70-camera.js"
+   ]
+  },
+  {
+   "nome": "__lastTexts",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 570
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "80-leitor-dialogos.js"
+   ]
+  },
+  {
+   "nome": "__lastPrep",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 171
+    },
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 455
+    },
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 490
+    }
+   ],
+   "usa": 9,
+   "usaEm": [
+    "80-leitor-dialogos.js",
+    "82-leitor-preprocessamento.js"
+   ]
+  },
+  {
+   "nome": "__prepVar",
+   "poe": [
+    {
+     "f": "81-leitor-parse.js",
+     "l": 266
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__getWorker",
+   "poe": [
+    {
+     "f": "81-leitor-parse.js",
+     "l": 269
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__rotateCanvas",
+   "poe": [
+    {
+     "f": "81-leitor-parse.js",
+     "l": 272
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__skewOf",
+   "poe": [
+    {
+     "f": "81-leitor-parse.js",
+     "l": 296
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__refCrop",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 165
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__sc",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 376
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "82-leitor-preprocessamento.js"
+   ]
+  },
+  {
+   "nome": "__bandDeg",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 437
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__bandCropsFn",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 440
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__bd",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 469
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__words",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 497
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "82-leitor-preprocessamento.js"
+   ]
+  },
+  {
+   "nome": "__anchor",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 537
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__refErr",
+   "poe": [
+    {
+     "f": "82-leitor-preprocessamento.js",
+     "l": 560
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fechoAlerta",
+   "poe": [
+    {
+     "f": "98-fechamento.js",
+     "l": 76
+    }
+   ],
+   "usa": 4,
+   "usaEm": [
+    "89-dash-abas.js",
+    "97w-guardiao.js"
+   ]
+  },
+  {
+   "nome": "__avTocaTipo",
+   "poe": [
+    {
+     "f": "97-push.js",
+     "l": 385
+    }
+   ],
+   "usa": 4,
+   "usaEm": [
+    "89-notificacoes.js",
+    "95-pedidos.js"
+   ]
+  },
+  {
+   "nome": "__onlAba",
+   "poe": [
+    {
+     "f": "90-navegacao-dashboard.js",
+     "l": 12
+    },
+    {
+     "f": "96-loja-online.js",
+     "l": 634
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "90-navegacao-dashboard.js"
+   ]
+  },
+  {
+   "nome": "__navVolta",
+   "poe": [
+    {
+     "f": "94-acoes.js",
+     "l": 636
+    },
+    {
+     "f": "94-acoes.js",
+     "l": 640
+    },
+    {
+     "f": "99b-voltar-janela.js",
+     "l": 49
+    },
+    {
+     "f": "99b-voltar-janela.js",
+     "l": 50
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 65
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 66
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 73
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 74
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 80
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 81
+    }
+   ],
+   "usa": 5,
+   "usaEm": [
+    "90-navegacao-dashboard.js",
+    "99b-voltar-janela.js"
+   ]
+  },
+  {
+   "nome": "__slide",
+   "poe": [
+    {
+     "f": "90-navegacao-dashboard.js",
+     "l": 24
+    },
+    {
+     "f": "90-navegacao-dashboard.js",
+     "l": 66
+    },
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 217
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "90-navegacao-dashboard.js"
+   ]
+  },
+  {
+   "nome": "__barraSegurou",
+   "poe": [
+    {
+     "f": "98-botoes-barra.js",
+     "l": 32
+    }
+   ],
+   "usa": 8,
+   "usaEm": [
+    "90-navegacao-dashboard.js",
+    "98z-grupo-flecha-s41.js",
+    "98z-s374.js",
+    "99c-navegacao-s435.js"
+   ]
+  },
+  {
+   "nome": "__fxAdota",
+   "poe": [
+    {
+     "f": "91-cambio.js",
+     "l": 109
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-sync.js"
+   ]
+  },
+  {
+   "nome": "__fxHistReal",
+   "poe": [
+    {
+     "f": "91-cambio.js",
+     "l": 153
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__vendaApHtml",
+   "poe": [
+    {
+     "f": "97-sync.js",
+     "l": 113
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "93-historico.js"
+   ]
+  },
+  {
+   "nome": "__trMoeda",
+   "poe": [
+    {
+     "f": "94-acoes.js",
+     "l": 679
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-cambio-aba.js"
+   ]
+  },
+  {
+   "nome": "__avisoLocal",
+   "poe": [
+    {
+     "f": "97-push.js",
+     "l": 388
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "95-pedidos.js"
+   ]
+  },
+  {
+   "nome": "__pedSync",
+   "poe": [
+    {
+     "f": "95-pedidos.js",
+     "l": 263
+    }
+   ],
+   "usa": 4,
+   "usaEm": [
+    "97-push.js"
+   ]
+  },
+  {
+   "nome": "__pedDoSite",
+   "poe": [
+    {
+     "f": "95-pedidos.js",
+     "l": 264
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__gLivre",
+   "poe": [
+    {
+     "f": "95-reserva.js",
+     "l": 390
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__siteEstado",
+   "poe": [
+    {
+     "f": "98z-s374c-site.js",
+     "l": 118
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "96-ajustes.js"
+   ]
+  },
+  {
+   "nome": "__restConfirma",
+   "poe": [
+    {
+     "f": "96-ajustes.js",
+     "l": 333
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "97-nuvem.js"
+   ]
+  },
+  {
+   "nome": "__sessUlt",
+   "poe": [
+    {
+     "f": "96-loja-online.js",
+     "l": 484
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__precoTab",
+   "poe": [
+    {
+     "f": "96-tabelas-preco.js",
+     "l": 149
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__apk",
+   "poe": [
+    {
+     "f": "97-atualiza-apk.js",
+     "l": 129
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__lju",
+   "poe": [
+    {
+     "f": "97-atualiza-loja.js",
+     "l": 101
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__upd",
+   "poe": [
+    {
+     "f": "97-atualiza.js",
+     "l": 155
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__lcIrGiro",
+   "poe": [
+    {
+     "f": "98z-s374.js",
+     "l": 385
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-busca-unica.js"
+   ]
+  },
+  {
+   "nome": "__cont",
+   "poe": [
+    {
+     "f": "97-contagem.js",
+     "l": 300
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__ebE",
+   "poe": [
+    {
+     "f": "97-enviar-bonito.js",
+     "l": 166
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__folha",
+   "poe": [
+    {
+     "f": "97-folha.js",
+     "l": 189
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__gtVolta",
+   "poe": [
+    {
+     "f": "97-giro-trata.js",
+     "l": 427
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__gtFechou",
+   "poe": [
+    {
+     "f": "97-giro-trata.js",
+     "l": 428
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__lfFold",
+   "poe": [
+    {
+     "f": "98z-s374.js",
+     "l": 215
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-hist-busca.js"
+   ]
+  },
+  {
+   "nome": "__revBannerHtml",
+   "poe": [
+    {
+     "f": "97-sync.js",
+     "l": 114
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-hist-busca.js"
+   ]
+  },
+  {
+   "nome": "__revJanelaHtml",
+   "poe": [
+    {
+     "f": "97-sync.js",
+     "l": 115
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "97-hist-busca.js"
+   ]
+  },
+  {
+   "nome": "__lfApagando",
+   "poe": [
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 235
+    }
+   ],
+   "usa": 4,
+   "usaEm": [
+    "97-nuvem-segura.js"
+   ]
+  },
+  {
+   "nome": "__nvSeg",
+   "poe": [
+    {
+     "f": "97-nuvem-segura.js",
+     "l": 396
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__nvVencT",
+   "poe": [
+    {
+     "f": "97-nuvem.js",
+     "l": 52
+    }
+   ],
+   "usa": 1,
+   "usaEm": [
+    "97-nuvem.js"
+   ]
+  },
+  {
+   "nome": "__avDentro",
+   "poe": [
+    {
+     "f": "97-push.js",
+     "l": 386
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__pushIniciar",
+   "poe": [
+    {
+     "f": "97-push.js",
+     "l": 387
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__syncApp",
+   "poe": [
+    {
+     "f": "97-sync.js",
+     "l": 332
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fotoCiclo",
+   "poe": [
+    {
+     "f": "97-sync2.js",
+     "l": 699
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fotoEstado",
+   "poe": [
+    {
+     "f": "97-sync2.js",
+     "l": 700
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fotoApagaPede",
+   "poe": [
+    {
+     "f": "97-sync2.js",
+     "l": 706
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__sync2",
+   "poe": [
+    {
+     "f": "97-sync2.js",
+     "l": 908
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__ataJanela",
+   "poe": [
+    {
+     "f": "97s-atacado-conta.js",
+     "l": 107
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__vt",
+   "poe": [
+    {
+     "f": "97z-voltar-tempo.js",
+     "l": 187
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fechoCc",
+   "poe": [
+    {
+     "f": "98-fechamento.js",
+     "l": 65
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "98-financeiro.js"
+   ]
+  },
+  {
+   "nome": "__fechoAuto",
+   "poe": [
+    {
+     "f": "98-fechamento.js",
+     "l": 101
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fechoHtml",
+   "poe": [
+    {
+     "f": "98-fechamento.js",
+     "l": 102
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__repinta",
+   "poe": [
+    {
+     "f": "98-repinta.js",
+     "l": 20
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__lfTravaAplica",
+   "poe": [
+    {
+     "f": "98-trava-rolagem.js",
+     "l": 53
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__fuAcha",
+   "poe": [
+    {
+     "f": "98z-folha-unica.js",
+     "l": 105
+    }
+   ],
+   "usa": 4,
+   "usaEm": [
+    "99c-navegacao-s435.js"
+   ]
+  },
+  {
+   "nome": "__renderSite95",
+   "poe": [
+    {
+     "f": "98z-s374c-site.js",
+     "l": 126
+    }
+   ],
+   "usa": 2,
+   "usaEm": [
+    "98z-s374.js"
+   ]
+  },
+  {
+   "nome": "__lfConfirma",
+   "poe": [
+    {
+     "f": "98z-s418-confirma.js",
+     "l": 39
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__SF",
+   "poe": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 214
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__cleanN",
+   "poe": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 417
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__cleanErr",
+   "poe": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 419
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__LF",
+   "poe": [
+    {
+     "f": "99-render-persistencia.js",
+     "l": 571
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__nvVolta",
+   "poe": [
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 86
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__nvVoltarAndroid",
+   "poe": [
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 377
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  },
+  {
+   "nome": "__nv435",
+   "poe": [
+    {
+     "f": "99c-navegacao-s435.js",
+     "l": 397
+    }
+   ],
+   "usa": 0,
+   "usaEm": []
+  }
+ ],
+ "important": []
+}

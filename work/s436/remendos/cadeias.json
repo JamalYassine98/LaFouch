@@ -1,0 +1,1400 @@
+{
+ "mk": [
+  {
+   "f": "00-estado-utilitarios.js",
+   "l": 210,
+   "forma": "decl",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "57-separacao.js",
+   "l": 397,
+   "forma": "reat",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "T": [
+  {
+   "f": "00-estado-utilitarios.js",
+   "l": 231,
+   "forma": "decl",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-push.js",
+   "l": 101,
+   "forma": "reat",
+   "linhas": 3,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "limpaRefExcluido": [
+  {
+   "f": "05-movimentos.js",
+   "l": 94,
+   "forma": "decl",
+   "linhas": 10,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 57,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "_limpaRefExcl0",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "syncAplica": [
+  {
+   "f": "05-sync.js",
+   "l": 137,
+   "forma": "decl",
+   "linhas": 87,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 82,
+   "forma": "reat",
+   "linhas": 11,
+   "guarda": "_syncAplica0",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "renderDetail": [
+  {
+   "f": "10-estoque-detalhe.js",
+   "l": 61,
+   "forma": "decl",
+   "linhas": 1582,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97t-ficha-s190.js",
+   "l": 138,
+   "forma": "reat",
+   "linhas": 16,
+   "guarda": "_rdFicha",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "97u-navegacao-s184.js",
+   "l": 108,
+   "forma": "reat",
+   "linhas": 20,
+   "guarda": "_rdNav",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "97y-lucro-real.js",
+   "l": 106,
+   "forma": "reat",
+   "linhas": 12,
+   "guarda": "_rdLR",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "97z2-contador.js",
+   "l": 107,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_rdCnt",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "renderEstoqueAbas": [
+  {
+   "f": "14-estoque-abas.js",
+   "l": 298,
+   "forma": "decl",
+   "linhas": 52,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 388,
+   "forma": "reat",
+   "linhas": 15,
+   "guarda": "_rEA74",
+   "tipo": "antes+depois"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 75,
+   "forma": "reat",
+   "linhas": 13,
+   "guarda": "_rEA102",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "backupHtml": [
+  {
+   "f": "59-seguranca.js",
+   "l": 173,
+   "forma": "decl",
+   "linhas": 10,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97z-voltar-tempo.js",
+   "l": 183,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_bhVT",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "renderVendas": [
+  {
+   "f": "60-vendas.js",
+   "l": 78,
+   "forma": "decl",
+   "linhas": 514,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98-anim-novas.js",
+   "l": 582,
+   "forma": "reat",
+   "linhas": 9,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "atencaoItens": [
+  {
+   "f": "89-dash-abas.js",
+   "l": 31,
+   "forma": "decl",
+   "linhas": 80,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97r-temas-s183.js",
+   "l": 129,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_atTema",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "97w-guardiao.js",
+   "l": 91,
+   "forma": "reat",
+   "linhas": 15,
+   "guarda": "_atGuard",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "dashCompose": [
+  {
+   "f": "89-dash-abas.js",
+   "l": 112,
+   "forma": "decl",
+   "linhas": 56,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97u-navegacao-s184.js",
+   "l": 180,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_dcNav",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "iniLista": [
+  {
+   "f": "89-inicio.js",
+   "l": 64,
+   "forma": "decl",
+   "linhas": 61,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 42,
+   "forma": "reat",
+   "linhas": 10,
+   "guarda": "_iniLista374",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 104,
+   "forma": "reat",
+   "linhas": 9,
+   "guarda": "_iniLista374b",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 156,
+   "forma": "reat",
+   "linhas": 6,
+   "guarda": "_iniLista59",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 362,
+   "forma": "reat",
+   "linhas": 10,
+   "guarda": "_iniLista74",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 471,
+   "forma": "reat",
+   "linhas": 12,
+   "guarda": "_iniLista374c",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374c-site.js",
+   "l": 34,
+   "forma": "reat",
+   "linhas": 19,
+   "guarda": "_iniLista95",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "inicioGo": [
+  {
+   "f": "89-inicio.js",
+   "l": 243,
+   "forma": "decl",
+   "linhas": 26,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97y-familias-s265.js",
+   "l": 121,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_igFam",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 54,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_inicioGo374",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 114,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_inicioGo374b",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 460,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_inicioGo374c",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374c-site.js",
+   "l": 17,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_inicioGo95",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 158,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_inicioGo98",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "navOn": [
+  {
+   "f": "89-inicio.js",
+   "l": 299,
+   "forma": "decl",
+   "linhas": 15,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97y-familias-s265.js",
+   "l": 126,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_noFam",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 60,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_navOn374",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 119,
+   "forma": "reat",
+   "linhas": 6,
+   "guarda": "_navOn374b",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 465,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_navOn374c",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374c-site.js",
+   "l": 22,
+   "forma": "reat",
+   "linhas": 10,
+   "guarda": "_navOn95",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "setView": [
+  {
+   "f": "90-navegacao-dashboard.js",
+   "l": 5,
+   "forma": "decl",
+   "linhas": 43,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 210,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_setView74",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "renderDash": [
+  {
+   "f": "90-navegacao-dashboard.js",
+   "l": 110,
+   "forma": "decl",
+   "linhas": 232,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 154,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "_rd48",
+   "tipo": "antes+depois"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 67,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_renderDash99",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "renderFx": [
+  {
+   "f": "91-cambio.js",
+   "l": 60,
+   "forma": "decl",
+   "linhas": 9,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98-anim-novas.js",
+   "l": 574,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "renderDay": [
+  {
+   "f": "93-historico.js",
+   "l": 158,
+   "forma": "decl",
+   "linhas": 226,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97y-familias-s265.js",
+   "l": 114,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_rdFam",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 199,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_rdy48",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "grpAbre": [
+  {
+   "f": "95-barra-grupos.js",
+   "l": 59,
+   "forma": "decl",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 164,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "_grpAbre59",
+   "tipo": "antes (desvio)"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 164,
+   "forma": "reat",
+   "linhas": 8,
+   "guarda": "_grpAbre98",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "renderCaixa": [
+  {
+   "f": "95-caixa.js",
+   "l": 228,
+   "forma": "decl",
+   "linhas": 84,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97y-familias-s265.js",
+   "l": 55,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_rcFam",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.pedrecus": [
+  {
+   "f": "95-pedidos.js",
+   "l": 667,
+   "forma": "acao",
+   "linhas": 15,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 77,
+   "forma": "acao",
+   "linhas": 17,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.pedcanc": [
+  {
+   "f": "95-pedidos.js",
+   "l": 868,
+   "forma": "acao",
+   "linhas": 16,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 57,
+   "forma": "acao",
+   "linhas": 20,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.peddel": [
+  {
+   "f": "95-pedidos.js",
+   "l": 884,
+   "forma": "acao",
+   "linhas": 27,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 219,
+   "forma": "acao",
+   "linhas": 13,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "restaurarDados": [
+  {
+   "f": "96-ajustes.js",
+   "l": 19,
+   "forma": "decl",
+   "linhas": 46,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 66,
+   "forma": "reat",
+   "linhas": 14,
+   "guarda": "_restaurar0",
+   "tipo": "antes+depois"
+  }
+ ],
+ "ACT.bkimp": [
+  {
+   "f": "96-ajustes.js",
+   "l": 335,
+   "forma": "acao",
+   "linhas": 13,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 154,
+   "forma": "acao",
+   "linhas": 13,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.clinovo": [
+  {
+   "f": "96-clientes.js",
+   "l": 276,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-pc-s244.js",
+   "l": 46,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "_cln17",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.cliab": [
+  {
+   "f": "96-clientes.js",
+   "l": 282,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97u-navegacao-s184.js",
+   "l": 199,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "_cliabNav",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "vitProduto": [
+  {
+   "f": "96-loja-online.js",
+   "l": 158,
+   "forma": "decl",
+   "linhas": 51,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-site-v2.js",
+   "l": 39,
+   "forma": "reat",
+   "linhas": 6,
+   "guarda": "_vitProdutoV1",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "renderLojaOnline": [
+  {
+   "f": "96-loja-online.js",
+   "l": 581,
+   "forma": "decl",
+   "linhas": 40,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374c-site.js",
+   "l": 81,
+   "forma": "reat",
+   "linhas": 22,
+   "guarda": "_rlo95",
+   "tipo": "antes+depois"
+  }
+ ],
+ "onlUrl": [
+  {
+   "f": "96-loja-online.js",
+   "l": 629,
+   "forma": "decl",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374c-site.js",
+   "l": 55,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_onlUrl95",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.cupAbre": [
+  {
+   "f": "97-cupons.js",
+   "l": 203,
+   "forma": "acao",
+   "linhas": 15,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 454,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "estTutorial": [
+  {
+   "f": "97-estudio.js",
+   "l": 1854,
+   "forma": "decl",
+   "linhas": 57,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-camera-s262.js",
+   "l": 89,
+   "forma": "reat",
+   "linhas": 20,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "histLista": [
+  {
+   "f": "97-hist-busca.js",
+   "l": 229,
+   "forma": "decl",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 174,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_histLista99",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.hfopen": [
+  {
+   "f": "97-hist-busca.js",
+   "l": 266,
+   "forma": "acao",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-pc-s244.js",
+   "l": 40,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "_hfo17",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "mkAbre": [
+  {
+   "f": "97-marketing.js",
+   "l": 603,
+   "forma": "decl",
+   "linhas": 8,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 153,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "mcInicio": [
+  {
+   "f": "97-modo-cliente.js",
+   "l": 108,
+   "forma": "decl",
+   "linhas": 16,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-modo-cliente2-loja.js",
+   "l": 111,
+   "forma": "reat",
+   "linhas": 1,
+   "guarda": "_mcInicio",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "nvToken": [
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 225,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "_nvToken0",
+   "tipo": "original"
+  },
+  {
+   "f": "97-nuvem.js",
+   "l": 35,
+   "forma": "decl",
+   "linhas": 23,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "salvarAgora": [
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 261,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_salvarAgora0",
+   "tipo": "original"
+  },
+  {
+   "f": "97z-voltar-tempo.js",
+   "l": 93,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_svVT",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "99-render-persistencia.js",
+   "l": 474,
+   "forma": "decl",
+   "linhas": 56,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "saveFotos": [
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 266,
+   "forma": "reat",
+   "linhas": 4,
+   "guarda": "_saveFotos0",
+   "tipo": "original"
+  },
+  {
+   "f": "99-render-persistencia.js",
+   "l": 155,
+   "forma": "decl",
+   "linhas": 28,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.nvIr": [
+  {
+   "f": "97-nuvem-segura.js",
+   "l": 290,
+   "forma": "acao",
+   "linhas": 12,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "99c-navegacao-s435.js",
+   "l": 88,
+   "forma": "acao",
+   "linhas": 7,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.nvSair": [
+  {
+   "f": "97-nuvem.js",
+   "l": 139,
+   "forma": "acao",
+   "linhas": 7,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 140,
+   "forma": "acao",
+   "linhas": 14,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "siteOfPct": [
+  {
+   "f": "97-ofertas-site.js",
+   "l": 88,
+   "forma": "decl",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97r-temas-s183.js",
+   "l": 57,
+   "forma": "reat",
+   "linhas": 7,
+   "guarda": "_sopTema",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "avMin": [
+  {
+   "f": "97-push.js",
+   "l": 57,
+   "forma": "decl",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "97-push.js",
+   "l": 207,
+   "forma": "decl",
+   "linhas": 4,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.syncdesc": [
+  {
+   "f": "97-sync.js",
+   "l": 537,
+   "forma": "acao",
+   "linhas": 22,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 201,
+   "forma": "acao",
+   "linhas": 14,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.syncdesl": [
+  {
+   "f": "97-sync.js",
+   "l": 565,
+   "forma": "acao",
+   "linhas": 17,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 114,
+   "forma": "acao",
+   "linhas": 14,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.ataCanc": [
+  {
+   "f": "97s-atacado-conta.js",
+   "l": 241,
+   "forma": "acao",
+   "linhas": 1,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 167,
+   "forma": "acao",
+   "linhas": 18,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.ataLoteCanc": [
+  {
+   "f": "97s2-atacado-lotes.js",
+   "l": 109,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 185,
+   "forma": "acao",
+   "linhas": 16,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "render": [
+  {
+   "f": "97u-navegacao-s184.js",
+   "l": 172,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_renderNav",
+   "tipo": "original"
+  },
+  {
+   "f": "97w-menu-pc-s234.js",
+   "l": 39,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_renderRx",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98-anim-novas.js",
+   "l": 568,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "troca tudo"
+  },
+  {
+   "f": "98-graus-cor.js",
+   "l": 307,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_renderGc",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-atacado-tela-s23.js",
+   "l": 112,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render23",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 81,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render41",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-pc-s244.js",
+   "l": 32,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render244",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-pc-s244.js",
+   "l": 63,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render18",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-pc-s31-s33.js",
+   "l": 26,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render31",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-pc-s31-s33.js",
+   "l": 132,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render33",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 89,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render374",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 449,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render374c",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 61,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render99",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374d-padrao.js",
+   "l": 148,
+   "forma": "reat",
+   "linhas": 5,
+   "guarda": "_render98",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "99-render-persistencia.js",
+   "l": 4,
+   "forma": "decl",
+   "linhas": 43,
+   "guarda": "",
+   "tipo": "troca tudo"
+  },
+  {
+   "f": "99b-voltar-janela.js",
+   "l": 26,
+   "forma": "reat",
+   "linhas": 17,
+   "guarda": "_r",
+   "tipo": "antes+depois"
+  },
+  {
+   "f": "99c-navegacao-s435.js",
+   "l": 384,
+   "forma": "reat",
+   "linhas": 11,
+   "guarda": "_r435",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.famNum": [
+  {
+   "f": "97y-familias-s265.js",
+   "l": 43,
+   "forma": "acao",
+   "linhas": 1,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 236,
+   "forma": "acao",
+   "linhas": 1,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "contadorHtml": [
+  {
+   "f": "97z2-contador.js",
+   "l": 71,
+   "forma": "decl",
+   "linhas": 13,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-precos-s52.js",
+   "l": 6,
+   "forma": "reat",
+   "linhas": 63,
+   "guarda": "_cnt52",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 291,
+   "forma": "reat",
+   "linhas": 49,
+   "guarda": "_cnt74",
+   "tipo": "depois (acréscimo)"
+  }
+ ],
+ "ACT.cartrm": [
+  {
+   "f": "98-anim-novas.js",
+   "l": 78,
+   "forma": "acao",
+   "linhas": 14,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98-carrinho.js",
+   "l": 491,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.cartclear": [
+  {
+   "f": "98-carrinho.js",
+   "l": 486,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 232,
+   "forma": "acao",
+   "linhas": 9,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.dVer": [
+  {
+   "f": "98-dash-cabecalho.js",
+   "l": 57,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 205,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "troca tudo"
+  },
+  {
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 39,
+   "forma": "acao",
+   "linhas": 11,
+   "guarda": "_dVer41",
+   "tipo": "depois (acréscimo)"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 173,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "_dVer59",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "ACT.dPer": [
+  {
+   "f": "98-dash-cabecalho.js",
+   "l": 62,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 221,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.dVerEsc": [
+  {
+   "f": "98-dash-cabecalho.js",
+   "l": 70,
+   "forma": "acao",
+   "linhas": 7,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 211,
+   "forma": "acao",
+   "linhas": 10,
+   "guarda": "",
+   "tipo": "troca tudo"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 128,
+   "forma": "acao",
+   "linhas": 4,
+   "guarda": "_dVerEsc374",
+   "tipo": "antes (desvio)"
+  }
+ ],
+ "ACT.dPerEsc": [
+  {
+   "f": "98-dash-cabecalho.js",
+   "l": 77,
+   "forma": "acao",
+   "linhas": 5,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-dashboard-s48.js",
+   "l": 227,
+   "forma": "acao",
+   "linhas": 8,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.pinoff": [
+  {
+   "f": "98-financeiro.js",
+   "l": 284,
+   "forma": "acao",
+   "linhas": 18,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s418-confirma.js",
+   "l": 128,
+   "forma": "acao",
+   "linhas": 12,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.dfold": [
+  {
+   "f": "98-financeiro.js",
+   "l": 331,
+   "forma": "acao",
+   "linhas": 11,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 220,
+   "forma": "acao",
+   "linhas": 47,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "grpTitulo": [
+  {
+   "f": "98z-grupo-flecha-s41.js",
+   "l": 64,
+   "forma": "decl",
+   "linhas": 1,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "99c-navegacao-s435.js",
+   "l": 164,
+   "forma": "reat",
+   "linhas": 36,
+   "guarda": "",
+   "tipo": "troca tudo"
+  }
+ ],
+ "ACT.despAb": [
+  {
+   "f": "98z-s374.js",
+   "l": 3,
+   "forma": "acao",
+   "linhas": 6,
+   "guarda": "",
+   "tipo": "original"
+  },
+  {
+   "f": "98z-s374.js",
+   "l": 269,
+   "forma": "acao",
+   "linhas": 20,
+   "guarda": "_despAb74",
+   "tipo": "antes+depois"
+  }
+ ]
+}

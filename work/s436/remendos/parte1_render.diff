@@ -1,0 +1,305 @@
+diff -ru src/97u-navegacao-s184.js /tmp/lfc/src/97u-navegacao-s184.js
+--- src/97u-navegacao-s184.js	2026-11-19 09:43:58.438501714 -0300
++++ /tmp/lfc/src/97u-navegacao-s184.js	2026-11-20 02:07:09.596781289 -0300
+@@ -168,12 +168,7 @@
+       if (ok) t.parentNode.replaceChild(fr, t);
+     });
+   }
+-  var _renderNav = render;
+-  render = function () {
+-    var r = _renderNav.apply(this, arguments);
+-    try { fnLinkifica(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(fnLinkifica);
+   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
+   DTABS.push(['onl', 'Online']);
+   var _dcNav = dashCompose;
+diff -ru src/97w-menu-pc-s234.js /tmp/lfc/src/97w-menu-pc-s234.js
+--- src/97w-menu-pc-s234.js	2026-11-19 09:43:58.438501714 -0300
++++ /tmp/lfc/src/97w-menu-pc-s234.js	2026-11-20 02:07:09.615216412 -0300
+@@ -35,9 +35,4 @@
+       if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+     });
+   }
+-  var _renderRx = render;
+-  render = function () {
+-    var r = _renderRx.apply(this, arguments);
+-    try { rxMonta(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(rxMonta);
+diff -ru src/98-anim-novas.js /tmp/lfc/src/98-anim-novas.js
+--- src/98-anim-novas.js	2026-11-19 14:24:15.191373023 -0300
++++ /tmp/lfc/src/98-anim-novas.js	2026-11-20 02:07:09.634641856 -0300
+@@ -564,12 +564,7 @@
+         metaConfere();
+       } catch (e) {}
+     }
+-    var r0 = render;
+-    render = function () {
+-      var x = r0.apply(this, arguments);
+-      depois();
+-      return x;
+-    };
++    aposRender(depois);
+     var rf0 = renderFx;
+     renderFx = function () {
+       var x = rf0.apply(this, arguments);
+diff -ru src/98-graus-cor.js /tmp/lfc/src/98-graus-cor.js
+--- src/98-graus-cor.js	2026-11-19 09:43:58.438501714 -0300
++++ /tmp/lfc/src/98-graus-cor.js	2026-11-20 02:07:09.655443540 -0300
+@@ -303,9 +303,4 @@
+     rowsDom.forEach(function (r) { r.style.display = 'none'; });
+     cl.insertBefore(frag, cl.firstChild);
+   }
+-  var _renderGc = render;
+-  render = function () {
+-    var x = _renderGc.apply(this, arguments);
+-    try { gcMonta(); } catch (e) {}
+-    return x;
+-  };
++  aposRender(gcMonta);
+diff -ru src/98z-atacado-tela-s23.js /tmp/lfc/src/98z-atacado-tela-s23.js
+--- src/98z-atacado-tela-s23.js	2026-11-19 09:43:58.442501714 -0300
++++ /tmp/lfc/src/98z-atacado-tela-s23.js	2026-11-20 02:07:09.677171601 -0300
+@@ -108,12 +108,7 @@
+     el.innerHTML = '<div class="top"><div><h1>Atacado</h1><div class="crumb">Lojistas, lotes e pedidos em quantidade.</div></div><button type="button" class="pgAc" data-act="ataNovo">+ Novo acesso</button></div>' + tabs + '<div id="ataCorpo">' + ataCorpo() + '</div>';
+     if (window.lfLinhaAbas) window.lfLinhaAbas('ataTabs', '.on');
+   }
+-  var _render23 = render;
+-  render = function () {
+-    var r = _render23.apply(this, arguments);
+-    try { renderAtacado(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(renderAtacado);
+   ACT.ataAba = function (id) {
+     if (S.ataAba === id) return;
+     S.ataAba = id;
+diff -ru src/98z-grupo-flecha-s41.js /tmp/lfc/src/98z-grupo-flecha-s41.js
+--- src/98z-grupo-flecha-s41.js	2026-11-19 12:03:55.910639769 -0300
++++ /tmp/lfc/src/98z-grupo-flecha-s41.js	2026-11-20 02:07:09.691156681 -0300
+@@ -77,12 +77,9 @@
+       });
+     grpObs.observe(w, { childList: true, subtree: true });
+   }
+-  var _render41 = render;
+-  render = function () {
+-    var r = _render41.apply(this, arguments);
+-    try { grpTitulo(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(function () {
++    grpTitulo();
++  });
+   // teclado: Enter/Espaço no título abre a folha
+   document.addEventListener('keydown', function (e) {
+     var t = e.target;
+diff -ru src/98z-pc-s244.js /tmp/lfc/src/98z-pc-s244.js
+--- src/98z-pc-s244.js	2026-11-19 09:43:58.442501714 -0300
++++ /tmp/lfc/src/98z-pc-s244.js	2026-11-20 02:07:09.727308487 -0300
+@@ -28,12 +28,7 @@
+       if (bx) bx.classList.remove('pcBusca');
+     }
+   }
+-  var _render244 = render;
+-  render = function () {
+-    var r = _render244.apply(this, arguments);
+-    try { pcLarga(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(pcLarga);
+   window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
+   // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
+   var _hfo17 = ACT.hfopen;
+@@ -59,12 +54,7 @@
+       if (!v.hidden) VAZ18[k] = 1;
+     });
+   }
+-  var _render18 = render;
+-  render = function () {
+-    var r = _render18.apply(this, arguments);
+-    try { vazio18(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(vazio18);
+   // ===== S370 · item 11 de 13/11 (aprovado 14/11 00:08; esboço work/s241/s241_celular_claro_nuvem.jpg): CÓPIAS E NUVEM ENXUTA =====
+   // Com a nuvem conectada: o estado ("Tudo salvo · há N min · N aparelhos") e 4 linhas que abrem o resto —
+   // Voltar no tempo · Lixeira · Aparelhos · Arquivo de backup. Sem nuvem continua como antes (é preciso o formulário de entrar).
+diff -ru src/98z-pc-s31-s33.js /tmp/lfc/src/98z-pc-s31-s33.js
+--- src/98z-pc-s31-s33.js	2026-11-19 09:43:58.442501714 -0300
++++ /tmp/lfc/src/98z-pc-s31-s33.js	2026-11-20 02:07:09.763614055 -0300
+@@ -22,12 +22,7 @@
+       m.classList.remove('invDuo');
+     }
+   }
+-  var _render31 = render;
+-  render = function () {
+-    var r = _render31.apply(this, arguments);
+-    try { invDuo(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(invDuo);
+   window.addEventListener('resize', function () { try { invDuo(); } catch (e) {} });
+ 
+   // ---------- esboço 33: teclado e leitor de código ----------
+@@ -128,9 +123,4 @@
+       i.parentNode.appendChild(k);
+     });
+   }
+-  var _render33 = render;
+-  render = function () {
+-    var r = _render33.apply(this, arguments);
+-    try { kbMarca(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(kbMarca);
+diff -ru src/98z-s374.js /tmp/lfc/src/98z-s374.js
+--- src/98z-s374.js	2026-11-20 00:35:23.064665967 -0300
++++ /tmp/lfc/src/98z-s374.js	2026-11-20 02:07:09.801006158 -0300
+@@ -85,12 +85,7 @@
+     if (!el || S.view !== 'site' || !window.__renderSite95) return;
+     window.__renderSite95(el);
+   }
+-  var _render374 = render;
+-  render = function () {
+-    var r = _render374.apply(this, arguments);
+-    try { renderSite(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(renderSite);
+   ACT.stAbre = function (id) {
+     if (id === 'ped') return setView('ped');
+     if (id === 'mkt') return mkAbre();
+@@ -445,12 +440,7 @@
+       cupDesenha(c, j, off);
+     });
+   }
+-  var _render374c = render;
+-  render = function () {
+-    var r = _render374c.apply(this, arguments);
+-    try { renderCup(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(renderCup);
+   ACT.cupAbre = function () {
+     cupVista = '';
+     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
+diff -ru src/98z-s374d-padrao.js /tmp/lfc/src/98z-s374d-padrao.js
+--- src/98z-s374d-padrao.js	2026-11-19 09:43:58.442501714 -0300
++++ /tmp/lfc/src/98z-s374d-padrao.js	2026-11-20 02:07:09.849873968 -0300
+@@ -57,12 +57,7 @@
+     if (!v) return;
+     try { pad99(v); pad100(v); } catch (e) {}
+   }
+-  var _render99 = render;
+-  render = function () {
+-    var r = _render99.apply(this, arguments);
+-    padTela();
+-    return r;
+-  };
++  aposRender(padTela);
+   var _renderDash99 = renderDash;
+   renderDash = function () {
+     var r = _renderDash99.apply(this, arguments);
+@@ -144,12 +139,7 @@
+       });
+     }
+   }
+-  var _render98 = render;
+-  render = function () {
+-    var r = _render98.apply(this, arguments);
+-    try { renderMkt(); } catch (e) {}
+-    return r;
+-  };
++  aposRender(renderMkt);
+   mkAbre = function () {
+     S._gAt = 'g:mkt';
+     setView('mkt');
+diff -ru src/99-render-persistencia.js /tmp/lfc/src/99-render-persistencia.js
+--- src/99-render-persistencia.js	2026-11-19 23:43:10.312435757 -0300
++++ /tmp/lfc/src/99-render-persistencia.js	2026-11-20 02:07:09.532014126 -0300
+@@ -1,7 +1,27 @@
+   // ===== Render geral e persistência (localStorage + IndexedDB). =====
+   // Redesenha o app e agenda o salvamento.
+   var RENDER_TICK = 0;
++  // Passos que cada família pendura no render (num lugar só, na ordem em que os arquivos entram): antesRender(f) e aposRender(f).
++  // Um passo com erro não impede os outros nem o desenho da tela.
++  function antesRender(f) {
++    (render.antes = render.antes || []).push(f);
++  }
++  function aposRender(f) {
++    (render.depois = render.depois || []).push(f);
++  }
++  function renderPassos(l) {
++    (l || []).forEach(function (f) {
++      try {
++        f();
++      } catch (e) {}
++    });
++  }
+   function render() {
++    renderPassos(render.antes);
++    renderBase();
++    renderPassos(render.depois);
++  }
++  function renderBase() {
+     RENDER_TICK++;
+     try {
+       ppSync();
+diff -ru src/99b-voltar-janela.js /tmp/lfc/src/99b-voltar-janela.js
+--- src/99b-voltar-janela.js	2026-11-19 09:43:58.442501714 -0300
++++ /tmp/lfc/src/99b-voltar-janela.js	2026-11-20 02:07:09.851175770 -0300
+@@ -22,12 +22,13 @@
+     // toda abertura de peça (Catálogo e Inventário, com ou sem animação) passa por prodTopo
+     var _pt = window.prodTopo;
+     if (typeof _pt === 'function') window.prodTopo = function () { var k = aberto(); if (k && !window.__navVolta) passo(k); return _pt.apply(this, arguments); };
+-    var _r = render;
+-    render = function () {
++    var antes;
++    antesRender(function () {
+       // o estado muda ANTES do render (S.vRef = …; render()): compara com o que estava aberto no render anterior
+-      var antes = aberto0;
++      antes = aberto0;
+       if (!antes && !aberto()) ultY = window.scrollY || 0;
+-      var r = _r.apply(this, arguments);
++    });
++    aposRender(function () {
+       var agora = aberto();
+       if (agora && agora !== antes && !window.__navVolta) passo(agora);
+       else if (!agora && antes && !window.__navVolta && history.state && history.state.lfp) {
+@@ -38,8 +39,7 @@
+         if (y != null) requestAnimationFrame(function () { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); });
+       }
+       aberto0 = agora;
+-      return r;
+-    };
++    });
+     window.addEventListener('popstate', function (e) {
+       if (ign) { ign--; e.stopImmediatePropagation(); return; }
+       var st = e.state || {};
+diff -ru src/99c-navegacao-s435.js /tmp/lfc/src/99c-navegacao-s435.js
+--- src/99c-navegacao-s435.js	2026-11-19 12:03:55.910639769 -0300
++++ /tmp/lfc/src/99c-navegacao-s435.js	2026-11-20 02:07:09.851029008 -0300
+@@ -380,9 +380,7 @@
+       if (CA0 && CA0.addListener) CA0.addListener('backButton', function () { nvVoltarAndroid(); });
+     } catch (e) {}
+     // ---------- liga tudo no redesenho ----------
+-    var _r435 = render;
+-    render = function () {
+-      var r = _r435.apply(this, arguments);
++    aposRender(function () {
+       try {
+         nvPilha();
+         nvGuarda();
+@@ -390,8 +388,7 @@
+         grpTitulo();
+         nvBarAtual();
+       } catch (e) {}
+-      return r;
+-    };
++    });
+     // 147-6: o link do Caixa diz o nome da tela que abre
+     // Início: o grupo do Início abre a tela direto (como antes, aprovado S374/98), já com "‹ GRUPO" (147-3).
+     window.__nv435 = { pilha: function () { return S.nvP.slice(); }, abas: function () { return JSON.parse(JSON.stringify(S.nvAbas)); }, rail: nvRail };
