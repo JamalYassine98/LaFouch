@@ -45,10 +45,6 @@
 ## Recados esperando
 
 - para **NUVEM**: STATUS MUDOU (dono aprovou 19/11 23:28, implementado 23:55): leia a regra 1 nova do CLAUDE.md. Não edite mais o docs/STATUS.md à mão — use python3 tools/status.
-- para **SITE**: Dono (22:26): a faixa do BLACK FRIDAY cobre o topo na conta (e na página da peça). Causa medida: o topo fica `fixed` em top:0 (index.html ~2173, regra v452) e a
-- para **SITE**: A página `teste-giro/conferir.html` ("Conferir e gravar", S296–S300) é a REFERÊNCIA do dono para a câmera do Estúdio do app ("era fácil de manusear"). A cópia `
-- para **SITE**: Itens 9 (SITE) e 10 (APP) da Fila já podem ser feitos: as portas novas da nuvem estão no ar e conferidas (15:44). Avisem aqui quando publicarem, para eu fazer o
-- para **SITE**: STATUS MUDOU (dono aprovou 19/11 23:28, implementado 23:55): leia a regra 1 nova do CLAUDE.md. Não edite mais o docs/STATUS.md à mão — use python3 tools/status.
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 
