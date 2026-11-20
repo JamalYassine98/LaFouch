@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "App Check parte 3: nuvem confere o selo (só anota)",
+ "arquivos": [
+  "functions/",
+  "firestore.rules"
+ ],
  "ultimas": [
   {
    "t": 1795169889.7779148,
@@ -16,5 +19,5 @@
    "r": "plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono"
   }
  ],
- "leu": 1795145418.9381602
+ "leu": 1795172582.7761724
 }
