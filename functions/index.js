@@ -15,6 +15,15 @@ const tokDb = {
   get: async (p) => { const d = await admin.firestore().doc(p).get(); return d.exists ? d.data() : null; },
   set: (p, dados) => admin.firestore().doc(p).set(dados, { merge: true }),
 };
+// App Check (20/11): toda porta pública chama seloOk no começo. O modo (anotar/exigir) fica num lugar só: selo.js.
+// Contagem por dia em seloDia/<AAAA-MM-DD> (só o dono lê) para ver quem chega sem selo antes de exigir.
+const Selo = require('./selo');
+async function seloOk(req, res, porta) {
+  const r = await Selo.confere(req, porta, Date.now(), (t) => admin.appCheck().verifyToken(t),
+    (d, campo) => admin.firestore().doc('seloDia/' + d).set({ [campo]: admin.firestore.FieldValue.increment(1) }, { merge: true }));
+  if (!r.passa) res.status(401).json({ ok: false, motivo: 'selo' });
+  return r.passa;
+}
 
 // A região da função precisa ser a MESMA do banco Firestore (Firebase > Firestore > Dados > Local).
 const REGIAO = 'southamerica-east1';
@@ -137,6 +146,7 @@ exports.reserva = onRequest(
     const db = admin.firestore();
     const agora = Date.now(); // a hora é sempre a do servidor
     try {
+      if (DO_DONO.indexOf(acao) < 0 && !(await seloOk(req, res, 'reserva'))) return;
       // S1 (19/11): a cliente pede o token de entrega mostrando o telefone do pedido (o token não fica mais na página pública)
       if (acao === 'token') {
         const r = await Token.pedir(tokDb, agora, String(b.pedido || ''), String(b.tel || ''));
@@ -264,6 +274,7 @@ exports.codigo = onRequest(
       if (!r.ok) { console.error('resend', r.status, await r.text().catch(() => '')); throw new Codigo.Falha('envio', 502); }
     } : null;
     try {
+      if (!(await seloOk(req, res, 'codigo'))) return;
       let r;
       if (b.acao === 'enviar') r = await Codigo.enviar(codDb, envia, u, Date.now(), b.lang);
       else if (b.acao === 'conferir') {
@@ -324,6 +335,7 @@ exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 1
       await admin.firestore().doc('avaliacoes/' + String(b.id || '').replace(/[^A-Za-z0-9._-]/g, '')).update({ ok: b.acao === 'mostrar', rev: false });
       return res.json({ ok: true });
     }
+    if (!(await seloOk(req, res, 'avaliacao'))) return;
     const u = await clienteDe(req);
     if (!u) return res.status(401).json({ ok: false, motivo: 'login' });
     if (b.acao === 'posso') return res.json(await Loja.posso(lojaDb, u, b.ref));
@@ -352,7 +364,10 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
       const q = await admin.firestore().collection('inscricoes').orderBy('ts', 'desc').limit(1000).get();
       return res.json({ ok: true, itens: q.docs.map((d) => d.data()) });
     }
-    if (b.acao === 'inscrever') return res.json(await Loja.inscrever(lojaDb, b, Date.now()));
+    if (b.acao === 'inscrever') {
+      if (!(await seloOk(req, res, 'novidades'))) return;
+      return res.json(await Loja.inscrever(lojaDb, b, Date.now()));
+    }
     // S183: no começo do tema o app (dono) manda 1 e-mail aos inscritos (1 vez por tema e ano)
     if (b.acao === 'tema') {
       if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
@@ -413,6 +428,7 @@ exports.mensagem = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5,
       return res.json(b.acao === 'lista' ? await Mensagem.lista(msgDb, b.n) : await Mensagem.estado(msgDb, b.id, b.est));
     }
     if (b.acao !== 'enviar') return res.status(400).json({ ok: false, motivo: 'acao' });
+    if (!(await seloOk(req, res, 'mensagem'))) return;
     let chave = '';
     try { chave = RESEND_KEY.value() || ''; } catch (e) {}
     const envia = chave ? async (m) => {
@@ -444,6 +460,7 @@ exports.analise = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 10 
       if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
       return res.json(await Analise.resumo(anDb, b.dias, Date.now()));
     }
+    if (!(await seloOk(req, res, 'analise'))) return;
     return res.json(await Analise.registra(anDb, b, Date.now()));
   } catch (e) {
     if (e instanceof Analise.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
@@ -469,6 +486,7 @@ exports.volta = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5 }, 
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   try {
     if (b.acao !== 'pedir') return res.status(400).json({ ok: false, motivo: 'acao' });
+    if (!(await seloOk(req, res, 'volta'))) return;
     return res.json(await Volta.pedir(voltaDb, b, Date.now()));
   } catch (e) {
     if (e instanceof Volta.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
@@ -535,6 +553,7 @@ exports.conta = onRequest({ region: REGIAO, cors: ['https://lafouch.com', 'https
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   try {
+    if (!(await seloOk(req, res, 'conta'))) return;
     if (b.acao === 'livre') return res.json(await Conta.livre(tokDb, String(b.user || '')));
     if (b.acao === 'entrar') return res.json(await Conta.entrar(tokDb, entraFirebase, Date.now(), String(b.user || ''), b.senha));
     return res.status(400).json({ ok: false, motivo: 'acao' });
@@ -681,6 +700,7 @@ exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secret
   const agora = Date.now();
   try {
     // público (site)
+    if (['ver', 'usar', 'bv', 'proxima', 'presentes', 'meus'].indexOf(b.acao) >= 0 && !(await seloOk(req, res, 'cupom'))) return;
     if (b.acao === 'ver') return res.json(await Cupom.ver(cupDb, b, ipk, agora));
     if (b.acao === 'usar') return res.json(await Cupom.usar(cupDb, b, ipk, agora, false));
     if (b.acao === 'bv') return res.json(await Cupom.boasVindas(cupDb, envia, b, agora));
@@ -846,6 +866,7 @@ exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, 
   };
   try {
     const ag = Date.now();
+    if (!(await seloOk(req, res, 'atacado'))) return;
     if (b.acao === 'entrar') return res.json(await Atacado.entrar(ataDb, envia, b, ag));
     if (b.acao === 'confirma') return res.json(await Atacado.confirma(ataDb, ataAviso, b, ag));
     if (b.acao === 'catalogo') return res.json(await Atacado.catalogo(ataDb, b, ag));

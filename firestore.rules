@@ -92,6 +92,10 @@ service cloud.firestore {
     match /reservasTok/{d} {
       allow read, write: if dono();
     }
+    // App Check (20/11/2026): contagem por dia de quem chega às portas com selo, sem selo ou com selo falso — só o dono lê; só o servidor grava
+    match /seloDia/{d} {
+      allow read: if dono();
+    }
     // S2: contaTent (tentativas de login por nome) não tem "match": fica fechada, só o servidor usa.
     match /backups/{d} {
       allow read, write: if dono();
