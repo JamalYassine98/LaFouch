@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "limpeza 2 da nuvem (regra 12): peças comuns num lugar só",
- "arquivos": [
-  "functions/",
-  "docs/NUVEM-COMO-FUNCIONA.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795179457.9645026,
+   "r": "Limpeza 2+3 (regra 12) publicadas e conferidas no ar: Falha única (14 cópias), post()/corpo/tokenDe/falhou nas portas, CORS_SITE (3 listas), avisaAparelhos (3 cópias), ehVip, catalogoPisos, hash, urlFn, telefone e escape de HTML num lugar só; respostas das 15 portas iguais antes×depois; travas teste-portas (17); sonda no ar automática no fim de cada publicação (0 falhas); doc NUVEM-COMO-FUNCIONA. Parte 3 (item 11) refeita no ramo nuvem-parte3b sobre o main novo, com espera do token; recados ao SITE (09 primeiro) e ao APP (21 só depois do 11)."
+  },
   {
    "t": 1795177545.3605673,
    "r": "Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f)."
@@ -41,10 +42,6 @@
   {
    "t": 1795169889.7779148,
    "r": "esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva"
-  },
-  {
-   "t": 1795150052.0760403,
-   "r": "noite 20/11: parte 3 de S1/S2 (item 11) PRONTA E TESTADA no ramo nuvem-parte3, sem publicar (espera o item 09 do site e o item 18 do app, criado na Fila com recado para a APP); travas no teste. Esboços S5+S7 e S6+S3 entregues ao dono fora do repositório."
   }
  ],
  "leu": 1795178247.34946
