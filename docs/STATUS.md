@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | App Check: registrar autorização de custo e esboço | docs/FALTA-APROVAR-15-11.md |
 | SITE | item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo | js/lf-site.js |
 
 ## Fila

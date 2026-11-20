@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "App Check: registrar autorização de custo e esboço",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md"
+ ],
  "ultimas": [
   {
    "t": 1795150052.0760403,
