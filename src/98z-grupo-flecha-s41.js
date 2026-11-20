@@ -4,12 +4,12 @@
   //     com o anel fechado, o atalho viaja em arco, os dois se fundem no ícone do par e o aviso "Grupo criado · Desfazer" fica 5 s.
   //     Soltar antes do anel fechar continua trocando os dois de lugar (como antes). Desfazer o grupo: cada atalho volta ao seu lugar.
   var GRP_FRASE = {
-    vendas: 'Escolha a peça e venda', estoque: 'Cadastro, estoque e preço de cada peça', caixa: 'O dinheiro da loja', fx: 'Cotação do dia e trocas de moeda',
-    desp: 'Contas do mês e quanto cada venda separa', hist: 'Todas as vendas, dia por dia', hoje: 'Os números do período', din: 'Livre e separado',
+    vendas: 'Escolha a peça e venda', estoque: 'Cadastro, estoque e preço de cada peça', caixa: 'O dinheiro da loja, por moeda', fx: 'Cotações e trocas',
+    desp: 'Contas do mês e imprevistos', hist: 'Todas as vendas, dia por dia', hoje: 'Os números do período', din: 'Livre e separado',
     giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', cat: 'Catálogo pelo WhatsApp', ajustes: 'Aparelho, loja, site e segurança',
-    ped: 'Pedidos que chegaram pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e fornecedores',
+    ped: 'O que chegou pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e lotes',
     novo: 'Cadastrar produto', notif: 'O que precisa de você agora', mkt: 'Posts, vídeos e plano', est: 'Fotos das peças', msg: 'Contato e atacado',
-    anl: 'Visitas do site', tem: 'Calendário do site', ata: 'Orçamentos'
+    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela'
   };
   function grpVerHtml(g) {
     var h = '<div class="dFt"><span>VER</span></div>';

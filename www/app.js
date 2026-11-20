@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 578;
+  var APP_BUILD = 579;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22402,7 +22402,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Dinheiro', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
+    vendas: 'Vender', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
     din: 'Reservas', giro: 'Giro', prec: 'Preços', cat: 'Enviar catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Site',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Pendências', mkt: 'Marketing', est: 'Estúdio',
     msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
@@ -22645,6 +22645,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
   // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
+    // trocar de tela solta a altura que a tela anterior estava segurando (dobras que fecham: src/98z-s374.js, lfSegura)
+    segH = 0;
+    document.body.style.minHeight = '';
     // v444: no modo cliente (iPad da loja) só existe o catálogo
     if (S.modoCli && v !== 'vendas') v = 'vendas';
     if (v !== 'fx') S._fxVisto = 0; // ao voltar para a aba Câmbio, lê a casa na hora
@@ -48438,7 +48441,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Quanto vendeu e quanto separar', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],
@@ -51136,7 +51139,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // 3 moedas; as linhas "Trocar … por US$ …" ficam nela e levam ao Câmbio › Registrar troca já preenchido.
   // Feito como os outros módulos de família (97y): a tela é desenhada como antes e arrumada em seguida — os números são os mesmos.
   DTABS[0][1] = 'Dashboard';
-  DT_FRASE.hoje = 'Vendido, lucro livre e meta';
   S._d48 = {}; // linhas de detalhe abertas (só na sessão)
   S.dMoeda = 'pyg'; // moeda dos 3 números (tocar no número troca: G$ → R$ → US$)
   function d48Hoje() {
@@ -51498,12 +51500,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   //     com o anel fechado, o atalho viaja em arco, os dois se fundem no ícone do par e o aviso "Grupo criado · Desfazer" fica 5 s.
   //     Soltar antes do anel fechar continua trocando os dois de lugar (como antes). Desfazer o grupo: cada atalho volta ao seu lugar.
   var GRP_FRASE = {
-    vendas: 'Escolha a peça e venda', estoque: 'Cadastro, estoque e preço de cada peça', caixa: 'O dinheiro da loja', fx: 'Cotação do dia e trocas de moeda',
-    desp: 'Contas do mês e quanto cada venda separa', hist: 'Todas as vendas, dia por dia', hoje: 'Os números do período', din: 'Livre e separado',
+    vendas: 'Escolha a peça e venda', estoque: 'Cadastro, estoque e preço de cada peça', caixa: 'O dinheiro da loja, por moeda', fx: 'Cotações e trocas',
+    desp: 'Contas do mês e imprevistos', hist: 'Todas as vendas, dia por dia', hoje: 'Os números do período', din: 'Livre e separado',
     giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', cat: 'Catálogo pelo WhatsApp', ajustes: 'Aparelho, loja, site e segurança',
-    ped: 'Pedidos que chegaram pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e fornecedores',
+    ped: 'O que chegou pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e lotes',
     novo: 'Cadastrar produto', notif: 'O que precisa de você agora', mkt: 'Posts, vídeos e plano', est: 'Fotos das peças', msg: 'Contato e atacado',
-    anl: 'Visitas do site', tem: 'Calendário do site', ata: 'Orçamentos'
+    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela'
   };
   function grpVerHtml(g) {
     var h = '<div class="dFt"><span>VER</span></div>';
@@ -51964,17 +51966,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
     { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
   ];
-  BARRA_NOME.vendas = 'Vender';
   if (!ICO_D.repo) ICO_D.repo = ICO_D.giro || ICO_D.lotes;
   BARRA_NOME.repo = 'Reposição';
-  GRP_FRASE.lotes = 'Compras e lotes';
   GRP_FRASE.repo = 'O que comprar, com a lista do Giro';
-  GRP_FRASE.caixa = 'O dinheiro da loja, por moeda';
-  GRP_FRASE.desp = 'Contas do mês e imprevistos';
-  GRP_FRASE.fx = 'Cotações e trocas';
-  GRP_FRASE.ped = 'O que chegou pelo site';
-  GRP_FRASE.anl = 'Visitas e avisos do site';
-  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam7Aplica() {
     if (S.fam7) return;
     S.fam7 = true;
@@ -52036,7 +52030,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
     { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática e cartões', itens: ['mkt', 'tem', 'cup'] }
   ];
-  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam6Aplica() {
     if (S.fam6) return;
     S.fam6 = true;
@@ -52087,12 +52080,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   window.addEventListener('scroll', lfSolta, { passive: true });
-  var _setView74 = setView;
-  setView = function () {
-    segH = 0;
-    document.body.style.minHeight = '';
-    return _setView74.apply(this, arguments);
-  };
   window.__lfFold = lfFoldAnim;
   function lfRedesenha() {
     if (S.view === 'dash') renderDash();
@@ -52332,7 +52319,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   GRP_FRASE.site = 'Resumo da loja online';
   GRP_FRASE.vit = 'Destaque da semana e ordem do catálogo';
   GRP_FRASE.prod = 'O que aparece no site';
-  GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
   // painel integrado: sempre dentro da tela (nunca "tela cheia"), com ?app=2, altura até a barra de baixo
@@ -52517,7 +52503,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (_vc && _vc.parentNode) _vc.parentNode.insertBefore(_vm, _vc);
   }
   if (!VIEWS.some(function (v) { return v[0] === 'mkt'; })) VIEWS.push(['mkt', 'Marketing']);
-  BARRA_NOME.mkt = BARRA_NOME.mkt || 'Marketing';
   function mkGrupa(c) {
     var ds = [].slice.call(c.querySelectorAll(':scope > details.mkDt'));
     if (!ds.length || c.querySelector(':scope > .mkDtG')) return;
@@ -53396,8 +53381,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (vi && vi.parentNode) vi.parentNode.insertBefore(vg, vi.nextSibling);
     }
     if (!VIEWS.some(function (v) { return v[0] === 'grp'; })) VIEWS.push(['grp', 'Grupo']);
-    // 147-6: um nome só por tela — o do título
-    BARRA_NOME.caixa = 'Caixa';
     var NV_GF = { Dinheiro: 'O dinheiro da loja', Resultados: 'Como a loja está indo', 'Giro e preços': 'O que vende, o preço e as reservas', 'Peças': 'Cadastro, fotos e estoque', Site: 'Pedidos, mensagens e vitrine', Marketing: 'Posts, vídeos e plano' };
     S.nvG = S.nvG || null;
     S.nvP = []; // pilha da aba atual (chaves: 'grp:<id>' ou a tela)

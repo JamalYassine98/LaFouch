@@ -14,8 +14,6 @@
       if (vi && vi.parentNode) vi.parentNode.insertBefore(vg, vi.nextSibling);
     }
     if (!VIEWS.some(function (v) { return v[0] === 'grp'; })) VIEWS.push(['grp', 'Grupo']);
-    // 147-6: um nome só por tela — o do título
-    BARRA_NOME.caixa = 'Caixa';
     var NV_GF = { Dinheiro: 'O dinheiro da loja', Resultados: 'Como a loja está indo', 'Giro e preços': 'O que vende, o preço e as reservas', 'Peças': 'Cadastro, fotos e estoque', Site: 'Pedidos, mensagens e vitrine', Marketing: 'Posts, vídeos e plano' };
     S.nvG = S.nvG || null;
     S.nvP = []; // pilha da aba atual (chaves: 'grp:<id>' ou a tela)

@@ -5,7 +5,6 @@
   // 3 moedas; as linhas "Trocar … por US$ …" ficam nela e levam ao Câmbio › Registrar troca já preenchido.
   // Feito como os outros módulos de família (97y): a tela é desenhada como antes e arrumada em seguida — os números são os mesmos.
   DTABS[0][1] = 'Dashboard';
-  DT_FRASE.hoje = 'Vendido, lucro livre e meta';
   S._d48 = {}; // linhas de detalhe abertas (só na sessão)
   S.dMoeda = 'pyg'; // moeda dos 3 números (tocar no número troca: G$ → R$ → US$)
   function d48Hoje() {

@@ -1,7 +1,7 @@
 {
- "nome": "5.50.3",
+ "nome": "5.50.4",
  "notas": [
-  "Arrumação por dentro (parte 2b da limpeza): a montagem dos grupos do Início e da barra passou a ser uma função só, com as mudanças antigas em ordem (eram 8 camadas). Nenhuma tela muda."
+  "Arrumação por dentro (parte 2c da limpeza): trocar de tela e os nomes e frases das telas ficaram escritos num lugar só (10 nomes estavam escritos duas ou três vezes). Nenhuma tela muda."
  ],
- "build": 578
+ "build": 579
 }

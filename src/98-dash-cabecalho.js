@@ -1,6 +1,6 @@
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Quanto vendeu e quanto separar', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],

@@ -16,17 +16,9 @@
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
     { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
   ];
-  BARRA_NOME.vendas = 'Vender';
   if (!ICO_D.repo) ICO_D.repo = ICO_D.giro || ICO_D.lotes;
   BARRA_NOME.repo = 'Reposição';
-  GRP_FRASE.lotes = 'Compras e lotes';
   GRP_FRASE.repo = 'O que comprar, com a lista do Giro';
-  GRP_FRASE.caixa = 'O dinheiro da loja, por moeda';
-  GRP_FRASE.desp = 'Contas do mês e imprevistos';
-  GRP_FRASE.fx = 'Cotações e trocas';
-  GRP_FRASE.ped = 'O que chegou pelo site';
-  GRP_FRASE.anl = 'Visitas e avisos do site';
-  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam7Aplica() {
     if (S.fam7) return;
     S.fam7 = true;
@@ -88,7 +80,6 @@
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
     { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática e cartões', itens: ['mkt', 'tem', 'cup'] }
   ];
-  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam6Aplica() {
     if (S.fam6) return;
     S.fam6 = true;
@@ -139,12 +130,6 @@
     }
   }
   window.addEventListener('scroll', lfSolta, { passive: true });
-  var _setView74 = setView;
-  setView = function () {
-    segH = 0;
-    document.body.style.minHeight = '';
-    return _setView74.apply(this, arguments);
-  };
   window.__lfFold = lfFoldAnim;
   function lfRedesenha() {
     if (S.view === 'dash') renderDash();

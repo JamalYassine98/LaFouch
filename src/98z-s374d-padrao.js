@@ -91,7 +91,6 @@
     if (_vc && _vc.parentNode) _vc.parentNode.insertBefore(_vm, _vc);
   }
   if (!VIEWS.some(function (v) { return v[0] === 'mkt'; })) VIEWS.push(['mkt', 'Marketing']);
-  BARRA_NOME.mkt = BARRA_NOME.mkt || 'Marketing';
   function mkGrupa(c) {
     var ds = [].slice.call(c.querySelectorAll(':scope > details.mkDt'));
     if (!ds.length || c.querySelector(':scope > .mkDtG')) return;

@@ -9,7 +9,6 @@
   GRP_FRASE.site = 'Resumo da loja online';
   GRP_FRASE.vit = 'Destaque da semana e ordem do catálogo';
   GRP_FRASE.prod = 'O que aparece no site';
-  GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
   // painel integrado: sempre dentro da tela (nunca "tela cheia"), com ?app=2, altura até a barra de baixo

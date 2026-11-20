@@ -3,6 +3,9 @@
   // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
   // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
+    // trocar de tela solta a altura que a tela anterior estava segurando (dobras que fecham: src/98z-s374.js, lfSegura)
+    segH = 0;
+    document.body.style.minHeight = '';
     // v444: no modo cliente (iPad da loja) só existe o catálogo
     if (S.modoCli && v !== 'vendas') v = 'vendas';
     if (v !== 'fx') S._fxVisto = 0; // ao voltar para a aba Câmbio, lê a casa na hora

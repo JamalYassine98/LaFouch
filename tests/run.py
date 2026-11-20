@@ -3633,6 +3633,20 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 27 (20/11/2026): remendos parte 2c — ninguém troca o setView; nome/frase de tela escrito UMA vez
+            # (chave que já está na lista inicial de BARRA_NOME, GRP_FRASE ou DT_FRASE não pode ser escrita de novo em outro lugar)
+            total += 1
+            fonte = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            tudo = ''.join(fonte.values()); rep = []
+            for T in ('BARRA_NOME', 'GRP_FRASE', 'DT_FRASE'):
+                lit = re.search(r'var %s = \{(.*?)\};' % T, tudo, re.S).group(1); chaves = set(re.findall(r'(?:^|[,{\s])(\w+): \'', lit))
+                usos = re.findall(r'\b%s\.(\w+) = ' % T, tudo)
+                rep += ['%s.%s' % (T, k) for k in set(usos) if k in chaves or usos.count(k) > 1]
+            troca = [f for f, t in fonte.items() if re.search(r'^\s*setView = function', t, re.M)]
+            ok = not rep and not troca
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 27: setView sem embrulho; nomes e frases das telas escritos uma vez')
+            if not ok: falhas.append('item 27 setView/tabelas'); print('        veio', rep, troca)
+
             # Item 26 (20/11/2026): remendos parte 2b — iniLista (migrações dos grupos, em ordem) e grpAbre são UMA função cada; ninguém as troca.
             # Um aparelho antigo (sem nenhuma marca de família) chega ao mesmo lugar de sempre e não repete a migração
             total += 1

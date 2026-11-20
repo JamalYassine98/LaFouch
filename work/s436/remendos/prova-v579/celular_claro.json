@@ -1,0 +1,362 @@
+{
+ "inicio": {
+  "pecas": 52,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "hist-lista": {
+  "pecas": 155,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "hist-dia": {
+  "pecas": 90,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "hist-semana": {
+  "pecas": 183,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "hist-filtros": {
+  "pecas": 183,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "hist-busca": {
+  "pecas": 182,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-semana": {
+  "pecas": 53,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-mes": {
+  "pecas": 53,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-custom": {
+  "pecas": 58,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-folha-periodo": {
+  "pecas": 106,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-folha-ver": {
+  "pecas": 88,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-contas-dia": {
+  "pecas": 111,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-ver-todas-vendas": {
+  "pecas": 113,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "dash-mes-vendido": {
+  "pecas": 155,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "reservas-para-onde": {
+  "pecas": 55,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "reservas-30dias": {
+  "pecas": 94,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-lista-compras": {
+  "pecas": 112,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-vitrine": {
+  "pecas": 50,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-retorno": {
+  "pecas": 57,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-abc": {
+  "pecas": 61,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-no-estoque": {
+  "pecas": 155,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "giro-parado": {
+  "pecas": 46,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "precos": {
+  "pecas": 63,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "precos-corrigir": {
+  "pecas": 141,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "precos-contas": {
+  "pecas": 90,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-acoes": {
+  "pecas": 81,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-retirar": {
+  "pecas": 112,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-novo-objetivo": {
+  "pecas": 85,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-conferir": {
+  "pecas": 99,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-reservado": {
+  "pecas": 43,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "caixa-movimentos": {
+  "pecas": 84,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-dolar": {
+  "pecas": 79,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-repo": {
+  "pecas": 87,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-troca": {
+  "pecas": 88,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-trocas": {
+  "pecas": 85,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-site": {
+  "pecas": 68,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "cambio-prot": {
+  "pecas": 98,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "despesas-nova": {
+  "pecas": 122,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "despesas-conta": {
+  "pecas": 118,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "despesas-imprevistos": {
+  "pecas": 122,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "pendencias": {
+  "pecas": 61,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "guardiao": {
+  "pecas": 113,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "marketing": {
+  "pecas": 77,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "marketing-post": {
+  "pecas": 97,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "marketing-listas": {
+  "pecas": 96,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "clientes-novo": {
+  "pecas": 41,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "atacado-lojistas": {
+  "pecas": 29,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "atacado-lotes": {
+  "pecas": 29,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "atacado-tabela": {
+  "pecas": 40,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-fornecedores": {
+  "pecas": 47,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-ficha": {
+  "pecas": 107,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-ficha-historico": {
+  "pecas": 53,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-ficha-preco": {
+  "pecas": 54,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-editar": {
+  "pecas": 120,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "inventario-novo": {
+  "pecas": 184,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "catalogo-carrinho": {
+  "pecas": 44,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "catalogo-pagamento": {
+  "pecas": 47,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "catalogo-peca": {
+  "pecas": 42,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "site-grupo": {
+  "pecas": 47,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ },
+ "site-resumo": {
+  "pecas": 47,
+  "dif": [],
+  "errosA": [],
+  "errosB": []
+ }
+}
