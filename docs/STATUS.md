@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | item 30: vistas pela análise (recado da NUVEM) | src/97-vistas-site.js, src/97-nuvem.js, src/97-site-pediu.js, tests/run.py |
+| ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 | SITE | recados da NUVEM: S6 (login no 'presentes' e no 'reservar'), S3 parte 2 (pedido pela porta 'pedido'), vistas (ramo esb-nuvem do catalogo) | js/lf-site.js |
 
 ## Fila
