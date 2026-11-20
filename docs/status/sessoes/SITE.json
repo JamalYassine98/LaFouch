@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py, só medição)",
+ "arquivos": [
+  "work/fiscal/provas.py"
+ ],
  "ultimas": [
   {
    "t": 1795195091.7655706,
@@ -40,5 +42,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795193184.046673
+ "leu": 1795197710.4868646
 }
