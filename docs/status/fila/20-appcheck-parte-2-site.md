@@ -1,2 +1,2 @@
-na fila
+esboço pronto no ramo esb-item20 do catalogo (em cima do esb-item9), testado no simulador com a nuvem imitada e passado no comparador — esperando o dono dizer onde entra (cópia limpa ou site no ar)
 **App Check parte 2 — SITE** (dono: implementar 20/11 08:02): (a) guardar o selo do App Check no aparelho (localStorage) até vencer, para não pedir ao reCAPTCHA a cada página (hoje AC só na memória); (b) TODA chamada às funções da nuvem passa por UMA função só que põe o selo (hoje só acFetch: reserva e Firestore; vão SEM selo as de fnUrl: cupom, mensagem, conta, volta, analise, novidades, avaliacao, atacado, codigo). Regra 12: troca no lugar, apaga o fetch solto. Sem tela nova.
