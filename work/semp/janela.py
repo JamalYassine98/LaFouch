@@ -13,11 +13,8 @@ bk.style.backdropFilter='blur(14px) saturate(120%)';bk.style.webkitBackdropFilte
 // 2) altura fixa: "grande" = sobe até 56 px do topo (no PC: painel no centro, 560 de largura)
 if(pc){j.style.cssText+=';left:50%;right:auto;top:72px;bottom:auto;transform:translateX(-50%);width:560px;max-height:calc(100vh - 144px);border-radius:22px'}
 else{j.style.top='56px';j.style.height='calc(100vh - 56px)';j.style.maxHeight='none'}
-// 3) topo: título no centro, ação principal no canto direito, alça em cima; embaixo não fica nada
-const hd=j.querySelector('.ljHd');const ac=getComputedStyle(j.querySelector('#mkPost')).color;
-hd.style.cssText='display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px;padding:0 16px;border-bottom:1px solid var(--line2)';
-hd.innerHTML='<span></span><b style="font-size:17px;font-weight:600">Vídeo</b><span style="justify-self:end;font-size:17px;font-weight:600;color:'+ac+'">Postar</span>';
-j.querySelector('#mkPost').remove();
+// 3) topo e botão: os do padrão aprovado (título à esquerda, UM botão de ação embaixo — 142d); só o 'Me lembra' deixa de ser um 2º botão
+const ac=getComputedStyle(j.querySelector('#mkPost')).color;
 // 4) "Me lembra" vira uma linha fina, como as outras
 const lm=j.querySelector('#mkLemb');const ln=document.createElement('div');
 ln.style.cssText='display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2)';
@@ -51,7 +48,7 @@ with sync_playwright() as pw:
       pg.locator('#v-mkt button[data-cria=video]').first.click();w(1500);pg.evaluate(JS3,ft);w(300)
       if fase=='prop': pg.evaluate(LUXO,False)
       q.append(foto(pg,fase+n,390,844));b.close()
-    quadro('esboco_janela_luxo_celular_%s.jpg'%n,esc,[('HOJE · acabamento atual','em cima: começo · embaixo: fim rolado',q[0]),('PROPOSTA · janela de luxo','ação no topo · fundo desfocado · altura fixa',q[1])],780)
+    quadro('esboco_janela_luxo_celular_%s.jpg'%n,esc,[('HOJE · acabamento atual','em cima: começo · embaixo: fim rolado',q[0]),('PROPOSTA · padrão aprovado (142d)','um botão só · campos em linha · fundo desfocado',q[1])],780)
   # PC: painel no centro
   q=[]
   for fase in ('hoje','prop'):
@@ -62,5 +59,5 @@ with sync_playwright() as pw:
     im=foto(pg,'pc'+fase,1440,900);q.append(im.resize((im.width//2,im.height//2)) if im.width>1600 else im);b.close()
   S=Image.new('RGB',(q[0].width+80,q[0].height*2+300),(17,20,26));d=ImageDraw.Draw(S)
   d.text((40,24),'HOJE · PC',font=F(36),fill=(235,235,240));S.paste(q[0],(40,90))
-  y=q[0].height+150;d.text((40,y-60),'PROPOSTA · PC: painel no centro, mesma janela',font=F(36),fill=(235,235,240));S.paste(q[1],(40,y))
+  y=q[0].height+150;d.text((40,y-60),'PROPOSTA · PC: painel no centro, mesmo padrão',font=F(36),fill=(235,235,240));S.paste(q[1],(40,y))
   S.save(O+'esboco_janela_luxo_pc_escuro.jpg',quality=85);print('ok pc',S.size)
