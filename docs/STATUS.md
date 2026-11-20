@@ -58,7 +58,7 @@
 - **27-remendos-parte-2c-setview-tabelas** — ✅ v579 (5.50.4, 20/11) — 42 destinos iguais; 0 diferenças em 60 telas · APP
 - **28-remendos-trocas-inteiras** — ✅ v581 (5.50.6, 20/11) — 0 diferenças em 60 telas · APP
 - **28-s5s7-nuvem** — nuvem PRONTA no ramo nuvem-s5s7 (16 provas) — espera o 'implementar' do dono; depois o SITE mostra 'Enviamos um e-mail para confirmar' quando a resposta tiver confirmar:true
-- **29-remendos-parte-4a-dashboard-dia-historico** — em andamento · APP · ordem do dono 20/11 10:04
+- **29-remendos-parte-4a-dashboard-dia-historico** — ✅ v582 (5.50.7, 20/11) — 0 diferenças em 60 telas · APP
 - **29-s6-vip-nuvem** — ✅ publicado 20/11 15:40 (run 44793310738, sonda 0 falhas) — SITE manda o login no 'presentes' e no 'reservar' (recado 15:41)
 - **30-s3-pedido-pela-nuvem** — parte 1 ✅ publicada 20/11 15:55 (run 44794676943) — parte 2: SITE troca o pkEnviar para a porta 'pedido' (recado 15:56) — parte 3: NUVEM fecha a criação direta em pedidos/ nas regras
 
