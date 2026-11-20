@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
+| SITE | recados da NUVEM: S6 (login no 'presentes' e no 'reservar'), S3 parte 2 (pedido pela porta 'pedido'), vistas (ramo esb-nuvem do catalogo) | js/lf-site.js |
 
 ## Fila
 
