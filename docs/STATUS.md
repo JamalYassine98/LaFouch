@@ -47,6 +47,7 @@
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
 - **22-bug-entrar-na-nuvem-aparelho-novo** — em andamento · APP · pedido 20/11 09:40
 - **22-publicar-nuvem-pelo-github** — ✅ funcionando 20/11 08:41 — dono configurou (Cloud Shell); 1ª publicação de teste pelo GitHub: testes ok + Deploy complete
+- **23-remendos-parte-1-render** — na fila — depois do 22 · APP · pedido 20/11 09:40
 
 ## Recados esperando
 
