@@ -309,8 +309,16 @@ exports.codigo = post('codigo', { cors: CORS_SITE, maxInstances: 10, secrets: [R
 // ---------- Avaliações das peças e novidades do site (v451) ----------
 // avaliacao: GET ?ref=X (público: lista e média) · POST {acao:'posso'|'avaliar'} com login do cliente
 //            · POST {acao:'recentes'|'ocultar'|'mostrar'} só o dono (painel do site).
-// novidades: POST {acao:'inscrever', email} público · POST {acao:'lista'} só o dono.
+// novidades: POST {acao:'inscrever', email} público (manda o "Confirme", S5) · GET ?confirmar= (link do e-mail) · POST {acao:'lista'|'tema'} só o dono.
 const Loja = require('./loja');
+const Inscricao = require('./inscricao');
+const { EMAIL_OK } = require('./texto');
+const insDb = {
+  get: async (id) => { const d = await fsx().doc('inscricoes/' + id).get(); return d.exists ? d.data() : null; },
+  set: (id, o) => fsx().doc('inscricoes/' + id).set(o, { merge: true }),
+  // só igualdade (sem índice composto); o filtro de hora é feito aqui
+  recentes: async (k, desde) => (await fsx().collection('inscricoes').where('ipk', '==', k).get()).docs.filter((d) => (+d.get('envTs') || 0) >= desde).length,
+};
 const lojaDb = {
   pedidosDoEmail: async (email) => {
     const q = await fsx().collection('pedidos').where('email', '==', email).limit(50).get();
@@ -320,7 +328,6 @@ const lojaDb = {
   getAval: async (id) => { const d = await fsx().doc('avaliacoes/' + id).get(); return d.exists ? d.data() : null; },
   setAval: (id, o) => fsx().doc('avaliacoes/' + id).set(o),
   listaAval: async (ref) => (await fsx().collection('avaliacoes').where('ref', '==', ref).limit(200).get()).docs.map((d) => d.data()),
-  setInscricao: (id, o) => fsx().doc('inscricoes/' + id).set(o, { merge: true }),
 };
 async function clienteDe(req) {
   const t = await tokenDe(req);
@@ -366,17 +373,28 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
     res.set('Content-Type', 'text/html; charset=utf-8');
     return res.send(Email.molde(es ? 'Listo, ' + Email.I('saliste') : 'Pronto, você ' + Email.I('saiu'), Email.P(es ? 'No vas a recibir más las novedades de La Fouch por e-mail.' : 'Você não vai mais receber as novidades da La Fouch por e-mail.') + Email.B(es ? 'Ir a lafouch.com' : 'Ir para lafouch.com', 'https://lafouch.com')));
   }
+  // S5 (20/11): link "Confirmar" do e-mail de inscrição (GET ?confirmar=<id>&t=<código>) — só depois dele a pessoa entra na lista
+  if (req.method === 'GET' && req.query.confirmar) {
+    const es = req.query.l === 'es';
+    let certo = false;
+    try { certo = (await Inscricao.confirmar(insDb, String(req.query.confirmar), String(req.query.t || ''), Date.now())).ok; } catch (e) { if (!(e instanceof Falha)) console.error('novidades confirmar', e); }
+    res.set('Content-Type', 'text/html; charset=utf-8'); res.set('Cache-Control', 'private, no-store'); res.set('X-Robots-Tag', 'noindex');
+    return res.status(certo ? 200 : 404).send(certo
+      ? Email.molde(es ? 'Listo, ' + Email.I('confirmado') : 'Pronto, ' + Email.I('confirmado'), Email.P(es ? 'Vas a recibir las novedades de La Fouch por e-mail.' : 'Você vai receber as novidades da La Fouch por e-mail.') + Email.B(es ? 'Ir a lafouch.com' : 'Ir para lafouch.com', 'https://lafouch.com'))
+      : Email.molde(es ? 'Enlace ' + Email.I('vencido') : 'Link ' + Email.I('vencido'), Email.P(es ? 'Este enlace ya no vale. Inscribite de nuevo en lafouch.com.' : 'Este link não vale mais. Inscreva-se de novo em lafouch.com.') + Email.B(es ? 'Ir a lafouch.com' : 'Ir para lafouch.com', 'https://lafouch.com')));
+  }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = corpo(req);
   try {
     if (b.acao === 'lista') {
       if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      // a lista = só quem confirmou (S5); o código de confirmação nunca sai daqui
       const q = await fsx().collection('inscricoes').orderBy('ts', 'desc').limit(1000).get();
-      return res.json({ ok: true, itens: q.docs.map((d) => d.data()) });
+      return res.json({ ok: true, itens: q.docs.map((d) => d.data()).filter(Inscricao.vale).map((o) => { const { tok, ipk, envTs, ...resto } = o; return resto; }) });
     }
     if (b.acao === 'inscrever') {
       if (!(await seloOk(req, res, 'novidades'))) return;
-      return res.json(await Loja.inscrever(lojaDb, b, Date.now()));
+      return res.json(await Inscricao.inscrever(insDb, emailResend(), { email: b.email, lang: b.lang }, Date.now(), hash(req.ip || req.get('x-forwarded-for') || '', 24), urlFn('novidades')));
     }
     // S183: no começo do tema o app (dono) manda 1 e-mail aos inscritos (1 vez por tema e ano)
     if (b.acao === 'tema') {
@@ -395,7 +413,7 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
       let n = 0;
       for (const d of q.docs) {
         const o = d.data(), em = String(o.email || '').toLowerCase();
-        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em) || o.sair) continue;
+        if (!Inscricao.vale(o) || !EMAIL_OK.test(em)) continue; // S5: só quem confirmou o e-mail e não saiu
         const es = o.lang === 'es';
         // S393 (esboço 58e): molde dos e-mails + link para sair (o id da inscrição é o próprio id do documento)
         const sair = urlFn('novidades') + '?sair=' + d.id + (es ? '&l=es' : '');
@@ -460,9 +478,10 @@ const voltaDb = {
   pendentes: async (ref) => (await fsx().collection('voltas').where('ref', '==', ref).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((o) => !o.env),
   muda: (id, c) => fsx().doc('voltas/' + id).update(c),
   contaEmail: async (e) => (await fsx().collection('voltas').where('email', '==', e).get()).docs.filter((d) => !d.get('env')).length,
-  inscreve: (email, lang) => Loja.inscrever(lojaDb, { email, lang }, Date.now()),
+  // S7 (20/11): o "Avise-me" não inscreve mais direto — vai o mesmo "Confirme" do S5 (só entra na lista quem tocar no link)
+  inscreve: (email, lang) => Inscricao.inscrever(insDb, emailResend(), { email, lang, orig: 'volta' }, Date.now(), '', urlFn('novidades')),
 };
-exports.volta = post('volta', { cors: CORS_SITE, maxInstances: 5 }, async (req, res, b) => {
+exports.volta = post('volta', { cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res, b) => {
   if (b.acao !== 'pedir') return res.status(400).json({ ok: false, motivo: 'acao' });
   if (!(await seloOk(req, res, 'volta'))) return;
   return res.json(await Volta.pedir(voltaDb, b, Date.now()));

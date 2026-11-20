@@ -27,6 +27,10 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 - **Tudo ou nada:** se der erro no meio, o e-mail volta a "não visto" e o robô tenta de novo.
 - **Robô do Gmail (work/pix/robo-pix.gs, Apps Script; o dono cola):** os bancos num lugar só (`BANCOS`); o e-mail só vale se a PRIMEIRA linha `Authentication-Results: mx.google.com` (a do próprio Gmail) aprovar o DKIM/DMARC do banco, ou se a cadeia de reenvio que o Gmail aprovou (`arc=pass`) trouxer o DKIM do banco. Manda também o pagador e a hora do Nubank (só desempate). Travas: `functions/teste-robo.js`.
 
+## Novidades por e-mail (inscricao.js; S5 + S7)
+- Inscrever (site ou "Avise-me") grava `inscricoes/<id>` com `conf: false` e manda 1 e-mail "Confirme" (no máximo 1 a cada 10 min por e-mail; 5 inscrições por rede por hora). O link (`novidades?confirmar=<id>&t=<código>`, vale 7 dias) marca `conf: true`.
+- O e-mail do tema e a lista do painel só têm quem confirmou e não saiu (`Inscricao.vale`). A limpeza diária apaga a não confirmada de 7+ dias.
+
 ## Travas (functions/teste-*.js; o GitHub roda todas antes de publicar)
 - `teste-portas.js`: as 15 portas respondem certo a método errado, corpo vazio, ação inválida, corpo em texto e dono sem login; as portas do site usam uma lista só; cada peça comum aparece num lugar só; os avisos ao celular.
 - `teste-email.js`: um só envio de e-mail · `teste-selo.js`: toda porta pública chama o selo.

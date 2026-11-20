@@ -22,6 +22,9 @@ async function limpa(db, agora) {
   // S400: marcas de pedido entregue (só servem para disparar o presente uma vez)
   r.entregas = 0;
   for (const d of await db.velhos('entregas', agora - 30 * 864e5)) { await db.apaga('entregas', d.id); r.entregas++; }
+  // S5 (20/11): inscrição nas novidades que ninguém confirmou em 7 dias (o link venceu) — some
+  r.inscricoes = 0;
+  for (const d of await db.velhos('inscricoes', agora - 7 * 864e5)) { if (d.conf !== true) { await db.apaga('inscricoes', d.id); r.inscricoes++; } }
   return r;
 }
 module.exports = { limpa, ANO, CAMPOS };
