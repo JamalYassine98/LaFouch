@@ -40,6 +40,7 @@
 - **15-camera-do-estudio-so-ela-pegar-antes-dos** — ✅ COMPLETO — parte 1 v568 · parte 2 v569 · parte 3 v570 (19/11) · APP · pedido 19/11 19:25
 - **16-peca-incompleta-nao-vai-ao-site** — esboço pronto (work/s436/banco/esboco16_*), esperando o dono · APP · pedido 19/11 23:07
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
+- **18-trava-dos-remendos-no-porteiro** — em andamento · APP · pedido 20/11 00:40
 
 ## Recados esperando
 
