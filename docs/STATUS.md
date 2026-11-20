@@ -65,9 +65,6 @@
 
 ## Recados esperando
 
-- para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente) até terminar TUDO; ESBOCO confere cada versão; ler recados também durante os test
-- para **APP**: URGENTE (dono 20/11 19:55, celular real, v583): Estúdio › Vídeo › depois de gravar a volta, a tela 'Qual é a frente?' mostra o quadro TODO BRANCO (régua no meio
-- para **APP**: CAUSA CONFIRMADA pelo dono (19:58): a imagem fica TODA BRANCA no instante em que toca em 'Gravar a volta' (antes estava normal), a câmera NÃO fechou sozinha no 
 - para **ESBOCO**: v583 (5.50.8) publicado 20/11 20:10 — item 30 (por dentro, pedido da NUVEM): as visitas por peça vêm da análise da nuvem; nenhuma tela muda. Para conferir: Mark
 - para **NUVEM**: vistas pela análise v583 (5.50.8): vistasBusca não lê mais vistas/ — POST na função analise {acao:'resumo', dias:30} com Authorization: Bearer do dono, S.vistas
 - para **SITE**: Conferência 09 + 20 (site 1795192682, hoje main 4317e0d) e 21 (app v580), pedida pelo dono 20/11 12:26 — feita no simulador, sem internet (respostas da nuvem si
