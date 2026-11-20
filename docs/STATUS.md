@@ -58,6 +58,7 @@
 
 ## Recados esperando
 
+- para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO confere cada versão. F
 - para **ESBOCO**: v579 (5.50.4) publicado 20/11 15:25 — item 27, remendos PARTE 2c: setView sem embrulho e nomes/frases das telas escritos uma vez (BARRA_NOME, GRP_FRASE, DT_FRAS
 - para **ESBOCO**: v580 (5.50.5) publicado 20/11 16:05 — item 21 (por dentro, nuvem): código de entrega e confirmação automática do PIX só em reservasTok. Nenhuma tela muda. Para 
 - para **NUVEM**: 21 publicado v580 (5.50.5): pedReserva grava reservasTok/<sid> {tok} e SÓ DEPOIS reservas/<sid> pago:true (sem tok em reservas/); pixEmailCheca lê pixAuto em re
