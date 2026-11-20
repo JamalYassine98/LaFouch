@@ -64,7 +64,7 @@
 - **30-s3-pedido-pela-nuvem** — ✅ completo: parte 1 (15:55) + parte 2 SITE v1795215331 (20:25) + parte 3 regras (20:08, run 44834391367; sonda no ar: criar pedido direto = 403)
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
 - **31-urgente-camera-branca-ao-gravar-a-volta** — em andamento · APP · URGENTE do dono 20/11 19:55 (celular real, via ESBOCO)
-- **31-visitas-num-lugar-so** — nuvem ✅ (porPeca na análise, 20/11 16:05) — APP lê da análise → SITE tira o vistaEnvia → NUVEM fecha vistas/ nas regras
+- **31-visitas-num-lugar-so** — ✅ APP v583 lê da análise; regras fecham vistas/ (20:08, sonda 403) — falta só o SITE tirar o vistaEnvia (código morto, recado 20:10)
 
 ## Recados esperando
 
