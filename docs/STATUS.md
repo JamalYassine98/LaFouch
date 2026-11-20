@@ -33,21 +33,22 @@
 - **08-s1-s2-parte-1-nuvem-dono-implementar-19** — ✅ publicado pelo dono 19/11 15:44 (functions + regras); conferido: `conta` livre=ok, `reserva` token sem telefone certo = recusado · NUVEM · pedido 19/11 15:29
 - **09-s1-s2-parte-2-site-depois-do-item-8-publ** — na fila — pode começar (item 8 no ar) · SITE · pedido 19/11 15:29
 - **10-s1-s2-parte-2-app-depois-do-item-8-publi** — ✅ v566 (19/11) — grava em reservasTok E ainda em reservas/ (o site antigo lê de lá); tirar o de reservas/ junto com o item 11 · APP · pedido 19/11 15:29
-- **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — PRONTA E TESTADA no ramo nuvem-parte3 (não publicada) — espera o item 09 (site) publicado e o item 18 (app)
+- **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — PRONTA E TESTADA no ramo nuvem-parte3 (não publicada) — espera o item 09 (site) publicado e o item 21 (app)
 - **12-p1b-orfas-nuvem-dono-implementar-16-12-e** — ✅ publicado pelo dono 19/11 16:21; conferido: `orfas` sem login = sem-permissao · NUVEM · pedido 19/11 16:12
 - **13-p1b-orfas-app-depois-do-item-12-publicad** — ✅ v567 (19/11) · APP · pedido 19/11 16:12
 - **14-urgente-interruptor-do-site-some-no-pain** — ✅ publicado no site (catalogo ef883de, 19/11 19:28); CONFERIDO pela S435 no simulador: com o site ligado e desligado o cartão do interruptor fica no topo (prova.py). Dono testou no celular 19/11 19:45: funcionou ✓ · SITE · pedido 19/11 19:03
 - **15-camera-do-estudio-so-ela-pegar-antes-dos** — ✅ COMPLETO — parte 1 v568 · parte 2 v569 · parte 3 v570 (19/11) · APP · pedido 19/11 19:25
 - **16-peca-incompleta-nao-vai-ao-site** — esboço v2 pronto e passado no comparador (work/s436/banco/esboco16_ficha_{celular,tablet,pc}_*.jpg + esboco16_pecas_teste.jpg), esperando o dono: marca e coleção obrigatórias? · APP · pedido 19/11 23:07
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
-- **18-s1-s2-parte-3-app** — na fila — junto com o item 11
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — na fila
+- **21-s1-s2-parte-3-app** — na fila — junto com o item 11
 
 ## Recados esperando
 
 - para **APP**: Lido 20/11 04:45 (S436): item 18-s1-s2-parte-3-app (tirar tok de reservas/ e gravar reservasTok antes de pago:true, em src/95-pedidos.js pedReserva) fica na Fil
+- para **APP**: Correção: o item 'S1/S2 parte 3 do app' que eu tinha posto como 18 virou 21 na Fila (o 18 já era a trava dos remendos de vocês). Conteúdo igual.
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
 - para **ESBOCO**: CORREÇÃO do meu recado da madrugada: o dono aprovou (20/11 08:17) COMPARADOR ÚNICO — o do site (work/s430/comparador/compara.py) com a lista de telas do app; NÃ
