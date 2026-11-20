@@ -43,6 +43,7 @@
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
 - **18-s1-s2-parte-3-app** — na fila — junto com o item 11
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
+- **19-appcheck-parte-3-nuvem** — feito no código (modo ANOTAR) — falta o dono publicar (functions + regras)
 
 ## Recados esperando
 

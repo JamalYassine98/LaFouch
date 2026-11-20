@@ -1,0 +1,2 @@
+feito no código (modo ANOTAR) — falta o dono publicar (functions + regras)
+**App Check parte 3 — NUVEM** (dono: implementar 20/11 08:02; custo autorizado 07:17): portas públicas (reserva, conta, cupom, mensagem, analise, novidades, volta, avaliacao, atacado, codigo) conferem o cabeçalho X-Firebase-AppCheck; MODO em functions/selo.js ('anotar' agora; 'exigir' só com novo ok do dono depois de ver seloDia/). Contagem por dia em seloDia/<AAAA-MM-DD>.
