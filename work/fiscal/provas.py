@@ -790,6 +790,40 @@ def p7_foto_link_direto(p):
             else: passou(P7, nome, f'{ref}: foto em {t} s')
         finally: b.close()
 
+def p7_pedido_pela_nuvem(p):
+    # S3 parte 2 + S6 (20/11): a compra inteira, com a nuvem imitada. O pedido vai pela porta 'pedido' ({id, doc}, JSON comum), nunca direto no banco;
+    # logada, a reserva leva o login (Authorization) e não leva o telefone; no fim aparece a tela de pagamento.
+    b, c, pg, E = novo(p, 390, 844, 'pt-BR', ls=LOG7)
+    try:
+        R = []
+        def nuvem(r):
+            nome = r.request.url.split('cloudfunctions.net/')[1].split('?')[0]; corpo = r.request.post_data or ''
+            try: j = json.loads(corpo)
+            except Exception: j = {}
+            R.append((nome, r.request.headers.get('authorization', ''), j))
+            if nome == 'reserva': r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': True, 'exp': 9e15, 'agora': 0}))
+            elif nome == 'pedido': r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': True}))
+            else: r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': False}))
+        c.route('**cloudfunctions.net/**', nuvem)
+        c.route('**/documents/pedidos**', lambda r: (R.append(('BANCO', '', {})), r.abort())[1])
+        c.route('**identitytoolkit**', lambda r: r.fulfill(status=200, content_type='application/json', body=json.dumps({'users': [{'emailVerified': True, 'email': 'maria@exemplo.com'}]})))
+        carrega(pg); a_cat()(pg); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1800)
+        toca = lambda sel, esp=2200: (pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(e=>e.offsetParent);if(e){e.click();return true}return false}", sel), pg.wait_for_timeout(esp))[0]
+        toca('#layer [data-addm]', 1500)
+        if not pg.evaluate("!!document.querySelector('#layer .cartp')"): pg.keyboard.press('Escape'); pg.wait_for_timeout(300); pg.click('#bagbtn'); pg.wait_for_timeout(1200)
+        faltou = [x for x in ('[data-cta=prosseguir]', '[data-ent=loja]', '[data-cta=irpag]', '[data-cta=pg][data-v=pix]', '[data-send]') if not toca(x)]
+        pg.wait_for_timeout(2500); nome = 'Compra inteira: pedido pela porta da nuvem, reserva com o login'
+        ped = [x for x in R if x[0] == 'pedido']; res = [x for x in R if x[0] == 'reserva' and x[2].get('acao') == 'reservar']; ruim = []
+        if faltou: ruim.append('não achei ' + faltou[0])
+        if any(x[0] == 'BANCO' for x in R): ruim.append('o site gravou o pedido direto no banco')
+        if not ped: ruim.append('nenhuma chamada à porta pedido')
+        elif not (ped[0][2].get('id') and isinstance(ped[0][2].get('doc'), dict) and ped[0][2]['doc'].get('itens') and ped[0][2]['doc'].get('total')): ruim.append('pedido sem id/doc/itens/total')
+        if res and (res[0][1] != 'Bearer kit' or 'tel' in res[0][2]): ruim.append('reserva sem o login ou com telefone')
+        if not pg.evaluate("!!document.querySelector('#pkok')"): ruim.append('a tela de pagamento não apareceu')
+        if ruim: falha(P7, nome, ' | '.join(ruim), pg)
+        else: passou(P7, nome, f'{len(R)} chamadas')
+    finally: b.close()
+
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
   const t=a.content.replace(/^"|"$/g,'');const cv=document.createElement('canvas').getContext('2d');cv.font=a.fontWeight+' '+a.fontSize+' '+a.fontFamily;
   const w=cv.measureText(t).width;const r=b.getBoundingClientRect(),aw=parseFloat(a.width)||0;
@@ -1036,7 +1070,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
