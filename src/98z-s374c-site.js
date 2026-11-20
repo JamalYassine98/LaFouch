@@ -12,27 +12,6 @@
   GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
-  // famílias (uma vez): Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
-  var _iniLista95 = iniLista;
-  iniLista = function () {
-    var l = _iniLista95.apply(this, arguments);
-    if (!S.fam95 && S.fam6) {
-      S.fam95 = true;
-      var g = grpGet('g:site'), m = grpGet('g:mkt');
-      if (g) {
-        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
-        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
-        g.frase = 'Pedidos, mensagens, vitrine e modelos';
-      }
-      if (m) {
-        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
-        m.frase = 'Posts, vídeos, temática, cartões e visitas';
-      }
-      saveSoon();
-      l = _iniLista95.apply(this, arguments);
-    }
-    return l;
-  };
   // painel integrado: sempre dentro da tela (nunca "tela cheia"), com ?app=2, altura até a barra de baixo
   var _onlUrl95 = onlUrl;
   onlUrl = function () {

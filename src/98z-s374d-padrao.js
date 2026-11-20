@@ -145,15 +145,6 @@
     setView('mkt');
   };
   ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
-  var _grpAbre98 = grpAbre;
-  grpAbre = function (g) {
-    if (g && g.id === 'g:mkt' && g.fam) {
-      S._gAt = g.id;
-      var u = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
-      return inicioGo(u);
-    }
-    return _grpAbre98.apply(this, arguments);
-  };
   // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
   var _histLista99 = histLista;
   histLista = function () {

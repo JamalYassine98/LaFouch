@@ -38,17 +38,6 @@
     S.barra = ['vendas', 'g:pecas', 'g:din', 'ajustes'];
     S.inicioT = ['hoje', 'g:site', 'g:cli'];
   }
-  var _iniLista374 = iniLista;
-  iniLista = function () {
-    var l = _iniLista374.apply(this, arguments);
-    if (S.fam7) return l;
-    fam7Aplica();
-    _iniLista374.apply(this, arguments); // as entradas únicas antigas rodam aqui e podem devolver atalhos soltos
-    var den = [];
-    (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
-    S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
-    return _iniLista374.apply(this, arguments);
-  };
 
   // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
   // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
@@ -82,17 +71,6 @@
   ACT.stLoja = function () {
     try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
   };
-  // a família Site já existente ganha a tela Site na frente (uma vez)
-  var _iniLista374b = iniLista;
-  iniLista = function () {
-    var l = _iniLista374b.apply(this, arguments);
-    if (!S.fam7b) {
-      S.fam7b = true;
-      var g = grpGet('g:site');
-      if (g && g.itens.indexOf('site') < 0) g.itens.unshift('site');
-    }
-    return l;
-  };
 
   // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
   var _dVerEsc374 = ACT.dVerEsc;
@@ -123,22 +101,6 @@
     if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
     S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
   }
-  var _iniLista59 = iniLista;
-  iniLista = function () {
-    var l = _iniLista59.apply(this, arguments);
-    if (S.fam6 || !S.fam7) return l;
-    fam6Aplica();
-    return _iniLista59.apply(this, arguments);
-  };
-  // Marketing e Temática abrem em janela: o botão da família abre a lista para escolher
-  var _grpAbre59 = grpAbre;
-  grpAbre = function (g) {
-    if (g && g.id === 'g:mkt' && g.fam) {
-      S._gAt = g.id;
-      return ACT.grpVer();
-    }
-    return _grpAbre59.apply(this, arguments);
-  };
   // no Dashboard, a flecha de uma família (Resultados, Giro e preços) mostra as telas da família
   var _dVer59 = ACT.dVer;
   ACT.dVer = function () {
@@ -327,19 +289,7 @@
       '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pp.e ? pp.e.toLocaleString('pt-BR') : '') + '"></label>' +
       '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pp.l ? pp.l.toLocaleString('pt-BR') : '') + '"></label></div>');
   };
-  // 66: as contas são divididas sempre pelo custo (uma vez, para quem tinha "Igual por peça")
   if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
-  var _iniLista74 = iniLista;
-  iniLista = function () {
-    if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
-    // 63: a família Peças fica só com Inventário e Estúdio (uma vez)
-    if (!S.fam63) {
-      S.fam63 = true;
-      var gp = grpGet('g:pecas');
-      if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
-    }
-    return _iniLista74.apply(this, arguments);
-  };
 
   // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
   // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
@@ -421,19 +371,5 @@
     cupVista = '';
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
     setView('cup');
-  };
-  // a família Marketing ganha a tela Cartões (uma vez)
-  var _iniLista374c = iniLista;
-  iniLista = function () {
-    var l = _iniLista374c.apply(this, arguments);
-    if (!S.fam80) {
-      var g = grpGet('g:mkt');
-      if (g) {
-        S.fam80 = true;
-        if (g.itens.indexOf('cup') < 0) g.itens.push('cup');
-        g.frase = 'Posts, vídeos, temática e cartões';
-      }
-    }
-    return l;
   };
 

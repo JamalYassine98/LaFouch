@@ -3633,6 +3633,23 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 26 (20/11/2026): remendos parte 2b — iniLista (migrações dos grupos, em ordem) e grpAbre são UMA função cada; ninguém as troca.
+            # Um aparelho antigo (sem nenhuma marca de família) chega ao mesmo lugar de sempre e não repete a migração
+            total += 1
+            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(iniLista|grpAbre) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S;
+              S.fam7 = S.fam7b = S.fam6 = S.fam63 = S.fam80 = S.fam95 = S.rat66 = false; S.rateio = 'igual';
+              S.grupos = [{ id: 'g1', nome: 'Meu', ico: 'caixa', itens: ['caixa', 'desp'] }]; S.inicioT = ['hoje', 'giro', 'ped', 'cli', 'mkt', 'g1']; S.barra = ['vendas', 'g1', 'hoje', 'ajustes'];
+              L.render(); const ids = S.grupos.map(g => g.id).sort().join(','), a = JSON.stringify([S.grupos, S.inicioT, S.barra]);
+              const site = S.grupos.find(g => g.id === 'g:site').itens.join(','), mkt = S.grupos.find(g => g.id === 'g:mkt').itens, pecas = S.grupos.find(g => g.id === 'g:pecas').itens;
+              L.render(); const igual = a === JSON.stringify([S.grupos, S.inicioT, S.barra]);
+              return [ids, site, mkt.includes('cup') && mkt.includes('anl'), !pecas.includes('lotes'), [S.fam7, S.fam7b, S.fam6, S.fam63, S.fam80, S.fam95, S.rat66].every(Boolean), S.rateio, igual]; }""")
+            ok = not troca and got[1].startswith('site,ped,msg,vit,prod') and got[2:] == [True, True, True, 'custo', True] and 'g:site' in got[0] and 'g1' not in got[0].split(',') and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 26: iniLista e grpAbre numa função só — aparelho antigo migra para as famílias de sempre, uma vez')
+            if not ok: falhas.append('item 26 grupos'); print('        veio', troca, got, pg.erros)
+            await pg.close()
+
             # Item 25 (20/11/2026): remendos parte 2a — inicioGo e navOn são UMA função cada (src/89-inicio.js); ninguém as troca.
             # Cada destino abre a tela certa e acende o botão certo (tabela conferida antes × depois em work/s436/remendos/equiv_nav.py)
             total += 1

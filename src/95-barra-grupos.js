@@ -56,9 +56,10 @@
     }
     return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
   }
+  // Abre o grupo na última tela usada dele (ou na primeira). Marketing (família) lembra qual grupo está aberto.
   function grpAbre(g) {
-    var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
-    inicioGo(t);
+    if (g && g.id === 'g:mkt' && g.fam) S._gAt = g.id;
+    return inicioGo(g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0]);
   }
   // Abas do grupo no topo da tela.
   // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER

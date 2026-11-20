@@ -1,7 +1,7 @@
 {
- "nome": "5.50.2",
+ "nome": "5.50.3",
  "notas": [
-  "Arrumação por dentro (parte 2a da limpeza): abrir uma tela pelo nome e acender o botão certo da barra passaram a ser uma função só cada (eram 11 camadas). Nenhuma tela muda."
+  "Arrumação por dentro (parte 2b da limpeza): a montagem dos grupos do Início e da barra passou a ser uma função só, com as mudanças antigas em ordem (eram 8 camadas). Nenhuma tela muda."
  ],
- "build": 577
+ "build": 578
 }

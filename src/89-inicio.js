@@ -61,7 +61,8 @@
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
   var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
-  function iniLista() {
+  // Lista do Início e da barra + as migrações antigas (até a união de 2025). As migrações das famílias ficam em iniLista, logo abaixo.
+  function iniListaBase() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
     if (!S.uniao1) {
       S.uniao1 = true;
@@ -121,6 +122,70 @@
     return l.filter(function (id, i) {
       return (INI_TODOS.indexOf(id) >= 0 || !!grpGet(id)) && l.indexOf(id) === i;
     });
+  }
+  // Lista do Início e da barra. As migrações das famílias rodam aqui, UMA vez cada (marca S.famNN), na ordem em que foram criadas —
+  // nenhum arquivo embrulha esta função. Depois de cada migração que mexe nos grupos a lista é refeita.
+  function iniLista() {
+    // 66: as contas são divididas sempre pelo custo (para quem tinha "Igual por peça")
+    if (!S.rat66) {
+      S.rat66 = true;
+      S.rateio = 'custo';
+    }
+    // 63: a família Peças fica só com Inventário e Estúdio
+    if (!S.fam63) {
+      S.fam63 = true;
+      var gp = grpGet('g:pecas');
+      if (gp) {
+        gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; });
+        gp.frase = 'Inventário e estúdio';
+      }
+    }
+    var l = iniListaBase();
+    // as 7 famílias: as entradas únicas antigas rodam de novo e podem devolver atalhos soltos — saem os que já estão numa família
+    if (!S.fam7) {
+      fam7Aplica();
+      iniListaBase();
+      var den = [];
+      (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
+      S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
+      l = iniListaBase();
+    }
+    // a família Site ganha a tela Resumo na frente
+    if (!S.fam7b) {
+      S.fam7b = true;
+      var gs = grpGet('g:site');
+      if (gs && gs.itens.indexOf('site') < 0) gs.itens.unshift('site');
+    }
+    if (!S.fam6 && S.fam7) {
+      fam6Aplica();
+      l = iniListaBase();
+    }
+    // Cartões entra no Marketing
+    if (!S.fam80) {
+      var gm = grpGet('g:mkt');
+      if (gm) {
+        S.fam80 = true;
+        if (gm.itens.indexOf('cup') < 0) gm.itens.push('cup');
+        gm.frase = 'Posts, vídeos, temática e cartões';
+      }
+    }
+    // Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
+    if (!S.fam95 && S.fam6) {
+      S.fam95 = true;
+      var g = grpGet('g:site'), m = grpGet('g:mkt');
+      if (g) {
+        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
+        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
+        g.frase = 'Pedidos, mensagens, vitrine e modelos';
+      }
+      if (m) {
+        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
+        m.frase = 'Posts, vídeos, temática, cartões e visitas';
+      }
+      saveSoon();
+      l = iniListaBase();
+    }
+    return l;
   }
   function iniDados() {
     var pecas = S.items.reduce(function (a, i) {

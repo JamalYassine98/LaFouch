@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 577;
+  var APP_BUILD = 578;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22118,7 +22118,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
   var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
-  function iniLista() {
+  // Lista do Início e da barra + as migrações antigas (até a união de 2025). As migrações das famílias ficam em iniLista, logo abaixo.
+  function iniListaBase() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
     if (!S.uniao1) {
       S.uniao1 = true;
@@ -22178,6 +22179,70 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return l.filter(function (id, i) {
       return (INI_TODOS.indexOf(id) >= 0 || !!grpGet(id)) && l.indexOf(id) === i;
     });
+  }
+  // Lista do Início e da barra. As migrações das famílias rodam aqui, UMA vez cada (marca S.famNN), na ordem em que foram criadas —
+  // nenhum arquivo embrulha esta função. Depois de cada migração que mexe nos grupos a lista é refeita.
+  function iniLista() {
+    // 66: as contas são divididas sempre pelo custo (para quem tinha "Igual por peça")
+    if (!S.rat66) {
+      S.rat66 = true;
+      S.rateio = 'custo';
+    }
+    // 63: a família Peças fica só com Inventário e Estúdio
+    if (!S.fam63) {
+      S.fam63 = true;
+      var gp = grpGet('g:pecas');
+      if (gp) {
+        gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; });
+        gp.frase = 'Inventário e estúdio';
+      }
+    }
+    var l = iniListaBase();
+    // as 7 famílias: as entradas únicas antigas rodam de novo e podem devolver atalhos soltos — saem os que já estão numa família
+    if (!S.fam7) {
+      fam7Aplica();
+      iniListaBase();
+      var den = [];
+      (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
+      S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
+      l = iniListaBase();
+    }
+    // a família Site ganha a tela Resumo na frente
+    if (!S.fam7b) {
+      S.fam7b = true;
+      var gs = grpGet('g:site');
+      if (gs && gs.itens.indexOf('site') < 0) gs.itens.unshift('site');
+    }
+    if (!S.fam6 && S.fam7) {
+      fam6Aplica();
+      l = iniListaBase();
+    }
+    // Cartões entra no Marketing
+    if (!S.fam80) {
+      var gm = grpGet('g:mkt');
+      if (gm) {
+        S.fam80 = true;
+        if (gm.itens.indexOf('cup') < 0) gm.itens.push('cup');
+        gm.frase = 'Posts, vídeos, temática e cartões';
+      }
+    }
+    // Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
+    if (!S.fam95 && S.fam6) {
+      S.fam95 = true;
+      var g = grpGet('g:site'), m = grpGet('g:mkt');
+      if (g) {
+        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
+        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
+        g.frase = 'Pedidos, mensagens, vitrine e modelos';
+      }
+      if (m) {
+        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
+        m.frase = 'Posts, vídeos, temática, cartões e visitas';
+      }
+      saveSoon();
+      l = iniListaBase();
+    }
+    return l;
   }
   function iniDados() {
     var pecas = S.items.reduce(function (a, i) {
@@ -24700,9 +24765,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
   }
+  // Abre o grupo na última tela usada dele (ou na primeira). Marketing (família) lembra qual grupo está aberto.
   function grpAbre(g) {
-    var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
-    inicioGo(t);
+    if (g && g.id === 'g:mkt' && g.fam) S._gAt = g.id;
+    return inicioGo(g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0]);
   }
   // Abas do grupo no topo da tela.
   // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER
@@ -51920,17 +51986,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.barra = ['vendas', 'g:pecas', 'g:din', 'ajustes'];
     S.inicioT = ['hoje', 'g:site', 'g:cli'];
   }
-  var _iniLista374 = iniLista;
-  iniLista = function () {
-    var l = _iniLista374.apply(this, arguments);
-    if (S.fam7) return l;
-    fam7Aplica();
-    _iniLista374.apply(this, arguments); // as entradas únicas antigas rodam aqui e podem devolver atalhos soltos
-    var den = [];
-    (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
-    S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
-    return _iniLista374.apply(this, arguments);
-  };
 
   // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
   // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
@@ -51964,17 +52019,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.stLoja = function () {
     try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
   };
-  // a família Site já existente ganha a tela Site na frente (uma vez)
-  var _iniLista374b = iniLista;
-  iniLista = function () {
-    var l = _iniLista374b.apply(this, arguments);
-    if (!S.fam7b) {
-      S.fam7b = true;
-      var g = grpGet('g:site');
-      if (g && g.itens.indexOf('site') < 0) g.itens.unshift('site');
-    }
-    return l;
-  };
 
   // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
   var _dVerEsc374 = ACT.dVerEsc;
@@ -52005,22 +52049,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
     S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
   }
-  var _iniLista59 = iniLista;
-  iniLista = function () {
-    var l = _iniLista59.apply(this, arguments);
-    if (S.fam6 || !S.fam7) return l;
-    fam6Aplica();
-    return _iniLista59.apply(this, arguments);
-  };
-  // Marketing e Temática abrem em janela: o botão da família abre a lista para escolher
-  var _grpAbre59 = grpAbre;
-  grpAbre = function (g) {
-    if (g && g.id === 'g:mkt' && g.fam) {
-      S._gAt = g.id;
-      return ACT.grpVer();
-    }
-    return _grpAbre59.apply(this, arguments);
-  };
   // no Dashboard, a flecha de uma família (Resultados, Giro e preços) mostra as telas da família
   var _dVer59 = ACT.dVer;
   ACT.dVer = function () {
@@ -52209,19 +52237,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pp.e ? pp.e.toLocaleString('pt-BR') : '') + '"></label>' +
       '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pp.l ? pp.l.toLocaleString('pt-BR') : '') + '"></label></div>');
   };
-  // 66: as contas são divididas sempre pelo custo (uma vez, para quem tinha "Igual por peça")
   if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
-  var _iniLista74 = iniLista;
-  iniLista = function () {
-    if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
-    // 63: a família Peças fica só com Inventário e Estúdio (uma vez)
-    if (!S.fam63) {
-      S.fam63 = true;
-      var gp = grpGet('g:pecas');
-      if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
-    }
-    return _iniLista74.apply(this, arguments);
-  };
 
   // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
   // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
@@ -52304,20 +52320,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
     setView('cup');
   };
-  // a família Marketing ganha a tela Cartões (uma vez)
-  var _iniLista374c = iniLista;
-  iniLista = function () {
-    var l = _iniLista374c.apply(this, arguments);
-    if (!S.fam80) {
-      var g = grpGet('g:mkt');
-      if (g) {
-        S.fam80 = true;
-        if (g.itens.indexOf('cup') < 0) g.itens.push('cup');
-        g.frase = 'Posts, vídeos, temática e cartões';
-      }
-    }
-    return l;
-  };
 
   // ===== S374 · esboços 93–97 (aprovados 17/11/2026 10:36, "implementar tudo") =====
   // 94: o painel do site vira tela do app (sem topo/barra/título próprios; cores do app; ?app=2 liga o modo integrado no painel).
@@ -52333,27 +52335,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
   if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
   if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
-  // famílias (uma vez): Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
-  var _iniLista95 = iniLista;
-  iniLista = function () {
-    var l = _iniLista95.apply(this, arguments);
-    if (!S.fam95 && S.fam6) {
-      S.fam95 = true;
-      var g = grpGet('g:site'), m = grpGet('g:mkt');
-      if (g) {
-        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
-        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
-        g.frase = 'Pedidos, mensagens, vitrine e modelos';
-      }
-      if (m) {
-        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
-        m.frase = 'Posts, vídeos, temática, cartões e visitas';
-      }
-      saveSoon();
-      l = _iniLista95.apply(this, arguments);
-    }
-    return l;
-  };
   // painel integrado: sempre dentro da tela (nunca "tela cheia"), com ?app=2, altura até a barra de baixo
   var _onlUrl95 = onlUrl;
   onlUrl = function () {
@@ -52590,15 +52571,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     setView('mkt');
   };
   ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
-  var _grpAbre98 = grpAbre;
-  grpAbre = function (g) {
-    if (g && g.id === 'g:mkt' && g.fam) {
-      S._gAt = g.id;
-      var u = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
-      return inicioGo(u);
-    }
-    return _grpAbre98.apply(this, arguments);
-  };
   // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
   var _histLista99 = histLista;
   histLista = function () {
