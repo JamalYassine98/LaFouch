@@ -16,6 +16,9 @@ let f = 0; const ok = (c, t) => { console.log((c ? '  ok  ' : ' FALHA ') + t); i
   await A.registra(db2, { id: 'vaaaaaaaa2', dv: { SL2255: 1 }, gm: '+9.99' }, 6);
   const r2 = await A.resumo(db2, 3, 10);
   ok(r2.destaqueVistas.SL2255 === 2 && r2.destaqueVistas.BR1 === 1 && r2.destaqueToques.SL2255 === 5 && r2.mochiGraus.length === 1 && r2.mochiGraus[0][0] === '+1.50' && r2.dias_periodo === 3, 'destaque (vistas/toques) e grau do teste do Mochi');
+  await A.registra(db2, { id: 'vaaaaaaaa3', v: { SL2255: 4, BR1: 2 } }, 7); await A.registra(db2, { id: 'vaaaaaaaa4', v: { SL2255: 1 } }, 8);
+  const r3 = await A.resumo(db2, 3, 10);
+  ok(r3.porPeca.SL2255 === 5 && r3.porPeca.BR1 === 2, 'porPeca: todas as peças com as aberturas do período (o app lê daqui)');
   let e = ''; try { await A.registra(db, { id: '../x' }, 1) } catch (x) { e = x.motivo } ok(e === 'id', 'id inválido barrado');
   process.exit(f ? 1 : 0);
 })();

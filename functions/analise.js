@@ -44,6 +44,7 @@ function resume(L) {
   const vistoSemCart = {}; for (const k in R.peca) if (!R.cart[k]) vistoSemCart[k] = R.peca[k];
   return { ok: true, visitas: R.visitas, cel: R.cel, pc: R.pc, pt: R.pt, es: R.es, vistas: R.vistas, carrinho: R.carrinho, favoritos: R.favoritos, checkout: R.checkout, pedidos: R.pedidos,
     mochi: R.mochi, rosto: R.rosto, atacado: R.atacado, eventos: R.ev, dias: R.dias,
+    porPeca: R.peca, // 20/11 (S3): todas as peças com as aberturas do período — o app (Marketing › mais vistas) lê daqui em vez de vistas/
     pecas: top(R.peca), carts: top(R.cart), favs: top(R.fav), buscas: top(R.busca), semResultado: top(R.semRes), vistasSemCarrinho: top(vistoSemCart),
     destaqueVistas: R.dv, destaqueToques: R.dt, mochiGraus: top(R.gm, 20) };
 }
