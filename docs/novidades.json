@@ -1,7 +1,7 @@
 {
- "nome": "5.50.8",
+ "nome": "5.50.9",
  "notas": [
-  "Por dentro (segurança): as visitas por peça do site agora vêm só da análise protegida da nuvem; o app deixou de ler a contagem antiga, que ficava aberta. Nenhuma tela muda."
+  "Estúdio › Vídeo: consertada a imagem que ficava toda branca ao tocar em \"Gravar a volta\" em alguns celulares. A câmera agora só trava a luz no valor que está usando; se o aparelho não informar esse valor, trava só foco e branco. Se mesmo assim a imagem clarear ou escurecer de repente, a luz é solta e a gravação segue."
  ],
- "build": 583
+ "build": 584
 }

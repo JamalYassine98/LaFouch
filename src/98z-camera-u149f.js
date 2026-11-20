@@ -114,21 +114,46 @@
       if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
     }
   }
-  // trava foco, luz e branco no que a câmera está usando agora (o que o aparelho deixar) — igual ao travar() do conferir
-  function c149Trava(t) {
+  // Trava foco, luz e branco NO VALOR que a câmera está usando agora (o que o aparelho deixar).
+  // Luz (item 31, 20/11/2026 — celular do dono ficava todo branco ao gravar): só trava quando o aparelho diz o tempo de exposição em uso;
+  // "manual" sem esse valor deixa a exposição no padrão do aparelho e a imagem estoura. Depois de travar a luz, confere a imagem (v = o vídeo
+  // da câmera): se o brilho saltou, solta a luz (volta ao automático) e segue só com foco e branco.
+  var C149_SALTO = 35; // de 0 a 255
+  function c149Brilho(v) {
+    try {
+      if (!v || v.readyState < 2) return null;
+      var cv = c149Brilho.cv || (c149Brilho.cv = document.createElement('canvas'));
+      cv.width = 32;
+      cv.height = 18;
+      var x = cv.getContext('2d', { willReadFrequently: true });
+      x.drawImage(v, 0, 0, 32, 18);
+      var d = x.getImageData(0, 0, 32, 18).data,
+        soma = 0;
+      for (var i = 0; i < d.length; i += 4) soma += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      return soma / (d.length / 4);
+    } catch (e) {
+      return null;
+    }
+  }
+  function c149Trava(t, v) {
     if (!t || !t.getCapabilities) return Promise.resolve('');
     var c = t.getCapabilities(),
       s = t.getSettings ? t.getSettings() : {},
       a = {},
-      q = [];
+      q = [],
+      txt = function () {
+        return 'Travado: ' + q.join(', ');
+      };
     if (c.focusMode && c.focusMode.indexOf('manual') >= 0) {
       a.focusMode = 'manual';
       if (s.focusDistance) a.focusDistance = s.focusDistance;
       q.push('foco');
     }
-    if (c.exposureMode && c.exposureMode.indexOf('manual') >= 0) {
+    var luz = !!(c.exposureMode && c.exposureMode.indexOf('manual') >= 0 && s.exposureTime > 0);
+    if (luz) {
       a.exposureMode = 'manual';
-      if (s.exposureTime) a.exposureTime = s.exposureTime;
+      a.exposureTime = s.exposureTime;
+      if (c.iso && s.iso) a.iso = s.iso;
       q.push('luz');
     }
     if (c.whiteBalanceMode && c.whiteBalanceMode.indexOf('manual') >= 0) {
@@ -137,9 +162,18 @@
       q.push('branco');
     }
     if (!q.length) return Promise.resolve('Este aparelho não deixa travar foco e luz');
+    var antes = luz ? c149Brilho(v) : null;
     return t.applyConstraints({ advanced: [a] }).then(
       function () {
-        return 'Travado: ' + q.join(', ');
+        if (!luz || antes == null) return txt();
+        return new Promise(function (ok) {
+          setTimeout(ok, 900);
+        }).then(function () {
+          var depois = c149Brilho(v);
+          if (depois == null || Math.abs(depois - antes) <= C149_SALTO) return txt();
+          q.splice(q.indexOf('luz'), 1);
+          return t.applyConstraints({ advanced: [{ exposureMode: 'continuous' }] }).then(txt, txt);
+        });
       },
       function () {
         return 'Não consegui travar foco e luz';
@@ -338,7 +372,7 @@
         recB.nextSibling.textContent = 'Parar';
         c149Frase(ov, 'Ligue o prato agora e não toque mais no celular', true);
         var track = EST_ST.getVideoTracks()[0];
-        c149Trava(track).then(function (txt) {
+        c149Trava(track, vid).then(function (txt) {
           trava.textContent = txt;
           if (!ov.isConnected) return;
           try {

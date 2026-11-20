@@ -3655,6 +3655,25 @@ async def main():
             if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 31 (20/11/2026, URGENTE do dono): a trava de luz da câmera do Estúdio só liga o "manual" com o tempo de exposição em uso;
+            # sem esse valor trava só foco e branco; se a imagem estourar depois de travar, solta a luz (antes: tela toda branca ao gravar a volta)
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF;
+              const cv = document.createElement('canvas'); cv.width = 64; cv.height = 36; const x = cv.getContext('2d'); const pinta = c => { x.fillStyle = c; x.fillRect(0, 0, 64, 36); };
+              const trilha = (set, aoTravar) => { const ch = []; return { ch, getCapabilities: () => ({ focusMode: ['continuous', 'manual'], exposureMode: ['continuous', 'manual'], whiteBalanceMode: ['continuous', 'manual'], iso: { min: 50, max: 800 } }),
+                getSettings: () => set, applyConstraints: async o => { ch.push(o.advanced[0]); if (o.advanced[0].exposureMode === 'manual' && aoTravar) aoTravar(); } }; };
+              pinta('#777'); const t1 = trilha({ focusDistance: 0.3, colorTemperature: 5000 }); const r1 = await L.c149Trava(t1, cv);
+              pinta('#777'); const t2 = trilha({ exposureTime: 120, iso: 100 }, () => pinta('#fff')); const r2 = await L.c149Trava(t2, cv);
+              pinta('#777'); const t3 = trilha({ exposureTime: 120, iso: 100 }); const r3 = await L.c149Trava(t3, cv);
+              return [r1, t1.ch.length === 1 && !('exposureMode' in t1.ch[0]) && t1.ch[0].focusMode === 'manual',
+                r2, t2.ch.length === 2 && t2.ch[0].exposureTime === 120 && t2.ch[0].iso === 100 && t2.ch[1].exposureMode === 'continuous',
+                r3, t3.ch.length === 1 && t3.ch[0].exposureMode === 'manual']; }""")
+            total += 1
+            ok = got == ['Travado: foco, branco', True, 'Travado: foco, branco', True, 'Travado: foco, luz, branco', True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 31: trava de luz da câmera só com o valor em uso; sem ele não trava a luz; imagem estourou → solta a luz')
+            if not ok: falhas.append('item 31 trava de luz'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Item 30 (20/11/2026): vistas pela análise — o app pede o resumo de 30 dias à função analise (login do dono) e NÃO lê mais vistas/;
             # a chamada à análise mora num lugar só (analiseResumo)
             total += 1

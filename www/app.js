@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 583;
+  var APP_BUILD = 584;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.8'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -50754,21 +50754,46 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
     }
   }
-  // trava foco, luz e branco no que a câmera está usando agora (o que o aparelho deixar) — igual ao travar() do conferir
-  function c149Trava(t) {
+  // Trava foco, luz e branco NO VALOR que a câmera está usando agora (o que o aparelho deixar).
+  // Luz (item 31, 20/11/2026 — celular do dono ficava todo branco ao gravar): só trava quando o aparelho diz o tempo de exposição em uso;
+  // "manual" sem esse valor deixa a exposição no padrão do aparelho e a imagem estoura. Depois de travar a luz, confere a imagem (v = o vídeo
+  // da câmera): se o brilho saltou, solta a luz (volta ao automático) e segue só com foco e branco.
+  var C149_SALTO = 35; // de 0 a 255
+  function c149Brilho(v) {
+    try {
+      if (!v || v.readyState < 2) return null;
+      var cv = c149Brilho.cv || (c149Brilho.cv = document.createElement('canvas'));
+      cv.width = 32;
+      cv.height = 18;
+      var x = cv.getContext('2d', { willReadFrequently: true });
+      x.drawImage(v, 0, 0, 32, 18);
+      var d = x.getImageData(0, 0, 32, 18).data,
+        soma = 0;
+      for (var i = 0; i < d.length; i += 4) soma += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      return soma / (d.length / 4);
+    } catch (e) {
+      return null;
+    }
+  }
+  function c149Trava(t, v) {
     if (!t || !t.getCapabilities) return Promise.resolve('');
     var c = t.getCapabilities(),
       s = t.getSettings ? t.getSettings() : {},
       a = {},
-      q = [];
+      q = [],
+      txt = function () {
+        return 'Travado: ' + q.join(', ');
+      };
     if (c.focusMode && c.focusMode.indexOf('manual') >= 0) {
       a.focusMode = 'manual';
       if (s.focusDistance) a.focusDistance = s.focusDistance;
       q.push('foco');
     }
-    if (c.exposureMode && c.exposureMode.indexOf('manual') >= 0) {
+    var luz = !!(c.exposureMode && c.exposureMode.indexOf('manual') >= 0 && s.exposureTime > 0);
+    if (luz) {
       a.exposureMode = 'manual';
-      if (s.exposureTime) a.exposureTime = s.exposureTime;
+      a.exposureTime = s.exposureTime;
+      if (c.iso && s.iso) a.iso = s.iso;
       q.push('luz');
     }
     if (c.whiteBalanceMode && c.whiteBalanceMode.indexOf('manual') >= 0) {
@@ -50777,9 +50802,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       q.push('branco');
     }
     if (!q.length) return Promise.resolve('Este aparelho não deixa travar foco e luz');
+    var antes = luz ? c149Brilho(v) : null;
     return t.applyConstraints({ advanced: [a] }).then(
       function () {
-        return 'Travado: ' + q.join(', ');
+        if (!luz || antes == null) return txt();
+        return new Promise(function (ok) {
+          setTimeout(ok, 900);
+        }).then(function () {
+          var depois = c149Brilho(v);
+          if (depois == null || Math.abs(depois - antes) <= C149_SALTO) return txt();
+          q.splice(q.indexOf('luz'), 1);
+          return t.applyConstraints({ advanced: [{ exposureMode: 'continuous' }] }).then(txt, txt);
+        });
       },
       function () {
         return 'Não consegui travar foco e luz';
@@ -50978,7 +51012,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         recB.nextSibling.textContent = 'Parar';
         c149Frase(ov, 'Ligue o prato agora e não toque mais no celular', true);
         var track = EST_ST.getVideoTracks()[0];
-        c149Trava(track).then(function (txt) {
+        c149Trava(track, vid).then(function (txt) {
           trava.textContent = txt;
           if (!ov.isConnected) return;
           try {
@@ -53143,7 +53177,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);
