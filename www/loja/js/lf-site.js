@@ -48,9 +48,8 @@
   function descD(){return descVale()==='cup'?cupInfo().d:0}
   function descDD(){return descVale()==='cup'?cupInfo().dD:0}
   function cupFn(b){var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)},go=function(){return acFetch(fnUrl('cupom'),o).then(function(r){return r.json()})};
-    /* S370 (aprovado 15/11 15:11): os cartões usam a chave de login RENOVADA (idTok); a guardada vence em 1 hora */
-    if(b.acao==='meus')return idTok().then(function(t){o.headers.Authorization='Bearer '+t;return go()},function(){return {ok:false,motivo:'sessao'}});
-    return go()}
+    /* S370 + S6 (20/11): quem está logada manda o login RENOVADO (idTok) em toda chamada — a nuvem reconhece a cliente (VIP) pela conta, nunca pelo telefone digitado; 'meus' exige o login */
+    return idTok().then(function(t){o.headers.Authorization='Bearer '+t},function(){if(b.acao==='meus')throw 0}).then(go,function(){return {ok:false,motivo:'sessao'}})}
   function cupGuarda(c){st.cup=c?{cod:c.cod,pct:c.pct,tipo:c.tipo,fim:c.fim||0,min:c.min||0,restam:c.restam}:null;lsS('lf_cup',st.cup)}
   function cupTira(){cupGuarda(null)}
   function cupData(t){return t?new Date(t).toLocaleDateString(LFI.lang==='es'?'es-PY':'pt-BR'):''}
@@ -61,30 +60,13 @@
   function cupAplica(cod,cb){cod=String(cod||'').trim();if(!cod)return;var c=getConta()||{};
     cupFn({acao:'ver',cod:cod,tel:c.tel||'',email:c.email||(sessG()||{}).email||''}).then(function(j){if(j&&j.ok){cupGuarda(j.cupom);toast(LFI.tr('Código aplicado')+' ✓');}else toast(cupMsg(j&&j.motivo,j&&j.cupom));if(cb)cb(j)},function(){toast(LFI.tr('Não deu para conferir o código agora. Tente de novo.'));if(cb)cb(null)})}
   /* carrinho: linha do cartão desta compra — desenhada pelo bloco dos Cartões (S409, mais abaixo) */
-  function cupHtml(dd){return ''}
   /* peça: "Tu código vale aquí ✓ − Gs. 13.000" / "Ya tiene su mejor precio" */
+  var cupHtml,mtjCarrega;/* definidas no bloco dos Cartões (S409) */
   function cupPecaHtml(p){if(!st.cup)return '';var x=cupPeca(p);if(x.of)return '<div class="cupp of"><b>'+LFI.tr('Já tem o melhor preço')+'</b> · '+LFI.tr('o código fica para outra compra')+'</div>';
     if(!(x.d>0))return '<div class="cupp of">'+LFI.tr('O código')+' '+esc(st.cup.cod)+' '+LFI.tr('não vale nesta peça')+'</div>';
     return '<div class="cupp"><b>'+LFI.tr('Seu código vale aqui')+' ✓</b> · −'+LFI.fmtD(LFI.pv(x.d))+(x.lim?' ('+x.pct+'%)':'')+'</div>'}
   /* cartão virtual (Próxima compra) na tela de pagar e em Minha conta › Cartões */
   function pxHtml(c){if(!c)return '';var pend=c.estado==='pendente';return '<div class="pxc" id="pxcard"><small>LA FOUCH</small><b>'+c.pct+'% '+LFI.tr(c.tipo==='bv'?'na primeira compra':c.tipo==='am'?'para sua amiga':'na próxima compra')+'</b><code>'+esc(c.cod)+'</code><i>'+(pend?LFI.tr('Começa a valer quando confirmarmos o pagamento · fica em Minha conta › Cartões'):(c.fim?LFI.tr('Vale até')+' '+cupData(c.fim)+' · ':'')+LFI.tr('em lafouch.com e na loja'))+'</i></div>'}
-  function mtjCarrega(){var b=document.getElementById('mtj');if(!b)return;cupFn({acao:'meus'}).then(function(j){var b2=document.getElementById('mtj');if(!b2)return;if(!j||!j.ok){b2.innerHTML='<div class="note">'+LFI.tr(j&&j.motivo==='sessao'?'Sua sessão terminou. Entre de novo para ver seus cartões.':'Não deu para carregar seus cartões agora.')+'</div>';return}
-    /* S400 (17/11, esboço 61i): cartão de luxo SEM o código à vista ("Usar agora" aplica sozinho), presentes guardados e o convite para indicar com as metas */
-    var L=j.cupons||[];st._mtj=L;var es=LFI.lang==='es',nomeC=String(j.nome||(getConta()||{}).nome||'').toUpperCase(),am=L.filter(function(c){return c.tipo==='am'&&c.estado==='ok'})[0],P=L.filter(function(c){return c.tipo!=='am'});
-    var bola=function(on){return '<i style="display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 5px 0 0;'+(on?'background:#8d3a69':'border:1px solid #cdb9c5')+'"></i>'};
-    var card=function(c){var vip=c.tipo==='vip',T=vip?['#17121a','linear-gradient(135deg,#2b2330 0%,#17121a 55%,#0c090e 100%)','rgba(214,178,116,.75)','#c9bfc6']:['#3a1830','linear-gradient(135deg,#55234a 0%,#33152b 55%,#1f0d1a 100%)','rgba(214,178,116,.6)','#d9c3d0'];
-      var rot=LFI.tr(vip?'CARTÃO VIP':c.tipo==='fiel'?'CLIENTE FIEL':'CARTÃO PRESENTE'),tit=c.tipo==='bv'?LFI.tr('na primeira compra'):vip&&c.max>1?LFI.tr('em')+' '+c.max+' '+LFI.tr('compras'):vip?LFI.tr('na sua próxima compra'):LFI.tr('na próxima compra');
-      return '<div class="lxc" style="max-width:300px;margin:0 auto;border-radius:16px;background:'+T[0]+';background-image:'+T[1]+';padding:6px"><div style="border:1px solid '+T[2]+';border-radius:11px;padding:15px 16px 13px">'+
-        '<div style="display:flex;justify-content:space-between;align-items:center"><img src="/loja/media/email/cartao-ouro.png" width="82" height="13" alt="La Fouch"><span style="font:500 12.5px Inter,Arial;letter-spacing:.14em;color:'+T[3]+'">'+rot+'</span></div>'+
-        '<div style="font:500 42px/1 Fraunces,Georgia,serif;color:#e9d3a6;margin:18px 0 2px">'+c.pct+'%</div><div style="font:italic 16px/1.3 Fraunces,Georgia,serif;color:#fff">'+tit+'</div>'+
-        '<div style="height:1px;background:rgba(214,178,116,.4);margin:14px 0 9px"></div><div style="display:flex;justify-content:space-between;font:500 12.5px Inter,Arial;letter-spacing:.04em;white-space:nowrap;color:'+T[3]+'"><span style="overflow:hidden;text-overflow:ellipsis;margin-right:10px">'+esc(String(c.nome||'').toUpperCase()||nomeC)+'</span><span>'+(c.fim?LFI.tr('ATÉ')+' '+cupData(c.fim):'')+'</span></div></div></div>'};
-    var n=+j.indicacoes||0,falta=n<3?3-n:n<5?5-n:0;
-    var prog=n?(n===1?LFI.tr('1 pessoa indicada já comprou.'):n+' '+LFI.tr('pessoas indicadas já compraram.'))+(falta?' '+(falta===1?LFI.tr('Falta 1 para o seu próximo presente.'):LFI.tr('Faltam')+' '+falta+' '+LFI.tr('para o seu próximo presente.')):''):LFI.tr('Ninguém que você indicou comprou ainda.');
-    b2.innerHTML=(P.length?P.map(function(c){var podeU=c.estado==='ok'&&!c.usado;var est=c.usado||c.estado==='usado'?LFI.tr('Usado'):c.estado==='ok'?LFI.tr('Disponível'):c.estado==='vencido'?LFI.tr('Vencido'):c.estado==='cedo'?LFI.tr('Ainda não começou'):LFI.tr('Indisponível');
-      return '<div class="mtc"'+(podeU?'':' style="opacity:.62"')+'>'+card(c)+'<div class="mtl"><span>'+LFI.tr('Estado')+': <b>'+est+'</b></span>'+(podeU?'<button type="button" class="cfx" data-cupsim="'+esc(c.cod)+'" style="min-height:44px;padding:0 14px">'+LFI.tr('Usar agora')+'</button>':'')+'</div></div>'}).join(''):(am||j.guardados?'':'<div class="note">'+LFI.tr('Você ainda não tem cartões. Eles chegam por e-mail depois que você recebe a sua compra.')+'</div>'))+
-      (j.guardados?'<p class="note" style="margin:10px 2px 18px">'+(j.guardados===1?LFI.tr('Você tem 1 presente guardado.'):LFI.tr('Você tem')+' '+j.guardados+' '+LFI.tr('presentes guardados.'))+' '+LFI.tr(P.some(function(c){return c.estado==='ok'&&!c.usado})?'Ele chega quando este cartão for usado ou vencer.':'Ele chega por e-mail em alguns dias.')+'</p>':'')+
-      (am?'<div class="mtc"><div class="amct" style="margin-top:0"><div><span style="font-weight:600;color:#1d1418">'+LFI.tr('Presenteie alguém especial')+'</span><b></b></div><div><span>'+LFI.tr('A pessoa ganha 10% na primeira compra. Quando ela comprar, você também ganha um presente.')+'</span><b></b></div>'+
-        '<div><span>'+bola(n>=1)+bola(n>=2)+bola(n>=3)+'</span><b></b></div><div><span>'+prog+'</span><b></b></div><a class="amwa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(amMsg(am.cod))+'">'+LFI.tr('Enviar pelo WhatsApp')+'</a></div></div>':'')},function(){})}
   /* S367: pergunta antes de usar o cupom (Minha conta › Cartões) */
   function cupPergunta(cod){var c=(st._mtj||[]).filter(function(x){return x.cod===cod})[0];if(!c)return;var v=document.getElementById('cpov');if(v)v.remove();var o=document.createElement('div');o.id='cpov';o.className='bvov';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label',LFI.tr('Usar este cupom?'));
     o.innerHTML='<div class="bvb"><small>LA FOUCH</small><h3>'+LFI.tr('Usar este cupom?')+'</h3>'+pxHtml(c).replace(' id="pxcard"','')+'<p class="cupn">'+LFI.tr('O desconto entra no seu carrinho e vale nesta compra.')+'</p><button type="button" class="btn w" data-cupsim="'+esc(c.cod)+'">'+LFI.tr('Usar cupom')+'</button><button type="button" class="cfx" data-cupnao style="min-height:44px">'+LFI.tr('Agora não')+'</button></div>';
@@ -1224,7 +1206,8 @@
   /* reserva de 30 min (14/11; o prazo real vem do servidor): o servidor decide a hora e quantas peças sobram; se a função estiver desligada ou fora do ar, o pedido segue como antes */
   function resCall(acao,pedido,itens,refs,extra){
     var ct=window.AbortController?new AbortController():null,tm=setTimeout(function(){ct&&ct.abort()},8000),b={acao:acao,pedido:pedido};if(itens)b.itens=itens;if(refs)b.refs=refs;if(extra)for(var xk in extra)b[xk]=extra[xk];
-    return acFetch(fnUrl('reserva'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(r.status>=500||r.status===404)return null;return r.json().catch(function(){return null})},function(){clearTimeout(tm);return null})}
+    var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),signal:ct?ct.signal:undefined};
+    return idTok().then(function(t){o.headers.Authorization='Bearer '+t},function(){}).then(function(){return acFetch(fnUrl('reserva'),o)}).then(function(r){clearTimeout(tm);if(r.status>=500||r.status===404)return null;return r.json().catch(function(){return null})},function(){clearTimeout(tm);return null})}
   function resItens(its){return (its||[]).map(function(i){return {ref:i.ref,cor:i.cor||'',q:i.q}})}
   function resLeft(e){if(!e||!e.rx)return 0;return Math.max(0,e.rx-(Date.now()+(e.rd||0)))}
   /* S394: preço da linha como aparece na tela (moeda do cliente), para o e-mail do pedido */
@@ -1232,9 +1215,8 @@
   function pkEnviar(doc,id){
     /* 13/11: corta os textos no limite das regras do Firestore (endereço longo não pode derrubar o pedido) */
     var LIM={nome:79,tel:29,email:199,doc:29,obsC:199,endE:299,refE:199,depE:79,cidade:79};Object.keys(LIM).forEach(function(k){if(typeof doc[k]==='string'&&doc[k].length>LIM[k])doc[k]=doc[k].slice(0,LIM[k])});
-    var f={};for(var k in doc)f[k]=fsv(doc[k]);
     var ct=window.AbortController?new AbortController():null,tm=setTimeout(function(){ct&&ct.abort()},8000);
-    return acFetch('https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/pedidos?documentId='+encodeURIComponent(id)+'&key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:f}),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(!r.ok)throw new Error('http '+r.status);return true},function(e){clearTimeout(tm);throw e})}
+    return acFetch(fnUrl('pedido'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,doc:doc}),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(!r.ok)throw new Error('http '+r.status);return true},function(e){clearTimeout(tm);throw e})}
   /* B1 (11/11): se a rede falhar ou demorar, tenta de novo sozinho uma vez; guarda o motivo para mostrar o código discreto */
   function pkEnviar2(doc,id){return pkEnviar(doc,id).catch(function(e){var m=String(e&&e.message||e||''),http=/^http (\d+)/.exec(m);if(http&&+http[1]<500){throw e}
       return new Promise(function(r){setTimeout(r,1200)}).then(function(){return pkEnviar(doc,id)})})}
@@ -1495,10 +1477,6 @@
     if(c==='auth/popup-closed-by-user'||c==='auth/cancelled-popup-request')return;
     var t=c==='wait'?'Aguarde um instante e toque de novo.':c==='auth/popup-blocked'?'O navegador bloqueou a janela do Google. Permita pop-ups e tente de novo.':c==='auth/unauthorized-domain'?'Este endereço ainda não está liberado para entrar com Google.':c==='auth/operation-not-allowed'?AUTH_MSG.OPERATION_NOT_ALLOWED:AUTH_MSG[m]||'Não deu para conectar com o Google. Tente de novo.'+(c?' ('+c+')':'');try{console.warn('GoogleAuth',c,m)}catch(_){}
     if($('cferr'))cfErro(t);else toast(t)}
-  function gEntrar(){
-    gPopup().then(function(r){var u=r.user;return u.getIdToken().then(function(t){var s=sessSave({localId:u.uid,email:u.email,idToken:t,refreshToken:u.refreshToken,expiresIn:3600},'',{via:'google',gn:u.displayName||''});try{gAuth().signOut()}catch(_){}return s})})
-      .then(function(s){return fsA('GET','clientes/'+s.uid).then(function(d){var o=fbd(d);lsS('lf_conta',o);return o},function(){return null})})
-      .then(function(c){contaBtn();if(c&&c.nome){toast('Olá, '+String(c.nome).split(' ')[0]+'!');if(AUTH_VOLTA)bag();else closeLayer()}else{lsS('lf_conta',null);contaForm(AUTH_VOLTA)}},gErr)}
   function gSync(){var s=sessG();
     gPopup().then(function(r){var u=r.user,cr=r.credential;
       if(u.uid===s.uid)return;
@@ -1606,28 +1584,6 @@
     var po=$('pkok');if(po){pkStop();po.remove()}document.documentElement.classList.remove('lock');closeLayer();minhaConta('peds')});
   function compZap(e){var m=LFI.lang==='es'?'¡Hola! Pagué el pedido '+e.cod+' y el sitio no procesó el comprobante. Te lo envío por aquí.':'Olá! Paguei o pedido '+e.cod+' e o site não processou o comprovante. Estou enviando por aqui.';
     return '<a class="pgwa" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(m)+'"><span>O envio não funcionou? Mande o comprovante pelo WhatsApp</span></a>'}
-  function pkPagar(id){
-    var e=pedGet(id);if(!e){return}window.__pgid=id;
-    var pix=e.pag==='pix',val=pix?brl(e.brl):'Gs. '+mil(e.total);
-    pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Pagamento</h2><div class="pkt" style="animation-delay:.1s"><span>Pague para garantir suas peças. Elas ficam reservadas para você até a entrega.</span></div>'+
-      '<div class="pgv">'+val+'</div>'+(resLeft(e)>0&&e.est==='pagar'?'<div class="cdx" id="cdx"><small>Sua peça está reservada por</small><b id="cdxt">--:--</b><i><u id="cdxb"></u></i><small>Depois disso ela volta para o site.</small></div>':'')+(e.teste?'<div class="pgt">MODO TESTE</div>':'')+
-      '<div class="pgq" id="pgq">'+(pix?'':'<div class="pks" style="width:44px;height:44px;border-radius:50%;border:4px solid var(--ln2);border-top-color:#e6a3c9;animation:pksp .9s linear infinite"></div><div class="pgw">Estamos gerando o QR com o valor do seu pedido. Ele aparece aqui em instantes.</div>')+'</div>'+
-      (pix?'<button type="button" class="pgc" data-pgcopy>Copiar código PIX</button><div class="pgw">Abra o app do seu banco, escolha PIX e leia o QR (ou use o copia e cola). Favorecido: La Fouch · Jamal Ali Yassine.</div>':'<div class="pgw" id="pgfav">Favorecido: Jamal Ali Yassine · La Fouch.</div><button type="button" class="pgc" id="pgsave" data-pgsave hidden>Salvar QR na galeria</button><div class="pgw" id="pgsavet" hidden>Está pagando pelo celular? Salve o QR e, no app do banco, escolha ler QR pela galeria.</div>'+
-        '<div class="pgm"><b>Ou transfira manualmente</b><small>Não consegue ler o QR? Use o alias do Banco Familiar.</small>'+
-        [['Alias (celular)',ITAU.alias,ITAU.alias],['Titular',ITAU.titular,ITAU.titular],['Valor','Gs. '+mil(e.total),String(Math.round(e.total))]].map(function(r){return '<div class="pgr"><div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div><button type="button" data-pgc2="'+esc(r[2])+'">Copiar</button></div>'}).join('')+
-        '<small>Depois, toque em "Já paguei" e envie o comprovante.</small></div>')+
-      '<label class="pgb" for="pgf" id="pgbtn">Já paguei · enviar comprovante</label><input type="file" id="pgf" accept="image/*" hidden>'+
-      '<a class="vend" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(LFI.lang==='es'?'¡Hola! Tengo una duda sobre el pago de mi pedido '+e.cod:'Olá! Tenho uma dúvida sobre o pagamento do meu pedido '+e.cod)+'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.200zm4.5-6.100c-.2-.1-1.500-.7-1.700-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.700 6.700 0 0 1-3.300-2.900c-.2-.4.200-.4.700-1.300.1-.2 0-.3 0-.5l-.8-1.800c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.100-.7.300-.3.300-1 1-1 2.400s1 2.800 1.200 3c.1.200 2 3.100 4.900 4.300 1.800.8 2.500.8 3.400.7.500-.1 1.600-.7 1.800-1.300.2-.6.2-1.200.2-1.300-.1-.1-.3-.2-.5-.3z"/></svg><span>Falar com um vendedor</span></a>'+compZap(e)+
-      '<button type="button" class="pgs" data-pkconta>Pagar depois (continua em Minha conta)</button>'+
-      '<button type="button" class="pgx" data-cta="pkcanc">Cancelar pedido</button>'+
-      '<p class="tm">Ao enviar o comprovante, você confirma a compra e aceita os <a href="/termos.html" target="_blank" rel="noopener">Termos e Condições</a>.</p>').className='pgw0';
-    if(pix){var code=pixCode(e.brl,'LF'+e.cod);e.code=code;loadQr().then(function(){var q=$('pgq');if(q&&window.LFqr)q.innerHTML=LFqr.svg(code,240)}).catch(function(){var q=$('pgq');if(q)q.innerHTML='<div class="pgw">Não consegui desenhar o QR. Use o botão "Copiar código PIX".</div>'})}
-    window.__pgcode=pix?pixCode(e.brl,'LF'+e.cod):'';
-    resRelogio(id);
-    pkPoll(id,function(o){
-      if(o.pago){pkOk(id,o);return}
-      if(o.recusado&&e.est==='comp'){pedSet(id,{est:'pagar'});e.est='pagar'}
-      if(!pix&&o.qr&&$('pgq')&&!$('pgq').getAttribute('data-q')){$('pgq').setAttribute('data-q','1');$('pgq').innerHTML='<img class="pgi" alt="QR para pagar" src="'+esc(o.qr)+'">';window.__pgqr=o.qr;['pgsave','pgsavet'].forEach(function(i){var x=$(i);if(x)x.hidden=false})}})}
   var RELT=0;
   function resRelogio(id){
     clearInterval(RELT);RELT=0;var e=pedGet(id);if(!e||!e.rx||e.est!=='pagar'||!$('cdx'))return;
@@ -1713,36 +1669,6 @@
     if(!soEsg){pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Peça indisponível</h2><div class="pkt" style="animation-delay:.1s"><span>Esta peça não está disponível no site no momento. Nenhum pedido foi criado. Fale com a loja pelo WhatsApp se quiser.</span></div><div class="pkb" style="animation-delay:.3s"><button type="button" data-pkfim>Voltar ao catálogo</button></div>').className='pkw0';try{syncEstoque()}catch(_){}return}
     pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Acabou de esgotar</h2><div class="pkt" style="animation-delay:.1s"><span>Alguém reservou esta peça agora. Se ela não for paga em 30 minutos, volta para o site. Nenhum pedido foi criado.</span></div>'+L+'<div class="pkb" style="animation-delay:.3s"><button type="button" data-pkfim>Voltar ao catálogo</button></div>').className='pkw0';
     try{syncEstoque()}catch(_){}}
-  function enviarPedido(retry){
-    var c=logado()?getConta():($('gn')?gLer():gConta(true));if(!c){if(!$('gn')){toast('Preencha seus dados para continuar.');st.step='dados';bag()}return}st.nome=c.nome;st.zap=c.tel;
-    var ks=Object.keys(st.cart);if(!ks.length&&!retry)return;
-    var ent=((logado()?entPY(c):true)&&st.ent==='delivery')?'delivery':'loja',ae=$('fa2');if(ae)st.endE=ae.value;
-    var sv0=endsSalvos(c),endE=(st.endMode!=='manual'&&sv0.length)?(sv0[Math.min(st.endIdx|0,sv0.length-1)]||''):String(st.endE||'').trim();
-    if(!retry&&ent==='delivery'&&endE.length<6){toast('Digite o endereço da entrega.');ae&&ae.focus();return}
-    if(!retry&&ent==='delivery'&&st._endOk!==endE){var bt0=document.querySelector('[data-send]');if(bt0&&bt0.disabled)return;if(bt0)bt0.disabled=true;
-      endConf(endE).then(function(r){if(bt0)bt0.disabled=false;if(r.fora){endAviso(r.cc);return}st._endOk=endE;enviarPedido(retry)});return}
-    var id=st.pkid&&retry?st.pkid:(Date.now().toString(36)+Math.random().toString(36).slice(2,7));st.pkid=id;
-    var cod=id.slice(-4).toUpperCase(),pag=(c.nac==='br'||c.nac==='ar')?'pix':'alias';
-    var txt='PEDIDO '+cod+'\n'+mensagem('reserva'),wa='https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(txt);
-    var ff=st.rosto?FACES.filter(function(x){return x.id===st.rosto})[0]:null;
-    var vb=TESTE?1:valorBRL();
-    var doc=st.pkdoc&&retry?st.pkdoc:{ts:Date.now(),nome:c.nome,tel:c.tel,pais:c.pais,cod:cod,lang:(window.LFI&&LFI.lang)||'pt',moeda:(window.LFI&&LFI.cur)||'',total:Math.round(total()),rosto:ff?ff.nome:'',
-      nac:c.nac,doc:c.doc,nasc:c.nasc,email:c.email||'',obsC:c.obs||'',cidade:c.cidade,end:c.end||'',ent:ent,endE:ent==='delivery'?endE:'',refE:'',pag:pag,brl:vb,teste:!!TESTE,
-      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n),pv:pvLin(p.n,st.cart[k])}})};
-    st.pkdoc=doc;
-    pkTela('<div class="pkl"></div><div class="pkc"><div class="pks"></div></div><h2 style="animation-delay:0s">Enviando seu pedido…</h2>').className='pkw0';
-    var rxo=null;
-    (CFG.reserva===true?resCall('reservar',id,resItens(doc.itens)):Promise.resolve(null)).then(function(rr){
-      if(rr&&rr.ok===false&&rr.motivo==='esgotado'){var err=new Error('esgotado');err.falta=rr.falta||[];throw err}
-      if(rr&&rr.ok&&!rr.off&&rr.exp)rxo={rx:rr.exp,rd:(rr.agora||Date.now())-Date.now(),vip:!!rr.vip};
-      return pkEnviar2(doc,id)}).then(function(){
-      if(ent==='delivery'&&endE){var le=lsG('lf_ends',[]).filter(function(x){return x!==endE});le.unshift(endE);lsS('lf_ends',le.slice(0,4))}
-      var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,ts:doc.ts,total:doc.total,brl:vb,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
-      st.cart={};st.pkid='';st.pkdoc=null;st.step='cart';try{drawBag()}catch(_){}
-      closeLayer();pkPagar(id)
-    },function(er){
-      if(er&&er.message==='esgotado'){resEsgotou(er.falta,doc);return}
-      pkTela('<div class="pkl"></div><h2 style="animation-delay:0s">Quase lá!</h2><div class="pkt" style="animation-delay:.1s"><span>Não deu para enviar o pedido agora. Tente de novo ou fale com a loja pelo WhatsApp.</span></div><div class="pkb" style="animation-delay:.2s"><a class="pkw" target="_blank" rel="noopener" href="'+wa+'">'+PK_WA+'Enviar pelo WhatsApp</a><button type="button" data-pkretry>Tentar de novo</button></div><div class="pkcod">'+LFI.tr('código do erro')+': '+esc(pkCodErro(er))+'</div>')})}
 
   /* ===== Conta nova (07/11/2026): cadastro só nome/e-mail/senha + código no e-mail; Minha conta em abas ===== */
   function primeiroNome(n){return String(n||'').trim().split(/\s+/)[0]||''}
@@ -1814,7 +1740,7 @@
     var ses;(id.indexOf('@')>0?authPost('signInWithPassword',{email:id,password:pw,returnSecureToken:true}):contaEntrar(id,pw)).then(function(j){ses=sessSave(j,id.indexOf('@')>0?'':id,{gn:j.displayName||''});return ses})
       .then(function(s){return fsA('GET','clientes/'+s.uid).then(function(d){return fbd(d)},function(){return null})})
       .then(function(c){c=c&&c.email?contaNorm(c):contaMin(ses);lsS('lf_conta',c);toast('Olá, '+primeiroNome(c.nome)+'!');posLogin()},function(e){authErr(e,'aul')})};
-  gEntrar=function(){
+  function gEntrar(){
     gPopup().then(function(r){var u=r.user;return u.getIdToken().then(function(t){var s=sessSave({localId:u.uid,email:u.email,idToken:t,refreshToken:u.refreshToken,expiresIn:3600},'',{via:'google',gn:u.displayName||'',ev:true});try{gAuth().signOut()}catch(_){}return s})})
       .then(function(s){return fsA('GET','clientes/'+s.uid).then(function(d){return {s:s,c:fbd(d)}},function(){return {s:s,c:null}})})
       .then(function(o){var c=o.c&&o.c.email?contaNorm(o.c):contaMin(o.s);lsS('lf_conta',c);toast('Olá, '+primeiroNome(c.nome)+'!');posLogin()},gErr)};
@@ -1995,7 +1921,7 @@
       st.step='pag';bag()})}
   /* valor final único (centavos no PIX, alguns guaranis no Banco Familiar): a confirmação automática acha o pedido certo */
   function uqGera(){return 1+Math.floor(Math.random()*98)}
-  enviarPedido=function(retry){
+  function enviarPedido(retry){
     var c=contaNorm(getConta());if(!sessG()||!c){AUTH_VOLTA=true;cadastrarTela();return}st.nome=c.nome;
     var ks=Object.keys(st.cart);if(!ks.length&&!retry)return;
     if(!retry){if(!st.pag){toast('Escolha PIX ou Transferência Banco Familiar.');return}
@@ -2023,7 +1949,7 @@
     if(!retry)lsS('lf_ent',ent==='delivery'?{ent:'delivery',tr:st.tr||'',i:st.endIdx|0}:{ent:'loja'});
     pkTela('<div class="pkl"></div><div class="pkc"><div class="pks"></div></div><h2 style="animation-delay:0s">Enviando seu pedido…</h2>').className='pkw0';
     var rxo=null;
-    (CFG.reserva===true?resCall('reservar',id,resItens(doc.itens),null,{pag:pag,tel:c.tel||''}):Promise.resolve(null)).then(function(rr){
+    (CFG.reserva===true?resCall('reservar',id,resItens(doc.itens),null,{pag:pag}):Promise.resolve(null)).then(function(rr){
       if(rr&&rr.ok===false&&rr.motivo==='esgotado'){var err=new Error('esgotado');err.falta=rr.falta||[];throw err}
       if(rr&&rr.ok&&!rr.off&&rr.exp)rxo={rx:rr.exp,rd:(rr.agora||Date.now())-Date.now(),vip:!!rr.vip};
       return pkEnviar(doc,id)}).then(function(){
@@ -2036,7 +1962,7 @@
       if(er&&er.message==='esgotado'){resEsgotou(er.falta,doc);return}
       pkTela('<div class="pkl"></div><h2 style="animation-delay:0s">Quase lá!</h2><div class="pkt" style="animation-delay:.1s"><span>Não deu para enviar o pedido agora. Tente de novo ou fale com a loja pelo WhatsApp.</span></div><div class="pkb" style="animation-delay:.2s"><a class="pkw" target="_blank" rel="noopener" href="'+wa+'">'+PK_WA+'Enviar pelo WhatsApp</a><button type="button" data-pkretry>Tentar de novo</button></div><div class="pkcod">'+LFI.tr('código do erro')+': '+esc(pkCodErro(er))+'</div>')})};
   /* tela de pagar: PIX (automático) ou Banco Familiar (alias + comprovante) */
-  pkPagar=function(id){
+  function pkPagar(id){
     var e=pedGet(id);if(!e){return}window.__pgid=id;
     var pix=e.pag==='pix',vg=e.pagar||e.total;
     /* S318 (14/11/2026 23:00, esboços work/s316 aprovados): linhas de recibo (rótulo à esquerda, valor à direita) no lugar do total gigante; uma ação cheia;
@@ -2215,11 +2141,6 @@
   /* 09/11 S69: no Guia e em "Para lojistas" a foto fica presa na coluna dela; se mesmo assim o texto não couber (letra grande), o cartão empilha */
   function hguPil(){try{document.querySelectorAll('.hgu button').forEach(function(b){b.classList.remove('pil');var g=b.querySelector('.gt');if(g&&getComputedStyle(b).display==='grid'&&g.clientWidth<150)b.classList.add('pil')})}catch(_){}}
   addEventListener('resize',function(){clearTimeout(hguPil.t);hguPil.t=setTimeout(hguPil,120)});
-  function newsForm(){var m=V5.nm||'wa';
-    if(V5.nok)return '<div class="nok">✓ '+LFI.tr(V5.nok)+'</div>';
-    return '<div class="nt"><button type="button" data-nm="wa" class="'+(m==='wa'?'on':'')+'">WhatsApp</button><button type="button" data-nm="em" class="'+(m==='em'?'on':'')+'">E-mail</button></div>'+
-      (m==='em'?'<input type="email" id="hnem" placeholder="'+LFI.tr('Seu e-mail')+'" autocomplete="email" aria-label="'+LFI.tr('Seu e-mail')+'"><button type="button" class="nb" data-news="em">'+LFI.tr('Quero receber')+'</button><div class="nc">'+LFI.tr('Ao se inscrever, você aceita receber e-mails da La Fouch.')+'</div>'
-        :'<button type="button" class="nb" data-news="wa">'+LFI.tr('Quero receber pelo WhatsApp')+'</button><div class="nc">'+LFI.tr('Abre o WhatsApp com a mensagem pronta. Você só aperta enviar.')+'</div>')}
   function rodape5(){var es=LFI.lang==='es',ig=(typeof SOCIAL!=='undefined'&&SOCIAL.ig)||'';
     return '<div class="lfft"><div class="in"><div><p class="fbr">La Fouch</p><p>'+LFI.tr('Tudo em óculos')+' · Ciudad del Este</p><p>Galeria Jebai Center, 3° piso, torre A, n°2242</p><p>'+LFI.tr('Segunda a sábado, das 7h30 às 15h')+'</p><p><a class="mp" href="https://maps.app.goo.gl/zy6c1ZFq4gQhxWXC8" target="_blank" rel="noopener" style="color:var(--ac);font-weight:700">'+LFI.tr('Como chegar')+' ›</a></p></div>'+
       '<div><b>'+LFI.tr('Comprar')+'</b><p><a href="#vitrine" data-mf="tipo:solar">'+LFI.tr('Solar')+'</a></p><p><a href="#vitrine" data-mf="tipo:grau">'+LFI.tr('Leitura')+'</a></p><p><a href="#vitrine" data-mf="tipo:armacao">'+LFI.tr('Armações')+'</a></p><p><a href="#vitrine" data-mf="tipo:of">'+LFI.tr('Ofertas')+'</a></p><p><a href="#atacado">'+LFI.tr('Atacado')+'</a></p></div>'+
@@ -2520,7 +2441,7 @@
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#ftog');if(!b)return;e.preventDefault();e.stopPropagation();if(Object.keys(st.fav).length)fshAbre()},true);
   /* Novidades (07/11, opção A com botão 2a): um botão suave de WhatsApp e o link "Prefiro por e-mail" que abre o campo ali mesmo */
   var WAI5='<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
-  newsForm=function(){if(V5.nok)return '<div class="nok">✓ '+LFI.tr(V5.nok)+'</div>';
+  function newsForm(){if(V5.nok)return '<div class="nok">✓ '+LFI.tr(V5.nok)+'</div>';
     var w='<button type="button" class="nwb" data-news="wa">'+WAI5+LFI.tr('Receber pelo WhatsApp')+'</button>';
     return V5.nm==='em'?w+'<div class="nem"><input type="email" id="hnem" placeholder="'+LFI.tr('seu@email.com')+'" autocomplete="email" aria-label="'+LFI.tr('Seu e-mail')+'"><button type="button" data-news="em">'+LFI.tr('Avisar')+'</button></div>'
       :w+'<button type="button" class="nlk" data-nm="em">'+LFI.tr('Prefiro por e-mail')+'</button>'};
@@ -4788,13 +4709,6 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
   
   /* S400 (17/11, esboço 59f): a tela de pedido pago não mostra mais cartão nenhum (o convite para indicar vai por e-mail 2 semanas depois da entrega) */
   /* Minha conta › Cartões: contador embaixo do cartão da amiga */
-  var _mtj=mtjCarrega;mtjCarrega=function(){_mtj();var k=0,t=setInterval(function(){var b=document.getElementById('mtj');if(!b||++k>40){clearInterval(t);return}
-    var bt=b.querySelector('[data-cupcopy]');if(!bt)return;clearInterval(t);
-    cupFn({acao:'meus'}).then(function(j){var c=((j&&j.cupons)||[]).filter(function(x){return x.tipo==='am'})[0];if(!c)return;
-      var cp=b.querySelector('[data-cupcopy="'+c.cod+'"]');if(!cp||b.querySelector('.amct'))return;
-      var d=document.createElement('div');d.className='amct';d.innerHTML='<div><span>'+LFI.tr('Amigas que compraram')+'</span><b>'+(c.amigas||0)+'</b></div><div><span>'+LFI.tr('Cupons que você ganhou')+'</span><b class="g">'+(c.ganhos||0)+' × 10%</b></div><div><span>'+LFI.tr('Você pode indicar')+'</span><b>'+LFI.tr('até')+' '+(c.porMes||5)+' '+LFI.tr('por mês')+'</b></div>'+
-        '<a class="amwa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(amMsg(c.cod))+'">'+LFI.tr('Enviar pelo WhatsApp')+'</a>';
-      cp.closest('.mtc').appendChild(d)},function(){})},150)};
   /* a amiga abre lafouch.com/t/CÓDIGO: Mochi surpresa */
   function amSurpresa(){if(document.getElementById('amov'))return;var o=document.createElement('div');o.id='amov';o.setAttribute('role','dialog');o.setAttribute('aria-label',LFI.tr('Sua amiga te deu 10%!'));
     o.innerHTML='<div class="amsc"><button type="button" class="amx" aria-label="'+LFI.tr('Fechar')+'">×</button><div class="amfig s">'+moFig('surpresa',-30,-30)+'<i class="amsp a1">✦</i><i class="amsp a2">✦</i><i class="amsp a3">✦</i></div><h3>'+LFI.tr('Sua amiga te deu 10%!')+'</h3><p>'+LFI.tr('O desconto já está no seu carrinho. Vale na 1ª compra, por 1 ano.')+'</p></div><button type="button" class="amver">'+LFI.tr('Veja as peças que aceitam cupom')+' ↓</button>';
@@ -4836,7 +4750,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     function presAtivo(){return !!(st.pres&&st.cup&&st.cup.tipo==='pe'&&find(st.pres.ref))}
     function presN(){var p=st.pres&&find(st.pres.ref);return p?p.n:0}
     function pagas(){return Object.keys(st.cart).filter(function(k){var p=find(k);return p&&!isOf(p)&&p.aviso!=='Esgotado'})}
-    function presLista(){var c=getConta()||{};return cupFn({acao:'presentes',pagas:pagas(),tel:c.tel||''}).then(function(j){var R={};((j&&j.refs)||[]).forEach(function(r){R[r]=1});st._presRefs=R;st._presOk=!!(j&&j.ok);st._presLim=j&&j.lim||0;return j},function(){st._presRefs={};return null})}
+    function presLista(){return cupFn({acao:'presentes',pagas:pagas()}).then(function(j){var R={};((j&&j.refs)||[]).forEach(function(r){R[r]=1});st._presRefs=R;st._presOk=!!(j&&j.ok);st._presLim=j&&j.lim||0;return j},function(){st._presRefs={};return null})}
     function presTira(motivo){if(!st.pres)return;var r=st.pres.ref;st.pres=null;lsS('lf_pres',null);st._presSaiu=motivo?{ref:r,m:motivo}:null}
     /* confere o presente quando o carrinho muda (o servidor confere de novo no pedido) */
     function presConfere(){if(!st.pres)return Promise.resolve();if(!st.cup||st.cup.tipo!=='pe'){presTira();return Promise.resolve()}
