@@ -521,7 +521,7 @@ exports.login = onRequest({ region: REGIAO, cors: true, maxInstances: 3, secrets
 });
 
 // ---------- S2 (19/11/2026): conta da cliente sem mostrar o e-mail ao público ----------
-// "livre": o nome de usuário está livre? · "entrar": nome + senha → a função acha o e-mail e faz o login por dentro.
+// "entrar": nome de usuário antigo + senha → a função acha o e-mail e faz o login por dentro.
 // A chave abaixo é a chave PÚBLICA do Firebase (a mesma que está no site); não é segredo.
 const FB_CHAVE_PUBLICA = 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc';
 async function entraFirebase(email, senha) {
@@ -535,7 +535,6 @@ exports.conta = onRequest({ region: REGIAO, cors: ['https://lafouch.com', 'https
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   try {
-    if (b.acao === 'livre') return res.json(await Conta.livre(tokDb, String(b.user || '')));
     if (b.acao === 'entrar') return res.json(await Conta.entrar(tokDb, entraFirebase, Date.now(), String(b.user || ''), b.senha));
     return res.status(400).json({ ok: false, motivo: 'acao' });
   } catch (e) {
@@ -562,6 +561,21 @@ exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: RE
     const refs = (await admin.firestore().collection('estoque').listDocuments()).map((d) => d.id);
     console.log('limpeza estoque', JSON.stringify(await Reserva.arruma(admin.firestore(), Date.now(), refs)));
   } catch (e) { console.error('limpeza estoque', e && e.message); }
+  // S1 (20/11, parte 3): regra fixa — a página pública do pedido (reservas/) nunca guarda token nem dados do pagamento.
+  // O que estiver lá (pedidos de antes da troca) vai para o lugar fechado (reservasTok/) e sai da página pública.
+  try {
+    const fx = admin.firestore(), del = admin.firestore.FieldValue.delete();
+    const q = await fx.collection('reservas').where('tok', '>', '').limit(500).get();
+    for (const d of q.docs) {
+      const o = d.data(), priv = await fx.doc('reservasTok/' + d.id).get();
+      const guarda = {};
+      if (!(priv.exists && priv.data().tok)) guarda.tok = o.tok;
+      if (o.pixAuto && !(priv.exists && priv.data().pixAuto)) guarda.pixAuto = o.pixAuto;
+      if (Object.keys(guarda).length) await fx.doc('reservasTok/' + d.id).set(guarda, { merge: true });
+      await d.ref.update({ tok: del, pixAuto: del });
+    }
+    console.log('limpeza token', q.size);
+  } catch (e) { console.error('limpeza token', e && e.message); }
 });
 // S400 (17/11/2026): todo dia às 10h do Paraguai — solta os presentes guardados que já podem sair (um por vez, 30 dias entre e-mails)
 // e manda os convites para indicar que completaram 2 semanas da entrega. A regra está em cupom.js (diario).
@@ -747,9 +761,10 @@ const pixDb = {
   esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
   confirmaPedido: async (id, o) => {
     const tok = crypto.randomBytes(6).toString('hex');
-    // S1 (19/11): grava também em reservasTok (troca em 3 partes; ver docs/STATUS.md item S1/S2).
+    // S1 (20/11, parte 3): token e dados do pagamento só no lugar fechado; a página pública do pedido diz só "pago".
+    // A ordem importa: o e-mail "pagamento confirmado" nasce quando reservas/ fica paga e lê o token de reservasTok/.
     await fsx().doc('reservasTok/' + id).set({ tok, pixAuto: o }, { merge: true });
-    await fsx().doc('reservas/' + id).set({ pago: true, tok, pixAuto: o }, { merge: true });
+    await fsx().doc('reservas/' + id).set({ pago: true }, { merge: true });
     await fsx().doc('pixEspera/' + id).set({ ok: o }, { merge: true });
   },
   confirmaEspera: (id, o) => fsx().doc('pixEspera/' + id).update({ ok: o }),
@@ -907,7 +922,10 @@ exports.pagoMail = onDocumentWritten({ document: 'reservas/{id}', region: REGIAO
     return;
   }
   if (!depois || depois.pago !== true || antes.pago === true || depois.cancelado) return;
-  try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || '', URL_COMP, Date.now()))); }
+  // S1 (20/11, parte 3): o token vem do lugar fechado (reservasTok/), gravado ANTES de reservas/ ficar paga
+  let tok = '';
+  try { const t = await fsx().doc('reservasTok/' + ev.params.id).get(); tok = (t.exists && t.data().tok) || ''; } catch (e) {}
+  try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, tok, URL_COMP, Date.now()))); }
   catch (e) { console.error('pagoMail', ev.params.id, e && e.message); }
 });
 // S400 (17/11/2026): pedido ENTREGUE (entregas/{id} nasce no "liberar" de um pedido pago) → presente do cliente por e-mail.

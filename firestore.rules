@@ -113,13 +113,7 @@ service cloud.firestore {
       allow create, update: if request.auth != null && request.auth.uid == uid
         && request.resource.data.keys().size() <= 30;
     }
-    match /usuarios/{u} {
-      allow get: if true;
-      allow create: if request.auth != null
-        && u.size() >= 3 && u.size() <= 30
-        && request.resource.data.keys().hasOnly(['uid','email'])
-        && request.resource.data.uid == request.auth.uid
-        && request.resource.data.email == request.auth.token.email;
-    }
+    // S2 (20/11, parte 3): usuarios/ (nome de usuário → e-mail) não tem mais "match": fica FECHADA.
+    // Só a função "conta" lê (entrar com nome de usuário antigo); o site não lê nem cria mais.
   }
 }
