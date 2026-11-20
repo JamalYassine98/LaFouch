@@ -1,9 +1,7 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila",
- "arquivos": [
-  "work/semp/"
- ],
+ "agora": "esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça)",
+ "arquivos": [],
  "ultimas": [
   {
    "t": 1795143053.220285,
@@ -14,5 +12,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795187573.534777
+ "leu": 1795188430.93752
 }
