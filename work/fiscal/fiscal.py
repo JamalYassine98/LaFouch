@@ -35,8 +35,8 @@ def roda(p,ap,W,H,lg,tam):
   except Exception as e:res.append({'ap':ap,'var':var,'tela':'Busca','iss':[{'t':'erro_fiscal','d':str(e)[:100]}],'foto':None})
   pg.goto(U);pg.wait_for_timeout(2000)
   try:
-    pg.click('#mnb',force=True);pg.wait_for_timeout(700);pg.click('#drw a[data-mf] >> nth=1');pg.wait_for_timeout(1800);rola(pg,ap,var,'Catálogo (Leitura)',None,4)
-    pg.evaluate('scrollTo(0,0)');pg.wait_for_timeout(300);pg.locator('[data-open]:visible').first.click();pg.wait_for_timeout(1800);rola(pg,ap,var,'Página do produto','#layer .scrim',4)
+    pg.click('#mnb',force=True);pg.wait_for_timeout(700);pg.locator('#drw a[data-mf^="tipo:"]:visible').first.click();pg.wait_for_timeout(1800);rola(pg,ap,var,'Catálogo (Leitura)',None,4)
+    pg.evaluate('scrollTo(0,0)');pg.wait_for_timeout(300);pg.locator('#grid [data-open]:visible').first.click();pg.wait_for_timeout(1800);rola(pg,ap,var,'Página do produto','#layer .scrim',4)
   except Exception as e:res.append({'ap':ap,'var':var,'tela':'Catálogo/produto','iss':[{'t':'erro_fiscal','d':str(e)[:100]}],'foto':None})
   pg.goto(U);pg.wait_for_timeout(2000)
   try:pg.click('#bagbtn',force=True);pg.wait_for_timeout(1000);audita(pg,ap,var,'Carrinho')

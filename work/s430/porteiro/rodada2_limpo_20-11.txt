@@ -1,0 +1,18 @@
+porteiro: 195 provas, 11 falhas (11 graves novas), 5 defeitos visuais novos, 733 s
+  NOVA 7 olho do dono · Ícone de Mi cuenta igual aos outros (cor e mouse por cima) · conta rgb(255, 255, 255) / mouse rgb(255, 255, 255) × busca rgb(255, 255, 255) / mouse rgb(225, 29, 72)
+  NOVA 7 olho do dono · “Últimas N” abaixo da foto, vermelho · 390px · light · 0 dentro da foto · 2 sem vermelho/sem espaço/com fundo
+  NOVA 7 olho do dono · “Últimas N” abaixo da foto, vermelho · 1440px · light · 0 dentro da foto · 2 sem vermelho/sem espaço/com fundo
+  NOVA 7 olho do dono · Painel · texto legível · tema claro · 1 texto(s) com contraste abaixo de 3: v_cfg: "Salvar mensagem" 1
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 390px · letra 0 · texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 820px · letra 0 · texto em cima de texto: “Black Friday × Última unidad” | texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 820px · letra 2 · texto em cima de texto: “Black Friday × Última unidad” | texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 1440px · letra 0 · texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 1440px · letra 2 · texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 2560px · letra 0 · texto em cima de texto: “Black Friday × Última unidad” | texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 2560px · letra 2 · texto em cima de texto: “Black Friday × Última unidad” | texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  VISUAL NOVO botao_coberto|Página do produto|button.lx44 “Ver mais” coberto por button#mnb.ib.mnb “Menu”
+  VISUAL NOVO botao_coberto|Página do produto|button.pgback.navb “Solar” coberto por button.lx44 “−”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Acetato SL2275 R$ 145” coberto por div.bar “0”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Acetato SL2280 R$ 130” coberto por div.bar “0”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Hexagonal SL2270 R$ 135” coberto por div.bar “0”
+FIM 1

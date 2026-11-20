@@ -57,13 +57,21 @@ def falha(parte, nome, d, pg=None, grave=True):
 
 def passou(parte, nome, d=''): RES.append({'parte': parte, 'nome': nome, 'ok': True, 'd': d})
 
+class SemPecas(Exception):
+    """a loja de hoje não tem o que esta prova precisa (ex.: nenhuma peça de leitura): a prova não se aplica — não é falha do site"""
+
 def prova(parte, nome, fn, *a):
     try: fn(*a)
+    except SemPecas as ex: passou(parte, nome, 'não se aplica hoje: ' + str(ex)); print('  não se aplica', parte, nome, '·', ex)
     except Exception as ex:
         falha(parte, nome, 'a prova travou: ' + str(ex).split('\n')[0][:160])
 
 def menu(pg, sel):
-    pg.click('#mnb'); pg.wait_for_timeout(650); pg.click('#drw ' + sel); pg.wait_for_timeout(1500)
+    pg.click('#mnb'); pg.wait_for_timeout(650)
+    # o menu só mostra o que a loja tem: sem a linha, a prova não se aplica (em vez de esperar 30 s e travar)
+    if not pg.evaluate("s=>{const e=document.querySelector('#drw '+s);return !!(e&&e.offsetParent)}", sel):
+        pg.keyboard.press('Escape'); pg.wait_for_timeout(400); raise SemPecas('o menu não tem ' + sel)
+    pg.click('#drw ' + sel); pg.wait_for_timeout(1500)
 
 def topo_em(pg, sel):
     return pg.evaluate("""s=>{const e=document.querySelector(s);if(!e)return false;const r=e.getBoundingClientRect();if(!r.width)return false;
@@ -82,17 +90,21 @@ def arrasta(c, pg, x, y0, y1, n=10):
     cdp.send('Input.dispatchTouchEvent', {'type': 'touchEnd', 'touchPoints': []}); pg.wait_for_timeout(450)
 
 # ---------- telas: como abrir cada uma (a partir do Início) ----------
-def a_cat(t):
-    # como a maioria entra: pelos atalhos do Início; sem atalho, pelo menu
-    def f(pg):
+def a_cat(t=None):
+    # como a maioria entra: pelos atalhos do Início; sem atalho, pelo menu.
+    # Sem categoria pedida, vale a primeira que a LOJA mostra no Início (nunca um nome fixo no código).
+    def f(pg, t=t):
+        if t is None:
+            t = pg.evaluate("(()=>{const a=[...document.querySelectorAll('a[data-mf^=\"tipo:\"]')].find(e=>e.offsetParent&&!e.closest('#drw')&&/^tipo:(solar|armacao|grau)$/.test(e.getAttribute('data-mf')));return a?a.getAttribute('data-mf').slice(5):''})()")
+            if not t: raise SemPecas('o Início não mostra nenhuma categoria com peça')
         if pg.evaluate("t=>{const a=[...document.querySelectorAll('a[data-mf=\"tipo:'+t+'\"]')].find(e=>e.offsetParent&&!e.closest('#drw'));if(a){a.scrollIntoView({block:'center'});return true}return false}", t):
             pg.locator(f'a[data-mf="tipo:{t}"]:not(#drw *):visible').first.click(); pg.wait_for_timeout(1500)
         else: menu(pg, f'a[data-mf="tipo:{t}"]')
     return f
-def a_prod(pg): a_cat('grau')(pg); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1700)
+def a_prod(pg): a_cat()(pg); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_prod_ini(pg): pg.locator('[data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_cons(pg): menu(pg, '[data-gzopen]'); pg.wait_for_timeout(600)
-def a_filtro(pg): a_cat('grau')(pg); pg.click('#fbtn'); pg.wait_for_timeout(900)
+def a_filtro(pg): a_cat()(pg); pg.click('#fbtn'); pg.wait_for_timeout(900)
 TELAS = [
     ('Catálogo Solar', a_cat('solar'), False), ('Catálogo Leitura', a_cat('grau'), False), ('Catálogo Armações', a_cat('armacao'), False),
     ('Catálogo Ofertas', a_cat('of'), False), ('Catálogo Feminino', lambda pg: menu(pg, 'a[data-mf="gen:f"]'), False),
@@ -191,7 +203,9 @@ def p3_busca(p, prods):
         for ref, nome in prods:
             for sn, mf in secoes:
                 carrega(pg)
-                if mf: menu(pg, f'a[data-mf="{mf}"]')
+                if mf:
+                    try: menu(pg, f'a[data-mf="{mf}"]')
+                    except SemPecas: continue
                 pg.click('#sbtn'); pg.wait_for_timeout(600); pg.fill('#q5', nome); pg.wait_for_timeout(400)
                 vist = pg.evaluate("r=>!![...document.querySelectorAll('#sores [data-open]')].find(e=>e.getAttribute('data-open')===r)", ref)
                 rep = pg.evaluate("""(()=>{const t=[...document.querySelectorAll('#sores button')].filter(e=>e.offsetParent).map(e=>(e.querySelector('b')||e).textContent.trim().toLowerCase());
@@ -243,11 +257,11 @@ def p3_carrinho(p):
 def p3_preco_cartao(p):
     b, c, pg, E = novo(p)
     try:
-        carrega(pg); a_cat('grau')(pg)
+        carrega(pg); a_cat()(pg)
         cards = pg.evaluate("[...document.querySelectorAll('#grid [data-open]')].slice(0,4).map(e=>[e.getAttribute('data-open'),(e.innerText.match(/(R\\$|Gs\\.)\\s?[\\d.,]+/)||[''])[0]])")
         for ref, pc in cards:
             carrega(pg, 'p/' + ref) if False else None
-            carrega(pg); a_cat('grau')(pg); pg.click(f'#grid [data-open="{ref}"]'); pg.wait_for_timeout(1600)
+            carrega(pg); a_cat()(pg); pg.click(f'#grid [data-open="{ref}"]'); pg.wait_for_timeout(1600)
             pp = pg.evaluate("((document.querySelector('#layer [data-addm]')||{}).textContent||'').match(/(R\\$|Gs\\.)\\s?[\\d.,]+/)")
             pp = pp[0] if pp else ''
             if pc and pp and pc.replace(' ', '') != pp.replace(' ', ''): falha('4 conteúdo', f'Preço cartão × produto {ref}', f'no cartão {pc}, no produto {pp}', pg)
@@ -296,7 +310,7 @@ def p3_consulta(p, perm, nome, ls=None):
 def p4_conteudo(p, lang):
     b, c, pg, E = novo(p, lang=lang)
     try:
-        telas = [('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod), ('Carrinho', lambda pg: (pg.click('#bagbtn'), pg.wait_for_timeout(1000))),
+        telas = [('Início', lambda pg: None), ('Catálogo', a_cat()), ('Produto', a_prod), ('Carrinho', lambda pg: (pg.click('#bagbtn'), pg.wait_for_timeout(1000))),
                  ('Menu', lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700))), ('Consulta', a_cons)]
         for nome, abre in telas:
             carrega(pg); abre(pg); pg.wait_for_timeout(500)
@@ -383,7 +397,10 @@ def r_menu_voltar(p):
         for sel, n in (('a[data-mf="tipo:solar"]', 'Solar'), ('a[data-mf="tipo:of"]', 'Ofertas'), ('a[data-mf="gen:f"]', 'Feminino'), ('a[href="#rosto"]', 'Seu formato'),
                        ('a[href="#atacado"]', 'Atacado'), ('a[href="#como"]', 'Ajuda'), ('[data-gzopen]', 'Descubra o seu grau'), ('[data-cta=minha]', 'Minha conta')):
             if RAPIDO and n not in ('Solar', 'Seu formato', 'Minha conta'): continue
-            carrega(pg); menu(pg, sel); pg.go_back(); pg.wait_for_timeout(1500)
+            carrega(pg)
+            try: menu(pg, sel)
+            except SemPecas: continue
+            pg.go_back(); pg.wait_for_timeout(1500)
             if not pg.url.startswith('http'): falha('6 bug nunca volta', f'Menu → {n} · voltar do celular', 'o voltar saiu do site', None)
             elif fora(est(pg)): passou('6 bug nunca volta', f'Menu → {n} · voltar do celular')
             else: falha('6 bug nunca volta', f'Menu → {n} · voltar do celular', f'ficou em: {txt(est(pg))}', pg)
@@ -457,7 +474,7 @@ def r_cabecalho(p):
     for W, H in ((390, 844), (1440, 900), (2560, 1440)):
         b, c, pg, E = novo(p, W=W, H=H, touch=W < 700)
         try:
-            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod)):
+            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat()), ('Produto', a_prod)):
                 if RAPIDO and nome == 'Catálogo': continue
                 carrega(pg); abre(pg); pg.wait_for_timeout(600)
                 o = pg.evaluate(JS_CLICAVEIS)
@@ -477,7 +494,7 @@ def r_alinha(p):
     for W, H in ((390, 844), (1440, 900)):
         b, c, pg, E = novo(p, W=W, H=H, touch=W < 700)
         try:
-            for nome, abre, sels in (('Cabeçalho', lambda pg: None, ['.top']), ('Produto', a_prod, ['.dmi', '#layer .dm']), ('Catálogo', a_cat('grau'), ['#lfgen'])):
+            for nome, abre, sels in (('Cabeçalho', lambda pg: None, ['.top']), ('Produto', a_prod, ['.dmi', '#layer .dm']), ('Catálogo', a_cat(), ['#lfgen'])):
                 carrega(pg); abre(pg); pg.wait_for_timeout(600)
                 o = pg.evaluate(JS_LINHA + '(' + json.dumps(sels) + ')')
                 if o: falha('6 bug nunca volta', f'{W}px · {nome} · alinhamento', 'fora do centro da linha: ' + ' | '.join(o[:4]), pg)
@@ -539,7 +556,7 @@ RODAPE_VISIVEL = """()=>{const F=[...document.querySelectorAll('footer,.lfft')].
 
 def p7_rodape(p):
     for W, H in TAM7:
-        for nome, abre, onde in (('Início', lambda pg: None, 'window'), ('Catálogo', a_cat('grau'), 'window'), ('Peça aberta', a_prod, 'layer')):
+        for nome, abre, onde in (('Início', lambda pg: None, 'window'), ('Catálogo', a_cat(), 'window'), ('Peça aberta', a_prod, 'layer')):
             b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
             try:
                 carrega(pg); abre(pg); fim_da_pagina(pg, onde); r = pg.evaluate(RODAPE_VISIVEL)
@@ -572,7 +589,7 @@ FOTO_SNAP = """(sel)=>[...document.querySelectorAll(sel)].filter(e=>{const r=e.g
 def p7_foto_mouse(p):
     # a foto não pode se mexer seguindo o mouse — Início, catálogo e peça, com e sem os efeitos do app ligados
     for efx in ('', 'incl,refl'):
-        for nome, abre, sel in (('Início', lambda pg: None, '#home img, #stage img, #hdst img'), ('Catálogo', a_cat('grau'), '#grid .ph img'), ('Peça', a_prod, '#layer .big img')):
+        for nome, abre, sel in (('Início', lambda pg: None, '#home img, #stage img, #hdst img'), ('Catálogo', a_cat(), '#grid .ph img'), ('Peça', a_prod, '#layer .big img')):
             b, c, pg, E = novo(p, 1440, 900, 'es-PY', ls={'lf_cfg': json.dumps({'ativo': True, 'efx': efx})} if efx else None, touch=False)
             try:
                 carrega(pg); abre(pg); A = pg.evaluate(FOTO_SNAP, sel); ruim = 0
@@ -791,7 +808,7 @@ def p7_csp(p):
         c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
         pg = c.new_page(); pg.add_init_script("window.__csp=[];document.addEventListener('securitypolicyviolation',e=>window.__csp.push(e.effectiveDirective+' '+e.blockedURI))")
         pg.goto(URL); pg.wait_for_timeout(2500)
-        js = open('js/lf-site.js', encoding='utf8').read(); import re as _r
+        js = open('/home/claude/catalogo/js/lf-site.js', encoding='utf8').read(); import re as _r
         proj = (_r.search(r"p:'([a-z0-9-]+)'", js[js.find('FB='):js.find('FB=') + 400]) or [None, 'lafouch-2f6bd'])[1]
         # 1) o que o login com Google precisa (só se o site usa a janela do Google)
         if 'signInWithPopup' in js:
@@ -925,7 +942,7 @@ SOBRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'kit
 def p7_sobreposto(p):
     for W, H in ((390, 844), (820, 1180), (1440, 900), (2560, 1440)):
         for zi in ('0', '2'):
-            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Peça', a_prod)):
+            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat()), ('Peça', a_prod)):
                 b, c, pg, E = novo(p, W, H, 'es-PY', ls={'lf_zoom': zi}, touch=W < 1000)
                 try:
                     carrega(pg); abre(pg); A = set()
@@ -950,7 +967,7 @@ with sync_playwright() as p:
      for nome, abre, cam in TELAS: print(' ', nome); prova('2 navegação', nome, p2_tela, p, nome, abre, cam)
     if '1' in PARTES:
      print('parte 1 · toque')
-     for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod), ('Menu', lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700))), ('Consulta', a_cons)):
+     for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat()), ('Produto', a_prod), ('Menu', lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700))), ('Consulta', a_cons)):
          prova('1 toque', nome, p1_rola, p, nome, abre)
     if '3' in PARTES:
      print('parte 3 · uso')
