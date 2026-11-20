@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 25: remendos parte 2a — inicioGo e navOn numa função só | src/89-inicio.js, src/97y-familias-s265.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
+| SITE | zerar o porteiro na cópia limpa: ícone da conta (cor no mouse) e os 5 avisos visuais da página da peça | index.html, js/lf-site.js |
 
 ## Fila
 
