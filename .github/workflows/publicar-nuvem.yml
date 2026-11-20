@@ -12,7 +12,7 @@ on:
         required: true
         default: functions
         type: choice
-        options: [functions, regras, tudo]
+        options: [functions, regras, tudo, limpeza]
 
 permissions:
   contents: read
@@ -40,7 +40,11 @@ jobs:
         with:
           workload_identity_provider: projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
           service_account: github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+      - name: Rodar a limpeza diária agora (só com o_que=limpeza)
+        if: inputs.o_que == 'limpeza'
+        run: gcloud scheduler jobs run firebase-schedule-limpeza-southamerica-east1 --location=southamerica-east1 --project=lafouch-2f6bd
       - name: Publicar
+        if: inputs.o_que != 'limpeza'
         env:
           O_QUE: ${{ inputs.o_que }}
         run: |
