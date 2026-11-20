@@ -45,6 +45,7 @@
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — na fila
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
+- **22-publicar-nuvem-pelo-github** — aprovado 20/11 08:21 — esboço a fazer (NUVEM)
 
 ## Recados esperando
 
