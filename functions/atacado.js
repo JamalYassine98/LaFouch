@@ -9,7 +9,7 @@
 'use strict';
 const crypto = require('crypto');
 const E = require('./email');
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const DIA = 864e5, VALE_COD = 10 * 60000, TENT = 5, TROCAS_AVISO = 2;
 const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 const emN = (e) => limpa(e, 200).toLowerCase();

@@ -5,7 +5,7 @@
 //  - Lista de aparelhos que entraram (vem dos avisos de login) e "Sair de todos" (revoga as sessões do dono).
 // Regra pura onde dá: o banco vem por "db"; a biblioteca de passkey vem por "wa" (@simplewebauthn/server).
 const crypto = require('crypto');
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 function b32(buf) { let bits = 0, v = 0, o = ''; for (const x of buf) { v = (v << 8) | x; bits += 8; while (bits >= 5) { o += B32[(v >>> (bits - 5)) & 31]; bits -= 5; } } if (bits) o += B32[(v << (5 - bits)) & 31]; return o; }
 function unb32(s) { let bits = 0, v = 0; const o = []; for (const c of String(s).replace(/=+$/, '').toUpperCase()) { const i = B32.indexOf(c); if (i < 0) continue; v = (v << 5) | i; bits += 5; if (bits >= 8) { o.push((v >>> (bits - 8)) & 255); bits -= 8; } } return Buffer.from(o); }

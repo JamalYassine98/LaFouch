@@ -24,7 +24,7 @@
 // Regra pura: o banco vem por "db" (ver index.js). Datas em ms.
 const crypto = require('crypto');
 const E = require('./email');
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const DIA = 864e5;
 const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem O/0 e I/1
 const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 20, dias: 120, min: 0 }, fiel: { pct: 10, dias: 120, min: 0, cada: 3 }, pe: { pct: 0, dias: 120, min: 0 }, ani: { pct: 10, dias: 30, min: 0 } };

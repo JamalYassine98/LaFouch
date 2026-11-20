@@ -9,13 +9,7 @@ const MAX_B64 = 28 * 1024 * 1024; // ~21 MB de arquivo (a função aceita até 3
 const CAMINHO = /^media\/(giro\/[A-Za-z0-9_.-]{1,60}\.(mp4|webm)|[A-Za-z0-9_.-]{1,80}\.(mp4|webm|mov|jpg|jpeg|png|webp))$/;
 const PASTA = /^media(\/giro)?$/;
 
-class Falha extends Error {
-  constructor(motivo, status) {
-    super(motivo);
-    this.motivo = motivo;
-    this.status = status || 400;
-  }
-}
+const { Falha } = require('./falha');
 
 const b64url = (b) => Buffer.from(b).toString('base64').replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 

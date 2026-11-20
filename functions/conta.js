@@ -3,13 +3,7 @@
 // Regra pura (sem Firebase): db = { get(path), set(path, dados) (merge) }; entra(email, senha) -> { idToken, refreshToken, expiresIn, localId, email } ou erro.
 'use strict';
 
-class Falha extends Error {
-  constructor(motivo, status) {
-    super(motivo);
-    this.motivo = motivo;
-    this.status = status || 200;
-  }
-}
+const { Falha } = require('./falha');
 const ERROS_MAX = 5; // senha errada 5 vezes no mesmo nome → espera
 const TRAVA_MS = 15 * 60 * 1000;
 const nomeOk = (u) => typeof u === 'string' && u.length >= 3 && u.length <= 30 && !/[\/]/.test(u);
@@ -24,12 +18,12 @@ async function livre(db, user) {
 async function entrar(db, entra, agora, user, senha) {
   if (!nomeOk(user) || typeof senha !== 'string' || !senha || senha.length > 200) throw new Falha('dados', 400);
   const t = (await db.get(chave(user))) || {};
-  if (+t.trava > agora) throw new Falha('espera');
+  if (+t.trava > agora) throw new Falha('espera', 200);
   const u = await db.get('usuarios/' + user);
   const erro = async (motivo) => {
     const erros = (+t.erros || 0) + 1;
     await db.set(chave(user), erros >= ERROS_MAX ? { erros: 0, trava: agora + TRAVA_MS } : { erros });
-    throw new Falha(motivo);
+    throw new Falha(motivo, 200);
   };
   if (!u || !u.email) return erro('login'); // o mesmo motivo de senha errada: não revela se o nome existe
   let s;

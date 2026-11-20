@@ -3,12 +3,7 @@
 // Regra pura (sem Firebase) para dar para testar: db = { get(path) -> objeto|null, set(path, dados) (merge) }.
 'use strict';
 
-class Falha extends Error {
-  constructor(motivo) {
-    super(motivo);
-    this.motivo = motivo;
-  }
-}
+const { Falha } = require('./falha');
 const ERROS_MAX = 5; // telefone errado 5 vezes → espera
 const TRAVA_MS = 60 * 60 * 1000; // 1 hora
 const so = (t) => String(t || '').replace(/\D/g, '');

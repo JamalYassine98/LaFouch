@@ -7,14 +7,7 @@ const crypto = require('crypto');
 const E = require('./email');
 
 const VALE = 10 * 60000, ESPERA = 45000, TENT = 5;
-class Falha extends Error {
-  constructor(motivo, status, extra) {
-    super(motivo);
-    this.motivo = motivo;
-    this.status = status || 400;
-    this.extra = extra || {};
-  }
-}
+const { Falha } = require('./falha');
 const hash = (uid, c) => crypto.createHash('sha256').update(uid + ':' + c).digest('hex');
 const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 

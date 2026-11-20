@@ -10,13 +10,7 @@ const COMP_MS = 12 * 3600 * 1000; // comprovante enviado: segura a peça até o 
 const MAX_ITENS = 30;
 const MAX_Q = 20;
 
-class Falha extends Error {
-  constructor(motivo, extra) {
-    super(motivo);
-    this.motivo = motivo;
-    this.extra = extra || {};
-  }
-}
+const { Falha } = require('./falha');
 
 const norm = (s) => String(s || '').trim().toLowerCase();
 // P1 (19/11/2026, aprovado): a lista pública estoque/<ref> NÃO leva mais o número do pedido — só um código embaralhado (h).
@@ -129,7 +123,7 @@ async function reservar(db, agora, pid, itensBrutos, opcoes) {
       const disp = fisico(prod, idx) - reservadoDe(estq, it.cor, agora, pid);
       if (disp < it.q) falta.push({ ref: it.ref, cor: it.cor, motivo: 'esgotado', disp: Math.max(0, disp) });
     });
-    if (falta.length) throw new Falha('esgotado', { falta });
+    if (falta.length) throw new Falha('esgotado', 409, { falta });
     lidos.forEach(({ it, estq }) => {
       const e = limpa(estq, agora);
       const k = chave(pid, it.cor);
@@ -251,7 +245,7 @@ async function pagar(db, agora, pid, itensBrutos) {
       const disp = idx < 0 ? 0 : fisico(prod, idx) - reservadoDe(estq, it.cor, agora, pid);
       if (disp < it.q) falta.push({ ref: it.ref, cor: it.cor, motivo: 'expirou', disp: Math.max(0, disp) });
     });
-    if (falta.length) throw new Falha('expirou', { falta });
+    if (falta.length) throw new Falha('expirou', 409, { falta });
     lidos.forEach(({ it, estq }) => {
       const e = limpa(estq, agora);
       e.res[chave(pid, it.cor)] = { h: H(pid), cor: it.cor, q: it.q, exp: 0, pago: true, comp: true };

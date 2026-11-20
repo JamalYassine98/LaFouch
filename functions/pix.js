@@ -6,7 +6,7 @@
 //  - pedido do site: valor exato com o final único (centavos), feito nas últimas 48 h, ainda não pago → pago sozinho;
 //  - venda da loja no app (Venda · PIX): valor redondo, espera registrada pelo app (pixEspera) nas últimas 2 h → confirmada;
 //  - nada ou mais de um candidato → vai para "pixSemPar" (o guardião do app avisa; nunca confirma no chute).
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const H = 36e5;
 const SITE_H = 48, LOJA_H = 2;
 const cent = (v) => Math.round(Number(String(v).replace(/[^\d.,-]/g, '').replace(/\.(?=\d{3}(\D|$))/g, '').replace(',', '.')) * 100);

@@ -7,13 +7,7 @@
 const crypto = require('crypto');
 const E = require('./email');
 
-class Falha extends Error {
-  constructor(motivo, status) {
-    super(motivo);
-    this.motivo = motivo;
-    this.status = status || 400;
-  }
-}
+const { Falha } = require('./falha');
 const REF_OK = /^[A-Za-z0-9._-]{1,30}$/;
 const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
 const MAX_POR_EMAIL = 10; // pedidos pendentes por e-mail (evita abuso)

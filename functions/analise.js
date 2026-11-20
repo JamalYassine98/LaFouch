@@ -1,7 +1,7 @@
 // Analisador do painel (11/11/2026): contagens ANÔNIMAS por visita (sem nome, e-mail, telefone ou endereço).
 // Cada visita manda um resumo ao sair do site; o painel lê só os totais.
 //   db.salva(id, o) / db.desde(ts) -> [o]
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const REF_OK = /^[A-Za-z0-9._-]{1,30}$/;
 const ID_OK = /^v[a-z0-9]{8,24}$/;
 const TEMAS = ['', 'natal', 'halloween', 'bf', 'anonovo', 'maes', 'pais'];

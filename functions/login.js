@@ -1,7 +1,7 @@
 // Aviso de login (bloco 5 item 5, aprovado 11/11/2026): cada vez que o dono ENTRA COM A SENHA no painel ou no app,
 // vai um e-mail para lafouch.eyewear@gmail.com com o aparelho, a hora e o endereço de internet. Aparelho nunca visto = "NOVO".
 // Regra pura: o banco vem por um objeto "db".  db.get(id) · db.salva(id, o) · db.conta(desde) -> n avisos desde
-class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
+const { Falha } = require('./falha');
 const crypto = require('crypto');
 const PARA = 'lafouch.eyewear@gmail.com';
 const MAX_HORA = 10;

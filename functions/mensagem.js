@@ -4,9 +4,7 @@
 //   envia({ to, subject, text, reply_to }) -> Promise
 const crypto = require('crypto');
 
-class Falha extends Error {
-  constructor(motivo, status) { super(motivo); this.motivo = motivo; this.status = status || 400; }
-}
+const { Falha } = require('./falha');
 const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
 const DESTINO = 'lafouch.eyewear@gmail.com';
 const PROCURA = ['Solar', 'Leitura', 'Armações'];
