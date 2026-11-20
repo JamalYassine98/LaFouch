@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 30: vistas pela análise (recado da NUVEM)",
+ "arquivos": [
+  "src/97-vistas-site.js",
+  "src/97-nuvem.js",
+  "src/97-site-pediu.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795201099.674426,
