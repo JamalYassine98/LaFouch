@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 573;
+  var APP_BUILD = 574;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.49.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.49.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -44619,12 +44619,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (ok) t.parentNode.replaceChild(fr, t);
     });
   }
-  var _renderNav = render;
-  render = function () {
-    var r = _renderNav.apply(this, arguments);
-    try { fnLinkifica(); } catch (e) {}
-    return r;
-  };
+  aposRender(fnLinkifica);
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
   var _dcNav = dashCompose;
@@ -44951,12 +44946,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
   }
-  var _renderRx = render;
-  render = function () {
-    var r = _renderRx.apply(this, arguments);
-    try { rxMonta(); } catch (e) {}
-    return r;
-  };
+  aposRender(rxMonta);
   // ===== S192 (aprovado 12/11/2026): transportadoras do Delivery do site =====
   // O dono põe o preço de cada uma (G$) e pode desligar a que não está atendendo. Vai para config/site.fretes
   // ({pya:{p,off}, bolt, tiemsa, mcg}); sem preço o site mostra "pago na entrega". Quando as contas da PedidosYa/Bolt
@@ -46267,12 +46257,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         metaConfere();
       } catch (e) {}
     }
-    var r0 = render;
-    render = function () {
-      var x = r0.apply(this, arguments);
-      depois();
-      return x;
-    };
+    aposRender(depois);
     var rf0 = renderFx;
     renderFx = function () {
       var x = rf0.apply(this, arguments);
@@ -49048,12 +49033,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     rowsDom.forEach(function (r) { r.style.display = 'none'; });
     cl.insertBefore(frag, cl.firstChild);
   }
-  var _renderGc = render;
-  render = function () {
-    var x = _renderGc.apply(this, arguments);
-    try { gcMonta(); } catch (e) {}
-    return x;
-  };
+  aposRender(gcMonta);
   // ===== v469 (aprovado 08/11, opção C): mapa de graus numa folha, aberto por um botão redondo discreto =====
   // O mapa saiu da lista de produtos. Botão de barras ao lado do leitor/filtro (só com Pré-graduados filtrado)
   // e atalho "Graus de leitura" na aba Reposição. Grade sóbria 4×4: "—" = acabou, ponto âmbar = pouco.
@@ -50207,12 +50187,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     el.innerHTML = '<div class="top"><div><h1>Atacado</h1><div class="crumb">Lojistas, lotes e pedidos em quantidade.</div></div><button type="button" class="pgAc" data-act="ataNovo">+ Novo acesso</button></div>' + tabs + '<div id="ataCorpo">' + ataCorpo() + '</div>';
     if (window.lfLinhaAbas) window.lfLinhaAbas('ataTabs', '.on');
   }
-  var _render23 = render;
-  render = function () {
-    var r = _render23.apply(this, arguments);
-    try { renderAtacado(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderAtacado);
   ACT.ataAba = function (id) {
     if (S.ataAba === id) return;
     S.ataAba = id;
@@ -51351,12 +51326,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     grpObs.observe(w, { childList: true, subtree: true });
   }
-  var _render41 = render;
-  render = function () {
-    var r = _render41.apply(this, arguments);
-    try { grpTitulo(); } catch (e) {}
-    return r;
-  };
+  aposRender(function () {
+    grpTitulo();
+  });
   // teclado: Enter/Espaço no título abre a folha
   document.addEventListener('keydown', function (e) {
     var t = e.target;
@@ -51470,12 +51442,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (bx) bx.classList.remove('pcBusca');
     }
   }
-  var _render244 = render;
-  render = function () {
-    var r = _render244.apply(this, arguments);
-    try { pcLarga(); } catch (e) {}
-    return r;
-  };
+  aposRender(pcLarga);
   window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
   // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
   var _hfo17 = ACT.hfopen;
@@ -51501,12 +51468,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!v.hidden) VAZ18[k] = 1;
     });
   }
-  var _render18 = render;
-  render = function () {
-    var r = _render18.apply(this, arguments);
-    try { vazio18(); } catch (e) {}
-    return r;
-  };
+  aposRender(vazio18);
   // ===== S370 · item 11 de 13/11 (aprovado 14/11 00:08; esboço work/s241/s241_celular_claro_nuvem.jpg): CÓPIAS E NUVEM ENXUTA =====
   // Com a nuvem conectada: o estado ("Tudo salvo · há N min · N aparelhos") e 4 linhas que abrem o resto —
   // Voltar no tempo · Lixeira · Aparelhos · Arquivo de backup. Sem nuvem continua como antes (é preciso o formulário de entrar).
@@ -51560,12 +51522,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       m.classList.remove('invDuo');
     }
   }
-  var _render31 = render;
-  render = function () {
-    var r = _render31.apply(this, arguments);
-    try { invDuo(); } catch (e) {}
-    return r;
-  };
+  aposRender(invDuo);
   window.addEventListener('resize', function () { try { invDuo(); } catch (e) {} });
 
   // ---------- esboço 33: teclado e leitor de código ----------
@@ -51666,12 +51623,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       i.parentNode.appendChild(k);
     });
   }
-  var _render33 = render;
-  render = function () {
-    var r = _render33.apply(this, arguments);
-    try { kbMarca(); } catch (e) {}
-    return r;
-  };
+  aposRender(kbMarca);
   // ===== S370 (16/11/2026) — esboço 52 (Preços no padrão de luxo, aprovado 16/11 01:15) =====
   // "Para decidir esta semana": uma linha por ASSUNTO — "Subir N preços · ver um por um" (as linhas de cada peça ficam
   // guardadas e abrem no "ver um por um") e UMA linha por tabela de atacado ("Tabela X: N peças com margem baixa ·
@@ -51836,12 +51788,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el || S.view !== 'site' || !window.__renderSite95) return;
     window.__renderSite95(el);
   }
-  var _render374 = render;
-  render = function () {
-    var r = _render374.apply(this, arguments);
-    try { renderSite(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderSite);
   ACT.stAbre = function (id) {
     if (id === 'ped') return setView('ped');
     if (id === 'mkt') return mkAbre();
@@ -52196,12 +52143,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cupDesenha(c, j, off);
     });
   }
-  var _render374c = render;
-  render = function () {
-    var r = _render374c.apply(this, arguments);
-    try { renderCup(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderCup);
   ACT.cupAbre = function () {
     cupVista = '';
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
@@ -52432,12 +52374,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!v) return;
     try { pad99(v); pad100(v); } catch (e) {}
   }
-  var _render99 = render;
-  render = function () {
-    var r = _render99.apply(this, arguments);
-    padTela();
-    return r;
-  };
+  aposRender(padTela);
   var _renderDash99 = renderDash;
   renderDash = function () {
     var r = _renderDash99.apply(this, arguments);
@@ -52519,12 +52456,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     }
   }
-  var _render98 = render;
-  render = function () {
-    var r = _render98.apply(this, arguments);
-    try { renderMkt(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderMkt);
   mkAbre = function () {
     S._gAt = 'g:mkt';
     setView('mkt');
@@ -52912,7 +52844,27 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   var RENDER_TICK = 0;
+  // Passos que cada família pendura no render (num lugar só, na ordem em que os arquivos entram): antesRender(f) e aposRender(f).
+  // Um passo com erro não impede os outros nem o desenho da tela.
+  function antesRender(f) {
+    (render.antes = render.antes || []).push(f);
+  }
+  function aposRender(f) {
+    (render.depois = render.depois || []).push(f);
+  }
+  function renderPassos(l) {
+    (l || []).forEach(function (f) {
+      try {
+        f();
+      } catch (e) {}
+    });
+  }
   function render() {
+    renderPassos(render.antes);
+    renderBase();
+    renderPassos(render.depois);
+  }
+  function renderBase() {
     RENDER_TICK++;
     try {
       ppSync();
@@ -53533,12 +53485,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // toda abertura de peça (Catálogo e Inventário, com ou sem animação) passa por prodTopo
     var _pt = window.prodTopo;
     if (typeof _pt === 'function') window.prodTopo = function () { var k = aberto(); if (k && !window.__navVolta) passo(k); return _pt.apply(this, arguments); };
-    var _r = render;
-    render = function () {
+    var antes;
+    antesRender(function () {
       // o estado muda ANTES do render (S.vRef = …; render()): compara com o que estava aberto no render anterior
-      var antes = aberto0;
+      antes = aberto0;
       if (!antes && !aberto()) ultY = window.scrollY || 0;
-      var r = _r.apply(this, arguments);
+    });
+    aposRender(function () {
       var agora = aberto();
       if (agora && agora !== antes && !window.__navVolta) passo(agora);
       else if (!agora && antes && !window.__navVolta && history.state && history.state.lfp) {
@@ -53549,8 +53502,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         if (y != null) requestAnimationFrame(function () { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); });
       }
       aberto0 = agora;
-      return r;
-    };
+    });
     window.addEventListener('popstate', function (e) {
       if (ign) { ign--; e.stopImmediatePropagation(); return; }
       var st = e.state || {};
@@ -53945,9 +53897,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (CA0 && CA0.addListener) CA0.addListener('backButton', function () { nvVoltarAndroid(); });
     } catch (e) {}
     // ---------- liga tudo no redesenho ----------
-    var _r435 = render;
-    render = function () {
-      var r = _r435.apply(this, arguments);
+    aposRender(function () {
       try {
         nvPilha();
         nvGuarda();
@@ -53955,8 +53905,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         grpTitulo();
         nvBarAtual();
       } catch (e) {}
-      return r;
-    };
+    });
     // 147-6: o link do Caixa diz o nome da tela que abre
     // Início: o grupo do Início abre a tela direto (como antes, aprovado S374/98), já com "‹ GRUPO" (147-3).
     window.__nv435 = { pilha: function () { return S.nvP.slice(); }, abas: function () { return JSON.parse(JSON.stringify(S.nvAbas)); }, rail: nvRail };

@@ -3633,6 +3633,20 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 23 (20/11/2026): remendos parte 1 — ninguém troca o render (os acabamentos entram por antesRender/aposRender, num lugar só);
+            # quem guardou o render cedo (campos do Adicionar: oninput = render) agora redesenha com TODOS os acabamentos
+            total += 1
+            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*render = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('site'); await w(300); const v = document.getElementById('v-site'); const antes = !!v.querySelector('h1');
+              v.innerHTML = ''; document.getElementById('eRef').dispatchEvent(new Event('input', { bubbles: true })); await w(200);
+              return [antes, !!v.querySelector('h1')]; }""")
+            ok = not troca and got == [True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 23: render sem embrulho — nenhum arquivo troca o render; campo do Adicionar redesenha com os acabamentos')
+            if not ok: falhas.append('item 23 render sem embrulho'); print('        veio', troca, got, pg.erros)
+            await pg.close()
+
             # Item 22 (20/11/2026): aparelho vazio e sem login — Início › "Entrar" (nuvem) abre Ajustes › Cópias e nuvem com o cursor no e-mail (dava tela vazia: nome de ação repetido)
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

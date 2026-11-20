@@ -22,12 +22,13 @@
     // toda abertura de peça (Catálogo e Inventário, com ou sem animação) passa por prodTopo
     var _pt = window.prodTopo;
     if (typeof _pt === 'function') window.prodTopo = function () { var k = aberto(); if (k && !window.__navVolta) passo(k); return _pt.apply(this, arguments); };
-    var _r = render;
-    render = function () {
+    var antes;
+    antesRender(function () {
       // o estado muda ANTES do render (S.vRef = …; render()): compara com o que estava aberto no render anterior
-      var antes = aberto0;
+      antes = aberto0;
       if (!antes && !aberto()) ultY = window.scrollY || 0;
-      var r = _r.apply(this, arguments);
+    });
+    aposRender(function () {
       var agora = aberto();
       if (agora && agora !== antes && !window.__navVolta) passo(agora);
       else if (!agora && antes && !window.__navVolta && history.state && history.state.lfp) {
@@ -38,8 +39,7 @@
         if (y != null) requestAnimationFrame(function () { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); });
       }
       aberto0 = agora;
-      return r;
-    };
+    });
     window.addEventListener('popstate', function (e) {
       if (ign) { ign--; e.stopImmediatePropagation(); return; }
       var st = e.state || {};

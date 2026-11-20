@@ -85,12 +85,7 @@
     if (!el || S.view !== 'site' || !window.__renderSite95) return;
     window.__renderSite95(el);
   }
-  var _render374 = render;
-  render = function () {
-    var r = _render374.apply(this, arguments);
-    try { renderSite(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderSite);
   ACT.stAbre = function (id) {
     if (id === 'ped') return setView('ped');
     if (id === 'mkt') return mkAbre();
@@ -445,12 +440,7 @@
       cupDesenha(c, j, off);
     });
   }
-  var _render374c = render;
-  render = function () {
-    var r = _render374c.apply(this, arguments);
-    try { renderCup(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderCup);
   ACT.cupAbre = function () {
     cupVista = '';
     if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }

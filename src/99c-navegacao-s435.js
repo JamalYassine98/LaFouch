@@ -380,9 +380,7 @@
       if (CA0 && CA0.addListener) CA0.addListener('backButton', function () { nvVoltarAndroid(); });
     } catch (e) {}
     // ---------- liga tudo no redesenho ----------
-    var _r435 = render;
-    render = function () {
-      var r = _r435.apply(this, arguments);
+    aposRender(function () {
       try {
         nvPilha();
         nvGuarda();
@@ -390,8 +388,7 @@
         grpTitulo();
         nvBarAtual();
       } catch (e) {}
-      return r;
-    };
+    });
     // 147-6: o link do Caixa diz o nome da tela que abre
     // Início: o grupo do Início abre a tela direto (como antes, aprovado S374/98), já com "‹ GRUPO" (147-3).
     window.__nv435 = { pilha: function () { return S.nvP.slice(); }, abas: function () { return JSON.parse(JSON.stringify(S.nvAbas)); }, rail: nvRail };

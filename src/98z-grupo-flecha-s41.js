@@ -77,12 +77,9 @@
       });
     grpObs.observe(w, { childList: true, subtree: true });
   }
-  var _render41 = render;
-  render = function () {
-    var r = _render41.apply(this, arguments);
-    try { grpTitulo(); } catch (e) {}
-    return r;
-  };
+  aposRender(function () {
+    grpTitulo();
+  });
   // teclado: Enter/Espaço no título abre a folha
   document.addEventListener('keydown', function (e) {
     var t = e.target;

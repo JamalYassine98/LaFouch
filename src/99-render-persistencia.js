@@ -1,7 +1,27 @@
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   var RENDER_TICK = 0;
+  // Passos que cada família pendura no render (num lugar só, na ordem em que os arquivos entram): antesRender(f) e aposRender(f).
+  // Um passo com erro não impede os outros nem o desenho da tela.
+  function antesRender(f) {
+    (render.antes = render.antes || []).push(f);
+  }
+  function aposRender(f) {
+    (render.depois = render.depois || []).push(f);
+  }
+  function renderPassos(l) {
+    (l || []).forEach(function (f) {
+      try {
+        f();
+      } catch (e) {}
+    });
+  }
   function render() {
+    renderPassos(render.antes);
+    renderBase();
+    renderPassos(render.depois);
+  }
+  function renderBase() {
     RENDER_TICK++;
     try {
       ppSync();

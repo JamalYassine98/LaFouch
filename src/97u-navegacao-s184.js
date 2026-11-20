@@ -168,12 +168,7 @@
       if (ok) t.parentNode.replaceChild(fr, t);
     });
   }
-  var _renderNav = render;
-  render = function () {
-    var r = _renderNav.apply(this, arguments);
-    try { fnLinkifica(); } catch (e) {}
-    return r;
-  };
+  aposRender(fnLinkifica);
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
   var _dcNav = dashCompose;

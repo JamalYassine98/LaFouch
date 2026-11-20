@@ -28,12 +28,7 @@
       if (bx) bx.classList.remove('pcBusca');
     }
   }
-  var _render244 = render;
-  render = function () {
-    var r = _render244.apply(this, arguments);
-    try { pcLarga(); } catch (e) {}
-    return r;
-  };
+  aposRender(pcLarga);
   window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
   // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
   var _hfo17 = ACT.hfopen;
@@ -59,12 +54,7 @@
       if (!v.hidden) VAZ18[k] = 1;
     });
   }
-  var _render18 = render;
-  render = function () {
-    var r = _render18.apply(this, arguments);
-    try { vazio18(); } catch (e) {}
-    return r;
-  };
+  aposRender(vazio18);
   // ===== S370 · item 11 de 13/11 (aprovado 14/11 00:08; esboço work/s241/s241_celular_claro_nuvem.jpg): CÓPIAS E NUVEM ENXUTA =====
   // Com a nuvem conectada: o estado ("Tudo salvo · há N min · N aparelhos") e 4 linhas que abrem o resto —
   // Voltar no tempo · Lixeira · Aparelhos · Arquivo de backup. Sem nuvem continua como antes (é preciso o formulário de entrar).

@@ -57,12 +57,7 @@
     if (!v) return;
     try { pad99(v); pad100(v); } catch (e) {}
   }
-  var _render99 = render;
-  render = function () {
-    var r = _render99.apply(this, arguments);
-    padTela();
-    return r;
-  };
+  aposRender(padTela);
   var _renderDash99 = renderDash;
   renderDash = function () {
     var r = _renderDash99.apply(this, arguments);
@@ -144,12 +139,7 @@
       });
     }
   }
-  var _render98 = render;
-  render = function () {
-    var r = _render98.apply(this, arguments);
-    try { renderMkt(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderMkt);
   mkAbre = function () {
     S._gAt = 'g:mkt';
     setView('mkt');

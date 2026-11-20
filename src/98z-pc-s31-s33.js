@@ -22,12 +22,7 @@
       m.classList.remove('invDuo');
     }
   }
-  var _render31 = render;
-  render = function () {
-    var r = _render31.apply(this, arguments);
-    try { invDuo(); } catch (e) {}
-    return r;
-  };
+  aposRender(invDuo);
   window.addEventListener('resize', function () { try { invDuo(); } catch (e) {} });
 
   // ---------- esboço 33: teclado e leitor de código ----------
@@ -128,9 +123,4 @@
       i.parentNode.appendChild(k);
     });
   }
-  var _render33 = render;
-  render = function () {
-    var r = _render33.apply(this, arguments);
-    try { kbMarca(); } catch (e) {}
-    return r;
-  };
+  aposRender(kbMarca);

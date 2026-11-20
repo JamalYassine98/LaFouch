@@ -564,12 +564,7 @@
         metaConfere();
       } catch (e) {}
     }
-    var r0 = render;
-    render = function () {
-      var x = r0.apply(this, arguments);
-      depois();
-      return x;
-    };
+    aposRender(depois);
     var rf0 = renderFx;
     renderFx = function () {
       var x = rf0.apply(this, arguments);

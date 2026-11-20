@@ -303,9 +303,4 @@
     rowsDom.forEach(function (r) { r.style.display = 'none'; });
     cl.insertBefore(frag, cl.firstChild);
   }
-  var _renderGc = render;
-  render = function () {
-    var x = _renderGc.apply(this, arguments);
-    try { gcMonta(); } catch (e) {}
-    return x;
-  };
+  aposRender(gcMonta);

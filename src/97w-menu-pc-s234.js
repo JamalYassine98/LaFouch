@@ -35,9 +35,4 @@
       if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
   }
-  var _renderRx = render;
-  render = function () {
-    var r = _renderRx.apply(this, arguments);
-    try { rxMonta(); } catch (e) {}
-    return r;
-  };
+  aposRender(rxMonta);

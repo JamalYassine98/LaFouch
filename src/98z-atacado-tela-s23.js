@@ -108,12 +108,7 @@
     el.innerHTML = '<div class="top"><div><h1>Atacado</h1><div class="crumb">Lojistas, lotes e pedidos em quantidade.</div></div><button type="button" class="pgAc" data-act="ataNovo">+ Novo acesso</button></div>' + tabs + '<div id="ataCorpo">' + ataCorpo() + '</div>';
     if (window.lfLinhaAbas) window.lfLinhaAbas('ataTabs', '.on');
   }
-  var _render23 = render;
-  render = function () {
-    var r = _render23.apply(this, arguments);
-    try { renderAtacado(); } catch (e) {}
-    return r;
-  };
+  aposRender(renderAtacado);
   ACT.ataAba = function (id) {
     if (S.ataAba === id) return;
     S.ataAba = id;
