@@ -1,0 +1,2 @@
+em andamento · APP · recado da NUVEM 20/11 15:57 (S3, aprovado no S6S3)
+**Vistas pela análise (S3)** — a contagem de visitas por peça existia duas vezes (vistas/ no banco, aberta, e a análise com selo). No app, vistasBusca (src/97-vistas-site.js) deixa de paginar vistas/ e passa a pedir o resumo de 30 dias à função analise com o login do dono; S.vistas = porPeca. A chamada à análise fica num lugar só (analiseResumo), usada pelas 4 que pediam o resumo. Nenhuma tela muda (6b).
