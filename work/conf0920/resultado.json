@@ -1,0 +1,55 @@
+{
+ "hoje": {
+  "login_certo": {
+   "chamadas": [
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/usuarios/joaoteste ",
+    "identitytoolkit.googleapis.com/v1/accounts:signInWithPassword {\"email\":\"joao@teste.com\",\"password\":\"certa123\",\"returnSecureToken\":tr",
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/clientes/u2 ",
+    "southamerica-east1-lafouch-2f6bd.cloudfunctions.net/cupom {\"acao\":\"meus\"}",
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/clientes/u2 {\"fields\":{\"nome\":{\"stringValue\":\"João\"},\"email\":{\"stringValue\":\"joao@"
+   ],
+   "mensagem": "",
+   "entrou": true
+  },
+  "login_errado": {
+   "chamadas": [
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/usuarios/joaoteste ",
+    "identitytoolkit.googleapis.com/v1/accounts:signInWithPassword {\"email\":\"joao@teste.com\",\"password\":\"errada\",\"returnSecureToken\":true"
+   ],
+   "mensagem": "Usuário/e-mail ou senha incorretos.",
+   "entrou": false
+  },
+  "token": {
+   "chamadas": [
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/reservas/P1 "
+   ],
+   "pedido": "Pedido 1001 · 20/11/2026 · · Retirada · Código LF-VELHO · Pago · reservado"
+  }
+ },
+ "prop": {
+  "login_certo": {
+   "chamadas": [
+    "southamerica-east1-lafouch-2f6bd.cloudfunctions.net/conta {\"acao\":\"entrar\",\"user\":\"joaoteste\",\"senha\":\"certa123\"}",
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/clientes/u2 ",
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/clientes/u2 {\"fields\":{\"nome\":{\"stringValue\":\"João\"},\"email\":{\"stringValue\":\"joao@",
+    "southamerica-east1-lafouch-2f6bd.cloudfunctions.net/cupom {\"acao\":\"meus\"}"
+   ],
+   "mensagem": "",
+   "entrou": true
+  },
+  "login_errado": {
+   "chamadas": [
+    "southamerica-east1-lafouch-2f6bd.cloudfunctions.net/conta {\"acao\":\"entrar\",\"user\":\"joaoteste\",\"senha\":\"errada\"}"
+   ],
+   "mensagem": "Usuário/e-mail ou senha incorretos.",
+   "entrou": false
+  },
+  "token": {
+   "chamadas": [
+    "firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/reservas/P1 ",
+    "southamerica-east1-lafouch-2f6bd.cloudfunctions.net/reserva {\"acao\":\"token\",\"pedido\":\"P1\",\"tel\":\"+595981000000\"}"
+   ],
+   "pedido": "Pedido 1001 · 20/11/2026 · · Retirada · Código LF-4821 · Pago · reservado"
+  }
+ }
+}

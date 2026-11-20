@@ -1,0 +1,3880 @@
+[
+ {
+  "aparelho": "celular",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 143→100, larg 165→155, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 226→197"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "button.p1.lx44 \"Ver modelo\"",
+    "classe p1→lx44 p1"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 226→197"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 146→131"
+   ],
+   [
+    "mudou",
+    "a.p2.lx44 \"Ver ofertas\"",
+    "classe p2→lx44 p2"
+   ],
+   [
+    "mudou",
+    "button.nwb.lx44 \"Receber pelo WhatsApp\"",
+    "classe nwb→lx44 nwb"
+   ],
+   [
+    "mudou",
+    "button.nlk.lx44 \"Prefiro por e-mail\"",
+    "classe nlk→lx44 nlk"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 161→131"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 206→177"
+   ],
+   [
+    "mudou",
+    "button.lfba.lx44 \"Solicitar orçamento\"",
+    "classe lfba→lfba lx44"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 206→177"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 518→489"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2665→2606"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2167→2109"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 3146→3087"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1305→1276"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 192→177"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 143→100, larg 165→155, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 3455→3397"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 2124→2066"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 24→9"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 161→131"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 212→197"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1348→1319, alt 750→721"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 518→489"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2622→2563"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 129→137, larg 108→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 331→327, topo 0→11, larg 44→47, alt 44→16, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "classe navb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo -33→0, alt 826→793"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 4075→4025"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 129→137, larg 130→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 808→775"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 4075→4025"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1373→1326"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "nav.lfcam",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rth",
+    ""
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.cim",
+    "esq 137→7, topo 23→7, larg 227→48, alt 21→48, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13.5px 400→16px 400, classe pgcr→cim"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.dfav.lxpos",
+    "fundo rgba(255, 255, 255, 0.94)→rgba(0, 0, 0, 0), classe dfav fav→dfav fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 8→14, topo 8→10, larg 19→14, alt 19→14, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, larg 6→9"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.ref \"GR3340\"",
+    "esq 180→0, topo 4→9, alt 14→18, letra 13.5px 400→12px 400, classe —→ref"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "button.pgback.navb.lx44",
+    "classe navb pgback→lx44 navb pgback"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.dmi",
+    "esq 7→300, topo 7→0, larg 48→74, alt 48→36, classe cim→dmi"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 162→140, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Catálogo\"",
+    "topo 0→-12, larg 54→52, alt 21→43, letra 13.5px 400→13px 500, classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1373→1326"
+   ],
+   [
+    "mudou",
+    "div.scrim.pg",
+    "topo 73→110, alt 830→793"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 129→137, larg 108→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo 44→110, alt 826→793"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→7, topo 3→5, larg 14→5, alt 13→8"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"+\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, topo 5→3, larg 7→14, alt 7→13, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"−\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 129→137, larg 130→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "svg",
+    "topo 12→6, larg 22→14, alt 22→14, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→11, topo 13→11, larg 18→24, alt 18→24, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 331→327, topo 0→11, larg 44→47, alt 44→16, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "alt 77→110"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 12→8, topo 6→8, larg 14→19, alt 14→19, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 4→5, larg 15→7, alt 14→7, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "classe navb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "a.navv.lx44 \"Ver todas ›\"",
+    "classe navv→lx44 navv"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Armações\"",
+    "esq 86→72, topo 0→-12, larg 61→59, alt 21→43, letra 13.5px 400→13px 500, classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1362→1455"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.modal.pgm",
+    "alt 1968→2062"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 9→2, topo 9→13, larg 21→18, alt 21→18, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span \"GR3340\"",
+    "esq 0→152, topo 9→0, alt 18→19, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 12px 400→13px 500, classe ref→—"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 808→775"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 68→60, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 4→2, larg 9→15, alt 8→11, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "esq 300→9, topo 0→9, larg 74→120, alt 36→120, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe dmi→rth"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, topo -0→4, larg 21→5, alt 21→10, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 7→5, topo 5→2, larg 5→6, alt 8→11, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "topo 33→0, alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Ver mais\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, alt 10→8"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→4, topo 4→5, larg 5→16, alt 10→15, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 14→8, topo 10→8, larg 14→20, alt 14→20, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 143→100, larg 165→155, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 226→197"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "button.p1.lx44 \"Ver modelo\"",
+    "classe p1→lx44 p1"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 226→197"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 146→131"
+   ],
+   [
+    "mudou",
+    "a.p2.lx44 \"Ver ofertas\"",
+    "classe p2→lx44 p2"
+   ],
+   [
+    "mudou",
+    "button.nwb.lx44 \"Receber pelo WhatsApp\"",
+    "classe nwb→lx44 nwb"
+   ],
+   [
+    "mudou",
+    "button.nlk.lx44 \"Prefiro por e-mail\"",
+    "classe nlk→lx44 nlk"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 161→131"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 206→177"
+   ],
+   [
+    "mudou",
+    "button.lfba.lx44 \"Solicitar orçamento\"",
+    "classe lfba→lfba lx44"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 206→177"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 518→489"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2665→2606"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2167→2109"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 3146→3087"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1305→1276"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 192→177"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 143→100, larg 165→155, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 3455→3397"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 2124→2066"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 24→9"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 161→131"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 212→197"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1348→1319, alt 750→721"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "alt 261→232"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 518→489"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2622→2563"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 129→137, larg 108→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 331→327, topo 0→11, larg 44→47, alt 44→16, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "classe navb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo -33→0, alt 826→793"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 4075→4025"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 129→137, larg 130→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 808→775"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 4075→4025"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1373→1326"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "nav.lfcam",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rth",
+    ""
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.cim",
+    "esq 137→7, topo 23→7, larg 227→48, alt 21→48, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13.5px 400→16px 400, classe pgcr→cim"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.dfav.lxpos",
+    "fundo rgba(255, 255, 255, 0.94)→rgba(0, 0, 0, 0), classe dfav fav→dfav fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 8→14, topo 8→10, larg 19→14, alt 19→14, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, larg 6→9"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.ref \"GR3340\"",
+    "esq 180→0, topo 4→9, alt 14→18, letra 13.5px 400→12px 400, classe —→ref"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "classe ib mnb→ib lx44 lxb lxpos mnb"
+   ],
+   [
+    "mudou",
+    "button.pgback.navb.lx44",
+    "classe navb pgback→lx44 navb pgback"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.dmi",
+    "esq 7→300, topo 7→0, larg 48→74, alt 48→36, classe cim→dmi"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 162→140, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Catálogo\"",
+    "topo 0→-12, larg 54→52, alt 21→43, letra 13.5px 400→13px 500, classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1373→1326"
+   ],
+   [
+    "mudou",
+    "div.scrim.pg",
+    "topo 73→110, alt 830→793"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 129→137, larg 108→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo 44→110, alt 826→793"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→7, topo 3→5, larg 14→5, alt 13→8"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"+\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, topo 5→3, larg 7→14, alt 7→13, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"−\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 129→137, larg 130→155, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "classe ib→ib lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "svg",
+    "topo 12→6, larg 22→14, alt 22→14, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→11, topo 13→11, larg 18→24, alt 18→24, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 331→327, topo 0→11, larg 44→47, alt 44→16, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "alt 77→110"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 12→8, topo 6→8, larg 14→19, alt 14→19, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 4→5, larg 15→7, alt 14→7, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "classe navb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "a.navv.lx44 \"Ver todas ›\"",
+    "classe navv→lx44 navv"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Armações\"",
+    "esq 86→72, topo 0→-12, larg 61→59, alt 21→43, letra 13.5px 400→13px 500, classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1362→1455"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.modal.pgm",
+    "alt 1968→2062"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 9→2, topo 9→13, larg 21→18, alt 21→18, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span \"GR3340\"",
+    "esq 0→152, topo 9→0, alt 18→19, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 12px 400→13px 500, classe ref→—"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 808→775"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→374"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 68→60, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 4→2, larg 9→15, alt 8→11, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "esq 300→9, topo 0→9, larg 74→120, alt 36→120, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe dmi→rth"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, topo -0→4, larg 21→5, alt 21→10, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 7→5, topo 5→2, larg 5→6, alt 8→11, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "topo 33→0, alt 3941→3883"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "button.fav.lxpos.lx44",
+    "classe fav→fav lx44 lxpos"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Ver mais\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, alt 10→8"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "classe —→lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→4, topo 4→5, larg 5→16, alt 10→15, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 14→8, topo 10→8, larg 14→20, alt 14→20, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 155→112, larg 181→171, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 239→210"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 100\"",
+    "topo 224→210"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44",
+    "classe on→lx44 lxb lxpos on"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 239→210"
+   ],
+   [
+    "mudou",
+    "button.nlk.lx44 \"Prefiro por e-mail\"",
+    "classe nlk→lx44 nlk"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 172→143"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 219→190"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 276→247"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 219→190"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 204→190"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 23→9"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 105\"",
+    "topo 224→210"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44140\"",
+    "topo 157→143"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 290→261"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2291→2232"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3532→3474"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1055\"",
+    "topo 157→143"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 1958→1900"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 290→261"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 2749→2690"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "alt 276→247"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 276→247"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 155→112, larg 181→171, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 276→247"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1383→1354, alt 537→508"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 172→143"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 3027→2968"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "alt 3532→3474"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 204→190"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1327→1298"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 276→247"
+   ],
+   [
+    "mudou",
+    "img",
+    "alt 106→108"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 23→9"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3532→3474"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, larg 7→6, alt 7→6, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 290→261"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2347→2288"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2014→1956"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 99→106, larg 108→168, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→608"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 564→561, topo 0→10, larg 44→47, alt 44→17, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 77→110"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo -33→0, alt 776→744"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3686→3628"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 99→106, larg 130→168, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 758→726"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3686→3628"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→608"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 993→946"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "nav.lfcam",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rth",
+    ""
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1596→1690"
+   ],
+   [
+    "mudou",
+    "span.dmi",
+    "esq 137→534, topo 23→0, larg 227→74, alt 21→36, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13.5px 400→16px 400, classe pgcr→dmi"
+   ],
+   [
+    "mudou",
+    "button.fav.dfav",
+    "fundo rgba(255, 255, 255, 0.94)→rgba(0, 0, 0, 0)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 8→14, topo 8→10, larg 19→14, alt 19→14, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, larg 6→9"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.ref \"GR3340\"",
+    "esq 180→0, topo 4→9, alt 14→18, letra 13.5px 400→12px 400, classe —→ref"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.cim",
+    "esq 534→7, topo 0→7, larg 74→62, alt 36→62, classe dmi→cim"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 162→140, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "button \"Catálogo\"",
+    "topo 0→-12, larg 54→52, alt 21→43, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 993→946"
+   ],
+   [
+    "mudou",
+    "div.scrim.pg",
+    "topo 92→110, alt 761→744"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 99→106, larg 108→168, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→608"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 193→146"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo 44→110, alt 776→744"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→7, topo 3→5, larg 14→5, alt 13→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, topo 5→3, larg 7→14, alt 7→13, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 39→43, topo 14→0"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 99→106, larg 130→168, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "svg",
+    "topo 12→6, larg 22→14, alt 22→14, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3532→3474"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→11, topo 13→11, larg 18→24, alt 18→24, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "esq 564→561, topo 0→10, larg 44→47, alt 44→17, classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "alt 77→110"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 12→8, topo 6→8, larg 14→19, alt 14→19, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 12px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 4→5, larg 15→7, alt 14→7, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→12px 600"
+   ],
+   [
+    "mudou",
+    "a.navv.lx44 \"Ver todas ›\"",
+    "classe navv→lx44 navv"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button \"Armações\"",
+    "esq 86→72, topo 0→-12, larg 61→59, alt 21→43, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.modal.pgm",
+    "alt 2221→2315"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 17→2, topo 17→13, larg 17→18, alt 17→18, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "span \"GR3340\"",
+    "esq 0→152, topo 9→0, alt 18→19, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 12px 400→13px 500, classe ref→—"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 758→726"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→608"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 68→60, topo 4→0, alt 14→19, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 4→2, larg 9→15, alt 8→11, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "esq 7→9, topo 7→9, larg 62→120, alt 62→120, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe cim→rth"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, topo -0→4, larg 17→5, alt 17→10, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 7→5, topo 5→2, larg 5→6, alt 8→11, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "topo 33→0, alt 3532→3474"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Ver mais\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, alt 10→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→4, topo 4→5, larg 5→16, alt 10→15, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 14→8, topo 10→8, larg 14→20, alt 14→20, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 309→280"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 294→280"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 2366→2308"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 384→355"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 3320→3261"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1606→1577, alt 722→693"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2950→2891"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 13→4, topo 245→202, larg 300→290, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 329→300"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 309→280"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2894→2835"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 13→4, topo 245→202, larg 300→290, alt 13→14, cor rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700, classe hlin ulin→ulin"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 24→9"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 314→300"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 3597→3539"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1550→1521"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3924→3866"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 100\"",
+    "topo 314→300"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 329→300"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 247→233"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 82→115"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44140\"",
+    "topo 247→233"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1055\"",
+    "topo 247→233"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 262→233"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "alt 3924→3866"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 24→9"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 384→355"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2422→2364"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 262→233"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "topo 24→9"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 105\"",
+    "topo 314→300"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 384→355"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 384→355"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3924→3866"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 294→280"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 366→337"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 294→280"
+   ],
+   [
+    "mudou",
+    "i",
+    "topo 2→3, cor rgb(211, 47, 47)→rgb(198, 40, 40), fundo rgb(211, 47, 47)→rgb(198, 40, 40), letra 11px 800→11.5px 700"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 191→198, larg 108→290, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→1320"
+   ],
+   [
+    "mudou",
+    "a.lfgf \"Filtros\"",
+    "topo 8→11"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 169→122"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "topo 33→0, alt 82→115"
+   ],
+   [
+    "mudou",
+    "button.navb.vback",
+    "larg 64→1320"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo -33→0, alt 818→785"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 4244→4186"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 191→198, larg 130→290, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 800→767"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 4244→4186"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→1320"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 923→876"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "nav.lfcam",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.evlf \"⚡ Black Friday · ofertas em to\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.evse \"Black Friday\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "a.wa",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rth",
+    ""
+   ],
+   [
+    "mudou",
+    "span.dmi",
+    "esq 141→518, topo 25→0, larg 228→74, alt 22→36, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13.5px 400→16px 400, classe pgcr→dmi"
+   ],
+   [
+    "mudou",
+    "button.fav.dfav",
+    "fundo rgba(255, 255, 255, 0.94)→rgba(0, 0, 0, 0)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 8→14, topo 8→10, larg 19→14, alt 19→14, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, larg 6→9"
+   ],
+   [
+    "mudou",
+    "span.ref \"GR3340\"",
+    "esq 180→0, topo 4→9, alt 14→18, letra 13.5px 400→12px 400, classe —→ref"
+   ],
+   [
+    "mudou",
+    "span.cim",
+    "esq 518→7, topo 0→7, larg 74→62, alt 36→62, classe dmi→cim"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 162→140, topo 4→0, alt 14→20, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "button \"Catálogo\"",
+    "topo 0→-12, larg 54→52, alt 22→44, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 923→876"
+   ],
+   [
+    "mudou",
+    "div.scrim.pg",
+    "topo 82→115, alt 818→785"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 8→2, topo 191→198, larg 108→290, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "larg 139→1320"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "topo 169→122"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "topo 49→115, alt 818→785"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→7, topo 3→5, larg 14→5, alt 13→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→2, topo 5→3, larg 7→14, alt 7→13, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 14px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "topo 1162→1281"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 8→2, topo 191→198, larg 130→290, alt 22→14, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgba(255, 255, 255, 0.92)→rgba(0, 0, 0, 0), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 12→18, topo 12→10, larg 22→14, alt 22→14, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→14px 600"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3924→3866"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→11, topo 13→11, larg 18→24, alt 18→24, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "a.lfgf \"Filtros\"",
+    "topo 8→11"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "alt 82→115"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 18→8, topo 10→8, larg 14→19, alt 14→19, cor rgb(255, 255, 255)→rgb(138, 119, 130), letra 14px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "larg 15→7, alt 14→7, cor rgb(125, 42, 90)→rgb(255, 255, 255), letra 16px 400→14px 600"
+   ],
+   [
+    "mudou",
+    "button.navb.vback",
+    "larg 64→1320"
+   ],
+   [
+    "mudou",
+    "button \"Armações\"",
+    "esq 86→72, topo 0→-12, larg 61→59, alt 22→44, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "div.modal.pgm",
+    "alt 1549→1667"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 11→2, topo 11→13, larg 27→18, alt 27→18, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "span \"GR3340\"",
+    "esq 0→152, topo 9→0, alt 18→20, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 12px 400→13px 500, classe ref→—"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "alt 800→767"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "larg 139→1320"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 68→60, topo 4→0, alt 14→20, letra 13.5px 400→13px 500"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 4→2, larg 9→15, alt 8→11, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "esq 7→9, topo 7→9, larg 62→120, alt 62→120, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe cim→rth"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, topo -0→4, larg 27→5, alt 27→10, cor rgb(255, 255, 255)→rgb(225, 29, 72), letra 16px 400→16px 600"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 7→5, topo 5→2, larg 5→6, alt 8→11, cor rgb(138, 119, 130)→rgb(225, 29, 72), letra 16px 400→12px 700"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "topo 33→0, alt 3924→3866"
+   ],
+   [
+    "mudou",
+    "i",
+    "esq 8→0, topo 8→3, cor rgb(42, 31, 39)→rgb(198, 40, 40), fundo rgb(181, 72, 42)→rgb(198, 40, 40), letra 11.5px 600→11.5px 700"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "topo 0→33"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, alt 10→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→4, topo 4→5, larg 5→16, alt 10→15, cor rgb(225, 29, 72)→rgb(125, 42, 90), letra 16px 600→16px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 14→8, topo 10→8, larg 14→20, alt 14→20, cor rgb(225, 29, 72)→rgb(255, 255, 255), letra 12px 700→16px 700"
+   ]
+  ],
+  "ruido_ignorado": 0
+ }
+]
