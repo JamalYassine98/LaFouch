@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "limpeza dos remendos da nuvem: e-mail num lugar só (regra 12/6b)",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795174856.442682,

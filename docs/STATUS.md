@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | limpeza dos remendos da nuvem: e-mail num lugar só (regra 12/6b) | functions/ |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
