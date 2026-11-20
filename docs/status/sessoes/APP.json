@@ -1,7 +1,23 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 29: remendos parte 4a — Dashboard, dia e Histórico numa função cada",
+ "arquivos": [
+  "src/90-navegacao-dashboard.js",
+  "src/93-historico.js",
+  "src/97-hist-busca.js",
+  "src/89-dash-abas.js",
+  "src/98-dash-cabecalho.js",
+  "src/98z-dashboard-s48.js",
+  "src/98z-s374.js",
+  "src/98z-s374d-padrao.js",
+  "src/98z-grupo-flecha-s41.js",
+  "src/98z-pc-s244.js",
+  "src/97y-familias-s265.js",
+  "src/97u-navegacao-s184.js",
+  "src/97r-temas-s183.js",
+  "src/97w-guardiao.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795199284.503005,
