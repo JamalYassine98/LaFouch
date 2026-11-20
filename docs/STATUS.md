@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 28: remendos — trocas inteiras (mkAbre, cupAbre, estTutorial, dPer, dPerEsc, famNum, stAbre, avMin) | src/97-marketing.js, src/97-cupons.js, src/97-estudio.js, src/98-dash-cabecalho.js, src/97y-familias-s265.js, src/97-push.js, src/98z-s374.js, src/98z-s374d-padrao.js, src/98z-camera-s262.js, src/98z-dashboard-s48.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
 
 ## Fila
