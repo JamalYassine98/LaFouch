@@ -35,7 +35,7 @@
 - **08-s1-s2-parte-1-nuvem-dono-implementar-19** — ✅ publicado pelo dono 19/11 15:44 (functions + regras); conferido: `conta` livre=ok, `reserva` token sem telefone certo = recusado · NUVEM · pedido 19/11 15:29
 - **09-s1-s2-parte-2-site-depois-do-item-8-publ** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
 - **10-s1-s2-parte-2-app-depois-do-item-8-publi** — ✅ v566 (19/11) — grava em reservasTok E ainda em reservas/ (o site antigo lê de lá); tirar o de reservas/ junto com o item 11 · APP · pedido 19/11 15:29
-- **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — PRONTA E TESTADA no ramo nuvem-parte3b (atualizada sobre o main de 20/11 09:55, com selo e limpeza 2; não publicada) — espera o item 09 (site) publicado e o item 21 (app)
+- **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — PRONTA E TESTADA no ramo nuvem-parte3b (sem a espera do token: era remendo de transição, saiu pela regra 12) — publica depois do 09; o APP publica o 21 logo em seguida
 - **12-p1b-orfas-nuvem-dono-implementar-16-12-e** — ✅ publicado pelo dono 19/11 16:21; conferido: `orfas` sem login = sem-permissao · NUVEM · pedido 19/11 16:12
 - **13-p1b-orfas-app-depois-do-item-12-publicad** — ✅ v567 (19/11) · APP · pedido 19/11 16:12
 - **14-urgente-interruptor-do-site-some-no-pain** — ✅ publicado no site (catalogo ef883de, 19/11 19:28); CONFERIDO pela S435 no simulador: com o site ligado e desligado o cartão do interruptor fica no topo (prova.py). Dono testou no celular 19/11 19:45: funcionou ✓ · SITE · pedido 19/11 19:03
