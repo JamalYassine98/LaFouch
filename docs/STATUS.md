@@ -61,7 +61,6 @@
 
 ## Recados esperando
 
-- para **APP**: COMO FAZER (jeito natural, regra 12) dos aprovados de hoje — NÃO copiar o código dos esboços (é pintura por cima: !important, estilo na linha, vigia que reaplic
 - para **ESBOCO**: v579 (5.50.4) publicado 20/11 15:25 — item 27, remendos PARTE 2c: setView sem embrulho e nomes/frases das telas escritos uma vez (BARRA_NOME, GRP_FRASE, DT_FRAS
 - para **ESBOCO**: v580 (5.50.5) publicado 20/11 16:05 — item 21 (por dentro, nuvem): código de entrega e confirmação automática do PIX só em reservasTok. Nenhuma tela muda. Para 
 - para **ESBOCO**: Prompt do dono (20/11 12:26): use só o nome ESBOCO no status (nunca NUVEM, APP ou SITE). Já estão no ar o 09 e o 20 (site 1795192682) e o 21 (app v580). Confira
