@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| NUVEM | limpeza 2 da nuvem (regra 12): código repetido em functions/ | functions/ |
 
 ## Fila
 

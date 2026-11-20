@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "limpeza 2 da nuvem (regra 12): código repetido em functions/",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795177545.3605673,
@@ -44,5 +46,5 @@
    "r": "noite 20/11: parte 3 de S1/S2 (item 11) PRONTA E TESTADA no ramo nuvem-parte3, sem publicar (espera o item 09 do site e o item 18 do app, criado na Fila com recado para a APP); travas no teste. Esboços S5+S7 e S6+S3 entregues ao dono fora do repositório."
   }
  ],
- "leu": 1795173768.278384
+ "leu": 1795178247.34946
 }
