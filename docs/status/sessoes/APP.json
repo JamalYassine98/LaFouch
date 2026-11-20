@@ -1,7 +1,9 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "guardar aprovado: comparador único (site + app)",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md"
+ ],
  "ultimas": [
   {
    "t": 1795153871.5382085,
@@ -16,5 +18,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795153869.4409146
+ "leu": 1795173470.0190325
 }

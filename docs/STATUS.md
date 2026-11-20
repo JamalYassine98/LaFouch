@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | guardar aprovado: comparador único (site + app) | docs/FALTA-APROVAR-15-11.md |
 | SITE | item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo | js/lf-site.js |
 
 ## Fila
