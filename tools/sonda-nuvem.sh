@@ -22,6 +22,10 @@ confere "codigo sem login" 401 "$(post codigo application/json '{"acao":"enviar"
 confere "mensagem lista sem login" 403 "$(post mensagem application/json '{"acao":"lista"}')"
 confere "pedido com formato errado" 400 "$(post pedido application/json '{"id":"x","doc":{}}')"
 confere "pix sem a chave do robô" 403 "$(post pix application/json '{}')"
+# S3 parte 3 (20/11): ninguém cria direto em pedidos/ nem em vistas/ pelo banco (só pelas funções) — chave pública do site, não é segredo
+FS='https://firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents'; K='AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc'
+confere "banco: criar pedido direto é recusado" 403 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X POST -H 'Content-Type: application/json' -d '{"fields":{"nome":{"stringValue":"sonda"}}}' "$FS/pedidos?documentId=sonda$(date +%s)&key=$K")"
+confere "banco: gravar vista direto é recusado" 403 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X PATCH -H 'Content-Type: application/json' -d '{"fields":{"ts":{"integerValue":"1"},"r":{"mapValue":{}}}}' "$FS/vistas/vsonda$(date +%s)?key=$K")"
 cors() { curl -s -D - -o /dev/null --max-time 30 -X OPTIONS -H "Origin: $2" -H 'Access-Control-Request-Method: POST' "$B/$1" | tr -d '\r' | awk -F': ' 'tolower($1)=="access-control-allow-origin"{print $2}'; }
 for f in reserva conta mensagem atacado; do
   confere "$f aceita o site" "https://lafouch.com" "$(cors $f https://lafouch.com)"
