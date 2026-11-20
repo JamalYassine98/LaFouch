@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| SITE | item 9 (login pela função conta, token pela função reserva) — esboço no ramo esb-item9 do catalogo | js/lf-site.js |
+| SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
 
