@@ -1,5 +1,5 @@
 // S2 (19/11/2026, aprovado e "implementar" do dono): a lista usuarios/<nome> deixa de mostrar o e-mail ao público.
-// O site pergunta à função: "este nome está livre?" e "entrar com nome + senha" (a função acha o e-mail e faz o login por dentro).
+// Entrar com nome de usuário antigo + senha: a função acha o e-mail e faz o login por dentro (contas novas não usam mais nome).
 // Regra pura (sem Firebase): db = { get(path), set(path, dados) (merge) }; entra(email, senha) -> { idToken, refreshToken, expiresIn, localId, email } ou erro.
 'use strict';
 
@@ -8,12 +8,6 @@ const ERROS_MAX = 5; // senha errada 5 vezes no mesmo nome → espera
 const TRAVA_MS = 15 * 60 * 1000;
 const nomeOk = (u) => typeof u === 'string' && u.length >= 3 && u.length <= 30 && !/[\/]/.test(u);
 const chave = (u) => 'contaTent/' + encodeURIComponent(u).slice(0, 120);
-
-async function livre(db, user) {
-  if (!nomeOk(user)) throw new Falha('nome', 400);
-  const u = await db.get('usuarios/' + user);
-  return { ok: true, livre: !u };
-}
 
 async function entrar(db, entra, agora, user, senha) {
   if (!nomeOk(user) || typeof senha !== 'string' || !senha || senha.length > 200) throw new Falha('dados', 400);
@@ -36,4 +30,4 @@ async function entrar(db, entra, agora, user, senha) {
   return { ok: true, idToken: s.idToken, refreshToken: s.refreshToken, expiresIn: s.expiresIn, localId: s.localId, email: s.email };
 }
 
-module.exports = { Falha, livre, entrar, ERROS_MAX, TRAVA_MS };
+module.exports = { Falha, entrar, ERROS_MAX, TRAVA_MS };
