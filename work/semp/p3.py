@@ -15,7 +15,7 @@ const quadro='<div style="width:216px;height:384px;flex:none;border-radius:16px;
  '<div style="position:absolute;top:32px;left:0;right:0;text-align:center;font:600 18px/1 Georgia,serif;letter-spacing:.22em;color:#f3c0dc">CHEGOU</div>'+
  '<img src="'+foto+'" style="position:absolute;left:16px;right:16px;top:116px;width:184px;height:120px;object-fit:contain;background:#fff;border-radius:10px">'+
  '<div style="position:absolute;top:252px;left:0;right:0;display:flex;justify-content:center"><span style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M7 4l13 8-13 8z"/></svg></span></div>'+
- '<div style="position:absolute;bottom:48px;left:0;right:0;text-align:center;font:700 22px/1 inherit;color:#fff">G$ 60.000</div>'+
+ '<div style="position:absolute;bottom:48px;left:0;right:0;text-align:center;font-size:22px;font-weight:700;line-height:1;color:#fff">G$ 60.000</div>'+
  '<div style="position:absolute;bottom:20px;left:0;right:0;text-align:center;font:500 12px/1 Georgia,serif;letter-spacing:.2em;color:#f3c0dc">LA FOUCH</div></div>';
 const topo='<div style="display:flex;flex-direction:column;align-items:center;gap:16px">'+quadro+'<div style="text-align:center"><b style="font-size:16px;font-weight:600;display:block">Comercial de 15 s</b><small style="font-size:13px;color:var(--mute);display:block;margin-top:4px">tendência · Óculos solar #13 · combinação nova</small></div><button type="button" class="mini" style="width:100%">Outro jeito</button></div>';
 const rot=sec('Roteiro do Semp')+
