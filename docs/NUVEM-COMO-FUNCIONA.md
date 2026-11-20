@@ -32,6 +32,10 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 - Porta `pedido`: POST `{id, doc}` com o mesmo documento que o site gravava direto em `pedidos/<id>` (pedido, `comp`, `cancel`, `avise`). Confere o formato (as regras que eram do firestore.rules), limita 10 por rede/hora (cancelamento 20) e 10 pedidos por telefone/hora, e só aceita comprovante/cancelamento de pedido que ela recebeu (`pedidoIds/<id>`) e que não foi pago. Mandar de novo o mesmo = igual a 1.
 - Parte 2: o SITE passa a usar a porta. Parte 3: o firestore.rules fecha a criação direta em `pedidos/`.
 
+## Novidades por e-mail (inscricao.js; S5 + S7)
+- Inscrever (site ou "Avise-me") grava `inscricoes/<id>` com `conf: false` e manda 1 e-mail "Confirme" (no máximo 1 a cada 10 min por e-mail; 5 inscrições por rede por hora). O link (`novidades?confirmar=<id>&t=<código>`, vale 7 dias) marca `conf: true`.
+- O e-mail do tema e a lista do painel só têm quem confirmou e não saiu (`Inscricao.vale`). A limpeza diária apaga a não confirmada de 7+ dias.
+
 ## Travas (functions/teste-*.js; o GitHub roda todas antes de publicar)
 - `teste-portas.js`: as 15 portas respondem certo a método errado, corpo vazio, ação inválida, corpo em texto e dono sem login; as portas do site usam uma lista só; cada peça comum aparece num lugar só; os avisos ao celular.
 - `teste-email.js`: um só envio de e-mail · `teste-selo.js`: toda porta pública chama o selo.

@@ -36,11 +36,7 @@ function mkDb() {
   db.av['SL2210__u1'].ok = false;
   await L.avaliar(db, ana, { ref: 'SL2210', nota: 5 }, 4000);
   t('oculta pelo dono continua oculta ao editar', db.av['SL2210__u1'].ok === false);
-  e = null; try { await L.inscrever(db, { email: 'nao-e-email' }, 1); } catch (x) { e = x; }
-  t('inscrição: e-mail inválido', e && e.motivo === 'email');
-  await L.inscrever(db, { email: ' Ana@X.com ', lang: 'es' }, 5);
-  await L.inscrever(db, { email: 'ana@x.com' }, 6);
-  t('inscrição: sem duplicar', Object.keys(db.ins).length === 1);
+  // a inscrição nas novidades saiu daqui: inscricao.js (S5, teste-inscricao.js)
   e = null; try { await L.lista(db, '../x'); } catch (x) { e = x; }
   t('ref inválida', e && e.motivo === 'ref');
   console.log('loja: ' + ok + ' testes ok' + (falhou ? ', ' + falhou + ' falharam' : ''));

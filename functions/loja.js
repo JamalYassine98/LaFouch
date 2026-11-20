@@ -4,12 +4,10 @@
 //   db.reservaPaga(id) -> true/false            (reservas/<id>.pago, gravado pelo app quando confirma o pagamento)
 //   db.getAval(id) / db.setAval(id, o) / db.listaAval(ref) / db.recentesAval(n)
 //   db.setInscricao(id, o) / db.listaInscricoes()
-const crypto = require('crypto');
 
 const { Falha } = require('./falha');
 
 const REF_OK = /^[A-Za-z0-9._-]{1,30}$/;
-const { EMAIL_OK } = require('./texto');
 
 const limpa = require('./texto').linha;
 // "Ana Paula Souza" -> "Ana S."  (nunca o nome completo no site)
@@ -99,12 +97,5 @@ async function lista(db, ref) {
   };
 }
 
-async function inscrever(db, b, agora) {
-  const email = limpa(b.email, 200).toLowerCase();
-  if (!EMAIL_OK.test(email)) throw new Falha('email');
-  const id = crypto.createHash('sha256').update(email).digest('hex').slice(0, 40);
-  await db.setInscricao(id, { email, lang: b.lang === 'es' ? 'es' : 'pt', ts: agora, orig: 'site' });
-  return { ok: true };
-}
 
-module.exports = { suspeita, Falha, nomeCurto, compra, posso, avaliar, lista, inscrever, avalId };
+module.exports = { suspeita, Falha, nomeCurto, compra, posso, avaliar, lista, avalId };
