@@ -15,11 +15,8 @@ if(pc){j.style.cssText+=';left:50%;right:auto;top:72px;bottom:auto;transform:tra
 else{j.style.top='56px';j.style.height='calc(100vh - 56px)';j.style.maxHeight='none'}
 // 3) topo e botão: os do padrão aprovado (título à esquerda, UM botão de ação embaixo — 142d); só o 'Me lembra' deixa de ser um 2º botão
 const ac=getComputedStyle(j.querySelector('#mkPost')).color;
-// 4) "Me lembra" deixa de ser um 2º botão grande: vira o link rosa centralizado embaixo do botão (família Link, igual aos links do fim da ficha: "Vender no Catálogo ›")
-const lm=j.querySelector('#mkLemb');const ln=document.createElement('div');
-const lk=[...document.querySelectorAll('a,button,span')].find(e=>/›\s*$/.test(e.textContent)&&getComputedStyle(e).color===ac);
-ln.style.cssText='text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;margin-top:8px;font-size:15px;font-weight:600;color:'+ac;
-ln.textContent='Me lembrar às 20h';lm.replaceWith(ln);
+// 4) 'Me lembra' SAI (dono 20/11 13:28): o lembrete da hora já vem da Agenda do Semp pelo sino
+j.querySelector('#mkLemb').remove();
 // 5) legenda em linha fina (campo 149c), sem caixa
 const tx=j.querySelector('#mkTx');tx.style.cssText+=';border:0;border-bottom:1px solid var(--line2);border-radius:0;background:none;padding:8px 0;min-height:120px;box-shadow:none';
 const lb=document.createElement('div');lb.textContent='Legenda';lb.style.cssText='font-size:13px;color:var(--mute);margin-top:24px';tx.before(lb);
@@ -49,4 +46,4 @@ with sync_playwright() as pw:
       pg.locator('#v-mkt button[data-cria=video]').first.click();w(1500);pg.evaluate(JS3,ft);w(300)
       if fase=='prop': pg.evaluate(LUXO,False)
       q.append(foto(pg,fase+n,390,844));b.close()
-    quadro('esboco_janela_luxo_celular_%s.jpg'%n,esc,[('HOJE · acabamento atual','em cima: começo · embaixo: fim rolado',q[0]),('PROPOSTA · padrão aprovado (142d)','um botão + link · campos em linha · fundo desfocado',q[1])],780)
+    quadro('esboco_janela_luxo_celular_%s.jpg'%n,esc,[('HOJE · acabamento atual','em cima: começo · embaixo: fim rolado',q[0]),('PROPOSTA · padrão aprovado (142d)','um botão só · campos em linha · fundo desfocado',q[1])],780)
