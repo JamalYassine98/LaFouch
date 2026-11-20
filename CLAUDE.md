@@ -31,7 +31,7 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
     c) **Um lugar só, vale para tudo:** a regra fica num ponto e serve para todas as telas e famílias (ex.: uma só medida do topo para todas as telas que abrem por cima; uma só ordem de camadas para faixa, topo, menu e janelas).
     d) **Apaga o que substitui** no mesmo passo (botão vira redondo → sai a regra que o deixava quadrado). Correção que só acrescenta código é remendo: volta para (b). Não apagar função preparada que ainda não foi ligada.
     e) **Trava:** cada erro corrigido ganha uma prova no porteiro, para não voltar em nenhuma tela.
-    Proposta que não passa em a–e não é mandada ao dono.
+    **Antes de propor qualquer solução, perguntar-se: "o que eu estou propondo é remendo?"** (dono 20/11 11:04) — se for (não passa em a–e, ou depende de sorte), refazer; só o que não é remendo vai ao dono.
 13. **Família inteira:** mudar um botão = mudar a família toda, com a regra num lugar só (inventário 1 = app atual, inventário 2 = aprovados; só publica com os dois iguais).
 
 ## 5. Design de luxo (site e app, todos os aparelhos; app claro e escuro)
