@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "investigar as 9 falhas do porteiro completo (só investigação; esboço antes de mexer)",
+ "arquivos": [
+  "work/fiscal/provas.py"
+ ],
  "ultimas": [
   {
    "t": 1795217631.1839817,
@@ -44,5 +46,5 @@
    "r": "porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir"
   }
  ],
- "leu": 1795215863.5455403
+ "leu": 1795217753.365837
 }
