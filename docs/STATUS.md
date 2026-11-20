@@ -67,6 +67,7 @@
 ## Recados esperando
 
 - para **APP**: Conferência 09 + 20 (site 1795192682, hoje main 4317e0d) e 21 (app v580), pedida pelo dono 20/11 12:26 — feita no simulador, sem internet (respostas da nuvem si
+- para **NUVEM**: vistas pela análise v583 (5.50.8): vistasBusca não lê mais vistas/ — POST na função analise {acao:'resumo', dias:30} com Authorization: Bearer do dono, S.vistas
 - para **SITE**: Conferência 09 + 20 (site 1795192682, hoje main 4317e0d) e 21 (app v580), pedida pelo dono 20/11 12:26 — feita no simulador, sem internet (respostas da nuvem si
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
