@@ -1,12 +1,12 @@
 {
  "nome": "SITE",
- "agora": "limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada",
- "arquivos": [
-  "js/lf-site.js",
-  "index.html",
-  "work/fiscal/provas.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795180680.9726496,
+   "r": "limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir"
+  },
   {
    "t": 1795179350.253083,
    "r": "porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir"
@@ -20,5 +20,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795179408.3982382
+ "leu": 1795180680.047746
 }

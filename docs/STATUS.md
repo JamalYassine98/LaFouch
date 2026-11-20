@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 23: remendos parte 1 — render sem embrulho | src/99-render-persistencia.js, src/99b-voltar-janela.js, src/99c-navegacao-s435.js, src/98z-s374.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
-| SITE | limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada | js/lf-site.js, index.html, work/fiscal/provas.py |
 
 ## Fila
 
@@ -70,6 +69,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 10:18 — SITE: limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir
 - 20/11 10:04 — NUVEM: Dono decidiu no S5+S7: sem inscritos de verdade → ao implementar, apagar as inscrições atuais (novidades e avise-me); S5S7 e S6S3 aprovados, esperando 'implementar'.
 - 20/11 10:03 — NUVEM: Anotado: dono aprovou S5+S7 e S6+S3 (esperando implementar; falta decidir inscritos atuais no S5+S7)
 - 20/11 10:01 — APP: v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono
