@@ -1,13 +1,8 @@
 {
  "nome": "APP",
- "agora": "item 16: peça incompleta não vai ao site + peças de teste",
+ "agora": "item 21: S1/S2 parte 3 do app (ramo app-item21, sem publicar)",
  "arquivos": [
-  "src/64-identidade.js",
-  "src/97-site-auto.js",
-  "src/96-loja-online.js",
-  "src/10-estoque-detalhe.js",
-  "www/style.css",
-  "tests/run.py"
+  "src/95-pedidos.js"
  ],
  "ultimas": [
   {

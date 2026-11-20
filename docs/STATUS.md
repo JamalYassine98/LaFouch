@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 16: peça incompleta não vai ao site + peças de teste | src/64-identidade.js, src/97-site-auto.js, src/96-loja-online.js, src/10-estoque-detalhe.js, www/style.css, tests/run.py |
+| APP | item 21: S1/S2 parte 3 do app (ramo app-item21, sem publicar) | src/95-pedidos.js |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
 
 ## Fila
