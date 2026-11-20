@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 571;
+  var APP_BUILD = 572;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.49.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.49.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -51822,39 +51822,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (_vp && _vp.parentNode) _vp.parentNode.insertBefore(_vs, _vp);
     else document.querySelector('.wrap') && document.querySelector('.wrap').appendChild(_vs);
   }
-  if (!VIEWS.some(function (v) { return v[0] === 'site'; })) VIEWS.push(['site', 'Site']);
-  BARRA_NOME.site = 'Site';
-  GRP_FRASE.site = 'Pedidos, mensagens, avisos e vitrine';
+  // B3 (19/11, aprovado): a tela de resumo do grupo Site chama "Resumo" (o grupo e a tela tinham o mesmo nome e parecia não sair do lugar)
+  if (!VIEWS.some(function (v) { return v[0] === 'site'; })) VIEWS.push(['site', 'Resumo']);
+  BARRA_NOME.site = 'Resumo';
   if (!ICO_D.site) ICO_D.site = ICO_D.onl;
   FAM7[2].itens.unshift('site');
-  function siteNum(n, tit, sub, act, id) {
-    return '<button type="button" class="stN" data-act="' + act + '" data-id="' + id + '"><small>' + tit + '</small><b>' + (n == null ? '—' : n) + '</b><span>' + esc(sub) + '</span></button>';
-  }
-  function siteLin(tit, val, act, id) {
-    return '<button type="button" class="ataL stL" data-act="' + act + '" data-id="' + id + '"><span><b>' + esc(tit) + '</b></span>' + (val ? '<small class="stV">' + esc(val) + '</small>' : '') + '<i aria-hidden="true">›</i></button>';
-  }
+  // a tela Resumo é montada num lugar só: __renderSite95 (src/98z-s374c-site.js); o corpo antigo daqui saiu no B3 (20/11)
   function renderSite() {
     var el = $('v-site');
-    if (!el || S.view !== 'site') return;
-    if (window.__renderSite95) return window.__renderSite95(el); // S374 esboços 96/97
-    var r = S.pnlRes || null,
-      peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
-      novos = pedNovos(),
-      pub = Object.keys(S.site || {}).filter(function (k) { return S.site[k]; }).length,
-      tem = pnlFaixa('tem')[0];
-    el.innerHTML = '<div class="top"><div><h1>Site</h1><div class="crumb">A loja online por dentro do app.</div></div></div>' +
-      '<div class="stG">' +
-      siteNum(peds.length, 'Pedidos', novos ? novos + (novos === 1 ? ' novo para separar' : ' novos para separar') : 'nenhum novo', 'stAbre', 'ped') +
-      siteNum(r ? r.msg : null, 'Mensagens', r ? (r.ata ? r.ata + ' de atacado' : 'nenhuma de atacado') : 'abra para atualizar', 'stAbre', 'msg') +
-      siteNum(r ? r.av : null, 'Avisos do site', 'Analisador', 'stAbre', 'anl') +
-      siteNum(pub, 'Vitrine', pub === 1 ? 'peça publicada' : 'peças publicadas', 'stAbre', 'prod') +
-      '</div><div class="card stLs">' +
-      siteLin('Destaque da semana', '', 'stAbre', 'vit') +
-      siteLin('Temática', tem, 'stAbre', 'tem') +
-      siteLin('Marketing', 'posts, vídeos e plano', 'stAbre', 'mkt') +
-      siteLin('Ajustes do site', 'frete, PIX, idioma', 'stAbre', 'cfg') +
-      siteLin('Abrir a loja como o cliente vê', '', 'stLoja', '') +
-      '</div>';
+    if (!el || S.view !== 'site' || !window.__renderSite95) return;
+    window.__renderSite95(el);
   }
   var _render374 = render;
   render = function () {
@@ -52382,7 +52359,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
       novos = pedNovos(),
       off = x && !x.on;
-    el.innerHTML = '<div class="top"><div><h1>Site</h1></div></div>' +
+    el.innerHTML = '<div class="top"><div><h1>' + esc(BARRA_NOME.site) + '</h1></div></div>' +
       '<div class="cx97"><button type="button" class="st96' + (x ? (off ? ' off' : '') : ' nd') + '" data-act="stEstado"><i class="d" aria-hidden="true"></i><span><b>' +
       (x ? (off ? 'Site desligado' : 'Site no ar') : 'Estado do site') + '</b><small>' + (x ? (off ? 'Ninguém vê o catálogo agora' : 'Os clientes veem o catálogo agora') : 'toque para conferir') + '</small></span><em aria-hidden="true">›</em></button>' +
       '<button type="button" class="pv97" data-act="stPrev"><span><b>Prévia do site</b></span><small>preços e descontos</small><em aria-hidden="true">›</em></button></div>' +

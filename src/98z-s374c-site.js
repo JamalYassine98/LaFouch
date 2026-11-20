@@ -128,7 +128,7 @@
       peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
       novos = pedNovos(),
       off = x && !x.on;
-    el.innerHTML = '<div class="top"><div><h1>Site</h1></div></div>' +
+    el.innerHTML = '<div class="top"><div><h1>' + esc(BARRA_NOME.site) + '</h1></div></div>' +
       '<div class="cx97"><button type="button" class="st96' + (x ? (off ? ' off' : '') : ' nd') + '" data-act="stEstado"><i class="d" aria-hidden="true"></i><span><b>' +
       (x ? (off ? 'Site desligado' : 'Site no ar') : 'Estado do site') + '</b><small>' + (x ? (off ? 'Ninguém vê o catálogo agora' : 'Os clientes veem o catálogo agora') : 'toque para conferir') + '</small></span><em aria-hidden="true">›</em></button>' +
       '<button type="button" class="pv97" data-act="stPrev"><span><b>Prévia do site</b></span><small>preços e descontos</small><em aria-hidden="true">›</em></button></div>' +

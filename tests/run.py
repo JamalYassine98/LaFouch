@@ -3625,6 +3625,21 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # B3 (20/11/2026): no grupo Site a linha e o título da tela de resumo são "Resumo" (o grupo continua "Site"); o título vem de BARRA_NOME, num lugar só
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.nvG = 'g:site'; S.nvP = ['grp:g:site']; L.setView('grp'); await w(400);
+              const lin = [...document.querySelectorAll('.nvL')].filter(e => e.offsetHeight).map(e => e.querySelector('b').innerText);
+              const tit = [...document.querySelectorAll('h1')].filter(e => e.offsetHeight).map(e => e.innerText.trim())[0];
+              const r = [...document.querySelectorAll('.nvL')].find(e => e.offsetHeight && /Resumo/.test(e.innerText)); r && r.click(); await w(400);
+              const h = document.querySelector('#v-site h1');
+              return [lin[0], tit, S.view, h ? h.innerText.trim() : '']; }""")
+            total += 1
+            ok = got == ['Resumo', 'Site', 'site', 'Resumo'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'B3: grupo Site › linha e tela "Resumo" (o grupo continua "Site")')
+            if not ok: falhas.append('B3 Resumo'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Item 17 (19/11/2026): site = Inventário — peça presa na nuvem (lib) sem Inventário sai (produto + fotos), mesmo fora de S.site; mais de 5 pergunta antes
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
