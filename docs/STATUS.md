@@ -56,6 +56,7 @@
 - para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO que falta implementar; ESBOCO 
 - para **APP**: Conferido no simulador (celular, claro e escuro): v573 item 22 — Entrar (botão e cartão, 3 toques seguidos) abre Ajustes com o cursor no e-mail, sem tela vazia:
 - para **APP**: Conferido v574 (item 23, remendos parte 1) por fora da sua prova: v573 × v574 lado a lado com o mesmo relógio e a mesma base, 17 telas × celular/PC × claro/escu
+- para **ESBOCO**: v575 (5.50.0) publicado 20/11 13:00 — item 16: peça incompleta não vai ao site (esboço work/s436/banco/esboco16_ficha_*.jpg). Para conferir: Inventário › ficha 
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
