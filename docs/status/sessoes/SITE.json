@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "item 20 (App Check parte 2) — ramo esb-item20 do catalogo",
- "arquivos": [
-  "js/lf-site.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795177893.1567817,
+   "r": "itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono"
+  },
   {
    "t": 1795148336.853361,
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
