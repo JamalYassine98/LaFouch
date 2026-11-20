@@ -1,0 +1,25 @@
+$ status.py comeco APP "item 17 site = Inventário" src/96-loja-online.js
+ok, marcado
+
+$ status.py comeco ESBOCO "conferir loja" src/96-loja-online.js
+PARE: já marcado por outra sessão: src/96-loja-online.js (APP)
+
+$ status.py recado ESBOCO APP "Depois do 17, faça a parte 2 do item 15"
+ok, recado deixado
+
+$ status.py fim APP "publicado v569"   (sem ter lido o recado)
+BARRADO: há 1 recado(s) para APP que ainda não foram lidos. Rode: status.py ler APP
+
+$ status.py ler APP
+== Em andamento ==
+ APP                    item 17 site = Inventário  [src/96-loja-online.js]
+== Fila ==
+  15-camera — parte 1 ✅ v568 · partes 2 e 3 esperando
+  17-site-inventario — na fila — urgente: site = Inventário (PY-566)
+== Recados para APP: 1 ==
+ * Depois do 17, faça a parte 2 do item 15 (câmera)
+
+— de ESBOCO
+
+$ status.py fim APP "publicado v569"
+ok, anotado
