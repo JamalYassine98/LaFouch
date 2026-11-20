@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| NUVEM | limpeza dos remendos da nuvem: e-mail num lugar só (regra 12/6b) | functions/ |
 | SITE | item 20 (App Check parte 2) — ramo esb-item20 do catalogo | js/lf-site.js |
 
 ## Fila
@@ -64,6 +63,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 09:25 — NUVEM: Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f).
 - 20/11 08:40 — NUVEM: item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo
 - 20/11 08:36 — NUVEM: script de configuração do item 22 corrigido (para com erro; espera a conta nova)
 - 20/11 08:33 — NUVEM: item 22 pronto: workflow publicar-nuvem.yml + tools/configura-publicar-nuvem.sh + docs/PUBLICAR-NUVEM-GITHUB.md; falta o dono configurar
@@ -78,6 +78,5 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 01:18 — SITE: comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais
 - 20/11 01:00 — APP: item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327
 - 20/11 00:36 — APP: v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326
-- 20/11 00:30 — NUVEM: plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono
 - 19/11 23:50 — ESBOCO: conferência
 - 19/11 23:50 — ESBOCO: status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)

@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "limpeza dos remendos da nuvem: e-mail num lugar só (regra 12/6b)",
- "arquivos": [
-  "functions/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795177545.3605673,
+   "r": "Limpeza 1 (regra 12): envio de e-mail num lugar só (emailResend) no lugar de 8 cópias + trava teste-email; 19 suítes ok; publicado pelo GitHub (run 44735365715, commit 0d97d3f)."
+  },
   {
    "t": 1795174856.442682,
    "r": "item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo"
@@ -40,10 +42,6 @@
   {
    "t": 1795150052.0760403,
    "r": "noite 20/11: parte 3 de S1/S2 (item 11) PRONTA E TESTADA no ramo nuvem-parte3, sem publicar (espera o item 09 do site e o item 18 do app, criado na Fila com recado para a APP); travas no teste. Esboços S5+S7 e S6+S3 entregues ao dono fora do repositório."
-  },
-  {
-   "t": 1795145425.3258083,
-   "r": "plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono"
   }
  ],
  "leu": 1795173768.278384
