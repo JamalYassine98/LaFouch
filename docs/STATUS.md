@@ -61,7 +61,7 @@
 - **28-s5s7-nuvem** — nuvem PRONTA no ramo nuvem-s5s7 (16 provas) — espera o 'implementar' do dono; depois o SITE mostra 'Enviamos um e-mail para confirmar' quando a resposta tiver confirmar:true
 - **29-remendos-parte-4a-dashboard-dia-historico** — ✅ v582 (5.50.7, 20/11) — 0 diferenças em 60 telas · APP
 - **29-s6-vip-nuvem** — ✅ publicado 20/11 15:40 (run 44793310738, sonda 0 falhas) — SITE manda o login no 'presentes' e no 'reservar' (recado 15:41)
-- **30-s3-pedido-pela-nuvem** — parte 1 ✅ nuvem 15:55 · parte 2 ✅ SITE publicado v1795215331 (20/11 20:25) · parte 3: NUVEM fecha a criação direta em pedidos/
+- **30-s3-pedido-pela-nuvem** — ✅ completo: parte 1 (15:55) + parte 2 SITE v1795215331 (20:25) + parte 3 regras (20:08, run 44834391367; sonda no ar: criar pedido direto = 403)
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
 - **31-urgente-camera-branca-ao-gravar-a-volta** — em andamento · APP · URGENTE do dono 20/11 19:55 (celular real, via ESBOCO)
 - **31-visitas-num-lugar-so** — nuvem ✅ (porPeca na análise, 20/11 16:05) — APP lê da análise → SITE tira o vistaEnvia → NUVEM fecha vistas/ nas regras
