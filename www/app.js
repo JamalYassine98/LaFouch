@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 579;
+  var APP_BUILD = 580;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -25973,25 +25973,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   };
   // Avisa o site do cliente: grava só os campos pedidos em reservas/<id>.
+  // S1/S2 parte 3 (item 21): o token de entrega mora SÓ em reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função)
+  // e é gravado ANTES de reservas/ ficar paga, em sequência — o e-mail "pagamento confirmado" nasce quando reservas/ fica paga e lê o token de lá.
   function pedReserva(p, campos) {
-    var f = {},
+    var sid = encodeURIComponent(p.sid),
+      f = {},
       m = Object.keys(campos)
+        .filter(function (k) {
+          return k !== 'tok';
+        })
         .map(function (k) {
           f[k] = typeof campos[k] === 'boolean' ? { booleanValue: campos[k] } : { stringValue: String(campos[k]) };
           return 'updateMask.fieldPaths=' + k;
         })
-        .join('&');
-    var r = nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
-    // S1/S2 parte 2 (19/11): o token de entrega vai também para reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função).
-    // Por enquanto continua também em reservas/ (o site antigo ainda lê de lá); quem para de gravar lá é a parte 3 (NUVEM, item 11).
-    if (campos.tok)
-      r = Promise.all([
-        r,
-        nvApi('PATCH', 'reservasTok/' + encodeURIComponent(p.sid) + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } }))
-      ]).then(function (x) {
-        return x[0];
-      });
-    return r;
+        .join('&'),
+      grava = function () {
+        return m ? nvApi('PATCH', 'reservas/' + sid + '?' + m, JSON.stringify({ fields: f })) : Promise.resolve();
+      };
+    if (!campos.tok) return grava();
+    return nvApi('PATCH', 'reservasTok/' + sid + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } })).then(grava);
   }
   function pedFalhaSite() {
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
@@ -45477,7 +45477,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ===== S197 (aprovado 12/11/2026): PIX automático pelo E-MAIL do Nubank (robô do Gmail + função "pix") =====
   // Não depende da notificação do celular. O app só:
-  //  1) pedido do site: vê na reserva que o robô confirmou (reservas/{id}.pixAuto) e fecha o pedido como pago, sem mudar a tela;
+  //  1) pedido do site: vê que o robô confirmou (reservasTok/{id}.pixAuto — só o dono e o servidor leem; S1/S2 parte 3, item 21) e fecha o pedido como pago, sem mudar a tela;
   //  2) venda da loja (Venda · PIX em reais): registra a espera (pixEspera/L…) com o valor; quando o robô confirma, marca a venda;
   //  3) PIX sem par (valor que não bateu com nada ou bateu com 2): guarda em S.pixSemPar para o guardião avisar.
   S.pixEsp = S.pixEsp || {}; // chave do carrinho → { ts, brl, ok }
@@ -45520,7 +45520,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     (S.pedidos || []).filter(function (p) {
       return p.orig === 'site' && (p.pag === 'pix' || p.pag === 'alias') && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && p.sid;
     }).slice(0, 15).forEach(function (p) {
-      tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
+      tarefas.push(nvApi('GET', 'reservasTok/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
         p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' || pa.banco === 'familiar' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
@@ -53296,7 +53296,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

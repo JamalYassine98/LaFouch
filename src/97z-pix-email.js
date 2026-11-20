@@ -1,6 +1,6 @@
   // ===== S197 (aprovado 12/11/2026): PIX automático pelo E-MAIL do Nubank (robô do Gmail + função "pix") =====
   // Não depende da notificação do celular. O app só:
-  //  1) pedido do site: vê na reserva que o robô confirmou (reservas/{id}.pixAuto) e fecha o pedido como pago, sem mudar a tela;
+  //  1) pedido do site: vê que o robô confirmou (reservasTok/{id}.pixAuto — só o dono e o servidor leem; S1/S2 parte 3, item 21) e fecha o pedido como pago, sem mudar a tela;
   //  2) venda da loja (Venda · PIX em reais): registra a espera (pixEspera/L…) com o valor; quando o robô confirma, marca a venda;
   //  3) PIX sem par (valor que não bateu com nada ou bateu com 2): guarda em S.pixSemPar para o guardião avisar.
   S.pixEsp = S.pixEsp || {}; // chave do carrinho → { ts, brl, ok }
@@ -43,7 +43,7 @@
     (S.pedidos || []).filter(function (p) {
       return p.orig === 'site' && (p.pag === 'pix' || p.pag === 'alias') && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && p.sid;
     }).slice(0, 15).forEach(function (p) {
-      tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
+      tarefas.push(nvApi('GET', 'reservasTok/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
         p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' || pa.banco === 'familiar' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };

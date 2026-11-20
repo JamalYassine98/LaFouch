@@ -3611,7 +3611,7 @@ async def main():
             if not ok: falhas.append('B1 cliente do pedido'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # S1/S2 parte 2 (19/11/2026): pagamento confirmado grava o token também em reservasTok/<pedido>
+            # S1/S2 parte 3 (item 21): pagamento confirmado grava o token SÓ em reservasTok/<pedido>, e ANTES de reservas/ ficar paga
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               const nv0 = S.nuvem, f0 = window.fetch, ch = [];
@@ -3626,11 +3626,33 @@ async def main():
               const rTok = ch.find(c => c[0] === 'PATCH' && /^reservasTok\\/SIDTOK1\\?updateMask.fieldPaths=tok$/.test(c[1]));
               const rRes = ch.find(c => c[0] === 'PATCH' && /^reservas\\/SIDTOK1\\?/.test(c[1]));
               window.fetch = f0; S.pedidos = S.pedidos.filter(x => x.id !== 'pTK'); S.nuvem = nv0;
-              return [!!tok, !!rTok && rTok[2].fields.tok.stringValue === tok, !!rRes && rRes[2].fields.pago.booleanValue === true && rRes[2].fields.tok.stringValue === tok]; }""")
+              return [!!tok, !!rTok && rTok[2].fields.tok.stringValue === tok, !!rRes && rRes[2].fields.pago.booleanValue === true && !('tok' in rRes[2].fields) && !/fieldPaths=tok/.test(rRes[1]), ch.indexOf(rTok) < ch.indexOf(rRes)]; }""")
             total += 1
-            ok = got == [True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 2: pagamento confirmado grava o token em reservasTok (e continua em reservas até a parte 3)')
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 3: pagamento confirmado grava o token só em reservasTok, antes de reservas/ ficar paga')
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Item 21 (20/11/2026): a confirmação automática do PIX (robô) é lida em reservasTok/<pedido>.pixAuto — não mais em reservas/
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem, f0 = window.fetch, ch = [];
+              window.fetch = async (u, o) => { u = String(u); const m = (o && o.method) || 'GET';
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/firestore/.test(u)) { const c = u.replace(/^.*documents\//, ''); ch.push([m, c]);
+                  if (m === 'GET' && /^reservasTok\/SIDPX1/.test(c)) return new Response(JSON.stringify({ fields: { pixAuto: { mapValue: { fields: { ts: { integerValue: '1795190000000' }, valor: { doubleValue: 38 }, banco: { stringValue: 'nubank' } } } } } }), { status: 200 });
+                  if (m === 'GET') return new Response(JSON.stringify({ error: { code: 404 } }), { status: 404 }); }
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' };
+              S.pedidos.push({ id: 'pPX', num: 'pPX', cod: 'PX1', sid: 'SIDPX1', orig: 'site', pag: 'pix', st: 'novo', pg: 'pagar', itens: [{ ref: 'AAA1', cor: '', q: 1 }] });
+              await L.pixEmailCheca(true); await w(500);
+              const p = S.pedidos.find(x => x.id === 'pPX');
+              const r = [ch.some(c => c[0] === 'GET' && /^reservasTok\/SIDPX1$/.test(c[1])), !ch.some(c => c[0] === 'GET' && /^reservas\/SIDPX1/.test(c[1])), p.pg === 'pago', !!p.pgAuto];
+              window.fetch = f0; S.pedidos = S.pedidos.filter(x => x.id !== 'pPX'); S.nuvem = nv0; return r; }""")
+            total += 1
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 21: PIX confirmado pelo robô é lido em reservasTok/<pedido> e fecha o pedido sozinho')
+            if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Item 27 (20/11/2026): remendos parte 2c — ninguém troca o setView; nome/frase de tela escrito UMA vez
