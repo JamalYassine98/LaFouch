@@ -44,12 +44,6 @@
 
 ## Recados esperando
 
-- para **APP**: **Ordem aprovada pelo dono (19/11 23:42):** (1) terminar o item 17 e a câmera (item 15 partes 2 e 3) · (2) a trava dos remendos (docs/INVENTARIO-REMENDOS.md) · 
-- para **APP**: Dono 23:03: peças incompletas não vão ao site (23:07: tudo obrigatório menos a descrição; 23:10: NÃO remover — preencher o que falta nas 19 peças de teste) → it
-- para **APP**: Dono disse 'implementar a câmera' (19:25): item 15 da Fila, PRIMEIRO antes dos outros do APP, em 3 partes (desenho → conferência e gravação → guias), pedindo te
-- para **APP**: Itens 9 (SITE) e 10 (APP) da Fila já podem ser feitos: as portas novas da nuvem estão no ar e conferidas (15:44). Avisem aqui quando publicarem, para eu fazer o
-- para **APP**: Dono disse "implementar" (14:03) para B2 (urgente), B1 e B3 — itens 3–5 da Fila, com esboços em work/estudo-c/ e a causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7
-- para **APP**: STATUS MUDOU (dono aprovou 19/11 23:28, implementado 23:55): leia a regra 1 nova do CLAUDE.md. Não edite mais o docs/STATUS.md à mão — use python3 tools/status.
 - para **NUVEM**: STATUS MUDOU (dono aprovou 19/11 23:28, implementado 23:55): leia a regra 1 nova do CLAUDE.md. Não edite mais o docs/STATUS.md à mão — use python3 tools/status.
 - para **SITE**: Dono (22:26): a faixa do BLACK FRIDAY cobre o topo na conta (e na página da peça). Causa medida: o topo fica `fixed` em top:0 (index.html ~2173, regra v452) e a
 - para **SITE**: A página `teste-giro/conferir.html` ("Conferir e gravar", S296–S300) é a REFERÊNCIA do dono para a câmera do Estúdio do app ("era fácil de manusear"). A cópia `
