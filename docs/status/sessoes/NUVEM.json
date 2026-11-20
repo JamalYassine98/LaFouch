@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "anotar aprovado S5S7 e S6S3",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795179457.9645026,
@@ -44,5 +47,5 @@
    "r": "esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva"
   }
  ],
- "leu": 1795178247.34946
+ "leu": 1795179494.1537426
 }

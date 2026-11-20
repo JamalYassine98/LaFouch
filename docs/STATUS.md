@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
+| NUVEM | anotar aprovado S5S7 e S6S3 | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md |
 | SITE | limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada | js/lf-site.js, index.html, work/fiscal/provas.py |
 
 ## Fila
