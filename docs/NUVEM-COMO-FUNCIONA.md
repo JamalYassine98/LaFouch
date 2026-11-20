@@ -28,6 +28,10 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 - **Tudo ou nada:** se der erro no meio, o e-mail volta a "não visto" e o robô tenta de novo.
 - **Robô do Gmail (work/pix/robo-pix.gs, Apps Script; o dono cola):** os bancos num lugar só (`BANCOS`); o e-mail só vale se a PRIMEIRA linha `Authentication-Results: mx.google.com` (a do próprio Gmail) aprovar o DKIM/DMARC do banco, ou se a cadeia de reenvio que o Gmail aprovou (`arc=pass`) trouxer o DKIM do banco. Manda também o pagador e a hora do Nubank (só desempate). Travas: `functions/teste-robo.js`.
 
+## Pedido pela nuvem (pedido.js; S3 parte 1, 20/11/2026)
+- Porta `pedido`: POST `{id, doc}` com o mesmo documento que o site gravava direto em `pedidos/<id>` (pedido, `comp`, `cancel`, `avise`). Confere o formato (as regras que eram do firestore.rules), limita 10 por rede/hora (cancelamento 20) e 10 pedidos por telefone/hora, e só aceita comprovante/cancelamento de pedido que ela recebeu (`pedidoIds/<id>`) e que não foi pago. Mandar de novo o mesmo = igual a 1.
+- Parte 2: o SITE passa a usar a porta. Parte 3: o firestore.rules fecha a criação direta em `pedidos/`.
+
 ## Travas (functions/teste-*.js; o GitHub roda todas antes de publicar)
 - `teste-portas.js`: as 15 portas respondem certo a método errado, corpo vazio, ação inválida, corpo em texto e dono sem login; as portas do site usam uma lista só; cada peça comum aparece num lugar só; os avisos ao celular.
 - `teste-email.js`: um só envio de e-mail · `teste-selo.js`: toda porta pública chama o selo.

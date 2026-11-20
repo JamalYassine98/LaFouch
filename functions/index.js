@@ -424,6 +424,34 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
   } catch (e) { return falhou(res, 'novidades', e); }
 });
 
+// ---------- S3 parte 1 (20/11/2026): o site entrega pedido, comprovante, cancelamento e "avise-me" pela nuvem (pedido.js) ----------
+// POST {id, doc} — o mesmo documento que o site gravava direto em pedidos/<id>; a nuvem confere, limita e grava.
+const Pedido = require('./pedido');
+const pedDb = {
+  existe: async (id) => (await fsx().doc('pedidos/' + id).get()).exists,
+  // pedido que a nuvem recebeu (a marca fica mesmo depois de o app importar e apagar pedidos/<id>)
+  pedidoSeu: async (ref) => {
+    if (!/^[A-Za-z0-9_-]{4,40}$/.test(ref) || !(await fsx().doc('pedidoIds/' + ref).get()).exists) return null;
+    const r = await fsx().doc('reservas/' + ref).get(), o = (r.exists && r.data()) || {};
+    return { pago: o.pago === true, cancelado: !!o.cancelado };
+  },
+  // quantos nesta hora para esta chave (rede ou telefone); a chave fica só como resumo
+  conta: (chave, agora) => fsx().runTransaction(async (tx) => {
+    const ref = fsx().doc('limite/' + hash(chave, 40)), d = await tx.get(ref), o = d.exists ? d.data() : {};
+    const novo = agora - (+o.ts || 0) > Pedido.HORA ? { ts: agora, n: 1 } : { ts: +o.ts, n: (+o.n || 0) + 1 };
+    tx.set(ref, novo);
+    return novo.n;
+  }),
+  cria: async (id, doc, tipo) => {
+    if (tipo === 'pedido') await fsx().doc('pedidoIds/' + id).set({ ts: Date.now() });
+    await criaUmaVez(fsx().doc('pedidos/' + id), doc); // dois envios ao mesmo tempo: o segundo não derruba o primeiro
+  },
+};
+exports.pedido = post('pedido', { cors: CORS_SITE, maxInstances: 10 }, async (req, res, b) => {
+  if (!(await seloOk(req, res, 'pedido'))) return;
+  return res.json(await Pedido.entrega(pedDb, b, Date.now(), hash(req.ip || req.get('x-forwarded-for') || '', 24)));
+});
+
 // ---------- Mensagens do site (11/11/2026): "Entre em contato" (e-mail para lafouch.eyewear@gmail.com) e cópia dos pedidos de Atacado ----------
 // POST {acao:'enviar', tipo:'contato'|'atacado', ...} público · POST {acao:'lista'} e {acao:'estado', id, est} só o dono (painel › Mensagens).
 const Mensagem = require('./mensagem');

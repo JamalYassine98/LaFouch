@@ -22,6 +22,10 @@ async function limpa(db, agora) {
   // S400: marcas de pedido entregue (só servem para disparar o presente uma vez)
   r.entregas = 0;
   for (const d of await db.velhos('entregas', agora - 30 * 864e5)) { await db.apaga('entregas', d.id); r.entregas++; }
+  // S3 (20/11): contadores de limite da hora passada e marcas de pedido recebido de mais de 60 dias
+  r.limite = 0; r.pedidoIds = 0;
+  for (const d of await db.velhos('limite', agora - 864e5)) { await db.apaga('limite', d.id); r.limite++; }
+  for (const d of await db.velhos('pedidoIds', agora - 60 * 864e5)) { await db.apaga('pedidoIds', d.id); r.pedidoIds++; }
   return r;
 }
 module.exports = { limpa, ANO, CAMPOS };

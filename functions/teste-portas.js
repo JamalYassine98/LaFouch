@@ -69,7 +69,7 @@ function t(n, c) { if (c) { ok++; console.log('  ok  ' + n); } else { falhas.pus
   }
   if (process.env.SNAP) fs.writeFileSync(process.env.SNAP, JSON.stringify(snap, null, 1));
   const nomes = Object.keys(snap);
-  t('achou as 15 portas', nomes.length === 15);
+  t('achou as 16 portas', nomes.length === 16);
   t('nenhuma porta fica sem responder ou quebra', nomes.every((n) => Object.values(snap[n].respostas).every((r) => typeof r.code === 'number')));
   const soGET = ['avaliacao', 'comprovante']; // leem com GET (lista pública de avaliações; página do comprovante)
   t('método errado: 405 em todas', nomes.filter((n) => soGET.indexOf(n) < 0).every((n) => snap[n].respostas.GET.code === 405) && snap.comprovante.respostas.vazio.code === 405);
