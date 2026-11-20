@@ -22,7 +22,7 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
 
 ## 3. Esboços
 10. **Base:** site/app REAL (peças e cartão da nuvem, acesso direto; Actions só de reserva) + TODOS os aprovados, mesmo não implementados. Listar no envio os aprovados incluídos. Proibido produto de exemplo.
-11. **Formato:** um arquivo por tela (celular Hoje × Proposta lado a lado; PC um em cima do outro); sem GIF (quadros lado a lado ou MP4). Usar o kit e as telas reais; todo esboço passa pelo **comparador Hoje × Proposta** (aprovado 20/11 00:07): ele lista toda diferença, em todos os aparelhos, e cada diferença precisa estar no esboço — diferença sem motivo é falha nova e o esboço não vai ao dono.
+11. **Formato:** um arquivo por tela (celular Hoje × Proposta lado a lado; PC um em cima do outro); sem GIF (quadros lado a lado ou MP4). Usar o kit e as telas reais; todo esboço passa pelo **comparador Hoje × Proposta** (aprovado 20/11 00:07): ele lista toda diferença, em todos os aparelhos, e cada diferença precisa estar no esboço — diferença sem motivo é falha nova e o esboço não vai ao dono. **O código do esboço é pintura por cima e NUNCA vai para o app/site** (dono 20/11 15:05): cada esboço vai à implementadora com o "como fazer" no jeito natural (regra 12), para ela não copiar remendo.
 
 ## 4. Código limpo: lógica, nunca remendo (completada pelo dono 19/11 19:53)
 12. **Toda correção ou ajuste é uma lógica, não um remendo:**
