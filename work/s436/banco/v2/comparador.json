@@ -1,0 +1,65 @@
+{
+ "celular_escuro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(233, 194, 122) · letra 13.5px/400/\"Segoe UI\" · x24 y1002 w342 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(233, 194, 122) · letra 12px/400/\"Segoe UI\" · x24 y1509 w134 h17",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(164, 74, 126) → rgb(42, 52, 65); classe scSw on → scSw",
+  "empurrado            19 peças abaixo de y=1012 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            23 peças abaixo de y=1066 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ],
+ "celular_claro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(138, 90, 0) · letra 13.5px/400/\"Segoe UI\" · x24 y1002 w342 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(138, 90, 0) · letra 12px/400/\"Segoe UI\" · x24 y1509 w134 h17",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(141, 58, 105) → rgb(217, 208, 216); classe scSw on → scSw",
+  "empurrado            19 peças abaixo de y=1012 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            23 peças abaixo de y=1066 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ],
+ "tablet_escuro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(233, 194, 122) · letra 13.5px/400/\"Segoe UI\" · x612 y861 w152 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(233, 194, 122) · letra 12px/400/\"Segoe UI\" · x612 y1709 w94 h35",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(164, 74, 126) → rgb(42, 52, 65); classe scSw on → scSw",
+  "falha que já existia <button.fiBtn> \"\" — fora da tela",
+  "falha que já existia <span> \"Ficha\" — fora da tela",
+  "falha que já existia <b> \"5/6\" — fora da tela",
+  "falha que já existia <button> \"Preço\" — fora da tela",
+  "quebra igual à de Hoje <div.hint> \"falta formato e medidas\" — texto quebra em 2 linhas (largura 94 px)",
+  "empurrado            14 peças abaixo de y=1743 andaram +6 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            7 peças abaixo de y=1848 andaram +7 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            7 peças abaixo de y=1012 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            14 peças abaixo de y=871 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ],
+ "tablet_claro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(138, 90, 0) · letra 13.5px/400/\"Segoe UI\" · x612 y861 w152 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(138, 90, 0) · letra 12px/400/\"Segoe UI\" · x612 y1709 w94 h35",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(141, 58, 105) → rgb(217, 208, 216); classe scSw on → scSw",
+  "falha que já existia <button.fiBtn> \"\" — fora da tela",
+  "falha que já existia <span> \"Ficha\" — fora da tela",
+  "falha que já existia <b> \"5/6\" — fora da tela",
+  "falha que já existia <button> \"Preço\" — fora da tela",
+  "quebra igual à de Hoje <div.hint> \"falta formato e medidas\" — texto quebra em 2 linhas (largura 94 px)",
+  "empurrado            2 peças abaixo de y=51 andaram -1 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            14 peças abaixo de y=1743 andaram +6 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            7 peças abaixo de y=1848 andaram +7 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            7 peças abaixo de y=1012 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            14 peças abaixo de y=871 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ],
+ "pc_escuro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(233, 194, 122) · letra 13.5px/400/\"Segoe UI\" · x711 y764 w599 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(233, 194, 122) · letra 12px/400/\"Segoe UI\" · x711 y1251 w134 h17",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(164, 74, 126) → rgb(42, 52, 65); classe scSw on → scSw",
+  "empurrado            19 peças abaixo de y=834 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            23 peças abaixo de y=774 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ],
+ "pc_claro": [
+  "apareceu             <div.crumb> \"Peça de teste\" — cor rgb(138, 90, 0) · letra 13.5px/400/\"Segoe UI\" · x711 y764 w599 h20",
+  "sumiu                <div.hint> \"aparece no catálogo online · 3 cores\"",
+  "apareceu             <div.hint> \"falta formato e medidas\" — cor rgb(138, 90, 0) · letra 12px/400/\"Segoe UI\" · x711 y1251 w134 h17",
+  "mudou                <button#edSiteBtn> \"No site\" — fundo rgb(141, 58, 105) → rgb(217, 208, 216); classe scSw on → scSw",
+  "empurrado            19 peças abaixo de y=834 andaram +23 px (consequência de uma linha a mais/a menos acima)",
+  "empurrado            23 peças abaixo de y=774 andaram +24 px (consequência de uma linha a mais/a menos acima)"
+ ]
+}
