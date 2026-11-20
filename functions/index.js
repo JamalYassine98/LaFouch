@@ -249,6 +249,24 @@ exports.midia = onRequest(
 // Sem a chave a função responde "sem-config" e o site usa o link de confirmação do próprio Firebase.
 const Codigo = require('./codigo');
 const RESEND_KEY = defineSecret('RESEND_KEY');
+// E-mail num lugar só (20/11, regra 12: antes havia 8 cópias deste envio). Devolve a função que manda, ou null sem a chave.
+// op.semChave = 'erro' → em vez de null, devolve uma função que falha (quem precisa avisar que não mandou)
+// op.responder = true → as respostas da cliente vão para o e-mail da loja · op.falha() → o erro que a porta devolve quando o Resend recusa
+const EMAIL_DE = 'La Fouch <nao-responda@lafouch.com>', EMAIL_RESPONDER = 'lafouch.eyewear@gmail.com';
+function emailResend(op) {
+  const o = op || {};
+  let chave = '';
+  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+  if (!chave) return o.semChave === 'erro' ? async () => { throw new Error('sem RESEND_KEY'); } : null;
+  return async (m) => {
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ from: EMAIL_DE }, o.responder ? { reply_to: EMAIL_RESPONDER } : {}, m)) });
+    if (!r.ok) {
+      console.error('resend', r.status, String(await r.text().catch(() => '')).slice(0, 300));
+      throw o.falha ? o.falha() : new Error('resend ' + r.status);
+    }
+  };
+}
 const codDb = {
   get: async (uid) => { const d = await admin.firestore().doc('codigos/' + uid).get(); return d.exists ? d.data() : null; },
   set: (uid, o) => admin.firestore().doc('codigos/' + uid).set(o),
@@ -264,15 +282,7 @@ exports.codigo = onRequest(
     const b = req.body && typeof req.body === 'object' ? req.body : {};
     const user = await admin.auth().getUser(tk.uid);
     const u = { uid: tk.uid, email: user.email, nome: user.displayName || b.nome || '', verificado: !!user.emailVerified };
-    let chave = '';
-    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-    const envia = chave ? async (msg) => {
-      const r = await fetch('https://api.resend.com/emails', {
-        method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, msg)),
-      });
-      if (!r.ok) { console.error('resend', r.status, await r.text().catch(() => '')); throw new Codigo.Falha('envio', 502); }
-    } : null;
+    const envia = emailResend({ falha: () => new Codigo.Falha('envio', 502) });
     try {
       if (!(await seloOk(req, res, 'codigo'))) return;
       let r;
@@ -375,9 +385,8 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
       if (!k) return res.status(400).json({ ok: false, motivo: 'chave' });
       const g = admin.firestore().doc('temaEnvios/' + k);
       if ((await g.get()).exists) return res.json({ ok: true, ja: true });
-      let chave = '';
-      try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-      if (!chave) return res.status(500).json({ ok: false, motivo: 'sem-chave' });
+      const envia = emailResend({ responder: true });
+      if (!envia) return res.status(500).json({ ok: false, motivo: 'sem-chave' });
       const esc2 = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]).slice(0, 600);
       const q = await admin.firestore().collection('inscricoes').limit(1000).get();
       // S400 (esboços 61h e 62): se o app mandar o código do cupom do evento (b.cupom), o e-mail leva o cartão do evento nas cores da temática
@@ -393,8 +402,8 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
         const html = Email.molde(esc2(es ? b.tituloEs || b.titulo : b.titulo), Email.P(esc2(es ? b.textoEs || b.texto : b.texto)) + (cupEv ? Cupom.blocoEvento(cupEv, es) : Email.B(es ? 'Ver en lafouch.com' : 'Ver em lafouch.com', 'https://lafouch.com')),
           (es ? 'Recibís este e-mail porque te inscribiste en las novedades.' : 'Você recebe este e-mail porque se inscreveu nas novidades.') + ' <a href="' + sair + '" style="color:#8a7d84">' + (es ? 'No quiero recibir más' : 'Não quero mais receber') + '</a>');
         try {
-          const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com', to: em, subject: String(es ? b.tituloEs || b.titulo : b.titulo).slice(0, 120), html }) });
-          if (r.ok) n++;
+          await envia({ to: em, subject: String(es ? b.tituloEs || b.titulo : b.titulo).slice(0, 120), html });
+          n++;
         } catch (e) {}
         await new Promise((ok) => setTimeout(ok, 120));
       }
@@ -429,13 +438,7 @@ exports.mensagem = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5,
     }
     if (b.acao !== 'enviar') return res.status(400).json({ ok: false, motivo: 'acao' });
     if (!(await seloOk(req, res, 'mensagem'))) return;
-    let chave = '';
-    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-    const envia = chave ? async (m) => {
-      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
-      if (!r.ok) { console.error('resend', r.status, await r.text().catch(() => '')); throw new Mensagem.Falha('envio', 502); }
-    } : null;
+    const envia = emailResend({ falha: () => new Mensagem.Falha('envio', 502) });
     return res.json(await Mensagem.enviar(msgDb, envia, b, req.ip || req.get('x-forwarded-for') || '', Date.now()));
   } catch (e) {
     if (e instanceof Mensagem.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
@@ -497,14 +500,8 @@ exports.volta = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5 }, 
 exports.voltaAvisa = onDocumentUpdated({ document: 'produtos/{ref}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
   const antes = ev.data.before.data(), depois = ev.data.after.data();
   if (!Volta.voltou(antes, depois)) return;
-  let chave = '';
-  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-  if (!chave) return console.error('voltaAvisa: sem RESEND_KEY');
-  const envia = async (m) => {
-    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
-    if (!r.ok) throw new Error('resend ' + r.status);
-  };
+  const envia = emailResend();
+  if (!envia) return console.error('voltaAvisa: sem RESEND_KEY');
   const n = await Volta.dispara(voltaDb, envia, ev.params.ref, depois.nome, Date.now());
   console.log('voltaAvisa', ev.params.ref, n);
 });
@@ -522,14 +519,7 @@ exports.login = onRequest({ region: REGIAO, cors: true, maxInstances: 3, secrets
   try {
     if (b.acao !== 'aviso') return res.status(400).json({ ok: false, motivo: 'acao' });
     if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
-    let chave = '';
-    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-    const envia = async (m) => {
-      if (!chave) throw new Error('sem RESEND_KEY');
-      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
-      if (!r.ok) throw new Error('resend ' + r.status);
-    };
+    const envia = emailResend({ semChave: 'erro' });
     return res.json(await Login.avisa(loginDb, envia, b, req.get('user-agent') || '', req.ip || req.get('x-forwarded-for') || '', Date.now()));
   } catch (e) {
     if (e instanceof Login.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
@@ -690,13 +680,7 @@ exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secret
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   const ipk = crypto.createHash('sha256').update(String(req.ip || req.get('x-forwarded-for') || '')).digest('hex').slice(0, 24);
-  let chave = '';
-  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-  const envia = chave ? async (m) => {
-    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
-    if (!r.ok) throw new Error('resend ' + r.status);
-  } : null;
+  const envia = emailResend();
   const agora = Date.now();
   try {
     // público (site)
@@ -857,13 +841,7 @@ const ataAviso = (o) => fsx().collection('atacadoAvisos').add(o);
 exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
-  let chave = '';
-  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-  const envia = async (m) => {
-    if (!chave) throw new Error('sem RESEND_KEY');
-    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
-    if (!r.ok) throw new Error('resend ' + r.status);
-  };
+  const envia = emailResend({ semChave: 'erro' });
   try {
     const ag = Date.now();
     if (!(await seloOk(req, res, 'atacado'))) return;
@@ -900,15 +878,7 @@ const pmDb = {
     return d.data();
   }),
 };
-const pmEnvia = () => {
-  let chave = '';
-  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
-  return chave ? async (m) => {
-    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com' }, m)) });
-    if (!r.ok) throw new Error('resend ' + r.status);
-  } : null;
-};
+const pmEnvia = () => emailResend({ responder: true }); // e-mails do pedido: a resposta da cliente vai para a loja
 exports.pedidoMail = onDocumentCreated({ document: 'pedidos/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
   const f = (ev.data && ev.data.data()) || {};
   try {
