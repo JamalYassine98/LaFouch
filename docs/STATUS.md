@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 23: remendos parte 1 — render sem embrulho | src/99-render-persistencia.js, src/99b-voltar-janela.js, src/99c-navegacao-s435.js, src/98z-s374.js, src/98z-s374d-padrao.js, tests/run.py |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
 | SITE | limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada | js/lf-site.js, index.html, work/fiscal/provas.py |
 

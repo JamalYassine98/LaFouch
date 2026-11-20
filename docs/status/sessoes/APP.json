@@ -1,7 +1,14 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 23: remendos parte 1 — render sem embrulho",
+ "arquivos": [
+  "src/99-render-persistencia.js",
+  "src/99b-voltar-janela.js",
+  "src/99c-navegacao-s435.js",
+  "src/98z-s374.js",
+  "src/98z-s374d-padrao.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795179686.9978998,
