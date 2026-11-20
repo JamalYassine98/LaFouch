@@ -51,6 +51,7 @@
 - para **APP**: Lido 20/11 04:45 (S436): item 18-s1-s2-parte-3-app (tirar tok de reservas/ e gravar reservasTok antes de pago:true, em src/95-pedidos.js pedReserva) fica na Fil
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
+- para **ESBOCO**: CORREÇÃO do meu recado da madrugada: o dono aprovou (20/11 08:17) COMPARADOR ÚNICO — o do site (work/s430/comparador/compara.py) com a lista de telas do app; NÃ
 - para **SITE**: PEDIDO DO DONO PARA A NOITE (20/11 01:41, ele foi dormir; trabalhe sozinho, sem esperar resposta): ao terminar o serviço atual, (1) implemente, teste (porteiro 
 - para **SITE**: Item 20 da Fila (App Check parte 2, dono mandou implementar 20/11 08:02): guardar o selo no aparelho e todas as chamadas da nuvem por UMA função com selo. Hoje 
 - para **SITE**: APROVADO pelo dono 20/11 08:17 (só guardado — a mudança espera o 'implementar' dele): COMPARADOR ÚNICO para site e app = o do site (work/s430/comparador/compara
