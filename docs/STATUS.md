@@ -46,6 +46,7 @@
 - **18-trava-dos-remendos** — na fila — o dono diz 'implementar' pelo prompt de 20/11 00:40 · APP
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
+- **21-limpeza-5-canto-de-selos** — esboço pronto — esperando o dono (A empilhado × B tema só em peça da promoção)
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
 - **22-bug-entrar-na-nuvem-aparelho-novo** — ✅ v573 (5.49.3, 20/11) · APP · pedido 20/11 09:40
 - **22-publicar-nuvem-pelo-github** — ✅ funcionando 20/11 08:41 — dono configurou (Cloud Shell); 1ª publicação de teste pelo GitHub: testes ok + Deploy complete

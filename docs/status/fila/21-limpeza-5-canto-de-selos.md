@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono (A empilhado × B tema só em peça da promoção)
+**Limpeza 5 — canto de selos (SITE):** um lugar só para os selos da foto (tema, oferta, Ideal, Últimas N), a 16 px do alto, alinhado com o texto, sem cobrir selo nem coração; saem selos() em JS e as 5 regras de posição soltas. Ramo esb-limpeza-ulin do catalogo; esboços work/s430/limpeza5/; comparador sem falha nova; porteiro 11 → 2 falhas.
