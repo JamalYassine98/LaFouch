@@ -106,10 +106,18 @@
         act: 'view',
         id: 'ajustes'
       });
+    // avisos das outras famílias: a temática que vem aí e tudo o que o Guardião achou
+    try {
+      atencaoTema(it);
+    } catch (e) {}
+    try {
+      atencaoGuardiao(it);
+    } catch (e) {}
     return it;
   }
   // Conteúdo da aba escolhida. "o" traz os blocos já montados pelo renderDash.
   function dashCompose(o) {
+    if (S.dTab === 'onl') return onlResumoHtml(); // aba Site: o resumo vem da família Site
     var t = S.dTab,
       h = '',
       u = function (n) {

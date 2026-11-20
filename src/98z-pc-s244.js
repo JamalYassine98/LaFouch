@@ -31,12 +31,6 @@
   aposRender(pcLarga);
   window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
   // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
-  var _hfo17 = ACT.hfopen;
-  ACT.hfopen = function () {
-    var r = _hfo17.apply(this, arguments);
-    if (S.hFopen) { var b = document.querySelector('#v-hist [data-act="hlimpar"]'), s = b && b.closest('section'); if (s) animEnter(s); }
-    return r;
-  };
   var _cln17 = ACT.clinovo;
   ACT.clinovo = function () {
     var r = _cln17.apply(this, arguments);

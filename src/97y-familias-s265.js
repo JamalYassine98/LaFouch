@@ -111,9 +111,3 @@
     c3.appendChild(famBtn('Ver todos os números ›', 'famNum'));
     famColunas(v, c2, c3);
   }
-  var _rdFam = renderDay;
-  renderDay = function () {
-    var r = _rdFam.apply(this, arguments);
-    try { famDashboard(); } catch (e) {}
-    return r;
-  };

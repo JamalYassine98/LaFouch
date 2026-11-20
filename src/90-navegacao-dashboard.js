@@ -110,7 +110,24 @@
     });
   }
   // Aba Dashboard.
+  // A tela do Dashboard inteira: preparo, desenho (dashDesenha) e acabamentos — nenhum arquivo embrulha esta função.
   function renderDash() {
+    if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
+    // a aba Hoje mostra o "Resultado do mês" (S._resMes), que é calculado no desenho da aba Reservas: ela é desenhada antes, com os dados de agora
+    if (S.view === 'dash' && S.dTab === 'hoje') {
+      try {
+        S.dTab = 'din';
+        dashDesenha();
+      } catch (e) {}
+      S.dTab = 'hoje';
+    }
+    dashDesenha();
+    try {
+      d48Mes();
+    } catch (e) {}
+    padTela();
+  }
+  function dashDesenha() {
     if (S.view !== 'dash' && !S._rtudo) return;
     var el = $('v-dash'),
       ps = vendasPeriodo(),

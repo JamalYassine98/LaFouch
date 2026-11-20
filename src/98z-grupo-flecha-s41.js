@@ -34,19 +34,6 @@
     lfaFecha('dFolha');
     grpGerirAbre(gid);
   };
-  // no Dashboard o título já tem a flecha: as outras telas do grupo entram na mesma folha
-  var _dVer41 = ACT.dVer;
-  ACT.dVer = function () {
-    _dVer41.apply(this, arguments);
-    var g = grpGet(S._gAt),
-      o = $('dFolha'),
-      sh = o && o.querySelector('.lfa-sh');
-    if (!g || !sh) return;
-    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
-      fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
-      h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
-    sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
-  };
   // ---------- o título da tela com a flecha ----------
   var grpObs = null;
   function grpTituloLimpa(manter) {

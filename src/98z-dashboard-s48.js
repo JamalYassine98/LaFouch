@@ -149,14 +149,6 @@
     } else ks.after(t2);
     t2.after(ls);
   }
-  var _rd48 = renderDash;
-  renderDash = function () {
-    if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
-    if (S.view === 'dash' && S.dTab === 'hoje') { try { S.dTab = 'din'; _rd48.apply(this, arguments); } catch (e) {} S.dTab = 'hoje'; } // refaz a conta do "Resultado do mês" (S._resMes) com os dados de agora
-    var r = _rd48.apply(this, arguments);
-    try { d48Mes(); } catch (e) {}
-    return r;
-  };
   // ---------- período Hoje (tela v-dia, só quando o dia é hoje) ----------
   function d48Dia() {
     var v = $('v-dia');
@@ -194,26 +186,3 @@
       if (b) b.textContent = 'Dias anteriores no Histórico ›';
     }
   }
-  var _rdy48 = renderDay;
-  renderDay = function () {
-    var r = _rdy48.apply(this, arguments);
-    try { d48Dia(); } catch (e) {}
-    return r;
-  };
-  // ---------- as duas folhas (Ver e Período) valem nas duas telas ----------
-  ACT.dVer = function () {
-    var onde = d48Hoje() ? 'hoje' : S.view === 'hist' ? 'hist' : S.dTab;
-    lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
-      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], onde === t[0], true);
-    }).join('') + dOpHtml('dVerEsc', 'hist', 'Histórico', 'Os dias anteriores, um a um', onde === 'hist', true));
-  };
-  ACT.dVerEsc = function (id) {
-    lfaFecha('dFolha');
-    if (id === 'hist') return setView('hist');
-    if (id === 'hoje' && (S.per === 'hoje' || d48Hoje())) { S.per = 'hoje'; S.day = dayKey(Date.now()); return setView('dia'); }
-    if (S.view === 'dash' && S.dTab === id) return;
-    S.dTab = id;
-    if (S.view !== 'dash') return setView('dash');
-    renderDash();
-    animEnter($('dtabBody'));
-  };

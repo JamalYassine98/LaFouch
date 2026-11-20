@@ -124,13 +124,10 @@
       }
     });
   };
-  // avisa no sino também
-  var _atTema = atencaoItens;
-  atencaoItens = function () {
-    var it = _atTema.apply(this, arguments);
-    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
-    return it;
-  };
+  // avisa no sino também (chamado por atencaoItens)
+  function atencaoTema(it) {
+    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
+  }
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
   var TEMA_TXT = { natal: ['Natal na La Fouch 🎄', 'Presentes com desconto e retirada no mesmo dia em Ciudad del Este.', 'Navidad en La Fouch 🎄', 'Regalos con descuento y retiro el mismo día en Ciudad del Este.'],
     bf: ['Black Friday La Fouch ⚡', 'Ofertas em toda a loja enquanto durar o estoque.', 'Black Friday La Fouch ⚡', 'Ofertas en toda la tienda mientras dure el stock.'],

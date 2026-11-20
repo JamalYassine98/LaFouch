@@ -58,12 +58,6 @@
     try { pad99(v); pad100(v); } catch (e) {}
   }
   aposRender(padTela);
-  var _renderDash99 = renderDash;
-  renderDash = function () {
-    var r = _renderDash99.apply(this, arguments);
-    padTela();
-    return r;
-  };
 
   // 102: "Lista de compras ›" sai de Produtos e fica no fim da aba Fornecedores, centralizada
   var _rEA102 = renderEstoqueAbas;
@@ -139,10 +133,3 @@
     }
   }
   aposRender(renderMkt);
-  // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
-  var _histLista99 = histLista;
-  histLista = function () {
-    var r = _histLista99.apply(this, arguments);
-    padTela();
-    return r;
-  };

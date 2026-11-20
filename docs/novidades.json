@@ -1,7 +1,7 @@
 {
- "nome": "5.50.6",
+ "nome": "5.50.7",
  "notas": [
-  "Arrumação por dentro: 8 funções que tinham sido reescritas em outro arquivo (Marketing, Cartões, tutorial do Estúdio, período do Dashboard…) ficaram só com a versão que vale, no lugar certo. Nenhuma tela muda."
+  "Arrumação por dentro (parte 4a da limpeza): Dashboard, tela do dia, Histórico e Pendências passaram a ser desenhados por uma função só cada (eram 13 camadas). Nenhuma tela muda."
  ],
- "build": 581
+ "build": 582
 }

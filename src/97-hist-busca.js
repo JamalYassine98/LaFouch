@@ -229,6 +229,7 @@
   function histLista() {
     var b = $('hRes');
     if (b) b.innerHTML = hListaHtml();
+    padTela();
   }
   // Aba Histórico.
   function histRender() {
@@ -266,6 +267,11 @@
   ACT.hfopen = function () {
     S.hFopen = !S.hFopen;
     histRender();
+    if (S.hFopen) {
+      var b = document.querySelector('#v-hist [data-act="hlimpar"]'),
+        s = b && b.closest('section');
+      if (s) animEnter(s);
+    }
   };
   ACT.hfil = function (id) {
     var p = id.split('|');

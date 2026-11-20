@@ -3655,6 +3655,26 @@ async def main():
             if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 29 (20/11/2026): remendos parte 4a — Dashboard, dia, Histórico e Pendências com UMA função cada (ninguém as troca);
+            # a folha VER serve família, Dashboard e grupo comum; soltar um arraste da barra não escolhe aba
+            total += 1
+            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(renderDash|renderDay|histLista|dashCompose|atencaoItens) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              S.per = 'hoje'; S.dTab = 'hoje'; L.setView('dash'); await w(300); R.push(S.per === 'mes' && !!document.querySelector('#v-dash .dHd'));
+              S._gAt = ''; L.ACT.dVer(); await w(300); R.push(document.querySelectorAll('#dFolha [data-act="dVerEsc"]').length >= 5 && !document.querySelector('#dFolha [data-act="grpGerirV"]'));
+              L.ACT.dVerEsc('hist'); await w(300); R.push(S.view === 'hist');
+              L.setView('dash'); await w(200); const fam = S._gAt; L.ACT.dVer(); await w(300);
+              R.push(/^g:/.test(fam) && !!document.querySelector('#dFolha [data-act="grpGerirV"]') && !!document.querySelector('#dFolha [data-act="grpVerEsc"]') && !document.querySelector('#dFolha [data-act="dVerEsc"]'));
+              L.lfaFecha('dFolha');
+              L.inicioGo('hoje'); await w(300); R.push(S.view === 'dia' && !!document.querySelector('#v-dia .dHd'));
+              L.setView('hist'); await w(250); L.ACT.hfopen(); await w(200); R.push(S.hFopen === true && !!document.querySelector('#v-hist [data-act="hlimpar"]')); L.ACT.hfopen();
+              return R; }""")
+            ok = not troca and got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 29: Dashboard, dia, Histórico e Pendências numa função cada; folha VER para família e para o Dashboard')
+            if not ok: falhas.append('item 29 dashboard'); print('        veio', troca, got, pg.erros)
+            await pg.close()
+
             # Item 28 (20/11/2026): trocas inteiras — cada uma ficou só com a versão que vale, no arquivo da família
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];

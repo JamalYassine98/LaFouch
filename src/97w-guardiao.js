@@ -86,20 +86,15 @@
     lfToast('Silenciado por 7 dias');
     ACT.guardAbre();
   };
-  // o que o Guardião achou entra nas Pendências (e no sino)
-  var _atGuard = atencaoItens;
-  atencaoItens = function () {
-    var it = _atGuard.apply(this, arguments);
-    try {
-      // S265: TUDO o que o Guardião achou entra nas Pendências (antes só o urgente); o que as Pendências já mostram por conta própria não repete
-      guardChecks().forEach(function (c) {
-        if (c.ok || c.mudo) return;
-        var tt = c.tp || c.t;
-        if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
-        if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
-        if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
-        it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
-      });
-    } catch (e) {}
-    return it;
-  };
+  // chamado por atencaoItens (Pendências)
+  function atencaoGuardiao(it) {
+    // S265: TUDO o que o Guardião achou entra nas Pendências (antes só o urgente); o que as Pendências já mostram por conta própria não repete
+    guardChecks().forEach(function (c) {
+      if (c.ok || c.mudo) return;
+      var tt = c.tp || c.t;
+      if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
+      if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
+      if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
+      it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
+    });
+  }

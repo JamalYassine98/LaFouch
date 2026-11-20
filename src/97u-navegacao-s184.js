@@ -171,12 +171,6 @@
   aposRender(fnLinkifica);
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
-  var _dcNav = dashCompose;
-  dashCompose = function (o) {
-    if (typeof DT_FRASE === 'object' && DT_FRASE && !DT_FRASE.onl) DT_FRASE.onl = 'Como o site está indo';
-    if (S.dTab === 'onl') return onlResumoHtml();
-    return _dcNav.apply(this, arguments);
-  };
   function onlResumoHtml() {
     var V = S.vistas || {}, top = Object.keys(V).sort(function (a, b) { return V[b] - V[a]; }).slice(0, 5),
       vend = {}, ag = Date.now() - 30 * DAY;

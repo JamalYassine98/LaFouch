@@ -64,12 +64,6 @@
     try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
   };
 
-  // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
-  var _dVerEsc374 = ACT.dVerEsc;
-  ACT.dVerEsc = function () {
-    if (window.__barraSegurou && window.__barraSegurou()) return;
-    return _dVerEsc374.apply(this, arguments);
-  };
 
   // ===== S374 · esboço 59 (aprovado 16/11 10:04, "implementa" 10:40): Início com 6 botões =====
   // Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (site, pedidos, mensagens, analisador)
@@ -92,13 +86,6 @@
     if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
     S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
   }
-  // no Dashboard, a flecha de uma família (Resultados, Giro e preços) mostra as telas da família
-  var _dVer59 = ACT.dVer;
-  ACT.dVer = function () {
-    var g = grpGet(S._gAt);
-    if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
-    return _dVer59.apply(this, arguments);
-  };
 
   // ===== S374 · esboços 64–66 (aprovados 16/11 13:22, "implementar"): Preços de luxo + abrir como na Apple =====
   var EZ74 = 'cubic-bezier(.45,0,.2,1)';

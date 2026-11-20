@@ -155,7 +155,17 @@
     return m;
   }
   // Detalhe de um dia.
+  // A tela do dia inteira: desenho (diaDesenha) e acabamentos (blocos da família e cabeçalho de "Hoje") — nenhum arquivo embrulha esta função.
   function renderDay() {
+    diaDesenha();
+    try {
+      famDashboard();
+    } catch (e) {}
+    try {
+      d48Dia();
+    } catch (e) {}
+  }
+  function diaDesenha() {
     var box = $('v-dia');
     if (!box || (S.view !== 'dia' && !S._rtudo)) return;
     var k = S.day,

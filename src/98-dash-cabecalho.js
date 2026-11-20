@@ -1,6 +1,6 @@
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', onl: 'Como o site está indo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],
@@ -54,10 +54,22 @@
   function dOpHtml(act, id, nome, sub, on, seta) {
     return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
   }
+  // A folha "VER" do título do Dashboard (uma ação só): família → as telas dela; senão as abas do Dashboard + Histórico
+  // e, num grupo comum, as outras telas do grupo e "Gerenciar grupo".
   ACT.dVer = function () {
+    var g = grpGet(S._gAt);
+    if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
+    var onde = d48Hoje() ? 'hoje' : S.view === 'hist' ? 'hist' : S.dTab;
     lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
-      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], S.dTab === t[0], true);
-    }).join(''));
+      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], onde === t[0], true);
+    }).join('') + dOpHtml('dVerEsc', 'hist', 'Histórico', 'Os dias anteriores, um a um', onde === 'hist', true));
+    var o = $('dFolha'),
+      sh = o && o.querySelector('.lfa-sh');
+    if (!g || !sh) return;
+    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
+      fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
+      h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
+    sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
   };
   ACT.dPer = function () {
     var per = d48Hoje() ? 'hoje' : S.per;
@@ -69,9 +81,13 @@
     lfaFecha('dFolha');
   };
   ACT.dVerEsc = function (id) {
+    if (window.__barraSegurou && window.__barraSegurou()) return; // soltar um arraste da barra em cima da folha não escolhe
     lfaFecha('dFolha');
-    if (S.dTab === id) return;
+    if (id === 'hist') return setView('hist');
+    if (id === 'hoje' && (S.per === 'hoje' || d48Hoje())) { S.per = 'hoje'; S.day = dayKey(Date.now()); return setView('dia'); }
+    if (S.view === 'dash' && S.dTab === id) return;
     S.dTab = id;
+    if (S.view !== 'dash') return setView('dash');
     renderDash();
     animEnter($('dtabBody'));
   };

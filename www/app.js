@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 581;
+  var APP_BUILD = 582;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -21563,10 +21563,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         act: 'view',
         id: 'ajustes'
       });
+    // avisos das outras famílias: a temática que vem aí e tudo o que o Guardião achou
+    try {
+      atencaoTema(it);
+    } catch (e) {}
+    try {
+      atencaoGuardiao(it);
+    } catch (e) {}
     return it;
   }
   // Conteúdo da aba escolhida. "o" traz os blocos já montados pelo renderDash.
   function dashCompose(o) {
+    if (S.dTab === 'onl') return onlResumoHtml(); // aba Site: o resumo vem da família Site
     var t = S.dTab,
       h = '',
       u = function (n) {
@@ -22752,7 +22760,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   }
   // Aba Dashboard.
+  // A tela do Dashboard inteira: preparo, desenho (dashDesenha) e acabamentos — nenhum arquivo embrulha esta função.
   function renderDash() {
+    if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
+    // a aba Hoje mostra o "Resultado do mês" (S._resMes), que é calculado no desenho da aba Reservas: ela é desenhada antes, com os dados de agora
+    if (S.view === 'dash' && S.dTab === 'hoje') {
+      try {
+        S.dTab = 'din';
+        dashDesenha();
+      } catch (e) {}
+      S.dTab = 'hoje';
+    }
+    dashDesenha();
+    try {
+      d48Mes();
+    } catch (e) {}
+    padTela();
+  }
+  function dashDesenha() {
     if (S.view !== 'dash' && !S._rtudo) return;
     var el = $('v-dash'),
       ps = vendasPeriodo(),
@@ -23573,7 +23598,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return m;
   }
   // Detalhe de um dia.
+  // A tela do dia inteira: desenho (diaDesenha) e acabamentos (blocos da família e cabeçalho de "Hoje") — nenhum arquivo embrulha esta função.
   function renderDay() {
+    diaDesenha();
+    try {
+      famDashboard();
+    } catch (e) {}
+    try {
+      d48Dia();
+    } catch (e) {}
+  }
+  function diaDesenha() {
     var box = $('v-dia');
     if (!box || (S.view !== 'dia' && !S._rtudo)) return;
     var k = S.day,
@@ -35906,6 +35941,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function histLista() {
     var b = $('hRes');
     if (b) b.innerHTML = hListaHtml();
+    padTela();
   }
   // Aba Histórico.
   function histRender() {
@@ -35943,6 +35979,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.hfopen = function () {
     S.hFopen = !S.hFopen;
     histRender();
+    if (S.hFopen) {
+      var b = document.querySelector('#v-hist [data-act="hlimpar"]'),
+        s = b && b.closest('section');
+      if (s) animEnter(s);
+    }
   };
   ACT.hfil = function (id) {
     var p = id.split('|');
@@ -44040,13 +44081,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
     });
   };
-  // avisa no sino também
-  var _atTema = atencaoItens;
-  atencaoItens = function () {
-    var it = _atTema.apply(this, arguments);
-    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
-    return it;
-  };
+  // avisa no sino também (chamado por atencaoItens)
+  function atencaoTema(it) {
+    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
+  }
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
   var TEMA_TXT = { natal: ['Natal na La Fouch 🎄', 'Presentes com desconto e retirada no mesmo dia em Ciudad del Este.', 'Navidad en La Fouch 🎄', 'Regalos con descuento y retiro el mismo día en Ciudad del Este.'],
     bf: ['Black Friday La Fouch ⚡', 'Ofertas em toda a loja enquanto durar o estoque.', 'Black Friday La Fouch ⚡', 'Ofertas en toda la tienda mientras dure el stock.'],
@@ -44820,12 +44858,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   aposRender(fnLinkifica);
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
-  var _dcNav = dashCompose;
-  dashCompose = function (o) {
-    if (typeof DT_FRASE === 'object' && DT_FRASE && !DT_FRASE.onl) DT_FRASE.onl = 'Como o site está indo';
-    if (S.dTab === 'onl') return onlResumoHtml();
-    return _dcNav.apply(this, arguments);
-  };
   function onlResumoHtml() {
     var V = S.vistas || {}, top = Object.keys(V).sort(function (a, b) { return V[b] - V[a]; }).slice(0, 5),
       vend = {}, ag = Date.now() - 30 * DAY;
@@ -45090,23 +45122,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfToast('Silenciado por 7 dias');
     ACT.guardAbre();
   };
-  // o que o Guardião achou entra nas Pendências (e no sino)
-  var _atGuard = atencaoItens;
-  atencaoItens = function () {
-    var it = _atGuard.apply(this, arguments);
-    try {
-      // S265: TUDO o que o Guardião achou entra nas Pendências (antes só o urgente); o que as Pendências já mostram por conta própria não repete
-      guardChecks().forEach(function (c) {
-        if (c.ok || c.mudo) return;
-        var tt = c.tp || c.t;
-        if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
-        if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
-        if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
-        it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
-      });
-    } catch (e) {}
-    return it;
-  };
+  // chamado por atencaoItens (Pendências)
+  function atencaoGuardiao(it) {
+    // S265: TUDO o que o Guardião achou entra nas Pendências (antes só o urgente); o que as Pendências já mostram por conta própria não repete
+    guardChecks().forEach(function (c) {
+      if (c.ok || c.mudo) return;
+      var tt = c.tp || c.t;
+      if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
+      if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
+      if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
+      it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
+    });
+  }
   // ===== S234 (14/11/2026, esboço S226 aprovado): no computador o menu ao lado mostra também os destinos que não estão na barra =====
   // Só aparece com mouse e 1100 px ou mais (CSS). No toque a barra de baixo fica como está (os atalhos continuam no Início).
   var RX_DEST = [
@@ -45298,12 +45325,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     c3.appendChild(famBtn('Ver todos os números ›', 'famNum'));
     famColunas(v, c2, c3);
   }
-  var _rdFam = renderDay;
-  renderDay = function () {
-    var r = _rdFam.apply(this, arguments);
-    try { famDashboard(); } catch (e) {}
-    return r;
-  };
   // ===== S200 (aprovado 12/11/2026): LUCRO REAL por peça e do mês =====
   // Regra do dono: IVA da venda (10% dentro do preço) sai da receita (preço ÷ 1,10); IVA pago na compra vira CUSTO
   // (sem crédito fiscal); frete da compra já está rateado no custo da peça (lote); frete da entrega pago pela loja,
@@ -48387,7 +48408,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', onl: 'Como o site está indo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],
@@ -48441,10 +48462,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function dOpHtml(act, id, nome, sub, on, seta) {
     return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
   }
+  // A folha "VER" do título do Dashboard (uma ação só): família → as telas dela; senão as abas do Dashboard + Histórico
+  // e, num grupo comum, as outras telas do grupo e "Gerenciar grupo".
   ACT.dVer = function () {
+    var g = grpGet(S._gAt);
+    if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
+    var onde = d48Hoje() ? 'hoje' : S.view === 'hist' ? 'hist' : S.dTab;
     lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
-      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], S.dTab === t[0], true);
-    }).join(''));
+      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], onde === t[0], true);
+    }).join('') + dOpHtml('dVerEsc', 'hist', 'Histórico', 'Os dias anteriores, um a um', onde === 'hist', true));
+    var o = $('dFolha'),
+      sh = o && o.querySelector('.lfa-sh');
+    if (!g || !sh) return;
+    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
+      fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
+      h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
+    sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
   };
   ACT.dPer = function () {
     var per = d48Hoje() ? 'hoje' : S.per;
@@ -48456,9 +48489,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaFecha('dFolha');
   };
   ACT.dVerEsc = function (id) {
+    if (window.__barraSegurou && window.__barraSegurou()) return; // soltar um arraste da barra em cima da folha não escolhe
     lfaFecha('dFolha');
-    if (S.dTab === id) return;
+    if (id === 'hist') return setView('hist');
+    if (id === 'hoje' && (S.per === 'hoje' || d48Hoje())) { S.per = 'hoje'; S.day = dayKey(Date.now()); return setView('dia'); }
+    if (S.view === 'dash' && S.dTab === id) return;
     S.dTab = id;
+    if (S.view !== 'dash') return setView('dash');
     renderDash();
     animEnter($('dtabBody'));
   };
@@ -51213,14 +51250,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } else ks.after(t2);
     t2.after(ls);
   }
-  var _rd48 = renderDash;
-  renderDash = function () {
-    if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
-    if (S.view === 'dash' && S.dTab === 'hoje') { try { S.dTab = 'din'; _rd48.apply(this, arguments); } catch (e) {} S.dTab = 'hoje'; } // refaz a conta do "Resultado do mês" (S._resMes) com os dados de agora
-    var r = _rd48.apply(this, arguments);
-    try { d48Mes(); } catch (e) {}
-    return r;
-  };
   // ---------- período Hoje (tela v-dia, só quando o dia é hoje) ----------
   function d48Dia() {
     var v = $('v-dia');
@@ -51258,29 +51287,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (b) b.textContent = 'Dias anteriores no Histórico ›';
     }
   }
-  var _rdy48 = renderDay;
-  renderDay = function () {
-    var r = _rdy48.apply(this, arguments);
-    try { d48Dia(); } catch (e) {}
-    return r;
-  };
-  // ---------- as duas folhas (Ver e Período) valem nas duas telas ----------
-  ACT.dVer = function () {
-    var onde = d48Hoje() ? 'hoje' : S.view === 'hist' ? 'hist' : S.dTab;
-    lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
-      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], onde === t[0], true);
-    }).join('') + dOpHtml('dVerEsc', 'hist', 'Histórico', 'Os dias anteriores, um a um', onde === 'hist', true));
-  };
-  ACT.dVerEsc = function (id) {
-    lfaFecha('dFolha');
-    if (id === 'hist') return setView('hist');
-    if (id === 'hoje' && (S.per === 'hoje' || d48Hoje())) { S.per = 'hoje'; S.day = dayKey(Date.now()); return setView('dia'); }
-    if (S.view === 'dash' && S.dTab === id) return;
-    S.dTab = id;
-    if (S.view !== 'dash') return setView('dash');
-    renderDash();
-    animEnter($('dtabBody'));
-  };
   // ===== S364 (16/11/2026) · UMA FOLHA SÓ — regra aprovada em 15/11 16:04 e corrigida em 15/11 16:54 =====
   // Toda folha do app fecha do mesmo jeito: a FAIXA DE CIMA inteira arrasta para baixo (dedo e mouse), tocar fora fecha e Esc fecha.
   // Cada tipo de folha continua com o seu código; este módulo só completa o que faltava em cada um:
@@ -51444,19 +51450,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaFecha('dFolha');
     grpGerirAbre(gid);
   };
-  // no Dashboard o título já tem a flecha: as outras telas do grupo entram na mesma folha
-  var _dVer41 = ACT.dVer;
-  ACT.dVer = function () {
-    _dVer41.apply(this, arguments);
-    var g = grpGet(S._gAt),
-      o = $('dFolha'),
-      sh = o && o.querySelector('.lfa-sh');
-    if (!g || !sh) return;
-    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
-      fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
-      h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
-    sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
-  };
   // ---------- o título da tela com a flecha ----------
   var grpObs = null;
   function grpTituloLimpa(manter) {
@@ -51606,12 +51599,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   aposRender(pcLarga);
   window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
   // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
-  var _hfo17 = ACT.hfopen;
-  ACT.hfopen = function () {
-    var r = _hfo17.apply(this, arguments);
-    if (S.hFopen) { var b = document.querySelector('#v-hist [data-act="hlimpar"]'), s = b && b.closest('section'); if (s) animEnter(s); }
-    return r;
-  };
   var _cln17 = ACT.clinovo;
   ACT.clinovo = function () {
     var r = _cln17.apply(this, arguments);
@@ -51928,12 +51915,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
   };
 
-  // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
-  var _dVerEsc374 = ACT.dVerEsc;
-  ACT.dVerEsc = function () {
-    if (window.__barraSegurou && window.__barraSegurou()) return;
-    return _dVerEsc374.apply(this, arguments);
-  };
 
   // ===== S374 · esboço 59 (aprovado 16/11 10:04, "implementa" 10:40): Início com 6 botões =====
   // Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (site, pedidos, mensagens, analisador)
@@ -51956,13 +51937,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
     S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
   }
-  // no Dashboard, a flecha de uma família (Resultados, Giro e preços) mostra as telas da família
-  var _dVer59 = ACT.dVer;
-  ACT.dVer = function () {
-    var g = grpGet(S._gAt);
-    if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
-    return _dVer59.apply(this, arguments);
-  };
 
   // ===== S374 · esboços 64–66 (aprovados 16/11 13:22, "implementar"): Preços de luxo + abrir como na Apple =====
   var EZ74 = 'cubic-bezier(.45,0,.2,1)';
@@ -52379,12 +52353,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { pad99(v); pad100(v); } catch (e) {}
   }
   aposRender(padTela);
-  var _renderDash99 = renderDash;
-  renderDash = function () {
-    var r = _renderDash99.apply(this, arguments);
-    padTela();
-    return r;
-  };
 
   // 102: "Lista de compras ›" sai de Produtos e fica no fim da aba Fornecedores, centralizada
   var _rEA102 = renderEstoqueAbas;
@@ -52460,13 +52428,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   aposRender(renderMkt);
-  // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
-  var _histLista99 = histLista;
-  histLista = function () {
-    var r = _histLista99.apply(this, arguments);
-    padTela();
-    return r;
-  };
   // ===== S418 (18/11/2026, esboços 110c e 111 aprovados 17/11): regras de confirmação pela consequência =====
   // B = mexe com cliente/site/nuvem/dinheiro ou não tem volta → UMA janela de confirmação (lfConfirma).
   // A = volta fácil e só mexe neste aparelho → faz na hora + "Desfazer".
