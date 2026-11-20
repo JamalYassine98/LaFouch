@@ -1,15 +1,9 @@
 {
  "nome": "APP",
- "agora": "item 27: remendos parte 2c — setView e tabelas de nomes",
+ "agora": "item 21: S1/S2 parte 3 do app — publicar agora (token e pixAuto em reservasTok)",
  "arquivos": [
-  "src/90-navegacao-dashboard.js",
-  "src/89-inicio.js",
-  "src/98-dash-cabecalho.js",
-  "src/98z-grupo-flecha-s41.js",
-  "src/98z-s374.js",
-  "src/98z-s374c-site.js",
-  "src/98z-s374d-padrao.js",
-  "src/98z-dashboard-s48.js",
+  "src/95-pedidos.js",
+  "src/97z-pix-email.js",
   "tests/run.py"
  ],
  "ultimas": [
