@@ -305,3 +305,5 @@ Regra do dono 09:49: os aprovados ficam escritos no próprio código numa cópia
 - 19/11/2026 item 14 da Fila (urgente): admin.html, bloco S374 dos Ajustes — o filtro que transforma cartões em linhas passou de texto (`/está no ar/`) para `c.id!=='c_cfg'`; o cartão do interruptor (#c_cfg/#tgl) fica sempre no topo, ligado ou desligado (antes sumia com o site fora do ar e o dono não conseguia religar). Prova: work/site-painel/prova.py.
 
 - 19/11/2026 20:34 (dono "Sim"): limpeza 1/5 aprovada e no ramo limpo — família WhatsApp num bloco só (/*FAMILIA-WHATSAPP*/); ao rolar a bola sai inteira; volta a animação bola↔lingueta do S239.
+
+- 19/11/2026 21:00 (dono "Sim"): limpezas 2 e 3 aprovadas e no ramo limpo — /*CAMADAS*/ (ordem única: telas < topo+faixa < flutuantes < gavetas < janelas < busca < avisos < sistema, variáveis --c-*) e medida única do topo (--hth = fim do topo na tela, ao vivo; #gw usa × --gz). Resolve o topo cortado do Mochi (print do dono) e o "‹ Início" escondido no catálogo.
