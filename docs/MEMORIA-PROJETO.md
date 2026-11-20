@@ -3266,3 +3266,7 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 20/11 09:34 — Ideia aprovada: gerador de vídeos do Semp (5 partes, biblioteca de versões, sem repetir, aprende com o Instagram, 'Outro jeito').
 - 20/11 09:36 — Música dos vídeos: trilha livre no app como padrão; versão sem música quando o Semp sugerir um áudio em alta do Instagram.
 - 20/11/2026 10:25 — ✅ PUBLICADO v573 (5.49.3, S436; dono 09:40 "vamos fazer pela ordem recomendada"): BUG do "Entrar" na nuvem em aparelho vazio — a ação do cartão do Início virou ACT.nvBemVindoIr (o nome do esboço, nvEntrar, já era o do botão "Conectar à nuvem": a trava dos remendos barrou na hora) e abre Ajustes com a dobra "Cópias e nuvem" aberta e o cursor no e-mail. Trava: teste "Item 22" + teto de ações repetidas 24 → 23. 328/328.
+
+### 20/11/2026 10:02 — Segurança S5+S7 e S6+S3 APROVADAS (esperando "implementar")
+- S5+S7: confirmação do e-mail nas inscrições (novidades e "avise-me"). Decisão pendente do dono: inscritos atuais ficam ou confirmam.
+- S6+S3: privacidade no carrinho e limites de envio. Mudam tela → só com "implementar" (regra 6b). Detalhes técnicos ficam fora do repositório público (sessão NUVEM).
