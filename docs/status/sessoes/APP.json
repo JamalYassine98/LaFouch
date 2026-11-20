@@ -1,24 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 29: remendos parte 4a — Dashboard, dia e Histórico numa função cada",
- "arquivos": [
-  "src/90-navegacao-dashboard.js",
-  "src/93-historico.js",
-  "src/97-hist-busca.js",
-  "src/89-dash-abas.js",
-  "src/98-dash-cabecalho.js",
-  "src/98z-dashboard-s48.js",
-  "src/98z-s374.js",
-  "src/98z-s374d-padrao.js",
-  "src/98z-grupo-flecha-s41.js",
-  "src/98z-pc-s244.js",
-  "src/97y-familias-s265.js",
-  "src/97u-navegacao-s184.js",
-  "src/97r-temas-s183.js",
-  "src/97w-guardiao.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795201099.674426,
+   "r": "v582 publicado: remendos parte 4a (Dashboard, dia, Histórico e Pendências com uma função cada; 0 diferenças em 60 telas; 337/337). Hoje: v573 a v582. Próximo: seguir por dentro (Preços, Peças, Site, Dinheiro…) enquanto a ESBOCO manda o 'como fazer' dos aprovados"
+  },
   {
    "t": 1795199284.503005,
    "r": "v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)"
@@ -56,5 +44,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795199327.9410942
+ "leu": 1795201099.182496
 }
