@@ -1,11 +1,12 @@
 {
  "nome": "SITE",
- "agora": "sai o brilho da Black Friday no destaque e o óculos desenhado antes da foto (ramo esb-desenho do catalogo)",
- "arquivos": [
-  "js/lf-site.js",
-  "index.html"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795195091.7655706,
+   "r": "site 1795194969 no ar: foto da peça aparece por link direto (defeito de raiz), sem óculos desenhado nem brilho da Black Friday; porteiro 207 provas, 0 falhas. teste-giro fica. Próximo: varredura de código morto medindo durante as provas"
+  },
   {
    "t": 1795192986.3815396,
    "r": "CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)"
