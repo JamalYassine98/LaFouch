@@ -1407,6 +1407,8 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .siteChave{gap:6px}
 .scLin{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .scTx b{font-size:15px}.scTx .hint{margin:2px 0 0}
+/* item 16 (20/11): o que falta para ir ao site e a marca de peça de teste — amarelo de atenção */
+.scTx .hint.scFalta,.crumb.pTeste{color:var(--warn)}
 .scSw{width:46px;height:28px;border-radius:99px;border:0;background:var(--line);position:relative;flex:none;margin:0;padding:0;transition:background .2s}
 .scSw::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s cubic-bezier(.3,1.5,.5,1)}
 .scSw.on{background:var(--accent)}.scSw.on::after{left:21px}

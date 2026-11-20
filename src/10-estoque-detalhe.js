@@ -385,6 +385,7 @@
             : ' · formato ' + f.fmt + (f.med ? ' · ' + f.med : ''))
       )
     );
+    if (!venda && S.pTeste && S.pTeste[ref]) h.appendChild(mk('div', 'crumb pTeste', 'Peça de teste'));
     right.appendChild(h);
     if (venda) {
       var prv = tFor(sel).price;

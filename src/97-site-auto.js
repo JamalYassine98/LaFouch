@@ -87,9 +87,12 @@
                 ? 'sem peças em estoque'
                 : ck.falta.length
                   ? 'falta foto da cor ' + ck.falta.map(function (c) { return c.cor; }).join(', ')
-                  : 'entra sozinho quando estiver completo'
+                  : ck.dados.length
+                    ? siteFaltaTxt(ck.dados)
+                    : 'entra sozinho quando estiver completo'
       )
     );
+    if (!on && !fora && ck.cores.length && !ck.sem && !ck.falta.length && ck.dados.length) tx.lastChild.classList.add('scFalta');
     lin.appendChild(tx);
     var sw = mk('button', 'scSw' + (on ? ' on' : ''));
     sw.type = 'button';
@@ -106,7 +109,7 @@
         return;
       }
       if (!ck.ok) {
-        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : 'Cadastre ao menos uma cor');
+        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor');
         return;
       }
       delete S.siteFora[ref];

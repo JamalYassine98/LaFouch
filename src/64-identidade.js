@@ -36,8 +36,30 @@
         return !c.foto;
       }),
       // não se publica o que não se tem: modelo sem nenhuma peça não é liberado (o que já está no ar e esgota fica 2 semanas)
-      sem = estoqueDoRef(ref) <= 0;
-    return { cores: cs, falta: falta, sem: sem, ok: cs.length > 0 && !falta.length && !sem };
+      sem = estoqueDoRef(ref) <= 0,
+      dados = siteFaltaDados(ref);
+    return { cores: cs, falta: falta, sem: sem, dados: dados, ok: cs.length > 0 && !falta.length && !sem && !dados.length };
+  }
+  // Item 16 (20/11/2026): peça incompleta não vai ao site. Na ficha TUDO é obrigatório menos a descrição:
+  // formato, medidas (aro-ponte-haste), material, público, marca, coleção, preço e, na solar, polarizado. Acessório (estojo, flanela) não tem ficha de armação.
+  function siteFaltaDados(ref) {
+    var it = itemDoRef(ref),
+      f = [];
+    if (!it || it.bulk || isSimple(it.tipo)) return f;
+    var a = attrOf(ref);
+    if (!a.formato) f.push('formato');
+    if (!parseMed(it.med).length) f.push('medidas');
+    if (!a.material) f.push('material');
+    if (!a.publico) f.push('público');
+    if (!a.marca) f.push('marca');
+    if (!a.colecao) f.push('coleção');
+    if (!(precoAtual(ref, it.tipo) > 0)) f.push('preço');
+    if (it.tipo === 'solar' && !a.polarizado) f.push('polarizado');
+    return f;
+  }
+  // "falta formato" · "falta formato e medidas" · "falta formato, medidas e mais 2" (cabe numa linha)
+  function siteFaltaTxt(l) {
+    return 'falta ' + (l.length < 3 ? l.join(' e ') : l[0] + ', ' + l[1] + ' e mais ' + (l.length - 2));
   }
   function siteOn(ref) {
     return !!(S.site && S.site[ref]);

@@ -99,6 +99,7 @@
       if (S.site && S.site[ref]) siteSet(ref, false);
       if (S.pprice) delete S.pprice[ref];
       if (S.pcanal) delete S.pcanal[ref];
+      if (S.pTeste) delete S.pTeste[ref];
     } else if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
   }
   // Código automático para peça sem código na haste (ex.: PG-013), em sequência por tipo.

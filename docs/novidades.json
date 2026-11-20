@@ -1,8 +1,9 @@
 {
- "nome": "5.49.4",
+ "nome": "5.50.0",
  "notas": [
-  "Arrumação por dentro (parte 1 da limpeza): o desenho das telas passou a ter uma lista só de acabamentos, no lugar de 16 camadas uma por cima da outra. Nenhuma tela muda.",
-  "Conserta um detalhe: ao digitar código, grau, cor ou custo no Adicionar, a tela agora é redesenhada completa."
+  "Peça incompleta não vai mais ao site: na ficha, tudo é obrigatório menos a descrição (formato, medidas, material, público, marca, coleção, preço e, na solar, polarizado).",
+  "A chave \"No site\" diz o que falta (ex.: \"falta formato e medidas\"); a peça entra sozinha quando ficar completa, e sai se perder algum dado.",
+  "As 19 peças de teste ganharam os dados que faltavam e a marca \"Peça de teste\" na ficha. Nenhuma foi removida."
  ],
- "build": 574
+ "build": 575
 }

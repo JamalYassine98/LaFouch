@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 574;
+  var APP_BUILD = 575;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.49.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1187,6 +1187,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (S.site && S.site[ref]) siteSet(ref, false);
       if (S.pprice) delete S.pprice[ref];
       if (S.pcanal) delete S.pcanal[ref];
+      if (S.pTeste) delete S.pTeste[ref];
     } else if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
   }
   // Código automático para peça sem código na haste (ex.: PG-013), em sequência por tipo.
@@ -1209,7 +1210,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'lcPed', 'vit', 'mkt', 'fotoNota'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'vit', 'mkt', 'fotoNota'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -1811,6 +1812,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             : ' · formato ' + f.fmt + (f.med ? ' · ' + f.med : ''))
       )
     );
+    if (!venda && S.pTeste && S.pTeste[ref]) h.appendChild(mk('div', 'crumb pTeste', 'Peça de teste'));
     right.appendChild(h);
     if (venda) {
       var prv = tFor(sel).price;
@@ -14975,8 +14977,30 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return !c.foto;
       }),
       // não se publica o que não se tem: modelo sem nenhuma peça não é liberado (o que já está no ar e esgota fica 2 semanas)
-      sem = estoqueDoRef(ref) <= 0;
-    return { cores: cs, falta: falta, sem: sem, ok: cs.length > 0 && !falta.length && !sem };
+      sem = estoqueDoRef(ref) <= 0,
+      dados = siteFaltaDados(ref);
+    return { cores: cs, falta: falta, sem: sem, dados: dados, ok: cs.length > 0 && !falta.length && !sem && !dados.length };
+  }
+  // Item 16 (20/11/2026): peça incompleta não vai ao site. Na ficha TUDO é obrigatório menos a descrição:
+  // formato, medidas (aro-ponte-haste), material, público, marca, coleção, preço e, na solar, polarizado. Acessório (estojo, flanela) não tem ficha de armação.
+  function siteFaltaDados(ref) {
+    var it = itemDoRef(ref),
+      f = [];
+    if (!it || it.bulk || isSimple(it.tipo)) return f;
+    var a = attrOf(ref);
+    if (!a.formato) f.push('formato');
+    if (!parseMed(it.med).length) f.push('medidas');
+    if (!a.material) f.push('material');
+    if (!a.publico) f.push('público');
+    if (!a.marca) f.push('marca');
+    if (!a.colecao) f.push('coleção');
+    if (!(precoAtual(ref, it.tipo) > 0)) f.push('preço');
+    if (it.tipo === 'solar' && !a.polarizado) f.push('polarizado');
+    return f;
+  }
+  // "falta formato" · "falta formato e medidas" · "falta formato, medidas e mais 2" (cabe numa linha)
+  function siteFaltaTxt(l) {
+    return 'falta ' + (l.length < 3 ? l.join(' e ') : l[0] + ', ' + l[1] + ' e mais ' + (l.length - 2));
   }
   function siteOn(ref) {
     return !!(S.site && S.site[ref]);
@@ -15202,6 +15226,67 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
     up();
     host.appendChild(pv);
+  }
+  // ===== Peças de teste (item 16, 20/11/2026) =====
+  // As 19 peças de hoje são de TESTE (feitas por IA) e NENHUMA é removida. Para a regra "peça incompleta não vai ao site"
+  // (siteCheck, 64-identidade.js) não tirar nenhuma do ar, o que faltava na ficha delas é preenchido UMA vez com dados de teste
+  // que batem com a foto (formato pelo desenho, medidas normais do tipo). Só preenche o que está vazio. Todas ficam marcadas
+  // (S.pTeste) e a ficha mostra "Peça de teste"; a marca sai quando a peça é excluída (limpaRefExcluido).
+  S.pTeste = {}; // ref -> 1
+  S.pTeste16 = 0; // 1 = já preencheu neste aparelho (ou veio pronto de outro)
+  // código, formato, medidas (aro-ponte-haste), público, material, polarizado (só solar)
+  var PTESTE_19 = [
+    ['AC1050', 'Quadrado', '50-20-145', 'Unissex', 'Acetato', ''],
+    ['AC1055', 'Redondo', '48-21-145', 'Feminino', 'Acetato', ''],
+    ['BR44140', 'Gatinho', '54-17-140', 'Feminino', 'Metal', ''],
+    ['BR44145', 'Redondo', '47-22-145', 'Unissex', 'Metal', ''],
+    ['GR3340', 'Quadrado', '52-19-145', 'Unissex', 'Acetato', ''],
+    ['GR3345', 'Retangular', '54-17-140', 'Masculino', 'Acetato', ''],
+    ['GR3350', 'Quadrado', '50-21-145', 'Unissex', 'Acetato', ''],
+    ['PY-566', 'Gatinho', '50-19-142', 'Feminino', 'Acetato', ''],
+    ['SL2250', 'Quadrado', '54-18-140', 'Masculino', 'Metal', 'Não polarizado'],
+    ['SL2255', 'Retangular', '59-17-130', 'Masculino', 'Plástico', 'Polarizado'],
+    ['SL2260', 'Redondo', '49-22-145', 'Unissex', 'Acetato', 'Não polarizado'],
+    ['SL2265', 'Gatinho', '52-19-145', 'Feminino', 'Acetato', 'Não polarizado'],
+    ['SL2270', 'Hexagonal', '51-20-145', 'Feminino', 'Metal', 'Não polarizado'],
+    ['SL2275', 'Quadrado', '54-19-145', 'Masculino', 'Acetato', 'Não polarizado'],
+    ['SL2280', 'Retangular', '57-17-140', 'Masculino', 'Acetato', 'Não polarizado'],
+    ['SL2285', 'Redondo', '46-21-140', 'Unissex', 'Metal', 'Não polarizado'],
+    ['SL2290', 'Quadrado', '52-20-145', 'Unissex', 'Acetato', 'Não polarizado'],
+    ['SL2300', 'Gatinho', '53-19-145', 'Feminino', 'Acetato', 'Não polarizado'],
+    ['SL2305', 'Aviador', '52-21-145', 'Masculino', 'Metal', 'Não polarizado']
+  ];
+  // 1) marca as 19 uma vez (S.pTeste16); 2) peça marcada nunca fica incompleta: o que estiver vazio volta a ser preenchido
+  //    (protege contra um aparelho ainda na versão antiga devolver a ficha vazia pela sincronização). Devolve quantas peças mudou.
+  function pTesteMigra() {
+    var n = 0;
+    if (!S.pTeste) S.pTeste = {};
+    PTESTE_19.forEach(function (d) {
+      var ref = d[0],
+        its = (S.items || []).filter(function (i) { return i.ref === ref && !i.bulk; });
+      if (!its.length) return;
+      var nova = !S.pTeste16 && !S.pTeste[ref];
+      if (nova) S.pTeste[ref] = 1;
+      if (!S.pTeste[ref]) return;
+      var a = attrOf(ref),
+        p = {};
+      if (!a.formato) p.formato = d[1];
+      if (!a.publico) p.publico = d[3];
+      if (!a.material) p.material = d[4];
+      if (!a.marca) p.marca = 'LaFouch';
+      if (!a.colecao) p.colecao = 'Teste';
+      if (its[0].tipo === 'solar' && !a.polarizado) p.polarizado = d[5] || 'Não polarizado';
+      var semMed = its.filter(function (i) { return !parseMed(i.med).length; });
+      if (Object.keys(p).length) setAttr(ref, p);
+      semMed.forEach(function (i) { i.med = d[2]; });
+      if (nova || Object.keys(p).length || semMed.length) n++;
+    });
+    if (n) {
+      S.pTeste16 = 1;
+      saveSoon();
+      if (S.view === 'estoque' || S.view === 'vendas') render();
+    }
+    return n;
   }
   /* ===== Sugestões ao digitar (no lugar da lista nativa do Android, que travava e aparecia torta) ===== */
   var SG = { box: null, inp: null, fn: null, usa: 'v', lista: [] };
@@ -27738,6 +27823,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try {
       siteFxConfere();
     } catch (e) {}
+    // item 16: peça que ficou incompleta (perdeu um dado da ficha) sai do site — vale mesmo sem nuvem; volta sozinha quando completar
+    // (siteAutoRevisa). Quem só esgotou continua: regra das 2 semanas (vitManutencao). Foto NÃO entra aqui de propósito: as fotos
+    // carregam depois dos dados e chegam atrasadas de outro aparelho — cor sem foto só não aparece no site (regra de sempre).
+    Object.keys(S.site || {}).forEach(function (ref) {
+      try {
+        if (itemDoRef(ref) && siteFaltaDados(ref).length) siteSet(ref, false);
+      } catch (e) {}
+    });
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
     if (!vitConfere.sig) vitConfere.sig = {};
     Object.keys(S.site || {}).forEach(function (ref) {
@@ -41339,9 +41432,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
                 ? 'sem peças em estoque'
                 : ck.falta.length
                   ? 'falta foto da cor ' + ck.falta.map(function (c) { return c.cor; }).join(', ')
-                  : 'entra sozinho quando estiver completo'
+                  : ck.dados.length
+                    ? siteFaltaTxt(ck.dados)
+                    : 'entra sozinho quando estiver completo'
       )
     );
+    if (!on && !fora && ck.cores.length && !ck.sem && !ck.falta.length && ck.dados.length) tx.lastChild.classList.add('scFalta');
     lin.appendChild(tx);
     var sw = mk('button', 'scSw' + (on ? ' on' : ''));
     sw.type = 'button';
@@ -41358,7 +41454,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return;
       }
       if (!ck.ok) {
-        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : 'Cadastre ao menos uma cor');
+        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor');
         return;
       }
       delete S.siteFora[ref];
@@ -53149,6 +53245,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'cxAv',
       'siteOf',
       'siteFora',
+      'pTeste',
+      'pTeste16',
       'lcQtd',
       'lcPed',
       'vit',
@@ -53408,6 +53506,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       try {
         if (typeof leitMigra === 'function') leitMigra();
       } catch (e) {}
+      try {
+        pTesteMigra();
+      } catch (e) {}
     }, 400);
   }
   var haviaSalvo = false;
@@ -53446,7 +53547,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, vitNuvemTira: vitNuvemTira, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

@@ -61,7 +61,7 @@ TESTES = [
    S.cad={Z9:Date.now()-30*864e5}; S.elog=[]; S.items=[{tipo:'pre',ref:'Z9',grau:'+1',cor:'P',qty:5}];
    const a=L.siteAviso('Z9'); L.entradaEstoque('pre','Z9','P','+1',2); S.items[0].qty=7; return [a, L.siteAviso('Z9')]""", ['', 'Chegou esta semana']),
  ("liberar para o site: toda cor precisa de foto (mesmo esgotada) e sem peças nenhuma não se publica", """
-   S.items=[{tipo:'pre',ref:'W1',grau:'+1',cor:'P',qty:3},{tipo:'pre',ref:'W1',grau:'+1',cor:'Q',qty:0}]; S.fotos={'W1|P':'x'};
+   S.items=[{tipo:'pre',ref:'W1',grau:'+1',cor:'P',qty:3,med:'50-20-140'},{tipo:'pre',ref:'W1',grau:'+1',cor:'Q',qty:0,med:'50-20-140'}]; S.fotos={'W1|P':'x'}; S.attr.W1={formato:'Oval',material:'Metal',publico:'Unissex',marca:'M',colecao:'C'}; /* item 16: ficha completa */
    const a=L.siteCheck('W1').ok; S.fotos['W1|Q']='y'; const b=L.siteCheck('W1').ok; S.items.forEach(i=>i.qty=0); const c=L.siteCheck('W1'); return [a,b,c.ok,c.sem]""", [False, True, False, True]),
  ("piso do produto vale o pior caso entre cores com estoque", """
    S.fx.pyg=7000; S.items=[{tipo:'pre',ref:'P1',grau:'+1',cor:'P',qty:3,custo:1},{tipo:'pre',ref:'P1',grau:'+1',cor:'Q',qty:3,custo:3}]; S.grp=[];
@@ -170,7 +170,7 @@ TESTES = [
  ("site: o app publica o produto completo (cores com foto, estoque por cor, aviso automático)", """
    L.primeiroUso(); S.items.length=0; S.fotos={}; S.site={}; S.vitPend={}; S.cad={}; S.pprice={};
    const mk=(cor,qty)=>({tipo:'sem',ref:'ZZ100',grau:'',cor,qty,fmt:'',med:'53□18-140',vr:'',custo:2}); S.items.push(mk('Preto',1), mk('Rosa',0), mk('Azul',5)); S.items[0].qty=2; S.items[2].qty=0;
-   S.attr.ZZ100={material:'Metal', publico:'Feminino', formato:'Gatinho'};
+   S.attr.ZZ100={material:'Metal', publico:'Feminino', formato:'Gatinho', marca:'M', colecao:'C'};
    ['Preto','Rosa','Azul'].forEach(c=>{S.fotos['ZZ100|'+c]='data:image/png;base64,'+c});
    const ok0=L.siteSet('ZZ100',true); S.nuvem.rt='x'; S.tipos&&0;
    const p=L.vitProduto('ZZ100'); const av=L.siteAviso('ZZ100');
@@ -181,8 +181,8 @@ TESTES = [
      const f=pr.length?JSON.parse(pr[0][2]).fields:{}; if(f.fv||!/fieldPaths=fv$/.test(pr[pr.length-1][0])) return ['fv fora de ordem']; const cn=((f.cn||{}).arrayValue||{}).values||[];
      return [ok0, p.cn.join(','), p.qs.join(','), p.med.join(','), p.rosto.join(','), av, av2, av3, pr.length, fo, cn.length, !!(f.lib||{}).booleanValue]})""", [True, 'Preto,Rosa,Azul', '2,0,0', '53,18,140', 'oval,coracao', 'Últimas 2 unidades', '', 'Chegou esta semana', 2, 3, 3, True]),
  ("site: um produto com erro não segura os outros; erro fica só interno (v467)", """
-   const mk=(ref,cor)=>({tipo:'sem',ref,grau:'',cor,qty:3,fmt:'',med:'',vr:'',custo:2});
-   S.items.push(mk('YY1','Preto'), mk('YY2','Preto')); S.fotos['YY1|Preto']='data:image/png;base64,a'; S.fotos['YY2|Preto']='data:image/png;base64,b';
+   const mk=(ref,cor)=>({tipo:'sem',ref,grau:'',cor,qty:3,fmt:'',med:'52-18-140',vr:'',custo:2});
+   S.items.push(mk('YY1','Preto'), mk('YY2','Preto')); S.attr.YY1={formato:'Oval',material:'Metal',publico:'Unissex',marca:'M',colecao:'C'}; S.attr.YY2={formato:'Oval',material:'Metal',publico:'Unissex',marca:'M',colecao:'C'}; S.fotos['YY1|Preto']='data:image/png;base64,a'; S.fotos['YY2|Preto']='data:image/png;base64,b';
    L.siteSet('YY1',true); L.siteSet('YY2',true); S.nuvem.rt='x'; S.vitErr={};
    const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.method]); if(/fotos\/YY1/.test(u)) return Promise.resolve({ok:false,status:400,json:()=>Promise.resolve({error:{message:'grande'}})}); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({})})};
    return L.vitSync().then(()=>new Promise(r=>setTimeout(r,80))).then(()=>{ const d1=calls.filter(x=>/produtos\/YY1\?/.test(x[0])).length, d2=calls.filter(x=>/produtos\/YY2/.test(x[0])).length;
@@ -575,7 +575,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.site = {}; Object.keys(S.fotos).filter(k => k.startsWith('BR44118|')).forEach(k => delete S.fotos[k]); }")
             await pg.evaluate("() => window.__LF.render()"); await pg.wait_for_timeout(300)
             sem = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [!!b, b && b.disabled, document.getElementById('edSite').innerText, !!(b && b.closest('.zcd'))] }")
-            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; }); window.__LF.render(); }"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; i.med = '52-18-140'; }); S.attr.BR44118 = Object.assign({}, S.attr.BR44118, { formato: 'Quadrado' }); window.__LF.render(); }"); await pg.wait_for_timeout(300)
             com = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [b && b.disabled] }")
             await pg.click('#edSiteBtn'); await pg.wait_for_timeout(300)
             lib = await pg.evaluate("() => [!!window.__LF.S.site['BR44118'], document.getElementById('edSite').innerText]")
@@ -3631,6 +3631,35 @@ async def main():
             ok = got == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 2: pagamento confirmado grava o token em reservasTok (e continua em reservas até a parte 3)')
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Item 16 (20/11/2026): peça incompleta não vai ao site (regra em siteCheck); a conferência tira quem ficou incompleta, não quem só esgotou;
+            # as 19 peças de teste ganham o que falta UMA vez (só o vazio) e a marca "Peça de teste"
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), px = 'data:image/png;base64,AAAA';
+              const ref = 'BR44118', its = () => S.items.filter(i => i.ref === ref);
+              its().forEach(i => { S.fotos[ref + '|' + i.cor] = px; i.med = ''; if (i.qty < 1) i.qty = 1; });
+              S.attr[ref] = { marca: 'Gucci', material: 'Metal', publico: 'Feminino', colecao: 'Clássicos' }; S.site = S.site || {}; S.site[ref] = 1; S.siteFora = {};
+              const falta = L.siteFaltaDados(ref).join(','), ok0 = L.siteCheck(ref).ok, liga0 = L.siteSet(ref, true);
+              S.site[ref] = 1; await L.vitConfere(); const saiu = !S.site[ref];
+              S.attr[ref].formato = 'Quadrado'; its().forEach(i => i.med = '52-18-140');
+              const ok1 = L.siteCheck(ref).ok && !L.siteFaltaDados(ref).length; L.siteSet(ref, true);
+              its().forEach(i => i.qty = 0); await L.vitConfere(); const esgotadoFica = !!S.site[ref];
+              // peças de teste
+              S.pTeste = {}; S.pTeste16 = 0; delete S.attr['SL2255']; delete S.attr['AC1050'];
+              S.items.push({ id: 'pt1', ref: 'SL2255', tipo: 'solar', cor: 'Preto', qty: 1, med: '' }, { id: 'pt2', ref: 'AC1050', tipo: its()[0].tipo, cor: 'Vinho', qty: 1, med: '49-19-140' });
+              S.attr['AC1050'] = { formato: 'Oval' };
+              const n = L.pTesteMigra(), a = S.attr['SL2255'] || {}, b = S.attr['AC1050'] || {};
+              const sol = [a.formato, a.polarizado, a.publico, !!a.marca, !!a.colecao, S.items.find(i => i.id === 'pt1').med].join('|');
+              const naoPisa = b.formato === 'Oval' && S.items.find(i => i.id === 'pt2').med === '49-19-140' && !b.polarizado;
+              const marca = !!S.pTeste['SL2255'] && !!S.pTeste['AC1050'] && S.pTeste16 === 1 && L.pTesteMigra() === 0;
+              delete S.attr['SL2255'].formato; const volta = L.pTesteMigra() === 1 && S.attr['SL2255'].formato === 'Retangular' && S.attr['AC1050'].formato === 'Oval';
+              S.items = S.items.filter(i => i.id !== 'pt1'); L.limpaRefExcluido('SL2255'); const marcaSai = !S.pTeste['SL2255'];
+              S.items = S.items.filter(i => i.id !== 'pt2'); return [falta, ok0, liga0, saiu, ok1, esgotadoFica, n, sol, naoPisa, marca, volta, marcaSai]; }""")
+            total += 1
+            ok = got == ['formato,medidas', False, False, True, True, True, 2, 'Retangular|Polarizado|Masculino|true|true|59-17-130', True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 16: peça incompleta não vai ao site; conferência tira a incompleta e deixa a esgotada; peças de teste preenchidas uma vez e marcadas')
+            if not ok: falhas.append('item 16 peça incompleta'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Item 23 (20/11/2026): remendos parte 1 — ninguém troca o render (os acabamentos entram por antesRender/aposRender, num lugar só);

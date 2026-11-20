@@ -228,6 +228,14 @@
     try {
       siteFxConfere();
     } catch (e) {}
+    // item 16: peça que ficou incompleta (perdeu um dado da ficha) sai do site — vale mesmo sem nuvem; volta sozinha quando completar
+    // (siteAutoRevisa). Quem só esgotou continua: regra das 2 semanas (vitManutencao). Foto NÃO entra aqui de propósito: as fotos
+    // carregam depois dos dados e chegam atrasadas de outro aparelho — cor sem foto só não aparece no site (regra de sempre).
+    Object.keys(S.site || {}).forEach(function (ref) {
+      try {
+        if (itemDoRef(ref) && siteFaltaDados(ref).length) siteSet(ref, false);
+      } catch (e) {}
+    });
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
     if (!vitConfere.sig) vitConfere.sig = {};
     Object.keys(S.site || {}).forEach(function (ref) {
