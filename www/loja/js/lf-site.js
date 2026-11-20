@@ -21,10 +21,8 @@
   function find(ref){return P.filter(function(p){return p.ref===ref})[0]}
   function bruto(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*find(k).n},0)}
   function brutoD(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*LFI.pv(find(k).n)},0)}
-  /* Leve 2: retirado em 17/11/2026 (ordem do dono) — nenhum desconto da 2ª peça; a função fica só porque as contas do carrinho a consultam */
-  function l2Info(){return {n:0,d:0,dD:0,por:{}}}
   /* Cupons (S174, aprovado 11/11/2026): 1 código por compra; não vale em peça em OFERTA ("ya tiene su mejor precio");
-     em cada peça vale no máximo o % que o app liberou (cmx: nunca abaixo do piso); com "Leve 2" vale o maior desconto. */
+     em cada peça vale no máximo o % que o app liberou (cmx: nunca abaixo do piso). */
   st.cup=lsG('lf_cup',null);
   /* S192 (12/11): transportadoras do Delivery (só Paraguai). Preço e disponibilidade vêm do app (config/site.fretes = {id:{p:G$,off:true}});
      sem preço = frete pago na entrega. A escolha (Delivery + transportadora + endereço) fica salva para a próxima compra. */
@@ -44,18 +42,16 @@
   function cupConta(){var n=0,a=0;Object.keys(st.cart).forEach(function(k){var q=st.cart[k];n+=q;if(cupPeca(find(k)).d>0)a+=q});return {n:n,a:a}}
   function cupInfo(){var r={d:0,dD:0,por:{},min:false};if(!st.cup)return r;var b=bruto();if(st.cup.min&&b<st.cup.min){r.min=true;return r}
     Object.keys(st.cart).forEach(function(k){var p=find(k),x=cupPeca(p);if(x.d>0){r.d+=x.d*st.cart[k];r.dD+=Math.max(0,(LFI.pv(p.n)-LFI.pv(p.n-x.d)))*st.cart[k];r.por[k]=x.d*st.cart[k]}});return r}
-  /* qual desconto vale no carrinho: 'l2', 'cup' ou '' */
-  function descVale(){var a=l2Info().d,c=cupInfo().d;return c>0&&c>=a?'cup':a>0?'l2':''}
-  function descD(){var v=descVale();return v==='cup'?cupInfo().d:v==='l2'?l2Info().d:0}
-  function descDD(){var v=descVale();return v==='cup'?cupInfo().dD:v==='l2'?l2Info().dD:0}
-  function cupFn(b){var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)},go=function(){return fetch('https://southamerica-east1-'+FB.p+'.cloudfunctions.net/cupom',o).then(function(r){return r.json()})};
+  /* qual desconto vale no carrinho: 'cup' ou '' */
+  function descVale(){return cupInfo().d>0?'cup':''}
+  function descD(){return descVale()==='cup'?cupInfo().d:0}
+  function descDD(){return descVale()==='cup'?cupInfo().dD:0}
+  function cupFn(b){var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)},go=function(){return acFetch(fnUrl('cupom'),o).then(function(r){return r.json()})};
     /* S370 (aprovado 15/11 15:11): os cartões usam a chave de login RENOVADA (idTok); a guardada vence em 1 hora */
     if(b.acao==='meus')return idTok().then(function(t){o.headers.Authorization='Bearer '+t;return go()},function(){return {ok:false,motivo:'sessao'}});
     return go()}
-  function cupGuarda(c){st._cupErr='';st.cup=c?{cod:c.cod,pct:c.pct,tipo:c.tipo,fim:c.fim||0,min:c.min||0,restam:c.restam}:null;lsS('lf_cup',st.cup)}
+  function cupGuarda(c){st.cup=c?{cod:c.cod,pct:c.pct,tipo:c.tipo,fim:c.fim||0,min:c.min||0,restam:c.restam}:null;lsS('lf_cup',st.cup)}
   function cupTira(){cupGuarda(null)}
-  var CUPI='<svg class="cupi" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v1.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3.5a2.5 2.5 0 0 0 0-5z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>';
-  var CUP_TIPO={bv:'Boas-vindas',px:'Próxima compra',am:'Indique uma amiga',vip:'Cliente fiel',fiel:'Cliente fiel',ev:'Cupom do evento'};
   function cupData(t){return t?new Date(t).toLocaleDateString(LFI.lang==='es'?'es-PY':'pt-BR'):''}
   function cupMsg(m,c){var cod=c&&c.cod?c.cod:'';return {nao:LFI.tr('Código não encontrado. Confira as letras.'),usado:LFI.tr('Este código já foi usado.'),vencido:LFI.tr('Este código venceu.'),cancelado:LFI.tr('Este código foi cancelado.'),
     ja:LFI.tr('Você já usou')+' '+cod+'. '+LFI.tr('Obrigado! Seu cartão de próxima compra continua valendo.'),esgotado:LFI.tr('Os cupons')+' '+cod+' '+LFI.tr('acabaram.'),outro:LFI.tr('Este código é pessoal, de outro telefone.'),
@@ -63,17 +59,8 @@
     min:LFI.tr('Compra mínima de')+' '+fmt((c&&c.min)||0)+'.',cedo:LFI.tr('Este código ainda não começou a valer.'),pendente:LFI.tr('Este cartão começa a valer quando confirmarmos o pagamento.'),espera:LFI.tr('Muitas tentativas. Tente de novo em 1 hora.'),pausa:LFI.tr('Agora não há códigos novos. Tente no mês que vem.')}[m]||LFI.tr('Não deu para conferir o código agora. Tente de novo.')}
   function cupAplica(cod,cb){cod=String(cod||'').trim();if(!cod)return;var c=getConta()||{};
     cupFn({acao:'ver',cod:cod,tel:c.tel||'',email:c.email||(sessG()||{}).email||''}).then(function(j){if(j&&j.ok){cupGuarda(j.cupom);toast(LFI.tr('Código aplicado')+' ✓');}else toast(cupMsg(j&&j.motivo,j&&j.cupom));if(cb)cb(j)},function(){toast(LFI.tr('Não deu para conferir o código agora. Tente de novo.'));if(cb)cb(null)})}
-  /* carrinho: "¿Tenés un código?" + linha do desconto + avisos (vale o maior, peça em oferta, quedan N de 50) */
-  function cupHtml(dd){var ci=cupInfo(),v=descVale();
-    if(!st.cup&&dd)return '';
-    if(st.cup&&v==='cup'&&!ci.min){var cc=cupConta(),nm=esc(st.cup.cod)+' · −'+st.cup.pct+'%';
-      if(dd)return '<div class="cs-r cupl cupd"><span>'+CUPI+LFI.tr('Cupom')+' '+nm+'</span><span class="cupv">−'+LFI.fmtD(ci.dD)+'</span></div>';
-      return '<div class="cupcard">'+CUPI+'<div class="cupct"><b>'+nm+'</b><small>'+LFI.tr('Cupom aplicado em')+' '+cc.a+' '+LFI.tr('de')+' '+cc.n+' '+LFI.tr(cc.n===1?'peça':'peças')+'</small></div><button type="button" class="cuprm" data-cupx>'+LFI.tr('remover')+'</button></div>'}
-    if(!st.cup)return '<details class="cupf"'+(st._cupOpen?' open':'')+'><summary>'+LFI.tr('Tem um código?')+'</summary><div class="cupr"><input class="field" id="cupin" placeholder="LF-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="'+LFI.tr('Código de desconto')+'"><button type="button" class="btn" data-cupok>'+LFI.tr('Aplicar')+'</button></div>'+(st._cupErr?'<small class="cupn cupe" role="alert">'+esc(st._cupErr)+'</small>':'')+'<small class="cupn">'+LFI.tr('Um código por compra. Não soma com OFERTA nem com "Leve 2": vale o maior desconto.')+'</small></details>';
-    var nome=LFI.tr(CUP_TIPO[st.cup.tipo]||'Código')+' −'+st.cup.pct+'%',ex=st.cup.tipo==='ev'&&st.cup.restam!=null?'<small class="cupn">'+LFI.tr('Restam')+' '+st.cup.restam+'</small>':'';
-    if(ci.min)return '<div class="cs-r cupl"><span>'+esc(st.cup.cod)+' · '+nome+'</span><button type="button" class="cupx" data-cupx aria-label="'+LFI.tr('Tirar o código')+'">×</button></div><small class="cupn">'+LFI.tr('Compra mínima de')+' '+LFI.fmtD(LFI.pv(st.cup.min))+'. '+LFI.tr('O código continua guardado.')+'</small>';
-    if(v!=='cup')return '<div class="cs-r cupl"><span>'+esc(st.cup.cod)+' · '+nome+'</span><button type="button" class="cupx" data-cupx aria-label="'+LFI.tr('Tirar o código')+'">×</button></div><small class="cupn">'+(ci.d>0?LFI.tr('O "Leve 2" dá mais desconto nesta compra: vale o maior. O código continua guardado.'):LFI.tr('Nesta compra o código não dá desconto (as peças já têm o melhor preço). Ele continua guardado.'))+'</small>';
-    return '<div class="cs-r cupl"><span>'+esc(st.cup.cod)+' · '+nome+'</span><span class="cupv">−'+LFI.fmtD(ci.dD)+' <button type="button" class="cupx" data-cupx aria-label="'+LFI.tr('Tirar o código')+'">×</button></span></div>'+ex}
+  /* carrinho: linha do cartão desta compra — desenhada pelo bloco dos Cartões (S409, mais abaixo) */
+  function cupHtml(dd){return ''}
   /* peça: "Tu código vale aquí ✓ − Gs. 13.000" / "Ya tiene su mejor precio" */
   function cupPecaHtml(p){if(!st.cup)return '';var x=cupPeca(p);if(x.of)return '<div class="cupp of"><b>'+LFI.tr('Já tem o melhor preço')+'</b> · '+LFI.tr('o código fica para outra compra')+'</div>';
     if(!(x.d>0))return '<div class="cupp of">'+LFI.tr('O código')+' '+esc(st.cup.cod)+' '+LFI.tr('não vale nesta peça')+'</div>';
@@ -111,9 +98,8 @@
   document.addEventListener('keydown',function(e){var a=document.activeElement;if((e.key==='Enter'||e.key===' ')&&a&&a.getAttribute&&a.getAttribute('role')==='button'&&a.hasAttribute('data-cupperg')&&!document.getElementById('cpov')){e.preventDefault();cupPergunta(a.getAttribute('data-cupperg'))}});
   /* boas-vindas depois de se inscrever nas novidades */
   
-  document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-cupok],[data-cupx],[data-cupusar],[data-cupcopy],[data-bvx]');if(!t)return;
-    if(t.hasAttribute('data-cupok')){var i=document.getElementById('cupin');t.disabled=true;st._cupOpen=true;cupAplica(i&&i.value,function(j){t.disabled=false;st._cupErr=j&&j.ok?'':j?cupMsg(j.motivo,j.cupom):LFI.tr('Não deu para conferir o código agora. Tente de novo.');bag(true);var i2=document.getElementById('cupin');if(i2&&!(j&&j.ok)){i2.value=i&&i.value||'';i2.focus()}})}
-    else if(t.hasAttribute('data-cupx')){cupTira();bag(true)}
+  document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-cupx],[data-cupusar],[data-cupcopy],[data-bvx]');if(!t)return;
+    if(t.hasAttribute('data-cupx')){cupTira();bag(true)}
     else if(t.hasAttribute('data-cupusar')){var bo=document.getElementById('bvov');if(bo)bo.remove();cupAplica(t.getAttribute('data-cupusar'),function(j){if(j&&j.ok){closeLayer();setTimeout(function(){bag()},50)}})}
     else if(t.hasAttribute('data-cupcopy')){var cd=t.getAttribute('data-cupcopy');try{navigator.clipboard.writeText(cd+' · https://lafouch.com/t/'+cd).then(function(){toast(LFI.tr('Código copiado'))})}catch(_){}}
     else if(t.hasAttribute('data-bvx')){var bb=document.getElementById('bvov');if(bb)bb.remove()}});
@@ -144,7 +130,7 @@
   try{(function(){var u=new URLSearchParams(location.search),C=u.get('c');if(!C||!/^[A-Za-z0-9_-]{4,40}$/.test(C))return;
     var es=function(){return LFI.lang==='es'},T=function(p,e){return es()?e:p},K='lf_at_'+C,dev=lsG('lf_atdev','');if(!dev){dev='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);lsS('lf_atdev',dev)}
     var A={tok:lsG(K,''),conta:null,itens:[],min:0,tab:'',q:{},f:'',email:''};
-    var fn=function(b){return fetch(fnUrl('atacado'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({c:C,dev:dev,tok:A.tok},b))}).then(function(r){return r.json()})};
+    var fn=function(b){return acFetch(fnUrl('atacado'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({c:C,dev:dev,tok:A.tok},b))}).then(function(r){return r.json()})};
     var devNome=function(){var ua=navigator.userAgent;return /iPhone/.test(ua)?'iPhone':/iPad/.test(ua)?'iPad':/Android/.test(ua)?((ua.match(/Android [^;]+; ([^)]+?)( Build|\))/)||[])[1]||'Android'):/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'Mac':'Navegador'};
     var usd=function(v){return 'US$ '+(+v||0).toFixed(2).replace('.',',')};
     var tela=function(h){layer('<aside class="panel atp" role="dialog" aria-modal="true" aria-label="Atacado"><div class="xw"><button class="x" data-close aria-label="Fechar">×</button></div><span class="atk">'+T('CONTA ATACADISTA','CUENTA MAYORISTA')+(A.tab?' · '+esc(A.tab).toUpperCase():'')+'</span>'+h+'</aside>')};
@@ -403,7 +389,7 @@
     return '<section class="dsec dvolta" data-vref="'+esc(p.ref)+'"><span class="dsl">'+LFI.tr('Esgotado no momento')+'</span><input type="email" class="vem" placeholder="'+LFI.tr('seu@email.com')+'" value="'+esc(em)+'" autocomplete="email" inputmode="email" aria-label="E-mail"><input type="text" class="vhp" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="button" class="vbt" data-volta="'+esc(p.ref)+'">'+LFI.tr('Avisar-me quando voltar')+'</button><small class="vmu">'+LFI.tr('1 e-mail só, quando voltar ao estoque.')+'</small></section>'}
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-volta]');if(!b||b.disabled)return;var sc=b.closest('.dvolta'),ref=b.getAttribute('data-volta'),inp=sc.querySelector('.vem'),em=String(inp.value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em)){inp.focus();toast(LFI.tr('Confira o e-mail.'));return}b.disabled=true;
-    fetch('https://southamerica-east1-'+FB.p+'.cloudfunctions.net/volta',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'pedir',ref:ref,email:em,lang:LFI.lang,site:sc.querySelector('.vhp').value})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw j;var fe=lsG('lf_voltas',{});fe[ref]=Date.now();lsS('lf_voltas',fe);lsS('lf_vemail',em);sc.innerHTML='<div class="vok">✓ '+LFI.tr('Vamos te avisar por e-mail quando voltar.')+'</div>'},function(){throw 0}).catch(function(j){b.disabled=false;toast(LFI.tr(j&&j.motivo==='muitas'?'Você já tem muitos avisos pendentes.':'Não deu para enviar agora. Tente de novo.'))})});
+    acFetch(fnUrl('volta'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'pedir',ref:ref,email:em,lang:LFI.lang,site:sc.querySelector('.vhp').value})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw j;var fe=lsG('lf_voltas',{});fe[ref]=Date.now();lsS('lf_voltas',fe);lsS('lf_vemail',em);sc.innerHTML='<div class="vok">✓ '+LFI.tr('Vamos te avisar por e-mail quando voltar.')+'</div>'},function(){throw 0}).catch(function(j){b.disabled=false;toast(LFI.tr(j&&j.motivo==='muitas'?'Você já tem muitos avisos pendentes.':'Não deu para enviar agora. Tente de novo.'))})});
   /* S173-3B: "Voltou um favorito" na próxima visita (favoritos ficam no aparelho; sem e-mail) */
   function favVolta(){try{var ant=lsG('lf_favesg',null),agora={},volt=[];Object.keys(st.fav).forEach(function(r){var p=find(r);if(!p)return;var es=p.aviso==='Esgotado'&&!p.esgRes;if(es)agora[r]=1;else if(ant&&ant[r])volt.push(p)});lsS('lf_favesg',agora);
     if(!volt.length||document.getElementById('fvolta'))return;var p=volt[0],d=document.createElement('div');d.id='fvolta';d.className='fvolta';d.setAttribute('role','status');
@@ -428,12 +414,10 @@
      "Últimas N" não entra na conta: fica sempre dentro da foto. Sem "OFERTA" escrito, sem NOVO, sem selo preto de tipo e sem "Mais vendido" repetido. */
   var TSEL={natal:['Presente ideal','Regalo ideal'],maes:['Para a mãe','Para mamá'],pais:['Para o pai','Para papá'],bf:['Black Friday','Black Friday'],anonovo:['Ano Novo','Año Nuevo'],halloween:['Halloween','Halloween']};
   function temaDe(p){try{var e=evAtivo();if(!e||!TSEL[e.tema])return '';var f=DST_TEMA[e.tema];return f&&f(p)?e.tema:''}catch(_){return ''}}
-  function temaNome(t){var x=TSEL[t];return x?x[window.LFI&&LFI.lang==='es'?1:0]:''}
   var CATN={grau:['Leitura','Lectura'],solar:['Sol','Sol'],armacao:['Armações','Armazones']};
   function catRank(p){if(!(p.mv>0))return 0;var L=P.filter(function(q){return q.tipo===p.tipo&&q.mv>0&&q.aviso!=='Esgotado'}).sort(function(a,b){return a.mv-b.mv}),k=L.indexOf(p)+1;return k>0&&k<=3?k:0}
-  function selo1(p,cls){var es=window.LFI&&LFI.lang==='es',c=cls||'sel1';if(p.aviso==='Esgotado')return '';var tm=temaDe(p);
-    if(isOf(p))return '<span class="'+c+' of">−'+pct5(p)+'%'+(tm?' · '+esc(temaNome(tm)):'')+'</span>';
-    if(tm)return '<span class="'+c+' tm t-'+tm+'">'+esc(temaNome(tm))+'</span>';
+  function selo1(p,cls){var es=window.LFI&&LFI.lang==='es',c=cls||'sel1';if(p.aviso==='Esgotado')return '';
+    if(isOf(p))return '<span class="'+c+' of">−'+pct5(p)+'%</span>';
     var k=0;if(k)return '<span class="'+c+' rk">Nº '+k+' '+(es?'en ':'em ')+((CATN[p.tipo]||['',''])[es?1:0])+'</span>';
     /* S402 (17/11/2026, ordem do dono): o selo "Chegou esta semana" saiu também do catálogo e do Início (da página da peça já tinha saído em 12/11) */return ''}
   function lista(){
@@ -500,7 +484,7 @@
     r=pageOf(r);var HA=r.length?r.map(function(p,i){
       var esg=p.aviso==='Esgotado',n=st.cart[p.ref]||0;
       var sk=esg?'<span class="stk e">'+(p.esgRes?'Reservada agora':'Esgotado')+'</span>':(/Últim/.test(p.aviso)?'<span class="stk u">'+esc(p.aviso)+'</span>':''),tm0=isOf(p)?temaDe(p):'';
-      return '<article class="card'+(esg?' esg':'')+(isOf(p)?' of':'')+(tm0?' ot t-'+tm0:'')+'" style="--i:'+i+'">'+selo1(p)+edb(p)+'<button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph">'+(esg?sk:'')+ofx(p)+vis(p)+(!esg&&/Últim/.test(p.aviso||'')?'<span class="ulin"><i></i>'+esc(p.aviso)+'</span>':'')+'<span class="shine"></span>'+(p.fotos&&p.fotos[1]?'<span class="alt2"><img src="'+p.fotos[1]+'" alt=""></span>':(!p.foto&&p.cores&&p.cores[1]?'<span class="alt2">'+glasses(p.cores[1],p.raio,5)+'</span>':''))+'</div><div class="info"><span class="rr">'+(p.ds!=null?'<span class="ref lfds">'+esc(p.ds)+'</span>':'<span class="ref">'+p.ref+'</span>')+(p.uv?'<span class="uvc" title="Proteção UV400">UV400</span>':'')+'</span><span class="nm'+(p.ds!=null?' lfcod':'')+'">'+esc(p.ds!=null?p.ref:p.nome)+'</span>'+(p.cores&&p.cores.length?'<span class="esw">'+p.cores.slice(0,6).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span>':'')+'<span class="pr">'+prx(p)+'</span>'+eco(p)+'<span class="av">'+esc(p.aviso)+'</span></div></button></article>'}):null,GH=HA?HA.join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
+      return '<article class="card'+(esg?' esg':'')+(isOf(p)?' of':'')+(tm0?' ot t-'+tm0:'')+'" style="--i:'+i+'">'+selo1(p)+edb(p)+'<button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph">'+(esg?sk:'')+ofx(p)+vis(p)+(!esg&&/Últim/.test(p.aviso||'')?'<span class="ulin" data-cabe="letra"><i></i>'+esc(p.aviso)+'</span>':'')+'<span class="shine"></span>'+(p.fotos&&p.fotos[1]?'<span class="alt2"><img src="'+p.fotos[1]+'" alt=""></span>':(!p.foto&&p.cores&&p.cores[1]?'<span class="alt2">'+glasses(p.cores[1],p.raio,5)+'</span>':''))+'</div><div class="info"><span class="rr">'+(p.ds!=null?'<span class="ref lfds">'+esc(p.ds)+'</span>':'<span class="ref">'+p.ref+'</span>')+(p.uv?'<span class="uvc" title="Proteção UV400">UV400</span>':'')+'</span><span class="nm'+(p.ds!=null?' lfcod':'')+'">'+esc(p.ds!=null?p.ref:p.nome)+'</span>'+(p.cores&&p.cores.length?'<span class="esw">'+p.cores.slice(0,6).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span>':'')+'<span class="pr">'+prx(p)+'</span>'+eco(p)+'<span class="av">'+esc(p.aviso)+'</span></div></button></article>'}):null,GH=HA?HA.join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
     var G=$('grid');
     /* S186: mais da metade dos cartões em oferta (ex.: Black Friday) = versão clara (cartão branco, selo vermelho) */
     try{if(G&&r){var nOf=r.filter(function(p){return isOf(p)}).length;G.classList.toggle('ofl',r.length>3&&nOf*2>r.length)}}catch(_){}
@@ -594,7 +578,7 @@
     var b=$('bagbtn');if(!b||!src||!src.getBoundingClientRect)return 0;
     var sr=src.getBoundingClientRect(),br=b.getBoundingClientRect();if(!sr.width||!br.width)return 0;
     var z=zf(),ac=(getComputedStyle(document.documentElement).getPropertyValue('--ac')||'#b4528a').trim(),x0=sr.left+sr.width/2,y0=sr.top+sr.height/2,dx=(br.left+br.width/2-x0)/z,dy=(br.top+br.height/2-y0)/z,
-      f=document.createElement('i');f.className='favfly';f.style.cssText='position:fixed;z-index:90;left:'+(x0/z-11)+'px;top:'+(y0/z-11)+'px;width:22px;height:22px;color:'+ac+';pointer-events:none';
+      f=document.createElement('i');f.className='favfly';f.style.cssText='position:fixed;z-index:var(--c-aviso);left:'+(x0/z-11)+'px;top:'+(y0/z-11)+'px;width:22px;height:22px;color:'+ac+';pointer-events:none';
     f.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="'+FAV_HP+'"/></svg>';document.body.appendChild(f);
     f.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:'translate('+(dx*.45)+'px,'+(dy*.45-46)+'px) scale(1.15)',opacity:1,offset:.45},{transform:'translate('+dx+'px,'+dy+'px) scale(.35)',opacity:.2}],{duration:620,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'}).onfinish=function(){f.remove()};
     b.animate([{transform:'scale(1)'},{transform:'scale(1.14)'},{transform:'scale(1)'}],{duration:320,delay:560,easing:'cubic-bezier(.2,.8,.2,1)'});
@@ -625,7 +609,7 @@
     if(fc){fc.textContent=nOld;if(fc.animate)fc.animate([{transform:'scale(1)'},{transform:'scale(.45)',opacity:.4,offset:.45},{transform:'scale(1)',opacity:1}],{duration:460,easing:'ease-in-out'});
       setTimeout(function(){fc.textContent=nNew},200)}
     if(ft.animate)ft.animate([{transform:'none'},{transform:'scale(.9)',offset:.3},{transform:'scale(1.04)',offset:.65},{transform:'none'}],{duration:420,easing:'ease-out'});
-    var mi=document.createElement('i');mi.className='favgh';mi.textContent='−1';mi.style.cssText='position:fixed;z-index:90;left:'+(cx/z-20)+'px;top:'+(r.top/z+4)+'px;width:40px;text-align:center;font:800 15px Inter,sans-serif;color:var(--mu,#777);pointer-events:none;opacity:0;font-style:normal';document.body.appendChild(mi);
+    var mi=document.createElement('i');mi.className='favgh';mi.textContent='−1';mi.style.cssText='position:fixed;z-index:var(--c-aviso);left:'+(cx/z-20)+'px;top:'+(r.top/z+4)+'px;width:40px;text-align:center;font:800 15px Inter,sans-serif;color:var(--mu,#777);pointer-events:none;opacity:0;font-style:normal';document.body.appendChild(mi);
     if(mi.animate)mi.animate([{opacity:0,transform:'translateY(-6px) scale(.8)'},{opacity:1,transform:'translateY(6px) scale(1.1)',offset:.3},{opacity:1,transform:'translateY(18px) scale(1)',offset:.7},{opacity:0,transform:'translateY(28px)'}],{duration:800,easing:'ease-out'}).onfinish=function(){mi.remove()};
     else setTimeout(function(){mi.remove()},800)}
   function toggleFav(ref,src){
@@ -752,13 +736,15 @@
     if(!skip&&n>0){try{history.go(-n)}catch(_){}}
     if(rf)setTimeout(function(){prodMark(rf)},60)}
   function prodMark(rf){if(!rf||rf==='#cart')return;var b=document.querySelector('#grid [data-open="'+rf+'"]'),c=b&&b.closest('.card');if(!c)return;var r=c.getBoundingClientRect(),h=innerHeight||600;if(r.height&&(r.bottom<0||r.top>h)){try{c.scrollIntoView({block:'center'})}catch(_){}}c.classList.add('lastv');setTimeout(function(){c.classList.remove('lastv')},2600)}
-  function pgBar(p){return '<div class="pgbar"><button type="button" class="pgback navb" data-pgback><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>'+esc(navTxt(p))+'</span></button><span class="pgcr"><button type="button" data-crumb="todos">'+LFI.tr('Catálogo')+'</button><i>›</i><button type="button" data-crumb="'+esc(p.tipo)+'">'+esc((TIPOS.filter(function(t){return t[0]===p.tipo})[0]||[0,''])[1])+'</button><i>›</i><span>'+p.ref+'</span></span></div>'}
+  function pgBar(p){return '<div class="pgbar"><button type="button" class="pgback navb" data-pgback><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>'+esc(navTxt(p))+'</span></button></div>'}
+  /* S429 (peça opção B, aprovado 18/11): no topo só "‹ Armações"; o caminho completo vai pequeno para o fim da página da peça */
+  function pgCam(p){return '<nav class="lfcam" aria-label="'+LFI.tr('Você está em')+'"><button type="button" data-crumb="todos">'+LFI.tr('Catálogo')+'</button><i>›</i><button type="button" data-crumb="'+esc(p.tipo)+'">'+esc((TIPOS.filter(function(t){return t[0]===p.tipo})[0]||[0,''])[1])+'</button><i>›</i><span>'+p.ref+'</span></nav>'}
   /* v453: botão de favoritos também na página da peça (o coração voa para ele, igual ao catálogo) */
   /* 08/11 (aprovado): comparar e compartilhar no topo, ao lado do coração de cima (mesmo botão redondo) */
   function pgActs(p){return '<button type="button" class="ib fbtn pgact'+(st.cmp.indexOf(p.ref)>=0?' on':'')+'" data-cmp="'+p.ref+'" aria-label="'+LFI.tr('Comparar')+'">'+CMPI+'</button><button type="button" class="ib fbtn pgact" data-share="'+p.ref+'" aria-label="'+LFI.tr('Compartilhar')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.7l6.8-4M8.6 13.3l6.8 4"/></svg></button>'}
   
-  function pgBarCart(){return '';var _x='<div class="pgbar"><button type="button" class="pgback" data-pgback="cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Voltar ao catálogo</span></button><span class="pgcr">Seu carrinho</span></div>'}
-  function pgBarAcc(t){return '';var _x='<div class="pgbar"><button type="button" class="pgback" data-pgback="cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Voltar ao catálogo</span></button><span class="pgcr">'+t+'</span></div>'}
+  function pgBarCart(){return ''}
+  function pgBarAcc(t){return ''}
   function pgCart(re,pop,kind,ttl){
     kind=kind||'#cart';var url=kind==='#cart'?'/carrinho':'/conta',stt=kind==='#cart'?{lfc:1}:{lfa:1};
     lfBootFim();
@@ -911,7 +897,7 @@
       if(VEU)return;
       if(!aberto()){if((scrollY||0)>0)try{scrollTo({top:0,behavior:RM.matches?'auto':'smooth'})}catch(_){topo()}return}
       var n=(history.state&&history.state.__i)||0,v=VEU=document.createElement('div');
-      v.style.cssText='position:fixed;inset:0;z-index:2147483000;background:var(--bg);opacity:0;pointer-events:auto';document.body.appendChild(v);
+      v.style.cssText='position:fixed;inset:0;z-index:calc(var(--c-sistema) + 9);background:var(--bg);opacity:0;pointer-events:auto';document.body.appendChild(v);
       var troca=function(){window.__lfLogo=1;fechaTudo();
         if(n>0){window.__lfLogo=2;try{history.go(-n)}catch(_){window.__lfLogo=0}}else window.__lfLogo=0;
         setTimeout(function(){if(window.__lfLogo)window.__lfLogo=0},1500);
@@ -938,7 +924,7 @@
       var H=document.documentElement,ly=$('layer');if(!((ly&&ly.innerHTML.trim())||H.classList.contains('ppop')||$('gw')))return;
       e.preventDefault();e.stopImmediatePropagation();if(VEU)return;
       var n=(history.state&&history.state.__i)||0,v=VEU=document.createElement('div');
-      v.style.cssText='position:fixed;inset:0;z-index:2147483000;background:var(--bg);opacity:0;pointer-events:auto';document.body.appendChild(v);
+      v.style.cssText='position:fixed;inset:0;z-index:calc(var(--c-sistema) + 9);background:var(--bg);opacity:0;pointer-events:auto';document.body.appendChild(v);
       var sai=function(){var fim=function(){v.remove();VEU=null};if(RM.matches||!v.animate){fim();return}var an=v.animate([{opacity:1},{opacity:0}],{duration:220,easing:'ease-in-out',fill:'forwards'});an.onfinish=fim};
       var segue=function(){topo();window.__lfMenuGo=1;try{a.click()}catch(_){}window.__lfMenuGo=0;setTimeout(function(){requestAnimationFrame(sai)},140)};
       var vai=function(){window.__lfLogo=1;try{if(window.__lfGzFecha)window.__lfGzFecha()}catch(_){}fechaTudo();
@@ -1030,7 +1016,7 @@
   function vistaEnvia(){var c,id;try{if(sessionStorage.getItem('lf_vc_n')!=='1')return;c=JSON.parse(sessionStorage.getItem('lf_vc')||'{}');id=sessionStorage.getItem('lf_vc_id');if(!id){id='v'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);sessionStorage.setItem('lf_vc_id',id)}sessionStorage.setItem('lf_vc_n','0')}catch(_){return}
     var ks=Object.keys(c).slice(0,60);if(!ks.length)return;var r={};ks.forEach(function(k){r[k]=Math.min(50,c[k]|0)});
     var body=JSON.stringify({fields:{ts:{integerValue:String(Date.now())},r:fsv(r)}});
-    try{fetch('https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/vistas/'+id+'?key='+FB.k,{method:'PATCH',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){})}catch(_){}}
+    try{acFetch(fsBase()+'vistas/'+id+'?key='+FB.k,{method:'PATCH',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){})}catch(_){}}
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')vistaEnvia()});
   addEventListener('pagehide',vistaEnvia);
   function relHtml(p){
@@ -1109,7 +1095,7 @@
     (p.med&&p.med.length>2?'<section class="dsec"><span class="dsl">Medidas</span><div class="meds"><div class="med"><b>'+p.med[0]+'<i>mm</i></b><span>Lente</span></div><div class="med"><b>'+p.med[1]+'<i>mm</i></b><span>Ponte</span></div><div class="med"><b>'+p.med[2]+'<i>mm</i></b><span>Haste</span></div></div></section>':'')+
     (sw?'<section class="dsec'+(dots?' dcor':'')+'"><div class="dl"><span>Cor</span> · <b id="cn">'+esc(corNome(p,st.cor[p.ref]||0))+'</b></div><div class="sw" aria-label="Cores">'+p.cores.map(function(c,i){var xo=p.qs&&p.qs[i]===0;return dots?'<button type="button" class="dt'+(i?'':' on')+(xo?' x':'')+'" data-sw="'+i+'" data-ref="'+p.ref+'" aria-label="'+esc(corNome(p,i))+(xo?' (esgotada)':'')+'"><span style="background:'+c+'"></span></button>':'<button type="button" class="'+(i?'':'on')+'" data-sw="'+i+'" data-ref="'+p.ref+'" aria-label="Cor '+(i+1)+'">'+glasses(c,p.raio,6)+'</button>'}).join('')+'</div>'+(dots?thumbsD:'')+'</section>':(one?'<section class="dsec dcor dcor1"><div class="dl"><span>Cor</span> · <b>'+esc(corNome(p,0))+'</b></div>'+thumbsD.replace(/<div class="cthl">.*?<\/div>/,'')+'</section>':''))+
     buyH+
-    '</div>'+relHtml(p)+'</div>','pg');pgInit(p,pop);try{ggMonta(p)}catch(_){}}
+    '</div>'+relHtml(p)+pgCam(p)+'</div>','pg');pgInit(p,pop);try{ggMonta(p)}catch(_){}}
   /* celular: a reserva abre igual ao menu (painel desliza, fundo escurece, itens entram em sequência), vindo da direita */
   
   function bag(re,pop){
@@ -1121,7 +1107,7 @@
     var es=window.LFI&&LFI.lang==='es',cnt=nq+(es?(nq===1?' artículo':' artículos'):(nq===1?' item':' itens'));
     var ste=ks.length>0&&lg?(st.step==='ent'||st.step==='pag'?st.step:''):'',dd=!!ste,cnow=dd?contaNorm(getConta()):null,entD=st.ent==='delivery';
     var sum='<div class="cs"><h3 class="cs-h">'+LFI.tr(dd?'Seu pedido':'Resumo')+'</h3>'+
-      '<div class="cs-r cs-h"><span>'+LFI.tr('Subtotal')+' · '+cnt+'</span><span>'+LFI.fmtD(brutoD())+'</span></div>'+cupHtml(dd)+(function(){var l=l2Info();if(descVale()==='cup')return '';return l.d>0?'<div class="cs-r cs-l2"><span>'+LFI.tr('Leve 2 · 30% na 2ª peça')+'</span><span>−'+LFI.fmtD(l.dD)+'</span></div>':l.n===1?'<div class="cs-l2n">'+LFI.tr('Leve 2: leve mais um óculos de leitura ou de sol e a 2ª peça sai com 30% de desconto.')+'</div>':''})()+'<div class="cs-r cs-h"><span>'+LFI.tr('Entrega')+'</span><span>'+(dd&&entD?(st.tr&&trOk(st.tr)?esc(trNome(st.tr))+' · '+(freteG()?LFI.fmtD(LFI.pv(freteG())):LFI.tr('frete na entrega')):LFI.tr('Delivery · frete na entrega')):LFI.tr('Retirada na loja · grátis'))+'</span></div>'+
+      '<div class="cs-r cs-h"><span>'+LFI.tr('Subtotal')+' · '+cnt+'</span><span>'+LFI.fmtD(brutoD())+'</span></div>'+cupHtml(dd)+'<div class="cs-r cs-h"><span>'+LFI.tr('Entrega')+'</span><span>'+(dd&&entD?(st.tr&&trOk(st.tr)?esc(trNome(st.tr))+' · '+(freteG()?LFI.fmtD(LFI.pv(freteG())):LFI.tr('frete na entrega')):LFI.tr('Delivery · frete na entrega')):LFI.tr('Retirada na loja · grátis'))+'</span></div>'+
       '<div class="cs-t"><span>'+(dd&&entD&&freteG()?LFI.tr('Total com frete'):'Total')+'</span><b>'+LFI.fmtD(totalD()+(dd&&entD?LFI.pv(freteG()):0))+'</b></div>'+
       (ste==='pag'?'<button class="btn w cs-b" data-send'+(st.pag?'':' aria-disabled="true" style="opacity:.55"')+'>Confirmar e pagar</button><span class="cs-n cs-h">As peças ficam reservadas enquanto você paga.</span>'
         :ste==='ent'?'<button class="btn w cs-b" data-cta="irpag">Forma de pagamento</button>'
@@ -1188,7 +1174,7 @@
     if(v('ctm').length<5)return fal('Escreva a sua mensagem.','ctm');
     bt.disabled=true;bt.textContent=LFI.tr('Enviando…');
     var ct=window.AbortController?new AbortController():null,tm=setTimeout(function(){ct&&ct.abort()},10000);
-    fetch(fnUrl('mensagem'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'enviar',tipo:'contato',nome:nome,email:v('cte'),tel:v('ctt'),msg:v('ctm'),site:v('ctsite'),lang:LFI.lang}),signal:ct?ct.signal:undefined})
+    acFetch(fnUrl('mensagem'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'enviar',tipo:'contato',nome:nome,email:v('cte'),tel:v('ctt'),msg:v('ctm'),site:v('ctsite'),lang:LFI.lang}),signal:ct?ct.signal:undefined})
       .then(function(r){clearTimeout(tm);return r.json().catch(function(){return {ok:false}})}).then(function(j){if(!j||!j.ok)throw new Error(j&&j.motivo||'erro');
         AJ.pg='';try{closePanels()}catch(_){}try{window.scrollTo({top:0,behavior:'smooth'})}catch(_){}setTimeout(function(){toast(LFI.tr('Mensagem enviada. Respondemos por e-mail em breve.'))},250)})
       .catch(function(x){clearTimeout(tm);bt.disabled=false;bt.textContent=LFI.tr('Enviar');fal(String(x&&x.message)==='muitas'?'Muitas mensagens em pouco tempo. Tente mais tarde.':'Não deu para enviar agora. Tente de novo ou fale com a loja pelo WhatsApp.')})},true);
@@ -1196,7 +1182,9 @@
   /* B3 (11/11, S156): catálogo sem bolinhas — linha de gênero só em texto + "Filtros ›" na mesma linha (abre a caixa de filtros de sempre) */
   function genRow(){var ms=document.querySelector('#vscr .mobsearch');if(!ms)return;var o=$('lfgen');
     if(!o){o=document.createElement('div');o.id='lfgen';o.className='lfgen';o.setAttribute('role','group');o.setAttribute('aria-label',LFI.tr('Gênero'));ms.insertAdjacentElement('afterend',o)}
-    o.innerHTML=[['','Todos'],['f','Feminino'],['m','Masculino'],['u','Unissex']].map(function(g){return '<button type="button" data-gen="'+g[0]+'" aria-pressed="'+(st.gen===g[0])+'" class="'+(st.gen===g[0]?'on':'')+'">'+LFI.tr(g[1])+'</button>'}).join('')+'<a href="#" class="lfgf" data-lffil>'+LFI.tr('Filtros')+' <i>›</i></a>'}
+    o.innerHTML=[['','Todos'],['f','Feminino'],['m','Masculino'],['u','Unissex']].map(function(g){return '<button type="button" data-gen="'+g[0]+'" aria-pressed="'+(st.gen===g[0])+'" class="'+(st.gen===g[0]?'on':'')+'">'+LFI.tr(g[1])+'</button>'}).join('');o.setAttribute('data-cabe','letra');
+    /* "Filtros ›" fica na linha do título, na margem da direita (aprovado 18/11); a linha de base vem do próprio título (flex baseline) */
+    var vt=document.querySelector('#vscr .vtit');if(vt&&!vt.querySelector('.lfgf'))vt.insertAdjacentHTML('beforeend','<a href="#" class="lfgf" data-lffil>'+LFI.tr('Filtros')+' <i>›</i></a>')}
   var _dg3=drawGrid;drawGrid=function(){var r=_dg3.apply(this,arguments);try{genRow()}catch(_){}return r};
   document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-lffil]');if(!t)return;e.preventDefault();e.stopPropagation();var f=$('fbtn');if(f)f.click()},true);
 
@@ -1226,17 +1214,16 @@
       /* 11/11 (aprovado): o país vem do idioma/moeda; sem cidade e sem favoritos na mensagem (esses vão só para o painel) */
       return 'ATACADO · '+st.atCod+'\n'+(es?'País: Paraguay':'País: Brasil')+(q?'\n'+(es?'Cantidad: ':'Quantidade: ')+q:'')+(pr.length?'\n'+(es?'Busca: ':'Procura: ')+pr.map(function(x){return LFI.tr(x)}).join(', '):'')+'\n'+(es?'¡Hola! Quiero un presupuesto mayorista.':'Olá! Quero um orçamento de atacado.')}
     if(modo==='avise'){var p=find(ref);return 'Olá! Me avise quando chegar: '+p.nome+' ('+p.ref+').\nVer o modelo: https://lafouch.com/p/'+encodeURIComponent(p.ref)+'.html'}
-    var t='Olá! Quero reservar na La Fouch:\n'+Object.keys(st.cart).map(function(k){var p=find(k);return '• '+st.cart[k]+'× '+p.ref+' · '+p.nome+(p.cores&&p.cores.length>1?' · Cor: '+corNome(p,st.cor[k]||0):'')+(p.gr&&p.gr.length?' · Grau: '+p.gr[st.gr[k]||0]:'')+' · '+fmtL(p,st.cart[k])}).join('\n')+(descVale()==='l2'?'\n'+LFI.tr('Leve 2 · 30% na 2ª peça')+': −'+LFI.fmtD(l2Info().dD):descVale()==='cup'?'\n'+LFI.tr('Código')+' '+st.cup.cod+': −'+LFI.fmtD(cupInfo().dD):'')+'\nTotal: '+LFI.fmtD(totalD())+(LFI.cur==='BRL'?' (≈ '+LFI.fmtG(total())+')':'')+'\nVou provar e retirar na loja.';
+    var t='Olá! Quero reservar na La Fouch:\n'+Object.keys(st.cart).map(function(k){var p=find(k);return '• '+st.cart[k]+'× '+p.ref+' · '+p.nome+(p.cores&&p.cores.length>1?' · Cor: '+corNome(p,st.cor[k]||0):'')+(p.gr&&p.gr.length?' · Grau: '+p.gr[st.gr[k]||0]:'')+' · '+fmtL(p,st.cart[k])}).join('\n')+(descVale()==='cup'?'\n'+LFI.tr('Código')+' '+st.cup.cod+': −'+LFI.fmtD(cupInfo().dD):'')+'\nTotal: '+LFI.fmtD(totalD())+(LFI.cur==='BRL'?' (≈ '+LFI.fmtG(total())+')':'')+'\nVou provar e retirar na loja.';
     if(st.rosto){var ff=FACES.filter(function(x){return x.id===st.rosto})[0];if(ff)t+='\nFormato do meu rosto: '+ff.nome}if(st.nome)t+='\nNome: '+st.nome;if(st.zap)t+='\nWhatsApp: '+st.zap;return t}
   /* pedido do site: grava na nuvem (o app da loja recebe sozinho) e mostra a tela de pedido recebido */
   var PK_SVG='<svg width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="#3ddc8c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M4.5 12.8l4.8 4.9L19.5 7"/></svg>';
   var PK_WA='<svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z"/></svg>';
   function fsv(v){if(v===null||v===undefined)return {nullValue:null};if(typeof v==='number')return Math.floor(v)===v?{integerValue:String(v)}:{doubleValue:v};if(typeof v==='boolean')return {booleanValue:v};if(Array.isArray(v))return {arrayValue:{values:v.map(fsv)}};if(typeof v==='object'){var f={};for(var k in v)f[k]=fsv(v[k]);return {mapValue:{fields:f}}}return {stringValue:String(v)}}
   /* reserva de 30 min (14/11; o prazo real vem do servidor): o servidor decide a hora e quantas peças sobram; se a função estiver desligada ou fora do ar, o pedido segue como antes */
-  var RES_URL='https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/reserva';
   function resCall(acao,pedido,itens,refs,extra){
     var ct=window.AbortController?new AbortController():null,tm=setTimeout(function(){ct&&ct.abort()},8000),b={acao:acao,pedido:pedido};if(itens)b.itens=itens;if(refs)b.refs=refs;if(extra)for(var xk in extra)b[xk]=extra[xk];
-    return acFetch(RES_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(r.status>=500||r.status===404)return null;return r.json().catch(function(){return null})},function(){clearTimeout(tm);return null})}
+    return acFetch(fnUrl('reserva'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(r.status>=500||r.status===404)return null;return r.json().catch(function(){return null})},function(){clearTimeout(tm);return null})}
   function resItens(its){return (its||[]).map(function(i){return {ref:i.ref,cor:i.cor||'',q:i.q}})}
   function resLeft(e){if(!e||!e.rx)return 0;return Math.max(0,e.rx-(Date.now()+(e.rd||0)))}
   /* S394: preço da linha como aparece na tela (moeda do cliente), para o e-mail do pedido */
@@ -1445,22 +1432,26 @@
   function logado(){return !!(sessG()&&getConta())}
   /* App Check (reCAPTCHA v3 invisível): anexa o selo do site às chamadas ao Firebase. Sem o ID do app (AC.app) não faz nada. */
   var AC={site:'6LdfswsuAAAAAEhnRr1YDllR505K3LagtIYIDpdb',app:'1:462328668572:web:c34eb81c6044ca07e62859',t:null,x:0,p:null,f:0};
+  /* o selo fica guardado no aparelho até vencer: não pede ao reCAPTCHA a cada página */
+  (function(g){if(g&&g.t&&Date.now()<+g.x){AC.t=g.t;AC.x=+g.x}})(lsG('lf_ac',null));
   function acLoad(){return new Promise(function(ok,no){if(window.grecaptcha&&grecaptcha.enterprise&&grecaptcha.enterprise.execute)return ok();var s=document.createElement('script');s.src='https://www.google.com/recaptcha/enterprise.js?render='+AC.site;s.async=true;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
   function acTok(){if(!AC.app)return Promise.resolve(null);if(AC.t&&Date.now()<AC.x)return Promise.resolve(AC.t);if(AC.p)return AC.p;if(Date.now()<AC.f)return Promise.resolve(null);
-    AC.p=acLoad().then(function(){return new Promise(function(ok){grecaptcha.enterprise.ready(ok)})}).then(function(){return grecaptcha.enterprise.execute(AC.site,{action:'lf'})}).then(function(tk){return fetch('https://firebaseappcheck.googleapis.com/v1/projects/'+FB.p+'/apps/'+AC.app+':exchangeRecaptchaEnterpriseToken?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recaptcha_enterprise_token:tk})})}).then(function(r){if(!r.ok)return r.text().then(function(t){try{console.warn('AppCheck',r.status,t.slice(0,300))}catch(_){}throw 0});return r.json()}).then(function(j){AC.t=j.token;AC.x=Date.now()+Math.max(300,parseInt(j.ttl)||3600)*1000-120000;AC.p=null;return AC.t}).catch(function(e){if(e)try{console.warn('AppCheck',e)}catch(_){}AC.p=null;AC.f=Date.now()+60000;return null});
+    AC.p=acLoad().then(function(){return new Promise(function(ok){grecaptcha.enterprise.ready(ok)})}).then(function(){return grecaptcha.enterprise.execute(AC.site,{action:'lf'})}).then(function(tk){return fetch('https://firebaseappcheck.googleapis.com/v1/projects/'+FB.p+'/apps/'+AC.app+':exchangeRecaptchaEnterpriseToken?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recaptcha_enterprise_token:tk})})}).then(function(r){if(!r.ok)return r.text().then(function(t){try{console.warn('AppCheck',r.status,t.slice(0,300))}catch(_){}throw 0});return r.json()}).then(function(j){AC.t=j.token;AC.x=Date.now()+Math.max(300,parseInt(j.ttl)||3600)*1000-120000;AC.p=null;lsS('lf_ac',{t:AC.t,x:AC.x});return AC.t}).catch(function(e){if(e)try{console.warn('AppCheck',e)}catch(_){}AC.p=null;AC.f=Date.now()+60000;return null});
     return AC.p}
-  function acFetch(url,o){o=o||{};return Promise.race([acTok(),new Promise(function(r){setTimeout(function(){r(null)},4000)})]).then(function(t){if(t)o.headers=Object.assign({},o.headers,{'X-Firebase-AppCheck':t});return fetch(url,o)})}
+  /* TODA chamada à nuvem (funções e Firestore) passa por aqui e leva o selo; com o selo em mãos a chamada sai na hora (vale para o envio ao fechar a página) */
+  function acFetch(url,o){o=o||{};var vai=function(t){if(t)o.headers=Object.assign({},o.headers,{'X-Firebase-AppCheck':t});return fetch(url,o)};if(AC.t&&Date.now()<AC.x)return vai(AC.t);
+    return Promise.race([acTok(),new Promise(function(r){setTimeout(function(){r(null)},4000)})]).then(vai)}
   function fsBase(){return 'https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/'}
   function authPost(ep,body){return acFetch('https://identitytoolkit.googleapis.com/v1/accounts:'+ep+'?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(String((j.error&&j.error.message)||'ERRO').split(' ')[0]);return j})})}
-  var AUTH_MSG={EMAIL_EXISTS:'Este e-mail já tem conta. Use Iniciar sessão.',USER_TAKEN:'Esse usuário já existe. Escolha outro.',INVALID_LOGIN_CREDENTIALS:'Usuário/e-mail ou senha incorretos.',INVALID_PASSWORD:'Usuário/e-mail ou senha incorretos.',EMAIL_NOT_FOUND:'Não encontramos esse e-mail.',USER_NOT_FOUND:'Não encontramos esse usuário ou e-mail.',WEAK_PASSWORD:'Senha fraca. Use 6 ou mais caracteres.',INVALID_EMAIL:'E-mail inválido.',TOO_MANY_ATTEMPTS_TRY_LATER:'Muitas tentativas. Espere um pouco e tente de novo.',FEDERATED_USER_ID_ALREADY_USED:'Esse Google já está ligado a outra conta.',CREDENTIAL_ALREADY_IN_USE:'Esse Google já está ligado a outra conta.',OPERATION_NOT_ALLOWED:'O login ainda não está ativo na loja. Fale com a loja pelo WhatsApp.'};
+  var AUTH_MSG={EMAIL_EXISTS:'Este e-mail já tem conta. Use Iniciar sessão.',INVALID_LOGIN_CREDENTIALS:'Usuário/e-mail ou senha incorretos.',INVALID_PASSWORD:'Usuário/e-mail ou senha incorretos.',EMAIL_NOT_FOUND:'Não encontramos esse e-mail.',WEAK_PASSWORD:'Senha fraca. Use 6 ou mais caracteres.',INVALID_EMAIL:'E-mail inválido.',TOO_MANY_ATTEMPTS_TRY_LATER:'Muitas tentativas. Espere um pouco e tente de novo.',FEDERATED_USER_ID_ALREADY_USED:'Esse Google já está ligado a outra conta.',CREDENTIAL_ALREADY_IN_USE:'Esse Google já está ligado a outra conta.',OPERATION_NOT_ALLOWED:'O login ainda não está ativo na loja. Fale com a loja pelo WhatsApp.'};
   function authErr(e,id){cfErro(AUTH_MSG[String(e&&e.message||'')]||'Não deu para conectar. Confira a internet e tente de novo.',id);authBusy(false)}
   function authBusy(on){var b=document.querySelector('#layer [data-busy]');if(!b)return;if(on){b.setAttribute('data-t',b.textContent);b.textContent='Aguarde…';b.disabled=true}else{b.textContent=b.getAttribute('data-t')||b.textContent;b.disabled=false}}
   function sessSave(j,user,x){var o={uid:j.localId,email:j.email,idToken:j.idToken,refresh:j.refreshToken,exp:Date.now()+(+j.expiresIn||3600)*1000-60000,user:user||''};if(x)for(var k in x)o[k]=x[k];lsS('lf_auth',o);return o}
   function idTok(){var s=sessG();if(!s)return Promise.reject(new Error('SEM_SESSAO'));if(Date.now()<s.exp)return Promise.resolve(s.idToken);
     return fetch('https://securetoken.googleapis.com/v1/token?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(s.refresh)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error('SESSAO');s.idToken=j.id_token;s.refresh=j.refresh_token||s.refresh;s.exp=Date.now()+(+j.expires_in||3600)*1000-60000;lsS('lf_auth',s);return s.idToken})})}
   function fsA(method,path,fields){return idTok().then(function(t){var f={};for(var k in fields)f[k]=fsv(fields[k]);return acFetch(fsBase()+path,{method:method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:fields?JSON.stringify({fields:f}):undefined}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json()})})}
-  /* usuário ou e-mail → e-mail */
-  function achaEmail(id){return id.indexOf('@')>0?Promise.resolve({email:id,user:''}):fbg('usuarios/'+encodeURIComponent(id)).then(function(d){var e=fbd(d).email;if(!e)throw new Error('USER_NOT_FOUND');return {email:e,user:id}},function(){throw new Error('USER_NOT_FOUND')})}
+  /* nome de usuário antigo + senha: a função da nuvem acha a conta e faz o login por dentro (o site não lê a lista de usuários) */
+  function contaEntrar(user,senha){return acFetch(fnUrl('conta'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'entrar',user:user,senha:senha})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw new Error(j&&j.motivo==='espera'?'TOO_MANY_ATTEMPTS_TRY_LATER':j&&j.motivo==='login'?'INVALID_LOGIN_CREDENTIALS':'ERRO');return j})}
   var AUTH_VOLTA=false;
   function pwField(id,lb){return '<label class="cfl" for="'+id+'">'+lb+'</label><div class="pwr"><input class="field" id="'+id+'" type="password" autocomplete="'+(id==='aup'?'current-password':'new-password')+'"><button type="button" class="pwo" tabindex="-1" data-cta="olho" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle class="pp" cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button></div>'}
   function authHead(t){return '<div style="display:flex;align-items:center;justify-content:space-between"><h2 style="font-size:28px">'+t+'</h2><button class="x" data-close aria-label="Fechar" style="align-self:auto">×</button></div>'}
@@ -1471,39 +1462,16 @@
       '<div class="remrow"><label class="rem"><input type="checkbox" id="aur"'+(remOn()?' checked':'')+'><i></i><span>Lembrar de mim</span></label><button type="button" class="cfx" data-cta="esqueci">Esqueci minha senha</button></div>'+
       '<button class="btn w" data-cta="login" data-busy>Iniciar sessão</button>'+gBtn('Continuar com Google')+
       '<button type="button" class="cfx" data-cta="cadastrar" style="text-align:center;width:100%">Ainda não tenho conta · <u>Criar conta</u></button></aside>')}
-  function cadastrarTela(){gPre();
-    layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Criar conta">'+authHead('Criar conta')+
-      '<div class="passos"><i class="on"></i><i></i></div><div class="note" style="margin:0">Passo 1 de 2 · acesso</div>'+
-      '<label class="cfl" for="auu">Usuário</label><input class="field" id="auu" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="ex.: maria.souza">'+
-      '<label class="cfl" for="aue">E-mail</label><input class="field" id="aue" type="email" autocomplete="email" autocapitalize="none">'+
-      pwField('aup','Senha (mínimo 6 caracteres)')+pwField('aup2','Repetir a senha')+
-      '<div class="fze" id="cferr" role="alert" hidden></div>'+
-      '<button class="btn w" data-cta="criar" data-busy>Continuar</button>'+'<p class="tm">Ao criar sua conta, você aceita os <a href="/termos.html" target="_blank" rel="noopener">Termos e Condições</a> <span>e a</span> <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>'+gBtn('Criar conta com Google')+
-      '<button type="button" class="cfx" data-cta="entrar" style="text-align:center;width:100%">Já tenho conta · <u>Iniciar sessão</u></button></aside>')}
   function esqueciTela(){
     layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Recuperar senha">'+authHead('Recuperar senha')+
-      '<div class="note" style="margin:0">Digite seu usuário ou e-mail. Enviamos um link para criar uma nova senha.</div>'+
-      '<label class="cfl" for="aul">Usuário ou e-mail</label><input class="field" id="aul" autocomplete="username" autocapitalize="none" spellcheck="false">'+
+      '<div class="note" style="margin:0">Digite seu e-mail. Enviamos um link para criar uma nova senha.</div>'+
+      '<label class="cfl" for="aul">E-mail</label><input class="field" id="aul" type="email" autocomplete="email" autocapitalize="none" spellcheck="false">'+
       '<div class="fze" id="cferr" role="alert" hidden></div><div class="note" id="aures" style="display:none;color:#7fe0a8"></div>'+
       '<button class="btn w" data-cta="reset" data-busy>Enviar link</button>'+
       '<button type="button" class="cfx" data-cta="entrar" style="text-align:center;width:100%">Voltar</button></aside>')}
-  function authEntrar(){
-    var id=($('aul')||{value:''}).value.trim().toLowerCase(),pw=($('aup')||{value:''}).value;
-    if(!id)return cfErro('Digite seu usuário ou e-mail.','aul');if(!pw)return cfErro('Digite sua senha.','aup');cfErro('');try{var rm=$('aur')?$('aur').checked:true;if(rm){localStorage.removeItem('lf_norem');localStorage.setItem('lf_lastu',id)}else{localStorage.setItem('lf_norem','1');localStorage.removeItem('lf_lastu')}}catch(_){}authBusy(true);
-    achaEmail(id).then(function(r){return authPost('signInWithPassword',{email:r.email,password:pw,returnSecureToken:true}).then(function(j){return sessSave(j,r.user)})})
-      .then(function(s){return fsA('GET','clientes/'+s.uid).then(function(d){var o=fbd(d);lsS('lf_conta',o);return o},function(){return null})})
-      .then(function(c){contaBtn();if(c){toast('Olá, '+String(c.nome).split(' ')[0]+'!');if(AUTH_VOLTA)bag();else closeLayer()}else contaForm(AUTH_VOLTA)},function(e){authErr(e,'aul')})}
-  function authCriar(){
-    var g=function(i){return ($(i)||{value:''}).value.trim()},u=g('auu').toLowerCase(),em=g('aue').toLowerCase(),pw=($('aup')||{value:''}).value,p2=($('aup2')||{value:''}).value;
-    if(!/^[a-z0-9._]{3,20}$/.test(u))return cfErro('Usuário: 3 a 20 letras minúsculas, números, ponto ou _.','auu');
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return cfErro('E-mail inválido.','aue');
-    if(pw.length<6)return cfErro('A senha precisa ter 6 ou mais caracteres.','aup');if(pw!==p2)return cfErro('As senhas não são iguais.','aup2');cfErro('');authBusy(true);
-    fbg('usuarios/'+encodeURIComponent(u)).then(function(){throw new Error('USER_TAKEN')},function(){return authPost('signUp',{email:em,password:pw,returnSecureToken:true})})
-      .then(function(j){var s=sessSave(j,u);return fsA('POST','usuarios?documentId='+encodeURIComponent(u),{uid:s.uid,email:s.email})})
-      .then(function(){lsS('lf_conta',null);contaBtn();contaForm(AUTH_VOLTA)},function(e){authErr(e,'auu')})}
   function authReset(){
-    var id=($('aul')||{value:''}).value.trim().toLowerCase();if(!id)return cfErro('Digite seu usuário ou e-mail.','aul');cfErro('');authBusy(true);
-    achaEmail(id).then(function(r){return authPost('sendOobCode',{requestType:'PASSWORD_RESET',email:r.email}).then(function(){return r.email})})
+    var id=($('aul')||{value:''}).value.trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(id))return cfErro('Digite o e-mail da sua conta.','aul');cfErro('');authBusy(true);
+    authPost('sendOobCode',{requestType:'PASSWORD_RESET',email:id}).then(function(){return id})
       .then(function(em){authBusy(false);var n=$('aures');if(n){var a=em.split('@');n.textContent='✓ Link enviado para '+a[0].charAt(0)+'***@'+a[1]+'. Confira também o spam.';n.style.display='block'}},function(e){authErr(e,'aul')})}
   function authSair(){try{localStorage.removeItem('lf_auth');localStorage.removeItem('lf_conta');localStorage.removeItem('lf_ped')}catch(_){}contaBtn()}
   /* Google: SDK do Firebase só para abrir a janela; a sessão segue pelo mesmo caminho (REST) */
@@ -1598,9 +1566,7 @@
     var f=$('fa2'),h=$('fa2h');if(f){f.classList.add('bad');if(!h){h=document.createElement('div');h.id='fa2h';h.className='cfh er';f.after(h)}h.textContent=m;h.hidden=false}}
   document.addEventListener('focusout',function(e){var t=e.target;if(!t||t.id!=='fa2')return;var v=t.value.trim();if(v.length<6)return;endConf(v).then(function(r){if($('fa2')!==t||t.value.trim()!==v)return;var h=$('fa2h');if(r.fora)endAviso(r.cc);else{t.classList.remove('bad');if(h)h.hidden=true}})});
   function endsSalvos(c){var o=[],add=function(x){x=String(x||'').trim();if(x.length>=6&&o.indexOf(x)<0)o.push(x)};add(c&&c.end);lsG('lf_ends',[]).forEach(add);return o.slice(0,4)}
-  function endBloco(c){var sv=endsSalvos(c),man=st.endMode==='manual'||!sv.length,i=Math.min(st.endIdx|0,Math.max(sv.length-1,0));
-    if(!man)return '<label class="cfl">Endereço de entrega</label>'+sv.map(function(a,k){return '<button type="button" class="cfo'+(k===i?' on':'')+'" data-cta="endsel" data-i="'+k+'" aria-pressed="'+(k===i)+'">'+cki('pin')+'<b>'+esc(a)+'</b><small>Endereço salvo</small></button>'}).join('')+'<button type="button" class="cfx" data-cta="endman">+ Adicionar endereço manualmente</button>';
-    return '<label class="cfl" for="fa2">Endereço de entrega</label><input class="field" id="fa2" autocomplete="street-address" placeholder="Rua, número, bairro, cidade" value="'+esc(st.endE||'')+'">'+(sv.length?'<button type="button" class="cfx" data-cta="endsav">Usar um endereço salvo</button>':'')}
+
   var EMAIL_ENVIA=false; /* ligar (true) quando o envio de e-mail do pedido estiver funcionando */
   function gdGet(){if(!st.gd)st.gd=lsG('lf_guest',null)||{};return st.gd}
   function gdSave(){if(!$('gn'))return;var g=function(i){var e=$(i);return e?e.value:''};st.gd={nome:g('gn'),pais:g('gpp'),tz:g('gz'),email:g('ge'),doc:g('gd')};lsS('lf_guest',st.gd)}
@@ -1615,8 +1581,7 @@
     var dn='';if(doc){dn=docNorm(pais,doc);if(!dn){gErro2(nacInfo(pais).d+' inválido. Confira os números.','gd');return null}}
     return {nome:nome,nac:pais,doc:dn,nasc:'',pais:pais,tel:tel,telTxt:d.tz,email:em,cidade:'',end:''}}
   document.addEventListener('input',function(e){if(e.target&&/^g[nzed]$/.test(e.target.id))gdSave()});
-  function gTel(pais){var t=telItems();if(!t.some(function(x){return x.v===pais}))t.push({v:pais,s:'+'+(FN&&FN[pais]?FN[pais].c:''),l:paisNome(pais),q:paisNome(pais)});
-    if(!FN)fnLoad().then(function(){if($('gpp')){cddTel('gpp');var z=$('gz');if(z){z.placeholder=fnEx($('gpp').value);if(z.value)fnVivo(z,'gpp','gzh')}}},function(){});return t}
+
   
   /* PIX: código "copia e cola" e QR */
   function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('000'+c.toString(16).toUpperCase()).slice(-4)}
@@ -1687,9 +1652,12 @@
     var pc=pedGet(id)||{};
     pkTela(pzBar()+PK_LOGO+'<div class="pyk"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.500 4.500L19 7.500"/></svg></div><h2 style="animation-delay:0s">Comprovante enviado</h2>'+(pc.cod?'<p class="pyn"><span>Pedido</span> '+esc(pc.cod)+'</p>':'')+'<div class="pkt" style="animation-delay:.1s"><span>'+(pc.venc?'Vamos conferir o seu pagamento e avisar aqui e em Minha conta. Pode sair desta tela.':'Vamos conferir o seu pagamento e avisar aqui e em Minha conta. Pode sair desta tela: sua peça continua reservada.')+'</span></div><div class="pkb py" style="animation-delay:.3s"><button type="button" class="pyL" data-pkfim>Voltar ao catálogo</button></div>').className='pkw0 py';pzTopo();
     pkPoll(id,function(o){if(o.pago)pkOk(id,o);else if(o.recusado){pedSet(id,{est:'recusado'});pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Comprovante não aceito</h2><div class="pkt" style="animation-delay:.1s"><span>A loja não encontrou esse pagamento. Confira o valor e envie o comprovante de novo.</span></div><div class="pkb" style="animation-delay:.3s"><button type="button" data-cta="ped" data-id="'+esc(id)+'">Enviar outro comprovante</button></div>');pkStop()}})}
-  function pkOk(id,o){
-    pkStop();var e=pedGet(id)||{};pedSet(id,{est:'pago',tok:o.tok||''});
-    var tok=o.tok||('LF-'+(e.cod||''));
+  /* código de entrega do pedido pago: a cliente pede à nuvem mostrando o telefone do pedido */
+  function pedTok(id){var e=pedGet(id)||{};return resCall('token',id,null,null,{tel:e.tel||(getConta()||{}).tel||''}).then(function(j){return (j&&j.ok&&j.tok)||''})}
+  function pkOk(id){pkStop();pedTok(id).then(function(t){pkPago(id,t)})}
+  function pkPago(id,tok){
+    var e=pedGet(id)||{};pedSet(id,{est:'pago',tok:tok});
+    tok=tok||('LF-'+(e.cod||''));
     pkTela(PK_LOGO+'<div class="pkc"><u></u>'+PK_SVG+'</div><h2 class="ty">Obrigado pela preferência! <span class="hrt">♥</span></h2><div class="pkt"><b style="animation:pkup .5s .7s both">Pagamento confirmado</b><span class="sub2">Suas peças estão reservadas.<br>Ficam separadas para você até a entrega.</span></div>'+
       '<div class="pkcod" style="animation-delay:1.2s">'+esc(tok)+'</div><div class="pkt" style="animation-delay:1.3s"><span>Guarde este código. Ele garante que o pedido é seu.</span></div>'+
       '<div class="pgw" style="margin-top:12px;animation:pkup .5s 1.4s both">'+(e.ent==='delivery'?'A loja avisa pelo WhatsApp quando o pedido sair. O frete é pago à transportadora na entrega.':'Retire na loja quando quiser: segunda a sábado, das 7h30 às 15h.')+'</div>'+
@@ -1776,7 +1744,6 @@
       pkTela('<div class="pkl"></div><h2 style="animation-delay:0s">Quase lá!</h2><div class="pkt" style="animation-delay:.1s"><span>Não deu para enviar o pedido agora. Tente de novo ou fale com a loja pelo WhatsApp.</span></div><div class="pkb" style="animation-delay:.2s"><a class="pkw" target="_blank" rel="noopener" href="'+wa+'">'+PK_WA+'Enviar pelo WhatsApp</a><button type="button" data-pkretry>Tentar de novo</button></div><div class="pkcod">'+LFI.tr('código do erro')+': '+esc(pkCodErro(er))+'</div>')})}
 
   /* ===== Conta nova (07/11/2026): cadastro só nome/e-mail/senha + código no e-mail; Minha conta em abas ===== */
-  function codUrl(){return 'https://southamerica-east1-'+FB.p+'.cloudfunctions.net/codigo'}
   function primeiroNome(n){return String(n||'').trim().split(/\s+/)[0]||''}
   function contaMin(s,nome){var c={nome:String(nome||s.gn||'').trim()||String(s.email||'').split('@')[0],email:s.email||'',ts:Date.now(),ends:[]};lsS('lf_conta',c);fsA('PATCH','clientes/'+s.uid,c).catch(function(){});return c}
   /* conta antiga: cidade + endereço viram o primeiro item de "Meus endereços" */
@@ -1787,7 +1754,7 @@
   /* depois de entrar ou criar a conta: no pedido, confere o e-mail e segue para a Entrega */
   function posLogin(){contaBtn();if(!AUTH_VOLTA){closeLayer();return}
     emailOk().then(function(ok){if(ok){st.step='ent';bag()}else codigoTela()})}
-  cadastrarTela=function(){gPre();
+  function cadastrarTela(){gPre();
     layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Criar conta">'+authHead('Criar conta')+
       (AUTH_VOLTA?'<div class="note" style="margin:0">Para fazer o pedido, crie sua conta ou entre. Seu carrinho fica guardado.</div>':'')+
       '<label class="cfl" for="aun">Nome completo</label><input class="field" id="aun" autocomplete="name" placeholder="Como você se chama">'+
@@ -1796,7 +1763,7 @@
       '<div class="fze" id="cferr" role="alert" hidden></div>'+
       '<button class="btn w" data-cta="criar" data-busy>Confirmar</button>'+'<p class="tm">Ao criar sua conta, você aceita os <a href="/termos.html" target="_blank" rel="noopener">Termos e Condições</a> <span>e a</span> <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>'+gBtn('Criar conta com Google')+
       '<button type="button" class="cfx" data-cta="entrar" style="text-align:center;width:100%">Já tenho conta · <u>Iniciar sessão</u></button></aside>')};
-  authCriar=function(){
+  function authCriar(){
     var g=function(i){return ($(i)||{value:''}).value.trim()},nome=g('aun').replace(/\s+/g,' '),em=g('aue').toLowerCase(),pw=($('aup2')||{value:''}).value;
     document.querySelectorAll('#layer .field.bad').forEach(function(e){e.classList.remove('bad')});
     if(nome.length<3||nome.indexOf(' ')<0)return cfErro('Digite seu nome e sobrenome.','aun');
@@ -1807,7 +1774,7 @@
       .then(function(){contaBtn();codigoTela(true)},function(e){authErr(e,'aue')})};
   /* tela do código de 6 números (ou, sem o envio configurado, o link de confirmação do Firebase) */
   var CODT=0,CODP=0;
-  function codChama(acao,extra){return idTok().then(function(t){return fetch(codUrl(),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify(Object.assign({acao:acao,lang:lgS()},extra||{}))})}).then(function(r){if(r.status===404)return {ok:false,motivo:'sem-config'};return r.json().catch(function(){return {ok:false,motivo:'erro'}})},function(){return {ok:false,motivo:'rede'}})}
+  function codChama(acao,extra){return idTok().then(function(t){return acFetch(fnUrl('codigo'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify(Object.assign({acao:acao,lang:lgS()},extra||{}))})}).then(function(r){if(r.status===404)return {ok:false,motivo:'sem-config'};return r.json().catch(function(){return {ok:false,motivo:'erro'}})},function(){return {ok:false,motivo:'rede'}})}
   function codigoTela(novo){var s=sessG();if(!s){entrarTela(AUTH_VOLTA);return}clearInterval(CODT);clearInterval(CODP);
     layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Confirme seu e-mail">'+authHead('Confirme seu e-mail')+'<div id="codb"><div class="note" style="margin:0">Enviando o código para <b>'+esc(s.email)+'</b>…</div></div></aside>');
     codChama('enviar').then(function(r){if(!$('codb'))return;
@@ -1840,10 +1807,10 @@
   function emailFeito(){clearInterval(CODT);clearInterval(CODP);var s=sessG();if(s){s.ev=true;s.exp=0;lsS('lf_auth',s)}toast('✓ E-mail confirmado');
     if(AUTH_VOLTA&&Object.keys(st.cart).length){st.step='ent';bag()}else{var c=getConta();layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Conta criada"><div class="ccok"><div class="cck"><svg viewBox="0 0 24 24" fill="none" stroke="#14803f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M6.5 12.5l4 4 7-8.5"/></svg></div><h2 style="font-size:28px">Conta pronta!</h2><div class="note" style="margin:0"><span>Bem-vindo(a),</span> '+esc(primeiroNome(c&&c.nome))+'.</div><button class="btn w" data-cta="minha" style="margin-top:18px">Ver minha conta</button></div></aside>')}}
   /* entrar: e-mail (ou usuário antigo) + senha */
-  authEntrar=function(){
+  function authEntrar(){
     var id=($('aul')||{value:''}).value.trim().toLowerCase(),pw=($('aup')||{value:''}).value;
     if(!id)return cfErro('Digite seu e-mail.','aul');if(!pw)return cfErro('Digite sua senha.','aup');cfErro('');try{var rm=$('aur')?$('aur').checked:true;if(rm){localStorage.removeItem('lf_norem');localStorage.setItem('lf_lastu',id)}else{localStorage.setItem('lf_norem','1');localStorage.removeItem('lf_lastu')}}catch(_){}authBusy(true);
-    var ses;achaEmail(id).then(function(r){return authPost('signInWithPassword',{email:r.email,password:pw,returnSecureToken:true}).then(function(j){ses=sessSave(j,r.user,{gn:j.displayName||''});return ses})})
+    var ses;(id.indexOf('@')>0?authPost('signInWithPassword',{email:id,password:pw,returnSecureToken:true}):contaEntrar(id,pw)).then(function(j){ses=sessSave(j,id.indexOf('@')>0?'':id,{gn:j.displayName||''});return ses})
       .then(function(s){return fsA('GET','clientes/'+s.uid).then(function(d){return fbd(d)},function(){return null})})
       .then(function(c){c=c&&c.email?contaNorm(c):contaMin(ses);lsS('lf_conta',c);toast('Olá, '+primeiroNome(c.nome)+'!');posLogin()},function(e){authErr(e,'aul')})};
   gEntrar=function(){
@@ -1889,7 +1856,7 @@
   var mcTela=function(aba,edita){
     var c=contaNorm(getConta());if(!sessG()){entrarTela(false);return}if(!c){c=contaMin(sessG())}
     st.mcAba=aba||st.mcAba||'perfil';var A=st.mcAba,h='';
-    var tabs='<div class="mct" role="tablist">'+[['perfil','Perfil'],['ends','Endereços'],['peds','Pedidos'],['cart','Cartões']].map(function(x){return '<button type="button" role="tab" aria-selected="'+(A===x[0])+'" class="'+(A===x[0]?'on':'')+'" data-cta="mcaba" data-a="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
+    var tabs='<div class="mct" role="tablist" data-cabe="letra" data-cabe-min="9">'+[['perfil','Perfil'],['ends','Endereços'],['peds','Pedidos'],['cart','Cartões']].map(function(x){return '<button type="button" role="tab" aria-selected="'+(A===x[0])+'" class="'+(A===x[0]?'on':'')+'" data-cta="mcaba" data-a="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
     if(A==='perfil'){
       var falta=[!c.tel&&'telefone',!c.doc&&'documento'].filter(Boolean);
       h='<label class="cfl" for="mn">Nome completo</label><input class="field" id="mn" autocomplete="name" value="'+esc(c.nome||'')+'">'+
@@ -1917,7 +1884,7 @@
   /* situação dos pedidos pendentes: pago, recusado ou cancelado pela loja */
   var PEDAT=0;
   function pedAtualiza(){if(Date.now()-PEDAT<8000)return;PEDAT=Date.now();var L=lsG('lf_ped',[]).filter(function(e){return e.est==='pagar'||e.est==='comp'||e.est==='recusado'||(e.est==='pago'&&!e.entregue&&Date.now()-(+e.ts||0)<120*864e5)});if(!L.length)return;
-    Promise.all(L.map(function(e){return fbg('reservas/'+encodeURIComponent(e.id)).then(function(d){var o=fbd(d)||{},n=null;if(o.cancelado)n={est:'cancelado',fp:!!o.pago||e.est==='pago'};else if(o.pago&&e.est!=='pago')n={est:'pago',tok:o.tok||e.tok||''};if(o.pago&&o.entregue&&!o.cancelado)n=Object.assign(n||{},{entregue:true});if(n){pedSet(e.id,n);return 1}return 0},function(){return 0})})).then(function(r){if(r.some(Boolean)&&st.mcAba==='peds'&&document.querySelector('#layer .mct'))minhaConta('peds')})}
+    Promise.all(L.map(function(e){return fbg('reservas/'+encodeURIComponent(e.id)).then(function(d){var o=fbd(d)||{},n=null;if(o.cancelado)n={est:'cancelado',fp:!!o.pago||e.est==='pago'};else if(o.pago&&e.est!=='pago')n={est:'pago'};if(o.pago&&o.entregue&&!o.cancelado)n=Object.assign(n||{},{entregue:true});if(!n)return 0;if(n.est!=='pago'){pedSet(e.id,n);return 1}return pedTok(e.id).then(function(t){n.tok=t||e.tok||'';pedSet(e.id,n);return 1})},function(){return 0})})).then(function(r){if(r.some(Boolean)&&st.mcAba==='peds'&&document.querySelector('#layer .mct'))minhaConta('peds')})}
   /* B1 (11/11): animações suaves da compra — abrir o carrinho (PC; o celular já desliza), trocar de passo deslizando,
      remover item deslizando, entrar em Minha conta. Tudo desligado com "reduzir movimento". */
   addEventListener('keydown',function(e){if(e.key==='Tab')document.documentElement.classList.add('kbd')});addEventListener('pointerdown',function(){document.documentElement.classList.remove('kbd')});
@@ -2044,13 +2011,13 @@
     if(!retry&&(descVale()==='cup'||(window.__lfPres&&__lfPres.ativo()))&&st._cupOk!==id){var bt1=document.querySelector('[data-send]');if(bt1)bt1.disabled=true;
       cupFn({acao:'usar',cod:st.cup.cod,pid:id,tel:c.tel||'',email:c.email||'',total:Math.round(bruto()+(window.__lfPres&&__lfPres.ativo()?__lfPres.n():0)),desc:Math.round(window.__lfPres&&__lfPres.ativo()?__lfPres.n():cupInfo().d)}).then(function(j){if(bt1)bt1.disabled=false;
         if(j&&j.ok){st._cupOk=id;enviarPedido(retry);return}cupTira();toast(cupMsg(j&&j.motivo,j&&j.cupom));bag(true)},function(){if(bt1)bt1.disabled=false;toast(LFI.tr('Não deu para conferir o código agora. Tente de novo.'))});return}
-    var L2=l2Info(),CI=cupInfo(),DV=descVale(),doc=st.pkdoc&&retry?st.pkdoc:(function(){var uq=uqGera(),fr=ent==='delivery'?freteG():0,base=Math.round(total())+fr,vb0=TESTE?1:valorBRL()+(fr?Math.max(5,Math.round(fr/(window.LF_RATE?window.LF_RATE():1400)/5)*5):0);
+    var CI=cupInfo(),DV=descVale(),doc=st.pkdoc&&retry?st.pkdoc:(function(){var uq=uqGera(),fr=ent==='delivery'?freteG():0,base=Math.round(total())+fr,vb0=TESTE?1:valorBRL()+(fr?Math.max(5,Math.round(fr/(window.LF_RATE?window.LF_RATE():1400)/5)*5):0);
       return Object.assign({ts:Date.now(),nome:c.nome,tel:c.tel,pais:c.pais||'',cod:cod,lang:(window.LFI&&LFI.lang)||'pt',moeda:(window.LFI&&LFI.cur)||'',total:base,rosto:ff?ff.nome:'',
       nac:c.nac||'',doc:c.doc||'',nasc:'',email:c.email||'',/* S192: transportadora e frete vão no obsC (as regras atuais do Firestore já aceitam) */obsC:[c.nac==='py'&&c.ruc?'RUC '+c.ruc:'',ent==='delivery'&&st.tr?'Transportadora: '+trNome(st.tr)+(fr?' · frete Gs. '+fr.toLocaleString('es-PY'):' · frete na entrega'):''].filter(Boolean).join(' · ').slice(0,190),cidade:E?E.cidade:'',end:'',ent:ent,
       endE:ent==='delivery'&&E?E.end+', '+E.cidade+(E.dep?' · '+E.dep:''):'',refE:ent==='delivery'&&E?E.ref||'':'',depE:ent==='delivery'&&E?E.dep||'':'',
       
       /* S197: o final único sempre DESCONTA (o cliente nunca paga a mais) */pag:pag,uq:uq,brl:pag==='pix'?Math.round((vb0-uq/100)*100)/100:vb0,pagar:pag==='alias'?base-uq:0,teste:!!TESTE,
-      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n-(DV==='l2'?(L2.por[k]||0):0)/st.cart[k]-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k]),l2:DV==='l2'?L2.por[k]||0:0,cd:DV==='cup'?CI.por[k]||0:0,pv:pvLin(p.n-(DV==='l2'?(L2.por[k]||0):0)/st.cart[k]-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k],st.cart[k])}}).concat(window.__lfPres?__lfPres.item():[])},window.__lfPres&&__lfPres.ativo()?{cup:st.cup.cod,cupd:__lfPres.n()}:DV==='cup'&&st.cup?{cup:st.cup.cod,cupd:CI.d}:{})})();
+      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k]),l2:0/* o app ainda lê o campo */,cd:DV==='cup'?CI.por[k]||0:0,pv:pvLin(p.n-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k],st.cart[k])}}).concat(window.__lfPres?__lfPres.item():[])},window.__lfPres&&__lfPres.ativo()?{cup:st.cup.cod,cupd:__lfPres.n()}:DV==='cup'&&st.cup?{cup:st.cup.cod,cupd:CI.d}:{})})();
     st.pkdoc=doc;
     if(!retry)lsS('lf_ent',ent==='delivery'?{ent:'delivery',tr:st.tr||'',i:st.endIdx|0}:{ent:'loja'});
     pkTela('<div class="pkl"></div><div class="pkc"><div class="pks"></div></div><h2 style="animation-delay:0s">Enviando seu pedido…</h2>').className='pkw0';
@@ -2059,7 +2026,7 @@
       if(rr&&rr.ok===false&&rr.motivo==='esgotado'){var err=new Error('esgotado');err.falta=rr.falta||[];throw err}
       if(rr&&rr.ok&&!rr.off&&rr.exp)rxo={rx:rr.exp,rd:(rr.agora||Date.now())-Date.now(),vip:!!rr.vip};
       return pkEnviar(doc,id)}).then(function(){
-      var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,ts:doc.ts,total:doc.total,brl:doc.brl,pagar:doc.pagar,uq:doc.uq,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
+      var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,tel:c.tel||'',ts:doc.ts,total:doc.total,brl:doc.brl,pagar:doc.pagar,uq:doc.uq,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
       if(doc.cup)cupTira();
       /* S400 (17/11, esboços 59a–59f): o cartão de desconto NÃO aparece mais em tela nenhuma do pagamento; o presente chega por e-mail depois da entrega */cupFn({acao:'proxima',pid:id,tel:c.tel||'',email:c.email||'',nome:c.nome||'',lang:LFI.lang}).then(function(){},function(){});
       st.cart={};st.pkid='';st.pkdoc=null;st.step='cart';st.pag='';try{drawBag()}catch(_){}
@@ -2132,7 +2099,7 @@
     var e=evAtivo(),r=document.documentElement,t=e?e.tema:'';
     if(t==='anonovo')t=evNoite()?'anonovo-n':'anonovo-d';
     if(t)r.setAttribute('data-ev',t);else r.removeAttribute('data-ev');
-    var b=$('evbar');if(!b){b=document.createElement('div');b.id='evbar';var tp=document.querySelector('.top');tp.parentNode.insertBefore(b,tp)}
+    var b=$('evbar');if(!b){b=document.createElement('div');b.id='evbar';var tp=document.querySelector('.top');tp.insertBefore(b,tp.firstChild)/* S430: a faixa é a 1ª linha do próprio topo — andam juntos, nunca um cobre o outro */}
     var tx=e?(e.bar||EVD[e.tema].bar):'';if(e&&e.tema==='anonovo'&&!e.bar){var y=new Date().getFullYear()+(new Date().getMonth()===0?0:1);tx='✨ Ano Novo · comece '+y+' com um novo olhar'}
     if(b._t!==tx){b._t=tx;b.textContent=tx}
     return e}
@@ -2198,7 +2165,7 @@
 
   /* ---- cards ---- */
   function selo5(p,sec){if(p.aviso==='Esgotado')return '<span class="hb esg">'+LFI.tr('Esgotado')+'</span>';var h=selo1(p,'hb');if((sec==='nov'&&/ nv"/.test(h))||(sec==='mv'&&/ rk"/.test(h)))return '';return h}
-  function card5(p,idl,sec){return '<button type="button" class="hc" data-open="'+p.ref+'" aria-label="'+LFI.tr('Ver')+' '+esc(p.nome)+'">'+(idl?'<span class="hidl">'+LFI.tr('Ideal para você')+'</span>':selo5(p,sec))+'<span class="hci">'+img5(p)+'</span>'+(/Últim/.test(p.aviso||'')?'<span class="ulin hlin"><i></i>'+esc(p.aviso)+'</span>':'')+(p.ds!=null?'<span class="hn lfcod"><small class="hds">'+esc(p.ds)+'</small>'+esc(p.ref)+'</span>':'<span class="hn">'+esc(p.nome)+'</span>')+'<span class="hsw">'+(p.cores||[]).slice(0,5).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span><span class="hp">'+prc5(p)+'</span></button>'}
+  function card5(p,idl,sec){return '<button type="button" class="hc" data-open="'+p.ref+'" aria-label="'+LFI.tr('Ver')+' '+esc(p.nome)+'">'+(idl?'<span class="hidl">'+LFI.tr('Ideal para você')+'</span>':selo5(p,sec))+'<span class="hci">'+img5(p)+(/Últim/.test(p.aviso||'')?'<span class="ulin" data-cabe="letra"><i></i>'+esc(p.aviso)+'</span>':'')+'</span>'+(p.ds!=null?'<span class="hn lfcod"><small class="hds">'+esc(p.ds)+'</small>'+esc(p.ref)+'</span>':'<span class="hn">'+esc(p.nome)+'</span>')+'<span class="hsw">'+(p.cores||[]).slice(0,5).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span><span class="hp">'+prc5(p)+'</span></button>'}
   function abas5(){var C=cat5(),ok=function(p){return p.aviso!=='Esgotado'};
     /* 08/11 (aprovado): cada peça aparece em UMA seção só, na de maior hierarquia — Ofertas > Mais vendidos > Novidades.
        Em Ofertas a mais vendida vem primeiro, depois o maior desconto. */
@@ -2368,15 +2335,16 @@
   (function(){
     var nv=document.querySelector('#drw nav');if(!nv)return;nv.className='dnv';
     var A=function(h,mf,t,c){return '<a href="'+h+'"'+(mf?' data-mf="'+mf+'"':'')+(c?' class="'+c+'"':'')+'>'+t+'</a>'};
-    nv.innerHTML='<a href="#" class="dacc" data-cta="minha"><span class="dav" id="dav">'+'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><span><b id="dacn">Entrar ou criar conta</b><small id="dacs">Minha conta · Meus pedidos ›</small></span></a>'+
+    nv.innerHTML='<a href="#" class="dacc" data-cta="minha"><span class="dav" id="dav">'+'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><span><b id="dacn">Entrar ou criar conta</b><small id="dacs" data-cabe="curto" data-curto="Meus pedidos ›">Minha conta · Meus pedidos ›</small></span></a>'+
       '<small class="dgl">Comprar</small>'+A('#vitrine','tipo:solar','Solar')+A('#vitrine','tipo:grau','Leitura')+A('#vitrine','tipo:armacao','Armações')+A('#vitrine','tipo:of','Ofertas','dof')+
       '<div class="dch">'+A('#vitrine','gen:f','Feminino')+A('#vitrine','gen:m','Masculino')+A('#vitrine','gen:u','Unissex')+'</div>'+
       /* 09/11 S44 A (aprovado): grupo Ferramentas */'<small class="dgl">'+LFI.tr('Ferramentas')+'</small>'+A('#rosto','','Descubra o seu formato')+'<a href="#" data-gzopen>'+LFI.tr('Descubra o seu grau')+'</a>'+
        '<small class="dgl">Para lojistas</small>'+A('#atacado','','Atacado')+
       '<small class="dgl">Ajuda</small>'+'<a href="#como" data-ajp="duvidas">'+LFI.tr('Dúvidas frequentes')+'</a><a href="#como" data-ajp="dicas">'+LFI.tr('Dicas e cuidados')+'</a>';
     var dl=document.querySelector('#drw .dleg');if(dl)dl.style.display='';
-    function conta(){var c=null;try{c=logado()?getConta():null}catch(_){}var n=c&&c.nome?String(c.nome).split(' ')[0]:'';
-      $('dacn').textContent=n?LFI.tr('Olá')+', '+n:LFI.tr('Entrar ou criar conta');$('dav').innerHTML=n?esc(n.charAt(0).toUpperCase()):'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>'}
+    /* S429 (menu A, aprovado 18/11): nome = primeiro + último, sem "Olá"; ícone fino de pessoa num círculo de fio (rosa com conta) */
+    function conta(){var c=null;try{c=logado()?getConta():null}catch(_){}var w=c&&c.nome?String(c.nome).trim().split(/\s+/):[],n=w.length>1?w[0]+' '+w[w.length-1]:(w[0]||'');
+      $('dacn').textContent=n||LFI.tr('Entrar ou criar conta');var dc=$('dacs');if(dc){dc.removeAttribute('data-lfc');dc.textContent=LFI.tr('Minha conta · Meus pedidos ›');dc.__cl=null;dc.setAttribute('data-curto',LFI.tr('Meus pedidos ›'))}$('dav').innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>';$('dav').closest('.dacc').classList.toggle('lflog',!!n)}
     $('mnb').addEventListener('click',conta);
     $('drw').addEventListener('click',function(e){var t=e.target.closest('.dacc,[data-guia],[data-hguia]');if(!t)return;e.preventDefault();drwSet(false)},true);
   })();
@@ -2400,7 +2368,7 @@
   function newsEnvia(m){
     if(m==='wa'){var tx=LFI.lang==='es'?'¡Hola! Quiero recibir las novedades y ofertas de La Fouch por WhatsApp.':'Olá! Quero receber as novidades e ofertas da La Fouch pelo WhatsApp.';window.open('https://wa.me/'+NUM5()+'?text='+encodeURIComponent(tx),'_blank','noopener');return}
     var em=($('hnem')||{}).value||'';if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em.trim())){toast(LFI.tr('Digite um e-mail válido.'));return}
-    fetch(fnUrl('novidades'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'inscrever',email:em.trim(),lang:LFI.lang})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw 0;V5.nok='Pronto! Você vai receber as novidades por e-mail.';$('hnf').innerHTML=newsForm()}).catch(function(){toast(LFI.tr('Não consegui inscrever agora. Tente de novo mais tarde.'))})}
+    acFetch(fnUrl('novidades'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'inscrever',email:em.trim(),lang:LFI.lang})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw 0;V5.nok='Pronto! Você vai receber as novidades por e-mail.';$('hnf').innerHTML=newsForm()}).catch(function(){toast(LFI.tr('Não consegui inscrever agora. Tente de novo mais tarde.'))})}
 
   /* ---- guia ---- */
   var FX5={oval:'<ellipse cx="27" cy="32" rx="18" ry="26"/>',redondo:'<circle cx="27" cy="32" r="22"/>',quadrado:'<rect x="6" y="8" width="42" height="48" rx="8"/>',coracao:'<path d="M8 12h38l-8 34-11 12-11-12z"/>'};
@@ -2445,7 +2413,7 @@
     if(p.tipo!=='acessorio'){m.insertAdjacentHTML('beforeend','<section class="prv" id="prv" data-ref="'+esc(ref)+'"><div class="rv0">'+LFI.tr('Carregando avaliações…')+'</div></section>');avalCarrega(ref)}}
   function st5(n){var s='';for(var i=1;i<=5;i++)s+=i<=Math.round(n)?'★':'<i>★</i>';return '<span class="st5">'+s+'</span>'}
   function avalCarrega(ref){
-    fetch(fnUrl('avaliacao')+'?ref='+encodeURIComponent(ref)).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){avalPinta(ref,j&&j.ok?j:{n:0})}).catch(function(){avalPinta(ref,{n:0})})}
+    acFetch(fnUrl('avaliacao')+'?ref='+encodeURIComponent(ref)).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){avalPinta(ref,j&&j.ok?j:{n:0})}).catch(function(){avalPinta(ref,{n:0})})}
   function avalPinta(ref,j){var s=$('prv');if(!s||s.getAttribute('data-ref')!==ref)return;
     var n=j.n||0,dist=j.dist||[0,0,0,0,0];
     s.innerHTML='<div class="rh"><div class="rs"><span class="glb" style="letter-spacing:.14em;font-size:11px;font-weight:700;color:var(--ac)">'+LFI.tr('AVALIAÇÕES')+'</span>'+(n?'<b class="rn">'+String(j.media).replace('.',',')+'</b>'+st5(j.media)+'<div style="color:var(--mu);font-size:13px">'+n+' '+LFI.tr(n===1?'avaliação de quem comprou':'avaliações de quem comprou')+'</div>'+[5,4,3,2,1].map(function(k,i){var pc=n?Math.round(dist[i]/n*100):0;return '<div class="rbar">'+k+'★<u><i style="width:'+pc+'%"></i></u>'+pc+'%</div>'}).join(''):'<p class="rv0" style="margin:8px 0 0">'+LFI.tr('Ainda sem avaliações. Comprou esta peça? Conte o que achou.')+'</p>')+
@@ -2454,7 +2422,7 @@
     var s=$('prv');if(!s)return;var ref=s.getAttribute('data-ref');
     if(!logado()){toast(LFI.tr('Entre na sua conta para avaliar.'));try{AUTH_VOLTA=false}catch(_){}cadastrarTela();return}
     var l=$('prvl');l.insertAdjacentHTML('afterbegin','<div class="rv0" id="prvw">'+LFI.tr('Conferindo a sua compra…')+'</div>');
-    idTok().then(function(tk){return fetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'posso',ref:ref})})}).then(function(r){return r.json()}).then(function(j){
+    idTok().then(function(tk){return acFetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'posso',ref:ref})})}).then(function(r){return r.json()}).then(function(j){
       var w=$('prvw');if(!w)return;
       if(!j||!j.ok){w.textContent=LFI.tr('Não consegui abrir agora. Tente de novo mais tarde.');return}
       if(!j.pode){w.textContent=LFI.tr(j.motivo==='email'?'Confirme o seu e-mail para avaliar.':'Só quem comprou esta peça pela loja pode avaliar.');return}
@@ -2462,12 +2430,19 @@
       w.outerHTML='<form id="prvf"><b>'+LFI.tr('Sua avaliação')+'</b><div class="stp">'+[1,2,3,4,5].map(function(k){return '<button type="button" data-arst="'+k+'" class="'+(k<=V5.an?'on':'')+'" aria-label="'+k+'">★</button>'}).join('')+'</div><textarea id="prvt" maxlength="500" placeholder="'+LFI.tr('O que achou da peça? (opcional)')+'">'+esc(j.ja&&j.ja.txt||'')+'</textarea><input type="hidden" id="prvc" value="'+esc(c.cidade||'')+'"><button type="button" class="go" data-arok>'+LFI.tr('Publicar avaliação')+'</button></form>'}).catch(function(){var w=$('prvw');if(w)w.textContent=LFI.tr('Não consegui abrir agora. Tente de novo mais tarde.')})}
   function avalEstrela(k){V5.an=k;document.querySelectorAll('#prvf [data-arst]').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-arst')<=k)})}
   function avalEnvia(){var s=$('prv');if(!s)return;var ref=s.getAttribute('data-ref');
-    idTok().then(function(tk){return fetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'avaliar',ref:ref,nota:V5.an||5,txt:($('prvt')||{}).value||'',cidade:($('prvc')||{}).value||''})})}).then(function(r){return r.json()}).then(function(j){
+    idTok().then(function(tk){return acFetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'avaliar',ref:ref,nota:V5.an||5,txt:($('prvt')||{}).value||'',cidade:($('prvc')||{}).value||''})})}).then(function(r){return r.json()}).then(function(j){
       if(!j||!j.ok)throw 0;toast(LFI.tr('Obrigado! Sua avaliação foi publicada.'));avalCarrega(ref)}).catch(function(){toast(LFI.tr('Não consegui publicar agora. Tente de novo mais tarde.'))})}
 
 
   /* v452: altura do cabeçalho (a página da peça e a conta abrem logo abaixo dele) */
-  (function(){var f=function(){var t=document.querySelector('.top');if(t)document.documentElement.style.setProperty('--hth',Math.round(t.getBoundingClientRect().height)+'px')};f();addEventListener('resize',f);setTimeout(f,800);setTimeout(f,2500)})();
+  /* S430 MEDIDA ÚNICA DO TOPO: --hth = onde o topo termina NA TELA, agora (unidade da página). Toda tela que abre por cima começa nela.
+     O topo fica embaixo da faixa quando a página está no alto e sobe quando ela rola; por isso a medida acompanha rolagem, tamanho, letra e telas abertas. */
+  window.lfHt=function(){var t=document.querySelector('.top');if(!t)return 0;var z=parseFloat(getComputedStyle(document.body).zoom)||1;return Math.max(0,Math.round(t.getBoundingClientRect().bottom/z*100)/100)};
+  (function(){var q=0,f=function(){q=0;var v=lfHt();if(!v)return;var r=document.documentElement.style,px=v+'px';if(r.getPropertyValue('--hth')!==px){r.setProperty('--hth',px);r.setProperty('--ht',px)}},logo=function(){if(!q)q=requestAnimationFrame(f)};
+    f();addEventListener('resize',logo);addEventListener('scroll',logo,{passive:true});addEventListener('lf:topo',logo);
+    new MutationObserver(logo).observe(document.documentElement,{attributes:true,attributeFilter:['class','style']});
+    var ly=document.getElementById('layer');if(ly)new MutationObserver(logo).observe(ly,{childList:true});
+    if(window.ResizeObserver){var t=document.querySelector('.top');if(t)new ResizeObserver(logo).observe(t)}setTimeout(logo,800)})();
   /* v452: aquecimento da Black Friday — contagem para o começo (o site fica normal até a hora) */
   function bfAq(){var e=CFG.evento;if(!e||e.tema!=='bf'||!(+e.aq>0)||!(+e.ini>0))return null;var t=Date.now();return t>=+e.aq&&t<+e.ini?e:null}
   function bfPartes(ms){var s=Math.max(0,Math.floor(ms/1000));return [Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60]}
@@ -2484,16 +2459,14 @@
   /* v452: Idioma e Texto do menu (linhas de ajuste + folha de opções) */
   (function(){
     var nv=document.querySelector('#drw nav');if(!nv||$('dset'))return;
-    var GL='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
-      AA='<svg width="20" height="18" viewBox="0 0 28 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20l6-15 6 15M4.5 14h7M16 20l4-10 4 10M17.5 16.5h5"/></svg>';
-    var LG={auto:'Automático',es:'Español',pt:'Português'},ZS=['Normal','Grande','Maior'];
+    var GL='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+    var LG={auto:'Automático',es:'Español',pt:'Português'};
     function lgAt(){try{var v=localStorage.getItem('lf_lang');return v==='es'||v==='pt'?v:'auto'}catch(_){return 'auto'}}
     var d=document.createElement('div');d.className='dset';d.id='dset';nv.insertAdjacentElement('afterend',d);
-    function pinta(){d.innerHTML='<button type="button" data-dset="lg">'+GL+'<span>'+LFI.tr('Idioma')+'</span><b>'+LFI.tr(LG[lgAt()])+'</b><i>›</i></button><button type="button" data-dset="zs">'+AA+'<span>'+LFI.tr('Tamanho do texto')+'</span><b>'+LFI.tr(ZS[zi]||'Normal')+'</b><i>›</i></button>'}
+    function pinta(){d.innerHTML='<button type="button" data-dset="lg">'+GL+'<span>'+LFI.tr('Idioma')+'</span><b>'+LFI.tr(LG[lgAt()])+'</b><i>›</i></button>'}
     pinta();$('mnb').addEventListener('click',pinta);
     var sh=document.createElement('div');sh.id='dsh';document.body.appendChild(sh);
     function abre(k){var h;if(k==='lg'){var a=lgAt();h='<h4>'+LFI.tr('Idioma')+'</h4>'+['auto','es','pt'].map(function(v){return '<button type="button" class="op" data-lg="'+v+'">'+(v==='auto'?LFI.tr('Automático'):LG[v])+(v===a?'<b>✓</b>':'')+'</button>'}).join('')}
-      else h='<h4>'+LFI.tr('Tamanho do texto')+'</h4>'+ZS.map(function(t,i){return '<button type="button" class="op" data-zs="'+i+'" data-dsx>'+LFI.tr(t)+(i===zi?'<b>✓</b>':'')+'</button>'}).join('');
       sh.innerHTML='<div class="dsc2" data-dsx></div><div class="dsp" role="dialog" aria-modal="true"><div class="gr"></div>'+h+'</div>';sh.classList.add('on')}
     function fecha(){sh.classList.remove('on');sh.innerHTML='';pinta()}
     d.addEventListener('click',function(e){var b=e.target.closest('[data-dset]');if(b)abre(b.getAttribute('data-dset'))});
@@ -2571,7 +2544,7 @@
     else{st.tipo='todos';st.gen='';st.sort='nov';st.col='';st.rosto='';try{$('sort').value='nov'}catch(_){}drawChips();drawGen()}
     drawGrid()},true);
   $('fbtn').addEventListener('click',fltPinta);
-  /* v453: arrastar para baixo nas folhas (Idioma, Tamanho do texto, Favoritos): a folha acompanha o dedo; passou de 1/3 ou gesto rápido = fecha; senão volta com um leve quique.
+  /* v453: arrastar para baixo nas folhas (Idioma, Favoritos): a folha acompanha o dedo; passou de 1/3 ou gesto rápido = fecha; senão volta com um leve quique.
      Na lista de favoritos só arrasta quando a lista está no topo (rolar a lista não fecha). Fecha "tocando" no fundo, que é como cada folha já fecha. */
   (function(){var D=null,SUP=0;
     function fim(d,fecha){var p=d.p,bg=d.bg;
@@ -2633,7 +2606,7 @@
     else if(a==='reset')authReset();
     else if(a==='olho'){var pi=t.parentNode.querySelector('input');if(pi){var sh=pi.type==='password';pi.type=sh?'text':'password';t.classList.toggle('on',sh);t.setAttribute('aria-pressed',sh?'true':'false');t.setAttribute('aria-label',sh?'Ocultar senha':'Mostrar senha')}}
     else if(a==='salvar')contaSalvar(t.getAttribute('data-volta')==='1');
-    else if(a==='minha'){if(!contaJaAberta(t))minhaConta()}
+    else if(a==='minha'){/* S429 (menu v3): "Meus pedidos ›" encurtado abre direto a aba Pedidos */if(e.target.closest&&e.target.closest('#dacs[data-lfc]'))minhaConta('peds');else if(!contaJaAberta(t))minhaConta()}
     else if(a==='google')gEntrar();
     else if(a==='gsync')gSync();
     else if(a==='gunlink')gUnlink(t.getAttribute('data-pw')==='1');else if(a==='gunlink2')gUnlink2(t.getAttribute('data-nopw')==='1');else if(a==='exc')excAbre();else if(a==='exc2')excFaz();
@@ -2740,38 +2713,26 @@
   function openPanel(id,quiet){
     closePanels();var el=document.getElementById(id);if(!el)return;
     if(id==='vitrine'){var ms=document.querySelector('.mobsearch');var vs=$('vscr');if(!vs){vs=document.createElement('div');vs.id='vscr';el.insertBefore(vs,$('grid'));vs.appendChild($('grid'))}if(ms&&ms.parentNode!==vs)vs.insertBefore(ms,vs.firstChild);var rs=$('resultado');if(rs&&matchMedia('(min-width:700px)').matches&&rs.parentNode!==vs)vs.insertBefore(rs,$('grid'));var lh=document.querySelector('.lh');if(lh&&lh.parentNode!==vs)vs.insertBefore(lh,$('grid'));var ft=document.querySelector('footer');if(ft&&ft.parentNode!==vs)vs.appendChild(ft);if(!$('cbl')){var cb=document.createElement('div');cb.id='cbl';cb.hidden=true;ms.parentNode.insertBefore(cb,ms.nextSibling);placeCbl();cotLine()}var ft=$('fty'),fs=$('fso');if(ft&&$('tipos').parentNode!==ft)ft.appendChild($('tipos'));if(fs&&$('sort').parentNode!==fs)fs.appendChild($('sort'));if(!$('pager')){var pg=document.createElement('div');pg.id='pager';el.appendChild(pg)}drawGrid()}
-    var ht=document.querySelector('.top');if(ht)document.documentElement.style.setProperty('--ht',ht.offsetHeight+'px');
+
     document.documentElement.classList.remove('bootp');el.classList.add('in');el.classList.add('pop');el.scrollTop=0;document.documentElement.classList.add('ppop');if(!quiet&&el.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)el.animate([{translate:'0 26px',filter:'opacity(0)'},{translate:'0 0',filter:'opacity(1)'}],{duration:440,easing:'cubic-bezier(.2,.8,.2,1)'});
     try{urlSync()}catch(_){}}
-  function prefSync(){/* S422: o menu antigo com trilhos saiu; Idioma e Tamanho do texto ficam nas listas com ✓ (#dsh) */}
   function fshSet(on){var d=$('fsh');d.classList.toggle('on',on);d.setAttribute('aria-hidden',on?'false':'true')}
   $('fbtn').addEventListener('click',function(){fshSet(true)});
-  function vset(l){document.documentElement.classList.toggle('vlist',l);var b=$('vtog');if(b){var t=LFI.tr(l?'Ver como catálogo':'Ver como lista');b.setAttribute('aria-label',t);b.title=t}try{localStorage.setItem('lf_vista',l?'l':'g')}catch(_){}}
-  try{if(localStorage.getItem('lf_vista')==='l')vset(true)}catch(_){}
-  $('vtog').addEventListener('click',function(){vset(!document.documentElement.classList.contains('vlist'))});
   function dhdAlign(){try{var m=$('mnb').getBoundingClientRect(),h=document.querySelector('#drw .dhd'),x=h&&h.querySelector('.ib'),z=parseFloat(getComputedStyle(document.body).zoom)||1;if(!x||!m.height||m.top<0||m.bottom>160)return;h.style.position='';h.style.top='';h.style.paddingTop='';h.style.flex='none';var r=x.getBoundingClientRect(),dy=(m.top+m.height/2)-(r.top+r.height/2),pt=parseFloat(getComputedStyle(h).paddingTop)||0;if(Math.abs(dy/z)>40)return;h.style.paddingTop=(pt+dy/z)+'px'}catch(_){}}
   function catSet(o,pin){var c=document.querySelector('#drw .cat');if(!c)return;c.classList.toggle('open',o);c.classList.toggle('pin',!!(o&&pin));var b=c.querySelector('.arr');if(b)b.setAttribute('aria-expanded',o?'true':'false')}
   (function(){var c=document.querySelector('#drw .cat'),tm=0;if(!c)return;
     c.addEventListener('mouseenter',function(e){if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;clearTimeout(tm);tm=setTimeout(function(){catSet(true,false)},160)});
     c.addEventListener('mouseleave',function(){clearTimeout(tm);if(c.classList.contains('pin'))return;tm=setTimeout(function(){catSet(false)},320)});
     c.querySelector('.arr').addEventListener('click',function(e){e.stopPropagation();var o=!c.classList.contains('open')||!c.classList.contains('pin');catSet(o,o)})})();
-  function drwSet(on){if(on){prefSync();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('#drw nav a').forEach(function(a,i){if(a.animate)a.animate([{translate:'-18px 0',opacity:0},{translate:'0 0',opacity:1}],{duration:260,delay:Math.min(i*16,180),easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'})})}var d=$('drw');if(on){document.querySelectorAll('#drw nav>a,#drw .cat,#drw .dct').forEach(function(a){if(a.getAnimations)a.getAnimations().forEach(function(x){if(x.fill==='forwards'||x.effect&&x.effect.getTiming().fill==='forwards')x.cancel()})})}
+  function drwSet(on){if(on){if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('#drw nav a').forEach(function(a,i){if(a.animate)a.animate([{translate:'-18px 0',opacity:0},{translate:'0 0',opacity:1}],{duration:260,delay:Math.min(i*16,180),easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'})})}var d=$('drw');if(on){document.querySelectorAll('#drw nav>a,#drw .cat,#drw .dct').forEach(function(a){if(a.getAnimations)a.getAnimations().forEach(function(x){if(x.fill==='forwards'||x.effect&&x.effect.getTiming().fill==='forwards')x.cancel()})})}
     if(!on){if(d.classList.contains('on')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var xs=[].slice.call(document.querySelectorAll('#drw nav>a,#drw nav>.cat,#drw .dct'));xs.forEach(function(a,i){if(a.animate)a.animate([{translate:'0 0',opacity:1},{translate:'-16px 0',opacity:0}],{duration:200,delay:0,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'})})}catSet(false)}
     if(on){var hh=document.querySelector('#drw .dhd');if(hh)hh.style.paddingTop='';dhdAlign()}if(on)document.documentElement.classList.add('lock');else if(!$('layer').innerHTML.trim())document.documentElement.classList.remove('lock');d.classList.toggle('on',on);d.setAttribute('aria-hidden',on?'false':'true')}
   $('mnb').addEventListener('click',function(){drwSet(true)});
   document.addEventListener('click',function(e){
-    var t=e.target.closest&&e.target.closest('[data-dclose],[data-fclose],[data-pback],[data-th],[data-zs],[data-pg],#drw nav a');if(!t)return;
+    var t=e.target.closest&&e.target.closest('[data-dclose],[data-fclose],[data-pback],[data-pg],#drw nav a');if(!t)return;
     if(t.hasAttribute('data-fclose'))fshSet(false);
     else if(t.hasAttribute('data-dclose'))drwSet(false);
     else if(t.hasAttribute('data-pback')){closePanels();try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}}
-    else if(t.hasAttribute('data-th')){var v=t.getAttribute('data-th'),rr=document.documentElement;
-      var ap=function(){if(v==='auto')delete rr.dataset.theme;else rr.dataset.theme=v;try{if(v==='auto')localStorage.removeItem('lf_theme');else localStorage.setItem('lf_theme',v)}catch(_){}themeIcon(false);prefSync()};
-      if(isDark()===(v==='auto'?matchMedia('(prefers-color-scheme: dark)').matches:v==='dark')){ap()}
-      else if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-        var bt=t.getBoundingClientRect(),cx=bt.left+bt.width/2,cy=bt.top+bt.height/2,R=Math.hypot(Math.max(cx,innerWidth-cx),Math.max(cy,innerHeight-cy)),vt=document.startViewTransition(ap);
-        vt.ready.then(function(){rr.animate({clipPath:['circle(0px at '+cx+'px '+cy+'px)','circle('+R+'px at '+cx+'px '+cy+'px)']},{duration:700,easing:'ease-in-out',pseudoElement:'::view-transition-new(root)'})}).catch(function(){})
-      }else{rr.classList.add('tt');ap();setTimeout(function(){rr.classList.remove('tt')},700)}}
-    else if(t.hasAttribute('data-zs')){zset(+t.getAttribute('data-zs'),false);prefSync()}
     else if(t.hasAttribute('data-pg')){st.pg=(st.pg||0)+parseInt(t.getAttribute('data-pg'),10);drawGrid()}
     else{var mf=t.getAttribute&&t.getAttribute('data-mf');if(mf){var kv=mf.split(':');if(kv[0]==='gen'){st.gen=kv[1];st.tipo='todos'}else{st.tipo=kv[1];st.gen=''}drawGen();drawChips();drawGrid()}drwSet(false)}});
   (function(){var x0=null,y0=0,g=$('grid');if(!g)return;
@@ -2784,7 +2745,7 @@
   function mapKey(e){if(e.key==='Escape')mapClose()}
   function openMap(){
     if($('mapw'))return;
-    var w=document.createElement('div');w.id='mapw';if(isDark())w.className='dk';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','Mapa');
+    var w=document.createElement('div');w.id='mapw';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','Mapa');
     var q=LOJA.lat+','+LOJA.lng;
     w.innerHTML='<div class="mbox"><button type="button" class="mx" aria-label="Fechar">×</button><div id="mapc"></div><div class="minf"><h3>La Fouch</h3><p>Galeria Jebai Center, 3° piso, torre A, n°2242<br>Ciudad del Este</p><div class="mbt"><a class="p" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=-25.510131,-54.609959">Como chegar</a><a class="s" target="_blank" rel="noopener" href="https://maps.app.goo.gl/zy6c1ZFq4gQhxWXC8">Abrir no Google Maps</a></div></div></div>';
     w.addEventListener('click',function(e){if(e.target===w||e.target.closest('.mx'))mapClose()});
@@ -3150,15 +3111,59 @@
     frame()}
   document.addEventListener('change',function(e){var t=e.target;if(t&&(t.id==='fafile'||t.id==='fafile2')){var f=t.files&&t.files[0];t.value='';faRun(f)}});
 
-  /* texto maior (acessibilidade) */
-  var PCZ=matchMedia('(min-width:1100px)').matches,ZL=[LFZ(0),LFZ(1),LFZ(2)],ZN=['Texto normal','Texto grande','Texto muito grande'],zi=0;
-  try{var zs=localStorage.getItem('lf_zoom');if(zs!=null)zi=Math.max(0,Math.min(2,+zs||0))}catch(_){}
-  function zset(i,say){zi=i;document.documentElement.setAttribute('data-zi',i);document.documentElement.classList.toggle('zl',ZL[i]>1&&!(PCZ&&!i));document.body.style.zoom=ZL[i]==1?'':ZL[i];document.body.style.setProperty('--z',ZL[i]);document.body.style.setProperty('--kz',LFK());try{localStorage.setItem('lf_zoom',i)}catch(_){}if(say)toast(ZN[i]);setTimeout(function(){try{hguPil()}catch(_){}},60)}
-  zset(zi,false);
-  /* a escala acompanha a largura da tela: ao redimensionar a janela ou girar o aparelho, recalcula */
-  (function(){var tm=0;function re(){var n=[LFZ(0),LFZ(1),LFZ(2)];if(Math.abs(n[zi]-ZL[zi])>.02||(matchMedia('(min-width:1100px)').matches!==PCZ)){PCZ=matchMedia('(min-width:1100px)').matches;ZL=n;zset(zi,false)}}
+  /* S429: uma letra só — segue a letra do celular (LFT, até 1,2×) e a largura (LFK); ao girar/redimensionar recalcula */
+  (function(){var tm=0,Z=LFZ();function re(){var n=LFZ();if(Math.abs(n-Z)<.005)return;Z=n;var r=document.documentElement;r.classList.toggle('lfg',LFT()>1);r.classList.toggle('zl',n>1&&!matchMedia('(min-width:1100px)').matches);document.body.style.zoom=n==1?'':n;document.body.style.setProperty('--z',n);document.body.style.setProperty('--kz',LFK());setTimeout(function(){try{hguPil()}catch(_){}},60);try{dispatchEvent(new Event('resize'))}catch(_){}/* o resto do site (topo, menu, WhatsApp, abas) mede de novo já com a escala nova */}
     addEventListener('resize',function(){clearTimeout(tm);tm=setTimeout(re,300)});addEventListener('orientationchange',function(){clearTimeout(tm);tm=setTimeout(re,400)})})();
-  $('aa').addEventListener('click',function(){zset((zi+1)%3,true)});
+  /* S430 "CABE" — UMA função para o site inteiro (lei L4, aprovada 19/11): texto nunca quebra nem sai do quadro.
+     Cada grupo diz como cabe pelo atributo data-cabe:
+       "letra"  → a letra do grupo diminui junto, até caber (abas da conta, fileira de gênero, etiquetas "Últimas")
+       "escala" → o grupo inteiro encolhe junto, até o último item caber com a mesma margem dos dois lados (topo)
+       "curto"  → troca pelo texto de data-curto (menu: "Minha conta · Meus pedidos ›" → "Meus pedidos ›"); marca data-lfc
+     Mede de novo quando o grupo muda de tamanho, quando a letra/escala do site muda e quando entra um grupo novo. */
+  (function(){
+    function kids(el){return [].filter.call(el.children,function(c){return !c.hasAttribute('aria-hidden')&&getComputedStyle(c).display!=='none'})}
+    function sobra(el,K){if(!K.length)return el.scrollWidth<=el.clientWidth+.5;var cs=getComputedStyle(el),q=el.getBoundingClientRect(),k=q.width/(el.offsetWidth||q.width)||1,lim=q.left+(el.clientLeft+el.clientWidth-(parseFloat(cs.paddingRight)||0))*k;
+      return K.every(function(c){return c.getBoundingClientRect().right<=lim+.5&&c.scrollWidth<=c.clientWidth+.5})}
+    function letra(el){var K=kids(el),alvo=K.length?K:[el],ch=el.clientWidth+'|'+el.textContent.length;if(el.__cb===ch&&sobra(el,K))return;
+      alvo.forEach(function(c){c.style.fontSize=''});if(!sobra(el,K)){var lo=+(el.getAttribute('data-cabe-min')||8),hi=parseFloat(getComputedStyle(alvo[0]).fontSize)||14;
+        for(var k=0;k<8;k++){var md=(lo+hi)/2;alvo.forEach(function(c){c.style.fontSize=md+'px'});if(sobra(el,K))lo=md;else hi=md}
+        var fz=Math.floor(lo*4)/4+'px';alvo.forEach(function(c){c.style.fontSize=fz});
+        if(!el.__cv){el.__cv=1;requestAnimationFrame(function(){el.__cb=null;pede(el);requestAnimationFrame(function(){el.__cv=0})})}/* confere no quadro seguinte: no meio de uma troca de escala a medida pode vir errada */}
+      el.__cb=el.clientWidth+'|'+el.textContent.length;if(el.__tk){try{tkMede(el.__tk);tkVai(el.__tk,el.__tk.sel,false)}catch(_){}}}
+    function escala(el){var ln=el.querySelector('[data-cabe-linha]')||el;el.style.zoom='';var W=document.documentElement.clientWidth;
+      function ext(){var L=1e9,R=-1e9;[].forEach.call(ln.children,function(e){var q=e.getBoundingClientRect();if(!q.width||getComputedStyle(e).display==='none')return;if(q.left<L)L=q.left;if(q.right>R)R=q.right});return [L,R]}
+      var mg=Math.max(0,ext()[0]);for(var k=0;k<4;k++){var r=ext()[1],lim=W-mg;if(r<=lim+1)break;el.style.zoom=Math.floor((parseFloat(el.style.zoom)||1)*(lim/r)*1000)/1000}
+      try{dispatchEvent(new Event('lf:topo'))}catch(_){}}
+    function curto(el){if(el.__cl==null)el.__cl=el.textContent;if(el.hasAttribute('data-lfc')){el.textContent=el.__cl;el.removeAttribute('data-lfc')}
+      if(!el.clientWidth||el.scrollWidth<=el.clientWidth+1)return;el.textContent=el.getAttribute('data-curto');el.setAttribute('data-lfc','1')}
+    var M={letra:letra,escala:escala,curto:curto},fila=new Set(),q=0;
+    function roda(){q=0;fila.forEach(function(el){if(!el.isConnected)return;try{(M[el.getAttribute('data-cabe')]||letra)(el)}catch(_){}});fila.clear()}
+    function pede(el){fila.add(el);if(!q)q=requestAnimationFrame(roda)}
+    var ro=window.ResizeObserver?new ResizeObserver(function(L){L.forEach(function(x){pede(x.target)})}):null,vistos=new WeakSet();
+    function acha(raiz){(raiz.matches&&raiz.matches('[data-cabe]')?[raiz]:[]).concat([].slice.call(raiz.querySelectorAll?raiz.querySelectorAll('[data-cabe]'):[])).forEach(function(el){if(!vistos.has(el)){vistos.add(el);ro&&ro.observe(el)}pede(el)})}
+    window.lfCabeTudo=function(){acha(document.body)};
+    new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)acha(n)});if(m.type==='characterData'||m.type==='childList'){var e=m.target.nodeType===1?m.target:m.target.parentElement;var g=e&&e.closest&&e.closest('[data-cabe]');if(g)pede(g)}})}).observe(document.body,{childList:true,subtree:true,characterData:true});
+    addEventListener('resize',function(){requestAnimationFrame(lfCabeTudo)});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(lfCabeTudo);acha(document.body)})();
+  /* S429 (121, aprovado): área de toque de 44 px por fora do desenho,
+     que para no meio do caminho até o vizinho (não cobre letra de outra coisa) */
+  (function(){
+    function toque(){return matchMedia('(pointer:coarse)').matches||innerWidth<1100}
+    function vis(e){var r=e.getBoundingClientRect();if(!r.width||!r.height)return false;for(var x=e;x&&x!==document.body;x=x.parentElement){var c=getComputedStyle(x);if(c.display==='none'||c.visibility==='hidden')return false}return true}
+    function areas(){document.querySelectorAll('.lx44').forEach(function(e){e.classList.remove('lx44','lxpos','lxb')});if(!toque())return;
+      var sel='a[href],button,[role=button],summary,input:not([type=hidden]),select,label[for]',T=[].filter.call(document.querySelectorAll(sel),vis).filter(function(e){return !e.closest('.lx-ignora')}),R=T.map(function(e){return e.getBoundingClientRect()});
+      var TX=[].filter.call(document.querySelectorAll('body *'),function(x){return !x.closest(sel)&&[].some.call(x.childNodes,function(n){return n.nodeType===3&&n.textContent.trim()})&&vis(x)}).map(function(x){return x.getBoundingClientRect()});
+      var VZ=R.map(function(r,j){return [r,j]}).concat(TX.map(function(r){return [r,-1]}));
+      T.forEach(function(e,i){var r=R[i],z=r.width/(e.offsetWidth||r.width)||1;if(r.width>=44&&r.height>=44)return;
+        function livre(ps){var c=getComputedStyle(e,ps).content;return c==='none'||c==='normal'}var usaB=false;if(!livre('::after')){if(livre('::before'))usaB=true;else return}
+        var t=Math.max(0,(45-r.height)/2),b=t,l=Math.max(0,(45-r.width)/2),rr=l;
+        VZ.forEach(function(v){var o=v[0],j=v[1];if(j===i||(j>=0&&(T[j].contains(e)||e.contains(T[j]))))return;if(j<0&&o.left>=r.left-.5&&o.right<=r.right+.5&&o.top>=r.top-.5&&o.bottom<=r.bottom+.5)return;
+          var sv=o.top<r.bottom+b&&o.bottom>r.top-t,sh=o.left<r.right+rr&&o.right>r.left-l;
+          if(sv&&o.left>=r.right-1)rr=Math.min(rr,Math.max(0,(o.left-r.right)/2));if(sv&&o.right<=r.left+1)l=Math.min(l,Math.max(0,(r.left-o.right)/2));
+          if(sh&&o.top>=r.bottom-1)b=Math.min(b,Math.max(0,(o.top-r.bottom)/2));if(sh&&o.bottom<=r.top+1)t=Math.min(t,Math.max(0,(r.top-o.bottom)/2))});
+        if(getComputedStyle(e).position!=='static')e.classList.add('lxpos');e.classList.add('lx44');if(usaB)e.classList.add('lxb');
+        e.style.setProperty('--t',t/z+'px');e.style.setProperty('--b',b/z+'px');e.style.setProperty('--l',l/z+'px');e.style.setProperty('--r',rr/z+'px')})}
+    var tm=0;function go(){clearTimeout(tm);tm=setTimeout(function(){try{areas()}catch(_){}},120)}
+    new MutationObserver(go).observe(document.body,{childList:true,subtree:true});addEventListener('resize',go);addEventListener('load',go);go()})();
   var NUM_LOJA='595983642241';
   /*REDES-RODAPE*/ var SOCIAL={ig:'',fb:''}; /* cole aqui os links dos perfis, ex.: ig:'https://instagram.com/lafouch' */
   (function(){var h=[['ig','Instagram',SOCIAL.ig],['fb','Facebook',SOCIAL.fb]],IC={"ig": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.2\" cy=\"6.8\" r=\"1\" fill=\"currentColor\" stroke=\"none\"/></svg>", "fb": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z\"/></svg>", "wa": "<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z\"/><path d=\"M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z\"/></svg>"},out='';
@@ -3177,7 +3182,7 @@
   /* cópia do pedido de orçamento para o painel (Mensagens › Atacado), com o que a pessoa viu e salvou (só para o dono) */
   document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#lojista');if(!t)return;setLoj();
     try{var pr=[].slice.call(document.querySelectorAll('[data-atp][aria-pressed="true"]')).map(function(x){return x.getAttribute('data-atp')});
-      fetch(fnUrl('mensagem'),{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,body:JSON.stringify({acao:'enviar',tipo:'atacado',cod:st.atCod,pais:LFI.lang==='es'?'Paraguay':'Brasil',qtd:($('aq')||{value:''}).value.trim(),procura:pr,vistos:navVistos().slice(0,20),favs:Object.keys(st.fav).slice(0,20),lang:LFI.lang})}).catch(function(){})}catch(_){}
+      acFetch(fnUrl('mensagem'),{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,body:JSON.stringify({acao:'enviar',tipo:'atacado',cod:st.atCod,pais:LFI.lang==='es'?'Paraguay':'Brasil',qtd:($('aq')||{value:''}).value.trim(),procura:pr,vistos:navVistos().slice(0,20),favs:Object.keys(st.fav).slice(0,20),lang:LFI.lang})}).catch(function(){})}catch(_){}
     setTimeout(function(){st.atCod='';setLoj()},800)},true);
   drawChips();drawCmp();
   /* zoom livre: pinça com dois dedos (aumenta e diminui aos poucos), arrastar, toque e roda do mouse */
@@ -3218,23 +3223,6 @@
   document.addEventListener('pointerup',zEnd);document.addEventListener('pointercancel',zEnd);
   document.addEventListener('wheel',function(e){var b=e.target.closest&&e.target.closest('.big[data-zoom]');if(!b)return;e.preventDefault();
     var s0=b._s||1,s2=s0*Math.exp(-e.deltaY*0.0022),c=zRel(b,e.clientX,e.clientY),x0=b._x||0,y0=b._y||0,ux=(c[0]-x0)/s0,uy=(c[1]-y0)/s0;b.classList.remove('dg');zSet(b,s2,c[0]-s2*ux,c[1]-s2*uy)},{passive:false});
-  var MOON='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
-  var SUN='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>';
-  function isDark(){var r=document.documentElement;return r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
-  function themeIcon(anim){var b=$('theme'),d=isDark();b.innerHTML=d?SUN:MOON;b.setAttribute('aria-label',d?'Mudar para o tema claro':'Mudar para o tema escuro');if(anim){b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin')}}
-  themeIcon(false);
-  try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){themeIcon(false)})}catch(e){}
-  $('theme').addEventListener('click',function(ev){
-    var r=document.documentElement,next=isDark()?'light':'dark',calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function apply(){r.dataset.theme=next;try{localStorage.setItem('lf_theme',next)}catch(_){}themeIcon(!calm)}
-    if(calm){apply();return}
-    var bt=$('theme').getBoundingClientRect(),cx=bt.left+bt.width/2,cy=bt.top+bt.height/2,R=Math.hypot(Math.max(cx,innerWidth-cx),Math.max(cy,innerHeight-cy));
-    if(document.startViewTransition){
-      var vt=document.startViewTransition(apply);
-      vt.ready.then(function(){document.documentElement.animate({clipPath:['circle(0px at '+cx+'px '+cy+'px)','circle('+R+'px at '+cx+'px '+cy+'px)']},{duration:700,easing:'ease-in-out',pseudoElement:'::view-transition-new(root)'})}).catch(function(){})
-    }else{r.classList.add('tt');apply();setTimeout(function(){r.classList.remove('tt')},700)}
-  });
-
   $('stage').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();$('stage').click()}});
   /* vídeo promocional: vem da configuração do painel; ?video=arquivo.mp4 serve para testar */
   /* sincronização com o painel da loja (Firebase, só leitura pública; se falhar, vale o catálogo embutido) */
@@ -3433,7 +3421,7 @@
         w.style.removeProperty('pointer-events')}else hit=era;
       if(era)H.classList.add('wamin');if(rol)H.classList.add('warol');void w.offsetWidth;
       w.style.transition=tr;if(sv)sv.style.transition=ts;void w.offsetWidth;H.classList.toggle('wamin',hit)}
-    var rt=0;document.addEventListener('scroll',function(){var H=document.documentElement;if(naPeca()){H.classList.remove('warol');return}H.classList.add('warol');clearTimeout(rt);rt=setTimeout(function(){cobre();H.classList.remove('warol')},700)/* S239: mede ANTES de soltar o 'rolando' — assim a lingueta abre na bola com a mesma animação suave de quando recolhe (antes a medição cortava a animação) */},true);
+    var rt=0;document.addEventListener('scroll',function(){var H=document.documentElement;H.classList.add('warol');clearTimeout(rt);rt=setTimeout(function(){cobre();H.classList.remove('warol')},600)/* S430: rolando, o WhatsApp sai pela borda (também na peça) e volta 0,6 s depois que a pessoa para (aprovado 19/11) *//* S239: mede ANTES de soltar o 'rolando' — assim a lingueta abre na bola com a mesma animação suave de quando recolhe (antes a medição cortava a animação) */},true);
     setTimeout(cobre,1500);addEventListener('resize',function(){setTimeout(cobre,200)});document.addEventListener('click',function(){setTimeout(cobre,900)},true);
     window.__lfAjusta=ajusta})();
   function syncProds(docs){
@@ -3515,7 +3503,7 @@
   setTimeout(function(){document.documentElement.classList.add('nr')},3500);
 
   /* idioma e moeda */
-  ['theme','lgb','aa','bagbtn'].forEach(function(i){var e=$(i);if(e&&e.dataset.l)e.dataset.l=LFI.tr(e.dataset.l)});
+  ['theme','lgb','bagbtn'].forEach(function(i){var e=$(i);if(e&&e.dataset.l)e.dataset.l=LFI.tr(e.dataset.l)});
   (function(){var b=$('lgb');if(!b)return;b.firstChild.textContent=LFI.lang==='es'?'ES':'PT';
     function cur(k,d){try{return localStorage.getItem(k)||'auto'}catch(_){return 'auto'}}
     b.addEventListener('click',function(){var L=cur('lf_lang'),C=cur('lf_cur');
@@ -3526,7 +3514,7 @@
         '<div class="note">Automático (pelo seu celular): '+(LFI.autoLang==='es'?'Español':'Português')+'. A moeda acompanha o idioma: Português em reais, Español em guaranis. Os valores em reais são aproximados. O valor da loja é em guaranis.</div></div></div>','center')});
     document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-lg],[data-cu]');if(!t)return;e.stopPropagation();
       try{if(t.hasAttribute('data-lg')){localStorage.setItem('lf_lang',t.getAttribute('data-lg'));localStorage.setItem('lf_cur','auto')}else localStorage.setItem('lf_cur',t.getAttribute('data-cu'));sessionStorage.setItem('lf_skip','1');sessionStorage.setItem('lf_drw','1')}catch(_){}
-      var bg=getComputedStyle(document.body).backgroundColor,ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:99999;background:'+bg+';opacity:0;transition:opacity .28s ease;pointer-events:all';document.body.appendChild(ov);try{sessionStorage.setItem('lf_fade',bg)}catch(_){}requestAnimationFrame(function(){ov.style.opacity='1'});setTimeout(function(){location.reload()},300)},true)})();
+      var bg=getComputedStyle(document.body).backgroundColor,ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:calc(var(--c-sistema) + 9);background:'+bg+';opacity:0;transition:opacity .28s ease;pointer-events:all';document.body.appendChild(ov);try{sessionStorage.setItem('lf_fade',bg)}catch(_){}requestAnimationFrame(function(){ov.style.opacity='1'});setTimeout(function(){location.reload()},300)},true)})();
   try{var _cd=PREV?null:JSON.parse(localStorage.getItem('lf_pdocs')||'null');if(_cd&&_cd.length)syncProds(_cd)}catch(_){}
   if((PREV||!P.length)&&!/[?&]nosync/.test(location.search)){var _pl=document.createElement('div');_pl.id='prevld';_pl.setAttribute('role','status');_pl.innerHTML='<i></i><span>'+LFI.tr(PREV?'Carregando a vitrine atual…':'Carregando as peças…')+'</span>';document.body.appendChild(_pl)}
   drawGen();drawChips();drawFaces();drawBag();setHero();
@@ -4445,7 +4433,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
   var TKZ=(function(){function bz(x1,y1,x2,y2){function a(t,p1,p2){var u=1-t;return 3*u*u*t*p1+3*u*t*t*p2+t*t*t}return function(x){if(x<=0)return 0;if(x>=1)return 1;var lo=0,hi=1,t=x;for(var i=0;i<26;i++){t=(lo+hi)/2;if(a(t,x1,x2)<x)lo=t;else hi=t}return a(t,y1,y2)}}return bz(.16,1,.3,1)})();
   var TKRM=matchMedia('(prefers-reduced-motion: reduce)');
   (function(){var s=document.createElement('style');s.id='lftk';s.textContent='.lfTk{position:relative;touch-action:pan-y;-webkit-user-select:none;user-select:none}.lfTk>button{position:relative;z-index:1}.lfTk>button.on{background:transparent!important}'+
-    '.lfTk>.lfP{position:absolute;left:0;top:0;width:0;height:0;z-index:0;pointer-events:none}.lfTk>.lfP>b{position:absolute;left:0;top:0;display:block;background:var(--tkc,#a24a80);will-change:transform}.lfTk>.lfP>b.m{width:1px;transform-origin:0 0}'+
+    '.lfTk>.lfP{position:absolute;left:0;top:0;width:0;height:0;z-index:0;pointer-events:none}.lfTk>.lfP>b{position:absolute;left:0;top:0;display:block;background:var(--tkc,#a24a80);will-change:transform}.lfTk>.lfP>b.m{width:64px;transform-origin:0 0}'+
     '.lfTk>.lfPt{position:absolute;left:0;top:0;z-index:2;pointer-events:none;overflow:hidden}.lfTk>.lfPt>button{position:absolute!important;margin:0!important;background:transparent!important;color:#fff!important;box-shadow:none!important;border-color:transparent!important;flex:none!important;min-width:0!important;box-sizing:border-box;pointer-events:none}';
     document.head.appendChild(s)})();
   function tkBts(el){return [].filter.call(el.children,function(b){return b.tagName==='BUTTON'})}
@@ -4455,7 +4443,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
   function tkSel(T){var bs=tkBts(T.el);for(var i=0;i<bs.length;i++)if(bs[i].classList.contains('on'))return i;return -1}
   function tkPoe(T,x,y,w,h){T.c={x:x,y:y,w:w,h:h};var r=h/2,p=T.p.children,mw=Math.max(0,w-2*r);
     p[0].style.cssText='width:'+r+'px;height:'+h+'px;border-radius:'+r+'px 0 0 '+r+'px;transform:translate('+x+'px,'+y+'px)';
-    p[1].style.cssText='height:'+h+'px;transform:translate('+(x+r-.5)+'px,'+y+'px) scaleX('+(mw+1)+')';
+    p[1].style.cssText='height:'+h+'px;transform:translate('+(x+r-1)+'px,'+y+'px) scaleX('+((mw+2)/64)+')'/* S429: meio com 64 px de base (sem borrão na borda) e 1 px a mais em cada ponta = sem emenda */;
     p[2].style.cssText='width:'+r+'px;height:'+h+'px;border-radius:0 '+r+'px '+r+'px 0;transform:translate('+(x+w-r)+'px,'+y+'px)';
     var cp='inset('+y+'px '+Math.max(0,T.W-x-w)+'px '+Math.max(0,T.H-y-h)+'px '+x+'px round '+r+'px)';T.t.style.clipPath=cp;T.t.style.webkitClipPath=cp;T.p.style.opacity=w>0?'1':'0'}
   function tkVai(T,i,anima){cancelAnimationFrame(T.raf);T.anim=0;var m=T.m[i];if(!m){T.p.style.opacity='0';T.t.style.clipPath='inset(50%)';return}
@@ -4670,7 +4658,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
   /* S376 (aprovado 16/11 08:24): medidor para diagnóstico no aparelho do dono — só aparece com ?medir=1 no endereço. Mostra quadros por segundo (agora e o pior segundo), o quadro mais demorado,
      quantas vezes o processador travou mais de 50 ms e os mesmos números só enquanto a tela rola. Não guarda nem envia nada. */
   (function(){if(!/[?&]medir=1/.test(location.search))return;
-    var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 10.5px/1.4 ui-monospace,Menlo,monospace;overflow-wrap:anywhere;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
+    var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:calc(var(--c-sistema) + 10);max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 10.5px/1.4 ui-monospace,Menlo,monospace;overflow-wrap:anywhere;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
     /* S427 (pedido do dono 18/11 14:12): botão para recolher o Medidor — fica só a etiqueta "Medidor ▸"; tocar abre de novo; a gravação continua; lembra (lf_medfech) */
     var mdT=document.createElement('span'),mdB=document.createElement('button'),mdF=false;try{mdF=localStorage.getItem('lf_medfech')==='1'}catch(_){}
     mdB.type='button';mdB.style.cssText='pointer-events:auto;position:absolute;top:0;right:0;width:40px;height:36px;border:0;background:none;color:#fff;font:700 15px system-ui;cursor:pointer';
@@ -4718,10 +4706,10 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     /* S425 (pedido do dono 13:19): o DIAGNÓSTICO do catálogo também entra na gravação — a cada mudança (e a cada 5 s, se mudou): texto da linha, números (peças na nuvem/no site, leituras, erros), site ligado/desligado, temática, peças na tela e de onde vieram */
     var gdU='';function grDg(){try{var o={txt:typeof dgTxt==='function'?dgTxt():'',dg:JSON.parse(JSON.stringify(DG||{})),ativo:CFG?CFG.ativo!==false:null,nuvemConf:!!(CFG&&CFG._f),evento:CFG&&CFG.evento?CFG.evento.tema||'':'',pecas:(P||[]).length,cache:(function(){try{return !!localStorage.getItem('lf_pdocs')}catch(_){return null}})(),online:navigator.onLine},k=JSON.stringify(o);if(k!==gdU){gdU=k;o.k='diagnóstico';grP(o)}}catch(_){}}
     setInterval(grDg,5000);setTimeout(grDg,1500);
-    var bx=document.createElement('div');bx.id='lfgrv';bx.style.cssText='position:fixed;left:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:2147483601;display:flex;gap:6px';
+    var bx=document.createElement('div');bx.id='lfgrv';bx.style.cssText='position:fixed;left:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:calc(var(--c-sistema) + 11);display:flex;gap:6px';
     bx.innerHTML='<button type="button" data-g="b" style="font:700 13px system-ui;padding:10px 14px;border-radius:10px;border:0;background:#111;color:#fff">Baixar gravação</button><button type="button" data-g="z" style="font:700 13px system-ui;padding:10px 12px;border-radius:10px;border:0;background:#444;color:#fff">Zerar</button>';
     bx.addEventListener('click',function(e){var b=e.target.closest('[data-g]');if(!b)return;e.stopPropagation();if(b.getAttribute('data-g')==='z'){GR=[];grN=0;GR0=Date.now();b.textContent='Zerado';setTimeout(function(){b.textContent='Zerar'},1200);return}
-      var j={site:window.LF_BUILD,inicio:new Date(GR0).toISOString(),fim:new Date().toISOString(),aparelho:{ua:navigator.userAgent,nucleos:navigator.hardwareConcurrency,mem:navigator.deviceMemory,tela:[screen.width,screen.height,devicePixelRatio],janela:[innerWidth,innerHeight],letra:localStorage.getItem('lf_zoom')||'0',rede:(navigator.connection||{}).effectiveType||''},perdidos:grN,diagnostico:(function(){try{return {txt:dgTxt(),dg:DG,ativo:CFG.ativo!==false,pecas:P.length}}catch(_){return null}})(),eventos:GR};
+      var j={site:window.LF_BUILD,inicio:new Date(GR0).toISOString(),fim:new Date().toISOString(),aparelho:{ua:navigator.userAgent,nucleos:navigator.hardwareConcurrency,mem:navigator.deviceMemory,tela:[screen.width,screen.height,devicePixelRatio],janela:[innerWidth,innerHeight],letra:String(LFT()),rede:(navigator.connection||{}).effectiveType||''},perdidos:grN,diagnostico:(function(){try{return {txt:dgTxt(),dg:DG,ativo:CFG.ativo!==false,pecas:P.length}}catch(_){return null}})(),eventos:GR};
       var bl=new Blob([JSON.stringify(j)],{type:'application/json'}),u=URL.createObjectURL(bl),a=document.createElement('a'),d=new Date();a.href=u;a.download='gravacao-lafouch-'+d.getHours()+'h'+('0'+d.getMinutes()).slice(-2)+'.json';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u)},4000);b.textContent='Baixado ✓';setTimeout(function(){b.textContent='Baixar gravação'},2000)});
     var ini2=function(){document.body.appendChild(bx);mdPoe()};if(document.body)ini2();else document.addEventListener('DOMContentLoaded',ini2)})();
 
@@ -4780,7 +4768,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
       v=JSON.parse(sessionStorage.getItem('lf_vc')||'{}');sessionStorage.setItem('lf_an_n','0');sessionStorage.setItem('lf_vc_n0','0')}catch(_){return}
     var e=null;try{e=evAtivo()}catch(_){}
     var b={id:id,v:v,c:AN.c,f:AN.f,b:AN.b,dv:AN.dv||{},dt:AN.dt||{},gm:AN.gm||'',mo:AN.mo,ro:AN.ro,at:AN.at,pe:AN.pe,ck:AN.ck,lang:LFI.lang==='es'?'es':'pt',dev:matchMedia('(min-width:1100px)').matches?'pc':'cel',ev:e?(e.tema||''):''};
-    try{fetch(fnUrl('analise'),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(b),keepalive:true}).catch(function(){})}catch(_){}}
+    try{acFetch(fnUrl('analise'),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(b),keepalive:true}).catch(function(){})}catch(_){}}
   /* as peças vistas já são contadas por vistaConta (lf_vc): marca que há algo novo para mandar */
   var _vistaConta8=vistaConta;vistaConta=function(){var r=_vistaConta8.apply(this,arguments);try{sessionStorage.setItem('lf_vc_n0','1')}catch(_){}return r};
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')anEnvia()});
@@ -4841,8 +4829,6 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     function excCard(){var L=meusCards();if(!L.length)return null;if(st.excCod){var x=L.filter(function(c){return c.cod===st.excCod})[0];if(x)return x}
       var ev=L.filter(function(c){return c.tipo==='ev'})[0];if(ev)return ev;return L.slice().sort(function(a,b){return (a.fim||9e15)-(b.fim||9e15)})[0]}
     function descDe(c,p){return cVale(c,p)?Math.floor(p.n*c.pct/100/1000)*1000:0}
-    /* sai o "Leve 2" (ordem do dono, 17/11): nenhum desconto da 2ª peça */
-    
     /* "Cupom disponível" (81f/83): só para quem tem um cartão que vale nesta peça */
     aceitaCup=function(p){return !!cardPara(p)};
 
@@ -4906,7 +4892,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
       var vs=g.parentNode.querySelector('.vsec'),VL=ehVip()?P.filter(function(p){return vipSo(p)&&p.aviso!=='Esgotado'}).slice(0,4):[];
       if(VL.length){if(!vs){vs=document.createElement('div');vs.className='vsec';g.parentNode.insertBefore(vs,o)}var vh='<h4><i>✦</i>'+LFI.tr('Só para VIP')+'</h4><p>'+LFI.tr('Chegaram agora; para todos, em 2 dias.')+'</p><div class="hg vg">'+VL.map(function(p){return card5(p,0,'vip')}).join('')+'</div>'+(c.tipo==='pe'?'<div class="gh">'+LFI.tr('Seu presente')+'</div>':'');if(vs._h!==vh){vs._h=vh;vs.innerHTML=vh}}else if(vs)vs.remove();
       [].forEach.call(g.querySelectorAll('.card'),function(k){var bt=k.querySelector('[data-open]'),ref=bt&&bt.getAttribute('data-open'),p=ref&&find(ref);if(!p)return;
-        k.querySelectorAll('.sel1,.edb,.evse').forEach(function(x){x.style.display='none'});var pr=k.querySelector('.pr');
+        k.querySelectorAll('.sel1,.edb').forEach(function(x){x.style.display='none'});var pr=k.querySelector('.pr');
         if(c.tipo==='pe'){if(pr)pr.style.display='none';if(!k.querySelector('.gpt')){var s=document.createElement('span');s.className='gpt';s.textContent='✦ '+LFI.tr('De presente');k.appendChild(s);gptAlinha(k,s)}}
         else if(pr&&!pr.querySelector('s')){var d=descDe(c,p);if(d>0)pr.innerHTML='<s>'+LFI.fmtD(LFI.pv(p.n))+'</s>'+LFI.fmtD(LFI.pv(p.n-d))}})}
     /* selo do presente alinhado com o coração (78a–78g): mesma altura e mesma distância da borda */
@@ -5059,7 +5045,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     document.addEventListener('click',function(ev){var t=ev.target.closest&&ev.target.closest('[data-opst],[data-opgo]');if(!t)return;var c=t.closest('.opd');if(!c)return;
       if(t.hasAttribute('data-opst')){var k=+t.getAttribute('data-opst');c._n=k;c.querySelectorAll('[data-opst]').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-opst')<=k)});return}
       t.disabled=true;var ref=c.getAttribute('data-opref');
-      idTok().then(function(tk){return fetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'avaliar',ref:ref,nota:c._n||5,txt:c.querySelector('textarea').value||''})})}).then(function(r){return r.json()}).then(function(j){
+      idTok().then(function(tk){return acFetch(fnUrl('avaliacao'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({acao:'avaliar',ref:ref,nota:c._n||5,txt:c.querySelector('textarea').value||''})})}).then(function(r){return r.json()}).then(function(j){
         if(!j||!j.ok)throw 0;c.innerHTML='<div class="ok" style="font-size:14px;color:#14803f;font-weight:700">✓ '+LFI.tr(j.rev?'Obrigado! Sua opinião será publicada depois da revisão.':'Obrigado! Sua opinião foi publicada.')+'</div>'}).catch(function(){t.disabled=false;toast(LFI.tr('Não consegui enviar agora. Tente de novo mais tarde.'))})});
     var _avP=avalPinta;avalPinta=function(ref,j){var s=$('prv');if(!j||!(j.n>0)){if(s&&s.getAttribute('data-ref')===ref)s.remove();return}_avP(ref,j);var b=document.querySelector('#prv [data-arw]');if(b)b.remove()};
     var PC=function(){return innerWidth>=900};
@@ -5069,12 +5055,12 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
         if(PC()&&l&&d){var w=document.createElement('div');w.className='pgtop';m.insertBefore(w,l);w.appendChild(l);w.appendChild(d)}
         else if(!PC()){var w2=m.querySelector(':scope>.pgtop');if(w2){while(w2.firstChild)m.insertBefore(w2.firstChild,w2);w2.remove()}}
         if(!m.querySelector(':scope>.lfft'))m.insertAdjacentHTML('beforeend',rodape5())}
-      /* S208 (13/11): o Últimas fica abaixo da foto (.ulin) — não vai mais para dentro da foto */
+      /* cupom antes do total no carrinho */
       document.querySelectorAll('#layer .cs details.cupf').forEach(function(c){var t=c.parentElement.querySelector(':scope>.cs-t');if(t&&c.nextElementSibling!==t)c.parentElement.insertBefore(c,t)});
       document.querySelectorAll('.hd .hnc').forEach(function(x){x.remove()});if(typeof liga==='function')liga()}
     var tm=0;new MutationObserver(function(){if(tm)return;tm=requestAnimationFrame(function(){tm=0;arruma()})}).observe(document.body,{childList:true,subtree:true});
     addEventListener('resize',function(){arruma()});
-    /* Idioma / Tamanho do texto: no computador abre ao lado do menu (não gaveta de celular) */
+    /* Idioma: no computador abre ao lado do menu (não gaveta de celular) */
     var liga=function(){var dsh=$('dsh');if(dsh&&!dsh._s207){dsh._s207=1;new MutationObserver(function(){var p=dsh.querySelector('.dsp');if(!p||!dsh.classList.contains('on')||innerWidth<1100||p.classList.contains('dspc'))return;
       var r=document.querySelector('#drw [data-dset]');if(!r)return;var b=r.getBoundingClientRect();p.classList.add('dspc');p.style.left=Math.round(b.right+14)+'px';p.style.top=Math.max(12,Math.round(b.top-110))+'px'}).observe(dsh,{attributes:true,childList:true})}
     /* busca: a janela cresce saindo da lupa */
@@ -5086,10 +5072,8 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
 /* 11/11 S176-2: altura da barra Comprar (posiciona o WhatsApp logo acima dela) */
 (function(){/* S426: a altura vem do ResizeObserver (sem obrigar o navegador a arrumar a tela fora de hora) */var ro=window.ResizeObserver?new ResizeObserver(function(es){var h=es[0]&&es[0].target.offsetHeight;if(h)document.documentElement.style.setProperty('--buyh',h+'px')}):null,ub=null;
   function u(){var b=document.querySelector('.buy');if(!b)return;if(ro){if(b!==ub){if(ub)ro.unobserve(ub);ub=b;ro.observe(b)}return}if(b.offsetHeight)document.documentElement.style.setProperty('--buyh',b.offsetHeight+'px')}try{new MutationObserver(function(){setTimeout(u,60)}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});addEventListener('resize',u)}catch(_){}})();
-/* S170 (aprovado e implementado 11/11/2026): animação leve do tema no destaque, selo do tema nos 4 primeiros cards (no lugar da etiqueta), faixa do tema no catálogo, sem etiqueta NUEVO */
+/* S170 (aprovado e implementado 11/11/2026): animação leve do tema no destaque, (20/11: saíram os selos de tema nas peças e a faixa repetida no catálogo — o tema fica na faixa do topo, no destaque e nas cores) */
 (function(){
-  var SELO={natal:'Presente ideal',anonovo:'Ano novo',maes:'Para a mamãe',pais:'Para o papai',bf:'Black Friday',halloween:'Halloween'};
-  function T(s){try{return window.LFI&&LFI.lang==='es'?LFI.tr(s):s}catch(_){return s}}
   var MO='<svg viewBox="0 0 34 16"><path d="M17 5c1-2 2-2 3 0 3-3 8-4 14-1-3 0-5 2-5 5-2-2-5-2-7 1-1-1-3-1-5 0-2-3-5-3-7-1 0-3-2-5-5-5 6-3 11-2 14 1 1-2 2-2 3 0z"/></svg>';
   function r(a,b){return a+Math.random()*(b-a)}
   function fx(){
@@ -5107,19 +5091,6 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     c.innerHTML=h;hd.insertBefore(c,hd.firstChild);
     setTimeout(function(){c.classList.add('fim')},window.__evfxFim||10000);
   }
-  function selo(){
-    var ev=(document.documentElement.getAttribute('data-ev')||'').replace(/-[nd]$/,'');if(!SELO[ev])return;
-    document.querySelectorAll('#home .hc .hci').forEach(function(x,k){if(k>3||x.querySelector('.evse'))return;if(getComputedStyle(x).position==='static')x.style.position='relative';var s=document.createElement('span');s.className='evse';s.textContent=T(SELO[ev]);x.appendChild(s)});
-  }
-  var FX={natal:'🎄 Presentes de Natal · retirada no mesmo dia',anonovo:'✨ Ano novo, novo olhar',maes:'🌷 Presentes para a mamãe · retirada no mesmo dia',pais:'Presentes para o papai · retirada no mesmo dia',bf:'⚡ Black Friday · ofertas em toda a loja',halloween:'🎃 Semana de Halloween'};
-  function cat(){
-    var ev=(document.documentElement.getAttribute('data-ev')||'').replace(/-[nd]$/,''),g=document.getElementById('grid');if(!g)return;if(!FX[ev]){[].forEach.call(document.querySelectorAll('.evlf,#grid .evse'),function(x){x.remove()});return}
-    if(!g.parentNode.querySelector('.evlf')){var f=document.createElement('div');f.className='evlf';f.textContent=T(FX[ev]);g.parentNode.insertBefore(f,g)}
-    g.querySelectorAll('.card').forEach(function(cd,k){var x=cd.querySelector('.ph');if(!x)return;var o=x.querySelector('.evse');if(k>3){if(o)o.remove();return}if(o)return;var tg=x.querySelector('.tg');if(tg)tg.style.display='none';var s=document.createElement('span');s.className='evse';s.textContent=T(SELO[ev]);x.appendChild(s)});
-  }
-  function novo(){document.querySelectorAll('#grid .card .tg,#home .hc .tg').forEach(function(t){if(/^(NUEVO|NOVO)$/i.test(t.textContent.trim()))t.style.display='none'})}
-  function vai(){fx();selo();cat();novo()}
-  if(document.readyState==='complete')setTimeout(vai,800);else addEventListener('load',function(){setTimeout(vai,800)});
-  new MutationObserver(function(){setTimeout(vai,300)}).observe(document.documentElement,{attributes:true,attributeFilter:['data-ev']});
-  setInterval(function(){if(!document.hidden){cat();novo()}},1000);
+  if(document.readyState==='complete')setTimeout(fx,800);else addEventListener('load',function(){setTimeout(fx,800)});
+  new MutationObserver(function(){setTimeout(fx,300)}).observe(document.documentElement,{attributes:true,attributeFilter:['data-ev']});
 })();
