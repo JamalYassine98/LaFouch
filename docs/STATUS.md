@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 28: remendos — trocas inteiras (mkAbre, cupAbre, estTutorial, dPer, dPerEsc, famNum, stAbre, avMin) | src/97-marketing.js, src/97-cupons.js, src/97-estudio.js, src/98-dash-cabecalho.js, src/97y-familias-s265.js, src/97-push.js, src/98z-s374.js, src/98z-s374d-padrao.js, src/98z-camera-s262.js, src/98z-dashboard-s48.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
 | SITE | varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py, só medição) | work/fiscal/provas.py |
 
@@ -85,6 +84,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 15:28 — APP: v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)
 - 20/11 15:25 — NUVEM: texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava).
 - 20/11 14:32 — NUVEM: S1/S2 completo: nuvem parte 3 (13:58) + app item 21 (v580). Prompt entregue ao ESBOCO para conferir 09/20/21 no comparador.
 - 20/11 14:18 — APP: 20/11: publicados v578 (remendos 2b grupos), v579 (2c setView e nomes das telas) e v580 (item 21: token e PIX automático em reservasTok). Espinha da limpeza completa. Próximo: trocas inteiras soltas e depois a família Resultados/Preços com os aprovados
@@ -109,4 +109,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 08:40 — NUVEM: item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo
 - 20/11 08:18 — APP: guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código
 - 20/11 02:51 — APP: NOITE 20/11 (dono dormindo), nada mexido em src/ nem www/: (1) B3 item 05 já estava publicado (v572) e foi CONFERIDO EM CELULAR REAL no Test Lab, claro e escuro (prints work/s436/testlab/). (2) Item 16 NÃO implementado; esboço v2 pronto e passado no comparador, celular/tablet/PC (work/s436/banco/esboco16_ficha_*.jpg) — falta o dono dizer se marca e coleção são obrigatórias. (3) PLANO DOS REMENDOS em 10 partes: docs/PLANO-REMENDOS-20-11.md (62 funções com 104 remendos); parte 1 (render) ENSAIADA numa cópia: 0 diferenças em 60 telas x 3 aparelhos, 327/327 testes. (4) BUG ACHADO, não consertado: aparelho novo/desconectado › Início › 'Entrar' na nuvem dá tela vazia (esboço work/s436/bug-nvir/). DECISÕES DO DONO: a) consertar o bug do Entrar? b) implementar a parte 1 dos remendos? c) item 16: marca e coleção obrigatórias? Na Fila esperando o site: 18-s1-s2-parte-3-app.
-- 20/11 01:18 — SITE: comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais

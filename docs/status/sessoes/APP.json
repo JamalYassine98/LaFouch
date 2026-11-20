@@ -1,20 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 28: remendos — trocas inteiras (mkAbre, cupAbre, estTutorial, dPer, dPerEsc, famNum, stAbre, avMin)",
- "arquivos": [
-  "src/97-marketing.js",
-  "src/97-cupons.js",
-  "src/97-estudio.js",
-  "src/98-dash-cabecalho.js",
-  "src/97y-familias-s265.js",
-  "src/97-push.js",
-  "src/98z-s374.js",
-  "src/98z-s374d-padrao.js",
-  "src/98z-camera-s262.js",
-  "src/98z-dashboard-s48.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795199284.503005,
+   "r": "v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)"
+  },
   {
    "t": 1795195100.023689,
    "r": "20/11: publicados v578 (remendos 2b grupos), v579 (2c setView e nomes das telas) e v580 (item 21: token e PIX automático em reservasTok). Espinha da limpeza completa. Próximo: trocas inteiras soltas e depois a família Resultados/Preços com os aprovados"
@@ -48,5 +40,5 @@
    "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795197630.2353163
+ "leu": 1795199284.0056467
 }
