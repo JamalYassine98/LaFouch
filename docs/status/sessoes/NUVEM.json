@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "S3 parte 1: pedido pela nuvem",
+ "arquivos": [
+  "functions/",
+  "tools/sonda-nuvem.sh"
+ ],
  "ultimas": [
   {
    "t": 1795199585.8374639,

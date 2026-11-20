@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 29: remendos parte 4a — Dashboard, dia e Histórico numa função cada | src/90-navegacao-dashboard.js, src/93-historico.js, src/97-hist-busca.js, src/89-dash-abas.js, src/98-dash-cabecalho.js, src/98z-dashboard-s48.js, src/98z-s374.js, src/98z-s374d-padrao.js, src/98z-grupo-flecha-s41.js, src/98z-pc-s244.js, src/97y-familias-s265.js, src/97u-navegacao-s184.js, src/97r-temas-s183.js, src/97w-guardiao.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
+| NUVEM | S3 parte 1: pedido pela nuvem | functions/, tools/sonda-nuvem.sh |
 | SITE | varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py, só medição) | work/fiscal/provas.py |
 
 ## Fila
