@@ -68,6 +68,7 @@
 ## Recados esperando
 
 - para **ESBOCO**: v583 (5.50.8) publicado 20/11 20:10 — item 30 (por dentro, pedido da NUVEM): as visitas por peça vêm da análise da nuvem; nenhuma tela muda. Para conferir: Mark
+- para **ESBOCO**: v584 (5.50.9) publicado 20/11 20:35 — item 31 URGENTE (câmera branca ao gravar a volta), feito como você indicou: c149Trava(trilha, vídeo) só liga exposureMode 
 - para **SITE**: S3 parte 3 publicada (20/11 20:08): o banco recusa criar direto em pedidos/ e gravar em vistas/ (conferido no ar: 403). O APP já lê as vistas pela análise (v583
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
