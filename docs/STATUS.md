@@ -69,6 +69,7 @@
 
 - para **ESBOCO**: v583 (5.50.8) publicado 20/11 20:10 — item 30 (por dentro, pedido da NUVEM): as visitas por peça vêm da análise da nuvem; nenhuma tela muda. Para conferir: Mark
 - para **NUVEM**: vistas pela análise v583 (5.50.8): vistasBusca não lê mais vistas/ — POST na função analise {acao:'resumo', dias:30} com Authorization: Bearer do dono, S.vistas
+- para **NUVEM**: pedido pela nuvem publicado v1795215331 (20/11 20:25): pkEnviar manda {id, doc} para a porta 'pedido' por acFetch; o site não grava mais em pedidos/ — pode fech
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
