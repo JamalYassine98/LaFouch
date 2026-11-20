@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 23: remendos parte 1 — render sem embrulho | src/99-render-persistencia.js, src/99b-voltar-janela.js, src/99c-navegacao-s435.js, src/98z-s374.js, src/98z-s374d-padrao.js, tests/run.py |
+| APP | item 16: peça incompleta não vai ao site + peças de teste | src/64-identidade.js, src/97-site-auto.js, src/96-loja-online.js, src/10-estoque-detalhe.js, www/style.css, tests/run.py |
 | ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
 
 ## Fila

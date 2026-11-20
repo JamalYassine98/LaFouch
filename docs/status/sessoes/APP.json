@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 23: remendos parte 1 — render sem embrulho",
+ "agora": "item 16: peça incompleta não vai ao site + peças de teste",
  "arquivos": [
-  "src/99-render-persistencia.js",
-  "src/99b-voltar-janela.js",
-  "src/99c-navegacao-s435.js",
-  "src/98z-s374.js",
-  "src/98z-s374d-padrao.js",
+  "src/64-identidade.js",
+  "src/97-site-auto.js",
+  "src/96-loja-online.js",
+  "src/10-estoque-detalhe.js",
+  "www/style.css",
   "tests/run.py"
  ],
  "ultimas": [
