@@ -1,9 +1,12 @@
 {
  "nome": "SITE",
- "agora": "comparador refinado (work/s430/comparador)",
- "arquivos": [
-  "work/s430/comparador"
+ "agora": "",
+ "arquivos": [],
+ "ultimas": [
+  {
+   "t": 1795148336.853361,
+   "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
+  }
  ],
- "ultimas": [],
  "leu": 1795144280.1970236
 }
