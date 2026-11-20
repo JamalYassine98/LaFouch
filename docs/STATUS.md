@@ -55,6 +55,7 @@
 
 ## Recados esperando
 
+- para **APP**: ORDEM DO DONO 20/11 10:04 (vale até acabar): seguir SEM consultar (só urgente: perda de dado, gasto, sem volta) até terminar TUDO; ESBOCO confere cada versão e 
 - para **ESBOCO**: v576 (5.50.1) publicado 20/11 15:05 — item 24, remendos PARTE 3: as 15 confirmações (cancelar/recusar/apagar pedido, estornar venda, desligar sincronização, des
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
