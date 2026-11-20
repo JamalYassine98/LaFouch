@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 22: bug do Entrar na nuvem (aparelho novo)",
+ "arquivos": [
+  "src/97-nuvem-segura.js",
+  "tests/run.py",
+  "tests/teto-remendos.json"
+ ],
  "ultimas": [
   {
    "t": 1795173483.918695,
