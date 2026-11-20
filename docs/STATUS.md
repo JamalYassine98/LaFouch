@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 27: remendos parte 2c — setView e tabelas de nomes | src/90-navegacao-dashboard.js, src/89-inicio.js, src/98-dash-cabecalho.js, src/98z-grupo-flecha-s41.js, src/98z-s374.js, src/98z-s374c-site.js, src/98z-s374d-padrao.js, src/98z-dashboard-s48.js, tests/run.py |
 | ESBOCO | esperando SITE publicar 09 e 20 e APP publicar 21 para conferir no comparador (entrar com nome de usuário, token do pedido pago, página da peça) | — |
-| SITE | varredura de código morto medindo durante as provas do porteiro (work/fiscal/provas.py) | work/fiscal/provas.py |
 
 ## Fila
 
@@ -77,6 +76,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 13:43 — SITE: CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)
 - 20/11 13:27 — NUVEM: Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script.
 - 20/11 13:14 — SITE: tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro
 - 20/11 12:55 — NUVEM: Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21).
@@ -101,4 +101,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 01:18 — SITE: comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais
 - 20/11 01:00 — APP: item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327
 - 20/11 00:36 — APP: v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326
-- 19/11 23:50 — ESBOCO: conferência
