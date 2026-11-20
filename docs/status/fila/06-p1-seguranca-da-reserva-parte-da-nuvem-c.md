@@ -1,0 +1,2 @@
+✅ publicado pelo dono 19/11 15:03 (Cloud Shell); conferido: cancelar com `refs` = ok:true; reserva vencida da AC1050 apagada; 4 paradas antigas saem na limpeza das 4h · NUVEM · pedido 19/11 14:29
+**P1 segurança da reserva — parte da NUVEM**: cancelar público só solta não paga/sem comprovante; `estoque/` sem número do pedido (campo `h`); função aceita `itens` e `refs`; limpeza diária arruma as paradas. Testes: reserva 29/29, endpoint 9/9, demais 14 suítes ok

@@ -1,0 +1,2 @@
+✅ v565 (19/11) · APP · pedido 19/11 14:29
+**P1 — parte do APP** (depois do deploy do item 6): `resOrfas` em src/95-reserva.js passa a achar as reservas pelo código `h` = primeiros 20 caracteres do sha256 de `'lf-res|' + p.sid` (hoje usa `x.pid`, que não vem mais; sem isso as órfãs só não são soltas — nada quebra). Obs. para o item 3: a função agora também aceita `refs`; o que continua necessário é a resposta `ok:false` não sair da fila

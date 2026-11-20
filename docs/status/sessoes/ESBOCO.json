@@ -1,0 +1,15 @@
+{
+ "nome": "ESBOCO",
+ "agora": "",
+ "arquivos": [],
+ "ultimas": [
+  {
+   "t": 1795143053.220285,
+   "r": "conferência"
+  },
+  {
+   "t": 1795143044.773449,
+   "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
+  }
+ ]
+}
