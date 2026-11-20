@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 570;
+  var APP_BUILD = 571;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.49.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.49.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -27733,6 +27733,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return o;
   }
   // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
+  // Item 17 (19/11, aprovado 23:19): quem sai do site é decidido pela NUVEM × Inventário (vitNuvemTira), não pela lista local S.site.
   function vitConfere() {
     try {
       siteFxConfere();
@@ -27744,7 +27745,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       try {
         if (!itemDoRef(ref)) {
           delete S.site[ref];
-          vitFila(ref, 'del');
           return;
         }
         if (S.vitPend && S.vitPend[ref]) return;
@@ -27755,7 +27755,60 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         vitErro(ref, e);
       }
     });
-    return vitSync();
+    return vitNuvemTira().then(vitSync, vitSync);
+  }
+  // Site = Inventário: lê da nuvem as peças que o app pôs no site (lib) e tira (produto + fotos) a que não existe no Inventário.
+  // Leitura só do campo lib, a cada 5 min (a 1ª na abertura). Mais de 5 de uma vez → pergunta antes (lfConfirma); "Voltar" = não pergunta até reabrir o app.
+  var VIT_NUVEM_MAX = 5;
+  function vitNuvemRefs() {
+    var refs = [],
+      pag = function (tok, n) {
+        return vitApi('GET', 'produtos?pageSize=300&mask.fieldPaths=lib' + (tok ? '&pageToken=' + encodeURIComponent(tok) : '')).then(function (j) {
+          (j.documents || []).forEach(function (d) {
+            if (((d.fields || {}).lib || {}).booleanValue === true) refs.push(decodeURIComponent(String(d.name).split('/').pop()));
+          });
+          if (j.nextPageToken && n < 20) return pag(j.nextPageToken, n + 1);
+        });
+      };
+    return pag('', 0).then(function () {
+      return refs;
+    });
+  }
+  function vitNuvemTira() {
+    if (vitNuvemTira.ts && Date.now() - vitNuvemTira.ts < 300000) return Promise.resolve();
+    vitNuvemTira.ts = Date.now();
+    return vitNuvemRefs().then(
+      function (refs) {
+        var tira = refs.filter(function (r) {
+          return !itemDoRef(r) && !(S.vitPend && S.vitPend[r] === 'del');
+        });
+        if (!tira.length) return;
+        var vai = function () {
+          tira.forEach(function (r) {
+            if (S.site) delete S.site[r];
+            vitFila(r, 'del');
+          });
+        };
+        if (tira.length <= VIT_NUVEM_MAX) return vai();
+        if (vitNuvemTira.nao) return;
+        lfConfirma({
+          k: 'vitNuvemTira',
+          t: 'Tirar peças do site?',
+          q: tira.length + ' peças estão no site e não existem no Inventário',
+          d: tira.slice(0, 8).join(', ') + (tira.length > 8 ? '…' : ''),
+          f: 'Saem do site com as fotos. O Inventário não muda.',
+          b: 'Tirar ' + tira.length + ' do site',
+          fn: function () {
+            vai();
+            vitSync();
+          }
+        });
+        vitNuvemTira.nao = 1;
+      },
+      function () {
+        vitNuvemTira.ts = 0;
+      }
+    );
   }
   setTimeout(vitConfere, 4000);
   setInterval(vitConfere, 60000);
@@ -53461,7 +53514,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, vitNuvemTira: vitNuvemTira, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

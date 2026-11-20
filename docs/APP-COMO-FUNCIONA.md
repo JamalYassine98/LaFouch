@@ -64,6 +64,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/97z-pix-email.js`: pedido do site pago por PIX e venda da loja "Venda · PIX" são confirmados pelo e-mail do Nubank (robô `work/pix/robo-pix.gs` → função `pix`). A espera da venda da loja nasce no servidor (`pixEspera`); sem par vai para `pixSemPar`.
 
 ## Polarizado (S195, 12/11/2026)
+- Site = Inventário (item 17, v571): `vitConfere` (src/96-loja-online.js) só ENVIA o que mudou de `S.site`; quem SAI do site é decidido por `vitNuvemTira`: a cada 5 min lê da nuvem `produtos?mask.fieldPaths=lib` e põe na fila `del` (produto + fotos, `vitUm`) toda peça `lib:true` que não existe no Inventário (`itemDoRef`). Mais de 5 de uma vez → `lfConfirma` antes (Voltar = não pergunta até reabrir o app). Peça sem `lib` (feita no site) não é tocada. Trava no porteiro: "Item 17".
 - Ficha da peça (`src/10-estoque-detalhe.js`, bloco de atributos): só em solar aparece "Polarizado?" (Polarizado / Não polarizado) em `S.attr[ref].polarizado`. `vitProduto` (`src/96-loja-online.js`) manda `pol` (true/false; vazio = null, aí o site olha o nome). `pol` está em `VIT_CAMPOS`.
 
 ## Lucro real (S200, 12/11/2026)

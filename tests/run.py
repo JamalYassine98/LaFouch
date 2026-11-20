@@ -3625,6 +3625,36 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 17 (19/11/2026): site = Inventário — peça presa na nuvem (lib) sem Inventário sai (produto + fotos), mesmo fora de S.site; mais de 5 pergunta antes
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem, f0 = window.fetch, ch = []; let nuvem = [];
+              const doc = (r, lib) => ({ name: 'projects/x/databases/(default)/documents/produtos/' + r, fields: lib == null ? {} : { lib: { booleanValue: lib } } });
+              window.fetch = async (u, o) => { u = String(u); const m = (o && o.method) || 'GET';
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/firestore/.test(u)) { ch.push([m, u.replace(/^.*documents\//, '')]);
+                  if (m === 'GET' && /\/produtos\?/.test(u)) return new Response(JSON.stringify({ documents: nuvem }), { status: 200 }); }
+                return new Response('{}', { status: 200 }); };
+              const real = S.items.find(i => i.ref && !i.bulk).ref;
+              S.nuvem = { rt: 'teste' }; S.vitPend = {}; S.vitErr = {}; S.site = S.site || {}; delete S.site['PY-566'];
+              nuvem = [doc('PY-566', true), doc(real, true), doc('SITE1', null)];
+              L.vitNuvemTira.ts = 0; L.vitNuvemTira.nao = 0; await L.vitConfere(); await w(400);
+              const leu = ch.some(c => c[0] === 'GET' && /^produtos\?.*mask.fieldPaths=lib/.test(c[1]));
+              const del = ch.some(c => c[0] === 'DELETE' && c[1] === 'produtos/PY-566') && ch.some(c => c[0] === 'DELETE' && c[1] === 'fotos/PY-566');
+              const fica = !ch.some(c => c[0] === 'DELETE' && (c[1] === 'produtos/' + real || c[1] === 'produtos/SITE1'));
+              ch.length = 0; nuvem = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6'].map(r => doc(r, true));
+              L.vitNuvemTira.ts = 0; await L.vitConfere(); await w(300);
+              const perg = !!document.querySelector('.lfCf .cf418B') && !ch.some(c => c[0] === 'DELETE');
+              document.querySelector('.lfCf .cf418B').click(); await w(400);
+              const tirou = ['X1', 'X6'].every(r => ch.some(c => c[0] === 'DELETE' && c[1] === 'produtos/' + r));
+              window.fetch = f0; S.nuvem = nv0; S.vitPend = {};
+              return [leu, del, fica, perg, tirou]; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 17: site = Inventário — peça presa na nuvem sem Inventário sai (produto + fotos); mais de 5 pergunta antes')
+            if not ok: falhas.append('item 17 site = Inventário'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # P1b no app (19/11/2026): reserva PAGA de pedido apagado — a nuvem devolve as órfãs pelos códigos conhecidos; solta com liberarH depois de 10 min
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

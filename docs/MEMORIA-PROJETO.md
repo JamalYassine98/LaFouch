@@ -3254,3 +3254,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11 23:19 — Regra aprovada: o site é igual ao Inventário (o app confere com a lista da nuvem, não com a própria memória); caso PY-566.
 - 19/11 23:28 — Método de status entre sessões aprovado (um arquivo por sessão, STATUS montado sozinho, comando tools/status.py com trava de recado e de arquivo marcado).
 - 19/11 23:42 — Ordem aprovada: terminar item 17 e câmera → trava dos remendos → aprovados junto com a limpeza de cada família; sem esboço novo (só bug) até a fila diminuir.
+- 19/11/2026 23:55 — ✅ PUBLICADO v571 (S436): SITE = INVENTÁRIO (aprovado 23:19) — vitConfere chama vitNuvemTira: lê da nuvem produtos/ (só o campo lib) a cada 5 min (a 1ª na abertura); peça lib sem Inventário → fila del (produto + fotos); mais de 5 → lfConfirma antes. S.site deixou de decidir a retirada. Trava no porteiro "Item 17".

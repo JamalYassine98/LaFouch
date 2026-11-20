@@ -223,6 +223,7 @@
     return o;
   }
   // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
+  // Item 17 (19/11, aprovado 23:19): quem sai do site é decidido pela NUVEM × Inventário (vitNuvemTira), não pela lista local S.site.
   function vitConfere() {
     try {
       siteFxConfere();
@@ -234,7 +235,6 @@
       try {
         if (!itemDoRef(ref)) {
           delete S.site[ref];
-          vitFila(ref, 'del');
           return;
         }
         if (S.vitPend && S.vitPend[ref]) return;
@@ -245,7 +245,60 @@
         vitErro(ref, e);
       }
     });
-    return vitSync();
+    return vitNuvemTira().then(vitSync, vitSync);
+  }
+  // Site = Inventário: lê da nuvem as peças que o app pôs no site (lib) e tira (produto + fotos) a que não existe no Inventário.
+  // Leitura só do campo lib, a cada 5 min (a 1ª na abertura). Mais de 5 de uma vez → pergunta antes (lfConfirma); "Voltar" = não pergunta até reabrir o app.
+  var VIT_NUVEM_MAX = 5;
+  function vitNuvemRefs() {
+    var refs = [],
+      pag = function (tok, n) {
+        return vitApi('GET', 'produtos?pageSize=300&mask.fieldPaths=lib' + (tok ? '&pageToken=' + encodeURIComponent(tok) : '')).then(function (j) {
+          (j.documents || []).forEach(function (d) {
+            if (((d.fields || {}).lib || {}).booleanValue === true) refs.push(decodeURIComponent(String(d.name).split('/').pop()));
+          });
+          if (j.nextPageToken && n < 20) return pag(j.nextPageToken, n + 1);
+        });
+      };
+    return pag('', 0).then(function () {
+      return refs;
+    });
+  }
+  function vitNuvemTira() {
+    if (vitNuvemTira.ts && Date.now() - vitNuvemTira.ts < 300000) return Promise.resolve();
+    vitNuvemTira.ts = Date.now();
+    return vitNuvemRefs().then(
+      function (refs) {
+        var tira = refs.filter(function (r) {
+          return !itemDoRef(r) && !(S.vitPend && S.vitPend[r] === 'del');
+        });
+        if (!tira.length) return;
+        var vai = function () {
+          tira.forEach(function (r) {
+            if (S.site) delete S.site[r];
+            vitFila(r, 'del');
+          });
+        };
+        if (tira.length <= VIT_NUVEM_MAX) return vai();
+        if (vitNuvemTira.nao) return;
+        lfConfirma({
+          k: 'vitNuvemTira',
+          t: 'Tirar peças do site?',
+          q: tira.length + ' peças estão no site e não existem no Inventário',
+          d: tira.slice(0, 8).join(', ') + (tira.length > 8 ? '…' : ''),
+          f: 'Saem do site com as fotos. O Inventário não muda.',
+          b: 'Tirar ' + tira.length + ' do site',
+          fn: function () {
+            vai();
+            vitSync();
+          }
+        });
+        vitNuvemTira.nao = 1;
+      },
+      function () {
+        vitNuvemTira.ts = 0;
+      }
+    );
   }
   setTimeout(vitConfere, 4000);
   setInterval(vitConfere, 60000);
