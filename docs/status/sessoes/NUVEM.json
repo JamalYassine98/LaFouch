@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "S6: VIP só para a cliente logada",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795199103.7760172,
