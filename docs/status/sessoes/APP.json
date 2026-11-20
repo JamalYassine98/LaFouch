@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 30: vistas pela análise (recado da NUVEM)",
- "arquivos": [
-  "src/97-vistas-site.js",
-  "src/97-nuvem.js",
-  "src/97-site-pediu.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795215206.7000966,
+   "r": "v583 publicado: vistas por peça pela análise da nuvem (recado da NUVEM, S3); chamada à análise num lugar só; 338/338"
+  },
   {
    "t": 1795201099.674426,
    "r": "v582 publicado: remendos parte 4a (Dashboard, dia, Histórico e Pendências com uma função cada; 0 diferenças em 60 telas; 337/337). Hoje: v573 a v582. Próximo: seguir por dentro (Preços, Peças, Site, Dinheiro…) enquanto a ESBOCO manda o 'como fazer' dos aprovados"
@@ -43,11 +42,7 @@
   {
    "t": 1795147235.4082952,
    "r": "item 18: trava dos remendos no porteiro (tools/remendos.py, teto tests/teto-remendos.json); 327/327"
-  },
-  {
-   "t": 1795145762.0943031,
-   "r": "v572 publicado: B3 (item 05) grupo Site › Resumo; 326/326"
   }
  ],
- "leu": 1795214202.5834885
+ "leu": 1795215206.1000314
 }
