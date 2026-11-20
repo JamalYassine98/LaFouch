@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795174856.442682,
+   "r": "item 22 funcionando: 1ª publicação da nuvem pelo GitHub (testes + deploy) deu certo"
+  },
+  {
    "t": 1795174598.3996952,
    "r": "script de configuração do item 22 corrigido (para com erro; espera a conta nova)"
   },
