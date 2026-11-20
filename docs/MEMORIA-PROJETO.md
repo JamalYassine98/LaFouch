@@ -3259,3 +3259,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 23:55 — ✅ PUBLICADO v571 (S436): SITE = INVENTÁRIO (aprovado 23:19) — vitConfere chama vitNuvemTira: lê da nuvem produtos/ (só o campo lib) a cada 5 min (a 1ª na abertura); peça lib sem Inventário → fila del (produto + fotos); mais de 5 → lfConfirma antes. S.site deixou de decidir a retirada. Trava no porteiro "Item 17".
 - 20/11 09:14 — Ideia: SEMP (personal de marketing: tendências, distribuidoras de CDE, momento de comprar com o contador, agenda de vendas, direção dos vídeos); Guardião + Contador viram um só.
 - 20/11 09:17 — Semp: distribuidoras publicam em site, Instagram e WhatsApp; tendências = dados do site + vendas + Google Trends (refinar aos poucos); Guardião + Contador = 'Guardião'.
+- 20/11 09:21 — Semp: compras em US$, mensagem ao fornecedor em espanhol; aprende cada distribuidora uma vez.
