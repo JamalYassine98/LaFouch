@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 32 URGENTE: câmera desfocada/rosada ao gravar (foco e branco só com o valor em uso) | src/98z-camera-u149f.js, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
-| SITE | varredura de código morto: roteiros de mapa, câmera do rosto, consulta do grau, atacado, conta e avaliação (só medição) | work/s430/varredura |
 
 ## Fila
 
@@ -88,6 +87,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 20:33 — SITE: varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)
 - 20/11 20:19 — APP: v584 publicado: URGENTE câmera branca ao gravar a volta (trava de luz só com o valor em uso; solta se a imagem estourar). 339/339 no simulador; falta o dono testar no celular real
 - 20/11 20:16 — NUVEM: Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos.
 - 20/11 20:10 — NUVEM: S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto.
@@ -112,4 +112,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 12:54 — APP: v577 publicado: remendos parte 2a (inicioGo e navOn numa função só; 42 destinos iguais, 0 diferenças em 60 telas, 332/332). Próximo: parte 2b (grupos), desenho em work/s436/remendos/parte2b_notas.md
 - 20/11 12:29 — SITE: PORTEIRO COM 0 FALHAS na cópia limpa (205 provas): ícone da conta consertado (saíram 3 regras de cor), 5 avisos da página da peça eram alarme falso da ferramenta (consertada). Cópia limpa pronta para o dono dizer 'publicar' — falta a resposta sobre a pasta teste-giro
 - 20/11 12:07 — SITE: selos v2, faixa só no topo e fim do modo lista na cópia limpa; porteiro: 1 falha (ícone da conta sem cor no mouse) + 5 avisos visuais da página da peça; levantamento de código morto em work/s430/limpeza5/
-- 20/11 12:04 — APP: 20/11 até 15:10 — publicados v573 (bug Entrar na nuvem), v574 (remendos parte 1: render), v575 (item 16: peça incompleta não vai ao site + peças de teste), v576 (remendos parte 3: confirmações); item 21 pronto no ramo app-item21 esperando a NUVEM. Próximo: remendos parte 2 (destinos/barra/grupos)

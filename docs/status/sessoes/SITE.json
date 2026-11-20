@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "varredura de código morto: roteiros de mapa, câmera do rosto, consulta do grau, atacado, conta e avaliação (só medição)",
- "arquivos": [
-  "work/s430/varredura"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795217631.1839817,
+   "r": "varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)"
+  },
   {
    "t": 1795215793.529312,
    "r": "recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP"
@@ -40,10 +42,6 @@
   {
    "t": 1795179350.253083,
    "r": "porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir"
-  },
-  {
-   "t": 1795177893.1567817,
-   "r": "itens 9 e 20 na cópia limpa (nuvem real 16/16); porteiro rodado na cópia limpa: 24 falhas, causa achada (13 provas presas numa categoria fixa sem peças) — esboço do conserto com o dono"
   }
  ],
  "leu": 1795215863.5455403
