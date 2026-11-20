@@ -54,5 +54,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 00:30 — NUVEM: plano das ferramentas (simulador, medidas, comparador único, porteiro só portão) deixado como recado para a SITE a pedido do dono
 - 19/11 23:50 — ESBOCO: conferência
 - 19/11 23:50 — ESBOCO: status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)
