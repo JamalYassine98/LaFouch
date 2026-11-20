@@ -1,0 +1,29 @@
+porteiro: 142 provas, 24 falhas (24 graves novas), 1 defeitos visuais novos, 595 s
+  NOVA 6 bug nunca volta · WhatsApp da peça: o antigo, flutuando acima da barra de compra (S112) · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 6 bug nunca volta · Nada clicável escondido atrás do cabeçalho (coração cortado, S150) · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 6 bug nunca volta · Itens da mesma linha fora do centro (favoritos/compartilhar no PC, S150) · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 6 bug nunca volta · Carrinho: o “−” não pode passar de 1 (S153) · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 1 toque · Produto · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 2 navegação · Produto (do catálogo) · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 3 uso · carrinho · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 4 conteúdo · pt · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 4 conteúdo · es · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 5 situações difíceis · girar · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · rodapé · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · foto e mouse · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · endereço · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · código · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · Ícone de Mi cuenta igual aos outros (cor e mouse por cima) · conta rgb(255, 255, 255) / mouse rgb(255, 255, 255) × busca rgb(255, 255, 255) / mouse rgb(225, 29, 72)
+  NOVA 7 olho do dono · “Últimas N” abaixo da foto, vermelho · 390px · light · 0 dentro da foto · 2 sem vermelho/sem espaço/com fundo
+  NOVA 7 olho do dono · “Últimas N” abaixo da foto, vermelho · 1440px · light · 0 dentro da foto · 2 sem vermelho/sem espaço/com fundo
+  NOVA 7 olho do dono · dica · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  NOVA 7 olho do dono · Animação · Busca (lupa) · 390px · 3 quadros travados (>50 ms)
+  NOVA 7 olho do dono · Animação · Carrinho · 390px · dá um pulo de 290px; 4 quadros travados (>50 ms)
+  NOVA 7 olho do dono · Painel · texto legível · tema claro · 1 texto(s) com contraste abaixo de 3: v_cfg: "Salvar mensagem" 1
+  NOVA 7 olho do dono · regra de segurança · a prova travou: [Errno 2] No such file or directory: 'js/lf-site.js'
+  NOVA 7 olho do dono · Sem texto sobreposto · Início · 390px · letra 0 · texto em cima de texto: “Black Friday × Últimas 3 unidades”
+  NOVA 7 olho do dono · texto sobreposto · a prova travou: Locator.click: Timeout 30000ms exceeded.
+  VISUAL NOVO erro_fiscal|Catálogo/produto|Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("[data-open]:vi
+FIM 1
