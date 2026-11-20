@@ -280,14 +280,17 @@
     if ((S.items || []).some(function (i) { return !i.bulk; }) || (S.nuvem && S.nuvem.rt)) return '';
     var d = apDescInfo();
     return (
-      '<section class="card inFotos inNuvem" data-act="nvIr" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('nuvem', 20) + '</span><span class="inFotTx"><b>' +
+      '<section class="card inFotos inNuvem" data-act="nvBemVindoIr" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('nuvem', 20) + '</span><span class="inFotTx"><b>' +
       (d ? 'Este aparelho foi desconectado' : 'Seus dados estão na nuvem?') +
       '</b><small>' +
       (d ? 'Os dados daqui foram apagados. Inventário, vendas e clientes continuam guardados na nuvem.' : 'Entre com o e-mail do catálogo e traga inventário, vendas, clientes e fotos.') +
-      '</small></span><button type="button" class="inFotB" data-act="nvIr">Entrar</button></section>'
+      '</small></span><button type="button" class="inFotB" data-act="nvBemVindoIr">Entrar</button></section>'
     );
   }
-  ACT.nvIr = function () {
+  // 20/11/2026 (item 22): nome só desta ação (era nvIr, igual ao da navegação — a última ganhava e o cartão dava tela vazia);
+  // o campo do e-mail mora dentro da dobra "Cópias e nuvem": abre a dobra antes de ir.
+  ACT.nvBemVindoIr = function () {
+    S.ajAberta = 'bk';
     setView('ajustes');
     setTimeout(function () {
       var e = $('nvEm');

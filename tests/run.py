@@ -3633,6 +3633,22 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 22 (20/11/2026): aparelho vazio e sem login — Início › "Entrar" (nuvem) abre Ajustes › Cópias e nuvem com o cursor no e-mail (dava tela vazia: nome de ação repetido)
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S._rtudo = false; S.items = []; S.nuvem = { email: '', rt: '' }; L.setView('inicio'); await w(300);
+              const b = document.querySelector('.inNuvem .inFotB'); if (!b) return ['sem cartão'];
+              b.click(); await w(900);
+              const em = document.getElementById('nvEm'), dob = document.querySelector('.ajS.on');
+              const r1 = [S.view, !!dob && dob.dataset.k, !!em && document.activeElement === em];
+              L.setView('inicio'); await w(300); document.querySelector('.inNuvem').click(); await w(900);
+              return r1.concat([S.view, document.activeElement === document.getElementById('nvEm'), typeof L.ACT.nvBemVindoIr, location.hash]); }""")
+            total += 1
+            ok = got == ['ajustes', 'bk', True, 'ajustes', True, 'function', '#ajustes'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 22: aparelho vazio › "Entrar" na nuvem abre Ajustes › Cópias e nuvem no e-mail (botão e cartão)')
+            if not ok: falhas.append('item 22 Entrar na nuvem'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # B3 (20/11/2026): no grupo Site a linha e o título da tela de resumo são "Resumo" (o grupo continua "Site"); o título vem de BARRA_NOME, num lugar só
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

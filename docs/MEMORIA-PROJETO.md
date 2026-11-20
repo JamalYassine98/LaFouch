@@ -3265,3 +3265,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 20/11 09:29 — Dono quer ver o histórico da conversa entre Semp e Guardião em cada decisão.
 - 20/11 09:34 — Ideia aprovada: gerador de vídeos do Semp (5 partes, biblioteca de versões, sem repetir, aprende com o Instagram, 'Outro jeito').
 - 20/11 09:36 — Música dos vídeos: trilha livre no app como padrão; versão sem música quando o Semp sugerir um áudio em alta do Instagram.
+- 20/11/2026 10:25 — ✅ PUBLICADO v573 (5.49.3, S436; dono 09:40 "vamos fazer pela ordem recomendada"): BUG do "Entrar" na nuvem em aparelho vazio — a ação do cartão do Início virou ACT.nvBemVindoIr (o nome do esboço, nvEntrar, já era o do botão "Conectar à nuvem": a trava dos remendos barrou na hora) e abre Ajustes com a dobra "Cópias e nuvem" aberta e o cursor no e-mail. Trava: teste "Item 22" + teto de ações repetidas 24 → 23. 328/328.

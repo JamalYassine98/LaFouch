@@ -1,7 +1,7 @@
 {
- "nome": "5.49.2",
+ "nome": "5.49.3",
  "notas": [
-  "No grupo Site, a tela de resumo agora se chama \"Resumo\" (o grupo e a tela tinham o mesmo nome e parecia que não saía do lugar)."
+  "Aparelho novo ou desconectado: o botão \"Entrar\" do cartão da nuvem, no Início, voltou a funcionar — abre Ajustes em \"Cópias e nuvem\", já com o cursor no e-mail (antes dava tela vazia)."
  ],
- "build": 572
+ "build": 573
 }

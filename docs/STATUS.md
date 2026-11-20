@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | item 22: bug do Entrar na nuvem (aparelho novo) | src/97-nuvem-segura.js, tests/run.py, tests/teto-remendos.json |
+| ESBOCO | esboço ideia Semp parte 1 (tela do Semp) — só ideia, fora da fila | work/semp/ |
 | SITE | limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada | js/lf-site.js, index.html, work/fiscal/provas.py |
 
 ## Fila
@@ -42,15 +43,17 @@
 - **16-peca-incompleta-nao-vai-ao-site** — esboço v2 pronto e passado no comparador (work/s436/banco/esboco16_ficha_{celular,tablet,pc}_*.jpg + esboco16_pecas_teste.jpg), esperando o dono: marca e coleção obrigatórias? · APP · pedido 19/11 23:07
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
+- **18-trava-dos-remendos** — na fila — o dono diz 'implementar' pelo prompt de 20/11 00:40 · APP
 - **19-appcheck-parte-3-nuvem** — ✅ publicado pelo dono 20/11 08:11 (functions + regras); conferido: cupom sem selo responde normal (motivo nao), modo anotar
 - **20-appcheck-parte-2-site** — na CÓPIA LIMPA (catalogo limpo, 20/11 08:40): simulador ok, comparador sem diferença, nuvem real 16/16 — falta entrar no site no ar (porteiro quebrado)
 - **21-s1-s2-parte-3-app** — na fila — junto com o item 11
-- **22-bug-entrar-na-nuvem-aparelho-novo** — em andamento · APP · pedido 20/11 09:40
+- **22-bug-entrar-na-nuvem-aparelho-novo** — ✅ v573 (5.49.3, 20/11) · APP · pedido 20/11 09:40
 - **22-publicar-nuvem-pelo-github** — ✅ funcionando 20/11 08:41 — dono configurou (Cloud Shell); 1ª publicação de teste pelo GitHub: testes ok + Deploy complete
 - **23-remendos-parte-1-render** — na fila — depois do 22 · APP · pedido 20/11 09:40
 
 ## Recados esperando
 
+- para **APP**: DONO (20/11 09:39): você e o dono trabalham juntos até terminar TUDO, na ordem aprovada (19/11 23:42): itens 5 e 18 da Fila → item 16 (quando o dono decidir o e
 - para **APP**: Item 21 (S1/S2 parte 3 do app): pode deixar pronto e testado, mas publique só DEPOIS do meu recado 'item 11 publicado'. Ordem: SITE publica o 09 → eu publico o 
 - para **ESBOCO**: Bug no tools/status.py (20/11 01:20): em puxa(), se o 2º rebase (depth 200) também falha, o rebase fica PELA METADE e o envia() faz commit e push no meio dele —
 - para **ESBOCO**: Achados da noite (S436, 20/11) para conserto com esboço próprio, NÃO mexi: (1) TABLET 820 px, Inventário › ficha: os botões 'Ficha 5/6' e 'Preço' saem da tela e
