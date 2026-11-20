@@ -1,7 +1,11 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html",
+  "work/fiscal/provas.py"
+ ],
  "ultimas": [
   {
    "t": 1795179350.253083,
@@ -16,5 +20,5 @@
    "r": "comparador Hoje × Proposta refinado (work/s430/comparador/compara.py); test drive no esboço dos selos: acha só as 2 falhas reais"
   }
  ],
- "leu": 1795178392.2246003
+ "leu": 1795179408.3982382
 }

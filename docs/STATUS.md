@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | item 22: bug do Entrar na nuvem (aparelho novo) | src/97-nuvem-segura.js, tests/run.py, tests/teto-remendos.json |
 | NUVEM | limpeza 2 da nuvem (regra 12): peças comuns num lugar só | functions/, docs/NUVEM-COMO-FUNCIONA.md |
+| SITE | limpeza 5: canto de selos (ramo esb-limpeza-ulin do catalogo) + prova do porteiro na regra aprovada | js/lf-site.js, index.html, work/fiscal/provas.py |
 
 ## Fila
 
