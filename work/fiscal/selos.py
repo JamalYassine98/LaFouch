@@ -1,8 +1,8 @@
-"""Prova dos selos (vira prova do porteiro quando o dono aprovar): em cada cartão com foto,
+"""Prova dos selos (aprovada pelo dono 20/11 11:40; o porteiro usa o JS daqui — um lugar só): em cada cartão com foto,
   - nada na foto encosta no DESENHO da armação (medido nos pontos da imagem), com folga mínima;
   - "Últimas N": dentro da foto, vermelho, sem fundo, alinhado com o texto do cartão;
   - nenhuma coisa da foto cobre outra; não existe selo de tema.
-uso: prova_selos.py URL"""
+uso direto: selos.py URL"""
 import sys,json
 from playwright.sync_api import sync_playwright
 INIT="try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang','pt')}catch(e){}"
@@ -25,16 +25,17 @@ for(const im of document.querySelectorAll('#grid .card .ph img.pf, #home .hc .hc
    const tx=cd.querySelector('.nm,.hn,.ref');if(tx){const wk=document.createTreeWalker(tx,4);let nd;while((nd=wk.nextNode())&&!nd.textContent.trim());if(nd){const g=document.createRange();g.setStart(nd,0);g.setEnd(nd,1);const dd=(R(u.querySelector('i')).left-g.getBoundingClientRect().left)/z;if(Math.abs(dd)>1.5)bad.push(ref+': Últimas '+dd.toFixed(1)+' px fora do texto')}}}
  if(cd.querySelector('.evse,.sel1.tm,.hb.tm'))bad.push(ref+': selo de tema')}
 return {n,folga,bad:[...new Set(bad)]}}"""
-tot=0
-with sync_playwright() as p:
-    b=p.chromium.launch()
-    for nm,w,h,mob,letra in [('celular',386,858,True,0),('celular letra 1,2×',386,858,True,1),('tablet',768,1024,True,0),('PC',1440,900,False,0),('PC grande',2560,1300,False,0)]:
-        for u in ['/?cliente=1','/?cliente=1&r=armazones','/?cliente=1&r=lentes-de-sol']:
-            c=b.new_context(viewport={'width':w,'height':h},is_mobile=mob,has_touch=mob,reduced_motion='reduce');c.add_init_script(INIT+("document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});" if letra else ''))
-            pg=c.new_page();pg.goto(sys.argv[1]+u,wait_until='load');pg.wait_for_timeout(5500)
-            pg.evaluate("async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=600){scrollTo(0,y);await new Promise(r=>setTimeout(r,120))}scrollTo(0,0)}")
-            r=pg.evaluate(JS);tot+=len(r['bad'])
-            print(('ok   ' if not r['bad'] else 'FALHA'),nm,'·',u[-14:],'·',r['n'],'cartões com algo na foto · folga mínima até a armação',r['folga'],'px',('· '+' | '.join(r['bad'][:5])) if r['bad'] else '')
-            c.close()
-    b.close()
-print('RESULTADO:','tudo certo' if not tot else '%d falha(s)'%tot)
+if __name__=='__main__':
+  tot=0
+  with sync_playwright() as p:
+      b=p.chromium.launch()
+      for nm,w,h,mob,letra in [('celular',386,858,True,0),('celular letra 1,2×',386,858,True,1),('tablet',768,1024,True,0),('PC',1440,900,False,0),('PC grande',2560,1300,False,0)]:
+          for u in ['/?cliente=1','/?cliente=1&r=armazones','/?cliente=1&r=lentes-de-sol']:
+              c=b.new_context(viewport={'width':w,'height':h},is_mobile=mob,has_touch=mob,reduced_motion='reduce');c.add_init_script(INIT+("document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});" if letra else ''))
+              pg=c.new_page();pg.goto(sys.argv[1]+u,wait_until='load');pg.wait_for_timeout(5500)
+              pg.evaluate("async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=600){scrollTo(0,y);await new Promise(r=>setTimeout(r,120))}scrollTo(0,0)}")
+              r=pg.evaluate(JS);tot+=len(r['bad'])
+              print(('ok   ' if not r['bad'] else 'FALHA'),nm,'·',u[-14:],'·',r['n'],'cartões com algo na foto · folga mínima até a armação',r['folga'],'px',('· '+' | '.join(r['bad'][:5])) if r['bad'] else '')
+              c.close()
+      b.close()
+  print('RESULTADO:','tudo certo' if not tot else '%d falha(s)'%tot)

@@ -727,19 +727,18 @@ def p7_icone_conta(p):
     finally: b.close()
 
 def p7_ultimas(p):
-    # S208 (13/11, dono): "Últimas N" fica ABAIXO da foto, em VERMELHO, sem fundo, com espaço da foto (nunca encostado nos óculos)
-    for W, H in ((390, 844), (1440, 900)):
-        for esc in ('light',):  # o site não tem tema escuro (só o app)
-            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+    # Selos v2 (dono 20/11 11:40; substitui S208 e 121): na foto, nada encosta no DESENHO da armação (medido nos pontos da imagem);
+    # "Últimas N" dentro da foto, vermelho, sem fundo, alinhado com o texto; nada cobre nada; sem selo de tema. A medição fica em selos.py.
+    import selos
+    for W, H in ((390, 844), (768, 1024), (1440, 900), (2560, 1300)):
+        for rota, onde in (('', 'Início'), ('?r=armazones', 'Armações'), ('?r=lentes-de-sol', 'Solar')):
+            b, c, pg, E = novo(p, W, H, 'pt-BR', touch=W < 1000)
             try:
-                carrega(pg)
-                if esc == 'dark': pg.evaluate("()=>document.documentElement.setAttribute('data-theme','dark')")
-                r = pg.evaluate("""()=>{const L=[...document.querySelectorAll('.hc .stk.u,.card .ph .stk.u,.hc .hci .ulin,.card .ph .ulin')].filter(e=>e.getBoundingClientRect().width);
-                  const M=[...document.querySelectorAll('.ulin')].filter(e=>e.getBoundingClientRect().width).map(e=>{const s=getComputedStyle(e),c=s.color.match(/\\d+/g).map(Number),im=e.closest('.hc,.card').querySelector('.hci,.ph'),gap=e.getBoundingClientRect().top-(im?im.getBoundingClientRect().bottom:0);
-                    return {v:c[0]>=180&&c[1]<=120&&c[2]<=120,bg:s.backgroundColor==='rgba(0, 0, 0, 0)'||s.backgroundColor==='transparent',gap:gap}});return {dentro:L.length,n:M.length,ruins:M.filter(x=>!x.v||!x.bg||x.gap<8).length}}""")
-                t = f'“Últimas N” abaixo da foto, vermelho · {W}px · {esc}'
-                if r['dentro'] or r['ruins']: falha(P7, t, f"{r['dentro']} dentro da foto · {r['ruins']} sem vermelho/sem espaço/com fundo", pg)
-                else: passou(P7, t, f"{r['n']} cartões")
+                carrega(pg, rota); pg.wait_for_timeout(1500)
+                pg.evaluate("async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=600){scrollTo(0,y);await new Promise(r=>setTimeout(r,120))}scrollTo(0,0)}")
+                r = pg.evaluate(selos.JS); t = f'Selos na foto: nada encosta na armação nem se cobre · {onde} · {W}px'
+                if r['bad']: falha(P7, t, ' | '.join(r['bad'][:4]), pg)
+                else: passou(P7, t, f"{r['n']} cartões · folga mínima {r['folga']} px")
             finally: b.close()
 
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;

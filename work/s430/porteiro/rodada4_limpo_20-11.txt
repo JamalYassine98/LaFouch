@@ -1,0 +1,8 @@
+porteiro: 205 provas, 1 falhas (1 graves novas), 5 defeitos visuais novos, 791 s
+  NOVA 7 olho do dono · Ícone de Mi cuenta igual aos outros (cor e mouse por cima) · conta rgb(255, 255, 255) / mouse rgb(255, 255, 255) × busca rgb(255, 255, 255) / mouse rgb(225, 29, 72)
+  VISUAL NOVO botao_coberto|Página do produto|button.lx44 “Ver mais” coberto por button#mnb.ib.mnb “Menu”
+  VISUAL NOVO botao_coberto|Página do produto|button.pgback.navb “Solar” coberto por button.lx44 “−”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Acetato SL2275 R$ 145” coberto por div.bar “0”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Acetato SL2280 R$ 130” coberto por div.bar “0”
+  VISUAL NOVO botao_coberto|Página do produto|button.ri “Hexagonal SL2270 R$ 135” coberto por div.bar “0”
+FIM 1
