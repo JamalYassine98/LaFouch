@@ -13,16 +13,25 @@ Comandos:
   status.py lido  <SESSAO>                       apaga os recados lidos
   status.py fila  <SESSAO> <NN-assunto> "estado" ["descrição"]   cria/atualiza item da Fila
 SESSÕES: APP (APP · implementa, S436) · SITE (SITE · implementa, S429) · NUVEM (NUVEM · implementa) · ESBOCO (Esboço · famílias, S435); 'todas' = recado para todas.
-Cada comando: git fetch + rebase antes; commit + push depois (tenta de novo se der conflito).
+Cada comando: git fetch + rebase antes; commit + push depois (tenta de novo se der conflito).\nSe não der para juntar ou enviar, PARA com 'PAROU:' e sai com código 2 (nunca fica pela metade nem em silêncio).
 O 'fim' é BARRADO se houver recado para a sessão que ela não leu, ou se um arquivo dela estiver marcado por outra."""
 import sys,os,glob,time,json,subprocess
 RAIZ=os.environ.get('LF_RAIZ','/home/claude/lafouch');D=os.path.join(RAIZ,'docs','status');GIT=os.environ.get('LF_GIT','1')=='1'
 def git(*a):
   if GIT: return subprocess.run(['git','-C',RAIZ]+list(a),capture_output=True,text=True)
+class Para(Exception): pass
 def puxa():
+  """Um só caminho (conserto 20/11, recado SITE 01:20 + commits da S435 que ficaram só no aparelho):
+  busca funda o bastante para achar o ponto comum, rebase guardando o que está solto (autostash);
+  se o rebase não fecha, DESFAZ e PARA avisando — nunca commita no meio de um rebase."""
   if not GIT: return
-  git('fetch','-q','--depth=20','origin','main');r=git('rebase','-q','origin/main')
-  if r and r.returncode: git('rebase','--abort');git('fetch','-q','--depth=200','origin','main');git('rebase','-q','origin/main')
+  git('config','merge.ours.driver','true')  # docs/STATUS.md é montado: no conflito fica qualquer lado e é montado de novo
+  if os.path.exists(os.path.join(RAIZ,'.git','shallow')): git('fetch','-q','--unshallow','origin','main')
+  git('fetch','-q','origin','main')
+  r=git('rebase','-q','--autostash','origin/main')
+  if r.returncode:
+    git('rebase','--abort')
+    raise Para('não consegui juntar com o main (conflito em: %s). Nada foi enviado. Resolva o conflito e rode de novo.'%(git('diff','--name-only','--diff-filter=U').stdout.strip() or (r.stderr or r.stdout).strip()[:200]))
 def envia(msg):
   monta()
   if not GIT: return
@@ -30,6 +39,7 @@ def envia(msg):
   for _ in range(4):
     if git('push','-q','origin','HEAD:main').returncode==0: return
     puxa();monta();git('add','docs/STATUS.md');git('commit','-qm','status: montado de novo')
+  raise Para('o envio falhou 4 vezes: o status ficou SÓ neste aparelho. Rode o comando de novo.')
 def le(p):
   try: return open(p,encoding='utf-8').read()
   except: return ''
@@ -94,4 +104,6 @@ def main(a):
       if '/para-todas/' in p: open(p+'.lido','a').write(a[1]+'\n')
       else: os.remove(p)
     envia('status: %s leu os recados'%a[1]);print('ok');return 0
-if __name__=='__main__': sys.exit(main(sys.argv[1:]) or 0)
+if __name__=='__main__':
+  try: sys.exit(main(sys.argv[1:]) or 0)
+  except Para as e: print('PAROU:',e);sys.exit(2)

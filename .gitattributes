@@ -1,2 +1,7 @@
 # S337: a cópia do site do modo loja tem de ficar byte a byte igual em qualquer sistema (os tamanhos estão no manifest.json)
 www/loja/** -text
+
+# status.py (20/11): textos que só crescem juntam os dois lados no conflito; STATUS.md é montado de novo pelo comando
+docs/FALTA-APROVAR-15-11.md merge=union
+docs/MEMORIA-PROJETO.md merge=union
+docs/STATUS.md merge=ours
