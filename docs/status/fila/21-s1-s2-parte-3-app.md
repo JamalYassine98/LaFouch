@@ -1,2 +1,2 @@
-em andamento — publicando agora (item 11 no ar desde 13:58) · APP
+✅ v580 (5.50.5, 20/11) — token e pixAuto só em reservasTok · APP
 **S1/S2 parte 3 — APP** (dono: implementar S1/S2, 19/11 15:29; sai junto com o item 11 da NUVEM): em pedReserva (src/95-pedidos.js ~606) o app (1) NÃO grava mais tok em reservas/ (só pago etc.); (2) grava reservasTok/<sid> {tok} ANTES de gravar reservas/ pago:true (em sequência, não em paralelo) — o e-mail 'pagamento confirmado' nasce quando reservas/ fica paga e lê o token de reservasTok/. Apagar o comentário 'por enquanto continua também em reservas/'. Publicar no mesmo dia do deploy do item 11.
