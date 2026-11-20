@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "anotar aprovado S5S7 e S6S3",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795179798.1854591,
+   "r": "Anotado: dono aprovou S5+S7 e S6+S3 (esperando implementar; falta decidir inscritos atuais no S5+S7)"
+  },
   {
    "t": 1795179457.9645026,
    "r": "Limpeza 2+3 (regra 12) publicadas e conferidas no ar: Falha única (14 cópias), post()/corpo/tokenDe/falhou nas portas, CORS_SITE (3 listas), avisaAparelhos (3 cópias), ehVip, catalogoPisos, hash, urlFn, telefone e escape de HTML num lugar só; respostas das 15 portas iguais antes×depois; travas teste-portas (17); sonda no ar automática no fim de cada publicação (0 falhas); doc NUVEM-COMO-FUNCIONA. Parte 3 (item 11) refeita no ramo nuvem-parte3b sobre o main novo, com espera do token; recados ao SITE (09 primeiro) e ao APP (21 só depois do 11)."
@@ -41,10 +42,6 @@
   {
    "t": 1795172699.4233468,
    "r": "App Check parte 3 no código (modo anotar, trava no teste); itens 19 (NUVEM) e 20 (SITE) na Fila; falta o dono publicar"
-  },
-  {
-   "t": 1795169889.7779148,
-   "r": "esboço App Check (3 partes) entregue ao dono; autorização de custo do reCAPTCHA registrada na lista viva"
   }
  ],
  "leu": 1795179494.1537426
