@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795201079.1816256,
+   "r": "Análise com porPeca publicada (base para tirar a coleção vistas/ aberta); recados ao APP (ler da análise) e ao SITE (tirar o vistaEnvia depois)."
+  },
+  {
    "t": 1795200121.8186638,
    "r": "S3 parte 1 publicada e conferida no ar: porta 'pedido' (formato das regras, limites, comprovante só de pedido recebido e não pago); recado ao SITE com a parte 2."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795179798.1854591,
    "r": "Anotado: dono aprovou S5+S7 e S6+S3 (esperando implementar; falta decidir inscritos atuais no S5+S7)"
-  },
-  {
-   "t": 1795179457.9645026,
-   "r": "Limpeza 2+3 (regra 12) publicadas e conferidas no ar: Falha única (14 cópias), post()/corpo/tokenDe/falhou nas portas, CORS_SITE (3 listas), avisaAparelhos (3 cópias), ehVip, catalogoPisos, hash, urlFn, telefone e escape de HTML num lugar só; respostas das 15 portas iguais antes×depois; travas teste-portas (17); sonda no ar automática no fim de cada publicação (0 falhas); doc NUVEM-COMO-FUNCIONA. Parte 3 (item 11) refeita no ramo nuvem-parte3b sobre o main novo, com espera do token; recados ao SITE (09 primeiro) e ao APP (21 só depois do 11)."
   }
  ],
  "leu": 1795199579.1296916
