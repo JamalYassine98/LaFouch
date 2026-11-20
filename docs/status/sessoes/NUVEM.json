@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795216590.9806871,
+   "r": "Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos."
+  },
+  {
    "t": 1795216249.9101667,
    "r": "S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795192030.132115,
    "r": "Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script."
-  },
-  {
-   "t": 1795190100.558251,
-   "r": "Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21)."
   }
  ],
  "leu": 1795216007.1472204

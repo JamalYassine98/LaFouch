@@ -88,6 +88,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 20:16 — NUVEM: Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos.
 - 20/11 20:10 — NUVEM: S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto.
 - 20/11 20:03 — SITE: recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP
 - 20/11 19:53 — APP: v583 publicado: vistas por peça pela análise da nuvem (recado da NUVEM, S3); chamada à análise num lugar só; 338/338
@@ -107,7 +108,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 13:43 — SITE: CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)
 - 20/11 13:27 — NUVEM: Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script.
 - 20/11 13:14 — SITE: tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro
-- 20/11 12:55 — NUVEM: Pagamento parte 1 publicado e conferido no ar: servidor confere o valor a pagar (PIX e Banco Familiar), robô só confirma pedido com ficha conferida, confirmar segura a peça (sem venda dupla), pagamento não some em erro, uma regra para os bancos; +15 provas. Ramo parte 3 atualizado. Prompt entregue ao APP (com o ajuste do pixAuto no item 21).
 - 20/11 12:54 — APP: v577 publicado: remendos parte 2a (inicioGo e navOn numa função só; 42 destinos iguais, 0 diferenças em 60 telas, 332/332). Próximo: parte 2b (grupos), desenho em work/s436/remendos/parte2b_notas.md
 - 20/11 12:29 — SITE: PORTEIRO COM 0 FALHAS na cópia limpa (205 provas): ícone da conta consertado (saíram 3 regras de cor), 5 avisos da página da peça eram alarme falso da ferramenta (consertada). Cópia limpa pronta para o dono dizer 'publicar' — falta a resposta sobre a pasta teste-giro
 - 20/11 12:07 — SITE: selos v2, faixa só no topo e fim do modo lista na cópia limpa; porteiro: 1 falha (ícone da conta sem cor no mouse) + 5 avisos visuais da página da peça; levantamento de código morto em work/s430/limpeza5/
