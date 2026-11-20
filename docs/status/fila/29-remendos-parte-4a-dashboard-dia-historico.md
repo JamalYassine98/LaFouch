@@ -1,0 +1,2 @@
+em andamento · APP · ordem do dono 20/11 10:04
+**Remendos parte 4a (família Resultados, por dentro)** — Dashboard, dia e Histórico: renderDash, renderDay, histLista, hfopen, dashCompose, atencaoItens, dVer e dVerEsc ficam com UMA função cada, no arquivo da família (saem 13 camadas de 98z-dashboard-s48, 98z-s374, 98z-s374d, 98z-grupo-flecha-s41, 98z-pc-s244, 97y-familias-s265, 97u-navegacao-s184, 97r-temas, 97w-guardiao). Nenhuma tela muda (6b).
