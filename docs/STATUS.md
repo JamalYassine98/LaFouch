@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | v571 publicado (item 17); esperando o próximo item da fila | — |
-| SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; limpeza 5 (selos) parada no ramo `esb-limpeza-ulin`; agora: ESTUDO planta do banco (só leitura, work/s430/banco/) | — |
+| SITE | test drive do comparador Hoje × Proposta (work/s430/comparador) | work/s430/comparador |
 
 ## Fila
 

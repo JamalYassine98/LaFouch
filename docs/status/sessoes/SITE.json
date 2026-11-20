@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; limpeza 5 (selos) parada no ramo `esb-limpeza-ulin`; agora: ESTUDO planta do banco (só leitura, work/s430/banco/)",
- "arquivos": [],
+ "agora": "test drive do comparador Hoje × Proposta (work/s430/comparador)",
+ "arquivos": [
+  "work/s430/comparador"
+ ],
  "ultimas": [],
  "leu": 1795143189.6723328
 }
