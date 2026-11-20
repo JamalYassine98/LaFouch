@@ -23,7 +23,7 @@ const fakeDb = {
 };
 let tokenOk = null;
 const stubs = {
-  'firebase-admin': { initializeApp() {}, firestore: () => fakeDb, messaging: () => ({}), auth: () => ({ verifyIdToken: async (t) => { if (t === 'dono') return { uid: 'jJzNDoMHtuRNOAF1GhJfNYDMlE63', email: 'jamalaliyassine@gmail.com' }; if (t === 'outro') return { uid: 'x', email: 'a@b.c' }; throw new Error('token'); } }) },
+  'firebase-admin': { initializeApp() {}, firestore: () => fakeDb, messaging: () => ({}), auth: () => ({ verifyIdToken: async (t) => { if (t === 'cli') return { uid: 'C1', email: 'cliente@exemplo.com', email_verified: true }; if (t === 'falsa') return { uid: 'C2', email: 'cliente@exemplo.com', email_verified: false }; if (t === 'dono') return { uid: 'jJzNDoMHtuRNOAF1GhJfNYDMlE63', email: 'jamalaliyassine@gmail.com' }; if (t === 'outro') return { uid: 'x', email: 'a@b.c' }; throw new Error('token'); } }) },
   // 19/11 (P1): o index.js ganhou outros gatilhos; qualquer um que não seja onRequest vira uma função vazia
   'firebase-functions/v2/firestore': new Proxy({}, { get: () => () => () => {} }),
   'firebase-functions/v2/scheduler': new Proxy({}, { get: () => () => () => {} }),
@@ -143,6 +143,21 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
   await teste('sem a chave do robô: recusado', async () => {
     const r = await new Promise((ok) => pix({ method: 'POST', body: { valor: '1,00', mid: 'z' }, get: () => '' }, { code: 200, status(c) { this.code = c; return this; }, json(o) { ok({ code: this.code, ...o }); } }));
     assert.strictEqual(r.code, 403);
+  });
+  // ---- S6 (20/11/2026): Cliente VIP é a pessoa logada, nunca um telefone digitado
+  await teste('S6: estranho digita o telefone de uma VIP → NÃO vê VIP nem ganha a reserva de 3 h; a VIP logada ganha', async () => {
+    const crypto = require('crypto');
+    dados.set('config/site', { ativo: true, reserva: true }); dados.set('estoque/SL1', { res: {} });
+    dados.set('compradores/t981000111', { vip: 1 });
+    dados.set('compradores/e' + crypto.createHash('sha256').update('cliente@exemplo.com').digest('hex').slice(0, 32), { tel: '981000111' });
+    const a = await chama({ acao: 'reservar', pedido: 'PVIP1', itens: it, tel: '0981000111' });
+    assert.ok(a.ok && !a.vip, JSON.stringify(a));
+    await chama({ acao: 'cancelar', pedido: 'PVIP1', itens: it });
+    const f = await chama({ acao: 'reservar', pedido: 'PVIP2', itens: it }, 'Bearer falsa');
+    assert.ok(f.ok && !f.vip, 'e-mail não confirmado não vale');
+    await chama({ acao: 'cancelar', pedido: 'PVIP2', itens: it });
+    const b = await chama({ acao: 'reservar', pedido: 'PVIP3', itens: it }, 'Bearer cli');
+    assert.ok(b.ok && b.vip === true && b.exp - Date.now() > 2 * 3600e3, JSON.stringify(b));
   });
   console.log(total - falhas.length + '/' + total + ' testes do endpoint passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);

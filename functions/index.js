@@ -55,6 +55,15 @@ async function ehVip(tel) {
   const d = await fsx().doc('compradores/t' + tel).get();
   return !!(d.exists && +d.data().vip > 0);
 }
+// S6 (20/11/2026): Cliente VIP é a PESSOA logada (e-mail conferido pelo login), nunca um telefone digitado no site.
+// O telefone dela vem do par e-mail ↔ telefone de um pagamento confirmado (compradores/e<resumo do e-mail>.tel).
+async function vipDe(req) {
+  const t = await tokenDe(req);
+  if (!t || !t.email || t.email_verified !== true) return { vip: false, tel: '' };
+  const e = await fsx().doc(compradorEm(String(t.email).toLowerCase())).get();
+  const tel = telDe((e.exists && e.data().tel) || '');
+  return { vip: await ehVip(tel), tel };
+}
 // todas as peças do catálogo e os pisos (o piso fica só no servidor) — para o presente especial
 async function catalogoPisos() {
   const [ps, pz] = await Promise.all([fsx().collection('produtos').get(), fsx().collection('pisos').get()]);
@@ -201,9 +210,10 @@ exports.reserva = onRequest(
         // S409 (70c): Cliente VIP tem 3 horas para pagar, UMA reserva longa por vez (as outras ficam com os 30 minutos de sempre)
         let ate = 0;
         try {
-          const tel = telDe(b.tel), pid = String(b.pedido || '');
+          const pid = String(b.pedido || '');
           if (/^[A-Za-z0-9_-]{4,40}$/.test(pid)) {
-            if (await ehVip(tel)) {
+            const { vip, tel } = await vipDe(req); // S6: a VIP logada, não o telefone digitado
+            if (vip) {
               ate = await db.runTransaction(async (tx) => {
                 const ref = db.doc('vipRes/t' + tel), v = await tx.get(ref), o = v.exists ? v.data() : {};
                 if (o.pid && o.pid !== pid && +o.exp > agora) return 0; // já tem outra reserva longa aberta
@@ -575,7 +585,8 @@ const cupDb = {
   },
   comprou: async (tel, em) => {
     if (tel) await fsx().doc('compradores/t' + tel).set({ ts: Date.now() });
-    if (em) await fsx().doc(compradorEm(em)).set({ ts: Date.now() });
+    // S6 (20/11): o par e-mail ↔ telefone vem de um pagamento confirmado pelo dono — é o que diz quem é a Cliente VIP logada
+    if (em) await fsx().doc(compradorEm(em)).set(Object.assign({ ts: Date.now() }, tel ? { tel } : {}), { merge: true });
   },
   // S194 Cliente fiel: conta compras pagas por telefone (cada pedido só uma vez); devolve o total ou null se o pedido já contou
   contaPaga: async (tel, pid) => fsx().runTransaction(async (tx) => {
@@ -654,7 +665,7 @@ exports.cupom = post('cupom', { cors: true, maxInstances: 10, secrets: [RESEND_K
   // S409: quais peças podem ser o presente especial para as peças pagas do carrinho (o piso fica só no servidor; o site recebe só as refs)
   if (b.acao === 'presentes') {
     const pagas = (Array.isArray(b.pagas) ? b.pagas : []).map(String).filter((r) => /^[A-Za-z0-9_.-]{1,40}$/.test(r)).slice(0, 20);
-    const [{ prods, pisos }, vip] = await Promise.all([catalogoPisos(), ehVip(telDe(b.tel))]);
+    const [{ prods, pisos }, { vip }] = await Promise.all([catalogoPisos(), vipDe(req)]); // S6: VIP só para a própria cliente logada
     return res.json(Object.assign({ ok: true, vip }, Presente.podeSer(prods, pisos, pagas, vip)));
   }
   if (b.acao === 'meus') {
