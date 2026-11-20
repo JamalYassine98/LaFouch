@@ -12,7 +12,7 @@ LUXO=re.search(r'LUXO=r"""(.*?)"""',src,re.S).group(1)
 # estados (o que muda depois do toque); tudo dentro da mesma janela
 OUTRO=r"""()=>{const j=[...document.querySelectorAll('.mkCrJn')].pop();
  const q=[...j.querySelectorAll('div')].find(d=>d.textContent.trim()==='CHEGOU');q.textContent='NOVIDADE';
- const sub=[...j.querySelectorAll('small')].find(s=>/últimos 30/.test(s.textContent));sub.textContent='2ª combinação do dia';
+ const sub=[...j.querySelectorAll('small')].find(s=>/combinação nova/.test(s.textContent));sub.textContent='tendência · Óculos solar #13 · 2ª combinação do dia';
  const L=[['0–1,5 s','Gancho','a haste de perto, antes da peça inteira'],['1,5–5 s','A peça','meia volta do giro, rápida'],['5–8 s','Detalhe','a lente contra a luz'],['8–12 s','Por que comprar','proteção UV · época de sol'],['12–15 s','Preço e fechamento','G$ 60.000 · Veja no site']];
  const rows=[...j.querySelectorAll('span')].filter(s=>/^\d.*s$/.test(s.textContent.trim())).map(s=>s.parentNode);
  rows.forEach((r,i)=>{r.querySelector('b').textContent=L[i][1];r.querySelector('small').textContent=L[i][2]});
