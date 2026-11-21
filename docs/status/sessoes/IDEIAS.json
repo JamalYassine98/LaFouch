@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 01: tela de carregamento",
+ "arquivos": [
+  "work/ideias/01-formato"
+ ],
  "ultimas": [
   {
    "t": 1795286980.9987233,
@@ -24,5 +26,5 @@
    "r": "IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795286977.7803411
+ "leu": 1795287164.5483768
 }
