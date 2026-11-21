@@ -1,4 +1,5 @@
 # Esboço 51 (S435, 21/11 13:05) — Compras parte A em imagem: a lista por VAGA (dono 12:51/12:58). Só a ideia do caminho, celular escuro.
+import os
 # Base: app real (peças e imagens de teste) + aprovados (48 direção Compras, janela de baixo com "Salvar" contornado, selo vermelho, linhas finas).
 exec(open('/home/claude/lafouch/work/s435/selo/esboco_49.py').read().split("def atacado(pw):")[0].replace("O='/home/claude/lafouch/work/s435/selo/'","O='/home/claude/lafouch/work/s435/compras/'"))
 J=r"""const JAN=(tit,sub,inner,bot)=>{const bk=document.createElement('div');bk.className='ljBk';bk.style.opacity='.5';const j=document.createElement('div');j.className='ljJn';j.style.transform='none';j.innerHTML='<div class="ljPuxa"></div><div class="ljHd" style="display:block"><b>'+tit+'</b>'+(sub?'<div style="color:var(--mute);font-size:14px;font-weight:400;margin-top:2px">'+sub+'</div>':'')+'</div><div class="ljCorpo">'+inner+(bot?'<button type="button" style="display:block;width:100%;min-height:52px;margin:24px 0 8px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">'+bot+'</button>':'')+'</div>';document.body.appendChild(bk);document.body.appendChild(j)};
@@ -26,6 +27,11 @@ def frame(pw,qual):
   if qual=='pedir': pg.evaluate("(I)=>{"+H+J+r"""JAN('Pedir','3 vagas sem fechar · em espanhol',
      '<div style="background:var(--panel2);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--fg)">Hola, ¿qué tienen de esto?<br>· 3 lentes de sol de mujer, metal (SL2201 o parecido), hasta US$ 4<br>· 2 armazones de mujer, nylon, hasta US$ 3<br>· 5 armazones unisex, acetato, hasta US$ 3,50<br>Gracias. La Fouch</div>'+
      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 0">Você escolhe para quem mandar no próprio WhatsApp: uma distribuidora ou várias. As vagas ficam "pedida · esperando resposta".</div>','Mandar')}""",I);w(500)
+  if qual=='ninguem': pg.evaluate("(I)=>{"+H+J+r"""const OP=(t,s,on)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute);line-height:1.4">'+s+'</small></span><span style="width:22px;height:22px;border-radius:50%;flex:none;'+(on?'border:7px solid var(--accent)':'border:1.5px solid var(--mute)')+'"></span></div>';
+     JAN('Ninguém tinha','Solar · feminino · metal · faltam 3',
+     OP('Procurar parecido','o app abre a vaga: outro material ou formato que também vende, ou custo até US$ 4,50. Volta para o próximo Pedir.',1)+
+     OP('Avisar quando aparecer','a vaga fica esperando. O Semp confere as distribuidoras e avisa no sino quando alguém tiver.',0)+
+     OP('Deixar sem','a vaga fecha. Só reabre se as vendas pedirem de novo.',0),'Salvar')}""",I);w(500)
   if qual=='fechei': pg.evaluate("(I)=>{"+H+J+r"""const QT='<span style="display:inline-flex;align-items:center;gap:16px"><b style="color:var(--mute);font-size:20px">−</b><b style="font-size:16px">3</b><b style="font-size:20px">+</b></span>';
      JAN('Fechei com…','Solar · feminino · metal · faltam 3',LIN('Distribuidora','Kazwini','›')+LIN('Modelo','SL2201 · o mesmo','›')+'<div style="display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px">Peças</span>'+QT+'</div>'+LIN('Custo por peça','US$ 3,80')+
      '<div style="color:'+OK+';font-size:14px;margin:16px 0 0">Guardião: margem boa a G$ 60.000 · pode fechar</div>','Salvar')}""",I);w(500)
@@ -36,6 +42,10 @@ def quadro(arq,q):
     if im.width!=w: im=im.resize((w,int(im.height*w/im.width)))
     x=g+i*(w+g);d.text((x,24),t,font=F(32),fill=(235,235,240));d.text((x,68),s,font=F(20),fill=(140,150,165));S.paste(im,(x,112));d.rectangle([x-1,111,x+im.width,112+im.height],outline=(90,90,100))
   S.save(O+arq,quality=88);print('ok',arq)
-if __name__=='__main__':
+if __name__=='__main__' and not os.environ.get('SO_B'):
  with sync_playwright() as pw:
   quadro('esboco_51_compras_por_vaga.jpg',[('1 · Compras','a lista pede vagas, não modelos',frame(pw,'lista')),('2 · vaga no lugar de um fracasso','alternativas para comprar já',frame(pw,'vaga')),('3 · Pedir','uma mensagem com todas as vagas · você escolhe no WhatsApp',frame(pw,'pedir')),('4 · Fechei com…','a vaga fecha · chega pelo Chegou mercadoria',frame(pw,'fechei'))])
+
+if __name__=='__main__' and os.environ.get('SO_B'):
+ with sync_playwright() as pw:
+  quadro('esboco_51b_ninguem_tinha.jpg',[('5 · Ninguém tinha','três saídas · nada some sem você decidir',frame(pw,'ninguem'))])
