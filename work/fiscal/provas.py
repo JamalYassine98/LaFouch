@@ -828,6 +828,11 @@ def p7_pedido_pela_nuvem(p):
         elif len([x for x in ped if not (x[2].get('doc') or {}).get('tipo')]) != 2: ruim.append('a 1ª tentativa caiu e o site não tentou de novo sozinho (uma vez)')
         elif not (ped[0][2].get('id') and isinstance(ped[0][2].get('doc'), dict) and ped[0][2]['doc'].get('itens') and ped[0][2]['doc'].get('total')): ruim.append('pedido sem id/doc/itens/total')
         if res and (res[0][1] != 'Bearer kit' or 'tel' in res[0][2]): ruim.append('reserva sem o login ou com telefone')
+        # esboço 39 (dono 21/11 12:04 "implementa"): preço exato — o pedido não leva mais o final único e a tela de pagar mostra o valor do carrinho
+        d0 = (ped[0][2].get('doc') or {}) if ped else {}
+        if 'uq' in d0 or 'pagar' in d0: ruim.append('o pedido ainda leva o final único (uq/pagar)')
+        na_tela = pg.evaluate("(()=>{const t=(document.querySelector('#pkok')||{}).textContent||'';const m=/R\\$\\s*([\\d.]+,\\d{2})/.exec(t);return m?parseFloat(m[1].replace(/\\./g,'').replace(',','.')):null})()")
+        if d0 and na_tela is not None and abs(na_tela - float(d0.get('brl') or 0)) > 0.001: ruim.append(f"a tela de pagar mostra R$ {na_tela} e o pedido leva R$ {d0.get('brl')}")
         if not pg.evaluate("!!document.querySelector('#pkok')"): ruim.append('a tela de pagamento não apareceu')
         if ruim: falha(P7, nome, ' | '.join(ruim), pg)
         else: passou(P7, nome, f'{len(R)} chamadas')

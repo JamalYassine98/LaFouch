@@ -1895,8 +1895,6 @@
     endLe('e').then(function(a){if(bt)bt.disabled=false;if(!a){toast('Confira os campos em vermelho.');return}
       st.entD=a;if(!E.some(function(x){return x.end===a.end&&x.cidade===a.cidade})){c.ends=E.concat([Object.assign({id:'e'+Date.now().toString(36),nome:E.length?'Endereço '+(E.length+1):'Casa'},a)]);st.endIdx=c.ends.length-1;st.endMode='';contaGrava(c)}
       st.step='pag';bag()})}
-  /* valor final único (centavos no PIX, alguns guaranis no Banco Familiar): a confirmação automática acha o pedido certo */
-  function uqGera(){return 1+Math.floor(Math.random()*98)}
   function enviarPedido(retry){
     var c=contaNorm(getConta());if(!sessG()||!c){AUTH_VOLTA=true;cadastrarTela();return}st.nome=c.nome;
     var ks=Object.keys(st.cart);if(!ks.length&&!retry)return;
@@ -1914,12 +1912,12 @@
     if(!retry&&(descVale()==='cup'||(window.__lfPres&&__lfPres.ativo()))&&st._cupOk!==id){var bt1=document.querySelector('[data-send]');if(bt1)bt1.disabled=true;
       cupFn({acao:'usar',cod:st.cup.cod,pid:id,tel:c.tel||'',email:c.email||'',total:Math.round(bruto()+(window.__lfPres&&__lfPres.ativo()?__lfPres.n():0)),desc:Math.round(window.__lfPres&&__lfPres.ativo()?__lfPres.n():cupInfo().d)}).then(function(j){if(bt1)bt1.disabled=false;
         if(j&&j.ok){st._cupOk=id;enviarPedido(retry);return}cupTira();toast(cupMsg(j&&j.motivo,j&&j.cupom));bag(true)},function(){if(bt1)bt1.disabled=false;toast(LFI.tr('Não deu para conferir o código agora. Tente de novo.'))});return}
-    var CI=cupInfo(),DV=descVale(),doc=st.pkdoc&&retry?st.pkdoc:(function(){var uq=uqGera(),fr=ent==='delivery'?freteG():0,base=Math.round(total())+fr,vb0=TESTE?1:valorBRL()+(fr?Math.max(5,Math.round(fr/(window.LF_RATE?window.LF_RATE():1400)/5)*5):0);
+    var CI=cupInfo(),DV=descVale(),doc=st.pkdoc&&retry?st.pkdoc:(function(){var fr=ent==='delivery'?freteG():0,base=Math.round(total())+fr,vb0=TESTE?1:valorBRL()+(fr?Math.max(5,Math.round(fr/(window.LF_RATE?window.LF_RATE():1400)/5)*5):0);
       return Object.assign({ts:Date.now(),nome:c.nome,tel:c.tel,pais:c.pais||'',cod:cod,lang:(window.LFI&&LFI.lang)||'pt',moeda:(window.LFI&&LFI.cur)||'',total:base,rosto:ff?ff.nome:'',
       nac:c.nac||'',doc:c.doc||'',nasc:'',email:c.email||'',/* S192: transportadora e frete vão no obsC (as regras atuais do Firestore já aceitam) */obsC:[c.nac==='py'&&c.ruc?'RUC '+c.ruc:'',ent==='delivery'&&st.tr?'Transportadora: '+trNome(st.tr)+(fr?' · frete Gs. '+fr.toLocaleString('es-PY'):' · frete na entrega'):''].filter(Boolean).join(' · ').slice(0,190),cidade:E?E.cidade:'',end:'',ent:ent,
       endE:ent==='delivery'&&E?E.end+', '+E.cidade+(E.dep?' · '+E.dep:''):'',refE:ent==='delivery'&&E?E.ref||'':'',depE:ent==='delivery'&&E?E.dep||'':'',
       
-      /* S197: o final único sempre DESCONTA (o cliente nunca paga a mais) */pag:pag,uq:uq,brl:pag==='pix'?Math.round((vb0-uq/100)*100)/100:vb0,pagar:pag==='alias'?base-uq:0,teste:!!TESTE,
+      /* esboço 39 (aprovado 21/11): o valor a pagar é o preço exato do carrinho — PIX = brl, Banco Familiar = total; a nuvem acha o pagamento pelo valor exato */pag:pag,brl:vb0,teste:!!TESTE,
       itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k]),l2:0/* o app ainda lê o campo */,cd:DV==='cup'?CI.por[k]||0:0,pv:pvLin(p.n-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k],st.cart[k])}}).concat(window.__lfPres?__lfPres.item():[])},window.__lfPres&&__lfPres.ativo()?{cup:st.cup.cod,cupd:__lfPres.n()}:DV==='cup'&&st.cup?{cup:st.cup.cod,cupd:CI.d}:{})})();
     st.pkdoc=doc;
     if(!retry)lsS('lf_ent',ent==='delivery'?{ent:'delivery',tr:st.tr||'',i:st.endIdx|0}:{ent:'loja'});
@@ -1929,7 +1927,7 @@
       if(rr&&rr.ok===false&&rr.motivo==='esgotado'){var err=new Error('esgotado');err.falta=rr.falta||[];throw err}
       if(rr&&rr.ok&&!rr.off&&rr.exp)rxo={rx:rr.exp,rd:(rr.agora||Date.now())-Date.now(),vip:!!rr.vip};
       return pkEnviar2(doc,id)}).then(function(){
-      var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,tel:c.tel||'',ts:doc.ts,total:doc.total,brl:doc.brl,pagar:doc.pagar,uq:doc.uq,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
+      var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,tel:c.tel||'',ts:doc.ts,total:doc.total,brl:doc.brl,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
       if(doc.cup)cupTira();
       /* S400 (17/11, esboços 59a–59f): o cartão de desconto NÃO aparece mais em tela nenhuma do pagamento; o presente chega por e-mail depois da entrega */cupFn({acao:'proxima',pid:id,tel:c.tel||'',email:c.email||'',nome:c.nome||'',lang:LFI.lang}).then(function(){},function(){});
       st.cart={};st.pkid='';st.pkdoc=null;st.step='cart';st.pag='';try{drawBag()}catch(_){}
@@ -1940,7 +1938,7 @@
   /* tela de pagar: PIX (automático) ou Banco Familiar (alias + comprovante) */
   function pkPagar(id){
     var e=pedGet(id);if(!e){return}window.__pgid=id;
-    var pix=e.pag==='pix',vg=e.pagar||e.total;
+    var pix=e.pag==='pix',vg=e.total;
     /* S318 (14/11/2026 23:00, esboços work/s316 aprovados): linhas de recibo (rótulo à esquerda, valor à direita) no lugar do total gigante; uma ação cheia;
        o fio dourado é a reserva; voltar "‹ Minha conta" no padrão do site; comprovante e ajuda em linhas; cancelar foi para Minha conta › Pedidos */
     var L=function(r,v,cp){return '<div class="zr"><span>'+r+'</span><span class="zk"><b>'+esc(v)+'</b>'+(cp!=null?'<button type="button" data-pgc2="'+esc(cp)+'">Copiar</button>':'')+'</span></div>'};
