@@ -28,7 +28,7 @@
       });
     });
   }
-  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
   // Esboço 37 / 149l: o link solto nasce declarado (rosa, 15 px, termina em ›) — uma função para todos; o pad100 não adivinha os que nascem aqui.
   // sozinho = link centralizado numa linha só dele; sem isso, fica na linha do texto.
   function lkSolto(texto, act, id, sozinho) {

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 593;
+  var APP_BUILD = 594;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.18'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.19'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -48627,7 +48627,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       resumo = S.dTab === 'hoje',
       cam = 'US$ 1 = ' + gsRaw(Math.round(S.fx.pyg)) + (lmOk() ? ' na casa' : ''),
       h =
-        '<div class="dHd"><button type="button" class="dHdT" data-act="dVer" aria-haspopup="dialog">' + t[1] + ' <i aria-hidden="true">⌄</i></button>' +
+        '<div class="dHd"><h1 class="dHdT">' + t[1] + '</h1>' + // 149t: título de verdade, não botão
         (resumo ? '<button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
         '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
@@ -51428,7 +51428,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var top = v.querySelector('.top'), data = '';
     var hd = document.createElement('div');
     hd.className = 'dHd';
-    hd.innerHTML = '<button type="button" class="dHdT" data-act="dVer" aria-haspopup="dialog">Dashboard <i aria-hidden="true">⌄</i></button><button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
+    hd.innerHTML = '<h1 class="dHdT">Dashboard</h1><button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
     if (top) top.replaceWith(hd); else v.insertBefore(hd, v.firstChild);
     // sai o calendário (‹ data ›); a data por extenso vira a linha debaixo do título
     var dt = [].filter.call(v.querySelectorAll('button'), function (e) { return /^\d\d\/\d\d\/\d{4}/.test(d48Txt(e)); })[0];
@@ -52347,7 +52347,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     });
   }
-  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
   // Esboço 37 / 149l: o link solto nasce declarado (rosa, 15 px, termina em ›) — uma função para todos; o pad100 não adivinha os que nascem aqui.
   // sozinho = link centralizado numa linha só dele; sem isso, fica na linha do texto.
   function lkSolto(texto, act, id, sozinho) {
@@ -53389,14 +53389,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     function nvDesenha() {
       var v = $('v-' + S.view);
       if (!v) return;
-      // título sem ⌄ (vale também para o Dashboard)
-      [].forEach.call(v.querySelectorAll('.dHdT'), function (b) {
-        var i = b.querySelector('i');
-        if (i) i.remove();
-        ['data-act', 'aria-haspopup'].forEach(function (a) { b.removeAttribute(a); });
-        b.classList.add('nvT');
-        b.tabIndex = -1;
-      });
       // "⌄" que abre janela vira "›" (o ⌄ fica só para abrir no lugar)
       [].forEach.call(v.querySelectorAll('[aria-haspopup="dialog"] i'), function (i) {
         if (i.textContent.trim() === '⌄') i.textContent = '›';
@@ -53435,7 +53427,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             if (gt.hidden || gt.getAttribute('data-nm') !== nm) {
               gt.className = 'gtabs gtF';
               gt.setAttribute('data-nm', nm);
-              gt.innerHTML = '<div class="dHd"><h1 class="dHdT nvT">' + esc(nm) + '</h1></div>';
+              gt.innerHTML = '<div class="dHd"><h1 class="dHdT">' + esc(nm) + '</h1></div>';
               gt.hidden = false;
             }
           } else if (!gt.hidden) { gt.hidden = true; gt.textContent = ''; gt.removeAttribute('data-nm'); }

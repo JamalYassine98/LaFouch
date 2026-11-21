@@ -4387,6 +4387,21 @@ async def main():
             if not ok: falhas.append('4b parte 3 nDias'); print('        veio', got, usa, pg.erros)
             await pg.close()
 
+            # 4c parte 1 (149t, aprovado 19/11 13:59): o título do Dashboard, Giro, Preços, Reservas e do dia é título de verdade (h1) desde que nasce —
+            # sem data-act, sem ⌄, sem conserto depois do desenho (o laço do nvDesenha saiu). Nada muda na tela (medidas iguais antes × depois, 10 telas).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              for (const f of [() => { S.per = 'mes'; S.dTab = 'hoje'; L.setView('dash'); }, () => { S.dTab = 'giro'; L.setView('dash'); }, () => { S.dTab = 'prec'; L.setView('dash'); }, () => { S.dTab = 'din'; L.setView('dash'); }, () => L.inicioGo('hoje')]) {
+                f(); await w(450); const v = document.querySelector('.view:not([hidden])'), t = [...document.querySelectorAll('.dHdT')].filter(e => e.getBoundingClientRect().height);
+                R.push(t.length === 1 && t[0].tagName === 'H1' && !t[0].dataset.act && !t[0].querySelector('i') && !/⌄/.test(t[0].textContent) && document.querySelectorAll('h1').length >= 1 ? 1 : S.view + '/' + S.dTab + ':' + t.map(e => e.tagName).join()); }
+              return R; }""")
+            laco = sorted(f for f, t in fontes.items() if re.search(r'class="dHdT"[^>]*data-act|<button[^>]*class="dHdT', t) or (f.startswith('99c-') and "querySelectorAll('.dHdT')" in t))
+            total += 1
+            ok = got == [1] * 5 and laco == [] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '4c parte 1 (149t): o título de Dashboard, Giro, Preços, Reservas e do dia nasce h1, sem ação e sem conserto depois do desenho')
+            if not ok: falhas.append('4c parte 1 titulo h1'); print('        veio', got, laco, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

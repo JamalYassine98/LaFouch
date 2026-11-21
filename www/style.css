@@ -1746,7 +1746,7 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 /* v465 Dashboard: cabeçalho com 2 botões (Resumo ⌄ / Este mês ⌄) e as folhas VER e PERÍODO no estilo do menu do site */
 .dHd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 2px}
 .dHd button{background:none;border:0;padding:4px 0;color:var(--fg);display:inline-flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent}
-.dHdT{font-size:30px;font-weight:800;letter-spacing:-.01em}.dHdT i{font-style:normal;font-size:15px;color:var(--mute);font-weight:600}
+.dHdT{font-size:30px;font-weight:800;letter-spacing:-.01em}
 .dHdP{font-size:15px;font-weight:500}.dHdP i{font-style:normal;font-size:12px;color:var(--mute)}
 .dHd button:active{opacity:.6}
 .dHdS{font-size:13px;color:var(--mute);margin:0 0 14px}.dHdS::first-letter{text-transform:uppercase}
@@ -2325,7 +2325,6 @@ html{overscroll-behavior-y:none}
 .obNovo{border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;min-height:44px;font-weight:600}
 /* título de tela sempre serifado (o Dashboard fugia) */
 .dHdT{font-family:Fraunces,Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
-.dHdT i{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:18px}
 /* S327 (15/11/2026) · Preços sem emoji; toque do "Este mês" */
 .dHdP{min-height:44px;display:inline-flex;align-items:center;gap:4px}
 
@@ -2611,7 +2610,6 @@ section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:
 #lcCard .lcEnv,[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
 /* S374 · esboço 60a (dono 16/11 11:13): painel do site sem a caixa (borda, cantos) e título no tamanho das telas. */
 #grpTabs.gtF .dHdT{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
-#grpTabs.gtF .dHdT i{font-size:15px}
 .sbox iframe{border:0;border-radius:0}
 @media (max-width:760px){#siteBox:not(.full){width:100vw;margin:0 0 0 calc(50% - 50vw)}}
 /* S374 · uma lista de compras só: linha no Inventário que leva ao Giro, e os pacotes dos pré-graduados na lista */
@@ -3000,8 +2998,7 @@ section.card.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh,.g99 .
 #v-grp .nvGer{align-self:center;min-height:44px;margin-top:8px;background:none;border:0;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
 /* 147-7: o Dashboard usa o mesmo cabeçalho das outras telas (título 28 px a 0 do topo, frase 4 px abaixo) */
 .dHd{margin:0!important;align-items:flex-start!important}
-.dHd .dHdT{padding:0!important;line-height:1.15!important;min-height:0!important;cursor:default}
-.dHd .dHdT.nvT:active{opacity:1}
+.dHd .dHdT{margin:0;padding:0!important;line-height:1.15!important;min-height:0!important}
 .dHd .dHdP{margin:-6px 0!important;padding-right:0!important}
 .dHdS{font-size:13.5px!important;opacity:.85;margin:-14px 0 0!important}
 /* título pequeno no alto ao rolar */

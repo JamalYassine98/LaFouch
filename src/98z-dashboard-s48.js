@@ -156,7 +156,7 @@
     var top = v.querySelector('.top'), data = '';
     var hd = document.createElement('div');
     hd.className = 'dHd';
-    hd.innerHTML = '<button type="button" class="dHdT" data-act="dVer" aria-haspopup="dialog">Dashboard <i aria-hidden="true">⌄</i></button><button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
+    hd.innerHTML = '<h1 class="dHdT">Dashboard</h1><button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
     if (top) top.replaceWith(hd); else v.insertBefore(hd, v.firstChild);
     // sai o calendário (‹ data ›); a data por extenso vira a linha debaixo do título
     var dt = [].filter.call(v.querySelectorAll('button'), function (e) { return /^\d\d\/\d\d\/\d{4}/.test(d48Txt(e)); })[0];

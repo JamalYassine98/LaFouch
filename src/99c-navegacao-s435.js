@@ -128,14 +128,6 @@
     function nvDesenha() {
       var v = $('v-' + S.view);
       if (!v) return;
-      // título sem ⌄ (vale também para o Dashboard)
-      [].forEach.call(v.querySelectorAll('.dHdT'), function (b) {
-        var i = b.querySelector('i');
-        if (i) i.remove();
-        ['data-act', 'aria-haspopup'].forEach(function (a) { b.removeAttribute(a); });
-        b.classList.add('nvT');
-        b.tabIndex = -1;
-      });
       // "⌄" que abre janela vira "›" (o ⌄ fica só para abrir no lugar)
       [].forEach.call(v.querySelectorAll('[aria-haspopup="dialog"] i'), function (i) {
         if (i.textContent.trim() === '⌄') i.textContent = '›';
@@ -174,7 +166,7 @@
             if (gt.hidden || gt.getAttribute('data-nm') !== nm) {
               gt.className = 'gtabs gtF';
               gt.setAttribute('data-nm', nm);
-              gt.innerHTML = '<div class="dHd"><h1 class="dHdT nvT">' + esc(nm) + '</h1></div>';
+              gt.innerHTML = '<div class="dHd"><h1 class="dHdT">' + esc(nm) + '</h1></div>';
               gt.hidden = false;
             }
           } else if (!gt.hidden) { gt.hidden = true; gt.textContent = ''; gt.removeAttribute('data-nm'); }
