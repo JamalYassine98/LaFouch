@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 37d parte 1: Ajustes em 3 blocos, linhas sem cartão, sacola em Pedidos do site | src/97-ajustes-lista.js, src/97-pagamento-auto.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila

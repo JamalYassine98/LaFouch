@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "37d parte 1: Ajustes em 3 blocos, linhas sem cartão, sacola em Pedidos do site",
+ "arquivos": [
+  "src/97-ajustes-lista.js",
+  "src/97-pagamento-auto.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795298077.6029198,
@@ -44,5 +49,5 @@
    "r": "v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo"
   }
  ],
- "leu": 1795298077.1861622
+ "leu": 1795298291.8230803
 }
