@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 34: 'Qual é a frente?' — fotos escolhidas à mão tratadas com o tratamento do giro (fundo aprendido da gravação) | src/97-giro-trata.js, src/97-estudio-giro.js, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 
 ## Fila
@@ -95,6 +94,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 23:07 — APP: v587 no ar: (35) o tratamento do giro agora termina no celular — as duas bibliotecas vão dentro do app.js (o APK instalado não tinha os arquivos; a atualização só leva app.js e style.css); (34) 'Qual é a frente?' tira a frente e a 3/4 com o tratamento do giro. 343 provas, 0 falhas; reproduzido no simulador o erro do celular e o conserto. NÃO testado em aparelho real. Próximo: resultado do teste do dono (tempo do tratamento no celular); item 36 (prova v468 instável).
 - 20/11 23:02 — NUVEM: Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo.
 - 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.
 - 20/11 22:13 — APP: v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família).
@@ -119,4 +119,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 14:32 — NUVEM: S1/S2 completo: nuvem parte 3 (13:58) + app item 21 (v580). Prompt entregue ao ESBOCO para conferir 09/20/21 no comparador.
 - 20/11 14:18 — APP: 20/11: publicados v578 (remendos 2b grupos), v579 (2c setView e nomes das telas) e v580 (item 21: token e PIX automático em reservasTok). Espinha da limpeza completa. Próximo: trocas inteiras soltas e depois a família Resultados/Preços com os aprovados
 - 20/11 14:18 — SITE: site 1795194969 no ar: foto da peça aparece por link direto (defeito de raiz), sem óculos desenhado nem brilho da Black Friday; porteiro 207 provas, 0 falhas. teste-giro fica. Próximo: varredura de código morto medindo durante as provas
-- 20/11 13:56 — NUVEM: Parte 3 do S1/S2 (item 11) publicada depois do 09 do site: funções + regras, limpeza rodada na hora (workflow ganhou a opção 'limpeza'), sonda 0 falhas; recado ao APP para publicar o 21.

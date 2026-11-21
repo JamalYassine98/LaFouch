@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 34: 'Qual é a frente?' — fotos escolhidas à mão tratadas com o tratamento do giro (fundo aprendido da gravação)",
- "arquivos": [
-  "src/97-giro-trata.js",
-  "src/97-estudio-giro.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795226855.294042,
+   "r": "v587 no ar: (35) o tratamento do giro agora termina no celular — as duas bibliotecas vão dentro do app.js (o APK instalado não tinha os arquivos; a atualização só leva app.js e style.css); (34) 'Qual é a frente?' tira a frente e a 3/4 com o tratamento do giro. 343 provas, 0 falhas; reproduzido no simulador o erro do celular e o conserto. NÃO testado em aparelho real. Próximo: resultado do teste do dono (tempo do tratamento no celular); item 36 (prova v468 instável)."
+  },
   {
    "t": 1795223626.6234937,
    "r": "v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família)."
@@ -42,11 +42,7 @@
   {
    "t": 1795187041.836832,
    "r": "20/11 até 15:10 — publicados v573 (bug Entrar na nuvem), v574 (remendos parte 1: render), v575 (item 16: peça incompleta não vai ao site + peças de teste), v576 (remendos parte 3: confirmações); item 21 pronto no ramo app-item21 esperando a NUVEM. Próximo: remendos parte 2 (destinos/barra/grupos)"
-  },
-  {
-   "t": 1795179686.9978998,
-   "r": "v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono"
   }
  ],
- "leu": 1795225260.2454717
+ "leu": 1795226854.3604314
 }
