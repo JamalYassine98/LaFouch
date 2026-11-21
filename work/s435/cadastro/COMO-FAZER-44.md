@@ -47,3 +47,9 @@ Base: aprovados (base_app) + 41 / 41c (Galeria do app, giros "sem peça") + 42 (
   - Formato, Material e Gênero abrem `.ljJn`.
   - Existe um só handler de `btnFoto`, e o rótulo é "Ler etiqueta".
   - O botão de seguir fica visível sem rolar, a 390×844.
+
+## Atualizado pelo rumo de 21/11 10:43 (esboço 45)
+- **Adicionar** fica só com **"Chegou mercadoria"** e **"Preencher à mão"**. Saem "Ler haste", "Ler etiqueta"/"Foto" (a peça com foto nasce no Estúdio) e "Da Galeria".
+- O **passo 1 e o passo 2** deste esboço passam a ser o **"Preencher à mão"** (peça sem foto: pré-graduado em pacote, brinde).
+  No passo 2 a cor entra **sem foto** ("a foto vem pelo Estúdio"). Sai a parte "Da Galeria".
+- A peça com foto é completada pela janela "Completar" do 45.
