@@ -682,7 +682,7 @@
           abriuEm = Date.now();
           vibrar(15);
           if (!n) {
-            lfToast('Nenhum botão oculto');
+            lfToast('Nenhum botão oculto', 'andamento');
             return;
           }
           S.inicioFant = true;

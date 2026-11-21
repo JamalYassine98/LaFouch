@@ -794,13 +794,13 @@
     S.pedSel = null;
     S.pedProd = null;
     if (ocupado) {
-      lfToast('Já estou verificando…');
+      lfToast('Já estou verificando…', 'andamento');
       return;
     }
     pedSync().then(function (n) {
       render();
-      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora');
-      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo');
+      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora', 'erro');
+      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo', 'ok');
     });
   };
   ACT.pedab = function (id) {

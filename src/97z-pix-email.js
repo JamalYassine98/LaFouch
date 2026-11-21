@@ -51,7 +51,7 @@
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;
         window.scrollTo(0, y);
-        lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho');
+        lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho', 'ok');
         saveSoon();
       }).catch(function () {}));
     });
@@ -62,7 +62,7 @@
         var ok = j && j.fields && j.fields.ok ? pxFv(j.fields.ok) : null;
         if (!ok) return;
         o.ok = ok.ts || Date.now();
-        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
+        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','), 'ok');
         saveSoon();
       }).catch(function () {}));
     });
@@ -139,9 +139,9 @@
             ok.disabled = true;
             ok.textContent = 'Ligando…';
             resChama({ acao: 'ligar', pix: x.id, pedido: sel }).then(function (j) {
-              if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.'); return desenha(); }
+              if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.', 'erro'); return desenha(); }
               x.ligado = true; // some das Pendências já; a nuvem marcou o pixSemPar e o "pago" chega pela conferência de sempre
-              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel));
+              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
               api.fecha();
               saveSoon();
               render();

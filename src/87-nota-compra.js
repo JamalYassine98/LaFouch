@@ -77,7 +77,7 @@
           },
           function () {
             loadMsg(false);
-            lfToast('Não consegui ler a nota agora. Preencha à mão.');
+            lfToast('Não consegui ler a nota agora. Preencha à mão.', 'atencao');
             cpNota({ forn: '', ped: '', rows: [] });
           }
         );
@@ -289,7 +289,7 @@
             b.onclick = function () {
               close();
               if (x[1] === 'depois') {
-                lfToast('As peças que faltam ficam sem detalhe, com o custo da linha.');
+                lfToast('As peças que faltam ficam sem detalhe, com o custo da linha.', 'atencao');
                 return;
               }
               entGo(g, x[1]);

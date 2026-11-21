@@ -175,7 +175,7 @@
     }
     salvarAgora();
     render();
-    lfToast('Restaurado: ' + e.ref + ' · ' + VT_NOME[e.k]);
+    lfToast('Restaurado: ' + e.ref + ' · ' + VT_NOME[e.k], 'ok');
     return true;
   }
   // entrada em Ajustes › Cópias e nuvem

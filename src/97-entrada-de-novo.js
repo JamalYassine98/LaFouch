@@ -83,7 +83,7 @@
         fmAnalisa(bl);
       })
       .catch(function () {
-        lfToast('Não consegui abrir essa foto');
+        lfToast('Não consegui abrir essa foto', 'erro');
       });
   };
   // Quando a foto aguardando vira a foto de uma peça: leva a 3/4 junto e tira da lista.

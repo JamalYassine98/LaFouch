@@ -51,7 +51,7 @@
     var n = mlCarrinho(itens);
     try { if (typeof avTocar === 'function') avTocar('sino'); } catch (e) {}
     try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) {}
-    lfToast('🛎️ Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho');
+    lfToast('🛎️ Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho', 'atencao');
     if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) {
       var id = 'c' + Date.now().toString(36);
       nvApi('POST', 'lojaChama?documentId=' + id, JSON.stringify({ fields: { n: { integerValue: String(n) }, ts: { integerValue: String(Date.now()) }, de: { stringValue: (typeof PUSH !== 'undefined' && PUSH.tok) || '' } } })).catch(function () {});

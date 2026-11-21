@@ -123,5 +123,5 @@
     if (v.site) { S.site = S.site || {}; S.site[v.ref] = 1; if (typeof vitFila === 'function') vitFila(v.ref, 'upd'); }
     saveSoon();
     render();
-    lfToast('Produto de volta');
+    lfToast('Produto de volta', 'ok');
   };

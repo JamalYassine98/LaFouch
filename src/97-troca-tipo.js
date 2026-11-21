@@ -207,5 +207,5 @@
     S.msg = 'Tipo alterado para ' + (t.para === 'pre' ? 'Pré-graduado' : 'Armação') + '.';
     if (typeof saveSoon === 'function') saveSoon();
     render();
-    if (typeof lfToast === 'function') lfToast(S.msg);
+    if (typeof lfToast === 'function') lfToast(S.msg, 'ok');
   };

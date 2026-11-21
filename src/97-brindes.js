@@ -196,7 +196,7 @@
     BR.unit = '';
     BR.nome = '';
     vibrar(20);
-    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda));
+    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
     S.nOutro = false;
     closeAdd();
   }

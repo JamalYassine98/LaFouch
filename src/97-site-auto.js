@@ -53,7 +53,7 @@
       return !(x.acts && x.acts[0] && x.acts[0].id === id);
     });
     saveSoon();
-    lfToast(l.length === 1 ? 'Peça tirada do site' : l.length + ' peças tiradas do site');
+    lfToast(l.length === 1 ? 'Peça tirada do site' : l.length + ' peças tiradas do site', 'ok');
     render();
   };
   ACT.siteAutoVer = function (id) {
@@ -109,7 +109,7 @@
         return;
       }
       if (!ck.ok) {
-        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor');
+        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor', 'atencao');
         return;
       }
       delete S.siteFora[ref];

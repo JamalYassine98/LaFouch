@@ -323,7 +323,7 @@
     S.nPop = '';
     S.nCorOpen = false;
     closeAdd();
-    lfToast('✓ ' + pubNome(ref) + ' cadastrado.');
+    lfToast('✓ ' + pubNome(ref) + ' cadastrado.', 'ok');
   }
   function nvAddCor(fin) {
     var ref = S._ref,
@@ -571,7 +571,7 @@
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
-      lfToast('✓ Salvo. Aparece no site em até 1 minuto.');
+      lfToast('✓ Salvo. Aparece no site em até 1 minuto.', 'ok');
     };
     lh.appendChild(tg);
     c2.appendChild(lh);

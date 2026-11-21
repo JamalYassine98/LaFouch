@@ -199,16 +199,19 @@
     } catch (e) {}
   }
   // Aviso curto na parte de baixo (não bloqueia o toque).
-  function lfToast(t) {
+  // Aviso curto (esboço 38, aprovado 21/11 07:51): a cor diz o tipo (regra 17) — 'ok' certo (verde) · 'atencao' (amarelo) · 'erro' (vermelho) ·
+  // 'andamento' neutro (em andamento ou só informação). Toda chamada diz o tipo; a cor mora no CSS, uma classe por tipo (#lfToast.t-…).
+  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
+  function lfToast(t, tipo) {
     var e = $('lfToast');
     if (!e) {
       e = document.createElement('div');
       e.id = 'lfToast';
-      e.setAttribute('role', 'status');
       document.body.appendChild(e);
     }
     e.textContent = t;
-    e.classList.remove('on');
+    e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
+    e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');
     if (REDUCED) {
       e.classList.add('on');
     } else {

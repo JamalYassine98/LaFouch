@@ -162,7 +162,7 @@
   }
   ACT.vitLug = function () {
     var n = parseInt(($('vtLug') || {}).value, 10);
-    if (!(n > 0)) return lfToast('Digite quantos lugares');
+    if (!(n > 0)) return lfToast('Digite quantos lugares', 'atencao');
     S.vit.lug = Math.min(200, n);
     saveSoon();
     render();
@@ -185,7 +185,7 @@
     (S.vit.hist = S.vit.hist || []).push({ ts: S.vit.ts, refs: V.sug.slice() });
     if (S.vit.hist.length > 60) S.vit.hist = S.vit.hist.slice(-60);
     saveSoon();
-    lfToast('Vitrine registrada');
+    lfToast('Vitrine registrada', 'ok');
     render();
   };
   // Aviso na segunda-feira (uma vez), só se houver troca a fazer.

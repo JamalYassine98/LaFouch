@@ -155,13 +155,13 @@
   }
   ACT.ataEnvLoj = function () {
     var r = ataRefsEstoque();
-    if (!r.length) return lfToast('Sem peças em estoque para mandar.');
+    if (!r.length) return lfToast('Sem peças em estoque para mandar.', 'atencao');
     S._s185Para = 'loj';
     ebAbre(r);
   };
   ACT.ataVerTab = function () {
     var tabs = tabLista().filter(function (t) { return !t.pub && t.on !== false; });
-    if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.');
+    if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.', 'atencao');
     var E = { tab: tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
     lfJanela({
       titulo: 'Tabela de atacado',

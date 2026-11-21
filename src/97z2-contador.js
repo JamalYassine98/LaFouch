@@ -124,7 +124,7 @@
     saveSoon();
     var t = 'Balcão ' + gs(ML_CALC.bal) + ' · Site ' + gs(ML_CALC.site) + (ML_CALC.ata ? ' · Atacado US$ ' + ML_CALC.ata.toFixed(2).replace('.', ',') : '');
     try { navigator.clipboard.writeText(t); } catch (e) {}
-    lfToast('✓ Preços anotados (copiados): ' + t);
+    lfToast('✓ Preços anotados (copiados): ' + t, 'ok');
   };
   // ---------- 4 · E se…? ----------
   var ESE = [['dolar', 'Dólar muda'], ['contas', 'Contas subirem 10%'], ['desc', 'Desconto numa categoria'], ['cupom', 'Cupom 15%'], ['parado', 'Vender tudo parado'], ['meta', 'Meta do mês']];

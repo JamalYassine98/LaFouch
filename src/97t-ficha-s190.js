@@ -122,8 +122,8 @@
           else if (f === 'site') { window.open(S.site && S.site[ref] ? 'https://lafouch.com/p/' + encodeURIComponent(ref) + '.html' : 'https://lafouch.com/?ref=' + encodeURIComponent(ref), '_blank'); return; }
           else if (f === 'zap') { if (typeof ebAbre === 'function') ebAbre([ref]); return; }
           else if (f === 'ata') { S.ataPub = S.ataPub || {}; S.ataPub[ref] = S.ataPub[ref] === false ? true : false; saveSoon(); }
-          else if (f === 'auto') { if (S.desc) delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto automático'); }
-          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('✓ Texto salvo · vai para o site'); }
+          else if (f === 'auto') { if (S.desc) delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto automático', 'ok'); }
+          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('✓ Texto salvo · vai para o site', 'ok'); }
           pinta();
         });
         pinta();

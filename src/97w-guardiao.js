@@ -83,7 +83,7 @@
   ACT.guardMudo = function (k) {
     S.guardMudo[k] = Date.now() + 7 * 24 * GUARD_H;
     saveSoon();
-    lfToast('Silenciado por 7 dias');
+    lfToast('Silenciado por 7 dias', 'ok');
     ACT.guardAbre();
   };
   // chamado por atencaoItens (Pendências)

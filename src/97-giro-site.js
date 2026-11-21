@@ -116,7 +116,7 @@
     if (!g.n && gnT) g.n = +gnT[1];
     if (g.n) return Promise.resolve({ blob: b, n: g.n });
     if (g.cru || typeof giroTrata !== 'function') return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
-    lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto');
+    lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto', 'andamento');
     S.giroTrat = { ref: ref, fase: 'volta', parte: 0 };
     return giroTrata(b, { aviso: function (f, p) { S.giroTrat = { ref: ref, fase: f, parte: p }; } }).then(function (r) {
       S.giroTrat = null;
@@ -151,7 +151,7 @@
             delete S.giroPend[ref];
             if (S.site && S.site[ref]) vitFila(ref, 'upd');
             saveSoon();
-            lfToast(pr.n ? 'Giro de ' + pn(ref) + ' pronto: em cerca de 1 minuto a peça gira no site' : 'Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto');
+            lfToast(pr.n ? 'Giro de ' + pn(ref) + ' pronto: em cerca de 1 minuto a peça gira no site' : 'Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto', 'ok');
           });
         });
       });

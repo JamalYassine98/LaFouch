@@ -4671,6 +4671,43 @@ async def main():
             if not ok: falhas.append('37d marca em ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 38 parte A (aprovado 21/11 07:51): o aviso curto tem a cor do tipo (regra 17) — toda chamada de lfToast diz o tipo;
+            # frase de falha ("Não…", "erro") nunca sai verde; a cor vem de uma classe por tipo no CSS, claro e escuro, letra 15/600.
+            ch = []
+            for f, t in fontes.items():
+                for m in re.finditer(r"(?<![\w.])lfToast\(", t):
+                    if t[max(0, m.start() - 9):m.start()] == 'function ': continue
+                    i, d, q = m.end(), 0, None
+                    while i < len(t):
+                        c = t[i]
+                        if q:
+                            if c == '\\': i += 2; continue
+                            if c == q: q = None
+                        elif c in "'\"`": q = c
+                        elif c in '([{': d += 1
+                        elif c in ')]}':
+                            if d == 0: break
+                            d -= 1
+                        i += 1
+                    ch.append((f, t[m.end():i]))
+            TIPO = r"(?:'(?:ok|atencao|erro|andamento)'|[\w.()]+ \? '(?:ok|atencao|erro|andamento)' : '(?:ok|atencao|erro|andamento)')"
+            sem = [(f, a[:70]) for f, a in ch if not re.search(r", " + TIPO + r"$", a)]
+            verde = [(f, a[:70]) for f, a in ch if a.endswith(", 'ok'") and re.match(r"'(Não|Sem resposta|Erro)", a)]
+            got = []
+            for esq in ('dark', 'light'):
+                pg = await pagina(scheme=esq, tudo=False)
+                got.append(await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+                  const cor = v => { const d = document.createElement('i'); d.style.color = 'var(' + v + ')'; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; };
+                  for (const [tp, bg, fg] of [['ok', '--okbg', '--ok'], ['atencao', '--warnbg', '--warn'], ['erro', '--badbg', '--bad'], ['andamento', '--panel2', '--fg'], [undefined, '--okbg', '--ok'], ['qualquer', '--okbg', '--ok']]) {
+                    L.lfToast('prova', tp); await w(60); const e = document.getElementById('lfToast'), s = getComputedStyle(e);
+                    R.push(s.backgroundColor === cor(bg) && s.color === cor(fg) && s.fontSize === '15px' && s.fontWeight === '600' && e.classList.contains('on') && e.getAttribute('role') === (tp === 'erro' ? 'alert' : 'status')); }
+                  return R; }"""))
+                erros38 = list(pg.erros); await pg.close()
+            total += 1
+            ok = len(ch) >= 100 and not sem and not verde and got == [[True] * 6] * 2 and not erros38
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 38 (A): aviso curto com a cor do tipo — toda chamada diz o tipo, falha nunca sai verde, 4 cores no claro e no escuro')
+            if not ok: falhas.append('38 aviso com tipo'); print('        veio', len(ch), sem[:5], verde[:5], got, erros38)
+
             # Esboço 37c (aprovado 20/11 23:42): link solto NASCE declarado (lkSolto/lkCls/lkLinha); ninguém adivinha pelo texto depois do desenho —
             # as linhas da nuvem e "Gerenciar grupo ›" ficam no estilo próprio, e redesenhar a tela não muda a classe de nenhum botão.
             pg = await pagina(fam=True, tudo=False)

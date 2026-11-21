@@ -170,7 +170,7 @@
       if (!x) return;
       try {
         navigator.clipboard.writeText(semanaTexto(x)).then(function () {
-          lfToast('✓ Relatório copiado');
+          lfToast('✓ Relatório copiado', 'ok');
         });
       } catch (e) {}
     }

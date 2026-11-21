@@ -93,7 +93,7 @@
       document.body.classList.remove('modoCli');
       clearTimeout(mcT);
       render();
-      lfToast('Modo cliente desligado · app normal');
+      lfToast('Modo cliente desligado · app normal', 'ok');
     };
     if (pinAtivo() || S.bioOn) mostrarLock('confirm', sai);
     else sai();

@@ -52,14 +52,14 @@
     return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;
   }
   ACT.cntVer = function (k) { CNT_VER[k] = !CNT_VER[k]; lfRedesenha(); };
-  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para)); render(); };
+  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para), 'ok'); render(); };
   ACT.cntIgnora = function (id) { var m = cntItem(id); if (!m) return; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[m.ref + '|oferta'] = Date.now(); saveSoon(); render(); };
   // "Aceitar os N preços" aceita exatamente o que a tela mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
   ACT.cntTudo = function () {
     var n = 0;
     cntDecisoes().forEach(function (x) { if (x.t === 'pa') x.itens.forEach(function (m) { paAplica(m); n++; }); });
     if (S.pAuto) S.pAuto.ult = Date.now();
-    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana'); render();
+    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
   };
   // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
   ACT.cntAuto = function () {

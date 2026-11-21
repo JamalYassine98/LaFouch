@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 612;
+  var APP_BUILD = 613;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.37'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.38'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -18684,7 +18684,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var agora = Date.now();
     LFE.sum = agora - LFE.t < 4000 ? LFE.sum + n : n;
     LFE.t = agora;
-    lfToast('✓ +' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''));
+    lfToast('✓ +' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''), 'ok');
   }
 
   // ----- Modelos parecidos por foto (pré-graduado quase nunca tem código na haste)
@@ -19339,7 +19339,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.nPop = '';
     S.nCorOpen = false;
     closeAdd();
-    lfToast('✓ ' + pubNome(ref) + ' cadastrado.');
+    lfToast('✓ ' + pubNome(ref) + ' cadastrado.', 'ok');
   }
   function nvAddCor(fin) {
     var ref = S._ref,
@@ -19587,7 +19587,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
-      lfToast('✓ Salvo. Aparece no site em até 1 minuto.');
+      lfToast('✓ Salvo. Aparece no site em até 1 minuto.', 'ok');
     };
     lh.appendChild(tg);
     c2.appendChild(lh);
@@ -20932,7 +20932,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           },
           function () {
             loadMsg(false);
-            lfToast('Não consegui ler a nota agora. Preencha à mão.');
+            lfToast('Não consegui ler a nota agora. Preencha à mão.', 'atencao');
             cpNota({ forn: '', ped: '', rows: [] });
           }
         );
@@ -21144,7 +21144,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             b.onclick = function () {
               close();
               if (x[1] === 'depois') {
-                lfToast('As peças que faltam ficam sem detalhe, com o custo da linha.');
+                lfToast('As peças que faltam ficam sem detalhe, com o custo da linha.', 'atencao');
                 return;
               }
               entGo(g, x[1]);
@@ -21391,16 +21391,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } catch (e) {}
   }
   // Aviso curto na parte de baixo (não bloqueia o toque).
-  function lfToast(t) {
+  // Aviso curto (esboço 38, aprovado 21/11 07:51): a cor diz o tipo (regra 17) — 'ok' certo (verde) · 'atencao' (amarelo) · 'erro' (vermelho) ·
+  // 'andamento' neutro (em andamento ou só informação). Toda chamada diz o tipo; a cor mora no CSS, uma classe por tipo (#lfToast.t-…).
+  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
+  function lfToast(t, tipo) {
     var e = $('lfToast');
     if (!e) {
       e = document.createElement('div');
       e.id = 'lfToast';
-      e.setAttribute('role', 'status');
       document.body.appendChild(e);
     }
     e.textContent = t;
-    e.classList.remove('on');
+    e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
+    e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');
     if (REDUCED) {
       e.classList.add('on');
     } else {
@@ -26198,13 +26201,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.pedSel = null;
     S.pedProd = null;
     if (ocupado) {
-      lfToast('Já estou verificando…');
+      lfToast('Já estou verificando…', 'andamento');
       return;
     }
     pedSync().then(function (n) {
       render();
-      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora');
-      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo');
+      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora', 'erro');
+      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo', 'ok');
     });
   };
   ACT.pedab = function (id) {
@@ -27145,7 +27148,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             saveSoon();
             try { vitConfere(); } catch (e) {}
             J.fecha();
-            lfToast('Saída encerrada no site');
+            lfToast('Saída encerrada no site', 'ok');
             render();
           };
         ok.onclick = function () {
@@ -27155,7 +27158,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
           saveSoon();
           try { vitConfere(); } catch (e) {}
-          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
+          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.', 'ok');
           render();
         };
       }
@@ -28313,7 +28316,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return i.ref === rf && !i.bulk;
         });
       if (!ri.length) {
-        lfToast('Este produto não está no Inventário do app.');
+        lfToast('Este produto não está no Inventário do app.', 'atencao');
         return;
       }
       S.siteFull = false;
@@ -28511,7 +28514,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       vitConfere();
       nvCotacao();
     } catch (e) {}
-    if (window.lfToast) lfToast('Preços do site atualizados');
+    if (window.lfToast) lfToast('Preços do site atualizados', 'ok');
     render();
   };
   // ===== Tabelas de preço (atacado e tipos de cliente): preço = custo + margem, nunca abaixo do piso, nunca acima do Público =====
@@ -29125,7 +29128,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   ACT.arqVolta = function (m) {
     arqVolta(m).then(function (n) {
-      lfToast(n ? n + ' vendas voltaram para o Histórico' : 'Nada para trazer de volta');
+      lfToast(n ? n + ' vendas voltaram para o Histórico' : 'Nada para trazer de volta', n ? 'ok' : 'andamento');
       render();
     });
   };
@@ -29742,7 +29745,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     BR.unit = '';
     BR.nome = '';
     vibrar(20);
-    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda));
+    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
     S.nOutro = false;
     closeAdd();
   }
@@ -31130,7 +31133,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cod = String((i && i.value) || '').trim();
     if (!cod) return;
     var cli = S.vCli ? cliPorId(S.vCli) : null;
-    lfToast('Conferindo o código…', 1500);
+    lfToast('Conferindo o código…', 'andamento');
     cupApi({ acao: 'ver', cod: cod, tel: cli ? cli.tel : '', email: cli ? cli.email || '' : '' })
       .then(function (j) {
         if (!j || !j.ok) return popErr(cupMotivo(j && j.motivo, j && j.cupom));
@@ -31303,7 +31306,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         .then(function (r) {
           if (!r || !r.ok) return popErr(r && r.motivo === 'existe' ? 'Esse código já existe. Escolha outro.' : 'Não deu para criar o cupom.');
           S.cupTipos[r.cod] = 'ev';
-          lfToast('✓ Cupom ' + r.cod + ' publicado', 2500);
+          lfToast('✓ Cupom ' + r.cod + ' publicado', 'ok');
           cupArte(r.cod, p, mx, ev);
           ACT.cupAbre();
         })
@@ -31328,7 +31331,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             S.cartOpen = true;
             S.cartStep = 'ped';
             setView('vendas');
-            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido');
+            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
           })
           .catch(function () {
             u.disabled = false;
@@ -31343,7 +31346,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       d.disabled = true;
       cupApi({ acao: ac, cod: cod })
         .then(function () {
-          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 2000);
+          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 'ok');
           cupCarrega(function (j2) {
             if (j2) cupDesenha(c, j2);
           });
@@ -31595,7 +31598,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         fmAnalisa(bl);
       })
       .catch(function () {
-        lfToast('Não consegui abrir essa foto');
+        lfToast('Não consegui abrir essa foto', 'erro');
       });
   };
   // Quando a foto aguardando vira a foto de uma peça: leva a 3/4 junto e tira da lista.
@@ -32019,7 +32022,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
             });
           }).then(function () {
-            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0]);
+            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
           });
         };
         $('ebEnv').onclick = function () {
@@ -32168,7 +32171,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // estGiro abre essa câmera já em Vídeo; quem grava é giroGrava, com o stream e o vídeo da própria câmera.
   function estGiro(ctx) {
     ctx = ctx || {};
-    if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app');
+    if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app', 'erro');
     estCam({ k: ctx.k || null, passo: 'frente', titulo: '', modo: 'video', fim: ctx.fim });
   }
   // Grava a volta com o stream da câmera aberta. Para sozinho quando a volta fecha (gtFechou) ou em 60 s (dono 19/11 20:01).
@@ -32237,7 +32240,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Não deu uma volta inteira: avisa e segue pela escolha à mão.
   function estGiroSemVolta(ctx, Q, video) {
-    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.', 'atencao');
     estGiroEscolhe(ctx, Q, video);
   }
   // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
@@ -32290,7 +32293,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         estGrava(ctx.k, 'frente', R1);
         if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
         estGiroGuarda(ctx.k, r.blob);
-        lfToast('Giro pronto: frente, 3/4 e giro salvos');
+        lfToast('Giro pronto: frente, 3/4 e giro salvos', 'ok');
         render();
         if (ctx.fim) ctx.fim();
         return;
@@ -32313,7 +32316,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     Q = Q.filter(function (q) {
       return q.b;
     });
-    if (Q.length < 4) return lfToast('O giro ficou curto demais');
+    if (Q.length < 4) return lfToast('O giro ficou curto demais', 'erro');
     var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
       ixF = ix,
       passo = 'frente',
@@ -32359,14 +32362,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           passo = 'frente';
           ix = ixF;
           pinta();
-          return lfToast('Não achei a peça no quadro da frente');
+          return lfToast('Não achei a peça no quadro da frente', 'erro');
         }
         ov.remove();
         if (ctx.k) {
           estGrava(ctx.k, 'frente', R1);
           if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
           estGiroGuarda(ctx.k, video);
-          lfToast('Frente, 3/4 e giro salvos');
+          lfToast('Frente, 3/4 e giro salvos', 'ok');
           render();
           if (ctx.fim) ctx.fim();
           return;
@@ -32378,7 +32381,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }).catch(function (e) {
         loadMsg(false);
         camDiario('escolha-erro', { erro: String((e && e.message) || e) });
-        lfToast('Não consegui abrir os quadros do giro');
+        lfToast('Não consegui abrir os quadros do giro', 'erro');
       });
     };
   }
@@ -32985,7 +32988,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // S267: fotografar UMA peça a partir da ficha do Inventário (as cores dela que ainda estão na fila); ao terminar volta para a ficha.
   function estFotografaRef(ref) {
     var F = estFila().filter(function (x) { return x.ref === ref; });
-    if (!F.length) return lfToast('As fotos desta peça já estão completas');
+    if (!F.length) return lfToast('As fotos desta peça já estão completas', 'andamento');
     EST_SES = null;
     estSessao(F, 0, function () {});
   }
@@ -32994,7 +32997,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function estSessao(lista, i, depois) {
     if (i >= lista.length) {
       if (EST_SES && lista.length > 1) estResumo(EST_SES, depois);
-      else lfToast('Fotos guardadas');
+      else lfToast('Fotos guardadas', 'ok');
       EST_SES = null;
       if (depois) depois();
       render();
@@ -33041,7 +33044,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (ant && S.fotos && S.fotos[k] && ant.n > R.n + 5) {
       if (!S.fotoReserva) S.fotoReserva = {};
       S.fotoReserva[kk] = { ts: Date.now(), n: R.n };
-      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua');
+      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua', 'atencao');
       return;
     }
     setFoto(kk, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
@@ -33074,7 +33077,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function estCam(ctx) {
     estFechaCam();
     var semCam = !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-    if (semCam && ctx.medir) return lfToast('Medir fundo precisa da câmera');
+    if (semCam && ctx.medir) return lfToast('Medir fundo precisa da câmera', 'atencao');
     if (semCam)
       return camFallback(function (f) {
         estDepoisFoto(f, ctx);
@@ -33277,7 +33280,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .catch(function () {
         estFechaCam();
         if (ctx.medir) {
-          lfToast('Não consegui abrir a câmera');
+          lfToast('Não consegui abrir a câmera', 'erro');
           if (ctx.fim) ctx.fim();
           return;
         }
@@ -33707,7 +33710,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           });
         }).then(function (bl) {
           estFechaCam();
-          if (!bl) return lfToast('Não consegui fotografar');
+          if (!bl) return lfToast('Não consegui fotografar', 'erro');
           estDepoisFoto(new File([bl], 'estudio.jpg', { type: 'image/jpeg' }), ctx);
         });
       };
@@ -33839,7 +33842,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       })
       .catch(function () {
         loadMsg(false);
-        lfToast('Não consegui abrir a foto');
+        lfToast('Não consegui abrir a foto', 'erro');
       });
   }
   function estResultado(R, f, ctx) {
@@ -33949,7 +33952,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }
         if (passo === '34' && ctx.k) {
           estGrava(ctx.k, '34', R);
-          lfToast('Fotos guardadas');
+          lfToast('Fotos guardadas', 'ok');
         }
         render();
         if (ctx.prox) ctx.prox();
@@ -33968,7 +33971,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       };
     }
     if (!(navigator.mediaDevices && window.MediaRecorder)) {
-      lfToast('Este aparelho não grava vídeo pelo app');
+      lfToast('Este aparelho não grava vídeo pelo app', 'erro');
       if (ctx.prox) ctx.prox();
       return;
     }
@@ -34013,7 +34016,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }
         }, 1000);
     }).catch(function () {
-      lfToast('Não consegui abrir a câmera');
+      lfToast('Não consegui abrir a câmera', 'erro');
       if (ctx.prox) ctx.prox();
     });
   }
@@ -34110,7 +34113,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ov.remove();
       saveSoon();
       render();
-      if (msg) lfToast(msg);
+      if (msg) lfToast(msg, 'ok');
       if (!pd && ctx.vivo !== undefined) return estNova(depois); // próxima peça, até tocar em ×
       if (depois) depois();
     };
@@ -34167,7 +34170,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
   }
   function estLibera() {
-    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return lfToast('Este aparelho não deixa o app usar a câmera');
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return lfToast('Este aparelho não deixa o app usar a câmera', 'erro');
     loadMsg(true, 'Conferindo a câmera');
     var lim = function (r, f) {
       return r ? (f ? f(r.min) + ' a ' + f(r.max) : r.min + ' a ' + r.max) : '';
@@ -34215,7 +34218,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       })
       .catch(function () {
         loadMsg(false);
-        lfToast('Não consegui abrir a câmera');
+        lfToast('Não consegui abrir a câmera', 'erro');
       });
   }
   // ---------- Como fotografar: guia (o que cada botão faz) + vídeo sem som ----------
@@ -35059,7 +35062,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             cv = R.cv || fitCanvas(im, 1800);
           setFoto(k + '|34', thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
           saveSoon();
-          lfToast('Foto 3/4 guardada');
+          lfToast('Foto 3/4 guardada', 'ok');
           render();
         });
       },
@@ -35110,7 +35113,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               });
               saveSoon();
               J2.fecha();
-              lfToast('Fotos voltaram como eram');
+              lfToast('Fotos voltaram como eram', 'ok');
               render();
             };
           }
@@ -35286,7 +35289,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!g.n && gnT) g.n = +gnT[1];
     if (g.n) return Promise.resolve({ blob: b, n: g.n });
     if (g.cru || typeof giroTrata !== 'function') return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
-    lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto');
+    lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto', 'andamento');
     S.giroTrat = { ref: ref, fase: 'volta', parte: 0 };
     return giroTrata(b, { aviso: function (f, p) { S.giroTrat = { ref: ref, fase: f, parte: p }; } }).then(function (r) {
       S.giroTrat = null;
@@ -35321,7 +35324,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             delete S.giroPend[ref];
             if (S.site && S.site[ref]) vitFila(ref, 'upd');
             saveSoon();
-            lfToast(pr.n ? 'Giro de ' + pn(ref) + ' pronto: em cerca de 1 minuto a peça gira no site' : 'Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto');
+            lfToast(pr.n ? 'Giro de ' + pn(ref) + ' pronto: em cerca de 1 minuto a peça gira no site' : 'Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto', 'ok');
           });
         });
       });
@@ -37307,7 +37310,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.lcPed = { ts: Date.now(), itens: its };
     S.lcQtd = {};
     saveSoon();
-    lfToast('Pedido guardado · confiro quando a mercadoria entrar');
+    lfToast('Pedido guardado · confiro quando a mercadoria entrar', 'ok');
     render();
   }
   // Peças que ficariam acima do ideal depois que o pedido chegar.
@@ -38150,7 +38153,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (b.dataset.lista) {
             var l = mkListas().filter(function (x) { return x.id === b.dataset.lista; })[0],
               tx = l.cl.map(function (x) { return x.tel; }).join('\n'),
-              okc = function () { lfToast(l.cl.length + ' números copiados'); };
+              okc = function () { lfToast(l.cl.length + ' números copiados', 'ok'); };
             if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(okc, okc);
             else okc();
             return;
@@ -38165,7 +38168,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var obj = mkObj(),
       n = fmt === 'carr' ? 4 : fmt === 'video' || fmt === 'rot' ? 3 : 1,
       pecas = refs && refs.length ? refs.filter(itemDoRef).map(function (r) { return { ref: r, f: mkFatos(r) }; }) : mkEscolhe(obj, n);
-    if (!pecas.length) return lfToast('Sem peças com foto e estoque');
+    if (!pecas.length) return lfToast('Sem peças com foto e estoque', 'atencao');
     var E = { ver: 'A', idi: mkKit().idioma || 'ambos', est: 0, estilo: obj === 'girar' ? 'oferta' : obj === 'lanc' ? 'rapido' : 'elegante' };
     lfJanela({
       titulo: MK_FMT[fmt].t + (fmt === 'rot' ? ' de vídeo' : ''),
@@ -38250,7 +38253,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             S.mkt.lemb.push({ ts: d.getTime(), fmt: fmt, refs: pecas.map(function (p) { return p.ref; }), pid: pid || '' });
             saveSoon();
             J.fecha();
-            lfToast('Te lembro às ' + hh + 'h');
+            lfToast('Te lembro às ' + hh + 'h', 'ok');
           };
         };
         pinta();
@@ -38292,7 +38295,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })
         .catch(function (e) {
           loadMsg(false);
-          lfToast('Não consegui gravar o vídeo: ' + ((e && e.message) || 'erro'));
+          lfToast('Não consegui gravar o vídeo: ' + ((e && e.message) || 'erro'), 'erro');
         });
     }
     return Promise.all(pecas.map(function (p) { return envImg(p.f.foto); })).then(function (ims) {
@@ -38335,8 +38338,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ---------- v442: o giro do Estúdio vira Status (vídeo vertical com nome e preço, sem som) ----------
   function mkGiroStatus(ref) {
     estGiroLe(ref).then(function (bl) {
-      if (!bl) return lfToast('O vídeo do giro não está neste aparelho');
-      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app');
+      if (!bl) return lfToast('O vídeo do giro não está neste aparelho', 'erro');
+      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app', 'erro');
       loadMsg(true, 'Montando o Status');
       var f = mkFatos(ref),
         K = mkKit ? mkKit() : {},
@@ -38411,7 +38414,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       };
       v.onerror = function () {
         loadMsg(false);
-        lfToast('Não consegui abrir o vídeo do giro');
+        lfToast('Não consegui abrir o vídeo do giro', 'erro');
       };
     });
   }
@@ -38510,7 +38513,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       document.body.classList.remove('modoCli');
       clearTimeout(mcT);
       render();
-      lfToast('Modo cliente desligado · app normal');
+      lfToast('Modo cliente desligado · app normal', 'ok');
     };
     if (pinAtivo() || S.bioOn) mostrarLock('confirm', sai);
     else sai();
@@ -38624,7 +38627,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = mlCarrinho(itens);
     try { if (typeof avTocar === 'function') avTocar('sino'); } catch (e) {}
     try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) {}
-    lfToast('🛎️ Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho');
+    lfToast('🛎️ Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho', 'atencao');
     if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) {
       var id = 'c' + Date.now().toString(36);
       nvApi('POST', 'lojaChama?documentId=' + id, JSON.stringify({ fields: { n: { integerValue: String(n) }, ts: { integerValue: String(Date.now()) }, de: { stringValue: (typeof PUSH !== 'undefined' && PUSH.tok) || '' } } })).catch(function () {});
@@ -38983,7 +38986,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ov.classList.remove('vout');
         }, 320);
       }
-      lfToast('✓ Venda registrada');
+      lfToast('✓ Venda registrada', 'ok');
     }
   }
   function notaConfirma(titulo, sub, ok, acao) {
@@ -40288,7 +40291,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._objPV = null;
     S.cxAcao = '';
     vibrar(20);
-    lfToast('✓ Objetivo guardado');
+    lfToast('✓ Objetivo guardado', 'ok');
     saveSoon();
     renderCaixa();
   };
@@ -40652,7 +40655,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ACT.pedpago(p.id); // confirmado sem o dono tocar: não muda a tela em que ele está
       S.pedSel = sel;
       window.scrollTo(0, y);
-      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho');
+      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho', 'ok');
       saveSoon();
       return 'confirmado';
     }
@@ -40661,7 +40664,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cands.forEach(function (p) {
         p.pixAmb = reg.ts;
       });
-      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você');
+      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você', 'atencao');
       saveSoon();
       return 'ambiguo';
     }
@@ -40856,16 +40859,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var p = pedAch(id);
     if (!p) return;
     if (!imp || !impPlugin()) {
-      lfToast('Conecte a impressora em Ajustes › Impressora');
+      lfToast('Conecte a impressora em Ajustes › Impressora', 'atencao');
       return;
     }
     fichaImprime(p).then(
       function () {
-        lfToast('Ficha impressa');
+        lfToast('Ficha impressa', 'ok');
         render();
       },
       function () {
-        lfToast('A impressora não respondeu');
+        lfToast('A impressora não respondeu', 'erro');
       }
     );
   };
@@ -41212,7 +41215,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
-    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado');
+    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado', 'ok');
     render();
   };
   ACT.paNao = function () {
@@ -41221,7 +41224,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.paAgora = function () {
     var n = paRevisa(true);
-    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora');
+    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
     render();
   };
   ACT.paDesf = function (id) {
@@ -41725,7 +41728,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return !(x.acts && x.acts[0] && x.acts[0].id === id);
     });
     saveSoon();
-    lfToast(l.length === 1 ? 'Peça tirada do site' : l.length + ' peças tiradas do site');
+    lfToast(l.length === 1 ? 'Peça tirada do site' : l.length + ' peças tiradas do site', 'ok');
     render();
   };
   ACT.siteAutoVer = function (id) {
@@ -41781,7 +41784,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return;
       }
       if (!ck.ok) {
-        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor');
+        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : ck.dados.length && ck.cores.length ? siteFaltaTxt(ck.dados).replace(/^f/, 'F') : 'Cadastre ao menos uma cor', 'atencao');
         return;
       }
       delete S.siteFora[ref];
@@ -41982,7 +41985,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!x) return;
       try {
         navigator.clipboard.writeText(semanaTexto(x)).then(function () {
-          lfToast('✓ Relatório copiado');
+          lfToast('✓ Relatório copiado', 'ok');
         });
       } catch (e) {}
     }
@@ -43826,7 +43829,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.msg = 'Tipo alterado para ' + (t.para === 'pre' ? 'Pré-graduado' : 'Armação') + '.';
     if (typeof saveSoon === 'function') saveSoon();
     render();
-    if (typeof lfToast === 'function') lfToast(S.msg);
+    if (typeof lfToast === 'function') lfToast(S.msg, 'ok');
   };
   // ===== Mais vistas e não vendidas (v445, aprovado 05/11/2026) =====
   // Quantas vezes cada peça foi aberta no site nos últimos 30 dias. A conta é da ANÁLISE do site (função "analise", com o login do dono):
@@ -44037,7 +44040,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   ACT.vitLug = function () {
     var n = parseInt(($('vtLug') || {}).value, 10);
-    if (!(n > 0)) return lfToast('Digite quantos lugares');
+    if (!(n > 0)) return lfToast('Digite quantos lugares', 'atencao');
     S.vit.lug = Math.min(200, n);
     saveSoon();
     render();
@@ -44060,7 +44063,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     (S.vit.hist = S.vit.hist || []).push({ ts: S.vit.ts, refs: V.sug.slice() });
     if (S.vit.hist.length > 60) S.vit.hist = S.vit.hist.slice(-60);
     saveSoon();
-    lfToast('Vitrine registrada');
+    lfToast('Vitrine registrada', 'ok');
     render();
   };
   // Aviso na segunda-feira (uma vez), só se houver troca a fazer.
@@ -44207,7 +44210,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.temaRes[o.tema + '-' + new Date(o.ini).getFullYear()] = { pecas: com.reduce(function (a, s) { return a + (s.qty || 1); }, 0), vendas: com.reduce(function (a, s) { return a + (s.price || 0); }, 0), lucro: com.reduce(function (a, s) { return a + (s.livre || 0); }, 0), refs: Object.keys(o.refs).length };
     S.temaOf = null;
     saveSoon();
-    lfToast('Tema encerrado · resultado guardado');
+    lfToast('Tema encerrado · resultado guardado', 'ok');
   }
   function temaCardHtml() {
     temaFecha();
@@ -44230,7 +44233,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return L.map(function (x) { return '<div class="sl"><span>' + x[1] + '</span><b>' + x[0] + '</b></div>'; }).join('');
   }
   ACT.temaNao = function () { var t = temaAtual(); if (t) { S.temaNao[temaAno(t)] = 1; saveSoon(); render(); } };
-  ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito'); render(); };
+  ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito', 'ok'); render(); };
   ACT.temaVer = function () {
     var t = temaAtual();
     if (!t) return;
@@ -44253,7 +44256,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.temaOf = { tema: t.tema, ini: Math.max(t.ini, Date.now() - DAY), fim: t.fim, refs: sg.refs, ts: Date.now(), orc: S.temaOrc };
           saveSoon();
           if (typeof vitFila === 'function') Object.keys(sg.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); });
-          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini));
+          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
           S.temaMail = { chave: temaAno(t), ini: S.temaOf.ini, nome: t.nome };
           temaMailTenta();
           render();
@@ -44278,7 +44281,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!tx) { m.feito = 1; saveSoon(); return; }
     nvToken().then(function (tk) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/novidades', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tk }, body: JSON.stringify({ acao: 'tema', chave: m.chave, titulo: tx[0], texto: tx[1], tituloEs: tx[2], textoEs: tx[3] }) }).then(function (r) { return r.json(); });
-    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos'); } }, function () {});
+    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
   }
   setTimeout(temaMailTenta, 15000);
   // ===== S191 v2 (aprovado 12/11/2026): Conta Atacadista/Mayorista (Clientes) =====
@@ -44417,7 +44420,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         if (ataJ && ataJ.api) ataJ.api.fecha();
         S.ataAba = 'loj';
         render();
-        lfToast('Conta apagada');
+        lfToast('Conta apagada', 'ok');
       }
     });
   };
@@ -44427,10 +44430,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!cli) return;
     var c = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
     if (!c) {
-      if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+      if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
       var tab = (tabLista().filter(function (t) { return !t.pub && /^a/.test(t.id); })[0] || {}).id || 'opt';
       c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, cliId: String(cli.id), ts: Date.now() };
-      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar'); });
+      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
       ataPublica(c.tab);
     }
     ataJanela(c.id);
@@ -44480,27 +44483,27 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           $('ataOk').onclick = function () {
             var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean), tab = $('ataTab').value, emOk = function (e) { return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e || ''); };
             if (st.tipo === 'visita') {
-              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.', 'atencao'); return; }
               var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
-              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido', 'atencao'); return; }
               var v = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: tab, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
               ataGrava(v); ataPublica(v.tab); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(v.id);
               return;
             }
             var cli = st.cli;
             if (!cli) {
-              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo'); return; }
+              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo', 'atencao'); return; }
               var n2 = $('ataNm').value.trim(), e2 = $('ataEm').value.trim().toLowerCase();
-              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido', 'atencao'); return; }
               cli = { id: S.cliNext++, nome: n2, tel: $('ataTel').value.trim(), email: e2, ts: Date.now(), orig: 'atacado' };
               S.clientes.push(cli);
             } else if (!cli.email) {
               var e3 = ($('ataEm') ? $('ataEm').value : '').trim().toLowerCase();
-              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
               cli.email = e3;
             }
             var ja = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
-            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa'); ataJanela(ja.id); return; }
+            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa', 'atencao'); ataJanela(ja.id); return; }
             var c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, refs: refs, cliId: String(cli.id), ts: Date.now() };
             ataGrava(c); ataPublica(c.tab); saveSoon(); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(c.id);
           };
@@ -44517,7 +44520,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var d = String(c.tel || '').replace(/\D/g, '');
     window.open('https://wa.me/' + d + '?text=' + encodeURIComponent(tx), '_blank');
   };
-  function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg); ataJanela(id); }
+  function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg, 'ok'); ataJanela(id); }
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
@@ -44552,7 +44555,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var novos = 0;
       S.ataPeds = S.ataPeds || {};
       (j.documents || []).forEach(function (d) { var id = d.name.split('/').pop(); if (!S.ataPeds[id]) { S.ataPeds[id] = ataFv(d.fields); novos++; } });
-      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado'); }
+      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado', 'ok'); }
       return novos;
     }, function () { return 0; });
   }
@@ -44653,12 +44656,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         conta();
         $('ltOk').onclick = function () {
           var r = le(), contas = [].slice.call(box.querySelectorAll('.ltC:checked')).map(function (c) { return c.value; });
-          if (!r.n) { lfToast('O lote está vazio: escolha um filtro ou peças'); return; }
-          if (!contas.length) { lfToast('Escolha pelo menos uma loja'); return; }
-          if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', ')); return; }
+          if (!r.n) { lfToast('O lote está vazio: escolha um filtro ou peças', 'atencao'); return; }
+          if (!contas.length) { lfToast('Escolha pelo menos uma loja', 'atencao'); return; }
+          if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', '), 'erro'); return; }
           var o = Object.assign({}, L, r.x, { id: L.id || ataLoteId(), nome: $('ltNm').value.trim() || 'Lote ' + fd(Date.now()), contas: contas, moeda: mo, ate: Date.now() + dias * DAY, cancelado: false, ts: Date.now() });
           ataPublica(o.tab);
-          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar'); ataLoteJanela(o.id); });
+          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
         };
       }
     });
@@ -44675,7 +44678,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
       b: 'Encerrar lote',
       fn: function () {
-        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado', 'ok'); ataLoteJanela(id);
       }
     });
   };
@@ -44836,8 +44839,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           else if (f === 'site') { window.open(S.site && S.site[ref] ? 'https://lafouch.com/p/' + encodeURIComponent(ref) + '.html' : 'https://lafouch.com/?ref=' + encodeURIComponent(ref), '_blank'); return; }
           else if (f === 'zap') { if (typeof ebAbre === 'function') ebAbre([ref]); return; }
           else if (f === 'ata') { S.ataPub = S.ataPub || {}; S.ataPub[ref] = S.ataPub[ref] === false ? true : false; saveSoon(); }
-          else if (f === 'auto') { if (S.desc) delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto automático'); }
-          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('✓ Texto salvo · vai para o site'); }
+          else if (f === 'auto') { if (S.desc) delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto automático', 'ok'); }
+          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('✓ Texto salvo · vai para o site', 'ok'); }
           pinta();
         });
         pinta();
@@ -45294,7 +45297,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.guardMudo = function (k) {
     S.guardMudo[k] = Date.now() + 7 * 24 * GUARD_H;
     saveSoon();
-    lfToast('Silenciado por 7 dias');
+    lfToast('Silenciado por 7 dias', 'ok');
     ACT.guardAbre();
   };
   // chamado por atencaoItens (Pendências)
@@ -45382,10 +45385,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     var o = {};
     FRT.forEach(function (t) { var f = S.fretes[t[0]] || {}; o[t[0]] = { p: f.p || 0, off: !!f.off }; });
-    if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho'); return; }
+    if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho', 'ok'); return; }
     vitApi('PATCH', 'config/site?updateMask.fieldPaths=fretes', vBody({ fretes: o }))
-      .then(function () { lfToast('✓ Fretes no site'); })
-      .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet'); S.fretesPend = 1; saveSoon(); });
+      .then(function () { lfToast('✓ Fretes no site', 'ok'); })
+      .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet', 'atencao'); S.fretesPend = 1; saveSoon(); });
   };
   // ===== S265 (aprovado 14/11/2026): FAMÍLIAS — telas irmãs juntas numa tela só, que rola =====
   // Dinheiro  = Caixa + "Contas do mês" (topo das Despesas) + "Câmbio" (cotações e reposição).
@@ -45664,7 +45667,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;
         window.scrollTo(0, y);
-        lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho');
+        lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho', 'ok');
         saveSoon();
       }).catch(function () {}));
     });
@@ -45675,7 +45678,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var ok = j && j.fields && j.fields.ok ? pxFv(j.fields.ok) : null;
         if (!ok) return;
         o.ok = ok.ts || Date.now();
-        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
+        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','), 'ok');
         saveSoon();
       }).catch(function () {}));
     });
@@ -45752,9 +45755,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             ok.disabled = true;
             ok.textContent = 'Ligando…';
             resChama({ acao: 'ligar', pix: x.id, pedido: sel }).then(function (j) {
-              if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.'); return desenha(); }
+              if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.', 'erro'); return desenha(); }
               x.ligado = true; // some das Pendências já; a nuvem marcou o pixSemPar e o "pago" chega pela conferência de sempre
-              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel));
+              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
               api.fecha();
               saveSoon();
               render();
@@ -45943,7 +45946,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     salvarAgora();
     render();
-    lfToast('Restaurado: ' + e.ref + ' · ' + VT_NOME[e.k]);
+    lfToast('Restaurado: ' + e.ref + ' · ' + VT_NOME[e.k], 'ok');
     return true;
   }
   // entrada em Ajustes › Cópias e nuvem
@@ -46079,7 +46082,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     var t = 'Balcão ' + gs(ML_CALC.bal) + ' · Site ' + gs(ML_CALC.site) + (ML_CALC.ata ? ' · Atacado US$ ' + ML_CALC.ata.toFixed(2).replace('.', ',') : '');
     try { navigator.clipboard.writeText(t); } catch (e) {}
-    lfToast('✓ Preços anotados (copiados): ' + t);
+    lfToast('✓ Preços anotados (copiados): ' + t, 'ok');
   };
   // ---------- 4 · E se…? ----------
   var ESE = [['dolar', 'Dólar muda'], ['contas', 'Contas subirem 10%'], ['desc', 'Desconto numa categoria'], ['cupom', 'Cupom 15%'], ['parado', 'Vender tudo parado'], ['meta', 'Meta do mês']];
@@ -46179,14 +46182,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;
   }
   ACT.cntVer = function (k) { CNT_VER[k] = !CNT_VER[k]; lfRedesenha(); };
-  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para)); render(); };
+  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para), 'ok'); render(); };
   ACT.cntIgnora = function (id) { var m = cntItem(id); if (!m) return; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[m.ref + '|oferta'] = Date.now(); saveSoon(); render(); };
   // "Aceitar os N preços" aceita exatamente o que a tela mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
   ACT.cntTudo = function () {
     var n = 0;
     cntDecisoes().forEach(function (x) { if (x.t === 'pa') x.itens.forEach(function (m) { paAplica(m); n++; }); });
     if (S.pAuto) S.pAuto.ult = Date.now();
-    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana'); render();
+    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
   };
   // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
   ACT.cntAuto = function () {
@@ -46347,7 +46350,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var fim = function () {
         volta();
         S.fxStD = false;
-        if (typeof lfToast === 'function') lfToast(lmOk() ? 'Cotação da casa atualizada agora' : 'Sem resposta da casa agora');
+        if (typeof lfToast === 'function') lfToast(lmOk() ? 'Cotação da casa atualizada agora' : 'Sem resposta da casa agora', lmOk() ? 'ok' : 'erro');
       };
       try {
         var r = typeof lmBusca === 'function' ? lmBusca().then(function (ok) { if (ok) render(); }) : null;
@@ -47947,7 +47950,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           abriuEm = Date.now();
           vibrar(15);
           if (!n) {
-            lfToast('Nenhum botão oculto');
+            lfToast('Nenhum botão oculto', 'andamento');
             return;
           }
           S.inicioFant = true;
@@ -50776,13 +50779,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   ACT.ataEnvLoj = function () {
     var r = ataRefsEstoque();
-    if (!r.length) return lfToast('Sem peças em estoque para mandar.');
+    if (!r.length) return lfToast('Sem peças em estoque para mandar.', 'atencao');
     S._s185Para = 'loj';
     ebAbre(r);
   };
   ACT.ataVerTab = function () {
     var tabs = tabLista().filter(function (t) { return !t.pub && t.on !== false; });
-    if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.');
+    if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.', 'atencao');
     var E = { tab: tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
     lfJanela({
       titulo: 'Tabela de atacado',
@@ -51317,7 +51320,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           } catch (er) {
             V.grav = null;
             ov.classList.remove('ecGrav');
-            lfToast('Não consegui começar a gravar');
+            lfToast('Não consegui começar a gravar', 'erro');
           }
         });
       };
@@ -51714,7 +51717,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (v.site) { S.site = S.site || {}; S.site[v.ref] = 1; if (typeof vitFila === 'function') vitFila(v.ref, 'upd'); }
     saveSoon();
     render();
-    lfToast('Produto de volta');
+    lfToast('Produto de volta', 'ok');
   };
   // ===== S370 (16/11/2026) — esboço 41 (grupo com a flecha no lugar das abas) e esboço 44 (juntar atalhos do Início) =====
   // 41: numa tela de grupo, o título da tela ganha "⌄"; tocar abre a folha VER com as telas do grupo e "Gerenciar grupo".
@@ -52015,7 +52018,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var up = cod.trim().toUpperCase(),
         it = (S.items || []).filter(function (x) { return x.ref && String(x.ref).toUpperCase() === up && x.qty > 0; })[0] || (S.items || []).filter(function (x) { return x.ref && String(x.ref).toUpperCase() === up; })[0];
       if (!it) {
-        if (!alvo) lfToast('Código ' + cod + ' não encontrado.');
+        if (!alvo) lfToast('Código ' + cod + ' não encontrado.', 'erro');
         return false;
       }
       e.preventDefault();

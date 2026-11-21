@@ -412,7 +412,7 @@
     S.lcPed = { ts: Date.now(), itens: its };
     S.lcQtd = {};
     saveSoon();
-    lfToast('Pedido guardado · confiro quando a mercadoria entrar');
+    lfToast('Pedido guardado · confiro quando a mercadoria entrar', 'ok');
     render();
   }
   // Peças que ficariam acima do ideal depois que o pedido chegar.

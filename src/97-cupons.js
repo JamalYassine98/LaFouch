@@ -86,7 +86,7 @@
       cod = String((i && i.value) || '').trim();
     if (!cod) return;
     var cli = S.vCli ? cliPorId(S.vCli) : null;
-    lfToast('Conferindo o código…', 1500);
+    lfToast('Conferindo o código…', 'andamento');
     cupApi({ acao: 'ver', cod: cod, tel: cli ? cli.tel : '', email: cli ? cli.email || '' : '' })
       .then(function (j) {
         if (!j || !j.ok) return popErr(cupMotivo(j && j.motivo, j && j.cupom));
@@ -259,7 +259,7 @@
         .then(function (r) {
           if (!r || !r.ok) return popErr(r && r.motivo === 'existe' ? 'Esse código já existe. Escolha outro.' : 'Não deu para criar o cupom.');
           S.cupTipos[r.cod] = 'ev';
-          lfToast('✓ Cupom ' + r.cod + ' publicado', 2500);
+          lfToast('✓ Cupom ' + r.cod + ' publicado', 'ok');
           cupArte(r.cod, p, mx, ev);
           ACT.cupAbre();
         })
@@ -284,7 +284,7 @@
             S.cartOpen = true;
             S.cartStep = 'ped';
             setView('vendas');
-            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido');
+            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
           })
           .catch(function () {
             u.disabled = false;
@@ -299,7 +299,7 @@
       d.disabled = true;
       cupApi({ acao: ac, cod: cod })
         .then(function () {
-          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 2000);
+          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 'ok');
           cupCarrega(function (j2) {
             if (j2) cupDesenha(c, j2);
           });

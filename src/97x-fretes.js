@@ -33,8 +33,8 @@
     saveSoon();
     var o = {};
     FRT.forEach(function (t) { var f = S.fretes[t[0]] || {}; o[t[0]] = { p: f.p || 0, off: !!f.off }; });
-    if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho'); return; }
+    if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho', 'ok'); return; }
     vitApi('PATCH', 'config/site?updateMask.fieldPaths=fretes', vBody({ fretes: o }))
-      .then(function () { lfToast('✓ Fretes no site'); })
-      .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet'); S.fretesPend = 1; saveSoon(); });
+      .then(function () { lfToast('✓ Fretes no site', 'ok'); })
+      .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet', 'atencao'); S.fretesPend = 1; saveSoon(); });
   };

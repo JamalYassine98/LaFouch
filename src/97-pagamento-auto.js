@@ -44,7 +44,7 @@
       ACT.pedpago(p.id); // confirmado sem o dono tocar: não muda a tela em que ele está
       S.pedSel = sel;
       window.scrollTo(0, y);
-      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho');
+      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho', 'ok');
       saveSoon();
       return 'confirmado';
     }
@@ -53,7 +53,7 @@
       cands.forEach(function (p) {
         p.pixAmb = reg.ts;
       });
-      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você');
+      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você', 'atencao');
       saveSoon();
       return 'ambiguo';
     }
@@ -248,16 +248,16 @@
     var p = pedAch(id);
     if (!p) return;
     if (!imp || !impPlugin()) {
-      lfToast('Conecte a impressora em Ajustes › Impressora');
+      lfToast('Conecte a impressora em Ajustes › Impressora', 'atencao');
       return;
     }
     fichaImprime(p).then(
       function () {
-        lfToast('Ficha impressa');
+        lfToast('Ficha impressa', 'ok');
         render();
       },
       function () {
-        lfToast('A impressora não respondeu');
+        lfToast('A impressora não respondeu', 'erro');
       }
     );
   };

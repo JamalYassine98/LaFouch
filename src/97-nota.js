@@ -299,7 +299,7 @@
           ov.classList.remove('vout');
         }, 320);
       }
-      lfToast('✓ Venda registrada');
+      lfToast('✓ Venda registrada', 'ok');
     }
   }
   function notaConfirma(titulo, sub, ok, acao) {

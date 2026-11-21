@@ -682,7 +682,7 @@
           if (b.dataset.lista) {
             var l = mkListas().filter(function (x) { return x.id === b.dataset.lista; })[0],
               tx = l.cl.map(function (x) { return x.tel; }).join('\n'),
-              okc = function () { lfToast(l.cl.length + ' números copiados'); };
+              okc = function () { lfToast(l.cl.length + ' números copiados', 'ok'); };
             if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(okc, okc);
             else okc();
             return;
@@ -697,7 +697,7 @@
     var obj = mkObj(),
       n = fmt === 'carr' ? 4 : fmt === 'video' || fmt === 'rot' ? 3 : 1,
       pecas = refs && refs.length ? refs.filter(itemDoRef).map(function (r) { return { ref: r, f: mkFatos(r) }; }) : mkEscolhe(obj, n);
-    if (!pecas.length) return lfToast('Sem peças com foto e estoque');
+    if (!pecas.length) return lfToast('Sem peças com foto e estoque', 'atencao');
     var E = { ver: 'A', idi: mkKit().idioma || 'ambos', est: 0, estilo: obj === 'girar' ? 'oferta' : obj === 'lanc' ? 'rapido' : 'elegante' };
     lfJanela({
       titulo: MK_FMT[fmt].t + (fmt === 'rot' ? ' de vídeo' : ''),
@@ -782,7 +782,7 @@
             S.mkt.lemb.push({ ts: d.getTime(), fmt: fmt, refs: pecas.map(function (p) { return p.ref; }), pid: pid || '' });
             saveSoon();
             J.fecha();
-            lfToast('Te lembro às ' + hh + 'h');
+            lfToast('Te lembro às ' + hh + 'h', 'ok');
           };
         };
         pinta();
@@ -824,7 +824,7 @@
         })
         .catch(function (e) {
           loadMsg(false);
-          lfToast('Não consegui gravar o vídeo: ' + ((e && e.message) || 'erro'));
+          lfToast('Não consegui gravar o vídeo: ' + ((e && e.message) || 'erro'), 'erro');
         });
     }
     return Promise.all(pecas.map(function (p) { return envImg(p.f.foto); })).then(function (ims) {
@@ -867,8 +867,8 @@
   // ---------- v442: o giro do Estúdio vira Status (vídeo vertical com nome e preço, sem som) ----------
   function mkGiroStatus(ref) {
     estGiroLe(ref).then(function (bl) {
-      if (!bl) return lfToast('O vídeo do giro não está neste aparelho');
-      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app');
+      if (!bl) return lfToast('O vídeo do giro não está neste aparelho', 'erro');
+      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app', 'erro');
       loadMsg(true, 'Montando o Status');
       var f = mkFatos(ref),
         K = mkKit ? mkKit() : {},
@@ -943,7 +943,7 @@
       };
       v.onerror = function () {
         loadMsg(false);
-        lfToast('Não consegui abrir o vídeo do giro');
+        lfToast('Não consegui abrir o vídeo do giro', 'erro');
       };
     });
   }

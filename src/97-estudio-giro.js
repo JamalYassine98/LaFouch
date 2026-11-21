@@ -35,7 +35,7 @@
   // estGiro abre essa câmera já em Vídeo; quem grava é giroGrava, com o stream e o vídeo da própria câmera.
   function estGiro(ctx) {
     ctx = ctx || {};
-    if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app');
+    if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app', 'erro');
     estCam({ k: ctx.k || null, passo: 'frente', titulo: '', modo: 'video', fim: ctx.fim });
   }
   // Grava a volta com o stream da câmera aberta. Para sozinho quando a volta fecha (gtFechou) ou em 60 s (dono 19/11 20:01).
@@ -104,7 +104,7 @@
   }
   // Não deu uma volta inteira: avisa e segue pela escolha à mão.
   function estGiroSemVolta(ctx, Q, video) {
-    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.', 'atencao');
     estGiroEscolhe(ctx, Q, video);
   }
   // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
@@ -157,7 +157,7 @@
         estGrava(ctx.k, 'frente', R1);
         if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
         estGiroGuarda(ctx.k, r.blob);
-        lfToast('Giro pronto: frente, 3/4 e giro salvos');
+        lfToast('Giro pronto: frente, 3/4 e giro salvos', 'ok');
         render();
         if (ctx.fim) ctx.fim();
         return;
@@ -180,7 +180,7 @@
     Q = Q.filter(function (q) {
       return q.b;
     });
-    if (Q.length < 4) return lfToast('O giro ficou curto demais');
+    if (Q.length < 4) return lfToast('O giro ficou curto demais', 'erro');
     var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
       ixF = ix,
       passo = 'frente',
@@ -226,14 +226,14 @@
           passo = 'frente';
           ix = ixF;
           pinta();
-          return lfToast('Não achei a peça no quadro da frente');
+          return lfToast('Não achei a peça no quadro da frente', 'erro');
         }
         ov.remove();
         if (ctx.k) {
           estGrava(ctx.k, 'frente', R1);
           if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
           estGiroGuarda(ctx.k, video);
-          lfToast('Frente, 3/4 e giro salvos');
+          lfToast('Frente, 3/4 e giro salvos', 'ok');
           render();
           if (ctx.fim) ctx.fim();
           return;
@@ -245,7 +245,7 @@
       }).catch(function (e) {
         loadMsg(false);
         camDiario('escolha-erro', { erro: String((e && e.message) || e) });
-        lfToast('Não consegui abrir os quadros do giro');
+        lfToast('Não consegui abrir os quadros do giro', 'erro');
       });
     };
   }

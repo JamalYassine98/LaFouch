@@ -563,7 +563,7 @@
           return i.ref === rf && !i.bulk;
         });
       if (!ri.length) {
-        lfToast('Este produto não está no Inventário do app.');
+        lfToast('Este produto não está no Inventário do app.', 'atencao');
         return;
       }
       S.siteFull = false;

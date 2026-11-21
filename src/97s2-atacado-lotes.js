@@ -94,12 +94,12 @@
         conta();
         $('ltOk').onclick = function () {
           var r = le(), contas = [].slice.call(box.querySelectorAll('.ltC:checked')).map(function (c) { return c.value; });
-          if (!r.n) { lfToast('O lote está vazio: escolha um filtro ou peças'); return; }
-          if (!contas.length) { lfToast('Escolha pelo menos uma loja'); return; }
-          if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', ')); return; }
+          if (!r.n) { lfToast('O lote está vazio: escolha um filtro ou peças', 'atencao'); return; }
+          if (!contas.length) { lfToast('Escolha pelo menos uma loja', 'atencao'); return; }
+          if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', '), 'erro'); return; }
           var o = Object.assign({}, L, r.x, { id: L.id || ataLoteId(), nome: $('ltNm').value.trim() || 'Lote ' + fd(Date.now()), contas: contas, moeda: mo, ate: Date.now() + dias * DAY, cancelado: false, ts: Date.now() });
           ataPublica(o.tab);
-          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar'); ataLoteJanela(o.id); });
+          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
         };
       }
     });
@@ -116,7 +116,7 @@
       f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
       b: 'Encerrar lote',
       fn: function () {
-        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+        L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado', 'ok'); ataLoteJanela(id);
       }
     });
   };

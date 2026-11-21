@@ -72,7 +72,7 @@
     S.temaRes[o.tema + '-' + new Date(o.ini).getFullYear()] = { pecas: com.reduce(function (a, s) { return a + (s.qty || 1); }, 0), vendas: com.reduce(function (a, s) { return a + (s.price || 0); }, 0), lucro: com.reduce(function (a, s) { return a + (s.livre || 0); }, 0), refs: Object.keys(o.refs).length };
     S.temaOf = null;
     saveSoon();
-    lfToast('Tema encerrado · resultado guardado');
+    lfToast('Tema encerrado · resultado guardado', 'ok');
   }
   function temaCardHtml() {
     temaFecha();
@@ -95,7 +95,7 @@
     return L.map(function (x) { return '<div class="sl"><span>' + x[1] + '</span><b>' + x[0] + '</b></div>'; }).join('');
   }
   ACT.temaNao = function () { var t = temaAtual(); if (t) { S.temaNao[temaAno(t)] = 1; saveSoon(); render(); } };
-  ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito'); render(); };
+  ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito', 'ok'); render(); };
   ACT.temaVer = function () {
     var t = temaAtual();
     if (!t) return;
@@ -118,7 +118,7 @@
           S.temaOf = { tema: t.tema, ini: Math.max(t.ini, Date.now() - DAY), fim: t.fim, refs: sg.refs, ts: Date.now(), orc: S.temaOrc };
           saveSoon();
           if (typeof vitFila === 'function') Object.keys(sg.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); });
-          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini));
+          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
           S.temaMail = { chave: temaAno(t), ini: S.temaOf.ini, nome: t.nome };
           temaMailTenta();
           render();
@@ -143,6 +143,6 @@
     if (!tx) { m.feito = 1; saveSoon(); return; }
     nvToken().then(function (tk) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/novidades', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tk }, body: JSON.stringify({ acao: 'tema', chave: m.chave, titulo: tx[0], texto: tx[1], tituloEs: tx[2], textoEs: tx[3] }) }).then(function (r) { return r.json(); });
-    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos'); } }, function () {});
+    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
   }
   setTimeout(temaMailTenta, 15000);

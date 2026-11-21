@@ -141,7 +141,7 @@
   }
   ACT.arqVolta = function (m) {
     arqVolta(m).then(function (n) {
-      lfToast(n ? n + ' vendas voltaram para o Histórico' : 'Nada para trazer de volta');
+      lfToast(n ? n + ' vendas voltaram para o Histórico' : 'Nada para trazer de volta', n ? 'ok' : 'andamento');
       render();
     });
   };

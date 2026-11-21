@@ -351,7 +351,7 @@
           } catch (er) {
             V.grav = null;
             ov.classList.remove('ecGrav');
-            lfToast('Não consegui começar a gravar');
+            lfToast('Não consegui começar a gravar', 'erro');
           }
         });
       };

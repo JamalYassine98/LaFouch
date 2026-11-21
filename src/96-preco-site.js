@@ -66,6 +66,6 @@
       vitConfere();
       nvCotacao();
     } catch (e) {}
-    if (window.lfToast) lfToast('Preços do site atualizados');
+    if (window.lfToast) lfToast('Preços do site atualizados', 'ok');
     render();
   };

@@ -325,7 +325,7 @@
     saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
-    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado');
+    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado', 'ok');
     render();
   };
   ACT.paNao = function () {
@@ -334,7 +334,7 @@
   };
   ACT.paAgora = function () {
     var n = paRevisa(true);
-    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora');
+    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
     render();
   };
   ACT.paDesf = function (id) {

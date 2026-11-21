@@ -64,7 +64,7 @@
       var up = cod.trim().toUpperCase(),
         it = (S.items || []).filter(function (x) { return x.ref && String(x.ref).toUpperCase() === up && x.qty > 0; })[0] || (S.items || []).filter(function (x) { return x.ref && String(x.ref).toUpperCase() === up; })[0];
       if (!it) {
-        if (!alvo) lfToast('Código ' + cod + ' não encontrado.');
+        if (!alvo) lfToast('Código ' + cod + ' não encontrado.', 'erro');
         return false;
       }
       e.preventDefault();

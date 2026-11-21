@@ -580,7 +580,7 @@
   // S267: fotografar UMA peça a partir da ficha do Inventário (as cores dela que ainda estão na fila); ao terminar volta para a ficha.
   function estFotografaRef(ref) {
     var F = estFila().filter(function (x) { return x.ref === ref; });
-    if (!F.length) return lfToast('As fotos desta peça já estão completas');
+    if (!F.length) return lfToast('As fotos desta peça já estão completas', 'andamento');
     EST_SES = null;
     estSessao(F, 0, function () {});
   }
@@ -589,7 +589,7 @@
   function estSessao(lista, i, depois) {
     if (i >= lista.length) {
       if (EST_SES && lista.length > 1) estResumo(EST_SES, depois);
-      else lfToast('Fotos guardadas');
+      else lfToast('Fotos guardadas', 'ok');
       EST_SES = null;
       if (depois) depois();
       render();
@@ -636,7 +636,7 @@
     if (ant && S.fotos && S.fotos[k] && ant.n > R.n + 5) {
       if (!S.fotoReserva) S.fotoReserva = {};
       S.fotoReserva[kk] = { ts: Date.now(), n: R.n };
-      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua');
+      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua', 'atencao');
       return;
     }
     setFoto(kk, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
@@ -669,7 +669,7 @@
   function estCam(ctx) {
     estFechaCam();
     var semCam = !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-    if (semCam && ctx.medir) return lfToast('Medir fundo precisa da câmera');
+    if (semCam && ctx.medir) return lfToast('Medir fundo precisa da câmera', 'atencao');
     if (semCam)
       return camFallback(function (f) {
         estDepoisFoto(f, ctx);
@@ -872,7 +872,7 @@
       .catch(function () {
         estFechaCam();
         if (ctx.medir) {
-          lfToast('Não consegui abrir a câmera');
+          lfToast('Não consegui abrir a câmera', 'erro');
           if (ctx.fim) ctx.fim();
           return;
         }
@@ -1302,7 +1302,7 @@
           });
         }).then(function (bl) {
           estFechaCam();
-          if (!bl) return lfToast('Não consegui fotografar');
+          if (!bl) return lfToast('Não consegui fotografar', 'erro');
           estDepoisFoto(new File([bl], 'estudio.jpg', { type: 'image/jpeg' }), ctx);
         });
       };
@@ -1434,7 +1434,7 @@
       })
       .catch(function () {
         loadMsg(false);
-        lfToast('Não consegui abrir a foto');
+        lfToast('Não consegui abrir a foto', 'erro');
       });
   }
   function estResultado(R, f, ctx) {
@@ -1544,7 +1544,7 @@
         }
         if (passo === '34' && ctx.k) {
           estGrava(ctx.k, '34', R);
-          lfToast('Fotos guardadas');
+          lfToast('Fotos guardadas', 'ok');
         }
         render();
         if (ctx.prox) ctx.prox();
@@ -1563,7 +1563,7 @@
       };
     }
     if (!(navigator.mediaDevices && window.MediaRecorder)) {
-      lfToast('Este aparelho não grava vídeo pelo app');
+      lfToast('Este aparelho não grava vídeo pelo app', 'erro');
       if (ctx.prox) ctx.prox();
       return;
     }
@@ -1608,7 +1608,7 @@
           }
         }, 1000);
     }).catch(function () {
-      lfToast('Não consegui abrir a câmera');
+      lfToast('Não consegui abrir a câmera', 'erro');
       if (ctx.prox) ctx.prox();
     });
   }
@@ -1705,7 +1705,7 @@
       ov.remove();
       saveSoon();
       render();
-      if (msg) lfToast(msg);
+      if (msg) lfToast(msg, 'ok');
       if (!pd && ctx.vivo !== undefined) return estNova(depois); // próxima peça, até tocar em ×
       if (depois) depois();
     };
@@ -1762,7 +1762,7 @@
     };
   }
   function estLibera() {
-    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return lfToast('Este aparelho não deixa o app usar a câmera');
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return lfToast('Este aparelho não deixa o app usar a câmera', 'erro');
     loadMsg(true, 'Conferindo a câmera');
     var lim = function (r, f) {
       return r ? (f ? f(r.min) + ' a ' + f(r.max) : r.min + ' a ' + r.max) : '';
@@ -1810,7 +1810,7 @@
       })
       .catch(function () {
         loadMsg(false);
-        lfToast('Não consegui abrir a câmera');
+        lfToast('Não consegui abrir a câmera', 'erro');
       });
   }
   // ---------- Como fotografar: guia (o que cada botão faz) + vídeo sem som ----------

@@ -293,7 +293,7 @@
               window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
             });
           }).then(function () {
-            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0]);
+            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
           });
         };
         $('ebEnv').onclick = function () {

@@ -259,7 +259,7 @@
     S._objPV = null;
     S.cxAcao = '';
     vibrar(20);
-    lfToast('✓ Objetivo guardado');
+    lfToast('✓ Objetivo guardado', 'ok');
     saveSoon();
     renderCaixa();
   };

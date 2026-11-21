@@ -139,7 +139,7 @@
       var fim = function () {
         volta();
         S.fxStD = false;
-        if (typeof lfToast === 'function') lfToast(lmOk() ? 'Cotação da casa atualizada agora' : 'Sem resposta da casa agora');
+        if (typeof lfToast === 'function') lfToast(lmOk() ? 'Cotação da casa atualizada agora' : 'Sem resposta da casa agora', lmOk() ? 'ok' : 'erro');
       };
       try {
         var r = typeof lmBusca === 'function' ? lmBusca().then(function (ok) { if (ok) render(); }) : null;

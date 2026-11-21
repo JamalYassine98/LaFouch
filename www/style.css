@@ -459,8 +459,10 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .vimp.vok{background:#0a7a45!important}
 .vsp2{display:inline-block;width:14px;height:14px;border:3px solid #fff5;border-top-color:#fff;border-radius:50%;animation:lfrot .7s linear infinite;vertical-align:-2px;margin-right:8px}
 /* O aviso curto fica ACIMA de toda tela e janela (Estúdio 360–430, janela de baixo 900–901) e abaixo do cadeado (9999) e do carregando (99999): com 270 ele era desenhado atrás do Estúdio e o app parecia "não fazer nada" (item 33, 20/11/2026). */
-#lfToast{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:420px;margin:0 auto;z-index:9990;background:var(--okbg);border:1px solid #1d5a3a;color:var(--ok);border-radius:12px;padding:12px 14px;font-weight:700;pointer-events:none;transform:translateY(120px);opacity:0;transition:transform .5s cubic-bezier(.2,1.2,.3,1),opacity .3s}
+#lfToast{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:420px;margin:0 auto;z-index:9990;background:var(--tbg);border:1px solid color-mix(in srgb,var(--tfg) 35%,transparent);color:var(--tfg);border-radius:12px;padding:12px 16px;font-size:15px;font-weight:600;pointer-events:none;transform:translateY(120px);opacity:0;transition:transform .5s cubic-bezier(.2,1.2,.3,1),opacity .3s}
 #lfToast.on{transform:none;opacity:1}
+/* esboço 38: a cor do aviso curto vem do tipo — só aqui */
+#lfToast.t-ok{--tbg:var(--okbg);--tfg:var(--ok)}#lfToast.t-atencao{--tbg:var(--warnbg);--tfg:var(--warn)}#lfToast.t-erro{--tbg:var(--badbg);--tfg:var(--bad)}#lfToast.t-andamento{--tbg:var(--panel2);--tfg:var(--fg)}
 
 /* cadastro rápido: selo "modelo reconhecido", cascata dos campos e menu enxuto */
 .lfck circle{fill:none;stroke:var(--ok);stroke-width:2.4}.lfck path{fill:none;stroke:var(--ok);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}

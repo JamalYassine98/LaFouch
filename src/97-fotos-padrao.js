@@ -419,7 +419,7 @@
             cv = R.cv || fitCanvas(im, 1800);
           setFoto(k + '|34', thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
           saveSoon();
-          lfToast('Foto 3/4 guardada');
+          lfToast('Foto 3/4 guardada', 'ok');
           render();
         });
       },
@@ -470,7 +470,7 @@
               });
               saveSoon();
               J2.fecha();
-              lfToast('Fotos voltaram como eram');
+              lfToast('Fotos voltaram como eram', 'ok');
               render();
             };
           }

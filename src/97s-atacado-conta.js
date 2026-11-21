@@ -134,7 +134,7 @@
         if (ataJ && ataJ.api) ataJ.api.fecha();
         S.ataAba = 'loj';
         render();
-        lfToast('Conta apagada');
+        lfToast('Conta apagada', 'ok');
       }
     });
   };
@@ -144,10 +144,10 @@
     if (!cli) return;
     var c = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
     if (!c) {
-      if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+      if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
       var tab = (tabLista().filter(function (t) { return !t.pub && /^a/.test(t.id); })[0] || {}).id || 'opt';
       c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, cliId: String(cli.id), ts: Date.now() };
-      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar'); });
+      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
       ataPublica(c.tab);
     }
     ataJanela(c.id);
@@ -197,27 +197,27 @@
           $('ataOk').onclick = function () {
             var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean), tab = $('ataTab').value, emOk = function (e) { return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e || ''); };
             if (st.tipo === 'visita') {
-              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.', 'atencao'); return; }
               var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
-              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido', 'atencao'); return; }
               var v = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: tab, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
               ataGrava(v); ataPublica(v.tab); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(v.id);
               return;
             }
             var cli = st.cli;
             if (!cli) {
-              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo'); return; }
+              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo', 'atencao'); return; }
               var n2 = $('ataNm').value.trim(), e2 = $('ataEm').value.trim().toLowerCase();
-              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido', 'atencao'); return; }
               cli = { id: S.cliNext++, nome: n2, tel: $('ataTel').value.trim(), email: e2, ts: Date.now(), orig: 'atacado' };
               S.clientes.push(cli);
             } else if (!cli.email) {
               var e3 = ($('ataEm') ? $('ataEm').value : '').trim().toLowerCase();
-              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
               cli.email = e3;
             }
             var ja = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
-            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa'); ataJanela(ja.id); return; }
+            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa', 'atencao'); ataJanela(ja.id); return; }
             var c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, refs: refs, cliId: String(cli.id), ts: Date.now() };
             ataGrava(c); ataPublica(c.tab); saveSoon(); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(c.id);
           };
@@ -234,7 +234,7 @@
     var d = String(c.tel || '').replace(/\D/g, '');
     window.open('https://wa.me/' + d + '?text=' + encodeURIComponent(tx), '_blank');
   };
-  function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg); ataJanela(id); }
+  function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg, 'ok'); ataJanela(id); }
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
@@ -269,7 +269,7 @@
       var novos = 0;
       S.ataPeds = S.ataPeds || {};
       (j.documents || []).forEach(function (d) { var id = d.name.split('/').pop(); if (!S.ataPeds[id]) { S.ataPeds[id] = ataFv(d.fields); novos++; } });
-      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado'); }
+      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado', 'ok'); }
       return novos;
     }, function () { return 0; });
   }
