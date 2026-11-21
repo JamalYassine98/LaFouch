@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 39 preço exato (parte do APP): PIX sem par vira linha do Guardião nas Pendências + janela Ligar a um pedido | src/97z-pix-email.js, src/89-dash-abas.js, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 | SITE | Pendências parte 3: plano das ferramentas — parte 1 (um simulador só) | work/kit/sim.py, work/fiscal/provas.py, work/fiscal/fiscal.py, work/s430/comparador/compara.py |
 
@@ -127,6 +126,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 15:59 — APP: v606 no ar: 39 preço exato (app). Próximo: 38 giro
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
 - 21/11 15:34 — APP: 149s etapa A: estudo feito e enviado ao dono (Caixa e Vender mudam fora das 9); nada publicado. Próximo: 39 preço exato
@@ -142,7 +142,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 12:59 — APP: v599 no ar: ficha numa função só. Próximo: 134 (ficha sem cartão, links no fim)
 - 21/11 12:42 — IDEIAS: IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 12:38 — APP: 4d parte 2: estudo feito, sem código (a ficha precisa primeiro juntar as camadas do renderDetail). v598 segue a última no ar
-- 21/11 12:35 — APP: v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela
 - 21/11 12:33 — SITE: Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar.
 - 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
 - 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
