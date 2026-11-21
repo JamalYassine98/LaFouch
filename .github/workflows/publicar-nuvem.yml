@@ -48,6 +48,9 @@ jobs:
         run: |
           echo "== buckets do Storage"; gcloud storage buckets list --project=lafouch-2f6bd --format='table(name,location,storageClass)' || echo "sem permissão para listar"
           echo "== plano de cobrança"; gcloud billing projects describe lafouch-2f6bd --format='value(billingEnabled)' || echo "sem permissão"
+          echo "== selo do App Check por dia (seloDia)"; T=$(gcloud auth print-access-token)
+          curl -s -H "Authorization: Bearer $T" "https://firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/seloDia?pageSize=60" \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); [print(x['name'].split('/')[-1], {k:int(v.get('integerValue',0)) for k,v in sorted(x.get('fields',{}).items())}) for x in d.get('documents',[])] or print(d.get('error',{}).get('message','vazio'))"
       - name: Publicar
         if: inputs.o_que != 'limpeza' && inputs.o_que != 'info'
         env:
