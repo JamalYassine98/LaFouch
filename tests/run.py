@@ -4482,6 +4482,24 @@ async def main():
             if not ok: falhas.append('ficha numa funcao so'); print('        veio', embr, got, pg.erros)
             await pg.close()
 
+            # 134 (2b) (aprovado 18/11 12:53): "Vender no Catálogo ›" e "Fotografar no Estúdio ›" ficam no FIM da ficha do Inventário, centralizados,
+            # em todas as abas; nascem no fim (fichaLinks, última parte do renderDetail), não são movidos depois; no Catálogo não aparecem.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(800);
+              const d = () => document.querySelector('#v-estoque .fnBar').parentElement, a = () => d().querySelector('.fnAt');
+              const olha = () => { const r = a().getBoundingClientRect(), bs = [...a().querySelectorAll('.fnLk')], m = (d().getBoundingClientRect().left + d().getBoundingClientRect().right) / 2;
+                return d().querySelectorAll('.fnAt').length === 1 && d().lastElementChild === a() && !d().querySelector('.fnBar .fnAt') && bs.length === 2 && r.height > 0 && bs[1].getBoundingClientRect().top > bs[0].getBoundingClientRect().top && bs.every(b => Math.abs((b.getBoundingClientRect().left + b.getBoundingClientRect().right) / 2 - m) < 2)
+                  && [...d().children].filter(e => e !== a() && e.getBoundingClientRect().height).every(e => e.getBoundingClientRect().bottom <= r.top + 1); };
+              R.push(olha()); for (const t of ['his', 'sit', 'pre']) { document.querySelector('#v-estoque [data-act=fnTab][data-id=' + t + ']').click(); await w(500); R.push(olha()); }
+              const v = document.createElement('div'); document.body.appendChild(v); L.renderDetail(S.items[0].ref, { host: v, venda: true }); await w(200); R.push(!v.querySelector('.fnAt')); v.remove();
+              return R; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134 (2b): os links da ficha (Vender no Catálogo, Fotografar no Estúdio) nascem no fim, centralizados, nas 4 abas; no Catálogo não aparecem')
+            if not ok: falhas.append('134 links no fim da ficha'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

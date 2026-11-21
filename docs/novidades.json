@@ -1,7 +1,7 @@
 {
- "nome": "5.50.24",
+ "nome": "5.50.25",
  "notas": [
-  "Por dentro: a ficha da peça passou a ser desenhada por uma função só (nada muda na tela)."
+  "Ficha da peça: \"Vender no Catálogo ›\" e \"Fotografar no Estúdio ›\" foram para o fim da ficha, centralizados."
  ],
- "build": 599
+ "build": 600
 }

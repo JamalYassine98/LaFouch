@@ -58,11 +58,11 @@
   }
   // A FICHA É DESENHADA POR UMA FUNÇÃO SÓ: o corpo (fichaCorpo) e, em ordem, as partes com nome que cada módulo traz —
   // fichaBotao (botão "Ficha N/6", 97t-ficha-s190.js), fichaBarra (caminho, abas e links, 97u-navegacao-s184.js),
-  // fichaLucro ("Lucro real", 97y-lucro-real.js) e fichaPreco ("De onde vem o preço", 97z2-contador.js).
+  // fichaLucro ("Lucro real", 97y-lucro-real.js), fichaPreco ("De onde vem o preço", 97z2-contador.js) e fichaLinks (links do fim, 97u).
   // Ninguém embrulha renderDetail (antes eram 4 camadas `var _rdX = renderDetail`). Parte nova da ficha = função nova nesta lista.
   function renderDetail(ref, opt) {
     var r = fichaCorpo.apply(this, arguments), o = opt || {}, det = o.host || $('detail');
-    [fichaBotao, fichaBarra, fichaLucro, fichaPreco].forEach(function (parte) {
+    [fichaBotao, fichaBarra, fichaLucro, fichaPreco, fichaLinks].forEach(function (parte) {
       try { parte(det, ref, o); } catch (e) {}
     });
     return r;

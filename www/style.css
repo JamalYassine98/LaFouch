@@ -2052,7 +2052,7 @@ body.modoCli #selBar{display:none!important}
 
 
 
-.fnAlt>*:not(.fnBar):not(.fnPane){display:none!important}
+.fnAlt>*:not(.fnBar):not(.fnPane):not(.fnAt){display:none!important}
 .fnPn .sl small{display:block;color:var(--mu);font-size:12px}
 .fnLk{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,currentColor 45%,transparent);text-underline-offset:2px}
 #v-dash .kpi{cursor:pointer;position:relative}#v-dash .kpi .lbl::after{content:' ›';opacity:.55}
@@ -2222,7 +2222,8 @@ html.mlOn #lockScr{z-index:2147483600}
 
 /* ===== S267 (14/11/2026) · um papel por lugar: Catálogo só vende, Inventário só a ficha, atalhos entre Catálogo, Inventário e Estúdio ===== */
 
-.fnAt{display:flex;flex-wrap:wrap;gap:0 10px;justify-content:space-around}
+/* 134: os links da ficha ficam no fim, um embaixo do outro, centralizados */
+.fnAt{display:flex;flex-direction:column;align-items:center;margin:18px 0 8px}
 .fnLk{min-height:44px;padding:0;border:0;background:none;color:var(--fg);font-family:inherit;font-size:13.5px;font-weight:500;text-decoration:none!important;white-space:nowrap}
 .fiBtn{background:var(--panel)}
 .fnLk:active{transform:scale(.96)}

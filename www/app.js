@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 599;
+  var APP_BUILD = 600;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.24'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.25'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1497,11 +1497,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // A FICHA É DESENHADA POR UMA FUNÇÃO SÓ: o corpo (fichaCorpo) e, em ordem, as partes com nome que cada módulo traz —
   // fichaBotao (botão "Ficha N/6", 97t-ficha-s190.js), fichaBarra (caminho, abas e links, 97u-navegacao-s184.js),
-  // fichaLucro ("Lucro real", 97y-lucro-real.js) e fichaPreco ("De onde vem o preço", 97z2-contador.js).
+  // fichaLucro ("Lucro real", 97y-lucro-real.js), fichaPreco ("De onde vem o preço", 97z2-contador.js) e fichaLinks (links do fim, 97u).
   // Ninguém embrulha renderDetail (antes eram 4 camadas `var _rdX = renderDetail`). Parte nova da ficha = função nova nesta lista.
   function renderDetail(ref, opt) {
     var r = fichaCorpo.apply(this, arguments), o = opt || {}, det = o.host || $('detail');
-    [fichaBotao, fichaBarra, fichaLucro, fichaPreco].forEach(function (parte) {
+    [fichaBotao, fichaBarra, fichaLucro, fichaPreco, fichaLinks].forEach(function (parte) {
       try { parte(det, ref, o); } catch (e) {}
     });
     return r;
@@ -44854,7 +44854,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
       (modo === 'venda' ? '' : '<div class="fnTabs lfAbas n2" id="fnAbas" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
       // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
-      (modo === 'venda' ? '' : '<div class="fnAt">') + (modo === 'venda' ? '' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + (modo === 'venda' ? '' : '</div>') + '</div>'; // S374 89: no Catálogo a ficha vai para o fim da peça
+      '</div>'; // S374 89: no Catálogo a ficha vai para o fim da peça
+  }
+  // 134 (aprovado 18/11 12:53): pela regra dos links, "Vender no Catálogo ›" e "Fotografar no Estúdio ›" ficam no FIM da ficha do Inventário,
+  // centralizados — em todas as abas (a última parte do renderDetail; o CSS .fnAlt não os esconde). No Catálogo não aparecem.
+  function fichaLinks(det, ref, opt) {
+    if (opt.venda || !ref || !det || !fnItem(ref) || det.querySelector('.fnAt')) return;
+    var a = document.createElement('div');
+    a.className = 'fnAt';
+    a.innerHTML = '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>';
+    det.appendChild(a);
   }
   window.addEventListener('popstate', function () {
     setTimeout(function () {

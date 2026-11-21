@@ -82,7 +82,16 @@
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
       (modo === 'venda' ? '' : '<div class="fnTabs lfAbas n2" id="fnAbas" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
       // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
-      (modo === 'venda' ? '' : '<div class="fnAt">') + (modo === 'venda' ? '' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + (modo === 'venda' ? '' : '</div>') + '</div>'; // S374 89: no Catálogo a ficha vai para o fim da peça
+      '</div>'; // S374 89: no Catálogo a ficha vai para o fim da peça
+  }
+  // 134 (aprovado 18/11 12:53): pela regra dos links, "Vender no Catálogo ›" e "Fotografar no Estúdio ›" ficam no FIM da ficha do Inventário,
+  // centralizados — em todas as abas (a última parte do renderDetail; o CSS .fnAlt não os esconde). No Catálogo não aparecem.
+  function fichaLinks(det, ref, opt) {
+    if (opt.venda || !ref || !det || !fnItem(ref) || det.querySelector('.fnAt')) return;
+    var a = document.createElement('div');
+    a.className = 'fnAt';
+    a.innerHTML = '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>';
+    det.appendChild(a);
   }
   window.addEventListener('popstate', function () {
     setTimeout(function () {
