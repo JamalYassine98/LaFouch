@@ -3380,3 +3380,9 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   - Bucket antigo (appspot): 1 GB/dia baixado, não cabe.
   - A NUVEM confere qual bucket o projeto tem.
 - 21/11/2026 — ✅ PUBLICADO app v595 (5.50.20) · 4c parte 2 (149d): Histórico com 'Semana…' na margem dos dias (64 px, 16/13); dias e semanas nascem no grupo de linhas e o pad99 não arruma mais o Histórico. Comparado antes × depois (claro e escuro, semana fechada e aberta): só a linha de semana mudou. 349/349 no simulador; nada em aparelho real.
+
+- 21/11 10:01 — DONO, o plano do Estúdio:
+  - Na loja ele grava e trata o máximo que conseguir: o tratamento roda por trás no celular.
+  - O que sobrar ele termina em casa (Wi-Fi/PC), inclusive tratando enquanto dorme.
+  - Por isso "posso exigir menos do tempo de tratamento": a prioridade passa a ser o tratamento **certo** (qualidade), e a velocidade deixa de ser a meta dura dos 5 min por peça.
+  - Continua valendo: não diminuir quadros nem resolução, e usar a GPU do celular.
