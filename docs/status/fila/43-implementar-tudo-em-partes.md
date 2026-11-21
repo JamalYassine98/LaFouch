@@ -1,2 +1,2 @@
-em andamento — 4b ✅ v591–v593 · 4c parte 1 (149t) ✅ v594 · parte 2 (149d Histórico) ✅ v595 (5.50.20). Próximas: 4c parte 3 (135d dobras sem cartão), parte 4 (149r Reservas em Dinheiro + tabela única de famílias), depois 4d
+em andamento — 4b ✅ v591–v593 · 4c partes 1–3 ✅ v594 (149t), v595 (149d), v596 (135d · 5.50.21). Próximas: 4c parte 4 (149r Reservas em Dinheiro + tabela única de famílias), item 38 (giro mais rápido), 4d
 
