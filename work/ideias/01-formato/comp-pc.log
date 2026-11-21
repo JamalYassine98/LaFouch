@@ -1,0 +1,209 @@
+RESULTADO: sem falha nova
+== PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Formato — 0 falha(s) nova(s), 120 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    sumiu | span "Armações de quase qualquer for" | 
+    sumiu | span "Armações retangulares ou angul" | 
+    sumiu | span "Armações arredondadas ou ovais" | 
+    sumiu | span "Armações grandes e largas traz" | 
+    sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span "Armações gatinho ou ovais traz" | 
+    mudou | span.fi | larg 76→89, alt 112→130
+    mudou | rect | esq 42→49, larg 21→24, alt 15→17
+    mudou | b "Rosto quadrado" | topo 141→159
+    mudou | span.fw | esq 184→182, larg 95→111, alt 112→130
+    mudou | span.fi | larg 90→105, alt 112→130
+    mudou | svg.ft | larg 79→93, alt 112→130
+    mudou | path | esq 38→45, larg 21→25, alt 14→16
+    mudou | ellipse | esq 38→45, larg 21→25, alt 15→17
+    mudou | svg.gl | topo 48→56, larg 70→82, alt 23→27
+    mudou | rect | esq 12→14, larg 21→24, alt 15→17
+    mudou | span.fw | larg 70→82, alt 112→130
+    mudou | span.fw | esq 183→181, larg 93→109, alt 112→130
+    mudou | path | esq 41→48, topo 70→82, larg 8→9
+    mudou | span.fw | esq 108→95, larg 76→89, alt 112→130
+    mudou | div.fp | alt 120→138
+    mudou | div.fp | alt 120→138
+    mudou | span.fi | larg 80→94, alt 112→130
+    mudou | path | esq 32→38, topo 71→83, larg 8→9
+    mudou | div.fp | alt 120→138
+    mudou | svg.gl | topo 44→52, larg 68→80, alt 22→26
+    mudou | svg.ft | larg 76→89, alt 112→130
+    mudou | rect | esq 43→50, larg 21→25, alt 15→18
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | svg.gl | topo 52→61, larg 64→75, alt 21→25
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | path | esq 42→49, topo 70→81, larg 8→9
+    mudou | path | esq 9→10, topo 8→9, larg 55→65
+    mudou | path | esq 31→36, topo 70→82, larg 8→9
+== PC · Formato-abrir — 0 falha(s) nova(s), 120 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    sumiu | span "Armações de quase qualquer for" | 
+    sumiu | span "Armações retangulares ou angul" | 
+    sumiu | span "Armações arredondadas ou ovais" | 
+    sumiu | span "Armações grandes e largas traz" | 
+    sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span "Armações gatinho ou ovais traz" | 
+    mudou | span.fi | larg 76→89, alt 112→130
+    mudou | rect | esq 42→49, larg 21→24, alt 15→17
+    mudou | b "Rosto quadrado" | topo 141→159
+    mudou | span.fw | esq 184→182, larg 95→111, alt 112→130
+    mudou | span.fi | larg 90→105, alt 112→130
+    mudou | svg.ft | larg 79→93, alt 112→130
+    mudou | path | esq 38→45, larg 21→25, alt 14→16
+    mudou | ellipse | esq 38→45, larg 21→25, alt 15→17
+    mudou | svg.gl | topo 48→56, larg 70→82, alt 23→27
+    mudou | rect | esq 12→14, larg 21→24, alt 15→17
+    mudou | span.fw | larg 70→82, alt 112→130
+    mudou | span.fw | esq 183→181, larg 93→109, alt 112→130
+    mudou | path | esq 41→48, topo 70→82, larg 8→9
+    mudou | span.fw | esq 108→95, larg 76→89, alt 112→130
+    mudou | div.fp | alt 120→138
+    mudou | div.fp | alt 120→138
+    mudou | span.fi | larg 80→94, alt 112→130
+    mudou | path | esq 32→38, topo 71→83, larg 8→9
+    mudou | div.fp | alt 120→138
+    mudou | svg.gl | topo 44→52, larg 68→80, alt 22→26
+    mudou | svg.ft | larg 76→89, alt 112→130
+    mudou | rect | esq 43→50, larg 21→25, alt 15→18
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | svg.gl | topo 52→61, larg 64→75, alt 21→25
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | path | esq 42→49, topo 70→81, larg 8→9
+    mudou | path | esq 9→10, topo 8→9, larg 55→65
+    mudou | path | esq 31→36, topo 70→82, larg 8→9
+== PC · Formato-resultado — 0 falha(s) nova(s), 133 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
+    sumiu | span "Armações de quase qualquer for" | 
+    sumiu | span "Armações retangulares ou angul" | 
+    sumiu | span "Armações arredondadas ou ovais" | 
+    sumiu | span "Armações grandes e largas traz" | 
+    sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações gatinho ou ovais traz" | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 639→656
+    mudou | span.fi | larg 76→89, alt 112→130
+    mudou | rect | esq 42→49, larg 21→24, alt 15→17
+    mudou | b "Rosto quadrado" | topo 141→159
+    mudou | span.fw | esq 184→182, larg 95→111, alt 112→130
+    mudou | span.fi | larg 90→105, alt 112→130
+    mudou | svg.ft | larg 79→93, alt 112→130
+    mudou | path | esq 38→45, larg 21→25, alt 14→16
+    mudou | ellipse | esq 38→45, larg 21→25, alt 15→17
+    mudou | svg.gl | topo 48→56, larg 70→82, alt 23→27
+    mudou | rect | esq 12→14, larg 21→24, alt 15→17
+    mudou | span.fw | larg 70→82, alt 112→130
+    mudou | span.fw | esq 183→181, larg 93→109, alt 112→130
+    mudou | path | esq 41→48, topo 70→82, larg 8→9
+    mudou | span.fw | esq 108→95, larg 76→89, alt 112→130
+    mudou | div.fares | alt 671→688
+    mudou | div.fp | alt 120→138
+    mudou | div.fp | alt 120→138
+    mudou | span.fi | larg 80→94, alt 112→130
+    mudou | path | esq 32→38, topo 71→83, larg 8→9
+    mudou | div.fp | alt 120→138
+    mudou | svg.gl | topo 44→52, larg 68→80, alt 22→26
+    mudou | div.modal.try.fa | topo 92→84, alt 715→732
+    mudou | svg.ft | larg 76→89, alt 112→130
+    mudou | rect | esq 43→50, larg 21→25, alt 15→18
+== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 134 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
+    sumiu | span "Armações de quase qualquer for" | 
+    sumiu | span "Armações retangulares ou angul" | 
+    sumiu | span "Armações arredondadas ou ovais" | 
+    sumiu | span "Armações grandes e largas traz" | 
+    sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações retangulares ou angul" | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 687→703
+    mudou | span.fi | larg 76→89, alt 112→130
+    mudou | rect | esq 42→49, larg 21→24, alt 15→17
+    mudou | b "Rosto quadrado" | topo 141→159
+    mudou | span.fw | esq 184→182, larg 95→111, alt 112→130
+    mudou | span.fi | larg 90→105, alt 112→130
+    mudou | svg.ft | larg 79→93, alt 112→130
+    mudou | path | esq 38→45, larg 21→25, alt 14→16
+    mudou | ellipse | esq 38→45, larg 21→25, alt 15→17
+    mudou | svg.gl | topo 48→56, larg 70→82, alt 23→27
+    mudou | rect | esq 12→14, larg 21→24, alt 15→17
+    mudou | span.fw | larg 70→82, alt 112→130
+    mudou | span.fw | esq 183→181, larg 93→109, alt 112→130
+    mudou | path | esq 41→48, topo 70→82, larg 8→9
+    mudou | span.fw | esq 108→95, larg 76→89, alt 112→130
+    mudou | div.fares | alt 719→735
+    mudou | div.fp | alt 120→138
+    mudou | div.fp | alt 120→138
+    mudou | span.fi | larg 80→94, alt 112→130
+    mudou | path | esq 32→38, topo 71→83, larg 8→9
+    mudou | div.fp | alt 120→138
+    mudou | svg.gl | topo 44→52, larg 68→80, alt 22→26
+    mudou | div.modal.try.fa | topo 69→60, alt 763→779
+    mudou | svg.ft | larg 76→89, alt 112→130
+    mudou | rect | esq 43→50, larg 21→25, alt 15→18
+== PC · Formato-1-toque-diamante — 0 falha(s) nova(s), 242 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p "Armações gatinho e ovais: a pa" | 
+    sumiu | p "Armações gatinho ou ovais traz" | 
+    sumiu | button.fav | 
+    sumiu | button.open | 
+    sumiu | span.ref.lfds "LaFouch · acetato" | 
+    sumiu | span.nm.lfcod "GR3340" | 
+    sumiu | span.pr "R$ 95" | 
+    sumiu | button.fav | 
+    sumiu | button.open | 
+    sumiu | span.ref.lfds "LaFouch · quadrado" | 
+    sumiu | span.nm.lfcod "SL2250" | 
+    sumiu | span.pr "R$ 140" | 
+    sumiu | button.fav | 
+    sumiu | button.open | 
+    sumiu | span.ref.lfds "LaFouch · retangular" | 
+    sumiu | span.nm.lfcod "SL2255" | 
+    sumiu | article.card.still | 
+    sumiu | button.fav | 
+    sumiu | svg | 
+    sumiu | path | 
+    sumiu | button.open | 
+    sumiu | img.pf | 
+    sumiu | span.rr | 
+    sumiu | span.ref.lfds "LaFouch · redondo" | 
+    sumiu | span.uvc "UV400" | 
+    sumiu | span.nm.lfcod "SL2260" | 
+    sumiu | span.esw | 
+    sumiu | i | 
+    sumiu | article.card.still | 
+    sumiu | svg | 
+    sumiu | path | 
+    sumiu | img.pf | 
+    sumiu | span.rr | 
+    sumiu | span.uvc "UV400" | 
+    sumiu | span.esw | 
+    sumiu | i | 
+    sumiu | span.pr "R$ 125" | 
+    sumiu | article.card.still | 
+    sumiu | button.fav | 
+    sumiu | svg | 

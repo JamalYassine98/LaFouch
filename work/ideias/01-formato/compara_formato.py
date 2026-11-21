@@ -28,5 +28,7 @@ C.TELAS = C.TELAS + [('Formato', '/?cliente=1&r=formato', None),
                      ('Formato-resultado', '/?cliente=1&r=formato', RES),
                      ('Formato-tracos-feminino', '/?cliente=1&r=formato', TRACOS),
                      ('Formato-1-toque-diamante', '/?cliente=1&r=formato', 'JS:document.querySelector(\'#rosto .rzr[data-face="diamante"]\').click()')]
-sys.argv = ['compara.py', 'http://localhost:8701', 'http://localhost:8702', os.path.join(AQUI, 'comp')]
+SO = sys.argv[1:]  # ex.: python3 compara_formato.py PC  → só esse aparelho, saída em comp-PC/
+if SO: C.APAR = [a for a in C.APAR if a[0] in SO]
+sys.argv = ['compara.py', 'http://localhost:8701', 'http://localhost:8702', os.path.join(AQUI, 'comp' + ('-' + '-'.join(SO) if SO else ''))]
 C.main()

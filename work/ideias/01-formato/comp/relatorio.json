@@ -5,2477 +5,2477 @@
   "falhas_novas": [],
   "falhas_que_ja_existiam": [],
   "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 367→384"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 85→77, alt 732→749"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 430→447"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 688→705"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 509→525"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 451→467"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 641→657"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 436→430"
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 386→380"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 51→54, alt 801→795"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 499→493"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 757→751"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 578→572"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 520→514"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 710→704"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-1-toque-diamante",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "button.rchip.lx44 \"Rosto diamante · 3 modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Limpar ✕\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.vnav",
+    ""
+   ],
+   [
+    "apareceu",
+    "span \"Formato do rosto\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.vtit",
+    ""
+   ],
+   [
+    "apareceu",
+    "b#vtitT \"Catálogo\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div#lfgen.lfgen",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.on.lxpos.lx44 \"Todos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div#grid.grid",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · gatinho\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.uvc \"UV400\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"SL2265\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 125\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · metal\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"BR44140\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 105\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "svg",
+    ""
+   ],
+   [
+    "apareceu",
+    "path",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · gatinho\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.uvc \"UV400\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"SL2300\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 130\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.lfft",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.in",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.fbr \"La Fouch\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.mp.lx44 \"Como chegar ›\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Comprar\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Solar\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Leitura\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Armações\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Ofertas\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Atacado\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Ajuda\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Dúvidas frequentes\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Dicas e cuidados\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Entre em contato\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.fbt",
+    ""
+   ],
+   [
+    "apareceu",
+    "div \"· · © 2026 La Fouch\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Termos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Privacidade\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Privacidade\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Termos\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span \"Início\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "h2.rzt \"Seu formato de rosto\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.rzs \"Veja quais armações valorizam \"",
+    ""
+   ],
+   [
+    "sumiu",
+    "circle",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"PELA CÂMERA · 1 MIN\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Descubra o seu formato\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzg.lx44",
+    ""
+   ],
+   [
+    "sumiu",
+    "circle",
+    ""
+   ],
+   [
+    "sumiu",
+    "span \"Abrir a câmera\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "h3.rzh \"Escolha o seu formato\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Oval\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Redondo\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Quadrado\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Alongado\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Coração\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Diamante\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "classe in pop rv sec→in pop sec"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 350→45, topo 24→0, larg 8→6, alt 33→17, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 22px 400→14px 500"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 5→12, topo 5→10, larg 26→155, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rr"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 19→11, topo 19→11, larg 30→22, alt 30→22, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "topo 128→59, larg 374→406, alt 138→723, classe rzc→—"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→0, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
+   ],
+   [
+    "mudou",
+    "div.mobsearch",
+    "esq 0→16, topo 331→0, alt 499→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzl→mobsearch"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 17→12, topo 17→10, larg 96→155, alt 104→48, fundo color(srgb 0.989412 0.920235 0.935412)→rgba(0, 0, 0, 0), classe rzq→rr"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→4, larg 13→15, alt 10→14, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 7→5, larg 22→15, alt 17→14, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 14→12, topo 12→55, larg 64→155, alt 58→14, fundo color(srgb 0.994118 0.955686 0.964118)→rgba(0, 0, 0, 0), classe rzp→esw"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 48→11, larg 18→22, alt 18→22, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 33→12, topo 5→85, larg 26→155, alt 48→14, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→esw"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "topo 8→0, larg 71→150, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600, classe lx44 navb rzb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 127→12, topo 24→10, larg 230→155, alt 90→18, classe rzx→rr"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 14→12, topo 18→85, larg 68→155, alt 68→14, cor rgb(225, 29, 72)→rgb(17, 17, 17), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzo→esw"
+   ],
+   [
+    "mudou",
+    "div#resultado",
+    "alt 864→51, classe rzm→—"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 367→384"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 85→77, alt 732→749"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 430→447"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 688→705"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 509→525"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 451→467"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 641→657"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "small \"Quase todos os modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Quadradas, retangulares e hexa\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Redondas, ovais e aviador\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, quadradas e hexagonai\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Aviador, redondas e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "small \"Gatinho e ovais\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 436→430"
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 386→380"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 51→54, alt 801→795"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 499→493"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 757→751"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 578→572"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 520→514"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 710→704"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-1-toque-diamante",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "button.rchip.lx44 \"Rosto diamante · 3 modelos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Limpar ✕\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.vnav",
+    ""
+   ],
+   [
+    "apareceu",
+    "span \"Formato do rosto\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.vtit",
+    ""
+   ],
+   [
+    "apareceu",
+    "b#vtitT \"Catálogo\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div#lfgen.lfgen",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.on.lxpos.lx44 \"Todos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div#grid.grid",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · gatinho\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.uvc \"UV400\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"SL2265\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 125\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · metal\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"BR44140\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 105\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "article.card.still",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.fav.lxpos.lx44",
+    ""
+   ],
+   [
+    "apareceu",
+    "svg",
+    ""
+   ],
+   [
+    "apareceu",
+    "path",
+    ""
+   ],
+   [
+    "apareceu",
+    "button.open",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ph",
+    ""
+   ],
+   [
+    "apareceu",
+    "img.pf",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.info",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.ref.lfds \"LaFouch · gatinho\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.uvc \"UV400\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.nm.lfcod \"SL2300\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "i",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.pr \"R$ 130\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.lfft",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.in",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.fbr \"La Fouch\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.mp.lx44 \"Como chegar ›\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Comprar\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Solar\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Leitura\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Armações\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Ofertas\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Atacado\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "b \"Ajuda\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Dúvidas frequentes\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Dicas e cuidados\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Entre em contato\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.fbt",
+    ""
+   ],
+   [
+    "apareceu",
+    "div \"· · © 2026 La Fouch\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Termos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Privacidade\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Privacidade\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Termos\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "span \"Início\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "h2.rzt \"Seu formato de rosto\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.rzs \"Veja quais armações valorizam \"",
+    ""
+   ],
+   [
+    "sumiu",
+    "circle",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"PELA CÂMERA · 1 MIN\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Descubra o seu formato\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzg.lx44",
+    ""
+   ],
+   [
+    "sumiu",
+    "circle",
+    ""
+   ],
+   [
+    "sumiu",
+    "span \"Abrir a câmera\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "h3.rzh \"Escolha o seu formato\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Oval\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: quase qualquer format\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Redondo\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: retangulares ou angul\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Quadrado\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: arredondadas ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Alongado\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: grandes e largas\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Coração\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: aviador ou leves\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "button.rzr",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzp",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "span.rzn",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Diamante\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "small \"Combina: gatinho ou ovais\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "i \"›\"",
+    ""
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "classe in pop rv sec→in pop sec"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 350→45, topo 24→0, larg 8→6, alt 33→17, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 22px 400→14px 500"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 5→12, topo 5→10, larg 26→155, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rr"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 19→11, topo 19→11, larg 30→22, alt 30→22, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "topo 128→59, larg 374→406, alt 138→723, classe rzc→—"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→0, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
+   ],
+   [
+    "mudou",
+    "div.mobsearch",
+    "esq 0→16, topo 331→0, alt 499→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzl→mobsearch"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 17→12, topo 17→10, larg 96→155, alt 104→48, fundo color(srgb 0.989412 0.920235 0.935412)→rgba(0, 0, 0, 0), classe rzq→rr"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→4, larg 13→15, alt 10→14, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 7→5, larg 22→15, alt 17→14, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 14→12, topo 12→55, larg 64→155, alt 58→14, fundo color(srgb 0.994118 0.955686 0.964118)→rgba(0, 0, 0, 0), classe rzp→esw"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 48→11, larg 18→22, alt 18→22, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 33→12, topo 5→85, larg 26→155, alt 48→14, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→esw"
+   ],
+   [
+    "mudou",
+    "button.navb.vback.lx44",
+    "topo 8→0, larg 71→150, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600, classe lx44 navb rzb vback→lx44 navb vback"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "esq 127→12, topo 24→10, larg 230→155, alt 90→18, classe rzx→rr"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "esq 14→12, topo 18→85, larg 68→155, alt 68→14, cor rgb(225, 29, 72)→rgb(17, 17, 17), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzo→esw"
+   ],
+   [
+    "mudou",
+    "div#resultado",
+    "alt 864→51, classe rzm→—"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
   "ruido_ignorado": 2
  },
  {
-  "aparelho": "celular",
-  "tela": "Catálogo",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Peça",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Formato",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Formato-abrir",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Formato-resultado",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "canvas#facv",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.sub \"Armações gatinho ou ovais traz\"",
-    ""
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 688→727"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 641→680"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 430→469"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 367→406"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 259→253"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 85→66, alt 732→771"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 451→490"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 509→548"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Formato-tracos-feminino",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "canvas#facv",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.sub \"Armações retangulares ou angul\"",
-    ""
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 757→774"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 710→726"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 499→515"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 436→452"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 259→253"
-   ],
-   [
-    "mudou",
-    "p.sub \"Seu rosto também tem traços de\"",
-    "topo 386→402"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 51→43, alt 801→818"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 520→536"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 578→594"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular",
-  "tela": "Formato-1-toque-diamante",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "button.rchip.lx44 \"Rosto diamante · 3 modelos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Limpar ✕\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.vnav",
-    ""
-   ],
-   [
-    "apareceu",
-    "span \"Formato do rosto\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.vtit",
-    ""
-   ],
-   [
-    "apareceu",
-    "b#vtitT \"Catálogo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lfgf.lxpos.lx44 \"Filtros\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div#lfgen.lfgen",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.on.lxpos.lx44 \"Todos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Feminino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Masculino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Unissex\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div#grid.grid",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · gatinho\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.uvc \"UV400\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"SL2265\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 125\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · metal\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"BR44140\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 105\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "svg",
-    ""
-   ],
-   [
-    "apareceu",
-    "path",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · gatinho\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.uvc \"UV400\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"SL2300\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 130\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.lfft",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.in",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.fbr \"La Fouch\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Tudo em óculos · Ciudad del Es\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Galeria Jebai Center, 3° piso,\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Segunda a sábado, das 7h30 às \"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.mp.lx44 \"Como chegar ›\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Comprar\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Solar\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Leitura\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Armações\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Ofertas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Atacado\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Ajuda\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Dúvidas frequentes\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Dicas e cuidados\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Entre em contato\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.fbt",
-    ""
-   ],
-   [
-    "apareceu",
-    "div \"· · © 2026 La Fouch\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Termos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Privacidade\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Privacidade\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Termos\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "span \"Início\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "h2.rzt \"Seu formato de rosto\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.rzs \"Veja quais armações valorizam \"",
-    ""
-   ],
-   [
-    "sumiu",
-    "circle",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"PELA CÂMERA · 1 MIN\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Descubra o seu formato\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzg.lx44",
-    ""
-   ],
-   [
-    "sumiu",
-    "circle",
-    ""
-   ],
-   [
-    "sumiu",
-    "span \"Abrir a câmera\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "h3.rzh \"Escolha o seu formato\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Oval\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Redondo\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Quadrado\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Alongado\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Coração\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Diamante\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "mudou",
-    "path",
-    "cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 19→11, topo 19→11, larg 30→22, alt 30→22, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 17→12, topo 17→10, larg 96→155, alt 104→48, fundo color(srgb 0.989412 0.920235 0.935412)→rgba(0, 0, 0, 0), classe rzq→rr"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 127→12, topo 24→10, larg 230→155, alt 90→18, classe rzx→rr"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 2→4, larg 13→15, alt 10→14, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
-   ],
-   [
-    "mudou",
-    "section#vitrine.sec.in.pop",
-    "classe in pop rv sec→in pop sec"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 14→12, topo 18→85, larg 68→155, alt 68→14, cor rgb(225, 29, 72)→rgb(17, 17, 17), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzo→esw"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 14→12, topo 12→55, larg 64→155, alt 58→14, fundo color(srgb 0.994118 0.955686 0.964118)→rgba(0, 0, 0, 0), classe rzp→esw"
-   ],
-   [
-    "mudou",
-    "button.navb.vback.lx44",
-    "topo 8→0, larg 71→150, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600, classe lx44 navb rzb vback→lx44 navb vback"
-   ],
-   [
-    "mudou",
-    "div#vscr",
-    "topo 128→59, larg 374→406, alt 138→723, classe rzc→—"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 48→11, larg 18→22, alt 18→22, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 33→12, topo 5→85, larg 26→155, alt 48→14, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→esw"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 2→0, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
-   ],
-   [
-    "mudou",
-    "i \"›\"",
-    "esq 350→45, topo 24→0, larg 8→6, alt 33→17, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 22px 400→14px 500"
-   ],
-   [
-    "mudou",
-    "path",
-    "topo 7→5, larg 22→15, alt 17→14, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 5→12, topo 5→10, larg 26→155, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rr"
-   ],
-   [
-    "mudou",
-    "div#resultado",
-    "alt 864→51, classe rzm→—"
-   ],
-   [
-    "mudou",
-    "div.mobsearch",
-    "esq 0→16, topo 331→0, alt 499→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzl→mobsearch"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Início",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Catálogo",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Peça",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Formato",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Formato-abrir",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Formato-resultado",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "canvas#facv",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.sub \"Armações gatinho ou ovais traz\"",
-    ""
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 688→727"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 641→680"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 430→469"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 367→406"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 259→253"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 85→66, alt 732→771"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 451→490"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 509→548"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Formato-tracos-feminino",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "small \"Mais comprido que largo, linha\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Largura e altura parecidas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Mandíbula larga e marcada\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Bem mais comprido que largo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Testa larga, queixo fino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "canvas#facv",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.sub \"Armações retangulares ou angul\"",
-    ""
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 757→774"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 710→726"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 499→515"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 436→452"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 259→253"
-   ],
-   [
-    "mudou",
-    "p.sub \"Seu rosto também tem traços de\"",
-    "topo 386→402"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 51→43, alt 801→818"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 520→536"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 578→594"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "celular letra 1,2×",
-  "tela": "Formato-1-toque-diamante",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [
-   [
-    "apareceu",
-    "button.rchip.lx44 \"Rosto diamante · 3 modelos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Limpar ✕\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.vnav",
-    ""
-   ],
-   [
-    "apareceu",
-    "span \"Formato do rosto\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.vtit",
-    ""
-   ],
-   [
-    "apareceu",
-    "b#vtitT \"Catálogo\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lfgf.lxpos.lx44 \"Filtros\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div#lfgen.lfgen",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.on.lxpos.lx44 \"Todos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Feminino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Masculino\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.lxpos.lx44.lxb \"Unissex\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div#grid.grid",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · gatinho\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.uvc \"UV400\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"SL2265\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 125\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · metal\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"BR44140\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 105\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "article.card.still",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.fav.lxpos.lx44",
-    ""
-   ],
-   [
-    "apareceu",
-    "svg",
-    ""
-   ],
-   [
-    "apareceu",
-    "path",
-    ""
-   ],
-   [
-    "apareceu",
-    "button.open",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.ph",
-    ""
-   ],
-   [
-    "apareceu",
-    "img.pf",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.info",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.ref.lfds \"LaFouch · gatinho\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.uvc \"UV400\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.nm.lfcod \"SL2300\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "i",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.pr \"R$ 130\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.lfft",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.in",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "p.fbr \"La Fouch\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Tudo em óculos · Ciudad del Es\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Galeria Jebai Center, 3° piso,\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p \"Segunda a sábado, das 7h30 às \"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.mp.lx44 \"Como chegar ›\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Comprar\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Solar\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Leitura\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Armações\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Ofertas\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Atacado\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div",
-    ""
-   ],
-   [
-    "apareceu",
-    "b \"Ajuda\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Dúvidas frequentes\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Dicas e cuidados\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "p",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Entre em contato\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.fbt",
-    ""
-   ],
-   [
-    "apareceu",
-    "div \"· · © 2026 La Fouch\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Termos\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Privacidade\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Privacidade\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "a.lx44 \"Termos\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "span \"Início\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "h2.rzt \"Seu formato de rosto\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "p.rzs \"Veja quais armações valorizam \"",
-    ""
-   ],
-   [
-    "sumiu",
-    "circle",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"PELA CÂMERA · 1 MIN\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Descubra o seu formato\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzg.lx44",
-    ""
-   ],
-   [
-    "sumiu",
-    "circle",
-    ""
-   ],
-   [
-    "sumiu",
-    "span \"Abrir a câmera\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "h3.rzh \"Escolha o seu formato\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Oval\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: quase qualquer format\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Redondo\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: retangulares ou angul\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Quadrado\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: arredondadas ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Alongado\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: grandes e largas\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Coração\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: aviador ou leves\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "button.rzr",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzp",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzi",
-    ""
-   ],
-   [
-    "sumiu",
-    "span.rzn",
-    ""
-   ],
-   [
-    "sumiu",
-    "b \"Diamante\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "small \"Combina: gatinho ou ovais\"",
-    ""
-   ],
-   [
-    "sumiu",
-    "i \"›\"",
-    ""
-   ],
-   [
-    "mudou",
-    "path",
-    "cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 19→11, topo 19→11, larg 30→22, alt 30→22, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 17→12, topo 17→10, larg 96→155, alt 104→48, fundo color(srgb 0.989412 0.920235 0.935412)→rgba(0, 0, 0, 0), classe rzq→rr"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 127→12, topo 24→10, larg 230→155, alt 90→18, classe rzx→rr"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 2→4, larg 13→15, alt 10→14, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
-   ],
-   [
-    "mudou",
-    "section#vitrine.sec.in.pop",
-    "classe in pop rv sec→in pop sec"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 14→12, topo 18→85, larg 68→155, alt 68→14, cor rgb(225, 29, 72)→rgb(17, 17, 17), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzo→esw"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 14→12, topo 12→55, larg 64→155, alt 58→14, fundo color(srgb 0.994118 0.955686 0.964118)→rgba(0, 0, 0, 0), classe rzp→esw"
-   ],
-   [
-    "mudou",
-    "button.navb.vback.lx44",
-    "topo 8→0, larg 71→150, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600, classe lx44 navb rzb vback→lx44 navb vback"
-   ],
-   [
-    "mudou",
-    "div#vscr",
-    "topo 128→59, larg 374→406, alt 138→723, classe rzc→—"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 48→11, larg 18→22, alt 18→22, cor rgb(255, 255, 255)→rgb(125, 42, 90), letra 15px 700→16px 400"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "esq 33→12, topo 5→85, larg 26→155, alt 48→14, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→esw"
-   ],
-   [
-    "mudou",
-    "svg",
-    "esq 2→0, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 16px 600→15px 600"
-   ],
-   [
-    "mudou",
-    "i \"›\"",
-    "esq 350→45, topo 24→0, larg 8→6, alt 33→17, cor rgb(225, 29, 72)→rgb(212, 27, 68), letra 22px 400→14px 500"
-   ],
-   [
-    "mudou",
-    "path",
-    "topo 7→5, larg 22→15, alt 17→14, cor rgb(225, 29, 72)→rgb(125, 42, 90)"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "esq 5→12, topo 5→10, larg 26→155, fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rr"
-   ],
-   [
-    "mudou",
-    "div#resultado",
-    "alt 864→51, classe rzm→—"
-   ],
-   [
-    "mudou",
-    "div.mobsearch",
-    "esq 0→16, topo 331→0, alt 499→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe rzl→mobsearch"
-   ]
-  ],
-  "ruido_ignorado": 0
- },
- {
-  "aparelho": "tablet",
-  "tela": "Início",
-  "falhas_novas": [],
-  "falhas_que_ja_existiam": [],
-  "diferencas": [],
-  "ruido_ignorado": 0
- },
- {
   "aparelho": "tablet",
   "tela": "Catálogo",
   "falhas_novas": [],
@@ -2499,32 +2499,32 @@
   "diferencas": [
    [
     "apareceu",
-    "small \"Mais comprido que largo, linha\"",
+    "small \"Quase todos os modelos\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Largura e altura parecidas\"",
+    "small \"Quadradas, retangulares e hexa\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Mandíbula larga e marcada\"",
+    "small \"Redondas, ovais e aviador\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Bem mais comprido que largo\"",
+    "small \"Aviador, quadradas e hexagonai\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Testa larga, queixo fino\"",
+    "small \"Aviador, redondas e ovais\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
+    "small \"Gatinho e ovais\"",
     ""
    ],
    [
@@ -2568,32 +2568,32 @@
   "diferencas": [
    [
     "apareceu",
-    "small \"Mais comprido que largo, linha\"",
+    "small \"Quase todos os modelos\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Largura e altura parecidas\"",
+    "small \"Quadradas, retangulares e hexa\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Mandíbula larga e marcada\"",
+    "small \"Redondas, ovais e aviador\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Bem mais comprido que largo\"",
+    "small \"Aviador, quadradas e hexagonai\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Testa larga, queixo fino\"",
+    "small \"Aviador, redondas e ovais\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
+    "small \"Gatinho e ovais\"",
     ""
    ],
    [
@@ -2637,37 +2637,32 @@
   "diferencas": [
    [
     "apareceu",
-    "small \"Mais comprido que largo, linha\"",
+    "small \"Quase todos os modelos\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Largura e altura parecidas\"",
+    "small \"Quadradas, retangulares e hexa\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Mandíbula larga e marcada\"",
+    "small \"Redondas, ovais e aviador\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Bem mais comprido que largo\"",
+    "small \"Aviador, quadradas e hexagonai\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Testa larga, queixo fino\"",
+    "small \"Aviador, redondas e ovais\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
-    ""
-   ],
-   [
-    "apareceu",
-    "span.rzi",
+    "small \"Gatinho e ovais\"",
     ""
    ],
    [
@@ -2677,7 +2672,12 @@
    ],
    [
     "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -2719,21 +2719,6 @@
     "sumiu",
     "p.sub \"Armações gatinho ou ovais traz\"",
     ""
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 671→687"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 638→654"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 429→445"
    ],
    [
     "mudou",
@@ -2747,6 +2732,11 @@
    ],
    [
     "mudou",
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
     "div.fak \"Seu rosto é\"",
     "topo 242→236"
    ],
@@ -2757,18 +2747,28 @@
    ],
    [
     "mudou",
-    "div.fagen",
-    "topo 448→465"
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 429→445"
    ],
    [
     "mudou",
-    "div.faill",
-    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+    "div.fares",
+    "alt 671→687"
    ],
    [
     "mudou",
     "div.fabtns",
     "topo 506→522"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 448→465"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 638→654"
    ]
   ],
   "ruido_ignorado": 0
@@ -2781,32 +2781,32 @@
   "diferencas": [
    [
     "apareceu",
-    "small \"Mais comprido que largo, linha\"",
+    "small \"Quase todos os modelos\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Largura e altura parecidas\"",
+    "small \"Quadradas, retangulares e hexa\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Mandíbula larga e marcada\"",
+    "small \"Redondas, ovais e aviador\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Bem mais comprido que largo\"",
+    "small \"Aviador, quadradas e hexagonai\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Testa larga, queixo fino\"",
+    "small \"Aviador, redondas e ovais\"",
     ""
    ],
    [
     "apareceu",
-    "small \"Maçãs largas, testa e queixo f\"",
+    "small \"Gatinho e ovais\"",
     ""
    ],
    [
@@ -2816,7 +2816,7 @@
    ],
    [
     "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -2861,23 +2861,13 @@
    ],
    [
     "mudou",
-    "div.fares",
-    "alt 718→734"
-   ],
-   [
-    "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 685→702"
-   ],
-   [
-    "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 476→492"
-   ],
-   [
-    "mudou",
     "p.sub.fatam \"Tamanho de armação para você:\"",
     "topo 413→429"
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 362→378"
    ],
    [
     "mudou",
@@ -2886,8 +2876,8 @@
    ],
    [
     "mudou",
-    "p.sub \"Seu rosto também tem traços de\"",
-    "topo 362→378"
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
    ],
    [
     "mudou",
@@ -2901,18 +2891,28 @@
    ],
    [
     "mudou",
-    "div.fagen",
-    "topo 495→512"
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 476→492"
    ],
    [
     "mudou",
-    "div.faill",
-    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+    "div.fares",
+    "alt 718→734"
    ],
    [
     "mudou",
     "div.fabtns",
     "topo 553→570"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 495→512"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 685→702"
    ]
   ],
   "ruido_ignorado": 0
@@ -2925,7 +2925,7 @@
   "diferencas": [
    [
     "apareceu",
-    "p \"Maçãs do rosto largas, com a t\"",
+    "p \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -4050,63 +4050,13 @@
    ],
    [
     "mudou",
-    "div#resultado",
-    "alt 273→285"
-   ],
-   [
-    "mudou",
-    "div",
-    "esq 10→318, topo 10→215, larg 172→258, alt 129→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
-   ],
-   [
-    "mudou",
-    "div",
-    "esq 10→32, topo 10→36, larg 172→544, alt 129→151, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
-   ],
-   [
-    "mudou",
-    "div.info",
-    "alt 136→110"
-   ],
-   [
-    "mudou",
-    "div.in",
-    "topo 139→0, larg 192→608, alt 136→387, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→in"
-   ],
-   [
-    "mudou",
     "span.rr",
     "alt 45→18"
    ],
    [
     "mudou",
-    "i",
-    "fundo rgb(31, 31, 31)→rgb(107, 68, 35)"
-   ],
-   [
-    "mudou",
-    "article.card.still",
-    "alt 277→251"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "alt 18→19"
-   ],
-   [
-    "mudou",
-    "div.lfft",
-    "esq 10→16, topo 10→723, larg 172→608, alt 129→505, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe ph→lfft"
-   ],
-   [
-    "mudou",
     "button.open",
     "alt 275→249"
-   ],
-   [
-    "mudou",
-    "span.uvc \"UV400\"",
-    "esq 0→110, topo 26→0"
    ],
    [
     "mudou",
@@ -4115,73 +4065,8 @@
    ],
    [
     "mudou",
-    "span.pr \"R$ 130\"",
-    "topo 101→75"
-   ],
-   [
-    "mudou",
-    "article.card.still",
-    "alt 277→251"
-   ],
-   [
-    "mudou",
-    "div.info",
-    "alt 136→110"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "topo 55→57"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "topo 83→55"
-   ],
-   [
-    "mudou",
-    "div.res",
-    "alt 273→285"
-   ],
-   [
-    "mudou",
-    "span.pr \"R$ 105\"",
-    "topo 101→75"
-   ],
-   [
-    "mudou",
-    "div.info",
-    "alt 136→110"
-   ],
-   [
-    "mudou",
     "div",
     "esq 0→32, topo 139→215, larg 192→258, alt 136→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→—"
-   ],
-   [
-    "mudou",
-    "div",
-    "topo 25→19, alt 223→247"
-   ],
-   [
-    "mudou",
-    "div.rf",
-    "topo 19→25"
-   ],
-   [
-    "mudou",
-    "div#grid.grid",
-    "topo 437→449, alt 1677→251"
-   ],
-   [
-    "mudou",
-    "span.rr",
-    "alt 45→19"
-   ],
-   [
-    "mudou",
-    "span.uvc \"UV400\"",
-    "esq 0→110, topo 26→0"
    ],
    [
     "mudou",
@@ -4190,8 +4075,38 @@
    ],
    [
     "mudou",
-    "button.open",
-    "alt 275→249"
+    "span.esw",
+    "topo 83→55"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "alt 277→251"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "alt 136→110"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "alt 277→251"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "alt 136→110"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "alt 136→110"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 10→32, topo 10→36, larg 172→544, alt 129→151, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
    ],
    [
     "mudou",
@@ -4200,8 +4115,18 @@
    ],
    [
     "mudou",
+    "article.card.still",
+    "alt 277→251"
+   ],
+   [
+    "mudou",
     "i",
     "fundo rgb(201, 162, 39)→rgb(31, 31, 31)"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "topo 139→0, larg 192→608, alt 136→387, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→in"
    ],
    [
     "mudou",
@@ -4210,8 +4135,68 @@
    ],
    [
     "mudou",
-    "article.card.still",
-    "alt 277→251"
+    "div#grid.grid",
+    "alt 1677→251"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "topo 55→57"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 25→37, alt 223→199"
+   ],
+   [
+    "mudou",
+    "span.uvc \"UV400\"",
+    "esq 0→110, topo 26→0"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 130\"",
+    "topo 101→75"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "alt 275→249"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 10→16, topo 10→711, larg 172→608, alt 129→505, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe ph→lfft"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 105\"",
+    "topo 101→75"
+   ],
+   [
+    "mudou",
+    "i",
+    "fundo rgb(31, 31, 31)→rgb(107, 68, 35)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "alt 45→19"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "alt 18→19"
+   ],
+   [
+    "mudou",
+    "span.uvc \"UV400\"",
+    "esq 0→110, topo 26→0"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 10→318, topo 10→215, larg 172→258, alt 129→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
    ]
   ],
   "ruido_ignorado": 0
@@ -4222,7 +4207,7 @@
   "falhas_novas": [],
   "falhas_que_ja_existiam": [],
   "diferencas": [],
-  "ruido_ignorado": 2
+  "ruido_ignorado": 0
  },
  {
   "aparelho": "PC",
@@ -4248,32 +4233,32 @@
   "diferencas": [
    [
     "apareceu",
-    "span \"O comprimento é maior que a la\"",
+    "span \"Quase todos os modelos: escolh\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Largura e comprimento parecido\"",
+    "span \"Armações quadradas, retangular\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa, maçãs e mandíbula com q\"",
+    "span \"Armações redondas, ovais e avi\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Bem mais comprido que largo, c\"",
+    "span \"Armações aviador, quadradas e \"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa e maçãs largas, afinando\"",
+    "span \"Armações aviador, redondas e o\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Maçãs do rosto largas, com a t\"",
+    "span \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -4309,12 +4294,7 @@
    [
     "mudou",
     "path",
-    "esq 33→27, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 76→63, alt 25→21"
+    "esq 12→10, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
@@ -4324,7 +4304,27 @@
    [
     "mudou",
     "svg.ft",
-    "larg 70→58, alt 112→93"
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 37→31, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 80→67, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 9→7, larg 59→49"
    ],
    [
     "mudou",
@@ -4338,23 +4338,28 @@
    ],
    [
     "mudou",
+    "span.fw",
+    "esq 98→84, larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "b \"Rosto coração\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
     "path",
-    "esq 12→10, larg 24→20, alt 18→15"
+    "esq 40→47, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
-    "svg.gl",
-    "esq 11→9, topo 47→39, larg 70→58, alt 23→19"
+    "b \"Rosto oval\"",
+    "topo 141→159"
    ],
    [
     "mudou",
     "path",
-    "esq 38→32, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 75→62, alt 112→93"
+    "esq 39→45, larg 21→25, alt 13→15"
    ],
    [
     "mudou",
@@ -4368,78 +4373,18 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 8→7, topo 8→7, larg 53→44"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 69→57, alt 112→93"
+    "div.fp",
+    "alt 120→101"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
     "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→113, larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 49→41, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→35, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 37→31, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "b \"Rosto quadrado\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 44→37, larg 68→57, alt 22→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 51→42"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "svg.ft",
+    "larg 80→67, alt 112→93"
    ],
    [
     "mudou",
@@ -4449,7 +4394,42 @@
    [
     "mudou",
     "path",
-    "esq 29→24, topo 73→60, larg 7→6"
+    "esq 33→27, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 46→38, larg 69→57, alt 23→19"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 10→12, larg 21→25, alt 13→15"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 75→62, alt 112→93"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 76→63, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 93→109, alt 112→130"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 77→64, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 71→83, alt 112→130"
    ],
    [
     "mudou",
@@ -4459,172 +4439,32 @@
    [
     "mudou",
     "span.fw",
-    "esq 95→110, larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 41→34, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "b \"Rosto oval\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 29→24, topo 67→56, larg 8→6"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→34, larg 24→20, alt 18→15"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→8, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 38→32, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 35→29, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 52→43, larg 64→54, alt 21→18"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→114, larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 39→32, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 11→9, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto alongado\"",
-    "topo 141→122"
+    "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
     "div.fp",
-    "alt 120→101"
+    "alt 120→138"
    ],
    [
     "mudou",
-    "rect",
-    "esq 39→32, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 98→112, larg 71→59, alt 112→93"
+    "svg.gl",
+    "topo 48→56, larg 73→85, alt 24→28"
    ],
    [
     "mudou",
     "path",
-    "esq 8→6, larg 57→48"
+    "esq 37→31, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 38→31, larg 22→18, alt 15→13"
+    "larg 93→109, alt 112→130"
    ],
    [
     "mudou",
     "path",
-    "esq 11→9, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 183→185, larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, larg 59→49"
+    "esq 8→9, larg 57→67"
    ],
    [
     "mudou",
@@ -4638,53 +4478,23 @@
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 95→79, alt 112→93"
+    "svg.gl",
+    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
    ],
    [
     "mudou",
     "path",
-    "esq 31→26, larg 7→6"
+    "esq 31→36, topo 71→83, larg 8→9"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 75→62, alt 112→93"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 184→186, larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto coração\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 30→25, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 32→27, topo 71→59, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 47→39, larg 70→58, alt 23→19"
+    "esq 183→181, larg 93→109, alt 112→130"
    ],
    [
     "mudou",
@@ -4693,38 +4503,43 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 31→26, topo 71→59, larg 8→7"
+    "b \"Rosto redondo\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "span.fw",
+    "esq 100→114, larg 80→67, alt 112→93"
    ],
    [
     "mudou",
     "path",
-    "esq 31→25, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "esq 11→12, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
     "path",
-    "esq 9→8, larg 20→16, alt 13→11"
+    "esq 7→9, larg 55→64"
    ],
    [
     "mudou",
     "path",
-    "esq 7→6, larg 54→45"
+    "esq 42→34, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
     "svg.gl",
-    "topo 47→39, larg 72→60, alt 24→20"
+    "esq 11→13, topo 47→55, larg 70→82, alt 23→27"
    ],
    [
     "mudou",
     "path",
-    "esq 37→31, topo 71→59, larg 9→7"
+    "esq 31→26, larg 7→6"
    ],
    [
     "mudou",
@@ -4733,118 +4548,18 @@
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 79→66, alt 112→93"
+    "path",
+    "esq 42→49, topo 70→81, larg 8→9"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 11→9, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 108→120, larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 40→33, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 111→123, larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 73→60, alt 24→20"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 46→38, larg 69→57, alt 23→19"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→39, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 40→33, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "b \"Rosto redondo\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→7, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, topo 8→7, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 95→79, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 77→64, alt 25→21"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "b \"Rosto diamante\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 68→57, alt 112→93"
+    "esq 95→110, larg 75→62, alt 112→93"
    ]
   ],
   "ruido_ignorado": 0
@@ -4857,32 +4572,32 @@
   "diferencas": [
    [
     "apareceu",
-    "span \"O comprimento é maior que a la\"",
+    "span \"Quase todos os modelos: escolh\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Largura e comprimento parecido\"",
+    "span \"Armações quadradas, retangular\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa, maçãs e mandíbula com q\"",
+    "span \"Armações redondas, ovais e avi\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Bem mais comprido que largo, c\"",
+    "span \"Armações aviador, quadradas e \"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa e maçãs largas, afinando\"",
+    "span \"Armações aviador, redondas e o\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Maçãs do rosto largas, com a t\"",
+    "span \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -4918,12 +4633,7 @@
    [
     "mudou",
     "path",
-    "esq 33→27, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 76→63, alt 25→21"
+    "esq 12→10, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
@@ -4933,7 +4643,27 @@
    [
     "mudou",
     "svg.ft",
-    "larg 70→58, alt 112→93"
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 37→31, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 80→67, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 9→7, larg 59→49"
    ],
    [
     "mudou",
@@ -4947,23 +4677,28 @@
    ],
    [
     "mudou",
+    "span.fw",
+    "esq 98→84, larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "b \"Rosto coração\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
     "path",
-    "esq 12→10, larg 24→20, alt 18→15"
+    "esq 40→47, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
-    "svg.gl",
-    "esq 11→9, topo 47→39, larg 70→58, alt 23→19"
+    "b \"Rosto oval\"",
+    "topo 141→159"
    ],
    [
     "mudou",
     "path",
-    "esq 38→32, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 75→62, alt 112→93"
+    "esq 39→45, larg 21→25, alt 13→15"
    ],
    [
     "mudou",
@@ -4977,78 +4712,18 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 8→7, topo 8→7, larg 53→44"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 69→57, alt 112→93"
+    "div.fp",
+    "alt 120→101"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
     "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→113, larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 49→41, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→35, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 37→31, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "b \"Rosto quadrado\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 44→37, larg 68→57, alt 22→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 51→42"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "svg.ft",
+    "larg 80→67, alt 112→93"
    ],
    [
     "mudou",
@@ -5058,7 +4733,42 @@
    [
     "mudou",
     "path",
-    "esq 29→24, topo 73→60, larg 7→6"
+    "esq 33→27, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 46→38, larg 69→57, alt 23→19"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 10→12, larg 21→25, alt 13→15"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 75→62, alt 112→93"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 76→63, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 93→109, alt 112→130"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 77→64, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 71→83, alt 112→130"
    ],
    [
     "mudou",
@@ -5068,172 +4778,32 @@
    [
     "mudou",
     "span.fw",
-    "esq 95→110, larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 41→34, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "b \"Rosto oval\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 29→24, topo 67→56, larg 8→6"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→34, larg 24→20, alt 18→15"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→8, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 38→32, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 35→29, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 52→43, larg 64→54, alt 21→18"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→114, larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 39→32, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 11→9, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto alongado\"",
-    "topo 141→122"
+    "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
     "div.fp",
-    "alt 120→101"
+    "alt 120→138"
    ],
    [
     "mudou",
-    "rect",
-    "esq 39→32, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 98→112, larg 71→59, alt 112→93"
+    "svg.gl",
+    "topo 48→56, larg 73→85, alt 24→28"
    ],
    [
     "mudou",
     "path",
-    "esq 8→6, larg 57→48"
+    "esq 37→31, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 38→31, larg 22→18, alt 15→13"
+    "larg 93→109, alt 112→130"
    ],
    [
     "mudou",
     "path",
-    "esq 11→9, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 183→185, larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, larg 59→49"
+    "esq 8→9, larg 57→67"
    ],
    [
     "mudou",
@@ -5247,53 +4817,23 @@
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 95→79, alt 112→93"
+    "svg.gl",
+    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
    ],
    [
     "mudou",
     "path",
-    "esq 31→26, larg 7→6"
+    "esq 31→36, topo 71→83, larg 8→9"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 75→62, alt 112→93"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 184→186, larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto coração\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 30→25, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 32→27, topo 71→59, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 47→39, larg 70→58, alt 23→19"
+    "esq 183→181, larg 93→109, alt 112→130"
    ],
    [
     "mudou",
@@ -5302,38 +4842,43 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 31→26, topo 71→59, larg 8→7"
+    "b \"Rosto redondo\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "span.fw",
+    "esq 100→114, larg 80→67, alt 112→93"
    ],
    [
     "mudou",
     "path",
-    "esq 31→25, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "esq 11→12, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
     "path",
-    "esq 9→8, larg 20→16, alt 13→11"
+    "esq 7→9, larg 55→64"
    ],
    [
     "mudou",
     "path",
-    "esq 7→6, larg 54→45"
+    "esq 42→34, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
     "svg.gl",
-    "topo 47→39, larg 72→60, alt 24→20"
+    "esq 11→13, topo 47→55, larg 70→82, alt 23→27"
    ],
    [
     "mudou",
     "path",
-    "esq 37→31, topo 71→59, larg 9→7"
+    "esq 31→26, larg 7→6"
    ],
    [
     "mudou",
@@ -5342,118 +4887,18 @@
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 79→66, alt 112→93"
+    "path",
+    "esq 42→49, topo 70→81, larg 8→9"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 11→9, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 108→120, larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 40→33, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 111→123, larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 73→60, alt 24→20"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 46→38, larg 69→57, alt 23→19"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→39, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 40→33, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "b \"Rosto redondo\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→7, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, topo 8→7, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 95→79, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 77→64, alt 25→21"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "b \"Rosto diamante\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 68→57, alt 112→93"
+    "esq 95→110, larg 75→62, alt 112→93"
    ]
   ],
   "ruido_ignorado": 0
@@ -5466,37 +4911,37 @@
   "diferencas": [
    [
     "apareceu",
-    "span \"O comprimento é maior que a la\"",
+    "span \"Quase todos os modelos: escolh\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Largura e comprimento parecido\"",
+    "span \"Armações quadradas, retangular\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa, maçãs e mandíbula com q\"",
+    "span \"Armações redondas, ovais e avi\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Bem mais comprido que largo, c\"",
+    "span \"Armações aviador, quadradas e \"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa e maçãs largas, afinando\"",
+    "span \"Armações aviador, redondas e o\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Maçãs do rosto largas, com a t\"",
+    "span \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
     "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -5542,12 +4987,7 @@
    [
     "mudou",
     "path",
-    "esq 33→27, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 76→63, alt 25→21"
+    "esq 12→10, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
@@ -5557,7 +4997,27 @@
    [
     "mudou",
     "svg.ft",
-    "larg 70→58, alt 112→93"
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 37→31, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 80→67, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 9→7, larg 59→49"
    ],
    [
     "mudou",
@@ -5571,28 +5031,43 @@
    ],
    [
     "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 639→656"
+    "span.fw",
+    "esq 98→84, larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "b \"Rosto coração\"",
+    "topo 141→122"
    ],
    [
     "mudou",
     "path",
-    "esq 12→10, larg 24→20, alt 18→15"
+    "esq 40→47, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
-    "svg.gl",
-    "esq 11→9, topo 47→39, larg 70→58, alt 23→19"
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 366→383"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 671→688"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 258→252"
+   ],
+   [
+    "mudou",
+    "b \"Rosto oval\"",
+    "topo 141→159"
    ],
    [
     "mudou",
     "path",
-    "esq 38→32, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 75→62, alt 112→93"
+    "esq 39→45, larg 21→25, alt 13→15"
    ],
    [
     "mudou",
@@ -5606,88 +5081,28 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 8→7, topo 8→7, larg 53→44"
+    "div.fp",
+    "alt 120→101"
    ],
    [
     "mudou",
-    "span.fw",
-    "larg 69→57, alt 112→93"
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
     "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 429→446"
+    "div.fagen",
+    "topo 449→466"
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→113, larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 49→41, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→35, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 37→31, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 366→383"
-   ],
-   [
-    "mudou",
-    "b \"Rosto quadrado\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 44→37, larg 68→57, alt 22→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 51→42"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "svg.ft",
+    "larg 80→67, alt 112→93"
    ],
    [
     "mudou",
@@ -5697,7 +5112,57 @@
    [
     "mudou",
     "path",
-    "esq 29→24, topo 73→60, larg 7→6"
+    "esq 33→27, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 92→84, alt 715→732"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 46→38, larg 69→57, alt 23→19"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 10→12, larg 21→25, alt 13→15"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 75→62, alt 112→93"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 76→63, alt 25→21"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 429→446"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 93→109, alt 112→130"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 77→64, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 71→83, alt 112→130"
    ],
    [
     "mudou",
@@ -5707,187 +5172,32 @@
    [
     "mudou",
     "span.fw",
-    "esq 95→110, larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 41→34, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "b \"Rosto oval\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 507→524"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 258→252"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 29→24, topo 67→56, larg 8→6"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→34, larg 24→20, alt 18→15"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→8, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 38→32, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 35→29, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 52→43, larg 64→54, alt 21→18"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→114, larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 39→32, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 11→9, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto alongado\"",
-    "topo 141→122"
+    "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
     "div.fp",
-    "alt 120→101"
+    "alt 120→138"
    ],
    [
     "mudou",
-    "rect",
-    "esq 39→32, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 98→112, larg 71→59, alt 112→93"
+    "svg.gl",
+    "topo 48→56, larg 73→85, alt 24→28"
    ],
    [
     "mudou",
     "path",
-    "esq 8→6, larg 57→48"
+    "esq 37→31, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 38→31, larg 22→18, alt 15→13"
+    "larg 93→109, alt 112→130"
    ],
    [
     "mudou",
     "path",
-    "esq 11→9, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 183→185, larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, larg 59→49"
+    "esq 8→9, larg 57→67"
    ],
    [
     "mudou",
@@ -5901,58 +5211,28 @@
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 76→63, alt 112→93"
+    "svg.gl",
+    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 95→79, alt 112→93"
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 639→656"
    ],
    [
     "mudou",
     "path",
-    "esq 31→26, larg 7→6"
+    "esq 31→36, topo 71→83, larg 8→9"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 75→62, alt 112→93"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 184→186, larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto coração\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 30→25, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 32→27, topo 71→59, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 47→39, larg 70→58, alt 23→19"
+    "esq 183→181, larg 93→109, alt 112→130"
    ],
    [
     "mudou",
@@ -5961,48 +5241,48 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 31→26, topo 71→59, larg 8→7"
+    "b \"Rosto redondo\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 507→524"
+   ],
+   [
+    "mudou",
+    "span.fw",
+    "esq 100→114, larg 80→67, alt 112→93"
    ],
    [
     "mudou",
     "path",
-    "esq 31→25, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "esq 11→12, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
     "path",
-    "esq 9→8, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 92→84, alt 715→732"
+    "esq 7→9, larg 55→64"
    ],
    [
     "mudou",
     "path",
-    "esq 7→6, larg 54→45"
+    "esq 42→34, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
     "svg.gl",
-    "topo 47→39, larg 72→60, alt 24→20"
+    "esq 11→13, topo 47→55, larg 70→82, alt 23→27"
    ],
    [
     "mudou",
     "path",
-    "esq 37→31, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 449→466"
+    "esq 31→26, larg 7→6"
    ],
    [
     "mudou",
@@ -6011,123 +5291,18 @@
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 79→66, alt 112→93"
+    "path",
+    "esq 42→49, topo 70→81, larg 8→9"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 11→9, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 108→120, larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 40→33, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 671→688"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 111→123, larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 73→60, alt 24→20"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 46→38, larg 69→57, alt 23→19"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→39, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 40→33, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "b \"Rosto redondo\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→7, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, topo 8→7, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 95→79, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 77→64, alt 25→21"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "b \"Rosto diamante\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 68→57, alt 112→93"
+    "esq 95→110, larg 75→62, alt 112→93"
    ]
   ],
   "ruido_ignorado": 0
@@ -6140,37 +5315,37 @@
   "diferencas": [
    [
     "apareceu",
-    "span \"O comprimento é maior que a la\"",
+    "span \"Quase todos os modelos: escolh\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Largura e comprimento parecido\"",
+    "span \"Armações quadradas, retangular\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa, maçãs e mandíbula com q\"",
+    "span \"Armações redondas, ovais e avi\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Bem mais comprido que largo, c\"",
+    "span \"Armações aviador, quadradas e \"",
     ""
    ],
    [
     "apareceu",
-    "span \"Testa e maçãs largas, afinando\"",
+    "span \"Armações aviador, redondas e o\"",
     ""
    ],
    [
     "apareceu",
-    "span \"Maçãs do rosto largas, com a t\"",
+    "span \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
     "apareceu",
-    "p.sub \"Maçãs do rosto largas, com a t\"",
+    "p.sub \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -6216,12 +5391,7 @@
    [
     "mudou",
     "path",
-    "esq 33→27, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 76→63, alt 25→21"
+    "esq 12→10, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
@@ -6231,7 +5401,27 @@
    [
     "mudou",
     "svg.ft",
-    "larg 70→58, alt 112→93"
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 37→31, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 95→79, alt 112→93"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 80→67, alt 112→93"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 9→7, larg 59→49"
    ],
    [
     "mudou",
@@ -6245,28 +5435,48 @@
    ],
    [
     "mudou",
-    "button.fan \"Não parece com você? Escolher \"",
-    "topo 687→703"
+    "span.fw",
+    "esq 98→84, larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "b \"Rosto coração\"",
+    "topo 141→122"
    ],
    [
     "mudou",
     "path",
-    "esq 12→10, larg 24→20, alt 18→15"
+    "esq 40→47, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
-    "svg.gl",
-    "esq 11→9, topo 47→39, larg 70→58, alt 23→19"
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 414→430"
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 362→379"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 719→735"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 258→252"
+   ],
+   [
+    "mudou",
+    "b \"Rosto oval\"",
+    "topo 141→159"
    ],
    [
     "mudou",
     "path",
-    "esq 38→32, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 75→62, alt 112→93"
+    "esq 39→45, larg 21→25, alt 13→15"
    ],
    [
     "mudou",
@@ -6280,88 +5490,28 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 8→7, topo 8→7, larg 53→44"
+    "div.fp",
+    "alt 120→101"
    ],
    [
     "mudou",
-    "span.fw",
-    "larg 69→57, alt 112→93"
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
     "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
-    "div.fak \"Para quem são os óculos?\"",
-    "topo 477→493"
+    "div.fagen",
+    "topo 497→513"
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→113, larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 49→41, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→35, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 37→31, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "p.sub.fatam \"Tamanho de armação para você:\"",
-    "topo 414→430"
-   ],
-   [
-    "mudou",
-    "b \"Rosto quadrado\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 44→37, larg 68→57, alt 22→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 51→42"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "svg.ft",
+    "larg 80→67, alt 112→93"
    ],
    [
     "mudou",
@@ -6371,7 +5521,57 @@
    [
     "mudou",
     "path",
-    "esq 29→24, topo 73→60, larg 7→6"
+    "esq 33→27, topo 71→59, larg 9→7"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 69→60, alt 763→779"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 46→38, larg 69→57, alt 23→19"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 10→12, larg 21→25, alt 13→15"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 75→62, alt 112→93"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 76→63, alt 25→21"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 477→493"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 93→109, alt 112→130"
+   ],
+   [
+    "mudou",
+    "svg.gl",
+    "topo 48→40, larg 77→64, alt 25→21"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 71→83, alt 112→130"
    ],
    [
     "mudou",
@@ -6381,192 +5581,32 @@
    [
     "mudou",
     "span.fw",
-    "esq 95→110, larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 41→34, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "b \"Rosto oval\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "div.fabtns",
-    "topo 555→571"
-   ],
-   [
-    "mudou",
-    "div.faill",
-    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
-   ],
-   [
-    "mudou",
-    "h3 \"Diamante\"",
-    "topo 258→252"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 70→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 29→24, topo 67→56, larg 8→6"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 42→34, larg 24→20, alt 18→15"
-   ],
-   [
-    "mudou",
-    "p.sub \"Seu rosto também tem traços de\"",
-    "topo 362→379"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→8, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 38→32, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 35→29, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 10→8, larg 21→18, alt 14→11"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "larg 70→58, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 52→43, larg 64→54, alt 21→18"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 100→114, larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 39→32, larg 21→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 11→9, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 75→62, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 71→59, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto alongado\"",
-    "topo 141→122"
+    "larg 79→66, alt 112→93"
    ],
    [
     "mudou",
     "div.fp",
-    "alt 120→101"
+    "alt 120→138"
    ],
    [
     "mudou",
-    "rect",
-    "esq 39→32, larg 22→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 98→112, larg 71→59, alt 112→93"
+    "svg.gl",
+    "topo 48→56, larg 73→85, alt 24→28"
    ],
    [
     "mudou",
     "path",
-    "esq 8→6, larg 57→48"
+    "esq 37→31, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "svg.ft",
-    "larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 38→31, larg 22→18, alt 15→13"
+    "larg 93→109, alt 112→130"
    ],
    [
     "mudou",
     "path",
-    "esq 11→9, larg 21→18, alt 16→13"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 183→185, larg 93→78, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, larg 59→49"
+    "esq 8→9, larg 57→67"
    ],
    [
     "mudou",
@@ -6580,58 +5620,28 @@
    ],
    [
     "mudou",
-    "span.fi",
-    "larg 76→63, alt 112→93"
+    "svg.gl",
+    "esq 10→8, topo 44→36, larg 75→62, alt 25→20"
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 95→79, alt 112→93"
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 687→703"
    ],
    [
     "mudou",
     "path",
-    "esq 31→26, larg 7→6"
+    "esq 31→36, topo 71→83, larg 8→9"
+   ],
+   [
+    "mudou",
+    "span.fi",
+    "larg 75→62, alt 112→93"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 184→186, larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "b \"Rosto coração\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 30→25, topo 70→58, larg 8→6"
-   ],
-   [
-    "mudou",
-    "div.fak \"Seu rosto é\"",
-    "topo 242→236"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 32→27, topo 71→59, larg 8→6"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "esq 10→8, topo 47→39, larg 70→58, alt 23→19"
+    "esq 183→181, larg 93→109, alt 112→130"
    ],
    [
     "mudou",
@@ -6640,48 +5650,48 @@
    ],
    [
     "mudou",
-    "path",
-    "esq 31→26, topo 71→59, larg 8→7"
+    "b \"Rosto redondo\"",
+    "topo 141→122"
+   ],
+   [
+    "mudou",
+    "svg.ft",
+    "larg 71→83, alt 112→130"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 555→571"
+   ],
+   [
+    "mudou",
+    "span.fw",
+    "esq 100→114, larg 80→67, alt 112→93"
    ],
    [
     "mudou",
     "path",
-    "esq 31→25, topo 70→58, larg 8→7"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
+    "esq 11→12, larg 22→26, alt 13→16"
    ],
    [
     "mudou",
     "path",
-    "esq 9→8, larg 20→16, alt 13→11"
-   ],
-   [
-    "mudou",
-    "div.modal.try.fa",
-    "topo 69→60, alt 763→779"
+    "esq 7→9, larg 55→64"
    ],
    [
     "mudou",
     "path",
-    "esq 7→6, larg 54→45"
+    "esq 42→34, larg 24→20, alt 18→15"
    ],
    [
     "mudou",
     "svg.gl",
-    "topo 47→39, larg 72→60, alt 24→20"
+    "esq 11→13, topo 47→55, larg 70→82, alt 23→27"
    ],
    [
     "mudou",
     "path",
-    "esq 37→31, topo 71→59, larg 9→7"
-   ],
-   [
-    "mudou",
-    "div.fagen",
-    "topo 497→513"
+    "esq 31→26, larg 7→6"
    ],
    [
     "mudou",
@@ -6690,123 +5700,18 @@
    ],
    [
     "mudou",
-    "svg.ft",
-    "larg 79→66, alt 112→93"
+    "path",
+    "esq 42→49, topo 70→81, larg 8→9"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 11→9, larg 21→18, alt 16→13"
    ],
    [
     "mudou",
     "span.fw",
-    "esq 108→120, larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 40→33, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "div.fares",
-    "alt 719→735"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 76→63, alt 112→93"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "div.fp",
-    "alt 120→101"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 7→6, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fw",
-    "esq 111→123, larg 68→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 73→60, alt 24→20"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 46→38, larg 69→57, alt 23→19"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→39, larg 70→58, alt 23→19"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 40→33, larg 22→18, alt 13→11"
-   ],
-   [
-    "mudou",
-    "b \"Rosto redondo\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 90→75, alt 112→93"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 69→57, alt 112→93"
-   ],
-   [
-    "mudou",
-    "rect",
-    "esq 9→7, larg 22→18, alt 15→13"
-   ],
-   [
-    "mudou",
-    "path",
-    "esq 9→7, topo 8→7, larg 55→46"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 80→67, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.ft",
-    "larg 95→79, alt 112→93"
-   ],
-   [
-    "mudou",
-    "svg.gl",
-    "topo 48→40, larg 77→64, alt 25→21"
-   ],
-   [
-    "mudou",
-    "ellipse",
-    "esq 11→9, larg 21→18, alt 15→12"
-   ],
-   [
-    "mudou",
-    "b \"Rosto diamante\"",
-    "topo 141→122"
-   ],
-   [
-    "mudou",
-    "span.fi",
-    "larg 68→57, alt 112→93"
+    "esq 95→110, larg 75→62, alt 112→93"
    ]
   ],
   "ruido_ignorado": 0
@@ -6819,7 +5724,7 @@
   "diferencas": [
    [
     "apareceu",
-    "p \"Maçãs do rosto largas, com a t\"",
+    "p \"Armações gatinho e ovais: a pa\"",
     ""
    ],
    [
@@ -7944,8 +6849,23 @@
    ],
    [
     "mudou",
+    "span.rr",
+    "alt 23→21"
+   ],
+   [
+    "mudou",
     "div",
-    "esq 10→980, topo 10→36, larg 294→340, alt 221→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
+    "esq 0→592, topo 231→36, larg 314→340, alt 125→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→—"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "topo 231→234, larg 314→1320, alt 125→92, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→12px 400, classe info→fbt"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "topo 64→62"
    ],
    [
     "mudou",
@@ -7954,13 +6874,43 @@
    ],
    [
     "mudou",
+    "i",
+    "fundo rgb(201, 162, 39)→rgb(31, 31, 31)"
+   ],
+   [
+    "mudou",
     "div.in",
     "topo 231→0, larg 314→1320, alt 125→208, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→in"
    ],
    [
     "mudou",
-    "span.rr",
-    "alt 23→21"
+    "i",
+    "fundo rgb(31, 31, 31)→rgb(207, 216, 220)"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "alt 1861→358"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "topo 62→64"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 73→85, alt 126→102"
+   ],
+   [
+    "mudou",
+    "span.uvc \"UV400\"",
+    "esq 145→127"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 10→60, topo 10→795, larg 294→1320, alt 221→326, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe ph→lfft"
    ],
    [
     "mudou",
@@ -7974,53 +6924,13 @@
    ],
    [
     "mudou",
-    "div.lfft",
-    "esq 10→60, topo 10→795, larg 294→1320, alt 221→326, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe ph→lfft"
-   ],
-   [
-    "mudou",
     "span.uvc \"UV400\"",
     "esq 141→127"
    ],
    [
     "mudou",
-    "span.esw",
-    "topo 62→64"
-   ],
-   [
-    "mudou",
-    "span.esw",
-    "topo 64→62"
-   ],
-   [
-    "mudou",
     "div",
-    "esq 0→592, topo 231→36, larg 314→340, alt 125→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe info→—"
-   ],
-   [
-    "mudou",
-    "div#grid.grid",
-    "alt 1861→358"
-   ],
-   [
-    "mudou",
-    "span.uvc \"UV400\"",
-    "esq 145→127"
-   ],
-   [
-    "mudou",
-    "div.fbt",
-    "topo 231→234, larg 314→1320, alt 125→92, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→12px 400, classe info→fbt"
-   ],
-   [
-    "mudou",
-    "i",
-    "fundo rgb(201, 162, 39)→rgb(31, 31, 31)"
-   ],
-   [
-    "mudou",
-    "i",
-    "fundo rgb(31, 31, 31)→rgb(207, 216, 220)"
+    "esq 10→980, topo 10→36, larg 294→340, alt 221→172, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), letra 16px 400→13.5px 400, classe ph→—"
    ]
   ],
   "ruido_ignorado": 0

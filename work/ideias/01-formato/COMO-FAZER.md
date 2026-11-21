@@ -1,8 +1,8 @@
 # IDEIAS 01 · Descubra seu formato — mais preciso e resultado elegante (para o SITE)
 
 Pedido do dono 21/11 09:53: "melhorar para ser ainda mais preciso" e "mostrar o resultado de forma elegante; hoje fica um desenho em roxo do formato, de forma amadora".
-Dono 21/11 10:21: "não tem como medir sob essas formas (perto, cabeça torta)?" e "precisamos atualizar a descrição dos formatos de rosto".
-Base: site real 1795266930, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg`, `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera.py`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
+Dono 21/11 10:21: "não tem como medir sob essas formas (perto, cabeça torta)?" e "precisamos atualizar a descrição dos formatos de rosto". Dono 21/11 12:13: "a descrição precisa ser dos modelos que combinam e não do formato do rosto".
+Base: site real 1795269030, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg`, `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera.py`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
 
 ## Aprovados incluídos
 - 11/11 15:29–15:32 (dono): tirar o desenho em volta do rosto do cliente e trocar a foto pela **ilustração do formato** (opção A) — nunca implementado; é a parte 1 abaixo.
@@ -44,29 +44,31 @@ Achados:
 - O artigo "rosto" do guia nunca roda (`guiaAbre('rosto')` vai para a página do formato) — código morto, com o `FX5`.
 
 Jeito natural (planta do banco aprovada 19/11 23:03: "o site calcula num lugar só … rosto"):
-1. **Uma tabela só**: `FACES` ganha `rec` (como reconhecer, curto), `dica` (frase do resultado) e `fm` (formatos de armação que combinam, com os nomes do app). O site calcula `p.rosto = rostoDe(p.fm)`; peça sem formato = nenhum rosto (sai o `['oval']` inventado). Saem `RZ_C`, o artigo do guia + `FX5` e, no APP, `ROSTO_DE` e o campo `rosto` (recado para APP depois do "implementar").
-2. Lista "Escolha o seu formato": o `<small>` mostra `f.rec` (uma linha, cabe na letra 1,2×).
-3. Toque na lista abre o catálogo do formato na hora: o desvio `faceGo` do clique vale só para o carrossel `#fcar` (que só aparece no PC), nunca para a linha da lista `.rzr`.
-4. PC (`esboco-05-pc.jpg`, só conferência): os cartões do carrossel mostram a mesma `dica`, agora com 3 linhas.
-5. Tabela proposta (ES vai no lf-i18n.js):
+1. **Uma tabela só**: cada item de `FACES` tem `fm` (formatos de armação que combinam, com os nomes do app) e `pq` (por que combinam). A descrição é **dos modelos** e sai do `fm`: `faMod(f)` = "Quadradas, retangulares e hexagonais" (Oval, com 6+ formatos = "Quase todos os modelos"); `faDica(f)` = "Armações quadradas, retangulares e hexagonais: as linhas retas dão estrutura e alongam o rosto." Sai o `dica` escrito à mão, o `RZ_C` e o `f.dica=LFI.tn(f.dica)` do espanhol (as partes se traduzem uma a uma: nomes em `FMP` + `pq`).
+2. O site calcula `p.rosto = rostoDe(p.fm)`; peça sem formato = nenhum rosto (sai o `['oval']` inventado). No APP saem `ROSTO_DE` e o campo `rosto` (recado para APP depois do "implementar").
+3. Onde a descrição aparece, tudo pelo `faMod`/`faDica`: lista "Escolha o seu formato" (`<small>` = `faMod`, uma linha), resultado da câmera, aviso do catálogo (`drawRes`) e cartões do PC (`drawFaces`, com o `faMod` curto: 1 linha em todos, os desenhos ficam do mesmo tamanho — com a frase longa ficavam de tamanhos diferentes).
+4. Toque na lista abre o catálogo do formato na hora: o desvio `faceGo` vale só para o carrossel `#fcar` (que só aparece no PC), nunca para a linha `.rzr`.
+5. Sai o artigo "rosto" do guia + `FX5` (código morto).
+6. Tabela proposta (confirmar com o dono; ES vai no lf-i18n.js):
 
-| Rosto | Como reconhecer | Frase do resultado | Armações (fm) |
-|---|---|---|---|
-| Oval | Mais comprido que largo, linhas suaves | O comprimento é maior que a largura, com linhas suaves da testa ao queixo. Quase todo formato fica bem: escolha pelo estilo. | todos |
-| Redondo | Largura e altura parecidas | Largura e comprimento parecidos, maçãs cheias e queixo arredondado. Armações retas e angulares dão estrutura e alongam o rosto. | Quadrado, Retangular, Hexagonal |
-| Quadrado | Mandíbula larga e marcada | Testa, maçãs e mandíbula com quase a mesma largura, e a mandíbula reta. Armações curvas suavizam os ângulos. | Redondo, Oval, Aviador |
-| Alongado | Bem mais comprido que largo | Bem mais comprido que largo, com as laterais quase retas. Armações altas e largas equilibram o comprimento. | Aviador, Quadrado, Hexagonal |
-| Coração | Testa larga, queixo fino | Testa e maçãs largas, afinando até um queixo fino. Armações mais leves em cima e arredondadas embaixo equilibram a testa. | Aviador, Redondo, Oval |
-| Diamante | Maçãs largas, testa e queixo finos | Maçãs do rosto largas, com a testa e o queixo mais estreitos. Armações com a parte de cima marcada equilibram as maçãs. | Gatinho, Oval |
+| Rosto | Modelos que combinam (lista) | Por quê (resultado) |
+|---|---|---|
+| Oval | Quase todos os modelos | escolha pelo estilo. |
+| Redondo | Quadradas, retangulares e hexagonais | as linhas retas dão estrutura e alongam o rosto. |
+| Quadrado | Redondas, ovais e aviador | as curvas suavizam a mandíbula marcada. |
+| Alongado | Aviador, quadradas e hexagonais | lentes altas e largas equilibram o comprimento. |
+| Coração | Aviador, redondas e ovais | mais leves em cima e arredondadas embaixo, equilibram a testa. |
+| Diamante | Gatinho e ovais | a parte de cima marcada equilibra as maçãs do rosto. |
 
 Com as peças de hoje: Oval 18 · Redondo 10 · Alongado 8 · Quadrado 5 · Coração 5 · Diamante 3 (antes: Diamante e Alongado 0).
-- Travas: toda peça com `fm` tem rosto; todo rosto tem ao menos uma armação; 1 toque na lista abre o catálogo.
+- Travas: toda peça com `fm` tem rosto; todo rosto tem ao menos uma armação; a descrição de cada rosto só cita formatos do seu `fm`; 1 toque na lista abre o catálogo.
 
-## Comparador Hoje × Proposta (regra 11) — `comp/relatorio.json`
-- **Sem falha nova** em celular, celular letra 1,2×, tablet e PC. Início, Catálogo e Peça: 0 diferença.
-- Página do formato (celular/tablet): 12 = os 6 `<small>` trocados ("Combina: …" → como reconhecer). PC: 120 = as 6 frases dos cartões do carrossel (3 linhas em vez de 2) e o que desce com elas.
-- Resultado: 27 = foto/canvas → ilustração (`.faph`→`.faill`, 2 `span.rzi`), frase nova (mais longa: o resto desce), os 12 da lista por trás.
-- 1 toque em Diamante: 155–258 = Hoje fica na página (nada acontece) × Proposta abre o catálogo com as 3 peças.
+## Comparador Hoje × Proposta (regra 11) — `comp/relatorio.json` (celular, letra 1,2×, tablet) e `comp-PC/relatorio.json`
+- **Sem falha nova** em nenhum aparelho. Início, Catálogo e Peça: 0 diferença.
+- Página do formato (celular/tablet): 12 = os 6 `<small>` ("Combina: …" → os modelos da tabela).
+- PC: 120 = os 6 cartões do carrossel (frase de 2 linhas → modelos em 1 linha; desenhos e botões sobem/crescem junto).
+- Resultado: 27 (celular/tablet) = foto/canvas → ilustração (`.faph`→`.faill`, 2 `span.rzi`), frase nova, os 12 da lista por trás.
+- 1 toque em Diamante: 155–255 = Hoje fica na página (nada acontece) × Proposta abre o catálogo com as 3 peças.
 
 ## Testado / não testado
 - Simulador (Chromium, celular 386×858, letra 1× e 1,2×): resultado, Feminino/Masculino/Todos, conserto dos "traços", lista e toque nos formatos (Diamante, Coração, Alongado), câmera de teste (sem rosto); correção de distância/giro só na simulação com o rosto-padrão.

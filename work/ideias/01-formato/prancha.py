@@ -18,7 +18,7 @@ def prancha(out, tit, subs, itens):
     B.resize((B.width // 2, B.height // 2), Image.LANCZOS).save(os.path.join(AQUI, out), quality=88)
 
 prancha('esboco-01-resultado.jpg', 'IDEIAS 01 · Descubra seu formato — resultado (celular)', [
-    'Proposta: no lugar da foto do cliente com o contorno roxo, a ilustração do formato (a mesma da lista "Escolha o seu formato"), num quadro rosado.',
+    'Proposta: no lugar da foto do cliente com o contorno roxo, a ilustração do formato (a mesma da lista), num quadro rosado; a frase fala dos modelos que combinam.',
     'Feminino/Masculino/Todos troca a ilustração. Conserto junto: com "também tem traços de", escolher Feminino trocava o texto para o 2º formato.',
     'Foto de teste: silhueta feita do rosto-padrão de 478 pontos do próprio leitor do site (sem foto de pessoa real). Peças e textos: site real 1795264209.'], [
     ('hoje-3-resultado.png', 'Hoje · resultado', 'foto do cliente + contorno roxo + anel'),
@@ -37,11 +37,11 @@ prancha('esboco-02-camera.jpg', 'IDEIAS 01 · Descubra seu formato — câmera (
     ('cam-prop-virado.png', 'Proposta · caso extremo', 'só se ficar virado > 30° o tempo todo')])
 
 prancha('esboco-03-formatos.jpg', 'IDEIAS 01 · Descubra seu formato — descrição dos formatos (celular)', [
-    'Lista: no lugar de "Combina: …" (que contradizia a regra das peças), como reconhecer cada rosto. O que combina aparece no resultado.',
-    'Uma tabela só (FACES) diz como é cada rosto, o texto e QUAIS formatos de armação combinam; o site tira dela os rostos de cada peça.',
+    'A descrição fala dos MODELOS que combinam, tirada da mesma lista que escolhe as peças de cada rosto (hoje é escrita à mão e contradiz as peças).',
+    'Uma tabela só (FACES): quais formatos de armação combinam + por quê; o site tira dela a lista, o resultado, os cartões do PC e os rostos de cada peça.',
     'Hoje nenhuma peça é Diamante nem Alongado: o aviso diz "18 modelos" e mostra o catálogo inteiro. E no celular o 1º toque na lista não faz nada.'], [
     ('lista-hoje-fim.png', 'Hoje · lista', '"Combina:" escrito à mão'),
-    ('lista-prop-fim.png', 'Proposta · lista', 'como reconhecer, da tabela'),
+    ('lista-prop-fim.png', 'Proposta · lista', 'os modelos que combinam, da tabela'),
     ('vit-hoje-diamante-1toque.png', 'Hoje · 1º toque em Diamante', 'nada acontece (gira um carrossel escondido)'),
     ('vit-hoje-diamante.png', 'Hoje · 2º toque', '"18 modelos" = o catálogo inteiro'),
     ('vit-prop-diamante.png', 'Proposta · 1 toque', '3 modelos gatinho, os que combinam')])
@@ -60,8 +60,8 @@ print('ok')
 # PC (só conferência: o PC terá design próprio) — Hoje em cima, Proposta embaixo
 a = I.open(os.path.join(C, 'pc-hoje.png')).convert('RGB'); b = I.open(os.path.join(C, 'pc-prop.png')).convert('RGB')
 B = I.new('RGB', (a.width + 80, 200 + 2 * a.height + 100), '#e9e4e8'); d = ImageDraw.Draw(B)
-d.text((40, 24), 'IDEIAS 01 · PC (só conferência) — a mesma tabela muda as frases dos cartões', font=F(40, 1), fill='#231a22')
-d.text((40, 84), 'No PC a página do formato é o carrossel de cartões, que mostra a frase do formato: ela fica com 3 linhas em vez de 2.', font=F(26), fill='#6b5d67')
+d.text((40, 24), 'IDEIAS 01 · PC (só conferência) — os cartões mostram os modelos que combinam', font=F(40, 1), fill='#231a22')
+d.text((40, 84), 'No PC a página do formato é o carrossel de cartões: a frase vira os modelos que combinam, em 1 linha (hoje 2); os desenhos maiores e do mesmo tamanho.', font=F(26), fill='#6b5d67')
 d.text((40, 150), 'Hoje', font=F(30, 1), fill='#b3261e'); B.paste(a, (40, 200))
 d.text((40, 200 + a.height + 20), 'Proposta', font=F(30, 1), fill='#8d3a69'); B.paste(b, (40, 250 + a.height + 20))
 B.resize((B.width // 2, B.height // 2), I.LANCZOS).save(os.path.join(AQUI, 'esboco-05-pc.jpg'), quality=88)

@@ -1,14 +1,14 @@
 RESULTADO: sem falha nova
-== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -16,12 +16,12 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == celular · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -29,15 +29,15 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == celular · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -46,25 +46,25 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | div.fares | alt 688→727
-    mudou | button.fan "Não parece com você? Escolher " | topo 641→680
-    mudou | div.fak "Para quem são os óculos?" | topo 430→469
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→406
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→384
     mudou | h3 "Diamante" | topo 259→253
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 85→66, alt 732→771
-    mudou | div.fagen | topo 451→490
     mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fabtns | topo 509→548
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.modal.try.fa | topo 85→77, alt 732→749
+    mudou | div.fak "Para quem são os óculos?" | topo 430→447
+    mudou | div.fares | alt 688→705
+    mudou | div.fabtns | topo 509→525
+    mudou | div.fagen | topo 451→467
+    mudou | button.fan "Não parece com você? Escolher " | topo 641→657
 == celular · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -73,17 +73,17 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | div.fares | alt 757→774
-    mudou | button.fan "Não parece com você? Escolher " | topo 710→726
-    mudou | div.fak "Para quem são os óculos?" | topo 499→515
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→452
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→430
+    mudou | p.sub "Seu rosto também tem traços de" | topo 386→380
     mudou | h3 "Diamante" | topo 259→253
-    mudou | p.sub "Seu rosto também tem traços de" | topo 386→402
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 51→43, alt 801→818
-    mudou | div.fagen | topo 520→536
     mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fabtns | topo 578→594
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.modal.try.fa | topo 51→54, alt 801→795
+    mudou | div.fak "Para quem são os óculos?" | topo 499→493
+    mudou | div.fares | alt 757→751
+    mudou | div.fabtns | topo 578→572
+    mudou | div.fagen | topo 520→514
+    mudou | button.fan "Não parece com você? Escolher " | topo 710→704
 == celular · Formato-1-toque-diamante — 0 falha(s) nova(s), 155 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | button.rchip.lx44 "Rosto diamante · 3 modelos" | 
     apareceu | b "Limpar ✕" | 
@@ -129,12 +129,12 @@ RESULTADO: sem falha nova
 == celular letra 1,2× · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular letra 1,2× · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular letra 1,2× · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -142,12 +142,12 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == celular letra 1,2× · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -155,15 +155,15 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == celular letra 1,2× · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -172,25 +172,25 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | div.fares | alt 688→727
-    mudou | button.fan "Não parece com você? Escolher " | topo 641→680
-    mudou | div.fak "Para quem são os óculos?" | topo 430→469
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→406
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→384
     mudou | h3 "Diamante" | topo 259→253
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 85→66, alt 732→771
-    mudou | div.fagen | topo 451→490
     mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fabtns | topo 509→548
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.modal.try.fa | topo 85→77, alt 732→749
+    mudou | div.fak "Para quem são os óculos?" | topo 430→447
+    mudou | div.fares | alt 688→705
+    mudou | div.fabtns | topo 509→525
+    mudou | div.fagen | topo 451→467
+    mudou | button.fan "Não parece com você? Escolher " | topo 641→657
 == celular letra 1,2× · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -199,17 +199,17 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | div.fares | alt 757→774
-    mudou | button.fan "Não parece com você? Escolher " | topo 710→726
-    mudou | div.fak "Para quem são os óculos?" | topo 499→515
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→452
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→430
+    mudou | p.sub "Seu rosto também tem traços de" | topo 386→380
     mudou | h3 "Diamante" | topo 259→253
-    mudou | p.sub "Seu rosto também tem traços de" | topo 386→402
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 51→43, alt 801→818
-    mudou | div.fagen | topo 520→536
     mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fabtns | topo 578→594
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.modal.try.fa | topo 51→54, alt 801→795
+    mudou | div.fak "Para quem são os óculos?" | topo 499→493
+    mudou | div.fares | alt 757→751
+    mudou | div.fabtns | topo 578→572
+    mudou | div.fagen | topo 520→514
+    mudou | button.fan "Não parece com você? Escolher " | topo 710→704
 == celular letra 1,2× · Formato-1-toque-diamante — 0 falha(s) nova(s), 155 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | button.rchip.lx44 "Rosto diamante · 3 modelos" | 
     apareceu | b "Limpar ✕" | 
@@ -251,16 +251,16 @@ RESULTADO: sem falha nova
     apareceu | path | 
     apareceu | button.open | 
     apareceu | div.ph | 
-== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
 == tablet · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == tablet · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == tablet · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -268,12 +268,12 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == tablet · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -281,15 +281,15 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
 == tablet · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -298,25 +298,25 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | div.fares | alt 671→687
-    mudou | button.fan "Não parece com você? Escolher " | topo 638→654
-    mudou | div.fak "Para quem são os óculos?" | topo 429→445
     mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→382
     mudou | h3 "Diamante" | topo 257→251
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
     mudou | div.fak "Seu rosto é" | topo 242→236
     mudou | div.modal.try.fa | topo 70→61, alt 714→731
-    mudou | div.fagen | topo 448→465
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | div.fak "Para quem são os óculos?" | topo 429→445
+    mudou | div.fares | alt 671→687
     mudou | div.fabtns | topo 506→522
+    mudou | div.fagen | topo 448→465
+    mudou | button.fan "Não parece com você? Escolher " | topo 638→654
 == tablet · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | small "Mais comprido que largo, linha" | 
-    apareceu | small "Largura e altura parecidas" | 
-    apareceu | small "Mandíbula larga e marcada" | 
-    apareceu | small "Bem mais comprido que largo" | 
-    apareceu | small "Testa larga, queixo fino" | 
-    apareceu | small "Maçãs largas, testa e queixo f" | 
+    apareceu | small "Quase todos os modelos" | 
+    apareceu | small "Quadradas, retangulares e hexa" | 
+    apareceu | small "Redondas, ovais e aviador" | 
+    apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | small "Gatinho e ovais" | 
     apareceu | span.rzi | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
@@ -325,19 +325,19 @@ RESULTADO: sem falha nova
     sumiu | small "Combina: gatinho ou ovais" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | div.fares | alt 718→734
-    mudou | button.fan "Não parece com você? Escolher " | topo 685→702
-    mudou | div.fak "Para quem são os óculos?" | topo 476→492
     mudou | p.sub.fatam "Tamanho de armação para você:" | topo 413→429
-    mudou | h3 "Diamante" | topo 257→251
     mudou | p.sub "Seu rosto também tem traços de" | topo 362→378
+    mudou | h3 "Diamante" | topo 257→251
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
     mudou | div.fak "Seu rosto é" | topo 242→236
     mudou | div.modal.try.fa | topo 46→38, alt 761→778
-    mudou | div.fagen | topo 495→512
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | div.fak "Para quem são os óculos?" | topo 476→492
+    mudou | div.fares | alt 718→734
     mudou | div.fabtns | topo 553→570
-== tablet · Formato-1-toque-diamante — 0 falha(s) nova(s), 258 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | p "Maçãs do rosto largas, com a t" | 
+    mudou | div.fagen | topo 495→512
+    mudou | button.fan "Não parece com você? Escolher " | topo 685→702
+== tablet · Formato-1-toque-diamante — 0 falha(s) nova(s), 255 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p "Armações gatinho e ovais: a pa" | 
     sumiu | p "Armações gatinho ou ovais traz" | 
     sumiu | button.fav | 
     sumiu | button.open | 
@@ -377,99 +377,99 @@ RESULTADO: sem falha nova
     sumiu | article.card.still | 
     sumiu | button.fav | 
     sumiu | svg | 
-== PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == PC · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == PC · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-== PC · Formato — 0 falha(s) nova(s), 120 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "O comprimento é maior que a la" | 
-    apareceu | span "Largura e comprimento parecido" | 
-    apareceu | span "Testa, maçãs e mandíbula com q" | 
-    apareceu | span "Bem mais comprido que largo, c" | 
-    apareceu | span "Testa e maçãs largas, afinando" | 
-    apareceu | span "Maçãs do rosto largas, com a t" | 
+== PC · Formato — 0 falha(s) nova(s), 66 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos: escolh" | 
+    apareceu | span "Armações quadradas, retangular" | 
+    apareceu | span "Armações redondas, ovais e avi" | 
+    apareceu | span "Armações aviador, quadradas e " | 
+    apareceu | span "Armações aviador, redondas e o" | 
+    apareceu | span "Armações gatinho e ovais: a pa" | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
     sumiu | span "Armações grandes e largas traz" | 
     sumiu | span "Armações aviador ou leves traz" | 
     sumiu | span "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | path | esq 12→10, larg 24→20, alt 18→15
     mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 70→58, alt 112→93
+    mudou | svg.ft | larg 95→79, alt 112→93
+    mudou | path | esq 37→31, topo 71→59, larg 9→7
+    mudou | span.fi | larg 95→79, alt 112→93
+    mudou | span.fi | larg 80→67, alt 112→93
+    mudou | path | esq 9→7, larg 59→49
     mudou | span.fi | larg 79→66, alt 112→93
     mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | svg.gl | esq 11→9, topo 47→39, larg 70→58, alt 23→19
-    mudou | path | esq 38→32, larg 21→18, alt 14→11
-    mudou | span.fi | larg 75→62, alt 112→93
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | b "Rosto coração" | topo 141→122
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | b "Rosto oval" | topo 141→159
+    mudou | path | esq 39→45, larg 21→25, alt 13→15
     mudou | rect | esq 43→36, larg 21→17, alt 15→12
     mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | path | esq 8→7, topo 8→7, larg 53→44
-    mudou | span.fw | larg 69→57, alt 112→93
-    mudou | svg.ft | larg 70→59, alt 112→93
-    mudou | span.fw | larg 79→66, alt 112→93
-    mudou | span.fi | larg 93→78, alt 112→93
-    mudou | span.fw | esq 100→113, larg 70→59, alt 112→93
-    mudou | svg.gl | topo 49→41, larg 70→58, alt 23→19
-    mudou | path | esq 42→35, topo 70→58, larg 8→6
-    mudou | span.fi | larg 70→58, alt 112→93
-    mudou | path | esq 37→31, larg 21→18, alt 16→13
-    mudou | b "Rosto quadrado" | topo 141→122
-    mudou | svg.gl | topo 44→37, larg 68→57, alt 22→19
-    mudou | path | esq 7→6, larg 51→42
-    mudou | path | esq 7→6, larg 55→46
     mudou | div.fp | alt 120→101
+    mudou | svg.ft | larg 79→66, alt 112→93
+    mudou | svg.ft | larg 80→67, alt 112→93
     mudou | path | esq 35→29, topo 69→57, larg 8→6
-== PC · Formato-abrir — 0 falha(s) nova(s), 120 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "O comprimento é maior que a la" | 
-    apareceu | span "Largura e comprimento parecido" | 
-    apareceu | span "Testa, maçãs e mandíbula com q" | 
-    apareceu | span "Bem mais comprido que largo, c" | 
-    apareceu | span "Testa e maçãs largas, afinando" | 
-    apareceu | span "Maçãs do rosto largas, com a t" | 
+    mudou | path | esq 33→27, topo 71→59, larg 9→7
+    mudou | svg.gl | topo 46→38, larg 69→57, alt 23→19
+    mudou | path | esq 10→12, larg 21→25, alt 13→15
+    mudou | svg.ft | larg 75→62, alt 112→93
+    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | span.fi | larg 93→109, alt 112→130
+    mudou | svg.gl | topo 48→40, larg 77→64, alt 25→21
+    mudou | span.fi | larg 71→83, alt 112→130
+== PC · Formato-abrir — 0 falha(s) nova(s), 66 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos: escolh" | 
+    apareceu | span "Armações quadradas, retangular" | 
+    apareceu | span "Armações redondas, ovais e avi" | 
+    apareceu | span "Armações aviador, quadradas e " | 
+    apareceu | span "Armações aviador, redondas e o" | 
+    apareceu | span "Armações gatinho e ovais: a pa" | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
     sumiu | span "Armações grandes e largas traz" | 
     sumiu | span "Armações aviador ou leves traz" | 
     sumiu | span "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | path | esq 12→10, larg 24→20, alt 18→15
     mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 70→58, alt 112→93
+    mudou | svg.ft | larg 95→79, alt 112→93
+    mudou | path | esq 37→31, topo 71→59, larg 9→7
+    mudou | span.fi | larg 95→79, alt 112→93
+    mudou | span.fi | larg 80→67, alt 112→93
+    mudou | path | esq 9→7, larg 59→49
     mudou | span.fi | larg 79→66, alt 112→93
     mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | svg.gl | esq 11→9, topo 47→39, larg 70→58, alt 23→19
-    mudou | path | esq 38→32, larg 21→18, alt 14→11
-    mudou | span.fi | larg 75→62, alt 112→93
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | b "Rosto coração" | topo 141→122
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | b "Rosto oval" | topo 141→159
+    mudou | path | esq 39→45, larg 21→25, alt 13→15
     mudou | rect | esq 43→36, larg 21→17, alt 15→12
     mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | path | esq 8→7, topo 8→7, larg 53→44
-    mudou | span.fw | larg 69→57, alt 112→93
-    mudou | svg.ft | larg 70→59, alt 112→93
-    mudou | span.fw | larg 79→66, alt 112→93
-    mudou | span.fi | larg 93→78, alt 112→93
-    mudou | span.fw | esq 100→113, larg 70→59, alt 112→93
-    mudou | svg.gl | topo 49→41, larg 70→58, alt 23→19
-    mudou | path | esq 42→35, topo 70→58, larg 8→6
-    mudou | span.fi | larg 70→58, alt 112→93
-    mudou | path | esq 37→31, larg 21→18, alt 16→13
-    mudou | b "Rosto quadrado" | topo 141→122
-    mudou | svg.gl | topo 44→37, larg 68→57, alt 22→19
-    mudou | path | esq 7→6, larg 51→42
-    mudou | path | esq 7→6, larg 55→46
     mudou | div.fp | alt 120→101
+    mudou | svg.ft | larg 79→66, alt 112→93
+    mudou | svg.ft | larg 80→67, alt 112→93
     mudou | path | esq 35→29, topo 69→57, larg 8→6
-== PC · Formato-resultado — 0 falha(s) nova(s), 133 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "O comprimento é maior que a la" | 
-    apareceu | span "Largura e comprimento parecido" | 
-    apareceu | span "Testa, maçãs e mandíbula com q" | 
-    apareceu | span "Bem mais comprido que largo, c" | 
-    apareceu | span "Testa e maçãs largas, afinando" | 
-    apareceu | span "Maçãs do rosto largas, com a t" | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    mudou | path | esq 33→27, topo 71→59, larg 9→7
+    mudou | svg.gl | topo 46→38, larg 69→57, alt 23→19
+    mudou | path | esq 10→12, larg 21→25, alt 13→15
+    mudou | svg.ft | larg 75→62, alt 112→93
+    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | span.fi | larg 93→109, alt 112→130
+    mudou | svg.gl | topo 48→40, larg 77→64, alt 25→21
+    mudou | span.fi | larg 71→83, alt 112→130
+== PC · Formato-resultado — 0 falha(s) nova(s), 79 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos: escolh" | 
+    apareceu | span "Armações quadradas, retangular" | 
+    apareceu | span "Armações redondas, ovais e avi" | 
+    apareceu | span "Armações aviador, quadradas e " | 
+    apareceu | span "Armações aviador, redondas e o" | 
+    apareceu | span "Armações gatinho e ovais: a pa" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
@@ -478,39 +478,39 @@ RESULTADO: sem falha nova
     sumiu | span "Armações gatinho ou ovais traz" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | path | esq 12→10, larg 24→20, alt 18→15
     mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 70→58, alt 112→93
+    mudou | svg.ft | larg 95→79, alt 112→93
+    mudou | path | esq 37→31, topo 71→59, larg 9→7
+    mudou | span.fi | larg 95→79, alt 112→93
+    mudou | span.fi | larg 80→67, alt 112→93
+    mudou | path | esq 9→7, larg 59→49
     mudou | span.fi | larg 79→66, alt 112→93
     mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | button.fan "Não parece com você? Escolher " | topo 639→656
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | svg.gl | esq 11→9, topo 47→39, larg 70→58, alt 23→19
-    mudou | path | esq 38→32, larg 21→18, alt 14→11
-    mudou | span.fi | larg 75→62, alt 112→93
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | b "Rosto coração" | topo 141→122
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→383
+    mudou | div.fares | alt 671→688
+    mudou | h3 "Diamante" | topo 258→252
+    mudou | b "Rosto oval" | topo 141→159
+    mudou | path | esq 39→45, larg 21→25, alt 13→15
     mudou | rect | esq 43→36, larg 21→17, alt 15→12
     mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | path | esq 8→7, topo 8→7, larg 53→44
-    mudou | span.fw | larg 69→57, alt 112→93
-    mudou | svg.ft | larg 70→59, alt 112→93
-    mudou | span.fw | larg 79→66, alt 112→93
-    mudou | div.fak "Para quem são os óculos?" | topo 429→446
-    mudou | span.fi | larg 93→78, alt 112→93
-    mudou | span.fw | esq 100→113, larg 70→59, alt 112→93
-    mudou | svg.gl | topo 49→41, larg 70→58, alt 23→19
-    mudou | path | esq 42→35, topo 70→58, larg 8→6
-    mudou | span.fi | larg 70→58, alt 112→93
-    mudou | path | esq 37→31, larg 21→18, alt 16→13
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→383
-== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 134 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "O comprimento é maior que a la" | 
-    apareceu | span "Largura e comprimento parecido" | 
-    apareceu | span "Testa, maçãs e mandíbula com q" | 
-    apareceu | span "Bem mais comprido que largo, c" | 
-    apareceu | span "Testa e maçãs largas, afinando" | 
-    apareceu | span "Maçãs do rosto largas, com a t" | 
-    apareceu | p.sub "Maçãs do rosto largas, com a t" | 
+    mudou | div.fp | alt 120→101
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | svg.ft | larg 79→66, alt 112→93
+    mudou | div.fagen | topo 449→466
+    mudou | svg.ft | larg 80→67, alt 112→93
+    mudou | path | esq 35→29, topo 69→57, larg 8→6
+== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 80 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos: escolh" | 
+    apareceu | span "Armações quadradas, retangular" | 
+    apareceu | span "Armações redondas, ovais e avi" | 
+    apareceu | span "Armações aviador, quadradas e " | 
+    apareceu | span "Armações aviador, redondas e o" | 
+    apareceu | span "Armações gatinho e ovais: a pa" | 
+    apareceu | p.sub "Armações gatinho e ovais: a pa" | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
@@ -519,33 +519,33 @@ RESULTADO: sem falha nova
     sumiu | span "Armações gatinho ou ovais traz" | 
     sumiu | canvas#facv | 
     sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
+    mudou | path | esq 12→10, larg 24→20, alt 18→15
     mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 70→58, alt 112→93
+    mudou | svg.ft | larg 95→79, alt 112→93
+    mudou | path | esq 37→31, topo 71→59, larg 9→7
+    mudou | span.fi | larg 95→79, alt 112→93
+    mudou | span.fi | larg 80→67, alt 112→93
+    mudou | path | esq 9→7, larg 59→49
     mudou | span.fi | larg 79→66, alt 112→93
     mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | button.fan "Não parece com você? Escolher " | topo 687→703
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | svg.gl | esq 11→9, topo 47→39, larg 70→58, alt 23→19
-    mudou | path | esq 38→32, larg 21→18, alt 14→11
-    mudou | span.fi | larg 75→62, alt 112→93
+    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
+    mudou | b "Rosto coração" | topo 141→122
+    mudou | path | esq 40→47, larg 22→26, alt 13→16
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 414→430
+    mudou | p.sub "Seu rosto também tem traços de" | topo 362→379
+    mudou | div.fares | alt 719→735
+    mudou | h3 "Diamante" | topo 258→252
+    mudou | b "Rosto oval" | topo 141→159
+    mudou | path | esq 39→45, larg 21→25, alt 13→15
     mudou | rect | esq 43→36, larg 21→17, alt 15→12
     mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | path | esq 8→7, topo 8→7, larg 53→44
-    mudou | span.fw | larg 69→57, alt 112→93
-    mudou | svg.ft | larg 70→59, alt 112→93
-    mudou | span.fw | larg 79→66, alt 112→93
-    mudou | div.fak "Para quem são os óculos?" | topo 477→493
-    mudou | span.fi | larg 93→78, alt 112→93
-    mudou | span.fw | esq 100→113, larg 70→59, alt 112→93
-    mudou | svg.gl | topo 49→41, larg 70→58, alt 23→19
-    mudou | path | esq 42→35, topo 70→58, larg 8→6
-    mudou | span.fi | larg 70→58, alt 112→93
-    mudou | path | esq 37→31, larg 21→18, alt 16→13
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 414→430
-== PC · Formato-1-toque-diamante — 0 falha(s) nova(s), 241 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | p "Maçãs do rosto largas, com a t" | 
+    mudou | div.fp | alt 120→101
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | svg.ft | larg 79→66, alt 112→93
+    mudou | div.fagen | topo 497→513
+    mudou | svg.ft | larg 80→67, alt 112→93
+== PC · Formato-1-toque-diamante — 0 falha(s) nova(s), 242 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p "Armações gatinho e ovais: a pa" | 
     sumiu | p "Armações gatinho ou ovais traz" | 
     sumiu | button.fav | 
     sumiu | button.open | 
