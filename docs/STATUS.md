@@ -67,6 +67,7 @@
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — partes 1 e 2 ✅ publicadas no site 1795225493 (20/11): Esc = voltar, carrinho por cima — porteiro 221 provas, 0 falhas · parte 3 (internet fraca): plano em partes sendo medido, vai ao dono como esboço
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
+- **34-plano-das-ferramentas** — esboço pronto — esperando o dono (docs/PLANO-FERRAMENTAS-21-11.md: 4 partes — um simulador, um jeito de medir, comparador único, porteiro só portão; decidir a ordem)
 - **34-qual-e-a-frente-com-o-tratamento-do-giro** — ✅ v587 (5.50.12, 20/11) — pedido do dono 20/11 22:18 ('corrija'); falta o dono testar no celular real
 - **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
