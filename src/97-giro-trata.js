@@ -215,8 +215,11 @@
       }
       return t;
     }
-    // a peça inteira (meia resolução): tudo o que não é branco e está ligado ao miolo mais escuro
-    function peca(t) {
+    // a peça inteira (meia resolução): tudo o que não é branco e está ligado ao miolo mais escuro.
+    // Item 39 (20/11/2026, celular do dono: a frente de uma armação clara saiu com uma lente apagada): numa peça clara, um lado pode não
+    // ter "miolo escuro" e a ponte some no branco — esse lado ficava solto e era apagado como se fosse risco do fundo. Com `caixa` (por
+    // onde a peça passou na gravação inteira, em pontos de trabalho) o que não é branco e está DENTRO dela também é peça.
+    function peca(t, caixa) {
       var mn = new Uint8Array(w2 * h2), x, y, k, i;
       for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
         var m = 255;
@@ -243,6 +246,7 @@
       for (i = 0; i < w2 * h2; i++) tudo[i] = mn[i] < 232 ? 1 : 0;
       var liga = gtExtremo(nu, w2, h2, 9, true, Uint8Array), p2 = gtPedacos(tudo, w2, h2), toca = new Uint8Array(p2.n + 1);
       for (i = 0; i < w2 * h2; i++) if (liga[i] && p2.lab[i]) toca[p2.lab[i]] = 1;
+      if (caixa) for (y = Math.max(0, caixa.y0 >> 1); y <= Math.min(h2 - 1, caixa.y1 >> 1); y++) for (x = Math.max(0, caixa.x0 >> 1); x <= Math.min(w2 - 1, caixa.x1 >> 1); x++) { i = y * w2 + x; if (p2.lab[i] && p2.area[p2.lab[i]] > corte) toca[p2.lab[i]] = 1; }
       var m2 = new Uint8Array(w2 * h2), x0 = w2, x1 = -1, y0 = h2, y1 = -1;
       for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
         i = y * w2 + x;
@@ -305,7 +309,13 @@
       sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
       return sai;
     }
-    return { amostra: amostra, aprende: aprende, trata: trata, peca: peca, nitidez: nitidez, recorte: recorte, imagem: imagem };
+        // a caixa que junta várias medidas da peça (cada uma { x0, x1, y0, y1, achou })
+    function junta(l) {
+      var c = { x0: W, x1: -1, y0: H, y1: -1 };
+      l.forEach(function (p) { if (!p.achou) return; if (p.x0 < c.x0) c.x0 = p.x0; if (p.x1 > c.x1) c.x1 = p.x1; if (p.y0 < c.y0) c.y0 = p.y0; if (p.y1 > c.y1) c.y1 = p.y1; });
+      return c.x1 < 0 ? null : c;
+    }
+    return { amostra: amostra, aprende: aprende, trata: trata, peca: peca, nitidez: nitidez, recorte: recorte, imagem: imagem, junta: junta };
   }
   // As fotos escolhidas à mão (a frente e a 3/4 da tela "Qual é a frente?") com o MESMO tratamento do giro (item 34, 20/11/2026):
   // o fundo parado é aprendido das imagens da própria gravação (até 24, espalhadas por ela), cada imagem escolhida é dividida por ele e
@@ -313,7 +323,7 @@
   // branca: no cenário do giro (tenda e prato) ele não acha a peça. Q = imagens da gravação ({ b: arquivo }); ixs = as escolhidas.
   // Devolve uma tela 960×640 por imagem escolhida (null = não há peça nela, ou a peça não saiu do lugar na gravação).
   function giroFotos(Q, ixs) {
-    var K = Math.min(24, Q.length), am = [], sai = [], tr, W, H, cx;
+    var K = Math.min(24, Q.length), am = [], sai = [], ims = [], caixa = null, tr, W, H, cx;
     function abre(bl) {
       return new Promise(function (ok, no) {
         var u = URL.createObjectURL(bl), im = new Image();
@@ -335,13 +345,14 @@
       return abre(Q[Math.round(i * (Q.length - 1) / Math.max(1, K - 1))].b).then(function (im) {
         var d = pontos(im);
         am.push(tr.amostra(d));
+        ims.push(im);
         return fundo(i + 1);
       });
     }
     function foto(n) {
       if (n >= ixs.length) return Promise.resolve(sai);
       return abre(Q[ixs[n]].b).then(function (im) {
-        var pc = tr.peca(tr.trata(pontos(im))), r, c = null;
+        var pc = tr.peca(tr.trata(pontos(im)), caixa), r, c = null;
         if (pc.achou) {
           r = tr.recorte(pc.x0, pc.x1, pc.y0, pc.y1);
           c = document.createElement('canvas'); c.width = GT_SAI[0]; c.height = GT_SAI[1];
@@ -351,7 +362,12 @@
         return foto(n + 1);
       });
     }
-    return fundo(0).then(function () { tr.aprende(am); return foto(0); });
+    return fundo(0).then(function () {
+      tr.aprende(am);
+      caixa = tr.junta(ims.map(function (im) { return tr.peca(tr.trata(pontos(im))); })); // por onde a peça passou na gravação
+      ims = null;
+      return foto(0);
+    });
   }
   function giroTrata(blob, o) {
     o = o || {};
@@ -441,6 +457,8 @@
         return { d: out, amp: Math.sqrt(a * a + b * b) };
       }
       var hx = harm(0), hy = harm(1), bx0 = 1e9, bx1 = -1e9, by0 = 1e9, by1 = -1e9, nits = [], n;
+      // por onde a peça passou na volta inteira (sem tirar o passeio): na 2ª passada, o que não é branco ali dentro é peça
+      var caixa = tr.junta(med.map(function (m) { return { x0: m[0] - m[2] / 2, x1: m[0] + m[2] / 2, y0: m[1] - m[3] / 2, y1: m[1] + m[3] / 2, achou: m[5] < 1e9 }; }));
       for (n = 0; n < GT_N; n++) {
         bx0 = Math.min(bx0, med[n][0] - med[n][2] / 2 - hx.d[n]); bx1 = Math.max(bx1, med[n][0] + med[n][2] / 2 - hx.d[n]);
         by0 = Math.min(by0, med[n][1] - med[n][3] / 2 - hy.d[n]); by1 = Math.max(by1, med[n][1] + med[n][3] / 2 - hy.d[n]);
@@ -482,7 +500,7 @@
           if (j >= GT_N || erroEnc) return Promise.resolve();
           var n = (frente + j) % GT_N;
           return pega(t0 + n * per / GT_N).then(function (d) {
-            var t = tr.trata(d), pc = tr.peca(t);
+            var t = tr.trata(d), pc = tr.peca(t, caixa);
             sai = tr.imagem(v, v.videoWidth, v.videoHeight, pc, X0 + hx.d[n], Y0 + hy.d[n], w, h);
             if (fotosQ.indexOf(j) >= 0) fotos[j] = sai.toDataURL('image/jpeg', 0.95);
             if (!j) capa = sai.toDataURL('image/jpeg', 0.86);
