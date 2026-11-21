@@ -3438,3 +3438,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   - O esboço 41c vai para obsoletos; o 44 é refeito por este rumo (esboço 45).
 
 - 21/11 11:01–11:02 — DONO, ajustes do Estúdio: os Controles manuais da câmera saem ("inútil"). O "?" fica **só** com a ajuda ("Como fotografar"). Saem a Montagem (morta: nada lê `S.estMont`), "Vídeo 360" (porta repetida) e "O que meu celular libera". Medir o fundo fica automático. "Todos esses ajustes estão mortos e inúteis." Anotado no esboço 45.
+
+- 21/11 11:07 — DONO APROVOU os esboços 43, 44 (consolidado) e 45, na versão enviada às 11:04 (7 imagens). Esperam o "implementar".
