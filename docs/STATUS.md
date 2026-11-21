@@ -86,6 +86,7 @@
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **43-implementar-tudo-em-partes** — em andamento (continuação agendada autorizada pelo dono 21/11 10:47) — 4b ✅ v591–v593 · 4c ✅ v594–v597 (5.50.22). Próximas, nesta ordem: 4d (Superfície e ficha) → 39 preço exato (parte do APP) → 38 giro (tratamento certo; GPU) → resto dos 52 → aprovados de 21/11 (37 Ajustes/Peças/grupo, 37 câmera reta, 38 aviso curto, 41, 42) → folha VER sem toque (dVer/dVerEsc). Lista de testes para o dono só no fim
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
+- **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
 - **45-ideias-formato-preciso-e-elegante** — esboço pronto — esperando o dono (v2 21/11 10:21)
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
 - **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
