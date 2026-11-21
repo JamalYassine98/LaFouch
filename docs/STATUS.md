@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Black Friday: só a da CDE (sai a data internacional de reserva) | src/97-cupons.js, src/97-marketing.js, src/97-site-pediu.js, tests/run.py |
+| ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 
 ## Fila
 
