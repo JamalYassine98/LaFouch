@@ -26,3 +26,13 @@ A parte 0 tira a espera na raiz (quem lê o que é público não precisa de selo
 ## O que o dono decide
 - "Aprovado" para as partes 1 → 2 → 3 nessa ordem (a 1 é a que mais aparece). Cada uma vem com a medida antes × depois na mesma rede.
 - A parte 1 pede trabalho do APP/NUVEM (fotos como arquivo). Se preferir não mexer nisso agora, a ordem vira 2 → 3 → 1.
+
+## Andamento (21/11)
+| Rede limpa, visita nova, celular | 1º cartão | 1ª foto |
+|---|---|---|
+| Antes (site 1795225493) — 4G fraco / bom | 20,6 s / 4,9 s | 31 s / 6,1 s |
+| Parte 0, sem esperar o selo (1795232856) | 15,4–16,6 s / 2,5 s | 22–23,6 s / 2,9 s |
+| Parte 1, começo rápido (1795264209) | 15,4–16,1 s / 1,9 s | 16,3–16,9 s / 2,1 s |
+| Sem a recarga da 1ª abertura (1795266930) | 14,0–14,1 s / 1,6 s (uma medida logo após publicar: 20,2 s) | 14,9 s / 1,8 s (idem: 21,1 s) |
+
+O que sobra no 4G fraco é quase só o programa do site (271 KB, ~11 s). Parte 2: o trecho da consulta do grau com a Mochi tem ~215 KB dos 813 KB do arquivo (linhas ~3500–4250) — é o primeiro candidato a descer só quando a pessoa abre a consulta; falta estudar onde a Mochi aparece no Início. Parte 3: logo mais leve (esboço na Fila 36) e letras no próprio site.

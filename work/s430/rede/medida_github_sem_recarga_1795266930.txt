@@ -1,0 +1,277 @@
+rede	Set up job	﻿2026-11-21T13:16:26.9813524Z Current runner version: '2.338.2'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261111.635
+Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Build Date: 2026-11-11T01:49:01Z
+Worker ID: {730ef09c-28fd-47b8-96db-17015529a026}
+Region: westus2
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+26.04.1
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-26.04
+Version: 20261116.202.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Contents: read
+Metadata: read
+Packages: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Complete job name: rede
+rede	Run actions/checkout@v4	﻿2026-11-21T13:16:27.6791437Z ##[group]Run actions/checkout@v4
+with:
+  repository: JamalYassine98/LaFouch
+  token: ***
+  ssh-strict: true
+  ssh-user: git
+  persist-credentials: true
+  clean: true
+  sparse-checkout-cone-mode: true
+  fetch-depth: 1
+  fetch-tags: false
+  show-progress: true
+  lfs: false
+  submodules: false
+  set-safe-directory: true
+  allow-unsafe-pr-checkout: false
+##[endgroup]
+Syncing repository: JamalYassine98/LaFouch
+##[group]Getting Git version info
+Working directory is '/home/runner/work/LaFouch/LaFouch'
+[command]/usr/bin/git version
+git version 2.56.1
+##[endgroup]
+Temporarily overriding HOME='/home/runner/work/_temp/99503c3f-6d5f-4edc-aa46-232a16aac384' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/LaFouch/LaFouch
+Deleting the contents of '/home/runner/work/LaFouch/LaFouch'
+##[group]Initializing the repository
+[command]/usr/bin/git init /home/runner/work/LaFouch/LaFouch
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: will change to "main" in Git 3.0. To configure the initial branch name
+hint: to use in all of your new repositories, which will suppress this warning,
+hint: call:
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint: 	git branch -m <name>
+hint:
+hint: Disable this message with "git config set advice.defaultBranchName false"
+Initialized empty Git repository in /home/runner/work/LaFouch/LaFouch/.git/
+[command]/usr/bin/git remote add origin https://github.com/JamalYassine98/LaFouch
+##[endgroup]
+##[group]Disabling automatic garbage collection
+[command]/usr/bin/git config --local gc.auto 0
+##[endgroup]
+##[group]Setting up auth
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+[command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+##[endgroup]
+##[group]Fetching the repository
+[command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cc8e1b16dd3e650d85e76f30d5f2de3d84c5e135:refs/remotes/origin/main
+From https://github.com/JamalYassine98/LaFouch
+ * [new ref]         cc8e1b16dd3e650d85e76f30d5f2de3d84c5e135 -> origin/main
+##[endgroup]
+##[group]Determining the checkout info
+##[endgroup]
+[command]/usr/bin/git sparse-checkout disable
+[command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+##[group]Checking out the ref
+[command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Updating files:  29% (1937/6586)
+Updating files:  30% (1976/6586)
+Updating files:  31% (2042/6586)
+Updating files:  32% (2108/6586)
+Updating files:  33% (2174/6586)
+Updating files:  34% (2240/6586)
+Updating files:  35% (2306/6586)
+Updating files:  36% (2371/6586)
+Updating files:  37% (2437/6586)
+Updating files:  38% (2503/6586)
+Updating files:  39% (2569/6586)
+Updating files:  40% (2635/6586)
+Updating files:  41% (2701/6586)
+Updating files:  42% (2767/6586)
+Updating files:  43% (2832/6586)
+Updating files:  44% (2898/6586)
+Updating files:  45% (2964/6586)
+Updating files:  46% (3030/6586)
+Updating files:  47% (3096/6586)
+Updating files:  48% (3162/6586)
+Updating files:  49% (3228/6586)
+Updating files:  50% (3293/6586)
+Updating files:  51% (3359/6586)
+Updating files:  52% (3425/6586)
+Updating files:  52% (3438/6586)
+Updating files:  53% (3491/6586)
+Updating files:  54% (3557/6586)
+Updating files:  55% (3623/6586)
+Updating files:  56% (3689/6586)
+Updating files:  57% (3755/6586)
+Updating files:  58% (3820/6586)
+Updating files:  59% (3886/6586)
+Updating files:  60% (3952/6586)
+Updating files:  61% (4018/6586)
+Updating files:  62% (4084/6586)
+Updating files:  63% (4150/6586)
+Updating files:  64% (4216/6586)
+Updating files:  65% (4281/6586)
+Updating files:  66% (4347/6586)
+Updating files:  67% (4413/6586)
+Updating files:  68% (4479/6586)
+Updating files:  69% (4545/6586)
+Updating files:  70% (4611/6586)
+Updating files:  71% (4677/6586)
+Updating files:  72% (4742/6586)
+Updating files:  73% (4808/6586)
+Updating files:  73% (4838/6586)
+Updating files:  74% (4874/6586)
+Updating files:  75% (4940/6586)
+Updating files:  76% (5006/6586)
+Updating files:  77% (5072/6586)
+Updating files:  78% (5138/6586)
+Updating files:  79% (5203/6586)
+Updating files:  80% (5269/6586)
+Updating files:  81% (5335/6586)
+Updating files:  82% (5401/6586)
+Updating files:  83% (5467/6586)
+Updating files:  84% (5533/6586)
+Updating files:  85% (5599/6586)
+Updating files:  86% (5664/6586)
+Updating files:  87% (5730/6586)
+Updating files:  88% (5796/6586)
+Updating files:  89% (5862/6586)
+Updating files:  90% (5928/6586)
+Updating files:  91% (5994/6586)
+Updating files:  92% (6060/6586)
+Updating files:  93% (6125/6586)
+Updating files:  94% (6191/6586)
+Updating files:  95% (6257/6586)
+Updating files:  96% (6323/6586)
+Updating files:  97% (6389/6586)
+Updating files:  98% (6455/6586)
+Updating files:  99% (6521/6586)
+Updating files: 100% (6586/6586)
+Updating files: 100% (6586/6586), done.
+Switched to a new branch 'main'
+branch 'main' set up to track 'origin/main'.
+##[endgroup]
+[command]/usr/bin/git log -1 --format=%H
+cc8e1b16dd3e650d85e76f30d5f2de3d84c5e135
+rede	Run pip install -q playwright && python -m playwright install --with-deps chromium >/dev/null	﻿2026-11-21T13:16:53.3051250Z ##[group]Run pip install -q playwright && python -m playwright install --with-deps chromium >/dev/null
+[36;1mpip install -q playwright && python -m playwright install --with-deps chromium >/dev/null[0m
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart hosted-compute-agent.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+rede	Run for i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done	﻿2026-11-21T13:17:13.1860818Z ##[group]Run for i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done
+[36;1mfor i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done[0m
+[36;1mecho "== 4G bom, visita nova"; python tools/teste-site/rede.py https://lafouch.com/ bom[0m
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+== 4G fraco, visita nova 1
+{"topo": 5.4, "primeiro_cartao": 20.2, "primeira_foto": 21.1, "fcp": 5.4}
+  0.0 →   6.2 s    76.3 KB  https://lafouch.com/
+  0.5 →   1.3 s     3.0 KB  https://lafouch.com/dados/inicio.json
+  1.6 →   2.2 s     0.5 KB  https://lafouch.com/version.json
+  1.6 →   4.9 s    33.5 KB  https://lafouch.com/js/lf-i18n.js
+  1.6 →  20.2 s   270.5 KB  https://lafouch.com/js/lf-site.js
+  1.6 →   2.1 s     1.3 KB  https://fonts.googleapis.com/css2
+  5.4 →  17.8 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  5.4 →  10.7 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  5.4 →  12.2 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  5.5 →  14.1 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 20.2 →  20.7 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+total KB até a 1ª foto: 674
+== 4G fraco, visita nova 2
+{"topo": 3.4, "primeiro_cartao": 14.1, "primeira_foto": 14.9, "fcp": 3.4}
+  0.0 →   3.9 s    76.3 KB  https://lafouch.com/
+  0.5 →   3.0 s    33.3 KB  https://lafouch.com/js/lf-i18n.js
+  0.5 →  14.0 s   270.5 KB  https://lafouch.com/js/lf-site.js
+  0.5 →   1.2 s     3.2 KB  https://lafouch.com/dados/inicio.json
+  0.8 →   1.3 s     0.5 KB  https://lafouch.com/version.json
+  0.8 →   1.3 s     1.3 KB  https://fonts.googleapis.com/css2
+  3.4 →  12.7 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  3.4 →   7.7 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  3.5 →   8.8 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  3.6 →  10.3 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 14.1 →  14.5 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+total KB até a 1ª foto: 674
+== 4G fraco, visita nova 3
+{"topo": 3.8, "primeiro_cartao": 14.0, "primeira_foto": 14.9, "fcp": 3.8}
+  0.0 →   4.2 s    76.2 KB  https://lafouch.com/
+  0.5 →   2.6 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  0.5 →  14.0 s     0.0 KB  https://lafouch.com/js/lf-site.js
+  0.5 →   1.2 s     3.0 KB  https://lafouch.com/dados/inicio.json
+  1.5 →   2.1 s     0.5 KB  https://lafouch.com/version.json
+  1.5 →   2.0 s     1.3 KB  https://fonts.googleapis.com/css2
+  3.8 →  13.1 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  3.8 →   8.1 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  3.9 →   9.2 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  3.9 →  10.7 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 14.0 →  14.5 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+ 14.1 →  14.5 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+total KB até a 1ª foto: 371
+== 4G bom, visita nova
+{"topo": 0.5, "primeiro_cartao": 1.6, "primeira_foto": 1.8, "fcp": 0.5}
+  0.0 →   0.5 s    76.2 KB  https://lafouch.com/
+  0.1 →   0.4 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  0.1 →   1.5 s     0.0 KB  https://lafouch.com/js/lf-site.js
+  0.1 →   0.3 s     3.0 KB  https://lafouch.com/dados/inicio.json
+  0.2 →   0.3 s     0.5 KB  https://lafouch.com/version.json
+  0.2 →   0.3 s     1.3 KB  https://fonts.googleapis.com/css2
+  0.5 →   1.5 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  0.5 →   1.0 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  0.5 →   1.1 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  0.5 →   0.8 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+  1.6 →   1.7 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+  1.6 →   1.7 s    10.2 KB  ights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+total KB até a 1ª foto: 380
+rede	Post Run actions/checkout@v4	﻿2026-11-21T13:18:08.5147477Z Post job cleanup.
+[command]/usr/bin/git version
+git version 2.56.1
+Temporarily overriding HOME='/home/runner/work/_temp/d7e46d1d-718c-4c19-aeb3-2bf392987ea9' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/LaFouch/LaFouch
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+rede	Complete job	﻿2026-11-21T13:18:08.7486346Z Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
