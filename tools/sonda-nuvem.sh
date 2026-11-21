@@ -21,6 +21,7 @@ confere "conta ação inválida" 400 "$(post conta application/json '{"acao":"xy
 confere "codigo sem login" 401 "$(post codigo application/json '{"acao":"enviar"}')"
 confere "mensagem lista sem login" 403 "$(post mensagem application/json '{"acao":"lista"}')"
 confere "pedido com formato errado" 400 "$(post pedido application/json '{"id":"x","doc":{}}')"
+confere "novidades: link de confirmar falso" 404 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$B/novidades?confirmar=$(printf 'a%.0s' $(seq 40))&t=$(printf 'b%.0s' $(seq 32))")"
 confere "pix sem a chave do robô" 403 "$(post pix application/json '{}')"
 # S3 parte 3 (20/11): ninguém cria direto em pedidos/ nem em vistas/ pelo banco (só pelas funções) — chave pública do site, não é segredo
 FS='https://firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents'; K='AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc'

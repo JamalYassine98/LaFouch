@@ -888,3 +888,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
   - Ajuste do dono 20/11 23:23 no esboço 37: ícones das listas (Início e índice dos grupos) em cinza — substitui "ícones rosa" de 149g/149n.
 
   - **APROVADO pelo dono 20/11 23:42** (esboço 37 inteiro, com ícones em cinza). Espera o "implementar".
+- 20/11/2026 23:52 — ✅ PUBLICADO (NUVEM, run 44857930676): S5+S7 — inscrição nas novidades e "Avise-me" só valem com o e-mail confirmado (dono: "Implementar S5S7" 23:48). Falta o SITE mostrar "Enviamos um e-mail para confirmar".
