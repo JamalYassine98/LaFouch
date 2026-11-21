@@ -1,89 +1,158 @@
 RESULTADO: sem falha nova
-== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
 == celular · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-== celular · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Formato — 0 falha(s) nova(s), 33 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== celular · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | div.rzm | alt 864→1030
+    mudou | div.rzl | alt 499→665
+    mudou | button.rzr | alt 82→83
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== celular · Formato-abrir — 0 falha(s) nova(s), 34 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
+    apareceu | button.btn.p.ic | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== celular · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | button.rzr | esq 0→1, topo 0→499, larg 324→372, alt 54→83, cor rgb(255, 255, 255)→rgb(17, 17, 17), letra 15px 700→16px 400, classe bt
+    mudou | div.rzm | alt 864→1030
+    mudou | div.rzl | alt 499→665
+    mudou | button.rzr | alt 82→83
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== celular · Formato-resultado — 0 falha(s) nova(s), 81 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→384
-    mudou | h3 "Diamante" | topo 259→253
-    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 85→77, alt 732→749
-    mudou | div.fak "Para quem são os óculos?" | topo 430→447
-    mudou | div.fares | alt 688→705
-    mudou | div.fabtns | topo 509→525
-    mudou | div.fagen | topo 451→467
-    mudou | button.fan "Não parece com você? Escolher " | topo 641→657
-== celular · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+== celular · Formato-tracos-feminino — 0 falha(s) nova(s), 81 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→430
-    mudou | p.sub "Seu rosto também tem traços de" | topo 386→380
-    mudou | h3 "Diamante" | topo 259→253
-    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 51→54, alt 801→795
-    mudou | div.fak "Para quem são os óculos?" | topo 499→493
-    mudou | div.fares | alt 757→751
-    mudou | div.fabtns | topo 578→572
-    mudou | div.fagen | topo 520→514
-    mudou | button.fan "Não parece com você? Escolher " | topo 710→704
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "SL2265" | 
 == celular · Formato-1-toque-diamante — 0 falha(s) nova(s), 155 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | button.rchip.lx44 "Rosto diamante · 3 modelos" | 
     apareceu | b "Limpar ✕" | 
@@ -128,88 +197,157 @@ RESULTADO: sem falha nova
 == celular letra 1,2× · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular letra 1,2× · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == celular letra 1,2× · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-== celular letra 1,2× · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Formato — 0 falha(s) nova(s), 33 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== celular letra 1,2× · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | div.rzm | alt 864→1030
+    mudou | div.rzl | alt 499→665
+    mudou | button.rzr | alt 82→83
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== celular letra 1,2× · Formato-abrir — 0 falha(s) nova(s), 34 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
+    apareceu | button.btn.p.ic | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== celular letra 1,2× · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | button.rzr | esq 0→1, topo 0→499, larg 324→372, alt 54→83, cor rgb(255, 255, 255)→rgb(17, 17, 17), letra 15px 700→16px 400, classe bt
+    mudou | div.rzm | alt 864→1030
+    mudou | div.rzl | alt 499→665
+    mudou | button.rzr | alt 82→83
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== celular letra 1,2× · Formato-resultado — 0 falha(s) nova(s), 81 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→384
-    mudou | h3 "Diamante" | topo 259→253
-    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 85→77, alt 732→749
-    mudou | div.fak "Para quem são os óculos?" | topo 430→447
-    mudou | div.fares | alt 688→705
-    mudou | div.fabtns | topo 509→525
-    mudou | div.fagen | topo 451→467
-    mudou | button.fan "Não parece com você? Escolher " | topo 641→657
-== celular letra 1,2× · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+== celular letra 1,2× · Formato-tracos-feminino — 0 falha(s) nova(s), 81 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→430
-    mudou | p.sub "Seu rosto também tem traços de" | topo 386→380
-    mudou | h3 "Diamante" | topo 259→253
-    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 51→54, alt 801→795
-    mudou | div.fak "Para quem são os óculos?" | topo 499→493
-    mudou | div.fares | alt 757→751
-    mudou | div.fabtns | topo 578→572
-    mudou | div.fagen | topo 520→514
-    mudou | button.fan "Não parece com você? Escolher " | topo 710→704
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "SL2265" | 
 == celular letra 1,2× · Formato-1-toque-diamante — 0 falha(s) nova(s), 155 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | button.rchip.lx44 "Rosto diamante · 3 modelos" | 
     apareceu | b "Limpar ✕" | 
@@ -251,91 +389,158 @@ RESULTADO: sem falha nova
     apareceu | path | 
     apareceu | button.open | 
     apareceu | div.ph | 
-== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == tablet · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == tablet · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-== tablet · Formato — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Formato — 0 falha(s) nova(s), 32 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== tablet · Formato-abrir — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | div.rzm | alt 861→1027
+    mudou | div.rzl | alt 498→663
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== tablet · Formato-abrir — 0 falha(s) nova(s), 33 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
+    apareceu | button.btn.p.ic | 
     sumiu | small "Combina: quase qualquer format" | 
     sumiu | small "Combina: retangulares ou angul" | 
     sumiu | small "Combina: arredondadas ou ovais" | 
     sumiu | small "Combina: grandes e largas" | 
     sumiu | small "Combina: aviador ou leves" | 
     sumiu | small "Combina: gatinho ou ovais" | 
-== tablet · Formato-resultado — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | button.rzr | topo 0→498, larg 340→606, alt 54→83, cor rgb(255, 255, 255)→rgb(17, 17, 17), letra 15px 700→16px 400, classe btn ic p→rz
+    mudou | div.rzm | alt 861→1027
+    mudou | div.rzl | alt 498→663
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+    mudou | span.rzi.rzfaz | fundo rgb(17, 17, 17)→rgba(0, 0, 0, 0), classe rzi→rzfaz rzi
+== tablet · Formato-resultado — 0 falha(s) nova(s), 80 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→382
-    mudou | h3 "Diamante" | topo 257→251
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 70→61, alt 714→731
-    mudou | div.fak "Para quem são os óculos?" | topo 429→445
-    mudou | div.fares | alt 671→687
-    mudou | div.fabtns | topo 506→522
-    mudou | div.fagen | topo 448→465
-    mudou | button.fan "Não parece com você? Escolher " | topo 638→654
-== tablet · Formato-tracos-feminino — 0 falha(s) nova(s), 27 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "LaFouch · metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+== tablet · Formato-tracos-feminino — 0 falha(s) nova(s), 80 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | small "Quase todos os modelos" | 
     apareceu | small "Quadradas, retangulares e hexa" | 
     apareceu | small "Redondas, ovais e aviador" | 
     apareceu | small "Aviador, quadradas e hexagonai" | 
+    apareceu | b "Retangular" | 
+    apareceu | small "Redondas, aviador e ovais" | 
     apareceu | small "Aviador, redondas e ovais" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    apareceu | span.rzn | 
     apareceu | small "Gatinho e ovais" | 
+    apareceu | i "›" | 
+    apareceu | button.rzr | 
+    apareceu | span.rzp | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzi.rzfaz | 
+    apareceu | span.rzn | 
+    apareceu | b "Triangular" | 
+    apareceu | small "Gatinho e aviador" | 
+    apareceu | i "›" | 
     apareceu | span.rzi | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | small "Combina: quase qualquer format" | 
-    sumiu | small "Combina: retangulares ou angul" | 
-    sumiu | small "Combina: arredondadas ou ovais" | 
-    sumiu | small "Combina: grandes e largas" | 
-    sumiu | small "Combina: aviador ou leves" | 
-    sumiu | small "Combina: gatinho ou ovais" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 413→429
-    mudou | p.sub "Seu rosto também tem traços de" | topo 362→378
-    mudou | h3 "Diamante" | topo 257→251
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | div.fak "Seu rosto é" | topo 242→236
-    mudou | div.modal.try.fa | topo 46→38, alt 761→778
-    mudou | div.fak "Para quem são os óculos?" | topo 476→492
-    mudou | div.fares | alt 718→734
-    mudou | div.fabtns | topo 553→570
-    mudou | div.fagen | topo 495→512
-    mudou | button.fan "Não parece com você? Escolher " | topo 685→702
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "LaFouch · metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "SL2265" | 
 == tablet · Formato-1-toque-diamante — 0 falha(s) nova(s), 255 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | p "Armações gatinho e ovais: a pa" | 
     sumiu | p "Armações gatinho ou ovais traz" | 
@@ -380,170 +585,170 @@ RESULTADO: sem falha nova
 == PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == PC · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
 == PC · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-== PC · Formato — 0 falha(s) nova(s), 66 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "Quase todos os modelos: escolh" | 
-    apareceu | span "Armações quadradas, retangular" | 
-    apareceu | span "Armações redondas, ovais e avi" | 
-    apareceu | span "Armações aviador, quadradas e " | 
-    apareceu | span "Armações aviador, redondas e o" | 
-    apareceu | span "Armações gatinho e ovais: a pa" | 
+== PC · Formato — 0 falha(s) nova(s), 148 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | button.face | 
+    apareceu | b "Rosto retangular" | 
+    apareceu | span "Redondas, aviador e ovais" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | button.face | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | b "Rosto triangular" | 
+    apareceu | span "Gatinho e aviador" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | div.fac1 | 
+    apareceu | div | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
     sumiu | span "Armações grandes e largas traz" | 
     sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span.fi | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | svg.ft | 
+    sumiu | path | 
+    sumiu | span.fi | 
+    sumiu | svg.gl | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | svg.ft | 
+    sumiu | path | 
     sumiu | span "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 95→79, alt 112→93
-    mudou | path | esq 37→31, topo 71→59, larg 9→7
-    mudou | span.fi | larg 95→79, alt 112→93
-    mudou | span.fi | larg 80→67, alt 112→93
-    mudou | path | esq 9→7, larg 59→49
-    mudou | span.fi | larg 79→66, alt 112→93
-    mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
-    mudou | b "Rosto coração" | topo 141→122
-    mudou | path | esq 40→47, larg 22→26, alt 13→16
-    mudou | b "Rosto oval" | topo 141→159
-    mudou | path | esq 39→45, larg 21→25, alt 13→15
-    mudou | rect | esq 43→36, larg 21→17, alt 15→12
-    mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 79→66, alt 112→93
-    mudou | svg.ft | larg 80→67, alt 112→93
-    mudou | path | esq 35→29, topo 69→57, larg 8→6
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 46→38, larg 69→57, alt 23→19
-    mudou | path | esq 10→12, larg 21→25, alt 13→15
-    mudou | svg.ft | larg 75→62, alt 112→93
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
-    mudou | span.fi | larg 93→109, alt 112→130
-    mudou | svg.gl | topo 48→40, larg 77→64, alt 25→21
-    mudou | span.fi | larg 71→83, alt 112→130
-== PC · Formato-abrir — 0 falha(s) nova(s), 66 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "Quase todos os modelos: escolh" | 
-    apareceu | span "Armações quadradas, retangular" | 
-    apareceu | span "Armações redondas, ovais e avi" | 
-    apareceu | span "Armações aviador, quadradas e " | 
-    apareceu | span "Armações aviador, redondas e o" | 
-    apareceu | span "Armações gatinho e ovais: a pa" | 
+    sumiu | svg | 
+    sumiu | path | 
+    mudou | b "Rosto oval" | topo 141→81
+    mudou | svg.gl | esq 5→2, topo 46→21, larg 69→33, alt 23→11
+== PC · Formato-abrir — 0 falha(s) nova(s), 170 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | button.face | 
+    apareceu | b "Rosto retangular" | 
+    apareceu | span "Redondas, aviador e ovais" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | button.face | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | b "Rosto triangular" | 
+    apareceu | span "Gatinho e aviador" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | div.fabtns | 
+    apareceu | div.tpriv | 
     sumiu | span "Armações de quase qualquer for" | 
     sumiu | span "Armações retangulares ou angul" | 
     sumiu | span "Armações arredondadas ou ovais" | 
     sumiu | span "Armações grandes e largas traz" | 
     sumiu | span "Armações aviador ou leves traz" | 
+    sumiu | span.fi | 
+    sumiu | span.fi | 
     sumiu | span "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 95→79, alt 112→93
-    mudou | path | esq 37→31, topo 71→59, larg 9→7
-    mudou | span.fi | larg 95→79, alt 112→93
-    mudou | span.fi | larg 80→67, alt 112→93
-    mudou | path | esq 9→7, larg 59→49
-    mudou | span.fi | larg 79→66, alt 112→93
-    mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
-    mudou | b "Rosto coração" | topo 141→122
-    mudou | path | esq 40→47, larg 22→26, alt 13→16
-    mudou | b "Rosto oval" | topo 141→159
-    mudou | path | esq 39→45, larg 21→25, alt 13→15
-    mudou | rect | esq 43→36, larg 21→17, alt 15→12
-    mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 79→66, alt 112→93
-    mudou | svg.ft | larg 80→67, alt 112→93
-    mudou | path | esq 35→29, topo 69→57, larg 8→6
-    mudou | path | esq 33→27, topo 71→59, larg 9→7
-    mudou | svg.gl | topo 46→38, larg 69→57, alt 23→19
-    mudou | path | esq 10→12, larg 21→25, alt 13→15
-    mudou | svg.ft | larg 75→62, alt 112→93
-    mudou | svg.gl | topo 48→40, larg 76→63, alt 25→21
-    mudou | span.fi | larg 93→109, alt 112→130
-    mudou | svg.gl | topo 48→40, larg 77→64, alt 25→21
-    mudou | span.fi | larg 71→83, alt 112→130
-== PC · Formato-resultado — 0 falha(s) nova(s), 79 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "Quase todos os modelos: escolh" | 
-    apareceu | span "Armações quadradas, retangular" | 
-    apareceu | span "Armações redondas, ovais e avi" | 
-    apareceu | span "Armações aviador, quadradas e " | 
-    apareceu | span "Armações aviador, redondas e o" | 
-    apareceu | span "Armações gatinho e ovais: a pa" | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | path | 
+    sumiu | svg | 
+    sumiu | path | 
+    sumiu | svg | 
+    sumiu | path | 
+    sumiu | svg | 
+    sumiu | path | 
+    sumiu | svg | 
+    sumiu | path | 
+    mudou | b "Rosto oval" | topo 141→81
+    mudou | svg.gl | esq 5→2, topo 46→21, larg 69→33, alt 23→11
+== PC · Formato-resultado — 0 falha(s) nova(s), 196 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | button.face | 
+    apareceu | b "Rosto retangular" | 
+    apareceu | span "Redondas, aviador e ovais" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | button.face | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | b "Rosto triangular" | 
+    apareceu | span "Gatinho e aviador" | 
+    apareceu | em.go "Escolher" | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | span "Armações de quase qualquer for" | 
-    sumiu | span "Armações retangulares ou angul" | 
-    sumiu | span "Armações arredondadas ou ovais" | 
-    sumiu | span "Armações grandes e largas traz" | 
-    sumiu | span "Armações aviador ou leves traz" | 
-    sumiu | span "Armações gatinho ou ovais traz" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações gatinho ou ovais traz" | 
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 95→79, alt 112→93
-    mudou | path | esq 37→31, topo 71→59, larg 9→7
-    mudou | span.fi | larg 95→79, alt 112→93
-    mudou | span.fi | larg 80→67, alt 112→93
-    mudou | path | esq 9→7, larg 59→49
-    mudou | span.fi | larg 79→66, alt 112→93
-    mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
-    mudou | b "Rosto coração" | topo 141→122
-    mudou | path | esq 40→47, larg 22→26, alt 13→16
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→383
-    mudou | div.fares | alt 671→688
-    mudou | h3 "Diamante" | topo 258→252
-    mudou | b "Rosto oval" | topo 141→159
-    mudou | path | esq 39→45, larg 21→25, alt 13→15
-    mudou | rect | esq 43→36, larg 21→17, alt 15→12
-    mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | div.fp | alt 120→101
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | svg.ft | larg 79→66, alt 112→93
-    mudou | div.fagen | topo 449→466
-    mudou | svg.ft | larg 80→67, alt 112→93
-    mudou | path | esq 35→29, topo 69→57, larg 8→6
-== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 80 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
-    apareceu | span "Quase todos os modelos: escolh" | 
-    apareceu | span "Armações quadradas, retangular" | 
-    apareceu | span "Armações redondas, ovais e avi" | 
-    apareceu | span "Armações aviador, quadradas e " | 
-    apareceu | span "Armações aviador, redondas e o" | 
-    apareceu | span "Armações gatinho e ovais: a pa" | 
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fagen | 
+    apareceu | div.fatopw | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "LaFouch · metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "SL2265" | 
+    apareceu | small.hds "LaFouch · gatinho" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 125" | 
+    apareceu | button.hc | 
+== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 197 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span "Quase todos os modelos" | 
+    apareceu | span "Quadradas, retangulares e hexa" | 
+    apareceu | span "Redondas, ovais e aviador" | 
+    apareceu | span "Aviador, quadradas e hexagonai" | 
+    apareceu | button.face | 
+    apareceu | b "Rosto retangular" | 
+    apareceu | span "Redondas, aviador e ovais" | 
+    apareceu | span "Aviador, redondas e ovais" | 
+    apareceu | span "Gatinho e ovais" | 
+    apareceu | em.go "Escolher" | 
+    apareceu | button.face | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | span.fw.rzfaz | 
+    apareceu | b "Rosto triangular" | 
+    apareceu | span "Gatinho e aviador" | 
+    apareceu | em.go "Escolher" | 
     apareceu | p.sub "Armações gatinho e ovais: a pa" | 
-    sumiu | span "Armações de quase qualquer for" | 
-    sumiu | span "Armações retangulares ou angul" | 
-    sumiu | span "Armações arredondadas ou ovais" | 
-    sumiu | span "Armações grandes e largas traz" | 
-    sumiu | span "Armações aviador ou leves traz" | 
-    sumiu | span "Armações gatinho ou ovais traz" | 
-    sumiu | canvas#facv | 
-    sumiu | p.sub "Armações retangulares ou angul" | 
-    mudou | path | esq 12→10, larg 24→20, alt 18→15
-    mudou | div.fp | alt 120→101
-    mudou | svg.ft | larg 95→79, alt 112→93
-    mudou | path | esq 37→31, topo 71→59, larg 9→7
-    mudou | span.fi | larg 95→79, alt 112→93
-    mudou | span.fi | larg 80→67, alt 112→93
-    mudou | path | esq 9→7, larg 59→49
-    mudou | span.fi | larg 79→66, alt 112→93
-    mudou | rect | esq 12→10, larg 21→17, alt 15→12
-    mudou | span.fw | esq 98→84, larg 71→83, alt 112→130
-    mudou | b "Rosto coração" | topo 141→122
-    mudou | path | esq 40→47, larg 22→26, alt 13→16
-    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 414→430
-    mudou | p.sub "Seu rosto também tem traços de" | topo 362→379
-    mudou | div.fares | alt 719→735
-    mudou | h3 "Diamante" | topo 258→252
-    mudou | b "Rosto oval" | topo 141→159
-    mudou | path | esq 39→45, larg 21→25, alt 13→15
-    mudou | rect | esq 43→36, larg 21→17, alt 15→12
-    mudou | path | esq 43→36, topo 68→56, larg 8→7
-    mudou | div.fp | alt 120→101
-    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
-    mudou | svg.ft | larg 79→66, alt 112→93
-    mudou | div.fagen | topo 497→513
-    mudou | svg.ft | larg 80→67, alt 112→93
+    apareceu | p.sub.fatam "Tamanho da armação:" | 
+    apareceu | span "· 132 a 144 mm" | 
+    apareceu | div.fagen | 
+    apareceu | div.fatopw | 
+    apareceu | div.fak.fatk "As melhores para você" | 
+    apareceu | div.fatop | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "BR44140" | 
+    apareceu | small.hds "LaFouch · metal" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 105" | 
+    apareceu | button.hc | 
+    apareceu | span.hci | 
+    apareceu | img | 
+    apareceu | span.hn.lfcod "SL2265" | 
+    apareceu | small.hds "LaFouch · gatinho" | 
+    apareceu | span.hsw | 
+    apareceu | i | 
+    apareceu | span.hp "R$ 125" | 
+    apareceu | button.hc | 
 == PC · Formato-1-toque-diamante — 0 falha(s) nova(s), 242 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
     apareceu | p "Armações gatinho e ovais: a pa" | 
     sumiu | p "Armações gatinho ou ovais traz" | 

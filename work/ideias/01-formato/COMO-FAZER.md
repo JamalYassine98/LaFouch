@@ -69,13 +69,27 @@ Jeito natural (planta do banco aprovada 19/11 23:03: "o site calcula num lugar s
 Com as peças de hoje: Oval 18 · Redondo 10 · Alongado 8 · Quadrado 5 · Coração 5 · Diamante 3 (antes: Diamante e Alongado 0).
 - Travas: toda peça com `fm` tem rosto; todo rosto tem ao menos uma armação; a descrição de cada rosto só cita formatos do seu `fm`; 1 toque na lista abre o catálogo.
 
-## Comparador Hoje × Proposta (regra 11) — `comp/relatorio.json` (celular, letra 1,2×, tablet) e `comp-PC/relatorio.json`
-- **Sem falha nova** em nenhum aparelho. Início, Catálogo e Peça: 0 diferença.
-- Página do formato (celular/tablet): 12 = os 6 `<small>` ("Combina: …" → os modelos da tabela).
-- PC: 120 = os 6 cartões do carrossel (frase de 2 linhas → modelos em 1 linha; desenhos e botões sobem/crescem junto).
-- Resultado: 27 (celular/tablet) = foto/canvas → ilustração (`.faph`→`.faill`, 2 `span.rzi`), frase nova, os 12 da lista por trás.
-- Câmera (Parte A): o comparador não abre a câmera; as diferenças são as da prancha `esboco-02-camera.jpg` — aviso de giro, aviso de boca, fundo claro com pouca luz, anel no lugar do número 3-2-1 (o resto da tela igual).
-- 1 toque em Diamante: 155–255 = Hoje fica na página (nada acontece) × Proposta abre o catálogo com as 3 peças.
+## Parte 4 (Parte B do dono, 21/11 13:50 e 15:55 "concordo, continue") — mais formatos e menos opções (muda tela: espera o "implementar")
+Esboço: `esboco-07-tabela-filtro.jpg` (`lista8.py`, `resultados.py`, `captura.py`).
+1. **8 formatos** na mesma tabela `FACES`: + **Retangular** (comprido, mandíbula reta) e **Triangular** (mandíbula mais larga que a testa). Ordem: Oval, Redondo, Quadrado, Alongado, Retangular, Coração, Diamante, Triangular.
+   - Falta a ilustração homem/mulher dos 2 novos, no mesmo traço das 6 de hoje (o dono decide quem faz; em 11/11 a IA não acertou e a recomendação foi um ilustrador). No esboço: quadro tracejado "a fazer".
+   - Na conta (parte 2, item 7) cada formato tem proporções de referência; valores de partida (comprimento÷maçãs · testa÷maçãs · mandíbula÷maçãs · ângulo do queixo), a calibrar com o modo teste: Oval 1,15 · 0,82 · 0,78 · 124° (rosto-padrão) · Redondo 1,02 · 0,84 · 0,82 · 135° · Quadrado 1,05 · 0,90 · 0,90 · 132° · Alongado 1,30 · 0,82 · 0,76 · 124° · Retangular 1,30 · 0,90 · 0,90 · 130° · Coração 1,15 · 0,92 · 0,70 · 116° · Diamante 1,15 · 0,74 · 0,70 · 118° · Triangular 1,10 · 0,74 · 0,90 · 132°.
+2. **As 3 melhores no resultado** ("As melhores para você"), com o cartão do site (`card5`, a mesma família da prateleira "Para o seu rosto" do Início) e o botão "Ver todos os N modelos ›".
+   - **Filtro (uma função `faMelhores`, a mesma no resultado e na ordem do catálogo filtrado):** combina com o rosto (`p.rosto`, da tabela) + gênero escolhido (`genOk`) + com estoque; ordem: tamanho certo primeiro (frente da armação = 2×lente + ponte + 10 mm, a até 6 mm da largura do rosto medida pela íris), depois mais vendidas (`mv`), depois mais novas.
+   - Medida da peça só a real (`p.med` do app); peça sem medida não entra no "tamanho certo" (nada inventado — hoje o site inventa `med` quando falta: sai junto, planta aprovada 19/11).
+   - Sem peça para a escolha (ex.: Diamante + Masculino hoje): "Ainda não temos modelos masculinos para rosto diamante." e o botão vira "Ver o catálogo ›".
+   - Para caber: a contagem sai da frase e vai para o botão; o tamanho fica numa linha ("Tamanho da armação: Médio · 132 a 144 mm"); a ilustração fica 192×144; o selo "Últimas N" não aparece no cartão pequeno (fica na página da peça).
+   - Gênero trocado: ilustração, as 3 e o botão mudam juntos (o mesmo clique de hoje).
+3. Próximo passo do caminho do dono (19/11 12:17): "Comparar as 3" → provador; não entra aqui (o Comparar será refeito).
+- Travas: todo formato tem ao menos uma armação; as 3 do resultado sempre combinam, têm estoque e são do gênero escolhido; o botão mostra o mesmo número que o catálogo filtrado.
+
+## Comparador Hoje × Proposta (regra 11) — `comp/relatorio.json` (com as partes 1–4)
+- **Sem falha nova** em celular, celular letra 1,2×, tablet e PC. Início, Catálogo e Peça: 0 diferença.
+- Página do formato (celular/tablet, 32–34): os `<small>` trocados (modelos que combinam) + as 2 linhas novas (Retangular, Triangular, com o quadro "a fazer").
+- Resultado (80–81): foto/canvas → ilustração (`.faill`), frase nova, tamanho numa linha, as 3 peças (`button.hc` ×3), botão com o total, a lista por trás.
+- PC (148–197): o carrossel com 8 cartões (2 com "a fazer"), a frase curta dos modelos em 1 linha, e o resultado como no celular.
+- 1 toque em Diamante (155–255): Hoje fica na página × Proposta abre o catálogo.
+- Câmera (Parte A): o comparador não abre a câmera; as diferenças estão na prancha `esboco-02-camera.jpg` e no vídeo `esboco-06-camera-video.mp4`.
 
 ## Testado / não testado
 - Simulador (Chromium, celular 386×858, letra 1× e 1,2×): resultado, Feminino/Masculino/Todos, conserto dos "traços", lista e toque nos formatos (Diamante, Coração, Alongado), câmera de teste (sem rosto); correção de distância/giro só na simulação com o rosto-padrão.

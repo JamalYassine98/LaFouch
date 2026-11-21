@@ -72,3 +72,16 @@ d.text((40, 150), 'Hoje', font=F(30, 1), fill='#b3261e'); B.paste(a, (40, 200))
 d.text((40, 200 + a.height + 20), 'Proposta', font=F(30, 1), fill='#8d3a69'); B.paste(b, (40, 250 + a.height + 20))
 B.resize((B.width // 2, B.height // 2), I.LANCZOS).save(os.path.join(AQUI, 'esboco-05-pc.jpg'), quality=88)
 print('ok pc')
+
+# ---- Parte B: 8 formatos + as melhores peças já no resultado ----
+prancha('esboco-07-tabela-filtro.jpg', 'IDEIAS 01 · Parte B — mais formatos e menos opções (celular)', [
+    'Lista com 8 formatos (+ Retangular e Triangular; ilustração homem/mulher "a fazer"). Resultado: as 3 MELHORES peças reais já ali, e o botão com o total.',
+    'Filtro numa função: combina com o rosto + gênero escolhido + com estoque; primeiro as de tamanho certo (frente da armação a até 6 mm da largura do rosto),',
+    'depois as mais vendidas. Sem peça para a escolha: diz isso e o botão vira "Ver o catálogo". Peças e preços: site real (tema Black Friday no ar: cartões escuros).'], [
+    ('l8-hoje.png', 'Hoje · lista', '6 formatos'),
+    ('l8-prop.png', 'Proposta · lista', '8 formatos'),
+    ('prop-3-resultado.png', 'Proposta · Diamante, Todos', 'as 3 gatinho; "Ver todos os 3"'),
+    ('prop-5-masculino.png', 'Proposta · Diamante, Masculino', 'não há peça: diz isso'),
+    ('rb-redondo.png', 'Proposta · Redondo, rosto 138 mm', '3 de tamanho certo primeiro'),
+    ('rb-retangular.png', 'Proposta · Retangular, Feminino', 'formato novo (ilustração a fazer)')])
+print('ok B')
