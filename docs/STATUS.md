@@ -80,6 +80,7 @@
 
 - para **APP**: URGENTE (memória): seus commits de 20/11 10:05 (1a4c5d276) e 19:52 (7608aeb74) gravaram docs/MEMORIA-PROJETO.md e docs/FALTA-APROVAR-15-11.md só com a linha nov
 - para **APP**: COMO FAZER 1/3 — parte 4b Preços (135h, 149l-Preços, 149p, 149pl, 149fe, 149pg, 149sc, 149dup; + 149t e esboço 37: ícones de lista cinza, link declarado na cria
+- para **APP**: COMO FAZER 2/3 — 4c Giro e Reservas (135d, 149r) + o que faltou da 4a (149t, 149d — a v582 saiu só com a limpeza): work/s435/comofazer/4c-GIRO-RESERVAS-E-4a.md.
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
