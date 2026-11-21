@@ -70,7 +70,7 @@
 - **34-plano-das-ferramentas** — esboço pronto — esperando o dono (docs/PLANO-FERRAMENTAS-21-11.md: 4 partes — um simulador, um jeito de medir, comparador único, porteiro só portão; decidir a ordem)
 - **34-qual-e-a-frente-com-o-tratamento-do-giro** — ✅ v587 (5.50.12, 20/11) — pedido do dono 20/11 22:18 ('corrija'); falta o dono testar no celular real
 - **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
-- **35-varredura-codigo-morto** — 4ª rodada feita (64% do programa roda nas provas): saíram 4 funções mortas certas (site 1795232856); 119 blocos (74 KB) só são alcançados por telas que as provas ainda não percorrem — próximo: uma prova por área (coração voando, cidade, recibo, pedido pago, código por e-mail, Google, câmera do rosto, modo loja, atacado) e depois os suspeitos vão ao dono com imagem
+- **35-varredura-codigo-morto** — ✅ fechada 21/11 (site 1795282455): 67% do programa roda nas provas; saíram 7 funções mortas no total hoje; o resto é fluxo de verdade fora do alcance do simulador — sem suspeito para mostrar
 - **36-logo-leve** — REPROVADO pelo dono 21/11 10:26 (perde a nitidez) — o logo fica como está; esboço em work/obsoletos/s430/
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
