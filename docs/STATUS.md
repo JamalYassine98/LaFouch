@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4c parte 4 (149r): Reservas vai para Dinheiro; uma tabela só de famílias (FAMILIAS + S.famV) | src/98z-s374.js, src/89-inicio.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
 | SITE | Internet fraca parte 2: programa em pedaços (estudo do trecho da consulta do grau / Mochi) | js/lf-site.js, index.html |
 

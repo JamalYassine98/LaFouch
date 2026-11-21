@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4c parte 4 (149r): Reservas vai para Dinheiro; uma tabela só de famílias (FAMILIAS + S.famV)",
+ "arquivos": [
+  "src/98z-s374.js",
+  "src/89-inicio.js",
+  "src/99c-navegacao-s435.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795268208.1814628,
@@ -44,5 +49,5 @@
    "r": "item 39 em estudo: comparei giroTrata com o trata_giro2.py do site (mesmas regras para achar a peça e as mesmas folgas); com 6 quadros reais do vídeo do dono a peça sai inteira — ainda NÃO reproduzi a frente com um lado apagado. Falta a gravação da pose de frente (pedi ao dono gravar a tela de novo). Nada publicado."
   }
  ],
- "leu": 1795268202.8047626
+ "leu": 1795268875.4872103
 }
