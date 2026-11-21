@@ -7,7 +7,7 @@ from PIL import Image,ImageDraw,ImageFont
 O='/home/claude/lafouch/work/s435/destaque/'
 P1C=open('/home/claude/lafouch/work/semp/p1c.py').read()
 exec(P1C[P1C.index('F=lambda'):P1C.index('JS=r"""')])
-JS1C=P1C[P1C.index('JS=r"""')+7:P1C.index('"""',P1C.index('JS=r"""')+7)]
+JS1C=P1C[P1C.index('JS=r"""')+7:P1C.index('"""',P1C.index('JS=r"""')+7)].replace("const R=getComputedStyle(secs[0]).color;","const R='var(--mute)';")  # 37b aprovado (20/11 23:42, v609): ícones de linha em cinza
 exec(P1C[P1C.index('def tira(pg,nome):'):P1C.index('with sync_playwright')])
 ICONS=dict(mega=MEGA,etq=ETQ,sac=SAC,tend=TEND,loja=LOJA,cal=CAL,cria=CRIA,res=RES,marca=MARCA)
 REL=[]
@@ -30,6 +30,7 @@ def marketing(pw,qual):
   N=['Óculos solar #13','Óculos solar Kazwini de tr90 feminino','Óculos de leitura #15','Óculos solar Ray-Ban de metal masculino']
   im=[I.get(n) or list(I.values())[k%len(I)] for k,n in enumerate(N)]
   pg.evaluate(JS1C,ICONS);w(300)
+  pg.add_style_tag(content='#v-mkt .mkSec{color:var(--mute)!important}')  # regra 17: rosa = ação; rótulo de seção não é ação → cinza, como .lbl no resto do app
   if qual=='mkt':
     pg.evaluate("(a)=>{"+H+r"""const [im,STAR]=a;const v=document.getElementById('v-mkt');const s=[...v.querySelectorAll('.mkSec')].find(x=>/^Setores/i.test(x.textContent.trim()));
       s.insertAdjacentHTML('afterend','<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)">'+SV(STAR)+'<div style="min-width:0;flex:1"><b style="font-size:16px;font-weight:500;display:block">Destaque da semana</b><small style="font-size:13px;color:var(--mute);display:block">4 peças · no site, nos posts e na loja</small></div><span style="color:var(--mute);font-size:18px">›</span></div>')}""",[im,STAR])
