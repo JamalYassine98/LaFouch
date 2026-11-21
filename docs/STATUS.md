@@ -82,7 +82,7 @@
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **43-estudio-no-padrao** — esboço pronto — esperando o dono
-- **43-implementar-tudo-em-partes** — em andamento — 4b Preços ✅ completo (v591, v592, v593 · 5.50.18, 21/11). Próxima: 4c (Giro, Reservas e resto do 4a), depois 4d e o resto dos 52
+- **43-implementar-tudo-em-partes** — em andamento — 4b ✅ v591–v593 · 4c parte 1 (149t título h1) ✅ v594 (5.50.19). Próximas: 4c parte 2 (149d Histórico), parte 3 (135d dobras sem cartão), parte 4 (149r Reservas em Dinheiro + tabela única de famílias), depois 4d
 
 ## Recados esperando
 
