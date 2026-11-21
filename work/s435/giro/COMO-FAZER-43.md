@@ -39,3 +39,8 @@ Base: aprovados (base_app) + esboço 41 (Frente · 3/4 · Giro em cada peça). O
 - **Dono 21/11 08:28:** o botão redondo de alternar quadrados|lista (149n/149g, à esquerda do logo) **não aparece no Estúdio**. Ele é só do Início e dos índices de grupo (os botões e grupos). A regra fica em um lugar: o botão aparece quando `S.view` é 'inicio' ou 'grp'. Como o Estúdio vira view própria ('est'), ele já fica de fora. Trava: no Estúdio não existe o botão visível.
 - **Dono 21/11 08:36:** à esquerda do "?" entra um **botão redondo da Galeria do app** (o mesmo `.pl78`, com o ícone de imagem do conjunto). Ele leva o número dos itens **sem peça** num selo rosa e some quando é 0.
   Ele **substitui** o link "Galeria do app · N sem peça ›" do 41c: um caminho só para a Galeria. Trava: o número do selo é igual ao total de itens sem peça da Galeria.
+- **Dono 21/11 08:40, "padronizar as cores das notificações":** o selo de número é **um só no app inteiro**, o do sino: vermelho, 20 px, branco 11/700, no canto de cima à direita do botão redondo.
+  A Galeria usa esse mesmo selo, e não um rosa.
+  Jeito natural: uma classe `.selo` (e uma cor `--selo` no lugar do `#d33` escrito à mão em `.sino i`). Sino, Galeria e qualquer número futuro usam essa classe.
+  O ponto amarelo de "atenção" (ex.: Fornecedores ●) é outra coisa: não é número, fica como está.
+  Trava: todo selo de número tem a mesma cor e o mesmo tamanho em claro e escuro.
