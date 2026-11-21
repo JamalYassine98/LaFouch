@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 134 (2d): ficha do Inventário sem as caixas do preço, % Oferta, aviso, No site e dobras | src/55-produtos-catalogo.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 | SITE | Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada) | work/s430/varredura/roteiros.py |
 
@@ -121,6 +120,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 14:07 — APP: v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores
 - 21/11 13:45 — APP: v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas
 - 21/11 13:21 — APP: v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick
 - 21/11 13:03 — NUVEM: 39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP.
@@ -142,7 +142,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 10:19 — NUVEM: 39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO.
 - 21/11 10:14 — IDEIAS: IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS
 - 21/11 09:58 — APP: v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)
-- 21/11 09:40 — APP: v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)
 - 21/11 09:31 — SITE: URGENTE resolvido — site 1795264209: a câmera do 'descubra o seu formato' e o comparar voltaram a abrir na tela (erro da limpeza de estilos de 19/11: a base das janelas soltas tinha sido cortada). Antes, na mesma manhã: site 1795261801 com o começo rápido (internet fraca parte 1). Porteiro 229 provas, 0 falhas. PRÓXIMO: conferir as outras janelas soltas (mensagem, atacado, separado) e o resto do corte de 19/11 contra a versão de 19/11; medir o começo rápido em rede limpa.
 - 21/11 08:04 — NUVEM: Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono.
 - 21/11 02:04 — ESBOCO: Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real.

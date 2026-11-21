@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "134 (2d): ficha do Inventário sem as caixas do preço, % Oferta, aviso, No site e dobras",
- "arquivos": [
-  "src/55-produtos-catalogo.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795280865.667937,
+   "r": "v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores"
+  },
   {
    "t": 1795279521.9968693,
    "r": "v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas"
@@ -42,10 +42,6 @@
   {
    "t": 1795265933.064614,
    "r": "v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)"
-  },
-  {
-   "t": 1795264844.7448895,
-   "r": "v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)"
   }
  ],
  "leu": 1795280863.0869248
