@@ -75,7 +75,7 @@
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
 - **37-giro-camera-reta-e-peca-reta** — aprovado 21/11 07:51: avisa E o tratamento endireita até ±3° — espera o 'implementar'
 - **38-aviso-curto-acima-da-barra-e-com-cor** — aprovado 21/11 07:51 — espera o 'implementar'
-- **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE · decisões do dono 21/11 09:51 (recado do ESBOCO): meta ≈ 60 s por giro no celular (5 min por peça com todas as cores), tratar por trás enquanto grava a próxima cor; REPROVADO menos quadros/resolução menor; APROVADO GPU do celular (WebGL/WebGPU); tudo no celular; prato 40 s por volta. Entra depois do 4c
+- **38-giro-tratamento-mais-rapido** — na fila — APP · dono 21/11 10:01: prioridade é o tratamento CERTO; a meta de 5 min por peça deixa de ser dura (ele trata por trás na loja e termina em casa). Valem: REPROVADO menos quadros/resolução; APROVADO GPU; tudo no celular
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — NUVEM no ar (21/11 10:48) — falta a parte do APP (Pendências do Guardião: pixSemPar sem 'ligado'; COMO-FAZER em work/s435/precoexato/, esboço 39c) — entra na ordem depois do 4c
 - **39-preco-exato-site** — na vez do SITE — esboço 39 aprovado 21/11 07:51, ESPERANDO o 'implementar' do dono (muda o valor mostrado na tela de pagar). A nuvem já está no ar: até lá, pagamento de teste pelo Banco Familiar com o valor antigo cai em 'sem par'.

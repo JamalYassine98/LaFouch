@@ -1,2 +1,2 @@
-na fila — APP, PRIORIDADE · decisões do dono 21/11 09:51 (recado do ESBOCO): meta ≈ 60 s por giro no celular (5 min por peça com todas as cores), tratar por trás enquanto grava a próxima cor; REPROVADO menos quadros/resolução menor; APROVADO GPU do celular (WebGL/WebGPU); tudo no celular; prato 40 s por volta. Entra depois do 4c
+na fila — APP · dono 21/11 10:01: prioridade é o tratamento CERTO; a meta de 5 min por peça deixa de ser dura (ele trata por trás na loja e termina em casa). Valem: REPROVADO menos quadros/resolução; APROVADO GPU; tudo no celular
 1) uma passada só pelas 360 imagens; 2) medir menos para achar a frente (só se o giro sair igual); 3) tratar fora da tela principal. Esperar os tempos reais do celular (diário [LF-CAM]).
