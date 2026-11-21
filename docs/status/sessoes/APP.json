@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "4d parte 2a (134): ficha — linha .pl.pick como linha de lista e links no fim",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "src/97u-navegacao-s184.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795275519.2854056,
+   "r": "4d parte 2: estudo feito, sem código (a ficha precisa primeiro juntar as camadas do renderDetail). v598 segue a última no ar"
+  },
   {
    "t": 1795275359.999744,
    "r": "v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela"
@@ -43,10 +42,6 @@
   {
    "t": 1795260874.266595,
    "r": "v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2"
-  },
-  {
-   "t": 1795258683.0477064,
-   "r": "v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços"
   }
  ],
  "leu": 1795275480.5340211
