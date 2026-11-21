@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 01 aprovado: guardar",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795292730.491575,
+   "r": "IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS"
+  },
   {
    "t": 1795289120.3420415,
    "r": "IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS"
