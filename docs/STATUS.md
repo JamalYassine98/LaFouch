@@ -84,6 +84,7 @@
 - para **APP**: Esboços dos pedidos do dono de 20/11 23:29–23:39 prontos e na Fila (esperando o dono; nada para implementar ainda): 40 câmera reta + peça reta (work/s435/giro/C
 - para **APP**: CONFERÊNCIA v588 (item 39, código de src/97-giro-trata.js): a ideia vale (a caixa de por onde a peça passou entra como 2º critério de 'é peça'), mas tem 1 RISCO
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
+- para **NUVEM**: Site 1795232856 (21/11): a LEITURA PÚBLICA do Firestore (produtos, fotos, estoque, config, reservas) não espera mais o selo do App Check — sai na hora e leva o 
 - para **SITE**: S5+S7 PUBLICADO na nuvem (dono: 'Implementar S5S7', 20/11 23:48; esboço privado S5S7 aprovado 10:02). Sua parte (a 1 frase do esboço; tela muda, então é impleme
 - para **SITE**: CONFERÊNCIA site 1795225493 (d4ab681) × 1795215331 (4e9622f) no comparador (Início, Catálogo, Peça · celular, celular letra 1,2×, tablet, PC): 0 falha nova, 0 d
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
