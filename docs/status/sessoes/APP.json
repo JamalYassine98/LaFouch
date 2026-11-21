@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "134d parte 2: 'Sair sem salvar?' na janela de baixo (opção mudou da lfJanela) + Editar produto",
- "arquivos": [
-  "src/97-janela.js",
-  "src/10-estoque-detalhe.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795285759.362842,
+   "r": "v605 no ar: 134d completo. Próximo: 149s superfície"
+  },
   {
    "t": 1795284397.6593,
    "r": "v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)"
@@ -42,10 +42,6 @@
   {
    "t": 1795275326.969626,
    "r": "v598 no ar: 4d parte 1 (136a). Próximo: 4d parte 2 (134 ficha)"
-  },
-  {
-   "t": 1795270102.3846886,
-   "r": "v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d"
   }
  ],
  "leu": 1795285754.5961134
