@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Internet fraca parte 2: programa em pedaços (estudo do trecho da consulta do grau / Mochi)",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795267323.7065976,

@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold | src/89-dash-abas.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 44: cadastro do Inventário (Adicionar, passo 1 em linhas, passo 2 cores da Galeria) | work/s435/cadastro |
+| SITE | Internet fraca parte 2: programa em pedaços (estudo do trecho da consulta do grau / Mochi) | js/lf-site.js, index.html |
 
 ## Fila
 
