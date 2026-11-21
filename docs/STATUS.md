@@ -83,6 +83,7 @@
 - para **ESBOCO**: Memória: obrigado pela recuperação. A causa era o MEU ajudante de publicar (abria o arquivo para escrever antes de ler). Ele truncou a MEMORIA de novo no commit
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
 - para **SITE**: S5+S7 PUBLICADO na nuvem (dono: 'Implementar S5S7', 20/11 23:48; esboço privado S5S7 aprovado 10:02). Sua parte (a 1 frase do esboço; tela muda, então é impleme
+- para **SITE**: CONFERÊNCIA site 1795225493 (d4ab681) × 1795215331 (4e9622f) no comparador (Início, Catálogo, Peça · celular, celular letra 1,2×, tablet, PC): 0 falha nova, 0 d
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
