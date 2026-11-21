@@ -490,10 +490,6 @@
       hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
     [hoje.getFullYear(), hoje.getFullYear() + 1].forEach(function (Y) {
-      var bf = new Date(Y, 10, 1);
-      while (bf.getDay() !== 4) bf.setDate(bf.getDate() + 1);
-      bf.setDate(bf.getDate() + 22);
-      if (BF_CDE[Y]) bf = new Date(Y, 10, BF_CDE[Y][0]);
       var p = mkPascoa(Y);
       [
         [new Date(Y, 0, 1), 'Ano Novo', 'BR/PY', 'solar para o verão'],
@@ -510,9 +506,8 @@
         [new Date(Y, 8, 15), 'Dia do Cliente', 'BR', 'agradecer e oferta curta'],
         [new Date(Y, 8, 21), 'Primavera / Día de la Juventud', 'PY', 'solar: começa o sol forte'],
         [new Date(Y, 9, 12), 'Dia das Crianças', 'BR', 'óculos infantis'],
-        [bf, BF_CDE[Y] ? 'Black Friday CDE' : 'Black Friday', 'BR/PY', 'super evento no site'],
         [new Date(Y, 11, 25), 'Natal', 'BR/PY', 'presente: embalagem e combo']
-      ].forEach(function (x) {
+      ].concat(BF_CDE[Y] ? [[new Date(Y, 10, BF_CDE[Y][0]), 'Black Friday CDE', 'BR/PY', 'super evento no site']] : []).forEach(function (x) {
         var dd = Math.round((x[0] - hoje) / DAY);
         if (dd >= 0 && dd <= 60) out.push({ d: x[0].getTime(), em: dd, t: x[1], pais: x[2], ideia: x[3] });
       });

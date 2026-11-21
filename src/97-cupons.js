@@ -353,13 +353,10 @@
       var d = function (M, D, f) {
           return new Date(a, M - 1, D, f ? 23 : 0, f ? 59 : 0).getTime();
         },
-        n1 = new Date(a, 10, 1),
-        bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
         j1 = new Date(a, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
-      // S366: a data que vale é a da Black Friday CDE (decisão do dono, 13/11/2026); sem data da Câmara para o ano, cai na sexta internacional
+      // A única Black Friday é a da CDE (dono, 13/11 e 21/11/2026): ano sem data da Câmara = ano sem Black Friday, como no site
       if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
-      else L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
       L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
       L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
       L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });

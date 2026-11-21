@@ -3771,6 +3771,26 @@ async def main():
             if not ok: falhas.append('item 35 bibliotecas dentro do app'); print('        veio', got, carrega, novos, pg.erros)
             await pg.close()
 
+            # Black Friday = só a da CDE (dono, 13/11 02:54 e de novo 21/11/2026: "esse evento internacional já solicitei várias vezes para ser removido").
+            # Causa da volta: os três calendários do app tinham uma data de reserva (4ª sexta de novembro) para o ano sem data da Câmara.
+            # Agora ano sem data da Câmara = ano sem Black Friday, igual ao site. A prova anda o relógio por 2026, 2027 e 2028.
+            pg = await pagina()
+            got = await pg.evaluate("""() => { const L = window.__LF, D = Date, R = { com: [], sem: [] };
+              const em = (a, m, d) => { const t = new D(a, m - 1, d, 10).getTime(); window.Date = class extends D { constructor(...x) { x.length ? super(...x) : super(t); } static now() { return t; } }; };
+              const olha = () => { const c = L.cupTemaProx(), s = L.semanaTema(), k = L.mkDatas().filter(x => /black/i.test(x.t)).map(x => x.t + ' ' + new D(x.d).getDate() + '/' + (new D(x.d).getMonth() + 1) + '/' + new D(x.d).getFullYear());
+                return [c && c.tema === 'bf' ? new D(c.ini).getDate() + '-' + new D(c.fim).getDate() : '', /black/i.test(s) ? s : '', k.join('|')]; };
+              try { em(2026, 11, 10); R.com = olha();
+                for (const [a, m, d] of [[2027, 10, 1], [2027, 11, 1], [2027, 11, 20], [2027, 11, 26], [2027, 11, 27], [2028, 11, 1], [2028, 11, 24]]) { em(a, m, d); const o = olha(); if (o.join('')) R.sem.push([a, m, d, o]); }
+              } finally { window.Date = D; }
+              return R; }""")
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            tabela = sorted(f for f, t in fontes.items() if re.search(r'\bBF_CDE\s*=', t))
+            total += 1
+            ok = got['com'][0] == '19-22' and 'Black Friday CDE' in got['com'][1] and got['com'][2] == 'Black Friday CDE 19/11/2026' and got['sem'] == [] and tabela == ['97-cupons.js'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Black Friday só a da CDE: com data da Câmara aparece 19–22/11 nos três calendários; ano sem data da Câmara não tem Black Friday nenhuma (nada de sexta internacional); a tabela de datas fica num arquivo só')
+            if not ok: falhas.append('black friday so a da CDE'); print('        veio', got, tabela, pg.erros)
+            await pg.close()
+
             # Item 30 (20/11/2026): vistas pela análise — o app pede o resumo de 30 dias à função analise (login do dono) e NÃO lê mais vistas/;
             # a chamada à análise mora num lugar só (analiseResumo)
             total += 1
