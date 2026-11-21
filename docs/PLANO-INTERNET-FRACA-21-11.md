@@ -36,3 +36,6 @@ A parte 0 tira a espera na raiz (quem lê o que é público não precisa de selo
 | Sem a recarga da 1ª abertura (1795266930) | 14,0–14,1 s / 1,6 s (uma medida logo após publicar: 20,2 s) | 14,9 s / 1,8 s (idem: 21,1 s) |
 
 O que sobra no 4G fraco é quase só o programa do site (271 KB, ~11 s). Parte 2: o trecho da consulta do grau com a Mochi tem ~215 KB dos 813 KB do arquivo (linhas ~3500–4250) — é o primeiro candidato a descer só quando a pessoa abre a consulta; falta estudar onde a Mochi aparece no Início. Parte 3: logo mais leve (esboço na Fila 36) e letras no próprio site.
+| Roupas do Mochi fora do programa (1795269030) | 13,5 s / 1,5 s | 14,3–14,5 s / 1,7 s (1ª medida após publicar: 20 s) |
+
+Programa na rede: 270 → 244 KB. Próximo passo da parte 2: o pedaço da consulta do grau (234 KB do arquivo; sem ele o programa cairia para ~194 KB na rede, ~3 s a menos no 4G fraco). Ele usa 19 nomes do programa e embrulha `product` e `vgrDraw`, e o Mochi do Início mora nele — precisa separar primeiro o que é do Início (desenho do Mochi) do que é só da consulta. Em toda medida, a 1ª abertura logo depois de publicar sai ~5 s mais lenta (a rede de entrega ainda não tem os arquivos novos).
