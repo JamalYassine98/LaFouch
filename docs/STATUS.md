@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 38 giro etapa 1: tempos por fase do tratamento no diário (sem mudar o resultado) | src/97-giro-trata.js, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 | SITE | Pendências parte 3: plano das ferramentas — parte 1 (um simulador só) | work/kit/sim.py, work/fiscal/provas.py, work/fiscal/fiscal.py, work/s430/comparador/compara.py |
 
