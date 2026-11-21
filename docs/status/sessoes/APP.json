@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "134b: Inventário › Fornecedores — lote sem cartão, lixeira e Editar alinhados ao título",
- "arquivos": [
-  "src/52-lotes.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795282183.4467187,
+   "r": "v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo"
+  },
   {
    "t": 1795280865.667937,
    "r": "v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores"
@@ -42,10 +42,6 @@
   {
    "t": 1795268208.1814628,
    "r": "v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)"
-  },
-  {
-   "t": 1795265933.064614,
-   "r": "v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)"
   }
  ],
  "leu": 1795282179.112152
