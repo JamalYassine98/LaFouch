@@ -12,7 +12,11 @@ const Reserva = require('../../functions/reserva');
 const B = 'https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net';
 const O = 'https://lafouch.com';
 const ROBO = process.env.PIX_ROBO || '';
-admin.initializeApp({ projectId: 'lafouch-2f6bd' });
+// a conta de publicação entra pelo GitHub (Workload Identity): o firebase-admin não lê esse tipo de credencial, então o acesso
+// vem da biblioteca do Google (google-auth-library, a mesma que o Firestore usa por baixo)
+const { GoogleAuth } = require('google-auth-library');
+const gauth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
+admin.initializeApp({ projectId: 'lafouch-2f6bd', credential: { getAccessToken: async () => { const t = await (await gauth.getClient()).getAccessToken(); return { access_token: t.token, expires_in: 3000 }; } } });
 const db = admin.firestore();
 
 let falhas = 0;
