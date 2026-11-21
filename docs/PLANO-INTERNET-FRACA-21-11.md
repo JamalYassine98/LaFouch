@@ -39,3 +39,6 @@ O que sobra no 4G fraco é quase só o programa do site (271 KB, ~11 s). Parte 2
 | Roupas do Mochi fora do programa (1795269030) | 13,5 s / 1,5 s | 14,3–14,5 s / 1,7 s (1ª medida após publicar: 20 s) |
 
 Programa na rede: 270 → 244 KB. Próximo passo da parte 2: o pedaço da consulta do grau (234 KB do arquivo; sem ele o programa cairia para ~194 KB na rede, ~3 s a menos no 4G fraco). Ele usa 19 nomes do programa e embrulha `product` e `vgrDraw`, e o Mochi do Início mora nele — precisa separar primeiro o que é do Início (desenho do Mochi) do que é só da consulta. Em toda medida, a 1ª abertura logo depois de publicar sai ~5 s mais lenta (a rede de entrega ainda não tem os arquivos novos).
+
+### Correção (21/11 11:30, antes de mexer na consulta)
+Medido com a Mochi separada: o pedaço da consulta tem 154 KB, dos quais 58 KB são a Mochi (fica no programa). Tirar só a consulta baixa o programa de 247 para 214 KB na rede (33 KB, ~1,3 s no 4G fraco) — e não ~3 s como eu tinha dito (a conta antiga somava a Mochi e as roupas que já saíram). O que mais disputa a rede com o programa hoje: as duas letras do Google (114 KB, de outro endereço) e o logo (154 KB, reprovado mexer). Decisão do dono pendente: consulta em pedaço (1,3 s, risco médio) × letras guardadas no próprio site (mesmos arquivos, sem mudar o desenho; ganho a medir).

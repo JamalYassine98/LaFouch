@@ -1,0 +1,11 @@
+const acorn=require('acorn'),fs=require('fs');const src=fs.readFileSync('tudo.js','utf8');
+const ast=acorn.parse(src,{ecmaVersion:2022,ranges:true});const lin=o=>src.slice(0,o).split('\n').length;
+const main=ast.body[0].expression.callee;const st=main.body.body.find(n=>n.type==='ExpressionStatement'&&n.expression.type==='CallExpression'&&n.range[1]-n.range[0]>150000);
+const B=st.expression.callee.body.body;console.log('pedaço linhas',lin(st.range[0]),lin(st.range[1]),'· declarações no 1º nível:',B.length);
+let out=[];B.forEach((n,i)=>{const kb=((n.range[1]-n.range[0])/1024).toFixed(1);let d='';
+ if(n.type==='FunctionDeclaration')d='function '+n.id.name;else if(n.type==='VariableDeclaration')d=n.kind+' '+n.declarations.map(x=>x.id.name||'{…}').join(',').slice(0,90);
+ else d='▶ '+src.slice(n.range[0],n.range[0]+110).replace(/\s+/g,' ');
+ out.push([i,lin(n.range[0]),kb,d])});
+const nf=out.filter(o=>o[3].startsWith('▶'));console.log('não-declarações (rodam na abertura):',nf.length);nf.forEach(o=>console.log(' ',o.join(' | ')));
+console.log('maiores declarações:');out.filter(o=>!o[3].startsWith('▶')).sort((a,b)=>b[2]-a[2]).slice(0,14).forEach(o=>console.log(' ',o.join(' | ')));
+fs.writeFileSync('inv.json',JSON.stringify({ini:st.range,corpo:[B[0].range[0],B[B.length-1].range[1]],itens:B.map(n=>n.range)}));
