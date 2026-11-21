@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Noite 20→21/11 (dono dormindo): faixa do evento → plano das ferramentas → varredura de código morto com o site rodando",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795225677.5421762,
