@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Internet fraca parte 1 (1ª tela dentro da página): estudo do robô das páginas + implementação por dentro",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795234396.1633363,
@@ -44,5 +47,5 @@
    "r": "tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro"
   }
  ],
- "leu": 1795233187.1089492
+ "leu": 1795258695.6190164
 }
