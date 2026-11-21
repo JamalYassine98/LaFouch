@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "38 parte A: aviso curto com a cor do tipo (lfToast com tipo)",
+ "arquivos": [
+  "src",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795301407.4284365,
@@ -44,5 +48,5 @@
    "r": "v605 no ar: 134d completo. Próximo: 149s superfície"
   }
  ],
- "leu": 1795301406.9923897
+ "leu": 1795301612.0298908
 }
