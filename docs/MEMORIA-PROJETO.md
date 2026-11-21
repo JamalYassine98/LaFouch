@@ -3413,3 +3413,9 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
     - O grupo da peça já nasce na sessão do Estúdio (por peça, com todas as cores). Nada de adivinhar por aparência.
     - Só se cadastra o que **já foi tratado**: "não faz sentido cadastrar produto não tratado, não está apresentável". Grupos "a tratar/tratando" ficam na Galeria, mas não aparecem para cadastro.
     - O cadastro em sequência ("Próxima peça sem cadastro ›") ainda está em análise pelo dono.
+
+- 21/11 10:32–10:34 — DONO, grupo de gravação no Estúdio:
+  - Botão **"Terminei esta peça"**: marca que todas as cores do grupo foram gravadas.
+  - Pronto para cadastro = terminado pelo dono **e** todas as cores tratadas.
+  - O grupo pode ser reaberto ("Adicionar cor a este grupo").
+  - Grupo que ficou aberto **não fecha sozinho**: o **Guardião avisa** em Pendências. "O sistema não tem como saber se são 10 cores ou 2."
