@@ -135,10 +135,6 @@
     if (P) P.pedirAcesso().catch(function () {});
     NOTIF_OK = null;
   };
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('pauto') < 0) {
-    AJ_PADRAO.push('pauto');
-    AJ_ICO.pauto = AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
-  }
 
   // ---- Leitura do comprovante ----
   var COMP_LENDO = {};

@@ -1,8 +1,9 @@
 {
- "nome": "5.50.35",
+ "nome": "5.50.36",
  "notas": [
-  "Ajustes › Cópias e nuvem: as 4 linhas (Voltar no tempo, Lixeira, Aparelhos, Arquivo de backup) voltam a ser linhas normais — nome à esquerda, valor à direita — e não mudam mais de jeito sozinhas.",
-  "Por dentro: os links rosa (\"Ver todas ›\" etc.) agora nascem declarados; o app parou de adivinhar pelo texto."
+  "Ajustes organizado em 3 blocos: Loja, Contas ligadas e Este aparelho. As linhas ficam direto na tela, sem cartão em volta.",
+  "Pedidos do site ganhou ícone próprio (sacola).",
+  "Cópias e nuvem: nenhuma linha quebra mais em duas."
  ],
- "build": 610
+ "build": 611
 }

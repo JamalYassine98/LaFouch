@@ -175,6 +175,7 @@
     h += ajListaHtml(secs);
     el.innerHTML = h;
     ajGestos();
+    ajCabe();
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
   document.addEventListener('change', function (e) {

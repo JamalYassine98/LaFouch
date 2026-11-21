@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 610;
+  var APP_BUILD = 611;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.35'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.36'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -26917,6 +26917,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     h += ajListaHtml(secs);
     el.innerHTML = h;
     ajGestos();
+    ajCabe();
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
   document.addEventListener('change', function (e) {
@@ -28675,9 +28676,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   });
   // ===== Ajustes minimalista (v419, esboço aprovado 04/11/2026) =====
-  // Um grupo só: cada seção é uma linha (ícone em pastilha cinza, título, resumo, seta) que abre no lugar,
-  // uma aberta por vez. Segurar a linha (0,4 s) levanta e arrasta para mudar a ordem; soltar assenta com mola
-  // e mostra "Ordem salva · Desfazer" por 4 s. A ordem é de cada aparelho (localStorage), como o Tema.
+  // Cada seção é uma linha (ícone, título, resumo, seta) que abre no lugar, uma aberta por vez.
+  // Ajustes organizado (aprovado 20/11 15:53) + 149i (linhas sem cartão): as linhas vêm em 3 blocos com título — a tabela AJ_BLOCOS
+  // (chave → bloco) é o único lugar que diz onde cada configuração mora. Segurar a linha (0,4 s) levanta e arrasta para mudar a ordem
+  // DENTRO do bloco; soltar assenta com mola e mostra "Ordem salva · Desfazer" por 4 s. A ordem é de cada aparelho (localStorage), como o Tema.
   var AJ_SVG = function (d) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
   };
@@ -28687,7 +28689,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
     site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
-    ped: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
+    ped: AJ_SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>'), // sacola: o globo fica só no Site
+    pauto: AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
     upd: AJ_SVG('<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/>'),
@@ -28696,7 +28699,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
     // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'pa', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
+    AJ_BLOCOS = [
+      ['Loja', ['site', 'ped', 'pa', 'pauto']],
+      ['Contas ligadas', ['bk', 'sync']],
+      ['Este aparelho', ['imp', 'tema', 'seg', 'av', 'upd']]
+    ],
+    AJ_PADRAO = AJ_BLOCOS.reduce(function (a, b) { return a.concat(b[1]); }, []);
   function ajOrdem() {
     var o = [];
     try {
@@ -28717,13 +28725,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Monta o grupo. secs = { chave: { t: título, r: resumo, al: pede atenção, h: conteúdo } }
   function ajListaHtml(secs) {
     var ab = S.ajAberta || '';
+    var ord = ajOrdem();
     return (
       '<div class="ajGrp" id="ajGrp">' +
-      ajOrdem()
-        .filter(function (k) {
-          return secs[k] && secs[k].h;
-        })
-        .map(function (k) {
+      AJ_BLOCOS.map(function (bl) {
+        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && secs[k].h; });
+        if (!ls.length) return '';
+        return '<div class="ajBl"><div class="ajBt">' + bl[0] + '</div>' + ls.map(function (k) {
           var s = secs[k],
             on = ab === k || !!S._rtudo; // testes antigos: tudo aberto
           return (
@@ -28732,10 +28740,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             '<span class="ajRes' + (s.al ? ' al' : '') + '">' + (s.al ? '<i class="ajPt"></i>' : '') + esc(s.r || '') + '</span><span class="ajCh">' + AJ_SETA + '</span><span class="ajAl">' + AJ_ALCA + '</span></button>' +
             '<div class="ajB"><div class="ajBi">' + s.h + '</div></div></div>'
           );
-        })
-        .join('') +
+        }).join('') + '</div>';
+      }).join('') +
       '</div><div class="ajVer">Versão ' + esc(APP_NOME) + '</div>'
     );
+  }
+  // L4: nenhuma linha de Ajustes quebra em 2 — nome, resumo e as linhas de dentro (.nvxL) ficam numa linha só; se não cabem, a letra do grupo diminui
+  function ajCabe() {
+    var g = $('ajGrp');
+    if (!g) return;
+    lfCabe(g, function () {
+      return [].some.call(g.querySelectorAll('.ajR b, .ajRes, .nvxL span, .nvxL small'), function (e) { return e.scrollWidth > e.clientWidth + 1; });
+    });
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
@@ -28833,7 +28849,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     S.ajAberta = '';
     g.classList.add('arr');
-    st.lista = [].slice.call(g.querySelectorAll('.ajS'));
+    st.lista = [].slice.call(st.s.parentNode.querySelectorAll('.ajS')); // só as linhas do mesmo bloco
     st.ix = st.lista.indexOf(st.s);
     st.alvo = st.ix;
     // espera a seção fechar para medir as alturas
@@ -28886,16 +28902,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       x.style.transform = '';
     });
     st.s.classList.remove('ajLev');
+    var bloco = st.s.parentNode;
     ks.forEach(function (kk) {
-      var el = g.querySelector('.ajS[data-k="' + kk + '"]');
-      if (el) g.appendChild(el);
+      var el = bloco.querySelector('.ajS[data-k="' + kk + '"]');
+      if (el) bloco.appendChild(el);
     });
     g.classList.remove('arr');
-    // ordem completa (as seções escondidas neste aparelho ficam onde estavam)
-    var nova = ks.slice();
-    antes.forEach(function (x, i) {
-      if (nova.indexOf(x) < 0) nova.splice(Math.min(i, nova.length), 0, x);
-    });
+    // ordem completa: as linhas deste bloco trocam de lugar entre si; as dos outros blocos (e as escondidas neste aparelho) ficam onde estavam
+    var fila = ks.slice(),
+      nova = antes.map(function (x) { return ks.indexOf(x) >= 0 ? fila.shift() : x; });
     var mudou = nova.join() !== antes.join();
     ajSalvaOrdem(nova);
     // mola: cada linha sai de onde estava e assenta no lugar novo
@@ -40692,10 +40707,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (P) P.pedirAcesso().catch(function () {});
     NOTIF_OK = null;
   };
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('pauto') < 0) {
-    AJ_PADRAO.push('pauto');
-    AJ_ICO.pauto = AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
-  }
 
   // ---- Leitura do comprovante ----
   var COMP_LENDO = {};
@@ -51025,13 +51036,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function c149Cabe(ov) {
     var L = ov.querySelector('.ecPainel.ecL');
     if (!L || !ov.classList.contains('ecPD')) return ov.removeAttribute('data-cabe');
-    for (var n = 0; n <= 3; n++) {
-      ov.setAttribute('data-cabe', String(n));
+    lfCabe(ov, function () {
       var corta = [].some.call(L.querySelectorAll('.ecLista span'), function (e) {
         return e.scrollWidth > e.clientWidth + 1;
       });
-      if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
-    }
+      return L.scrollHeight > L.clientHeight + 1 || corta;
+    });
   }
   // Ao gravar a volta, fixa o que o aparelho deixa fixar SEM mexer na imagem (item 33, 20/11/2026 — no celular do dono a imagem ficou
   // branca, depois desfocada e rosada, depois com um clarão de 1 s ao tocar em gravar). O navegador do Android só segura de verdade o
@@ -52435,6 +52445,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function lkLinha(texto, act, id, sub) {
     return '<button type="button" class="esLn slVai r100" data-act="' + act + '" data-id="' + esc(id == null ? '' : id) + '"><span class="g"><b style="font-weight:500">' + esc(texto) + ' ›</b>' +
       (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">›</i></button>';
+  }
+  // L4 (regra 14): texto nunca quebra nem sai — se não cabe, a letra do GRUPO diminui, um degrau por vez (até 3). Uma função para todos:
+  // el recebe data-cabe="0|1|2|3" (os degraus de cada grupo ficam no CSS dele) e naoCabe() diz se ainda sobra texto para fora.
+  function lfCabe(el, naoCabe) {
+    for (var n = 0; n <= 3; n++) {
+      el.setAttribute('data-cabe', String(n));
+      if (!naoCabe()) return;
+    }
   }
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');

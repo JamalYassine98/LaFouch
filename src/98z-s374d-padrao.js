@@ -30,6 +30,14 @@
     return '<button type="button" class="esLn slVai r100" data-act="' + act + '" data-id="' + esc(id == null ? '' : id) + '"><span class="g"><b style="font-weight:500">' + esc(texto) + ' ›</b>' +
       (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">›</i></button>';
   }
+  // L4 (regra 14): texto nunca quebra nem sai — se não cabe, a letra do GRUPO diminui, um degrau por vez (até 3). Uma função para todos:
+  // el recebe data-cabe="0|1|2|3" (os degraus de cada grupo ficam no CSS dele) e naoCabe() diz se ainda sobra texto para fora.
+  function lfCabe(el, naoCabe) {
+    for (var n = 0; n <= 3; n++) {
+      el.setAttribute('data-cabe', String(n));
+      if (!naoCabe()) return;
+    }
+  }
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;

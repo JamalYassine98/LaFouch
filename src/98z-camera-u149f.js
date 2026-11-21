@@ -106,13 +106,12 @@
   function c149Cabe(ov) {
     var L = ov.querySelector('.ecPainel.ecL');
     if (!L || !ov.classList.contains('ecPD')) return ov.removeAttribute('data-cabe');
-    for (var n = 0; n <= 3; n++) {
-      ov.setAttribute('data-cabe', String(n));
+    lfCabe(ov, function () {
       var corta = [].some.call(L.querySelectorAll('.ecLista span'), function (e) {
         return e.scrollWidth > e.clientWidth + 1;
       });
-      if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
-    }
+      return L.scrollHeight > L.clientHeight + 1 || corta;
+    });
   }
   // Ao gravar a volta, fixa o que o aparelho deixa fixar SEM mexer na imagem (item 33, 20/11/2026 — no celular do dono a imagem ficou
   // branca, depois desfocada e rosada, depois com um clarão de 1 s ao tocar em gravar). O navegador do Android só segura de verdade o

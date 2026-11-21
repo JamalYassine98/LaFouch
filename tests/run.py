@@ -1388,17 +1388,18 @@ async def main():
             await pg.click('.ajS[data-k=seg] .ajR'); await pg.wait_for_timeout(300)
             await pg.click('.ajS[data-k=tema] .ajR'); await pg.wait_for_timeout(400)
             a1 = await pg.evaluate("() => [...document.querySelectorAll('#ajGrp .ajS.on')].map(x => x.dataset.k)")
-            bx = await pg.locator('.ajS[data-k=bk] .ajR').bounding_box()
+            await pg.evaluate("() => document.querySelector('.ajS[data-k=upd]').scrollIntoView({block: 'center'})"); await pg.wait_for_timeout(200)  # a lista ficou mais alta (títulos dos blocos)
+            bx = await pg.locator('.ajS[data-k=upd] .ajR').bounding_box()  # 37d: arrasta dentro do bloco (Este aparelho)
             x = bx['x'] + bx['width'] / 2; y = bx['y'] + bx['height'] / 2
             await pg.mouse.move(x, y); await pg.mouse.down(); await pg.wait_for_timeout(700)
             for k in range(1, 31):
                 await pg.mouse.move(x, y - k * 25); await pg.wait_for_timeout(15)
             await pg.wait_for_timeout(150); await pg.mouse.up(); await pg.wait_for_timeout(500)
-            a2 = await pg.evaluate("() => [document.querySelector('#ajGrp .ajS').dataset.k, JSON.parse(localStorage.getItem('lf_ajOrd'))[0], document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on')]")
+            a2 = await pg.evaluate("() => { const o = JSON.parse(localStorage.getItem('lf_ajOrd')); return [document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k, o.indexOf('upd') < o.indexOf('imp') && o.indexOf('site') < o.indexOf('bk'), document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on'), document.querySelector('#ajGrp .ajBl .ajS').dataset.k]; }")
             await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
-            a3 = await pg.evaluate("() => document.querySelector('#ajGrp .ajS').dataset.k")
-            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['bk', 'bk', True] and a3 == 'imp' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: grupo único, uma aberta por vez, segurar e arrastar com Desfazer')
+            a3 = await pg.evaluate("() => document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k")
+            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['upd', True, True, 'site'] and a3 == 'imp' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: uma aberta por vez, segurar e arrastar dentro do bloco com Desfazer')
             if not ok: falhas.append('ajustes ordem'); print('        veio', a0, a1, a2, a3, pg.erros)
             total += 1
             await pg.close()
@@ -4338,7 +4339,7 @@ async def main():
               try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
               S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.paPrev = false; S.ajAberta = ''; L.setView('ajustes'); await w(400);
               const ks = [...document.querySelectorAll('#ajGrp .ajS')].map(x => x.dataset.k), l = () => document.querySelector('#ajGrp .ajS[data-k=pa]');
-              R.push(ks.indexOf('pa') === ks.indexOf('site') + 1, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
+              R.push(ks.join().indexOf('site,ped,pa,pauto') === 0, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
               l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').click(); await w(500);
               R.push(l().classList.contains('on') && S.view === 'ajustes', !!l().querySelector('#paCard [data-act=paTog]'), !!l().querySelector('[data-act=dfold][data-id=cfg]'));
               l().querySelector('[data-act=paTog]').click(); await w(300); R.push(!!l().querySelector('.paPrev [data-act=paLiga]'));
@@ -4611,6 +4612,35 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37a: grupo pelo Início abre o índice das telas (um jeito só, igual à barra); a tela abre, "‹ grupo" volta; Marketing abre a tela dele')
             if not ok: falhas.append('37a grupo abre o indice'); print('        veio', got, pg.erros)
             await pg.close()
+
+            # Esboço 37d parte 1 (Ajustes organizado, aprovado 20/11 15:53 + 149i): 3 blocos com título vindos de UMA tabela, linhas sem cartão,
+            # sacola em Pedidos do site (o globo fica só no Site) e L4 — nenhuma linha quebra em 2 nem corta, celular 390, letra 1× e 1,3×, claro e escuro.
+            got = []
+            for esq, zoom in (('dark', 1), ('light', 1), ('dark', 1.3)):
+                ctx37 = await b.new_context(viewport={'width': 390, 'height': 844}, color_scheme=esq, service_workers='block')
+                pg = await pagina(scheme=esq, ctx=ctx37, fam=True, tudo=False)
+                await pg.context.route(re.compile(r'googleapis'), lambda r: r.fulfill(json={}))
+                if zoom != 1: await pg.add_style_tag(content='#ajGrp .ajR b,#ajGrp .ajRes,#ajGrp .nvxL span,#ajGrp .nvxL small{zoom:%s}' % zoom)  # letra grande do aparelho: só o texto cresce
+                got.append(await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+                  try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
+                  const fora = () => [...document.querySelectorAll('#ajGrp .ajR b, #ajGrp .ajRes, #ajGrp .nvxL span, #ajGrp .nvxL small')].filter(e => { const lh = parseFloat(getComputedStyle(e).fontSize) * 1.3; return e.getBoundingClientRect().height > lh * 1.7 || e.scrollWidth > e.clientWidth + 1; }).map(e => e.textContent.trim());
+                  S.ajAberta = ''; L.setView('ajustes'); S._ajForce = true; L.render(); await w(450);
+                  const g = document.getElementById('ajGrp'), cs = getComputedStyle(g);
+                  R.blocos = [...g.querySelectorAll('.ajBl')].map(b => b.querySelector('.ajBt').textContent + ':' + [...b.querySelectorAll('.ajS')].map(x => x.dataset.k).join(','));
+                  R.plano = [cs.backgroundColor, cs.borderTopWidth, cs.borderRadius, getComputedStyle(g.querySelector('.ajS')).backgroundColor, getComputedStyle(g.querySelector('.ajR')).paddingLeft].join('|');
+                  R.ico = g.querySelector('.ajS[data-k=ped] .ajIc').innerHTML !== g.querySelector('.ajS[data-k=site] .ajIc').innerHTML;
+                  R.fora0 = fora();
+                  S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}]; S.ajAberta = 'bk'; S._ajForce = true; L.render(); await w(600);
+                  R.nuvem = document.querySelectorAll('#ajGrp .ajS[data-k=bk].on .nvxL').length; R.fora1 = fora(); R.cabe = document.getElementById('ajGrp').getAttribute('data-cabe');
+                  return R; }"""))
+                erros37d = list(pg.erros); await pg.close(); await ctx37.close()
+                if erros37d: break
+            total += 1
+            B37 = ['Loja:site,ped,pa,pauto', 'Contas ligadas:bk', 'Este aparelho:imp,tema,seg,av,upd']
+            ok = (len(got) == 3 and all(r['blocos'] == B37 and r['plano'] == 'rgba(0, 0, 0, 0)|0px|0px|rgba(0, 0, 0, 0)|0px' and r['ico'] and r['fora0'] == [] and r['fora1'] == [] and r['nuvem'] == 4 for r in got)
+                  and got[0]['cabe'] == '0' and not any(re.search(r"AJ_PADRAO\.push|AJ_PADRAO = \[", t) for t in fontes.values()) and not erros37d)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (1): Ajustes em 3 blocos de uma tabela só, linhas sem cartão, sacola em Pedidos do site, nenhuma linha quebra (letra 1× e 1,3×)')
+            if not ok: falhas.append('37d ajustes em blocos'); print('        veio', got, erros37d)
 
             # Esboço 37c (aprovado 20/11 23:42): link solto NASCE declarado (lkSolto/lkCls/lkLinha); ninguém adivinha pelo texto depois do desenho —
             # as linhas da nuvem e "Gerenciar grupo ›" ficam no estilo próprio, e redesenhar a tela não muda a classe de nenhum botão.
