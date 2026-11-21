@@ -4612,6 +4612,29 @@ async def main():
             if not ok: falhas.append('37a grupo abre o indice'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 37c (aprovado 20/11 23:42): link solto NASCE declarado (lkSolto/lkCls/lkLinha); ninguém adivinha pelo texto depois do desenho —
+            # as linhas da nuvem e "Gerenciar grupo ›" ficam no estilo próprio, e redesenhar a tela não muda a classe de nenhum botão.
+            pg = await pagina(fam=True, tudo=False)
+            await pg.context.route(re.compile(r'googleapis'), lambda r: r.fulfill(json={}))
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const cls = v => [...document.querySelectorAll('#v-' + v + ' button, #v-' + v + ' a')].map(e => e.className).join('|');
+              S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}]; S.ajAberta = 'bk'; L.setView('ajustes'); S._ajForce = true; L.render(); await w(500);
+              const nv = [...document.querySelectorAll('#v-ajustes .nvxL')]; R.nuvem = [nv.length, nv.filter(e => e.classList.contains('lk100')).length, nv.every(e => getComputedStyle(e).textAlign !== 'center' && getComputedStyle(e).display === 'flex')];
+              R.iguais = [];
+              for (const v of ['ajustes', 'caixa', 'ped', 'dash', 'fx', 'hist', 'notif']) { L.setView(v); await w(400); const a = cls(v); L.render(); await w(250); L.render(); await w(250); R.iguais.push(a === cls(v)); }
+              L.setView('inicio'); await w(300); document.querySelector('#mainnav .mn[data-id="g:pecas"]').click(); await w(500);
+              const a = cls('grp'); document.querySelector('#mainnav .mn[data-id="g:pecas"]').click(); await w(400); L.render(); await w(300); const ge = document.querySelector('#v-grp .nvGer');
+              R.grp = [a === cls('grp'), !!ge && !ge.classList.contains('lk100'), document.querySelectorAll('#v-grp .lk100').length];
+              L.setView('caixa'); await w(400); R.link = !!document.querySelector('#v-caixa .lcT.cxLr.lk100.c101');
+              R.linha = L.lkLinha('Ver', 'view', 'caixa', 'sub').indexOf('class="esLn slVai r100"') > 0 && L.lkLinha('Ver', 'view').indexOf('<b style="font-weight:500">Ver ›</b>') > 0;
+              return R; }""")
+            total += 1
+            adiv = [f for f, t in fontes.items() if re.search(r'pad100|FORA100|_p100', t)]
+            ok = (got['nuvem'] == [4, 0, True] and got['iguais'] == [True] * 7 and got['grp'] == [True, True, 0] and got['link'] and got['linha'] and not adiv and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37c: link solto nasce declarado — sem adivinhação (pad100/FORA100 fora), nuvem e "Gerenciar grupo" no estilo próprio, redesenhar não muda classe')
+            if not ok: falhas.append('37c link declarado'); print('        veio', got, adiv, pg.erros)
+            await pg.close()
+
             # Esboço 37b (dono 20/11 23:23: "todos da mesma cor, prefiro o cinza"): ícone de linha de lista (atalho do Início, "Vendido hoje",
             # índice de cada grupo) = cor --mute, claro e escuro; a cor mora numa regra só do CSS (nenhuma outra pinta .ti/.hi/.nvIc nem o svg do atalho).
             got = []

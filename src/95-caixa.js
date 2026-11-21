@@ -259,11 +259,11 @@
         .join('') +
       '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
       // S374 (esboço 72): o link no meio da frase vira a linha "Livre e reservado ›" (leva ao Dashboard › Reservas)
-      '<button type="button" class="lcT cxLr" data-act="cxReservas">Reservas ›</button></section>';
+      '<button type="button" class="lcT cxLr' + lkCls(true) + '" data-act="cxReservas">Reservas ›</button></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
-        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.' + '<button type="button" class="esLn slVai" data-act="d48Res" data-id=""><span class="g"><b style="font-weight:500">Ver o que falta repor</b></span><i aria-hidden="true">›</i></button>' + '</div>';
+        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.' + lkLinha('Ver o que falta repor', 'd48Res', '') + '</div>';
     // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
     var acao = S.cxAcao || '';
     if (S.cxMsg !== S._cxMsgVis) {

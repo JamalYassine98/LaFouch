@@ -202,7 +202,7 @@
     if (mes) html += '</div></div>';
     var mais = keys.length - vis.length;
     if (mais > 0)
-      html += '<div class="mais71"><button type="button" class="lcT" data-act="hmais">Carregar mais 30 dias ›</button><small>' + hPl(mais, 'dia', 'dias') + ' com movimento</small></div>';
+      html += '<div class="mais71"><button type="button" class="lcT' + lkCls(true) + '" data-act="hmais">Carregar mais 30 dias ›</button><small>' + hPl(mais, 'dia', 'dias') + ' com movimento</small></div>';
     return html;
   }
   // S374: a semana abre e fecha como na Apple (mesma animação dos blocos)

@@ -7,7 +7,7 @@
   function famRot(t) { var d = document.createElement('div'); d.className = 'lbl famS'; d.textContent = t; return d; }
   function famBtn(t, act, id) {
     var b = document.createElement('button');
-    b.type = 'button'; b.className = 'gBtn famV'; b.textContent = t; b.setAttribute('data-act', act);
+    b.type = 'button'; b.className = 'gBtn famV' + lkCls(true); b.textContent = t; b.setAttribute('data-act', act);
     if (id != null) b.setAttribute('data-id', id);
     return b;
   }

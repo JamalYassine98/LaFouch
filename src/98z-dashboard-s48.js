@@ -95,7 +95,7 @@
       rmH = S._resMes();
       if (rmH) {
         var abR = !!S._d48.res, bR = document.createElement('button'), cR = document.createElement('div');
-        bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : '');
+        bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : lkCls(false));
         bR.setAttribute('data-act', 'd48Abre'); bR.setAttribute('data-id', 'res'); bR.setAttribute('aria-expanded', abR ? 'true' : 'false');
         bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '›') + '</i>';
         cR.className = 'esCorpo esRes'; cR.innerHTML = rmH;
@@ -118,7 +118,7 @@
       }
       var hi = c.querySelector('.hint'), sub = hi ? d48Txt(hi).split(/[.;:]/)[0].split(' ').slice(0, 9).join(' ') : '', id = 'c' + i, ab = !!S._d48[id];
       var b = document.createElement('button');
-      b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : '');
+      b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : lkCls(false));
       b.setAttribute('data-act', 'd48Abre'); b.setAttribute('data-id', id); b.setAttribute('aria-expanded', ab ? 'true' : 'false');
       b.innerHTML = '<span class="g"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">' + (ab ? '⌃' : '›') + '</i>';
       ls.appendChild(b);
@@ -135,7 +135,7 @@
       dv.className = 'esTr';
       dv.innerHTML = '<div class="hint" style="margin:0">Para repor em dólar:</div>' + trocas.map(function (x) {
         var m = /^Trocar (R\$|G\$) ?([0-9.,]+)/.exec(x), moeda = m && m[1] === 'R$' ? 'brl' : 'pyg', val = m ? (moeda === 'brl' ? parseFloat(m[2].replace(/\./g, '').replace(',', '.')) : parseInt(m[2].replace(/\D/g, ''), 10)) : 0;
-        return '<button type="button" class="esLn esTroca" data-act="d48Troca" data-id="' + moeda + '|' + val + '"><span class="g"><b>' + esc(x) + '</b><small>Registrar a troca no Câmbio</small></span><i aria-hidden="true">›</i></button>';
+        return '<button type="button" class="esLn esTroca' + lkCls(false) + '" data-act="d48Troca" data-id="' + moeda + '|' + val + '"><span class="g"><b>' + esc(x) + '</b><small>Registrar a troca no Câmbio</small></span><i aria-hidden="true">›</i></button>';
       }).join('');
       tb.appendChild(dv);
     }
@@ -156,7 +156,7 @@
     var top = v.querySelector('.top'), data = '';
     var hd = document.createElement('div');
     hd.className = 'dHd';
-    hd.innerHTML = '<h1 class="dHdT">Dashboard</h1><button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
+    hd.innerHTML = '<h1 class="dHdT">Dashboard</h1><button type="button" class="dHdP' + lkCls(true) + '" data-act="dPer" aria-haspopup="dialog">Hoje <i aria-hidden="true">⌄</i></button>';
     if (top) top.replaceWith(hd); else v.insertBefore(hd, v.firstChild);
     // sai o calendário (‹ data ›); a data por extenso vira a linha debaixo do título
     var dt = [].filter.call(v.querySelectorAll('button'), function (e) { return /^\d\d\/\d\d\/\d{4}/.test(d48Txt(e)); })[0];

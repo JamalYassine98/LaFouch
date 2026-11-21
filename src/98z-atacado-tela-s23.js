@@ -65,7 +65,7 @@
         ? '<section class="card ataLs">' + L.map(function (x) { return ataLinha(x.k === 'm' ? 'ataMsgAbre' : 'ataPedAbre', x.id, x.tit, x.sub, x.novo ? 1 : 0).replace('class="ataL"', 'class="ataL' + (sel && sel.id === x.id ? ' on' : '') + '"'); }).join('') + '</section>'
         : '<div class="ataVz">' + (S._ataMsgErr && !(S.ataMsgs || []).length ? 'Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.' : 'Nenhuma mensagem de lojista ainda.') + '</div>';
       h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>';
-      if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel) + '</div></div>';
+      if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel, true) + '</div></div>';
     } else if (a === 'loj') {
       var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });
       h = C.length
@@ -122,14 +122,15 @@
   };
   ACT.ataLojAbre = function (id) { if (typeof ataJanela === 'function') ataJanela(id); };
   function ataPC() { return window.innerWidth >= 1024; }
-  function ataMsgDetHtml(m) {
+  // naTela = no computador a mensagem abre ao lado da lista e "Criar acesso ›" é link solto; na janela de baixo (celular) é o texto sublinhado
+  function ataMsgDetHtml(m, naTela) {
     var tel = String(m.tel || '').replace(/\D/g, '');
     return '<section class="card col" style="gap:0">' +
           [['Quantidade', m.qtd], ['Procura', (m.procura || []).join(', ')], ['País', m.pais], ['Telefone', m.tel], ['E-mail', m.email], ['Código', m.cod], ['Viu no site', (m.vistos || []).join(', ')], ['Favoritos', (m.favs || []).join(', ')], ['Chegou', ataHa(m.ts)]]
             .filter(function (r) { return r[1]; }).map(function (r) { return '<div class="sl"><span>' + r[0] + '</span><b>' + esc(String(r[1])) + '</b></div>'; }).join('') +
           '</section>' +
           (tel ? '<a class="go" style="display:flex;justify-content:center;text-decoration:none" href="https://wa.me/' + tel + '" target="_blank" rel="noopener">Responder no WhatsApp</a>' : '') +
-          '<button type="button" class="lkTx" data-act="ataNovo" style="display:block;margin:12px auto 0">Criar acesso para este lojista ›</button>';
+          '<button type="button" class="lkTx' + (naTela ? lkCls(!tel) : '') + '" data-act="ataNovo" style="display:block;margin:12px auto 0">Criar acesso para este lojista ›</button>';
   }
   ACT.ataMsgAbre = function (id) {
     var m = (S.ataMsgs || []).filter(function (x) { return x.id === id; })[0];

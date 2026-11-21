@@ -263,7 +263,7 @@
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
-          '<button type="button" class="esLn slVai" data-act="view" data-id="caixa"><span class="g"><b style="font-weight:500">Objetivos da loja</b><small>guardado no Caixa</small></span><i aria-hidden="true">›</i></button>' +
+          lkLinha('Objetivos da loja', 'view', 'caixa', 'guardado no Caixa') +
           '</div>');
     // S363 (esboços 45a/45d): o resultado do mês saiu de Reservas e mora no Dashboard › Detalhes › "Resultado do mês"
     S._resMes = function () {

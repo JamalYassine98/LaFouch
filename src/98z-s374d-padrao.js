@@ -17,39 +17,23 @@
       run.forEach(function (x) { vistos.push(x); g.appendChild(x); });
     });
   }
-  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
-  // Esboço 37 / 149l: o link solto nasce declarado (rosa, 15 px, termina em ›) — uma função para todos; o pad100 não adivinha os que nascem aqui.
+  // Esboços 37 / 149l / 37c: o link solto NASCE declarado (rosa, 15 px, termina em ›) — ninguém adivinha pelo texto depois do desenho.
   // sozinho = link centralizado numa linha só dele; sem isso, fica na linha do texto.
+  //   lkSolto(texto, act, id, sozinho)  o botão inteiro, para quem não precisa de classe própria
+  //   lkCls(sozinho)                    só as classes, para quem já nasce com classe própria (ex.: 'lcT' + lkCls(true))
+  //   lkLinha(texto, act, id, sub)      a linha-link centralizada dentro de um aviso ou de um bloco ("Ver o que falta repor ›")
+  function lkCls(sozinho) { return ' lk100 ' + (sozinho ? 'c101' : 'inl'); }
   function lkSolto(texto, act, id, sozinho) {
-    return '<button type="button" class="lk100 ' + (sozinho ? 'c101' : 'inl') + '" data-act="' + act + '"' + (id != null && id !== '' ? ' data-id="' + esc(id) + '"' : '') + '>' + esc(texto) + ' ›</button>';
+    return '<button type="button" class="' + lkCls(sozinho).trim() + '" data-act="' + act + '"' + (id != null && id !== '' ? ' data-id="' + esc(id) + '"' : '') + '>' + esc(texto) + ' ›</button>';
   }
-  function pad100(raiz) {
-    if (!raiz) return;
-    [].forEach.call(raiz.querySelectorAll('.slVai:not(.mpg73)'), function (e) {
-      if (e._p100) return;
-      e._p100 = 1;
-      e.classList.add('r100');
-      var b = e.querySelector('b');
-      if (b && !/›/.test(b.textContent)) b.textContent = b.textContent.trim() + ' ›';
-    });
-    [].forEach.call(raiz.querySelectorAll('button,a'), function (e) {
-      if (e._p100 || e.classList.contains('lk100')) return;
-      var t = (e.textContent || '').trim();
-      if (!/›\s*$/.test(t) || t.length < 4) return;
-      if (e.closest(FORA100) || e.matches(FORA100)) return;
-      var s = getComputedStyle(e), pilula = e.matches('.gBtn,.chip,.lcT,.btn-sc');
-      if (s.backgroundColor !== 'rgba(0, 0, 0, 0)' && !pilula) return;
-      if (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none' && !pilula) return;
-      e._p100 = 1;
-      var irm = [].filter.call(e.parentElement.children, function (x) { return x !== e && x.matches('button,a') && (x.textContent || '').trim(); });
-      e.classList.add('lk100');
-      e.classList.add(irm.length && !e.matches('.gBtn') ? 'inl' : 'c101');
-    });
+  function lkLinha(texto, act, id, sub) {
+    return '<button type="button" class="esLn slVai r100" data-act="' + act + '" data-id="' + esc(id == null ? '' : id) + '"><span class="g"><b style="font-weight:500">' + esc(texto) + ' ›</b>' +
+      (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">›</i></button>';
   }
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;
-    try { pad99(v); pad100(v); } catch (e) {}
+    try { pad99(v); } catch (e) {}
   }
   aposRender(padTela);
 

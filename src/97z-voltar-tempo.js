@@ -182,6 +182,6 @@
   var _bhVT = backupHtml;
   backupHtml = function () {
     var h = _bhVT.apply(this, arguments);
-    return h.replace('<section class="card col">', '<section class="card col"><button type="button" class="vtE" data-act="vtAbre"><span><b>Voltar no tempo</b><small>mudanças de produto guardadas neste aparelho</small></span><i>›</i></button>');
+    return h.replace('<section class="card col">', '<section class="card col"><button type="button" class="vtE' + lkCls(true) + '" data-act="vtAbre"><span><b>Voltar no tempo</b><small>mudanças de produto guardadas neste aparelho</small></span><i>›</i></button>');
   };
   window.__vt = { registra: vtRegistra, log: function () { return VT.log; }, restaura: vtRestaura, pronto: function () { return VT.ok; } };

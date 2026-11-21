@@ -348,7 +348,7 @@
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
       '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div>' +
-      (falta > 500 ? '<button type="button" class="esLn slVai" data-act="d48Troca" data-id="pyg|' + Math.round(falta) + '"><span class="g"><b style="font-weight:500">Trocar ' + gs(Math.round(falta)) + ' por dólar no Câmbio</b></span><i aria-hidden="true">›</i></button>' : '') + '</section>'
+      (falta > 500 ? lkLinha('Trocar ' + gs(Math.round(falta)) + ' por dólar no Câmbio', 'd48Troca', 'pyg|' + Math.round(falta)) : '') + '</section>'
     );
   }
   // Custo, no câmbio de cada venda, dos dólares de reposição de a até b (as vendas mais antigas primeiro).

@@ -1,0 +1,51 @@
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | fotolixabre |  | LixeiraN itens› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | nvxAps |  | AparelhosN› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | nvxAps |  | Aparelhosver› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | nvxArq |  | Arquivo de backupexportar ou importar› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | vtAbre |  | Voltar no tempoN/N/N, N:N› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.nvxL.lk100.inl | vtAbre |  | Voltar no tempoabrir› | pai:SECTION.card col nvx#
+v-ajustes | ajustes | BUTTON.vtE.lk100.c101 | vtAbre |  | Voltar no tempomudanças de produto guardadas neste aparelho› | pai:SECTION.card col#
+v-caixa | caixa | BUTTON.gBtn.famV.lk100.c101 | famAbre |  | Ver todos os movimentos › | pai:SECTION.card col#
+v-caixa | caixa | BUTTON.lcT.cxLr.lk100.c101 | cxReservas |  | Reservas › | pai:SECTION.cxSaldo#
+v-dash | dash | BUTTON.dHdP.lk100.c101 | dPer |  | Este mês › | pai:DIV.dHd#
+v-dash | dash | BUTTON.esLn.esTroca.lk100.inl | d48Troca |  | Trocar R$ N,N por US$ N,NRegistrar a troca no Câmbio› | pai:DIV.esTr#
+v-dash | dash | BUTTON.esLn.lk100.inl | d48Abre |  | Quanto separar do que você vendeuCada conta na sua moeda› | pai:SECTION.esLs#
+v-dash | dash | BUTTON.esLn.lk100.inl | d48Abre |  | Resultado do mêsLucro real, o que mais e o que menos rendeu› | pai:SECTION.esLs#
+v-dash | dash | BUTTON.esLn.lk100.inl | d48Abre |  | Vendas do períodoCada venda com o valor exato recebido, na m | pai:SECTION.esLs#
+v-dash | dash | BUTTON.lcOf.lk100.c101 | lcOferta |  | Oferta › | pai:SPAN.lcV bad#
+v-dash | dash | BUTTON.lcT.lk100.c101 | lcCalc |  | como calcula › | pai:DIV.lcTer#
+v-dash | dash | BUTTON.lcT.lk100.c101 | lcTodos |  | ver os N › | pai:DIV.lcTer#
+v-dia | dia | BUTTON.dHdP.lk100.c101 | dPer |  | Hoje › | pai:DIV.dHd#
+v-dia | dia | BUTTON.gBtn.famV.lk100.c101 | view |  | Dias anteriores no Histórico › | pai:DIV.famC famC2#
+v-estoque | estoque | BUTTON.fnLk.lk100.inl | fnEstudio |  | Fotografar no Estúdio › | pai:DIV.fnAt#
+v-estoque | estoque | BUTTON.fnLk.lk100.inl | fnTab |  | Vender no Catálogo › | pai:DIV.fnAt#
+v-fx | fx | BUTTON.fx418R.lk100.inl | fjAbre |  | Faltam US$ N.NNormal› | pai:SECTION.cxSaldo fx418#
+v-fx | fx | BUTTON.pr418.lk.lk100.inl | fjAbre |  | Como o app te protegecolchão N,N%› | pai:SECTION.cxSaldo fx418#
+v-fx | fx | BUTTON.pr418.lk.lk100.inl | fjAbre |  | Preços no sitecotação da loja travada desde N/NG$ N.N› | pai:SECTION.cxSaldo fx418#
+v-fx | fx | BUTTON.pr418.lk.lk100.inl | fjAbre |  | Preços no sitecotação da loja travada› | pai:SECTION.cxSaldo fx418#
+v-fx | fx | BUTTON.pr418.lk.lk100.inl | fjAbre |  | Últimas trocasN› | pai:SECTION.cxSaldo fx418#
+v-grp | grp | BUTTON.nvGer.lk100.c101 | nvGer |  | Gerenciar grupo › | pai:DIV.view lxIr enter#v-grp
+v-grp | grp | BUTTON.nvGer.lk100.c101 | nvGer |  | Gerenciar grupo › | pai:DIV.view lxIr#v-grp
+v-grp | grp | BUTTON.nvGer.lk100.c101 | nvGer |  | Gerenciar grupo › | pai:DIV.view lxVolta enter#v-grp
+v-grp | grp | BUTTON.nvGer.lk100.c101 | nvGer |  | Gerenciar grupo › | pai:DIV.view#v-grp
+v-hist | hist | BUTTON.lcT.lk100.c101 | hmais |  | Carregar mais N dias › | pai:DIV.mais71#
+v-hist | hist | BUTTON.pdLink.lk100.c101 | revabrir |  | Revisar › | pai:DIV.note n-warn#
+v-inicio | inicio | BUTTON.buR.lk100.c101 | buVai |  | Maria BuscaN N› | pai:DIV.buLista#
+v-notif | notif | BUTTON.gBtn.ntGd.lk100.c101 | guardAbre |  | Ver todas as conferências do Guardião › | pai:DIV.view enter#v-notif
+v-notif | notif | BUTTON.gBtn.ntGd.lk100.c101 | guardAbre |  | Ver todas as conferências do Guardião › | pai:DIV.view lxIr enter#v-notif
+v-notif | notif | BUTTON.gBtn.ntGd.lk100.c101 | guardAbre |  | Ver todas as conferências do Guardião › | pai:DIV.view#v-notif
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | Ana GómezPedido N · N/N N:N · N peça—Novo› | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | LuzPedido N · N/N N:N · N peça—Separando› | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | Maria souzaPedido KNQN · N/N N:N · N peças · TESTE · Deliver | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | Maria souzaPedido N · N/N N:N · N peças · TESTE · DeliveryG$ | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | MariaPedido N · N/N N:N · N peças · token LF-ABCDG$ N.NPront | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | RitaPedido N · N/N N:N · N peça—Pronto para retirar› | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | Teste UmPedido N · N/N N:N · N peçaG$ N.NAguardando pagament | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedab |  | Teste UmPedido N · N/N N:N · N peçaG$ N.NCancelado› | pai:DIV.pd418L#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedcli |  | AnaN · Nº pedido› | pai:SECTION.pd418B#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedcli |  | BiaSem telefone · Nº pedido› | pai:SECTION.pd418B#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedcli |  | Maria souzaN · Nº pedido · nova› | pai:SECTION.pd418B#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedcli |  | MariaN · Nº pedido› | pai:SECTION.pd418B#
+v-ped | ped | BUTTON.pr418.lk.lk100.c101 | pedcli |  | Teste UmN · Nº pedido› | pai:SECTION.pd418B#
+v-vendas | vendas | BUTTON.fi89.lk100.c101 | fnTab |  | Ficha no Inventário › | pai:SECTION.card col enter#vDetail
+v-vendas | vendas | BUTTON.fi89.lk100.c101 | fnTab |  | Ficha no Inventário › | pai:SECTION.card col#vDetail

@@ -1,7 +1,8 @@
 {
- "nome": "5.50.34",
+ "nome": "5.50.35",
  "notas": [
-  "Ícones das listas todos em cinza: atalhos do Início, \"Vendido hoje\" e as telas de cada grupo. A barra de baixo continua rosa na aba acesa."
+  "Ajustes › Cópias e nuvem: as 4 linhas (Voltar no tempo, Lixeira, Aparelhos, Arquivo de backup) voltam a ser linhas normais — nome à esquerda, valor à direita — e não mudam mais de jeito sozinhas.",
+  "Por dentro: os links rosa (\"Ver todas ›\" etc.) agora nascem declarados; o app parou de adivinhar pelo texto."
  ],
- "build": 609
+ "build": 610
 }

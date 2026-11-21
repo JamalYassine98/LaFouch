@@ -250,7 +250,7 @@
       se = FX_SELO[vd.k];
     h +=
       // S418 (esboço 117, aprovado 17/11): "REPOSIÇÃO" e "MAIS" no padrão de luxo; as cotações ficam no desenho de hoje sem o fundo
-      '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
+      '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R' + lkCls(false) + '" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
       '<button type="button" class="fx418P" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
@@ -258,9 +258,9 @@
       L = S.siteFx;
     h +=
       '<section class="cxSaldo fx418"><div class="cxLb">Mais</div>' +
-      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
       '</section>';
     if (S.fxJan) h += fjHtml(S.fxJan, vd);
     return h;

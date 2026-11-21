@@ -152,7 +152,7 @@
     h += '<div class="lbl" style="color:' + (urg.length ? 'var(--bad)' : 'var(--mute)') + '">Guardião · precisa de você agora · ' + urg.length + '</div>';
     h += urg.length ? urg.map(cartao).join('') : '<section class="card"><b>Tudo em ordem.</b><div class="hint" style="margin:2px 0 0">Nada urgente agora.</div></section>';
     if (acomp.length) h += '<div class="lbl">Para acompanhar · ' + acomp.length + '</div>' + acomp.map(cartao).join('');
-    if (typeof ACT.guardAbre === 'function') h += '<button type="button" class="gBtn ntGd" data-act="guardAbre">Ver todas as conferências do Guardião ›</button>';
+    if (typeof ACT.guardAbre === 'function') h += '<button type="button" class="gBtn ntGd' + lkCls(true) + '" data-act="guardAbre">Ver todas as conferências do Guardião ›</button>';
     h += '<div class="lbl">Histórico</div>';
     h += S.notifs.length
       ? S.notifs

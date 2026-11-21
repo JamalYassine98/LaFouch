@@ -90,7 +90,7 @@
     if (opt.venda || !ref || !det || !fnItem(ref) || det.querySelector('.fnAt')) return;
     var a = document.createElement('div');
     a.className = 'fnAt';
-    a.innerHTML = '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>';
+    a.innerHTML = '<button type="button" class="fnLk' + lkCls(false) + '" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk' + lkCls(false) + '" data-act="fnEstudio">Fotografar no Estúdio ›</button>';
     det.appendChild(a);
   }
   window.addEventListener('popstate', function () {
@@ -183,7 +183,7 @@
       '<section class="card col"><div class="lbl">MAIS VISTAS</div>' + (top.length ? top.map(function (r) {
         return '<div class="sl"><span><a href="#" class="fnLk" data-act="abreRef" data-id="' + esc(r) + '">' + esc(r) + '</a>' + (vend[r] ? '' : ' <small>sem venda</small>') + '</span><b>' + V[r] + ' vistas</b></div>';
       }).join('') : '<div class="hint">Ainda sem vistas (precisa da nuvem ligada).</div>') + '</section>' +
-      '<button type="button" class="gBtn" data-act="onlAba" data-id="" style="align-self:center">Painel completo ›</button>';
+      '<button type="button" class="gBtn' + lkCls(true) + '" data-act="onlAba" data-id="" style="align-self:center">Painel completo ›</button>';
   }
   ACT.onlAba = function (id) { if (typeof onlPainel === 'function') onlPainel(id || 'resumo'); };
   var _cliabNav = ACT.cliab;

@@ -217,7 +217,7 @@
         '<button type="button" class="dy418T" data-act="daycal" aria-label="Escolher a data no calendário">' + esc(dExt.replace('-feira', '').replace(/ de \d{4}$/, '')) + ' <i aria-hidden="true">⌄</i></button>' +
         '<button type="button" class="ic71" data-act="daynext" aria-label="Próximo dia"><span>›</span></button>' +
         '<input type="date" class="in" id="dayIn" data-in="day" value="' + k + '" max="' + today + '" aria-label="Escolher o dia" tabindex="-1"></div>' +
-        '<div class="dy418V"><button type="button" data-act="daytoday">Voltar para hoje ›</button></div>';
+        '<div class="dy418V">' + lkSolto('Voltar para hoje', 'daytoday', null, true) + '</div>';
     else {
       h =
       (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +

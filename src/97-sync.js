@@ -65,7 +65,7 @@
   }
   function revBannerHtml() {
     var n = vendasRevisar().length;
-    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>⚠️ ' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink" data-act="revabrir">Revisar ›</button></div>' : '';
+    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>⚠️ ' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink' + lkCls(true) + '" data-act="revabrir">Revisar ›</button></div>' : '';
   }
   function revJanelaHtml() {
     if (!S._revAberta) return '';

@@ -283,7 +283,7 @@
       '<small>Tem ' + b.stock + ' · <b class="lcSo">Sobra ' + b.sobra + '</b>' + (d ? ' · acaba em ~' + d + ' dias' : '') + '</small>' +
       (b.of ? '<small class="lcOfV">A oferta valeu? Economizou ' + usd(b.of.econ) + ' · ' + (vira ? 'ainda não: o extra está parado mais tempo do que a economia compensa' : 'sim, se vender no ritmo atual') + '</small>' : '') +
       (vira ? '<small class="lcVira">vai virar parada</small>' : '') +
-      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="lcOf" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
+      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
     );
   }
   // agrupa pelo tipo, na ordem em que aparece (a lista já vem do mais urgente)
@@ -301,7 +301,7 @@
   function lcHtml() {
     var L = lcLista(),
       rp = fxRepo(),
-      h = '<section class="card col lcCard" id="lcCard"><div class="lcTer"><button type="button" class="lcT" data-act="lcCalc">como calcula ›</button></div>' +
+      h = '<section class="card col lcCard" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
         (S.lcCalc ? '<div class="hint lcCalcT" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +. Sobrando = mercadoria acima do ideal.</div>' : '');
     h += lcPedHtml();
     if (L.novo.length)
@@ -314,7 +314,7 @@
       if (!l.length) return '';
       var ver = todos[t] || l.length <= 5 ? l : l.slice(0, 5);
       return '<div class="lcSec"><span>' + t + ' · ' + l.length + '</span></div>' + lcGrupos(ver, lcLinha) +
-        (l.length > 5 ? '<div class="lcTer"><button type="button" class="lcT" data-act="lcTodos" data-id="' + t + '">' + (todos[t] ? 'mostrar só os 5 mais urgentes ›' : 'ver os ' + l.length + ' ›') + '</button></div>' : '');
+        (l.length > 5 ? '<div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcTodos" data-id="' + t + '">' + (todos[t] ? 'mostrar só os 5 mais urgentes ›' : 'ver os ' + l.length + ' ›') + '</button></div>' : '');
     };
     h += sec('Acabando', L.acab);
     h += sec('Época chegando', L.epoca);

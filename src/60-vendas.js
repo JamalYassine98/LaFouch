@@ -494,7 +494,7 @@
       });
       if (dsel) S.vSel = dsel;
       if (S.modoCli) vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo); // S374 90: "Parecidas" só no Modo cliente
-      else if (!$('vDetail').querySelector('.fi89')) { var fi89 = mk('button', 'fi89', 'Ficha no Inventário ›'); fi89.type = 'button'; fi89.setAttribute('data-act', 'fnTab'); fi89.setAttribute('data-id', 'est'); $('vDetail').appendChild(fi89); } // S374 89
+      else if (!$('vDetail').querySelector('.fi89')) { var fi89 = mk('button', 'fi89' + lkCls(true), 'Ficha no Inventário ›'); fi89.type = 'button'; fi89.setAttribute('data-act', 'fnTab'); fi89.setAttribute('data-id', 'est'); $('vDetail').appendChild(fi89); } // S374 89
     } else renderDetail('', { venda: true, host: $('vDetail') });
     var lines = (groups[S.vRef] || []).slice();
     if (lines.length && lines[0].tipo === 'pre')

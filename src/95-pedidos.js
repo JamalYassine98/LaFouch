@@ -428,7 +428,7 @@
     var cliSub = [p.tel ? esc(p.tel) : 'Sem telefone', c ? (n <= 1 ? '1º pedido' : n + 'º pedido') : '', p.cliNovo ? 'nova' : ''].filter(Boolean).join(' · ');
     h += '<section class="pd418B"><div class="cxLb">Cliente</div>' +
       (c
-        ? '<button type="button" class="pr418 lk" data-act="pedcli" data-id="' + c.id + '"><span>' + esc(p.cli || 'Sem nome') + '<small>' + cliSub + '</small></span><i aria-hidden="true">›</i></button>'
+        ? '<button type="button" class="pr418 lk' + lkCls(true) + '" data-act="pedcli" data-id="' + c.id + '"><span>' + esc(p.cli || 'Sem nome') + '<small>' + cliSub + '</small></span><i aria-hidden="true">›</i></button>'
         : pr418(esc(p.cli || 'Sem nome'), '', cliSub));
     if (p.nac) h += pr418(PED_NAC[p.nac].replace(/^\S+\s/, '').replace(/ · .*/, ''), esc(p.doc || ''), p.nasc ? 'nasc. ' + esc(p.nasc) : '');
     if (p.cidade || p.email || p.end) h += pr418(esc([p.cidade, p.email, p.end].filter(Boolean).join(' · ')), '');
@@ -591,7 +591,7 @@
         est = pedEstado(p),
         q = pedQtd(p);
       h +=
-        '<div class="pd418L"><button type="button" class="pr418 lk" data-act="pedab" data-id="' + p.id + '"><span><span class="nm">' + esc(p.cli || 'Sem nome') + '</span><small>Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + ' · ' + q + (q === 1 ? ' peça' : ' peças') + (p.teste ? ' · TESTE' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + (p.tok && p.st !== 'canc' && p.st !== 'ent' ? ' · token ' + esc(p.tok) : '') + '</small></span>' +
+        '<div class="pd418L"><button type="button" class="pr418 lk' + lkCls(true) + '" data-act="pedab" data-id="' + p.id + '"><span><span class="nm">' + esc(p.cli || 'Sem nome') + '</span><small>Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + ' · ' + q + (q === 1 ? ' peça' : ' peças') + (p.teste ? ' · TESTE' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + (p.tok && p.st !== 'canc' && p.st !== 'ent' ? ' · token ' + esc(p.tok) : '') + '</small></span>' +
         '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0].replace(/^[^A-Za-zÀ-ú✓]+/, '')) + '</small></span><i aria-hidden="true">›</i></button>' +
         pedEspera(p) + '</div>';
     });
