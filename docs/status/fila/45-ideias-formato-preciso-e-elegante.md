@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono
+IDEIAS 01 (work/ideias/01-formato: esboco-01-resultado.jpg, esboco-02-camera.jpg, COMO-FAZER.md) · SITE · parte 1 resultado com a ilustração do formato no lugar da foto+contorno roxo (aprovado A de 11/11) + conserto Feminino com 'traços de' · parte 2 precisão por dentro: 478 pontos direto (sai M68/MOFF), tabela única FORMAS, ~1,5 s de vídeo, câmera ao vivo com a mesma leitura (distância pela íris, cabeça reta) · comparador: 0 falha nova
