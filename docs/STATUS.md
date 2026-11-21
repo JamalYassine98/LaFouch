@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 134 (2b): links Vender no Catálogo / Fotografar no Estúdio no fim da ficha (fichaLinks) | src/10-estoque-detalhe.js, src/97u-navegacao-s184.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila
