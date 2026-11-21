@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com o ⌄ das dobras e o valor à direita | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
-| ESBOCO | esboço 48 — Peças: Inventário · Estúdio · Compras (parte 1) | work/s435/compras |
+| ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila
 
