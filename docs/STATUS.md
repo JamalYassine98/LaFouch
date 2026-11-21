@@ -84,7 +84,7 @@
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
-- **43-implementar-tudo-em-partes** — em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d: 136a ✅ v598 · ficha numa função ✅ v599 · 134 ✅ v600–v602 · 134b ✅ v603 · 134d ✅ v604–v605 (5.50.30). Próximas: 149s superfície (com imagens ao dono antes de publicar o que sair das 9 telas) → 39 preço exato → 38 giro → resto dos 52 → aprovados de 21/11
+- **43-implementar-tudo-em-partes** — em andamento — 4b ✅ · 4c ✅ · 4d: 136a/134/134b/134d ✅ v598–v605 · 149s esperando o dono (Fila 44) · 39 app ✅ v606 (5.50.31). Próximas: 38 giro → resto dos 52 → aprovados de 21/11
 - **44-149s-superficie-caixa-e-vender** — esperando o dono — estudo em work/s436/4d/149s/ESTUDO.md: com o cartão plano na classe, Caixa e Vender/Catálogo (fora das 9 aprovadas) também mudam; imagens enviadas ao dono 21/11; nada publicado
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
