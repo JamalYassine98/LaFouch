@@ -1,11 +1,12 @@
 {
  "nome": "APP",
- "agora": "37b ícones das listas em cinza (regra num lugar só)",
- "arquivos": [
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795293927.694783,
+   "r": "v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto)."
+  },
   {
    "t": 1795292475.0198543,
    "r": "v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza)."
@@ -41,11 +42,7 @@
   {
    "t": 1795280865.667937,
    "r": "v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores"
-  },
-  {
-   "t": 1795279521.9968693,
-   "r": "v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas"
   }
  ],
- "leu": 1795292685.8901286
+ "leu": 1795293927.2628932
 }
