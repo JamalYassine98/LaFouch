@@ -1,7 +1,9 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 39b: risco apontado pelo ESBOCO — só o que está DENTRO da caixa conta (não o pedaço inteiro que encosta nela)",
+ "arquivos": [
+  "src/97-giro-trata.js"
+ ],
  "ultimas": [
   {
    "t": 1795230949.3961456,

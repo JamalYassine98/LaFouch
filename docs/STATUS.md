@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 39b: risco apontado pelo ESBOCO — só o que está DENTRO da caixa conta (não o pedaço inteiro que encosta nela) | src/97-giro-trata.js |
 
 ## Fila
 
