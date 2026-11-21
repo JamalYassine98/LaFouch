@@ -80,6 +80,7 @@
 - **39-pagamento-parte-3-preco-exato** — aprovado 21/11 07:51 — espera o 'implementar' (ordem: NUVEM → SITE → APP)
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
+- **43-implementar-tudo-em-partes** — em andamento — dono 21/11 08:03 'implementar tudo': uma parte por versão; começa pelo 4b Preços (3 partes)
 
 ## Recados esperando
 
