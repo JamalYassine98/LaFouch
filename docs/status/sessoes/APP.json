@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "134 (2b): links Vender no Catálogo / Fotografar no Estúdio no fim da ficha (fichaLinks)",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "src/97u-navegacao-s184.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795278079.121228,
+   "r": "v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick"
+  },
   {
    "t": 1795276752.8436346,
    "r": "v599 no ar: ficha numa função só. Próximo: 134 (ficha sem cartão, links no fim)"
@@ -43,10 +42,6 @@
   {
    "t": 1795263473.6537156,
    "r": "4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c"
-  },
-  {
-   "t": 1795262341.176889,
-   "r": "v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c"
   }
  ],
  "leu": 1795278076.4613936
