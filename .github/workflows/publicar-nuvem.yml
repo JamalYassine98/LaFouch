@@ -12,7 +12,7 @@ on:
         required: true
         default: functions
         type: choice
-        options: [functions, regras, tudo, limpeza, app]
+        options: [functions, regras, tudo, limpeza, app, info]
 
 permissions:
   contents: read
@@ -43,8 +43,13 @@ jobs:
       - name: Rodar a limpeza diária agora (só com o_que=limpeza)
         if: inputs.o_que == 'limpeza'
         run: gcloud scheduler jobs run firebase-schedule-limpeza-southamerica-east1 --location=southamerica-east1 --project=lafouch-2f6bd
+      - name: Só ler informações do projeto (o_que=info; não muda nada)
+        if: inputs.o_que == 'info'
+        run: |
+          echo "== buckets do Storage"; gcloud storage buckets list --project=lafouch-2f6bd --format='table(name,location,storageClass)' || echo "sem permissão para listar"
+          echo "== plano de cobrança"; gcloud billing projects describe lafouch-2f6bd --format='value(billingEnabled)' || echo "sem permissão"
       - name: Publicar
-        if: inputs.o_que != 'limpeza'
+        if: inputs.o_que != 'limpeza' && inputs.o_que != 'info'
         env:
           O_QUE: ${{ inputs.o_que }}
         run: |
