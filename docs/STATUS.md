@@ -76,6 +76,7 @@
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — esboço pronto — esperando o dono
+- **41-estudio-galeria-e-peca-na-camera** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
