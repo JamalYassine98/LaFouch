@@ -1,4 +1,4 @@
-# Esboço 45 (S435, 21/11 10:43) — rumo aprovado: a peça com foto nasce no Estúdio (haste → rascunho → cores → Terminei → tratamento)
+# Esboço 45 (S435, 21/11 10:43) — rumo aprovado: a peça com foto nasce no Estúdio (haste → rascunho → cores → Finalizar peça → tratamento)
 # e o Inventário completa ("A completar"). Supera o 41c e refaz o 44 (Adicionar sem Ler haste/Da Galeria).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');import ap
 exec(open('/home/claude/lafouch/work/s435/giro/hoje.py').read().split("\nif __name__=='__main__':")[0])
@@ -27,9 +27,9 @@ def shot(pg,n):
 EST=r"""(R)=>{"""+CARD+H+r"""return '<div class="top"><div><h1>Estúdio</h1><div class="crumb">Fotos e giros das peças</div></div><div class="tabs" style="display:flex;gap:12px">'+RB(IGAL,'Galeria do app',0)+RB(IAJ,'Como funciona',0)+'</div></div>'+
  BOT('Gravar uma peça ›').replace('position:sticky;bottom:0;background:inherit;padding:12px 0 8px;margin-top:16px','margin-top:24px')+
  LB('Em andamento · 3')+'<section class="nvLista">'+
- ROW(R[0][0],'TS1234 · peça nova','gravando · 2 cores · falta "Terminei"')+
- ROW(R[1][0],'SL2250 · peça nova','tratando · 3 de 4 cores',BAR(75))+
- ROW(R[2][0],'BR44118 · Armação Gucci','a tratar em casa · 5 cores')+'</section>'+
+ ROW(R[0][0],'TS1234 · peça nova','aberta · 2 cores gravadas · continuar')+
+ ROW(R[1][0],'SL2250 · peça nova','finalizada · 4 cores gravadas · 1 tratando')+
+ ROW(R[2][0],'BR44118 · Armação Gucci','finalizada · 5 cores · a tratar em casa')+'</section>'+
  LB('Faltam fotos · 24')+'<section class="nvLista">'+R.slice(3,6).map(r=>ROW(r[0],r[1],r[2],'<small style="display:flex;margin-top:4px">'+MK('Frente',1)+MK('3/4',0)+MK('Giro',0)+'</small>')).join('')+'</section>'}"""
 def estudio(pw):
   b,pg,w,R=base(pw);html=pg.evaluate(EST,R);pagina(pg,html);w(500);x=shot(pg,'est');b.close();return x
@@ -51,7 +51,7 @@ def camera(pw):
   pg.evaluate("()=>{const b=document.querySelector('[data-i=\"0\"]');b&&b.click()}");pg.wait_for_timeout(5000)
   pg.evaluate(r"""()=>{const o=document.getElementById('estCam');const t=o.querySelector('.ecTag');t.innerHTML='<span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)">Giro · cor 3</span><b style="display:block;color:#fff;font-size:15px;font-weight:600;margin-top:2px">TS1234 · peça nova</b>';
    const vf=o.querySelector('.ecVf');const d=document.createElement('div');d.style.cssText='position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center';
-   d.innerHTML='<div style="background:var(--panel);border-radius:22px;padding:20px 22px;width:420px;max-width:90%;color:var(--fg);font-family:Roboto,system-ui,sans-serif"><div style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:22px;border-radius:50%;background:#2fe08f;display:grid;place-items:center;color:#0b2a19;font-weight:800;font-size:13px">✓</span><b style="font-size:17px">Cor 2 gravada</b></div><div style="color:var(--mute);font-size:14px;margin:6px 0 16px 32px">tratando por trás · 1 na fila</div><button type="button" style="display:block;width:100%;min-height:52px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Gravar outra cor</button><button type="button" style="display:block;width:100%;min-height:48px;margin-top:8px;background:none;border:0;color:var(--fg);font:inherit;font-size:15px;font-weight:600">Terminei esta peça ›</button></div>';
+   d.innerHTML='<div style="background:var(--panel);border-radius:22px;padding:20px 22px;width:420px;max-width:90%;color:var(--fg);font-family:Roboto,system-ui,sans-serif"><div style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:22px;border-radius:50%;background:#2fe08f;display:grid;place-items:center;color:#0b2a19;font-weight:800;font-size:13px">✓</span><b style="font-size:17px">Cor 2 gravada</b></div><div style="color:var(--mute);font-size:14px;margin:6px 0 16px 32px">tratando por trás · 1 na fila</div><button type="button" style="display:block;width:100%;min-height:52px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Gravar outra cor</button><button type="button" style="display:block;width:100%;min-height:48px;margin-top:8px;background:none;border:0;color:var(--fg);font:inherit;font-size:15px;font-weight:600">Finalizar peça ›</button></div>';
    vf.appendChild(d);const l=o.querySelector('.ecLista');if(l)l.innerHTML='';const fx=()=>{const L=o.querySelector('.ecLista');if(L){const sp=[...L.children];if(sp[0]&&/Celular deitado/.test(sp[0].textContent)){sp[0].lastChild.textContent='Câmera reta';const n=sp[3].cloneNode(true);n.lastChild.textContent='Peça reta';sp[3].after(n)}}const Fr=o.querySelector('.ecFrase');if(Fr){const tn=[...Fr.childNodes].filter(n=>n.nodeType==3||n.tagName=='B'||n.tagName=='SPAN').pop();if(tn&&tn.textContent!=='Falta luz: aumente a luz da caixa')tn.textContent='Falta luz: aumente a luz da caixa'}};new MutationObserver(fx).observe(o,{subtree:true,childList:true});setInterval(fx,150)}""");pg.wait_for_timeout(800)
   f='/tmp/f45_cam.png';pg.screenshot(path=f);b.close();x=Image.open(f);x.load();return x.copy()
 def inventario(pw,qual):
@@ -83,5 +83,5 @@ with sync_playwright() as pw:
   quadro('esboco_45a_estudio.jpg',[('PROPOSTA · Estúdio','"Gravar uma peça" · em andamento · faltam fotos',estudio(pw))])
   quadro('esboco_45b_qual_peca.jpg',[('1 · Gravar uma peça ›','primeiro: qual é a peça?',janela(pw,'inicio')),('2a · código novo','nasce rascunho · grava as cores',janela(pw,'nova')),('2b · código que já existe','as cores entram na peça',janela(pw,'existe'))])
   im=camera(pw);g=40;S=Image.new('RGB',(im.width+2*g,im.height+150),(17,20,26));d=ImageDraw.Draw(S)
-  d.text((g,24),'3 · depois de cada cor',font=F(34),fill=(235,235,240));d.text((g,70),'"Gravar outra cor" ou "Terminei esta peça" · o tratamento roda por trás',font=F(22),fill=(140,150,165));S.paste(im,(g,110));S.save(O+'esboco_45c_depois_de_cada_cor.jpg',quality=88);print('ok c')
+  d.text((g,24),'3 · depois de cada cor',font=F(34),fill=(235,235,240));d.text((g,70),'"Gravar outra cor" ou "Finalizar peça" · sair da câmera só pausa · o tratamento roda por trás',font=F(22),fill=(140,150,165));S.paste(im,(g,110));S.save(O+'esboco_45c_depois_de_cada_cor.jpg',quality=88);print('ok c')
   quadro('esboco_45d_inventario_completar.jpg',[('4 · Inventário','"A completar" · só rascunhos já tratados',inventario(pw,'lista')),('5 · Completar ›','detalhes técnicos · preço · oferta · publicar',inventario(pw,'comp'))])

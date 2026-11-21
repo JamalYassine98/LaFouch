@@ -19,13 +19,14 @@ Imagens (celular escuro):
 TS1234 e SL2250 são rascunhos ilustrativos, porque ainda não existe nenhum. BR44118 é peça real dos dados de teste.
 
 ## Estados de uma peça, num lugar só
-`rascunho.estado` = `gravando` → `terminado` (o dono tocou em "Terminei") → `tratando` (n de N cores) → `a completar` (todas tratadas) → a peça fica **ativa** ao "Concluir".
+`rascunho.estado` = `aberta` → `finalizada` (o dono tocou em **"Finalizar peça"**) → `a completar` (finalizada **e** todas as cores gravadas tratadas) → a peça fica **ativa** ao "Concluir".
+O andamento do tratamento é mostrado como fato ("4 cores gravadas · 1 tratando"), **nunca como fração ou barra**. O total de cores de uma peça não é conhecido (dono 10:53).
 Peça que já existe (código lido) não vira rascunho: as cores gravadas entram nela, e cada cor passa por `tratando` até ficar pronta.
 
 ## Telas
 1. **Estúdio** (tela do grupo Peças, esboço 43):
    - O botão principal é **"Gravar uma peça ›"**. Sai o "Começar · 24 peças na fila".
-   - **EM ANDAMENTO · N**: os rascunhos e as gravações em curso, com o estado em palavras ("gravando · 2 cores · falta 'Terminei'", "tratando · 3 de 4" com a barra, "a tratar em casa · 5 cores").
+   - **EM ANDAMENTO · N**: os rascunhos e as gravações em curso, com o estado em palavras ("aberta · 2 cores gravadas · continuar", "finalizada · 4 cores gravadas · 1 tratando", "finalizada · 5 cores · a tratar em casa"). Sem barra de progresso.
    - **FALTAM FOTOS · N**: as peças ativas a que falta frente, 3/4 ou giro, com as marcas do 41. Tocar abre a Galeria da peça.
 2. **"Gravar uma peça ›"** abre a janela "Primeiro, qual é a peça?", com três opções:
    - Ler a haste (o leitor de hoje, `80-leitor-dialogos.js`)
@@ -35,9 +36,9 @@ Peça que já existe (código lido) não vira rascunho: as cores gravadas entram
    - 2b, código que já existe: a foto e o nome da peça, "já cadastrada · N cores com foto" → "Gravar cores desta peça ›" e "Não é esta peça · ler de novo ›".
      A cor que já tem giro é trocada pela nova (fica a melhor, como hoje em `estGrava`).
 3. **Câmera:** o título diz "GIRO · COR n" e "código · peça nova" (ou o nome da peça).
-   Depois de cada giro: "Cor n gravada ✓ · tratando por trás · N na fila", **"Gravar outra cor"** e **"Terminei esta peça ›"**.
-   Fechar a câmera sem "Terminei" deixa o rascunho em "gravando". Ao sair, o app pergunta "Esta peça tem mais cores?" ("Terminei" / "Vou gravar depois").
-4. **Guardião (Pendências):** cada rascunho aberto entra em "Para acompanhar" ("TS1234 · grupo aberto · 2 cores · Terminar ›").
+   Depois de cada giro: "Cor n gravada ✓ · tratando por trás · N na fila", **"Gravar outra cor"** e **"Finalizar peça ›"** (texto escolhido pelo dono às 10:55).
+   **Sair da câmera só pausa** (ex.: para registrar uma venda): não fecha e **não pergunta nada**. A peça fica "aberta · continuar ›" no Estúdio. Só "Finalizar peça" fecha.
+4. **Guardião (Pendências):** cada rascunho aberto entra em "Para acompanhar" ("TS1234 · aberta · 2 cores gravadas · Continuar ›").
    Ele **não depende do tempo**: só sai quando o grupo é fechado.
 5. **Inventário:** "**A COMPLETAR · N**" no alto da lista, só com rascunhos **já tratados** (todas as cores), cada linha com o que falta.
    Tocar abre a janela **"Completar código"**:
@@ -73,3 +74,7 @@ Peça que já existe (código lido) não vira rascunho: as cores gravadas entram
 - A câmera ler a haste sozinha durante o giro (estudo, dono 10:38).
 - Casar o rascunho com a linha da nota de compra pelo código (custo e quantidade automáticos).
 - A fila "A tratar" no PC de casa (espera a resposta da NUVEM sobre o espaço sem custo).
+
+## Correções do dono (21/11 10:53–10:55)
+- Sai a barra de progresso: não se sabe quantas cores a peça tem.
+- "Terminei" era ambíguo: sair para vender não é terminar. O botão chama-se **"Finalizar peça"**, sair só pausa e não há pergunta na saída.
