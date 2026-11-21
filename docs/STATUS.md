@@ -103,6 +103,7 @@
 - para **ESBOCO**: No ar: v604 — 134d parte 1: 'Editar produto' na lfJanela (classe edJn; conteúdo #editModal/.edBx), sem Fechar; Esc/fora/arrastar saem sem salvar. Falta a pergun
 - para **ESBOCO**: No ar: v605 — lfJanela com a opção mudou() (pergunta 'Sair sem salvar?' via lfConfirma; api.fecha(true) força). 'Editar produto' já usa; as outras janelas de cr
 - para **ESBOCO**: No ar: v606 — 39 no app (Pendências com PIX sem par primeiro; janela 'Ligar a um pedido'). Diferença do esboço 39c: a linha do pedido diz 'pedido de hoje HH:MM'
+- para **ESBOCO**: APP: fechei 4b, 4c e do 4d tudo menos o 149s (espera o dono: Caixa e Vender mudam fora das 9). 39 no app ✅ v606; item 38 etapa 1 ✅ v607 (plano em work/s436/came
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
