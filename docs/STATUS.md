@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 4c parte 4 (149r): Reservas vai para Dinheiro; uma tabela só de famílias (FAMILIAS + S.famV) | src/98z-s374.js, src/89-inicio.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
 
 ## Fila
@@ -120,6 +119,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 11:08 — APP: v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d
 - 21/11 10:52 — IDEIAS: IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 10:51 — SITE: Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato).
 - 21/11 10:36 — APP: v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)
@@ -141,7 +141,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 00:15 — APP: MADRUGADA 21/11 — feito: v588 no ar (item 39: armação clara não perde um lado no giro tratado; provado com as poses de referência a 45% do contraste, giro normal sem mudança; NÃO reproduzido com a gravação do dono; sem trava no porteiro). Memória restaurada (meu ajudante de publicar truncava o arquivo; consertado). NÃO feito: item 38 (tempo do tratamento) — sem os tempos por fase do celular eu mexeria no escuro; 4b Preços (como fazer recebido) — não comecei para não deixar tela pela metade. PARA O DONO CONFERIR NO APARELHO REAL: (1) v588: gravar a mesma armação bege — a frente sai com as DUAS lentes? (2) tempo de cada fase (diário [LF-CAM]: fundo, mede, grava) e se saiu mp4 ou webm; (3) o giro no site gira com o dedo e fecha sem pulo; (4) 'Qual é a frente?' — parar a gravação antes da volta e escolher: saem as duas fotos de fundo branco; (5) a linha 'Travado: branco' aparece e não há clarão; (6) avisos aparecem por cima do Estúdio. Pendências abertas: nota 100 em foto pela metade; item 36 (prova v468 instável); item 37 (câmera reta/peça reta, com o ESBOCO).
 - 20/11 23:55 — NUVEM: Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'.
 - 20/11 23:54 — NUVEM: S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem.
-- 20/11 23:42 — APP: item 39 em estudo: comparei giroTrata com o trata_giro2.py do site (mesmas regras para achar a peça e as mesmas folgas); com 6 quadros reais do vídeo do dono a peça sai inteira — ainda NÃO reproduzi a frente com um lado apagado. Falta a gravação da pose de frente (pedi ao dono gravar a tela de novo). Nada publicado.
 - 20/11 23:02 — NUVEM: Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo.
 - 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.
 - 20/11 21:21 — SITE: 3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca
