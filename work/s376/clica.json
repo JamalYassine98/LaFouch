@@ -1,0 +1,168 @@
+[
+{
+"cena": "caixa",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"cena": "caixa",
+"botao": "Caixa ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"cena": "caixa",
+"botao": "Ações do caixa",
+"act": "cxmenu",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"cena": "caixa",
+"botao": "Livre e reservado ›",
+"act": "cxReservas",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"cena": "caixa",
+"botao": "+ Novo objetivo",
+"act": "cxabre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "cxAcao on",
+"ovSel": ".cxAcao"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"cena": "caixa",
+"botao": "Ver o que falta repor ›",
+"act": "d48Res",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"cena": "caixa",
+"botao": "Desfazer",
+"act": "rtdes",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"cena": "caixa",
+"botao": "Ver todos os movimentos ›",
+"act": "famAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+}
+]

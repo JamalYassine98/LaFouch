@@ -1,0 +1,28 @@
+inventario-ficha-historico escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  inventario-ficha-historico-escuro.jpg (1680, 1968)
+inventario-ficha-historico claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  inventario-ficha-historico-claro.jpg (1680, 1968)
+inventario-ficha-preco escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  inventario-ficha-preco-escuro.jpg (1680, 1968)
+inventario-ficha-preco claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  inventario-ficha-preco-claro.jpg (1680, 1968)
+inventario-editar escuro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  inventario-editar-escuro.jpg (1680, 1968)
+inventario-editar claro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  inventario-editar-claro.jpg (1680, 1968)
+inventario-novo escuro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  inventario-novo-escuro.jpg (1680, 1968)
+inventario-novo claro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  inventario-novo-claro.jpg (1680, 1968)
+catalogo-carrinho escuro muda olho novos: nenhum alin hoje/aprovado: [10, 5]
+  catalogo-carrinho-escuro.jpg (1680, 1968)
+catalogo-carrinho claro muda olho novos: nenhum alin hoje/aprovado: [10, 5]
+  catalogo-carrinho-claro.jpg (1680, 1968)
+catalogo-pagamento escuro muda olho novos: nenhum alin hoje/aprovado: [4, 1]
+  catalogo-pagamento-escuro.jpg (1680, 1968)
+catalogo-pagamento claro muda olho novos: nenhum alin hoje/aprovado: [4, 1]
+  catalogo-pagamento-claro.jpg (1680, 1968)
+catalogo-peca escuro muda olho novos: nenhum alin hoje/aprovado: [3, 3]
+  catalogo-peca-escuro.jpg (1680, 1968)
+catalogo-peca claro muda olho novos: nenhum alin hoje/aprovado: [3, 3]
+  catalogo-peca-claro.jpg (1680, 1968)

@@ -1,0 +1,3003 @@
+[
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Guardião · 10 coisas para olhar ›",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Vendido hoje · 7 venda(s) G$ 328.000 ›",
+"act": "inicio",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Resultados Dia, mês e histórico",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "⋯",
+"act": "grpGerir",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "modal",
+"ovSel": "#grpM"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Resultados Dia, mês e histórico",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+24,
+374,
+107,
+135
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+102,
+381,
+24,
+24
+]
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+141,
+374,
+107,
+135
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+220,
+381,
+24,
+24
+]
+},
+{
+"t": "Site 2 novos",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+259,
+374,
+107,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+337,
+381,
+24,
+24
+]
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartões e visit",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+24,
+519,
+107,
+152
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+102,
+526,
+24,
+24
+]
+},
+{
+"t": "Clientes 7 cadastrados",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+141,
+519,
+107,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+220,
+526,
+24,
+24
+]
+},
+{
+"t": "Atacado Orçamentos",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+259,
+519,
+107,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+337,
+526,
+24,
+24
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Giro e preços Giro, preços e reservas",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Site 2 novos",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Marketing Posts, vídeos, temática, cartões e ",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Clientes 7 cadastrados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "✕",
+"act": "inicioRm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "inicio-editar",
+"botao": "Atacado Orçamentos",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Preços ⌄",
+"act": "dVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Contas do mês cobertas 75% faltam 42 peças",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Preços para corrigir 15",
+"act": "x66",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "15 preços para corrigir 10 com sugestão do co",
+"act": "x66",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "por quê",
+"act": "temaVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "ajustar tabela",
+"act": "tabsheet",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "ajustar",
+"act": "pgrAjusta",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Calculadora de preço",
+"act": "cntCalc",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "E se…?",
+"act": "cntEse",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Preço automático desligado · você define os p",
+"act": "paTog",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-prec",
+"botao": "Contas, taxas e meta contas do mês, formas de",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-ata",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-ata",
+"botao": "Lojistas",
+"act": "ataAba",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-ata",
+"botao": "Lotes",
+"act": "ataAba",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-ata",
+"botao": "Tabela",
+"act": "ataAba",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-msg",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-msg",
+"botao": "Mensagens ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Caixa ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Ações do caixa",
+"act": "cxmenu",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Livre e reservado ›",
+"act": "cxReservas",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "+ Novo objetivo",
+"act": "cxabre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "cxAcao on",
+"ovSel": ".cxAcao"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Ver o que falta repor ›",
+"act": "d48Res",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Desfazer",
+"act": "rtdes",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "caixa",
+"botao": "Ver todos os movimentos ›",
+"act": "famAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Novo cliente",
+"act": "clinovo",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000902 1 pedido · G$ 250",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000903 1 pedido · G$ 250",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000904 1 pedido · G$ 250",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000905 1 pedido · G$ 250",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000906 1 pedido · última",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Maria López SITE 0981000901 1 pedido · G$ 250",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "clientes",
+"botao": "Óptica Central BALCÃO 0981777777 · compras@ex",
+"act": "cliab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "Pedidos online ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+187,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "Agir agora 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "Em andamento 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "Feitos 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "M Maria López Pedido 905 · 17/11 18:39 · Site",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "Remover",
+"act": "peddel",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-ent",
+"botao": "M Maria López Pedido 906 · 17/11 18:39 · Site",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Pedido 903 ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 903 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+971,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+1260,
+52,
+46
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "‹ Pedidos",
+"act": "pedfecha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Enviar token à cliente",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "⧉",
+"act": "pedcopia",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Ficha do cliente",
+"act": "pedcli",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Imprimir ficha de separação",
+"act": "pedficha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "SP57765 SP57765 · 1×",
+"act": "pedprod",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": ".modal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 903 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-592,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+261,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+550,
+52,
+46
+]
+},
+{
+"t": "×",
+"c": "x",
+"a": "pedprodx",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+333,
+51,
+26,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Assumir este pedido",
+"act": "pedassumir",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Marcar pronto",
+"act": "pedav",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-903",
+"botao": "Cancelar pedido",
+"act": "pedcanc",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-imp",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-av",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-bk",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "−",
+"act": "cartmn",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "+",
+"act": "cartpl",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "Tirar",
+"act": "cartrm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "+ Adicionar outra peça",
+"act": "cartclose",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "Ir para o pagamento",
+"act": "cartconf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "carrinho",
+"botao": "Esvaziar carrinho",
+"act": "cartclear",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Inventário ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+266,
+445,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+267,
+1224,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+62,
+1325,
+266,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+62,
+1413,
+266,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Adicionar",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "modal fadein",
+"ovSel": "#addModal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+266,
+445,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+267,
+1224,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+62,
+1325,
+266,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+62,
+1413,
+266,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Produtos",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Fornecedores 1",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "EM ESTOQUE (FILTRO) › 400",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Ficha 4/6",
+"act": "fichaAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+82,
+286,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+266,
+409,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+267,
+1188,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+62,
+1289,
+266,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+62,
+1377,
+266,
+28
+]
+},
+{
+"t": "Enviar no WhatsApp",
+"c": "fiG",
+"a": "",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+200,
+856,
+158,
+46
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Estoque",
+"act": "fnTab",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Histórico",
+"act": "fnTab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Site",
+"act": "fnTab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Preço",
+"act": "fnTab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Vender no Catálogo ›",
+"act": "fnTab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Fotografar no Estúdio ›",
+"act": "fnEstudio",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Voltar",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Editar",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": "#editModal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-159,
+286,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+266,
+168,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+267,
+947,
+46,
+28
+]
+},
+{
+"t": "MAIS DETALHES",
+"c": "lbl",
+"a": "",
+"p": [
+"toque baixo 17px"
+],
+"r": [
+31,
+194,
+328,
+17
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+62,
+1048,
+266,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+62,
+1136,
+266,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "· Sem detalhesem foto 343 un.",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "% Oferta",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": "#ofModal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-533,
+286,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+266,
+-206,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+267,
+573,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+62,
+674,
+266,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+62,
+762,
+266,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "No site",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "Lucro real G$ 19.483",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "peca-ficha",
+"botao": "De onde vem o preço · G$ 25.000",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+}
+]

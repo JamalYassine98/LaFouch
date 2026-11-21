@@ -1,0 +1,2649 @@
+[
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "Reservas ⌄",
+"act": "dVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "G$",
+"act": "totm",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "R$",
+"act": "totm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "US$",
+"act": "totm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "Ver para onde vai o que já tem dono: reposiçã",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "Objetivos da loja › guardado no Caixa",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-din",
+"botao": "Próximos 30 dias Saldo G$ 6.065.455 · contas ",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Dashboard ⌄",
+"act": "dVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Hoje ⌄",
+"act": "dPer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "CONTAS DO DIA › G$ 140.000 1/30 de G$ 4.200.0",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "SL2210",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Ver detalhes ›",
+"act": "hopen",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Estornar",
+"act": "estorno",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "SP60627",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "YS8801",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Ver todas as vendas do dia ›",
+"act": "famAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-dia",
+"botao": "Dias anteriores no Histórico ›",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-tem",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-tem",
+"botao": "Temática ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Inventário ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Adicionar",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "modal fadein",
+"ovSel": "#addModal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+286,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Produtos",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Fornecedores 1",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "EM ESTOQUE (FILTRO) › 470",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Buscar com a câmera",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+92,
+286,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "15 preços para corrigir ›",
+"act": "pcAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Filtros e ordem",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "col popin",
+"ovSel": "#filtBox"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+33,
+286,
+32
+]
+},
+{
+"t": "Intermediário",
+"c": "chip",
+"a": "",
+"p": [
+"texto cortado",
+"reticências"
+],
+"r": [
+195,
+513,
+86,
+38
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Lote Kazwini Pré-graduados G$ 25.000 343 em e",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos de leitura de acetato unissex 2 modelo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos de leitura Kazwini de acetato masculin",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos de leitura de plástico feminino Código",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos de leitura #15 Pré-graduados G$ 25.000",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação Gucci de metal feminino Código BR4411",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação Ray-Ban de metal masculino Código BR4",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação Armani de acetato feminino Código BR4",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação #10 Armações G$ 45.000! 7 em estoque",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação #11 Armações G$ 45.000! 7 em estoque",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Armação #12 Armações G$ 45.000! 3 em estoque",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos solar Ray-Ban de metal masculino Códig",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos solar Kazwini de tr90 feminino Código ",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos solar #13 Solares G$ 60.000! 9 em esto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "estoque",
+"botao": "Óculos solar #14 Solares G$ 60.000! 4 em esto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "Câmbio ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "DÓLAR G$ 6.487 — estável",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "REPOSIÇÃO Normal › Faltam US$ 2.794 US$ 320 d",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-22,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "Registrar troca",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-91,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "Últimas trocas 12 ›",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-91,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "Preços no site cotação da loja travada ›",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-91,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "fx",
+"botao": "Como o app te protege colchão 13,0% ›",
+"act": "fjAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "fjJn in",
+"ovSel": ".fjJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-91,
+342,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Pedidos online ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+187,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Agir agora 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Em andamento 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Feitos 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "M Maria López Pedido 902 · 17/11 18:59 · Site",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Conferir comprovante",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "M Maria López Pedido 901 · 17/11 18:59 · Site",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-novo",
+"botao": "Ver pedido",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "Pedido 901 ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 901 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+955,
+52,
+46
+]
+},
+{
+"t": "Marcar como pago",
+"c": "pdB2 txt",
+"a": "pedpago",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+1038,
+52,
+46
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "‹ Pedidos",
+"act": "pedfecha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "Ficha do cliente",
+"act": "pedcli",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "SP57765 SP57765 · 1×",
+"act": "pedprod",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": ".modal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 901 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-287,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+550,
+52,
+46
+]
+},
+{
+"t": "Marcar como pago",
+"c": "pdB2 txt",
+"a": "pedpago",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+633,
+52,
+46
+]
+},
+{
+"t": "×",
+"c": "x",
+"a": "pedprodx",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+333,
+51,
+26,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "Assumir este pedido",
+"act": "pedassumir",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "Marcar como pago",
+"act": "pedpago",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-901",
+"botao": "Cancelar pedido",
+"act": "pedcanc",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "Pedido 905 ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 905 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+720,
+52,
+46
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "‹ Pedidos",
+"act": "pedfecha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "Ficha do cliente",
+"act": "pedcli",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "Imprimir ficha de separação",
+"act": "pedficha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "SP57765 SP57765 · 1×",
+"act": "pedprod",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": ".modal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 905 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-198,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+404,
+52,
+46
+]
+},
+{
+"t": "×",
+"c": "x",
+"a": "pedprodx",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+333,
+51,
+26,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "Remover",
+"act": "peddel",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-905",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-seg",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-upd",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "16",
+"act": "view",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": "ljPuxa",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": "Voltar no tempo\nmudanças de produto guar",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": "Voltar no tempo\nmudanças de produto guar",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": "Os dados ficam só neste celular. Guarde ",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-arquivo",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": "Exportar\nImportar",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Novo cliente",
+"act": "clinovo",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "×",
+"act": "clifecha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Avisar",
+"act": "cliavisa",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Paraguaio",
+"act": "clinac",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Estrangeiro",
+"act": "clinac",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Salvar",
+"act": "clisave",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Conta atacadista catálogo com preço de atacad",
+"act": "ataConta",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "cliente-ficha",
+"botao": "Remover cliente",
+"act": "clidel",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+}
+]

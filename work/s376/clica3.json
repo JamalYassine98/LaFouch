@@ -1,0 +1,3025 @@
+[
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Dashboard ⌄",
+"act": "dVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Hoje ⌄",
+"act": "dPer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "CONTAS DO DIA › G$ 140.000 1/30 de G$ 4.200.0",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "SL2210",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Ver detalhes ›",
+"act": "hopen",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Estornar",
+"act": "estorno",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "SP60627",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "YS8801",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Ver todas as vendas do dia ›",
+"act": "famAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-hoje",
+"botao": "Dias anteriores no Histórico ›",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Giro ⌄",
+"act": "dVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Lista de compras 8 produto(s) vão acabar logo",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "como calcula ›",
+"act": "lcCalc",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "−",
+"act": "lcMenos",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "+",
+"act": "lcMais",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "ver os 17 ›",
+"act": "lcTodos",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Marcar como pedido",
+"act": "lcPedir",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Mandar ao fornecedor",
+"act": "lcEnvia",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Vitrine da semana diga quantos lugares tem a ",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Salvar",
+"act": "vitLug",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Retorno do estoque cada US$ 1 investido rende",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-repo",
+"botao": "Curva ABC quais produtos dão 80% do lucro (90",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cup",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cup",
+"botao": "Cartões ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Cartões ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+108,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"caiu_em": "Site",
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Buscar com a câmera",
+"act": "",
+"caiu_em": "Todos\nNovidades\nOfertas\nSolares\nArmações",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Ajustes do catálogo",
+"act": "",
+"caiu_em": "24 de 24 selecionados\nLimpar",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Compartilhar",
+"act": "",
+"caiu_em": "Limpar",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Lote Kazwini G$ 25.000",
+"act": "",
+"caiu_em": "IMG",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos de leitura de acetato unissex G$ 25.00",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos de leitura Kazwini de acetato masculin",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos de leitura de plástico feminino G$ 25.",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos de leitura #15 G$ 25.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação Gucci de metal feminino G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação Ray-Ban de metal masculino G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação Armani de acetato feminino G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação #10 G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação #11 G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armação #12 G$ 45.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos solar Ray-Ban de metal masculino G$ 60",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos solar Kazwini de tr90 feminino G$ 60.0",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos solar #13 G$ 60.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Óculos solar #14 G$ 60.000",
+"act": "",
+"caiu_em": "",
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Vendas",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Site",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Todos",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Novidades",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Ofertas",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Solares",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Armações",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Limpar",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "✓",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Mensagem…",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "modal",
+"ovSel": ".modal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Mostrar preço",
+"c": "zsw on",
+"a": "",
+"p": [
+"toque baixo 27px"
+],
+"r": [
+313,
+144,
+46,
+27
+]
+},
+{
+"t": "Mostrar código do produto",
+"c": "zsw",
+"a": "",
+"p": [
+"toque baixo 27px"
+],
+"r": [
+313,
+208,
+46,
+27
+]
+},
+{
+"t": "Mostrar \"de/por\" nas ofertas",
+"c": "zsw on",
+"a": "",
+"p": [
+"toque baixo 27px"
+],
+"r": [
+313,
+272,
+46,
+27
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "go-cat",
+"botao": "Enviar 24 imagens",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Despesas ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": false,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Despesas ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+127,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "+ Nova",
+"act": "despNova",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Aluguel da loja fixa · vence dia 5 G$ 900.000",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Salvar",
+"act": "expsave",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Remover Aluguel da loja",
+"act": "exprm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Marcar como paga neste mês",
+"act": "exppay",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Luz venceu há 2 dias · informe o valor G$ 180",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Internet fixa · vence dia 10 G$ 120.000 ⌄",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Contas de casa venceu há 5 dias · informe o v",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Salário (retirada) fixa · vence dia 5 G$ 1.50",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Contador vence em 3 dias G$ 300.000 ⌄",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Provisão de imprevistos fixa · vence dia 1 G$",
+"act": "despAb",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Imprevistos do mês Gasto G$ 110.000 de G$ 200",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "desp",
+"botao": "Contas pagas neste mês 4 conta(s) paga(s) ⌄",
+"act": "dfold",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver margem",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver pedidos",
+"act": "pedver",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver conta",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver preços",
+"act": "dtab",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Conferir",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "SP57765",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "SP58110",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "SP60627",
+"act": "abreRef",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Completar",
+"act": "inicio",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Fechar",
+"act": "fechar",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver reposição",
+"act": "dtab",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Fazer",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver",
+"act": "temaVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Ver todas as conferências do Guardião ›",
+"act": "guardAbre",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+258,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+325,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+526,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+737,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+813,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+1037,
+55,
+25
+]
+},
+{
+"t": "silenciar",
+"c": "gMudo",
+"a": "guardMudo",
+"p": [
+"toque baixo 25px"
+],
+"r": [
+284,
+1086,
+55,
+25
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "notif",
+"botao": "Limpar histórico",
+"act": "notifLimpa",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "Pedidos online ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+187,
+32
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "Agir agora 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "Em andamento 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "Feitos 2",
+"act": "pedf",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "M Maria López Pedido 905 · 17/11 18:42 · Site",
+"act": "pedab",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "Remover",
+"act": "peddel",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-lista-canc",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Pedido 904 ⌄",
+"act": "grpVer",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "lfa-sh",
+"ovSel": ".lfa-sh"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 904 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+118,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+991,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+1281,
+52,
+46
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "‹ Pedidos",
+"act": "pedfecha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Enviar token à cliente",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "⧉",
+"act": "pedcopia",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Ficha do cliente",
+"act": "pedcli",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Imprimir ficha de separação",
+"act": "pedficha",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "SP57765 SP57765 · 1×",
+"act": "pedprod",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "modal",
+"ovSel": ".modal"
+},
+"erros": [],
+"janela_btn": [
+{
+"t": "Pedido 904 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+24,
+-612,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+39,
+261,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+24,
+551,
+52,
+46
+]
+},
+{
+"t": "×",
+"c": "x",
+"a": "pedprodx",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+333,
+51,
+26,
+28
+]
+}
+]
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Assumir este pedido",
+"act": "pedassumir",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Marcar entregue",
+"act": "pedav",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "WhatsApp",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "ped-904",
+"botao": "Cancelar pedido",
+"act": "pedcanc",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": true,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-tema",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-sync",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "16",
+"act": "view",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Impressora Nenhuma",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Tema Auto",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Segurança PIN",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Site frete, PIX, idioma",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Pedidos do site Baixa manual",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Sons e avisos Ligados",
+"act": "",
+"caiu_em": "ljBk anim",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Sincronização Sincronizado",
+"act": "",
+"caiu_em": "Nuvem\nCópia de segurança automática (até",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Atualização 5.43.0",
+"act": "",
+"caiu_em": "Cópia de segurança automática (até 1 h d",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Cópias e nuvem Tudo salvo",
+"act": "",
+"caiu_em": "Nuvem\nCópia de segurança automática (até",
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "aj-nuvem",
+"botao": "Pagamento automático Desligado",
+"act": "",
+"caiu_em": "Fazer cópia agora",
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": true,
+"ov": "ljJn anim",
+"ovSel": ".ljJn"
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "16",
+"act": "view",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": true,
+"y": false,
+"foco": true,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "−",
+"act": "cartmn",
+"caiu_em": null,
+"efeito": {
+"txt": false,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "+",
+"act": "cartpl",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "Tirar",
+"act": "cartrm",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "+ Adicionar outra peça",
+"act": "cartclose",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "Ir para o pagamento",
+"act": "cartconf",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+},
+{
+"ruido": false,
+"cena": "pagamento",
+"botao": "Esvaziar carrinho",
+"act": "cartclear",
+"caiu_em": null,
+"efeito": {
+"txt": true,
+"est": true,
+"v": false,
+"y": false,
+"foco": false,
+"ov": "",
+"ovSel": ""
+},
+"erros": [],
+"janela_btn": []
+}
+]

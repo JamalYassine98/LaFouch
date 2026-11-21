@@ -1,0 +1,2940 @@
+{
+"inicio|claro": {
+"btn": [
+{
+"t": "Resultados Dia, mês e histórico",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+296,
+308,
+159,
+135
+]
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+465,
+308,
+159,
+135
+]
+},
+{
+"t": "Site 2 novos",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+635,
+308,
+159,
+135
+]
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartões e visit",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+804,
+308,
+159,
+135
+]
+},
+{
+"t": "Clientes 2 cadastrados",
+"c": "tl",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+973,
+308,
+159,
+135
+]
+},
+{
+"t": "Atacado Orçamentos",
+"c": "tl",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+1143,
+308,
+159,
+135
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"inicio-editar|claro": {
+"btn": [
+{
+"t": "Resultados Dia, mês e histórico",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+296,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+426,
+313,
+24,
+24
+]
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+465,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+596,
+313,
+24,
+24
+]
+},
+{
+"t": "Site 2 novos",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+635,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+765,
+313,
+24,
+24
+]
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartões e visit",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+804,
+306,
+159,
+135
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+934,
+313,
+24,
+24
+]
+},
+{
+"t": "Clientes 7 cadastrados",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+973,
+306,
+159,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+1104,
+313,
+24,
+24
+]
+},
+{
+"t": "Atacado Orçamentos",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+1143,
+306,
+159,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+1273,
+313,
+24,
+24
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-hoje|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-din|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-giro|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-prec|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Margem média real (22 px)"
+]
+}
+],
+"erros": []
+},
+"go-repo|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-dia|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-mkt|claro": {
+"btn": [
+{
+"t": "Marketing ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+139,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-ata|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-cup|claro": {
+"btn": [
+{
+"t": "Cartões ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+108,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-tem|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-anl|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-msg|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-cat|claro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 33,
+"ex": [
+"Vendas ← Início",
+"WhatsApp ← Início",
+"Site ← Início",
+"Todos ← Vender"
+]
+},
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (65 px)",
+"Armação Gucci de metal fem (43 px)"
+]
+}
+],
+"erros": []
+},
+"estoque|claro": {
+"btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+329,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (73 px)",
+"Armação Ray-Ban de metal m (65 px)"
+]
+}
+],
+"erros": []
+},
+"vendas|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (65 px)",
+"Armação Gucci de metal fem (43 px)"
+]
+}
+],
+"erros": []
+},
+"caixa|claro": {
+"btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+89,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"desp|claro": {
+"btn": [
+{
+"t": "Despesas ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+127,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"fx|claro": {
+"btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+112,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"hist|claro": {
+"btn": [
+{
+"t": "Histórico ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+127,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"clientes|claro": {
+"btn": [],
+"olho": [
+{
+"r": "letra<11",
+"n": 6,
+"ex": [
+"SITE"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"notif|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-novo|claro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-sep|claro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-ent|claro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 716 px, página tem 850 px"
+]
+}
+],
+"erros": []
+},
+"ped-lista-canc|claro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 716 px, página tem 850 px"
+]
+}
+],
+"erros": []
+},
+"ped-901|claro": {
+"btn": [
+{
+"t": "Pedido 901 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+871,
+52,
+46
+]
+},
+{
+"t": "Marcar como pago",
+"c": "pdB2 txt",
+"a": "pedpago",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+954,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-902|claro": {
+"btn": [
+{
+"t": "Pedido 902 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+928,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-903|claro": {
+"btn": [
+{
+"t": "Pedido 903 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+869,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+1158,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-904|claro": {
+"btn": [
+{
+"t": "Pedido 904 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+889,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+1178,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-905|claro": {
+"btn": [
+{
+"t": "Pedido 905 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+636,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-906|claro": {
+"btn": [
+{
+"t": "Pedido 906 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-imp|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-tema|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-seg|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-ped|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-av|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-sync|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-upd|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-pauto|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-bk|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-nuvem|claro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 4,
+"ex": [
+"Sincronização ← Nuvem",
+"Atualização ← Nuvem",
+"Cópias e nuvem ← Nuvem",
+"Pagamento automático ← Nuvem"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-arquivo|claro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 5,
+"ex": [
+"Sons e avisos ← Arquivo de backup",
+"Sincronização ← Voltar no tempo",
+"Atualização ← Arquivo de backup",
+"Cópias e nuvem ← Arquivo de backup"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-aparelhos|claro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 4,
+"ex": [
+"Sincronização ← Aparelhos",
+"Atualização ← Aparelhos",
+"Cópias e nuvem ← Aparelhos",
+"Pagamento automático ← Aparelhos"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"carrinho|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"pagamento|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 676 px, página tem 810 px"
+]
+}
+],
+"erros": []
+},
+"cliente-ficha|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"atacado-conta|claro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"peca-ficha|claro": {
+"btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+329,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+1202,
+247,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+1203,
+965,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+751,
+1066,
+513,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+751,
+1154,
+513,
+28
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (8 px)",
+"Óculos de leitura Kazwini  (21 px)"
+]
+}
+],
+"erros": []
+},
+"inicio|escuro": {
+"btn": [
+{
+"t": "Resultados Dia, mês e histórico",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+296,
+308,
+159,
+135
+]
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+465,
+308,
+159,
+135
+]
+},
+{
+"t": "Site 2 novos",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+635,
+308,
+159,
+135
+]
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartões e visit",
+"c": "tl tlG",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+804,
+308,
+159,
+135
+]
+},
+{
+"t": "Clientes 2 cadastrados",
+"c": "tl",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+973,
+308,
+159,
+135
+]
+},
+{
+"t": "Atacado Orçamentos",
+"c": "tl",
+"a": "inicio",
+"p": [
+"texto cortado"
+],
+"r": [
+1143,
+308,
+159,
+135
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"inicio-editar|escuro": {
+"btn": [
+{
+"t": "Resultados Dia, mês e histórico",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+296,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+426,
+313,
+24,
+24
+]
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+465,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+596,
+313,
+24,
+24
+]
+},
+{
+"t": "Site 2 novos",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+635,
+306,
+159,
+117
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+765,
+313,
+24,
+24
+]
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartões e visit",
+"c": "tl tlG",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+804,
+306,
+159,
+135
+]
+},
+{
+"t": "⋯",
+"c": "x",
+"a": "grpGerir",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+934,
+313,
+24,
+24
+]
+},
+{
+"t": "Clientes 7 cadastrados",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+973,
+306,
+159,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+1104,
+313,
+24,
+24
+]
+},
+{
+"t": "Atacado Orçamentos",
+"c": "tl",
+"a": "",
+"p": [
+"texto cortado"
+],
+"r": [
+1143,
+306,
+159,
+117
+]
+},
+{
+"t": "✕",
+"c": "x",
+"a": "inicioRm",
+"p": [
+"toque baixo 24px"
+],
+"r": [
+1273,
+313,
+24,
+24
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-hoje|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-din|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-giro|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-prec|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Margem média real (22 px)"
+]
+}
+],
+"erros": []
+},
+"go-repo|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-dia|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-mkt|escuro": {
+"btn": [
+{
+"t": "Marketing ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+139,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-ata|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-cup|escuro": {
+"btn": [
+{
+"t": "Cartões ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+108,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-tem|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-anl|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-msg|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"go-cat|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 33,
+"ex": [
+"Vendas ← Início",
+"WhatsApp ← Início",
+"Site ← Início",
+"Todos ← Vender"
+]
+},
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (65 px)",
+"Armação Gucci de metal fem (43 px)"
+]
+}
+],
+"erros": []
+},
+"estoque|escuro": {
+"btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+329,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (73 px)",
+"Armação Ray-Ban de metal m (65 px)"
+]
+}
+],
+"erros": []
+},
+"vendas|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (65 px)",
+"Armação Gucci de metal fem (43 px)"
+]
+}
+],
+"erros": []
+},
+"caixa|escuro": {
+"btn": [
+{
+"t": "Caixa ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+89,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"desp|escuro": {
+"btn": [
+{
+"t": "Despesas ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+127,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"fx|escuro": {
+"btn": [
+{
+"t": "Câmbio ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+112,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"hist|escuro": {
+"btn": [
+{
+"t": "Histórico ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+127,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"clientes|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "letra<11",
+"n": 6,
+"ex": [
+"SITE"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"notif|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-novo|escuro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-sep|escuro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-lista-ent|escuro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 716 px, página tem 850 px"
+]
+}
+],
+"erros": []
+},
+"ped-lista-canc|escuro": {
+"btn": [
+{
+"t": "Pedidos online ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+187,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 716 px, página tem 850 px"
+]
+}
+],
+"erros": []
+},
+"ped-901|escuro": {
+"btn": [
+{
+"t": "Pedido 901 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+871,
+52,
+46
+]
+},
+{
+"t": "Marcar como pago",
+"c": "pdB2 txt",
+"a": "pedpago",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+954,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-902|escuro": {
+"btn": [
+{
+"t": "Pedido 902 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+928,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-903|escuro": {
+"btn": [
+{
+"t": "Pedido 903 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+869,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+1158,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-904|escuro": {
+"btn": [
+{
+"t": "Pedido 904 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+889,
+52,
+46
+]
+},
+{
+"t": "Assumir este pedido",
+"c": "pdB2 txt",
+"a": "pedassumir",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+296,
+1178,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-905|escuro": {
+"btn": [
+{
+"t": "Pedido 905 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+},
+{
+"t": "Imprimir ficha de separação",
+"c": "pdB2 txt",
+"a": "pedficha",
+"p": [
+"quebra em 3 linhas"
+],
+"r": [
+311,
+636,
+52,
+46
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"ped-906|escuro": {
+"btn": [
+{
+"t": "Pedido 906 ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+149,
+32
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-imp|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-tema|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-seg|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-ped|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-av|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-sync|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-upd|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-pauto|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-bk|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-nuvem|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 4,
+"ex": [
+"Sincronização ← Nuvem",
+"Atualização ← Nuvem",
+"Cópias e nuvem ← Nuvem",
+"Pagamento automático ← Nuvem"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-arquivo|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 5,
+"ex": [
+"Sons e avisos ← Arquivo de backup",
+"Sincronização ← Voltar no tempo",
+"Atualização ← Arquivo de backup",
+"Cópias e nuvem ← Arquivo de backup"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"aj-aparelhos|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "tampado",
+"n": 4,
+"ex": [
+"Sincronização ← Aparelhos",
+"Atualização ← Aparelhos",
+"Cópias e nuvem ← Aparelhos",
+"Pagamento automático ← Aparelhos"
+]
+},
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"carrinho|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"pagamento|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+},
+{
+"r": "rola sem ter o que rolar",
+"n": 1,
+"ex": [
+"conteúdo acaba em 676 px, página tem 810 px"
+]
+}
+],
+"erros": []
+},
+"cliente-ficha|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"atacado-conta|escuro": {
+"btn": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768"
+]
+}
+],
+"erros": []
+},
+"peca-ficha|escuro": {
+"btn": [
+{
+"t": "Inventário ⌄",
+"c": "grpH",
+"a": "grpVer",
+"p": [
+"quebra em 2 linhas"
+],
+"r": [
+296,
+50,
+329,
+32
+]
+},
+{
+"t": "Ficha 4/6",
+"c": "fiBtn fal",
+"a": "fichaAbre",
+"p": [
+"toque baixo 26px"
+],
+"r": [
+1202,
+247,
+81,
+26
+]
+},
+{
+"t": "No site",
+"c": "scSw",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+1203,
+965,
+46,
+28
+]
+},
+{
+"t": "Lucro real G$ 19.483",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 22px"
+],
+"r": [
+751,
+1066,
+513,
+22
+]
+},
+{
+"t": "De onde vem o preço · G$ 25.000",
+"c": "",
+"a": "",
+"p": [
+"toque baixo 28px"
+],
+"r": [
+751,
+1154,
+513,
+28
+]
+}
+],
+"olho": [
+{
+"r": "fileira torta",
+"n": 4,
+"ex": [
+"16 (612 px)",
+"16 alturas 88–768",
+"Lote Kazwini (8 px)",
+"Óculos de leitura Kazwini  (21 px)"
+]
+}
+],
+"erros": []
+}
+}

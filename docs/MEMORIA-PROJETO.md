@@ -3420,3 +3420,19 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   - O grupo pode ser reaberto ("Adicionar cor a este grupo").
   - Grupo que ficou aberto **não fecha sozinho**: o **Guardião avisa** em Pendências. "O sistema não tem como saber se são 10 cores ou 2."
 - 21/11/2026 — ✅ PUBLICADO app v596 (5.50.21) · 4c parte 3 (135d): dFold desenha a linha de dobra (sem cartão; 64 px; linha fina) para a família inteira — Giro, Reservas, Detalhes do mês, Despesas, Ajustes › Preços, Ofertas do site; dobras seguidas num .fxG; o pad99 só junta contas. !important 983→969. 350/350 no simulador; nada em aparelho real. PARA O DONO OLHAR (imagens em work/s436/4c/): o 135d foi aprovado no Giro; pelo 'como fazer' do Esboço a mesma linha vale em Despesas e Reservas, que antes tinham o cartão.
+
+- 21/11 10:40–10:43 — DONO APROVOU O RUMO: **a peça com foto nasce no Estúdio, e o Inventário completa.**
+  - Estúdio:
+    - lê a haste (ou digita, ou "sem código")
+    - código existente → as cores entram nela
+    - código novo → **rascunho**
+    - grava as cores, "Terminei esta peça", trata (loja/casa)
+  - Inventário: "A completar · N" com os rascunhos tratados. É lá que ficam os detalhes técnicos: material, descrição, custo, preço de mercado, ofertas, publicar no site.
+  - Estados: gravando → tratando → a completar → ativa.
+  - Saem:
+    - "giro sem peça"
+    - "Escolher da Galeria"
+    - "Da Galeria" do Adicionar
+    - o "Ler haste" do Adicionar
+  - O Adicionar fica só com "Chegou mercadoria" e "Preencher à mão" (peça sem foto).
+  - O esboço 41c vai para obsoletos; o 44 é refeito por este rumo (esboço 45).

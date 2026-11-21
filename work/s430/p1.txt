@@ -1,0 +1,26 @@
+despesas-nova escuro muda olho novos: nenhum alin hoje/aprovado: [4, 0]
+  despesas-nova-escuro.jpg (1680, 1968)
+despesas-nova claro muda olho novos: nenhum alin hoje/aprovado: [4, 0]
+  despesas-nova-claro.jpg (1680, 1968)
+despesas-conta escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  despesas-conta-escuro.jpg (1680, 1968)
+despesas-conta claro muda olho novos: nenhum alin hoje/aprovado: [2, 1]
+  despesas-conta-claro.jpg (1680, 1968)
+despesas-imprevistos escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  despesas-imprevistos-escuro.jpg (1680, 1968)
+despesas-imprevistos claro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  despesas-imprevistos-claro.jpg (1680, 1968)
+pendencias escuro muda olho novos: nenhum alin hoje/aprovado: [12, 0]
+  pendencias-escuro.jpg (1680, 1968)
+pendencias claro muda olho novos: nenhum alin hoje/aprovado: [12, 0]
+  pendencias-claro.jpg (1680, 1968)
+guardiao escuro muda olho novos: nenhum alin hoje/aprovado: [0, 22]
+  guardiao-escuro.jpg (1680, 1968)
+guardiao claro muda olho novos: nenhum alin hoje/aprovado: [0, 22]
+  guardiao-claro.jpg (1680, 1968)
+marketing escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+marketing claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+marketing-post escuro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  marketing-post-escuro.jpg (1680, 1968)
+marketing-post claro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  marketing-post-claro.jpg (1680, 1968)

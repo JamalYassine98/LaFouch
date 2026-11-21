@@ -1,0 +1,166 @@
+inventario escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  inventario-escuro.jpg (1680, 1968)
+inventario claro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  inventario-claro.jpg (1680, 1968)
+atacado escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-escuro.jpg (1680, 1968)
+atacado claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-claro.jpg (1680, 1968)
+despesas escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  despesas-escuro.jpg (1680, 1968)
+despesas claro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  despesas-claro.jpg (1680, 1968)
+caixa escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-escuro.jpg (1680, 1968)
+caixa claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-claro.jpg (1680, 1968)
+cambio escuro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-escuro.jpg (1680, 1968)
+cambio claro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-claro.jpg (1680, 1968)
+clientes escuro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  clientes-escuro.jpg (1680, 1968)
+clientes claro muda olho novos: nenhum alin hoje/aprovado: [1, 0]
+  clientes-claro.jpg (1680, 1968)
+hist-lista escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-lista claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-dia escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-dia claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-semana escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-semana claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-filtros escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-filtros claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-busca escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+hist-busca claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-semana escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-semana claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-mes escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-mes claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-custom escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-custom claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-folha-periodo escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-folha-periodo claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-folha-ver escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-folha-ver claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-contas-dia escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  dash-contas-dia-escuro.jpg (1680, 1968)
+dash-contas-dia claro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  dash-contas-dia-claro.jpg (1680, 1968)
+dash-ver-todas-vendas escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-ver-todas-vendas claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-mes-vendido escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+dash-mes-vendido claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+reservas-para-onde escuro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  reservas-para-onde-escuro.jpg (1680, 1968)
+reservas-para-onde claro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  reservas-para-onde-claro.jpg (1680, 1968)
+reservas-30dias escuro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  reservas-30dias-escuro.jpg (1680, 1968)
+reservas-30dias claro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  reservas-30dias-claro.jpg (1680, 1968)
+giro-lista-compras escuro muda olho novos: nenhum alin hoje/aprovado: [2, 0]
+  giro-lista-compras-escuro.jpg (1680, 1968)
+giro-lista-compras claro muda olho novos: nenhum alin hoje/aprovado: [2, 0]
+  giro-lista-compras-claro.jpg (1680, 1968)
+giro-vitrine escuro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-vitrine-escuro.jpg (1680, 1968)
+giro-vitrine claro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-vitrine-claro.jpg (1680, 1968)
+giro-retorno escuro muda olho novos: nenhum alin hoje/aprovado: [6, 0]
+  giro-retorno-escuro.jpg (1680, 1968)
+giro-retorno claro muda olho novos: nenhum alin hoje/aprovado: [6, 0]
+  giro-retorno-claro.jpg (1680, 1968)
+giro-abc escuro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-abc-escuro.jpg (1680, 1968)
+giro-abc claro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-abc-claro.jpg (1680, 1968)
+giro-no-estoque escuro muda olho novos: nenhum alin hoje/aprovado: [2, 2]
+  giro-no-estoque-escuro.jpg (1680, 1968)
+giro-no-estoque claro muda olho novos: nenhum alin hoje/aprovado: [2, 1]
+  giro-no-estoque-claro.jpg (1680, 1968)
+giro-parado escuro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-parado-escuro.jpg (1680, 1968)
+giro-parado claro muda olho novos: nenhum alin hoje/aprovado: [8, 0]
+  giro-parado-claro.jpg (1680, 1968)
+precos escuro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-escuro.jpg (1680, 1968)
+precos claro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-claro.jpg (1680, 1968)
+precos-corrigir escuro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-corrigir-escuro.jpg (1680, 1968)
+precos-corrigir claro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-corrigir-claro.jpg (1680, 1968)
+precos-contas escuro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-contas-escuro.jpg (1680, 1968)
+precos-contas claro muda olho novos: nenhum alin hoje/aprovado: [0, 0]
+  precos-contas-claro.jpg (1680, 1968)
+caixa-acoes escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-acoes-escuro.jpg (1680, 1968)
+caixa-acoes claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-acoes-claro.jpg (1680, 1968)
+caixa-retirar escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-retirar-escuro.jpg (1680, 1968)
+caixa-retirar claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-retirar-claro.jpg (1680, 1968)
+caixa-novo-objetivo escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-novo-objetivo-escuro.jpg (1680, 1968)
+caixa-novo-objetivo claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-novo-objetivo-claro.jpg (1680, 1968)
+caixa-conferir escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-conferir-escuro.jpg (1680, 1968)
+caixa-conferir claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-conferir-claro.jpg (1680, 1968)
+caixa-reservado escuro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  caixa-reservado-escuro.jpg (1680, 1968)
+caixa-reservado claro muda olho novos: nenhum alin hoje/aprovado: [5, 1]
+  caixa-reservado-claro.jpg (1680, 1968)
+caixa-movimentos escuro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-movimentos-escuro.jpg (1680, 1968)
+caixa-movimentos claro muda olho novos: nenhum alin hoje/aprovado: [7, 4]
+  caixa-movimentos-claro.jpg (1680, 1968)
+cambio-dolar escuro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-dolar-escuro.jpg (1680, 1968)
+cambio-dolar claro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-dolar-claro.jpg (1680, 1968)
+cambio-repo escuro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-repo-escuro.jpg (1680, 1968)
+cambio-repo claro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-repo-claro.jpg (1680, 1968)
+cambio-troca escuro muda olho novos: nenhum alin hoje/aprovado: [5, 5]
+  cambio-troca-escuro.jpg (1680, 1968)
+cambio-troca claro muda olho novos: nenhum alin hoje/aprovado: [5, 5]
+  cambio-troca-claro.jpg (1680, 1968)
+cambio-trocas escuro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-trocas-escuro.jpg (1680, 1968)
+cambio-trocas claro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-trocas-claro.jpg (1680, 1968)
+cambio-site escuro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-site-escuro.jpg (1680, 1968)
+cambio-site claro muda olho novos: nenhum alin hoje/aprovado: [5, 4]
+  cambio-site-claro.jpg (1680, 1968)
+cambio-prot escuro igual olho novos: nenhum alin hoje/aprovado: [5, 4]
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:1262:11)
+    at Socket._write (node:net:1274:8)
+    at writeOrBuffer (node:internal/streams/writable:574:12)
+    at _write (node:internal/streams/writable:503:10)
+    at Writable.write (node:internal/streams/writable:512:10)
+    at PipeTransport.send (/usr/local/lib/python3.13/dist-packages/playwright/driver/package/lib/coreBundle.js:34787:25)
+    at dispatcherConnection.onmessage (/usr/local/lib/python3.13/dist-packages/playwright/driver/package/lib/coreBundle.js:70003:59)
+    at DispatcherConnection.sendEvent (/usr/local/lib/python3.13/dist-packages/playwright/driver/package/lib/coreBundle.js:18990:14)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v24.21.0

@@ -1,0 +1,26 @@
+marketing-listas escuro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+marketing-listas claro igual olho novos: nenhum alin hoje/aprovado: [0, 0]
+clientes-novo escuro muda olho novos: nenhum alin hoje/aprovado: [11, 1]
+  clientes-novo-escuro.jpg (1680, 1968)
+clientes-novo claro muda olho novos: nenhum alin hoje/aprovado: [11, 1]
+  clientes-novo-claro.jpg (1680, 1968)
+atacado-lojistas escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-lojistas-escuro.jpg (1680, 1968)
+atacado-lojistas claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-lojistas-claro.jpg (1680, 1968)
+atacado-lotes escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-lotes-escuro.jpg (1680, 1968)
+atacado-lotes claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-lotes-claro.jpg (1680, 1968)
+atacado-tabela escuro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-tabela-escuro.jpg (1680, 1968)
+atacado-tabela claro muda olho novos: nenhum alin hoje/aprovado: [1, 1]
+  atacado-tabela-claro.jpg (1680, 1968)
+inventario-fornecedores escuro muda olho novos: nenhum alin hoje/aprovado: [6, 2]
+  inventario-fornecedores-escuro.jpg (1680, 1968)
+inventario-fornecedores claro muda olho novos: nenhum alin hoje/aprovado: [6, 2]
+  inventario-fornecedores-claro.jpg (1680, 1968)
+inventario-ficha escuro muda olho novos: nenhum alin hoje/aprovado: [2, 0]
+  inventario-ficha-escuro.jpg (1680, 1968)
+inventario-ficha claro muda olho novos: nenhum alin hoje/aprovado: [2, 0]
+  inventario-ficha-claro.jpg (1680, 1968)
