@@ -2265,7 +2265,7 @@
   function newsEnvia(m){
     if(m==='wa'){var tx=LFI.lang==='es'?'¡Hola! Quiero recibir las novedades y ofertas de La Fouch por WhatsApp.':'Olá! Quero receber as novidades e ofertas da La Fouch pelo WhatsApp.';window.open('https://wa.me/'+NUM5()+'?text='+encodeURIComponent(tx),'_blank','noopener');return}
     var em=($('hnem')||{}).value||'';if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em.trim())){toast(LFI.tr('Digite um e-mail válido.'));return}
-    acFetch(fnUrl('novidades'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'inscrever',email:em.trim(),lang:LFI.lang})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw 0;V5.nok='Pronto! Você vai receber as novidades por e-mail.';$('hnf').innerHTML=newsForm()}).catch(function(){toast(LFI.tr('Não consegui inscrever agora. Tente de novo mais tarde.'))})}
+    acFetch(fnUrl('novidades'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'inscrever',email:em.trim(),lang:LFI.lang})}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw 0;/* S5 (nuvem 20/11): a inscrição só vale com o e-mail confirmado — confirmar:true = a nuvem mandou o e-mail de confirmação */V5.nok=j.confirmar?'Enviamos um e-mail para confirmar':'Pronto! Você vai receber as novidades por e-mail.';$('hnf').innerHTML=newsForm()}).catch(function(){toast(LFI.tr('Não consegui inscrever agora. Tente de novo mais tarde.'))})}
 
   /* ---- guia ---- */
   var FX5={oval:'<ellipse cx="27" cy="32" rx="18" ry="26"/>',redondo:'<circle cx="27" cy="32" r="22"/>',quadrado:'<rect x="6" y="8" width="42" height="48" rx="8"/>',coracao:'<path d="M8 12h38l-8 34-11 12-11-12z"/>'};

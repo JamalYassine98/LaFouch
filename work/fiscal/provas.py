@@ -1121,6 +1121,23 @@ def p7_selo_depois(p):
         else: passou(P7, nome, f"peças pedidas {max(0, T['pecas'] - t1):.1f} s depois da página; selo {'%.1f s depois' % (T['selo'] - T['pecas']) if 'selo' in T else 'ainda não pedido'}")
     finally: b.close()
 
+# S5 (nuvem 20/11 23:52, dono "Implementar S5S7"): a inscrição nas novidades só vale com o e-mail confirmado; quando a nuvem responde
+# confirmar:true o site diz "Enviamos um e-mail para confirmar" (e não "Pronto! Você vai receber…").
+def p7_novidades_confirma(p):
+    for resp, espera in (({'ok': True, 'confirmar': True}, 'confirmar'), ({'ok': True, 'conf': True}, 'receber')):
+        b, c, pg, E = novo(p)
+        try:
+            c.route('**cloudfunctions.net/novidades**', lambda r, q=None, resp=resp: r.fulfill(status=200, content_type='application/json', body=json.dumps(resp)))
+            carrega(pg); nome = 'Novidades: ' + ('pede para confirmar o e-mail' if 'confirmar' in resp else 'já inscrita mantém o agradecimento')
+            if not pg.evaluate("!!document.getElementById('hnf')"): raise SemPecas('o Início não mostra o bloco de novidades')
+            pg.evaluate("(()=>{const f=document.getElementById('hnf');f.scrollIntoView({block:'center'});const m=f.querySelector('[data-nm=em]');if(m&&!document.getElementById('hnem'))m.click()})()"); pg.wait_for_timeout(500)
+            if not pg.evaluate("!!document.getElementById('hnem')"): falha(P7, nome, 'não achei o campo de e-mail das novidades', pg); continue
+            pg.fill('#hnem', 'maria@exemplo.com'); pg.click('#hnf [data-news=em]'); pg.wait_for_timeout(1500)
+            t = pg.evaluate("(document.querySelector('#hnf .nok')||{}).textContent||''")
+            if espera in t.lower(): passou(P7, nome, t.strip())
+            else: falha(P7, nome, f'apareceu: “{t.strip()[:80]}”', pg)
+        finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1155,7 +1172,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa

@@ -192,6 +192,7 @@
 "Quero receber pelo WhatsApp":"Quiero recibir por WhatsApp",
 "Abre o WhatsApp com a mensagem pronta. Você só aperta enviar.":"Abre WhatsApp con el mensaje listo. Solo tocás enviar.",
 "Pronto! Você vai receber as novidades por e-mail.":"¡Listo! Vas a recibir las novedades por correo.",
+"Enviamos um e-mail para confirmar":"Te enviamos un e-mail para confirmar",
 "Digite um e-mail válido.":"Escribí un correo válido.",
 "Não consegui inscrever agora. Tente de novo mais tarde.":"No pude suscribirte ahora. Intentá de nuevo más tarde.",
 "Guia La Fouch":"Guía La Fouch",
