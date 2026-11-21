@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com a dobra do app | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 47 — painel do Site inteiro (estudo e redesenho) | work/s435/painelsite |
-| NUVEM | teste de compra de ponta a ponta + vigia diário | tools/teste-compra, .github/workflows/teste-compra.yml, .github/workflows/vigia-nuvem.yml |
 
 ## Fila
 
@@ -114,6 +113,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
 - 21/11 11:12 — SITE: Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site.
 - 21/11 11:08 — APP: v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d
 - 21/11 10:52 — IDEIAS: IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS
@@ -138,4 +138,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 23:55 — NUVEM: Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'.
 - 20/11 23:54 — NUVEM: S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem.
 - 20/11 23:02 — NUVEM: Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo.
-- 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.

@@ -1,12 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "teste de compra de ponta a ponta + vigia diário",
- "arquivos": [
-  "tools/teste-compra",
-  ".github/workflows/teste-compra.yml",
-  ".github/workflows/vigia-nuvem.yml"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795271213.0963643,
+   "r": "Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar."
+  },
   {
    "t": 1795267764.6706243,
    "r": "App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch."
@@ -42,10 +42,6 @@
   {
    "t": 1795214722.8282707,
    "r": "Lista docs/FALTA-PARA-LANCAR.md (o que falta para lançar, por quem faz) — pedido do dono 19:44."
-  },
-  {
-   "t": 1795201079.1816256,
-   "r": "Análise com porPeca publicada (base para tirar a coleção vistas/ aberta); recados ao APP (ler da análise) e ao SITE (tirar o vistaEnvia depois)."
   }
  ],
  "leu": 1795271194.2005525
