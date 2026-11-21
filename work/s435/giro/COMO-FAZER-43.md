@@ -36,3 +36,4 @@ Base: aprovados (base_app) + esboço 41 (Frente · 3/4 · Giro em cada peça). O
   - Não existe `.estOv` nem botão "×".
   - Cada linha da fila é `.nvL` com um toque só.
   - O rótulo tem a cor `--mute`.
+- **Dono 21/11 08:28:** o botão redondo de alternar quadrados|lista (149n/149g, à esquerda do logo) **não aparece no Estúdio**. Ele é só do Início e dos índices de grupo (os botões e grupos). A regra fica em um lugar: o botão aparece quando `S.view` é 'inicio' ou 'grp'. Como o Estúdio vira view própria ('est'), ele já fica de fora. Trava: no Estúdio não existe o botão visível.

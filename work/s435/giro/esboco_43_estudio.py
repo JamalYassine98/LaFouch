@@ -20,7 +20,7 @@ def tira(pw,prop):
   if prop:
     pg.evaluate("()=>{const x=document.querySelector('.estOv [data-e=fecha]');x&&x.click()}");w(600)
     pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
-    pg.evaluate(PROP,R);w(500);pg.add_style_tag(content='#grTog,#iniTog2{display:none!important}')
+    pg.evaluate(PROP,R);w(500);pg.add_style_tag(content='#grTog,#iniTog2{visibility:hidden!important}')
   else:
     pg.evaluate(r"""()=>{const ov=document.querySelector('.estOv');const mk=(t,s)=>'<span style="display:inline-flex;align-items:center;gap:6px;margin-right:14px;color:'+(s?'var(--fg)':'var(--mute)')+'"><i style="width:8px;height:8px;border-radius:50%;'+(s?'background:var(--ok)':'border:1.5px solid var(--mute);box-sizing:border-box')+'"></i>'+t+'</span>';
      ov.querySelectorAll('.estRw').forEach(r=>{const sm=r.querySelector('small');sm.innerHTML=sm.textContent.split(' · ')[0]+'<span style="display:flex;margin-top:4px">'+mk('Frente',1)+mk('3/4',0)+mk('Giro',0)+'</span>';const fi=r.querySelector('.estFi');if(fi)fi.textContent='Galeria ›'})}""");w(300)
