@@ -84,7 +84,7 @@
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
-- **43-implementar-tudo-em-partes** — em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d: 136a ✅ v598 · ficha numa função ✅ v599 · 134 links no fim ✅ v600 · 134 ficha sem cartão + linhas ✅ v601 (5.50.26). Próximas: 134 caixas (preço, % Oferta, aviso, No site, dobras) → 134b → 134d → 149s → 39 → 38 → resto
+- **43-implementar-tudo-em-partes** — em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d: 136a ✅ v598 · ficha numa função ✅ v599 · 134 links ✅ v600 · ficha sem cartão + linhas ✅ v601 · ficha sem caixas ✅ v602 (5.50.27). Próximas: 134b Fornecedores → 134d Editar na janela de baixo → 149s → 39 → 38 → resto
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
 - **45-ideias-formato-preciso-e-elegante** — esboço pronto — esperando o dono (v3 21/11 12:13)
