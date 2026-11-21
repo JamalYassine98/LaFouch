@@ -40,3 +40,20 @@ Proposta para começar a conversa:
 - **Sozinha, todo dia:** as vendas abrem vagas, e o que chega pelo "Chegou mercadoria" fecha vagas.
 - **Por você, com um toque:** "Fechei com…" (a compra combinada) e "Ninguém tinha" (a vaga sai da lista por um tempo, ou muda a faixa de custo).
 - **Pelo Semp, depois:** troca o modelo sugerido quando aparece um melhor numa distribuidora.
+
+## 5. De onde vêm os dados (dono 21/11 13:22–13:25)
+
+Por ordem de peso:
+1. **Vendas do próprio app.** É o que funciona agora. Vem em primeiro lugar.
+2. **Analisador do site.** Mostra os modelos visitados, os favoritos, as buscas e o que está saindo.
+3. **"Me avise quando chegar" (lista de espera).** São clientes que querem comprar e já disseram o quê.
+4. **Tendências da internet.** Só completam os outros dados; sozinhas não bastam.
+
+**Regra da estrela:** o que vende muito bem **nunca é trocado**. Só procura um equivalente quando acaba e não dá mais para repor.
+
+## 6. Quando ninguém tem: a lista de espera guia o equivalente
+
+- Cada cliente na espera fica ligado à **foto** e aos traços da peça que pediu: tipo, gênero, material e o formato tirado da foto. Com 5 clientes esperando, a vaga precisa de pelo menos 5 peças.
+- Se a peça não volta mais, a vaga passa para **"procurar equivalente"**. O Semp compara com a foto da original e usa as vendas e o Analisador. O Guardião confere o preço.
+- Quando o equivalente chega, o "Chegou mercadoria" mostra **"5 clientes esperavam algo assim"** e traz a mensagem pronta no WhatsApp: "Chegou um parecido com o que você queria", com a foto.
+- **"Deixar sem"** só aparece quando ninguém está esperando. A vaga reabre no primeiro "me avise".

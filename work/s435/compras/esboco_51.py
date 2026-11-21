@@ -28,10 +28,11 @@ def frame(pw,qual):
      '<div style="background:var(--panel2);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--fg)">Hola, ¿qué tienen de esto?<br>· 3 lentes de sol de mujer, metal (SL2201 o parecido), hasta US$ 4<br>· 2 armazones de mujer, nylon, hasta US$ 3<br>· 5 armazones unisex, acetato, hasta US$ 3,50<br>Gracias. La Fouch</div>'+
      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 0">Você escolhe para quem mandar no próprio WhatsApp: uma distribuidora ou várias. As vagas ficam "pedida · esperando resposta".</div>','Mandar')}""",I);w(500)
   if qual=='ninguem': pg.evaluate("(I)=>{"+H+J+r"""const OP=(t,s,on)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute);line-height:1.4">'+s+'</small></span><span style="width:22px;height:22px;border-radius:50%;flex:none;'+(on?'border:7px solid var(--accent)':'border:1.5px solid var(--mute)')+'"></span></div>';
-     JAN('Ninguém tinha','Solar · feminino · metal · faltam 3',
-     OP('Procurar parecido','o app abre a vaga: outro material ou formato que também vende, ou custo até US$ 4,50. Volta para o próximo Pedir.',1)+
-     OP('Avisar quando aparecer','a vaga fica esperando. O Semp confere as distribuidoras e avisa no sino quando alguém tiver.',0)+
-     OP('Deixar sem','a vaga fecha. Só reabre se as vendas pedirem de novo.',0),'Salvar')}""",I);w(500)
+     JAN('Ninguém tinha','Solar · feminino · metal · faltam 5',
+     '<div style="display:flex;align-items:center;gap:12px;min-height:56px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:15px">5 clientes esperam esta peça</span><span style="color:var(--mute);font-size:14px">me avise ⌄</span></div>'+
+     OP('Procurar equivalente','pela foto da SL2201: mesmo formato, material e faixa de preço. Entra no próximo Pedir. Quando chegar, aviso os 5 clientes.',1)+
+     OP('Avisar quando aparecer','espera a própria SL2201. O Semp confere as distribuidoras e avisa no sino.',0)+
+     '<div style="color:var(--mute);font-size:13px;line-height:1.45;margin:16px 0 0">"Deixar sem" só aparece quando ninguém está esperando.</div>','Salvar')}""",I);w(500)
   if qual=='fechei': pg.evaluate("(I)=>{"+H+J+r"""const QT='<span style="display:inline-flex;align-items:center;gap:16px"><b style="color:var(--mute);font-size:20px">−</b><b style="font-size:16px">3</b><b style="font-size:20px">+</b></span>';
      JAN('Fechei com…','Solar · feminino · metal · faltam 3',LIN('Distribuidora','Kazwini','›')+LIN('Modelo','SL2201 · o mesmo','›')+'<div style="display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px">Peças</span>'+QT+'</div>'+LIN('Custo por peça','US$ 3,80')+
      '<div style="color:'+OK+';font-size:14px;margin:16px 0 0">Guardião: margem boa a G$ 60.000 · pode fechar</div>','Salvar')}""",I);w(500)
@@ -48,4 +49,4 @@ if __name__=='__main__' and not os.environ.get('SO_B'):
 
 if __name__=='__main__' and os.environ.get('SO_B'):
  with sync_playwright() as pw:
-  quadro('esboco_51b_ninguem_tinha.jpg',[('5 · Ninguém tinha','três saídas · nada some sem você decidir',frame(pw,'ninguem'))])
+  quadro('esboco_51b_ninguem_tinha.jpg',[('5 · Ninguém tinha','a lista de espera guia o equivalente',frame(pw,'ninguem'))])
