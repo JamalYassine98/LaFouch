@@ -1,7 +1,7 @@
 {
- "nome": "5.50.27",
+ "nome": "5.50.28",
  "notas": [
-  "Ficha da peça: preço, \"% Oferta\", aviso de prejuízo e \"No site\" sem caixas, em linhas finas."
+  "Inventário › Fornecedores: cada compra em linha fina, com \"Editar\" e a lixeira alinhados ao nome e \"Ver peças ›\" centralizado."
  ],
- "build": 602
+ "build": 603
 }

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 602;
+  var APP_BUILD = 603;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.27'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.28'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -8395,10 +8395,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tot = grpTot(g),
       det = grpDet(g),
       tp = tipoOf(g.tipo),
-      c = mk('section', 'card');
-    c.style.borderLeft = '4px solid #6cc3e0';
-    var a = mk('div', '');
-    a.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
+      c = mk('section', 'lotC'); // 134b: a compra é uma linha fina, não um cartão (CSS .lotC)
+    var a = mk('div', 'lotHd');
     var ta = mk('div', '');
     ta.appendChild(
       mk('b', '', g.forn + (g.nome ? ' · ' + g.nome : '') + ' · ' + gTipoName(g) + ' · ' + g.qty + ' peças')
@@ -8407,10 +8405,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     pg.style.margin = '2px 0 0';
     ta.appendChild(pg);
     a.appendChild(ta);
-    var ac = mk('div', '');
-    ac.style.cssText = 'display:flex;align-items:center;gap:8px;flex:0 0 auto';
+    // 134b: "Editar" (texto) e a lixeira ficam no centro da 1ª linha do nome, por flex (.lotAc tem a altura dessa linha)
+    var ac = mk('div', 'lotAc');
     var eg = btn(
-      'tab' + (S.gEdit === g.id ? ' on' : ''),
+      'lk100 inl' + (S.gEdit === g.id ? ' on' : ''),
       'Editar',
       function () {
         if (S.gEdit === g.id) {
@@ -8432,7 +8430,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       },
       S.gEdit === g.id
     );
-    eg.style.cssText = 'min-height:34px;height:34px;padding:0 14px;font-size:14px';
     ac.appendChild(eg);
     var tr = mk('button', 'trash' + (S.gDel === g.id ? ' on' : ''));
     tr.type = 'button';
@@ -8999,16 +8996,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     r.appendChild(fl);
     c.appendChild(r);
     if (opt && opt.view) {
-      var vb = btn('mini', 'Ver peças (' + det + ')', function () {
+      var vb = btn('lk100 c101', 'Ver peças (' + det + ') ›', function () {
         S.lotSel = g.id;
         S.lotPick = {};
         render();
         window.scrollTo(0, 0);
       });
-      var vr = mk('div', '');
-      vr.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px';
-      vr.appendChild(vb);
-      c.appendChild(vr);
+      c.appendChild(vb);
     }
     if (S.gDel === g.id) {
       var z = mk('div', 'note n-bad');

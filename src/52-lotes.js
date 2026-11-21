@@ -5,10 +5,8 @@
       tot = grpTot(g),
       det = grpDet(g),
       tp = tipoOf(g.tipo),
-      c = mk('section', 'card');
-    c.style.borderLeft = '4px solid #6cc3e0';
-    var a = mk('div', '');
-    a.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
+      c = mk('section', 'lotC'); // 134b: a compra é uma linha fina, não um cartão (CSS .lotC)
+    var a = mk('div', 'lotHd');
     var ta = mk('div', '');
     ta.appendChild(
       mk('b', '', g.forn + (g.nome ? ' · ' + g.nome : '') + ' · ' + gTipoName(g) + ' · ' + g.qty + ' peças')
@@ -17,10 +15,10 @@
     pg.style.margin = '2px 0 0';
     ta.appendChild(pg);
     a.appendChild(ta);
-    var ac = mk('div', '');
-    ac.style.cssText = 'display:flex;align-items:center;gap:8px;flex:0 0 auto';
+    // 134b: "Editar" (texto) e a lixeira ficam no centro da 1ª linha do nome, por flex (.lotAc tem a altura dessa linha)
+    var ac = mk('div', 'lotAc');
     var eg = btn(
-      'tab' + (S.gEdit === g.id ? ' on' : ''),
+      'lk100 inl' + (S.gEdit === g.id ? ' on' : ''),
       'Editar',
       function () {
         if (S.gEdit === g.id) {
@@ -42,7 +40,6 @@
       },
       S.gEdit === g.id
     );
-    eg.style.cssText = 'min-height:34px;height:34px;padding:0 14px;font-size:14px';
     ac.appendChild(eg);
     var tr = mk('button', 'trash' + (S.gDel === g.id ? ' on' : ''));
     tr.type = 'button';
@@ -609,16 +606,13 @@
     r.appendChild(fl);
     c.appendChild(r);
     if (opt && opt.view) {
-      var vb = btn('mini', 'Ver peças (' + det + ')', function () {
+      var vb = btn('lk100 c101', 'Ver peças (' + det + ') ›', function () {
         S.lotSel = g.id;
         S.lotPick = {};
         render();
         window.scrollTo(0, 0);
       });
-      var vr = mk('div', '');
-      vr.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px';
-      vr.appendChild(vb);
-      c.appendChild(vr);
+      c.appendChild(vb);
     }
     if (S.gDel === g.id) {
       var z = mk('div', 'note n-bad');

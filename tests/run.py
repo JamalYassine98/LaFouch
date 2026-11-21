@@ -4534,6 +4534,25 @@ async def main():
             if not ok: falhas.append('134 ficha sem caixas'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # 134b (aprovado 18/11): Inventário › Fornecedores — cada compra numa linha fina (não é cartão); "Editar" (texto rosa) e a lixeira no centro da
+            # 1ª linha do nome, a lixeira termina na margem direita; "Ver peças (N) ›" como link centralizado; barra de 4 px. Alinhado por flex na marcação.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('estoque'); await w(500); [...document.querySelectorAll('#v-estoque button')].find(x => /^Fornecedores/.test(x.textContent.trim())).click(); await w(700);
+              const c = document.querySelector('#lotView .lotC'); if (!c) return ['sem compra']; const cs = getComputedStyle(c), R = e => e.getBoundingClientRect(), cy = e => (R(e).top + R(e).bottom) / 2;
+              const t = c.querySelector('.lotHd b'), rg = document.createRange(); rg.selectNodeContents(t); const l1 = rg.getClientRects()[0], cl = (l1.top + l1.bottom) / 2;
+              const ed = c.querySelector('.lotAc .lk100'), tr = c.querySelector('.lotAc .trash'), sv = tr.querySelector('svg'), vp = [...c.querySelectorAll('button')].find(b => /^Ver peças/.test(b.textContent));
+              return [!c.classList.contains('card') && cs.backgroundColor === 'rgba(0, 0, 0, 0)' && cs.borderLeftWidth === '0px' && cs.borderBottomWidth === '1px' && cs.borderBottomColor !== 'rgba(0, 0, 0, 0)',
+                Math.abs(cy(ed) - cl) <= 2 && Math.abs(cy(sv) - cl) <= 2, ed.textContent === 'Editar' && getComputedStyle(ed).backgroundColor === 'rgba(0, 0, 0, 0)' && R(ed).height >= 44,
+                Math.abs(R(sv).right - R(c).right) <= 3 && R(tr).height >= 44, !!vp && / ›$/.test(vp.textContent) && Math.abs((R(vp).left + R(vp).right) / 2 - (R(c).left + R(c).right) / 2) <= 2,
+                Math.round(R(c.querySelector('.bar.lfp')).height) === 4]; }""")
+            mede = 'getBoundingClientRect' in fontes['52-lotes.js'].split('function lotCard')[1].split('\n  function ')[0]
+            total += 1
+            ok = got == [True] * 6 and not mede and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134b: Fornecedores — compra em linha fina, "Editar" e lixeira no centro da 1ª linha do nome, lixeira na margem, "Ver peças ›" centralizado, barra de 4 px')
+            if not ok: falhas.append('134b fornecedores'); print('        veio', got, mede, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

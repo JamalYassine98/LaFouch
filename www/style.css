@@ -398,6 +398,13 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .lfok.on{animation:lfpop .45s cubic-bezier(.2,1.8,.3,1) forwards}
 @keyframes lfpop{to{transform:scale(1)}}
 /* progresso da compra (v9) */
+/* 134b (aprovado 18/11): Inventário › Fornecedores — cada compra numa linha fina; "Editar" e a lixeira no centro da 1ª linha do nome; barra de 4 px */
+.lotC{padding:14px 0 26px;border-bottom:1px solid var(--line2,var(--line))}
+.lotHd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.lotHd b{line-height:24px}
+.lotAc{display:flex;align-items:center;gap:6px;height:24px;flex:none}
+.lotAc .trash{width:44px;height:44px;justify-content:flex-end;margin-right:-2px;color:var(--sub);opacity:1}
+.lotC .bar.lfp{height:4px}
 .bar.lfp i{position:relative;overflow:hidden}
 .bar.lfp i:after{content:"";position:absolute;top:0;bottom:0;width:60px;left:-60px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
 .bar.lfp i.sh:after{animation:lfshine .9s ease-out}
