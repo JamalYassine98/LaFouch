@@ -33,8 +33,8 @@ TOCA = """(feitos)=>{let R=[...document.querySelectorAll('#layer, #sov, #mapw, .
  const L=[];R.forEach(r=>r.querySelectorAll('button,a,[data-cta],[role=button],input[type=checkbox],input[type=radio],summary,label[for],select').forEach(e=>{const b=e.getBoundingClientRect();if(!b.width||!b.height)return;
   const h=e.getAttribute('href')||'';if(/wa\\.me|whatsapp|mailto:|tel:|^https?:\\/\\/(?!localhost)/.test(h))return;if(e.hasAttribute('data-close')||/sair|excluir|exc2?$/i.test(e.getAttribute('data-cta')||''))return;
   const k=(e.id||'')+'|'+(e.getAttribute('data-cta')||'')+'|'+e.className+'|'+e.textContent.trim().slice(0,18);if(feitos.includes(k)||L.some(x=>x[0]===k))return;e.setAttribute('data-vr2',L.length);L.push([k])}));return L.map(x=>x[0])}"""
-def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22):
-    c = b.new_context(bypass_csp=True, viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, reduced_motion='reduce', permissions=['camera', 'geolocation'], geolocation={'latitude': -25.51, 'longitude': -54.61})
+def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22, qs='', mov=False):
+    c = b.new_context(bypass_csp=True, viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, reduced_motion=('no-preference' if mov else 'reduce'), permissions=['camera', 'geolocation'], geolocation={'latitude': -25.51, 'longitude': -54.61})
     c.add_init_script(init(logada)); c.add_init_script('if(/^http/.test(location.protocol)){' + BASE_INIT + '}'); c.route('**cloudfunctions.net/**', nuvem)
     c.route('**identitytoolkit**', lambda r: r.fulfill(json={'users': [{'emailVerified': True, 'email': 'maria@exemplo.com'}]}))
     pg = c.new_page(); cdp = c.new_cdp_session(pg); cdp.send('Profiler.enable'); cdp.send('Profiler.startPreciseCoverage', {'callCount': True, 'detailed': False})
@@ -48,7 +48,7 @@ def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22):
     pg.on('request', lambda rq: colhe() if rq.is_navigation_request() and rq.frame == pg.main_frame else None)
     n = 0
     try:
-        pg.goto(URL, wait_until='load'); pg.wait_for_timeout(3500); abre(pg); pg.wait_for_timeout(1500); feitos = []; ini = pg.url
+        pg.goto(URL + qs, wait_until='load'); pg.wait_for_timeout(3500); abre(pg); pg.wait_for_timeout(1500); feitos = []; ini = pg.url
         for _ in range(rodadas):
             try: alvos = pg.evaluate(TOCA, feitos)
             except Exception: break
@@ -71,7 +71,14 @@ def hash_(h): return lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700), pg.
 def peca(pg):
     pg.evaluate("()=>{const a=[...document.querySelectorAll('a[data-mf^=\"tipo:\"]')].find(e=>e.offsetParent);a&&a.click()}"); pg.wait_for_timeout(1500)
     pg.evaluate("()=>{const e=document.querySelector('#grid .card .open');e&&e.click()}"); pg.wait_for_timeout(1800)
-def pedido(pg): pg.click('#contabtn'); pg.wait_for_timeout(1200); js_click('[data-cta=mcaba][data-v=peds],[data-cta=peds]')(pg); pg.wait_for_timeout(900); js_click('[data-cta=ped]')(pg)
+def aba(a): return lambda pg: (pg.click('#contabtn'), pg.wait_for_timeout(1300), js_click('[data-cta=mcaba][data-a=%s]' % a)(pg), pg.wait_for_timeout(900))
+def pedido(qual): return lambda pg: (aba('peds')(pg), js_click('[data-cta=ped][data-id=%s]' % qual)(pg), pg.wait_for_timeout(1500))
+def camera_rosto(pg):
+    hash_('#rosto')(pg); js_click('#rosto [data-fa]')(pg); pg.wait_for_timeout(1200); js_click('#layer [data-facam]')(pg); pg.wait_for_timeout(3500)
+def coracoes(pg):
+    peca_cat(pg)
+    for i in range(4): pg.evaluate("i=>{const e=[...document.querySelectorAll('#grid [data-fav]')].filter(e=>e.offsetParent)[i%3];e&&e.click()}", i); pg.wait_for_timeout(900)
+def peca_cat(pg): pg.evaluate("()=>{const a=[...document.querySelectorAll('a[data-mf^=\"tipo:\"]')].find(e=>e.offsetParent);a&&a.click()}"); pg.wait_for_timeout(1500)
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'])
     for w, h, mob in ((390, 844, True), (1440, 900, False)):
@@ -81,7 +88,13 @@ with sync_playwright() as p:
         roteiro(b, 'atacado', False, w, h, mob, hash_('#atacado'), rodadas=6)
         roteiro(b, 'como comprar / ajuda', False, w, h, mob, hash_('#como'), rodadas=4)
         roteiro(b, 'minha conta (logada)', True, w, h, mob, lambda pg: (pg.click('#contabtn'), pg.wait_for_timeout(1000)), rodadas=6)
-        roteiro(b, 'pedidos (logada)', True, w, h, mob, pedido, rodadas=5)
+        for a in ('perfil', 'ends', 'cart', 'peds'): roteiro(b, 'conta › ' + a, True, w, h, mob, aba(a), rodadas=5)
+        roteiro(b, 'pedido a pagar (tela de pagamento)', True, w, h, mob, pedido('PEDT2'), rodadas=5)
+        roteiro(b, 'pedido pago (recibo)', True, w, h, mob, pedido('PEDT1'), rodadas=5)
+        roteiro(b, 'câmera do rosto por dentro (rosto de mentira)', False, w, h, mob, camera_rosto, rodadas=6)
+        roteiro(b, 'portal do atacado', False, w, h, mob, lambda pg: pg.wait_for_timeout(2500), rodadas=7, qs='?c=TESTE123')
+        roteiro(b, 'separado para você', False, w, h, mob, lambda pg: pg.wait_for_timeout(2500), rodadas=3, qs='?s=SL2250.GR3340.AC1050&n=Maria')
+        roteiro(b, 'corações com movimento', False, w, h, mob, coracoes, rodadas=2, mov=True)
         roteiro(b, 'peça logada (avaliação, comparar, compartilhar)', True, w, h, mob, peca, rodadas=5)
         roteiro(b, 'carrinho logada até o pagamento', True, w, h, mob, lambda pg: (peca(pg), js_click('#layer [data-addm]')(pg), pg.wait_for_timeout(1200)), rodadas=7)
         roteiro(b, 'busca', False, w, h, mob, lambda pg: (pg.click('#sbtn'), pg.wait_for_timeout(500), pg.fill('#q5', 'arma'), pg.wait_for_timeout(600)), rodadas=3)

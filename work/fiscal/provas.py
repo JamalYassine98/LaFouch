@@ -891,7 +891,7 @@ PAINEL_MONTA = """()=>{document.querySelectorAll('#lock,#login,#totp,#trava').fo
  let b=document.querySelector('.p207l.vit');if(!b){b=document.createElement('div');b.className='p207l vit';const d=document.getElementById('c_dst');d.parentNode.insertBefore(b,d.nextSibling)}
  b.innerHTML=lin(I('<path d="M3 6h18M6 12h12M10 18h4"/>'),'Ordem do catálogo','Equilibrada')+lin(I('<path d="M12 9v4M12 17h.01"/>'),'Precisa de atenção','tudo certo')+lin(I('<path d="M12 2l3 6.6 7 .8-5.2 4.8 1.5 7L12 17.7 5.7 21.2l1.5-7L2 9.4l7-.8z"/>'),'Opiniões para revisar','nada para revisar')}"""
 PAINEL_CONTR = """()=>{const lum=c=>{const m=c.match(/[\\d.]+/g).map(Number);const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(m[0])+.7152*f(m[1])+.0722*f(m[2])};
- const fundo=e=>{while(e){const c=getComputedStyle(e).backgroundColor;const m=c.match(/[\\d.]+/g);if(m&&(m.length<4||+m[3]>.5))return c;e=e.parentElement}return 'rgb(18,13,21)'};const o=[];
+ const fundo=e=>{while(e){const cs=getComputedStyle(e);/* fundo em degradê (botão rosa): vale a 1ª cor do degradê — antes era ignorado e o texto branco era comparado com o fundo da página */const g=/gradient\\(.*?(rgba?\\([^)]+\\))/.exec(cs.backgroundImage||'');if(g)return g[1];const c=cs.backgroundColor;const m=c.match(/[\\d.]+/g);if(m&&(m.length<4||+m[3]>.5))return c;e=e.parentElement}return 'rgb(18,13,21)'};const o=[];
  document.querySelectorAll('#shell *').forEach(e=>{if(!e.offsetParent)return;const t=[...e.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim()).map(n=>n.textContent.trim()).join(' ');if(!t)return;const cs=getComputedStyle(e);const a=lum(cs.color),b=lum(fundo(e));const r=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);if(r<3)o.push([t.slice(0,28),+r.toFixed(2),cs.color,fundo(e)])});return o}"""
 def p7_painel_contraste(p):
     for esquema, nome in (('light', 'claro'), ('dark', 'escuro')):
@@ -902,8 +902,7 @@ def p7_painel_contraste(p):
             pg = c.new_page(); pg.goto(URL + 'admin.html'); pg.wait_for_timeout(1500); pg.evaluate(PAINEL_MONTA); pg.wait_for_timeout(300); ruins = []
             for v in pg.evaluate("()=>[...document.querySelectorAll('#shell main.page')].map(m=>m.id)"):
                 pg.evaluate("v=>{document.querySelectorAll('#shell main.page').forEach(m=>m.hidden=m.id!==v)}", v)
-                # mede só com as trocas de cor terminadas (as que têm fim; o que gira sem parar não conta) (antes esperava 120 ms fixos: com a máquina cheia pegava o botão no meio da troca, contraste 1)
-                pg.evaluate("()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>Promise.all(document.getAnimations().filter(a=>{try{return isFinite(a.effect.getComputedTiming().endTime)}catch(e){return false}}).map(a=>a.finished.catch(()=>0))).then(()=>r(1)))))")
+                pg.wait_for_timeout(120)  # a causa da falha que ia e vinha não era o tempo: era o degradê do botão (ver PAINEL_CONTR)
                 ruins += [f'{v}: "{x[0]}" {x[1]}' for x in pg.evaluate(PAINEL_CONTR)]
             t = f'Painel · texto legível · tema {nome}'
             if ruins: falha(P7, t, f'{len(ruins)} texto(s) com contraste abaixo de 3: ' + ' | '.join(ruins[:4]), pg)
