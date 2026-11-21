@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | ficha: juntar as 4 camadas do renderDetail numa função (0 diferença na tela) | src/10-estoque-detalhe.js, src/97t-ficha-s190.js, src/97u-navegacao-s184.js, src/97y-lucro-real.js, src/97z2-contador.js, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila
@@ -120,6 +119,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 12:59 — APP: v599 no ar: ficha numa função só. Próximo: 134 (ficha sem cartão, links no fim)
 - 21/11 12:42 — IDEIAS: IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 12:38 — APP: 4d parte 2: estudo feito, sem código (a ficha precisa primeiro juntar as camadas do renderDetail). v598 segue a última no ar
 - 21/11 12:35 — APP: v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela
@@ -141,7 +141,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 09:31 — SITE: URGENTE resolvido — site 1795264209: a câmera do 'descubra o seu formato' e o comparar voltaram a abrir na tela (erro da limpeza de estilos de 19/11: a base das janelas soltas tinha sido cortada). Antes, na mesma manhã: site 1795261801 com o começo rápido (internet fraca parte 1). Porteiro 229 provas, 0 falhas. PRÓXIMO: conferir as outras janelas soltas (mensagem, atacado, separado) e o resto do corte de 19/11 contra a versão de 19/11; medir o começo rápido em rede limpa.
 - 21/11 09:17 — APP: 4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c
 - 21/11 08:59 — APP: v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c
-- 21/11 08:34 — APP: v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2
 - 21/11 08:04 — NUVEM: Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono.
 - 21/11 02:04 — ESBOCO: Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real.
 - 21/11 01:13 — SITE: Noite 20→21/11 (dono dormindo): (1) memória e lista viva RECUPERADAS (1,3 MB regravados por engano em 20/11) + trava no status.py; (2) site 1795232856, por dentro: 1ª visita não espera o selo (rede limpa: 4G fraco 31→22 s até a 1ª foto; 4G bom 6,1→2,9 s), pedido tenta de novo sozinho 1x, cancelar 409 = feito, 4 funções mortas fora; (3) site 1795234339: novidades pede a confirmação do e-mail (S5, recado da NUVEM); porteiro 224 provas 0 falhas; (4) ESBOÇOS ESPERANDO O DONO: docs/PLANO-INTERNET-FRACA-21-11.md (partes 1–3) e docs/PLANO-FERRAMENTAS-21-11.md (4 partes); (5) faixa do evento já estava no ar desde 20/11; (6) varredura: 64% do programa roda nas provas, faltam provas de 9 áreas antes de mostrar suspeitos. DONO TESTAR no celular: abrir o site em aba anônima no 4G; inscrever um e-mail nas novidades (chega o e-mail de confirmar?); compra de teste até o PIX; cancelar um pedido pendente em Minha conta; voltar com Filtros, foto ampliada e aviso 'adicionado' abertos.

@@ -1,15 +1,12 @@
 {
  "nome": "APP",
- "agora": "ficha: juntar as 4 camadas do renderDetail numa função (0 diferença na tela)",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "src/97t-ficha-s190.js",
-  "src/97u-navegacao-s184.js",
-  "src/97y-lucro-real.js",
-  "src/97z2-contador.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795276752.8436346,
+   "r": "v599 no ar: ficha numa função só. Próximo: 134 (ficha sem cartão, links no fim)"
+  },
   {
    "t": 1795275519.2854056,
    "r": "4d parte 2: estudo feito, sem código (a ficha precisa primeiro juntar as camadas do renderDetail). v598 segue a última no ar"
@@ -45,10 +42,6 @@
   {
    "t": 1795262341.176889,
    "r": "v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c"
-  },
-  {
-   "t": 1795260874.266595,
-   "r": "v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2"
   }
  ],
  "leu": 1795276748.3776643
