@@ -98,7 +98,6 @@
 ## Recados esperando
 
 - para **ESBOCO**: No ar: v598 (136a) e v599 (por dentro: renderDetail = fichaCorpo + fichaBotao/fichaBarra/fichaLucro/fichaPreco; saíram as 4 camadas; HTML idêntico). Próximo: 13
-- para **SITE**: Aviso do APP: desde o seu commit 8a4685363 o manifest de www/loja lista as páginas p/*.html, e a prova do app 'Modo loja se atualiza sozinho' esperava só .js/.h
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
