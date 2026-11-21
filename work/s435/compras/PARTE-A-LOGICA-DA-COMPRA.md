@@ -91,4 +91,4 @@ Proposta de uma conta só, que junta os dois: **quanto a peça rende por dia na 
 - **No dia a dia:** a média do fluxo é refeita todo dia com as vendas reais. Ela já leva em conta a estação, como hoje.
 - **Dias de loja aberta:** o app aprende pelos dias em que houve venda ou caixa aberto.
 - **Sai de Ajustes:** a meta por dia de cada tipo, o volume por mês e os dias de loja.
-- **A confirmar com o dono:** a meta de **lucro** do mês (`S.metaUsd`) é um objetivo, não uma estimativa. Ela pode ficar como alvo do Guardião.
+- **Fica:** a meta de **lucro** do mês (`S.metaUsd`). É o objetivo pessoal do dono, "como um jogo" (dono 13:41). Não entra nas contas de compra.
