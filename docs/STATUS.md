@@ -66,6 +66,7 @@
 - **31-visitas-num-lugar-so** — ✅ APP v583 lê da análise; regras fecham vistas/ (20:08, sonda 403) — falta só o SITE tirar o vistaEnvia (código morto, recado 20:10)
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — esboço pronto — esperando o dono (3 esboços em work/s430/esb-a/)
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
+- **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
 
 ## Recados esperando
 

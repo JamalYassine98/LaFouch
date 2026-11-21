@@ -1,0 +1,2 @@
+✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
+Medido em dois vídeos da tela do celular do dono: clarão ao gravar (trava de luz/foco que o Android não tem), volta que não fechava (o começo parado entrava na conta), avisos escondidos atrás do Estúdio, gravação perdida na escolha à mão. Estudo e provas: work/s436/camera-giro/ESBOCO-ITEM-33.md. Para o dono decidir: escolha à mão (sai ou fica?) e diário da câmera (fica?).
