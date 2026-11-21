@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "esboços: Esc fecha os Filtros; entrar→carrinho→voltar; internet fraca (estudo)",
- "arquivos": [
-  "work/s430/esb-a"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795220481.0548325,
+   "r": "3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca"
+  },
   {
    "t": 1795219807.9996328,
    "r": "investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795187251.5763078,
    "r": "selos v2, faixa só no topo e fim do modo lista na cópia limpa; porteiro: 1 falha (ícone da conta sem cor no mouse) + 5 avisos visuais da página da peça; levantamento de código morto em work/s430/limpeza5/"
-  },
-  {
-   "t": 1795180680.9726496,
-   "r": "limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir"
   }
  ],
  "leu": 1795220352.6126425
