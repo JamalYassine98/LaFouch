@@ -1,2 +1,2 @@
-parte 1 aprovada 21/11 15:38 — espera o 'implementar' · partes 2–6 a fazer
-work/s435/giroprecos/esboco_52a/b/d (52c e o 'Ver mais' superados)
+partes 1 e 2 aprovadas (15:38 e 16:17) — esperam o 'implementar' · partes 3–6 a fazer
+work/s435/giroprecos/esboco_52a/b/d/e
