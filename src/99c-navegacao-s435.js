@@ -14,7 +14,6 @@
       if (vi && vi.parentNode) vi.parentNode.insertBefore(vg, vi.nextSibling);
     }
     if (!VIEWS.some(function (v) { return v[0] === 'grp'; })) VIEWS.push(['grp', 'Grupo']);
-    var NV_GF = { Dinheiro: 'O dinheiro da loja', Resultados: 'Como a loja está indo', 'Giro e preços': 'O que vende, o preço e as reservas', 'Peças': 'Cadastro, fotos e estoque', Site: 'Pedidos, mensagens e vitrine', Marketing: 'Posts, vídeos e plano' };
     S.nvG = S.nvG || null;
     S.nvP = []; // pilha da aba atual (chaves: 'grp:<id>' ou a tela)
     S.nvAbas = {}; // última pilha de cada aba da barra
@@ -108,7 +107,7 @@
     }
     // ---------- índice do grupo ----------
     function nvGrpHtml(g) {
-      var fr = g.frase || NV_GF[g.nome] || g.itens.map(nvNome).join(' · ');
+      var fr = g.frase || g.itens.map(nvNome).join(' · ');
       return '<div class="top"><div><h1>' + esc(g.nome) + '</h1><div class="crumb">' + esc(fr) + '</div></div></div>' +
         '<section class="nvLista" aria-label="Telas do grupo">' +
         g.itens.map(function (t) {

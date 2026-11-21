@@ -402,7 +402,7 @@ async def main():
                 await pg.wait_for_function('window.__LF', timeout=10000)
                 if tudo: await pg.evaluate("() => { window.__LF.S._rtudo = true; }")  # os testes antigos leem abas fora da tela
                 # S374: os testes antigos partem da barra antiga (Catálogo, Inventário, Dinheiro, Ajustes); as 7 famílias têm teste próprio (fam=True)
-                if not fam: await pg.evaluate("() => { const L = window.__LF, S = L.S; S.grupos = (S.grupos || []).filter(g => !g.fam); S.barra = null; S.inicioT = null; S.fam7 = true; L.render(); }")
+                if not fam: await pg.evaluate("() => { const L = window.__LF, S = L.S; S.grupos = (S.grupos || []).filter(g => !g.fam); S.barra = null; S.inicioT = null; S.famV = 99; L.render(); }")
                 return pg
 
             # desempenho: abas fora da tela não são redesenhadas
@@ -440,7 +440,7 @@ async def main():
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['mkt', []] and not pg.erros
+            ok = m1 == ['dash', 'giro', ['giro', 'prec']] and m2 == ['mkt', []] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (59/98): Giro e preços com a flecha certa; Marketing abre a tela Marketing')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
@@ -3865,21 +3865,34 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Item 27: setView sem embrulho; nomes e frases das telas escritos uma vez')
             if not ok: falhas.append('item 27 setView/tabelas'); print('        veio', rep, troca)
 
-            # Item 26 (20/11/2026): remendos parte 2b — iniLista (migrações dos grupos, em ordem) e grpAbre são UMA função cada; ninguém as troca.
-            # Um aparelho antigo (sem nenhuma marca de família) chega ao mesmo lugar de sempre e não repete a migração
+            # Item 26 (20/11) + 4c parte 4 (149r, 21/11/2026): iniLista e grpAbre são UMA função cada; as famílias vêm de UMA tabela (FAMILIAS) com versão S.famV.
+            # Reservas mora em Dinheiro. Aparelho novo recebe o arranjo padrão; aparelho de antes mantém barra e Início e só troca a tabela;
+            # grupo em que o dono mexeu (S.famMex) não é tocado quando a tabela sobe de versão; a versão é guardada (antes a tabela voltava a cada abertura).
             total += 1
-            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(iniLista|grpAbre) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
+            troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(iniLista|grpAbre|famAplica) = function|\bFAM[67]\b[^+]|fam[67]Aplica|S\.fam(7b?|6|63|80|95)\b|NV_GF', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
             pg = await pagina(fam=True)
-            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S;
-              S.fam7 = S.fam7b = S.fam6 = S.fam63 = S.fam80 = S.fam95 = S.rat66 = false; S.rateio = 'igual';
-              S.grupos = [{ id: 'g1', nome: 'Meu', ico: 'caixa', itens: ['caixa', 'desp'] }]; S.inicioT = ['hoje', 'giro', 'ped', 'cli', 'mkt', 'g1']; S.barra = ['vendas', 'g1', 'hoje', 'ajustes'];
-              L.render(); const ids = S.grupos.map(g => g.id).sort().join(','), a = JSON.stringify([S.grupos, S.inicioT, S.barra]);
-              const site = S.grupos.find(g => g.id === 'g:site').itens.join(','), mkt = S.grupos.find(g => g.id === 'g:mkt').itens, pecas = S.grupos.find(g => g.id === 'g:pecas').itens;
-              L.render(); const igual = a === JSON.stringify([S.grupos, S.inicioT, S.barra]);
-              return [ids, site, mkt.includes('cup') && mkt.includes('anl'), !pecas.includes('lotes'), [S.fam7, S.fam7b, S.fam6, S.fam63, S.fam80, S.fam95, S.rat66].every(Boolean), S.rateio, igual]; }""")
-            ok = not troca and got[1].startswith('site,ped,msg,vit,prod') and got[2:] == [True, True, True, 'custo', True] and 'g:site' in got[0] and 'g1' not in got[0].split(',') and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Item 26: iniLista e grpAbre numa função só — aparelho antigo migra para as famílias de sempre, uma vez')
-            if not ok: falhas.append('item 26 grupos'); print('        veio', troca, got, pg.erros)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const it = id => (S.grupos.find(g => g.id === id) || { itens: [] }).itens.join(), fr = id => (S.grupos.find(g => g.id === id) || {}).frase;
+              R.novo = [it('g:gp'), it('g:din'), fr('g:gp'), fr('g:din'), S.barra.join(), S.inicioT.join(), S.famV, it('g:site'), it('g:mkt'), it('g:pecas')];
+              // aparelho antigo, sem famílias: um grupo dele com telas que viram família sai; chega ao arranjo padrão; não repete
+              S.famV = undefined; S.famMex = undefined; S.fam7 = S.fam6 = true; S.grupos = [{ id: 'g1', nome: 'Meu', ico: 'caixa', itens: ['caixa', 'desp'] }]; S.inicioT = ['hoje', 'giro', 'ped', 'cli', 'mkt', 'g1']; S.barra = ['vendas', 'g1', 'hoje', 'ajustes'];
+              L.render(); const a = JSON.stringify([S.grupos, S.inicioT, S.barra]); L.render();
+              R.antigo = [S.grupos.map(g => g.id).sort().join(), S.barra.join(), S.inicioT.join(), a === JSON.stringify([S.grupos, S.inicioT, S.barra]), S.famV, 'fam7' in S || 'fam6' in S];
+              // aparelho da v596 (Reservas em Giro e preços) com o Início arrumado pelo dono: só a tabela muda
+              S.famV = undefined; S.grupos.find(g => g.id === 'g:gp').itens = ['giro', 'prec', 'din']; S.grupos.find(g => g.id === 'g:din').itens = ['caixa', 'desp', 'fx']; S.inicioT = ['g:site', 'g:res', 'ata', 'g:gp', 'g:mkt', 'cli']; S.barra = ['vendas', 'g:din', 'g:pecas', 'ajustes'];
+              L.render(); R.v596 = [it('g:gp'), it('g:din'), S.barra.join(), S.inicioT.join()];
+              // o dono tira Câmbio de Dinheiro; a tabela sobe de versão e não toca nesse grupo
+              S._gg = 'g:din'; L.ACT.grpTirar('fx'); await w(200); L.ACT.grpFecha(); S.famV = 0; S.grupos.find(g => g.id === 'g:gp').itens = ['giro']; L.render();
+              R.mexido = [!!S.famMex['g:din'], it('g:din'), it('g:gp'), S.inicioT.indexOf('fx') >= 0];
+              // Dinheiro abre o índice com Reservas; Giro e preços sem Reservas
+              L.setView('inicio'); await w(200); S.famV = 0; S.famMex = {}; L.render(); await w(200);
+              return R; }""")
+            guarda = "'famV'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read() and "'famMex'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read()
+            ok = (not troca and guarda and got['novo'] == ['giro,prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 1, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est']
+                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 1, False]
+                  and got['v596'] == ['giro,prec', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,g:gp,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'giro,prec', True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 26 + 4c parte 4 (149r): famílias numa tabela só com versão — Reservas em Dinheiro, aparelho antigo migra uma vez, arranjo do dono e grupo mexido ficam')
+            if not ok: falhas.append('item 26 familias tabela unica'); print('        veio', troca, guarda, got, pg.erros)
             await pg.close()
 
             # Item 25 (20/11/2026): remendos parte 2a — inicioGo e navOn são UMA função cada (src/89-inicio.js); ninguém as troca.

@@ -231,6 +231,7 @@
     function grpSaiF(gid, id, B) {
       var g = grpGet(gid);
       if (!g) return B;
+      famMexeu(gid);
       g.itens = g.itens.filter(function (x) { return x !== id; });
       if (g.itens.length >= 2) return B;
       var resto = g.itens[0],

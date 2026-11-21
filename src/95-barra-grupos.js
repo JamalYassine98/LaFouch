@@ -8,6 +8,8 @@
       })[0] || null
     );
   }
+  // O dono mexeu neste grupo à mão (pôs, tirou, desfez, renomeou, criou): a tabela das famílias não o toca mais (famAplica)
+  function famMexeu(gid) { S.famMex = S.famMex || {}; S.famMex[gid] = 1; }
   // Todas as telas que estão na barra (grupos abertos em suas telas).
   function grpPlana() {
     var o = [];
@@ -88,6 +90,7 @@
     });
     if (Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== id; });
     var eraAuto = g.nome === grpNomeAuto(g.itens);
+    famMexeu(gid);
     g.itens.push(id);
     if (eraAuto) g.nome = grpNomeAuto(g.itens); // o nome sugerido acompanha o grupo; nome escrito pelo dono não é trocado
     return true;
@@ -95,6 +98,7 @@
   function grpTira(gid, id) {
     var g = grpGet(gid);
     if (!g) return;
+    famMexeu(gid);
     if (grpNoIni(gid)) {
       var L = iniLista().slice(),
         k = L.indexOf(gid);
@@ -124,6 +128,7 @@
   function grpDesfaz(gid) {
     var g = grpGet(gid);
     if (!g) return;
+    famMexeu(gid);
     if (grpNoIni(gid)) {
       var L = iniLista().slice();
       L.splice.apply(L, [L.indexOf(gid), 1].concat(g.itens));
@@ -221,6 +226,7 @@
     if (i < 0 || B.indexOf(n.b) < 0) return ACT.grpFecha();
     var g = { id: 'g:' + Date.now().toString(36), nome: grpNomeLe(null, grpNomePadrao(n.a, n.b)), itens: [n.a, n.b] };
     S.grupos.push(g);
+    famMexeu(g.id);
     B[i] = g.id;
     B.splice(B.indexOf(n.b), 1);
     S.barra = B;
@@ -234,7 +240,7 @@
   };
   ACT.grpSalva = function () {
     var g = grpGet(S._gg);
-    if (g) g.nome = grpNomeLe(g, g.nome);
+    if (g) { var nm0 = g.nome; g.nome = grpNomeLe(g, g.nome); if (g.nome !== nm0) famMexeu(g.id); }
     ACT.grpFecha();
     render();
   };

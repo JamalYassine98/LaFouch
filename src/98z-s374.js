@@ -7,29 +7,53 @@
     if (S.despAb[id]) animEnter && animEnter($('ec-' + id));
   };
 
-  // ===== S374 · esboços 49a/49b (aprovados 16/11 08:40): as 7 famílias =====
-  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Dashboard · Site · Clientes. Avisos = sino (Pendências).
-  // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"); entra UMA vez (S.fam7).
-  var FAM7 = [
-    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] }, // S374 (esboço 63): Fornecedores, Reposição e Contagem moram dentro do Inventário
-    { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, despesas e câmbio', itens: ['caixa', 'desp', 'fx'] },
-    { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
-    { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
-  ];
+  // ===== AS FAMÍLIAS — UMA tabela só (4c · 149r, aprovado 19/11; dono 21/11/2026 "implementar tudo") =====
+  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Resultados · Giro e preços · Site · Marketing · Clientes · Atacado.
+  // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"). Mudou a tabela → sobe o FAM_V:
+  // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
+  // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
+  // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
+  var FAM_V = 1,
+    FAMILIAS = [
+      { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] },
+      { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
+      { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
+      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['giro', 'prec'] },
+      { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, vitrine e modelos', itens: ['site', 'ped', 'msg', 'vit', 'prod'] },
+      { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática, cartões e visitas', itens: ['mkt', 'tem', 'cup', 'anl'] }
+    ],
+    FAM_BARRA = ['vendas', 'g:pecas', 'g:din', 'ajustes'],
+    FAM_INICIO = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
+  function famAplica() {
+    if ((S.famV || 0) >= FAM_V) return false;
+    S.famV = FAM_V;
+    S.famMex = S.famMex || {};
+    ['fam7', 'fam7b', 'fam6', 'fam63', 'fam80', 'fam95'].forEach(function (k) { delete S[k]; }); // as marcas das tabelas antigas
+    var nova = FAMILIAS.filter(function (f) { return !S.famMex[f.id]; }), tudo = [];
+    nova.forEach(function (f) { tudo = tudo.concat(f.itens); });
+    // sai a versão antiga de cada família e todo grupo (não mexido pelo dono) que guardava uma tela que agora é de família
+    S.grupos = (S.grupos || []).filter(function (g) {
+      if (S.famMex[g.id]) { tudo = tudo.filter(function (x) { return g.itens.indexOf(x) < 0; }); return true; } // o que o dono pôs num grupo dele fica lá
+      return !nova.some(function (f) { return f.id === g.id; }) && !g.itens.some(function (x) { return tudo.indexOf(x) >= 0; });
+    });
+    nova.forEach(function (f) {
+      var it = f.itens.filter(function (x) { return tudo.indexOf(x) >= 0; });
+      if (it.length) S.grupos.push({ id: f.id, nome: f.nome, ico: f.ico, frase: f.frase, fam: 1, itens: it });
+    });
+    // barra e Início: sai o que virou tela de família ou deixou de existir; aparelho que nunca teve famílias recebe o arranjo padrão
+    var vale = function (x) { return tudo.indexOf(x) < 0 && (x.indexOf('g:') !== 0 || !!grpGet(x)); },
+      B = (Array.isArray(S.barra) ? S.barra : []).filter(vale), I = (Array.isArray(S.inicioT) ? S.inicioT : []).filter(vale),
+      tem = function (id) { return B.indexOf(id) >= 0 || I.indexOf(id) >= 0; };
+    if (!FAMILIAS.some(function (f) { return tem(f.id); })) {
+      B = FAM_BARRA.slice(); I = FAM_INICIO.slice();
+      S.inicioOnl = S.inicioEst = S.inicioMkt = S.inicioB9 = true; // os atalhos soltos de antes já estão dentro das famílias
+    } else FAMILIAS.forEach(function (f) { if (grpGet(f.id) && !tem(f.id)) I.push(f.id); });
+    S.barra = B; S.inicioT = I;
+    return true;
+  }
   if (!ICO_D.repo) ICO_D.repo = ICO_D.giro || ICO_D.lotes;
   BARRA_NOME.repo = 'Reposição';
   GRP_FRASE.repo = 'O que comprar, com a lista do Giro';
-  function fam7Aplica() {
-    if (S.fam7) return;
-    S.fam7 = true;
-    var tudo = [];
-    FAM7.forEach(function (f) { tudo = tudo.concat(f.itens); });
-    S.grupos = (S.grupos || []).filter(function (g) {
-      return !FAM7.some(function (f) { return f.id === g.id; }) && !g.itens.some(function (x) { return tudo.indexOf(x) >= 0; });
-    }).concat(FAM7.map(function (f) { return { id: f.id, nome: f.nome, ico: f.ico, frase: f.frase, fam: 1, itens: f.itens.slice() }; }));
-    S.barra = ['vendas', 'g:pecas', 'g:din', 'ajustes'];
-    S.inicioT = ['hoje', 'g:site', 'g:cli'];
-  }
 
   // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
   // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
@@ -47,7 +71,6 @@
   if (!VIEWS.some(function (v) { return v[0] === 'site'; })) VIEWS.push(['site', 'Resumo']);
   BARRA_NOME.site = 'Resumo';
   if (!ICO_D.site) ICO_D.site = ICO_D.onl;
-  FAM7[2].itens.unshift('site');
   // a tela Resumo é montada num lugar só: __renderSite95 (src/98z-s374c-site.js); o corpo antigo daqui saiu no B3 (20/11)
   function renderSite() {
     var el = $('v-site');
@@ -64,28 +87,6 @@
     try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
   };
 
-
-  // ===== S374 · esboço 59 (aprovado 16/11 10:04, "implementa" 10:40): Início com 6 botões =====
-  // Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (site, pedidos, mensagens, analisador)
-  // · Marketing (marketing, temática) · Clientes · Atacado. A barra não muda. Entra UMA vez (S.fam6).
-  var FAM6 = [
-    { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
-    { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro, preços e reservas', itens: ['giro', 'prec', 'din'] },
-    { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
-    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática e cartões', itens: ['mkt', 'tem', 'cup'] }
-  ];
-  function fam6Aplica() {
-    if (S.fam6) return;
-    S.fam6 = true;
-    var ids = ['g:site', 'g:cli', 'g:res', 'g:gp', 'g:mkt'], tudo = [];
-    FAM6.forEach(function (f) { tudo = tudo.concat(f.itens); });
-    S.grupos = (S.grupos || []).filter(function (g) {
-      return ids.indexOf(g.id) < 0 && !g.itens.some(function (x) { return tudo.indexOf(x) >= 0; });
-    }).concat(FAM6.map(function (f) { return { id: f.id, nome: f.nome, ico: f.ico, frase: f.frase, fam: 1, itens: f.itens.slice() }; }));
-    // o que estava na barra e agora mora numa família do Início sai da barra (a barra das famílias não muda)
-    if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
-    S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
-  }
 
   // ===== S374 · esboços 64–66 (aprovados 16/11 13:22, "implementar"): Preços de luxo + abrir como na Apple =====
   var EZ74 = 'cubic-bezier(.45,0,.2,1)';

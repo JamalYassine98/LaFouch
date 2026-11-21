@@ -392,6 +392,8 @@
       'inicioT',
       'barra',
       'grupos',
+      'famV', // 149r: número da tabela das famílias já aplicada neste aparelho (antes as marcas não eram guardadas e a tabela voltava a cada abertura)
+      'famMex',
       'attr',
       'site',
       'num',

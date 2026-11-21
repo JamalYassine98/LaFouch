@@ -32,17 +32,21 @@
       render();
     },
     inicioReset: function () {
-      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos) };
+      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos), v: S.famV, m: copia(S.famMex) };
       S.inicioFant = false;
       S.inicioT = null;
       S.barra = null;
       S.grupos = [];
+      S.famV = 0; // o padrão são as famílias: a tabela entra de novo no próximo desenho
+      S.famMex = {};
       render();
       lfDesfazer('Início voltou ao padrão', function () {
         S.inicioFant = vol.f;
         S.inicioT = vol.t;
         S.barra = vol.b;
         S.grupos = vol.g || [];
+        S.famV = vol.v;
+        S.famMex = vol.m || {};
         saveSoon();
         render();
       });

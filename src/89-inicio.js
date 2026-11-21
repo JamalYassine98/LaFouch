@@ -135,57 +135,9 @@
       S.rat66 = true;
       S.rateio = 'custo';
     }
-    // 63: a família Peças fica só com Inventário e Estúdio
-    if (!S.fam63) {
-      S.fam63 = true;
-      var gp = grpGet('g:pecas');
-      if (gp) {
-        gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; });
-        gp.frase = 'Inventário e estúdio';
-      }
-    }
     var l = iniListaBase();
-    // as 7 famílias: as entradas únicas antigas rodam de novo e podem devolver atalhos soltos — saem os que já estão numa família
-    if (!S.fam7) {
-      fam7Aplica();
-      iniListaBase();
-      var den = [];
-      (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
-      S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
-      l = iniListaBase();
-    }
-    // a família Site ganha a tela Resumo na frente
-    if (!S.fam7b) {
-      S.fam7b = true;
-      var gs = grpGet('g:site');
-      if (gs && gs.itens.indexOf('site') < 0) gs.itens.unshift('site');
-    }
-    if (!S.fam6 && S.fam7) {
-      fam6Aplica();
-      l = iniListaBase();
-    }
-    // Cartões entra no Marketing
-    if (!S.fam80) {
-      var gm = grpGet('g:mkt');
-      if (gm) {
-        S.fam80 = true;
-        if (gm.itens.indexOf('cup') < 0) gm.itens.push('cup');
-        gm.frase = 'Posts, vídeos, temática e cartões';
-      }
-    }
-    // Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
-    if (!S.fam95 && S.fam6) {
-      S.fam95 = true;
-      var g = grpGet('g:site'), m = grpGet('g:mkt');
-      if (g) {
-        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
-        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
-        g.frase = 'Pedidos, mensagens, vitrine e modelos';
-      }
-      if (m) {
-        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
-        m.frase = 'Posts, vídeos, temática, cartões e visitas';
-      }
+    // as famílias: uma tabela só (FAMILIAS, src/98z-s374.js); aplica quando o número do app é maior que o guardado
+    if (famAplica()) {
       saveSoon();
       l = iniListaBase();
     }

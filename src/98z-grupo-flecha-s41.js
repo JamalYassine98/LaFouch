@@ -86,6 +86,7 @@
     } else {
       gid = 'g:' + Date.now().toString(36);
       S.grupos.push({ id: gid, nome: grpNomeAuto([alvo, arrastado]), itens: [alvo, arrastado] });
+      famMexeu(gid);
       L[L.indexOf(alvo)] = gid;
       S.inicioT = L.filter(function (x) { return x !== arrastado; });
     }

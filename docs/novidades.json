@@ -1,7 +1,8 @@
 {
- "nome": "5.50.21",
+ "nome": "5.50.22",
  "notas": [
-  "Giro, Reservas, Despesas e Ajustes › Preços: os blocos que abrem viraram linhas finas, sem cartão em volta."
+  "Reservas agora fica em Dinheiro (Caixa · Reservas · Despesas · Câmbio). Giro e preços fica com Giro e Preços.",
+  "O que você muda em \"Gerenciar grupo\" passa a ficar guardado ao fechar e abrir o app."
  ],
- "build": 596
+ "build": 597
 }
