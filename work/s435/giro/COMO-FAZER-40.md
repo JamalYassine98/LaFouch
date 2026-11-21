@@ -43,3 +43,4 @@ dos dois lados nos quadros de frente. Se a inclinação for de até ±3°, gira 
 Acima de 3° não endireita: fica o aviso para refazer. A frente e a 3/4 saem do giro já endireitado. Trava: uma cena com a peça a 2° sai reta; a 5° não mexe e avisa.
 - **Extra do dono (21/11 07:54):** se a peça já estiver reta, o tratamento **não mexe** (não gira nem reamostra os quadros).
   "Reta" é a inclinação medida abaixo da tolerância do item "Peça reta" (|e − d| ≤ 2% da altura, por volta de 0,5°). Trava: uma cena reta sai byte a byte igual ao tratamento sem a correção.
+- **Extra do dono (21/11 07:54):** se a peça já está reta, o tratamento **não mexe** (nenhuma rotação nem reamostragem). Só endireita quando a inclinação medida passa da folga de "reta" (a mesma do item Peça reta, ≤ 2% de diferença de altura ≈ 1°). Trava: uma cena reta sai **idêntica** byte a byte ao tratamento sem a correção.

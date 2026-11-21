@@ -3351,3 +3351,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 - 21/11 07:51 — DONO APROVOU os esboços 38, 39, 41 e 42. No 40: "faz as duas coisas" (aviso + o tratamento endireita até ±3°). No 41: o giro grava nome, código e cor **só se a peça já estiver cadastrada** (sem cadastro não grava o giro). Esperam o "implementar". Detalhes: work/s435/{aviso,precoexato,giro}/COMO-FAZER*.md.
 - 21/11 07:54 — DONO ajustou: 40 — se a peça já está reta, o tratamento NÃO mexe. 41 (substitui a condição de 07:51) — Gravar a volta SEMPRE grava; com cadastro vai direto para a peça e fica na Galeria; sem cadastro fica na Galeria "sem peça" e, no cadastro do Inventário, ele escolhe da Galeria a foto/giro do produto.
+
+- 21/11 07:54 — DONO corrigiu: 40 — se a peça já está reta, o tratamento não mexe. 41 — "Gravar a volta" sempre grava; peça cadastrada → vai direto para ela e fica na Galeria do app; sem cadastro → fica na Galeria do app e no cadastro do Inventário ele escolhe da Galeria a foto do produto. A Galeria é DO APP, não do celular. Esboço 41c em andamento.
