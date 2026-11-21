@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4d parte 2 (134): ficha — linhas .pl.pick como linha de lista e links do fim desenhados no lugar | src/10-estoque-detalhe.js, src/97u-navegacao-s184.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila

@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4d parte 2 (134): ficha — linhas .pl.pick como linha de lista e links do fim desenhados no lugar",
+ "arquivos": [
+  "src/10-estoque-detalhe.js",
+  "src/97u-navegacao-s184.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795275326.969626,
@@ -44,5 +49,5 @@
    "r": "v589 no ar (item 39b, risco do ESBOCO corrigido). 343 provas. Próximo: 4b Preços (como fazer do ESBOCO)."
   }
  ],
- "leu": 1795274058.043996
+ "leu": 1795275346.0526626
 }
