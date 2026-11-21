@@ -1,2 +1,2 @@
-em andamento (continuação agendada autorizada pelo dono 21/11 10:47) — 4b ✅ v591–v593 · 4c ✅ v594–v597 (5.50.22). Próximas, nesta ordem: 4d (Superfície e ficha) → 39 preço exato (parte do APP) → 38 giro (tratamento certo; GPU) → resto dos 52 → aprovados de 21/11 (37 Ajustes/Peças/grupo, 37 câmera reta, 38 aviso curto, 41, 42) → folha VER sem toque (dVer/dVerEsc). Lista de testes para o dono só no fim
+em andamento (continuação agendada autorizada 21/11 10:47) — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d parte 1 (136a) ✅ v598 (5.50.23). Próximas: 4d parte 2 (134 ficha: linhas, links no fim, lixeira alinhada), parte 3 (134d Editar na janela de baixo), parte 4 (149s superfície — vai ao dono com imagens o que mudar fora das 9 telas) → 39 → 38 → resto
 
