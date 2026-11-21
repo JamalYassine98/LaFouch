@@ -1,2 +1,2 @@
-em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d parte 1 (136a) ✅ v598. ACHADO na 4d parte 2 (134 ficha): a ficha é desenhada por uma função e várias camadas por cima (renderDetail embrulhada em 97u-navegacao, 97y-lucro-real, 97z2-contador…); os links do fim e as linhas só ficam 'naturais' depois de juntar essas camadas. Próxima parte: juntar as camadas da ficha numa função (0 diferença na tela), depois 134 (linhas, links no fim, sem cartão), 134b, 134d, 149s
+em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d parte 1 (136a) ✅ v598 · ficha numa função só ✅ v599 (5.50.24). Próximas: 134 (ficha sem cartão, linhas, links no fim — imagem work/s420/r/134a…), 134b, 134d, 149s → 39 → 38 → resto
 
