@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "134 (2d): ficha do Inventário sem as caixas do preço, % Oferta, aviso, No site e dobras",
+ "arquivos": [
+  "src/55-produtos-catalogo.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795279521.9968693,
@@ -44,5 +48,5 @@
    "r": "v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)"
   }
  ],
- "leu": 1795279517.4638083
+ "leu": 1795279704.7695177
 }
