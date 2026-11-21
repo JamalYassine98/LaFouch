@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "esboços: Esc fecha os Filtros; entrar→carrinho→voltar; internet fraca (estudo)",
+ "arquivos": [
+  "work/s430/esb-a"
+ ],
  "ultimas": [
   {
    "t": 1795219807.9996328,
@@ -44,5 +46,5 @@
    "r": "limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir"
   }
  ],
- "leu": 1795217753.365837
+ "leu": 1795220352.6126425
 }
