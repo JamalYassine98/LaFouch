@@ -1,0 +1,70 @@
+{
+ "hoje": {
+  "erros": [],
+  "info": {
+   "id": "diamante",
+   "second": "redondo",
+   "close": false,
+   "m": {
+    "r": 1.31872323510986,
+    "jaw": 0.7492027996273288,
+    "fore": 0.7038476866045134,
+    "mid": 0.9740606352319283,
+    "ang": 137.86790525575324
+   }
+  },
+  "alto": 730,
+  "sub_fem": "Armações gatinho ou ovais trazem destaque e realce às maçãs do rosto."
+ },
+ "prop": {
+  "erros": [],
+  "info": {
+   "id": "diamante",
+   "second": "redondo",
+   "close": false,
+   "m": {
+    "r": 1.31872323510986,
+    "jaw": 0.7492027996273288,
+    "fore": 0.7038476866045134,
+    "mid": 0.9740606352319283,
+    "ang": 137.86790525575324
+   }
+  },
+  "alto": 724,
+  "sub_fem": "Armações gatinho ou ovais trazem destaque e realce às maçãs do rosto."
+ },
+ "hoje-L12": {
+  "erros": [],
+  "info": {
+   "id": "diamante",
+   "second": "redondo",
+   "close": false,
+   "m": {
+    "r": 1.31872323510986,
+    "jaw": 0.7492027996273288,
+    "fore": 0.7038476866045134,
+    "mid": 0.9740606352319283,
+    "ang": 137.86790525575324
+   }
+  },
+  "alto": 730,
+  "sub_fem": "Armações gatinho ou ovais trazem destaque e realce às maçãs do rosto."
+ },
+ "prop-L12": {
+  "erros": [],
+  "info": {
+   "id": "diamante",
+   "second": "redondo",
+   "close": false,
+   "m": {
+    "r": 1.31872323510986,
+    "jaw": 0.7492027996273288,
+    "fore": 0.7038476866045134,
+    "mid": 0.9740606352319283,
+    "ang": 137.86790525575324
+   }
+  },
+  "alto": 724,
+  "sub_fem": "Armações gatinho ou ovais trazem destaque e realce às maçãs do rosto."
+ }
+}

@@ -1,0 +1,173 @@
+RESULTADO: sem falha nova
+== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Formato — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Formato-abrir — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Formato-resultado — 0 falha(s) nova(s), 14 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    sumiu | canvas#facv | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 641→635
+    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→361
+    mudou | h3 "Diamante" | topo 259→253
+    mudou | div.fares | alt 688→682
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 451→445
+    mudou | p.sub "Armações gatinho ou ovais traz" | topo 304→298
+    mudou | div.fabtns | topo 509→503
+    mudou | div.modal.try.fa | topo 85→88, alt 732→726
+    mudou | div.fak "Para quem são os óculos?" | topo 430→424
+== celular · Formato-tracos-feminino — 0 falha(s) nova(s), 15 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | p.sub "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações retangulares ou angul" | 
+    mudou | p.sub "Seu rosto também tem traços de" | topo 386→357
+    mudou | button.fan "Não parece com você? Escolher " | topo 710→681
+    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→407
+    mudou | h3 "Diamante" | topo 259→253
+    mudou | div.fares | alt 757→729
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 520→491
+    mudou | div.fabtns | topo 578→549
+    mudou | div.modal.try.fa | topo 51→65, alt 801→773
+    mudou | div.fak "Para quem são os óculos?" | topo 499→470
+== celular letra 1,2× · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Formato — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Formato-abrir — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Formato-resultado — 0 falha(s) nova(s), 14 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    sumiu | canvas#facv | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 641→635
+    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 367→361
+    mudou | h3 "Diamante" | topo 259→253
+    mudou | div.fares | alt 688→682
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 451→445
+    mudou | p.sub "Armações gatinho ou ovais traz" | topo 304→298
+    mudou | div.fabtns | topo 509→503
+    mudou | div.modal.try.fa | topo 85→88, alt 732→726
+    mudou | div.fak "Para quem são os óculos?" | topo 430→424
+== celular letra 1,2× · Formato-tracos-feminino — 0 falha(s) nova(s), 15 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | p.sub "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações retangulares ou angul" | 
+    mudou | p.sub "Seu rosto também tem traços de" | topo 386→357
+    mudou | button.fan "Não parece com você? Escolher " | topo 710→681
+    mudou | div.faill | esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 436→407
+    mudou | h3 "Diamante" | topo 259→253
+    mudou | div.fares | alt 757→729
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 520→491
+    mudou | div.fabtns | topo 578→549
+    mudou | div.modal.try.fa | topo 51→65, alt 801→773
+    mudou | div.fak "Para quem são os óculos?" | topo 499→470
+== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== tablet · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Peça — 0 falha(s) nova(s), 31 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    mudou | a.lx44 "Ofertas" | classe —→lx44
+    mudou | a.lx44 "Privacidade" | classe —→lx44
+    mudou | a.lx44 "Solar" | classe —→lx44
+    mudou | a.lx44 "Armações" | classe —→lx44
+    mudou | a.lx44 "Privacidade" | classe —→lx44
+    mudou | a.lx44 "Termos" | classe —→lx44
+    mudou | a.lx44 "Dicas e cuidados" | classe —→lx44
+    mudou | a.lx44 "Dúvidas frequentes" | classe —→lx44
+    mudou | a.navv.lx44 "Ver todas ›" | classe navv→lx44 navv
+    mudou | a.lx44 "Termos" | classe —→lx44
+    mudou | a.lx44 "Entre em contato" | classe —→lx44
+    mudou | a.lx44 "Termos" | classe —→lx44
+    mudou | a.lx44 "Dicas e cuidados" | classe —→lx44
+    mudou | button.lx44 "Ver mais" | classe —→lx44
+    mudou | a.lx44 "Entre em contato" | classe —→lx44
+    mudou | a.lx44 "Leitura" | classe —→lx44
+    mudou | a.lx44 "Atacado" | classe —→lx44
+    mudou | a.lx44 "Leitura" | classe —→lx44
+    mudou | a.mp.lx44 "Como chegar ›" | classe mp→lx44 mp
+    mudou | a.lx44 "Armações" | classe —→lx44
+    mudou | a.lx44 "Termos" | classe —→lx44
+    mudou | button.ib.fbtn.pgact | classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact
+    mudou | a.lx44 "Atacado" | classe —→lx44
+    mudou | a.lx44 "Privacidade" | classe —→lx44
+    mudou | button.ib.fbtn.pgact | classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact
+    mudou | a.lx44 "Privacidade" | classe —→lx44
+    mudou | a.lx44 "Ofertas" | classe —→lx44
+    mudou | a.lfgf.lxpos.lx44 "Filtros" | classe lfgf→lfgf lx44 lxb lxpos
+    mudou | a.lx44 "Dúvidas frequentes" | classe —→lx44
+    mudou | a.mp.lx44 "Como chegar ›" | classe mp→lx44 mp
+    mudou | a.lx44 "Solar" | classe —→lx44
+== tablet · Formato — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Formato-abrir — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Formato-resultado — 0 falha(s) nova(s), 14 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | span.rzi | 
+    sumiu | canvas#facv | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 638→632
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→360
+    mudou | h3 "Diamante" | topo 257→251
+    mudou | div.fares | alt 671→665
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 448→442
+    mudou | p.sub "Armações gatinho ou ovais traz" | topo 303→297
+    mudou | div.fabtns | topo 506→500
+    mudou | div.modal.try.fa | topo 70→73, alt 714→708
+    mudou | div.fak "Para quem são os óculos?" | topo 429→423
+== tablet · Formato-tracos-feminino — 0 falha(s) nova(s), 15 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | span.rzi | 
+    apareceu | p.sub "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações retangulares ou angul" | 
+    mudou | p.sub "Seu rosto também tem traços de" | topo 362→356
+    mudou | button.fan "Não parece com você? Escolher " | topo 685→679
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 413→407
+    mudou | h3 "Diamante" | topo 257→251
+    mudou | div.fares | alt 718→712
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.fagen | topo 495→489
+    mudou | div.fabtns | topo 553→547
+    mudou | div.modal.try.fa | topo 46→49, alt 761→755
+    mudou | div.fak "Para quem são os óculos?" | topo 476→470
+== PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== PC · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Formato — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Formato-abrir — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Formato-resultado — 0 falha(s) nova(s), 12 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    sumiu | canvas#facv | 
+    mudou | button.fan "Não parece com você? Escolher " | topo 639→633
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 366→360
+    mudou | h3 "Diamante" | topo 258→252
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | div.fabtns | topo 507→501
+    mudou | p.sub "Armações gatinho ou ovais traz" | topo 303→297
+    mudou | div.fagen | topo 449→443
+    mudou | div.fares | alt 671→665
+    mudou | div.modal.try.fa | topo 92→95, alt 715→709
+    mudou | div.fak "Para quem são os óculos?" | topo 429→423
+== PC · Formato-tracos-feminino — 0 falha(s) nova(s), 14 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+    apareceu | p.sub "Armações gatinho ou ovais traz" | 
+    sumiu | canvas#facv | 
+    sumiu | p.sub "Armações retangulares ou angul" | 
+    mudou | p.sub "Seu rosto também tem traços de" | topo 362→356
+    mudou | button.fan "Não parece com você? Escolher " | topo 687→681
+    mudou | p.sub.fatam "Tamanho de armação para você:" | topo 414→408
+    mudou | h3 "Diamante" | topo 258→252
+    mudou | div.fak "Seu rosto é" | topo 242→236
+    mudou | div.faill | esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill
+    mudou | div.fabtns | topo 555→549
+    mudou | div.fagen | topo 497→491
+    mudou | div.fares | alt 719→713
+    mudou | div.modal.try.fa | topo 69→72, alt 763→757
+    mudou | div.fak "Para quem são os óculos?" | topo 477→471

@@ -1,0 +1,955 @@
+[
+ {
+  "aparelho": "celular",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 641→635"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 367→361"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 688→682"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 451→445"
+   ],
+   [
+    "mudou",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    "topo 304→298"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 509→503"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 85→88, alt 732→726"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 430→424"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 386→357"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 710→681"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 436→407"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 757→729"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 520→491"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 578→549"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 51→65, alt 801→773"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 499→470"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 641→635"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 367→361"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 688→682"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 451→445"
+   ],
+   [
+    "mudou",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    "topo 304→298"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 509→503"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 85→88, alt 732→726"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 430→424"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 386→357"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 710→681"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 70→50, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 436→407"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 259→253"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 757→729"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 520→491"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 578→549"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 51→65, alt 801→773"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 499→470"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.navv.lx44 \"Ver todas ›\"",
+    "classe navv→lx44 navv"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Ver mais\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "button.ib.fbtn.pgact",
+    "classe fbtn ib pgact→fbtn ib lx44 lxb lxpos pgact"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.lfgf.lxpos.lx44 \"Filtros\"",
+    "classe lfgf→lfgf lx44 lxb lxpos"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "classe —→lx44"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "classe mp→lx44 mp"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "classe —→lx44"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 638→632"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 366→360"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 257→251"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 671→665"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 448→442"
+   ],
+   [
+    "mudou",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    "topo 303→297"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 506→500"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 70→73, alt 714→708"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 429→423"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "span.rzi",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 362→356"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 685→679"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 413→407"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 257→251"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 718→712"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 495→489"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 553→547"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 46→49, alt 761→755"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 476→470"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Formato",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Formato-abrir",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Formato-resultado",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 639→633"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 366→360"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 258→252"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 507→501"
+   ],
+   [
+    "mudou",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    "topo 303→297"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 449→443"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 671→665"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 92→95, alt 715→709"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 429→423"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Formato-tracos-feminino",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "p.sub \"Armações gatinho ou ovais traz\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "canvas#facv",
+    ""
+   ],
+   [
+    "sumiu",
+    "p.sub \"Armações retangulares ou angul\"",
+    ""
+   ],
+   [
+    "mudou",
+    "p.sub \"Seu rosto também tem traços de\"",
+    "topo 362→356"
+   ],
+   [
+    "mudou",
+    "button.fan \"Não parece com você? Escolher \"",
+    "topo 687→681"
+   ],
+   [
+    "mudou",
+    "p.sub.fatam \"Tamanho de armação para você:\"",
+    "topo 414→408"
+   ],
+   [
+    "mudou",
+    "h3 \"Diamante\"",
+    "topo 258→252"
+   ],
+   [
+    "mudou",
+    "div.fak \"Seu rosto é\"",
+    "topo 242→236"
+   ],
+   [
+    "mudou",
+    "div.faill",
+    "esq 163→143, larg 184→224, alt 184→176, fundo rgba(0, 0, 0, 0)→color(srgb 0.994118 0.955686 0.964118), classe faph→faill"
+   ],
+   [
+    "mudou",
+    "div.fabtns",
+    "topo 555→549"
+   ],
+   [
+    "mudou",
+    "div.fagen",
+    "topo 497→491"
+   ],
+   [
+    "mudou",
+    "div.fares",
+    "alt 719→713"
+   ],
+   [
+    "mudou",
+    "div.modal.try.fa",
+    "topo 69→72, alt 763→757"
+   ],
+   [
+    "mudou",
+    "div.fak \"Para quem são os óculos?\"",
+    "topo 477→471"
+   ]
+  ],
+  "ruido_ignorado": 0
+ }
+]
