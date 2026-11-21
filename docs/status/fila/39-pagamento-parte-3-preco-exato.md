@@ -1,2 +1,2 @@
-NUVEM ✅ 10:48 · SITE ✅ v1795274857 (sem final único; conferido: uqGera/uq/pagar fora; teste de compra 14/14 às 13:02) — falta o APP (Pendências + Ligar)
+APP ✅ v606 (5.50.31, 21/11): PIX sem par nas Pendências + janela Ligar a um pedido (chama reserva{acao:'ligar'}); testado com a nuvem simulada — falta um teste de ponta a ponta com a NUVEM real (um pixSemPar de teste) e o SITE terminar a parte dele
 Site: PIX e Banco Familiar mostram o preço do carrinho (sem final único). App: cada PIX sem par vira linha das Pendências com o motivo (sem pedido / empate / peça vendida) + janela 'Ligar a um pedido'. Achado: S.pixSemPar é lido a cada 20 s e nunca mostrado. Risco a medir pela NUVEM: empates de mesmo valor. work/s435/precoexato/COMO-FAZER.md
