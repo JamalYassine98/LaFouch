@@ -11,16 +11,6 @@
   var GT_W = 960, // largura de trabalho (o vídeo do celular vem em 1920; metade guarda a nitidez que o site mostra)
     GT_N = 360,
     GT_SAI = [960, 640];
-  function gtLib(nome, arq) {
-    return new Promise(function (ok, no) {
-      if (window[nome]) return ok(window[nome]);
-      var s = document.createElement('script');
-      s.src = 'giro/' + arq;
-      s.onload = function () { window[nome] ? ok(window[nome]) : no(new Error('biblioteca ' + nome)); };
-      s.onerror = function () { no(new Error('biblioteca ' + nome)); };
-      document.head.appendChild(s);
-    });
-  }
   function gtVideo(blob) {
     return new Promise(function (ok, no) {
       var v = document.createElement('video');
@@ -161,79 +151,53 @@
     }
     return m;
   }
-  function giroTrata(blob, o) {
-    o = o || {};
-    var aviso = o.aviso || function () {}, vt_, v, W, H, P, cv, cx, t0, per, dur, fundo, fmin, fmax, suja, w2, h2;
-    function pega(t) {
-      if (o.para && o.para()) return Promise.reject(new Error('cancelado'));
-      return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
-        cx.drawImage(v, 0, 0, W, H);
-        return cx.getImageData(0, 0, W, H).data;
-      });
+  // O tratamento de UMA imagem do giro, num lugar só — serve ao giro inteiro (giroTrata) e às fotos escolhidas à mão (giroFotos).
+  // W×H = tamanho de trabalho (as medidas são feitas nele; a imagem final sai do tamanho em que foi gravada).
+  //  · amostra(d) / aprende(am): o fundo parado, tirado de várias imagens da própria gravação (em cada ponto, o tom claro que se repete);
+  //  · trata(d): imagem ÷ fundo; peca(t): onde a peça está; nitidez(t, pm); recorte(...): a janela 3:2 em volta da peça;
+  //  · imagem(fonte, fW, fH, pc, X0, Y0, w, h): a imagem tratada desse recorte, numa tela 960×640 (a mesma tela a cada chamada).
+  function gtTratador(W, H) {
+    var P = W * H, w2 = W >> 1, h2 = H >> 1, fundo, fmin, fmax, suja,
+      sai = document.createElement('canvas'), sx, fcv = document.createElement('canvas'), fxc = fcv.getContext('2d', { willReadFrequently: true }), rc = document.createElement('canvas'), rx = rc.getContext('2d');
+    sai.width = GT_SAI[0]; sai.height = GT_SAI[1]; sx = sai.getContext('2d');
+    function amostra(d) {
+      var a = new Uint8Array(P * 3);
+      for (var k = 0; k < P; k++) { a[k * 3] = d[k * 4]; a[k * 3 + 1] = d[k * 4 + 1]; a[k * 3 + 2] = d[k * 4 + 2]; }
+      return a;
     }
-    // 1) a volta: assinaturas pequenas ao longo do vídeo (uma a cada meio segundo) e a primeira volta inteira que elas mostram;
-    //    fim = o segundo do vídeo em que essa volta termina
-    function acha_volta() {
-      var c2 = document.createElement('canvas'); c2.width = GT_SW; c2.height = GT_SH;
-      var x2 = c2.getContext('2d', { willReadFrequently: true }), passo = 0.5, ass = [], n = Math.floor((dur - 0.2) / passo), i = 0;
-      function um() {
-        if (i >= n) return Promise.resolve();
-        return gtVai(v, i * passo).then(function () {
-          var g = gtAssina(v, x2);
-          ass.push(g); i++; aviso('volta', i / n);
-          return um();
-        });
+    function aprende(am) {
+      var K = am.length;
+      var meio = new Float32Array(P * 3), parado = new Uint8Array(P), ord = new Uint8Array(K), j, k, q, x;
+      fundo = new Float32Array(P * 3);
+      var iF = Math.round((K - 1) * 0.92), iM = K >> 1, iA = Math.round(K * 0.75), iB = Math.round(K * 0.2);
+      for (k = 0; k < P; k++) {
+        var esp = 0;
+        for (var c = 0; c < 3; c++) {
+          q = k * 3 + c;
+          for (j = 0; j < K; j++) { x = am[j][q]; var z = j - 1; while (z >= 0 && ord[z] > x) { ord[z + 1] = ord[z]; z--; } ord[z + 1] = x; }
+          fundo[q] = ord[iF]; meio[q] = ord[iM];
+          if (ord[iA] - ord[iB] > esp) esp = ord[iA] - ord[iB];
+        }
+        parado[k] = esp < 14 ? 1 : 0;
       }
-      return um().then(function () {
-        var vt = gtPrimeira(ass, passo, 0.6);
-        if (vt) vt.fim = (vt.n - 1) * passo;
-        return vt;
-      });
-    }
-    function monta_fundo() {
-      var K = 24, am = [], i = 0;
-      function um() {
-        if (i >= K) return Promise.resolve();
-        return pega(t0 + i * per / K).then(function (d) {
-          var a = new Uint8Array(P * 3);
-          for (var k = 0; k < P; k++) { a[k * 3] = d[k * 4]; a[k * 3 + 1] = d[k * 4 + 1]; a[k * 3 + 2] = d[k * 4 + 2]; }
-          am.push(a); i++; aviso('fundo', i / K);
-          return um();
-        });
+      am.length = 0; // solta as amostras (cada uma tem o tamanho da imagem)
+      // zonas "sujas" do fundo parado (costura da tenda, fita): onde o fundo foge do tom da parede em volta
+      var liso = [0, 1, 2].map(function (c) { var a = new Float32Array(P); for (var k = 0; k < P; k++) a[k] = fundo[k * 3 + c]; gtCaixa(a, W, H, 9); gtCaixa(a, W, H, 9); return a; });
+      var sj = new Uint8Array(P);
+      for (k = 0; k < P; k++) {
+        var mx = 0;
+        for (c = 0; c < 3; c++) { var d2 = Math.abs(meio[k * 3 + c] / (liso[c][k] + 1) - 1); if (d2 > mx) mx = d2; }
+        sj[k] = mx > 0.08 && parado[k] ? 1 : 0;
       }
-      return um().then(function () {
-        var meio = new Float32Array(P * 3), parado = new Uint8Array(P), ord = new Uint8Array(K), j, k, q, x;
-        fundo = new Float32Array(P * 3);
-        var iF = Math.round((K - 1) * 0.92), iM = K >> 1, iA = Math.round(K * 0.75), iB = Math.round(K * 0.2);
-        for (k = 0; k < P; k++) {
-          var esp = 0;
-          for (var c = 0; c < 3; c++) {
-            q = k * 3 + c;
-            for (j = 0; j < K; j++) { x = am[j][q]; var z = j - 1; while (z >= 0 && ord[z] > x) { ord[z + 1] = ord[z]; z--; } ord[z + 1] = x; }
-            fundo[q] = ord[iF]; meio[q] = ord[iM];
-            if (ord[iA] - ord[iB] > esp) esp = ord[iA] - ord[iB];
-          }
-          parado[k] = esp < 14 ? 1 : 0;
-        }
-        am = null;
-        // zonas "sujas" do fundo parado (costura da tenda, fita): onde o fundo foge do tom da parede em volta
-        var liso = [0, 1, 2].map(function (c) { var a = new Float32Array(P); for (var k = 0; k < P; k++) a[k] = fundo[k * 3 + c]; gtCaixa(a, W, H, 9); gtCaixa(a, W, H, 9); return a; });
-        var sj = new Uint8Array(P);
-        for (k = 0; k < P; k++) {
-          var mx = 0;
-          for (c = 0; c < 3; c++) { var d2 = Math.abs(meio[k * 3 + c] / (liso[c][k] + 1) - 1); if (d2 > mx) mx = d2; }
-          sj[k] = mx > 0.08 && parado[k] ? 1 : 0;
-        }
-        suja = gtExtremo(sj, W, H, 1, true, Uint8Array);
-        for (k = 0; k < P; k++) if (suja[k]) { fundo[k * 3] = meio[k * 3]; fundo[k * 3 + 1] = meio[k * 3 + 1]; fundo[k * 3 + 2] = meio[k * 3 + 2]; }
-        fmin = new Float32Array(P * 3); fmax = new Float32Array(P * 3);
-        for (c = 0; c < 3; c++) {
-          var a = new Float32Array(P);
-          for (k = 0; k < P; k++) a[k] = fundo[k * 3 + c] + 1;
-          var mn = gtExtremo(a, W, H, 2, false, Float32Array), mxx = gtExtremo(a, W, H, 2, true, Float32Array);
-          for (k = 0; k < P; k++) { fundo[k * 3 + c] = a[k]; fmin[k * 3 + c] = mn[k]; fmax[k * 3 + c] = mxx[k]; }
-        }
-      });
+      suja = gtExtremo(sj, W, H, 1, true, Uint8Array);
+      for (k = 0; k < P; k++) if (suja[k]) { fundo[k * 3] = meio[k * 3]; fundo[k * 3 + 1] = meio[k * 3 + 1]; fundo[k * 3 + 2] = meio[k * 3 + 2]; }
+      fmin = new Float32Array(P * 3); fmax = new Float32Array(P * 3);
+      for (c = 0; c < 3; c++) {
+        var a = new Float32Array(P);
+        for (k = 0; k < P; k++) a[k] = fundo[k * 3 + c] + 1;
+        var mn = gtExtremo(a, W, H, 2, false, Float32Array), mxx = gtExtremo(a, W, H, 2, true, Float32Array);
+        for (k = 0; k < P; k++) { fundo[k * 3 + c] = a[k]; fmin[k * 3 + c] = mn[k]; fmax[k * 3 + c] = mxx[k]; }
+      }
     }
     // luz: imagem ÷ fundo (com folga), resultado em 0–255 por canal
     function trata(d) {
@@ -297,9 +261,141 @@
       }
       return n ? s2 / n - (s / n) * (s / n) : 1;
     }
+    function recorte(bx0, bx1, by0, by1) {
+      var ccx = (bx0 + bx1) / 2, ccy = (by0 + by1) / 2, w = (bx1 - bx0) * 1.12, h = Math.max((by1 - by0) * 1.45, w / 1.5);
+      w = Math.min(Math.max(w, h * 1.5), W, H * 1.5); h = w / 1.5;
+      return { x: Math.max(0, Math.min(W - w, ccx - w / 2)), y: Math.max(0, Math.min(H - h, ccy - h * 0.55)), w: w, h: h };
+    }
+    function imagem(fonte, fW, fH, pc, X0, Y0, w, h) {
+      var ES = fW / W, k, c;
+      if (fcv.width !== fW || fcv.height !== fH) { fcv.width = fW; fcv.height = fH; }
+      // perto da peça (e ~30 px em volta) fica como a câmera viu; longe vira branco, com passagem suave
+      var perto = new Float32Array(w2 * h2), dl = gtExtremo(pc.m, w2, h2, 15, true, Uint8Array);
+      for (k = 0; k < w2 * h2; k++) perto[k] = dl[k];
+      gtCaixa(perto, w2, h2, 5); gtCaixa(perto, w2, h2, 5);
+      // a imagem que sai vem do vídeo no tamanho em que foi gravado (as medidas é que são feitas na metade): só o recorte é tratado
+      var fx0 = Math.floor(X0 * ES), fy0 = Math.floor(Y0 * ES), fw = Math.round(w * ES), fh = Math.round(h * ES);
+      fxc.drawImage(fonte, 0, 0);
+      var ax0 = Math.max(0, fx0), ay0 = Math.max(0, fy0), ax1 = Math.min(fW, fx0 + fw), ay1 = Math.min(fH, fy0 + fh), aw = ax1 - ax0, ah = ay1 - ay0;
+      var fd = fxc.getImageData(ax0, ay0, aw, ah), dd = fd.data, x, y, X, Y, q, f, bb, r, pr, ig, v3 = [0, 0, 0];
+      for (Y = 0; Y < ah; Y++) {
+        y = Math.min(H - 1, ((ay0 + Y) / ES) | 0);
+        for (X = 0; X < aw; X++) {
+          x = Math.min(W - 1, ((ax0 + X) / ES) | 0); k = y * W + x; pr = perto[(y >> 1) * w2 + (x >> 1)];
+          var o4 = (Y * aw + X) * 4;
+          if (pr <= 0.002) { dd[o4] = dd[o4 + 1] = dd[o4 + 2] = 255; continue; }
+          ig = suja[k] ? 1 : 0;
+          for (c = 0; c < 3; c++) {
+            q = k * 3 + c; f = dd[o4 + c];
+            bb = f < fmin[q] ? fmin[q] : f > fmax[q] ? fmax[q] : f;
+            r = f / bb / 0.985; v3[c] = r >= 1 ? 255 : r * 255;
+            if (ig && Math.abs(f - fundo[q]) - Math.max(0.16 * fundo[q], 16) >= 0) ig = 0;
+          }
+          for (c = 0; c < 3; c++) {
+            var val = ((ig ? 255 : v3[c]) * pr + 255 * (1 - pr)) * (255 / 238);
+            dd[o4 + c] = val > 255 ? 255 : val;
+          }
+        }
+      }
+      if (rc.width !== aw || rc.height !== ah) { rc.width = aw; rc.height = ah; }
+      rx.putImageData(fd, 0, 0);
+      sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
+      sx.imageSmoothingQuality = 'high';
+      var kx = GT_SAI[0] / fw, ky = GT_SAI[1] / fh;
+      sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
+      return sai;
+    }
+    return { amostra: amostra, aprende: aprende, trata: trata, peca: peca, nitidez: nitidez, recorte: recorte, imagem: imagem };
+  }
+  // As fotos escolhidas à mão (a frente e a 3/4 da tela "Qual é a frente?") com o MESMO tratamento do giro (item 34, 20/11/2026):
+  // o fundo parado é aprendido das imagens da própria gravação (até 24, espalhadas por ela), cada imagem escolhida é dividida por ele e
+  // recortada em volta da peça. Antes essas imagens iam para o tratamento da FOTO (estProcessa), feito para a peça sobre a cartolina
+  // branca: no cenário do giro (tenda e prato) ele não acha a peça. Q = imagens da gravação ({ b: arquivo }); ixs = as escolhidas.
+  // Devolve uma tela 960×640 por imagem escolhida (null = não há peça nela, ou a peça não saiu do lugar na gravação).
+  function giroFotos(Q, ixs) {
+    var K = Math.min(24, Q.length), am = [], sai = [], tr, W, H, cx;
+    function abre(bl) {
+      return new Promise(function (ok, no) {
+        var u = URL.createObjectURL(bl), im = new Image();
+        im.onload = function () { URL.revokeObjectURL(u); ok(im); };
+        im.onerror = function () { URL.revokeObjectURL(u); no(new Error('imagem')); };
+        im.src = u;
+      });
+    }
+    function pontos(im) {
+      if (!tr) {
+        W = GT_W; H = Math.round((GT_W * im.naturalHeight / im.naturalWidth) / 2) * 2; tr = gtTratador(W, H);
+        var cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
+      }
+      cx.drawImage(im, 0, 0, W, H);
+      return cx.getImageData(0, 0, W, H).data;
+    }
+    function fundo(i) {
+      if (i >= K) return Promise.resolve();
+      return abre(Q[Math.round(i * (Q.length - 1) / Math.max(1, K - 1))].b).then(function (im) {
+        var d = pontos(im);
+        am.push(tr.amostra(d));
+        return fundo(i + 1);
+      });
+    }
+    function foto(n) {
+      if (n >= ixs.length) return Promise.resolve(sai);
+      return abre(Q[ixs[n]].b).then(function (im) {
+        var pc = tr.peca(tr.trata(pontos(im))), r, c = null;
+        if (pc.achou) {
+          r = tr.recorte(pc.x0, pc.x1, pc.y0, pc.y1);
+          c = document.createElement('canvas'); c.width = GT_SAI[0]; c.height = GT_SAI[1];
+          c.getContext('2d').drawImage(tr.imagem(im, im.naturalWidth, im.naturalHeight, pc, r.x, r.y, r.w, r.h), 0, 0);
+        }
+        sai.push(c);
+        return foto(n + 1);
+      });
+    }
+    return fundo(0).then(function () { tr.aprende(am); return foto(0); });
+  }
+  function giroTrata(blob, o) {
+    o = o || {};
+    var aviso = o.aviso || function () {}, vt_, v, W, H, cv, cx, t0, per, dur, w2, h2, tr;
+    function pega(t) {
+      if (o.para && o.para()) return Promise.reject(new Error('cancelado'));
+      return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
+        cx.drawImage(v, 0, 0, W, H);
+        return cx.getImageData(0, 0, W, H).data;
+      });
+    }
+    // 1) a volta: assinaturas pequenas ao longo do vídeo (uma a cada meio segundo) e a primeira volta inteira que elas mostram;
+    //    fim = o segundo do vídeo em que essa volta termina
+    function acha_volta() {
+      var c2 = document.createElement('canvas'); c2.width = GT_SW; c2.height = GT_SH;
+      var x2 = c2.getContext('2d', { willReadFrequently: true }), passo = 0.5, ass = [], n = Math.floor((dur - 0.2) / passo), i = 0;
+      function um() {
+        if (i >= n) return Promise.resolve();
+        return gtVai(v, i * passo).then(function () {
+          var g = gtAssina(v, x2);
+          ass.push(g); i++; aviso('volta', i / n);
+          return um();
+        });
+      }
+      return um().then(function () {
+        var vt = gtPrimeira(ass, passo, 0.6);
+        if (vt) vt.fim = (vt.n - 1) * passo;
+        return vt;
+      });
+    }
+    function monta_fundo() {
+      var K = 24, am = [], i = 0;
+      function um() {
+        if (i >= K) return Promise.resolve();
+        return pega(t0 + i * per / K).then(function (d) {
+          am.push(tr.amostra(d)); i++; aviso('fundo', i / K);
+          return um();
+        });
+      }
+      return um().then(function () { tr.aprende(am); });
+    }
     return gtVideo(blob).then(function (vid) {
       v = vid; dur = v.duration;
-      W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; P = W * H; w2 = W >> 1; h2 = H >> 1;
+      W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; w2 = W >> 1; h2 = H >> 1; tr = gtTratador(W, H);
       cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
       // quem gravou já sabe a volta (a câmera parou quando ela fechou): ela termina no fim do vídeo
       return o.per ? { per: o.per, casa: 0, meio: 1, fim: dur - 0.2 } : acha_volta();
@@ -314,7 +410,7 @@
         function um() {
           if (n >= GT_N) return Promise.resolve();
           return pega(t0 + n * per / GT_N).then(function (d) {
-            var t = trata(d), pc = peca(t);
+            var t = tr.trata(d), pc = tr.peca(t);
             if (!pc.achou) med.push(med.length ? med[med.length - 1].slice() : [W / 2, H / 2, 10, 10, 1, 1e9, 0.5]);
             else {
               // simetria (a frente e as costas são as vistas mais simétricas) e onde ficam os pontos mais baixos da peça:
@@ -326,7 +422,7 @@
               }
               var lado = 0, nl = 0, ylim = (pc.y1 - bh * 0.12) / 2, xm = (pc.x0 + pc.x1) / 4;
               for (yy = Math.ceil(ylim); yy < h2; yy++) for (xx = 0; xx < w2; xx++) if (pc.m[yy * w2 + xx]) { lado += Math.abs(xx - xm); nl++; }
-              med.push([(pc.x0 + pc.x1) / 2, (pc.y0 + pc.y1) / 2, bw, bh, nitidez(t, gtExtremo(pc.m, w2, h2, 2, true, Uint8Array)), ns ? sim / ns / Math.max(bw, 1) : 1e9, nl ? lado / nl / Math.max(bw / 2, 1) : 0.5]);
+              med.push([(pc.x0 + pc.x1) / 2, (pc.y0 + pc.y1) / 2, bw, bh, tr.nitidez(t, gtExtremo(pc.m, w2, h2, 2, true, Uint8Array)), ns ? sim / ns / Math.max(bw, 1) : 1e9, nl ? lado / nl / Math.max(bw / 2, 1) : 0.5]);
             }
             n++; aviso('mede', n / GT_N);
             return um();
@@ -359,13 +455,9 @@
         frente = jan(cand) <= jan(outro) ? cand : outro;
       } else frente = o.frente;
       var alvo = nits.slice().sort(function (a, b) { return a - b; })[Math.round(GT_N * 0.7)];
-      var ccx = (bx0 + bx1) / 2, ccy = (by0 + by1) / 2, w = (bx1 - bx0) * 1.12, h = Math.max((by1 - by0) * 1.45, w / 1.5);
-      w = Math.min(Math.max(w, h * 1.5), W, H * 1.5); h = w / 1.5;
-      var X0 = Math.max(0, Math.min(W - w, ccx - w / 2)), Y0 = Math.max(0, Math.min(H - h, ccy - h * 0.55));
+      var rec = tr.recorte(bx0, bx1, by0, by1), X0 = rec.x, Y0 = rec.y, w = rec.w, h = rec.h;
       // 2ª passada: aplica e grava
-      var sai = document.createElement('canvas'); sai.width = GT_SAI[0]; sai.height = GT_SAI[1];
-      var sx = sai.getContext('2d'), ES = v.videoWidth / W, fcv = document.createElement('canvas'); fcv.width = v.videoWidth; fcv.height = v.videoHeight;
-      var fxc = fcv.getContext('2d', { willReadFrequently: true }), rc = document.createElement('canvas'), rx = rc.getContext('2d'), fotosQ = o.fotos || [], fotos = {}, capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
+      var sai, fotosQ = o.fotos || [], fotos = {}, capa = null, enc, mux, alvoV, tipo, erroEnc = null;
       function codec() {
         // H.264 (mp4) toca em todo celular, inclusive iPhone; se o aparelho não souber gravar H.264, vai VP8 (webm)
         var av = { codec: 'avc1.42001f', width: GT_SAI[0], height: GT_SAI[1], bitrate: 4e6, framerate: 30, avc: { format: 'avc' } };
@@ -378,54 +470,20 @@
       }
       return codec().then(function (cc) {
         tipo = cc[0];
-        return gtLib(tipo === 'mp4' ? 'Mp4Muxer' : 'WebMMuxer', tipo === 'mp4' ? 'mp4-muxer.js' : 'webm-muxer.js').then(function (Lib) {
-          alvoV = new Lib.ArrayBufferTarget();
-          mux = tipo === 'mp4' ? new Lib.Muxer({ target: alvoV, video: { codec: 'avc', width: GT_SAI[0], height: GT_SAI[1] }, fastStart: 'in-memory' })
-            : new Lib.Muxer({ target: alvoV, video: { codec: 'V_VP8', width: GT_SAI[0], height: GT_SAI[1], frameRate: 30 } });
-          enc = new VideoEncoder({ output: function (ch, meta) { mux.addVideoChunk(ch, meta); }, error: function (e) { erroEnc = e; } });
-          enc.configure(cc[1]);
-        });
+        var Lib = tipo === 'mp4' ? appLib('mp4-muxer', 'Mp4Muxer') : appLib('webm-muxer', 'WebMMuxer'); // vêm dentro do app.js (src/01-build.js)
+        alvoV = new Lib.ArrayBufferTarget();
+        mux = tipo === 'mp4' ? new Lib.Muxer({ target: alvoV, video: { codec: 'avc', width: GT_SAI[0], height: GT_SAI[1] }, fastStart: 'in-memory' })
+          : new Lib.Muxer({ target: alvoV, video: { codec: 'V_VP8', width: GT_SAI[0], height: GT_SAI[1], frameRate: 30 } });
+        enc = new VideoEncoder({ output: function (ch, meta) { mux.addVideoChunk(ch, meta); }, error: function (e) { erroEnc = e; } });
+        enc.configure(cc[1]);
       }).then(function () {
         var j = 0;
         function um() {
           if (j >= GT_N || erroEnc) return Promise.resolve();
           var n = (frente + j) % GT_N;
           return pega(t0 + n * per / GT_N).then(function (d) {
-            var t = trata(d), pc = peca(t), k, c;
-            // perto da peça (e ~30 px em volta) fica como a câmera viu; longe vira branco, com passagem suave
-            var perto = new Float32Array(w2 * h2), dl = gtExtremo(pc.m, w2, h2, 15, true, Uint8Array);
-            for (k = 0; k < w2 * h2; k++) perto[k] = dl[k];
-            gtCaixa(perto, w2, h2, 5); gtCaixa(perto, w2, h2, 5);
-            // a imagem que sai vem do vídeo no tamanho em que foi gravado (as medidas é que são feitas na metade): só o recorte é tratado
-            var fx0 = Math.floor((X0 + hx.d[n]) * ES), fy0 = Math.floor((Y0 + hy.d[n]) * ES), fw = Math.round(w * ES), fh = Math.round(h * ES);
-            fxc.drawImage(v, 0, 0);
-            var ax0 = Math.max(0, fx0), ay0 = Math.max(0, fy0), ax1 = Math.min(v.videoWidth, fx0 + fw), ay1 = Math.min(v.videoHeight, fy0 + fh), aw = ax1 - ax0, ah = ay1 - ay0;
-            var fd = fxc.getImageData(ax0, ay0, aw, ah), dd = fd.data, x, y, X, Y, q, f, bb, r, pr, ig, v3 = [0, 0, 0];
-            for (Y = 0; Y < ah; Y++) {
-              y = Math.min(H - 1, ((ay0 + Y) / ES) | 0);
-              for (X = 0; X < aw; X++) {
-                x = Math.min(W - 1, ((ax0 + X) / ES) | 0); k = y * W + x; pr = perto[(y >> 1) * w2 + (x >> 1)];
-                var o4 = (Y * aw + X) * 4;
-                if (pr <= 0.002) { dd[o4] = dd[o4 + 1] = dd[o4 + 2] = 255; continue; }
-                ig = suja[k] ? 1 : 0;
-                for (c = 0; c < 3; c++) {
-                  q = k * 3 + c; f = dd[o4 + c];
-                  bb = f < fmin[q] ? fmin[q] : f > fmax[q] ? fmax[q] : f;
-                  r = f / bb / 0.985; v3[c] = r >= 1 ? 255 : r * 255;
-                  if (ig && Math.abs(f - fundo[q]) - Math.max(0.16 * fundo[q], 16) >= 0) ig = 0;
-                }
-                for (c = 0; c < 3; c++) {
-                  var val = ((ig ? 255 : v3[c]) * pr + 255 * (1 - pr)) * (255 / 238);
-                  dd[o4 + c] = val > 255 ? 255 : val;
-                }
-              }
-            }
-            if (rc.width !== aw || rc.height !== ah) { rc.width = aw; rc.height = ah; }
-            rx.putImageData(fd, 0, 0);
-            sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
-            sx.imageSmoothingQuality = 'high';
-            var kx = GT_SAI[0] / fw, ky = GT_SAI[1] / fh;
-            sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
+            var t = tr.trata(d), pc = tr.peca(t);
+            sai = tr.imagem(v, v.videoWidth, v.videoHeight, pc, X0 + hx.d[n], Y0 + hy.d[n], w, h);
             if (fotosQ.indexOf(j) >= 0) fotos[j] = sai.toDataURL('image/jpeg', 0.95);
             if (!j) capa = sai.toDataURL('image/jpeg', 0.86);
             var fr = new VideoFrame(sai, { timestamp: Math.round(j * 1e6 / 30), duration: Math.round(1e6 / 30) });

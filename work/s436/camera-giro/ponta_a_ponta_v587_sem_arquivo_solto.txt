@@ -1,0 +1,19 @@
+peça ['SP57765|Preto', 1280, 720]
+  2 s {"ticks": 2, "ult": [1, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 12 s {"ticks": 22, "ult": [11, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 22 s {"ticks": 42, "ult": [21, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 32 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 43 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "25% Achando a frente", "escolha": ""}
+ 53 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "44% Achando a frente", "escolha": ""}
+ 63 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "60% Fundo branco em cada grau", "escolha": ""}
+ 73 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "75% Fundo branco em cada grau", "escolha": ""}
+ 84 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "91% Fundo branco em cada grau", "escolha": ""}
+ 90 s {"ticks": 62, "ult": [31, 20.02], "fim": true, "giro": {"k": "SP57765|Preto", "ts": 1795225034597, "tipo": "video/mp4;gn=360", "n": 360}, "toast": "Giro pronto: frente, 3/4 e giro salvos", "trat": "", "escolha": ""}
+RESULTADO {"giro": {"k": "SP57765|Preto", "ts": 1795225034597, "tipo": "video/mp4;gn=360", "n": 360}, "blob": ["video/mp4;gn=360", 3068], "frente": 22215, "t34": 21347, "nota": {"n": 100, "mot": [], "ts": 1795225034569}, "fotoFrente": true, "foto34": true}
+ERROS []
+[LF-CAM] grava {"tipo":"video/mp4;codecs=avc1","pronto":"recording"}
+[LF-CAM] parou {"porque":"volta","seg":31,"assinaturas":62,"volta":{"per":20.01533870608746,"casa":0.09372165075545448,"meio":1.4216675115165829,"borda":false},"tipo":"video/mp4;codecs=avc1","kb":3229,"fotos":31}
+[LF-CAM] trata {"fase":"fundo","seg":0}
+[LF-CAM] trata {"fase":"mede","seg":1.4}
+[LF-CAM] trata {"fase":"grava","seg":24.7}
+[LF-CAM] tratou {"seg":57.4,"tipo":"mp4","kb":3068,"info":{"frente":322,"casa":0,"meio":1,"volta":20.01533870608746,"inicio":10.808794293912541,"passeioX":0.24220293133885218,"passeioY":1.3760846928022208,"recorte":[218,129,525,350],"largura":960,"altura":540},"frente":[100,[]],"t34":[100,[]]}

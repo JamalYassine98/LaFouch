@@ -175,7 +175,7 @@
       estGiroSemVolta(ctx, Q, video);
     });
   }
-  // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
+  // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4. As duas saem pelo giroFotos (97-giro-trata.js).
   function estGiroEscolhe(ctx, Q, video) {
     Q = Q.filter(function (q) {
       return q.b;
@@ -184,7 +184,6 @@
     var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
       ixF = ix,
       passo = 'frente',
-      esc = {},
       ov = document.createElement('div');
     ov.className = 'estOv';
     ov.id = 'estGiro';
@@ -207,28 +206,16 @@
       if (!b) return;
       if (b.dataset.g === 'x') return ov.remove();
       if (b.dataset.g !== 'ok') return;
-      esc[passo] = Q[ix].b;
       if (passo === 'frente') {
         ixF = ix;
         passo = '34';
         ix = Math.min(Q.length - 1, ix + Math.max(2, Math.round(Q.length / 8)));
         return pinta();
       }
-      loadMsg(true, 'Aplicando a luz de estúdio');
-      var abre = function (bl) {
-        return new Promise(function (ok, no) {
-          var u = URL.createObjectURL(bl),
-            im = new Image();
-          im.onload = function () {
-            ok(im);
-            URL.revokeObjectURL(u);
-          };
-          im.onerror = no;
-          im.src = u;
-        });
-      };
-      Promise.all([abre(esc.frente), abre(esc['34'])]).then(function (ims) {
-        return [estProcessa(ims[0]), estProcessa(ims[1])];
+      // a frente e a 3/4 saem com o tratamento do giro (fundo aprendido da própria gravação); depois o enquadramento e a nota de toda foto
+      loadMsg(true, 'Aplicando a luz de estúdio', 60000);
+      giroFotos(Q, [ixF, ix]).then(function (cvs) {
+        return [cvs[0] ? estProcessa(cvs[0]) : {}, cvs[1] ? estProcessa(cvs[1]) : {}];
       }).then(function (R) {
         var R1 = R[0],
           R2 = R[1];

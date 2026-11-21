@@ -64,3 +64,34 @@ ao pedir o tratamento, "carrega mas não faz nada"; 4. no fim não guarda foto, 
 - A escolha à mão ("Qual é a frente?") quase nunca acha a peça no quadro cru da tenda. Proposta: sem a volta inteira, só avisar
   e pedir para gravar de novo (sem a tela de escolha). Sai ou fica?
 - O diário `camDiario` é código novo que não está na planta (regra 12d): fica como ferramenta de conserto ou sai?
+
+---
+
+# Itens 34 e 35 (v587, 20/11/2026 22:30) — depois do teste do dono na v586
+
+O dono testou a v586 e mandou dois prints: "Tratando o giro · 19% · Achando a frente" (22:25) e, dois minutos depois,
+"Qual é a frente?" com o aviso "Não achei a peça no quadro da frente" (o aviso agora aparece). Sem clarão e a volta fechou.
+
+## Item 35 — por que o tratamento parava no celular (causa de raiz)
+- `giroTrata`, ao começar a gravar o giro tratado, pedia `giro/mp4-muxer.js` (ou `webm-muxer.js`) com um `<script>`.
+- Esses dois arquivos entraram no projeto em 15/11 20:23 (v528). O último APK é de 15/11 13:49 (commit 39b183c50).
+- A atualização automática só leva `app.js` e `style.css`. O resto de `www/` é o do APK. Logo, em todo aparelho com o aplicativo
+  instalado, os dois arquivos NÃO EXISTEM: o tratamento nunca terminou fora do simulador. (`git diff 39b183c50 HEAD -- www/`:
+  fora `www/loja/`, os únicos arquivos novos eram os três de `www/giro/`.)
+- Reproduzido: v586 servida sem a pasta `giro/` → fecha a volta, trata até o fim de "Achando a frente", erro
+  `biblioteca Mp4Muxer`, cai na escolha à mão (`reproducao_v586_sem_bibliotecas.txt`).
+- Como fazer: o que o app precisa vai DENTRO do app.js. `lib/*.js` → `APP_LIBS` (texto) → `appLib` lê na hora do uso.
+  Texto, e não código, porque as bibliotecas usam escrita de 2020 e o app é ES5: aparelho antigo não deixaria de abrir o app.
+  Saem `gtLib` e `www/giro/`. Trava: lista `tests/www-do-apk.json` — arquivo novo em `www/` reprova o porteiro.
+- Provas: `ponta_a_ponta_v587_sem_arquivo_solto.txt` (mesmo ensaio, agora termina: giro de 360 imagens + frente e 3/4 nota 100);
+  com o gravador H.264 "desligado" à força, o caminho VP8/webm também termina (video/webm;gn=360).
+
+## Item 34 — "corrija 'Qual é a frente?'" (dono 20/11 22:18)
+- As duas imagens escolhidas iam cruas para o tratamento de FOTO, que não serve para a tenda.
+- Como fazer: o tratamento de UMA imagem do giro sai de dentro do `giroTrata` para `gtTratador` (texto movido sem mudar) e a
+  escolha à mão passa a usar ele (`giroFotos`: fundo aprendido de até 24 imagens da gravação).
+- Equivalência do `giroTrata` antes × depois de mover: mesmo vídeo → `info`, fotos (0°, 45°, 90°, 200°), capa e quadro idênticos.
+- Conferido com 38 quadros do vídeo do DONO (tenda e prato de verdade): as duas fotos saem de fundo branco, nota 100.
+
+## NÃO testado em aparelho real (v587)
+- O tratamento inteiro no celular (tempo; gravador H.264 do aparelho ou o VP8 de reserva). O diário `[LF-CAM]` mostra cada fase.

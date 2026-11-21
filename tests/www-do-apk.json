@@ -1,0 +1,33 @@
+{
+ "_": "Arquivos de www/ (fora www/loja/, que tem atualizador próprio) que existem no APK instalado nos aparelhos. A atualização automática só leva app.js e style.css: arquivo NOVO em www/ não chega a quem já tem o aplicativo. Regerar esta lista só depois de um APK novo instalado (git ls-tree do commit do APK).",
+ "apk": "39b183c50 · 15/11/2026 13:49 (run 43737592015)",
+ "arquivos": [
+  "www/app.js",
+  "www/estudio-tutorial.mp4",
+  "www/icon-192.png",
+  "www/icon-512.png",
+  "www/index.html",
+  "www/logo-app-claro.png",
+  "www/logo-app.png",
+  "www/manifest.json",
+  "www/sons/caixa.mp3",
+  "www/sons/campainha.mp3",
+  "www/sons/cristal.mp3",
+  "www/sons/gota.mp3",
+  "www/sons/harpa.mp3",
+  "www/sons/marimba.mp3",
+  "www/sons/moeda.mp3",
+  "www/sons/pop.mp3",
+  "www/sons/sino.mp3",
+  "www/sons/suave.mp3",
+  "www/style.css",
+  "www/sw.js",
+  "www/tess/LICENSE-tesseract-core.txt",
+  "www/tess/core-simd.js",
+  "www/tess/core.js",
+  "www/tess/eng-data.wasm",
+  "www/tess/ocr-worker.js",
+  "www/tess/ocr.js",
+  "www/version.json"
+ ]
+}

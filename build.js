@@ -2,6 +2,8 @@
 /**
  * Monta www/app.js a partir dos módulos em src/ (ordem alfabética = ordem de execução).
  * Todos os módulos ficam dentro de UMA função, compartilhando o mesmo escopo (estado `S`, helpers).
+ * As bibliotecas de terceiros (lib/*.js) entram no app.js como TEXTO (var APP_LIBS em src/01-build.js; quem lê é o appLib):
+ * a atualização automática dos aparelhos só leva app.js e style.css, então tudo o que o app precisa tem de ir dentro deles.
  * Uso:  node build.js          -> gera www/app.js
  *       node build.js --check  -> falha se www/app.js estiver desatualizado
  */
@@ -15,6 +17,10 @@ const modulos = fs.readdirSync(SRC).filter((f) => f.endsWith('.js')).sort();
 const corpo = modulos.map((f) => fs.readFileSync(path.join(SRC, f), 'utf8')).join('');
 const sw = fs.readFileSync(path.join(__dirname, 'www', 'sw.js'), 'utf8');
 const BUILD = +(sw.match(/lafouch-v(\d+)/) || [0, 0])[1];
+const LIB = path.join(__dirname, 'lib');
+const libs = {};
+for (const f of fs.existsSync(LIB) ? fs.readdirSync(LIB).filter((x) => x.endsWith('.js')).sort() : []) libs[f.replace(/\.js$/, '')] = fs.readFileSync(path.join(LIB, f), 'utf8');
+const LIBS = JSON.stringify(libs).replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029'); // texto de programa: os dois separadores de linha vão escritos por extenso
 const NOTAS_F = path.join(__dirname, 'docs', 'novidades.json');
 let NOV = {};
 try { NOV = JSON.parse(fs.readFileSync(NOTAS_F, 'utf8')); } catch (e) {}
@@ -23,7 +29,7 @@ const NOME = String(NOV.nome || BUILD);
 // 13/11/2026 (bug do dono: 'a versão trava na 5.9.0'): o nome e as novidades vêm de docs/novidades.json e são manuais. Se o número do sw.js subiu e o arquivo não, avisa bem alto.
 if (NOV.build !== BUILD) console.warn('\n*** ATENÇÃO: docs/novidades.json é da versão ' + (NOV.build || '?') + ' e o sw.js está na ' + BUILD + '. Atualize "nome", "build" e "notas" — senão o app continua mostrando ' + NOME + ' ***\n');
 const NOTAS = NOV.notas || [];
-const saida = '(function () {\n' + corpo.replace('__APP_BUILD__', BUILD).replace('__APP_NOME__', NOME) + '})();\n';
+const saida = '(function () {\n' + corpo.replace('__APP_BUILD__', BUILD).replace('__APP_NOME__', NOME).replace('__APP_LIBS__', () => LIBS) + '})();\n';
 const IDX = path.join(__dirname, 'www', 'index.html');
 const idx = fs.readFileSync(IDX, 'utf8');
 const idxNovo = idx.replace(/\/\*LOADER\*\/\(function\(\)\{var EMB=\d+/, '/*LOADER*/(function(){var EMB=' + BUILD);

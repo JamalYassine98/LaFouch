@@ -3718,6 +3718,59 @@ async def main():
             if not ok: falhas.append('item 33d escolha à mão'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 34 (20/11/2026, dono: "corrija 'Qual é a frente?'"): a frente e a 3/4 escolhidas à mão saem com o tratamento do GIRO (fundo
+            # aprendido das imagens da própria gravação), não mais com o da foto — no cenário do giro (parede cinza, prato) o da foto não acha a peça
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              // gravação inventada: parede cinza em degradê, prato claro, e uma "armação" escura que gira (fica mais estreita) — ou fica parada
+              const quadro = async ang => { const c = document.createElement('canvas'); c.width = 640; c.height = 360; const x = c.getContext('2d'), g = x.createLinearGradient(0, 0, 0, 360);
+                g.addColorStop(0, '#9a9a9c'); g.addColorStop(1, '#b4b4b2'); x.fillStyle = g; x.fillRect(0, 0, 640, 360); x.fillStyle = '#c9c9c7'; x.beginPath(); x.ellipse(320, 330, 250, 60, 0, 0, 7); x.fill();
+                const k = Math.cos(ang * Math.PI / 180); x.strokeStyle = '#4a3326'; x.lineWidth = 6; x.save(); x.translate(320, 200); x.scale(Math.max(0.25, Math.abs(k)), 1);
+                x.strokeRect(-150, -40, 130, 80); x.strokeRect(20, -40, 130, 80); x.beginPath(); x.moveTo(-20, -10); x.lineTo(20, -10); x.stroke(); x.restore();
+                return { sim: -ang, t: c.toDataURL('image/jpeg', 0.5), b: await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9)) }; };
+              const ov = () => document.getElementById('estGiro'), toca = () => ov().querySelector('[data-g=ok]').click(), vid = new Blob([new Uint8Array(8)], { type: 'video/webm' });
+              const tt = () => document.getElementById('lfToast'), espera = async () => { for (let i = 0; i < 100; i++) { await w(150); if (!document.getElementById('loadFoto') && (document.getElementById('estDest') || (tt() && tt().classList.contains('on')))) return; } };
+              // 1) a peça gira: sai a foto (fundo branco) e segue para "De qual peça é?"
+              const Q = []; for (let i = 0; i < 14; i++) Q.push(await quadro(i * 12));
+              L.estGiroEscolhe({ k: null }, Q, vid); await w(150); toca(); await w(150); toca(); await espera();
+              const d = document.getElementById('estDest'), im = d && d.querySelector('.estImg img'), giraOk = [!!d && d.querySelector('h1').textContent, !ov()];
+              if (im) { await new Promise(r => { if (im.complete) r(); else im.onload = r; }); const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const x = c.getContext('2d'); x.drawImage(im, 0, 0);
+                const p = x.getImageData(0, 0, c.width, c.height).data; let canto = 0, n = 0, escuro = 255; for (let yy = 0; yy < c.height * 0.12; yy++) for (let xx = 0; xx < c.width * 0.12; xx++) { canto += p[(yy * c.width + xx) * 4 + 1]; n++; }
+                for (let i = 0; i < p.length; i += 4) if (p[i + 1] < escuro) escuro = p[i + 1]; giraOk.push(canto / n > 245, escuro < 150); }
+              if (d) d.remove();
+              // 2) a peça não saiu do lugar na gravação inteira: não há como separar do fundo → avisa e a escolha continua aberta
+              const P = []; for (let i = 0; i < 8; i++) P.push(await quadro(0));
+              if (tt()) tt().classList.remove('on'); L.estGiroEscolhe({ k: null }, P, vid); await w(150); toca(); await w(150); toca(); await espera();
+              const parada = [ov() && ov().querySelector('h1').textContent, tt() && tt().textContent, !document.getElementById('estDest')];
+              return [giraOk, parada, typeof L.giroFotos]; }""")
+            total += 1
+            ok = got == [['De qual peça é?', True, True, True], ['Qual é a frente?', 'Não achei a peça no quadro da frente', True], 'undefined'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 34: "Qual é a frente?" — as fotos escolhidas à mão saem com o tratamento do giro (fundo branco); peça parada na gravação → avisa')
+            if not ok: falhas.append('item 34 escolha com o tratamento do giro'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Item 35 (20/11/2026, celular do dono: o tratamento do giro parava no meio). Causa: ele pedia giro/mp4-muxer.js, arquivo que entrou
+            # no projeto DEPOIS do APK instalado — e a atualização automática só leva app.js e style.css. Agora as bibliotecas vão dentro do app.js
+            # (lib/*.js → APP_LIBS, como texto: aparelho antigo não precisa entendê-las para abrir o app) e nenhum arquivo novo pode aparecer em www/.
+            pg = await pagina()
+            await pg.route('**/giro/**', lambda r: r.abort())
+            got = await pg.evaluate("""async () => { const L = window.__LF, R = [];
+              for (const [n, g, cfg] of [['mp4-muxer', 'Mp4Muxer', { codec: 'avc', width: 96, height: 64 }], ['webm-muxer', 'WebMMuxer', { codec: 'V_VP8', width: 96, height: 64, frameRate: 30 }]]) {
+                const B = L.appLib(n, g), alvo = new B.ArrayBufferTarget(), m = new B.Muxer(Object.assign({ target: alvo, video: cfg }, n === 'mp4-muxer' ? { fastStart: 'in-memory' } : {}));
+                R.push(typeof B.Muxer === 'function' && typeof m.addVideoChunk === 'function' && typeof m.finalize === 'function' && L.appLib(n, g) === B && typeof window[g] === 'undefined'); }
+              return R; }""")
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            carrega = sorted(f for f, t in fontes.items() if "createElement('script')" in t or 'createElement("script")' in t or 'importScripts' in t)
+            apk = set(json.load(open(os.path.join(RAIZ, 'tests', 'www-do-apk.json'), encoding='utf-8'))['arquivos'])
+            novos = sorted(p for p in (os.path.join(d, f).replace(os.sep, '/')[len(RAIZ) + 1:] for d, _, fs in os.walk(os.path.join(RAIZ, 'www')) for f in fs) if not p.startswith('www/loja/') and p not in apk)
+            appjs = open(os.path.join(RAIZ, 'www', 'app.js'), encoding='utf-8').read()
+            total += 1
+            lin = [l for l in appjs.split('\n') if 'var Mp4Muxer' in l or 'var WebMMuxer' in l]  # as bibliotecas estão no app.js só como TEXTO, numa linha
+            ok = got == [True, True] and carrega == ['30-ocr-leitura.js'] and not novos and len(lin) == 1 and lin[0].startswith('  var APP_LIBS = {') and not os.path.exists(os.path.join(RAIZ, 'www', 'giro')) and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 35: as bibliotecas do giro vão dentro do app.js (sem arquivo solto), nenhum módulo carrega .js de fora e não há arquivo novo em www/ que o APK instalado não tenha')
+            if not ok: falhas.append('item 35 bibliotecas dentro do app'); print('        veio', got, carrega, novos, pg.erros)
+            await pg.close()
+
             # Item 30 (20/11/2026): vistas pela análise — o app pede o resumo de 30 dias à função analise (login do dono) e NÃO lê mais vistas/;
             # a chamada à análise mora num lugar só (analiseResumo)
             total += 1

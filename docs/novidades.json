@@ -1,7 +1,7 @@
 {
- "nome": "5.50.11",
+ "nome": "5.50.12",
  "notas": [
-  "Estúdio › Vídeo (giro): acabou o clarão ao tocar em gravar; a volta agora fecha sozinha mesmo ligando o prato depois de começar a gravar; os avisos do Estúdio aparecem (ficavam escondidos atrás da tela) e a gravação não se perde quando o app não acha a peça no quadro escolhido."
+  "Estúdio › Vídeo (giro): o tratamento agora termina no celular (faltavam duas peças do programa que só existiam no computador de teste) e a tela \"Qual é a frente?\" passou a tirar a frente e a 3/4 com o mesmo tratamento do giro, de fundo branco."
  ],
- "build": 586
+ "build": 587
 }
