@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | Black Friday: só a da CDE (sai a data internacional de reserva) | src/97-cupons.js, src/97-marketing.js, src/97-site-pediu.js, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 
 ## Fila
@@ -108,6 +107,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 07:58 — APP: v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços
 - 21/11 07:29 — APP: v589 no ar (item 39b, risco do ESBOCO corrigido). 343 provas. Próximo: 4b Preços (como fazer do ESBOCO).
 - 21/11 02:04 — ESBOCO: Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real.
 - 21/11 01:13 — SITE: Noite 20→21/11 (dono dormindo): (1) memória e lista viva RECUPERADAS (1,3 MB regravados por engano em 20/11) + trava no status.py; (2) site 1795232856, por dentro: 1ª visita não espera o selo (rede limpa: 4G fraco 31→22 s até a 1ª foto; 4G bom 6,1→2,9 s), pedido tenta de novo sozinho 1x, cancelar 409 = feito, 4 funções mortas fora; (3) site 1795234339: novidades pede a confirmação do e-mail (S5, recado da NUVEM); porteiro 224 provas 0 falhas; (4) ESBOÇOS ESPERANDO O DONO: docs/PLANO-INTERNET-FRACA-21-11.md (partes 1–3) e docs/PLANO-FERRAMENTAS-21-11.md (4 partes); (5) faixa do evento já estava no ar desde 20/11; (6) varredura: 64% do programa roda nas provas, faltam provas de 9 áreas antes de mostrar suspeitos. DONO TESTAR no celular: abrir o site em aba anônima no 4G; inscrever um e-mail nas novidades (chega o e-mail de confirmar?); compra de teste até o PIX; cancelar um pedido pendente em Minha conta; voltar com Filtros, foto ampliada e aviso 'adicionado' abertos.
@@ -132,4 +132,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 19:44 — ESBOCO: Conferidos 09/20 (site) e 21 (app) no comparador + prova funcional: login por usuário e token do pedido pago batem; 0 falha nova na página da peça; recados para SITE e APP. Semp completo como ideia (todas as partes aprovadas). A seguir: conferir v579/v581/v582; esboço 'pagamento parte 3' pedido pela NUVEM; 'como fazer' dos 15 aprovados de Resultados/Preços pedido pela APP.
 - 20/11 16:11 — SITE: varredura com o site rodando (60% das funções rodam nas provas); 6 funções mortas certas fora da CÓPIA LIMPA (15 KB; comparador 0 diferenças; porteiro 207 provas, 0 falhas) — ainda NÃO publicado; porteiro ajustado aos dados novos da loja (nomes mudaram, 18 peças)
 - 20/11 15:58 — APP: v582 publicado: remendos parte 4a (Dashboard, dia, Histórico e Pendências com uma função cada; 0 diferenças em 60 telas; 337/337). Hoje: v573 a v582. Próximo: seguir por dentro (Preços, Peças, Site, Dinheiro…) enquanto a ESBOCO manda o 'como fazer' dos aprovados
-- 20/11 15:57 — NUVEM: Análise com porPeca publicada (base para tirar a coleção vistas/ aberta); recados ao APP (ler da análise) e ao SITE (tirar o vistaEnvia depois).

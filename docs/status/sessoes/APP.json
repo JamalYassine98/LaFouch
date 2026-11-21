@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "Black Friday: só a da CDE (sai a data internacional de reserva)",
- "arquivos": [
-  "src/97-cupons.js",
-  "src/97-marketing.js",
-  "src/97-site-pediu.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795258683.0477064,
+   "r": "v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços"
+  },
   {
    "t": 1795256971.0478606,
    "r": "v589 no ar (item 39b, risco do ESBOCO corrigido). 343 provas. Próximo: 4b Preços (como fazer do ESBOCO)."
@@ -43,10 +42,6 @@
   {
    "t": 1795201099.674426,
    "r": "v582 publicado: remendos parte 4a (Dashboard, dia, Histórico e Pendências com uma função cada; 0 diferenças em 60 telas; 337/337). Hoje: v573 a v582. Próximo: seguir por dentro (Preços, Peças, Site, Dinheiro…) enquanto a ESBOCO manda o 'como fazer' dos aprovados"
-  },
-  {
-   "t": 1795199284.503005,
-   "r": "v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)"
   }
  ],
  "leu": 1795257513.3974059
