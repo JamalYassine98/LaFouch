@@ -1,0 +1,25 @@
+detector: ANTIGO
+prato 18–45 s, parado 0–14 s, real (ruído .25, luz ±.2%) certo  55 / 300 | antes 0 | período 9 | não fechou 141 | tarde 85 | sem tempo 10 | atraso após a volta: mín 2.08 med 9.05 máx 30.93 | erro do período em graus: med 0.47 p95 359.54
+     NÃO FECHOU {"dur":60,"S":13.048,"P":39.492000000000004,"ruido":0.25,"ae":0.002,"seed":2} {"em":null,"per":39.5,"casa":1.05,"meio":1.42,"borda":false}
+     NÃO FECHOU {"dur":60,"S":11.914,"P":32.931,"ruido":0.25,"ae":0.002,"seed":3} {"em":null,"per":32.98,"casa":1.05,"meio":1.48,"borda":false}
+     NÃO FECHOU {"dur":60,"S":10.780000000000001,"P":26.369999999999997,"ruido":0.25,"ae":0.002,"seed":4} {"em":null,"per":26.44,"casa":0.79,"meio":1.51,"borda":false}
+idem + tempo irregular ±0,1 s                certo  54 / 300 | antes 0 | período 9 | não fechou 151 | tarde 76 | sem tempo 10 | atraso após a volta: mín 2.08 med 7.91 máx 30.41 | erro do período em graus: med 0.49 p95 359.66
+     NÃO FECHOU {"dur":60,"S":13.048,"P":39.492000000000004,"ruido":0.25,"ae":0.002,"jit":0.2,"seed":2} {"em":null,"per":39.51,"casa":1.09,"meio":1.42,"borda":false}
+     NÃO FECHOU {"dur":60,"S":11.914,"P":32.931,"ruido":0.25,"ae":0.002,"jit":0.2,"seed":3} {"em":null,"per":32.99,"casa":1.04,"meio":1.48,"borda":false}
+     NÃO FECHOU {"dur":60,"S":10.780000000000001,"P":26.369999999999997,"ruido":0.25,"ae":0.002,"jit":0.2,"seed":4} {"em":null,"per":26.43,"casa":0.8,"meio":1.51,"borda":false}
+idem + luz ±2% e deriva 3%                   certo   2 / 300 | antes 252 | período 16 | não fechou 30 | tarde 0 | sem tempo 0 | atraso após a volta: mín -42.72 med -12.91 máx 23.55 | erro do período em graus: med 181.03 p95 260.35
+     ANTES DA VOLTA {"dur":60,"S":0.182,"P":19.053,"ruido":0.25,"ae":0.02,"deriva":0.03,"seed":1} {"em":16,"per":12.18,"casa":1.95,"meio":4.29}
+     ANTES DA VOLTA {"dur":60,"S":13.048,"P":39.492000000000004,"ruido":0.25,"ae":0.02,"deriva":0.03,"seed":2} {"em":16,"per":12.09,"casa":1.49,"meio":3.42}
+     NÃO FECHOU {"dur":60,"S":11.914,"P":32.931,"ruido":0.25,"ae":0.02,"deriva":0.03,"seed":3} {"em":null,"per":12.88,"casa":2.4,"meio":4.17,"borda":false}
+idem + ruído 0,6                             certo  19 / 300 | antes 0 | período 20 | não fechou 222 | tarde 29 | sem tempo 10 | atraso após a volta: mín 2.21 med 13.98 máx 36.41 | erro do período em graus: med 0.84 p95 360.47
+     PERÍODO (>3°) {"dur":60,"S":0.182,"P":19.053,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":1} {"em":42,"per":38.04,"casa":0.91,"meio":2.26}
+     NÃO FECHOU {"dur":60,"S":13.048,"P":39.492000000000004,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":2} {"em":null,"per":39.49,"casa":1.45,"meio":1.99,"borda":false}
+     NÃO FECHOU {"dur":60,"S":11.914,"P":32.931,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":3} {"em":null,"per":32.99,"casa":1.71,"meio":2.04,"borda":false}
+caso do dono (parado 9,2 s; volta 40,8 s)    certo   0 / 60 | antes 0 | período 0 | não fechou 60 | tarde 0 | sem tempo 0 | atraso após a volta: mín - med - máx - | erro do período em graus: med - p95 -
+     NÃO FECHOU {"dur":60,"S":9.2,"P":40.8,"ruido":0.25,"ae":0.002,"jit":0.1,"ini":23.400000000000002,"seed":1} {"em":null,"per":40.86,"casa":0.99,"meio":1.5,"borda":false}
+     NÃO FECHOU {"dur":60,"S":9.2,"P":40.8,"ruido":0.25,"ae":0.002,"jit":0.1,"ini":237.60000000000002,"seed":2} {"em":null,"per":40.86,"casa":0.85,"meio":1.45,"borda":false}
+     NÃO FECHOU {"dur":60,"S":9.2,"P":40.8,"ruido":0.25,"ae":0.002,"jit":0.1,"ini":91.8,"seed":3} {"em":null,"per":40.86,"casa":1.01,"meio":1.48,"borda":false}
+prato rápido 9–18 s                          certo  22 / 200 | antes 0 | período 39 | não fechou 72 | tarde 67 | sem tempo 0 | atraso após a volta: mín 2.53 med 18.95 máx 39.74 | erro do período em graus: med 1.87 p95 718.69
+     PERÍODO (>3°) {"dur":60,"S":0.182,"P":9.350999999999999,"ruido":0.25,"ae":0.002,"seed":1} {"em":32,"per":28.01,"casa":0.56,"meio":1.73}
+     NÃO FECHOU {"dur":60,"S":13.048,"P":16.164,"ruido":0.25,"ae":0.002,"seed":2} {"em":null,"per":16.07,"casa":1.01,"meio":1.49,"borda":false}
+     tarde {"dur":60,"S":11.914,"P":13.977,"ruido":0.25,"ae":0.002,"seed":3} {"em":50,"per":13.99,"casa":0.75,"meio":1.5}

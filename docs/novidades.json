@@ -1,7 +1,7 @@
 {
- "nome": "5.50.10",
+ "nome": "5.50.11",
  "notas": [
-  "Estúdio › Vídeo: consertada a imagem que ficava desfocada e rosada ao gravar a volta. A câmera só trava foco, luz e branco quando o celular informa o valor que está usando; se a imagem mudar depois de travar, ela solta tudo e grava no automático."
+  "Estúdio › Vídeo (giro): acabou o clarão ao tocar em gravar; a volta agora fecha sozinha mesmo ligando o prato depois de começar a gravar; os avisos do Estúdio aparecem (ficavam escondidos atrás da tela) e a gravação não se perde quando o app não acha a peça no quadro escolhido."
  ],
- "build": 585
+ "build": 586
 }

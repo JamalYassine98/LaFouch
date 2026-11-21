@@ -3655,28 +3655,67 @@ async def main():
             if not ok: falhas.append('item 21 pixAuto'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Itens 31 e 32 (20/11/2026, URGENTES do dono no celular real): a câmera do Estúdio só trava foco, luz e branco COM o valor em uso
-            # (antes: "manual" sem valor → imagem branca, depois desfocada e rosada); se a imagem mudar depois de travar, solta tudo
+            # Item 33 (20/11/2026, URGENTE do dono, medido no vídeo do celular dele). Substitui as provas dos itens 31 e 32.
+            # (a) CLARÃO: ao gravar a volta a câmera só liga a trava de BRANCO do aparelho; nunca mais pede foco nem luz em "manual" (no Android isso
+            #     não congela o valor em uso: estoura a imagem) e nunca manda valor de ISO, exposição, distância ou temperatura
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF;
-              const cv = document.createElement('canvas'); cv.width = 192; cv.height = 108; const x = cv.getContext('2d');
-              const cena = (fundo, borrado) => { x.fillStyle = fundo; x.fillRect(0, 0, 192, 108); if (!borrado) { x.fillStyle = '#222'; for (let i = 0; i < 12; i++) x.fillRect(20 + i * 13, 30, 5, 50); } };
-              const trilha = (set, aoTravar) => { const ch = []; return { ch, getCapabilities: () => ({ focusMode: ['continuous', 'manual'], exposureMode: ['continuous', 'manual'], whiteBalanceMode: ['continuous', 'manual'], iso: { min: 50, max: 800 } }),
-                getSettings: () => set, applyConstraints: async o => { ch.push(o.advanced[0]); if (aoTravar && o.advanced[0].focusMode !== 'continuous' && o.advanced[0].exposureMode !== 'continuous') aoTravar(); } }; };
-              const TUDO = { focusDistance: 0.3, exposureTime: 120, iso: 100, colorTemperature: 5000 }, R = [];
-              cena('#999'); let t = trilha({}); R.push([await L.c149Trava(t, cv), t.ch.length]);                                   // aparelho não informa nada → não trava nada
-              cena('#999'); t = trilha({ focusDistance: 0.3 }); R.push([await L.c149Trava(t, cv), JSON.stringify(t.ch[0])]);         // só o foco tem valor → trava só o foco
-              cena('#999'); t = trilha(TUDO); R.push([await L.c149Trava(t, cv), t.ch.length, t.ch[0].exposureTime, t.ch[0].iso]);   // tudo com valor e imagem igual → trava os três
-              cena('#999'); t = trilha(TUDO, () => cena('#fff')); R.push([await L.c149Trava(t, cv), JSON.stringify(t.ch[1])]);       // estourou → solta tudo
-              cena('#999'); t = trilha(TUDO, () => cena('#999', true)); R.push([await L.c149Trava(t, cv), t.ch.length]);           // desfocou → solta tudo
-              cena('#999'); t = trilha(TUDO, () => cena('#b98')); R.push([await L.c149Trava(t, cv), t.ch.length]);                  // mudou a cor → solta tudo
-              return R; }""")
+              const trilha = (modos, set, falha) => { const ch = []; return { ch, getCapabilities: () => modos, getSettings: () => set,
+                applyConstraints: async o => { ch.push(JSON.stringify(o.advanced[0])); if (falha) throw new Error('não'); } }; };
+              const TODOS = { focusMode: ['continuous', 'manual'], exposureMode: ['continuous', 'manual'], whiteBalanceMode: ['continuous', 'manual'], iso: { min: 50, max: 800 } };
+              const VAL = { focusMode: 'continuous', exposureMode: 'continuous', whiteBalanceMode: 'continuous', focusDistance: 0.3, exposureTime: 120, iso: 100, colorTemperature: 5000 }, R = [];
+              let t = trilha(TODOS, VAL); R.push([await L.c149Trava(t), t.ch]);                                                    // aparelho "deixa" tudo → só o branco
+              t = trilha({ focusMode: ['continuous', 'manual'], exposureMode: ['continuous', 'manual'] }, VAL); R.push([await L.c149Trava(t), t.ch]);   // sem trava de branco → nada
+              t = trilha(TODOS, Object.assign({}, VAL, { exposureMode: 'none', focusMode: 'manual' })); R.push([await L.c149Trava(t), t.ch]);       // luz e foco já fixos por quem ajustou a câmera
+              t = trilha(TODOS, Object.assign({}, VAL, { whiteBalanceMode: 'manual' })); R.push([await L.c149Trava(t), t.ch]);                     // branco já fixo → não mexe
+              t = trilha(TODOS, VAL, true); R.push([await L.c149Trava(t), t.ch.length]);                                          // o aparelho recusou
+              const fonte = L.c149Trava.toString();
+              return [R, /exposureMode\\s*[:=]\\s*'manual'|focusMode\\s*[:=]\\s*'manual'|exposureTime|focusDistance|colorTemperature|\\biso\\b/.test(fonte), typeof L.c149Olha, typeof L.c149Mudou]; }""")
             total += 1
-            NAO = 'Este aparelho não deixa travar foco e luz'
-            ok = got == [[NAO, 0], ['Travado: foco', '{"focusMode":"manual","focusDistance":0.3}'], ['Travado: foco, luz, branco', 1, 120, 100],
-                         [NAO, '{"focusMode":"continuous","exposureMode":"continuous","whiteBalanceMode":"continuous"}'], [NAO, 2], [NAO, 2]] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Itens 31/32: câmera só trava foco, luz e branco com o valor em uso; imagem estourou, desfocou ou mudou de cor → solta tudo')
-            if not ok: falhas.append('itens 31/32 trava da câmera'); print('        veio', got, pg.erros)
+            NAO = 'Este aparelho não deixa travar foco e luz'; BR = '{"whiteBalanceMode":"manual"}'
+            ok = got == [[['Travado: branco', [BR]], [NAO, []], ['Travado: foco, luz, branco', [BR]], ['Travado: branco', []], [NAO, 1]], False, 'undefined', 'undefined'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 33a: ao gravar a volta a câmera só liga a trava de branco — nunca foco/luz em "manual" nem valores (era o clarão)')
+            if not ok: falhas.append('item 33a trava da câmera'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # (c) AVISO ESCONDIDO: o aviso curto fica acima de toda tela e janela (era desenhado atrás do Estúdio: "carrega e não faz nada")
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              const z = sel => { let m = -1; for (const sh of document.styleSheets) { let rs; try { rs = sh.cssRules; } catch (e) { continue; } for (const r of rs) if (r.selectorText && r.style && r.style.zIndex && r.selectorText.split(',').some(p => p.trim().indexOf(sel) >= 0)) m = Math.max(m, +r.style.zIndex); } return m; };
+              L.estAbre(); await w(250); L.lfToast('prova do aviso'); await w(700);
+              const t = document.getElementById('lfToast'), o = document.querySelector('.estOv'), zt = +getComputedStyle(t).zIndex, r = t.getBoundingClientRect();
+              const telas = ['.estOv', '.estCam', '.egTrat', '.ljBk', '.ljJn', '.splitBk', '#splitCard', '#estAjF', '.lfEspia', '#estCorF', '.mkTp'].map(z);
+              return [!!o, t.classList.contains('on'), zt > +getComputedStyle(o).zIndex, telas.every(v => v > 0 && v < zt), zt < z('#lockScr') && zt < z('#loadFoto'), r.bottom <= innerHeight && r.height > 20]; }""")
+            total += 1
+            ok = got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 33c: o aviso curto aparece por cima do Estúdio e de toda janela (abaixo só do cadeado e do carregando)')
+            if not ok: falhas.append('item 33c aviso por cima'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # (d) GRAVAÇÃO PERDIDA: na escolha à mão, quadro em que o app não acha a peça NÃO joga a gravação fora — avisa e volta à frente;
+            #     erro no meio do tratamento fecha o "carregando" e avisa; a frente e a 3/4 do giro só são guardadas com nota 60+
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const quadro = async cor => { const c = document.createElement('canvas'); c.width = 480; c.height = 270; const x = c.getContext('2d'); x.fillStyle = cor; x.fillRect(0, 0, 480, 270);
+                return { sim: -1, t: c.toDataURL('image/jpeg', 0.5), b: await new Promise(r => c.toBlob(r, 'image/jpeg', 0.8)) }; };
+              const Q = []; for (let i = 0; i < 6; i++) Q.push(await quadro('#bbb'));
+              const serve = [L.estFotoServe(null), L.estFotoServe({ cv: null, n: 0 }), L.estFotoServe({ cv: {}, n: 59 }), L.estFotoServe({ cv: {}, n: 60 })];
+              const fotos0 = JSON.stringify(Object.keys(S.fotos || {})), giros0 = JSON.stringify(S.giros || {});
+              L.estGiroEscolhe({ k: null }, Q, new Blob([new Uint8Array(8)], { type: 'video/webm' })); await w(150);
+              const ov = () => document.getElementById('estGiro'), tit = () => ov() && ov().querySelector('h1').textContent, toca = () => ov().querySelector('[data-g=ok]').click();
+              const t1 = tit(); toca(); await w(120); const t2 = tit(); toca(); await w(2500);          // quadro liso: não há peça
+              const depois = [tit(), document.getElementById('lfToast').textContent, !!document.getElementById('loadFoto'), JSON.stringify(Object.keys(S.fotos || {})) === fotos0, JSON.stringify(S.giros || {}) === giros0];
+              ov().querySelector('[data-g=x]').click(); await w(100); const fechou = !ov();
+              // erro no meio: um quadro que não abre
+              const Q2 = Q.map(q => Object.assign({}, q)); Q2[0].b = new Blob(['x'], { type: 'image/jpeg' }); for (const q of Q2) q.sim = -1; Q2[0].sim = 0;
+              L.estGiroEscolhe({ k: null }, Q2, new Blob([new Uint8Array(8)], { type: 'video/webm' })); await w(150); toca(); await w(120); toca(); await w(1500);
+              const erro = [document.getElementById('lfToast').textContent, !!document.getElementById('loadFoto')];
+              return [serve, t1, t2, depois, fechou, erro]; }""")
+            total += 1
+            ok = (got == [[False, False, False, True], 'Qual é a frente?', 'E a 3/4?', ['Qual é a frente?', 'Não achei a peça no quadro da frente', False, True, True], True,
+                          ['Não consegui abrir os quadros do giro', False]] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 33d: escolha à mão — sem peça no quadro a gravação continua (volta à frente, com aviso); erro fecha o carregando e avisa; nota 60+')
+            if not ok: falhas.append('item 33d escolha à mão'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Item 30 (20/11/2026): vistas pela análise — o app pede o resumo de 30 dias à função analise (login do dono) e NÃO lê mais vistas/;
@@ -4104,13 +4143,21 @@ async def main():
             await pg.close()
 
             # S361 (sistema de 360°): o app trata o giro e manda gn para o site. Aqui: o detector da volta (sem vídeo), os campos novos e o caminho antigo.
+            # Item 33b (20/11/2026, medido no vídeo do celular do dono: prato ligado aos 9 s, volta de 41 s, a câmera foi até 1:00 sem fechar):
+            # a volta fecha comparando o FIM da gravação com uma volta antes — o começo parado não entra — e o brilho de cada imagem é igualado
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S;
-              // filas de assinaturas inventadas: uma "peça" que dá a volta a cada 20 s, uma cena parada e meia volta só
-              const faz = (seg, per, ruido) => { const a = []; for (let i = 0; i < seg * 2; i++) { const g = new Float32Array(48 * 27), th = 2 * Math.PI * (i * 0.5) / per;
-                for (let k = 0; k < g.length; k++) g[k] = 150 + (per ? 40 * Math.sin(th + k * 0.37) * Math.cos(k * 0.11) : 0) + ruido * Math.sin(i * 7.1 + k * 3.3); a.push(g); } return a; };
-              const v1 = window.__gtFechou(faz(26, 20, 0.6), 0.5), v2 = window.__gtFechou(faz(40, 0, 0.6), 0.5), v3 = window.__gtFechou(faz(14, 20, 0.6), 0.5), v4 = window.__gtFechou(faz(30, 20, 0.6), 0.5);
-              const fecha = !!v1 && Math.abs(v1.per - 20) < 0.6 && !!v4, naoFecha = v2 === null && v3 === null;
+              // filas de assinaturas inventadas: a "peça" fica parada `par` s e depois dá a volta a cada `per` s; ganho = luz automática mexendo
+              const faz = (seg, per, ruido, par, ganho) => { const a = []; for (let i = 0; i < seg * 2; i++) { const t = (i + 1) * 0.5, g = new Float32Array(48 * 27), th = per && t > (par || 0) ? 2 * Math.PI * (t - (par || 0)) / per : 0, gh = 1 + (ganho || 0) * Math.sin(t / 3);
+                for (let k = 0; k < g.length; k++) g[k] = (150 + (per ? 40 * Math.sin(th + k * 0.37) * Math.cos(k * 0.11) : 0)) * gh + ruido * Math.sin(i * 7.1 + k * 3.3); a.push(g); } return a; };
+              const F = window.__gtFechou, vivo = a => { for (let n = 24; n <= a.length; n++) { const v = F(a.slice(0, n), 0.5); if (v) return [n * 0.5, v.per]; } return null; };
+              const v1 = F(faz(26, 20, 0.6), 0.5), v2 = F(faz(40, 0, 0.6), 0.5), v3 = F(faz(14, 20, 0.6), 0.5), v4 = F(faz(30, 20, 0.6), 0.5);
+              const fecha = !!v1 && Math.abs(v1.per - 20) < 0.6 && !!v4, naoFecha = v2 === null && v3 === null && F(faz(60, 0, 0.6, 0, 0.03), 0.5) === null;
+              // o caso do dono: parado 9 s, volta de 41 s → fecha logo depois dos 50 s (antes: nunca); e com a luz variando 2%
+              const d1 = vivo(faz(60, 41, 0.6, 9)), d2 = vivo(faz(60, 41, 0.6, 9, 0.02)), d3 = vivo(faz(60, 20, 0.6, 15)), d4 = vivo(faz(60, 41, 0.6, 9).slice(0, 96));
+              const dono = [d1, d2].every(d => d && d[0] >= 50 && d[0] <= 54.5 && Math.abs(d[1] - 41) < 0.5) && d3 && d3[0] >= 35 && d3[0] <= 39.5 && Math.abs(d3[1] - 20) < 0.4 && d4 === null;
+              // no vídeo já gravado: a primeira volta inteira e onde ela termina — o trecho tratado (fim − volta … fim) começa depois do prato ligar
+              const p = window.__gtPrimeira(faz(60, 41, 0.6, 9), 0.5, 0.6), gravado = !!p && Math.abs(p.per - 41) < 0.4 && (p.n - 1) * 0.5 - p.per >= 9 && (p.n - 1) * 0.5 <= 58 && window.__gtPrimeira(faz(60, 0, 0.6), 0.5, 0.6) === null;
               // campos do site: sem giro tratado gn = 0; com giro tratado gn = 360 e vai no documento
               S.giroSite = { T1: { p: 'media/giro/T1.mp4', v: 5 } }; const g0 = L.giroGn('T1');
               S.giroSite.T1.n = 360; const g1 = L.giroGn('T1'), doc = L.vitDocBody('T1', { gv: L.giroGv('T1'), gn: L.giroGn('T1'), gvc: 0 });
@@ -4122,10 +4169,10 @@ async def main():
               const bt = new Blob([new Uint8Array(10)], { type: 'video/mp4;gn=360' }); S.giros.T3 = { k: 'T3|x' };
               const p3 = await L.giroPrepara('T3', bt); // giro tratado na hora da gravação: reconhecido pelo tipo, não é tratado de novo
               const caminhos = p1.n === 360 && p1.blob === b && p2.n === 0 && p3.n === 360 && p3.blob === bt && typeof L.estGiroAuto === 'function';
-              return [typeof window.giroTrata === 'function', fecha, naoFecha, campos, caminhos]; }""")
+              return [typeof window.giroTrata === 'function', fecha, naoFecha, dono, gravado, campos, caminhos]; }""")
             total += 1
-            ok = got == [True] * 5 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S361: giro 360° — a volta fecha sozinha (e não fecha parado nem pela metade), gn/gvc vão para o site, giro tratado não é refeito')
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S361 + item 33b: giro 360° — a volta fecha sozinha com o prato ligado depois (e não fecha parado nem pela metade), gn/gvc vão para o site, giro tratado não é refeito')
             if not ok: falhas.append('S361 giro 360'); print('        veio', got, pg.erros)
             await pg.close()
 

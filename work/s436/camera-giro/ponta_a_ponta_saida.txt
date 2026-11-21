@@ -1,0 +1,20 @@
+peça ['SP57765|Preto', 1280, 720]
+  3 s {"ticks": 2, "ult": [1, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 13 s {"ticks": 22, "ult": [11, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 23 s {"ticks": 42, "ult": [21, 0], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 33 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "", "escolha": ""}
+ 43 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "25% Achando a frente", "escolha": ""}
+ 53 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "42% Achando a frente", "escolha": ""}
+ 63 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "58% Fundo branco em cada grau", "escolha": ""}
+ 74 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "71% Fundo branco em cada grau", "escolha": ""}
+ 84 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "85% Fundo branco em cada grau", "escolha": ""}
+ 94 s {"ticks": 62, "ult": [31, 20.02], "fim": false, "giro": null, "toast": "", "trat": "100% Fundo branco em cada grau", "escolha": ""}
+ 95 s {"ticks": 62, "ult": [31, 20.02], "fim": true, "giro": {"k": "SP57765|Preto", "ts": 1795222540316, "tipo": "video/mp4;gn=360", "n": 360}, "toast": "Giro pronto: frente, 3/4 e giro salvos", "trat": "", "escolha": ""}
+RESULTADO {"giro": {"k": "SP57765|Preto", "ts": 1795222540316, "tipo": "video/mp4;gn=360", "n": 360}, "blob": ["video/mp4;gn=360", 3067], "frente": 22095, "t34": 21327, "nota": {"n": 100, "mot": [], "ts": 1795222540288}, "fotoFrente": true, "foto34": true}
+ERROS []
+[LF-CAM] grava {"tipo":"video/mp4;codecs=avc1","pronto":"recording"}
+[LF-CAM] parou {"porque":"volta","seg":31,"assinaturas":62,"volta":{"per":20.01533870608746,"casa":0.09372165075545448,"meio":1.4216675115165829,"borda":false},"tipo":"video/mp4;codecs=avc1","kb":3193,"fotos":31}
+[LF-CAM] trata {"fase":"fundo","seg":0}
+[LF-CAM] trata {"fase":"mede","seg":1.4}
+[LF-CAM] trata {"fase":"grava","seg":26.4}
+[LF-CAM] tratou {"seg":62.1,"tipo":"mp4","kb":3067,"info":{"frente":323,"casa":0,"meio":1,"volta":20.01533870608746,"inicio":10.786828293912542,"passeioX":0.29336210779254934,"passeioY":1.3225930016809064,"recorte":[218,129,525,350],"largura":960,"altura":540},"frente":[100,[]],"t34":[100,[]]}

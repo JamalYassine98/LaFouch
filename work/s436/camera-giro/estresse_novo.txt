@@ -1,0 +1,13 @@
+detector: NOVO
+prato 18–45 s, parado 0–14 s, real (ruído .25, luz ±.2%) certo 299 / 300 | antes 0 | período 0 | não fechou 0 | tarde 0 | sem tempo 1 | atraso após a volta: mín 1.14 med 1.96 máx 4.48 | erro do período em graus: med 0.47 p95 1.67
+idem + tempo irregular ±0,1 s                certo 299 / 300 | antes 0 | período 0 | não fechou 0 | tarde 0 | sem tempo 1 | atraso após a volta: mín 1.14 med 1.94 máx 4.48 | erro do período em graus: med 0.64 p95 1.94
+idem + luz ±2% e deriva 3%                   certo 299 / 300 | antes 0 | período 0 | não fechou 0 | tarde 0 | sem tempo 1 | atraso após a volta: mín 1.14 med 1.96 máx 4.48 | erro do período em graus: med 0.45 p95 1.67
+idem + ruído 0,6                             certo 274 / 300 | antes 0 | período 4 | não fechou 0 | tarde 20 | sem tempo 2 | atraso após a volta: mín 1.37 med 2.46 máx 23.14 | erro do período em graus: med 0.54 p95 1.29
+     tarde {"dur":60,"S":0.5740000000000001,"P":21.320999999999998,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":13} {"em":28,"per":21.37,"casa":1,"meio":2.12}
+     tarde {"dur":60,"S":0.224,"P":19.296,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":38} {"em":26,"per":19.4,"casa":1.04,"meio":2.1}
+     tarde {"dur":60,"S":5.152,"P":20.808,"ruido":0.6,"ae":0.005,"jit":0.1,"seed":46} {"em":32,"per":20.84,"casa":1.03,"meio":2.13}
+caso do dono (parado 9,2 s; volta 40,8 s)    certo  60 / 60 | antes 0 | período 0 | não fechou 0 | tarde 0 | sem tempo 0 | atraso após a volta: mín 1.00 med 2.00 máx 2.00 | erro do período em graus: med 1.06 p95 1.68
+prato rápido 9–18 s                          certo 170 / 200 | antes 0 | período 18 | não fechou 0 | tarde 12 | sem tempo 0 | atraso após a volta: mín 1.43 med 2.70 máx 14.07 | erro do período em graus: med 1.62 p95 3.82
+     PERÍODO (>3°) {"dur":60,"S":0.182,"P":9.350999999999999,"ruido":0.25,"ae":0.002,"seed":1} {"em":15,"per":9.43,"casa":0.83,"meio":1.66}
+     tarde {"dur":60,"S":10.780000000000001,"P":11.79,"ruido":0.25,"ae":0.002,"seed":4} {"em":30,"per":11.85,"casa":0.81,"meio":1.72}
+     PERÍODO (>3°) {"dur":60,"S":10.038,"P":10.359,"ruido":0.25,"ae":0.002,"seed":17} {"em":23,"per":10.45,"casa":0.84,"meio":1.68}

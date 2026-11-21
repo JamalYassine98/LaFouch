@@ -114,96 +114,31 @@
       if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
     }
   }
-  // Trava foco, luz e branco NO VALOR que a câmera está usando agora — uma regra só para os três (itens 31 e 32, 20/11/2026; no celular
-  // do dono a imagem ficava branca, depois desfocada e rosada ao gravar): cada um só é travado quando o aparelho diz o valor em uso
-  // (getSettings); "manual" sem esse valor deixa a câmera no padrão do aparelho. Depois de travar, confere a imagem (v = o vídeo da câmera):
-  // se o brilho, a nitidez ou a cor mudaram, solta TUDO e a gravação segue no automático.
-  var C149_MUDOU = { brilho: 35, cor: 25, nitidez: 0.6 }; // brilho e cor de 0 a 255; nitidez = quanto sobrou (0.6 = perdeu 40%)
-  function c149Olha(v) {
-    try {
-      if (!v || v.readyState < 2) return null;
-      var cv = c149Olha.cv || (c149Olha.cv = document.createElement('canvas')),
-        W = 96,
-        H = 54;
-      cv.width = W;
-      cv.height = H;
-      var x = cv.getContext('2d', { willReadFrequently: true });
-      x.drawImage(v, 0, 0, W, H);
-      var d = x.getImageData(0, 0, W, H).data,
-        L = new Float32Array(W * H),
-        br = 0,
-        cor = 0,
-        nit = 0,
-        i,
-        n = 0;
-      for (i = 0; i < W * H; i++) {
-        L[i] = 0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2];
-        br += L[i];
-        cor += d[i * 4] - d[i * 4 + 2]; // vermelho − azul: muda quando o branco da câmera muda
-      }
-      for (var y = 1; y < H - 1; y++)
-        for (var xx = 1; xx < W - 1; xx++) {
-          i = y * W + xx;
-          nit += Math.abs(4 * L[i] - L[i - 1] - L[i + 1] - L[i - W] - L[i + W]);
-          n++;
-        }
-      return { brilho: br / (W * H), cor: cor / (W * H), nitidez: nit / n };
-    } catch (e) {
-      return null;
-    }
-  }
-  function c149Mudou(a, b) {
-    return !!(a && b && (Math.abs(b.brilho - a.brilho) > C149_MUDOU.brilho || Math.abs(b.cor - a.cor) > C149_MUDOU.cor || (a.nitidez > 1 && b.nitidez < a.nitidez * C149_MUDOU.nitidez)));
-  }
-  function c149Trava(t, v) {
+  // Ao gravar a volta, fixa o que o aparelho deixa fixar SEM mexer na imagem (item 33, 20/11/2026 — no celular do dono a imagem ficou
+  // branca, depois desfocada e rosada, depois com um clarão de 1 s ao tocar em gravar). O navegador do Android só segura de verdade o
+  // BRANCO: "manual" liga a trava de branco do aparelho no ponto em que ele está. "Manual" no foco e na luz NÃO congela o que a câmera
+  // está usando: desliga o automático e põe valores que o navegador não mede (a lente vai para a distância padrão; a luz fica com um
+  // tempo de exposição antigo e o ISO padrão) — era isso que estourava a imagem. Por isso foco e luz ficam como estão: no automático,
+  // ou já fixos por quem ajustou a câmera antes (Medir fundo, controles). O texto diz só o que ficou fixo de verdade.
+  function c149Trava(t) {
     if (!t || !t.getCapabilities) return Promise.resolve('');
     var c = t.getCapabilities(),
       s = t.getSettings ? t.getSettings() : {},
-      a = {},
-      solta = {},
       q = [],
-      pode = function (modo) {
-        return !!(c[modo] && c[modo].indexOf('manual') >= 0);
+      fixo = function (modo) {
+        return s[modo] === 'manual' || s[modo] === 'none';
       },
-      NAO = 'Este aparelho não deixa travar foco e luz';
-    if (pode('focusMode') && s.focusDistance > 0) {
-      a.focusMode = 'manual';
-      a.focusDistance = s.focusDistance;
-      solta.focusMode = 'continuous';
-      q.push('foco');
-    }
-    if (pode('exposureMode') && s.exposureTime > 0) {
-      a.exposureMode = 'manual';
-      a.exposureTime = s.exposureTime;
-      if (c.iso && s.iso) a.iso = s.iso;
-      solta.exposureMode = 'continuous';
-      q.push('luz');
-    }
-    if (pode('whiteBalanceMode') && s.colorTemperature > 0) {
-      a.whiteBalanceMode = 'manual';
-      a.colorTemperature = s.colorTemperature;
-      solta.whiteBalanceMode = 'continuous';
+      txt = function () {
+        return q.length ? 'Travado: ' + q.join(', ') : 'Este aparelho não deixa travar foco e luz';
+      };
+    if (fixo('focusMode')) q.push('foco');
+    if (fixo('exposureMode')) q.push('luz');
+    if (fixo('whiteBalanceMode')) q.push('branco');
+    if (fixo('whiteBalanceMode') || !(c.whiteBalanceMode && c.whiteBalanceMode.indexOf('manual') >= 0)) return Promise.resolve(txt());
+    return t.applyConstraints({ advanced: [{ whiteBalanceMode: 'manual' }] }).then(function () {
       q.push('branco');
-    }
-    if (!q.length) return Promise.resolve(NAO);
-    var antes = c149Olha(v);
-    return t.applyConstraints({ advanced: [a] }).then(
-      function () {
-        if (!antes) return 'Travado: ' + q.join(', ');
-        return new Promise(function (ok) {
-          setTimeout(ok, 900);
-        }).then(function () {
-          if (!c149Mudou(antes, c149Olha(v))) return 'Travado: ' + q.join(', ');
-          var nao = function () {
-            return NAO;
-          };
-          return t.applyConstraints({ advanced: [solta] }).then(nao, nao);
-        });
-      },
-      function () {
-        return 'Não consegui travar foco e luz';
-      }
-    );
+      return txt();
+    }, txt);
   }
   function c149Mediana(a) {
     a = a.slice().sort(function (p, q) {
@@ -397,8 +332,9 @@
         recB.nextSibling.textContent = 'Parar';
         c149Frase(ov, 'Ligue o prato agora e não toque mais no celular', true);
         var track = EST_ST.getVideoTracks()[0];
-        c149Trava(track, vid).then(function (txt) {
+        c149Trava(track).then(function (txt) {
           trava.textContent = txt;
+          camDiario('trava', { txt: txt, aparelho: track.getSettings ? track.getSettings() : null });
           if (!ov.isConnected) return;
           try {
             V.grav = giroGrava(EST_ST, vid, { k: ctx.k || null, fim: ctx.prox || ctx.fim }, { // na sessão (fila) segue para a próxima peça

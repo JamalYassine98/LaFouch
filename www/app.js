@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 585;
+  var APP_BUILD = 586;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.10'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.11'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -32124,7 +32124,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Grava a volta com o stream da câmera aberta. Para sozinho quando a volta fecha (gtFechou) ou em 60 s (dono 19/11 20:01).
   // ui.tick(seg, volta) a cada meio segundo; ui.fecha() fecha a câmera antes de tratar. Devolve { para }.
-  var GIRO_MAX = 60;
+  var GIRO_MAX = 60,
+    GIRO_PASSO = 0.5; // uma assinatura a cada meio segundo
   function giroGrava(s, v, ctx, ui) {
     var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
       mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
@@ -32136,21 +32137,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (e.data && e.data.size) ch.push(e.data);
     };
     // uma foto por segundo para a escolha da frente e da 3/4, e uma assinatura a cada meio segundo para saber quando a volta fechou
-    var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false;
-    var para = function () {
+    var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false, porque = '';
+    var para = function (motivo) {
       if (parou) return;
       parou = true;
+      porque = motivo || 'parar';
       clearInterval(pega);
       if (rec.state === 'recording') rec.stop();
     };
     var pega = setInterval(function () {
-      if (!v.isConnected) return para();
+      if (!v.isConnected) return para('fechou');
       if (!v.videoWidth) return;
-      var seg = (Date.now() - t0g) / 1000;
-      ass.push(gtAssina(v, asX));
-      if (!volta && ass.length >= 24 && ass.length % 2 === 0) volta = gtFechou(ass, 0.5);
+      var seg = (Date.now() - t0g) / 1000,
+        g = gtAssina(v, asX);
+      // uma assinatura por meio segundo DE RELÓGIO: se o aparelho pulou um tique, a vaga que faltou repete a imagem de agora (a conta da volta conta o tempo pelas vagas)
+      do ass.push(g);
+      while (ass.length < Math.floor(seg / GIRO_PASSO));
+      if (!volta) volta = gtFechou(ass, GIRO_PASSO);
       if (ui && ui.tick) ui.tick(seg, volta);
-      if (volta || seg >= GIRO_MAX) return para();
+      if (volta || seg >= GIRO_MAX) return para(volta ? 'volta' : 'limite');
       if (tique++ % 2) return;
       cap.width = v.videoWidth;
       cap.height = v.videoHeight;
@@ -32166,17 +32171,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       clearInterval(pega);
       var fechou = !v.isConnected; // fechou a câmera (×) no meio da gravação: descarta, não trata
       if (ui && ui.fecha) ui.fecha();
-      if (fechou) return;
       var video = new Blob(ch, { type: mt || 'video/webm' });
-      if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+      camDiario('parou', { porque: fechou ? 'fechou' : porque, seg: Math.round((Date.now() - t0g) / 100) / 10, assinaturas: ass.length, volta: volta, tipo: video.type, kb: Math.round(video.size / 1024), fotos: Q.length });
+      if (fechou) return;
       setTimeout(function () {
-        // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
-        if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
-        else estGiroEscolhe(ctx, Q, video);
+        // S361: o app trata o giro e tira a frente e a 3/4 sozinho. Quem diz se o vídeo tem UMA volta inteira é o tratamento: a volta que a
+        // câmera viu fechar ao vivo ou, sem ela (limite de 60 s, parou à mão), a que ele achar no vídeo gravado. Gravação curta demais para
+        // caber uma volta, ou aparelho que não trata: a escolha à mão de antes.
+        if (typeof giroTrata === 'function' && window.VideoEncoder && (volta || ass.length * GIRO_PASSO >= GT_TMIN + GT_JAN + 1)) estGiroAuto(ctx, Q, video, volta);
+        else estGiroSemVolta(ctx, Q, video);
       }, 300);
     };
     rec.start(500);
+    camDiario('grava', { tipo: mt, pronto: rec.state });
     return { para: para };
+  }
+  // Não deu uma volta inteira: avisa e segue pela escolha à mão.
+  function estGiroSemVolta(ctx, Q, video) {
+    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+    estGiroEscolhe(ctx, Q, video);
   }
   // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
   var EG_FASE = { volta: ['Conferindo a volta', 0, 0.06], fundo: ['Aprendendo o fundo', 0.06, 0.04], mede: ['Achando a frente', 0.1, 0.42], grava: ['Fundo branco em cada grau', 0.52, 0.48] };
@@ -32194,11 +32207,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       estGiroEscolhe(ctx, Q, video);
     };
     ov.querySelector('#egTm').onclick = manual;
+    var t0t = Date.now(), fase = '';
     giroTrata(video, {
-      per: volta.per, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
+      per: volta ? volta.per : 0, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
       para: function () { return parou; },
       aviso: function (f, p) {
         var e = EG_FASE[f]; if (!e || parou) return;
+        if (f !== fase) { fase = f; camDiario('trata', { fase: f, seg: Math.round((Date.now() - t0t) / 100) / 10 }); }
         var t = e[1] + e[2] * p;
         ov.querySelector('#egTa').style.strokeDashoffset = String(119.4 * (1 - t));
         ov.querySelector('#egTp').textContent = Math.round(t * 100) + '%';
@@ -32218,12 +32233,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }).then(function (rr) {
       if (parou) return;
       var r = rr[0], R1 = rr[1][0] ? estProcessa(rr[1][0]) : {}, R2 = rr[1][1] ? estProcessa(rr[1][1]) : {};
-      if (!R1.cv) return manual(); // não achou a peça na frente: escolha à mão
+      camDiario('tratou', { seg: Math.round((Date.now() - t0t) / 100) / 10, tipo: r.tipo, kb: Math.round(r.blob.size / 1024), info: r.info, frente: [R1.n, R1.mot], t34: [R2.n, R2.mot] });
+      if (!estFotoServe(R1)) return manual(); // a frente do giro tratado não serve de foto: escolha à mão
       parou = true;
       ov.remove();
       if (ctx.k) {
         estGrava(ctx.k, 'frente', R1);
-        if (R2.cv) estGrava(ctx.k, '34', R2);
+        if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
         estGiroGuarda(ctx.k, r.blob);
         lfToast('Giro pronto: frente, 3/4 e giro salvos');
         render();
@@ -32231,10 +32247,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return;
       }
       var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: r.blob };
-      if (R2.cv) c2.fotos['34'] = R2;
+      if (estFotoServe(R2)) c2.fotos['34'] = R2;
       estDestino(c2, ctx.fim);
-    }, function () {
-      manual();
+    }).catch(function (e) {
+      // não deu para tratar: o vídeo não tem uma volta inteira (avisa) ou o aparelho falhou no meio — nos dois casos, a escolha à mão
+      camDiario('trata-erro', { seg: Math.round((Date.now() - t0t) / 100) / 10, fase: fase, erro: String((e && e.message) || e) });
+      if (parou) return;
+      if (!e || e.message !== 'giro-curto') return manual();
+      parou = true;
+      ov.remove();
+      estGiroSemVolta(ctx, Q, video);
     });
   }
   // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
@@ -32244,6 +32266,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     if (Q.length < 4) return lfToast('O giro ficou curto demais');
     var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
+      ixF = ix,
       passo = 'frente',
       esc = {},
       ov = document.createElement('div');
@@ -32270,11 +32293,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (b.dataset.g !== 'ok') return;
       esc[passo] = Q[ix].b;
       if (passo === 'frente') {
+        ixF = ix;
         passo = '34';
         ix = Math.min(Q.length - 1, ix + Math.max(2, Math.round(Q.length / 8)));
         return pinta();
       }
-      ov.remove();
       loadMsg(true, 'Aplicando a luz de estúdio');
       var abre = function (bl) {
         return new Promise(function (ok, no) {
@@ -32289,13 +32312,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
       };
       Promise.all([abre(esc.frente), abre(esc['34'])]).then(function (ims) {
-        var R1 = estProcessa(ims[0]),
-          R2 = estProcessa(ims[1]);
+        return [estProcessa(ims[0]), estProcessa(ims[1])];
+      }).then(function (R) {
+        var R1 = R[0],
+          R2 = R[1];
         loadMsg(false);
-        if (!R1.cv) return lfToast('Não achei a peça no quadro da frente');
+        camDiario('escolha', { frente: [R1.n, R1.mot], t34: [R2.n, R2.mot] });
+        if (!estFotoServe(R1)) {
+          // a gravação não se perde: a escolha continua aberta, de volta na frente, para tentar outro quadro (ou fechar no ×)
+          passo = 'frente';
+          ix = ixF;
+          pinta();
+          return lfToast('Não achei a peça no quadro da frente');
+        }
+        ov.remove();
         if (ctx.k) {
           estGrava(ctx.k, 'frente', R1);
-          if (R2.cv) estGrava(ctx.k, '34', R2);
+          if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
           estGiroGuarda(ctx.k, video);
           lfToast('Frente, 3/4 e giro salvos');
           render();
@@ -32304,10 +32337,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }
         // antes de cadastrar: "De qual peça é?" (a frente e a 3/4 vão juntas; o giro também)
         var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: video };
-        if (R2.cv) c2.fotos['34'] = R2;
+        if (estFotoServe(R2)) c2.fotos['34'] = R2;
         estDestino(c2, ctx.fim);
-      }, function () {
+      }).catch(function (e) {
         loadMsg(false);
+        camDiario('escolha-erro', { erro: String((e && e.message) || e) });
         lfToast('Não consegui abrir os quadros do giro');
       });
     };
@@ -32476,6 +32510,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return ajusta(v);
     });
     return { cf: ch, sw: sw, sh: sh, termos: termos };
+  }
+  // A imagem tratada serve de foto da peça SEM passar pela tela de conferir? Achou a peça e a nota é "Dá para usar" (60+, o mesmo corte
+  // dessa tela). É a regra da frente e da 3/4 que saem do giro, que são guardadas direto.
+  function estFotoServe(R) {
+    return !!(R && R.cv && R.n >= 60);
   }
   function estProcessa(src) {
     var w0 = src.naturalWidth || src.videoWidth || src.width,
@@ -32976,6 +33015,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
   }
   // ---------- câmera do Estúdio ----------
+  // Diário da câmera (item 33): o que a câmera e o giro fizeram NESTE aparelho, uma linha por fato, no console do app — num celular
+  // ligado ao PC sai no `adb logcat`, com a marca [LF-CAM]. Não aparece em tela nenhuma e não guarda nada: serve para achar a causa de
+  // defeito que só acontece no celular de verdade (o simulador não tem a câmera, o gravador nem a velocidade dele).
+  function camDiario(fato, d) {
+    try {
+      console.log('[LF-CAM] ' + fato + ' ' + JSON.stringify(d === undefined ? null : d));
+    } catch (e) {}
+  }
   var EST_ST = null; // stream atual
   function estFechaCam() {
     if (EST_ST)
@@ -33168,6 +33215,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         } catch (e) {
           cap = {};
         }
+        camDiario('abre', { modo: ov.dataset.modo, pode: cap, aparelho: track.getSettings ? track.getSettings() : null, perfil: P && P.salvo ? P : null });
         // perfil salvo
         // perfil antigo (antes da v437) podia ter velocidade longa travada (imagem branca): descarta e volta ao automático
         if (P && P.salvo && P.v !== 2) {
@@ -33805,7 +33853,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ov.id = 'estRes';
     document.body.appendChild(ov);
     var passo = ctx.passo || 'frente',
-      ok = !!R.cv && R.n >= 60,
       cor = R.n >= 75 ? 'var(--ok)' : R.n >= 60 ? 'var(--warn)' : 'var(--bad)',
       tem34 = !!ctx.k || !!ctx.nova;
     ov.innerHTML =
@@ -35383,35 +35430,67 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return { lab: lab, area: area, n: n };
   }
-  // assinatura pequena de uma imagem (48×27 tons de cinza) e a duração de UMA volta a partir de uma fila de assinaturas:
-  // a distância no tempo que melhor "casa" o vídeo com ele mesmo. casa = diferença nessa distância; meio = diferença típica.
-  var GT_SW = 48, GT_SH = 27;
+  // assinatura pequena de uma imagem (48×27 tons de cinza); a duração de UMA volta sai de uma fila delas, uma a cada `passo` segundos.
+  // Item 33 (20/11/2026, celular do dono): a conta antiga casava a gravação INTEIRA com ela mesma, desde o primeiro segundo — e o começo
+  // é a peça parada (a câmera manda ligar o prato depois de tocar em gravar). Com o prato ligado aos 9 s, a volta de 41 s nunca "fechava".
+  // Agora o que se compara é o FIM da fila: os últimos 3 s com o que a câmera viu T antes; o T que melhor casa é a volta.
+  //  · só vale como "uma volta antes" o trecho em que o prato já girava (a imagem mudava de meio em meio segundo, como muda agora);
+  //    o trecho parado do começo fica de fora — senão a peça chegando perto da posição inicial "casava" com ele e a volta saía errada;
+  //  · antes de comparar, cada assinatura vai para o mesmo brilho médio (gtIguala): a luz que a câmera escolhe a cada imagem não entra na conta.
+  // casa = diferença nesse T; meio = diferença típica desses 3 s para 2 a 6 s antes (a peça em outro ângulo).
+  var GT_SW = 48, GT_SH = 27, GT_JAN = 3, GT_TMIN = 8; // janela do fim e menor volta aceita, em segundos
   function gtAssina(fonte, x2) {
     x2.drawImage(fonte, 0, 0, GT_SW, GT_SH);
     var d = x2.getImageData(0, 0, GT_SW, GT_SH).data, g = new Float32Array(GT_SW * GT_SH);
     for (var k = 0; k < g.length; k++) g[k] = (d[k * 4] + d[k * 4 + 1] + d[k * 4 + 2]) / 3;
     return g;
   }
-  function gtVolta(ass, passo) {
-    var n = ass.length, melhor = 0, mv = 1e9, lista = [], T0 = Math.round(8 / passo);
-    for (var T = T0; T <= n - Math.round(3 / passo); T++) {
-      var s = 0, c = 0;
-      for (var a = 0; a + T < n; a++) { var A = ass[a], Bq = ass[a + T], dd = 0; for (var k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); s += dd / A.length; c++; }
-      s /= c; lista.push([T, s]);
-      if (s < mv) { mv = s; melhor = T; }
-    }
-    if (!lista.length) return { per: 0, casa: 1e9, meio: 0 };
-    var ix = melhor - T0, f = 0; // afina entre os vizinhos (parábola)
-    if (ix > 0 && ix < lista.length - 1) { var y0 = lista[ix - 1][1], y1 = lista[ix][1], y2 = lista[ix + 1][1], den = y0 - 2 * y1 + y2; if (den > 1e-9) f = 0.5 * (y0 - y2) / den; }
-    // diferença típica entre imagens afastadas de 2 a 6 s (a peça em outro ângulo)
-    var m = 0, mc = 0;
-    for (var q = Math.round(2 / passo); q <= Math.round(6 / passo); q++) for (a = 0; a + q < n; a += 2) { A = ass[a]; Bq = ass[a + q]; dd = 0; for (k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); m += dd / A.length; mc++; }
-    return { per: (melhor + f) * passo, casa: mv, meio: mc ? m / mc : 0, borda: ix <= 0 || ix >= lista.length - 1 };
+  function gtIguala(ass) {
+    var ms = ass.map(function (g) { var s = 0; for (var k = 0; k < g.length; k++) s += g[k]; return s / g.length; }), M = 0;
+    ms.forEach(function (m) { M += m; });
+    M /= ms.length || 1;
+    return ass.map(function (g, i) { var f = M / (ms[i] || 1), o = new Float32Array(g.length); for (var k = 0; k < g.length; k++) o[k] = g[k] * f; return o; });
   }
-  // a volta fechou? (usado ao vivo pela câmera do Estúdio para fechar sozinha)
-  function gtFechou(ass, passo) {
+  function gtDif(A, B) {
+    var dd = 0;
+    for (var k = 0; k < A.length; k++) dd += Math.abs(A[k] - B[k]);
+    return dd / A.length;
+  }
+  function gtVolta(ass, passo) {
+    var n = ass.length, W = Math.round(GT_JAN / passo), melhor = 0, mv = 1e9, val = [], mov = new Float32Array(n), agora = 0, T, k, s, e;
+    ass = gtIguala(ass);
+    for (k = 1; k < n; k++) mov[k] = gtDif(ass[k], ass[k - 1]); // quanto a imagem muda de meio em meio segundo
+    for (k = Math.max(1, n - W); k < n; k++) agora += mov[k] / W;
+    for (T = Math.round(GT_TMIN / passo); T <= n - W - 1; T++) {
+      s = 0; e = 0;
+      for (k = n - W; k < n; k++) { s += gtDif(ass[k], ass[k - T]); e += mov[k - T]; }
+      if (e / W < agora * 0.5) continue; // nesse trecho a peça estava parada
+      val[T] = s / W;
+      if (val[T] < mv) { mv = val[T]; melhor = T; }
+    }
+    if (!melhor) return { per: 0, casa: 1e9, meio: 0, borda: true };
+    var y0 = val[melhor - 1], y2 = val[melhor + 1], borda = y0 === undefined || y2 === undefined, f = 0, den, m = 0, mc = 0; // borda: sem vizinho dos dois lados não dá para dizer que é o melhor
+    if (!borda) { den = y0 - 2 * mv + y2; if (den > 1e-9) f = 0.5 * (y0 - y2) / den; } // afina entre os vizinhos (parábola)
+    for (var q = Math.round(2 / passo); q <= Math.round(6 / passo); q++) for (k = n - W; k < n; k++) if (k - q >= 0) { m += gtDif(ass[k], ass[k - q]); mc++; }
+    return { per: (melhor + f) * passo, casa: mv, meio: mc ? m / mc : 0, borda: borda };
+  }
+  // a volta fechou? (ao vivo, a câmera do Estúdio fecha sozinha: folga 0.5; no vídeo já gravado dá para ser menos exigente: 0.6)
+  // "sem borda" já garante que a gravação tem a volta mais 3,5 s.
+  function gtFechou(ass, passo, folga) {
     var v = gtVolta(ass, passo);
-    return v.per > 0 && !v.borda && v.meio > 0.8 && v.casa < v.meio * 0.5 && ass.length * passo >= v.per + 3.5 ? v : null;
+    return v.per > 0 && !v.borda && v.meio > 0.8 && v.casa < v.meio * (folga || 0.5) ? v : null;
+  }
+  // A primeira volta inteira de uma fila já gravada: anda pela fila como a câmera andaria ao vivo e, quando a volta fecha, fica com o ponto
+  // dos 3 s seguintes em que ela casa melhor (ali os dois trechos comparados já estão com o prato girando). n = quantas assinaturas até ali.
+  function gtPrimeira(ass, passo, folga) {
+    var mais = Math.round(GT_JAN / passo), ate = ass.length, n, v, m = null;
+    for (n = Math.round((GT_TMIN + GT_JAN) / passo) + 2; n <= ate; n++) {
+      v = gtFechou(ass.slice(0, n), passo, folga);
+      if (!v) continue;
+      if (!m) ate = Math.min(ate, n + mais);
+      if (!m || v.casa < m.casa) { m = v; m.n = n; }
+    }
+    return m;
   }
   function giroTrata(blob, o) {
     o = o || {};
@@ -35423,7 +35502,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return cx.getImageData(0, 0, W, H).data;
       });
     }
-    // 1) duração de uma volta: assinaturas pequenas ao longo do vídeo e a distância que melhor "casa" o vídeo com ele mesmo
+    // 1) a volta: assinaturas pequenas ao longo do vídeo (uma a cada meio segundo) e a primeira volta inteira que elas mostram;
+    //    fim = o segundo do vídeo em que essa volta termina
     function acha_volta() {
       var c2 = document.createElement('canvas'); c2.width = GT_SW; c2.height = GT_SH;
       var x2 = c2.getContext('2d', { willReadFrequently: true }), passo = 0.5, ass = [], n = Math.floor((dur - 0.2) / passo), i = 0;
@@ -35435,7 +35515,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return um();
         });
       }
-      return um().then(function () { return gtVolta(ass, passo); });
+      return um().then(function () {
+        var vt = gtPrimeira(ass, passo, 0.6);
+        if (vt) vt.fim = (vt.n - 1) * passo;
+        return vt;
+      });
     }
     function monta_fundo() {
       var K = 24, am = [], i = 0;
@@ -35548,10 +35632,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       v = vid; dur = v.duration;
       W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; P = W * H; w2 = W >> 1; h2 = H >> 1;
       cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
-      return o.per ? { per: o.per, casa: 0, meio: 1 } : acha_volta();
+      // quem gravou já sabe a volta (a câmera parou quando ela fechou): ela termina no fim do vídeo
+      return o.per ? { per: o.per, casa: 0, meio: 1, fim: dur - 0.2 } : acha_volta();
     }).then(function (vt) {
-      vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, Math.min(1, dur - per - 0.2));
-      if (!(per > 6) || vt.borda || !(vt.casa < vt.meio * 0.6) || t0 + per > dur + 0.3) throw new Error('giro-curto'); // não deu uma volta inteira
+      if (!vt || !(vt.per > 6)) throw new Error('giro-curto'); // não deu uma volta inteira
+      // a volta tratada é a que TERMINA onde ela fechou — nunca o começo da gravação, que é a peça parada esperando o prato ligar
+      vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, vt.fim - per);
+      if (t0 + per > dur + 0.3) throw new Error('giro-curto');
       return monta_fundo().then(function () {
         // 1ª passada: onde a peça está em cada grau, e a nitidez
         var med = [], n = 0;
@@ -35710,6 +35797,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   window.giroTrata = giroTrata;
   window.__gtVolta = gtVolta;
   window.__gtFechou = gtFechou;
+  window.__gtPrimeira = gtPrimeira;
   // ===== Histórico: resumo por mês, busca, filtros, calendário e carregamento aos poucos. =====
   S.hq = '';
   S.hF = { tipo: '', forma: '', faixa: '', moeda: '', vmin: '', vmax: '' };
@@ -50754,96 +50842,31 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (L.scrollHeight <= L.clientHeight + 1 && !corta) return;
     }
   }
-  // Trava foco, luz e branco NO VALOR que a câmera está usando agora — uma regra só para os três (itens 31 e 32, 20/11/2026; no celular
-  // do dono a imagem ficava branca, depois desfocada e rosada ao gravar): cada um só é travado quando o aparelho diz o valor em uso
-  // (getSettings); "manual" sem esse valor deixa a câmera no padrão do aparelho. Depois de travar, confere a imagem (v = o vídeo da câmera):
-  // se o brilho, a nitidez ou a cor mudaram, solta TUDO e a gravação segue no automático.
-  var C149_MUDOU = { brilho: 35, cor: 25, nitidez: 0.6 }; // brilho e cor de 0 a 255; nitidez = quanto sobrou (0.6 = perdeu 40%)
-  function c149Olha(v) {
-    try {
-      if (!v || v.readyState < 2) return null;
-      var cv = c149Olha.cv || (c149Olha.cv = document.createElement('canvas')),
-        W = 96,
-        H = 54;
-      cv.width = W;
-      cv.height = H;
-      var x = cv.getContext('2d', { willReadFrequently: true });
-      x.drawImage(v, 0, 0, W, H);
-      var d = x.getImageData(0, 0, W, H).data,
-        L = new Float32Array(W * H),
-        br = 0,
-        cor = 0,
-        nit = 0,
-        i,
-        n = 0;
-      for (i = 0; i < W * H; i++) {
-        L[i] = 0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2];
-        br += L[i];
-        cor += d[i * 4] - d[i * 4 + 2]; // vermelho − azul: muda quando o branco da câmera muda
-      }
-      for (var y = 1; y < H - 1; y++)
-        for (var xx = 1; xx < W - 1; xx++) {
-          i = y * W + xx;
-          nit += Math.abs(4 * L[i] - L[i - 1] - L[i + 1] - L[i - W] - L[i + W]);
-          n++;
-        }
-      return { brilho: br / (W * H), cor: cor / (W * H), nitidez: nit / n };
-    } catch (e) {
-      return null;
-    }
-  }
-  function c149Mudou(a, b) {
-    return !!(a && b && (Math.abs(b.brilho - a.brilho) > C149_MUDOU.brilho || Math.abs(b.cor - a.cor) > C149_MUDOU.cor || (a.nitidez > 1 && b.nitidez < a.nitidez * C149_MUDOU.nitidez)));
-  }
-  function c149Trava(t, v) {
+  // Ao gravar a volta, fixa o que o aparelho deixa fixar SEM mexer na imagem (item 33, 20/11/2026 — no celular do dono a imagem ficou
+  // branca, depois desfocada e rosada, depois com um clarão de 1 s ao tocar em gravar). O navegador do Android só segura de verdade o
+  // BRANCO: "manual" liga a trava de branco do aparelho no ponto em que ele está. "Manual" no foco e na luz NÃO congela o que a câmera
+  // está usando: desliga o automático e põe valores que o navegador não mede (a lente vai para a distância padrão; a luz fica com um
+  // tempo de exposição antigo e o ISO padrão) — era isso que estourava a imagem. Por isso foco e luz ficam como estão: no automático,
+  // ou já fixos por quem ajustou a câmera antes (Medir fundo, controles). O texto diz só o que ficou fixo de verdade.
+  function c149Trava(t) {
     if (!t || !t.getCapabilities) return Promise.resolve('');
     var c = t.getCapabilities(),
       s = t.getSettings ? t.getSettings() : {},
-      a = {},
-      solta = {},
       q = [],
-      pode = function (modo) {
-        return !!(c[modo] && c[modo].indexOf('manual') >= 0);
+      fixo = function (modo) {
+        return s[modo] === 'manual' || s[modo] === 'none';
       },
-      NAO = 'Este aparelho não deixa travar foco e luz';
-    if (pode('focusMode') && s.focusDistance > 0) {
-      a.focusMode = 'manual';
-      a.focusDistance = s.focusDistance;
-      solta.focusMode = 'continuous';
-      q.push('foco');
-    }
-    if (pode('exposureMode') && s.exposureTime > 0) {
-      a.exposureMode = 'manual';
-      a.exposureTime = s.exposureTime;
-      if (c.iso && s.iso) a.iso = s.iso;
-      solta.exposureMode = 'continuous';
-      q.push('luz');
-    }
-    if (pode('whiteBalanceMode') && s.colorTemperature > 0) {
-      a.whiteBalanceMode = 'manual';
-      a.colorTemperature = s.colorTemperature;
-      solta.whiteBalanceMode = 'continuous';
+      txt = function () {
+        return q.length ? 'Travado: ' + q.join(', ') : 'Este aparelho não deixa travar foco e luz';
+      };
+    if (fixo('focusMode')) q.push('foco');
+    if (fixo('exposureMode')) q.push('luz');
+    if (fixo('whiteBalanceMode')) q.push('branco');
+    if (fixo('whiteBalanceMode') || !(c.whiteBalanceMode && c.whiteBalanceMode.indexOf('manual') >= 0)) return Promise.resolve(txt());
+    return t.applyConstraints({ advanced: [{ whiteBalanceMode: 'manual' }] }).then(function () {
       q.push('branco');
-    }
-    if (!q.length) return Promise.resolve(NAO);
-    var antes = c149Olha(v);
-    return t.applyConstraints({ advanced: [a] }).then(
-      function () {
-        if (!antes) return 'Travado: ' + q.join(', ');
-        return new Promise(function (ok) {
-          setTimeout(ok, 900);
-        }).then(function () {
-          if (!c149Mudou(antes, c149Olha(v))) return 'Travado: ' + q.join(', ');
-          var nao = function () {
-            return NAO;
-          };
-          return t.applyConstraints({ advanced: [solta] }).then(nao, nao);
-        });
-      },
-      function () {
-        return 'Não consegui travar foco e luz';
-      }
-    );
+      return txt();
+    }, txt);
   }
   function c149Mediana(a) {
     a = a.slice().sort(function (p, q) {
@@ -51037,8 +51060,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         recB.nextSibling.textContent = 'Parar';
         c149Frase(ov, 'Ligue o prato agora e não toque mais no celular', true);
         var track = EST_ST.getVideoTracks()[0];
-        c149Trava(track, vid).then(function (txt) {
+        c149Trava(track).then(function (txt) {
           trava.textContent = txt;
+          camDiario('trava', { txt: txt, aparelho: track.getSettings ? track.getSettings() : null });
           if (!ov.isConnected) return;
           try {
             V.grav = giroGrava(EST_ST, vid, { k: ctx.k || null, fim: ctx.prox || ctx.fim }, { // na sessão (fila) segue para a próxima peça
@@ -53202,7 +53226,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, estFotoServe: estFotoServe, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

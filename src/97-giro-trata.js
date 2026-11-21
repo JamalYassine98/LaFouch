@@ -99,35 +99,67 @@
     }
     return { lab: lab, area: area, n: n };
   }
-  // assinatura pequena de uma imagem (48×27 tons de cinza) e a duração de UMA volta a partir de uma fila de assinaturas:
-  // a distância no tempo que melhor "casa" o vídeo com ele mesmo. casa = diferença nessa distância; meio = diferença típica.
-  var GT_SW = 48, GT_SH = 27;
+  // assinatura pequena de uma imagem (48×27 tons de cinza); a duração de UMA volta sai de uma fila delas, uma a cada `passo` segundos.
+  // Item 33 (20/11/2026, celular do dono): a conta antiga casava a gravação INTEIRA com ela mesma, desde o primeiro segundo — e o começo
+  // é a peça parada (a câmera manda ligar o prato depois de tocar em gravar). Com o prato ligado aos 9 s, a volta de 41 s nunca "fechava".
+  // Agora o que se compara é o FIM da fila: os últimos 3 s com o que a câmera viu T antes; o T que melhor casa é a volta.
+  //  · só vale como "uma volta antes" o trecho em que o prato já girava (a imagem mudava de meio em meio segundo, como muda agora);
+  //    o trecho parado do começo fica de fora — senão a peça chegando perto da posição inicial "casava" com ele e a volta saía errada;
+  //  · antes de comparar, cada assinatura vai para o mesmo brilho médio (gtIguala): a luz que a câmera escolhe a cada imagem não entra na conta.
+  // casa = diferença nesse T; meio = diferença típica desses 3 s para 2 a 6 s antes (a peça em outro ângulo).
+  var GT_SW = 48, GT_SH = 27, GT_JAN = 3, GT_TMIN = 8; // janela do fim e menor volta aceita, em segundos
   function gtAssina(fonte, x2) {
     x2.drawImage(fonte, 0, 0, GT_SW, GT_SH);
     var d = x2.getImageData(0, 0, GT_SW, GT_SH).data, g = new Float32Array(GT_SW * GT_SH);
     for (var k = 0; k < g.length; k++) g[k] = (d[k * 4] + d[k * 4 + 1] + d[k * 4 + 2]) / 3;
     return g;
   }
-  function gtVolta(ass, passo) {
-    var n = ass.length, melhor = 0, mv = 1e9, lista = [], T0 = Math.round(8 / passo);
-    for (var T = T0; T <= n - Math.round(3 / passo); T++) {
-      var s = 0, c = 0;
-      for (var a = 0; a + T < n; a++) { var A = ass[a], Bq = ass[a + T], dd = 0; for (var k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); s += dd / A.length; c++; }
-      s /= c; lista.push([T, s]);
-      if (s < mv) { mv = s; melhor = T; }
-    }
-    if (!lista.length) return { per: 0, casa: 1e9, meio: 0 };
-    var ix = melhor - T0, f = 0; // afina entre os vizinhos (parábola)
-    if (ix > 0 && ix < lista.length - 1) { var y0 = lista[ix - 1][1], y1 = lista[ix][1], y2 = lista[ix + 1][1], den = y0 - 2 * y1 + y2; if (den > 1e-9) f = 0.5 * (y0 - y2) / den; }
-    // diferença típica entre imagens afastadas de 2 a 6 s (a peça em outro ângulo)
-    var m = 0, mc = 0;
-    for (var q = Math.round(2 / passo); q <= Math.round(6 / passo); q++) for (a = 0; a + q < n; a += 2) { A = ass[a]; Bq = ass[a + q]; dd = 0; for (k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); m += dd / A.length; mc++; }
-    return { per: (melhor + f) * passo, casa: mv, meio: mc ? m / mc : 0, borda: ix <= 0 || ix >= lista.length - 1 };
+  function gtIguala(ass) {
+    var ms = ass.map(function (g) { var s = 0; for (var k = 0; k < g.length; k++) s += g[k]; return s / g.length; }), M = 0;
+    ms.forEach(function (m) { M += m; });
+    M /= ms.length || 1;
+    return ass.map(function (g, i) { var f = M / (ms[i] || 1), o = new Float32Array(g.length); for (var k = 0; k < g.length; k++) o[k] = g[k] * f; return o; });
   }
-  // a volta fechou? (usado ao vivo pela câmera do Estúdio para fechar sozinha)
-  function gtFechou(ass, passo) {
+  function gtDif(A, B) {
+    var dd = 0;
+    for (var k = 0; k < A.length; k++) dd += Math.abs(A[k] - B[k]);
+    return dd / A.length;
+  }
+  function gtVolta(ass, passo) {
+    var n = ass.length, W = Math.round(GT_JAN / passo), melhor = 0, mv = 1e9, val = [], mov = new Float32Array(n), agora = 0, T, k, s, e;
+    ass = gtIguala(ass);
+    for (k = 1; k < n; k++) mov[k] = gtDif(ass[k], ass[k - 1]); // quanto a imagem muda de meio em meio segundo
+    for (k = Math.max(1, n - W); k < n; k++) agora += mov[k] / W;
+    for (T = Math.round(GT_TMIN / passo); T <= n - W - 1; T++) {
+      s = 0; e = 0;
+      for (k = n - W; k < n; k++) { s += gtDif(ass[k], ass[k - T]); e += mov[k - T]; }
+      if (e / W < agora * 0.5) continue; // nesse trecho a peça estava parada
+      val[T] = s / W;
+      if (val[T] < mv) { mv = val[T]; melhor = T; }
+    }
+    if (!melhor) return { per: 0, casa: 1e9, meio: 0, borda: true };
+    var y0 = val[melhor - 1], y2 = val[melhor + 1], borda = y0 === undefined || y2 === undefined, f = 0, den, m = 0, mc = 0; // borda: sem vizinho dos dois lados não dá para dizer que é o melhor
+    if (!borda) { den = y0 - 2 * mv + y2; if (den > 1e-9) f = 0.5 * (y0 - y2) / den; } // afina entre os vizinhos (parábola)
+    for (var q = Math.round(2 / passo); q <= Math.round(6 / passo); q++) for (k = n - W; k < n; k++) if (k - q >= 0) { m += gtDif(ass[k], ass[k - q]); mc++; }
+    return { per: (melhor + f) * passo, casa: mv, meio: mc ? m / mc : 0, borda: borda };
+  }
+  // a volta fechou? (ao vivo, a câmera do Estúdio fecha sozinha: folga 0.5; no vídeo já gravado dá para ser menos exigente: 0.6)
+  // "sem borda" já garante que a gravação tem a volta mais 3,5 s.
+  function gtFechou(ass, passo, folga) {
     var v = gtVolta(ass, passo);
-    return v.per > 0 && !v.borda && v.meio > 0.8 && v.casa < v.meio * 0.5 && ass.length * passo >= v.per + 3.5 ? v : null;
+    return v.per > 0 && !v.borda && v.meio > 0.8 && v.casa < v.meio * (folga || 0.5) ? v : null;
+  }
+  // A primeira volta inteira de uma fila já gravada: anda pela fila como a câmera andaria ao vivo e, quando a volta fecha, fica com o ponto
+  // dos 3 s seguintes em que ela casa melhor (ali os dois trechos comparados já estão com o prato girando). n = quantas assinaturas até ali.
+  function gtPrimeira(ass, passo, folga) {
+    var mais = Math.round(GT_JAN / passo), ate = ass.length, n, v, m = null;
+    for (n = Math.round((GT_TMIN + GT_JAN) / passo) + 2; n <= ate; n++) {
+      v = gtFechou(ass.slice(0, n), passo, folga);
+      if (!v) continue;
+      if (!m) ate = Math.min(ate, n + mais);
+      if (!m || v.casa < m.casa) { m = v; m.n = n; }
+    }
+    return m;
   }
   function giroTrata(blob, o) {
     o = o || {};
@@ -139,7 +171,8 @@
         return cx.getImageData(0, 0, W, H).data;
       });
     }
-    // 1) duração de uma volta: assinaturas pequenas ao longo do vídeo e a distância que melhor "casa" o vídeo com ele mesmo
+    // 1) a volta: assinaturas pequenas ao longo do vídeo (uma a cada meio segundo) e a primeira volta inteira que elas mostram;
+    //    fim = o segundo do vídeo em que essa volta termina
     function acha_volta() {
       var c2 = document.createElement('canvas'); c2.width = GT_SW; c2.height = GT_SH;
       var x2 = c2.getContext('2d', { willReadFrequently: true }), passo = 0.5, ass = [], n = Math.floor((dur - 0.2) / passo), i = 0;
@@ -151,7 +184,11 @@
           return um();
         });
       }
-      return um().then(function () { return gtVolta(ass, passo); });
+      return um().then(function () {
+        var vt = gtPrimeira(ass, passo, 0.6);
+        if (vt) vt.fim = (vt.n - 1) * passo;
+        return vt;
+      });
     }
     function monta_fundo() {
       var K = 24, am = [], i = 0;
@@ -264,10 +301,13 @@
       v = vid; dur = v.duration;
       W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; P = W * H; w2 = W >> 1; h2 = H >> 1;
       cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
-      return o.per ? { per: o.per, casa: 0, meio: 1 } : acha_volta();
+      // quem gravou já sabe a volta (a câmera parou quando ela fechou): ela termina no fim do vídeo
+      return o.per ? { per: o.per, casa: 0, meio: 1, fim: dur - 0.2 } : acha_volta();
     }).then(function (vt) {
-      vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, Math.min(1, dur - per - 0.2));
-      if (!(per > 6) || vt.borda || !(vt.casa < vt.meio * 0.6) || t0 + per > dur + 0.3) throw new Error('giro-curto'); // não deu uma volta inteira
+      if (!vt || !(vt.per > 6)) throw new Error('giro-curto'); // não deu uma volta inteira
+      // a volta tratada é a que TERMINA onde ela fechou — nunca o começo da gravação, que é a peça parada esperando o prato ligar
+      vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, vt.fim - per);
+      if (t0 + per > dur + 0.3) throw new Error('giro-curto');
       return monta_fundo().then(function () {
         // 1ª passada: onde a peça está em cada grau, e a nitidez
         var med = [], n = 0;
@@ -426,3 +466,4 @@
   window.giroTrata = giroTrata;
   window.__gtVolta = gtVolta;
   window.__gtFechou = gtFechou;
+  window.__gtPrimeira = gtPrimeira;

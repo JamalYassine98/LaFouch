@@ -40,7 +40,8 @@
   }
   // Grava a volta com o stream da câmera aberta. Para sozinho quando a volta fecha (gtFechou) ou em 60 s (dono 19/11 20:01).
   // ui.tick(seg, volta) a cada meio segundo; ui.fecha() fecha a câmera antes de tratar. Devolve { para }.
-  var GIRO_MAX = 60;
+  var GIRO_MAX = 60,
+    GIRO_PASSO = 0.5; // uma assinatura a cada meio segundo
   function giroGrava(s, v, ctx, ui) {
     var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
       mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
@@ -52,21 +53,25 @@
       if (e.data && e.data.size) ch.push(e.data);
     };
     // uma foto por segundo para a escolha da frente e da 3/4, e uma assinatura a cada meio segundo para saber quando a volta fechou
-    var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false;
-    var para = function () {
+    var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false, porque = '';
+    var para = function (motivo) {
       if (parou) return;
       parou = true;
+      porque = motivo || 'parar';
       clearInterval(pega);
       if (rec.state === 'recording') rec.stop();
     };
     var pega = setInterval(function () {
-      if (!v.isConnected) return para();
+      if (!v.isConnected) return para('fechou');
       if (!v.videoWidth) return;
-      var seg = (Date.now() - t0g) / 1000;
-      ass.push(gtAssina(v, asX));
-      if (!volta && ass.length >= 24 && ass.length % 2 === 0) volta = gtFechou(ass, 0.5);
+      var seg = (Date.now() - t0g) / 1000,
+        g = gtAssina(v, asX);
+      // uma assinatura por meio segundo DE RELÓGIO: se o aparelho pulou um tique, a vaga que faltou repete a imagem de agora (a conta da volta conta o tempo pelas vagas)
+      do ass.push(g);
+      while (ass.length < Math.floor(seg / GIRO_PASSO));
+      if (!volta) volta = gtFechou(ass, GIRO_PASSO);
       if (ui && ui.tick) ui.tick(seg, volta);
-      if (volta || seg >= GIRO_MAX) return para();
+      if (volta || seg >= GIRO_MAX) return para(volta ? 'volta' : 'limite');
       if (tique++ % 2) return;
       cap.width = v.videoWidth;
       cap.height = v.videoHeight;
@@ -82,17 +87,25 @@
       clearInterval(pega);
       var fechou = !v.isConnected; // fechou a câmera (×) no meio da gravação: descarta, não trata
       if (ui && ui.fecha) ui.fecha();
-      if (fechou) return;
       var video = new Blob(ch, { type: mt || 'video/webm' });
-      if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+      camDiario('parou', { porque: fechou ? 'fechou' : porque, seg: Math.round((Date.now() - t0g) / 100) / 10, assinaturas: ass.length, volta: volta, tipo: video.type, kb: Math.round(video.size / 1024), fotos: Q.length });
+      if (fechou) return;
       setTimeout(function () {
-        // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
-        if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
-        else estGiroEscolhe(ctx, Q, video);
+        // S361: o app trata o giro e tira a frente e a 3/4 sozinho. Quem diz se o vídeo tem UMA volta inteira é o tratamento: a volta que a
+        // câmera viu fechar ao vivo ou, sem ela (limite de 60 s, parou à mão), a que ele achar no vídeo gravado. Gravação curta demais para
+        // caber uma volta, ou aparelho que não trata: a escolha à mão de antes.
+        if (typeof giroTrata === 'function' && window.VideoEncoder && (volta || ass.length * GIRO_PASSO >= GT_TMIN + GT_JAN + 1)) estGiroAuto(ctx, Q, video, volta);
+        else estGiroSemVolta(ctx, Q, video);
       }, 300);
     };
     rec.start(500);
+    camDiario('grava', { tipo: mt, pronto: rec.state });
     return { para: para };
+  }
+  // Não deu uma volta inteira: avisa e segue pela escolha à mão.
+  function estGiroSemVolta(ctx, Q, video) {
+    lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+    estGiroEscolhe(ctx, Q, video);
   }
   // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
   var EG_FASE = { volta: ['Conferindo a volta', 0, 0.06], fundo: ['Aprendendo o fundo', 0.06, 0.04], mede: ['Achando a frente', 0.1, 0.42], grava: ['Fundo branco em cada grau', 0.52, 0.48] };
@@ -110,11 +123,13 @@
       estGiroEscolhe(ctx, Q, video);
     };
     ov.querySelector('#egTm').onclick = manual;
+    var t0t = Date.now(), fase = '';
     giroTrata(video, {
-      per: volta.per, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
+      per: volta ? volta.per : 0, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
       para: function () { return parou; },
       aviso: function (f, p) {
         var e = EG_FASE[f]; if (!e || parou) return;
+        if (f !== fase) { fase = f; camDiario('trata', { fase: f, seg: Math.round((Date.now() - t0t) / 100) / 10 }); }
         var t = e[1] + e[2] * p;
         ov.querySelector('#egTa').style.strokeDashoffset = String(119.4 * (1 - t));
         ov.querySelector('#egTp').textContent = Math.round(t * 100) + '%';
@@ -134,12 +149,13 @@
     }).then(function (rr) {
       if (parou) return;
       var r = rr[0], R1 = rr[1][0] ? estProcessa(rr[1][0]) : {}, R2 = rr[1][1] ? estProcessa(rr[1][1]) : {};
-      if (!R1.cv) return manual(); // não achou a peça na frente: escolha à mão
+      camDiario('tratou', { seg: Math.round((Date.now() - t0t) / 100) / 10, tipo: r.tipo, kb: Math.round(r.blob.size / 1024), info: r.info, frente: [R1.n, R1.mot], t34: [R2.n, R2.mot] });
+      if (!estFotoServe(R1)) return manual(); // a frente do giro tratado não serve de foto: escolha à mão
       parou = true;
       ov.remove();
       if (ctx.k) {
         estGrava(ctx.k, 'frente', R1);
-        if (R2.cv) estGrava(ctx.k, '34', R2);
+        if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
         estGiroGuarda(ctx.k, r.blob);
         lfToast('Giro pronto: frente, 3/4 e giro salvos');
         render();
@@ -147,10 +163,16 @@
         return;
       }
       var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: r.blob };
-      if (R2.cv) c2.fotos['34'] = R2;
+      if (estFotoServe(R2)) c2.fotos['34'] = R2;
       estDestino(c2, ctx.fim);
-    }, function () {
-      manual();
+    }).catch(function (e) {
+      // não deu para tratar: o vídeo não tem uma volta inteira (avisa) ou o aparelho falhou no meio — nos dois casos, a escolha à mão
+      camDiario('trata-erro', { seg: Math.round((Date.now() - t0t) / 100) / 10, fase: fase, erro: String((e && e.message) || e) });
+      if (parou) return;
+      if (!e || e.message !== 'giro-curto') return manual();
+      parou = true;
+      ov.remove();
+      estGiroSemVolta(ctx, Q, video);
     });
   }
   // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
@@ -160,6 +182,7 @@
     });
     if (Q.length < 4) return lfToast('O giro ficou curto demais');
     var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
+      ixF = ix,
       passo = 'frente',
       esc = {},
       ov = document.createElement('div');
@@ -186,11 +209,11 @@
       if (b.dataset.g !== 'ok') return;
       esc[passo] = Q[ix].b;
       if (passo === 'frente') {
+        ixF = ix;
         passo = '34';
         ix = Math.min(Q.length - 1, ix + Math.max(2, Math.round(Q.length / 8)));
         return pinta();
       }
-      ov.remove();
       loadMsg(true, 'Aplicando a luz de estúdio');
       var abre = function (bl) {
         return new Promise(function (ok, no) {
@@ -205,13 +228,23 @@
         });
       };
       Promise.all([abre(esc.frente), abre(esc['34'])]).then(function (ims) {
-        var R1 = estProcessa(ims[0]),
-          R2 = estProcessa(ims[1]);
+        return [estProcessa(ims[0]), estProcessa(ims[1])];
+      }).then(function (R) {
+        var R1 = R[0],
+          R2 = R[1];
         loadMsg(false);
-        if (!R1.cv) return lfToast('Não achei a peça no quadro da frente');
+        camDiario('escolha', { frente: [R1.n, R1.mot], t34: [R2.n, R2.mot] });
+        if (!estFotoServe(R1)) {
+          // a gravação não se perde: a escolha continua aberta, de volta na frente, para tentar outro quadro (ou fechar no ×)
+          passo = 'frente';
+          ix = ixF;
+          pinta();
+          return lfToast('Não achei a peça no quadro da frente');
+        }
+        ov.remove();
         if (ctx.k) {
           estGrava(ctx.k, 'frente', R1);
-          if (R2.cv) estGrava(ctx.k, '34', R2);
+          if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
           estGiroGuarda(ctx.k, video);
           lfToast('Frente, 3/4 e giro salvos');
           render();
@@ -220,10 +253,11 @@
         }
         // antes de cadastrar: "De qual peça é?" (a frente e a 3/4 vão juntas; o giro também)
         var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: video };
-        if (R2.cv) c2.fotos['34'] = R2;
+        if (estFotoServe(R2)) c2.fotos['34'] = R2;
         estDestino(c2, ctx.fim);
-      }, function () {
+      }).catch(function (e) {
         loadMsg(false);
+        camDiario('escolha-erro', { erro: String((e && e.message) || e) });
         lfToast('Não consegui abrir os quadros do giro');
       });
     };

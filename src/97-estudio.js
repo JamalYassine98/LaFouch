@@ -142,6 +142,11 @@
     });
     return { cf: ch, sw: sw, sh: sh, termos: termos };
   }
+  // A imagem tratada serve de foto da peça SEM passar pela tela de conferir? Achou a peça e a nota é "Dá para usar" (60+, o mesmo corte
+  // dessa tela). É a regra da frente e da 3/4 que saem do giro, que são guardadas direto.
+  function estFotoServe(R) {
+    return !!(R && R.cv && R.n >= 60);
+  }
   function estProcessa(src) {
     var w0 = src.naturalWidth || src.videoWidth || src.width,
       h0 = src.naturalHeight || src.videoHeight || src.height,
@@ -641,6 +646,14 @@
     saveSoon();
   }
   // ---------- câmera do Estúdio ----------
+  // Diário da câmera (item 33): o que a câmera e o giro fizeram NESTE aparelho, uma linha por fato, no console do app — num celular
+  // ligado ao PC sai no `adb logcat`, com a marca [LF-CAM]. Não aparece em tela nenhuma e não guarda nada: serve para achar a causa de
+  // defeito que só acontece no celular de verdade (o simulador não tem a câmera, o gravador nem a velocidade dele).
+  function camDiario(fato, d) {
+    try {
+      console.log('[LF-CAM] ' + fato + ' ' + JSON.stringify(d === undefined ? null : d));
+    } catch (e) {}
+  }
   var EST_ST = null; // stream atual
   function estFechaCam() {
     if (EST_ST)
@@ -833,6 +846,7 @@
         } catch (e) {
           cap = {};
         }
+        camDiario('abre', { modo: ov.dataset.modo, pode: cap, aparelho: track.getSettings ? track.getSettings() : null, perfil: P && P.salvo ? P : null });
         // perfil salvo
         // perfil antigo (antes da v437) podia ter velocidade longa travada (imagem branca): descarta e volta ao automático
         if (P && P.salvo && P.v !== 2) {
@@ -1470,7 +1484,6 @@
     ov.id = 'estRes';
     document.body.appendChild(ov);
     var passo = ctx.passo || 'frente',
-      ok = !!R.cv && R.n >= 60,
       cor = R.n >= 75 ? 'var(--ok)' : R.n >= 60 ? 'var(--warn)' : 'var(--bad)',
       tem34 = !!ctx.k || !!ctx.nova;
     ov.innerHTML =
