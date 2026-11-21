@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 39 preço exato (parte do APP): PIX sem par vira linha do Guardião nas Pendências + janela Ligar a um pedido | src/97z-pix-email.js, src/89-dash-abas.js, tests/run.py |
-| ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
+| ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 | SITE | Pendências parte 3: plano das ferramentas — parte 1 (um simulador só) | work/kit/sim.py, work/fiscal/provas.py, work/fiscal/fiscal.py, work/s430/comparador/compara.py |
 
 ## Fila
