@@ -87,7 +87,7 @@
 - **43-implementar-tudo-em-partes** — em andamento — 4b ✅ v591–v593 · 4c ✅ v594–v597 · 4d parte 1 (136a) ✅ v598. ACHADO na 4d parte 2 (134 ficha): a ficha é desenhada por uma função e várias camadas por cima (renderDetail embrulhada em 97u-navegacao, 97y-lucro-real, 97z2-contador…); os links do fim e as linhas só ficam 'naturais' depois de juntar essas camadas. Próxima parte: juntar as camadas da ficha numa função (0 diferença na tela), depois 134 (linhas, links no fim, sem cartão), 134b, 134d, 149s
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
-- **45-ideias-formato-preciso-e-elegante** — esboço pronto — esperando o dono (v2 21/11 10:21)
+- **45-ideias-formato-preciso-e-elegante** — esboço pronto — esperando o dono (v3 21/11 12:13)
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
 - **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
