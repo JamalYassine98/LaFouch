@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
+| ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 | SITE | Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada) | work/s430/varredura/roteiros.py |
 
 ## Fila

@@ -1,8 +1,8 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro",
+ "agora": "esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando)",
  "arquivos": [
-  "work/s435/selo"
+  "work/s435/giroprecos"
  ],
  "ultimas": [
   {
