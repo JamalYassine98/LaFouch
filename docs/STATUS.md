@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 37b ícones das listas em cinza (regra num lugar só) | www/style.css, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 
 ## Fila

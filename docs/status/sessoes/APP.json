@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "37b ícones das listas em cinza (regra num lugar só)",
+ "arquivos": [
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795292475.0198543,
@@ -44,5 +47,5 @@
    "r": "v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas"
   }
  ],
- "leu": 1795292467.8786533
+ "leu": 1795292685.8901286
 }
