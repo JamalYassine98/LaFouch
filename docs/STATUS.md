@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4b parte 1: preço automático vai para Ajustes › Preços (149p); sai REGRAS DO CONTADOR de Preços | src/89-dash-abas.js, src/96-ajustes.js, src/97-ajustes-lista.js, src/97z2-contador.js, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 | SITE | Internet fraca parte 1 (1ª tela dentro da página): estudo do robô das páginas + implementação por dentro | js/lf-site.js, index.html |
 

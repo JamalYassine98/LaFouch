@@ -1,7 +1,13 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4b parte 1: preço automático vai para Ajustes › Preços (149p); sai REGRAS DO CONTADOR de Preços",
+ "arquivos": [
+  "src/89-dash-abas.js",
+  "src/96-ajustes.js",
+  "src/97-ajustes-lista.js",
+  "src/97z2-contador.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795258683.0477064,
