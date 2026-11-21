@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "134d (1): Editar peça abre na janela de baixo do app (lfJanela), sem o botão Fechar",
+ "arquivos": [
+  "src/10-estoque-detalhe.js",
+  "src/97-janela.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795282183.4467187,
@@ -44,5 +49,5 @@
    "r": "v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)"
   }
  ],
- "leu": 1795282179.112152
+ "leu": 1795282343.6117127
 }
