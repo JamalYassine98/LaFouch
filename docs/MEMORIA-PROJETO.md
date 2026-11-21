@@ -3406,3 +3406,10 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
     - Preencher à mão
     - formulário em linhas
     - cores vindas da Galeria ou da "Nova cor" (42)
+
+- 21/11 10:15–10:30 — DONO, cadastro e Galeria:
+  - Sai "Dar entrada de novo" do Adicionar: polui a tela.
+  - Com muitos giros sem peça (ex.: 50):
+    - O grupo da peça já nasce na sessão do Estúdio (por peça, com todas as cores). Nada de adivinhar por aparência.
+    - Só se cadastra o que **já foi tratado**: "não faz sentido cadastrar produto não tratado, não está apresentável". Grupos "a tratar/tratando" ficam na Galeria, mas não aparecem para cadastro.
+    - O cadastro em sequência ("Próxima peça sem cadastro ›") ainda está em análise pelo dono.
