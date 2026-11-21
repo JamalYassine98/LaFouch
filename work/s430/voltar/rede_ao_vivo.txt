@@ -1,0 +1,15 @@
+{"topo": 3.4, "primeiro_cartao": 5.0, "primeira_foto": 10.9, "fcp": 1.8}
+  0.8 →   0.8 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  0.8 →   0.8 s     0.0 KB  https://lafouch.com/js/lf-site.js
+  1.1 →   1.6 s     0.3 KB  https://lafouch.com/version.json
+  1.6 →   3.6 s    75.5 KB  https://lafouch.com/
+  2.1 →   2.1 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  2.1 →   2.1 s     0.0 KB  https://lafouch.com/js/lf-site.js
+  2.4 →   2.8 s     0.3 KB  https://lafouch.com/version.json
+  3.4 →   4.6 s    17.8 KB  https://lafouch.com/media/i/788688a36305.png
+  3.5 →   4.1 s     2.9 KB  https://lafouch.com/media/voz/pt/lista.json
+  3.9 →   5.0 s     3.5 KB  s.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/produtos
+  3.9 →   4.8 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+  5.0 →  10.9 s    19.8 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2250
+  5.0 →   5.6 s     0.1 KB  is.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/estoque
+total KB até a 1ª foto: 101
