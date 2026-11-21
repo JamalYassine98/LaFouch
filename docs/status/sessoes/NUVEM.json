@@ -1,7 +1,11 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "teste de compra de ponta a ponta + vigia diário",
+ "arquivos": [
+  "tools/teste-compra",
+  ".github/workflows/teste-compra.yml",
+  ".github/workflows/vigia-nuvem.yml"
+ ],
  "ultimas": [
   {
    "t": 1795267764.6706243,
