@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono (3 esboços em work/s430/esb-a/)
+**SITE — três achados do porteiro completo (20/11):** (1) Esc não fecha os Filtros → uma regra só: com janela aberta, Esc = voltar (saem os 7 tratamentos de Esc espalhados); (2) entrar → carrinho → voltar pula a tela de entrar → o carrinho abre por cima e o voltar devolve a tela anterior; (3) internet fraca: medido no site de verdade, 4G fraco 1ª visita = 13,3 s até a primeira tela e 16 s até a primeira foto (554 KB antes de mostrar algo) → estudo: a página já chegar com o topo e as primeiras peças.
