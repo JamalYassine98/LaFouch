@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "Pendências parte 1: janelas não conferidas contra 19/11 (foto ampliada, resultado do rosto, pagamento, atacado, separado)",
- "arquivos": [
-  "index.html"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795275187.8232677,
+   "r": "Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar."
+  },
   {
    "t": 1795274908.4082344,
    "r": "Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento)."
@@ -40,10 +42,6 @@
   {
    "t": 1795219807.9996328,
    "r": "investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono"
-  },
-  {
-   "t": 1795217631.1839817,
-   "r": "varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)"
   }
  ],
  "leu": 1795275062.528173
