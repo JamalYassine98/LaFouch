@@ -88,7 +88,7 @@
 - **44-149s-superficie-caixa-e-vender** — esperando o dono — estudo em work/s436/4d/149s/ESTUDO.md: com o cartão plano na classe, Caixa e Vender/Catálogo (fora das 9 aprovadas) também mudam; imagens enviadas ao dono 21/11; nada publicado
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
-- **45-ideias-formato-preciso-e-elegante** — aprovado 21/11 17:25 — espera o 'implementar' (SITE)
+- **45-ideias-formato-preciso-e-elegante** — aprovado 21/11 17:25 — implementar DEPOIS que a SITE terminar tudo o que está na fila dela (dono 17:27)
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
 - **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
