@@ -76,6 +76,7 @@
 - **38-aviso-curto-acima-da-barra-e-com-cor** — esboço pronto — esperando o dono
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
 - **39-giro-frente-com-um-lado-apagado** — na fila — APP, urgente
+- **39-pagamento-parte-3-preco-exato** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
