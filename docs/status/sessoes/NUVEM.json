@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "S5S7: publicar (dono: implementar 23:48)",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795226577.8254116,

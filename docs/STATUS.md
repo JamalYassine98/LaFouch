@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboços do giro: câmera reta + peça reta · Estúdio mostra o que a peça já tem + galeria + para qual peça vai · cores mais fáceis | work/s435/giro |
+| NUVEM | S5S7: publicar (dono: implementar 23:48) | functions/ |
 
 ## Fila
 
