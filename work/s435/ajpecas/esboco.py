@@ -22,6 +22,7 @@ def quadro(arq,esc,q):
   for i,(t,s,im) in enumerate(q):
     x=g+i*(780+g);d.text((x,24),t,font=F(34),fill=fg);d.text((x,72),s,font=F(23),fill=mu);S.paste(im,(x,120));d.rectangle([x-1,119,x+780,120+im.height],outline=(90,90,100))
   S.save(O+arq,quality=88);print('ok',arq,S.size)
+CINZA="()=>{const f=()=>document.querySelectorAll('#v-grp .nvIc,#v-grp .nvIc svg,#v-inicio .tl .ti,#v-inicio .tl .ti svg,#v-inicio .hero .hi,#v-inicio .hero .hi svg').forEach(i=>{if(i.style.getPropertyValue('color')!=='var(--mute)')i.style.setProperty('color','var(--mute)','important')});f();if(!window.__cz){window.__cz=1;new MutationObserver(f).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['style']})}}"
 def pecas_torto(pg,w):
   pg.click('#mainnav .mn[data-id="g:pecas"]');w(700);pg.click('.nvL[data-id="estoque"]');w(900);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
 with sync_playwright() as pw:
@@ -34,11 +35,11 @@ with sync_playwright() as pw:
     # 2 Peças
     b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);pecas_torto(pg,w);h=tira(pg,'ph');b.close()
     b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);pecas_torto(pg,w)
-    pg.evaluate("()=>{document.querySelectorAll('#v-grp .lk100').forEach(e=>e.classList.remove('lk100','c101','inl'))}");w(300);p=tira(pg,'pp');b.close()
-    quadro('esboco_pecas_%s.jpg'%n,esc,[('HOJE · Peças','depois de voltar do Inventário',h),('PROPOSTA · Peças','igual a Giro e preços, sempre',p)])
+    pg.evaluate("()=>{document.querySelectorAll('#v-grp .lk100').forEach(e=>e.classList.remove('lk100','c101','inl'))}");pg.evaluate(CINZA);w(300);p=tira(pg,'pp');b.close()
+    quadro('esboco_pecas_%s.jpg'%n,esc,[('HOJE · Peças','depois de voltar do Inventário',h),('PROPOSTA · Peças','igual a Giro e preços · ícones em cinza',p)])
     # 3 grupo pelo Início
-    b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);i0=tira(pg,'g0')
+    b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);pg.evaluate(CINZA);i0=tira(pg,'g0')
     pg.click('#v-inicio [data-act="inicio"][data-id="g:gp"]');w(1000);h=tira(pg,'gh')
     pg.evaluate("()=>window.__LF.setView('inicio')");w(600)
-    pg.evaluate("()=>{const S=window.__LF.S;S.nvP=['grp:g:gp'];S._nvModo=1;S.nvG='g:gp';window.__LF.setView('grp')}");w(1000);p=tira(pg,'gp');b.close()
-    quadro('esboco_grupo_inicio_%s.jpg'%n,esc,[('INÍCIO','toque em "Giro e preços"',i0),('HOJE · abre','pula direto para o Giro',h),('PROPOSTA · abre','a escolha do grupo',p)])
+    pg.evaluate("()=>{const S=window.__LF.S;S.nvP=['grp:g:gp'];S._nvModo=1;S.nvG='g:gp';window.__LF.setView('grp')}");w(1000);pg.evaluate(CINZA);w(200);p=tira(pg,'gp');b.close()
+    quadro('esboco_grupo_inicio_%s.jpg'%n,esc,[('INÍCIO','ícones em cinza · toque em "Giro e preços"',i0),('HOJE · abre','pula direto para o Giro',h),('PROPOSTA · abre','a escolha do grupo',p)])

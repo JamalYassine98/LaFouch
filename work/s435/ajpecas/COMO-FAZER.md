@@ -35,8 +35,11 @@ Aprovados incluídos na base: todos do work/kit/base_app.py (53 itens) + Ajustes
 4. **Um jeito só de abrir um grupo:** `grpAbre(g)` passa a abrir o índice (`nvIndice(g)`, a mesma da barra), para
    Início, busca e qualquer atalho. Apagar o caminho `g.ult/g.itens[0]` (e o `g.ult` se nada mais o usar) e o
    comentário "o grupo do Início abre a tela direto". Marketing (família, `mkAbre`) continua como está.
-5. **Trava no porteiro:** (a) nenhuma `.nvL`, `.nvxL` ou `.nvGer` com `lk100`, depois de ida e volta em todos os grupos;
-   (b) nenhuma linha de Ajustes quebra em 2 linhas (L4), letra 1× e 1,3×; (c) tocar num grupo no Início → `S.view==='grp'`.
+5. **Ícones das listas em cinza (dono 20/11 23:23: "todos da mesma cor, prefiro o cinza"):** substitui o "ícones rosa"
+   dos aprovados 149g (índice dos grupos) e 149n (Início em lista). Uma regra só no CSS: o ícone de linha de lista
+   (`.nvIc`, `.tl .ti`, `.hero .hi`) usa `var(--mute)`; sai o pedaço que pinta de `--accent`. A barra de baixo continua rosa na aba acesa.
+6. **Trava no porteiro:** (a) nenhuma `.nvL`, `.nvxL` ou `.nvGer` com `lk100`, depois de ida e volta em todos os grupos;
+   (b) nenhuma linha de Ajustes quebra em 2 linhas (L4), letra 1× e 1,3×; (c) tocar num grupo no Início → `S.view==='grp'`; (d) ícone de linha de lista = cor `--mute` no Início e em todos os grupos, claro e escuro.
 
 ## O que muda para o dono
 - Peças e Cópias e nuvem iguais ao resto (sem rosa no meio).
