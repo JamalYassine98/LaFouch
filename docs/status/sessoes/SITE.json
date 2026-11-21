@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Pendências parte 1: janelas não conferidas contra 19/11 (foto ampliada, resultado do rosto, pagamento, atacado, separado)",
+ "arquivos": [
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795274908.4082344,
@@ -44,5 +46,5 @@
    "r": "varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)"
   }
  ],
- "leu": 1795273392.2647913
+ "leu": 1795275062.528173
 }

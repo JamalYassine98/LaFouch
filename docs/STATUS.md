@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com o ⌄ das dobras e o valor à direita | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
+| SITE | Pendências parte 1: janelas não conferidas contra 19/11 (foto ampliada, resultado do rosto, pagamento, atacado, separado) | index.html |
 
 ## Fila
 
