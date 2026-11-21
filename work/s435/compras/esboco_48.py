@@ -62,3 +62,15 @@ if __name__=='__main__':
   quadro('esboco_48b_inventario.jpg',[('HOJE · Inventário','abas Produtos · Fornecedores',inventario(pw,0)),('PROPOSTA · Inventário','só produtos · sem abas · "A completar" (45)',inventario(pw,1))])
   quadro('esboco_48c_compras.jpg',[('PROPOSTA · Compras (topo)','a Lista de compras mora aqui',compras(pw,0)),('PROPOSTA · Compras (fim)','Fornecedores › (tela de cada um: parte 2)',compras(pw,-1))])
   quadro('esboco_48d_giro.jpg',[('HOJE · Giro','a lista inteira dentro do Giro',giro(pw,0)),('PROPOSTA · Giro','uma linha › que leva a Compras',giro(pw,1))])
+def inventario2(pw,aba):
+  # 48b v2 (dono 12:19: "muito poluído"): "A completar" vira a 2ª aba (estado da mesma lista de produtos), no lugar de Fornecedores
+  b,pg,w=ap.abre(pw,'estoque',True,'celular',base=True);w(600);pg.add_style_tag(content='#nvBar{display:none!important}')
+  I=pg.evaluate("()=>[...document.querySelectorAll('.pcard img')].map(i=>i.src).filter(s=>/^data:image\\/svg/.test(s)).slice(0,6)")
+  pg.evaluate(r"""(a)=>{const [I,aba]=a;const L=document.getElementById('eTabL');L.innerHTML='A completar<em class="bdg">2</em>';
+   [...document.querySelectorAll('#kpisE .kpi')].filter(k=>/Lotes pendentes/.test(k.textContent)).forEach(k=>k.remove());
+   if(aba){const P=document.getElementById('eTabP');P.classList.remove('on');P.setAttribute('aria-pressed','false');L.classList.add('on');L.setAttribute('aria-pressed','true');const ln=document.querySelector('#eTabs .lfLinha');const r=L.getBoundingClientRect(),r0=document.getElementById('eTabs').getBoundingClientRect();ln.style.left=(r.left-r0.left)+'px';ln.style.width=r.width+'px';ln.style.transform='none';const pl=document.querySelector('#eTabs .lfPill');if(pl){pl.style.left=(r.left-r0.left)+'px';pl.style.width=r.width+'px';pl.style.transform='none'}
+    const v=document.getElementById('v-estoque');const t=document.getElementById('eTabs');let n=t.nextElementSibling;while(n){const x=n.nextElementSibling;n.style.setProperty('display','none','important');n=x}
+    const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:80px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:12px 0';
+    const ROW=(img,a,s)=>'<button type="button" style="'+ST+'"><span style="flex:0 0 64px;height:48px;border-radius:10px;overflow:hidden;background:#fff"><img src="'+img+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;font-weight:500">'+a+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><i style="font-style:normal;font-size:20px;color:var(--mute)">›</i></button>';
+    const d=document.createElement('section');d.innerHTML='<div style="color:var(--mute);font-size:14px;margin:8px 0 8px">Peças já tratadas no Estúdio. Falta o preço e os detalhes para irem à venda.</div>'+ROW(I[1],'TS1234 · 4 cores','tratada · falta custo, preço e material')+ROW(I[3],'SL2250 · 3 cores','tratada · falta custo e preço');t.after(d)}}""",[I,aba]);w(400)
+  x=shot(pg,'i2%d'%aba);b.close();return x
