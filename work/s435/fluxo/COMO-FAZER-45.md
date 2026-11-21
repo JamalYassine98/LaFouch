@@ -78,3 +78,12 @@ Peça que já existe (código lido) não vira rascunho: as cores gravadas entram
 ## Correções do dono (21/11 10:53–10:55)
 - Sai a barra de progresso: não se sabe quantas cores a peça tem.
 - "Terminei" era ambíguo: sair para vender não é terminar. O botão chama-se **"Finalizar peça"**, sair só pausa e não há pergunta na saída.
+
+## Ajustes mortos do Estúdio (dono 21/11 11:01–11:02: "todos esses ajustes estão mortos e inúteis")
+- **Saem os Controles manuais** (o botão do canto da câmera, `ecMan` / `c262Manual` em 98z-camera-s262.js): Medir o fundo, espera de 2 s, peaking, gráfico de luz, ISO/velocidade/branco/foco/exposição e lente. Sai também o código que eles mandavam, se nada mais o usar (conferir com o app rodando).
+- **O "?" do Estúdio fica só com a ajuda** ("Como fotografar"). Saem:
+  - **Montagem** (`S.estMont`: é só gravada e nada a lê; morta). Sai também o campo na persistência (99-render-persistencia.js:274).
+  - **"Vídeo 360 (giro)"**: porta repetida ao lado de "Gravar uma peça".
+  - **"O que meu celular libera"** (`estLibera`).
+- **Medir o fundo fica automático:** quando o conferidor percebe que a luz do fundo mudou desde a última medida (`S.estPerfil`), o app mede de novo sozinho e avisa numa linha. O botão "Medir o fundo de novo" sai.
+- Trava: a câmera não tem `.ecMan`; o "?" abre só "Como fotografar"; `S.estMont` não existe.

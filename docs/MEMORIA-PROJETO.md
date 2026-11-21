@@ -3436,3 +3436,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
     - o "Ler haste" do Adicionar
   - O Adicionar fica só com "Chegou mercadoria" e "Preencher à mão" (peça sem foto).
   - O esboço 41c vai para obsoletos; o 44 é refeito por este rumo (esboço 45).
+
+- 21/11 11:01–11:02 — DONO, ajustes do Estúdio: os Controles manuais da câmera saem ("inútil"). O "?" fica **só** com a ajuda ("Como fotografar"). Saem a Montagem (morta: nada lê `S.estMont`), "Vídeo 360" (porta repetida) e "O que meu celular libera". Medir o fundo fica automático. "Todos esses ajustes estão mortos e inúteis." Anotado no esboço 45.
