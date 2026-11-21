@@ -4671,6 +4671,35 @@ async def main():
             if not ok: falhas.append('37d marca em ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 38 parte B: um "chão" só (--chao, escrito por chaoMede) — o aviso curto fica 8 px acima da barra de baixo ou do botão da
+            # janela aberta, nunca cruza nenhum dos dois (nem a barra ao lado do tablet/PC), e sem barra (Estúdio) fica a 16 px do pé; 390, 820 e 1366.
+            # O chip de dica, a lixeira do Início e a barra do Estúdio partem do mesmo chão (sem número próprio no CSS).
+            got = []
+            for W38, H38 in ((390, 844), (820, 1180), (1366, 768)):
+                ctx38 = await b.new_context(viewport={'width': W38, 'height': H38}, color_scheme='dark', service_workers='block')
+                pg = await pagina(ctx=ctx38, fam=True, tudo=False)
+                got.append(await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+                  const cruza = (a, b) => !!a && !!b && a.height > 0 && b.height > 0 && !(a.bottom <= b.top || a.top >= b.bottom || a.right <= b.left || a.left >= b.right);
+                  const t = () => document.getElementById('lfToast').getBoundingClientRect(), nav = () => document.getElementById('mainnav').getBoundingClientRect(), pe = () => Math.round(innerHeight - t().bottom);
+                  const embaixo = nav().width > nav().height;   // barra no pé (celular) ou ao lado (tablet/PC)
+                  L.setView('desp'); await w(400); L.lfToast('Despesa guardada', 'ok'); await w(700);
+                  R.barra = !cruza(t(), nav()) && (embaixo ? Math.round(nav().top - t().bottom) === 8 : pe() === 16);
+                  L.setView('ajustes'); await w(400); L.ACT.ajMarca(); await w(700); L.lfToast('Preencha o nome', 'atencao'); await w(700);
+                  const bt = document.querySelector('.ljJn [data-marca=salva]').getBoundingClientRect();
+                  R.janela = !cruza(t(), bt) && Math.round(bt.top - t().bottom) === 8;
+                  document.querySelector('.ljJn [data-marca=salva]').click(); await w(60); L.lfToast('Salvo', 'ok'); await w(900);
+                  R.depois = !cruza(t(), nav()) && (embaixo ? Math.round(nav().top - t().bottom) === 8 : pe() === 16);
+                  L.estAbre(); await w(500); L.lfToast('Fotos guardadas', 'ok'); await w(700); R.estudio = pe() === 16;
+                  return [R.barra, R.janela, R.depois, R.estudio]; }"""))
+                erros38b = list(pg.erros); await pg.close(); await ctx38.close()
+                if erros38b: break
+            css = open(os.path.join(RAIZ, 'www', 'style.css'), encoding='utf-8').read()
+            chao = [bool(re.search(r"%s\{[^}]*bottom:calc\(var\(--chao\) \+ %s\)" % (sel, n), css)) for sel, n in (('#lfToast', '8px'), ('#qchip', '8px'), ('#inLixo', '56px'), (r'\.estBarra', '8px'))]
+            total += 1
+            ok = got == [[True] * 4] * 3 and chao == [True] * 4 and not erros38b
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 38 (B): um chão só — aviso 8 px acima da barra ou do botão da janela, sem cruzar (390/820/1366); chip, lixeira e barra do Estúdio no mesmo chão')
+            if not ok: falhas.append('38 chao unico'); print('        veio', got, chao, erros38b)
+
             # Esboço 38 parte A (aprovado 21/11 07:51): o aviso curto tem a cor do tipo (regra 17) — toda chamada de lfToast diz o tipo;
             # frase de falha ("Não…", "erro") nunca sai verde; a cor vem de uma classe por tipo no CSS, claro e escuro, letra 15/600.
             ch = []

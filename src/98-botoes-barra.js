@@ -17,6 +17,7 @@
         chip.setAttribute('role', 'status');
         document.body.appendChild(chip);
       }
+      chaoMede();
       chip.textContent = t;
       chip.classList.add('on');
       clearTimeout(chipT);

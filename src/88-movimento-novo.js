@@ -201,6 +201,35 @@
   // Aviso curto na parte de baixo (não bloqueia o toque).
   // Aviso curto (esboço 38, aprovado 21/11 07:51): a cor diz o tipo (regra 17) — 'ok' certo (verde) · 'atencao' (amarelo) · 'erro' (vermelho) ·
   // 'andamento' neutro (em andamento ou só informação). Toda chamada diz o tipo; a cor mora no CSS, uma classe por tipo (#lfToast.t-…).
+  // Um "chão" só (esboço 38): --chao = quantos px o que está embaixo ocupa. O aviso curto, o chip de dica, a lixeira do Início e a barra do Estúdio
+  // ficam a partir dele (CSS: bottom: calc(var(--chao) + 8px)). Quem está embaixo: a janela de baixo aberta (borda de cima do botão dela),
+  // senão a barra de baixo (quando é ela que está no pé da tela), senão nada (câmera, Estúdio, barra ao lado no PC) — aí vale o padrão do CSS.
+  function chaoMede() {
+    var H = window.innerHeight, px = 0,
+      jn = [].slice.call(document.querySelectorAll('.ljJn:not(.ljSai)')).pop();
+    if (jn) {
+      // a janela descansa no pé da tela; mede-se pela distância ao pé DELA, para valer também enquanto ela sobe
+      var jr = jn.getBoundingClientRect(), topo = null;
+      [].forEach.call(jn.querySelectorAll('button'), function (b) {
+        var r = b.getBoundingClientRect();
+        if (r.height && jr.bottom - r.bottom < 120 && r.width > jr.width / 2 && (topo == null || r.top < topo)) topo = r.top;
+      });
+      if (topo != null) px = jr.bottom - topo;
+    } else {
+      // o que está de fato no pé da tela (uma janela que está saindo já não conta)
+      var el = document.elementsFromPoint(window.innerWidth / 2, H - 4).filter(function (x) { return !x.closest('.ljSai'); })[0], nav = el && el.closest('#mainnav');
+      if (nav) px = H - nav.getBoundingClientRect().top;
+    }
+    var raiz = document.documentElement.style;
+    if (px > 0) raiz.setProperty('--chao', Math.round(px) + 'px');
+    else raiz.removeProperty('--chao');
+    // barra ao lado (tablet deitado e PC): o aviso se centra no que sobra da tela — --beira = largura que ela ocupa à esquerda
+    var mn = $('mainnav'), mr = mn ? mn.getBoundingClientRect() : null;
+    if (mr && mr.height > H / 2 && mr.width > 0 && mr.left <= 0) raiz.setProperty('--beira', Math.round(mr.right) + 'px');
+    else raiz.removeProperty('--beira');
+  }
+  aposRender(chaoMede);
+  window.addEventListener('resize', chaoMede);
   var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
   function lfToast(t, tipo) {
     var e = $('lfToast');
@@ -209,6 +238,7 @@
       e.id = 'lfToast';
       document.body.appendChild(e);
     }
+    chaoMede();
     e.textContent = t;
     e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
     e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');

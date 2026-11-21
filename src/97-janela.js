@@ -38,6 +38,9 @@
           return;
         }
         aberta = false;
+        jn.classList.add('ljSai'); // já não é o chão (chaoMede)
+        bk.classList.add('ljSai');
+        chaoMede();
         jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
         jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';
         pos(H() + 30, !REDUCED);
@@ -50,6 +53,7 @@
       }
     };
     if (o.monta) o.monta(corpo, api);
+    chaoMede(); // a janela aberta passa a ser o chão do aviso curto
     pos(H() + 30, false);
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {

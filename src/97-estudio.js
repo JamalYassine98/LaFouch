@@ -1896,6 +1896,7 @@
     var b = document.createElement('div'),
       feito = false;
     b.className = 'estBarra';
+    chaoMede();
     b.innerHTML = '<b>' + esc(txt) + '</b>' + (acoes || []).map(function (a, i) {
       return '<button type="button" data-b="' + i + '">' + esc(a[0]) + '</button>';
     }).join('');

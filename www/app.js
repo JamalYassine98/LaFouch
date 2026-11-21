@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 613;
+  var APP_BUILD = 614;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.38'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.39'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -21393,6 +21393,35 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Aviso curto na parte de baixo (não bloqueia o toque).
   // Aviso curto (esboço 38, aprovado 21/11 07:51): a cor diz o tipo (regra 17) — 'ok' certo (verde) · 'atencao' (amarelo) · 'erro' (vermelho) ·
   // 'andamento' neutro (em andamento ou só informação). Toda chamada diz o tipo; a cor mora no CSS, uma classe por tipo (#lfToast.t-…).
+  // Um "chão" só (esboço 38): --chao = quantos px o que está embaixo ocupa. O aviso curto, o chip de dica, a lixeira do Início e a barra do Estúdio
+  // ficam a partir dele (CSS: bottom: calc(var(--chao) + 8px)). Quem está embaixo: a janela de baixo aberta (borda de cima do botão dela),
+  // senão a barra de baixo (quando é ela que está no pé da tela), senão nada (câmera, Estúdio, barra ao lado no PC) — aí vale o padrão do CSS.
+  function chaoMede() {
+    var H = window.innerHeight, px = 0,
+      jn = [].slice.call(document.querySelectorAll('.ljJn:not(.ljSai)')).pop();
+    if (jn) {
+      // a janela descansa no pé da tela; mede-se pela distância ao pé DELA, para valer também enquanto ela sobe
+      var jr = jn.getBoundingClientRect(), topo = null;
+      [].forEach.call(jn.querySelectorAll('button'), function (b) {
+        var r = b.getBoundingClientRect();
+        if (r.height && jr.bottom - r.bottom < 120 && r.width > jr.width / 2 && (topo == null || r.top < topo)) topo = r.top;
+      });
+      if (topo != null) px = jr.bottom - topo;
+    } else {
+      // o que está de fato no pé da tela (uma janela que está saindo já não conta)
+      var el = document.elementsFromPoint(window.innerWidth / 2, H - 4).filter(function (x) { return !x.closest('.ljSai'); })[0], nav = el && el.closest('#mainnav');
+      if (nav) px = H - nav.getBoundingClientRect().top;
+    }
+    var raiz = document.documentElement.style;
+    if (px > 0) raiz.setProperty('--chao', Math.round(px) + 'px');
+    else raiz.removeProperty('--chao');
+    // barra ao lado (tablet deitado e PC): o aviso se centra no que sobra da tela — --beira = largura que ela ocupa à esquerda
+    var mn = $('mainnav'), mr = mn ? mn.getBoundingClientRect() : null;
+    if (mr && mr.height > H / 2 && mr.width > 0 && mr.left <= 0) raiz.setProperty('--beira', Math.round(mr.right) + 'px');
+    else raiz.removeProperty('--beira');
+  }
+  aposRender(chaoMede);
+  window.addEventListener('resize', chaoMede);
   var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
   function lfToast(t, tipo) {
     var e = $('lfToast');
@@ -21401,6 +21430,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       e.id = 'lfToast';
       document.body.appendChild(e);
     }
+    chaoMede();
     e.textContent = t;
     e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
     e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');
@@ -34304,6 +34334,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var b = document.createElement('div'),
       feito = false;
     b.className = 'estBarra';
+    chaoMede();
     b.innerHTML = '<b>' + esc(txt) + '</b>' + (acoes || []).map(function (a, i) {
       return '<button type="button" data-b="' + i + '">' + esc(a[0]) + '</button>';
     }).join('');
@@ -36553,6 +36584,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return;
         }
         aberta = false;
+        jn.classList.add('ljSai'); // já não é o chão (chaoMede)
+        bk.classList.add('ljSai');
+        chaoMede();
         jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
         jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';
         pos(H() + 30, !REDUCED);
@@ -36565,6 +36599,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
     };
     if (o.monta) o.monta(corpo, api);
+    chaoMede(); // a janela aberta passa a ser o chão do aviso curto
     pos(H() + 30, false);
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
@@ -47285,6 +47320,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         chip.setAttribute('role', 'status');
         document.body.appendChild(chip);
       }
+      chaoMede();
       chip.textContent = t;
       chip.classList.add('on');
       clearTimeout(chipT);

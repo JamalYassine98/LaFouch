@@ -1,1 +1,1 @@
-{"v":613,"nat":1,"nome":"5.50.38","notas":["O aviso curto agora tem a cor do tipo: verde quando deu certo, amarelo para atenção, vermelho para erro e neutro quando ainda está em andamento. Antes todos saíam verdes."]}
+{"v":614,"nat":1,"nome":"5.50.39","notas":["O aviso curto não tampa mais a barra de baixo: fica logo acima dela. Com uma janela aberta, fica acima do botão da janela.","No tablet deitado e no computador, o aviso não entra mais por cima da barra do lado."]}

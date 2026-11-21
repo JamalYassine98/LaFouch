@@ -308,7 +308,7 @@ body.noscroll{overflow:hidden}
 .qghost{position:fixed!important;z-index:9999;pointer-events:none;margin:0;box-shadow:0 22px 40px rgba(0,0,0,.5);border-radius:20px;transform:scale(1.08) rotate(-2deg);transition:none}
 .qorig{opacity:.25}
 body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
-#qchip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:9998;max-width:92vw;padding:8px 14px;border-radius:999px;background:var(--accent);color:#fff;font:800 12.5px Inter,system-ui,sans-serif;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+#qchip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--chao) + 8px);z-index:9998;max-width:92vw;padding:8px 14px;border-radius:999px;background:var(--accent);color:#fff;font:800 12.5px Inter,system-ui,sans-serif;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
 #qchip.on{opacity:1}
 /* Produtos: preço antigo → novo, canais, avisos de piso, seleção em grupo */
 .pcard .zp{margin:4px 0 2px;font-weight:800;font-size:14px;white-space:nowrap}
@@ -459,7 +459,9 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .vimp.vok{background:#0a7a45!important}
 .vsp2{display:inline-block;width:14px;height:14px;border:3px solid #fff5;border-top-color:#fff;border-radius:50%;animation:lfrot .7s linear infinite;vertical-align:-2px;margin-right:8px}
 /* O aviso curto fica ACIMA de toda tela e janela (Estúdio 360–430, janela de baixo 900–901) e abaixo do cadeado (9999) e do carregando (99999): com 270 ele era desenhado atrás do Estúdio e o app parecia "não fazer nada" (item 33, 20/11/2026). */
-#lfToast{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:420px;margin:0 auto;z-index:9990;background:var(--tbg);border:1px solid color-mix(in srgb,var(--tfg) 35%,transparent);color:var(--tfg);border-radius:12px;padding:12px 16px;font-size:15px;font-weight:600;pointer-events:none;transform:translateY(120px);opacity:0;transition:transform .5s cubic-bezier(.2,1.2,.3,1),opacity .3s}
+/* esboço 38 — um chão só: --chao = o que ocupa o pé da tela (escrito por chaoMede; sem barra nem janela vale este padrão = 16 px do pé) */
+:root{--chao:calc(8px + env(safe-area-inset-bottom,0px))}
+#lfToast{position:fixed;left:calc(var(--beira,0px) + 16px);right:16px;bottom:calc(var(--chao) + 8px);max-width:420px;margin:0 auto;z-index:9990;background:var(--tbg);border:1px solid color-mix(in srgb,var(--tfg) 35%,transparent);color:var(--tfg);border-radius:12px;padding:12px 16px;font-size:15px;font-weight:600;pointer-events:none;transform:translateY(120px);opacity:0;transition:transform .5s cubic-bezier(.2,1.2,.3,1),opacity .3s}
 #lfToast.on{transform:none;opacity:1}
 /* esboço 38: a cor do aviso curto vem do tipo — só aqui */
 #lfToast.t-ok{--tbg:var(--okbg);--tfg:var(--ok)}#lfToast.t-atencao{--tbg:var(--warnbg);--tfg:var(--warn)}#lfToast.t-erro{--tbg:var(--badbg);--tfg:var(--bad)}#lfToast.t-andamento{--tbg:var(--panel2);--tfg:var(--fg)}
@@ -936,7 +938,7 @@ html[data-tema="claro"]{--pr-fg:#6e2352;--redfg:#a12a2a;--okfg:#0a7a45}
 .cdel{transition:transform .28s var(--padrao),opacity .28s,max-height .28s;max-height:600px;overflow:hidden}.cdel.out{transform:scale(.92);opacity:0;max-height:0;margin:0;padding-top:0;padding-bottom:0}
 @media (prefers-reduced-motion:reduce){.chk,.chk.on svg,#lfDesf,.cdel{transition:none!important;animation:none!important}}
 /* Início: lixeira, trocar de lugar e botões ocultos (v407) */
-#inLixo{position:fixed;left:50%;bottom:calc(132px + env(safe-area-inset-bottom,0px));width:64px;height:64px;margin-left:-32px;border-radius:50%;z-index:9997;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--red) 14%,var(--panel2));border:1.5px solid color-mix(in srgb,var(--red) 55%,var(--line));color:var(--redfg);transform:translateY(40px) scale(.5);opacity:0;pointer-events:none;transition:transform .45s var(--mola),opacity .2s,background .14s,box-shadow .14s}
+#inLixo{position:fixed;left:50%;bottom:calc(var(--chao) + 56px);/* acima do chip de dica: 8 + chip (32) + 16 */width:64px;height:64px;margin-left:-32px;border-radius:50%;z-index:9997;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--red) 14%,var(--panel2));border:1.5px solid color-mix(in srgb,var(--red) 55%,var(--line));color:var(--redfg);transform:translateY(40px) scale(.5);opacity:0;pointer-events:none;transition:transform .45s var(--mola),opacity .2s,background .14s,box-shadow .14s}
 #inLixo.on{transform:none;opacity:1}
 #inLixo .cx{display:flex}#inLixo svg{width:28px;height:28px;overflow:visible}
 #inLixo svg path:last-child{transform-origin:15px 4px;transition:transform .2s var(--mola)}
@@ -1877,7 +1879,7 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 .ecAuto.ok{color:#9ff0c6}
 .ecRef{position:absolute;right:10px;top:54px;background:rgba(15,18,22,.85);border-radius:12px;padding:6px;text-align:center;width:104px}
 .ecRef img{width:92px;height:62px;object-fit:contain;background:#fff;border-radius:8px;display:block}.ecRef span{display:block;color:#fff;font-size:11px;margin-top:4px;line-height:1.2}
-.estBarra{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9999;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px 16px;box-shadow:0 18px 40px rgba(0,0,0,.45);animation:lfTopoInB .4s cubic-bezier(.2,1.25,.35,1) both}
+.estBarra{position:fixed;left:12px;right:12px;bottom:calc(var(--chao) + 8px);z-index:9999;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px 16px;box-shadow:0 18px 40px rgba(0,0,0,.45);animation:lfTopoInB .4s cubic-bezier(.2,1.25,.35,1) both}
 .estBarra b{flex:1;font-size:15px;color:var(--ok)}.estBarra button{background:none;border:0;color:var(--pri);font-size:14px;font-weight:600}
 .estBarra.sai{animation:lfTopoSaiB .26s ease-in both}
 @keyframes lfTopoInB{from{transform:translateY(140%)}to{transform:none}}@keyframes lfTopoSaiB{to{transform:translateY(140%);opacity:0}}
