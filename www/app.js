@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 600;
+  var APP_BUILD = 601;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.25'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.26'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1478,7 +1478,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Rótulo curto da variante: grau ou classe de cor + cor.
   function rowLabel(i) {
-    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + (i.cor === 'Sem cor' ? '' : ' · ')) + (isSimple(i.tipo) || i.cor !== 'Sem cor' ? i.cor : '');
+    if (isSimple(i.tipo)) return i.cor;
+    // 134: só junta com " · " o que existe (peça sem grau/variação nascia como "· Cor" e o ponto era tirado depois)
+    return [i.tipo === 'pre' ? i.grau : i.vr, i.cor !== 'Sem cor' ? i.cor : ''].filter(Boolean).join(' · ');
   }
   // Foto ampliada em tela cheia; tocar fecha.
   function zoomFoto(src) {
@@ -1995,9 +1997,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         venda ? (corUnica || f.tipo === 'pre' ? i.grau + (corUnica || i.cor === 'Sem cor' ? '' : ' · ' + i.cor) : nomeCor(i.cor)) : corUnica ? i.grau : rowLabel(i)
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
-        var tg = mk('span', 'cell', 'sem foto');
-        tg.style.cssText = 'font-size:11px;padding:2px 8px;margin-left:8px';
-        tx.appendChild(tg);
+        tx.appendChild(mk('span', 'cell', 'sem foto')); // o aspecto vem do CSS da linha da ficha (#detail .pl.pick .cell)
       }
       r.appendChild(tx);
       var qv = venda ? gQty(i) : i.qty;
@@ -53149,7 +53149,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

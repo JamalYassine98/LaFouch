@@ -162,6 +162,12 @@ select.in{appearance:auto}
 .pl.pick{grid-template-columns:auto minmax(0,1fr) auto;cursor:pointer;min-height:48px}
 .pl.pick.picked{border-color:var(--accent);background:var(--accent-soft)}
 .pl.pick>.qe{grid-column:1/-1}
+/* 134 (aprovado 18/11 12:53): FICHA DO INVENTÁRIO sem cartão e sem caixas — fundo e largura da tela; cor/grau = linha de lista (44 px, linha fina, quantidade à direita) */
+/* no PC com a lista e a ficha lado a lado (.invDuo) a ficha continua sendo o painel da direita */
+.view>#detail{background:none;border:0;border-radius:0;box-shadow:none;padding-left:0;padding-right:0}
+#detail .pl.pick{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));border-radius:0}
+#detail .pl.pick .cell{margin-left:10px;padding:0;background:none;color:var(--mute);font-size:13px}
+#detail .pl.pick>b{white-space:nowrap}
 .vbar{position:sticky;bottom:8px;z-index:5}
 .go:disabled{opacity:.45}
 

@@ -39,7 +39,9 @@
   }
   // Rótulo curto da variante: grau ou classe de cor + cor.
   function rowLabel(i) {
-    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + (i.cor === 'Sem cor' ? '' : ' · ')) + (isSimple(i.tipo) || i.cor !== 'Sem cor' ? i.cor : '');
+    if (isSimple(i.tipo)) return i.cor;
+    // 134: só junta com " · " o que existe (peça sem grau/variação nascia como "· Cor" e o ponto era tirado depois)
+    return [i.tipo === 'pre' ? i.grau : i.vr, i.cor !== 'Sem cor' ? i.cor : ''].filter(Boolean).join(' · ');
   }
   // Foto ampliada em tela cheia; tocar fecha.
   function zoomFoto(src) {
@@ -556,9 +558,7 @@
         venda ? (corUnica || f.tipo === 'pre' ? i.grau + (corUnica || i.cor === 'Sem cor' ? '' : ' · ' + i.cor) : nomeCor(i.cor)) : corUnica ? i.grau : rowLabel(i)
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
-        var tg = mk('span', 'cell', 'sem foto');
-        tg.style.cssText = 'font-size:11px;padding:2px 8px;margin-left:8px';
-        tx.appendChild(tg);
+        tx.appendChild(mk('span', 'cell', 'sem foto')); // o aspecto vem do CSS da linha da ficha (#detail .pl.pick .cell)
       }
       r.appendChild(tx);
       var qv = venda ? gQty(i) : i.qty;

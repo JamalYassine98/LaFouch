@@ -2581,7 +2581,9 @@ async def main():
             ok = (blocos == 2 and a1 == 'Preto +1.25 x5|Preto +2.00 x4|Tartaruga +0.75 x1' and a2 == 'Preto +1.25 x5|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a3 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Preto +3.00 x1|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a4 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2' and el.endswith('+3.00:-1') and cu and sb
-                  and fotos[0][1:] == fotos[1][1:] and fotos[0][3] == 0 and sobra == 0 and fotos[2] == [True, True, True, True] and not pg.erros)  # S374: voo por transform; S267 (14/11/2026): o Catálogo não tem mais as abas, então a foto fica mais alta lá; tamanho e animação continuam iguais
+                  and abs(fotos[0][1] / fotos[0][2] - fotos[1][1] / fotos[1][2]) < 0.02 and fotos[0][3] == fotos[1][3] == 0 and sobra == 0 and fotos[2] == [True, True, True, True] and not pg.erros)  # S374: voo por transform; S267 (14/11/2026): o Catálogo não tem mais as abas, então a foto fica mais alta lá; tamanho e animação continuam iguais
+            # 134 (21/11): a ficha do Inventário saiu do cartão (largura da tela) e a do Catálogo ainda tem o cartão até o 149s — a foto tem a MESMA proporção e a mesma animação;
+            # quando o 149s tirar o cartão do Catálogo (#vDetail), voltar a exigir largura e altura iguais.
             print(('  ok  ' if ok else ' FALHA ') + 'v474: graus por cor (trocar/mudar de cor/adicionar/tirar/custo), barra de seleção padrão, foto abre igual no Catálogo e no Inventário')
             if not ok: falhas.append('v474 graus/barra/foto'); print('        veio', blocos, a1, a2, a3, a4, el, cu, sb, fotos, sobra, pg.erros)
             await pg.close()
@@ -4498,6 +4500,20 @@ async def main():
             ok = got == [True] * 5 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + '134 (2b): os links da ficha (Vender no Catálogo, Fotografar no Estúdio) nascem no fim, centralizados, nas 4 abas; no Catálogo não aparecem')
             if not ok: falhas.append('134 links no fim da ficha'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # 134 (2a): a ficha do Inventário sai do cartão grande (celular: fundo e largura da tela) e a linha de cor/grau é linha de lista —
+            # 44 px, sem caixa, linha fina embaixo, quantidade à direita sem quebrar; o nome nasce sem "· " na frente (rowLabel junta só o que existe).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(900);
+              const d = document.getElementById('detail'), c = getComputedStyle(d), ps = [...d.querySelectorAll('.pl.pick')];
+              return [c.backgroundColor === 'rgba(0, 0, 0, 0)' && c.borderTopWidth === '0px' && c.paddingLeft === '0px', ps.length > 0 && ps.every(p => { const s = getComputedStyle(p), b = p.querySelector('b'); return s.backgroundColor === 'rgba(0, 0, 0, 0)' && s.borderLeftWidth === '0px' && s.borderBottomWidth === '1px' && s.borderTopLeftRadius === '0px' && p.getBoundingClientRect().height >= 44 && b.getBoundingClientRect().height < 30 && Math.abs(b.getBoundingClientRect().right - p.getBoundingClientRect().right) < 1 && !/^\\s*·/.test(p.textContent); }),
+                !S.items.some(i => /^\\s*·/.test(L.rowLabel(i)) || /·\\s*$/.test(L.rowLabel(i)))]; }""")
+            total += 1
+            ok = got == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134 (2a): ficha do Inventário sem o cartão grande; cor/grau como linha de lista (44 px, linha fina, quantidade à direita) e sem "· " solto')
+            if not ok: falhas.append('134 ficha linhas'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
