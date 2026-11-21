@@ -1,7 +1,14 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "38 parte B: um chão só (--chao) para aviso, chip, lixeira e barra do Estúdio",
+ "arquivos": [
+  "src/88-movimento-novo.js",
+  "src/97-janela.js",
+  "src/98-botoes-barra.js",
+  "src/97-estudio.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795302656.6910415,
@@ -44,5 +51,5 @@
    "r": "149s etapa A: estudo feito e enviado ao dono (Caixa e Vender mudam fora das 9); nada publicado. Próximo: 39 preço exato"
   }
  ],
- "leu": 1795302656.168225
+ "leu": 1795302896.2978919
 }

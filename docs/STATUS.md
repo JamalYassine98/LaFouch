@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 38 parte B: um chão só (--chao) para aviso, chip, lixeira e barra do Estúdio | src/88-movimento-novo.js, src/97-janela.js, src/98-botoes-barra.js, src/97-estudio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
