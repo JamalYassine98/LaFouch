@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | ficha: juntar as 4 camadas do renderDetail numa função (0 diferença na tela) | src/10-estoque-detalhe.js, src/97t-ficha-s190.js, src/97u-navegacao-s184.js, src/97y-lucro-real.js, src/97z2-contador.js, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
+| IDEIAS | IDEIAS 01 v3: descrição = modelos que combinam | work/ideias/01-formato |
 
 ## Fila
 

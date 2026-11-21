@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 01 v3: descrição = modelos que combinam",
+ "arquivos": [
+  "work/ideias/01-formato"
+ ],
  "ultimas": [
   {
    "t": 1795269123.800192,
@@ -12,5 +14,5 @@
    "r": "IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795269117.8266053
+ "leu": 1795275721.8289385
 }
