@@ -24,16 +24,21 @@ def inicio(pw,prop):
 def inventario(pw,prop,onde='topo'):
   b,pg,w=ap.abre(pw,'estoque',True,'celular',base=True);w(700);pg.add_style_tag(content='#nvBar{display:none!important}')
   pg.evaluate(INV48);w(300)
-  pg.evaluate("o=>window.__onde=o",onde)
+  pg.evaluate("o=>window.__onde=o",'mais' if onde=='mais0' else onde)
   if prop: pg.evaluate(r"""()=>{const k=document.getElementById('kpisE');k.style.setProperty('display','none','important');
    // o "caminho" estático (Grupo Pré-graduados › Grau › Formato › Referência) vira o resumo da loja; o nº de peças fica só na linha da lista (segue o filtro)
    const c=document.getElementById('crumb');c.textContent='16 referências · US$ 420 a custo';
    const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:64px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:10px 0;margin:0';
    const L=(t,s2,v,c)=>'<button type="button" style="'+ST+'"><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute)">'+s2+'</small></span>'+(v?'<b style="font-size:16px;font-weight:600;color:'+c+';font-variant-numeric:tabular-nums">'+v+'</b>':'')+'<i style="font-style:normal;font-size:20px;color:var(--mute)">›</i></button>';
-   const H2='<section class="pa52" style="border-top:1px solid var(--line2);margin:'+(window.__onde=='fim'?'32px 0 24px':'8px 0 0')+'">'+L('Parados e sobrando','41% do investido sem vender há 60+ dias','US$ 172','var(--warn,#e0b44c)')+L('Contar o estoque','3 dos mais valiosos sem conferir há 10+ dias')+'</section>';
-   if(window.__onde=='fim'){const g=document.querySelector('#v-estoque .main');g.insertAdjacentHTML('beforeend',H2)}else k.insertAdjacentHTML('afterend',H2);
-   if(window.__onde!='fim'){const bs=document.querySelector('#v-estoque .main');if(bs)bs.style.setProperty('margin-top','16px','important')}}""");w(400)
-  if onde=='fim': pg.evaluate("()=>{let best=document.scrollingElement;for(const e of document.querySelectorAll('*')){const cs=getComputedStyle(e);if(/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight+20&&e.getBoundingClientRect().height>300&&e.scrollHeight>best.scrollHeight-1)best=e}best.scrollTop=1e6;scrollTo(0,1e6)}");w(500)
+   const H2='<section class="pa52" style="border-top:1px solid var(--line2);margin:'+(window.__onde!='topo'?'32px 0 24px':'8px 0 0')+'">'+L('Parados e sobrando','41% do investido sem vender há 60+ dias','US$ 172','var(--warn,#e0b44c)')+L('Contar o estoque','3 dos mais valiosos sem conferir há 10+ dias')+'</section>';
+   if(window.__onde=='mais'){const P=[...document.querySelectorAll('#rows .pcard')];P.slice(6).forEach(c=>c.style.setProperty('display','none','important'));
+     document.getElementById('rows').insertAdjacentHTML('afterend','<button type="button" style="display:block;margin:24px auto 0;background:none;border:0;color:var(--accent-fg);font:inherit;font-size:15px;font-weight:600;min-height:44px">Ver mais '+(P.length-6)+' peças ⌄</button>');
+     const pc=document.querySelector('#v-estoque [data-act="pcAbre"]');if(pc){const pv=pc.previousSibling;pc.remove();if(pv&&pv.nodeType==3)pv.textContent=pv.textContent.replace(/\s*·\s*$/,'')}
+     [...document.querySelectorAll('#v-estoque *')].filter(e=>e.children.length==0&&/·\s*$/.test(e.textContent)).forEach(e=>e.textContent=e.textContent.replace(/\s*·\s*$/,''));
+     const g=document.querySelector('#v-estoque .main');g.insertAdjacentHTML('beforeend',H2)}
+   else if(window.__onde=='fim'){const g=document.querySelector('#v-estoque .main');g.insertAdjacentHTML('beforeend',H2)}else k.insertAdjacentHTML('afterend',H2);
+   if(window.__onde=='topo'){const bs=document.querySelector('#v-estoque .main');if(bs)bs.style.setProperty('margin-top','16px','important')}}""");w(400)
+  if onde in('fim','mais'): pg.evaluate("()=>{let best=document.scrollingElement;for(const e of document.querySelectorAll('*')){const cs=getComputedStyle(e);if(/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight+20&&e.getBoundingClientRect().height>300&&e.scrollHeight>best.scrollHeight-1)best=e}best.scrollTop=1e6;scrollTo(0,1e6)}");w(500)
   confere(pg,'Inventário '+('proposta '+onde if prop else 'hoje'));x=shot(pg,'inv%d%s'%(prop,onde));b.close();return x
 def parados(pw):
   b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
