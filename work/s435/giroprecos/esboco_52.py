@@ -24,9 +24,10 @@ def inicio(pw,prop):
 def inventario(pw,prop):
   b,pg,w=ap.abre(pw,'estoque',True,'celular',base=True);w(700);pg.add_style_tag(content='#nvBar{display:none!important}')
   pg.evaluate(INV48);w(300)
-  if prop: pg.evaluate(r"""()=>{const k=document.getElementById('kpisE');const ks=[...k.querySelectorAll('.kpi')];
-   const v=ks[0].cloneNode(true);v.querySelector('.lbl').textContent='A custo';v.querySelector('b').textContent='US$ 420';v.querySelector('b').style.color='';ks[ks.length-1].after(v);k.style.setProperty('grid-template-columns','repeat(3,minmax(0,1fr))','important');const l0=ks[0].querySelector('.lbl');if(l0)l0.childNodes.forEach(n=>{if(n.nodeType==3)n.textContent=n.textContent.replace(/\s*\(filtro\)/i,'')});
-   const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:64px;background:none;border:0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:10px 0;margin:8px 0 16px';
+  if prop: pg.evaluate(r"""()=>{const k=document.getElementById('kpisE');k.style.setProperty('display','none','important');
+   // o "caminho" estático (Grupo Pré-graduados › Grau › Formato › Referência) vira o resumo da loja; o nº de peças fica só na linha da lista (segue o filtro)
+   const c=document.getElementById('crumb');c.textContent='16 referências · US$ 420 a custo';
+   const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:64px;background:none;border:0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:10px 0;margin:16px 0';
    k.insertAdjacentHTML('afterend','<button type="button" class="pa52" style="'+ST+'"><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;font-weight:500">Parados e sobrando</b><small style="font-size:13px;color:var(--mute)">41% do investido sem vender há 60+ dias</small></span><b style="font-size:16px;font-weight:600;color:var(--warn,#e0b44c);font-variant-numeric:tabular-nums">US$ 172</b><i style="font-style:normal;font-size:20px;color:var(--mute)">›</i></button>')}""");w(400)
   confere(pg,'Inventário '+('proposta' if prop else 'hoje'));x=shot(pg,'inv%d'%prop);b.close();return x
 def parados(pw):
@@ -46,6 +47,6 @@ def quadro(arq,q):
 if __name__=='__main__':
  with sync_playwright() as pw:
   quadro('esboco_52a_inicio.jpg',[('HOJE · Início','com "Giro e preços"',inicio(pw,0)),('PROPOSTA · Início','sem "Giro e preços"',inicio(pw,1))])
-  quadro('esboco_52b_inventario.jpg',[('HOJE · Inventário (com 48b)','sem o estado do estoque',inventario(pw,0)),('PROPOSTA · Inventário','valor a custo + "Parados e sobrando ›"',inventario(pw,1)),('PROPOSTA · Parados e sobrando ›','as duas listas, cada uma com "Oferta ›"',parados(pw))])
+  quadro('esboco_52b_inventario.jpg',[('HOJE · Inventário (com 48b)','sem o estado do estoque',inventario(pw,0)),('PROPOSTA · Inventário','sem os números grandes · resumo embaixo do título',inventario(pw,1)),('PROPOSTA · Parados e sobrando ›','as duas listas, cada uma com "Oferta ›"',parados(pw))])
  json.dump(REL,open(O+'conferencia_52.json','w'),ensure_ascii=False,indent=1)
  for n,f in REL: print(n,len(f),f[:6])
