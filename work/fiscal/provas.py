@@ -1203,6 +1203,31 @@ def p7_versao_sem_recarga(p):
         else: passou(P7, nome)
     finally: b.close()
 
+# 21/11 (internet fraca, parte 2): as roupas do Mochi de Dia das Mães/Pais (82 KB) só descem quando o evento do site é um deles —
+# e o Mochi nunca é desenhado sem a roupa do evento ativo (enquanto ela não chega, ele "ainda não está pronto").
+def p7_mochi_roupa(p):
+    for ev in ('', 'maes'):
+        b, c, pg, E = novo(p, ls=({'lf_cfg': json.dumps({'ativo': True, 'evento': {'tema': 'maes'}})} if ev else None))
+        try:
+            pediu = []
+            pg.on('request', lambda r: pediu.append(1) if 'lf-mochi-datas' in r.url else None)
+            if ev:
+                c.route('**firestore.googleapis.com/**', lambda r, q=None: r.abort()); c.route('**/dados/inicio.json*', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body='{}'))
+            carrega(pg); pg.wait_for_timeout(1500)
+            r = pg.evaluate("(()=>{const f=window.__lfMochiSvg;return {ev:document.documentElement.getAttribute('data-ev')||'',pronto:typeof f==='function',roupa:typeof f==='function'&&f().indexOf('M-40 54 L160 54')>=0}})()")
+            if not ev:
+                nome = 'Mochi: as roupas de Mães/Pais não descem fora desses eventos'
+                if pediu: falha(P7, nome, 'o arquivo das roupas foi pedido sem precisar', None)
+                elif not r['pronto']: falha(P7, nome, 'o Mochi não ficou pronto', None)
+                else: passou(P7, nome, 'evento ' + (r['ev'] or 'nenhum'))
+            else:
+                nome = 'Mochi: no Dia das Mães a roupa desce e ele aparece vestido'
+                if not r['ev'].startswith('maes'): falha(P7, nome, f"não consegui pôr o evento de teste (ficou {r['ev'] or 'nenhum'}): a prova não vale", None)
+                elif not pediu: falha(P7, nome, 'o arquivo das roupas não foi pedido', None)
+                elif not r['pronto'] or not r['roupa']: falha(P7, nome, 'o Mochi ficou sem a roupa do evento', pg)
+                else: passou(P7, nome)
+        finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1237,7 +1262,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('roupas do Mochi', p7_mochi_roupa), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
