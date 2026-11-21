@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "4c parte 1 (149t): título do Dashboard/Giro/Preços/Reservas é h1 de verdade",
- "arquivos": [
-  "src/98-dash-cabecalho.js",
-  "src/99c-navegacao-s435.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795264844.7448895,
+   "r": "v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)"
+  },
   {
    "t": 1795263473.6537156,
    "r": "4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c"
@@ -42,10 +42,6 @@
   {
    "t": 1795223626.6234937,
    "r": "v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família)."
-  },
-  {
-   "t": 1795218326.0454235,
-   "r": "v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py"
   }
  ],
  "leu": 1795264836.2721229
