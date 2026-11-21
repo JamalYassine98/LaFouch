@@ -1,2 +1,2 @@
-em andamento — dono 21/11 08:03 'implementar tudo': uma parte por versão; começa pelo 4b Preços (3 partes)
+em andamento — 4b parte 1 ✅ v591 (5.50.16, 21/11): preço automático em Ajustes › Preços; próxima: 4b parte 2 (tela de Preços por uma função só + Ferramentas)
 

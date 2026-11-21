@@ -82,7 +82,7 @@
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **43-estudio-no-padrao** — esboço pronto — esperando o dono
-- **43-implementar-tudo-em-partes** — em andamento — dono 21/11 08:03 'implementar tudo': uma parte por versão; começa pelo 4b Preços (3 partes)
+- **43-implementar-tudo-em-partes** — em andamento — 4b parte 1 ✅ v591 (5.50.16, 21/11): preço automático em Ajustes › Preços; próxima: 4b parte 2 (tela de Preços por uma função só + Ferramentas)
 
 ## Recados esperando
 
