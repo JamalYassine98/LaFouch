@@ -1,0 +1,36 @@
+name: Vigia diário da nuvem
+
+# 21/11/2026 (NUVEM; dono: "Faça 1 e 2" — rodada agendada autorizada; repositório público = sem custo no GitHub).
+# Uma vez por dia, de manhã no Paraguai: sonda das portas no ar, erros das funções nas últimas 24 h e selo do App Check de ontem.
+# Só lê; o resumo vai como recado VIGIA → NUVEM no status. Também pode ser chamado pelo botão "Run workflow".
+on:
+  schedule:
+    - cron: '37 9 * * *' # 06:37 no Paraguai
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: vigia
+  cancel-in-progress: false
+
+jobs:
+  vigia:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
+          service_account: github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+      - name: Olhar a nuvem
+        run: bash tools/vigia-nuvem.sh
+      - name: Recado no status
+        run: |
+          git config user.name "vigia-nuvem"; git config user.email "vigia@users.noreply.github.com"
+          python3 tools/status.py recado VIGIA NUVEM "Vigia $(TZ=America/Asuncion date '+%d/%m %H:%M'): $(tr '\n' ' ' < /tmp/vigia.txt | cut -c1-1500)"
