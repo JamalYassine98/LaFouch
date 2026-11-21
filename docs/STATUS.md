@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
+| IDEIAS | IDEIAS 01 parte A: câmera muito boa | work/ideias/01-formato |
 | SITE | Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada) | work/s430/varredura/roteiros.py |
 
 ## Fila
