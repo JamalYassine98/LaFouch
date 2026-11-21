@@ -96,6 +96,7 @@
 - **50-giro-sobrando-e-lista** — esboço pronto — esperando o dono
 - **52-desfazer-giro-e-precos** — partes 1 e 2 aprovadas (15:38 e 16:17) — esperam o 'implementar' · partes 3–6 a fazer
 - **53-destaque-da-semana-do-semp** — esboço pronto — esperando o dono
+- **54-precos-escritorio-do-guardiao** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
