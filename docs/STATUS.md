@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold | src/89-dash-abas.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 44: cadastro do Inventário (Adicionar, passo 1 em linhas, passo 2 cores da Galeria) | work/s435/cadastro |
-| SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 
 ## Fila
 
@@ -119,6 +118,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 10:22 — SITE: 21/11 manhã: (1) URGENTE resolvido — câmera do formato do rosto e comparar voltaram (site 1795264209); (2) conferência contra a versão de 19/11: janelas soltas e avisos iguais; telas só com as mudanças aprovadas (work/s430/janelas/LEIA.md); (3) internet fraca: começo rápido + sem recarga na 1ª abertura (site 1795266930) — rede limpa: 4G fraco 31 s → ~15 s até a 1ª foto, 4G bom 6,1 → 1,8 s; (4) esperando o dono: 'implementar' do esboço 39 (preço exato, parte do site) e o esboço do logo leve (Fila 36). Porteiro 230 provas, 0 falhas. PRÓXIMO: internet fraca parte 2 (programa em pedaços).
 - 21/11 10:19 — NUVEM: 39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO.
 - 21/11 10:14 — IDEIAS: IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS
 - 21/11 09:58 — APP: v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)
@@ -143,4 +143,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 21:10 — SITE: investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono
 - 20/11 20:33 — SITE: varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)
 - 20/11 20:16 — NUVEM: Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos.
-- 20/11 20:10 — NUVEM: S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto.
