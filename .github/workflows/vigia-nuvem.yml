@@ -33,4 +33,4 @@ jobs:
       - name: Recado no status
         run: |
           git config user.name "vigia-nuvem"; git config user.email "vigia@users.noreply.github.com"
-          python3 tools/status.py recado VIGIA NUVEM "Vigia $(TZ=America/Asuncion date '+%d/%m %H:%M'): $(tr '\n' ' ' < /tmp/vigia.txt | cut -c1-1500)"
+          LF_RAIZ="$GITHUB_WORKSPACE" python3 tools/status.py recado VIGIA NUVEM "Vigia $(TZ=America/Asuncion date '+%d/%m %H:%M'): $(tr '\n' ' ' < /tmp/vigia.txt | cut -c1-1500)"
