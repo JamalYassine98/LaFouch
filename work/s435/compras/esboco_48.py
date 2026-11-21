@@ -1,0 +1,64 @@
+# Esboço 48 parte 1 (S435, 21/11 12:20) — direção aprovada 12:12: Peças = Inventário · Estúdio · Compras.
+# Inventário só produtos (sem abas) · Compras = Lista de compras (um lugar só, sai do Giro) + Fornecedores (cada um vira lugar ›, parte 2).
+# Base: app real + aprovados (37 ícones cinza, 45 "A completar", 67/68 Lista limpa, 102c, 134b, 149s).
+import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');import ap
+from playwright.sync_api import sync_playwright
+from PIL import Image,ImageDraw,ImageFont
+F=lambda s:ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',s)
+O='/home/claude/lafouch/work/s435/compras/'
+CINZA="#v-grp .nvL svg,#v-grp .nvL i svg{color:var(--mute)!important;stroke:var(--mute)!important}#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}"
+def shot(pg,n):
+  f='/tmp/e48_%s.png'%n;pg.screenshot(path=f);x=Image.open(f);x.load();return x.copy()
+def pecas(pw,prop):
+  b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500)
+  pg.click('#mainnav .mn[data-id="g:pecas"]');w(900);pg.add_style_tag(content=CINZA)
+  if prop: pg.evaluate(r"""()=>{const f=()=>{const v=document.getElementById('v-grp');const L=[...v.querySelectorAll('.nvL')];if(!L.length||v.querySelector('.c48'))return;const e=L[L.length-1];const n=e.cloneNode(true);n.classList.add('c48');
+     n.querySelector('b').textContent='Compras';n.querySelector('small').textContent='Lista de compras e fornecedores';
+     const s=n.querySelector('svg');if(s)s.innerHTML='<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 7H6"/>';e.after(n);
+     [...v.querySelectorAll('*')].filter(x=>x.children.length==0&&/Inventário e estúdio/.test(x.textContent)).forEach(x=>x.textContent='Inventário, estúdio e compras');
+     const i=L[0].querySelector('small');if(i)i.textContent='Cadastro, estoque e preço de cada peça'};f();new MutationObserver(f).observe(document.getElementById('v-grp'),{childList:true,subtree:true})}""");w(500)
+  x=shot(pg,'p%d'%prop);b.close();return x
+def inventario(pw,prop):
+  b,pg,w=ap.abre(pw,'estoque',True,'celular',base=True);w(600);pg.add_style_tag(content='#nvBar{display:none!important}')
+  if prop:
+    I=pg.evaluate("()=>[...document.querySelectorAll('.pcard img')].map(i=>i.src).filter(s=>/^data:image\\/svg/.test(s)).slice(0,6)")
+    pg.evaluate(r"""(I)=>{const v=document.getElementById('v-estoque');const t=document.getElementById('eTabs');t.style.setProperty('display','none','important');
+     const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:80px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:12px 0';
+     const ROW=(img,a,s)=>'<button type="button" style="'+ST+'"><span style="flex:0 0 64px;height:48px;border-radius:10px;overflow:hidden;background:#fff"><img src="'+img+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;font-weight:500">'+a+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><i style="font-style:normal;font-size:20px;color:var(--mute)">›</i></button>';
+     const d=document.createElement('section');d.innerHTML='<div class="lbl" style="margin:16px 0 0">A completar · 2</div><section style="display:flex;flex-direction:column">'+ROW(I[1],'TS1234 · 4 cores','tratada · falta custo, preço e material')+ROW(I[3],'SL2250 · 3 cores','tratada · falta custo e preço')+'</section>';
+     t.after(d);
+     // a linha "Lotes pendentes" dos números sai junto com a aba (a compra sem detalhe é avisada em Compras)
+     [...document.querySelectorAll('#kpisE .kpi')].filter(k=>/Lotes pendentes/.test(k.textContent)).forEach(k=>k.remove())}""",I);w(400)
+  x=shot(pg,'i%d'%prop);b.close();return x
+def giro(pw,prop,y=0):
+  b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500)
+  pg.evaluate("()=>__LF.inicioGo('repo')");w(1500);pg.add_style_tag(content='#nvBar{display:none!important}')
+  if prop: pg.evaluate(r"""()=>{const s=[...document.querySelectorAll('#dtabBody .fxF')].find(x=>/Lista de compras/.test(x.textContent));s.classList.remove('on');const h=s.querySelector('.fxH');s.querySelector('.fxB').remove();
+     h.querySelector('b,span b')&&0;[...h.querySelectorAll('*')].filter(x=>x.children.length==0).forEach(x=>{if(/vão acabar/.test(x.textContent))x.textContent='17 para comprar';if(x.textContent.trim()=='⌄')x.textContent='›'});
+     const ch=[...h.querySelectorAll('*')].find(x=>/[⌄›]/.test(x.textContent)&&x.children.length==0);if(ch){ch.textContent='›';ch.style.transform='none'}h.querySelectorAll('svg').forEach(v=>v.style.transform='rotate(-90deg)')}""");w(400)
+  else: pg.evaluate("()=>{const s=[...document.querySelectorAll('#dtabBody .fxF')].find(x=>/Lista de compras/.test(x.textContent));s.classList.remove('on');s.querySelector('.fxB').style.display='none'}");w(400)
+  x=shot(pg,'g%d'%prop);b.close();return x
+def compras(pw,y):
+  b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500)
+  pg.evaluate("()=>__LF.inicioGo('repo')");w(1500);pg.add_style_tag(content='#nvBar{display:none!important}')
+  pg.evaluate(r"""()=>{const v=document.getElementById('v-dash');v.querySelector('.nvVs').lastChild.textContent='Peças';v.querySelector('.dHdT').textContent='Compras';v.querySelector('.dHdS').textContent='O que comprar e de quem';
+   const B=document.getElementById('dtabBody');const s=[...B.querySelectorAll('.fxF')].find(x=>/Lista de compras/.test(x.textContent));const corpo=s.querySelector('.fxB');
+   B.innerHTML='';corpo.style.cssText='display:block;padding:8px 0 0';B.appendChild(corpo);
+   const ST='display:flex;align-items:center;gap:16px;width:100%;min-height:64px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;text-align:left;padding:12px 0';
+   const f=document.createElement('section');f.innerHTML='<div class="lbl" style="margin:32px 0 0">Fornecedores · 1</div><button type="button" style="'+ST+'"><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;font-weight:500">Kazwini</b><small style="font-size:13px;color:var(--mute)">1 compra · US$ 200 · <span style="color:var(--warn,#e0b44c)">343 peças sem detalhe</span></small></span><i style="font-style:normal;font-size:20px;color:var(--mute)">›</i></button>'+
+   '<div style="color:var(--mute);font-size:13px;margin:16px 0 32px">Investido em novembro: US$ 0</div>';B.appendChild(f)}""");w(500)
+  h=pg.evaluate("()=>{let best=document.scrollingElement;for(const e of document.querySelectorAll('*')){const cs=getComputedStyle(e);if(/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight+20&&e.getBoundingClientRect().height>300&&e.scrollHeight>best.scrollHeight-1)best=e}window.__sc=best;return best.scrollHeight}")
+  yy=y if y>=0 else h
+  pg.evaluate(f"window.__sc.scrollTop={yy};window.scrollTo(0,{yy})");w(400)
+  x=shot(pg,'c%d'%y);b.close();return x
+def quadro(arq,q):
+  g=40;w=max(i.width for _,_,i in q);h=max(i.height for _,_,i in q);S=Image.new('RGB',(g+len(q)*(w+g),h+150),(17,20,26));d=ImageDraw.Draw(S)
+  for i,(t,s,im) in enumerate(q):
+    x=g+i*(w+g);d.text((x,24),t,font=F(32),fill=(235,235,240));d.text((x,68),s,font=F(20),fill=(140,150,165));S.paste(im,(x,112));d.rectangle([x-1,111,x+im.width,112+im.height],outline=(90,90,100))
+  S.save(O+arq,quality=88);print('ok',arq)
+if __name__=='__main__':
+ with sync_playwright() as pw:
+  quadro('esboco_48a_pecas.jpg',[('HOJE · Peças','Inventário · Estúdio',pecas(pw,0)),('PROPOSTA · Peças','+ Compras (lista e fornecedores)',pecas(pw,1))])
+  quadro('esboco_48b_inventario.jpg',[('HOJE · Inventário','abas Produtos · Fornecedores',inventario(pw,0)),('PROPOSTA · Inventário','só produtos · sem abas · "A completar" (45)',inventario(pw,1))])
+  quadro('esboco_48c_compras.jpg',[('PROPOSTA · Compras (topo)','a Lista de compras mora aqui',compras(pw,0)),('PROPOSTA · Compras (fim)','Fornecedores › (tela de cada um: parte 2)',compras(pw,-1))])
+  quadro('esboco_48d_giro.jpg',[('HOJE · Giro','a lista inteira dentro do Giro',giro(pw,0)),('PROPOSTA · Giro','uma linha › que leva a Compras',giro(pw,1))])
