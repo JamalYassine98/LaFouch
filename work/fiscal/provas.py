@@ -1155,6 +1155,39 @@ def p7_comeco_rapido(p):
         else: passou(P7, nome, f"{r['cartoes']} peças à vista, {r['arq']} fotos de arquivo")
     finally: b.close()
 
+# 21/11 URGENTE (dono 08:52: "não dá para abrir a câmera do descubra o seu formato"): a limpeza de estilos de 19/11 cortou a base das
+# janelas soltas (.scrim/.modal) — a janela era desenhada lá no fim da página, fora da vista. Trava: toda janela solta tem de aparecer
+# presa na tela, inteira dentro dela e por cima de tudo (o ponto do meio da janela é dela).
+def js_rosto(pg):
+    menu(pg, 'a[href="#rosto"]'); pg.evaluate("(()=>{const e=[...document.querySelectorAll('#rosto [data-fa]')].find(e=>e.offsetParent)||document.querySelector('#rosto [data-fa]');e&&e.click()})()"); pg.wait_for_timeout(1300)
+def js_cmp(pg):
+    a_cat()(pg)
+    for i in (0, 1):
+        pg.evaluate("i=>{const e=[...document.querySelectorAll('#grid [data-open]')].filter(e=>e.offsetParent)[i];e&&e.click()}", i); pg.wait_for_timeout(1700)
+        pg.evaluate("(()=>{const e=document.querySelector('#layer [data-cmp]');e&&e.click()})()"); pg.wait_for_timeout(500)
+        if i == 0: pg.evaluate("history.back()"); pg.wait_for_timeout(1200)
+    pg.evaluate("(()=>{const e=document.querySelector('[data-cmpopen]');e&&e.click()})()"); pg.wait_for_timeout(1500)
+JS_MEDE = """(()=>{const s=document.querySelector('#layer .scrim:not(.pg)');if(!s)return null;const m=s.firstElementChild,r=m.getBoundingClientRect(),c=getComputedStyle(m);
+  const t=document.elementFromPoint(r.left+r.width/2,Math.min(innerHeight-2,Math.max(2,r.top+r.height/2)));const bg=c.backgroundColor;
+  return {pos:getComputedStyle(s).position,x:r.left,y:r.top,w:r.width,h:r.height,W:innerWidth,H:innerHeight,dela:!!t&&m.contains(t),fundo:bg!=='rgba(0, 0, 0, 0)'&&bg!=='transparent',
+          x_fechar:(()=>{const x=m.querySelector('[data-close]');if(!x)return true;const q=x.getBoundingClientRect(),e=document.elementFromPoint(q.left+q.width/2,q.top+q.height/2);return !!e&&(e===x||x.contains(e))})()}})()"""
+def p7_janela_solta(p):
+    for nome, abre in (('câmera do formato do rosto', js_rosto), ('comparar modelos', js_cmp)):
+        for W, H in ((390, 844), (1440, 900)):
+            b, c, pg, E = novo(p, W, H, touch=W < 700); t = f'Janela solta aparece na tela · {nome} · {W}px'
+            try:
+                carrega(pg)
+                try: abre(pg)
+                except SemPecas: continue
+                r = pg.evaluate(JS_MEDE)
+                if not r: falha(P7, t, 'a janela não abriu', pg)
+                elif r['pos'] != 'fixed': falha(P7, t, f"a janela não está presa na tela (está a {r['y']:.0f} px do alto da página)", pg)
+                elif r['x'] < -1 or r['x'] + r['w'] > r['W'] + 1 or r['y'] < -1 or r['w'] < 200 or r['h'] < 120: falha(P7, t, f"a janela sai da tela ou está espremida ({r['x']:.0f},{r['y']:.0f} · {r['w']:.0f}×{r['h']:.0f})", pg)
+                elif not r['dela'] or not r['x_fechar']: falha(P7, t, 'tem outra coisa por cima da janela (o meio dela ou o × não dá para tocar)', pg)
+                elif not r['fundo']: falha(P7, t, 'a janela está sem fundo (transparente)', pg)
+                else: passou(P7, t)
+            finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1189,7 +1222,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
