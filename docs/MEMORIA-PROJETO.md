@@ -3359,3 +3359,15 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 21/11/2026 — ✅ PUBLICADO app v592 (5.50.17) · 4b parte 2 (135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup): Preços por UMA função (precosTelaHtml, src/97z3-precos.js); sem cabeçalho Contador, sem 'Pré-graduados · preço por linha', 4 números só mostram (letra do texto), uma linha por tabela e cada 'Ajustar tabela ›' abre a sua, FERRAMENTAS (Calculadora, E se…?, Preço automático → Ajustes › Preços). Saíram 98z-precos-s52.js, o embrulho do s374, pgrPrecos/pgrAjusta/prePe. Embrulhos 25→23, !important 988→983. 346/346 no simulador; nada em aparelho real. PARA O DONO SABER: (1) antes a lista cortava em 30 peças e escondia tabelas; agora aparece uma linha por tabela com margem baixa (7 nos dados de teste); (2) 'Aceitar os N preços' agora aceita só o que a tela mostra (antes aceitava também os que sobem, sem dizer); (3) linhas de lista (.nvL) não são mais pintadas como link pelo pad100 (parte do esboço 37); (4) 'Black Friday em 0 dias' segue esperando a decisão.
 - 21/11/2026 — ✅ PUBLICADO app v593 (5.50.18) · 4b parte 3 (135h): nDias(n) num lugar só ('1 dia'/'N dias') para tema em Preços, cartão do tema, Guardião, sugestão de cupom e aviso do site. 347/347 no simulador; nada em aparelho real. 4b Preços COMPLETO (v591–v593). PENDENTE DO DONO: evento em andamento tem 3 textos hoje — Preços 'em 0 dias', cartão do tema 'começou', cupom 'está acontecendo', Início 'no ar' — escolher um para todos.
 - 21/11/2026 — ✅ PUBLICADO app v594 (5.50.19) · 4c parte 1 (149t): título h1 de verdade em Dashboard, Giro, Preços, Reservas, dia e grupos; saiu o laço do nvDesenha. Medidas iguais antes × depois em 10 telas (claro e escuro). 348/348 no simulador; nada em aparelho real. FICA PARA PARTE PRÓPRIA: ACT.dVer/dVerEsc e o arraste da folha VER ficaram sem toque que os chame (6 provas usam).
+
+- 21/11 09:43–09:51 — DONO, funcionamento do Estúdio:
+  - Sai o "Começar · 24 peças na fila" (várias armações e cores misturadas não existem na mão ao mesmo tempo). Entra a sessão **por peça**, tratando em sequência todas as cores dela. A lista do Estúdio **fica**.
+  - Não existe padrão de cores (3, 6, 8…), e uma cor pode nem existir: nada de "faltam N cores" fixo.
+  - O tratamento roda por trás enquanto se grava a próxima.
+  - Velocidade: depois de corrigir o tratamento, a meta é **5 min por peça com todas as cores** (era 3; aceitou 5).
+    - O prato leva **40 s por volta** na velocidade mais lenta; a máxima ainda não foi medida.
+  - Caminhos para acelerar:
+    - (1) menos quadros ou resolução menor: **REPROVADO**.
+    - (2) usar a placa de vídeo do celular: **APROVADO**, "usa todos os recursos que precisem".
+    - (3) PC: impossível (sem câmera que mande direto ao PC). Tudo no celular.
+  - Ainda há pontos importantes do Estúdio a elaborar.
