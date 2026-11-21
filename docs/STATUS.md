@@ -66,6 +66,7 @@
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — partes 1 e 2 ✅ publicadas no site 1795225493 (20/11): Esc = voltar, carrinho por cima — porteiro 221 provas, 0 falhas · parte 3 (internet fraca): plano em partes sendo medido, vai ao dono como esboço
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
+- **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
 
 ## Recados esperando
 
