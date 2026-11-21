@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
+| SITE | Fila 32: Esc = voltar e carrinho por cima (ramo esb-voltar do catalogo); plano da internet fraca | js/lf-site.js |
 
 ## Fila
 
