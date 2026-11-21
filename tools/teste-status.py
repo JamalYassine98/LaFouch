@@ -3,7 +3,8 @@
 1 duas sessões acrescentam na lista viva ao mesmo tempo → junta os dois lados e envia
 2 arquivo mexido e não guardado na sessão → envia mesmo assim e o arquivo continua mexido
 3 conflito de verdade → PAROU (código 2), sem rebase pela metade e sem commit perdido
-4 cópia rasa (depth 1) atrás de muitos commits → acha o ponto comum e envia"""
+4 cópia rasa (depth 1) atrás de muitos commits → acha o ponto comum e envia
+5 lista viva ou memória regravada (encolheu) → PAROU antes de enviar"""
 import os,subprocess,tempfile,shutil,sys
 ST=os.path.join(os.path.dirname(os.path.abspath(__file__)),'status.py')
 GA=open(os.path.join(os.path.dirname(ST),'..','.gitattributes')).read()
@@ -43,5 +44,10 @@ sh('git pull -q --rebase origin main; git push -q origin main',A)
 open(C+'/docs/FALTA-APROVAR-15-11.md','a').write('- da C\n');sh('git commit -qam C',C)
 r=st(C,'recado','APP','ESBOCO','cinco');sh('git fetch -q origin',A)
 ok(r.returncode==0 and '- da C' in sh('git show origin/main:docs/FALTA-APROVAR-15-11.md',A).stdout,'4 cópia rasa acha o ponto comum e envia')
+# 5 (20/11): quem regrava a lista viva só com a linha nova (o arquivo encolhe) é PARADO antes de enviar; a lista do main fica inteira
+E=clone(O,T+'/e');n0=len(sh('git show origin/main:docs/FALTA-APROVAR-15-11.md',E).stdout)
+open(E+'/docs/FALTA-APROVAR-15-11.md','w').write('- só a linha nova\n');sh('git commit -qam E',E)
+r=st(E,'recado','APP','ESBOCO','seis');sh('git fetch -q origin',A)
+ok(r.returncode==2 and 'ENCOLHEU' in (r.stdout+r.stderr) and len(sh('git show origin/main:docs/FALTA-APROVAR-15-11.md',A).stdout)>=n0,'5 lista viva regravada (encolheu) → PAROU e o main fica inteiro')
 shutil.rmtree(T)
 print('FALHAS:',len(falhas));sys.exit(1 if falhas else 0)

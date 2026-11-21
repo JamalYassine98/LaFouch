@@ -28,10 +28,24 @@ def puxa():
   git('config','merge.ours.driver','true')  # docs/STATUS.md é montado: no conflito fica qualquer lado e é montado de novo
   if os.path.exists(os.path.join(RAIZ,'.git','shallow')): git('fetch','-q','--unshallow','origin','main')
   git('fetch','-q','origin','main')
+  encolheu()
   r=git('rebase','-q','--autostash','origin/main')
   if r.returncode:
     git('rebase','--abort')
     raise Para('não consegui juntar com o main (conflito em: %s). Nada foi enviado. Resolva o conflito e rode de novo.'%(git('diff','--name-only','--diff-filter=U').stdout.strip() or (r.stderr or r.stdout).strip()[:200]))
+SO_CRESCE=('docs/MEMORIA-PROJETO.md','docs/FALTA-APROVAR-15-11.md')
+def encolheu():
+  """Trava (20/11, depois de dois commits regravarem a memória e a lista viva só com a linha nova — 1,3 MB sumiram do arquivo):
+  esses textos só crescem (CLAUDE.md regra 8). Se a cópia deste aparelho (guardada ou solta) ficou menor que a do main, PARA antes de juntar/enviar."""
+  for f in SO_CRESCE:
+    o=git('cat-file','-s','origin/main:'+f)
+    if o.returncode: continue
+    main=int(o.stdout.strip() or 0);h=git('cat-file','-s','HEAD:'+f);aqui=int(h.stdout.strip() or 0) if h.returncode==0 else main
+    try: solto=os.path.getsize(os.path.join(RAIZ,f))
+    except OSError: solto=aqui
+    base=git('merge-base','HEAD','origin/main').stdout.strip();b=git('cat-file','-s',base+':'+f) if base else None
+    antes=int(b.stdout.strip() or 0) if b is not None and b.returncode==0 else 0
+    if min(aqui,solto)<antes*0.9: raise Para('%s ENCOLHEU neste aparelho (%d → %d bytes). Esse arquivo só cresce: acrescente no fim, nunca regrave. Recupere com: git checkout origin/main -- %s  e acrescente de novo a sua linha.'%(f,antes,min(aqui,solto),f))
 def envia(msg):
   monta()
   if not GIT: return
