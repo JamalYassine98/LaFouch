@@ -11,8 +11,6 @@
   "ACT.clinovo @ 98z-pc-s244.js": 1,
   "ACT.despAb @ 98z-s374.js": 1,
   "backupHtml @ 97z-voltar-tempo.js": 1,
-  "contadorHtml @ 98z-precos-s52.js": 1,
-  "contadorHtml @ 98z-s374.js": 1,
   "limpaRefExcluido @ 97-nuvem-segura.js": 1,
   "mcInicio @ 97-modo-cliente2-loja.js": 1,
   "nvToken @ 97-nuvem-segura.js": 1,
@@ -33,12 +31,10 @@
   "syncAplica @ 97-nuvem-segura.js": 1,
   "vitProduto @ 97-site-v2.js": 1
  },
- "important": 988,
+ "important": 983,
  "reescritas": {
   "T @ 97-push.js": 1,
   "backupHtml @ 97z-voltar-tempo.js": 1,
-  "contadorHtml @ 98z-precos-s52.js": 1,
-  "contadorHtml @ 98z-s374.js": 1,
   "grpTitulo @ 99c-navegacao-s435.js": 1,
   "limpaRefExcluido @ 97-nuvem-segura.js": 1,
   "mcInicio @ 97-modo-cliente2-loja.js": 1,
