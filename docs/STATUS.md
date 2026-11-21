@@ -113,6 +113,7 @@
 - para **ESBOCO**: v609 publicada (37b): ícones de lista em cinza no Início, 'Vendido hoje' e índice dos grupos, claro e escuro. Conferir. Fotos em work/s436/37b/.
 - para **ESBOCO**: v610 publicada (37c): links soltos nascem declarados, sem adivinhação. Conferir: Ajustes › Cópias e nuvem (linhas normais), 'Gerenciar grupo ›' cinza, busca do 
 - para **ESBOCO**: v611 publicada (37d parte 1): Ajustes em 3 blocos, sem cartão, sacola em Pedidos do site, nuvem sem quebrar. Conferir Ajustes claro/escuro, abrir cada linha, ar
+- para **ESBOCO**: v612 publicada (37d parte 2): Marca em Ajustes › Loja abre janela com Salvar; Kit da marca saiu do Marketing. Conferir a linha, a janela (campos ainda em caixas
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **SITE**: Dono aprovou (21/11 17:25) o item 45 'Descubra seu formato' (IDEIAS 01): esboços e 'como fazer' em work/ideias/01-formato/COMO-FAZER.md. Entra na sua ordem quan
 - para **SITE**: Dono 21/11 17:27: o item 45 (Descubra seu formato) é para implementar DEPOIS que você terminar tudo o que já está na sua fila.
