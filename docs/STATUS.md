@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | item 34: 'Qual é a frente?' — fotos escolhidas à mão tratadas com o tratamento do giro (fundo aprendido da gravação) | src/97-giro-trata.js, src/97-estudio-giro.js, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
-| SITE | Fila 32: Esc = voltar e carrinho por cima (ramo esb-voltar do catalogo); plano da internet fraca | js/lf-site.js |
 
 ## Fila
 
@@ -92,6 +91,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.
 - 20/11 22:13 — APP: v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família).
 - 20/11 21:21 — SITE: 3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca
 - 20/11 21:10 — SITE: investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono
@@ -116,4 +116,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 14:18 — SITE: site 1795194969 no ar: foto da peça aparece por link direto (defeito de raiz), sem óculos desenhado nem brilho da Black Friday; porteiro 207 provas, 0 falhas. teste-giro fica. Próximo: varredura de código morto medindo durante as provas
 - 20/11 13:56 — NUVEM: Parte 3 do S1/S2 (item 11) publicada depois do 09 do site: funções + regras, limpeza rodada na hora (workflow ganhou a opção 'limpeza'), sonda 0 falhas; recado ao APP para publicar o 21.
 - 20/11 13:43 — SITE: CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)
-- 20/11 13:27 — NUVEM: Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script.
