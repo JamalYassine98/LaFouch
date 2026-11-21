@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4d parte 2a (134): ficha — linha .pl.pick como linha de lista e links no fim",
+ "arquivos": [
+  "src/10-estoque-detalhe.js",
+  "src/97u-navegacao-s184.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795275359.999744,
@@ -44,5 +49,5 @@
    "r": "v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços"
   }
  ],
- "leu": 1795275346.0526626
+ "leu": 1795275480.5340211
 }
