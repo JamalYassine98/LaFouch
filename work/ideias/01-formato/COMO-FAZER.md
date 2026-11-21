@@ -1,8 +1,8 @@
 # IDEIAS 01 · Descubra seu formato — mais preciso e resultado elegante (para o SITE)
 
 Pedido do dono 21/11 09:53: "melhorar para ser ainda mais preciso" e "mostrar o resultado de forma elegante; hoje fica um desenho em roxo do formato, de forma amadora".
-Dono 21/11 10:21: "não tem como medir sob essas formas (perto, cabeça torta)?" e "precisamos atualizar a descrição dos formatos de rosto". Dono 21/11 12:13: "a descrição precisa ser dos modelos que combinam e não do formato do rosto".
-Base: site real 1795269030, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg`, `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera.py`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
+Dono 21/11 10:21: "não tem como medir sob essas formas (perto, cabeça torta)?" e "precisamos atualizar a descrição dos formatos de rosto". Dono 21/11 12:13: "a descrição precisa ser dos modelos que combinam e não do formato do rosto". Dono 21/11 13:50: "a câmera precisa ser extremamente boa" (Parte A, abaixo na parte 2) + mais formatos e mais filtro (Parte B, a seguir).
+Base: site real 1795269030, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg` (Parte A; a versão anterior foi para work/obsoletos/ideias-01-camera-v1), `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera2.py`, `manequim.py`, `serve.sh`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
 
 ## Aprovados incluídos
 - 11/11 15:29–15:32 (dono): tirar o desenho em volta do rosto do cliente e trocar a foto pela **ilustração do formato** (opção A) — nunca implementado; é a parte 1 abaixo.
@@ -24,18 +24,24 @@ Jeito natural (regra 12):
 - Trava no porteiro: prova "resultado do formato" — abre o resultado com `close:true`, toca Feminino e confere que a dica continua a do formato principal; e que não existe `canvas` nem foto dentro de `.fares`.
 - i18n: nenhuma frase nova.
 
-## Parte 2 — mais precisão, medindo mesmo perto ou com a cabeça torta (por dentro: só "Medindo…" e o caso extremo aparecem)
-Achados: o rosto-padrão do próprio leitor (`face_landmarker.task`) sai hoje como **Diamante**; e a simulação (`simula.py`, `esboco-04-precisao.jpg`) mostra que o site já endireita o giro, mas **não a distância**: a mesma pessoa a 25 cm sai ~14% mais "comprida" do que a 45 cm (é o "diamante que deu alongado"). Causas:
-- Os 478 pontos viram os 68 antigos (`M68`/`mp68`) com um ajuste fixo (`MOFF`) — régua emendada; comprimento = (queixo − sobrancelha) × 1,5; "largura" perto das orelhas (127↔356).
-- Uma foto só; a perspectiva da selfie (o que está mais perto da lente sai maior) nunca é desfeita.
+## Parte 2 (Parte A do dono) — câmera muito boa e medida precisa
+Teste com um **manequim** (`manequim.py`: o rosto-padrão de 478 pontos do leitor desenhado em vídeo, sem pessoa real) na câmera do simulador, no site de verdade (`camera2.py`, `cap/c2.json`):
+- **Virado 35°**: diz "Chegue um pouco mais perto" e nunca sai daí (a leitura ao vivo é a face-api pequena, que não vê giro).
+- **Boca aberta**: conta 3-2-1, mede e dá **Diamante**; o mesmo manequim de boca fechada dá **Redondo** (3 leituras iguais).
+- **Pouca luz**: tira a foto escura (só clareia a cópia para medir).
+- **Tempo**: do "Perfeito!" ao resultado ~12 s no simulador (3-2-1 + ~8 s analisando a foto).
+- Simulação (`simula.py`, `esboco-04-precisao.jpg`): o site endireita o giro mas não desfaz a distância — a mesma pessoa a 25 cm sai ~14% mais "comprida" do que a 45 cm.
 
-Jeito natural — medir sempre, corrigindo, em vez de avisar:
-1. **Endireitar** (já existe, `mpFront`) e **desfazer a perspectiva**: distância pela íris (11,7 mm) e lente frontal típica; cada ponto volta ao tamanho real pela sua profundidade (x·(D−z)/f). Perto, longe, virado até ~30° ou inclinado: mede igual. Sai o aviso de distância.
-2. **Vários quadros**: depois do 3-2-1, ~1,5 s no modo VIDEO do mesmo leitor; usa os quadros mais de frente e tira a mediana. Só pede algo quando não dá para medir: virado mais de ~30° o tempo todo ("Vire o rosto para a câmera"; acima disso um lado do rosto some atrás do nariz e o leitor inventa esse lado).
-3. **Medir direto nos 478 pontos**: comprimento 10↔152, maçãs 234↔454, testa 54↔284, mandíbula 172↔397, queixo pelo ângulo 172-152-397. Saem `M68`, `mp68`, `MOFF` e o `faMeasure` da leitura de 478 (face-api de 68 fica só de reserva, já aprovado).
-4. **Uma conta para os 6**: cada formato da tabela FACES tem as proporções de referência; ganha o mais perto (sai o bloco de 6 fórmulas de `faShape`). Âncora: rosto-padrão do leitor = Oval; ajuste final uma vez com o modo teste (`?rostoTeste=1`) em pessoas cujo formato o dono conhece.
-5. A câmera ao vivo usa a mesma leitura (sai o `TinyFaceDetector` do `camLoop`); o "Rosto de lado" depois da foto fica só para foto da galeria.
-- Travas no porteiro: `simula.py` vira prova (rosto-padrão em 18/25/45 cm, virado 15°, inclinado 10° → mesmo formato e proporções dentro de 1%); rosto-padrão → Oval.
+Jeito natural (um leitor só, do começo ao fim):
+1. **Leitor ao vivo = o da medida**: MediaPipe em modo VIDEO no `camLoop` (sai o `TinyFaceDetector` da câmera; face-api fica só de reserva, já aprovado), com `outputFaceBlendshapes:true` (o `face_blendshapes.tflite` já vem dentro do `face_landmarker.task` do site).
+2. **Um aviso por vez, numa lista de prioridade** (uma função): sem rosto → pouca luz → rosto fora do oval → virado mais de ~30° ("Vire o rosto para a câmera") → boca aberta/sorriso/olhos fechados pelos blendshapes ("Feche a boca e relaxe o rosto") → tremido. Perto ou inclinado NÃO pede nada: corrige (item 4).
+3. **Luz da tela**: com pouca luz (a mesma conta de brilho do `mpLuz`), o fundo em volta do oval fica quase branco e ilumina o rosto, como o "flash" da câmera frontal; volta ao normal ao sair.
+4. **Medir mesmo perto ou torto**: endireitar (já existe, `mpFront`) e desfazer a perspectiva — distância pela íris (11,7 mm) e lente frontal típica; cada ponto volta ao tamanho real pela profundidade (x·(D−z)/f).
+5. **Anel no lugar do 3-2-1**: quando está tudo certo, um anel verde enche em ~1,5 s em volta do oval lendo o vídeo; usa os quadros mais de frente, com a boca fechada, e tira a mediana. Se a 1ª metade e a 2ª metade derem formatos diferentes, mede de novo sozinho ("Mais um instante…"). O resultado sai na hora (sem a foto de ~8 s); o botão de foto continua para quem quiser tocar.
+6. **Medir direto nos 478 pontos**: comprimento 10↔152, maçãs 234↔454, testa 54↔284, mandíbula 172↔397, queixo pelo ângulo 172-152-397. Saem `M68`, `mp68`, `MOFF` e o `faMeasure` da leitura de 478.
+7. **Uma conta para os formatos**: cada item da tabela FACES tem as proporções de referência; ganha o mais perto (sai o bloco de fórmulas de `faShape`). Âncora: rosto-padrão = Oval; ajuste final com o modo teste (`?rostoTeste=1`) em pessoas cujo formato o dono conhece.
+- Travas no porteiro: o manequim (`manequim.py`) vira prova — de frente, perto, inclinado 10° e virado 15° dão o mesmo formato; boca aberta não mede; virado 35° pede "Vire o rosto"; `simula.py` dentro de 1%.
+- A confirmar no celular real: os ~1,5 s do anel (o leitor precisa de ~10 quadros/s; com a placa de vídeo, `delegate:'GPU'`, que o site já usa).
 
 ## Parte 3 — descrição dos formatos (muda tela: espera o "implementar")
 Achados:
@@ -68,6 +74,7 @@ Com as peças de hoje: Oval 18 · Redondo 10 · Alongado 8 · Quadrado 5 · Cora
 - Página do formato (celular/tablet): 12 = os 6 `<small>` ("Combina: …" → os modelos da tabela).
 - PC: 120 = os 6 cartões do carrossel (frase de 2 linhas → modelos em 1 linha; desenhos e botões sobem/crescem junto).
 - Resultado: 27 (celular/tablet) = foto/canvas → ilustração (`.faph`→`.faill`, 2 `span.rzi`), frase nova, os 12 da lista por trás.
+- Câmera (Parte A): o comparador não abre a câmera; as diferenças são as da prancha `esboco-02-camera.jpg` — aviso de giro, aviso de boca, fundo claro com pouca luz, anel no lugar do número 3-2-1 (o resto da tela igual).
 - 1 toque em Diamante: 155–255 = Hoje fica na página (nada acontece) × Proposta abre o catálogo com as 3 peças.
 
 ## Testado / não testado

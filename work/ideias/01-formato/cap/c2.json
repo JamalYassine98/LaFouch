@@ -1,0 +1,218 @@
+{
+ "virado": [
+  [
+   0.0,
+   [
+    "Iniciando a câmera…",
+    "",
+    ""
+   ]
+  ],
+  [
+   0.2,
+   [
+    "Preparando a análise…",
+    "",
+    ""
+   ]
+  ],
+  [
+   3.5,
+   [
+    "Chegue um pouco mais perto",
+    "",
+    ""
+   ]
+  ]
+ ],
+ "boca": [
+  [
+   0.0,
+   [
+    "Iniciando a câmera…",
+    "",
+    ""
+   ]
+  ],
+  [
+   1.6,
+   [
+    "Preparando a análise…",
+    "",
+    ""
+   ]
+  ],
+  [
+   3.7,
+   [
+    "Perfeito! Fique parado…",
+    "",
+    ""
+   ]
+  ],
+  [
+   6.2,
+   [
+    "Perfeito! Fique parado…",
+    "2",
+    ""
+   ]
+  ],
+  [
+   7.2,
+   [
+    "Perfeito! Fique parado…",
+    "1",
+    ""
+   ]
+  ],
+  [
+   8.0,
+   [
+    "Tirando a foto…",
+    "",
+    ""
+   ]
+  ],
+  [
+   8.3,
+   [
+    "",
+    "",
+    ""
+   ]
+  ],
+  [
+   16.2,
+   [
+    "",
+    "",
+    "Diamante"
+   ]
+  ]
+ ],
+ "escuro": [
+  [
+   0.0,
+   [
+    "Iniciando a câmera…",
+    "",
+    ""
+   ]
+  ],
+  [
+   1.5,
+   [
+    "Preparando a análise…",
+    "",
+    ""
+   ]
+  ],
+  [
+   3.3,
+   [
+    "Perfeito! Fique parado…",
+    "",
+    ""
+   ]
+  ],
+  [
+   5.7,
+   [
+    "Perfeito! Fique parado…",
+    "2",
+    ""
+   ]
+  ],
+  [
+   6.8,
+   [
+    "Perfeito! Fique parado…",
+    "1",
+    ""
+   ]
+  ],
+  [
+   7.5,
+   [
+    "",
+    "",
+    ""
+   ]
+  ],
+  [
+   15.9,
+   [
+    "",
+    "",
+    "Redondo"
+   ]
+  ]
+ ],
+ "medindo": [
+  [
+   0.0,
+   [
+    "Iniciando a câmera…",
+    "",
+    ""
+   ]
+  ],
+  [
+   1.8,
+   [
+    "Preparando a análise…",
+    "",
+    ""
+   ]
+  ],
+  [
+   3.7,
+   [
+    "Perfeito! Fique parado…",
+    "",
+    ""
+   ]
+  ],
+  [
+   6.1,
+   [
+    "Perfeito! Fique parado…",
+    "3",
+    ""
+   ]
+  ],
+  [
+   6.3,
+   [
+    "Perfeito! Fique parado…",
+    "2",
+    ""
+   ]
+  ],
+  [
+   7.1,
+   [
+    "Perfeito! Fique parado…",
+    "1",
+    ""
+   ]
+  ],
+  [
+   8.2,
+   [
+    "",
+    "",
+    ""
+   ]
+  ],
+  [
+   15.7,
+   [
+    "",
+    "",
+    "Redondo"
+   ]
+  ]
+ ]
+}

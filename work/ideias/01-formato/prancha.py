@@ -28,13 +28,19 @@ prancha('esboco-01-resultado.jpg', 'IDEIAS 01 · Descubra seu formato — result
     ('prop-5-masculino.png', 'Proposta · Masculino', 'só a ilustração masculina'),
     ('prop-L12-3-resultado.png', 'Proposta · letra 1,2×', 'cabe sem quebrar')])
 
-prancha('esboco-02-camera.jpg', 'IDEIAS 01 · Descubra seu formato — câmera (celular)', [
-    'Perto demais ou com a cabeça torta: o site MEDE ASSIM MESMO e corrige (endireita em 3D e desfaz o efeito da distância, medida pela íris).',
-    'Dos ~1,5 s de vídeo, usa os quadros mais de frente. Só pede algo no caso que não dá para medir: rosto virado mais de ~30° o tempo todo.',
-    'Câmera de teste do simulador (imagem verde, sem rosto): os avisos da Proposta foram escritos por cima para mostrar como ficam.'], [
-    ('cam-hoje.png', 'Hoje · câmera', 'aviso de hoje (sem rosto na câmera de teste)'),
-    ('cam-prop-medindo.png', 'Proposta · medindo', 'depois do 3-2-1: ~1,5 s, vários quadros'),
-    ('cam-prop-virado.png', 'Proposta · caso extremo', 'só se ficar virado > 30° o tempo todo')])
+prancha('esboco-02-camera.jpg', 'IDEIAS 01 · Parte A — câmera muito boa (celular)', [
+    'Câmera do simulador com um MANEQUIM feito do rosto-padrão de 478 pontos do leitor do site (sem pessoa real). Hoje = site de verdade; Proposta = pintada por cima.',
+    'Achados de hoje: virado, ela pede "chegue mais perto" e trava; com a boca aberta mede e dá DIAMANTE (o mesmo manequim de boca fechada dá REDONDO);',
+    'do "Perfeito!" ao resultado são ~12 s no simulador (3-2-1 + ~8 s analisando a foto). Proposta: leitor ao vivo, um aviso certo por vez, anel de ~1,5 s e resultado na hora.'], [
+    ('c2-hoje-virado.png', 'Hoje · virado 35°', 'aviso errado: "chegue mais perto"; não sai daí'),
+    ('c2-prop-virado.png', 'Proposta · virado 35°', 'o leitor vê o giro: aviso certo'),
+    ('c2-hoje-boca.png', 'Hoje · boca aberta', 'conta 3-2-1 e mede assim mesmo'),
+    ('c2-hoje-boca-res.png', 'Hoje · resultado', 'boca aberta = Diamante (fechada = Redondo)'),
+    ('c2-prop-boca.png', 'Proposta · boca aberta', 'espera boca fechada e rosto relaxado'),
+    ('c2-hoje-escuro.png', 'Hoje · pouca luz', 'conta e tira a foto escura'),
+    ('c2-prop-escuro.png', 'Proposta · pouca luz', 'a tela vira luz em volta do oval'),
+    ('c2-hoje-medindo.png', 'Hoje · pronto', '3-2-1, foto, ~8 s analisando'),
+    ('c2-prop-medindo.png', 'Proposta · pronto', 'anel de ~1,5 s lendo o vídeo; resultado na hora')])
 
 prancha('esboco-03-formatos.jpg', 'IDEIAS 01 · Descubra seu formato — descrição dos formatos (celular)', [
     'A descrição fala dos MODELOS que combinam, tirada da mesma lista que escolhe as peças de cada rosto (hoje é escrita à mão e contradiz as peças).',
