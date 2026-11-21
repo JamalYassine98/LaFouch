@@ -199,6 +199,17 @@ async function liberarH(db, agora, h, refs) {
     return { ok: true };
   });
 }
+// 39 · preço exato (21/11): a reserva deste pedido ainda segura TODAS as peças (paga ou dentro do prazo)? — desempata pagamentos de mesmo valor
+async function aberta(db, agora, pid, refs) {
+  const lista = Array.from(new Set((refs || []).map(String)));
+  if (!lista.length) return false;
+  for (const ref of lista) {
+    const es = await db.collection('estoque').doc(ref).get();
+    const res = es.exists ? copia(es.data()).res : {};
+    if (!Object.keys(res).some((k) => mesmo(res[k], pid) && valida(res[k], agora))) return false;
+  }
+  return true;
+}
 // limpeza diária: apaga as reservas vencidas de documentos parados que ninguém mexeu
 async function arruma(db, agora, refs) {
   let mexidos = 0;
@@ -271,7 +282,7 @@ async function recusar(db, agora, pid, refs) {
   });
 }
 
-module.exports = { PRAZO_MS, COMP_MS, Falha, H, ligada, reservar, comprovante, liberar, cancelar, arruma, orfas, liberarH, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
+module.exports = { aberta, PRAZO_MS, COMP_MS, Falha, H, ligada, reservar, comprovante, liberar, cancelar, arruma, orfas, liberarH, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
   const idx = idxCor(prod, cor);
   return idx < 0 ? 0 : fisico(prod, idx) - reservadoDe(estq, cor, agora);
 } };

@@ -37,13 +37,14 @@ const BANCOS = {
 function palavras(n) { return String(n || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().split(/[^a-z]+/).filter((w) => w.length > 2 && !/^(dos|das|del|los|las)$/.test(w)); }
 function mesmoNome(a, b) { const x = palavras(a), y = palavras(b); return x.filter((w, i) => x.indexOf(w) === i && y.indexOf(w) >= 0).length >= 2; }
 
-// Acha o pedido de um pagamento. db.fichas = os pedidos do site CONFERIDOS PELO SERVIDOR (valor a pagar calculado e conferido por ele,
-// guardado num lugar que o app não apaga): { id, moeda, valor (centavos ou Gs.), teto (o total cheio), nome, ts, pago }.
-//  · valor exato → esse pedido; quem pagou A MAIS até o teto (arredondou para cima) também vale; valor a menos nunca confirma sozinho;
-//  · hora e nome só DESEMPATAM (14/11, dono): pedido criado depois do pagamento não é dele; entre vários, vale o único com 2+ nomes iguais
-//    aos do pagador; senão o único feito nos 40 min antes; senão "sem par", com o nome do pagador como pista;
-//  · venda da loja (app): espera registrada nas últimas 2 h com o valor redondo;
-//  · a peça já foi vendida a outra pessoa (reserva vencida) → "sem par" com o motivo, nunca "pago" sem a peça (db.confirmaPedido lança 'sem-peca').
+// Acha o pedido de um pagamento (39 · preço exato, aprovado 21/11 07:51). db.fichas = os pedidos do site CONFERIDOS PELO SERVIDOR
+// (o valor a pagar é o preço do carrinho, conferido por ele e guardado num lugar que o app não apaga):
+// { id, moeda, valor (centavos ou Gs.), nome, ts, aberta (a reserva ainda segura as peças), pago }.
+//  · só o VALOR EXATO acha o pedido (a mais ou a menos nunca confirma sozinho: o dono liga na mão, ação 'ligar');
+//  · vários do mesmo valor: vale o único com a reserva aberta; depois o nome e a hora DESEMPATAM (14/11, dono): pedido criado depois
+//    do pagamento não é dele; vale o único com 2+ nomes iguais aos do pagador; senão o único feito nos 40 min antes;
+//  · o que sobra vai para "sem par" com o MOTIVO: 'sem-pedido' (nenhum), 'empate' (mais de um), 'sem-peca' (a peça já foi vendida);
+//  · venda da loja (app): espera registrada nas últimas 2 h com o valor redondo.
 async function recebe(db, b, agora) {
   const bc = BANCOS[b.banco] ? b.banco : 'nubank', B = BANCOS[bc];
   const v = B.valor(b.valor);
@@ -60,39 +61,32 @@ async function acha(db, bc, moeda, v, mid, b, agora) {
   const hr = +b.hora > agora - 72 * H && +b.hora < agora + 10 * 60e3 ? +b.hora : 0;
   const de = String(b.nome || '').replace(/\s+/g, ' ').trim().slice(0, 60);
   const antes = (p) => !hr || !(+p.ts > 0) || +p.ts <= hr + 2 * 60e3;
-  const pista = de ? { de } : {};
   const valor = moeda === 'brl' ? v / 100 : v; // como o app mostra: reais com centavos ou guaranis
-  const base = Object.assign({ valor, banco: bc, mid, ts: agora }, pista);
+  const base = Object.assign({ valor, moeda, banco: bc, mid, ts: agora }, de ? { de } : {});
+  const semPar = async (motivo, extra) => { await db.semPar(Object.assign({}, base, { motivo }, extra)); return Object.assign({ ok: true, tipo: 'sem-par', motivo }, extra); };
   const escolhe = (l) => {
     if (l.length < 2) return l[0] || null;
-    const n = l.filter((p) => mesmoNome(p.nome, de));
+    const ab = l.filter((p) => p.aberta);
+    if (ab.length === 1) return Object.assign({ por: 'reserva' }, ab[0]);
+    const L = ab.length ? ab : l, n = L.filter((p) => mesmoNome(p.nome, de));
     if (n.length === 1) return Object.assign({ por: 'nome' }, n[0]);
-    const t = hr ? (n.length ? n : l).filter((p) => +p.ts > hr - 40 * 60e3) : [];
+    const t = hr ? (n.length ? n : L).filter((p) => +p.ts > hr - 40 * 60e3) : [];
     return t.length === 1 ? Object.assign({ por: 'hora' }, t[0]) : null;
   };
-  const confirma = async (p, extra) => {
-    const o = Object.assign({}, base, extra, p.por ? { por: p.por } : {});
-    try { await db.confirmaPedido(p.id, o); } catch (e) {
-      if (!(e instanceof Falha) || e.motivo !== 'sem-peca') throw e;
-      await db.semPar(Object.assign({}, o, { id: p.id, motivo: 'sem-peca', candidatos: 1 }));
-      return { ok: true, tipo: 'sem-peca', id: p.id };
-    }
-    return Object.assign({ ok: true, tipo: 'site', id: p.id }, extra && extra.arred ? { arredondado: true } : {}, p.por ? { por: p.por } : {});
-  };
-  const todos = (await db.fichas(agora - SITE_H * H)).filter((p) => p.moeda === moeda && !p.pago && antes(p));
-  const exatos = todos.filter((p) => p.valor === v);
+  const exatos = (await db.fichas(agora - SITE_H * H)).filter((p) => p.moeda === moeda && !p.pago && antes(p) && p.valor === v);
   const e1 = escolhe(exatos);
-  if (e1) return confirma(e1);
-  if (!exatos.length) {
-    const amais = todos.filter((p) => v > p.valor && v <= p.teto);
-    const a1 = escolhe(amais);
-    if (a1) return confirma(a1, { arred: moeda === 'brl' ? (v - a1.valor) / 100 : v - a1.valor });
-    if (amais.length > 1) { await db.semPar(Object.assign({}, base, { candidatos: amais.length, arred: true })); return { ok: true, tipo: 'sem-par', candidatos: amais.length }; }
+  if (e1) {
+    const o = Object.assign({}, base, e1.por ? { por: e1.por } : {});
+    try { await db.confirmaPedido(e1.id, o); } catch (e) {
+      if (!(e instanceof Falha) || e.motivo !== 'sem-peca') throw e;
+      return Object.assign(await semPar('sem-peca', { id: e1.id, candidatos: 1 }), { tipo: 'sem-peca' });
+    }
+    return Object.assign({ ok: true, tipo: 'site', id: e1.id }, e1.por ? { por: e1.por } : {});
   }
+  if (exatos.length > 1) return semPar('empate', { candidatos: exatos.length, ids: exatos.map((p) => p.id).slice(0, 10) });
   const daLoja = (e) => (moeda === 'gs' ? Math.round(+e.gs || 0) : e.gs ? NaN : Math.round((+e.brl || 0) * 100));
-  const loja = exatos.length ? [] : (await db.esperas(agora - LOJA_H * H)).filter((e) => !e.ok && daLoja(e) === v);
+  const loja = (await db.esperas(agora - LOJA_H * H)).filter((e) => !e.ok && daLoja(e) === v);
   if (loja.length === 1) { await db.confirmaEspera(loja[0].id, { valor, banco: bc, mid, ts: agora }); return { ok: true, tipo: 'loja', id: loja[0].id }; }
-  await db.semPar(Object.assign({}, base, { candidatos: exatos.length + loja.length }));
-  return { ok: true, tipo: 'sem-par', candidatos: exatos.length + loja.length };
+  return semPar(loja.length > 1 ? 'empate' : 'sem-pedido', { candidatos: loja.length });
 }
 module.exports = { Falha, centavos, valorDoTexto, gsDoTexto, mesmoNome, recebe, SITE_H, LOJA_H };

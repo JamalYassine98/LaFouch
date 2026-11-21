@@ -159,6 +159,25 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
     const b = await chama({ acao: 'reservar', pedido: 'PVIP3', itens: it }, 'Bearer cli');
     assert.ok(b.ok && b.vip === true && b.exp - Date.now() > 2 * 3600e3, JSON.stringify(b));
   });
+  // ---- 39 · preço exato (21/11): pagamento sem par → o dono liga ao pedido (mesmo caminho da confirmação automática)
+  await teste('39: PIX que não bate → "sem par" com motivo; o dono liga ao pedido; o estranho não consegue', async () => {
+    dados.set('config/site', { ativo: true, reserva: true }); dados.set('estoque/SL1', { res: {} });
+    await chama({ acao: 'reservar', pedido: 'LIGA1', itens: it });
+    dados.set('pedidoIds/LIGA1', { ts: Date.now() });
+    const p = await chamaPix(Object.assign({ valor: '12,34', mid: 'g1' }, { dkim: true, dom: 'nubank.com.br' }));
+    assert.ok(p.tipo === 'sem-par' && p.motivo === 'sem-pedido', JSON.stringify(p));
+    const sp = [...dados.entries()].find(([k, v]) => k.startsWith('pixSemPar/') && v.mid === 'g1');
+    const pixId = sp[0].split('/')[1];
+    for (const aut of ['', 'Bearer outro']) assert.strictEqual((await chama({ acao: 'ligar', pix: pixId, pedido: 'LIGA1' }, aut)).code, 403);
+    const r = await chama({ acao: 'ligar', pix: pixId, pedido: 'LIGA1' }, 'Bearer dono');
+    assert.ok(r.ok && r.pedido === 'LIGA1', JSON.stringify(r));
+    assert.strictEqual(dados.get('reservas/LIGA1').pago, true);
+    assert.strictEqual(dados.get(sp[0]).ligado, 'LIGA1');
+    const r2 = await chama({ acao: 'ligar', pix: pixId, pedido: 'LIGA1' }, 'Bearer dono');
+    assert.ok(r2.ok && r2.ja, 'ligar de novo = igual a 1');
+    const r3 = await chama({ acao: 'ligar', pix: pixId, pedido: 'NAOEXISTE' }, 'Bearer dono');
+    assert.ok(r3.ok && r3.ja, 'o PIX já ligado não vai para outro pedido');
+  });
   console.log(total - falhas.length + '/' + total + ' testes do endpoint passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);
 })();

@@ -173,7 +173,7 @@ exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: RE
 const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
-const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH']; // P1b: orfas e liberarH só o dono
+const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH', 'ligar']; // P1b: orfas e liberarH só o dono · 39: ligar (PIX sem par → pedido)
 
 async function ehDono(req) {
   const t = await tokenDe(req);
@@ -236,6 +236,7 @@ exports.reserva = onRequest(
         const todos = (await db.collection('estoque').listDocuments()).map((d) => d.id);
         r = await Reserva.orfas(db, todos, Array.isArray(b.conhecidos) ? b.conhecidos.slice(0, 5000) : []);
       } else if (acao === 'liberarH') r = await Reserva.liberarH(db, agora, String(b.h || ''), refs);
+      else if (acao === 'ligar') r = await ligaPix(String(b.pix || ''), String(b.pedido || ''));
       else if (acao === 'liberar') {
         r = await Reserva.liberar(db, agora, b.pedido, refs);
         // S400 (17/11/2026): o app chama "liberar" quando o dono marca o pedido ENTREGUE (e também ao cancelar/apagar, mas aí a reserva
@@ -745,9 +746,11 @@ const pixDb = {
   fichas: async (desde) => {
     const L = (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(300).get()).docs
       .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.tipo === 'site' && p.conf === true);
+    const agora = Date.now();
     for (const p of L) {
       const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {};
       p.pago = !!(o.pago || o.cancelado || p.ok || o.suspeito); // S409: pedido suspeito não é confirmado pelo robô (o dono confere)
+      p.aberta = !p.pago && (await Reserva.aberta(fsx(), agora, p.id, (p.itens || []).map((i) => i.ref))); // 39: desempate pela reserva
     }
     return L;
   },
@@ -771,6 +774,21 @@ const pixDb = {
   confirmaEspera: (id, o) => fsx().doc('pixEspera/' + id).update({ ok: o }),
   semPar: (o) => fsx().collection('pixSemPar').add(o),
 };
+// 39 · preço exato (21/11): o dono liga na mão um PIX/transferência "sem par" a um pedido do site — o MESMO caminho da confirmação
+// automática (confirmaPedido: segura a peça com Reserva.pagar, token, reserva paga); a linha do "sem par" fica marcada como ligada.
+async function ligaPix(pixId, pid) {
+  if (!/^[A-Za-z0-9_-]{4,40}$/.test(pixId) || !/^[A-Za-z0-9_-]{4,40}$/.test(pid)) throw new Falha('dados');
+  const ref = fsx().doc('pixSemPar/' + pixId), d = await ref.get();
+  if (!d.exists) throw new Falha('pix', 404);
+  const sp = d.data();
+  if (sp.ligado) return { ja: true, pedido: sp.ligado };
+  if (!(await fsx().doc('pedidoIds/' + pid).get()).exists) throw new Falha('pedido', 404); // só pedido que a nuvem recebeu
+  const rs = await fsx().doc('reservas/' + pid).get(), o = rs.exists ? rs.data() : {};
+  if (o.pago || o.cancelado) throw new Falha(o.pago ? 'pago' : 'cancelado', 409);
+  await pixDb.confirmaPedido(pid, Object.assign({ valor: sp.valor, banco: sp.banco || '', mid: sp.mid || '', ts: Date.now(), por: 'dono' }, sp.de ? { de: sp.de } : {}));
+  await ref.set({ ligado: pid, ligTs: Date.now() }, { merge: true });
+  return { pedido: pid };
+}
 exports.pix = post('pix', { cors: false, maxInstances: 2, secrets: [PIX_ROBO] }, async (req, res, b) => {
   let chave = '';
   try { chave = PIX_ROBO.value() || ''; } catch (e) {}
