@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "40b: Peça reta (item novo no conferidor do giro + guias)",
+ "arquivos": [
+  "src/98z-camera-u149f.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795305344.7300808,
@@ -44,5 +47,5 @@
    "r": "v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)"
   }
  ],
- "leu": 1795305344.2385852
+ "leu": 1795305583.2326295
 }
