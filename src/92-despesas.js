@@ -171,7 +171,7 @@
         '</section>';
     });
     html +=
-      dFold('imp', 'Imprevistos do mês', 'Gasto ' + gs(gasto) + ' de ' + gs(imp) + (impLista.length ? ' · ' + impLista.length + ' registrado(s)' : ''), gasto > imp ? 'var(--bad)' : 'var(--sub)',
+      '<div class="fxG">' + dFold('imp', 'Imprevistos do mês', 'Gasto ' + gs(gasto) + ' de ' + gs(imp) + (impLista.length ? ' · ' + impLista.length + ' registrado(s)' : ''), gasto > imp ? 'var(--bad)' : 'var(--sub)',
       '<section class="card col"><div><div class="hint" style="margin:0">A provisão de ' +
       gs(imp) +
       ' por mês é consumida pelos gastos inesperados que você registrar.</div></div>' +
@@ -217,7 +217,7 @@
       pays = (S.cpay || []).filter(function (x) {
         return x.ym === pmk;
       });
-    html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
+    html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml()) + '</div>';
     html = html.replace('<!--NOVA73-->', S.dfold && S.dfold.nova ? nova73 : '');
     el.innerHTML = html;
   }

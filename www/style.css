@@ -1223,7 +1223,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .ajS.on .ajB{grid-template-rows:1fr}
 .ajBi{overflow:hidden;min-height:0;padding:0 14px 0 58px;opacity:0;transition:opacity .2s}
 .ajS.on .ajBi{padding-bottom:16px;opacity:1}
-.ajBi>section.card,.ajBi>section{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;animation:none!important}
+.ajBi>section:not(.fxF){background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;animation:none!important}
 .ajBi>section>h2:first-child,.ajBi>section>div:first-child>h2{display:none}
 .ajBi>section>div:first-child>.hint{margin-top:0!important}
 .ajBi .impRw .impIc,.ajBi .impRw b{display:none}
@@ -1242,7 +1242,6 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .ajS:not(.on) .ajBi{visibility:hidden;transition:opacity .2s,visibility 0s .32s}
 /* 149p: Ajustes › Preços — interruptor, prévia ao ligar e a dobra "Contas, taxas e meta" com 16 px entre si; a prévia aqui é parte da linha (letra do texto), não um cartão */
 .ajS[data-k=pa] .ajBi{display:flex;flex-direction:column;gap:16px}
-.ajS[data-k=pa] .ajBi>.g99{margin-bottom:0}
 .ajS[data-k=pa] .paPrev>b:first-child{font-family:inherit;font-weight:600;font-size:16px}
 /* ===== v420: lista de vendas — esboço B (faixa única; quantidade à direita; cores abrem logo abaixo) ===== */
 #vRows.vlist .pcard.vlb{display:flex!important;flex-direction:row!important;align-items:center!important;gap:10px!important;padding:10px!important;min-height:0!important;border-radius:14px;transition:border-color .25s,background .25s}
@@ -2573,13 +2572,19 @@ html{overscroll-behavior-y:none}
 /* S374 (esboço 61): com o aviso de Desfazer na tela, o Início ganha folga embaixo (o aviso não tampa o botão que chegou) */
 body:has(#lfDesf.on) #v-inicio{padding-bottom:140px}
 /* S374 (esboços 64–66): bloco que abre DENTRO do próprio cartão, como na Apple */
-section.card.fxF{padding:0;overflow:hidden}
-section.card.fxF>.fxH{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:16px 18px;color:inherit;min-height:56px;font:inherit;cursor:pointer}
-section.card.fxF .fxC,.ch66,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
-section.card.fxF.on .fxC,.x66L.on66 .ch66{transform:rotate(180deg)}
-section.card.fxF>.fxB>.fxI{padding:0 18px 18px}
-section.card.fxF>.fxB .card{background:none!important;box-shadow:none!important;border:0!important;border-top:1px solid var(--line2,var(--line))!important;border-radius:0!important;padding:14px 0 0!important;margin:0!important}
-section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!important}
+/* 135d: LINHA DE DOBRA (dFold) — não é cartão: 64 px, título 16 / frase 13, ⌄ que gira; linha fina em cima da primeira e embaixo de cada uma.
+   Uma regra para todas as telas que usam dFold (Giro, Reservas, Dashboard, Despesas, Ajustes › Preços, Ofertas do site). */
+.fxG{display:flex;flex-direction:column}
+section.fxF{overflow:hidden;border-bottom:1px solid var(--line2,var(--line))}
+section.fxF:first-child,:not(section.fxF)+section.fxF{border-top:1px solid var(--line2,var(--line))}
+section.fxF>.fxH{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 0;text-align:left;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer}
+section.fxF>.fxH b{font-size:16px;font-weight:600}
+section.fxF>.fxH .hint{font-size:13px}
+section.fxF .fxC,.ch66,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
+section.fxF .fxC{transition:transform .25s}
+section.fxF>.fxB>.fxI{padding:0 0 16px}
+section.fxF>.fxB .card{background:none!important;box-shadow:none!important;border:0!important;border-top:1px solid var(--line2,var(--line))!important;border-radius:0!important;padding:14px 0 0!important;margin:0!important}
+section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!important}
 #v-dash .x66L{cursor:pointer}#v-dash .x66{overflow:hidden}#v-dash .x66i{padding:4px 0 14px}
 /* S374 (esboço 65): botões de Preços no padrão — 1 principal (contorno rosa), secundária neutra, ação de linha rosa com "›" */
 #v-dash .lxT{text-decoration:none!important;color:var(--accent-fg)!important;font-weight:600}
@@ -2778,13 +2783,6 @@ button.rw77{cursor:pointer}
 .card.lcCard{animation:none!important}
 /* 99 abrir no lugar */
 .g99{border:1px solid var(--line);background:var(--panel);border-radius:16px;overflow:hidden;margin:0 0 16px;box-shadow:none}
-.g99>section.card.fxF{margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;padding:0!important;border-bottom:1px solid var(--line)!important}
-.g99>section.card.fxF:last-child{border-bottom:0!important}
-.g99 .fxH{display:flex!important;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:60px;padding:12px 16px!important;background:none!important;border:0!important;border-radius:0!important;font:inherit;color:var(--fg);text-align:left}
-.g99 .fxH b{font-size:16px!important;font-weight:600}
-.g99 .fxC{font-style:normal;color:var(--mute);font-size:18px;transition:transform .25s;display:inline-block}
-.g99 .fxH[aria-expanded=true] .fxC{transform:rotate(180deg)}
-.g99 section.fxF>*:not(.fxH){padding-left:16px;padding-right:16px}
 #ajGrp .ajS:not([data-k=site]) .ajCh{transform:rotate(90deg)}#ajGrp .ajS.on:not([data-k=site]) .ajCh{transform:rotate(-90deg)}
 
 .g99>.card.ecF{margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-bottom:1px solid var(--line)!important}
@@ -2841,7 +2839,7 @@ button.rw77{cursor:pointer}
 .cx108 .t108 span{font-weight:600}
 .cx108 .p108{border-bottom:0}
 /* S374 · 109 (aprovado 17/11 18:21): a seta ⌄ gira no sentido anti-horário ao abrir */
-section.card.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh,.g99 .fxH[aria-expanded=true] .fxC{transform:rotate(-180deg)}
+section.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh{transform:rotate(-180deg)}
 #v-mkt .mk98 .mkDt[open]:not(.fecha)>summary.mkSec::after{transform:rotate(-180deg)!important}
 .ecF.on .ecTog .ecCh{transform:rotate(-180deg)} /* 109: Despesas usa a mesma seta girada */
 /* ===== S418 (18/11/2026): janela de confirmação única (110c/111) e linha de venda com ⌄ (116a2/123b/124c) ===== */

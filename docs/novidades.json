@@ -1,7 +1,7 @@
 {
- "nome": "5.50.20",
+ "nome": "5.50.21",
  "notas": [
-  "Histórico: as linhas \"Semana…\" ficam alinhadas na mesma margem dos dias."
+  "Giro, Reservas, Despesas e Ajustes › Preços: os blocos que abrem viraram linhas finas, sem cartão em volta."
  ],
- "build": 595
+ "build": 596
 }

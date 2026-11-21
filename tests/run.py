@@ -4419,6 +4419,27 @@ async def main():
             if not ok: falhas.append('4c parte 2 historico semana'); print('        veio', got, depois, pg.erros)
             await pg.close()
 
+            # 4c parte 3 (135d, aprovado 18/11 17:50): a dobra (dFold) nasce como LINHA de dobra — sem cartão (fundo, borda em volta e raio), 64 px,
+            # título 16, linha fina em cima da primeira e embaixo de cada uma, dobras seguidas sem espaço. Uma regra para Giro, Reservas, Dashboard,
+            # Despesas e Ajustes › Preços; o pad99 não embrulha mais as dobras depois do desenho.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const olha = () => { const v = document.querySelector('.view:not([hidden])'), F = [...v.querySelectorAll('section.fxF')].filter(e => e.getBoundingClientRect().height);
+                return F.length + ':' + F.every((f, i) => { const c = getComputedStyle(f), h = f.querySelector('.fxH'), ant = (() => { let a = f.previousElementSibling; while (a && !a.getBoundingClientRect().height) a = a.previousElementSibling; return a; })(), junto = !ant || !ant.matches('section.fxF') || Math.abs(ant.getBoundingClientRect().bottom - f.getBoundingClientRect().top) < 1;
+                  return !f.classList.contains('card') && !f.closest('.g99') && c.backgroundColor === 'rgba(0, 0, 0, 0)' && c.borderTopLeftRadius === '0px' && c.borderLeftWidth === '0px' && c.borderBottomWidth === '1px' && (f.previousElementSibling && f.previousElementSibling.matches('section.fxF') ? c.borderTopWidth === '0px' : c.borderTopWidth === '1px')
+                    && junto && h.getBoundingClientRect().height >= 64 && getComputedStyle(h.querySelector('b')).fontSize === '16px' && Math.round(h.getBoundingClientRect().left) === Math.round(f.getBoundingClientRect().left); }); };
+              S.dfold = {}; S.dTab = 'giro'; L.setView('dash'); await w(500); R.giro = olha();
+              S.dTab = 'din'; L.setView('dash'); await w(500); R.din = olha();
+              L.setView('desp'); await w(500); R.desp = olha();
+              S.ajAberta = 'pa'; L.setView('ajustes'); await w(500); R.aj = olha();
+              S.dTab = 'giro'; L.setView('dash'); await w(400); document.querySelector('#v-dash [data-act=dfold][data-id=ret]').click(); await w(800);
+              R.abre = !!document.querySelector('#v-dash section.fxF[data-fx=ret].on .fxB') && S.dfold.ret === true; return R; }""")
+            total += 1
+            ok = (all(re.match(r'^[1-9]\d*:true$', got[k]) for k in ('giro', 'din', 'desp', 'aj')) and int(got['giro'].split(':')[0]) >= 4 and got['abre'] and 'fxF' not in fontes['98z-s374d-padrao.js'].split('function pad99')[1].split('function ')[0] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '4c parte 3 (135d): a dobra nasce como linha de dobra (sem cartão, 64 px, linha fina, sem espaço entre as seguidas) em Giro, Reservas, Despesas e Ajustes › Preços')
+            if not ok: falhas.append('4c parte 3 linha de dobra'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"
@@ -4711,9 +4732,9 @@ async def main():
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               L.inicioGo('giro'); await w(500); const v = () => document.querySelector('.view:not([hidden])');
-              const soltos = [...v().querySelectorAll('section.card.fxF')].filter(x => !x.parentElement.classList.contains('g99')).length;
-              const q = id => document.querySelector('section.card.fxF[data-fx="' + id + '"]');
-              q('rep').querySelector('.fxH').click(); await w(700); const abre = !!q('rep').querySelector('.fxB') && q('rep').parentElement.classList.contains('g99');
+              const soltos = [...v().querySelectorAll('section.fxF')].filter(x => x.classList.contains('card') || x.closest('.g99')).length;  // 135d: a dobra é linha, não cartão
+              const q = id => document.querySelector('section.fxF[data-fx="' + id + '"]');
+              q('rep').querySelector('.fxH').click(); await w(700); const abre = !!q('rep').querySelector('.fxB') && q('rep').parentElement.classList.contains('fxG');
               const lc = document.getElementById('lcCard'), anim = lc ? getComputedStyle(lc).animationName : 'x';
               q('rep').querySelector('.fxH').click(); await w(700); const fecha = !q('rep').querySelector('.fxB');
               L.inicioGo('din'); await w(500); const po = !!q('paraonde') && !document.querySelector('[data-act=dfold].chip');

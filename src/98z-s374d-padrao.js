@@ -1,5 +1,5 @@
   // ===== S374 · catálogo de peças (aprovado 17/11/2026; "implementar tudo" 14:40) =====
-  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF) juntos num cartão (.g99), em linhas;
+  // 99  ABRIR NO LUGAR: as contas (.ecF) juntas num cartão (.g99), em linhas; as dobras (section.fxF) já nascem como linha (135d);
   //     "⌄" gira ao abrir (Ajustes também; "Site" continua "›" porque leva a outra tela). Reservas: "Ver para onde vai" é um bloco.
   // 100/101 IR PARA OUTRA TELA: linha de lista com "›" parado; link solto rosa 15 px — sozinho = centralizado; ao lado de outro
   //     botão = no lugar. "Marcar como paga" é ação → botão secundário.
@@ -7,10 +7,10 @@
   function pad99(raiz) {
     if (!raiz) return;
     var vistos = [];
-    [].forEach.call(raiz.querySelectorAll('section.card.fxF, .card.ecF'), function (s) {
+    [].forEach.call(raiz.querySelectorAll('.card.ecF'), function (s) {
       if (vistos.indexOf(s) >= 0 || (s.parentElement && s.parentElement.classList.contains('g99'))) return;
       var run = [s], n = s.nextElementSibling;
-      while (n && n.matches('section.card.fxF, .card.ecF')) { run.push(n); n = n.nextElementSibling; }
+      while (n && n.matches('.card.ecF')) { run.push(n); n = n.nextElementSibling; }
       var g = document.createElement('div');
       g.className = 'g99';
       s.parentNode.insertBefore(g, s);

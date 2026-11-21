@@ -7,16 +7,17 @@
     ['giro', 'Giro'],
     ['prec', 'Preços']
   ];
-  // Bloco que abre ao toque: cabeçalho com resumo de uma linha e, aberto, o detalhe logo abaixo.
+  // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
+  // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ajustes › Preços, Ofertas do site).
   function dFold(id, titulo, resumo, cor, corpo) {
     if (!corpo) return '';
     var ab = !!S.dfold[id];
     return (
-      '<section class="card fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfold" data-id="' +
+      '<section class="fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfold" data-id="' +
       id +
       '" aria-expanded="' +
       ab +
-      '" class="fxH"><span style="min-width:0"><b style="font-size:15px">' +
+      '" class="fxH"><span style="min-width:0"><b>' +
       titulo +
       '</b><span class="hint" style="display:block;margin:2px 0 0;color:' +
       (cor || 'var(--sub)') +
@@ -148,12 +149,14 @@
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
       // v428: lista de compras melhorada + vitrine da semana
+      h += '<div class="fxG">'; // dobras seguidas = um grupo de linhas, sem espaço entre elas
       h += dFold('rep', 'Lista de compras', rp.length ? rp.length + ' produto(s) vão acabar logo' : 'nada acabando nos próximos 21 dias', rp.length ? 'var(--warn)' : 'var(--ok)', lcHtml());
       h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
       h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
       h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());
       h += dFold('abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', 'var(--sub)', x2.abc);
       h += dFold('pdc', 'Perdas e sobras (30 dias)', ct.length + ' contagem(ns) no período', 'var(--sub)', x2.perdasC);
+      h += '</div>';
       return h;
     }
     // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
@@ -251,7 +254,7 @@
         })
         .join('') +
       '</div><div class="lv418X">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.<br>' + cambioHojeTxt() + '</div>' +
-      '</section>' +
+      '</section><div class="fxG">' +
       // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
       dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
         '<div class="split">' +
@@ -271,9 +274,10 @@
         '<div class="sl"><span>Retirado por você<small>de ' + rFmt(rm, 'lucroLivre') + ' de lucro livre</small></span><b>' + rFmt(rm, 'retTotal') + '</b></div>' +
         '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
         '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
-      h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
+      h += '<div class="fxG">' + dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
       // S200: lucro real do mês (IVA da venda sai, IVA da compra vira custo, frete e descontos)
       if (typeof lucroRealHtml === 'function') { var lrT = lrMes(new Date().getFullYear(), new Date().getMonth()); h += dFold('lr', 'Lucro real do mês', lrT.qty ? gs(lrT.lucro) + ' de ' + gs(lrT.vendido) + ' vendidos' : 'sem vendas ainda', lrT.lucro >= 0 ? 'var(--ok)' : 'var(--bad)', lucroRealHtml()); }
+      h += '</div>';
       return h;
     };
     h += dFold(
@@ -282,6 +286,6 @@
       'Saldo ' + totFmt(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
       fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
       fluxoHtml() + (o.two || '')
-    );
+    ) + '</div>';
     return h;
   }
