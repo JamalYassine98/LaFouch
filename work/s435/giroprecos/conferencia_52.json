@@ -1,0 +1,47 @@
+[
+ [
+  "Início hoje",
+  [
+   [
+    "texto cortado",
+    "span.tp \"Resumo · Pedidos · Mensagens ·\""
+   ]
+  ]
+ ],
+ [
+  "Início proposta",
+  [
+   [
+    "texto cortado",
+    "span.tp \"Resumo · Pedidos · Mensagens ·\""
+   ]
+  ]
+ ],
+ [
+  "Inventário hoje",
+  [
+   [
+    "sobreposição",
+    "button.nvVs \"Peças\" / h1 \"Inventário\""
+   ]
+  ]
+ ],
+ [
+  "Inventário proposta",
+  [
+   [
+    "sobreposição",
+    "button.nvVs \"Peças\" / h1 \"Inventário\""
+   ]
+  ]
+ ],
+ [
+  "Parados e sobrando proposta",
+  [
+   [
+    "sobreposição",
+    "button.nvVs \"Inventário\" / h1 \"Parados e sobrando\""
+   ]
+  ]
+ ]
+]
