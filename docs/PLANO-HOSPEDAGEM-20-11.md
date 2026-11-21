@@ -20,7 +20,7 @@ As regras do GitHub Pages dizem que ele não pode ser usado para loja ou site vo
 | Publicar | O mesmo workflow da nuvem ganha a opção "app" | Workflow novo |
 
 ## Como fazer (opção A), em partes — cada parte consultando o dono
-1. **NUVEM:** `firebase.json` ganha `hosting` com a pasta `www`; o workflow `publicar-nuvem` ganha a opção `app`; primeira publicação; conferir no ar que app.js, style.css e version.json abrem no endereço novo (sonda). Nada muda para os aparelhos ainda.
+1. ✅ **21/11 08:05 (run 44897070745)** — **NUVEM:** `firebase.json` ganha `hosting` com a pasta `www`; o workflow `publicar-nuvem` ganha a opção `app`; primeira publicação; conferir no ar que app.js, style.css e version.json abrem no endereço novo (sonda). Nada muda para os aparelhos ainda.
 2. **APP:** `UPD_URL` passa para o endereço novo; `publicar-app.yml` passa a publicar no Firebase (sai o GitHub Pages). Como tudo é teste (dono 20/11 15:28), sem período de transição: gerar o APK novo e reinstalar nos aparelhos.
 3. **Dono:** instalar o APK novo (e o instalador do Windows, se usar), e no fim desligar o GitHub Pages do repositório (Settings › Pages).
 4. **Opcional:** `app.lafouch.com` apontando para o Firebase (um registro no DNS da Cloudflare).
@@ -28,4 +28,4 @@ As regras do GitHub Pages dizem que ele não pode ser usado para loja ou site vo
 Riscos: (1) um aparelho com o APK velho para de receber atualização quando o GitHub Pages desligar → por isso a parte 3 vem por último; (2) se o app for aberto pelo navegador (não pelo APK) no endereço antigo, os dados guardados só no aparelho não vão junto para o endereço novo; o que está na nuvem volta sozinho.
 
 ## Decisão do dono
-"Aprovado A" (Firebase Hosting) ou "Aprovado B" (Cloudflare). Depois, "implementar" parte por parte.
+21/11 08:00 — "Aprovado A, parte 1 agora e o resto no fim": Firebase Hosting. Parte 1 no ar (lafouch-2f6bd.web.app, em paralelo; nada mudou nos aparelhos). Partes 2 e 3 só no fim, antes de lançar.
