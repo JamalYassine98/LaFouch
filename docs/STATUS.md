@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 39: peça clara perdia um lado no giro tratado — a caixa por onde a peça passa na volta também conta como peça | src/97-giro-trata.js, tests/run.py |
 | ESBOCO | esboços do giro: câmera reta + peça reta · Estúdio mostra o que a peça já tem + galeria + para qual peça vai · cores mais fáceis | work/s435/giro |
 | NUVEM | S5S7: publicar (dono: implementar 23:48) | functions/ |
 | SITE | Noite 20→21/11 (dono dormindo): faixa do evento → plano das ferramentas → varredura de código morto com o site rodando | js/lf-site.js, index.html |

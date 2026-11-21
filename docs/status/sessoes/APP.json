@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 39: peça clara perdia um lado no giro tratado — a caixa por onde a peça passa na volta também conta como peça",
+ "arquivos": [
+  "src/97-giro-trata.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795228979.30766,
@@ -44,5 +47,5 @@
    "r": "v577 publicado: remendos parte 2a (inicioGo e navOn numa função só; 42 destinos iguais, 0 diferenças em 60 telas, 332/332). Próximo: parte 2b (grupos), desenho em work/s436/remendos/parte2b_notas.md"
   }
  ],
- "leu": 1795228579.0411422
+ "leu": 1795229293.0005136
 }
