@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4b parte 2: tela de Preços por uma função só (precosTelaHtml), Ferramentas, sem cabeçalho Contador nem pré-graduados; saem as camadas s52 e s374 | src/97z2-contador.js, src/97z3-precos.js, src/98z-precos-s52.js, src/98z-s374.js, src/89-dash-abas.js, src/96-tabelas-preco.js, src/98z-s374d-padrao.js, src/89-inicio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 | SITE | Internet fraca parte 1 (1ª tela dentro da página): estudo do robô das páginas + implementação por dentro | js/lf-site.js, index.html |
 

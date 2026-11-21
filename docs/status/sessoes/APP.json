@@ -1,7 +1,18 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4b parte 2: tela de Preços por uma função só (precosTelaHtml), Ferramentas, sem cabeçalho Contador nem pré-graduados; saem as camadas s52 e s374",
+ "arquivos": [
+  "src/97z2-contador.js",
+  "src/97z3-precos.js",
+  "src/98z-precos-s52.js",
+  "src/98z-s374.js",
+  "src/89-dash-abas.js",
+  "src/96-tabelas-preco.js",
+  "src/98z-s374d-padrao.js",
+  "src/89-inicio.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795260874.266595,
