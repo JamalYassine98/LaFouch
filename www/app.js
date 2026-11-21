@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 590;
+  var APP_BUILD = 591;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.15'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.16'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -21625,21 +21625,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h += dFold('pdc', 'Perdas e sobras (30 dias)', ct.length + ' contagem(ns) no período', 'var(--sub)', x2.perdasC);
       return h;
     }
-    var x3 = dashExtra(),
-      sg = sugestoes().filter(function (r) {
-        return r.acao === 'subir' || r.acao === 'descer';
-      }),
-      ab = abaixoDoPiso().length,
-      pg = precoPerigoso().length,
-      pr = perdasPropositais();
-    // v422: aba Preços = preço automático (um interruptor, meta, esta semana, travados) + contas/taxas/meta recolhidas
-    // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
+    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
+    // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += contadorHtml();
-    h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    // S374 (esboços 64–66): "Preço automático" uma vez só (o cartão com a chave); os preços a corrigir moram no Contador;
-    // a meta entra em "Contas, taxas e meta"; os pré-graduados viram uma linha do Contador.
-    h += paSwitchHtml() + precosAutoHtml();
-    h += dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml());
+    h += precosAutoHtml();
     return h;
   }
 
@@ -26917,7 +26906,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
       site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', h: '<span></span>' }, // S374 (95d)
-      pa: { t: 'Preço automático', r: 'em Preços', h: '<span></span>' }, // S363 (esboço 45c): a linha só leva a Preços (ajToca)
+      // 149p: o interruptor do preço automático (com a prévia ao ligar) e "Contas, taxas e meta" moram aqui; Preços só mostra e decide
+      pa: { t: 'Preços', r: 'automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado'), h: paSwitchHtml() + dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml()) },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
@@ -28716,8 +28706,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    // S374 (esboço 75): sai a linha "Preço automático › em Preços" (só levava a outra tela; mora em Preços)
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
+    // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
+    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'pa', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
   function ajOrdem() {
     var o = [];
     try {
@@ -28761,7 +28751,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
     if (s.dataset.k === 'site') return ACT.ajSite(); // S374 (95d): abre os ajustes do site (painel integrado)
-    if (s.dataset.k === 'pa') { S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, { pau: true }); return setView('dash'); } // S363: Preço automático mora em Preços
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
     [].forEach.call(g.querySelectorAll('.ajS.on'), function (x) {
@@ -45845,7 +45834,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== S188 (aprovado 12/11/2026): CONTADOR VIRTUAL — tudo de preço num lugar só =====
   // Números › Preços vira o Contador: 1 saúde dos preços, 2 decisões da semana (Aceitar tudo / um por um),
   // 3 calculadora de preço por custo/lote, 4 "E se…?" com perguntas prontas (só contas do app, sem internet nem IA),
-  // 5 as regras de antes ficam em "Regras do contador"; no começo do mês, o fechamento do mês anterior.
+  // 5 no começo do mês, o fechamento do mês anterior. (149p: o interruptor e "Contas, taxas e meta" foram para Ajustes › Preços.)
   // Na ficha (aba Preço): "De onde vem o preço" com a barra repor/contas/colchão/taxa/lucro e até onde dá para descer.
   // Regras de preço continuam as mesmas (nunca abaixo do piso, no máximo 10% por semana, cadeado vence sempre).
   S.cntFech = S.cntFech || {}; // 'AAAA-MM' → visto
@@ -45928,7 +45917,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.cntUmPorUm = function () { document.querySelectorAll('.cntUm').forEach(function (e) { e.hidden = false; }); var b = document.querySelector('[data-act="cntUmPorUm"]'); if (b) b.remove(); };
   ACT.cntAceita = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; paAplica(x.m); saveSoon(); lfToast('✓ ' + x.tit + ' → ' + x.v); render(); };
   ACT.cntIgnora = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; var k = x.m.kind === 'fim' ? 'oferta' : x.m.kind; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[x.m.ref + '|' + k] = Date.now(); saveSoon(); render(); };
-  ACT.cntTudo = function () { var n = 0; try { paPlano().forEach(function (m) { paAplica(m); n++; }); } catch (e) {} if (S.pAuto) S.pAuto.ult = Date.now(); saveSoon(); lfToast('✓ ' + n + (n === 1 ? ' preço ajustado' : ' preços ajustados') + ' · dá para desfazer em Regras do contador'); render(); };
+  ACT.cntTudo = function () { var n = 0; try { paPlano().forEach(function (m) { paAplica(m); n++; }); } catch (e) {} if (S.pAuto) S.pAuto.ult = Date.now(); saveSoon(); lfToast('✓ ' + n + (n === 1 ? ' preço ajustado' : ' preços ajustados') + ' · dá para desfazer em Esta semana'); render(); };
   // ---------- 2 · de onde vem o preço (ficha) ----------
   function cntPrecoHtml(ref) {
     var it = itemDoRef(ref);
@@ -46013,7 +46002,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       refs.forEach(function (r) { if (paParado(r) < 60) return; var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), q = paEstoque(r); n += q; cx += pp.piso * q; lu += (pp.piso - pp.rep - pp.contas) * q; });
       return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais. ✓';
     }
-    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Regras do contador › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + '). ✓' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
+    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + '). ✓' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
     return '';
   }
   ACT.cntEse = function () {

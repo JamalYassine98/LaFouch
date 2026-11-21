@@ -4283,12 +4283,12 @@ async def main():
               const reservas = !/Seu mês|Detalhes do mês|Lucro real do mês/.test(tr);
               L.setView('hist'); await sl(500); const hist = !/Fechamento do caixa/.test(document.getElementById('v-hist').textContent);
               L.inicioGo('hoje'); await sl(600); const vd = document.getElementById('v-dia'); const hoje = !/Fechamento do caixa|Despesas do dia/.test(vd.textContent) && !vd.querySelector('[data-act=fechar]') && !!vd.querySelector('.kpiLk[data-act=view][data-id=desp]');  // S374 (esboço 70): sem fechar manual e sem a janela Despesas do dia
-              L.setView('ajustes'); await sl(500); const rot = !document.querySelector('.ajS[data-k=pa]');  // S374 (75): a linha "Preço automático" saiu de Ajustes
+              L.setView('ajustes'); await sl(500); const lp = document.querySelector('.ajS[data-k=pa]'), rot = !!lp && lp.querySelector('b').textContent === 'Preços' && !!lp.querySelector('#paCard');  // 149p: a linha Preços de Ajustes tem o interruptor (não é mais um atalho para outra tela)
               return [tem && abre, reservas, hist, hoje, rot]; }""")
             got.append('dash,prec')
             total += 1
             ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Preço automático leva a Preços')
+            print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Ajustes › Preços com o interruptor')
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -4298,14 +4298,39 @@ async def main():
             q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !!document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
             await pg.locator('#v-dash .x66L').click(); await pg.wait_for_timeout(600)
             q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .x66 .pcLi').length, document.querySelectorAll('#v-dash .x66 [data-act=pcUsaTodos]').length]")
-            await pg.locator('[data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
-            q3 = await pg.evaluate("() => { const s = document.querySelector('section.fxF[data-fx=cfg]'); const t = s ? s.innerText : ''; return [!!s && !!s.querySelector('.fxB'), /Lucro do mês/.test(t), /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-dash .pc66').length > 0]; }")
-            await pg.locator('[data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
+            # 149p: "Contas, taxas e meta" abre e fecha dentro de Ajustes › Preços
+            await pg.evaluate("() => { const L = window.__LF; L.S.ajAberta = 'pa'; L.setView('ajustes'); }"); await pg.wait_for_timeout(500)
+            await pg.locator('#v-ajustes [data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
+            q3 = await pg.evaluate("() => { const s = document.querySelector('#v-ajustes section.fxF[data-fx=cfg]'); const t = s ? s.innerText : ''; return [!!s && !!s.querySelector('.fxB'), /Lucro do mês/.test(t), /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-ajustes .pc66').length > 0]; }")
+            await pg.locator('#v-ajustes [data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
             q4 = await pg.evaluate("() => [!!window.__LF.S.dfold.cfg, !document.querySelector('section.fxF[data-fx=cfg] .fxB')]")
             total += 1
-            ok = (q1[0] == 1 and q1[1] == 1 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
+            ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66): Preços sem repetição, lista no Contador, meta e taxas no bloco, contas pelo custo, bloco abre e fecha no cartão')
             if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, q4, pg.erros)
+            await pg.close()
+
+            # 4b parte 1 · 149p (aprovado 19/11 16:30; dono 21/11 08:03 "implementar tudo"): o preço automático mora em Ajustes › Preços.
+            # A linha vem depois de Site, diz "automático ligado|desligado" e, aberta, tem o interruptor (com a prévia ao ligar) e a dobra
+            # "Contas, taxas e meta"; ligar não sai de Ajustes nem fecha a linha. Preços não tem "REGRAS DO CONTADOR", interruptor nem a dobra.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
+              S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.paPrev = false; S.ajAberta = ''; L.setView('ajustes'); await w(400);
+              const ks = [...document.querySelectorAll('#ajGrp .ajS')].map(x => x.dataset.k), l = () => document.querySelector('#ajGrp .ajS[data-k=pa]');
+              R.push(ks.indexOf('pa') === ks.indexOf('site') + 1, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
+              l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').click(); await w(500);
+              R.push(l().classList.contains('on') && S.view === 'ajustes', !!l().querySelector('#paCard [data-act=paTog]'), !!l().querySelector('[data-act=dfold][data-id=cfg]'));
+              l().querySelector('[data-act=paTog]').click(); await w(300); R.push(!!l().querySelector('.paPrev [data-act=paLiga]'));
+              l().querySelector('[data-act=paLiga]').click(); await w(500);
+              R.push(S.view + '·' + S.ajAberta + '·' + S.pAuto.on + '·' + l().querySelector('.ajRes').textContent, l().classList.contains('on'));
+              S.dTab = 'prec'; L.setView('dash'); await w(500); const d = document.getElementById('v-dash'), t = d.innerText;
+              R.push(!/REGRAS DO CONTADOR/i.test(t), !d.querySelector('#paCard,[data-act=paTog],[data-act=dfold][data-id=cfg]'), /Esta semana/.test(t));
+              return R; }""")
+            total += 1
+            ok = got == [True, 'Preços·automático desligado', True, True, True, True, True, 'ajustes·pa·true·automático ligado', True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '4b parte 1 (149p): o preço automático mora em Ajustes › Preços (depois de Site; interruptor, prévia e Contas, taxas e meta); Preços sem "Regras do contador"')
+            if not ok: falhas.append('4b parte 1 preco automatico em Ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
@@ -4530,7 +4555,7 @@ async def main():
             # S374 (74, 75, 77/81/84, 80b): Câmbio, Ajustes sem "Preço automático", Clientes com "+" e ficha de luxo, Cartões no Marketing
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              L.setView('ajustes'); await w(300); const semPa = !document.querySelector('.ajS[data-k=pa]');
+              L.setView('ajustes'); await w(300); const semPa = ![...document.querySelectorAll('.ajS>.ajR>b')].some(b => b.textContent === 'Preço automático');  // 149p: a linha agora é Preços, com o interruptor dentro (não um atalho)
               L.setView('clientes'); await w(300); const v = document.getElementById('v-clientes');
               const topo = !!v.querySelector('.pl78[data-act=clinovo]') && !v.querySelector('.lkRow') && !v.querySelector('[data-act=cupAbre]');
               S.clientes.push({ id: 991, nome: 'Teste Lima', tel: '0981000111', email: 't@x.com', ruc: '', obs: '', ts: Date.now() }); L.ACT.cliab(991); await w(300);
@@ -4541,7 +4566,7 @@ async def main():
               return [semPa, topo, um, mk, cup]; }""")
             total += 1
             ok = got == [True] * 5 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (74/75/77/80b): Ajustes sem "Preço automático", Clientes com "+" e ficha de luxo, Cartões como tela do Marketing')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (74/75/77/80b): Ajustes sem a linha-atalho "Preço automático", Clientes com "+" e ficha de luxo, Cartões como tela do Marketing')
             if not ok: falhas.append('clientes luxo'); print('        veio', got, pg.erros)
             await pg.close()
 

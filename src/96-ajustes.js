@@ -161,7 +161,8 @@
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
       site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', h: '<span></span>' }, // S374 (95d)
-      pa: { t: 'Preço automático', r: 'em Preços', h: '<span></span>' }, // S363 (esboço 45c): a linha só leva a Preços (ajToca)
+      // 149p: o interruptor do preço automático (com a prévia ao ligar) e "Contas, taxas e meta" moram aqui; Preços só mostra e decide
+      pa: { t: 'Preços', r: 'automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado'), h: paSwitchHtml() + dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml()) },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },

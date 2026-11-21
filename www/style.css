@@ -1240,6 +1240,10 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 :root[data-tema=claro] .ajGrp,:root[data-tema=claro] .ajS{--selbg:#e3dfe4}
 @media (prefers-reduced-motion:reduce){.ajB,.ajCh,.ajBi,.ajGrp.arr .ajS{transition:none}.ajR.ajSeg .ajIc:after{animation:none}}
 .ajS:not(.on) .ajBi{visibility:hidden;transition:opacity .2s,visibility 0s .32s}
+/* 149p: Ajustes › Preços — interruptor, prévia ao ligar e a dobra "Contas, taxas e meta" com 16 px entre si; a prévia aqui é parte da linha (letra do texto), não um cartão */
+.ajS[data-k=pa] .ajBi{display:flex;flex-direction:column;gap:16px}
+.ajS[data-k=pa] .ajBi>.g99{margin-bottom:0}
+.ajS[data-k=pa] .paPrev>b:first-child{font-family:inherit;font-weight:600;font-size:16px}
 /* ===== v420: lista de vendas — esboço B (faixa única; quantidade à direita; cores abrem logo abaixo) ===== */
 #vRows.vlist .pcard.vlb{display:flex!important;flex-direction:row!important;align-items:center!important;gap:10px!important;padding:10px!important;min-height:0!important;border-radius:14px;transition:border-color .25s,background .25s}
 #vRows.vlist .pcard.vlb>*{grid-column:auto!important;grid-row:auto!important;margin:0!important}

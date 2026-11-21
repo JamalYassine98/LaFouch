@@ -156,21 +156,10 @@
       h += dFold('pdc', 'Perdas e sobras (30 dias)', ct.length + ' contagem(ns) no período', 'var(--sub)', x2.perdasC);
       return h;
     }
-    var x3 = dashExtra(),
-      sg = sugestoes().filter(function (r) {
-        return r.acao === 'subir' || r.acao === 'descer';
-      }),
-      ab = abaixoDoPiso().length,
-      pg = precoPerigoso().length,
-      pr = perdasPropositais();
-    // v422: aba Preços = preço automático (um interruptor, meta, esta semana, travados) + contas/taxas/meta recolhidas
-    // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
+    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
+    // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += contadorHtml();
-    h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    // S374 (esboços 64–66): "Preço automático" uma vez só (o cartão com a chave); os preços a corrigir moram no Contador;
-    // a meta entra em "Contas, taxas e meta"; os pré-graduados viram uma linha do Contador.
-    h += paSwitchHtml() + precosAutoHtml();
-    h += dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml());
+    h += precosAutoHtml();
     return h;
   }
 

@@ -19,8 +19,8 @@
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    // S374 (esboço 75): sai a linha "Preço automático › em Preços" (só levava a outra tela; mora em Preços)
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
+    // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
+    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'pa', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
   function ajOrdem() {
     var o = [];
     try {
@@ -64,7 +64,6 @@
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
     if (s.dataset.k === 'site') return ACT.ajSite(); // S374 (95d): abre os ajustes do site (painel integrado)
-    if (s.dataset.k === 'pa') { S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, { pau: true }); return setView('dash'); } // S363: Preço automático mora em Preços
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
     [].forEach.call(g.querySelectorAll('.ajS.on'), function (x) {

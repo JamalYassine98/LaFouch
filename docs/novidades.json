@@ -1,7 +1,7 @@
 {
- "nome": "5.50.15",
+ "nome": "5.50.16",
  "notas": [
-  "Black Friday: só a de Ciudad del Este. Saiu de vez a data internacional que o app guardava de reserva para os anos sem data da Câmara."
+  "Preço automático agora fica em Ajustes › Preços (interruptor e Contas, taxas e meta). A tela de Preços ficou sem \"Regras do contador\"."
  ],
- "build": 590
+ "build": 591
 }
