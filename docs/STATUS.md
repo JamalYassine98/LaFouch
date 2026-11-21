@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 34: 'Qual é a frente?' — fotos escolhidas à mão tratadas com o tratamento do giro (fundo aprendido da gravação) | src/97-giro-trata.js, src/97-estudio-giro.js, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 | SITE | Fila 32: Esc = voltar e carrinho por cima (ramo esb-voltar do catalogo); plano da internet fraca | js/lf-site.js |
 

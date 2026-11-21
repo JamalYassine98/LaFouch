@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 34: 'Qual é a frente?' — fotos escolhidas à mão tratadas com o tratamento do giro (fundo aprendido da gravação)",
+ "arquivos": [
+  "src/97-giro-trata.js",
+  "src/97-estudio-giro.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795223626.6234937,
@@ -44,5 +48,5 @@
    "r": "v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono"
   }
  ],
- "leu": 1795223626.1724725
+ "leu": 1795224005.727544
 }
