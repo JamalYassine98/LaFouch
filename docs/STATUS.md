@@ -79,7 +79,7 @@
 - **38-giro-tratamento-mais-rapido** — na fila — APP · dono 21/11 10:01: prioridade é o tratamento CERTO; a meta de 5 min por peça deixa de ser dura (ele trata por trás na loja e termina em casa). Valem: REPROVADO menos quadros/resolução; APROVADO GPU; tudo no celular
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — NUVEM no ar (21/11 10:48) — falta a parte do APP (Pendências do Guardião: pixSemPar sem 'ligado'; COMO-FAZER em work/s435/precoexato/, esboço 39c) — entra na ordem depois do 4c
-- **39-preco-exato-site** — na vez do SITE — esboço 39 aprovado 21/11 07:51, ESPERANDO o 'implementar' do dono (muda o valor mostrado na tela de pagar). A nuvem já está no ar: até lá, pagamento de teste pelo Banco Familiar com o valor antigo cai em 'sem par'.
+- **39-preco-exato-site** — ✅ publicado no site 1795274857 (21/11): sem final único; PIX = brl, Banco Familiar = total
 - **40-hospedagem-app-firebase** — parte 1 ✅ 21/11 08:05 (lafouch-2f6bd.web.app, em paralelo) — partes 2 (APP) e 3 (dono) só no fim, antes de lançar
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
