@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
+aprovado 21/11 07:51 — espera o 'implementar' (ordem: NUVEM → SITE → APP)
 Site: PIX e Banco Familiar mostram o preço do carrinho (sem final único). App: cada PIX sem par vira linha das Pendências com o motivo (sem pedido / empate / peça vendida) + janela 'Ligar a um pedido'. Achado: S.pixSemPar é lido a cada 20 s e nunca mostrado. Risco a medir pela NUVEM: empates de mesmo valor. work/s435/precoexato/COMO-FAZER.md
