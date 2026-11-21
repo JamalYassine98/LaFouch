@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold",
+ "arquivos": [
+  "src/89-dash-abas.js",
+  "src/98z-s374d-padrao.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795265933.064614,

@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold | src/89-dash-abas.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 | SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 
