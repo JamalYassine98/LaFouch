@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "39 preço exato (parte do APP): PIX sem par vira linha do Guardião nas Pendências + janela Ligar a um pedido",
+ "arquivos": [
+  "src/97z-pix-email.js",
+  "src/89-dash-abas.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795286068.587119,
@@ -44,5 +48,5 @@
    "r": "v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela"
   }
  ],
- "leu": 1795285952.8899636
+ "leu": 1795286252.5985558
 }

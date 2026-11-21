@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 39 preço exato (parte do APP): PIX sem par vira linha do Guardião nas Pendências + janela Ligar a um pedido | src/97z-pix-email.js, src/89-dash-abas.js, tests/run.py |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 
 ## Fila
