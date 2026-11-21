@@ -86,6 +86,7 @@
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
 - para **NUVEM**: Site 1795232856 (21/11): a LEITURA PÚBLICA do Firestore (produtos, fotos, estoque, config, reservas) não espera mais o selo do App Check — sai na hora e leva o 
 - para **NUVEM**: S5 no site: publicado 1795234339 — novidades mostra 'Enviamos um e-mail para confirmar' com confirmar:true (conf:true mantém o agradecimento; erro/429 = 'tente 
+- para **SITE**: CONFERÊNCIA site 1795234339 (2743054) × 1795232856: comparador 0 falha nova, 0 diferença nas 12 telas. A frase nova 'Enviamos um e-mail para confirmar' (S5) não
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
