@@ -1,0 +1,73 @@
+mapa                 IGUAL 
+   aberto: [[], false, false, true, false, "", "/"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+peca>mapa            IGUAL 
+   aberto: [["painel:vitrine", "produto"], false, false, true, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+menu                 IGUAL 
+   aberto: [[], true, false, false, false, "", "/"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+busca                IGUAL 
+   aberto: [[], false, true, false, false, "", "/"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+carrinho             IGUAL 
+   aberto: [["camada"], false, false, false, false, "scrim pg bgLux|Seu carrinho", "/carrinho"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+conta                IGUAL 
+   aberto: [["camada"], false, false, false, false, "scrim  center acc pg auth|Iniciar sessão", "/conta"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+peca                 IGUAL 
+   aberto: [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine"], false, false, false, false, "", "/sol"] 
+filtros              IGUAL 
+   aberto: [["painel:vitrine", "fsh"], false, false, false, false, "", "/sol"]
+   Esc:    [["painel:vitrine"], false, false, false, false, "", "/sol"] 
+consulta             IGUAL 
+   aberto: [["consulta"], false, false, false, false, "", "/descubra-o-grau"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+zoom                 IGUAL 
+   aberto: [["painel:vitrine", "produto"], false, false, false, true, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+adicionado           IGUAL 
+   aberto: [["painel:vitrine", "produto"], false, false, true, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+categoria            IGUAL 
+   aberto: [["painel:vitrine"], false, false, false, false, "", "/sol"]
+   Esc:    [[], false, false, false, false, "", "/"] 
+conta>carrinho       IGUAL 
+   aberto: [["camada"], false, false, false, false, "scrim pg bgLux|Seu carrinho", "/carrinho"]
+   Esc:    [["camada"], false, false, false, false, "scrim  center acc pg auth|Iniciar sessão", "/conta"] 
+peca>carrinho        IGUAL 
+   aberto: [["painel:vitrine", "camada"], false, false, false, false, "scrim pg bgLux|Seu carrinho", "/carrinho"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+peca>menu            IGUAL 
+   aberto: [["painel:vitrine", "produto"], true, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+peca>busca           IGUAL 
+   aberto: [["painel:vitrine", "produto"], false, true, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"]
+   Esc:    [["painel:vitrine", "produto"], false, false, false, false, "scrim pg|Óculos de sol LaFouch qu", "/p/SL2250"] 
+categoria>carrinho   IGUAL 
+   aberto: [["painel:vitrine", "camada"], false, false, false, false, "scrim pg bgLux|Seu carrinho", "/carrinho"]
+   Esc:    [["painel:vitrine"], false, false, false, false, "", "/sol"] 
+conta>menu           IGUAL 
+   aberto: [["camada"], true, false, false, false, "scrim  center acc pg auth|Iniciar sessão", "/conta"]
+   Esc:    [["camada"], false, false, false, false, "scrim  center acc pg auth|Iniciar sessão", "/conta"] 
+carrinho>conta       IGUAL 
+   aberto: [["camada"], false, false, false, false, "scrim  center acc pg auth|Iniciar sessão", "/conta"]
+   Esc:    [["camada"], false, false, false, false, "scrim pg bgLux|Seu carrinho", "/carrinho"] 
+/carrinho            DIFERENTE
+   aberto: [[], false, false, false, false, "", "/carrinho"]
+   Esc:    [[], false, false, false, false, "", "/carrinho"]
+   voltar: EXC Page.evaluate: Execution context was destroyed, most likely because of a navigation. 
+/conta               DIFERENTE
+   aberto: [[], false, false, false, false, "", "/conta"]
+   Esc:    [[], false, false, false, false, "", "/conta"]
+   voltar: EXC Page.evaluate: Execution context was destroyed, most likely because of a navigation. 
+/sol                 DIFERENTE
+   aberto: [[], false, false, false, false, "", "/sol"]
+   Esc:    [[], false, false, false, false, "", "/sol"]
+   voltar: EXC Page.evaluate: Execution context was destroyed, most likely because of a navigation. 
+/p/SL2250            DIFERENTE
+   aberto: [[], false, false, false, false, "", "/p/SL2250"]
+   Esc:    [[], false, false, false, false, "", "/p/SL2250"]
+   voltar: EXC Page.evaluate: Execution context was destroyed, most likely because of a navigation. 

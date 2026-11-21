@@ -1,0 +1,13 @@
+RESULTADO: sem falha nova
+== celular · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== celular letra 1,2× · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 2 ruído(s) ignorado(s)
+== tablet · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== tablet · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Início — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Catálogo — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)
+== PC · Peça — 0 falha(s) nova(s), 0 diferença(s), 0 já existia(m), 0 ruído(s) ignorado(s)

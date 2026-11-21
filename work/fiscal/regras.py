@@ -1,5 +1,5 @@
-# Prova das regras do Firestore (12/11/2026, bloco 5 item 6): compara o que o site ENVIA para "pedidos"
-# com o que as regras (firestore.rules do projeto) ACEITAM, e confere que as coleções privadas ficam fechadas.
+# Prova das regras do Firestore (12/11/2026, bloco 5 item 6; refeita 20/11 com o pedido pela nuvem): o site não grava direto em
+# pedidos/ nem vistas/, as regras fecham as duas, e as coleções privadas ficam fechadas.
 # Uso: python3 regras.py  → imprime JSON [{nome, ok, d}]. O porteiro chama isto.
 import re, json, os, sys
 D = os.path.dirname(os.path.abspath(__file__))
@@ -11,54 +11,15 @@ try:
     rl = open(RULES).read(); js = open(SITE).read()
 except Exception as e:
     print(json.dumps([{'nome': 'regras: arquivos', 'ok': False, 'd': str(e)}])); sys.exit(0)
-def lista(fn):
-    m = re.search(r'function ' + fn + r'\(\)\s*\{.*?hasOnly\(\[(.*?)\]\)', rl, re.S)
-    return set(re.findall(r"'([^']+)'", m.group(1))) if m else None
-def chaves(obj):
-    # chaves do 1º nível de um literal de objeto JS: identificador logo depois do início ou de uma vírgula de nível 0
-    out, prof, i, n = set(), 0, 0, len(obj)
-    def tenta(j):
-        m = re.match(r'\s*([A-Za-z_$][\w$]*)\s*:(?!:)', obj[j:])
-        if m: out.add(m.group(1))
-    tenta(0)
-    while i < n:
-        c = obj[i]
-        if c in '\'"':
-            q = c; i += 1
-            while i < n and obj[i] != q: i += 2 if obj[i] == '\\' else 1
-        elif c in '([{': prof += 1
-        elif c in ')]}': prof -= 1
-        elif c == ',' and prof == 0: tenta(i + 1)
-        i += 1
-    return out
-def literais(ini):
-    out, a = [], js.find(ini)
-    while a >= 0:
-        i, prof = a, 0
-        while i < len(js):
-            c = js[i]
-            if c in '\'"':
-                q = c; i += 1
-                while i < len(js) and js[i] != q: i += 2 if js[i] == '\\' else 1
-            elif c == '{': prof += 1
-            elif c == '}':
-                prof -= 1
-                if prof == 0: out.append(js[a + 1:i]); break
-            i += 1
-        a = js.find(ini, a + 1)
-    return out
-# pedido normal (checkout)
-peds = literais("{ts:Date.now(),nome:c.nome,")
-ok_p = lista('pedidoOk')
-if not peds or ok_p is None: res('regras: pedido do site', False, 'não achei o pedido no site ou o pedidoOk nas regras')
-else:
-    k = set().union(*[chaves(p) for p in peds + literais('{cup:st.cup.cod')]); fora = sorted(k - ok_p)
-    res('regras: pedido do site', not fora, 'campos recusados pelas regras: ' + ', '.join(fora) if fora else f'{len(peds)} jeitos de pedir, {len(k)} campos aceitos')
-for tipo, fn in (('cancel', 'cancelOk'), ('comp', 'comprovanteOk'), ('avise', 'aviseOk')):
-    lt = literais("{tipo:'" + tipo + "'"); ok_l = lista(fn)
-    if not lt or ok_l is None: res(f'regras: {tipo}', False, 'não achei no site ou nas regras'); continue
-    fora = sorted(set().union(*[chaves(x) for x in lt]) - ok_l)
-    res(f'regras: {tipo}', not fora, 'campos recusados: ' + ', '.join(fora) if fora else 'ok')
+# 20/11/2026 (S3 e Fila 31 completos): o pedido, o cancelamento, o comprovante e o "avise-me" vão pela função "pedido" da nuvem (o formato
+# mora em functions/pedido.js e é provado lá); as visitas vão pela análise. Então o site NÃO pode mais gravar direto nessas coleções,
+# e as regras NÃO podem deixar ninguém de fora criar ou mudar nada nelas.
+for col in ('pedidos', 'vistas'):
+    usa = sorted(set(re.findall(r"['\"/]" + col + r"/", js)))
+    res(f'regras: o site não grava direto em {col}/', not usa, 'o site ainda fala direto com ' + col + '/ (tem que ir pela nuvem)' if usa else 'vai pela nuvem')
+    m = re.search(r'match /' + col + r'/\{\w+\}\s*\{(.*?)\}', rl, re.S)
+    aberto = [x.strip() for x in re.findall(r'allow ([^:]*(?:create|update|write)[^:]*):\s*if (?!dono\(\)|false)', m.group(1))] if m else []
+    res(f'regras: {col}/ fechada para quem não é a loja', not aberto, 'aberta: ' + ', '.join(aberto) if aberto else ('sem regra = fechada' if not m else 'só a loja'))
 # coleções que NUNCA podem ser abertas ao público (só as funções do servidor usam)
 priv = ['mensagens', 'inscricoes', 'voltas', 'analise', 'codigos', 'avaliacoes', 'logins']
 abertas = [c for c in priv if re.search(r'match /' + c + r'/', rl)]

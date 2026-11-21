@@ -822,6 +822,19 @@ def p7_pedido_pela_nuvem(p):
         if not pg.evaluate("!!document.querySelector('#pkok')"): ruim.append('a tela de pagamento não apareceu')
         if ruim: falha(P7, nome, ' | '.join(ruim), pg)
         else: passou(P7, nome, f'{len(R)} chamadas')
+        # 20/11: cancelar o pedido também vai pela porta 'pedido' (um caminho só, o mesmo usado ao excluir a conta), nunca direto no banco
+        nome = 'Cancelar o pedido: pela porta da nuvem'; n0 = len(R)
+        if not pg.evaluate("!!document.querySelector('#pkok')"): falha(P7, nome, 'sem a tela de pagamento, não deu para provar', pg)
+        else:
+            # o botão de cancelar fica no pedido pendente, em Minha conta
+            pg.evaluate("(()=>{const e=[...document.querySelectorAll('#pkok button,#pkok a')].find(e=>/Minha conta/.test(e.textContent));if(e)e.click()})()"); pg.wait_for_timeout(1800)
+            f2 = [x for x in ('[data-cta=pkcanc]', '[data-cta=pkcanc2]') if not toca(x, 1800)]; N = R[n0:]
+            canc = [x for x in N if x[0] == 'pedido' and (x[2].get('doc') or {}).get('tipo') == 'cancel']
+            if f2: falha(P7, nome, 'não achei ' + f2[0], pg)
+            elif any(x[0] == 'BANCO' for x in N): falha(P7, nome, 'o site escreveu direto no banco', pg)
+            elif not canc: falha(P7, nome, 'nenhum aviso de cancelamento pela porta pedido', pg)
+            elif pg.evaluate("!!document.querySelector('[data-cta=pkcanc]')"): falha(P7, nome, 'o pedido continuou como pendente na conta', pg)
+            else: passou(P7, nome)
     finally: b.close()
 
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
@@ -1036,6 +1049,50 @@ def p7_sobreposto(p):
                     else: passou(P7, t)
                 finally: b.close()
 
+# S429 Fila 32 (dono 20/11 "Aprovado tudo"): Esc = voltar. Com QUALQUER janela aberta, o Esc tem que deixar o site exatamente como o
+# voltar do aparelho deixa (fecha só o que está por cima). E o carrinho abre por cima: entrar → carrinho → voltar = tela de entrar.
+EV_EST = "(()=>{const e=" + ESTADO + ";const ly=document.querySelector('#layer');e.av=['cad','mapw','dlgb','cpov'].filter(i=>document.getElementById(i));e.zoom=!!document.querySelector('#layer .big.zm');e.q=ly&&ly.firstElementChild?(ly.firstElementChild.className.replace(/\\s*bgLux/,'')+'|'+((ly.querySelector('h1,h2,h3')||{}).textContent||'').slice(0,24)):'';return e})()"
+def ev_chave(e): return json.dumps([e['abertos'], e['menu'], e['busca'], e['av'], e['zoom'], e['q'], e['path']], ensure_ascii=False)
+def ev_conta(pg): pg.click('#contabtn'); pg.wait_for_timeout(1000)
+def ev_bag(pg): pg.click('#bagbtn'); pg.wait_for_timeout(900)
+def ev_menu(pg): pg.click('#mnb'); pg.wait_for_timeout(700)
+def ev_busca(pg): pg.click('#sbtn'); pg.wait_for_timeout(700)
+def ev_zoom(pg): a_prod(pg); pg.locator('#layer .big').first.click(); pg.wait_for_timeout(700)
+def ev_add(pg): a_prod(pg); pg.locator('#layer [data-addm]:visible').first.click(); pg.wait_for_timeout(900)
+def ev_mapa(pg):
+    pg.evaluate("(()=>{const b=document.createElement('a');b.className='mp';b.href='#';document.body.appendChild(b);b.click();b.remove()})()"); pg.wait_for_timeout(900)
+def ev_seq(*f):
+    def g(pg):
+        for x in f: x(pg)
+    return g
+def p7_esc_voltar(p):
+    C = [('Filtros', a_filtro, 1), ('foto ampliada', ev_zoom, 1), ('peça → carrinho', ev_seq(a_prod, ev_bag), 1), ('entrar → carrinho', ev_seq(ev_conta, ev_bag), 1), ('aviso "adicionado"', ev_add, 1), ('peça → menu', ev_seq(a_prod, ev_menu), 1),
+         ('menu', ev_menu, 0), ('busca', ev_busca, 0), ('carrinho', ev_bag, 0), ('conta', ev_conta, 0), ('peça', a_prod, 0), ('consulta', a_cons, 0), ('categoria', lambda pg: a_cat()(pg), 0), ('mapa', ev_mapa, 0), ('peça → mapa', ev_seq(a_prod, ev_mapa), 0),
+         ('peça → busca', ev_seq(a_prod, ev_busca), 0), ('categoria → carrinho', ev_seq(lambda pg: a_cat()(pg), ev_bag), 0), ('conta → menu', ev_seq(ev_conta, ev_menu), 0), ('carrinho → entrar', ev_seq(ev_bag, ev_conta), 0)]
+    for W, H in ((390, 844), (1440, 900)):
+        for nome, abre, sempre in C:
+            if RAPIDO and not sempre: continue
+            t = f'Esc = voltar · {nome} · {W}px'; R = {}
+            for modo in ('esc', 'voltar'):
+                b, c, pg, E = novo(p, W, H, touch=W < 700)
+                try:
+                    carrega(pg); a = ev_chave(pg.evaluate(EV_EST))
+                    try: abre(pg)
+                    except SemPecas as x: R = None; break
+                    R['ab'] = ev_chave(pg.evaluate(EV_EST)); R['a'] = a
+                    if modo == 'esc': pg.keyboard.press('Escape')
+                    else: pg.evaluate('history.back()')
+                    pg.wait_for_timeout(1200); R[modo] = ev_chave(pg.evaluate(EV_EST)) if pg.url.startswith('http') else 'fora do site'
+                finally: b.close()
+            if R is None: continue
+            if R['ab'] == R['a']: falha(P7, t, 'a janela não abriu (a prova não vale)', None)
+            elif R['esc'] == R['ab']: falha(P7, t, 'o Esc não fez nada', None)
+            elif R['esc'] != R['voltar']: falha(P7, t, f"Esc deixou {R['esc']} · o voltar deixa {R['voltar']}", None)
+            elif nome == 'entrar → carrinho' and '/conta' not in R['voltar']: falha(P7, t, f"o voltar não devolveu a tela de entrar: {R['voltar']}", None)
+            elif nome == 'aviso "adicionado"' and ('produto' not in R['voltar'] or 'cad' in R['voltar']): falha(P7, t, f"o voltar tinha que fechar só o aviso: {R['voltar']}", None)
+            else: passou(P7, t)
+
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1070,7 +1127,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa

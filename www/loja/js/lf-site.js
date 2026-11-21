@@ -77,7 +77,6 @@
     if(t.hasAttribute('data-cupperg')){cupPergunta(t.getAttribute('data-cupperg'))}
     else if(t.hasAttribute('data-cupnao')){if(ov)ov.remove()}
     else{t.disabled=true;cupAplica(t.getAttribute('data-cupsim'),function(j){if(ov)ov.remove();if(j&&j.ok)cupVaiCatalogo()})}});
-  document.addEventListener('keydown',function(e){var ov=document.getElementById('cpov');if(!ov)return;if(e.key==='Escape')ov.remove()});
   document.addEventListener('keydown',function(e){var a=document.activeElement;if((e.key==='Enter'||e.key===' ')&&a&&a.getAttribute&&a.getAttribute('role')==='button'&&a.hasAttribute('data-cupperg')&&!document.getElementById('cpov')){e.preventDefault();cupPergunta(a.getAttribute('data-cupperg'))}});
   /* boas-vindas depois de se inscrever nas novidades */
   
@@ -661,7 +660,6 @@
     var dm=e.target.closest('[data-pdm]');
     if(dm){var d=dm.closest('.pdesc');d.classList.toggle('open');dm.textContent=LFI.tr(d.classList.contains('open')?'Ver menos':'Ver mais')}});
   function addDlgClose(){var o=$('cad');if(o)o.remove()}
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('cad')){addDlgClose();e.stopPropagation()}},true);
   document.addEventListener('click',function(e){
     if(e.target.closest('[data-cadfin]')){addDlgClose();bag();return}
     if(e.target.closest('[data-cadcont]')){addDlgClose();closeLayer();return}
@@ -733,12 +731,15 @@
     lfBootFim();
     var sc=document.querySelector('#layer .scrim');if(sc){if(!re)sc.scrollTop=0;var hd=document.querySelector('header.top,.top');if(hd){var z=parseFloat(getComputedStyle(document.body).zoom)||1,hb=hd.getBoundingClientRect().bottom/z;if(hb>0&&hb<400)sc.style.top=hb+'px'}}
     if(re||prodOpen&&prodRef===kind)return;
-    var sw=prodOpen&&(prodRef==='#cart'||prodRef==='#acc');
+    var de=prodOpen?prodRef:'';
     if(!prodOpen){try{var vs0=$('vscr'),pp0=document.querySelector('.sec.pop');sessionStorage.setItem('lf_back',JSON.stringify({h:pp0?pp0.id:'',sy:vs0?vs0.scrollTop:0,ps:pp0?pp0.scrollTop:0,tipo:st.tipo,gen:st.gen,q:st.q,sort:st.sort,rosto:st.rosto}))}catch(_){}}
     if(!prodTitle)prodTitle=document.title;document.title=(ttl||'Seu carrinho')+' · La Fouch';
     prodOpen=true;prodRef=kind;waReset();
-    if(pop)return;
-    try{if(sw){stt.d=prodDepth;history.replaceState(stt,'',url)}else{prodDepth++;stt.d=prodDepth;history.pushState(stt,'',url)}}catch(_){}}
+    if(pop||pgPop)return;
+    /* S429 Fila 32 (aprovado 20/11): carrinho e conta abrem POR CIMA da tela onde a pessoa está (cada um é um passo; o voltar devolve a tela de antes).
+       Pedir a tela que está logo embaixo (carrinho → entrar → carrinho) é voltar para ela, não empilhar outra igual. */
+    try{if(de&&history.state&&history.state.de===kind){pgPop=2;history.back()}else{prodDepth++;stt.d=prodDepth;stt.de=de;history.pushState(stt,'',url)}}catch(_){pgPop=0}}
+  var pgPop=0;/* 1 = a tela está sendo redesenhada pelo voltar (não vira passo novo) · 2 = o próprio pgCart pediu o voltar (a tela já está desenhada) */
   function pgInit(p,pop){
     prodOpen=true;prodRef=p.ref;lfBootFim();waProd(p);try{document.activeElement&&document.activeElement.blur()}catch(_){}
     if(!prodTitle)prodTitle=document.title;document.title=p.nome+' ('+p.ref+') · La Fouch';
@@ -749,7 +750,8 @@
     Array.prototype.forEach.call(th,function(b,i){colorFoto(p,i,function(u){var c=b.querySelector('.cim');if(c&&u)c.style.backgroundImage='url("'+u+'")'})});
     relInit()}
   window.addEventListener('popstate',function(e){var s=e.state;
-    if(s&&s.lfa){prodDepth=s.d||1;prodRef='';minhaConta()}
+    if(pgPop===2){pgPop=0;prodDepth=s&&s.d||1}
+    else if(s&&s.lfa){prodDepth=s.d||1;prodRef='';pgPop=1;try{minhaConta()}finally{pgPop=0}}
     else if(s&&s.lfc){prodDepth=s.d||1;prodRef='';bag(0,true)}
     else if(s&&s.lfp&&find(s.lfp)){prodDepth=s.d||1;product(s.lfp,true)}
     else if(prodOpen){prodOpen=false;prodDepth=0;waReset();closeLayer(true)}
@@ -810,7 +812,12 @@
       {id:'dsh',is:function(){var d=$('dsh');return !!d&&d.classList.contains('on')},fecha:function(){var d=$('dsh');d.classList.remove('on');d.setAttribute('aria-hidden','true')}},
       {id:'vcs',is:function(){var d=$('vcs');return !!d&&d.classList.contains('on')},fecha:function(){var d=$('vcs');d.classList.remove('on');d.setAttribute('aria-hidden','true')}},
       {id:'zoom',is:function(){return !!document.querySelector('#layer .big.zm')},fecha:function(){var b=document.querySelector('#layer .big.zm');if(!b)return;b._s=1;b._x=0;b._y=0;b.classList.remove('zm');var im=b.querySelector(':scope>img,:scope>svg');if(im)im.style.transform=''}},
-      {id:'cmp',is:function(){return !!document.querySelector('#layer .modal.cmp')},fecha:function(){closeLayer()}}];
+      {id:'cmp',is:function(){return !!document.querySelector('#layer .modal.cmp')},fecha:function(){closeLayer()}},
+      /* S429 Fila 32: os avisos e janelinhas também são passo (antes o voltar fechava a tela de baixo e deixava o aviso no ar) */
+      {id:'cad',is:function(){return !!$('cad')},fecha:function(){addDlgClose()}},
+      {id:'cpov',is:function(){return !!$('cpov')},fecha:function(){$('cpov').remove()}},
+      {id:'dlgb',is:function(){return !!$('dlgb')},fecha:function(){dlgFecha()}},
+      {id:'mapw',is:function(){return !!$('mapw')},fecha:function(){mapClose()}}];
     /* quem abre algo novo com uma folha aberta (ex.: menu → Catálogo) troca o passo da folha em vez de empilhar */
     var _push=H.pushState;
     H.pushState=function(s,t,u){/* S90: o passo da consulta do grau (gw) nunca é trocado: menu/busca/carrinho empilham por cima dele */if(H.state&&H.state.lfo&&H.state.lfo!=='gw'&&!OVP){var o=OV.filter(function(x){return x.id===H.state.lfo})[0];if(!o||!o.is()){ABERTO[H.state.lfo]=false;return H.replaceState(s,t,u)}}return _push.apply(H,arguments)};
@@ -995,13 +1002,7 @@
   function relCor(a,b){var h=function(x){x=String(x||'').replace('#','');if(x.length!==6)return null;return [parseInt(x.slice(0,2),16),parseInt(x.slice(2,4),16),parseInt(x.slice(4,6),16)]},A=h(a),B=h(b);if(!A||!B)return 0;var d=Math.sqrt(Math.pow(A[0]-B[0],2)+Math.pow(A[1]-B[1],2)+Math.pow(A[2]-B[2],2));return d<60?1:d<110?.5:0}
   function relVistos(ref){var v=[];try{v=JSON.parse(sessionStorage.getItem('lf_vis')||'[]')}catch(_){}if(ref&&v[v.length-1]!==ref){v.push(ref);v=v.slice(-12);try{sessionStorage.setItem('lf_vis',JSON.stringify(v))}catch(_){}vistaConta(ref)}return v.map(find).filter(Boolean)}
   /* quantas vezes cada peça foi aberta: junta na visita e manda UM documento ao sair (vistas/<visita>) — o app soma e mostra "mais vistas e não vendidas" */
-  function vistaConta(ref){if(/[?&]cliente=1/.test(location.search))return;var c={};try{c=JSON.parse(sessionStorage.getItem('lf_vc')||'{}')}catch(_){}c[ref]=(c[ref]||0)+1;try{sessionStorage.setItem('lf_vc',JSON.stringify(c));sessionStorage.setItem('lf_vc_n','1')}catch(_){}}
-  function vistaEnvia(){var c,id;try{if(sessionStorage.getItem('lf_vc_n')!=='1')return;c=JSON.parse(sessionStorage.getItem('lf_vc')||'{}');id=sessionStorage.getItem('lf_vc_id');if(!id){id='v'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);sessionStorage.setItem('lf_vc_id',id)}sessionStorage.setItem('lf_vc_n','0')}catch(_){return}
-    var ks=Object.keys(c).slice(0,60);if(!ks.length)return;var r={};ks.forEach(function(k){r[k]=Math.min(50,c[k]|0)});
-    var body=JSON.stringify({fields:{ts:{integerValue:String(Date.now())},r:fsv(r)}});
-    try{acFetch(fsBase()+'vistas/'+id+'?key='+FB.k,{method:'PATCH',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){})}catch(_){}}
-  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')vistaEnvia()});
-  addEventListener('pagehide',vistaEnvia);
+  function vistaConta(ref){if(/[?&]cliente=1/.test(location.search))return;var c={};try{c=JSON.parse(sessionStorage.getItem('lf_vc')||'{}')}catch(_){}c[ref]=(c[ref]||0)+1;try{sessionStorage.setItem('lf_vc',JSON.stringify(c));sessionStorage.setItem('lf_vc_n0','1')/* há peça vista nova para a análise mandar (anEnvia) */}catch(_){}}
   function relHtml(p){
     var V=relVistos(p.ref).filter(function(v){return v.ref!==p.ref}),fp=relFmt(p);
     var parec=function(a,b){var f=relFmt(a);return (f&&f===relFmt(b)?1:0)+(b.n?Math.max(0,1-Math.abs(a.n-b.n)/b.n/.3):0)*.6+relCor(a.cor,b.cor)*.4};
@@ -1484,13 +1485,13 @@
       .then(function(){toast('Conta sincronizada com o Google.');minhaConta()},gErr)}
   function dlgAbre(h){dlgFecha();var d=document.createElement('div');d.className='dlgb';d.id='dlgb';d.innerHTML='<div class="dlg" role="dialog" aria-modal="true">'+h+'</div>';d.addEventListener('click',function(ev){if(ev.target===d||ev.target.closest('[data-dlgx]'))dlgFecha()});document.body.appendChild(d);var i=d.querySelector('input');if(i)setTimeout(function(){try{i.focus({preventScroll:true})}catch(_){}},60);return d}
   document.addEventListener('click',function(e){var o=$('pkok');if(o&&e.target.closest&&e.target.closest('.top')){/* S313: nas telas de pagamento o topo só tem o logo e não é saída; as saídas são as da própria tela (Pagar depois, Voltar ao catálogo) */if(o.classList.contains('py')){e.preventDefault();return}pkStop();o.remove();document.documentElement.classList.remove('lock')}},true);
+  /* cancelar um pedido na loja: UM caminho (função 'pedido' + devolve a reserva). Usado ao cancelar um pedido e ao excluir a conta
+     (antes a exclusão escrevia direto em pedidos/, que as regras fecharam em 20/11 — os pedidos pendentes ficavam sem cancelar). */
+  function pedCancela(id,e){return pkEnviar({tipo:'cancel',ref:id,ts:Date.now(),cod:e.cod||''},id+'x').then(function(){if(CFG.reserva===true)resCall('cancelar',id,null,(e.itens||[]).map(function(i){return i.ref}))})}
   function pkCancela(){
     var id=window.__pgid,e=id&&pedGet(id),b=document.querySelector('#dlgb .dk');if(!e||(e.est!=='pagar'&&e.est!=='recusado')){dlgFecha();return}
     if(b)b.disabled=true;
-    pkEnviar({tipo:'cancel',ref:id,ts:Date.now(),cod:e.cod||''},id+'x').then(function(){
-      if(CFG.reserva===true)resCall('cancelar',id,null,(e.itens||[]).map(function(i){return i.ref}));
-      pkCancelado(id)
-    },function(){var d=$('dlgb');if(!d)return;var m=LFI.lang==='es'?'¡Hola! Quiero cancelar mi pedido '+e.cod+'.':'Olá! Quero cancelar o meu pedido '+e.cod+'.';
+    pedCancela(id,e).then(function(){pkCancelado(id)},function(){var d=$('dlgb');if(!d)return;var m=LFI.lang==='es'?'¡Hola! Quiero cancelar mi pedido '+e.cod+'.':'Olá! Quero cancelar o meu pedido '+e.cod+'.';
       d.querySelector('.dlg').innerHTML='<h3>Cancelar este pedido?</h3><p>Não deu para avisar a loja automaticamente. Cancele pelo WhatsApp: a loja recebe o aviso e libera as peças.</p><div class="dlga"><button type="button" class="dc" data-dlgx>Voltar</button><a class="dk dr" target="_blank" rel="noopener" data-cta="pkcanc3" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(m)+'">Cancelar pelo WhatsApp</a></div>'})}
   function pkCancelado(id){pedSet(id,{est:'cancelado'});pkStop();dlgFecha();var po=$('pkok');if(po)po.remove();document.documentElement.classList.remove('lock');closeLayer();toast('Pedido cancelado.');/* S318: volta para a lista de pedidos depois que a janela termina de fechar */if(window.__pgc||logado())setTimeout(function(){minhaConta('peds')},420);window.__pgc=false}
   function dlgFecha(){var d=$('dlgb');if(d)d.remove()}
@@ -1517,7 +1518,7 @@
     if(!excOk())return;var b=$('dlgdel');if(b)b.disabled=true;
     var s=sessG();if(!s)return;var pend=lsG('lf_ped',[]).filter(function(e){return e.est==='pagar'||e.est==='recusado'});
     idTok().then(function(t){return authPost('delete',{idToken:t})}).then(function(){
-      var tarefas=pend.map(function(e){return fsA('PATCH','pedidos/'+e.id+'?updateMask.fieldPaths=est',{est:'cancelado'}).catch(function(){})});
+      var tarefas=pend.map(function(e){return pedCancela(e.id,e).catch(function(){})});
       tarefas.push(fsA('DELETE','clientes/'+s.uid).catch(function(){}));
       return Promise.all(tarefas)}).then(function(){dlgFecha();authSair();closeLayer();toast('Conta excluída.')},function(e){if(b)b.disabled=!excOk();dlgErr(acErr(e))})}
   function gCard(){var el=$('gcard');if(!el)return;
@@ -2238,7 +2239,7 @@
     function fecha(dePop){if(hst&&dePop!==true&&dePop!=='todos'){hst=false;try{history.back()}catch(_){}}if(dePop==='todos')hst=false;var era=o.classList.contains('on')&&!o._saindo,fim=function(){o._saindo=0;o.classList.remove('on');soLimpa()};o.setAttribute('aria-hidden','true');if(!$('layer').innerHTML.trim()&&!$('drw').classList.contains('on'))document.documentElement.classList.remove('lock');if(era&&soMov()){o._saindo=1;soSai(fim)}else if(!o._saindo)fim()}
     V5.sfecha=fecha;V5.sabre=abre;
     b.addEventListener('click',abre);inp.addEventListener('input',function(){pinta();if(noCat())setQ(inp.value)});
-    inp.addEventListener('keydown',function(e){if(e.key==='Escape')fecha();if(e.key==='Enter'){e.preventDefault();todos()}});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();todos()}});
     /* 10/11 S110-2 (opção A): confirmar a busca procura no catálogo INTEIRO (antes ficava na seção aberta: em Solar, "Óculos de leitura…" dava 0).
        Se só um produto tem exatamente esse nome (ou esse código), ele abre direto. */
     function todos(){var q=inp.value,f=btolFold(q).trim();
@@ -2551,7 +2552,6 @@
   function cddFiltra(q){var ul=q.closest('.cdl'),v=cdN(q.value).replace(/^\+/,'').trim();ul.querySelectorAll('li[data-v]').forEach(function(li){li.hidden=!!v&&li.getAttribute('data-q').indexOf(v)<0});ul.querySelectorAll('.cds').forEach(function(x){x.hidden=!!v})}
   document.addEventListener('input',function(e){var t=e.target;if(t.closest&&t.closest('.cdq'))cddFiltra(t)});
   document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.closest&&e.target.closest('.cdq')){e.preventDefault();var f=[].filter.call(e.target.closest('.cdl').querySelectorAll('li[data-v]'),function(li){return !li.hidden})[0];if(f)f.click()}});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var a=document.querySelector('.cdd.open');if(a){a.classList.remove('open');a.querySelector('.cdl').hidden=true;e.stopPropagation()}}},true);
   document.addEventListener('input',function(e){var t=e.target;
     if(t.id==='cfd'){var nc=$('cfa2').value,ctp=docTipo('cf',getConta()||{});maskCampo(t,function(v){return maskDoc(nc,v,ctp)})}
     else if(t.id==='cfb')maskCampo(t,maskNasc);
@@ -2612,10 +2612,6 @@
     else if(t.hasAttribute('data-copymsg')){var m=$('layer').dataset.msg||'';navigator.clipboard&&navigator.clipboard.writeText(m).then(function(){toast('Mensagem copiada')},function(){toast('Selecione e copie o texto')})}
     else if(t.hasAttribute('data-newsim')){st.cart={};st.nome='';st.zap='';drawBag();closeLayer()}
   });
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var sc=document.querySelector('#layer .scrim');if(sc)e.__lfc=1;
-    /* S111: sem nada por cima, o Esc fecha a camada registrada (ex.: consulta) */
-    if(!sc&&!$('drw').classList.contains('on')&&!$('sov').classList.contains('on')){var C=window.__lfCam||[];for(var i=C.length-1;i>=0;i--){try{if(C[i].aberta()&&C[i].esc){C[i].esc();return}}catch(_){}}}
-    closeLayer()}});
   /* 10/11 S110-1: com o site travado (painel aberto), o dedo ainda rola qualquer área que rola de verdade (antes só .modal/.panel/.dpn/.fpn; a busca ficava presa) */
   function rolaY(t){for(var x=t;x&&x.nodeType===1&&x!==document.body;x=x.parentElement){if(x.scrollHeight>x.clientHeight+1){var oy=getComputedStyle(x).overflowY;if(oy==='auto'||oy==='scroll')return true}}return false}
   document.addEventListener('touchmove',function(e){if(document.documentElement.classList.contains('lock')&&!e.target.closest('.modal,.panel,.dpn,.fpn')&&!rolaY(e.target))e.preventDefault()},{passive:false});
@@ -2660,18 +2656,25 @@
   (function(){var x0=null,y0=0,g=$('grid');if(!g)return;
     g.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
     g.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){}},{passive:true})})();
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){drwSet(false);if(MOBQ.matches&&!e.__lfc&&!document.querySelector('.scrim'))closePanels()}});
+  /* S429 Fila 32 (aprovado 20/11): Esc = voltar. UMA regra para o site inteiro: o Esc fecha o que está por cima.
+     Tudo o que abre por cima é um passo do histórico (lista OV + peça, carrinho, conta, busca, consulta, categoria, ajuda) → o Esc faz o
+     mesmo que o voltar do aparelho. Só duas coisas não são passo e fecham sozinhas: a lista suspensa aberta e a janela avulsa
+     (mensagem, atacado, separado), que troca a tela em vez de abrir por cima. Janela nova não ganha Esc próprio: entra na lista OV. */
+  document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;
+    var l=document.querySelector('.cdd.open');if(l){l.classList.remove('open');l.querySelector('.cdl').hidden=true;return}
+    var hs=history.state||{};
+    if(document.querySelector('#layer .scrim[data-close]')&&!hs.lfo){closeLayer();return}
+    if(hs.__i>0)history.back()});
 
   var LOJA={lat:-25.510131,lng:-54.609959};
-  function mapClose(){var w=$('mapw');if(!w)return;var d=function(){w.remove();document.removeEventListener('keydown',mapKey)};if(w.animate){w.animate([{opacity:1},{opacity:0}],{duration:200,fill:'forwards'}).onfinish=d}else d()}
-  function mapKey(e){if(e.key==='Escape')mapClose()}
+  function mapClose(){var w=$('mapw');if(!w)return;var d=function(){w.remove()};if(w.animate){w.animate([{opacity:1},{opacity:0}],{duration:200,fill:'forwards'}).onfinish=d}else d()}
   function openMap(){
     if($('mapw'))return;
     var w=document.createElement('div');w.id='mapw';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','Mapa');
     var q=LOJA.lat+','+LOJA.lng;
     w.innerHTML='<div class="mbox"><button type="button" class="mx" aria-label="Fechar">×</button><div id="mapc"></div><div class="minf"><h3>La Fouch</h3><p>Galeria Jebai Center, 3° piso, torre A, n°2242<br>Ciudad del Este</p><div class="mbt"><a class="p" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=-25.510131,-54.609959">Como chegar</a><a class="s" target="_blank" rel="noopener" href="https://maps.app.goo.gl/zy6c1ZFq4gQhxWXC8">Abrir no Google Maps</a></div></div></div>';
     w.addEventListener('click',function(e){if(e.target===w||e.target.closest('.mx'))mapClose()});
-    document.body.appendChild(w);document.addEventListener('keydown',mapKey);
+    document.body.appendChild(w);
     if(w.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){w.animate([{opacity:0},{opacity:1}],{duration:220});w.firstChild.animate([{translate:'0 24px',scale:.96,opacity:0},{translate:'0 0',scale:1,opacity:1}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'})}
     mapInit($('mapc'))}
   function mapInit(box){
@@ -3867,7 +3870,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
       if(!dePop&&history.state&&history.state.lfo==='gw'){window.__lfGzBack=1;try{history.back()}catch(_){window.__lfGzBack=0}}}
     window.__lfGzFecha=function(){fecha(true)};
     /* S111: a consulta entra no registro de camadas (logo = sai direto para o início, opção A) */
-    (window.__lfCamReg||function(c){(window.__lfCam=window.__lfCam||[]).push(c)})({id:'consulta',aberta:function(){return !!Z.el},fecha:function(){fecha(true)},esc:function(){fecha()}});
+    (window.__lfCamReg||function(c){(window.__lfCam=window.__lfCam||[]).push(c)})({id:'consulta',aberta:function(){return !!Z.el},fecha:function(){fecha(true)}});
     if(window.__lfPop)window.__lfPop.unshift(function(e){if(window.__lfGzBack){window.__lfGzBack=0;e.__lfStop=1;return}var st=e&&e.state;
       if(Z.el){if(st&&st.lfo==='gw')return;e.__lfStop=1;fecha(true);return}
       if(Z.velha&&st&&st.lfo==='gw'){Z.velha=0;e.__lfStop=1;try{history.back()}catch(_){}}});
@@ -4690,8 +4693,6 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
     var e=null;try{e=evAtivo()}catch(_){}
     var b={id:id,v:v,c:AN.c,f:AN.f,b:AN.b,dv:AN.dv||{},dt:AN.dt||{},gm:AN.gm||'',mo:AN.mo,ro:AN.ro,at:AN.at,pe:AN.pe,ck:AN.ck,lang:LFI.lang==='es'?'es':'pt',dev:matchMedia('(min-width:1100px)').matches?'pc':'cel',ev:e?(e.tema||''):''};
     try{acFetch(fnUrl('analise'),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(b),keepalive:true}).catch(function(){})}catch(_){}}
-  /* as peças vistas já são contadas por vistaConta (lf_vc): marca que há algo novo para mandar */
-  var _vistaConta8=vistaConta;vistaConta=function(){var r=_vistaConta8.apply(this,arguments);try{sessionStorage.setItem('lf_vc_n0','1')}catch(_){}return r};
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')anEnvia()});
   addEventListener('pagehide',anEnvia);
 
