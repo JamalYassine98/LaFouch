@@ -1,0 +1,4 @@
+exec(open('/home/claude/lafouch/work/s435/compras/hoje.py').read().split("if __name__=='__main__':")[0].replace("O='/home/claude/lafouch/work/s435/compras/'","O='/home/claude/lafouch/work/s435/giroprecos/'"))
+with sync_playwright() as pw:
+  tira(pw,'h_res_resmes',["()=>{__LF.S.per='mes';__LF.S.dTab='hoje';__LF.setView('dash')}","()=>{const b=[...document.querySelectorAll('button,.esLn')].find(x=>/Resultado do mês/.test(x.textContent)&&x.getBoundingClientRect().height);b&&b.click()}"],4)
+  tira(pw,'h_giro_abc',["()=>__LF.inicioGo('repo')","()=>{[...document.querySelectorAll('#dtabBody .fxF')].forEach(s=>{if(/Retorno|Curva/.test(s.textContent)){const h=s.querySelector('.fxH');h&&h.click()}})}","()=>{const s=[...document.querySelectorAll('#dtabBody .fxF')].find(x=>/Lista de compras/.test(x.textContent));if(s)s.remove();const e=[...document.querySelectorAll('#dtabBody .fxF')].find(x=>/Retorno/.test(x.textContent));e&&e.scrollIntoView()}"],4)
