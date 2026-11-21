@@ -88,6 +88,7 @@
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **45-ideias-formato-preciso-e-elegante** — esboço pronto — esperando o dono (v2 21/11 10:21)
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
+- **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
