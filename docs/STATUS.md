@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 38 parte B: um chão só (--chao) para aviso, chip, lixeira e barra do Estúdio | src/88-movimento-novo.js, src/97-janela.js, src/98-botoes-barra.js, src/97-estudio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
@@ -141,6 +140,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 20:33 — APP: v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro).
 - 21/11 20:10 — APP: v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único).
 - 21/11 19:50 — APP: v612 publicada: 37d parte 2 — Marca em Ajustes › Loja; Kit sai do Marketing. Porteiro 364/364. Próximo: 38 aviso curto.
 - 21/11 19:29 — APP: v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca).
@@ -155,7 +155,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 15:59 — APP: v606 no ar: 39 preço exato (app). Próximo: 38 giro
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
-- 21/11 15:34 — APP: 149s etapa A: estudo feito e enviado ao dono (Caixa e Vender mudam fora das 9); nada publicado. Próximo: 39 preço exato
 - 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.
 - 21/11 14:09 — IDEIAS: IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS
 - 21/11 13:03 — NUVEM: 39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP.

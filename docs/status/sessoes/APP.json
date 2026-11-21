@@ -1,15 +1,12 @@
 {
  "nome": "APP",
- "agora": "38 parte B: um chão só (--chao) para aviso, chip, lixeira e barra do Estúdio",
- "arquivos": [
-  "src/88-movimento-novo.js",
-  "src/97-janela.js",
-  "src/98-botoes-barra.js",
-  "src/97-estudio.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795304005.4077296,
+   "r": "v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro)."
+  },
   {
    "t": 1795302656.6910415,
    "r": "v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único)."
@@ -45,11 +42,7 @@
   {
    "t": 1795287548.7350852,
    "r": "v606 no ar: 39 preço exato (app). Próximo: 38 giro"
-  },
-  {
-   "t": 1795286068.587119,
-   "r": "149s etapa A: estudo feito e enviado ao dono (Caixa e Vender mudam fora das 9); nada publicado. Próximo: 39 preço exato"
   }
  ],
- "leu": 1795302896.2978919
+ "leu": 1795304004.9716852
 }
