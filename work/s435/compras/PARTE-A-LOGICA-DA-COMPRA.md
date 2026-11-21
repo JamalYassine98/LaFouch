@@ -80,3 +80,15 @@ Proposta de uma conta só, que junta os dois: **quanto a peça rende por dia na 
 **"Vendeu rápido"** = no ritmo de uma peça normal do mesmo tipo, ou mais rápido (dono 13:38).
 
 **A lista de compras deve medir procura pelo fluxo, não pelo total vendido.** Hoje ela conta toda venda igual. Isso precisa ser corrigido junto.
+
+## 8. O app aprende sozinho, sem meta digitada (dono 21/11 13:40)
+
+**Como é hoje.** O dono digita uma meta de peças por dia para cada tipo (`S.metaDia`), o volume por mês (`S.volume`) e os dias de loja aberta (`S.diasLoja`). A conta mistura esses números com as vendas reais: começa a pesar o real com 30 dias e só passa a usar o real com 90 dias (`volTipos`, src/53-faixas.js).
+
+**Como fica:** nada digitado, nem na primeira vez nem depois.
+- **No começo:** o app usa o que já existe. São as peças de cada tipo da primeira compra, que mostram o que o dono apostou, e o ritmo das vendas desde o primeiro dia.
+  - Com poucos dias de dados, a lista compra **pouco**, para não exagerar, e mostra "aprendendo · N dias de vendas".
+- **No dia a dia:** a média do fluxo é refeita todo dia com as vendas reais. Ela já leva em conta a estação, como hoje.
+- **Dias de loja aberta:** o app aprende pelos dias em que houve venda ou caixa aberto.
+- **Sai de Ajustes:** a meta por dia de cada tipo, o volume por mês e os dias de loja.
+- **A confirmar com o dono:** a meta de **lucro** do mês (`S.metaUsd`) é um objetivo, não uma estimativa. Ela pode ficar como alvo do Guardião.
