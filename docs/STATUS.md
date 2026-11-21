@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço: Ajustes padronizado + Peças alinhado + entrar no grupo sem pular a escolha | work/semp |
+| ESBOCO | esboços do giro: câmera reta + peça reta · Estúdio mostra o que a peça já tem + galeria + para qual peça vai · cores mais fáceis | work/s435/giro |
 
 ## Fila
 
