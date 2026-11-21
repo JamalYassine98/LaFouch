@@ -26,6 +26,7 @@ Page.evaluate = ev
 C.TELAS = C.TELAS + [('Formato', '/?cliente=1&r=formato', None),
                      ('Formato-abrir', '/?cliente=1&r=formato', '#rosto [data-fa]'),
                      ('Formato-resultado', '/?cliente=1&r=formato', RES),
-                     ('Formato-tracos-feminino', '/?cliente=1&r=formato', TRACOS)]
+                     ('Formato-tracos-feminino', '/?cliente=1&r=formato', TRACOS),
+                     ('Formato-1-toque-diamante', '/?cliente=1&r=formato', 'JS:document.querySelector(\'#rosto .rzr[data-face="diamante"]\').click()')]
 sys.argv = ['compara.py', 'http://localhost:8701', 'http://localhost:8702', os.path.join(AQUI, 'comp')]
 C.main()

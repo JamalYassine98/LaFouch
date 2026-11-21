@@ -49,4 +49,32 @@ o1 = '.faph{position:relative;width:184px;height:184px;margin:0 auto 14px;border
 assert x.count(o1) == 1
 x = x.replace(o1, '.faill{display:flex;justify-content:center;gap:8px;width:224px;height:176px;margin:0 auto 16px;padding:16px 24px;border-radius:16px;background:color-mix(in srgb,var(--ac) 5%,var(--pn))}\n.faill[data-fagenv=f] [data-g=m],.faill[data-fagenv=m] [data-g=f]{display:none}\n')
 open(h, 'w').write(x)
+# ---------- Proposta parte 3: descrição dos formatos — UMA tabela (FACES) para tudo ----------
+import json
+FORMAS = {  # rec = como reconhecer (curto, lista) · txt = frase do resultado · fm = formatos de armação (nomes do app)
+ 'oval':     ('Mais comprido que largo, linhas suaves', 'O comprimento é maior que a largura, com linhas suaves da testa ao queixo. Quase todo formato fica bem: escolha pelo estilo.', ['Quadrado', 'Retangular', 'Hexagonal', 'Aviador', 'Gatinho', 'Redondo', 'Oval']),
+ 'redondo':  ('Largura e altura parecidas', 'Largura e comprimento parecidos, maçãs cheias e queixo arredondado. Armações retas e angulares dão estrutura e alongam o rosto.', ['Quadrado', 'Retangular', 'Hexagonal']),
+ 'quadrado': ('Mandíbula larga e marcada', 'Testa, maçãs e mandíbula com quase a mesma largura, e a mandíbula reta. Armações curvas suavizam os ângulos.', ['Redondo', 'Oval', 'Aviador']),
+ 'alongado': ('Bem mais comprido que largo', 'Bem mais comprido que largo, com as laterais quase retas. Armações altas e largas equilibram o comprimento.', ['Aviador', 'Quadrado', 'Hexagonal']),
+ 'coracao':  ('Testa larga, queixo fino', 'Testa e maçãs largas, afinando até um queixo fino. Armações mais leves em cima e arredondadas embaixo equilibram a testa.', ['Aviador', 'Redondo', 'Oval']),
+ 'diamante': ('Maçãs largas, testa e queixo finos', 'Maçãs do rosto largas, com a testa e o queixo mais estreitos. Armações com a parte de cima marcada equilibram as maçãs.', ['Gatinho', 'Oval']),
+}
+j = open(p).read()
+a = j.index('  var FACES=['); b = j.index('];', a) + 2
+F = json.loads(j[a + len('  var FACES='):b - 1])
+for f in F:
+    rec, txt, fm = FORMAS[f['id']]; f['rec'] = rec; f['dica'] = txt; f['fm'] = fm
+j = j[:a] + '  var FACES=' + json.dumps(F, ensure_ascii=False) + ';' + j[b:]
+j = j.replace("  function faceMini(id){", "  /* os rostos de uma peça saem do formato da armação, pela mesma tabela FACES */\n  function rostoDe(fm){return FACES.filter(function(f){return f.fm.indexOf(fm)>=0}).map(function(f){return f.id})}\n  function faceMini(id){", 1)
+# a peça: o site calcula os rostos pelo formato da armação (planta do banco aprovada 19/11 23:03); sem formato = nenhum
+o = "if(!p.rosto||!p.rosto.length)p.rosto=['oval'];"
+assert j.count(o) == 1; j = j.replace(o, "p.rosto=rostoDe(p.fm);")
+# lista "Escolha o seu formato": como reconhecer (o que combina aparece depois de escolher)
+o = "<small>'+T('Combina:')+' '+T(RZ_C[f.id]||'')+'</small>"
+assert j.count(o) == 1; j = j.replace(o, "<small>'+T(f.rec)+'</small>")
+# lista: um toque abre o catálogo do formato (hoje, no celular, o 1º toque só gira o carrossel escondido #fcar)
+o = "if(fi!==fk&&!matchMedia('(min-width:700px)').matches)faceGo(fi);else{st.rosto=st.rosto===d.face?'':d.face;drawFaces();drawGrid();goTo('vitrine')}"
+assert j.count(o) == 1; j = j.replace(o, "st.rosto=st.rosto===d.face?'':d.face;drawFaces();drawGrid();goTo('vitrine')")
+# guia (art. 'rosto'): nunca roda — guiaAbre('rosto') manda para a página do formato. Sai no implementar (código morto), não é pintado.
+open(p, 'w').write(j)
 print('ok /tmp/ih /tmp/ip')

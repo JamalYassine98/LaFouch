@@ -29,11 +29,40 @@ prancha('esboco-01-resultado.jpg', 'IDEIAS 01 · Descubra seu formato — result
     ('prop-L12-3-resultado.png', 'Proposta · letra 1,2×', 'cabe sem quebrar')])
 
 prancha('esboco-02-camera.jpg', 'IDEIAS 01 · Descubra seu formato — câmera (celular)', [
-    'A tela não muda: só os avisos. A câmera ao vivo passa a usar a mesma leitura de 478 pontos da medida (hoje usa outra, mais simples),',
-    'então avisa a distância (pela íris) e a cabeça torta ANTES de contar 3-2-1, e mede ~1,5 s de vídeo (vários quadros) em vez de 1 foto.',
-    'Câmera de teste do simulador (imagem verde, sem rosto): os 3 avisos da Proposta foram escritos por cima para mostrar como ficam.'], [
+    'Perto demais ou com a cabeça torta: o site MEDE ASSIM MESMO e corrige (endireita em 3D e desfaz o efeito da distância, medida pela íris).',
+    'Dos ~1,5 s de vídeo, usa os quadros mais de frente. Só pede algo no caso que não dá para medir: rosto virado mais de ~30° o tempo todo.',
+    'Câmera de teste do simulador (imagem verde, sem rosto): os avisos da Proposta foram escritos por cima para mostrar como ficam.'], [
     ('cam-hoje.png', 'Hoje · câmera', 'aviso de hoje (sem rosto na câmera de teste)'),
-    ('cam-prop-distancia.png', 'Proposta · muito perto', 'íris grande demais = celular perto'),
-    ('cam-prop-reta.png', 'Proposta · cabeça torta', 'giro ou inclinação acima de ~10°'),
-    ('cam-prop-medindo.png', 'Proposta · medindo', 'depois do 3-2-1: ~1,5 s, vários quadros')])
+    ('cam-prop-medindo.png', 'Proposta · medindo', 'depois do 3-2-1: ~1,5 s, vários quadros'),
+    ('cam-prop-virado.png', 'Proposta · caso extremo', 'só se ficar virado > 30° o tempo todo')])
+
+prancha('esboco-03-formatos.jpg', 'IDEIAS 01 · Descubra seu formato — descrição dos formatos (celular)', [
+    'Lista: no lugar de "Combina: …" (que contradizia a regra das peças), como reconhecer cada rosto. O que combina aparece no resultado.',
+    'Uma tabela só (FACES) diz como é cada rosto, o texto e QUAIS formatos de armação combinam; o site tira dela os rostos de cada peça.',
+    'Hoje nenhuma peça é Diamante nem Alongado: o aviso diz "18 modelos" e mostra o catálogo inteiro. E no celular o 1º toque na lista não faz nada.'], [
+    ('lista-hoje-fim.png', 'Hoje · lista', '"Combina:" escrito à mão'),
+    ('lista-prop-fim.png', 'Proposta · lista', 'como reconhecer, da tabela'),
+    ('vit-hoje-diamante-1toque.png', 'Hoje · 1º toque em Diamante', 'nada acontece (gira um carrossel escondido)'),
+    ('vit-hoje-diamante.png', 'Hoje · 2º toque', '"18 modelos" = o catálogo inteiro'),
+    ('vit-prop-diamante.png', 'Proposta · 1 toque', '3 modelos gatinho, os que combinam')])
+
+from PIL import Image as I
+T = open(os.path.join(AQUI, 'simula.txt')).read().splitlines()
+M = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', s)
+B = I.new('RGB', (1900, 230 + 44 * len(T)), '#e9e4e8'); d = ImageDraw.Draw(B)
+d.text((40, 24), 'IDEIAS 01 · Precisão — por que perto ou torto erra, e a correção', font=F(44, 1), fill='#231a22')
+d.text((40, 90), 'Simulação com o rosto-padrão de 468 pontos do leitor do site (sem pessoa real); erro das proporções que decidem o formato.', font=F(26), fill='#6b5d67')
+d.text((40, 130), 'Hoje o site já endireita o giro, mas NÃO a distância: a mesma pessoa a 25 cm sai ~14% mais "comprida" do que a 45 cm.', font=F(26), fill='#8d3a69')
+for i, l in enumerate(T): d.text((40, 190 + 44 * i), l, font=M(26), fill='#231a22')
+B.resize((B.width // 2, B.height // 2), I.LANCZOS).save(os.path.join(AQUI, 'esboco-04-precisao.jpg'), quality=90)
 print('ok')
+
+# PC (só conferência: o PC terá design próprio) — Hoje em cima, Proposta embaixo
+a = I.open(os.path.join(C, 'pc-hoje.png')).convert('RGB'); b = I.open(os.path.join(C, 'pc-prop.png')).convert('RGB')
+B = I.new('RGB', (a.width + 80, 200 + 2 * a.height + 100), '#e9e4e8'); d = ImageDraw.Draw(B)
+d.text((40, 24), 'IDEIAS 01 · PC (só conferência) — a mesma tabela muda as frases dos cartões', font=F(40, 1), fill='#231a22')
+d.text((40, 84), 'No PC a página do formato é o carrossel de cartões, que mostra a frase do formato: ela fica com 3 linhas em vez de 2.', font=F(26), fill='#6b5d67')
+d.text((40, 150), 'Hoje', font=F(30, 1), fill='#b3261e'); B.paste(a, (40, 200))
+d.text((40, 200 + a.height + 20), 'Proposta', font=F(30, 1), fill='#8d3a69'); B.paste(b, (40, 250 + a.height + 20))
+B.resize((B.width // 2, B.height // 2), I.LANCZOS).save(os.path.join(AQUI, 'esboco-05-pc.jpg'), quality=88)
+print('ok pc')

@@ -1,4 +1,4 @@
-"""Tela da câmera: Hoje (como está) × Proposta (mesma tela; só os avisos mudam — distância, cabeça reta, medindo).
+"""Tela da câmera: Hoje (como está) × Proposta (mesma tela; perto ou com a cabeça torta mede assim mesmo; só 'medindo' e o caso extremo).
 Câmera falsa do Chromium (imagem de teste, sem rosto). Na Proposta os avisos são escritos por cima (pintura) para
 mostrar as 3 situações novas. Uso: python3 camera.py → cap/cam-*.png
 """
@@ -8,8 +8,7 @@ from playwright.sync_api import sync_playwright
 AQUI = os.path.dirname(os.path.abspath(__file__)); __file__ = os.path.join(AQUI, 'captura.py')
 exec(open(__file__).read().split('with sync_playwright()')[0])
 
-PROP = [('distancia', 'Afaste o celular: braço esticado'),
-        ('reta', 'Deixe a cabeça reta'),
+PROP = [('virado', 'Vire o rosto para a câmera'),
         ('medindo', 'Medindo… fique parado')]
 with sync_playwright() as p:
     br = p.chromium.launch(args=['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'])
