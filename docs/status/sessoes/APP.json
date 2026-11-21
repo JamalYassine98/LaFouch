@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold",
- "arquivos": [
-  "src/89-dash-abas.js",
-  "src/98z-s374d-padrao.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795268208.1814628,
+   "r": "v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)"
+  },
   {
    "t": 1795265933.064614,
    "r": "v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)"
@@ -43,10 +42,6 @@
   {
    "t": 1795228979.30766,
    "r": "item 39 em estudo: comparei giroTrata com o trata_giro2.py do site (mesmas regras para achar a peça e as mesmas folgas); com 6 quadros reais do vídeo do dono a peça sai inteira — ainda NÃO reproduzi a frente com um lado apagado. Falta a gravação da pose de frente (pedi ao dono gravar a tela de novo). Nada publicado."
-  },
-  {
-   "t": 1795226855.294042,
-   "r": "v587 no ar: (35) o tratamento do giro agora termina no celular — as duas bibliotecas vão dentro do app.js (o APK instalado não tinha os arquivos; a atualização só leva app.js e style.css); (34) 'Qual é a frente?' tira a frente e a 3/4 com o tratamento do giro. 343 provas, 0 falhas; reproduzido no simulador o erro do celular e o conserto. NÃO testado em aparelho real. Próximo: resultado do teste do dono (tempo do tratamento no celular); item 36 (prova v468 instável)."
   }
  ],
  "leu": 1795268202.8047626
