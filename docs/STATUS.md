@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 37b ícones das listas em cinza (regra num lugar só) | www/style.css, tests/run.py |
-| ESBOCO | esboço 52 parte 3 — Vitrine da semana (estudo + Marketing) | work/s435/giroprecos |
+| ESBOCO | esboço 53 — Destaque da semana do Semp em Marketing | work/s435/destaque |
 
 ## Fila
 
