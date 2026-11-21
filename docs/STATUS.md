@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 37d parte 1: Ajustes em 3 blocos, linhas sem cartão, sacola em Pedidos do site | src/97-ajustes-lista.js, src/97-pagamento-auto.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
@@ -138,6 +137,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 19:29 — APP: v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca).
 - 21/11 18:54 — APP: v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos).
 - 21/11 17:45 — APP: v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto).
 - 21/11 17:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
@@ -153,7 +153,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 15:29 — APP: v605 no ar: 134d completo. Próximo: 149s superfície
 - 21/11 15:06 — APP: v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)
 - 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.
-- 21/11 14:29 — APP: v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo
 - 21/11 14:09 — IDEIAS: IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS
 - 21/11 13:03 — NUVEM: 39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP.
 - 21/11 12:42 — IDEIAS: IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS

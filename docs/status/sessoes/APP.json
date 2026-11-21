@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "37d parte 1: Ajustes em 3 blocos, linhas sem cartão, sacola em Pedidos do site",
- "arquivos": [
-  "src/97-ajustes-lista.js",
-  "src/97-pagamento-auto.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795300194.6253505,
+   "r": "v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca)."
+  },
   {
    "t": 1795298077.6029198,
    "r": "v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos)."
@@ -43,11 +42,7 @@
   {
    "t": 1795284397.6593,
    "r": "v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)"
-  },
-  {
-   "t": 1795282183.4467187,
-   "r": "v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo"
   }
  ],
- "leu": 1795298291.8230803
+ "leu": 1795300194.191451
 }
