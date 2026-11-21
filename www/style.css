@@ -591,7 +591,8 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .eRefRow{flex-wrap:wrap}.eRefRow #eSim{order:3;flex:1 1 100%}.eRefRow #eSim:empty{display:none}
 /* Editar produto: etapas livres e rodapé fixo (27/10) */
 .edTabs{display:flex;gap:8px}.edTabs .chip{flex:1;justify-content:center;margin:0;min-height:44px}
-#editModal .modal-box{display:flex;flex-direction:column}
+/* 134d: o conteúdo do "Editar produto" dentro da janela de baixo */
+.edBx{display:flex;flex-direction:column;gap:16px;padding:6px 0 4px}
 #editModal .edFoot{position:sticky;bottom:-1px;margin:14px -4px -4px;padding:12px 4px 4px;background:linear-gradient(transparent,var(--panel) 28%);z-index:2}
 /*LOCKX*/html,body{overflow-x:clip;overscroll-behavior-x:none}/*/LOCKX*/
 /* animações escolhidas pelo dono (27/10): 1B foto cresce, 2A janela com mola, 3A chips, 5B onda+luzes, 7A/7B etapas e lixeira, 9A campos acendem, 10A telas em cascata */

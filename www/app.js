@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 603;
+  var APP_BUILD = 604;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.28'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.29'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1497,6 +1497,32 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
     document.body.appendChild(ov);
   }
+  // 134d (regra dos formulários, 18/11 18:12): "Editar produto" abre na JANELA DE BAIXO de todas as outras (lfJanela), sem "Fechar":
+  // fecha arrastando, tocando fora ou com Esc. A janela fica aberta enquanto S.qEdit valer; a cada desenho da ficha só o conteúdo é trocado
+  // (sem subir de novo, mantendo a rolagem). no = o conteúdo novo (#editModal) ou null para fechar.
+  var ED_J = null;
+  function edJanela(no) {
+    if (!no) {
+      if (ED_J) { var j = ED_J; ED_J = null; j.fecha(); }
+      return;
+    }
+    if (!ED_J) {
+      var api = lfJanela({ cls: 'edJn', aoFechar: function () { if (ED_J !== api) return; ED_J = null; var c = api.corpo.firstChild; if (c && c._sair) c._sair(); } });
+      api.jn.setAttribute('aria-label', 'Editar produto');
+      ED_J = api;
+    }
+    var y = ED_J.corpo.scrollTop;
+    ED_J.corpo.textContent = '';
+    ED_J.corpo.appendChild(no);
+    ED_J.corpo.scrollTop = y;
+  }
+  // a janela só existe enquanto a edição existe: terminou (salvou, excluiu o produto, fechou a ficha) ou saiu do Inventário → fecha
+  aposRender(function () {
+    if (!ED_J || (S.qEdit && S.view === 'estoque')) return;
+    var c = ED_J.corpo.firstChild;
+    edJanela(null);
+    if (S.qEdit && c && c._sair) c._sair();
+  });
   // A FICHA É DESENHADA POR UMA FUNÇÃO SÓ: o corpo (fichaCorpo) e, em ordem, as partes com nome que cada módulo traz —
   // fichaBotao (botão "Ficha N/6", 97t-ficha-s190.js), fichaBarra (caminho, abas e links, 97u-navegacao-s184.js),
   // fichaLucro ("Lucro real", 97y-lucro-real.js), fichaPreco ("De onde vem o preço", 97z2-contador.js) e fichaLinks (links do fim, 97u).
@@ -2091,19 +2117,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
       S._semAnimFicha = false;
     }
-    if (S.qEdit) det.appendChild(editModal());
+    edJanela(S.qEdit ? editModal() : null); // 134d: "Editar produto" mora na janela de baixo do app
 
     // Janela Editar produto: nome, código, descrição, foto, estoque/custo e exclusão de cor.
     function editModal() {
       var smp = isSimple(f.tipo),
         orig0 = (S.pnome && S.pnome[ref]) || '',
-        ov = mk('div', 'modal'),
-        bx = mk('div', 'modal-box');
-      ov.id = 'editModal';
-      ov.setAttribute('role', 'dialog');
-      ov.setAttribute('aria-modal', 'true');
-      ov.setAttribute('aria-label', 'Editar produto');
-      bx.style.maxWidth = '520px';
+        ov = mk('div', ''),
+        bx = mk('div', 'edBx');
+      ov.id = 'editModal'; // o conteúdo; a janela (alça, fundo, arrastar, tocar fora, Esc) é a lfJanela — ver edJanela
       var zerar = function () {
         S.qEdit = false;
         S.qDraft = {};
@@ -2129,9 +2151,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         zerar();
         render();
       };
-      ov.onclick = function (e) {
-        if (e.target === ov) fechar();
-      };
+      ov._sair = fechar; // a janela fechou (arrastou, tocou fora ou Esc): sai sem salvar
       // Identificação com as mesmas listas do cadastro (Label Select)
       var edSel = function (key, rotulo, lista, valor, set) {
         var w = mk('div', ''),
@@ -2296,9 +2316,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         lx.title = 'Excluir o produto';
         hbtn.appendChild(lx);
       }
-      var xb = btn('tab', 'Fechar', fechar);
-      xb.setAttribute('aria-label', 'Fechar');
-      hbtn.appendChild(xb);
       hd.appendChild(hbtn);
       bx.appendChild(hd);
       var sub0 = mk('div', 'hint', ref + (orig0 ? ' · ' + orig0 : ''));

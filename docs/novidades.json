@@ -1,7 +1,7 @@
 {
- "nome": "5.50.28",
+ "nome": "5.50.29",
  "notas": [
-  "Inventário › Fornecedores: cada compra em linha fina, com \"Editar\" e a lixeira alinhados ao nome e \"Ver peças ›\" centralizado."
+  "\"Editar produto\" abre na janela de baixo, como as outras: sem botão Fechar — fecha arrastando para baixo, tocando fora ou com Esc."
  ],
- "build": 603
+ "build": 604
 }

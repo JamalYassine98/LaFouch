@@ -543,7 +543,7 @@ async def main():
             await pg.evaluate(ED(2)); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('9'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab'); await pg.wait_for_timeout(200)
             await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).fill('2,5'); await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).press('Tab'); await pg.wait_for_timeout(200)
             antes = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
-            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
             depois = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
             fechou = await pg.locator('#editModal').count() == 0
             await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
@@ -581,14 +581,14 @@ async def main():
             lib = await pg.evaluate("() => [!!window.__LF.S.site['BR44118'], document.getElementById('edSite').innerText]")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(3)); noEd = await pg.evaluate("() => !document.querySelector('#editModal #edSiteBtn')")
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
             await checa('Chave No site: fica abaixo da Oferta, exige foto, liga/desliga e saiu do Editar', sem[0] and 'falta foto' in sem[2] and sem[3] and com == [False] and lib[0] and 'aparece no catálogo' in lib[1] and noEd, [sem, com, lib, noEd])
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(2)); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('1'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab')
             await pg.evaluate(ED(1)); await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
             await checa('janela Editar: Cancelar descarta tudo', got[0] == 4 and got[1] != 'rascunho' and got[2] is False, got)
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -609,16 +609,16 @@ async def main():
             e2 = 1 if (dz[0] == 0 and dz[1] < nAntes and dz[2] == 1 and dz[3] == nAntes and not pg2.erros) else 0
             await pg2.close()
             await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira que exclui na hora com Desfazer', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 0, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
-            if await pg.locator('#editModal button:text-is("Fechar")').count(): await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
+            if await pg.locator('#editModal').count(): await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
             got = await pg.evaluate("() => [window.__LF.S.desc['BR44118'], document.getElementById('detail').innerText.includes('Polarizado, mola flexível')]")
             await checa('janela Editar: descrição salva e mostrada na tela', got == ['Polarizado, mola flexível', True], got)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.locator('#editModal #edCodigo').fill('br99999')
-            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(400)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR99999').length, window.__LF.S.items.filter(i => i.ref === 'BR44118').length, window.__LF.S.open, !!window.__LF.S.pnome['BR99999'], document.getElementById('detail').hidden]")
             await checa('janela Editar: trocar o código move o produto', got == [3, 0, 'BR99999', True, False], got)
 
@@ -626,7 +626,7 @@ async def main():
             await pg.evaluate("() => window.__LF.S.items.push({tipo:'sem', ref:'OUTRO1', grau:'', med:'', vr:'C1', fmt:'Quadrado', cor:'Azul', qty:1})")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#editModal #edCodigo').fill('OUTRO1')
-            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR44118').length, !!document.getElementById('editModal')]")
             await checa('janela Editar: código repetido é recusado', got == [3, True], got)
 
@@ -840,9 +840,9 @@ async def main():
                 bt = pg.locator('#editModal button', has_text=t).first
                 if not await bt.count(): res.append((t, 'sem botão')); continue
                 await bt.evaluate("e => e.scrollIntoView({block: 'center'})"); await pg.wait_for_timeout(150)
-                y0 = await pg.evaluate("() => document.getElementById('editModal').scrollTop")
+                y0 = await pg.evaluate("() => document.querySelector('.edJn .ljCorpo').scrollTop")
                 await bt.click(); await pg.wait_for_timeout(500)
-                y1 = await pg.evaluate("() => { const e = document.getElementById('editModal'); return e ? e.scrollTop : -1 }")
+                y1 = await pg.evaluate("() => { const e = document.querySelector('.edJn .ljCorpo'); return e ? e.scrollTop : -1 }")
                 res.append((t, y0, y1))
             ok = all(r[1] != 'sem botão' and r[1] >= 0 and abs(r[1] - r[2]) < 3 for r in res)
             print(('  ok  ' if ok else ' FALHA ') + 'Editar produto: apertar botões mantém a posição da janela (não volta ao topo)')
@@ -913,7 +913,7 @@ async def main():
             q0 = await pg.evaluate("() => { const S = window.__LF.S; S.elog = []; const i = S.items.filter(x => x.qty >= 2 && !x.bulk)[0]; return [S.items.indexOf(i), i.qty, i.ref] }")
             await pg.evaluate("(a) => { const L = window.__LF; L.S.qDraft[a[0]] = a[1] - 1; L.render(); }", q0)
             await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(4)); await pg.locator('#editModal button', has_text='Salvar').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal button', has_text='Salvar').first.click(); await pg.wait_for_timeout(700)
             ask = await pg.evaluate("() => !!document.getElementById('ajAsk')")
             await pg.locator('#ajAsk button', has_text='erro de contagem').click(); await pg.wait_for_timeout(400)
             aj = await pg.evaluate("(a) => { const S = window.__LF.S; return [S.items[a[0]].qty, S.elog.filter(x => x.ajuste && x.qty === -1).length] }", q0)
@@ -1091,7 +1091,7 @@ async def main():
             n0 = await pg.evaluate("() => String(document.querySelectorAll('#rows .pcard[data-ref]').length)")
             await pg.click('#fSit [data-id="preco"]'); await pg.wait_for_timeout(400)
             n1 = await pg.evaluate("() => [String(document.querySelectorAll('#rows .pcard[data-ref]').length), window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length, getComputedStyle(document.getElementById('filtApply').parentNode).display]")
-            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
             await pg.click('#invInfo .ifNum'); await pg.wait_for_timeout(500)
             antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
@@ -2758,7 +2758,7 @@ async def main():
             for k in range(1, 13): await pg.mouse.move(p0[0] + (p0[2] - p0[0]) * k / 12, p0[1]); await pg.wait_for_timeout(16)
             await pg.mouse.up(); await pg.wait_for_timeout(500)
             t1 = await pg.evaluate("() => [window.__LF.S.vMoeda, getComputedStyle(document.documentElement).getPropertyValue('--mola').trim()]")
-            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
             await pg.evaluate("() => { window.__LF.S.vMoeda = 'pyg'; window.__LF.render(); }")
             total += 1
             ok = t1[0] == 'usd' and '1.25' not in t1[1] and not pg.erros
@@ -3031,7 +3031,7 @@ async def main():
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
-            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
             got = await pg.evaluate("() => { const S = window.__LF.S; return S.linhaFix['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
             await checa('janela Editar: corrigir a linha do produto', got is True, got)
             total += 1
@@ -4551,6 +4551,26 @@ async def main():
             ok = got == [True] * 6 and not mede and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + '134b: Fornecedores — compra em linha fina, "Editar" e lixeira no centro da 1ª linha do nome, lixeira na margem, "Ver peças ›" centralizado, barra de 4 px')
             if not ok: falhas.append('134b fornecedores'); print('        veio', got, mede, pg.erros)
+            await pg.close()
+
+            # 134d (1) (regra dos formulários 18/11 18:12): "Editar produto" abre na janela de baixo do app (lfJanela: alça, tocar fora, arrastar, Esc),
+            # sem botão "Fechar"; trocar de aba dentro dela não abre outra janela; fechar sem salvar não muda a peça; ela não fica dentro da ficha.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(700); if (!document.querySelector('#detail .fnBar')) { document.querySelector('#v-estoque .pcard').click(); await w(700); }
+              S.qEdit = true; L.render(); await w(700); const q = s => document.querySelectorAll(s).length;
+              R.push(q('.ljJn.edJn') === 1 && q('.ljJn.edJn #editModal #edSalvar') === 1 && !q('#detail #editModal') && !q('.modal #edSalvar'), ![...document.querySelectorAll('#editModal button')].some(b => /^Fechar/.test(b.textContent.trim())), !!document.querySelector('.ljJn.edJn .ljPuxa'));
+              document.getElementById('edTab2').click(); await w(500); document.getElementById('edTab1').click(); await w(500); R.push(q('.ljJn.edJn') === 1 && q('.ljBk') === 1 && q('#editModal') === 1);
+              const antes = JSON.stringify(S.items); const c = document.getElementById('edCodigo'); if (c) { c.value = 'ZZTESTE1'; c.dispatchEvent(new Event('input', { bubbles: true })); }
+              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })); await w(700);
+              R.push(S.qEdit === false && q('.ljJn') === 0 && q('#editModal') === 0 && JSON.stringify(S.items) === antes);
+              S.qEdit = true; L.render(); await w(600); document.querySelector('.ljBk').click(); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0);
+              S.qEdit = true; L.render(); await w(600); L.setView('inicio'); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0 && S.view === 'inicio');
+              return R; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134d (1): "Editar produto" na janela de baixo do app, sem "Fechar"; Esc e tocar fora fecham sem salvar; uma janela só ao trocar de aba; sair do Inventário fecha')
+            if not ok: falhas.append('134d editar na janela de baixo'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
