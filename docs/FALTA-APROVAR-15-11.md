@@ -889,3 +889,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 
   - **APROVADO pelo dono 20/11 23:42** (esboço 37 inteiro, com ícones em cinza). Espera o "implementar".
 - 20/11/2026 23:52 — ✅ PUBLICADO (NUVEM, run 44857930676): S5+S7 — inscrição nas novidades e "Avise-me" só valem com o e-mail confirmado (dono: "Implementar S5S7" 23:48). Falta o SITE mostrar "Enviamos um e-mail para confirmar".
+
+- **Esboço 38 (S435 · ESBOCO, 21/11) — aviso curto acima da barra e com a cor do tipo** — esboço pronto, esperando o dono. work/s435/aviso/.
