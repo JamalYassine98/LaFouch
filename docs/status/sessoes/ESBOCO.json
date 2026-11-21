@@ -1,8 +1,8 @@
 {
  "nome": "ESBOCO",
- "agora": "1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM)",
+ "agora": "esboço: Ajustes padronizado + Peças alinhado + entrar no grupo sem pular a escolha",
  "arquivos": [
-  "docs/APROVADOS-POR-FAMILIA.md"
+  "work/semp"
  ],
  "ultimas": [
   {
@@ -18,5 +18,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795216871.8114064
+ "leu": 1795227271.9290628
 }
