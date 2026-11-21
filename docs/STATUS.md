@@ -62,7 +62,7 @@
 - **30-s3-pedido-pela-nuvem** — ✅ completo: parte 1 (15:55) + parte 2 SITE v1795215331 (20:25) + parte 3 regras (20:08, run 44834391367; sonda no ar: criar pedido direto = 403)
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
 - **31-urgente-camera-branca-ao-gravar-a-volta** — ✅ v584 (5.50.9, 20/11) — falta o dono testar no celular real · APP
-- **31-visitas-num-lugar-so** — ✅ completo: site 1795225493 tirou o vistaEnvia (20/11)
+- **31-visitas-num-lugar-so** — ✅ completo: APP v583 lê da análise · regras fecham vistas/ (20:08) · SITE tirou o vistaEnvia (v1795225493)
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — partes 1 e 2 ✅ publicadas no site 1795225493 (20/11): Esc = voltar, carrinho por cima — porteiro 221 provas, 0 falhas · parte 3 (internet fraca): plano em partes sendo medido, vai ao dono como esboço
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
