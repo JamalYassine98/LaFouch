@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 01 parte B: mais formatos e as 3 melhores",
+ "arquivos": [
+  "work/ideias/01-formato"
+ ],
  "ultimas": [
   {
    "t": 1795287167.7890613,
@@ -28,5 +30,5 @@
    "r": "IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795287164.5483768
+ "leu": 1795289114.1842394
 }

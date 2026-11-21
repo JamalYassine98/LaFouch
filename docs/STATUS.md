@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
+| IDEIAS | IDEIAS 01 parte B: mais formatos e as 3 melhores | work/ideias/01-formato |
 
 ## Fila
 
