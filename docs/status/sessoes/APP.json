@@ -1,10 +1,12 @@
 {
  "nome": "APP",
- "agora": "149s etapa A: estudo da superfície sem cartão (fotos antes × depois de todas as telas; nada publicado)",
- "arquivos": [
-  "work/s436/4d"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795286068.587119,
+   "r": "149s etapa A: estudo feito e enviado ao dono (Caixa e Vender mudam fora das 9); nada publicado. Próximo: 39 preço exato"
+  },
   {
    "t": 1795285759.362842,
    "r": "v605 no ar: 134d completo. Próximo: 149s superfície"
@@ -40,10 +42,6 @@
   {
    "t": 1795275359.999744,
    "r": "v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela"
-  },
-  {
-   "t": 1795275326.969626,
-   "r": "v598 no ar: 4d parte 1 (136a). Próximo: 4d parte 2 (134 ficha)"
   }
  ],
  "leu": 1795285952.8899636
