@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 4c parte 2 (149d): Histórico — linhas de semana na margem das outras, desenhadas já no grupo | src/97-hist-busca.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 | SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 

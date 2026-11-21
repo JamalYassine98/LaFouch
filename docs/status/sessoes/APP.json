@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4c parte 2 (149d): Histórico — linhas de semana na margem das outras, desenhadas já no grupo",
+ "arquivos": [
+  "src/97-hist-busca.js",
+  "src/98z-s374d-padrao.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795264844.7448895,
