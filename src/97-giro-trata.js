@@ -218,7 +218,7 @@
     // a peça inteira (meia resolução): tudo o que não é branco e está ligado ao miolo mais escuro.
     // Item 39 (20/11/2026, celular do dono: a frente de uma armação clara saiu com uma lente apagada): numa peça clara, um lado pode não
     // ter "miolo escuro" e a ponte some no branco — esse lado ficava solto e era apagado como se fosse risco do fundo. Com `caixa` (por
-    // onde a peça passou na gravação inteira, em pontos de trabalho) o que não é branco e está DENTRO dela também é peça.
+    // onde a peça passou na gravação inteira, em pontos de trabalho) o que não é branco e está DENTRO dela também é peça (ponto a ponto).
     function peca(t, caixa) {
       var mn = new Uint8Array(w2 * h2), x, y, k, i;
       for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
@@ -246,11 +246,12 @@
       for (i = 0; i < w2 * h2; i++) tudo[i] = mn[i] < 232 ? 1 : 0;
       var liga = gtExtremo(nu, w2, h2, 9, true, Uint8Array), p2 = gtPedacos(tudo, w2, h2), toca = new Uint8Array(p2.n + 1);
       for (i = 0; i < w2 * h2; i++) if (liga[i] && p2.lab[i]) toca[p2.lab[i]] = 1;
-      if (caixa) for (y = Math.max(0, caixa.y0 >> 1); y <= Math.min(h2 - 1, caixa.y1 >> 1); y++) for (x = Math.max(0, caixa.x0 >> 1); x <= Math.min(w2 - 1, caixa.x1 >> 1); x++) { i = y * w2 + x; if (p2.lab[i] && p2.area[p2.lab[i]] > corte) toca[p2.lab[i]] = 1; }
+      // dentro da caixa vale ponto a ponto: de um pedaço grande que só encosta nela (sombra do prato, costura da tenda) entra só o que está dentro
+      var cx0 = caixa ? caixa.x0 >> 1 : 1, cx1 = caixa ? caixa.x1 >> 1 : 0, cy0 = caixa ? caixa.y0 >> 1 : 1, cy1 = caixa ? caixa.y1 >> 1 : 0;
       var m2 = new Uint8Array(w2 * h2), x0 = w2, x1 = -1, y0 = h2, y1 = -1;
       for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
         i = y * w2 + x;
-        if ((p2.lab[i] && toca[p2.lab[i]]) || nu[i]) { m2[i] = 1; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+        if ((p2.lab[i] && (toca[p2.lab[i]] || (x >= cx0 && x <= cx1 && y >= cy0 && y <= cy1 && p2.area[p2.lab[i]] > corte))) || nu[i]) { m2[i] = 1; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       }
       return { m: m2, x0: x0 * 2, x1: x1 * 2 + 1, y0: y0 * 2, y1: y1 * 2 + 1, achou: x1 >= 0 && (x1 - x0) * (y1 - y0) > 12 };
     }

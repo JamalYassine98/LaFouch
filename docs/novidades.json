@@ -1,7 +1,7 @@
 {
- "nome": "5.50.13",
+ "nome": "5.50.14",
  "notas": [
-  "Estúdio › Vídeo (giro): armação clara não perde mais um lado no tratamento (uma lente saía apagada)."
+  "Estúdio › Vídeo (giro): ajuste no tratamento de armação clara — só entra na foto o que está dentro do espaço por onde a peça passou."
  ],
- "build": 588
+ "build": 589
 }
