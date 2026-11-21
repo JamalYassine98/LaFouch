@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4c parte 1 (149t): título do Dashboard/Giro/Preços/Reservas é h1 de verdade",
+ "arquivos": [
+  "src/98-dash-cabecalho.js",
+  "src/99c-navegacao-s435.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795263473.6537156,
@@ -44,5 +48,5 @@
    "r": "v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py"
   }
  ],
- "leu": 1795259038.3684282
+ "leu": 1795263723.4669259
 }
