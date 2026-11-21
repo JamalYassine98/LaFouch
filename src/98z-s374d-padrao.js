@@ -28,7 +28,12 @@
       });
     });
   }
-  var FORA100 = '.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  // Esboço 37 / 149l: o link solto nasce declarado (rosa, 15 px, termina em ›) — uma função para todos; o pad100 não adivinha os que nascem aqui.
+  // sozinho = link centralizado numa linha só dele; sem isso, fica na linha do texto.
+  function lkSolto(texto, act, id, sozinho) {
+    return '<button type="button" class="lk100 ' + (sozinho ? 'c101' : 'inl') + '" data-act="' + act + '"' + (id != null && id !== '' ? ' data-id="' + esc(id) + '"' : '') + '>' + esc(texto) + ' ›</button>';
+  }
   function pad100(raiz) {
     if (!raiz) return;
     [].forEach.call(raiz.querySelectorAll('.slVai:not(.mpg73)'), function (e) {
@@ -39,7 +44,7 @@
       if (b && !/›/.test(b.textContent)) b.textContent = b.textContent.trim() + ' ›';
     });
     [].forEach.call(raiz.querySelectorAll('button,a'), function (e) {
-      if (e._p100) return;
+      if (e._p100 || e.classList.contains('lk100')) return;
       var t = (e.textContent || '').trim();
       if (!/›\s*$/.test(t) || t.length < 4) return;
       if (e.closest(FORA100) || e.matches(FORA100)) return;

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 591;
+  var APP_BUILD = 592;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.16'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.17'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -21627,8 +21627,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
-    h += contadorHtml();
-    h += precosAutoHtml();
+    h += precosTelaHtml();
+    h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';
     return h;
   }
 
@@ -22120,6 +22120,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ICO_D.onl = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>';
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
+  // Ferramentas de Preços (149fe)
+  ICO_D.calc = '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18h.01M12 18h4"/>';
+  ICO_D.ese = '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>';
+  ICO_D.pauto = '<path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/><path d="M12 8v4l3 2"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
   ICO_D.msg = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
   ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
@@ -26933,16 +26937,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
-    if (k === 'prePe' || k === 'prePl') {
-      var F0 = S.faixas || [],
-        fz = k === 'prePe' ? F0[0] : F0[F0.length - 1],
-        vz = campoParaGs(t.value);
-      if (fz) {
-        if (!fz.precos) fz.precos = {};
-        if (vz > 0) fz.precos.pre = vz;
-        else delete fz.precos.pre;
-      }
-    }
     if (k === 'synome') {
       S.aparNome = t.value.trim().slice(0, 30);
       syncReg(true);
@@ -28608,11 +28602,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       l.preco = null;
     });
   }
-  function tabSheet(edita) {
+  // alvo (149dup): id da tabela que pediu a folha — ela vem destacada e a folha rola até ela
+  function tabSheet(edita, alvo) {
     var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Cada tabela é custo da peça + margem. Nunca fica abaixo do piso da loja nem acima do preço Público.</div>';
     if (!edita) {
       tabLista().forEach(function (T) {
-        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
+        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
       });
       h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini ghost" data-act="tabedit">Editar tabelas</button><button type="button" class="mini ghost" data-act="tabfecha">Fechar</button></div></div>';
     } else {
@@ -28626,8 +28621,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="go" data-act="tabok">Salvar</button></div></div>';
     }
     lfaAbre('tabSh', h);
+    if (alvo) setTimeout(function () { var e = document.querySelector('.tabAlvo'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 60);
   }
-  ACT.tabsheet = function () { tabSheet(false); };
+  ACT.tabsheet = function (id) { tabSheet(false, id); };
   ACT.tabfecha = function () { lfaFecha('tabSh'); };
   ACT.tabedit = function () { tabSheet(true); };
   ACT.tabok = function () { saveSoon(); tabSheet(false); render(); };
@@ -41089,12 +41085,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
       '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
   }
-  // S374: as duas linhas de preço dos pré-graduados (para a linha do Contador e a folha "ajustar")
-  function pgrPrecos() {
-    var F = S.faixas || [], fe = F[0], fl = F[F.length - 1], tp = tipoOf('pre');
-    if (!(tp && fe && fl)) return null;
-    return { e: (fe.precos && fe.precos.pre) || tp.price || 0, l: (fl.precos && fl.precos.pre) || tp.price || 0 };
-  }
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
@@ -41117,7 +41107,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (todas) h += '<button type="button" class="paLk" data-act="paTodas">Voltar</button>';
       h += '</section>';
     }
-    // S374 (esboço 64): os pré-graduados saíram daqui e viraram uma linha do Contador (pgrLinha / ACT.pgrAjusta)
     var nt = Object.keys(S.pTrava || {}).filter(function (k) {
       return S.pTrava[k];
     });
@@ -45853,36 +45842,34 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       abx = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0; /* S364: a mesma contagem da lista "Preços para corrigir" */
     return { mg: mg, dmg: mgB == null ? null : mg - mgB, porPeca: porPeca, cob: cob, falta: falta, abx: abx, tm: tm, mes: m };
   }
-  // decisões: preço automático (mesma lista e mesmas regras do paPlano) + tema que está chegando + atacado com margem baixa
-  // S327 (15/11/2026): as linhas de "Para decidir" usam ícone de traço fino no lugar do emoji (padrão de controles do app)
-  function cntIco(x) {
-    var k = x.t === 'ata' ? 'cx' : x.t === 'tema' ? 'dt' : x.m && x.m.kind === 'oferta' ? 'dn' : x.m && x.m.kind === 'fim' ? 'vt' : 'up';
-    var P = { up: '<path d="M12 19V5M6 11l6-6 6 6"/>', dn: '<path d="M12 5v14M6 13l6 6 6-6"/>', vt: '<path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/>',
-      cx: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', dt: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>' };
-    return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[k] + '</svg>';
-  }
-
+  // decisões já agrupadas (4b): tema que está chegando, UMA entrada por assunto do preço automático (oferta, fim — as peças vão em itens)
+  // e UMA por tabela de atacado com margem baixa. Os preços que sobem não entram: já estão nos "preços para corrigir".
   function cntDecisoes() {
-    var L = [];
-    try { paPlano().forEach(function (m) { L.push({ t: 'pa', m: m, ic: m.kind === 'oferta' ? '⬇️' : m.kind === 'fim' ? '↩️' : '⬆️', tit: (m.kind === 'oferta' ? 'Oferta ' : m.kind === 'fim' ? 'Volta ao preço ' : 'Subir ') + m.ref, sub: m.mot, v: gs(m.para) }); }); } catch (e) {}
+    var L = [], pa = {};
     try {
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
-      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'por quê' : 'ver', act: 'temaVer' });
+      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) {
+        var sem = typeof temaSugestao === 'function' && !temaSugestao(t).n;
+        L.push({ t: 'tema', tit: t.nome + ' em ' + t.dias + ' dias', sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
+      }
     } catch (e) {}
+    try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
+    ['oferta', 'fim'].forEach(function (k) { if (pa[k]) L.push(pa[k]); });
     try {
-      var fx = cntFx(), vis = {};
       tabLista().filter(function (T) { return !T.pub; }).forEach(function (T) {
+        var vis = {}, g = { t: 'tab', tab: T, n: 0, min: 999 };
         (S.items || []).forEach(function (it) {
-          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[T.id + it.ref]) return;
-          vis[T.id + it.ref] = 1;
+          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[it.ref]) return;
+          vis[it.ref] = 1;
           var p = precoTab(it, T.id), pp = pisoPeca(it);
           if (!(p > 0) || !(pp.trava > 0)) return;
           var mg = (p - pp.trava) / p;
-          if (mg < 0.1) L.push({ t: 'ata', ic: '📦', tit: 'Atacado ' + it.ref + ' com margem ' + Math.round(mg * 100) + '%', sub: T.nome + ' · abaixo de 10%', v: 'ajustar', act: 'tabsheet' });
+          if (mg < 0.1) { g.n++; g.min = Math.min(g.min, Math.round(mg * 100)); }
         });
+        if (g.n) L.push(g);
       });
     } catch (e) {}
-    return L.slice(0, 30);
+    return L;
   }
   function cntDescontosTxt(m) {
     var d = new Date(), ini = new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
@@ -45891,7 +45878,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = lrSoma(vs);
     return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
-  function cntKpi(rot, v, sub, cor, act, id) { return '<div class="cntK"' + (act ? ' data-act="' + act + '" data-id="' + (id || '') + '" role="button" tabindex="0" style="cursor:pointer"' : '') + '><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};
     if (!t.qty) return '';
@@ -45901,23 +45887,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       Object.keys(por).map(function (k) { var x = lrSoma(por[k]); return lrLinha('Margem · ' + esc((tipoOf(k) || {}).label || k), (x.vendido ? Math.round((x.lucro / x.vendido) * 100) : 0) + '%'); }).join('') +
       '<div class="hint" style="margin:6px 0 0">' + (t.lucro < (typeof totalMensal === 'function' ? totalMensal() : 0) ? 'O lucro não cobriu as contas do mês: olhe as decisões e o "E se…?" antes de mexer.' : 'O mês cobriu as contas. Siga as decisões da semana.') + '</div></section>';
   }
-  function contadorHtml() {
-    var s = cntSaude(), D = cntDecisoes(), d = new Date(), dsc = cntDescontosTxt(s.mes), fech = '';
-    if (d.getDate() <= 5) { var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); fech = cntFechHtml(pm.getFullYear(), pm.getMonth()); }
-    return '<div class="cnt">' +
-      '<div class="cntHd"><span class="cntAv">C</span><div><b>Contador</b><small>revisado ' + (S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora') + '</small></div></div>' + fech +
-      '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
-      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '', '', s.falta ? 'view' : '', 'desp') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)', s.abx ? 'pcAbre' : '', '') + '</div>' +
-      '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + D.length + '</div>' +
-      (D.length ? D.map(function (x, i) { return '<div class="cntL"><span class="cntI">' + cntIco(x) + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
-        (D.some(function (x) { return x.t === 'pa'; }) ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">Aceitar tudo</button><button type="button" class="mini ghost" data-act="cntUmPorUm">Ver um por um</button></div>' : '') : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
-      (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') +
-      '<div class="cntB"><button type="button" class="mini ghost" data-act="cntCalc">Calculadora de preço</button><button type="button" class="mini ghost" data-act="cntEse">E se…?</button></div></div>';
-  }
-  ACT.cntUmPorUm = function () { document.querySelectorAll('.cntUm').forEach(function (e) { e.hidden = false; }); var b = document.querySelector('[data-act="cntUmPorUm"]'); if (b) b.remove(); };
-  ACT.cntAceita = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; paAplica(x.m); saveSoon(); lfToast('✓ ' + x.tit + ' → ' + x.v); render(); };
-  ACT.cntIgnora = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; var k = x.m.kind === 'fim' ? 'oferta' : x.m.kind; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[x.m.ref + '|' + k] = Date.now(); saveSoon(); render(); };
-  ACT.cntTudo = function () { var n = 0; try { paPlano().forEach(function (m) { paAplica(m); n++; }); } catch (e) {} if (S.pAuto) S.pAuto.ult = Date.now(); saveSoon(); lfToast('✓ ' + n + (n === 1 ? ' preço ajustado' : ' preços ajustados') + ' · dá para desfazer em Esta semana'); render(); };
   // ---------- 2 · de onde vem o preço (ficha) ----------
   function cntPrecoHtml(ref) {
     var it = itemDoRef(ref);
@@ -46024,6 +45993,87 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ---------- 5 · fechamento do mês (guardião) ----------
   ACT.cntFech = function () { var d = new Date(), pm = new Date(d.getFullYear(), d.getMonth() - 1, 1), k = pm.getFullYear() + '-' + (pm.getMonth() + 1); S.cntFech[k] = 1; saveSoon(); lfJanela({ titulo: 'Fechamento do mês', monta: function (box) { box.innerHTML = '<div class="col" style="padding:0 16px 16px">' + (cntFechHtml(pm.getFullYear(), pm.getMonth()) || '<div class="hint">Sem vendas no mês passado.</div>') + '</div>'; } }); };
   function cntFechPend() { var d = new Date(); if (d.getDate() > 5) return 0; var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); return S.cntFech[pm.getFullYear() + '-' + (pm.getMonth() + 1)] ? 0 : 1; }
+  // ===== Preços (4b · aprovados 135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup; dono 21/11/2026 "implementar tudo") =====
+  // UMA função desenha a tela de Preços, de cima para baixo: os 4 números (só mostram), "Para decidir esta semana"
+  // (preços para corrigir que abrem ali, tema, uma linha por assunto do preço automático, uma linha por tabela de atacado)
+  // e FERRAMENTAS (Calculadora, E se…?, Preço automático → Ajustes › Preços). Os dados já chegam agrupados de cntDecisoes().
+  // Antes eram três camadas: contadorHtml + src/98z-precos-s52.js (relia o HTML com regex) + o embrulho do 98z-s374.js.
+  var CNT_VER = {}; // assunto do preço automático aberto no "ver um por um" (oferta | fim)
+  function cntPl(n, um, muitos) { return n + ' ' + (n === 1 ? um : muitos); }
+  function cntKpi(rot, v, sub, cor) { return '<div class="cntK"><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
+  function cntLinha(tit, sub, fim, cls) { return '<div class="cntL' + (cls ? ' ' + cls : '') + '"><div><b>' + esc(tit) + '</b><small>' + esc(sub || '') + '</small></div>' + (fim || '') + '</div>'; }
+  // "N preços para corrigir ⌄": abre a lista ali mesmo (a mesma pcCorpo do Inventário)
+  function cntCorrigirHtml() {
+    var L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [];
+    if (!L.length) return '';
+    var nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length, semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length, ab = !!S.x66ab;
+    return '<div class="cntL x66L' + (ab ? ' on66' : '') + '" role="button" tabindex="0" data-act="x66" aria-expanded="' + ab + '"><div><b>' + cntPl(L.length, 'preço para corrigir', 'preços para corrigir') + '</b><small>' +
+      [nS ? nS + ' com sugestão do contador' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · ') + '</small></div><i class="ch66" aria-hidden="true">⌄</i></div>' +
+      (ab ? '<div class="x66"><div class="x66i"><div class="pcNaTela">' + pcCorpo(true) + '</div></div></div>' : '');
+  }
+  var CNT_PA = { oferta: ['Pôr ', 'peça em oferta', 'peças em oferta', 'Oferta '], fim: ['', 'peça volta ao preço', 'peças voltam ao preço', 'Volta ao preço '] };
+  function cntDecisaoHtml(x) {
+    if (x.t === 'tema') return cntLinha(x.tit, x.sub, lkSolto(x.v, 'temaVer'));
+    if (x.t === 'tab') return cntLinha('Tabela ' + x.tab.nome + ': ' + cntPl(x.n, 'peça', 'peças') + ' com margem baixa', 'abaixo de 10% · a menor está em ' + x.min + '%', lkSolto('Ajustar tabela', 'tabsheet', x.tab.id));
+    var P = CNT_PA[x.kind], ab = !!CNT_VER[x.kind];
+    return cntLinha(P[0] + cntPl(x.n, P[1], P[2]), x.itens[0].mot.split(' · ')[0], '<button type="button" class="lxT" data-act="cntVer" data-id="' + x.kind + '" aria-expanded="' + ab + '">ver um por um</button>') +
+      (ab ? x.itens.map(function (m) {
+        var id = esc(m.ref + '|' + m.kind);
+        return '<div class="cntL cntPc"><div><b>' + esc(P[3] + m.ref) + '</b><small>' + esc(m.mot) + '</small></div><em>' + gs(m.para) + '</em>' +
+          '<span class="cntUm"><button type="button" class="mini" data-act="cntAceita" data-id="' + id + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + id + '">Agora não</button></span></div>';
+      }).join('') : '');
+  }
+  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['pauto', 'Preço automático', '', 'cntAuto']];
+  function cntFerramentasHtml() {
+    var on = !!(S.pAuto && S.pAuto.on), rv = S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora';
+    return '<div class="lbl cntFeT">FERRAMENTAS</div><section class="nvLista cntFe" aria-label="Ferramentas de preço">' + CNT_FERR.map(function (x) {
+      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2] || (on ? 'ligado' : 'desligado') + ' · revisado ' + rv + ' · em Ajustes') + '</small></span><i aria-hidden="true">›</i></button>';
+    }).join('') + '</section>';
+  }
+  function precosTelaHtml() {
+    var s = cntSaude(), D = cntDecisoes(), d = new Date(), dsc = cntDescontosTxt(s.mes), fech = '', pc = cntCorrigirHtml(),
+      nAc = D.reduce(function (a, x) { return a + (x.t === 'pa' ? x.n : 0); }, 0), n = D.length + (pc ? 1 : 0);
+    if (d.getDate() <= 5) { var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); fech = cntFechHtml(pm.getFullYear(), pm.getMonth()); }
+    return '<div class="cnt lx">' + fech +
+      '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
+      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + cntPl(s.falta, 'peça', 'peças') : '') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
+      '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + n + '</div>' +
+      (n ? pc + D.map(cntDecisaoHtml).join('') + (nAc ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div>' : '')
+        : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
+      (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') + cntFerramentasHtml() + '</div>';
+  }
+  function cntItem(id) {
+    var p = String(id).split('|'), g = cntDecisoes().filter(function (x) { return x.t === 'pa' && x.kind === p[1]; })[0];
+    return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;
+  }
+  ACT.cntVer = function (k) { CNT_VER[k] = !CNT_VER[k]; lfRedesenha(); };
+  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para)); render(); };
+  ACT.cntIgnora = function (id) { var m = cntItem(id); if (!m) return; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[m.ref + '|oferta'] = Date.now(); saveSoon(); render(); };
+  // "Aceitar os N preços" aceita exatamente o que a tela mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
+  ACT.cntTudo = function () {
+    var n = 0;
+    cntDecisoes().forEach(function (x) { if (x.t === 'pa') x.itens.forEach(function (m) { paAplica(m); n++; }); });
+    if (S.pAuto) S.pAuto.ult = Date.now();
+    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana'); render();
+  };
+  // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
+  ACT.cntAuto = function () {
+    S.ajAberta = 'pa';
+    setView('ajustes');
+    setTimeout(function () { var l = document.querySelector('#ajGrp .ajS[data-k="pa"]'); if (l) try { l.scrollIntoView({ block: 'start', behavior: REDUCED ? 'auto' : 'smooth' }); } catch (e) {} }, 300);
+  };
+  ACT.x66 = function () {
+    var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
+    if (S.x66ab && x) {
+      if (l) l.classList.remove('on66');
+      return lfFoldAnim(x, x.firstElementChild, l && l.querySelector('.ch66'), false, function () { S.x66ab = false; lfRedesenha(); });
+    }
+    S.x66ab = true;
+    if (S.view !== 'dash' || S.dTab !== 'prec') { S.dTab = 'prec'; return setView('dash'); }
+    lfRedesenha();
+    var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
+    if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
+  };
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -51891,83 +51941,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   }
   aposRender(kbMarca);
-  // ===== S370 (16/11/2026) — esboço 52 (Preços no padrão de luxo, aprovado 16/11 01:15) =====
-  // "Para decidir esta semana": uma linha por ASSUNTO — "Subir N preços · ver um por um" (as linhas de cada peça ficam
-  // guardadas e abrem no "ver um por um") e UMA linha por tabela de atacado ("Tabela X: N peças com margem baixa ·
-  // a menor está em N% · ajustar tabela"). Números sem caixa, linhas finas, ações como texto e um só botão principal.
-  var _cnt52 = contadorHtml;
-  contadorHtml = function () {
-    var html = _cnt52.apply(this, arguments);
-    try {
-      var w = document.createElement('div');
-      w.innerHTML = html;
-      var C = w.querySelector('.cnt'), D = w.querySelector('.cntD');
-      if (!C) return html;
-      C.classList.add('lx');
-      if (D) {
-        var g = {}, pa = {}, ordem = [];
-        [].forEach.call(D.querySelectorAll('.cntL'), function (l) {
-          var bb = l.querySelector('b'), sm = l.querySelector('small'),
-            b = bb ? bb.textContent.trim() : '', s = sm ? sm.textContent.trim() : '',
-            m = /^Atacado (\S+) com margem (-?\d+)%/.exec(b);
-          if (m) {
-            var tab = s.split(' · ')[0];
-            if (!g[tab]) { g[tab] = { n: 0, min: 999, l: l }; ordem.push(['g', tab]); } else l.classList.add('c52Oc');
-            g[tab].n++;
-            g[tab].min = Math.min(g[tab].min, +m[2]);
-            return;
-          }
-          var k = /^(Subir|Oferta|Volta ao preço) /.exec(b);
-          if (k) {
-            var t = k[1];
-            if (!pa[t]) { pa[t] = { n: 0, l: l, mot: s.split(' · ')[0], itens: [] }; ordem.push(['p', t]); }
-            pa[t].n++;
-            pa[t].itens.push(l);
-          }
-        });
-        Object.keys(g).forEach(function (t) {
-          var x = g[t], v = x.l.querySelector('.cntV');
-          x.l.querySelector('b').textContent = 'Tabela ' + t + ': ' + x.n + (x.n === 1 ? ' peça' : ' peças') + ' com margem baixa';
-          x.l.querySelector('small').textContent = 'abaixo de 10% · a menor está em ' + x.min + '%';
-          if (v) v.textContent = 'ajustar tabela';
-        });
-        var npa = 0;
-        Object.keys(pa).forEach(function (t, gi) {
-          var x = pa[t];
-          npa += x.n;
-          if (x.n < 2) return;
-          // a linha do assunto entra antes da primeira peça; as linhas de cada peça ficam guardadas (abrem no "ver um por um")
-          var cab = document.createElement('div');
-          cab.className = 'cntL c52G';
-          cab.innerHTML = '<span class="cntI"></span><div><b>' + esc({ Subir: 'Subir ' + x.n + ' preços', Oferta: 'Pôr ' + x.n + ' peças em oferta', 'Volta ao preço': x.n + ' peças voltam ao preço' }[t]) + '</b><small>' + esc(x.mot) + '</small></div>' +
-            '<button type="button" class="lxT" data-act="c52Ver" data-id="' + gi + '">ver um por um</button>';
-          x.l.parentNode.insertBefore(cab, x.l);
-          x.itens.forEach(function (l) { l.classList.add('c52Oc', 'c52P' + gi); });
-        });
-        // "Ver um por um" de baixo vira o da linha; o botão principal diz quantos preços aceita
-        var um = D.querySelector('.cntB [data-act="cntUmPorUm"]');
-        if (um) um.remove();
-        var ac = D.querySelector('.cntB .go');
-        if (ac && npa) ac.textContent = npa === 1 ? 'Aceitar o preço' : 'Aceitar os ' + npa + ' preços';
-        var n = [].filter.call(D.querySelectorAll('.cntL'), function (l) { return !l.classList.contains('c52Oc'); }).length,
-          lb = D.querySelector('.lbl');
-        if (lb) lb.textContent = lb.textContent.replace(/· \d+/, '· ' + n);
-      }
-      [].forEach.call(C.querySelectorAll('.cntB button'), function (b) { if (!b.classList.contains('go')) b.className = 'lxT m'; });
-      return w.innerHTML;
-    } catch (e) {
-      return html;
-    }
-  };
-  ACT.c52Ver = function (gi) {
-    [].forEach.call(document.querySelectorAll('.cnt .c52P' + gi), function (l) {
-      l.classList.remove('c52Oc');
-      var u = l.querySelector('.cntUm');
-      if (u) u.hidden = false;
-    });
-    var b = document.querySelector('.cnt [data-act="c52Ver"][data-id="' + gi + '"]');
-    if (b) b.closest('.cntL').remove();
-  };
   // ===== S374 (16/11/2026): esboços 50a–c, 57a/b, 58a/b =====
   // 58a: abrir/fechar uma conta em Despesas
   ACT.despAb = function (id) {
@@ -52160,76 +52133,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var ch2 = c2.querySelector('.ecCh');
       if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-180deg)' }], { duration: 420, easing: EZ74 });
     }
-  };
-  // Contador (66): os preços a corrigir numa linha só, que abre a lista ali mesmo; pré-graduados como linha (64)
-  var _cnt74 = contadorHtml;
-  contadorHtml = function () {
-    var html = _cnt74.apply(this, arguments);
-    try {
-      var w = document.createElement('div');
-      w.innerHTML = html;
-      var D = w.querySelector('.cntD');
-      if (!D) return html;
-      // "Subir N preços" (e cada peça dele) já está dentro dos preços a corrigir
-      [].forEach.call(D.querySelectorAll('.c52G'), function (g) {
-        var b = g.querySelector('b'), bt = g.querySelector('[data-act="c52Ver"]');
-        if (b && /^Subir /.test(b.textContent) && bt) {
-          [].forEach.call(D.querySelectorAll('.c52P' + bt.getAttribute('data-id')), function (l) { l.remove(); });
-          g.remove();
-        }
-      });
-      [].forEach.call(D.querySelectorAll('.cntL'), function (l) {
-        var b = l.querySelector('b');
-        if (b && /^Subir /.test(b.textContent) && !l.classList.contains('c52G')) l.remove();
-      });
-      // o botão "Aceitar os N preços" só fica se ainda houver ofertas/voltas para aceitar
-      var resto = [].filter.call(D.querySelectorAll('.cntL [data-act="cntAceita"]'), function () { return true; }).length,
-        ac = D.querySelector('[data-act="cntTudo"]');
-      if (ac) {
-        if (!resto) (ac.closest('.cntB') || ac).remove();
-        else ac.textContent = resto === 1 ? 'Aceitar o preço' : 'Aceitar os ' + resto + ' preços';
-      }
-      var L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [],
-        nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length,
-        lb = D.querySelector('.lbl'), ab = !!S.x66ab, ext = '';
-      if (L.length) {
-        var semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length;
-        ext += '<div class="cntL x66L' + (ab ? ' on66' : '') + '" role="button" tabindex="0" data-act="x66" aria-expanded="' + ab + '"><span class="cntI" aria-hidden="true">!</span><div><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' +
-          [nS ? nS + ' com sugestão do contador' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · ') + '</small></div><i class="ch66" aria-hidden="true">⌄</i></div>';
-        if (ab && typeof pcCorpo === 'function') ext += '<div class="x66"><div class="x66i"><div class="pcNaTela">' + pcCorpo(true) + '</div></div></div>';
-      }
-      var pp = typeof pgrPrecos === 'function' ? pgrPrecos() : null;
-      var tpl = '<div class="cntL"><span class="cntI" aria-hidden="true"></span><div><b>Pré-graduados · preço por linha</b><small>Econômica ' + (pp ? gs(pp.e) : '') + ' · Luxo ' + (pp ? gs(pp.l) : '') + ' · o contador confere a margem</small></div><button type="button" class="cntV r" data-act="pgrAjusta">ajustar</button></div>';
-      if (lb) lb.insertAdjacentHTML('afterend', ext);
-      var fim = D.querySelector('.cntB');
-      if (pp) { if (fim) fim.insertAdjacentHTML('beforebegin', tpl); else D.insertAdjacentHTML('beforeend', tpl); }
-      var n = [].filter.call(D.querySelectorAll('.cntL'), function (l) { return !l.classList.contains('c52Oc') && !l.closest('.x66'); }).length;
-      if (lb) lb.textContent = lb.textContent.replace(/· \d+/, '· ' + n);
-      // o número "Preços para corrigir" do Contador abre a mesma lista
-      [].forEach.call(w.querySelectorAll('.cntK[data-act="pcAbre"]'), function (k) { k.setAttribute('data-act', 'x66'); });
-      return w.innerHTML;
-    } catch (e) {
-      return html;
-    }
-  };
-  ACT.x66 = function () {
-    var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
-    if (S.x66ab && x) {
-      if (l) l.classList.remove('on66');
-      return lfFoldAnim(x, x.firstElementChild, l && l.querySelector('.ch66'), false, function () { S.x66ab = false; lfRedesenha(); });
-    }
-    S.x66ab = true;
-    if (S.view !== 'dash' || S.dTab !== 'prec') { S.dTab = 'prec'; return setView('dash'); }
-    lfRedesenha();
-    var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
-    if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
-  };
-  ACT.pgrAjusta = function () {
-    var pp = pgrPrecos();
-    if (!pp) return;
-    lfaAbre('dFolha', '<div class="dFt"><span>PRÉ-GRADUADOS</span></div><div class="col" style="gap:12px;padding:4px 4px 8px"><div class="hint" style="margin:0">O app escolhe a linha de cada peça sozinho; o contador confere a margem.</div>' +
-      '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pp.e ? pp.e.toLocaleString('pt-BR') : '') + '"></label>' +
-      '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pp.l ? pp.l.toLocaleString('pt-BR') : '') + '"></label></div>');
   };
   if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
 
@@ -52442,7 +52345,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     });
   }
-  var FORA100 = '.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  // Esboço 37 / 149l: o link solto nasce declarado (rosa, 15 px, termina em ›) — uma função para todos; o pad100 não adivinha os que nascem aqui.
+  // sozinho = link centralizado numa linha só dele; sem isso, fica na linha do texto.
+  function lkSolto(texto, act, id, sozinho) {
+    return '<button type="button" class="lk100 ' + (sozinho ? 'c101' : 'inl') + '" data-act="' + act + '"' + (id != null && id !== '' ? ' data-id="' + esc(id) + '"' : '') + '>' + esc(texto) + ' ›</button>';
+  }
   function pad100(raiz) {
     if (!raiz) return;
     [].forEach.call(raiz.querySelectorAll('.slVai:not(.mpg73)'), function (e) {
@@ -52453,7 +52361,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (b && !/›/.test(b.textContent)) b.textContent = b.textContent.trim() + ' ›';
     });
     [].forEach.call(raiz.querySelectorAll('button,a'), function (e) {
-      if (e._p100) return;
+      if (e._p100 || e.classList.contains('lk100')) return;
       var t = (e.textContent || '').trim();
       if (!/›\s*$/.test(t) || t.length < 4) return;
       if (e.closest(FORA100) || e.matches(FORA100)) return;
@@ -53280,7 +53188,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

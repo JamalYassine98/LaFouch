@@ -1,7 +1,7 @@
 {
- "nome": "5.50.16",
+ "nome": "5.50.17",
  "notas": [
-  "Preço automático agora fica em Ajustes › Preços (interruptor e Contas, taxas e meta). A tela de Preços ficou sem \"Regras do contador\"."
+  "Preços de cara nova: sem o cabeçalho \"Contador\", uma linha por tabela de atacado (cada \"Ajustar tabela ›\" abre a sua) e a lista Ferramentas com Calculadora, E se…? e Preço automático."
  ],
- "build": 591
+ "build": 592
 }

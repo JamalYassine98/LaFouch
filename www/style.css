@@ -2115,16 +2115,12 @@ html.mlOn #lockScr{z-index:2147483600}
 @keyframes mlAnel{to{stroke-dashoffset:0}}
 /* S188 Contador */
 .cnt{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
-.cntHd{display:flex;align-items:center;gap:10px}.cntHd b{display:block;font-size:17px}.cntHd small{color:var(--mute);font-size:12px}
-.cntAv{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#7a2a59;color:#fff;font:700 17px Georgia,serif;flex:none}
 .cntG{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .cntK{background:var(--panel);border:1px solid var(--line2);color:var(--fg);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .cntK small{font-size:12px;color:var(--mute)}.cntK b{font-size:22px;font-weight:700}.cntK i{font-style:normal;font-size:12px;color:var(--warn,#b4590a)}
 @media (min-width:900px){.cntG{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .cntL{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line2);flex-wrap:wrap}.cntD .lbl+.cntL{border-top:0}
-.cntL>span:first-child{font-size:18px}.cntL>div{flex:1;min-width:0}.cntL b{display:block;font-size:14px}.cntL small{display:block;font-size:12px;color:var(--mute)}.cntL em{font-style:normal;font-weight:700;font-size:14px}
-.cntV{border:0;background:none;color:#7a2a59;font-weight:700;font-size:14px;padding:4px}.cntV.r{color:var(--bad,#b42318)}
-[data-tema="escuro"] .cntV:not(.r),[data-tema="escuro"] .cntAv{color:#e6a4c8}[data-tema="escuro"] .cntAv{background:#4a2140}
+.cntL>div{flex:1;min-width:0}.cntL b{display:block;font-size:14px}.cntL small{display:block;font-size:12px;color:var(--mute)}.cntL em{font-style:normal;font-weight:700;font-size:14px}
 .cntUm{display:flex;gap:6px;width:100%;justify-content:center}.cntUm[hidden]{display:none}
 .cntB{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 .cntQ{font-size:13.5px;line-height:1.45;color:var(--tx,inherit)}
@@ -2331,7 +2327,6 @@ html{overscroll-behavior-y:none}
 .dHdT{font-family:Fraunces,Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
 .dHdT i{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:18px}
 /* S327 (15/11/2026) · Preços sem emoji; toque do "Este mês" */
-.cntL>span.cntI{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid var(--line);color:var(--sub);flex:none;font-size:0}
 .dHdP{min-height:44px;display:inline-flex;align-items:center;gap:4px}
 
 /* S360 (15/11/2026): esboço 37 — links de texto no lugar dos botões cinzas; esboço 36 — Cancelar/Desfazer no centro; esboço 46 — cartões separados nas abas do Dashboard; esboço 29 — abrir folha ou menu não muda larguras (trava: width:auto); números do Início com algarismos de largura igual */
@@ -2490,16 +2485,19 @@ html{overscroll-behavior-y:none}
 #v-dash .cnt.lx .cntK{background:none!important;border:0!important;border-radius:0!important;padding:16px 4px!important;gap:4px}
 #v-dash .cnt.lx .cntK:nth-child(odd){border-right:1px solid var(--line)!important;padding-right:14px!important}#v-dash .cnt.lx .cntK:nth-child(even){padding-left:16px!important}
 #v-dash .cnt.lx .cntK:nth-child(n+3){border-top:1px solid var(--line)!important}
-#v-dash .cnt.lx .cntK small{font-size:13px}#v-dash .cnt.lx .cntK b{font:400 28px/1.15 var(--display);letter-spacing:-.01em}
+#v-dash .cnt.lx .cntK small{font-size:13px}#v-dash .cnt.lx .cntK b{font-size:28px;font-weight:400;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 #v-dash .cnt.lx .cntD{background:none!important;border:0!important;box-shadow:none!important;padding:8px 0 0!important;border-radius:0!important}
 #v-dash .cnt.lx .cntD .lbl{margin:10px 0 2px}
 #v-dash .cnt.lx .cntL{padding:16px 0;gap:14px;flex-wrap:nowrap;border-top:1px solid var(--line)}#v-dash .cnt.lx .cntD .lbl+.cntL{border-top:0}
-#v-dash .cnt.lx .cntL>span.cntI{display:none}#v-dash .cnt.lx .cntL>div{flex:1;min-width:0}
+#v-dash .cnt.lx .cntL>div{flex:1;min-width:0}
 #v-dash .cnt.lx .cntL b{font-weight:500;font-size:15px;display:block}#v-dash .cnt.lx .cntL small{display:block;color:var(--mute);font-size:13px;margin-top:2px}
-#v-dash .cnt.lx .cntV,#v-dash .cnt.lx .lxT{background:none;border:0;min-height:44px;min-width:44px;padding:0 2px;color:var(--accent-fg)!important;font:500 14px inherit;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;flex:none}
-#v-dash .cnt.lx .lxT.m{color:var(--mute)!important;text-decoration-color:var(--line)}
-#v-dash .cnt.lx .cntB{justify-content:center;gap:22px;margin-top:6px}#v-dash .cnt.lx .cntD .cntB{flex-direction:column;align-items:stretch;gap:4px;margin-top:14px}#v-dash .cnt.lx .cntD .cntB .lxT{align-self:center}
-.cnt .c52Oc{display:none!important}
+#v-dash .cnt.lx .lxT{background:none;border:0;min-height:44px;min-width:44px;padding:0 2px;color:var(--accent-fg)!important;font:500 14px inherit;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;flex:none}
+#v-dash .cnt.lx .cntD .cntB{flex-direction:column;align-items:stretch;margin-top:16px}
+/* 4b: peça aberta no "ver um por um" (Aceitar / Agora não embaixo), título das Ferramentas, e a letra do texto nos cartões de Preços (135h: Fraunces só no h1) */
+#v-dash .cnt.lx .cntL.cntPc{flex-wrap:wrap;padding-left:16px}
+.cntFeT{margin:24px 0 8px}
+#v-dash .cntAuto .card>b:first-child{font-family:inherit;font-weight:600}
+.chip.tabAlvo{outline:2px solid var(--accent-fg);outline-offset:1px}
 /* S370 (lote 8): pílula permanente — o botão escolhido não tem fundo próprio */
 .lfPillOn>.chip.on,.lfPillOn>.chip[aria-pressed="true"]{background:transparent!important;border-color:transparent!important;box-shadow:none!important;position:relative;z-index:1}
 .lfPillOn{position:relative}
@@ -2584,9 +2582,8 @@ section.card.fxF>.fxB .card{background:none!important;box-shadow:none!important;
 section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!important}
 #v-dash .x66L{cursor:pointer}#v-dash .x66{overflow:hidden}#v-dash .x66i{padding:4px 0 14px}
 /* S374 (esboço 65): botões de Preços no padrão — 1 principal (contorno rosa), secundária neutra, ação de linha rosa com "›" */
-#v-dash .cntV,#v-dash .lxT{text-decoration:none!important;color:var(--accent-fg)!important;font-weight:600}
-#v-dash .cntV::after,#v-dash .lxT::after{content:' ›'}
-#v-dash .cntB:has(.lxT.m){justify-content:flex-start!important;gap:22px!important}
+#v-dash .lxT{text-decoration:none!important;color:var(--accent-fg)!important;font-weight:600}
+#v-dash .lxT::after{content:' ›'}
 #v-dash .pcUsa{border-color:var(--line)!important;color:var(--fg)!important;background:none!important;font-weight:600}
 .pc66{position:relative;display:inline-block;width:110px;flex:none}.pc66 input{padding-right:34px!important;width:100%!important;max-width:110px}.pc66 i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--mute);pointer-events:none}
 /* S374 · esboços 67 + 68 (dono 16/11): Giro › Lista de compras limpa e botões no padrão de luxo.
@@ -2837,7 +2834,6 @@ button.rw77{cursor:pointer}
 #v-fx .fxLk{border-radius:14px!important;min-height:52px!important;font-size:16px!important;font-weight:600!important}
 .obNovo,.btn-sc.p:not(.lk100){font-size:15px!important;font-weight:600!important}
 .btn-pe.p,.dz105{font-size:15px!important;font-weight:600!important;background:none!important;border:0!important;color:var(--bad)!important;min-height:44px;padding:0 4px!important;box-shadow:none!important;cursor:pointer;font-family:inherit}
-#v-dash .cnt.lx .lxT.m{color:var(--accent-fg)!important}
 /* S374 · 108 (aprovado 17/11 18:15): Despesas no desenho do Caixa; o bloco não tem caixa, então não tem sombra (no claro parecia uma borda) */
 .view section.cxSaldo{box-shadow:none!important}
 .cx108 .bar{margin:12px 0 6px}
@@ -2992,15 +2988,15 @@ section.card.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh,.g99 .
 .nvVs i{font-style:normal;font-size:16px;font-weight:400;letter-spacing:0;transform:translateY(-1px)}
 .nvVs:active{opacity:.6}
 /* índice do grupo: uma linha por tela, ícone + nome + frase + › */
-#v-grp .nvLista{display:flex;flex-direction:column;margin-top:4px}
-#v-grp .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#v-grp .nvL:last-child{border-bottom:0}
-#v-grp .nvL:active{opacity:.6}
-#v-grp .nvIc{flex:none;display:flex;width:22px;color:var(--mute)}
-#v-grp .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-#v-grp .nvTx b{font-size:16px;font-weight:500}
-#v-grp .nvTx small{font-size:13px;color:var(--mute)}
-#v-grp .nvL>i{font-style:normal;font-size:20px;color:var(--mute)}
+#v-grp .nvLista,#v-dash .nvLista{display:flex;flex-direction:column;margin-top:4px}
+#v-grp .nvL,#v-dash .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#v-grp .nvL:last-child,#v-dash .nvL:last-child{border-bottom:0}
+#v-grp .nvL:active,#v-dash .nvL:active{opacity:.6}
+#v-grp .nvIc,#v-dash .nvIc{flex:none;display:flex;width:22px;color:var(--mute)}
+#v-grp .nvTx,#v-dash .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#v-grp .nvTx b,#v-dash .nvTx b{font-size:16px;font-weight:500}
+#v-grp .nvTx small,#v-dash .nvTx small{font-size:13px;color:var(--mute)}
+#v-grp .nvL>i,#v-dash .nvL>i{font-style:normal;font-size:20px;color:var(--mute)}
 #v-grp .nvGer{align-self:center;min-height:44px;margin-top:8px;background:none;border:0;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
 /* 147-7: o Dashboard usa o mesmo cabeçalho das outras telas (título 28 px a 0 do topo, frase 4 px abaixo) */
 .dHd{margin:0!important;align-items:flex-start!important}

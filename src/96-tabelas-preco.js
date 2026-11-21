@@ -81,11 +81,12 @@
       l.preco = null;
     });
   }
-  function tabSheet(edita) {
+  // alvo (149dup): id da tabela que pediu a folha — ela vem destacada e a folha rola até ela
+  function tabSheet(edita, alvo) {
     var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Cada tabela é custo da peça + margem. Nunca fica abaixo do piso da loja nem acima do preço Público.</div>';
     if (!edita) {
       tabLista().forEach(function (T) {
-        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
+        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
       });
       h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini ghost" data-act="tabedit">Editar tabelas</button><button type="button" class="mini ghost" data-act="tabfecha">Fechar</button></div></div>';
     } else {
@@ -99,8 +100,9 @@
       h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="go" data-act="tabok">Salvar</button></div></div>';
     }
     lfaAbre('tabSh', h);
+    if (alvo) setTimeout(function () { var e = document.querySelector('.tabAlvo'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 60);
   }
-  ACT.tabsheet = function () { tabSheet(false); };
+  ACT.tabsheet = function (id) { tabSheet(false, id); };
   ACT.tabfecha = function () { lfaFecha('tabSh'); };
   ACT.tabedit = function () { tabSheet(true); };
   ACT.tabok = function () { saveSoon(); tabSheet(false); render(); };

@@ -188,16 +188,6 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
-    if (k === 'prePe' || k === 'prePl') {
-      var F0 = S.faixas || [],
-        fz = k === 'prePe' ? F0[0] : F0[F0.length - 1],
-        vz = campoParaGs(t.value);
-      if (fz) {
-        if (!fz.precos) fz.precos = {};
-        if (vz > 0) fz.precos.pre = vz;
-        else delete fz.precos.pre;
-      }
-    }
     if (k === 'synome') {
       S.aparNome = t.value.trim().slice(0, 30);
       syncReg(true);

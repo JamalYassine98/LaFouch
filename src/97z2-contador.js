@@ -20,36 +20,34 @@
       abx = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0; /* S364: a mesma contagem da lista "Preços para corrigir" */
     return { mg: mg, dmg: mgB == null ? null : mg - mgB, porPeca: porPeca, cob: cob, falta: falta, abx: abx, tm: tm, mes: m };
   }
-  // decisões: preço automático (mesma lista e mesmas regras do paPlano) + tema que está chegando + atacado com margem baixa
-  // S327 (15/11/2026): as linhas de "Para decidir" usam ícone de traço fino no lugar do emoji (padrão de controles do app)
-  function cntIco(x) {
-    var k = x.t === 'ata' ? 'cx' : x.t === 'tema' ? 'dt' : x.m && x.m.kind === 'oferta' ? 'dn' : x.m && x.m.kind === 'fim' ? 'vt' : 'up';
-    var P = { up: '<path d="M12 19V5M6 11l6-6 6 6"/>', dn: '<path d="M12 5v14M6 13l6 6 6-6"/>', vt: '<path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/>',
-      cx: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', dt: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>' };
-    return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[k] + '</svg>';
-  }
-
+  // decisões já agrupadas (4b): tema que está chegando, UMA entrada por assunto do preço automático (oferta, fim — as peças vão em itens)
+  // e UMA por tabela de atacado com margem baixa. Os preços que sobem não entram: já estão nos "preços para corrigir".
   function cntDecisoes() {
-    var L = [];
-    try { paPlano().forEach(function (m) { L.push({ t: 'pa', m: m, ic: m.kind === 'oferta' ? '⬇️' : m.kind === 'fim' ? '↩️' : '⬆️', tit: (m.kind === 'oferta' ? 'Oferta ' : m.kind === 'fim' ? 'Volta ao preço ' : 'Subir ') + m.ref, sub: m.mot, v: gs(m.para) }); }); } catch (e) {}
+    var L = [], pa = {};
     try {
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
-      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'por quê' : 'ver', act: 'temaVer' });
+      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) {
+        var sem = typeof temaSugestao === 'function' && !temaSugestao(t).n;
+        L.push({ t: 'tema', tit: t.nome + ' em ' + t.dias + ' dias', sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
+      }
     } catch (e) {}
+    try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
+    ['oferta', 'fim'].forEach(function (k) { if (pa[k]) L.push(pa[k]); });
     try {
-      var fx = cntFx(), vis = {};
       tabLista().filter(function (T) { return !T.pub; }).forEach(function (T) {
+        var vis = {}, g = { t: 'tab', tab: T, n: 0, min: 999 };
         (S.items || []).forEach(function (it) {
-          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[T.id + it.ref]) return;
-          vis[T.id + it.ref] = 1;
+          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[it.ref]) return;
+          vis[it.ref] = 1;
           var p = precoTab(it, T.id), pp = pisoPeca(it);
           if (!(p > 0) || !(pp.trava > 0)) return;
           var mg = (p - pp.trava) / p;
-          if (mg < 0.1) L.push({ t: 'ata', ic: '📦', tit: 'Atacado ' + it.ref + ' com margem ' + Math.round(mg * 100) + '%', sub: T.nome + ' · abaixo de 10%', v: 'ajustar', act: 'tabsheet' });
+          if (mg < 0.1) { g.n++; g.min = Math.min(g.min, Math.round(mg * 100)); }
         });
+        if (g.n) L.push(g);
       });
     } catch (e) {}
-    return L.slice(0, 30);
+    return L;
   }
   function cntDescontosTxt(m) {
     var d = new Date(), ini = new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
@@ -58,7 +56,6 @@
     var t = lrSoma(vs);
     return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
-  function cntKpi(rot, v, sub, cor, act, id) { return '<div class="cntK"' + (act ? ' data-act="' + act + '" data-id="' + (id || '') + '" role="button" tabindex="0" style="cursor:pointer"' : '') + '><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};
     if (!t.qty) return '';
@@ -68,23 +65,6 @@
       Object.keys(por).map(function (k) { var x = lrSoma(por[k]); return lrLinha('Margem · ' + esc((tipoOf(k) || {}).label || k), (x.vendido ? Math.round((x.lucro / x.vendido) * 100) : 0) + '%'); }).join('') +
       '<div class="hint" style="margin:6px 0 0">' + (t.lucro < (typeof totalMensal === 'function' ? totalMensal() : 0) ? 'O lucro não cobriu as contas do mês: olhe as decisões e o "E se…?" antes de mexer.' : 'O mês cobriu as contas. Siga as decisões da semana.') + '</div></section>';
   }
-  function contadorHtml() {
-    var s = cntSaude(), D = cntDecisoes(), d = new Date(), dsc = cntDescontosTxt(s.mes), fech = '';
-    if (d.getDate() <= 5) { var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); fech = cntFechHtml(pm.getFullYear(), pm.getMonth()); }
-    return '<div class="cnt">' +
-      '<div class="cntHd"><span class="cntAv">C</span><div><b>Contador</b><small>revisado ' + (S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora') + '</small></div></div>' + fech +
-      '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
-      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '', '', s.falta ? 'view' : '', 'desp') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)', s.abx ? 'pcAbre' : '', '') + '</div>' +
-      '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + D.length + '</div>' +
-      (D.length ? D.map(function (x, i) { return '<div class="cntL"><span class="cntI">' + cntIco(x) + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
-        (D.some(function (x) { return x.t === 'pa'; }) ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">Aceitar tudo</button><button type="button" class="mini ghost" data-act="cntUmPorUm">Ver um por um</button></div>' : '') : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
-      (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') +
-      '<div class="cntB"><button type="button" class="mini ghost" data-act="cntCalc">Calculadora de preço</button><button type="button" class="mini ghost" data-act="cntEse">E se…?</button></div></div>';
-  }
-  ACT.cntUmPorUm = function () { document.querySelectorAll('.cntUm').forEach(function (e) { e.hidden = false; }); var b = document.querySelector('[data-act="cntUmPorUm"]'); if (b) b.remove(); };
-  ACT.cntAceita = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; paAplica(x.m); saveSoon(); lfToast('✓ ' + x.tit + ' → ' + x.v); render(); };
-  ACT.cntIgnora = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; var k = x.m.kind === 'fim' ? 'oferta' : x.m.kind; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[x.m.ref + '|' + k] = Date.now(); saveSoon(); render(); };
-  ACT.cntTudo = function () { var n = 0; try { paPlano().forEach(function (m) { paAplica(m); n++; }); } catch (e) {} if (S.pAuto) S.pAuto.ult = Date.now(); saveSoon(); lfToast('✓ ' + n + (n === 1 ? ' preço ajustado' : ' preços ajustados') + ' · dá para desfazer em Esta semana'); render(); };
   // ---------- 2 · de onde vem o preço (ficha) ----------
   function cntPrecoHtml(ref) {
     var it = itemDoRef(ref);

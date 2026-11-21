@@ -4295,7 +4295,7 @@ async def main():
             # S374 (esboços 64–66): Preços — "Preço automático" uma vez, preços a corrigir só no Contador (abre ali), meta e taxas dentro de "Contas, taxas e meta", contas sempre pelo custo
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.pAuto = S.pAuto || {}; S.pAuto.on = true; S.rateio = 'peca'; S.rat66 = false; S.dfold = {}; S.x66ab = false; S.dTab = 'prec'; L.setView('dash'); L.render(); }"); await pg.wait_for_timeout(600)
-            q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !!document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
+            q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
             await pg.locator('#v-dash .x66L').click(); await pg.wait_for_timeout(600)
             q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .x66 .pcLi').length, document.querySelectorAll('#v-dash .x66 [data-act=pcUsaTodos]').length]")
             # 149p: "Contas, taxas e meta" abre e fecha dentro de Ajustes › Preços
@@ -4305,7 +4305,7 @@ async def main():
             await pg.locator('#v-ajustes [data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
             q4 = await pg.evaluate("() => [!!window.__LF.S.dfold.cfg, !document.querySelector('section.fxF[data-fx=cfg] .fxB')]")
             total += 1
-            ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
+            ok = (q1[0] == 0 and q1[1] == 1 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66): Preços sem repetição, lista no Contador, meta e taxas no bloco, contas pelo custo, bloco abre e fecha no cartão')
             if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, q4, pg.erros)
             await pg.close()
@@ -4331,6 +4331,46 @@ async def main():
             ok = got == [True, 'Preços·automático desligado', True, True, True, True, True, 'ajustes·pa·true·automático ligado', True, True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + '4b parte 1 (149p): o preço automático mora em Ajustes › Preços (depois de Site; interruptor, prévia e Contas, taxas e meta); Preços sem "Regras do contador"')
             if not ok: falhas.append('4b parte 1 preco automatico em Ajustes'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # 4b parte 2 (135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup): UMA função desenha Preços (precosTelaHtml); ninguém a troca nem relê o HTML dela.
+            # Sem cabeçalho "Contador", sem "Pré-graduados · preço por linha", os 4 números só mostram, cada "Ajustar tabela ›" abre a SUA tabela,
+            # FERRAMENTAS com 3 linhas de lista (a 3ª chega em Ajustes › Preços aberta), links nascem de lkSolto, nenhum "1 peças"/"1 preços".
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            troca = sorted(f for f, t in fontes.items() if re.search(r'^\s*(precosTelaHtml|contadorHtml|cntDecisoes) = function|_cnt\d+ = |function contadorHtml|pgrPrecos|pgrAjusta|prePe', t, re.M))
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              S.sales.forEach(s => { s.ts -= 200 * 864e5; }); S.pTrava = {}; S.x66ab = false;
+              S.dTab = 'prec'; L.setView('dash'); await w(500); const d = document.getElementById('v-dash'), q = s => [...d.querySelectorAll(s)];
+              // aceita as correções sugeridas (os que sobem), para o plano chegar às ofertas das peças paradas
+              S.x66ab = true; L.render(); await w(300); const us = d.querySelector('[data-act=pcUsaTodos]'); if (us) { us.click(); await w(500); } S.x66ab = false; L.render(); await w(300);
+              R.sem = [!d.querySelector('.cntHd'), !/Pré-graduados · preço por linha/.test(d.innerText), !/REGRAS DO CONTADOR/i.test(d.innerText), !/\\b1 (peças|preços|dias)\\b/.test(d.innerText), q('.cntK').length === 4 && !q('.cntK').some(k => k.dataset.act || k.getAttribute('role') || k.style.cursor)];
+              R.num = !/Fraunces|Georgia/.test(getComputedStyle(d.querySelector('.cntK b')).fontFamily) && !/Fraunces|Georgia/.test(getComputedStyle(d.querySelector('.cntAuto .card>b') || d.querySelector('.cntK b')).fontFamily);
+              const D = L.cntDecisoes(), tabs = D.filter(x => x.t === 'tab'), ids = q('[data-act=tabsheet]').map(b => b.dataset.id);
+              R.tab = tabs.length > 1 && ids.length === tabs.length && new Set(ids).size === ids.length && ids.join() === tabs.map(x => x.tab.id).join();
+              R.lk = q('.cntD .lk100').length === ids.length + D.filter(x => x.t === 'tema').length && q('.cntD .lk100').every(b => /^[A-ZÀ-Ú].* ›$/.test(b.textContent) && b.classList.contains('inl') && getComputedStyle(b).fontSize === '15px' && getComputedStyle(b).textDecorationLine === 'none');
+              R.n = +/· (\\d+)$/.exec(d.querySelector('.cntD .lbl').textContent)[1] === q('.cntD>.cntL').length;
+              R.ferr = q('.cntFe .nvL').map(b => b.querySelector('b').textContent + '→' + b.dataset.act).join('|') + '|' + (q('.cntFe .nvL').every(b => !b.classList.contains('lk100') && b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('.nvIc')).color === getComputedStyle(b.querySelector('small')).color));
+              R.sub = /^(ligado|desligado) · revisado .+ · em Ajustes$/.test(q('.cntFe .nvL small')[2].textContent);
+              // cada "Ajustar tabela ›" abre a folha com a tabela dela destacada
+              const al = []; for (const b of q('[data-act=tabsheet]').slice(0, 3)) { b.click(); await w(350); const a = document.querySelectorAll('.tabAlvo'); al.push(a.length === 1 && a[0].dataset.id === b.dataset.id); L.ACT.tabfecha(); await w(350); }
+              R.alvo = al.join();
+              // assunto do preço automático: uma linha, "ver um por um" abre as peças, aceitar e ignorar tiram uma por vez
+              const g = D.filter(x => x.t === 'pa')[0], bt = () => d.querySelector('[data-act=cntTudo]');
+              if (g && g.n >= 2) { const n0 = g.n; R.pa = [bt().textContent === 'Aceitar os ' + n0 + ' preços', !d.querySelector('.cntPc')];
+                d.querySelector('[data-act=cntVer]').click(); await w(300); R.pa.push(q('.cntPc').length === n0);
+                d.querySelector('[data-act=cntAceita]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 1, L.cntDecisoes().filter(x => x.t === 'pa')[0].n === n0 - 1);
+                d.querySelector('[data-act=cntIgnora]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 2); } else R.pa = 'sem ofertas no cenário';
+              // preços para corrigir abre ali; o "Preço automático ›" chega em Ajustes › Preços aberta
+              d.querySelector('.x66L').click(); await w(700); R.x66 = q('.x66 .pcLi').length > 0;
+              d.querySelector('[data-act=cntAuto]').click(); await w(700); const l = document.querySelector('#ajGrp .ajS[data-k=pa]');
+              R.aj = S.view === 'ajustes' && !!l && l.classList.contains('on') && !!l.querySelector('#paCard');
+              return R; }""")
+            total += 1
+            ok = (got['sem'] == [True] * 5 and got['num'] and got['tab'] and got['lk'] and got['n'] and got['ferr'] == 'Calculadora de preço→cntCalc|E se…?→cntEse|Preço automático→cntAuto|true' and got['sub']
+                  and got['alvo'] == 'true,true,true' and got['pa'] == [True] * 6 and got['x66'] and got['aj'] and troca == [] and not os.path.exists(os.path.join(RAIZ, 'src', '98z-precos-s52.js')) and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '4b parte 2: Preços por uma função só — sem Contador/pré-graduados, números só mostram, cada tabela abre a sua, Ferramentas (3 linhas) e o preço automático chega em Ajustes › Preços')
+            if not ok: falhas.append('4b parte 2 tela de Precos'); print('        veio', got, troca, pg.erros)
             await pg.close()
 
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
@@ -4375,8 +4415,8 @@ async def main():
               if (n) { const r = [...document.querySelectorAll('#v-desp .ecF')].find(x => x.querySelector('.ecNm small span')); r.querySelector('.chk').click(); await sl(400); contas = contas && avs() === n - 1; }
               S.dTab = 'prec'; L.setView('dash'); await sl(500);
               const ks = [...document.querySelectorAll('#v-dash .cntK')]; const kp = ks.find(k => /Preços para corrigir/.test(k.innerText));
-              const n1 = +(kp.querySelector('b').innerText), precos = !n1 || kp.dataset.act === 'x66';  // S374 (66): o número abre a lista no Contador
-              if (n1) { kp.click(); await sl(500); }
+              const n1 = +(kp.querySelector('b').innerText), precos = !kp.dataset.act && (!n1 || !!document.querySelector('#v-dash .x66L'));  // 149dup: o número só mostra; quem abre a lista é a linha "N preços para corrigir ⌄"
+              if (n1) { document.querySelector('#v-dash .x66L').click(); await sl(500); }
               const lista = !n1 || document.querySelectorAll('#v-dash .pcNaTela .pcLi').length === n1;
               return [contas, precos, lista, typeof L.ACT.d48Res === 'function' && typeof L.ACT.prodDesfaz === 'function']; }""")
             total += 1

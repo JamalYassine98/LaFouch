@@ -263,12 +263,6 @@
     return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
       '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
   }
-  // S374: as duas linhas de preço dos pré-graduados (para a linha do Contador e a folha "ajustar")
-  function pgrPrecos() {
-    var F = S.faixas || [], fe = F[0], fl = F[F.length - 1], tp = tipoOf('pre');
-    if (!(tp && fe && fl)) return null;
-    return { e: (fe.precos && fe.precos.pre) || tp.price || 0, l: (fl.precos && fl.precos.pre) || tp.price || 0 };
-  }
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
@@ -291,7 +285,6 @@
       if (todas) h += '<button type="button" class="paLk" data-act="paTodas">Voltar</button>';
       h += '</section>';
     }
-    // S374 (esboço 64): os pré-graduados saíram daqui e viraram uma linha do Contador (pgrLinha / ACT.pgrAjusta)
     var nt = Object.keys(S.pTrava || {}).filter(function (k) {
       return S.pTrava[k];
     });

@@ -158,8 +158,8 @@
     }
     // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
-    h += contadorHtml();
-    h += precosAutoHtml();
+    h += precosTelaHtml();
+    h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';
     return h;
   }
 
