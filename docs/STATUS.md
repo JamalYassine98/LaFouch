@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | esboço 37a: um jeito só de abrir um grupo (grpAbre abre o índice) | src/95-barra-grupos.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 
 ## Fila

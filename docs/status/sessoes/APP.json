@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço 37a: um jeito só de abrir um grupo (grpAbre abre o índice)",
+ "arquivos": [
+  "src/95-barra-grupos.js",
+  "src/99c-navegacao-s435.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795289380.0997095,
@@ -44,5 +48,5 @@
    "r": "v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick"
   }
  ],
- "leu": 1795289363.2986734
+ "leu": 1795289548.4235911
 }
