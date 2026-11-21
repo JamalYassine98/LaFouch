@@ -4402,6 +4402,23 @@ async def main():
             if not ok: falhas.append('4c parte 1 titulo h1'); print('        veio', got, laco, pg.erros)
             await pg.close()
 
+            # 4c parte 2 (149d, aprovado 19/11 13:34): no Histórico a linha "Semana…" fica na margem das linhas de dia, com 64 px, título 16 / frase 13,
+            # e dias e semanas já nascem dentro do grupo de linhas (o pad99 não arruma o Histórico depois do desenho).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.sales.forEach((s, i) => { if (i % 2) s.ts -= 20 * 864e5; }); L.setView('hist'); await w(700);
+              const sem = [...document.querySelectorAll('#v-hist .hSem')], dia = document.querySelector('#v-hist .hDia'), x = e => Math.round(e.getBoundingClientRect().left);
+              const r = [sem.length > 0, sem.every(b => x(b.querySelector('b')) === x(dia.querySelector('span,b')) && b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('b')).fontSize === '16px' && getComputedStyle(b.querySelector('small')).fontSize === '13px' && b.parentElement.matches('.g99.h101')),
+                [...document.querySelectorAll('#v-hist .hDia')].every(d => d.closest('.g99.h101'))];
+              sem[0].click(); await w(800); r.push(!!document.querySelector('#v-hist .hSemB .hDia') && document.querySelector('#v-hist .hSem').getAttribute('aria-expanded') === 'true');
+              return r; }""")
+            depois = 'hSem' in fontes['98z-s374d-padrao.js']
+            total += 1
+            ok = got == [True] * 4 and not depois and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '4c parte 2 (149d): Histórico — "Semana…" na margem dos dias, 64 px, 16/13, já desenhada dentro do grupo de linhas; abre no lugar')
+            if not ok: falhas.append('4c parte 2 historico semana'); print('        veio', got, depois, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

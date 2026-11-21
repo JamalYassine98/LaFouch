@@ -3379,3 +3379,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   - O bucket novo do Firebase Storage (*.firebasestorage.app) tem cota sem custo de 5 GB-mês guardados, 100 GB/mês baixados e 5 mil envios/mês. Cabe se o vídeo for apagado depois de tratado e o app parar antes do limite (passa para o Wi-Fi).
   - Bucket antigo (appspot): 1 GB/dia baixado, não cabe.
   - A NUVEM confere qual bucket o projeto tem.
+- 21/11/2026 — ✅ PUBLICADO app v595 (5.50.20) · 4c parte 2 (149d): Histórico com 'Semana…' na margem dos dias (64 px, 16/13); dias e semanas nascem no grupo de linhas e o pad99 não arruma mais o Histórico. Comparado antes × depois (claro e escuro, semana fechada e aberta): só a linha de semana mudou. 349/349 no simulador; nada em aparelho real.

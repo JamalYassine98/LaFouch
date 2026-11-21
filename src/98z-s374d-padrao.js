@@ -1,5 +1,5 @@
   // ===== S374 · catálogo de peças (aprovado 17/11/2026; "implementar tudo" 14:40) =====
-  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF, dias/semanas do Histórico) juntos num cartão (.g99), em linhas;
+  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF) juntos num cartão (.g99), em linhas;
   //     "⌄" gira ao abrir (Ajustes também; "Site" continua "›" porque leva a outra tela). Reservas: "Ver para onde vai" é um bloco.
   // 100/101 IR PARA OUTRA TELA: linha de lista com "›" parado; link solto rosa 15 px — sozinho = centralizado; ao lado de outro
   //     botão = no lugar. "Marcar como paga" é ação → botão secundário.
@@ -15,17 +15,6 @@
       g.className = 'g99';
       s.parentNode.insertBefore(g, s);
       run.forEach(function (x) { vistos.push(x); g.appendChild(x); });
-    });
-    // Histórico: dias e semanas de cada mês viram linhas de um cartão
-    [].forEach.call(raiz.querySelectorAll('.list'), function (l) {
-      var g = null;
-      [].slice.call(l.children).forEach(function (x) {
-        if (x.matches('.pcard.hDia, .card.hSem, .hSemB')) {
-          if (x.parentElement.classList.contains('g99')) return;
-          if (!g) { g = document.createElement('div'); g.className = 'g99 h101'; l.insertBefore(g, x); }
-          g.appendChild(x);
-        } else if (!x.classList.contains('g99')) g = null;
-      });
     });
   }
   var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';

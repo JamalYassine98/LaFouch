@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 594;
+  var APP_BUILD = 595;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.19'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.20'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -36026,7 +36026,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var ym = k.slice(0, 7);
       if (ym !== mes) {
         if (semAb) { html += '</div>'; semAb = ''; }
-        if (mes) html += '</div>';
+        if (mes) html += '</div></div>';
         mes = ym;
         var tv = 0, tn = 0, tl = 0;
         keys.forEach(function (j) {
@@ -36037,7 +36037,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         html +=
           '<div class="lbl" style="margin:14px 0 6px">' + cap1(MES_NOME[+ym.slice(5) - 1]) + ' de ' + ym.slice(0, 4) +
           '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro livre ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
-          '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
+          '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"><div class="g99 h101">'; // 149d: dias e semanas do mês já nascem como linhas de um grupo
       }
       if (k < lim) {
         var g = seg(k) + '|' + ym;
@@ -36049,7 +36049,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           var m0 = new Date(+ym.slice(0, 4), +ym.slice(5) - 1, 1, 12), m1 = new Date(+ym.slice(0, 4), +ym.slice(5), 0, 12);
           if (d0 < m0) d0 = m0;
           if (d1 > m1) d1 = m1;
-          html += '<button type="button" class="card hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + (dd(d0) === dd(d1) ? dd(d0) : dd(d0) + ' a ' + dd(d1)) + '</b><small>' + gs(sem[g].v) + ' · ' + hPl(sem[g].n, 'venda', 'vendas') + ' · ' + hPl(sem[g].d, 'dia', 'dias') + '</small></span><span class="ecCh" aria-hidden="true">⌄</span></button>';
+          html += '<button type="button" class="hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + (dd(d0) === dd(d1) ? dd(d0) : dd(d0) + ' a ' + dd(d1)) + '</b><small>' + gs(sem[g].v) + ' · ' + hPl(sem[g].n, 'venda', 'vendas') + ' · ' + hPl(sem[g].d, 'dia', 'dias') + '</small></span><span class="ecCh" aria-hidden="true">⌄</span></button>';
           if (ab) { html += '<div class="hSemB" data-sem="' + g + '">'; semAb = g; }
         }
         if (!S.hSem[g]) return;
@@ -36057,7 +36057,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       html += hDiaCard(k, today);
     });
     if (semAb) html += '</div>';
-    if (mes) html += '</div>';
+    if (mes) html += '</div></div>';
     var mais = keys.length - vis.length;
     if (mais > 0)
       html += '<div class="mais71"><button type="button" class="lcT" data-act="hmais">Carregar mais 30 dias ›</button><small>' + hPl(mais, 'dia', 'dias') + ' com movimento</small></div>';
@@ -52318,7 +52318,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '</div>';
   };
   // ===== S374 · catálogo de peças (aprovado 17/11/2026; "implementar tudo" 14:40) =====
-  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF, dias/semanas do Histórico) juntos num cartão (.g99), em linhas;
+  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF) juntos num cartão (.g99), em linhas;
   //     "⌄" gira ao abrir (Ajustes também; "Site" continua "›" porque leva a outra tela). Reservas: "Ver para onde vai" é um bloco.
   // 100/101 IR PARA OUTRA TELA: linha de lista com "›" parado; link solto rosa 15 px — sozinho = centralizado; ao lado de outro
   //     botão = no lugar. "Marcar como paga" é ação → botão secundário.
@@ -52334,17 +52334,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       g.className = 'g99';
       s.parentNode.insertBefore(g, s);
       run.forEach(function (x) { vistos.push(x); g.appendChild(x); });
-    });
-    // Histórico: dias e semanas de cada mês viram linhas de um cartão
-    [].forEach.call(raiz.querySelectorAll('.list'), function (l) {
-      var g = null;
-      [].slice.call(l.children).forEach(function (x) {
-        if (x.matches('.pcard.hDia, .card.hSem, .hSemB')) {
-          if (x.parentElement.classList.contains('g99')) return;
-          if (!g) { g = document.createElement('div'); g.className = 'g99 h101'; l.insertBefore(g, x); }
-          g.appendChild(x);
-        } else if (!x.classList.contains('g99')) g = null;
-      });
     });
   }
   var FORA100 = '.nvL,.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
