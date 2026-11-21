@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 44: cadastro do Inventário (Adicionar, passo 1 em linhas, passo 2 cores da Galeria) | work/s435/cadastro |
+| ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
 | SITE | Internet fraca parte 2: programa em pedaços (estudo do trecho da consulta do grau / Mochi) | js/lf-site.js, index.html |
 
 ## Fila
