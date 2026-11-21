@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "134 (2a): ficha do Inventário sai do cartão grande; linhas de cor/grau como linha de lista",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795279521.9968693,
+   "r": "v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas"
+  },
   {
    "t": 1795278079.121228,
    "r": "v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick"
@@ -42,10 +42,6 @@
   {
    "t": 1795264844.7448895,
    "r": "v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)"
-  },
-  {
-   "t": 1795263473.6537156,
-   "r": "4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c"
   }
  ],
  "leu": 1795279517.4638083
