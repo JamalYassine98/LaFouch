@@ -102,7 +102,7 @@ textarea.in{min-height:84px;padding:10px 12px;resize:vertical;font:inherit}
 body{padding-bottom:86px}
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tgrid.g5{grid-template-columns:repeat(5,1fr);gap:6px}
 .tl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 4px 0;min-height:104px;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;overflow:hidden;color:var(--fg);box-shadow:0 2px 8px rgba(0,0,0,.14);font:inherit}
-.tl .ti{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent-fg);display:flex;align-items:center;justify-content:center}
+.tl .ti{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center}
 .tl .tn{font-size:13px;font-weight:700}
 .tl .tp{margin-top:auto;width:calc(100% + 8px);padding:4px 0;text-align:center;font-size:10.5px;font-weight:700;background:var(--accent);color:#fff}
 .tl .tp.w{background:#7a5200;color:#ffe2a8}.tl .tp.g{background:#0f6b43;color:#fff}
@@ -1765,10 +1765,9 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 .hero{background:var(--sel-bg)!important;background-image:none!important;border:1px solid var(--sel-bd)!important;color:var(--fg)!important;box-shadow:none!important}
 .hero *{box-shadow:none!important;text-shadow:none!important}
 .tl{background:var(--panel)!important;border:1px solid var(--line2)!important;box-shadow:none!important}
-.tl .ti{background:transparent!important;color:var(--mute)!important;border:0!important;box-shadow:none!important}
 .tl .tp,.tl .tp.w,.tl .tp.g{background:transparent!important;color:var(--mute)!important;font-weight:500!important;border-top:1px solid var(--line2)!important}
 .tl .tp.g{color:var(--ok)!important}
-.tl.on{background:var(--sel-bg)!important;border-color:var(--sel-bd)!important;color:var(--pri)!important}.tl.on .ti{color:var(--pri)!important}
+.tl.on{background:var(--sel-bg)!important;border-color:var(--sel-bd)!important;color:var(--pri)!important}.tl.on .ti{color:var(--pri)}
 /* barra de baixo: aba atual só com o ícone e o texto em rosa claro, sem quadrado */
 #mainnav .slider,.tgrid .slider{display:none!important}
 #mainnav .mn.on,.mainnav.sl-ok .mn.on{background:transparent!important;color:var(--pri)!important;box-shadow:none!important}
@@ -2229,8 +2228,7 @@ html.mlOn #lockScr{z-index:2147483600}
 .view .kpi b,.view .kpi strong,.view .hero b,.view .cxSaldo b,.view .num,.view .v{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 /* 4 · botão secundário em fio fino (o principal vem logo abaixo, S247) */
 .view .mini.ghost,.view .btn-sc:not(.p){background:transparent!important;border:1px solid color-mix(in srgb,currentColor 22%,transparent)!important;border-radius:999px!important;box-shadow:none!important}
-/* 5 · atalhos do Início: ícone fino em vinho, sem caixa em volta */
-#v-inicio .tl svg{color:#8d3a69}
+/* 5 · atalhos do Início: ícone fino, sem caixa em volta (a cor é a da regra única dos ícones de lista — esboço 37b) */
 #v-inicio .tl{background:var(--panel)!important}
 /* 6 · busca e campos: fio fino, cantos iguais aos dos cartões */
 .view input.in,.view .buIn,.view label.buIn{border-radius:16px!important;border-color:color-mix(in srgb,currentColor 14%,transparent)!important;box-shadow:none!important}
@@ -3025,7 +3023,9 @@ section.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh{transform:r
 #v-grp .nvL,#v-dash .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #v-grp .nvL:last-child,#v-dash .nvL:last-child{border-bottom:0}
 #v-grp .nvL:active,#v-dash .nvL:active{opacity:.6}
-#v-grp .nvIc,#v-dash .nvIc{flex:none;display:flex;width:22px;color:var(--mute)}
+#v-grp .nvIc,#v-dash .nvIc{flex:none;display:flex;width:22px}
+/* esboço 37b (dono 20/11 23:23): ícone de linha de lista = cinza, em todo lugar — a cor mora só aqui */
+.nvIc,.tl .ti,.hero .hi{color:var(--mute)}
 #v-grp .nvTx,#v-dash .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 #v-grp .nvTx b,#v-dash .nvTx b{font-size:16px;font-weight:500}
 #v-grp .nvTx small,#v-dash .nvTx small{font-size:13px;color:var(--mute)}

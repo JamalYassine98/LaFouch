@@ -4612,6 +4612,26 @@ async def main():
             if not ok: falhas.append('37a grupo abre o indice'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 37b (dono 20/11 23:23: "todos da mesma cor, prefiro o cinza"): ícone de linha de lista (atalho do Início, "Vendido hoje",
+            # índice de cada grupo) = cor --mute, claro e escuro; a cor mora numa regra só do CSS (nenhuma outra pinta .ti/.hi/.nvIc nem o svg do atalho).
+            got = []
+            for esq in ('dark', 'light'):
+                pg = await pagina(scheme=esq, fam=True, tudo=False)
+                got.append(await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+                  const d = document.createElement('i'); d.style.color = 'var(--mute)'; document.body.appendChild(d); const mute = getComputedStyle(d).color; d.remove();
+                  let n = 0, fora = [];
+                  const olha = sel => document.querySelectorAll(sel).forEach(e => { if (!e.getClientRects().length) return; n++; if (getComputedStyle(e).color !== mute) fora.push(sel + ' ' + getComputedStyle(e).color); });
+                  L.setView('inicio'); await w(450); olha('#v-inicio .tl .ti, #v-inicio .tl .ti svg, #v-inicio .hero .hi, #v-inicio .hero .hi svg');
+                  for (const g of S.grupos) { if (g.id === 'g:mkt') continue; L.setView('inicio'); await w(300); const t = document.querySelector('#v-inicio .tl[data-id="' + g.id + '"]'); if (!t) continue; t.click(); await w(450); olha('#v-grp .nvIc, #v-grp .nvIc svg'); }
+                  return [n > 15, fora]; }"""))
+                erros37b = list(pg.erros); await pg.close()
+            css = open(os.path.join(RAIZ, 'www', 'style.css'), encoding='utf-8').read()
+            pinta = re.findall(r'[^{}]*(?:\.nvIc|\.tl[^{},]*\.ti|\.hero[^{},]*\.hi|\.tl svg)[^{}]*\{[^}]*(?<![-\w])color\s*:[^;}]*', css)
+            total += 1
+            ok = got == [[True, []], [True, []]] and len(pinta) == 2 and not erros37b   # a regra única + a do atalho aceso (.tl.on .ti)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37b: ícones de linha de lista em cinza (Início, "Vendido hoje", índice dos grupos), claro e escuro, cor numa regra só')
+            if not ok: falhas.append('37b icones cinza'); print('        veio', got, [x[-120:] for x in pinta], erros37b)
+
             # 39 · preço exato (aprovado 21/11 07:51), parte do APP: cada pixSemPar ainda não ligado é uma linha do Guardião nas Pendências, primeiro da lista,
             # com o texto vindo do motivo (uma tabela só); "Ligar" abre a janela com os pedidos a pagar (mesmo valor primeiro) e pede à NUVEM
             # (reserva {acao:'ligar', pix, pedido}) — o app não grava "pago"; depois de ligar a linha some. "sem-peca" leva ao pedido.
