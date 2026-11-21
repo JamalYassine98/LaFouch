@@ -15,6 +15,9 @@ for i, g in enumerate(grupos):
     P.append(subprocess.Popen(['python3', os.path.join(D, 'provas.py'), str(PORTA), OUT] + modo, env=env, stdout=open(f'{OUT}/log_{i}.txt', 'w'), stderr=subprocess.STDOUT))
 P.append(subprocess.Popen(['python3', os.path.join(D, 'fiscal.py'), str(PORTA), OUT + '/visual'] + modo, stdout=open(f'{OUT}/log_visual.txt', 'w'), stderr=subprocess.STDOUT))
 for p in P: p.wait()
+# provas de tempo: sozinhas, com a máquina livre
+subprocess.run(['python3', os.path.join(D, 'provas.py'), str(PORTA), OUT] + modo, env=dict(os.environ, FISCAL_PARTES='T', FISCAL_SUF=f'_{len(grupos)}'), stdout=open(f'{OUT}/log_{len(grupos)}.txt', 'w'), stderr=subprocess.STDOUT)
+grupos = grupos + ['T']
 R = []
 for i in range(len(grupos)):
     f = f'{OUT}/provas_{i}.json'

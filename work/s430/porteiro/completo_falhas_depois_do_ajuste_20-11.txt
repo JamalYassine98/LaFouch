@@ -1,0 +1,9 @@
+GRAVE 2 navegação · Minha conta · carrinho por cima · abriu o carrinho e fechou com o voltar do celular: a tela mudou (era camada, ficou Início)
+GRAVE 2 navegação · Filtros · voltar do celular · o voltar não voltou (ficou em: painel:vitrine)
+leve  2 navegação · Filtros · Esc · o Esc não fechou (ficou em: fsh)
+GRAVE 2 navegação · Filtros · botão “Início” · o botão “Início” está escondido atrás de outra coisa
+leve  2 navegação · Filtros · abrir menu · o botão de menu não dá para tocar nesta tela
+leve  2 navegação · Filtros · abrir busca · o botão de busca não dá para tocar nesta tela
+leve  2 navegação · Filtros · abrir carrinho · o botão de carrinho não dá para tocar nesta tela
+leve  5 situações difíceis · 4G fraco · vitrine aparece · levou 99 s para aparecer o primeiro óculos (limite 10 s)
+GRAVE 7 olho do dono · Painel · texto legível · tema claro · 1 texto(s) com contraste abaixo de 3: v_cfg: "Salvar mensagem" 1

@@ -123,7 +123,7 @@ def a_cat(t=None):
 def a_prod(pg): a_cat()(pg); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_prod_ini(pg): pg.locator('[data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_cons(pg): menu(pg, '[data-gzopen]'); pg.wait_for_timeout(600)
-def a_filtro(pg): a_cat()(pg); pg.click('#fbtn'); pg.wait_for_timeout(900)
+def a_filtro(pg): a_cat()(pg); pg.locator('#vscr [data-lffil]:visible').first.click(); pg.wait_for_timeout(900)  # "Filtros ›" na linha do título (o #fbtn antigo fica escondido)
 TELAS = [
     ('Catálogo Solar', a_cat('solar'), False), ('Catálogo Leitura', a_cat('grau'), False), ('Catálogo Armações', a_cat('armacao'), False),
     ('Catálogo Ofertas', a_cat('of'), False), ('Catálogo Feminino', lambda pg: menu(pg, 'a[data-mf="gen:f"]'), False),
@@ -178,7 +178,7 @@ def p2_tela(p, nome, abre, camada):
                 carrega(pg); abre(pg); e1 = est(pg)
                 if not topo_em(pg, sel): falha('2 navegação', f'{nome} · abrir {qual}', f'o botão de {qual} não dá para tocar nesta tela', pg, grave=False); continue
                 clica_real(pg, sel); pg.wait_for_timeout(1000); e2 = est(pg)
-                ok = aberto(e2) if aberto else (e2['abertos'] != e1['abertos'])
+                ok = aberto(e2) if aberto else pg.evaluate("!!document.querySelector('#layer .cartp')")  # o carrinho troca a janela que estava aberta: confere o carrinho em si
                 if not ok: falha('2 navegação', f'{nome} · abrir {qual}', f'o {qual} não abriu por cima', pg); continue
                 pg.go_back(); pg.wait_for_timeout(1300); e3 = est(pg) if pg.url.startswith('http') else {'abertos': ['(saiu do site)'], 'menu': 0, 'busca': 0, 'y': 0, 'lock': 0, 'path': ''}
                 if mesmo(e3, e1): passou('2 navegação', f'{nome} · {qual} por cima')
@@ -1070,8 +1070,11 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
+    if 'T' in PARTES:
+     # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
+     print('parte T · tempo'); prova(P7, 'animações', p7_animacoes, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
      prova('5 situações difíceis', 'girar', p5_girar, p)
