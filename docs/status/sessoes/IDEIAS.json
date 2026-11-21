@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 01: tela de carregamento",
- "arquivos": [
-  "work/ideias/01-formato"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795287167.7890613,
+   "r": "IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS"
+  },
   {
    "t": 1795286980.9987233,
    "r": "IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS"
