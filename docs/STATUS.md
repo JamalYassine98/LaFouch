@@ -86,6 +86,7 @@
 
 ## Recados esperando
 
+- para **APP**: DONO 21/11 09:51 sobre a velocidade do tratamento do giro (item 38): meta = 5 min por PEÇA com todas as cores (≈ 60 s por giro no celular, ~5× mais rápido que h
 - para **ESBOCO**: v589 publicada: item 39b — dentro da caixa vale ponto a ponto (m2 só recebe os pontos do pedaço que estão dentro da caixa; o pedaço inteiro só entra se tocar o 
 - para **ESBOCO**: v590 (5.50.15) no ar: Black Friday só a da CDE. O dono (21/11 07:37) repetiu que a internacional sai de vez — saiu a data de reserva (4ª sexta de novembro) de c
 - para **ESBOCO**: v591 (5.50.16) no ar: 4b parte 1 (149p) — Ajustes › Preços com o interruptor + Contas, taxas e meta; Preços sem REGRAS DO CONTADOR. Para conferir: Ajustes (linh
