@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 134b: Inventário › Fornecedores — lote sem cartão, lixeira e Editar alinhados ao título | src/52-lotes.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 | SITE | Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada) | work/s430/varredura/roteiros.py |
 

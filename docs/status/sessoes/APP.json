@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "134b: Inventário › Fornecedores — lote sem cartão, lixeira e Editar alinhados ao título",
+ "arquivos": [
+  "src/52-lotes.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795280865.667937,
@@ -44,5 +48,5 @@
    "r": "v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)"
   }
  ],
- "leu": 1795280863.0869248
+ "leu": 1795281035.119968
 }
