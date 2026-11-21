@@ -69,7 +69,7 @@
 - **34-qual-e-a-frente-com-o-tratamento-do-giro** — ✅ v587 (5.50.12, 20/11) — pedido do dono 20/11 22:18 ('corrija'); falta o dono testar no celular real
 - **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
-- **37-ajustes-pecas-grupo-escolha** — esboço pronto — esperando o dono
+- **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
 - **37-giro-camera-reta-e-peca-reta** — na fila — esboço com o ESBOCO (pedido do dono 20/11 23:29)
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
 - **39-giro-frente-com-um-lado-apagado** — na fila — APP, urgente
