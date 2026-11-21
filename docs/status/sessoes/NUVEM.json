@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795226577.8254116,
+   "r": "Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo."
+  },
+  {
    "t": 1795216590.9806871,
    "r": "Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795193781.2009497,
    "r": "Parte 3 do S1/S2 (item 11) publicada depois do 09 do site: funções + regras, limpeza rodada na hora (workflow ganhou a opção 'limpeza'), sonda 0 falhas; recado ao APP para publicar o 21."
-  },
-  {
-   "t": 1795192030.132115,
-   "r": "Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script."
   }
  ],
  "leu": 1795226562.3477154
