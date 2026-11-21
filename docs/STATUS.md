@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 53 — Destaque da semana do Semp em Marketing | work/s435/destaque |
+| ESBOCO | esboço 54 — Preços = escritório do Guardião | work/s435/guardiao |
 
 ## Fila
 
