@@ -83,12 +83,11 @@
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
       '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
-  var _rdCnt = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdCnt.apply(this, arguments);
-    try { opt = opt || {}; var det = opt.host || $('detail'); if (!opt.venda && ref && det && !det.querySelector('.cntP')) { var h = cntPrecoHtml(ref); if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); } } } catch (e) {}
-    return r;
-  };
+  function fichaPreco(det, ref, opt) {
+    if (opt.venda || !ref || !det || det.querySelector('.cntP')) return;
+    var h = cntPrecoHtml(ref);
+    if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
+  }
   // ---------- 3 · calculadora ----------
   ACT.cntCalc = function () {
     lfJanela({ titulo: 'Calculadora de preço', monta: function (box) {

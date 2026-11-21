@@ -134,20 +134,13 @@
     });
   };
   // botão "Ficha N de 6" no topo da ficha do inventário
-  var _rdFicha = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdFicha.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (!opt.venda && ref && det && !det.querySelector('.fiBtn')) {
-        var E = fiEtapas(ref), n = E.filter(function (e) { return e.ok; }).length, b = document.createElement('button');
-        b.type = 'button'; b.className = 'fiBtn' + (n < 6 ? ' fal' : ''); b.setAttribute('data-act', 'fichaAbre'); b.setAttribute('data-id', ref);
-        b.innerHTML = '<span>Ficha</span><b>' + n + '/6</b>';
-        // fica na linha do caminho (não empurra a foto: a ficha abre no mesmo lugar no Catálogo e no Inventário)
-        var cam = det.querySelector('.fnCam');
-        if (cam) cam.appendChild(b); else det.insertBefore(b, det.firstChild);
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaBotao(det, ref, opt) {
+    if (!opt.venda && ref && det && !det.querySelector('.fiBtn')) {
+      var E = fiEtapas(ref), n = E.filter(function (e) { return e.ok; }).length, b = document.createElement('button');
+      b.type = 'button'; b.className = 'fiBtn' + (n < 6 ? ' fal' : ''); b.setAttribute('data-act', 'fichaAbre'); b.setAttribute('data-id', ref);
+      b.innerHTML = '<span>Ficha</span><b>' + n + '/6</b>';
+      // fica na linha do caminho (não empurra a foto: a ficha abre no mesmo lugar no Catálogo e no Inventário)
+      var cam = det.querySelector('.fnCam');
+      if (cam) cam.appendChild(b); else det.insertBefore(b, det.firstChild);
+    }
+  }

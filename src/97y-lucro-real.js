@@ -104,16 +104,8 @@
       '</details>'
     );
   }
-  var _rdLR = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdLR.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (!opt.venda && ref && det && !det.querySelector('.lrcard')) {
-        var h = lucroPecaHtml(ref);
-        if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaLucro(det, ref, opt) {
+    if (opt.venda || !ref || !det || det.querySelector('.lrcard')) return;
+    var h = lucroPecaHtml(ref);
+    if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
+  }

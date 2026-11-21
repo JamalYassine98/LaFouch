@@ -4468,6 +4468,20 @@ async def main():
             if not ok: falhas.append('4d parte 1 dobras da ficha'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Ficha numa função só (21/11/2026, preparo do 134): renderDetail chama o corpo (fichaCorpo) e, em ordem, fichaBotao, fichaBarra, fichaLucro e
+            # fichaPreco — ninguém embrulha renderDetail. Prova de igualdade antes × depois: HTML idêntico em 3 peças × (4 abas + venda).
+            embr = sorted(f for f, t in fontes.items() if re.search(r'^\s*renderDetail = function|= renderDetail;', t, re.M))
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, ref = S.items[0].ref, d = document.createElement('div'); document.body.appendChild(d); S.fnTab = 'est';
+              L.renderDetail(ref, { host: d }); await new Promise(r => setTimeout(r, 250)); L.renderDetail(ref, { host: d }); await new Promise(r => setTimeout(r, 250));
+              const n = s => d.querySelectorAll(s).length, k = [...d.children].map(e => e.className.split(' ')[0]), r = [n('.fnBar'), n('.fiBtn'), n('.lrcard'), n('.cntP'), k[0] === 'fnBar', !!d.querySelector('.fnCam .fiBtn'), (() => { const c = [...d.children], i = c.findIndex(e => e.matches('.lrcard')); return i >= 0 && !!c[i + 1] && c[i + 1].matches('.cntP'); })()];
+              const v = document.createElement('div'); document.body.appendChild(v); L.renderDetail(ref, { host: v, venda: true }); await new Promise(r => setTimeout(r, 200)); r.push(!v.querySelector('.fiBtn,.lrcard,.cntP')); d.remove(); v.remove(); return r; }""")
+            total += 1
+            ok = embr == [] and got == [1, 1, 1, 1, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Ficha numa função só: renderDetail = corpo + botão Ficha + barra + Lucro real + De onde vem o preço, uma vez cada e na ordem; ninguém a embrulha')
+            if not ok: falhas.append('ficha numa funcao so'); print('        veio', embr, got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

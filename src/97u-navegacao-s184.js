@@ -104,27 +104,20 @@
     [].forEach.call(v.querySelectorAll('[data-ref]'), function (e) { var r = e.getAttribute('data-ref'); if (r && fnItem(r) && L.indexOf(r) < 0) L.push(r); });
     if (L.length > 1) S.fnLista = L;
   }
-  var _rdNav = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdNav.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (ref && det && fnItem(ref) && !det.querySelector('.fnBar')) {
-        var modo = opt.venda ? 'venda' : 'est', w = document.createElement('div');
-        if (!S.fnLista || S.fnLista.indexOf(ref) < 0) fnCapturaLista();
-        w.innerHTML = fnBarHtml(ref, modo);
-        det.insertBefore(w.firstChild, det.firstChild);
-        var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
-        if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
-        if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
-        fnPinta(det, ref, modo);
-        fnRecente('ref', ref, pn(ref));
-        fnSwipe(det, ref);
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaBarra(det, ref, opt) {
+    if (ref && det && fnItem(ref) && !det.querySelector('.fnBar')) {
+      var modo = opt.venda ? 'venda' : 'est', w = document.createElement('div');
+      if (!S.fnLista || S.fnLista.indexOf(ref) < 0) fnCapturaLista();
+      w.innerHTML = fnBarHtml(ref, modo);
+      det.insertBefore(w.firstChild, det.firstChild);
+      var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
+      if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
+      if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
+      fnPinta(det, ref, modo);
+      fnRecente('ref', ref, pn(ref));
+      fnSwipe(det, ref);
+    }
+  }
   // 8 deslizar para a próxima/anterior da lista
   function fnSwipe(det, ref) {
     if (det._fnSw) return;

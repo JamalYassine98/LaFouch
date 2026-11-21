@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 598;
+  var APP_BUILD = 599;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.23'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.24'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1495,9 +1495,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
     document.body.appendChild(ov);
   }
-  // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
-  // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
+  // A FICHA É DESENHADA POR UMA FUNÇÃO SÓ: o corpo (fichaCorpo) e, em ordem, as partes com nome que cada módulo traz —
+  // fichaBotao (botão "Ficha N/6", 97t-ficha-s190.js), fichaBarra (caminho, abas e links, 97u-navegacao-s184.js),
+  // fichaLucro ("Lucro real", 97y-lucro-real.js) e fichaPreco ("De onde vem o preço", 97z2-contador.js).
+  // Ninguém embrulha renderDetail (antes eram 4 camadas `var _rdX = renderDetail`). Parte nova da ficha = função nova nesta lista.
   function renderDetail(ref, opt) {
+    var r = fichaCorpo.apply(this, arguments), o = opt || {}, det = o.host || $('detail');
+    [fichaBotao, fichaBarra, fichaLucro, fichaPreco].forEach(function (parte) {
+      try { parte(det, ref, o); } catch (e) {}
+    });
+    return r;
+  }
+  // Corpo da ficha de um código: fotos, cores, estoque, venda e janela de edição.
+  // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
+  function fichaCorpo(ref, opt) {
     opt = opt || {};
     var venda = !!opt.venda,
       det = opt.host || $('detail'),
@@ -44749,23 +44760,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   };
   // botão "Ficha N de 6" no topo da ficha do inventário
-  var _rdFicha = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdFicha.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (!opt.venda && ref && det && !det.querySelector('.fiBtn')) {
-        var E = fiEtapas(ref), n = E.filter(function (e) { return e.ok; }).length, b = document.createElement('button');
-        b.type = 'button'; b.className = 'fiBtn' + (n < 6 ? ' fal' : ''); b.setAttribute('data-act', 'fichaAbre'); b.setAttribute('data-id', ref);
-        b.innerHTML = '<span>Ficha</span><b>' + n + '/6</b>';
-        // fica na linha do caminho (não empurra a foto: a ficha abre no mesmo lugar no Catálogo e no Inventário)
-        var cam = det.querySelector('.fnCam');
-        if (cam) cam.appendChild(b); else det.insertBefore(b, det.firstChild);
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaBotao(det, ref, opt) {
+    if (!opt.venda && ref && det && !det.querySelector('.fiBtn')) {
+      var E = fiEtapas(ref), n = E.filter(function (e) { return e.ok; }).length, b = document.createElement('button');
+      b.type = 'button'; b.className = 'fiBtn' + (n < 6 ? ' fal' : ''); b.setAttribute('data-act', 'fichaAbre'); b.setAttribute('data-id', ref);
+      b.innerHTML = '<span>Ficha</span><b>' + n + '/6</b>';
+      // fica na linha do caminho (não empurra a foto: a ficha abre no mesmo lugar no Catálogo e no Inventário)
+      var cam = det.querySelector('.fnCam');
+      if (cam) cam.appendChild(b); else det.insertBefore(b, det.firstChild);
+    }
+  }
   // ===== S184 (aprovado 12/11/2026): navegar rápido entre as telas =====
   // 1 Ficha da peça (S267, 14/11/2026): no Inventário, 4 abas (Estoque · Histórico · Site · Preço); no Catálogo, só a venda, sem abas.
   //   Atalhos: Catálogo → "Ver a ficha no Inventário"; Inventário → "Vender no Catálogo" e "Fotografar no Estúdio". 5 Caminho no topo (Catálogo › GR3350) e o voltar certo (S187).
@@ -44872,27 +44876,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     [].forEach.call(v.querySelectorAll('[data-ref]'), function (e) { var r = e.getAttribute('data-ref'); if (r && fnItem(r) && L.indexOf(r) < 0) L.push(r); });
     if (L.length > 1) S.fnLista = L;
   }
-  var _rdNav = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdNav.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (ref && det && fnItem(ref) && !det.querySelector('.fnBar')) {
-        var modo = opt.venda ? 'venda' : 'est', w = document.createElement('div');
-        if (!S.fnLista || S.fnLista.indexOf(ref) < 0) fnCapturaLista();
-        w.innerHTML = fnBarHtml(ref, modo);
-        det.insertBefore(w.firstChild, det.firstChild);
-        var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
-        if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
-        if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
-        fnPinta(det, ref, modo);
-        fnRecente('ref', ref, pn(ref));
-        fnSwipe(det, ref);
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaBarra(det, ref, opt) {
+    if (ref && det && fnItem(ref) && !det.querySelector('.fnBar')) {
+      var modo = opt.venda ? 'venda' : 'est', w = document.createElement('div');
+      if (!S.fnLista || S.fnLista.indexOf(ref) < 0) fnCapturaLista();
+      w.innerHTML = fnBarHtml(ref, modo);
+      det.insertBefore(w.firstChild, det.firstChild);
+      var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
+      if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
+      if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
+      fnPinta(det, ref, modo);
+      fnRecente('ref', ref, pn(ref));
+      fnSwipe(det, ref);
+    }
+  }
   // 8 deslizar para a próxima/anterior da lista
   function fnSwipe(det, ref) {
     if (det._fnSw) return;
@@ -45512,19 +45509,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '</details>'
     );
   }
-  var _rdLR = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdLR.apply(this, arguments);
-    try {
-      opt = opt || {};
-      var det = opt.host || $('detail');
-      if (!opt.venda && ref && det && !det.querySelector('.lrcard')) {
-        var h = lucroPecaHtml(ref);
-        if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
-      }
-    } catch (e) {}
-    return r;
-  };
+  function fichaLucro(det, ref, opt) {
+    if (opt.venda || !ref || !det || det.querySelector('.lrcard')) return;
+    var h = lucroPecaHtml(ref);
+    if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
+  }
   // ===== S197 (aprovado 12/11/2026): PIX automático pelo E-MAIL do Nubank (robô do Gmail + função "pix") =====
   // Não depende da notificação do celular. O app só:
   //  1) pedido do site: vê que o robô confirmou (reservasTok/{id}.pixAuto — só o dono e o servidor leem; S1/S2 parte 3, item 21) e fecha o pedido como pago, sem mudar a tela;
@@ -45875,12 +45864,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
       '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
-  var _rdCnt = renderDetail;
-  renderDetail = function (ref, opt) {
-    var r = _rdCnt.apply(this, arguments);
-    try { opt = opt || {}; var det = opt.host || $('detail'); if (!opt.venda && ref && det && !det.querySelector('.cntP')) { var h = cntPrecoHtml(ref); if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); } } } catch (e) {}
-    return r;
-  };
+  function fichaPreco(det, ref, opt) {
+    if (opt.venda || !ref || !det || det.querySelector('.cntP')) return;
+    var h = cntPrecoHtml(ref);
+    if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
+  }
   // ---------- 3 · calculadora ----------
   ACT.cntCalc = function () {
     lfJanela({ titulo: 'Calculadora de preço', monta: function (box) {
@@ -53152,7 +53140,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);
