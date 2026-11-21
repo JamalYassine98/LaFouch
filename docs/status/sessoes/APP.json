@@ -1,19 +1,12 @@
 {
  "nome": "APP",
- "agora": "4b parte 2: tela de Preços por uma função só (precosTelaHtml), Ferramentas, sem cabeçalho Contador nem pré-graduados; saem as camadas s52 e s374",
- "arquivos": [
-  "src/97z2-contador.js",
-  "src/97z3-precos.js",
-  "src/98z-precos-s52.js",
-  "src/98z-s374.js",
-  "src/89-dash-abas.js",
-  "src/96-tabelas-preco.js",
-  "src/98z-s374d-padrao.js",
-  "src/89-inicio.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795262341.176889,
+   "r": "v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c"
+  },
   {
    "t": 1795260874.266595,
    "r": "v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2"
@@ -49,10 +42,6 @@
   {
    "t": 1795216742.8093283,
    "r": "v584 publicado: URGENTE câmera branca ao gravar a volta (trava de luz só com o valor em uso; solta se a imagem estourar). 339/339 no simulador; falta o dono testar no celular real"
-  },
-  {
-   "t": 1795215206.7000966,
-   "r": "v583 publicado: vistas por peça pela análise da nuvem (recado da NUVEM, S3); chamada à análise num lugar só; 338/338"
   }
  ],
  "leu": 1795259038.3684282
