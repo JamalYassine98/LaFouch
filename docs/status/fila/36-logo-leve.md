@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (work/s430/rede/esboco_logo_leve_hoje_x_proposta.png: logo 154 KB → 52 KB, traço um pouco mais firme)
+REPROVADO pelo dono 21/11 10:26 (perde a nitidez) — o logo fica como está; esboço em work/obsoletos/s430/
 
