@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 134d parte 2: 'Sair sem salvar?' na janela de baixo (opção mudou da lfJanela) + Editar produto | src/97-janela.js, src/10-estoque-detalhe.js, tests/run.py |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 
 ## Fila
