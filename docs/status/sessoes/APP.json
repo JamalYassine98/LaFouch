@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "4d parte 2 (134): ficha — linhas .pl.pick como linha de lista e links do fim desenhados no lugar",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "src/97u-navegacao-s184.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795275359.999744,
+   "r": "v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela"
+  },
   {
    "t": 1795275326.969626,
    "r": "v598 no ar: 4d parte 1 (136a). Próximo: 4d parte 2 (134 ficha)"
@@ -43,10 +42,6 @@
   {
    "t": 1795258683.0477064,
    "r": "v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços"
-  },
-  {
-   "t": 1795256971.0478606,
-   "r": "v589 no ar (item 39b, risco do ESBOCO corrigido). 343 provas. Próximo: 4b Preços (como fazer do ESBOCO)."
   }
  ],
  "leu": 1795275346.0526626

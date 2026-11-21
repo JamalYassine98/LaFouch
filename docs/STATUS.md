@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 4d parte 2 (134): ficha — linhas .pl.pick como linha de lista e links do fim desenhados no lugar | src/10-estoque-detalhe.js, src/97u-navegacao-s184.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila
@@ -119,6 +118,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 12:35 — APP: v598 no ar (4d parte 1). 4d parte 2 (134 ficha) estudada, sem código ainda: próxima continuação começa por ela
 - 21/11 12:35 — APP: v598 no ar: 4d parte 1 (136a). Próximo: 4d parte 2 (134 ficha)
 - 21/11 12:33 — SITE: Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar.
 - 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
@@ -140,7 +140,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 08:34 — APP: v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2
 - 21/11 08:04 — NUVEM: Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono.
 - 21/11 07:58 — APP: v590 no ar: Black Friday só a da CDE (saiu a data internacional de reserva dos 3 calendários; trava no porteiro; 344/344). Próximo: 4b Preços
-- 21/11 07:29 — APP: v589 no ar (item 39b, risco do ESBOCO corrigido). 343 provas. Próximo: 4b Preços (como fazer do ESBOCO).
 - 21/11 02:04 — ESBOCO: Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real.
 - 21/11 01:13 — SITE: Noite 20→21/11 (dono dormindo): (1) memória e lista viva RECUPERADAS (1,3 MB regravados por engano em 20/11) + trava no status.py; (2) site 1795232856, por dentro: 1ª visita não espera o selo (rede limpa: 4G fraco 31→22 s até a 1ª foto; 4G bom 6,1→2,9 s), pedido tenta de novo sozinho 1x, cancelar 409 = feito, 4 funções mortas fora; (3) site 1795234339: novidades pede a confirmação do e-mail (S5, recado da NUVEM); porteiro 224 provas 0 falhas; (4) ESBOÇOS ESPERANDO O DONO: docs/PLANO-INTERNET-FRACA-21-11.md (partes 1–3) e docs/PLANO-FERRAMENTAS-21-11.md (4 partes); (5) faixa do evento já estava no ar desde 20/11; (6) varredura: 64% do programa roda nas provas, faltam provas de 9 áreas antes de mostrar suspeitos. DONO TESTAR no celular: abrir o site em aba anônima no 4G; inscrever um e-mail nas novidades (chega o e-mail de confirmar?); compra de teste até o PIX; cancelar um pedido pendente em Minha conta; voltar com Filtros, foto ampliada e aviso 'adicionado' abertos.
 - 20/11 23:55 — NUVEM: Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'.
