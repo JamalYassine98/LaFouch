@@ -46,6 +46,7 @@ A Galeria mostra o giro como o da BR44140 do teste do dono, só para mostrar o e
 ## DECISÃO DO DONO (21/11 07:54) — substitui a condição de 07:51
 "Ele faz gravar a volta, e se tiver cadastro acrescenta diretamente a peça e guarda na galeria; se não tiver, ele guarda na galeria,
 e eu posso cadastrar o produto na aba de Inventário e escolher da galeria a foto desse produto para o cadastro."
+- **A Galeria é do app** (guardada no app e na nuvem, como as fotos de hoje), não a galeria de fotos do celular.
 - **Gravar a volta sempre funciona.**
 - **Peça cadastrada:** o giro (com a frente e a 3/4) vai direto para a peça ("GIRO PARA" + nome, cor e código na câmera) e fica na Galeria.
 - **Sem cadastro:** o giro fica na Galeria como **"sem peça"**. Na câmera aparece "GIRO SEM PEÇA · vai para a Galeria".
@@ -55,3 +56,15 @@ e eu posso cadastrar o produto na aba de Inventário e escolher da galeria a fot
   `giroGrava` sempre grava ali; com `ctx.ref` cadastrado, liga na hora (`galLiga(id, ref, cor)`, a mesma função do "Escolher da Galeria").
   Sem caminho paralelo: a Galeria da peça (esboço 41) e a "sem peça" leem a mesma lista.
 - Esboço da parte nova (Galeria sem peça + "Escolher da Galeria" no cadastro): work/s435/giro/esboco_41c_*.jpg.
+
+## Esboço 41c (21/11, depois da correção de 07:54)
+Imagens:
+- esboco_41c_galeria_do_app.jpg: Estúdio com "Galeria do app · N sem peça ›" · a tela **Galeria** (SEM PEÇA primeiro, depois COM PEÇA, em cartões de 3 por linha, com selo 360° no que é giro) · **Inventário › Adicionar** com "DA GALERIA · SEM PEÇA · N" (os mesmos cartões do "Dar entrada de novo", logo acima dele)
+- esboco_41c_camera_sem_cadastro.jpg: a câmera do giro grava sempre; sem cadastro, aparece "GIRO SEM PEÇA · Vai para a Galeria do app"
+
+Base: esboços aprovados 40 (Câmera reta e Peça reta) e 41 (Frente·3/4·Giro + "Galeria ›" por peça).
+
+Escolher um cartão sem peça no Adicionar abre o cadastro com o giro, a frente e a 3/4 já postos, como o "Foto" de hoje faz com a foto tirada (o mesmo caminho, com a imagem vinda da Galeria). Ao salvar, `galLiga(id, ref, cor)`, e o cartão passa para COM PEÇA.
+
+**Achado (L4):** com o cabeçalho da peça (2 linhas), uma frase longa (4 linhas, por exemplo "Fundo manchado…") e os 11 itens, a coluna da esquerda não cabe a 844×390.
+O `c149Cabe` tem de contar o cabeçalho e a frase, não só a lista, e diminuir a letra do grupo inteiro. No esboço foi usada uma frase curta.
