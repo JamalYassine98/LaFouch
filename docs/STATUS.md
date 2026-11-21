@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | esboço 37a: um jeito só de abrir um grupo (grpAbre abre o índice) | src/95-barra-grupos.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
 
 ## Fila
@@ -130,6 +129,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 17:21 — APP: v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza).
 - 21/11 16:29 — APP: Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37
 - 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
 - 21/11 16:23 — APP: v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)
@@ -145,7 +145,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 14:09 — IDEIAS: IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS
 - 21/11 14:07 — APP: v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores
 - 21/11 13:45 — APP: v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas
-- 21/11 13:21 — APP: v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick
 - 21/11 13:03 — NUVEM: 39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP.
 - 21/11 12:42 — IDEIAS: IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 12:33 — SITE: Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar.

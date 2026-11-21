@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "esboço 37a: um jeito só de abrir um grupo (grpAbre abre o índice)",
- "arquivos": [
-  "src/95-barra-grupos.js",
-  "src/99c-navegacao-s435.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795292475.0198543,
+   "r": "v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza)."
+  },
   {
    "t": 1795289380.0997095,
    "r": "Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37"
@@ -42,11 +42,7 @@
   {
    "t": 1795279521.9968693,
    "r": "v601 no ar: 134 ficha sem cartão + linhas. Próximo: 134 caixas"
-  },
-  {
-   "t": 1795278079.121228,
-   "r": "v600 no ar: 134 links no fim da ficha. Próximo: 134 linhas .pl.pick"
   }
  ],
- "leu": 1795289548.4235911
+ "leu": 1795292467.8786533
 }
