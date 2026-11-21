@@ -1,7 +1,13 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "40a: Câmera reta (um sensor de nível para Foto e Vídeo)",
+ "arquivos": [
+  "src/97-cam-nivel.js",
+  "src/98z-camera-u149f.js",
+  "src/97-estudio.js",
+  "src/97-fotos-padrao.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795304005.4077296,
@@ -44,5 +50,5 @@
    "r": "v606 no ar: 39 preço exato (app). Próximo: 38 giro"
   }
  ],
- "leu": 1795304004.9716852
+ "leu": 1795304217.0844297
 }

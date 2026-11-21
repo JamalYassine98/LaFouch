@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 40a: Câmera reta (um sensor de nível para Foto e Vídeo) | src/97-cam-nivel.js, src/98z-camera-u149f.js, src/97-estudio.js, src/97-fotos-padrao.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
