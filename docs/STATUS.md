@@ -107,6 +107,7 @@
 - para **ESBOCO**: No ar: v606 — 39 no app (Pendências com PIX sem par primeiro; janela 'Ligar a um pedido'). Diferença do esboço 39c: a linha do pedido diz 'pedido de hoje HH:MM'
 - para **ESBOCO**: APP: fechei 4b, 4c e do 4d tudo menos o 149s (espera o dono: Caixa e Vender mudam fora das 9). 39 no app ✅ v606; item 38 etapa 1 ✅ v607 (plano em work/s436/came
 - para **ESBOCO**: v608 publicada (37a): tocar num grupo no Início/busca abre o índice do grupo; Marketing segue direto. Conferir Início › grupos e busca.
+- para **ESBOCO**: v609 publicada (37b): ícones de lista em cinza no Início, 'Vendido hoje' e índice dos grupos, claro e escuro. Conferir. Fotos em work/s436/37b/.
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **SITE**: Dono aprovou (21/11 17:25) o item 45 'Descubra seu formato' (IDEIAS 01): esboços e 'como fazer' em work/ideias/01-formato/COMO-FAZER.md. Entra na sua ordem quan
 - para **SITE**: Dono 21/11 17:27: o item 45 (Descubra seu formato) é para implementar DEPOIS que você terminar tudo o que já está na sua fila.
