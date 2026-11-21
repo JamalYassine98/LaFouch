@@ -4,8 +4,8 @@ kit.serve(os.path.join(kit.RAIZ,'www'),kit.PA)
 TAM={'celular':(390,844,True,2),'tablet':(820,1180,True,1),'pc':(1366,768,False,1)}
 import base_app
 def abre(pw,tela,escuro=True,ap='celular',base=True):
-    W,H,TQ,dpr=TAM[ap];b=pw.chromium.launch(executable_path=kit.EXE,args=['--no-sandbox'])
-    c=b.new_context(bypass_csp=True,viewport={'width':W,'height':H},device_scale_factor=dpr,is_mobile=TQ,has_touch=TQ,locale='pt-BR',color_scheme='dark' if escuro else 'light',service_workers='block')
+    W,H,TQ,dpr=TAM[ap];b=kit.sim.navegador(pw)
+    c=kit.sim.contexto(b,W,H,toque=TQ,dpr=dpr,lingua='pt-BR',escuro=bool(escuro),sem_trabalhador=True)
     c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') or r.request.url.startswith('http://127.') else r.abort())
     c.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
     if base: c.add_init_script(base_app.script())

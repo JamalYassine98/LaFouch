@@ -27,3 +27,7 @@ Não: cada parte tira o que substitui no mesmo passo e nenhuma ferramenta nova f
 
 ## Já feito nesta noite (era urgente, não muda tela)
 - `tools/status.py`: a memória e a lista viva só crescem; se a cópia do aparelho encolheu, o comando PARA antes de enviar (prova 5 no `tools/teste-status.py`). Motivo: dois commits de 20/11 regravaram os dois arquivos só com a linha nova (1,3 MB sumiram); foi tudo recuperado do histórico.
+
+## Andamento
+- **Parte 1 — UM simulador só: FEITA em 21/11.** `work/kit/sim.py` (`navegador(pw)` e `contexto(b, W, H, toque, celular, dpr, lingua, escuro, movimento, camera, lugar, csp_livre, sem_trabalhador)`) é o único lugar que abre navegador e aparelho. Passaram a usar: provas.py, fiscal.py, csp.py, selos.py (porteiro), compara.py (comparador), roteiros.py (varredura), base.py (testes), kit.py, ap.py, painel.py (esboços). Saíram os 12 jeitos escritos à mão (2 programas de navegador diferentes, 4 conjuntos de opções). ACHADO: o fiscal visual do porteiro lia `/home/claude/gz/base.py`, um arquivo de FORA do projeto (se a máquina fosse refeita, o portão parava) — agora usa o `work/testes/base.py` do projeto. Fechamento: porteiro com as mesmas 232 provas, 0 falhas, 0 defeitos visuais novos; comparador site × o mesmo site = 0 diferenças nas 12 telas; kit de esboço abre a tela. O abre-telas antigo da varredura (`roda.py`) foi para work/obsoletos (superado pelos roteiros).
+- Ordem que falta: 4 (porteiro só portão, rodando o comparador) → 2 (um jeito de medir) → 3 (comparador único com as telas do app).

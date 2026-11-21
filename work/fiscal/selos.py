@@ -4,6 +4,7 @@
   - nenhuma coisa da foto cobre outra; não existe selo de tema.
 uso direto: selos.py URL"""
 import sys,json
+import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', 'kit')); import sim
 from playwright.sync_api import sync_playwright
 INIT="try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang','pt')}catch(e){}"
 JS=r"""async()=>{const z=parseFloat(getComputedStyle(document.body).zoom)||1,R=e=>e.getBoundingClientRect(),bad=[];let n=0,folga=99;
@@ -28,10 +29,10 @@ return {n,folga,bad:[...new Set(bad)]}}"""
 if __name__=='__main__':
   tot=0
   with sync_playwright() as p:
-      b=p.chromium.launch()
+      b=sim.navegador(p)
       for nm,w,h,mob,letra in [('celular',386,858,True,0),('celular letra 1,2×',386,858,True,1),('tablet',768,1024,True,0),('PC',1440,900,False,0),('PC grande',2560,1300,False,0)]:
           for u in ['/?cliente=1','/?cliente=1&r=armazones','/?cliente=1&r=lentes-de-sol']:
-              c=b.new_context(viewport={'width':w,'height':h},is_mobile=mob,has_touch=mob,reduced_motion='reduce');c.add_init_script(INIT+("document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});" if letra else ''))
+              c=sim.contexto(b,w,h,toque=mob,movimento=False,csp_livre=False);c.add_init_script(INIT+("document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});" if letra else ''))
               pg=c.new_page();pg.goto(sys.argv[1]+u,wait_until='load');pg.wait_for_timeout(5500)
               pg.evaluate("async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=600){scrollTo(0,y);await new Promise(r=>setTimeout(r,120))}scrollTo(0,0)}")
               r=pg.evaluate(JS);tot+=len(r['bad'])

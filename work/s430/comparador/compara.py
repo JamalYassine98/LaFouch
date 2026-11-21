@@ -21,6 +21,7 @@ O que faz, em cada aparelho (celular, celular com letra 1,2×, tablet, PC) e em 
 import sys, os, json
 from playwright.sync_api import sync_playwright
 from PIL import Image, ImageDraw, ImageFont
+import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..', 'kit')); import sim
 
 INIT = "try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang','pt')}catch(e){}"
 LETRA = "document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});"
@@ -85,8 +86,7 @@ return {L:out,sob}}"""
 
 def abre(b, url, ap, tela, foto=None):
     nome, w, h, mob, letra = ap
-    c = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
-                      reduced_motion='reduce', device_scale_factor=1)
+    c = sim.contexto(b, w, h, toque=mob, movimento=False, csp_livre=False)
     c.add_init_script(INIT)
     if letra:
         c.add_init_script(LETRA)
@@ -225,7 +225,7 @@ def main():
     rel = []
     VERM, LAR = (220, 20, 60), (245, 140, 0)
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = sim.navegador(p)
         for ap in APAR:
             for tela in TELAS:
                 tag = (ap[0] + '_' + tela[0]).replace(' ', '_').replace(',', '')

@@ -1,6 +1,6 @@
 # Fiscal do layout: abre o site em vários aparelhos, tamanhos de letra e idiomas, passa por todas as telas e lista os problemas. Não muda nada no site.
 # Uso: python3 fiscal.py <porta> <saida_dir> [rapido]
-import sys,os,json,time;sys.path.insert(0,'/home/claude/gz');from base import *
+import sys,os,json,time;sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','testes'));from base import *  # o base do projeto (antes: um arquivo de fora, /home/claude/gz)
 PORTA=sys.argv[1];OUT=sys.argv[2];RAP=len(sys.argv)>3;os.makedirs(OUT+'/f',exist_ok=True)
 AUD=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'audita.js')).read()
 AP=[('celular pequeno',320,568),('celular',360,640),('iPhone SE',375,667),('iPhone',390,844),('Android grande',412,915),('iPhone Max',430,932),('celular deitado',844,390),
@@ -25,7 +25,7 @@ def rola(pg,ap,var,tela,alvo=None,maxp=8):
     audita(pg,ap,var,f'{tela} · parte {k+1}')
 def roda(p,ap,W,H,lg,tam):
   ls={'t_perm':'granted'};ls.update({'lf_lang':'es'} if lg=='es' else {});ls.update({'lf_zoom':'2'} if tam=='grande' else {})
-  b,pg,errs=abre(p,lang='es-PY' if lg=='es' else 'pt-BR',W=W,H=H,perm=False,ls=ls);var=f'{lg} · letra {tam}'
+  b,pg,errs=abre(p,lang='es-PY' if lg=='es' else 'pt-BR',W=W,H=H,perm=False,ls=ls,csp=True);var=f'{lg} · letra {tam}'
   U=f'http://localhost:{PORTA}/'
   pg.goto(U);pg.wait_for_timeout(2500);rola(pg,ap,var,'Início')
   pg.evaluate('scrollTo(0,0)');pg.wait_for_timeout(300)

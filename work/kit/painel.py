@@ -25,8 +25,8 @@ def produtos():
     return out
 def abre(pw,escuro=True,W=390,H=844,extra=None):
     _serve();log=[]
-    b=pw.chromium.launch(executable_path=kit.EXE,args=['--no-sandbox'])
-    c=b.new_context(viewport={'width':W,'height':H},device_scale_factor=2 if W<900 else 1,is_mobile=W<900,has_touch=W<900,color_scheme='dark' if escuro else 'light')
+    b=kit.sim.navegador(pw)
+    c=kit.sim.contexto(b,W,H,toque=W<900,dpr=2 if W<900 else 1,escuro=bool(escuro),csp_livre=False)
     agora=int(time.time()*1000)
     dados={'config/site':doc('config/site',{'ativo':True,'cordem':'eq','aviso':'','dst':{'modo':'fotos'}}),
       'mensagens':[doc('mensagens/m1',{'tipo':'contato','nome':'Ana Teste','msg':'Vocês têm estojo?','ts':agora-3600000,'lida':False}),doc('mensagens/m2',{'tipo':'atacado','nome':'Óptica Sol','msg':'Quero 20 peças','ts':agora-7200000,'lida':False,'qtd':20})]}

@@ -2,11 +2,12 @@
 # se o navegador bloquear alguma coisa do próprio site (as outras provas rodam com bypass_csp porque usam eval).
 # uso: python3 csp.py <porta>  → JSON [{nome, ok, d}]
 import sys, json
+import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', 'kit')); import sim
 from playwright.sync_api import sync_playwright
 P = sys.argv[1]; U = f'http://localhost:{P}'; R = []
 with sync_playwright() as pw:
-    b = pw.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'])
-    c = b.new_context(viewport={'width': 390, 'height': 844}, permissions=['camera'])
+    b = sim.navegador(pw)
+    c = sim.contexto(b, 390, 844, camera=True, csp_livre=False)  # aqui a regra de segurança da página tem de valer
     c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
     c.add_init_script("window.__csp=[];document.addEventListener('securitypolicyviolation',function(e){window.__csp.push(e.violatedDirective+' '+(e.blockedURI||'')+' '+(e.sourceFile||'').split('/').pop()+':'+e.lineNumber)})")
     pg = c.new_page()

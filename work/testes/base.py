@@ -13,8 +13,9 @@ if(localStorage.getItem('t_nega')){navigator.mediaDevices.getUserMedia=function(
 window.__gum=0;const g0=navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);navigator.mediaDevices.getUserMedia=function(c){window.__gum++;return g0(c)};
 })()"""
 S="JSON.stringify((()=>{const Z=__LFGZ.Z;return {f:Z.fase,g:Z.g,at:Z.at,sem:Z.semCam,chip:(document.querySelector('#gzdi')||{}).textContent,bal:(document.querySelector('#gzbal')||{}).textContent}})())"
-def abre(p,lang='pt-BR',W=390,H=844,perm=True,zoom=None,ls=None):
-  b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium',args=['--no-sandbox','--autoplay-policy=no-user-gesture-required','--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream'])
-  c=b.new_context(locale=lang,viewport={'width':W,'height':H},device_scale_factor=float(__import__('os').environ.get('LF_DPR','2')),permissions=['camera'] if perm else [])
+import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', 'kit')); import sim  # UM simulador só
+def abre(p,lang='pt-BR',W=390,H=844,perm=True,zoom=None,ls=None,csp=False):
+  b=sim.navegador(p)
+  c=sim.contexto(b,W,H,dpr=float(_o.environ.get('LF_DPR','2')),lingua=lang,camera=perm,csp_livre=csp)
   pg=c.new_page();pg.add_init_script('(()=>{'+''.join(f'localStorage.setItem({k!r},{v!r});' for k,v in (ls or {}).items())+'})()');pg.add_init_script(INIT);errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('console',lambda m:(errs.append('console:'+m.text) if m.type=='error' else (print('LOG',m.text) if m.text[:2] in ('DF','pp','cl') else None)))
   return b,pg,errs

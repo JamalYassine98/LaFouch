@@ -8,6 +8,7 @@
 import sys, os, json, time, re, traceback
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'testes'))
 from base import INIT
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'kit')); import sim  # UM simulador só
 from playwright.sync_api import sync_playwright
 
 PORTA = int(sys.argv[1]); OUT = sys.argv[2]; RAPIDO = len(sys.argv) > 3 and sys.argv[3] == 'rapido'
@@ -24,8 +25,8 @@ ESTADO = """(()=>{const H=document.documentElement,q=s=>document.querySelector(s
   lock:H.classList.contains('lock'),y:Math.round(scrollY),path:location.pathname}})()"""
 
 def novo(p, W=390, H=844, lang='pt-BR', ls=None, touch=True):
-    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
-    c = b.new_context(bypass_csp=True, locale=lang, viewport={'width': W, 'height': H}, device_scale_factor=1, has_touch=touch, is_mobile=touch and W < 700, permissions=['camera'])
+    b = sim.navegador(p)
+    c = sim.contexto(b, W, H, toque=touch, celular=touch and W < 700, lingua=lang, camera=True)
     L = dict(ls or {}); L.setdefault('lf_lang', 'es' if lang.startswith('es') else 'pt')
     c.add_init_script('(()=>{if(!/^http/.test(location.protocol))return;' + ''.join(f'localStorage.setItem({k!r},{v!r});' for k, v in L.items()) + '})()')
     c.add_init_script('if(/^http/.test(location.protocol)){' + INIT + '}'); c.add_init_script("window.open=function(u){window.__wo=u;return null}")
@@ -895,9 +896,9 @@ PAINEL_CONTR = """()=>{const lum=c=>{const m=c.match(/[\\d.]+/g).map(Number);con
  document.querySelectorAll('#shell *').forEach(e=>{if(!e.offsetParent)return;const t=[...e.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim()).map(n=>n.textContent.trim()).join(' ');if(!t)return;const cs=getComputedStyle(e);const a=lum(cs.color),b=lum(fundo(e));const r=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);if(r<3)o.push([t.slice(0,28),+r.toFixed(2),cs.color,fundo(e)])});return o}"""
 def p7_painel_contraste(p):
     for esquema, nome in (('light', 'claro'), ('dark', 'escuro')):
-        b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox'])
+        b = sim.navegador(p)
         try:
-            c = b.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=1, is_mobile=True, has_touch=True, color_scheme=esquema)
+            c = sim.contexto(b, 390, 844, toque=True, escuro=(esquema == 'dark'), csp_livre=False)
             c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
             pg = c.new_page(); pg.goto(URL + 'admin.html'); pg.wait_for_timeout(1500); pg.evaluate(PAINEL_MONTA); pg.wait_for_timeout(300); ruins = []
             for v in pg.evaluate("()=>[...document.querySelectorAll('#shell main.page')].map(m=>m.id)"):
@@ -912,9 +913,9 @@ def p7_painel_contraste(p):
 def p7_csp(p):
     # S390 (16/11/2026): a regra de segurança (CSP) não pode barrar endereço que o site usa. O login com Google ficou 4 dias quebrado (auth/internal-error)
     # porque a regra não liberava apis.google.com nem a moldura do firebaseapp.com — e o simulador, sem internet, não acusava.
-    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox'])
+    b = sim.navegador(p)
     try:
-        c = b.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True)
+        c = sim.contexto(b, 390, 844, toque=True, csp_livre=False)
         c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
         pg = c.new_page(); pg.add_init_script("window.__csp=[];document.addEventListener('securitypolicyviolation',e=>window.__csp.push(e.effectiveDirective+' '+e.blockedURI))")
         pg.goto(URL); pg.wait_for_timeout(2500)

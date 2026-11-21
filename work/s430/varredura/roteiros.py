@@ -14,7 +14,7 @@ def init(logada):
     if logada: s += "localStorage.setItem('lf_conta',%s);localStorage.setItem('lf_auth',%s);localStorage.setItem('lf_ped',%s);" % tuple(json.dumps(json.dumps(x)) for x in (CONTA, AUTH, PED))
     return s + "}catch(e){}"
 COB = {}
-import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'testes')); from base import INIT as BASE_INIT  # câmera e rosto de mentira (os mesmos das provas)
+import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'testes')); sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'kit')); import sim; from base import INIT as BASE_INIT  # câmera e rosto de mentira (os mesmos das provas)
 def nuvem(r):
     nome = r.request.url.split('cloudfunctions.net/')[1].split('?')[0]
     try: j = json.loads(r.request.post_data or '{}')
@@ -34,7 +34,7 @@ TOCA = """(feitos)=>{let R=[...document.querySelectorAll('#layer, #sov, #mapw, .
   const h=e.getAttribute('href')||'';if(/wa\\.me|whatsapp|mailto:|tel:|^https?:\\/\\/(?!localhost)/.test(h))return;if(e.hasAttribute('data-close')||/sair|excluir|exc2?$/i.test(e.getAttribute('data-cta')||''))return;
   const k=(e.id||'')+'|'+(e.getAttribute('data-cta')||'')+'|'+e.className+'|'+e.textContent.trim().slice(0,18);if(feitos.includes(k)||L.some(x=>x[0]===k))return;e.setAttribute('data-vr2',L.length);L.push([k])}));return L.map(x=>x[0])}"""
 def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22, qs='', mov=False):
-    c = b.new_context(bypass_csp=True, viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, reduced_motion=('no-preference' if mov else 'reduce'), permissions=['camera', 'geolocation'], geolocation={'latitude': -25.51, 'longitude': -54.61})
+    c = sim.contexto(b, w, h, toque=mob, movimento=mov, camera=True, lugar=(-25.51, -54.61))
     c.add_init_script(init(logada)); c.add_init_script('if(/^http/.test(location.protocol)){' + BASE_INIT + '}'); c.route('**cloudfunctions.net/**', nuvem)
     c.route('**identitytoolkit**', lambda r: r.fulfill(json={'users': [{'emailVerified': True, 'email': 'maria@exemplo.com'}]}))
     pg = c.new_page(); cdp = c.new_cdp_session(pg); cdp.send('Profiler.enable'); cdp.send('Profiler.startPreciseCoverage', {'callCount': True, 'detailed': False})
@@ -80,7 +80,7 @@ def coracoes(pg):
     for i in range(4): pg.evaluate("i=>{const e=[...document.querySelectorAll('#grid [data-fav]')].filter(e=>e.offsetParent)[i%3];e&&e.click()}", i); pg.wait_for_timeout(900)
 def peca_cat(pg): pg.evaluate("()=>{const a=[...document.querySelectorAll('a[data-mf^=\"tipo:\"]')].find(e=>e.offsetParent);a&&a.click()}"); pg.wait_for_timeout(1500)
 with sync_playwright() as p:
-    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'])
+    b = sim.navegador(p)
     for w, h, mob in ((390, 844, True), (1440, 900, False)):
         roteiro(b, 'mapa (Como chegar)', False, w, h, mob, lambda pg: (pg.evaluate("()=>scrollTo(0,document.documentElement.scrollHeight)"), pg.wait_for_timeout(600), js_click('[data-map],[data-cta=mapa],.lfft a[href*="map"],button[data-como]')(pg), pg.evaluate("()=>{const e=[...document.querySelectorAll('a,button')].find(x=>/Como chegar/.test(x.textContent));e&&e.click()}")))
         roteiro(b, 'rosto / formato (câmera de mentira)', False, w, h, mob, hash_('#rosto'), rodadas=5)

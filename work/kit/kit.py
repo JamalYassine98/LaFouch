@@ -36,10 +36,11 @@ def prep_site():
 CONTA=json.dumps({'nome':'Maria González','email':'maria@exemplo.com','tel':'+595 983 000 000','ends':[{'nome':'Casa','cidade':'Ciudad del Este','dep':'Alto Paraná','end':'Calle Los Lapachos 123','ref':'portão verde'}]})
 AUTH=json.dumps({'uid':'kit','idToken':'kit','refresh':'kit','exp':9e15,'ev':True,'email':'maria@exemplo.com'})
 PC=[0,0]; ALVO=[None]; ESP=[0]
+import sim  # UM simulador só (work/kit/sim.py)
 def ctx(pw,lang='pt-BR',scheme='light'):
-    b=pw.chromium.launch(executable_path=EXE,args=['--no-sandbox'])
+    b=sim.navegador(pw)
     vw={'width':PC[0],'height':PC[1]} if PC[0] else {'width':390,'height':844}
-    c=b.new_context(bypass_csp=True,viewport=vw,device_scale_factor=1 if PC[0] else 2,is_mobile=not PC[0],has_touch=not PC[0],locale=lang,color_scheme=scheme,service_workers='block')
+    c=sim.contexto(b,vw['width'],vw['height'],toque=not PC[0],dpr=1 if PC[0] else 2,lingua=lang,escuro=(scheme=='dark'),sem_trabalhador=True)
     c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') or r.request.url.startswith('http://127.') else r.abort()); return b,c
 def rolar(pg,y): pg.evaluate("y=>{[...document.querySelectorAll('*')].forEach(e=>{if(e.scrollHeight>e.clientHeight+50&&/(auto|scroll)/.test(getComputedStyle(e).overflowY))e.scrollTop=y});window.scrollTo(0,y)}",y); pg.wait_for_timeout(350)
 def site(tela,out,inj=None,y=0,es=False,ref=None):
