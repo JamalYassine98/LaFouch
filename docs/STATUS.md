@@ -64,7 +64,7 @@
 - **30-vistas-pela-analise** — ✅ v583 (5.50.8, 20/11) · APP
 - **31-urgente-camera-branca-ao-gravar-a-volta** — ✅ v584 (5.50.9, 20/11) — falta o dono testar no celular real · APP
 - **31-visitas-num-lugar-so** — ✅ APP v583 lê da análise; regras fecham vistas/ (20:08, sonda 403) — falta só o SITE tirar o vistaEnvia (código morto, recado 20:10)
-- **32-esc-filtros-carrinho-voltar-internet-fraca** — esboço pronto — esperando o dono (3 esboços em work/s430/esb-a/)
+- **32-esc-filtros-carrinho-voltar-internet-fraca** — partes 1 e 2 ✅ publicadas no site 1795225493 (20/11): Esc = voltar, carrinho por cima — porteiro 221 provas, 0 falhas · parte 3 (internet fraca): plano em partes sendo medido, vai ao dono como esboço
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
 
