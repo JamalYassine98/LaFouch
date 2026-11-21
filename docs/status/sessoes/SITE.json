@@ -1,10 +1,12 @@
 {
  "nome": "SITE",
- "agora": "investigar as 9 falhas do porteiro completo (só investigação; esboço antes de mexer)",
- "arquivos": [
-  "work/fiscal/provas.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795219807.9996328,
+   "r": "investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono"
+  },
   {
    "t": 1795217631.1839817,
    "r": "varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)"
@@ -40,10 +42,6 @@
   {
    "t": 1795180680.9726496,
    "r": "limpeza 5 (canto de selos) como esboço no ramo, na Fila (item 21) esperando A ou B; porteiro no ramo: 2 falhas (ícone da conta, pulo do carrinho no PC) + 5 avisos visuais a conferir"
-  },
-  {
-   "t": 1795179350.253083,
-   "r": "porteiro parte 1 feita (categoria vinda da loja): 24 → 11 falhas na cópia limpa; sobram 9 dos selos (limpeza 5), ícone da conta sem cor no mouse, 1 contraste no painel e 5 avisos visuais na página da peça a conferir"
   }
  ],
  "leu": 1795217753.365837
