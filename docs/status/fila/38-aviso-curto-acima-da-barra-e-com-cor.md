@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
+aprovado 21/11 07:51 — espera o 'implementar'
 Achado na conferência da v586: o aviso curto tampa a barra de baixo e sai sempre verde (erro também). Proposta: 8 px acima do que está embaixo (barra ou botão da janela) e cor pelo tipo (certo/atenção/erro/andamento). work/s435/aviso/ (COMO-FAZER.md + 2 imagens).
