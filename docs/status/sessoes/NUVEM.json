@@ -1,7 +1,11 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "hospedagem parte 1: app também no Firebase Hosting (em paralelo)",
+ "arquivos": [
+  "firebase.json",
+  ".github/workflows/publicar-nuvem.yml",
+  "tools/sonda-nuvem.sh"
+ ],
  "ultimas": [
   {
    "t": 1795229740.362719,
@@ -44,5 +48,5 @@
    "r": "texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava)."
   }
  ],
- "leu": 1795226562.3477154
+ "leu": 1795258850.5079708
 }

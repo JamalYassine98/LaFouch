@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
+| NUVEM | hospedagem parte 1: app também no Firebase Hosting (em paralelo) | firebase.json, .github/workflows/publicar-nuvem.yml, tools/sonda-nuvem.sh |
 | SITE | Internet fraca parte 1 (1ª tela dentro da página): estudo do robô das páginas + implementação por dentro | js/lf-site.js, index.html |
 
 ## Fila
