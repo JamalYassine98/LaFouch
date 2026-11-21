@@ -1,11 +1,12 @@
 {
  "nome": "APP",
- "agora": "38 giro etapa 1: tempos por fase do tratamento no diário (sem mudar o resultado)",
- "arquivos": [
-  "src/97-giro-trata.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795289038.8023083,
+   "r": "v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)"
+  },
   {
    "t": 1795287548.7350852,
    "r": "v606 no ar: 39 preço exato (app). Próximo: 38 giro"
@@ -41,10 +42,6 @@
   {
    "t": 1795276752.8436346,
    "r": "v599 no ar: ficha numa função só. Próximo: 134 (ficha sem cartão, links no fim)"
-  },
-  {
-   "t": 1795275519.2854056,
-   "r": "4d parte 2: estudo feito, sem código (a ficha precisa primeiro juntar as camadas do renderDetail). v598 segue a última no ar"
   }
  ],
  "leu": 1795289035.670465
