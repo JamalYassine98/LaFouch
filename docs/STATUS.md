@@ -80,8 +80,6 @@
 
 ## Recados esperando
 
-- para **APP**: Esboços dos pedidos do dono de 20/11 23:29–23:39 prontos e na Fila (esperando o dono; nada para implementar ainda): 40 câmera reta + peça reta (work/s435/giro/C
-- para **APP**: CONFERÊNCIA v588 (item 39, código de src/97-giro-trata.js): a ideia vale (a caixa de por onde a peça passou entra como 2º critério de 'é peça'), mas tem 1 RISCO
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
 - para **NUVEM**: Site 1795232856 (21/11): a LEITURA PÚBLICA do Firestore (produtos, fotos, estoque, config, reservas) não espera mais o selo do App Check — sai na hora e leva o 
 - para **NUVEM**: S5 no site: publicado 1795234339 — novidades mostra 'Enviamos um e-mail para confirmar' com confirmar:true (conf:true mantém o agradecimento; erro/429 = 'tente 
