@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "Black Friday: só a da CDE (sai a data internacional de reserva)",
+ "arquivos": [
+  "src/97-cupons.js",
+  "src/97-marketing.js",
+  "src/97-site-pediu.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795256971.0478606,
@@ -44,5 +49,5 @@
    "r": "v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)"
   }
  ],
- "leu": 1795255750.716573
+ "leu": 1795257513.3974059
 }
