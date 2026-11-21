@@ -69,6 +69,7 @@
 - **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
 - **37-ajustes-pecas-grupo-escolha** — esboço pronto — esperando o dono
+- **37-giro-camera-reta-e-peca-reta** — na fila — esboço com o ESBOCO (pedido do dono 20/11 23:29)
 
 ## Recados esperando
 
