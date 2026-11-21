@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com o ⌄ das dobras e o valor à direita | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 48 — Peças: Inventário · Estúdio · Compras (parte 1) | work/s435/compras |
-| SITE | Esboço 39 (preço exato) — implementar (dono 21/11 12:04) | js/lf-site.js, js/lf-i18n.js |
 
 ## Fila
 
@@ -117,6 +116,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
 - 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
 - 21/11 11:12 — SITE: Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site.
 - 21/11 11:08 — APP: v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d
@@ -141,4 +141,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 00:15 — APP: MADRUGADA 21/11 — feito: v588 no ar (item 39: armação clara não perde um lado no giro tratado; provado com as poses de referência a 45% do contraste, giro normal sem mudança; NÃO reproduzido com a gravação do dono; sem trava no porteiro). Memória restaurada (meu ajudante de publicar truncava o arquivo; consertado). NÃO feito: item 38 (tempo do tratamento) — sem os tempos por fase do celular eu mexeria no escuro; 4b Preços (como fazer recebido) — não comecei para não deixar tela pela metade. PARA O DONO CONFERIR NO APARELHO REAL: (1) v588: gravar a mesma armação bege — a frente sai com as DUAS lentes? (2) tempo de cada fase (diário [LF-CAM]: fundo, mede, grava) e se saiu mp4 ou webm; (3) o giro no site gira com o dedo e fecha sem pulo; (4) 'Qual é a frente?' — parar a gravação antes da volta e escolher: saem as duas fotos de fundo branco; (5) a linha 'Travado: branco' aparece e não há clarão; (6) avisos aparecem por cima do Estúdio. Pendências abertas: nota 100 em foto pela metade; item 36 (prova v468 instável); item 37 (câmera reta/peça reta, com o ESBOCO).
 - 20/11 23:55 — NUVEM: Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'.
 - 20/11 23:54 — NUVEM: S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem.
-- 20/11 23:02 — NUVEM: Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo.
