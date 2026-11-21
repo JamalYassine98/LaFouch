@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Internet fraca parte 2: consulta do grau em pedaço próprio (com as 3 medidas)",
+ "arquivos": [
+  "js/lf-site.js",
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795269103.0911064,
@@ -44,5 +47,5 @@
    "r": "varredura com o site rodando (60% das funções rodam nas provas); 6 funções mortas certas fora da CÓPIA LIMPA (15 KB; comparador 0 diferenças; porteiro 207 provas, 0 falhas) — ainda NÃO publicado; porteiro ajustado aos dados novos da loja (nomes mudaram, 18 peças)"
   }
  ],
- "leu": 1795269083.756908
+ "leu": 1795270294.367292
 }

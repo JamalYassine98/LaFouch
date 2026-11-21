@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com a dobra do app | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
+| SITE | Internet fraca parte 2: consulta do grau em pedaço próprio (com as 3 medidas) | js/lf-site.js, index.html |
 
 ## Fila
 
