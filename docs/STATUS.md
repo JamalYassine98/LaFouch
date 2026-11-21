@@ -78,6 +78,7 @@
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — aprovado 21/11 07:51 — espera o 'implementar' (ordem: NUVEM → SITE → APP)
+- **40-hospedagem-app-firebase** — parte 1 ✅ 21/11 08:05 (lafouch-2f6bd.web.app, em paralelo) — partes 2 (APP) e 3 (dono) só no fim, antes de lançar
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **43-implementar-tudo-em-partes** — em andamento — dono 21/11 08:03 'implementar tudo': uma parte por versão; começa pelo 4b Preços (3 partes)
