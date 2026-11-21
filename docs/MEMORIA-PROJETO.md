@@ -3386,3 +3386,23 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   - O que sobrar ele termina em casa (Wi-Fi/PC), inclusive tratando enquanto dorme.
   - Por isso "posso exigir menos do tempo de tratamento": a prioridade passa a ser o tratamento **certo** (qualidade), e a velocidade deixa de ser a meta dura dos 5 min por peça.
   - Continua valendo: não diminuir quadros nem resolução, e usar a GPU do celular.
+
+- 21/11 10:07 — DONO APROVOU o diagnóstico do cadastro do Inventário (S435) e mandou esboçar.
+  - Obsoletos:
+    - foto crua por cor no passo "Cores e fotos"
+    - "Cor nova (tire a foto)" duplicado
+    - frase da Descrição "ao tirar a foto, o app sugere"
+    - botão "Foto" duplicado nos arquivos 13 e 87
+  - Fora do padrão:
+    - campos em caixa (devem ser linha)
+    - Formato/Material/Gênero em pílulas ▾ (devem ser linha › com janela de baixo)
+    - "Mais detalhes" com o triângulo do navegador (deve ser ⌄)
+    - título "Novo modelo · À mão · o app guia e confere"
+  - Caminho novo do Adicionar:
+    - Da Galeria · sem peça (41c)
+    - Ler haste
+    - "Foto" vira **"Ler etiqueta"**
+    - Chegou mercadoria
+    - Preencher à mão
+    - formulário em linhas
+    - cores vindas da Galeria ou da "Nova cor" (42)
