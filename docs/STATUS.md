@@ -91,6 +91,7 @@
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
 - **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
+- **48-pecas-compras-parte-1** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
