@@ -2,6 +2,7 @@
   // Sobe com mola; arrastar pela alça ou pelo topo acompanha o dedo (o fundo clareia junto):
   // soltar depois de 1/3 da altura (ou num gesto rápido) fecha, senão volta. Tocar fora fecha.
   // Fica fora das abas (no <body>), então o redesenho do app não a apaga.
+  // o = { titulo, extra, cls, monta(corpo, api), aoFechar(), mudou() → true se há mudança não salva (pede confirmação ao sair) }
   function lfJanela(o) {
     var bk = document.createElement('div'),
       jn = document.createElement('div');
@@ -27,8 +28,15 @@
     var api = {
       jn: jn,
       corpo: corpo,
-      fecha: function () {
+      // forcado === true: fecha sem perguntar (salvou, excluiu, o app tirou a janela). Tocar fora, arrastar e Esc chegam aqui sem ele.
+      fecha: function (forcado) {
         if (!aberta) return;
+        // regra 15 (formulários): janela de criar/editar com mudança não salva (o.mudou) pergunta "Sair sem salvar?" antes de sair
+        if (forcado !== true && o.mudou && o.mudou()) {
+          pos(0, !REDUCED);
+          lfConfirma({ t: 'Sair sem salvar?', f: 'O que você mudou nesta janela não fica guardado.', b: 'Sair sem salvar', fn: function () { api.fecha(true); } });
+          return;
+        }
         aberta = false;
         jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
         jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';

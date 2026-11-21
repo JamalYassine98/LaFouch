@@ -59,16 +59,16 @@
     document.body.appendChild(ov);
   }
   // 134d (regra dos formulários, 18/11 18:12): "Editar produto" abre na JANELA DE BAIXO de todas as outras (lfJanela), sem "Fechar":
-  // fecha arrastando, tocando fora ou com Esc. A janela fica aberta enquanto S.qEdit valer; a cada desenho da ficha só o conteúdo é trocado
+  // fecha arrastando, tocando fora ou com Esc — e, se algo mudou, pergunta "Sair sem salvar?". A janela fica aberta enquanto S.qEdit valer; a cada desenho da ficha só o conteúdo é trocado
   // (sem subir de novo, mantendo a rolagem). no = o conteúdo novo (#editModal) ou null para fechar.
   var ED_J = null;
   function edJanela(no) {
     if (!no) {
-      if (ED_J) { var j = ED_J; ED_J = null; j.fecha(); }
+      if (ED_J) { var j = ED_J; ED_J = null; j.fecha(true); }
       return;
     }
     if (!ED_J) {
-      var api = lfJanela({ cls: 'edJn', aoFechar: function () { if (ED_J !== api) return; ED_J = null; var c = api.corpo.firstChild; if (c && c._sair) c._sair(); } });
+      var api = lfJanela({ cls: 'edJn', mudou: function () { var c = api.corpo.firstChild; return !!(c && c._mudou && c._mudou()); }, aoFechar: function () { if (ED_J !== api) return; ED_J = null; var c = api.corpo.firstChild; if (c && c._sair) c._sair(); } });
       api.jn.setAttribute('aria-label', 'Editar produto');
       ED_J = api;
     }
@@ -713,6 +713,10 @@
         render();
       };
       ov._sair = fechar; // a janela fechou (arrastou, tocou fora ou Esc): sai sem salvar
+      // há algo digitado ou escolhido que ainda não foi salvo? (os mesmos rascunhos que o zerar limpa) — a janela pergunta "Sair sem salvar?"
+      ov._mudou = function () {
+        return !!(Object.keys(S.qDraft || {}).length || Object.keys(S.cDraft || {}).length || S.rnV != null || S.rnN != null || S.dDraft != null || S.fDraft != null || S.fDel || S.edTipo || (S.edNovas || []).length);
+      };
       // Identificação com as mesmas listas do cadastro (Label Select)
       var edSel = function (key, rotulo, lista, valor, set) {
         var w = mk('div', ''),

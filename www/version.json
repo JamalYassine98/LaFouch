@@ -1,1 +1,1 @@
-{"v":604,"nat":1,"nome":"5.50.29","notas":["\"Editar produto\" abre na janela de baixo, como as outras: sem botão Fechar — fecha arrastando para baixo, tocando fora ou com Esc."]}
+{"v":605,"nat":1,"nome":"5.50.30","notas":["\"Editar produto\": se você mudou algo e fechar a janela sem salvar, o app pergunta \"Sair sem salvar?\"."]}

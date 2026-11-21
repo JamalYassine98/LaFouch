@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 604;
+  var APP_BUILD = 605;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.29'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.30'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1498,16 +1498,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     document.body.appendChild(ov);
   }
   // 134d (regra dos formulários, 18/11 18:12): "Editar produto" abre na JANELA DE BAIXO de todas as outras (lfJanela), sem "Fechar":
-  // fecha arrastando, tocando fora ou com Esc. A janela fica aberta enquanto S.qEdit valer; a cada desenho da ficha só o conteúdo é trocado
+  // fecha arrastando, tocando fora ou com Esc — e, se algo mudou, pergunta "Sair sem salvar?". A janela fica aberta enquanto S.qEdit valer; a cada desenho da ficha só o conteúdo é trocado
   // (sem subir de novo, mantendo a rolagem). no = o conteúdo novo (#editModal) ou null para fechar.
   var ED_J = null;
   function edJanela(no) {
     if (!no) {
-      if (ED_J) { var j = ED_J; ED_J = null; j.fecha(); }
+      if (ED_J) { var j = ED_J; ED_J = null; j.fecha(true); }
       return;
     }
     if (!ED_J) {
-      var api = lfJanela({ cls: 'edJn', aoFechar: function () { if (ED_J !== api) return; ED_J = null; var c = api.corpo.firstChild; if (c && c._sair) c._sair(); } });
+      var api = lfJanela({ cls: 'edJn', mudou: function () { var c = api.corpo.firstChild; return !!(c && c._mudou && c._mudou()); }, aoFechar: function () { if (ED_J !== api) return; ED_J = null; var c = api.corpo.firstChild; if (c && c._sair) c._sair(); } });
       api.jn.setAttribute('aria-label', 'Editar produto');
       ED_J = api;
     }
@@ -2152,6 +2152,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         render();
       };
       ov._sair = fechar; // a janela fechou (arrastou, tocou fora ou Esc): sai sem salvar
+      // há algo digitado ou escolhido que ainda não foi salvo? (os mesmos rascunhos que o zerar limpa) — a janela pergunta "Sair sem salvar?"
+      ov._mudou = function () {
+        return !!(Object.keys(S.qDraft || {}).length || Object.keys(S.cDraft || {}).length || S.rnV != null || S.rnN != null || S.dDraft != null || S.fDraft != null || S.fDel || S.edTipo || (S.edNovas || []).length);
+      };
       // Identificação com as mesmas listas do cadastro (Label Select)
       var edSel = function (key, rotulo, lista, valor, set) {
         var w = mk('div', ''),
@@ -36430,6 +36434,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Sobe com mola; arrastar pela alça ou pelo topo acompanha o dedo (o fundo clareia junto):
   // soltar depois de 1/3 da altura (ou num gesto rápido) fecha, senão volta. Tocar fora fecha.
   // Fica fora das abas (no <body>), então o redesenho do app não a apaga.
+  // o = { titulo, extra, cls, monta(corpo, api), aoFechar(), mudou() → true se há mudança não salva (pede confirmação ao sair) }
   function lfJanela(o) {
     var bk = document.createElement('div'),
       jn = document.createElement('div');
@@ -36455,8 +36460,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var api = {
       jn: jn,
       corpo: corpo,
-      fecha: function () {
+      // forcado === true: fecha sem perguntar (salvou, excluiu, o app tirou a janela). Tocar fora, arrastar e Esc chegam aqui sem ele.
+      fecha: function (forcado) {
         if (!aberta) return;
+        // regra 15 (formulários): janela de criar/editar com mudança não salva (o.mudou) pergunta "Sair sem salvar?" antes de sair
+        if (forcado !== true && o.mudou && o.mudou()) {
+          pos(0, !REDUCED);
+          lfConfirma({ t: 'Sair sem salvar?', f: 'O que você mudou nesta janela não fica guardado.', b: 'Sair sem salvar', fn: function () { api.fecha(true); } });
+          return;
+        }
         aberta = false;
         jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
         jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';

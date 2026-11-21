@@ -5,6 +5,8 @@ Abre www/ num Chromium sem interface, com a URL terminando em #test (o app entã
 window.__LF com as funções internas) e confere contas, lotes, leitor de código, gravação
 e as telas. Requer: pip install playwright  (e um Chromium; PLAYWRIGHT_BROWSERS_PATH ou o do sistema).
 """
+# 134d: fechar a janela de editar com mudança pergunta "Sair sem salvar?"; as provas antigas que descartam confirmam aqui
+SAIR_SEM_SALVAR = "() => { const b = document.querySelector('.lfCf .cf418B'); if (b) b.click(); }"
 def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.S.edMais = true; window.__LF.render(); }' % (1 if n == 1 else 2)
 import time
 import asyncio, glob, json, os, re, subprocess, sys, time
@@ -581,14 +583,14 @@ async def main():
             lib = await pg.evaluate("() => [!!window.__LF.S.site['BR44118'], document.getElementById('edSite').innerText]")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(3)); noEd = await pg.evaluate("() => !document.querySelector('#editModal #edSiteBtn')")
-            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
+            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
             await checa('Chave No site: fica abaixo da Oferta, exige foto, liga/desliga e saiu do Editar', sem[0] and 'falta foto' in sem[2] and sem[3] and com == [False] and lib[0] and 'aparece no catálogo' in lib[1] and noEd, [sem, com, lib, noEd])
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(2)); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('1'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab')
             await pg.evaluate(ED(1)); await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
-            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
+            await pg.evaluate(ED(1)); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
             await checa('janela Editar: Cancelar descarta tudo', got[0] == 4 and got[1] != 'rascunho' and got[2] is False, got)
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -609,7 +611,7 @@ async def main():
             e2 = 1 if (dz[0] == 0 and dz[1] < nAntes and dz[2] == 1 and dz[3] == nAntes and not pg2.erros) else 0
             await pg2.close()
             await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira que exclui na hora com Desfazer', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 0, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
-            if await pg.locator('#editModal').count(): await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
+            if await pg.locator('#editModal').count(): await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(700)
@@ -1091,7 +1093,7 @@ async def main():
             n0 = await pg.evaluate("() => String(document.querySelectorAll('#rows .pcard[data-ref]').length)")
             await pg.click('#fSit [data-id="preco"]'); await pg.wait_for_timeout(400)
             n1 = await pg.evaluate("() => [String(document.querySelectorAll('#rows .pcard[data-ref]').length), window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length, getComputedStyle(document.getElementById('filtApply').parentNode).display]")
-            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
             await pg.click('#invInfo .ifNum'); await pg.wait_for_timeout(500)
             antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
@@ -2758,7 +2760,7 @@ async def main():
             for k in range(1, 13): await pg.mouse.move(p0[0] + (p0[2] - p0[0]) * k / 12, p0[1]); await pg.wait_for_timeout(16)
             await pg.mouse.up(); await pg.wait_for_timeout(500)
             t1 = await pg.evaluate("() => [window.__LF.S.vMoeda, getComputedStyle(document.documentElement).getPropertyValue('--mola').trim()]")
-            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700)
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
             await pg.evaluate("() => { window.__LF.S.vMoeda = 'pyg'; window.__LF.render(); }")
             total += 1
             ok = t1[0] == 'usd' and '1.25' not in t1[1] and not pg.erros
@@ -4553,23 +4555,31 @@ async def main():
             if not ok: falhas.append('134b fornecedores'); print('        veio', got, mede, pg.erros)
             await pg.close()
 
-            # 134d (1) (regra dos formulários 18/11 18:12): "Editar produto" abre na janela de baixo do app (lfJanela: alça, tocar fora, arrastar, Esc),
-            # sem botão "Fechar"; trocar de aba dentro dela não abre outra janela; fechar sem salvar não muda a peça; ela não fica dentro da ficha.
+            # 134d (regra dos formulários 18/11 18:12; regra 15): "Editar produto" abre na janela de baixo do app (lfJanela: alça, tocar fora, arrastar, Esc),
+            # sem botão "Fechar"; trocar de aba não abre outra janela; sem mudança fecha direto; COM mudança pergunta "Sair sem salvar?" (Voltar mantém o que
+            # foi digitado; "Sair sem salvar" fecha sem mudar a peça); salvar/sair do Inventário fecham sem pergunta. A pergunta é da lfJanela (opção mudou).
             pg = await pagina(fam=True, tudo=False)
-            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(700); if (!document.querySelector('#detail .fnBar')) { document.querySelector('#v-estoque .pcard').click(); await w(700); }
-              S.qEdit = true; L.render(); await w(700); const q = s => document.querySelectorAll(s).length;
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [], q = s => document.querySelectorAll(s).length;
+              L.setView('estoque'); await w(500); document.querySelectorAll('#v-estoque .pcard')[1].click(); await w(700); if (!document.querySelector('#detail .fnBar')) { document.querySelector('#v-estoque .pcard').click(); await w(700); }
+              const esc = () => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })), abre = async () => { S.qEdit = true; L.render(); await w(600); };
+              const digita = () => { const c = document.getElementById('edCodigo'); c.focus(); c.value = 'ZZTESTE1'; c.dispatchEvent(new Event('input', { bubbles: true })); };
+              await abre();
               R.push(q('.ljJn.edJn') === 1 && q('.ljJn.edJn #editModal #edSalvar') === 1 && !q('#detail #editModal') && !q('.modal #edSalvar'), ![...document.querySelectorAll('#editModal button')].some(b => /^Fechar/.test(b.textContent.trim())), !!document.querySelector('.ljJn.edJn .ljPuxa'));
               document.getElementById('edTab2').click(); await w(500); document.getElementById('edTab1').click(); await w(500); R.push(q('.ljJn.edJn') === 1 && q('.ljBk') === 1 && q('#editModal') === 1);
-              const antes = JSON.stringify(S.items); const c = document.getElementById('edCodigo'); if (c) { c.value = 'ZZTESTE1'; c.dispatchEvent(new Event('input', { bubbles: true })); }
-              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })); await w(700);
-              R.push(S.qEdit === false && q('.ljJn') === 0 && q('#editModal') === 0 && JSON.stringify(S.items) === antes);
-              S.qEdit = true; L.render(); await w(600); document.querySelector('.ljBk').click(); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0);
-              S.qEdit = true; L.render(); await w(600); L.setView('inicio'); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0 && S.view === 'inicio');
+              const antes = JSON.stringify(S.items);
+              esc(); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0);                                             // sem mudança: fecha direto
+              await abre(); document.querySelector('.ljBk').click(); await w(700); R.push(S.qEdit === false && q('.ljJn') === 0);
+              await abre(); digita(); await w(200); esc(); await w(700);
+              R.push(S.qEdit === true && q('.ljJn.edJn') === 1 && q('.ljJn.lfCf') === 1 && /Sair sem salvar\\?/.test(document.querySelector('.lfCf').innerText));  // com mudança: pergunta
+              const bs = [...document.querySelectorAll('.lfCf button')]; R.push(bs.length === 2 && bs[0].textContent === 'Sair sem salvar' && bs[1].textContent === 'Voltar' && bs[1].getBoundingClientRect().top > bs[0].getBoundingClientRect().top);
+              bs[1].click(); await w(700); R.push(q('.lfCf') === 0 && q('.ljJn.edJn') === 1 && document.getElementById('edCodigo').value === 'ZZTESTE1');
+              document.querySelector('.ljBk').click(); await w(700); document.querySelector('.lfCf .cf418B').click(); await w(900);
+              R.push(S.qEdit === false && q('.ljJn') === 0 && JSON.stringify(S.items) === antes);
+              await abre(); digita(); await w(200); L.setView('inicio'); await w(800); R.push(S.qEdit === false && q('.ljJn') === 0 && S.view === 'inicio');
               return R; }""")
             total += 1
-            ok = got == [True] * 7 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + '134d (1): "Editar produto" na janela de baixo do app, sem "Fechar"; Esc e tocar fora fecham sem salvar; uma janela só ao trocar de aba; sair do Inventário fecha')
+            ok = got == [True] * 11 and "lfConfirma" in fontes['97-janela.js'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134d: "Editar produto" na janela de baixo, sem "Fechar"; sem mudança fecha direto; com mudança pergunta "Sair sem salvar?" (Voltar mantém, sair não muda a peça); sair do Inventário fecha')
             if not ok: falhas.append('134d editar na janela de baixo'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -4593,7 +4603,7 @@ async def main():
                         x = v[0] + {'esq': 26, 'meio': v[2] / 2, 'dir': v[2] - 26}[onde]; y = None
                         for yy in (v[1] + 14, v[1] + 30, v[1] + 46, v[1] + 8, v[1] + 58):
                             if await pg.evaluate(LIVRE, [x, yy]): y = yy; break
-                        if y is None: await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); continue
+                        if y is None: await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500); continue
                         await pg.mouse.move(x, y); await pg.mouse.down()
                         for k in range(1, 7): await pg.mouse.move(x, y + k * 45); await pg.wait_for_timeout(20)
                         await pg.mouse.up()

@@ -1,7 +1,7 @@
 {
- "nome": "5.50.29",
+ "nome": "5.50.30",
  "notas": [
-  "\"Editar produto\" abre na janela de baixo, como as outras: sem botão Fechar — fecha arrastando para baixo, tocando fora ou com Esc."
+  "\"Editar produto\": se você mudou algo e fechar a janela sem salvar, o app pergunta \"Sair sem salvar?\"."
  ],
- "build": 604
+ "build": 605
 }
