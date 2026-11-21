@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Esboço 39 (preço exato) — implementar (dono 21/11 12:04)",
+ "arquivos": [
+  "js/lf-site.js",
+  "js/lf-i18n.js"
+ ],
  "ultimas": [
   {
    "t": 1795270331.2005324,
@@ -44,5 +47,5 @@
    "r": "recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP"
   }
  ],
- "leu": 1795270442.921597
+ "leu": 1795273392.2647913
 }
