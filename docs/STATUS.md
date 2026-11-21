@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 39: frente do giro com um lado apagado — comparar com o tratamento do site (trata_giro2.py) | src/97-giro-trata.js |
 | ESBOCO | esboço: Ajustes padronizado + Peças alinhado + entrar no grupo sem pular a escolha | work/semp |
 
 ## Fila
@@ -102,6 +101,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 23:42 — APP: item 39 em estudo: comparei giroTrata com o trata_giro2.py do site (mesmas regras para achar a peça e as mesmas folgas); com 6 quadros reais do vídeo do dono a peça sai inteira — ainda NÃO reproduzi a frente com um lado apagado. Falta a gravação da pose de frente (pedi ao dono gravar a tela de novo). Nada publicado.
 - 20/11 23:07 — APP: v587 no ar: (35) o tratamento do giro agora termina no celular — as duas bibliotecas vão dentro do app.js (o APK instalado não tinha os arquivos; a atualização só leva app.js e style.css); (34) 'Qual é a frente?' tira a frente e a 3/4 com o tratamento do giro. 343 provas, 0 falhas; reproduzido no simulador o erro do celular e o conserto. NÃO testado em aparelho real. Próximo: resultado do teste do dono (tempo do tratamento no celular); item 36 (prova v468 instável).
 - 20/11 23:02 — NUVEM: Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo.
 - 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.
@@ -126,4 +126,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 15:25 — NUVEM: texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava).
 - 20/11 14:32 — NUVEM: S1/S2 completo: nuvem parte 3 (13:58) + app item 21 (v580). Prompt entregue ao ESBOCO para conferir 09/20/21 no comparador.
 - 20/11 14:18 — APP: 20/11: publicados v578 (remendos 2b grupos), v579 (2c setView e nomes das telas) e v580 (item 21: token e PIX automático em reservasTok). Espinha da limpeza completa. Próximo: trocas inteiras soltas e depois a família Resultados/Preços com os aprovados
-- 20/11 14:18 — SITE: site 1795194969 no ar: foto da peça aparece por link direto (defeito de raiz), sem óculos desenhado nem brilho da Black Friday; porteiro 207 provas, 0 falhas. teste-giro fica. Próximo: varredura de código morto medindo durante as provas
