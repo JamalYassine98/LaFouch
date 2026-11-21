@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (docs/PLANO-FERRAMENTAS-21-11.md: 4 partes — um simulador, um jeito de medir, comparador único, porteiro só portão; decidir a ordem)
+aprovado 21/11 07:57 · parte 1 ✅ (um simulador só, 21/11) · faltam: 4 (porteiro só portão) → 2 (um jeito de medir) → 3 (comparador único)
 
