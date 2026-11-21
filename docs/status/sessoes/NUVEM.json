@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795276981.3124948,
+   "r": "39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP."
+  },
+  {
    "t": 1795271213.0963643,
    "r": "Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795216249.9101667,
    "r": "S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto."
-  },
-  {
-   "t": 1795214722.8282707,
-   "r": "Lista docs/FALTA-PARA-LANCAR.md (o que falta para lançar, por quem faz) — pedido do dono 19:44."
   }
  ],
  "leu": 1795276879.969732
