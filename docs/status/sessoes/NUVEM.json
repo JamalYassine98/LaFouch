@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "S5S7: publicar (dono: implementar 23:48)",
- "arquivos": [
-  "functions/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795229660.63511,
+   "r": "S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem."
+  },
   {
    "t": 1795226577.8254116,
    "r": "Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo."
@@ -40,10 +42,6 @@
   {
    "t": 1795195934.7636204,
    "r": "S1/S2 completo: nuvem parte 3 (13:58) + app item 21 (v580). Prompt entregue ao ESBOCO para conferir 09/20/21 no comparador."
-  },
-  {
-   "t": 1795193781.2009497,
-   "r": "Parte 3 do S1/S2 (item 11) publicada depois do 09 do site: funções + regras, limpeza rodada na hora (workflow ganhou a opção 'limpeza'), sonda 0 falhas; recado ao APP para publicar o 21."
   }
  ],
  "leu": 1795226562.3477154
