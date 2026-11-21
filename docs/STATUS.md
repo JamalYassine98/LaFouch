@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 4c parte 4 (149r): Reservas vai para Dinheiro; uma tabela só de famílias (FAMILIAS + S.famV) | src/98z-s374.js, src/89-inicio.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
-| SITE | Internet fraca parte 2: programa em pedaços (estudo do trecho da consulta do grau / Mochi) | js/lf-site.js, index.html |
 
 ## Fila
 
@@ -120,6 +119,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 10:51 — SITE: Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato).
 - 21/11 10:36 — APP: v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)
 - 21/11 10:29 — NUVEM: App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch.
 - 21/11 10:22 — SITE: 21/11 manhã: (1) URGENTE resolvido — câmera do formato do rosto e comparar voltaram (site 1795264209); (2) conferência contra a versão de 19/11: janelas soltas e avisos iguais; telas só com as mudanças aprovadas (work/s430/janelas/LEIA.md); (3) internet fraca: começo rápido + sem recarga na 1ª abertura (site 1795266930) — rede limpa: 4G fraco 31 s → ~15 s até a 1ª foto, 4G bom 6,1 → 1,8 s; (4) esperando o dono: 'implementar' do esboço 39 (preço exato, parte do site) e o esboço do logo leve (Fila 36). Porteiro 230 provas, 0 falhas. PRÓXIMO: internet fraca parte 2 (programa em pedaços).
@@ -144,4 +144,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 22:47 — SITE: Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono.
 - 20/11 21:21 — SITE: 3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca
 - 20/11 21:10 — SITE: investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono
-- 20/11 20:33 — SITE: varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)
