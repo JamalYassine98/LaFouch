@@ -1188,6 +1188,21 @@ def p7_janela_solta(p):
                 else: passou(P7, t)
             finally: b.close()
 
+# 21/11 (achado medindo a internet fraca): o número da versão escrito no começo da página (var B) estava parado desde 13/11 — diferente do
+# version.json — e por isso TODA primeira abertura recarregava a página inteira uma vez. Trava: os números iguais e nenhuma recarga.
+def p7_versao_sem_recarga(p):
+    b, c, pg, E = novo(p)
+    try:
+        docs = []
+        pg.on('request', lambda r: docs.append(r.url) if r.is_navigation_request() and r.frame == pg.main_frame and r.url.startswith('http') else None)
+        carrega(pg); pg.wait_for_timeout(2500)
+        r = pg.evaluate("fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(j=>({arq:String(j.v),pag:String(window.LF_BUILD)}))")
+        nome = 'Versão da página = version.json (a 1ª abertura não recarrega)'
+        if r['arq'] != r['pag']: falha(P7, nome, f"a página diz {r['pag']} e o version.json diz {r['arq']}", None)
+        elif len(docs) != 1: falha(P7, nome, f'a página foi pedida {len(docs)} vezes na abertura', None)
+        else: passou(P7, nome)
+    finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1222,7 +1237,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
