@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboços do giro: câmera reta + peça reta · Estúdio mostra o que a peça já tem + galeria + para qual peça vai · cores mais fáceis",
- "arquivos": [
-  "work/s435/giro"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795237490.529637,
+   "r": "Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real."
+  },
   {
    "t": 1795214679.2723482,
    "r": "Conferidos 09/20 (site) e 21 (app) no comparador + prova funcional: login por usuário e token do pedido pago batem; 0 falha nova na página da peça; recados para SITE e APP. Semp completo como ideia (todas as partes aprovadas). A seguir: conferir v579/v581/v582; esboço 'pagamento parte 3' pedido pela NUVEM; 'como fazer' dos 15 aprovados de Resultados/Preços pedido pela APP."
@@ -18,5 +20,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795234321.9295278
+ "leu": 1795237490.0303698
 }
