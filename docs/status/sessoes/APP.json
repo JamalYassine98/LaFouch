@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "134d (1): Editar peça abre na janela de baixo do app (lfJanela), sem o botão Fechar",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "src/97-janela.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795284397.6593,
+   "r": "v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)"
+  },
   {
    "t": 1795282183.4467187,
    "r": "v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo"
@@ -43,10 +42,6 @@
   {
    "t": 1795270102.3846886,
    "r": "v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d"
-  },
-  {
-   "t": 1795268208.1814628,
-   "r": "v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)"
   }
  ],
  "leu": 1795284392.5055342

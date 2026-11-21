@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 134d (1): Editar peça abre na janela de baixo do app (lfJanela), sem o botão Fechar | src/10-estoque-detalhe.js, src/97-janela.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 
 ## Fila
@@ -122,6 +121,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 15:06 — APP: v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)
 - 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.
 - 21/11 14:29 — APP: v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo
 - 21/11 14:09 — IDEIAS: IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS
@@ -141,7 +141,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 11:08 — APP: v597 no ar: 4c parte 4 (149r). 4c completo. Próximo: 4d
 - 21/11 10:52 — IDEIAS: IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 10:51 — SITE: Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato).
-- 21/11 10:36 — APP: v596 no ar: 4c parte 3 (135d linha de dobra). Próximo: 4c parte 4 (149r)
 - 21/11 10:29 — NUVEM: App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch.
 - 21/11 10:22 — SITE: 21/11 manhã: (1) URGENTE resolvido — câmera do formato do rosto e comparar voltaram (site 1795264209); (2) conferência contra a versão de 19/11: janelas soltas e avisos iguais; telas só com as mudanças aprovadas (work/s430/janelas/LEIA.md); (3) internet fraca: começo rápido + sem recarga na 1ª abertura (site 1795266930) — rede limpa: 4G fraco 31 s → ~15 s até a 1ª foto, 4G bom 6,1 → 1,8 s; (4) esperando o dono: 'implementar' do esboço 39 (preço exato, parte do site) e o esboço do logo leve (Fila 36). Porteiro 230 provas, 0 falhas. PRÓXIMO: internet fraca parte 2 (programa em pedaços).
 - 21/11 10:19 — NUVEM: 39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO.
