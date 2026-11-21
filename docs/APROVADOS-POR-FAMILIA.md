@@ -82,3 +82,11 @@ Fonte: work/kit/base_app.py (52 itens; o JS de cada item mostra o resultado espe
 ## Ajustes — 1
 
 - **149i** — Família Linha de lista: Ajustes sem cartão (linhas finas direto na tela); Marketing plano da semana título 16 px, frase 13 px numa linha, linha fina 64 px (esboços s437 l
+
+## Aprovados em 20–21/11 (S435), ainda sem implementar
+- **37** Ajustes em 3 blocos + nuvem em linhas · Peças igual aos grupos · grupo pelo Início abre a escolha · ícones de lista em cinza (work/s435/ajpecas/)
+- **38** Aviso curto acima da barra e com a cor do tipo (work/s435/aviso/)
+- **39** Pagamento parte 3: preço exato + PIX sem par em Pendências (work/s435/precoexato/) — NUVEM → SITE → APP
+- **40** Câmera reta + Peça reta; o tratamento endireita até ±3° (work/s435/giro/COMO-FAZER-40.md)
+- **41** Estúdio Frente·3/4·Giro + Galeria + peça na câmera; giro só de peça cadastrada (COMO-FAZER-41.md)
+- **42** Cores e fotos sem "Trocar foto" + Nova cor fácil (COMO-FAZER-42.md)

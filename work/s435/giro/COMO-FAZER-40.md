@@ -36,3 +36,8 @@ Este esboço mostra **só o aviso**. Se o dono escolher corrigir, o "Peça reta"
   - Com nível 3° o item `reto` fica `false` e a frase cita "3°". Com nível 0, fica `true`.
   - Uma cena com a peça girada 4° deixa `preta` em `false`; a cena reta deixa `true`.
   - A lista com 11 itens cabe (c149Cabe) a 844×390 e a 740×360.
+
+## DECISÃO DO DONO (21/11 07:51): "Faz as duas coisas"
+O aviso fica, como no esboço. **O tratamento também endireita**: no `giroTrata`, depois de achar a frente, mede a diferença de altura
+dos dois lados nos quadros de frente. Se a inclinação for de até ±3°, gira os 360 quadros no mesmo ângulo (uma conta só, no mesmo recorte).
+Acima de 3° não endireita: fica o aviso para refazer. A frente e a 3/4 saem do giro já endireitado. Trava: uma cena com a peça a 2° sai reta; a 5° não mexe e avisa.

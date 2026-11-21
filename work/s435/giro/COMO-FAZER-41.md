@@ -42,3 +42,9 @@ A Galeria mostra o giro como o da BR44140 do teste do dono, só para mostrar o e
   O nome na tela é o aviso. Conferir a armação pela imagem (comparar com a frente já guardada) fica como ideia para depois.
 - **Trava no porteiro:** cada linha do Estúdio tem 3 marcas que batem com `estTem`; "Galeria ›" abre a tela da peça certa;
   a `.ecTag` da câmera contém o ref da sessão; a lista de 10 itens cabe a 844×390 e 740×360.
+
+## DECISÃO DO DONO (21/11 07:51): aprovado, com uma condição
+"Sistema do giro gravar nome, código e cor da peça aprovado, mas com a condição dele já estar cadastrado previamente."
+- A câmera do giro **só grava para uma peça já cadastrada** (ref e cor que existem no Inventário). Com peça cadastrada: "GIRO PARA" + nome, cor e código, como no esboço.
+- Sem cadastro (ex.: "Peça nova, ainda sem cadastro ›"), o "Gravar a volta" fica desligado com a frase "Cadastre a peça antes de gravar o giro". As fotos (Foto) continuam como hoje.
+- Trava: `estCam` em modo Vídeo sem `ctx.ref` cadastrado → o botão de gravar fica desligado e `giroGrava` recusa.
