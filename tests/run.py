@@ -4373,6 +4373,20 @@ async def main():
             if not ok: falhas.append('4b parte 2 tela de Precos'); print('        veio', got, troca, pg.erros)
             await pg.close()
 
+            # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, D = Date, w = ms => new Promise(r => setTimeout(r, ms));
+              const t = new D(2026, 10, 18, 10).getTime(); window.Date = class extends D { constructor(...x) { x.length ? super(...x) : super(t); } static now() { return t; } };
+              try { S.temaNao = {}; S.temaOf = null; const tema = L.cntDecisoes().filter(x => x.t === 'tema')[0];
+                S.dTab = 'prec'; L.setView('dash'); await w(400); const tela = document.getElementById('v-dash').innerText;
+                return [L.nDias(1), L.nDias(2), L.nDias(0), tema ? tema.tit : '', /Black Friday em 1 dia\\b/.test(tela) && !/1 dias/.test(tela)]; } finally { window.Date = D; } }""")
+            usa = sorted(f for f, t in fontes.items() if re.search(r"dias \+ ' dias'", t))
+            total += 1
+            ok = got == ['1 dia', '2 dias', '0 dias', 'Black Friday em 1 dia', True] and usa == [] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '4b parte 3 (135h): "1 dia"/"N dias" numa função só — Black Friday a 1 dia aparece "em 1 dia" em Preços')
+            if not ok: falhas.append('4b parte 3 nDias'); print('        veio', got, usa, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

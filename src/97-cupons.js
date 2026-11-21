@@ -230,7 +230,7 @@
       /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
-      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + ev.dias + ' dias' : ' está acontecendo') + ' · sugerido:</div>' : '') +
+      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
       '<div class="cupEv"><input class="in" id="cevCod" value="' + esc(ev ? ev.cod : '') + '" placeholder="Código (ex.: NAVIDAD10)" autocapitalize="characters"><input class="in" id="cevPct" inputmode="numeric" value="10" aria-label="Desconto %"><input class="in" id="cevMax" inputmode="numeric" value="50" aria-label="Limite total"></div>' +
       '<div class="hint" style="margin:0" id="cevSim"></div>' +
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +

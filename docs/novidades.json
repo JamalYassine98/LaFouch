@@ -1,7 +1,7 @@
 {
- "nome": "5.50.17",
+ "nome": "5.50.18",
  "notas": [
-  "Preços de cara nova: sem o cabeçalho \"Contador\", uma linha por tabela de atacado (cada \"Ajustar tabela ›\" abre a sua) e a lista Ferramentas com Calculadora, E se…? e Preço automático."
+  "Texto: \"em 1 dia\" no lugar de \"em 1 dias\" nos avisos de tema, cupom e site."
  ],
- "build": 592
+ "build": 593
 }

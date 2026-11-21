@@ -16,6 +16,8 @@
     anonovo: { g: function (it) { return it.tipo === 'solar'; }, rot: 'Solares', p: 0.10, pp: 0.10 },
     halloween: { g: function () { return false; }, rot: '—', p: 0, pp: 0 }
   };
+  // 135h: o plural dos dias num lugar só ("1 dia", "N dias"), para o cartão do tema, o Guardião e Preços
+  function nDias(n) { return n + (n === 1 ? ' dia' : ' dias'); }
   function temaAtual() {
     var t = typeof cupTemaProx === 'function' ? cupTemaProx() : null;
     return t && TEMA_REG[t.tema] ? t : null;
@@ -82,7 +84,7 @@
     // só avisa quando há o que sugerir (conta guardada por 1 min)
     if (!temaCardHtml._c || Date.now() - temaCardHtml._c.ts > 60000 || temaCardHtml._c.t !== t.tema) temaCardHtml._c = { ts: Date.now(), t: t.tema, n: temaSugestao(t).n };
     if (!temaCardHtml._c.n) return '';
-    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + t.dias + ' dias' : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
+    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
   function temaForaHtml(sg) {
     var f = sg.fora || {}, L = [];
@@ -126,7 +128,7 @@
   };
   // avisa no sino também (chamado por atencaoItens)
   function atencaoTema(it) {
-    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
+    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + nDias(t.dias) : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
   }
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
   var TEMA_TXT = { natal: ['Natal na La Fouch 🎄', 'Presentes com desconto e retirada no mesmo dia em Ciudad del Este.', 'Navidad en La Fouch 🎄', 'Regalos con descuento y retiro el mismo día en Ciudad del Este.'],

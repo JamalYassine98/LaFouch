@@ -411,7 +411,7 @@
           S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
           saveSoon();
           try { vitConfere(); } catch (e) {}
-          lfToast('✓ No site ' + (dias ? 'por ' + dias + ' dias' : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
+          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
           render();
         };
       }

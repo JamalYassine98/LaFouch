@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 592;
+  var APP_BUILD = 593;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.17'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.18'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -27160,7 +27160,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
           saveSoon();
           try { vitConfere(); } catch (e) {}
-          lfToast('✓ No site ' + (dias ? 'por ' + dias + ' dias' : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
+          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
           render();
         };
       }
@@ -31219,7 +31219,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
-      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + ev.dias + ' dias' : ' está acontecendo') + ' · sugerido:</div>' : '') +
+      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
       '<div class="cupEv"><input class="in" id="cevCod" value="' + esc(ev ? ev.cod : '') + '" placeholder="Código (ex.: NAVIDAD10)" autocapitalize="characters"><input class="in" id="cevPct" inputmode="numeric" value="10" aria-label="Desconto %"><input class="in" id="cevMax" inputmode="numeric" value="50" aria-label="Limite total"></div>' +
       '<div class="hint" style="margin:0" id="cevSim"></div>' +
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
@@ -44086,6 +44086,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     anonovo: { g: function (it) { return it.tipo === 'solar'; }, rot: 'Solares', p: 0.10, pp: 0.10 },
     halloween: { g: function () { return false; }, rot: '—', p: 0, pp: 0 }
   };
+  // 135h: o plural dos dias num lugar só ("1 dia", "N dias"), para o cartão do tema, o Guardião e Preços
+  function nDias(n) { return n + (n === 1 ? ' dia' : ' dias'); }
   function temaAtual() {
     var t = typeof cupTemaProx === 'function' ? cupTemaProx() : null;
     return t && TEMA_REG[t.tema] ? t : null;
@@ -44152,7 +44154,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // só avisa quando há o que sugerir (conta guardada por 1 min)
     if (!temaCardHtml._c || Date.now() - temaCardHtml._c.ts > 60000 || temaCardHtml._c.t !== t.tema) temaCardHtml._c = { ts: Date.now(), t: t.tema, n: temaSugestao(t).n };
     if (!temaCardHtml._c.n) return '';
-    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + t.dias + ' dias' : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
+    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
   function temaForaHtml(sg) {
     var f = sg.fora || {}, L = [];
@@ -44196,7 +44198,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // avisa no sino também (chamado por atencaoItens)
   function atencaoTema(it) {
-    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
+    var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + nDias(t.dias) : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' });
   }
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
   var TEMA_TXT = { natal: ['Natal na La Fouch 🎄', 'Presentes com desconto e retirada no mesmo dia em Ciudad del Este.', 'Navidad en La Fouch 🎄', 'Regalos con descuento y retiro el mismo día en Ciudad del Este.'],
@@ -45850,7 +45852,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
       if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) {
         var sem = typeof temaSugestao === 'function' && !temaSugestao(t).n;
-        L.push({ t: 'tema', tit: t.nome + ' em ' + t.dias + ' dias', sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
+        L.push({ t: 'tema', tit: t.nome + ' em ' + nDias(t.dias), sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
       }
     } catch (e) {}
     try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
@@ -53188,7 +53190,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);
