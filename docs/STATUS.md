@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 38 giro etapa 1: tempos por fase do tratamento no diário (sem mudar o resultado) | src/97-giro-trata.js, tests/run.py |
 | ESBOCO | esboço 52 parte 2 — Retorno, Curva ABC e margens para Resultados | work/s435/giroprecos |
-| SITE | Pendências parte 3: plano das ferramentas — parte 1 (um simulador só) | work/kit/sim.py, work/fiscal/provas.py, work/fiscal/fiscal.py, work/s430/comparador/compara.py |
 
 ## Fila
 
@@ -128,6 +127,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
 - 21/11 15:59 — APP: v606 no ar: 39 preço exato (app). Próximo: 38 giro
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
@@ -152,4 +152,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 10:51 — SITE: Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato).
 - 21/11 10:29 — NUVEM: App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch.
 - 21/11 10:22 — SITE: 21/11 manhã: (1) URGENTE resolvido — câmera do formato do rosto e comparar voltaram (site 1795264209); (2) conferência contra a versão de 19/11: janelas soltas e avisos iguais; telas só com as mudanças aprovadas (work/s430/janelas/LEIA.md); (3) internet fraca: começo rápido + sem recarga na 1ª abertura (site 1795266930) — rede limpa: 4G fraco 31 s → ~15 s até a 1ª foto, 4G bom 6,1 → 1,8 s; (4) esperando o dono: 'implementar' do esboço 39 (preço exato, parte do site) e o esboço do logo leve (Fila 36). Porteiro 230 provas, 0 falhas. PRÓXIMO: internet fraca parte 2 (programa em pedaços).
-- 21/11 10:19 — NUVEM: 39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO.

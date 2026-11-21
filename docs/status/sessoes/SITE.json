@@ -1,13 +1,12 @@
 {
  "nome": "SITE",
- "agora": "Pendências parte 3: plano das ferramentas — parte 1 (um simulador só)",
- "arquivos": [
-  "work/kit/sim.py",
-  "work/fiscal/provas.py",
-  "work/fiscal/fiscal.py",
-  "work/s430/comparador/compara.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795288118.1208649,
+   "r": "Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455."
+  },
   {
    "t": 1795282468.9022424,
    "r": "Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa."
@@ -43,10 +42,6 @@
   {
    "t": 1795225677.5421762,
    "r": "Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono."
-  },
-  {
-   "t": 1795220481.0548325,
-   "r": "3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca"
   }
  ],
  "leu": 1795288110.7600846
