@@ -68,3 +68,4 @@ Escolher um cartão sem peça no Adicionar abre o cadastro com o giro, a frente 
 
 **Achado (L4):** com o cabeçalho da peça (2 linhas), uma frase longa (4 linhas, por exemplo "Fundo manchado…") e os 11 itens, a coluna da esquerda não cabe a 844×390.
 O `c149Cabe` tem de contar o cabeçalho e a frase, não só a lista, e diminuir a letra do grupo inteiro. No esboço foi usada uma frase curta.
+- **Atualizado 21/11 08:36 (esboço 43):** a Galeria do app abre pelo **botão redondo à esquerda do "?"** no título do Estúdio, com o selo do número sem peça. O link "Galeria do app · N sem peça ›" mostrado no 41c sai.
