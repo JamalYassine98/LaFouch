@@ -1,0 +1,10 @@
+conta logada            390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  68/ 66  mudou  66  sumiu   2  novo   0
+pedidos                 390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  68/ 66  mudou  66  sumiu   2  novo   0
+pedido pendente         390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  68/ 66  mudou  66  sumiu   2  novo   0
+cancelar pedido (aviso)  390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  68/ 66  mudou  66  sumiu   2  novo   0
+excluir conta (aviso)   390  raiz #dlgb / #dlgb                elementos  11/ 11  mudou   0  sumiu   0  novo   0
+conta logada           1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  51/ 51  mudou  51  sumiu   0  novo   0
+pedidos                1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  51/ 51  mudou  51  sumiu   0  novo   0
+pedido pendente        1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  51/ 51  mudou  51  sumiu   0  novo   0
+cancelar pedido (aviso) 1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  51/ 51  mudou  51  sumiu   0  novo   0
+excluir conta (aviso)  1440  raiz #dlgb / #dlgb                elementos  11/ 11  mudou   0  sumiu   0  novo   0

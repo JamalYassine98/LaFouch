@@ -1,0 +1,32 @@
+menu                    390  raiz #drw.on / #drw.on            elementos  42/ 42  mudou   5  sumiu   0  novo   0
+busca                   390  raiz #sov.on / #sov.on            elementos  11/ 11  mudou   2  sumiu   0  novo   0
+filtros                 390  raiz #fsh.on / #fsh.on            elementos  22/ 22  mudou   1  sumiu   0  novo   0
+peça                    390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  62/ 55  mudou  55  sumiu   7  novo   0
+adicionado              390  raiz #cad / #cad                  elementos  15/ 15  mudou   0  sumiu   0  novo   0
+carrinho com peça       390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  42/ 42  mudou  37  sumiu   0  novo   0
+conta entrar            390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  31/ 31  mudou  31  sumiu   0  novo   0
+conta criar             390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  31/ 31  mudou  31  sumiu   0  novo   0
+mapa                    390  raiz #mapw / #mapw                elementos  26/ 26  mudou   5  sumiu   0  novo   0
+consulta do grau        390  raiz #gw / #gw                    elementos 141/141  mudou 141  sumiu   0  novo   0
+rosto                   390  raiz .sec.pop / .sec.pop          elementos  72/ 66  mudou  66  sumiu   6  novo   0
+rosto janela            390  raiz #layer .scrim:not(.pg) / #layer .scrim:not(.pg) elementos  40/ 40  mudou   1  sumiu   0  novo   0
+atacado                 390  raiz .sec.pop / .sec.pop          elementos  22/ 22  mudou  22  sumiu   0  novo   0
+atacado botão           390  raiz main / main                  elementos  49/ 49  mudou   7  sumiu   0  novo   0
+como comprar            390  raiz .sec.pop / .sec.pop          elementos  17/ 17  mudou  17  sumiu   0  novo   0
+zoom                    390  raiz #layer .scrim.pg / #layer .scrim.pg elementos  62/ 55  mudou  55  sumiu   7  novo   0
+menu                   1440  raiz #drw.on / #drw.on            elementos  48/ 44  mudou   5  sumiu   6  novo   2
+busca                  1440  raiz #sov.on / #sov.on            elementos  11/ 11  mudou   0  sumiu   0  novo   0
+filtros                1440  raiz #fsh.on / #fsh.on            elementos  22/ 22  mudou   0  sumiu   0  novo   0
+peça                   1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  85/ 75  mudou  75  sumiu  10  novo   0
+adicionado             1440  raiz #cad / #cad                  elementos  15/ 15  mudou   0  sumiu   0  novo   0
+carrinho com peça      1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  47/ 47  mudou  47  sumiu   0  novo   0
+conta entrar           1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  31/ 31  mudou  31  sumiu   0  novo   0
+conta criar            1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  31/ 31  mudou  31  sumiu   0  novo   0
+mapa                   1440  raiz #mapw / #mapw                elementos  26/ 26  mudou   0  sumiu   0  novo   0
+consulta do grau       1440  raiz #gw / #gw                    elementos 150/150  mudou 150  sumiu   0  novo   0
+rosto                  1440  raiz .sec.pop / .sec.pop          elementos 183/183  mudou 158  sumiu   0  novo   0
+rosto janela           1440  raiz #layer .scrim:not(.pg) / #layer .scrim:not(.pg) elementos  40/ 40  mudou   0  sumiu   0  novo   0
+atacado                1440  raiz .sec.pop / .sec.pop          elementos  18/ 18  mudou  18  sumiu   0  novo   0
+atacado botão          1440  raiz .sec.pop / .sec.pop          elementos  18/ 18  mudou  18  sumiu   0  novo   0
+como comprar           1440  raiz .sec.pop / .sec.pop          elementos  21/ 19  mudou  19  sumiu   2  novo   0
+zoom                   1440  raiz #layer .scrim.pg / #layer .scrim.pg elementos  85/ 75  mudou  75  sumiu  10  novo   0
