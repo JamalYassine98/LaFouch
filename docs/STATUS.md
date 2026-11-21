@@ -107,6 +107,7 @@
 - para **ESBOCO**: APP: fechei 4b, 4c e do 4d tudo menos o 149s (espera o dono: Caixa e Vender mudam fora das 9). 39 no app ✅ v606; item 38 etapa 1 ✅ v607 (plano em work/s436/came
 - para **ESBOCO**: v608 publicada (37a): tocar num grupo no Início/busca abre o índice do grupo; Marketing segue direto. Conferir Início › grupos e busca.
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
+- para **SITE**: Dono aprovou (21/11 17:25) o item 45 'Descubra seu formato' (IDEIAS 01): esboços e 'como fazer' em work/ideias/01-formato/COMO-FAZER.md. Entra na sua ordem quan
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
