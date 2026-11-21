@@ -1,0 +1,369 @@
+rede	Set up job	﻿2026-11-21T02:59:04.0474866Z Current runner version: '2.338.2'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261111.635
+Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Build Date: 2026-11-11T01:49:01Z
+Worker ID: {4680dbf8-53db-4495-a688-a4db4cd20807}
+Region: westus
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+26.04.1
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-26.04
+Version: 20261116.202.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Contents: read
+Metadata: read
+Packages: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Complete job name: rede
+rede	Run actions/checkout@v4	﻿2026-11-21T02:59:04.7853135Z ##[group]Run actions/checkout@v4
+with:
+  repository: JamalYassine98/LaFouch
+  token: ***
+  ssh-strict: true
+  ssh-user: git
+  persist-credentials: true
+  clean: true
+  sparse-checkout-cone-mode: true
+  fetch-depth: 1
+  fetch-tags: false
+  show-progress: true
+  lfs: false
+  submodules: false
+  set-safe-directory: true
+  allow-unsafe-pr-checkout: false
+##[endgroup]
+Syncing repository: JamalYassine98/LaFouch
+##[group]Getting Git version info
+Working directory is '/home/runner/work/LaFouch/LaFouch'
+[command]/usr/bin/git version
+git version 2.56.1
+##[endgroup]
+Temporarily overriding HOME='/home/runner/work/_temp/b38990d4-f957-4d8e-b801-1f831c3f1f6e' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/LaFouch/LaFouch
+Deleting the contents of '/home/runner/work/LaFouch/LaFouch'
+##[group]Initializing the repository
+[command]/usr/bin/git init /home/runner/work/LaFouch/LaFouch
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: will change to "main" in Git 3.0. To configure the initial branch name
+hint: to use in all of your new repositories, which will suppress this warning,
+hint: call:
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint: 	git branch -m <name>
+hint:
+hint: Disable this message with "git config set advice.defaultBranchName false"
+Initialized empty Git repository in /home/runner/work/LaFouch/LaFouch/.git/
+[command]/usr/bin/git remote add origin https://github.com/JamalYassine98/LaFouch
+##[endgroup]
+##[group]Disabling automatic garbage collection
+[command]/usr/bin/git config --local gc.auto 0
+##[endgroup]
+##[group]Setting up auth
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+[command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+##[endgroup]
+##[group]Fetching the repository
+[command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ce169193eaaaaac1e715c0ceba71614a2606a0f0:refs/remotes/origin/main
+From https://github.com/JamalYassine98/LaFouch
+ * [new ref]         ce169193eaaaaac1e715c0ceba71614a2606a0f0 -> origin/main
+##[endgroup]
+##[group]Determining the checkout info
+##[endgroup]
+[command]/usr/bin/git sparse-checkout disable
+[command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+##[group]Checking out the ref
+[command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Updating files:  29% (1923/6463)
+Updating files:  30% (1939/6463)
+Updating files:  31% (2004/6463)
+Updating files:  32% (2069/6463)
+Updating files:  33% (2133/6463)
+Updating files:  34% (2198/6463)
+Updating files:  35% (2263/6463)
+Updating files:  36% (2327/6463)
+Updating files:  37% (2392/6463)
+Updating files:  38% (2456/6463)
+Updating files:  39% (2521/6463)
+Updating files:  40% (2586/6463)
+Updating files:  41% (2650/6463)
+Updating files:  42% (2715/6463)
+Updating files:  43% (2780/6463)
+Updating files:  44% (2844/6463)
+Updating files:  45% (2909/6463)
+Updating files:  46% (2973/6463)
+Updating files:  47% (3038/6463)
+Updating files:  48% (3103/6463)
+Updating files:  49% (3167/6463)
+Updating files:  50% (3232/6463)
+Updating files:  51% (3297/6463)
+Updating files:  52% (3361/6463)
+Updating files:  52% (3387/6463)
+Updating files:  53% (3426/6463)
+Updating files:  54% (3491/6463)
+Updating files:  55% (3555/6463)
+Updating files:  56% (3620/6463)
+Updating files:  57% (3684/6463)
+Updating files:  58% (3749/6463)
+Updating files:  59% (3814/6463)
+Updating files:  60% (3878/6463)
+Updating files:  61% (3943/6463)
+Updating files:  62% (4008/6463)
+Updating files:  63% (4072/6463)
+Updating files:  64% (4137/6463)
+Updating files:  65% (4201/6463)
+Updating files:  66% (4266/6463)
+Updating files:  67% (4331/6463)
+Updating files:  68% (4395/6463)
+Updating files:  69% (4460/6463)
+Updating files:  70% (4525/6463)
+Updating files:  71% (4589/6463)
+Updating files:  72% (4654/6463)
+Updating files:  73% (4718/6463)
+Updating files:  73% (4774/6463)
+Updating files:  74% (4783/6463)
+Updating files:  75% (4848/6463)
+Updating files:  76% (4912/6463)
+Updating files:  77% (4977/6463)
+Updating files:  78% (5042/6463)
+Updating files:  79% (5106/6463)
+Updating files:  80% (5171/6463)
+Updating files:  81% (5236/6463)
+Updating files:  82% (5300/6463)
+Updating files:  83% (5365/6463)
+Updating files:  84% (5429/6463)
+Updating files:  85% (5494/6463)
+Updating files:  86% (5559/6463)
+Updating files:  87% (5623/6463)
+Updating files:  88% (5688/6463)
+Updating files:  89% (5753/6463)
+Updating files:  90% (5817/6463)
+Updating files:  91% (5882/6463)
+Updating files:  92% (5946/6463)
+Updating files:  93% (6011/6463)
+Updating files:  94% (6076/6463)
+Updating files:  95% (6140/6463)
+Updating files:  96% (6205/6463)
+Updating files:  97% (6270/6463)
+Updating files:  98% (6334/6463)
+Updating files:  99% (6399/6463)
+Updating files: 100% (6463/6463)
+Updating files: 100% (6463/6463), done.
+Switched to a new branch 'main'
+branch 'main' set up to track 'origin/main'.
+##[endgroup]
+[command]/usr/bin/git log -1 --format=%H
+ce169193eaaaaac1e715c0ceba71614a2606a0f0
+rede	Run pip install -q playwright && python -m playwright install --with-deps chromium >/dev/null	﻿2026-11-21T02:59:37.2880173Z ##[group]Run pip install -q playwright && python -m playwright install --with-deps chromium >/dev/null
+[36;1mpip install -q playwright && python -m playwright install --with-deps chromium >/dev/null[0m
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart hosted-compute-agent.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+rede	Run for i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done	﻿2026-11-21T03:00:09.0995816Z ##[group]Run for i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done
+[36;1mfor i in 1 2 3; do echo "== 4G fraco, visita nova $i"; python tools/teste-site/rede.py https://lafouch.com/ fraco; done[0m
+[36;1mecho "== 4G bom, visita nova"; python tools/teste-site/rede.py https://lafouch.com/ bom[0m
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+== 4G fraco, visita nova 1
+{"topo": 4.7, "primeiro_cartao": 20.6, "primeira_foto": 31.1, "fcp": 3.4}
+  0.8 →   1.3 s     0.3 KB  https://lafouch.com/version.json
+  0.8 →   1.4 s     1.3 KB  https://fonts.googleapis.com/css2
+  1.3 →   5.1 s    75.8 KB  https://lafouch.com/
+  1.8 →   4.2 s    33.4 KB  https://lafouch.com/js/lf-i18n.js
+  1.8 →  15.2 s   270.8 KB  https://lafouch.com/js/lf-site.js
+  2.1 →   2.6 s     0.5 KB  https://lafouch.com/version.json
+  2.1 →   2.1 s     0.0 KB  https://fonts.googleapis.com/css2
+  4.7 →  13.9 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  4.7 →   9.3 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  4.7 →  10.4 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  4.8 →   7.6 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 15.3 →  15.8 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+ 15.3 →  16.0 s    10.2 KB  ights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+ 15.3 →  15.9 s     1.5 KB  https://www.google.com/recaptcha/enterprise.js
+ 15.9 →  23.5 s   352.9 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 19.3 →  20.6 s     3.6 KB  s.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/produtos
+ 19.3 →  20.4 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+ 23.5 →  24.6 s    28.8 KB  https://www.google.com/recaptcha/enterprise/anchor
+ 24.0 →  26.4 s    34.7 KB  static.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/styles__ltr.css
+ 24.0 →  24.1 s     0.0 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 24.6 →  31.1 s    25.7 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/GR3340
+ 24.6 →  29.4 s    19.3 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2265
+ 24.6 →  25.1 s     0.1 KB  is.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/estoque
+ 26.5 →  27.9 s     2.2 KB  https://www.gstatic.com/recaptcha/api2/logo_48.png
+ 27.7 →  29.7 s     2.2 KB  https://www.google.com/recaptcha/enterprise/reload
+ 29.4 →  29.4 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=
+ 29.5 →  29.5 s     0.0 KB  blob:https://lafouch.com/13d43a0d-259b-448d-80c4-02dca6fef1fd
+ 29.7 →  29.7 s     0.0 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+ 29.7 →  30.9 s     0.3 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+ 29.7 →  30.8 s     0.0 KB  https://www.google.com/recaptcha/enterprise/clr
+ 31.1 →  31.1 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=
+total KB até a 1ª foto: 1154
+== 4G fraco, visita nova 2
+{"topo": 5.3, "primeiro_cartao": 21.2, "primeira_foto": 31.9, "fcp": 3.4}
+  1.4 →   1.9 s     0.3 KB  https://lafouch.com/version.json
+  1.4 →   2.0 s     1.3 KB  https://fonts.googleapis.com/css2
+  1.9 →   5.7 s    76.0 KB  https://lafouch.com/
+  2.4 →   4.9 s    33.4 KB  https://lafouch.com/js/lf-i18n.js
+  2.4 →  15.9 s   270.8 KB  https://lafouch.com/js/lf-site.js
+  2.8 →   3.3 s     0.5 KB  https://lafouch.com/version.json
+  2.8 →   2.8 s     0.0 KB  https://fonts.googleapis.com/css2
+  5.3 →  14.6 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  5.3 →  10.0 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  5.4 →  11.1 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  5.4 →   8.1 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 15.9 →  16.4 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+ 15.9 →  16.6 s    10.2 KB  ights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+ 15.9 →  16.5 s     1.5 KB  https://www.google.com/recaptcha/enterprise.js
+ 16.5 →  24.1 s   352.9 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 19.9 →  21.2 s     3.6 KB  s.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/produtos
+ 19.9 →  21.0 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+ 24.2 →  25.3 s    28.8 KB  https://www.google.com/recaptcha/enterprise/anchor
+ 24.7 →  27.1 s    34.7 KB  static.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/styles__ltr.css
+ 24.7 →  24.7 s     0.0 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 25.2 →  31.9 s    25.7 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/GR3340
+ 25.2 →  31.8 s    24.2 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2255
+ 25.2 →  29.9 s    19.3 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2265
+ 25.2 →  31.6 s    23.2 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2270
+ 25.2 →  25.8 s     0.1 KB  is.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/estoque
+ 27.2 →  28.6 s     2.2 KB  https://www.gstatic.com/recaptcha/api2/logo_48.png
+ 28.5 →  30.4 s     2.2 KB  https://www.google.com/recaptcha/enterprise/reload
+ 29.9 →  29.9 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=
+ 30.0 →  30.0 s     0.0 KB  blob:https://lafouch.com/938641ed-8df8-4401-af88-0fef70d5bb4a
+ 30.5 →  30.5 s     0.0 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+ 30.5 →  31.7 s     0.3 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+ 30.5 →  31.6 s     0.0 KB  https://www.google.com/recaptcha/enterprise/clr
+ 31.6 →  31.6 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/9k=
+ 31.8 →  31.8 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//Z
+ 31.9 →  31.9 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=
+total KB até a 1ª foto: 1201
+== 4G fraco, visita nova 3
+{"topo": 5.1, "primeiro_cartao": 19.9, "primeira_foto": 30.3, "fcp": 3.2}
+  1.4 →   2.0 s     0.3 KB  https://lafouch.com/version.json
+  1.4 →   1.9 s     1.3 KB  https://fonts.googleapis.com/css2
+  2.0 →   5.5 s    76.0 KB  https://lafouch.com/
+  2.5 →   2.5 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  2.5 →  14.6 s     0.0 KB  https://lafouch.com/js/lf-site.js
+  3.2 →   3.7 s     0.5 KB  https://lafouch.com/version.json
+  3.2 →   3.2 s     0.0 KB  https://fonts.googleapis.com/css2
+  5.1 →  14.4 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  5.1 →   9.8 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  5.2 →  10.9 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  5.2 →   7.9 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+ 14.6 →  15.1 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+ 14.7 →  15.4 s    10.2 KB  ights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+ 14.7 →  15.2 s     1.5 KB  https://www.google.com/recaptcha/enterprise.js
+ 15.2 →  22.8 s   352.9 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 18.7 →  19.9 s     3.6 KB  s.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/produtos
+ 18.7 →  19.8 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+ 22.9 →  24.0 s    28.8 KB  https://www.google.com/recaptcha/enterprise/anchor
+ 23.4 →  25.8 s    34.7 KB  static.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/styles__ltr.css
+ 23.4 →  23.4 s     0.0 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+ 23.9 →  30.3 s    25.7 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/GR3340
+ 23.9 →  28.5 s    19.3 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2265
+ 23.9 →  24.5 s     0.1 KB  is.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/estoque
+ 25.9 →  27.5 s     2.2 KB  https://www.gstatic.com/recaptcha/api2/logo_48.png
+ 27.3 →  29.3 s     2.2 KB  https://www.google.com/recaptcha/enterprise/reload
+ 28.5 →  28.5 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=
+ 28.6 →  28.6 s     0.0 KB  blob:https://lafouch.com/9e28a6d5-4307-4b9a-9905-f36c9e4a8599
+ 29.3 →  29.4 s     0.0 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+ 30.3 →  30.3 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=
+total KB até a 1ª foto: 849
+== 4G bom, visita nova
+{"topo": 0.6, "primeiro_cartao": 4.9, "primeira_foto": 6.1, "fcp": 0.3}
+  0.2 →   0.4 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  0.2 →   0.3 s     0.3 KB  https://lafouch.com/version.json
+  0.2 →   0.3 s     1.3 KB  https://fonts.googleapis.com/css2
+  0.3 →   0.7 s    76.0 KB  https://lafouch.com/
+  0.4 →   0.5 s     0.0 KB  https://lafouch.com/js/lf-i18n.js
+  0.4 →   1.7 s   270.8 KB  https://lafouch.com/js/lf-site.js
+  0.5 →   0.6 s     0.5 KB  https://lafouch.com/version.json
+  0.5 →   0.5 s     0.0 KB  https://fonts.googleapis.com/css2
+  0.6 →   1.6 s   154.4 KB  https://lafouch.com/media/i/926f9307ba28.png
+  0.6 →   1.2 s    47.7 KB  nts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+  0.6 →   1.3 s    65.9 KB  s/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2
+  0.7 →   0.9 s    17.9 KB  https://lafouch.com/media/i/788688a36305.png
+  1.8 →   1.9 s     3.0 KB  https://lafouch.com/media/voz/pt/lista.json
+  1.8 →   2.0 s    10.2 KB  ights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+  1.8 →   2.0 s     1.5 KB  https://www.google.com/recaptcha/enterprise.js
+  2.0 →   2.8 s   352.9 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+  2.9 →   3.1 s    62.7 KB  https://www.google.com/recaptcha/enterprise/anchor
+  3.0 →   3.2 s    34.7 KB  static.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/styles__ltr.css
+  3.0 →   3.1 s     0.0 KB  ic.com/recaptcha/releases/4i3aN5wAweL7i3ADI7BSX4B-/recaptcha__pt_br.js
+  3.3 →   3.4 s     2.2 KB  https://www.gstatic.com/recaptcha/api2/logo_48.png
+  3.3 →   3.5 s    39.2 KB  .gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2
+  3.5 →   3.6 s     2.2 KB  https://www.google.com/recaptcha/enterprise/reload
+  3.5 →   3.6 s     0.4 KB  https://lafouch.com/cdn-cgi/rum
+  3.6 →   3.6 s     0.0 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+  3.6 →   3.8 s     0.3 KB  2328668572:web:c34eb81c6044ca07e62859:exchangeRecaptchaEnterpriseToken
+  3.6 →   3.8 s     0.0 KB  https://www.google.com/recaptcha/enterprise/clr
+  3.8 →   4.9 s     3.6 KB  s.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/produtos
+  3.8 →   4.8 s     0.9 KB  om/v1/projects/lafouch-2f6bd/databases/(default)/documents/config/site
+  4.9 →   6.1 s    25.7 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/GR3340
+  4.9 →   5.3 s    25.5 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2250
+  4.9 →   5.5 s    24.2 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2255
+  4.9 →   5.4 s    27.1 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2260
+  4.9 →   5.5 s    19.3 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2265
+  4.9 →   5.2 s    23.2 KB  m/v1/projects/lafouch-2f6bd/databases/(default)/documents/fotos/SL2270
+  4.9 →   5.1 s     0.1 KB  is.com/v1/projects/lafouch-2f6bd/databases/(default)/documents/estoque
+  5.2 →   5.2 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/9k=
+  5.3 →   5.3 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k=
+  5.3 →   5.3 s     0.0 KB  blob:https://lafouch.com/7152f9ac-276f-42fd-a0b7-3d0584e22d1f
+  5.4 →   5.4 s     0.0 KB  blob:https://lafouch.com/c3e99c44-74ee-4763-b7a5-92cdc902f20b
+  5.4 →   5.4 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/2Q==
+  5.5 →   5.5 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//Z
+  5.5 →   5.5 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=
+  6.1 →   6.1 s     0.0 KB  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/9k=
+total KB até a 1ª foto: 1294
+rede	Post Run actions/checkout@v4	﻿2026-11-21T03:01:52.9501045Z Post job cleanup.
+[command]/usr/bin/git version
+git version 2.56.1
+Temporarily overriding HOME='/home/runner/work/_temp/61c94f43-d963-44bb-b64a-d3a5be997c2c' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/LaFouch/LaFouch
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+rede	Complete job	﻿2026-11-21T03:01:53.2080809Z Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

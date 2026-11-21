@@ -1367,24 +1367,6 @@
       else{e2.setAttribute('data-ok','');cidMsg('Não encontramos essa cidade. Confira o nome (ex.: Ciudad del Este, Foz do Iguaçu).','er')}
       return r})}
   var CTA_ERR='';
-  function contaForm(volta){
-    var c=getConta()||{},nac=c.nac||(paisSel()==='br'?'br':paisSel()==='ar'?'ar':'py'),pais=c.pais||nac;
-    var nacI=nacItems(),telI=telItems();if(!telI.some(function(x){return x.v===pais}))telI.push({v:pais,s:'+'+(FN&&FN[pais]?FN[pais].c:''),l:paisNome(pais),q:paisNome(pais)});
-    if(!FN)fnLoad().then(function(){if($('cfp')){cddTel('cfp');var z=$('cfz');if(z){z.placeholder=fnEx($('cfp').value);if(z.value)fnVivo(z,'cfp','cfzh')}}},function(){});
-    var se0=sessG()||{},gg=!c.nome&&se0.via==='google';
-    layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Sua conta"><div style="display:flex;align-items:center;justify-content:space-between"><h2 style="font-size:28px">'+(c.nome||gg?'Seus dados':'Criar conta')+'</h2><button class="x" data-close aria-label="Fechar" style="align-self:auto">×</button></div>'+
-      (gg?'<div class="gban">'+G_BADGE+'<span>Conectada com o Google · <b>'+esc(se0.email)+'</b></span></div>':c.nome?'':'<div class="passos"><i class="on"></i><i class="on"></i></div><div class="note" style="margin:0">Passo 2 de 2 · cadastro</div>')+'<div class="note">Seus dados ficam salvos na sua conta e vão para a loja só quando você faz um pedido.</div>'+
-      '<label class="cfl" for="cfn">Nome completo</label><input class="field" id="cfn" autocomplete="name" value="'+esc(c.nome||(gg?se0.gn:'')||'')+'">'+
-      '<label class="cfl" for="cfa2">'+LFI.tr('Nacionalidade')+'</label>'+cdd('cfa2','Nacionalidade',nac,nacI,'Buscar nacionalidade')+
-      (function(){var tp=docTipo('cf',c);return '<div id="cfdt"'+(nac==='py'?'':' hidden')+'><span class="cfl">'+LFI.tr('Documento')+'</span><div class="cfdoc" role="group" aria-label="'+LFI.tr('Documento')+'"><button type="button" data-doct="ced" data-p="cf" class="'+(tp==='ruc'?'':'on')+'" aria-pressed="'+(tp!=='ruc')+'">'+LFI.tr('Cédula')+'</button><button type="button" data-doct="ruc" data-p="cf" class="'+(tp==='ruc'?'on':'')+'" aria-pressed="'+(tp==='ruc')+'">RUC</button></div></div>'+'<label class="cfl" for="cfd" id="cfdl">'+docRot(nac,tp)+'</label><input class="field" id="cfd" inputmode="'+(NAC[nac]?'numeric':'text')+'" autocomplete="off" placeholder="'+docPh(nac,tp)+'" value="'+esc(maskDoc(nac,c.doc,tp))+'">'})()+
-      '<label class="cfl" for="cfb">Nascimento</label><input class="field" id="cfb" inputmode="numeric" placeholder="dd/mm/aaaa" autocomplete="bday" maxlength="10" value="'+esc(maskNasc(c.nasc))+'">'+
-      '<label class="cfl" for="cfz">WhatsApp</label><div class="fzr">'+cdd('cfp','País do WhatsApp',pais,telI,'Buscar país ou código')+'<input class="field" id="cfz" inputmode="tel" autocomplete="tel-national" placeholder="'+esc(fnEx(pais))+'" value="'+esc(c.telTxt||'')+'"></div><div class="cfh" id="cfzh" hidden></div>'+
-      '<label class="cfl" for="cfc">Cidade</label><input class="field" id="cfc" autocomplete="address-level2" value="'+esc(c.cidade||'')+'"'+(c.cidade?' data-ok="'+esc(c.cidade)+'" data-cpais="'+esc(c.cpais||'')+'"':'')+'><div class="cfh" id="cfch" hidden></div>'+
-      '<div id="cfpy"'+(entPY({cpais:c.cidade?c.cpais:'',nac:nac})?'':' hidden')+'><label class="cfl" for="cfa">Endereço <span style="font-weight:400">(opcional)</span></label><input class="field" id="cfa" autocomplete="street-address" value="'+esc(c.end||'')+'">'+
-      '<label class="cfl" for="cfob">Observação <span style="font-weight:400">(opcional)</span></label><input class="field" id="cfob" maxlength="120" placeholder="Ex.: portão azul, tocar a campainha" value="'+esc(c.obs||'')+'"></div>'+
-      '<div class="fze" id="cferr" role="alert" hidden></div>'+
-      '<button class="btn w" data-cta="salvar" data-volta="'+(volta?1:0)+'" style="margin-top:6px">Salvar conta</button>'+
-      '<button type="button" class="cfx cn" data-cta="sair">Sair da conta</button>'+'</aside>')}
   function cfErro(m,id){var e=$('cferr');if(e){e.textContent=m;e.hidden=!m}if(id){var f=$(id);if(f){f.classList.add('bad');try{f.focus()}catch(_){}}}if(m)toast(m)}
   function contaSalvar(volta){
     var g=function(i){var e=$(i);return e?e.value.trim():''};
@@ -1422,8 +1404,10 @@
   function acTok(){if(!AC.app)return Promise.resolve(null);if(AC.t&&Date.now()<AC.x)return Promise.resolve(AC.t);if(AC.p)return AC.p;if(Date.now()<AC.f)return Promise.resolve(null);
     AC.p=acLoad().then(function(){return new Promise(function(ok){grecaptcha.enterprise.ready(ok)})}).then(function(){return grecaptcha.enterprise.execute(AC.site,{action:'lf'})}).then(function(tk){return fetch('https://firebaseappcheck.googleapis.com/v1/projects/'+FB.p+'/apps/'+AC.app+':exchangeRecaptchaEnterpriseToken?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recaptcha_enterprise_token:tk})})}).then(function(r){if(!r.ok)return r.text().then(function(t){try{console.warn('AppCheck',r.status,t.slice(0,300))}catch(_){}throw 0});return r.json()}).then(function(j){AC.t=j.token;AC.x=Date.now()+Math.max(300,parseInt(j.ttl)||3600)*1000-120000;AC.p=null;lsS('lf_ac',{t:AC.t,x:AC.x});return AC.t}).catch(function(e){if(e)try{console.warn('AppCheck',e)}catch(_){}AC.p=null;AC.f=Date.now()+60000;return null});
     return AC.p}
-  /* TODA chamada à nuvem (funções e Firestore) passa por aqui e leva o selo; com o selo em mãos a chamada sai na hora (vale para o envio ao fechar a página) */
-  function acFetch(url,o){o=o||{};var vai=function(t){if(t)o.headers=Object.assign({},o.headers,{'X-Firebase-AppCheck':t});return fetch(url,o)};if(AC.t&&Date.now()<AC.x)return vai(AC.t);
+  /* TODA chamada à nuvem (funções e Firestore) passa por aqui e leva o selo; com o selo em mãos a chamada sai na hora (vale para o envio ao fechar a página).
+     21/11 (medido em 4G fraco, rede limpa: 1º cartão em 20 s, 8 s deles esperando o selo): a LEITURA PÚBLICA do catálogo (fbg: peças, fotos, estoque,
+     config) é aberta a qualquer um pelas regras — sai na hora, com o selo se ele já existir (`publica`). Quem precisa do selo (funções, gravações) espera por ele. */
+  function acFetch(url,o,publica){o=o||{};var vai=function(t){if(t)o.headers=Object.assign({},o.headers,{'X-Firebase-AppCheck':t});return fetch(url,o)};if(AC.t&&Date.now()<AC.x)return vai(AC.t);if(publica)return vai(null);
     return Promise.race([acTok(),new Promise(function(r){setTimeout(function(){r(null)},4000)})]).then(vai)}
   function fsBase(){return 'https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/'}
   function authPost(ep,body){return acFetch('https://identitytoolkit.googleapis.com/v1/accounts:'+ep+'?key='+FB.k,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(String((j.error&&j.error.message)||'ERRO').split(' ')[0]);return j})})}
@@ -1487,7 +1471,7 @@
   document.addEventListener('click',function(e){var o=$('pkok');if(o&&e.target.closest&&e.target.closest('.top')){/* S313: nas telas de pagamento o topo só tem o logo e não é saída; as saídas são as da própria tela (Pagar depois, Voltar ao catálogo) */if(o.classList.contains('py')){e.preventDefault();return}pkStop();o.remove();document.documentElement.classList.remove('lock')}},true);
   /* cancelar um pedido na loja: UM caminho (função 'pedido' + devolve a reserva). Usado ao cancelar um pedido e ao excluir a conta
      (antes a exclusão escrevia direto em pedidos/, que as regras fecharam em 20/11 — os pedidos pendentes ficavam sem cancelar). */
-  function pedCancela(id,e){return pkEnviar({tipo:'cancel',ref:id,ts:Date.now(),cod:e.cod||''},id+'x').then(function(){if(CFG.reserva===true)resCall('cancelar',id,null,(e.itens||[]).map(function(i){return i.ref}))})}
+  function pedCancela(id,e){return pkEnviar({tipo:'cancel',ref:id,ts:Date.now(),cod:e.cod||''},id+'x').catch(function(er){/* 409 = a loja já tinha este pedido como cancelado: o objetivo está cumprido (recado da NUVEM 20/11) */if(/^http 409/.test(String(er&&er.message||'')))return true;throw er}).then(function(){if(CFG.reserva===true)resCall('cancelar',id,null,(e.itens||[]).map(function(i){return i.ref}))})}
   function pkCancela(){
     var id=window.__pgid,e=id&&pedGet(id),b=document.querySelector('#dlgb .dk');if(!e||(e.est!=='pagar'&&e.est!=='recusado')){dlgFecha();return}
     if(b)b.disabled=true;
@@ -1545,21 +1529,11 @@
   function endAviso(cc){var m=semDelivery(cc)+' '+(lgS()==='es'?'Revisa la dirección o elige Retirar en la tienda.':'Confira o endereço ou escolha Retirar na loja.');toast(m);
     var f=$('fa2'),h=$('fa2h');if(f){f.classList.add('bad');if(!h){h=document.createElement('div');h.id='fa2h';h.className='cfh er';f.after(h)}h.textContent=m;h.hidden=false}}
   document.addEventListener('focusout',function(e){var t=e.target;if(!t||t.id!=='fa2')return;var v=t.value.trim();if(v.length<6)return;endConf(v).then(function(r){if($('fa2')!==t||t.value.trim()!==v)return;var h=$('fa2h');if(r.fora)endAviso(r.cc);else{t.classList.remove('bad');if(h)h.hidden=true}})});
-  function endsSalvos(c){var o=[],add=function(x){x=String(x||'').trim();if(x.length>=6&&o.indexOf(x)<0)o.push(x)};add(c&&c.end);lsG('lf_ends',[]).forEach(add);return o.slice(0,4)}
 
   var EMAIL_ENVIA=false; /* ligar (true) quando o envio de e-mail do pedido estiver funcionando */
   function gdGet(){if(!st.gd)st.gd=lsG('lf_guest',null)||{};return st.gd}
   function gdSave(){if(!$('gn'))return;var g=function(i){var e=$(i);return e?e.value:''};st.gd={nome:g('gn'),pais:g('gpp'),tz:g('gz'),email:g('ge'),doc:g('gd')};lsS('lf_guest',st.gd)}
   function gErro2(m,id){var f=$(id);if(f){f.classList.add('bad');try{f.focus()}catch(_){}}toast(m)}
-  function gConta(g){var d=gdGet(),pais=d.pais||paisSel(),tel=foneNorm(pais,d.tz||'');if(!g)return {nac:pais,pais:pais};return tel&&d.nome&&d.email?{nome:String(d.nome).trim(),nac:pais,doc:d.doc?docNorm(pais,d.doc):'',nasc:'',pais:pais,tel:tel,telTxt:d.tz,email:d.email,cidade:'',end:''}:null}
-  function gLer(){
-    gdSave();document.querySelectorAll('#layer .field.bad').forEach(function(e){e.classList.remove('bad')});
-    var d=gdGet(),nome=String(d.nome||'').trim().replace(/\s+/g,' '),pais=d.pais||paisSel(),tel=foneNorm(pais,d.tz||''),em=String(d.email||'').trim(),doc=String(d.doc||'').trim();
-    if(nome.length<3||nome.indexOf(' ')<0){gErro2('Digite seu nome e sobrenome.','gn');return null}
-    if(!tel){gErro2(fnMsg(pais),'gz');return null}
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){gErro2('E-mail inválido.','ge');return null}
-    var dn='';if(doc){dn=docNorm(pais,doc);if(!dn){gErro2(nacInfo(pais).d+' inválido. Confira os números.','gd');return null}}
-    return {nome:nome,nac:pais,doc:dn,nasc:'',pais:pais,tel:tel,telTxt:d.tz,email:em,cidade:'',end:''}}
   document.addEventListener('input',function(e){if(e.target&&/^g[nzed]$/.test(e.target.id))gdSave()});
 
   
@@ -1953,7 +1927,7 @@
     (CFG.reserva===true?resCall('reservar',id,resItens(doc.itens),null,{pag:pag}):Promise.resolve(null)).then(function(rr){
       if(rr&&rr.ok===false&&rr.motivo==='esgotado'){var err=new Error('esgotado');err.falta=rr.falta||[];throw err}
       if(rr&&rr.ok&&!rr.off&&rr.exp)rxo={rx:rr.exp,rd:(rr.agora||Date.now())-Date.now(),vip:!!rr.vip};
-      return pkEnviar(doc,id)}).then(function(){
+      return pkEnviar2(doc,id)}).then(function(){
       var L=lsG('lf_ped',[]);if(!L.some(function(e){return e.id===id}))L.push({id:id,cod:cod,tel:c.tel||'',ts:doc.ts,total:doc.total,brl:doc.brl,pagar:doc.pagar,uq:doc.uq,ent:ent,pag:pag,est:'pagar',teste:!!TESTE,rx:rxo?rxo.rx:0,rd:rxo?rxo.rd:0,vip:!!(rxo&&rxo.vip),itens:doc.itens.map(function(i){return {ref:i.ref,nome:i.nome,q:i.q,cor:i.cor}})});lsS('lf_ped',L.slice(-30));
       if(doc.cup)cupTira();
       /* S400 (17/11, esboços 59a–59f): o cartão de desconto NÃO aparece mais em tela nenhuma do pagamento; o presente chega por e-mail depois da entrega */cupFn({acao:'proxima',pid:id,tel:c.tel||'',email:c.email||'',nome:c.nome||'',lang:LFI.lang}).then(function(){},function(){});
@@ -3154,7 +3128,7 @@
   var FB={p:'lafouch-2f6bd',k:'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc'};
   function fbv(v){if('stringValue' in v)return v.stringValue;if('integerValue' in v)return +v.integerValue;if('doubleValue' in v)return v.doubleValue;if('booleanValue' in v)return v.booleanValue;if('nullValue' in v)return null;if('arrayValue' in v)return (v.arrayValue.values||[]).map(fbv);if('mapValue' in v)return fbd(v.mapValue);return null}
   function fbd(d){var o={},f=d.fields||{};for(var k in f)o[k]=fbv(f[k]);return o}
-  function fbg(path){return acFetch('https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/'+path+(path.indexOf('?')<0?'?':'&')+'key='+FB.k).then(function(r){if(!r.ok)throw new Error('fb');return r.json()})}
+  function fbg(path){return acFetch('https://firestore.googleapis.com/v1/projects/'+FB.p+'/databases/(default)/documents/'+path+(path.indexOf('?')<0?'?':'&')+'key='+FB.k,null,true).then(function(r){if(!r.ok)throw new Error('fb');return r.json()})}
   var LOJA=/[?&]loja=1/.test(location.search)&&window.parent!==window;
   var PREV=/[?&](cliente=1|p=\d)/.test(location.search);var CFG={ativo:true};try{var _c=JSON.parse(localStorage.getItem('lf_cfg')||'null');if(_c&&!PREV){delete _c._f;CFG=_c}}catch(_){}
   var ADM=null,LF_ADM=false;
@@ -3367,12 +3341,14 @@
     redraw();
     var heroRefs={};String(CFG.slide||'').split(',').concat([CFG.destaque||''],String(CFG.dauto||'').split(',')).forEach(function(r){if(r)heroRefs[r]=1});
     if(CFG.dmodo==='auto'||!Object.keys(heroRefs).length){P.slice().sort(function(a,b){return (b.est||0)-(a.est||0)}).slice(0,4).forEach(function(q){heroRefs[q.ref]=1})}
-    fcPronto(function(){var fo=0;P.forEach(function(p){
+    fcPronto(function(){var fo=0,esp=[];P.forEach(function(p){
       if(!(p.fv>0))return;var c=FCM&&FCM[p.ref];
       if(c&&c.v===p.fv&&c.d){poeFoto(p,c.d);fo=1;return}
-      var busca=function(){fbg('fotos/'+p.ref).then(function(d){var o=fbd(d);if(!o.d)return;poeFoto(p,o.d);fcSet(p.ref,{v:p.fv,d:o.d});if(heroRefs[p.ref]){setHero()}clearTimeout(syncProds.t);syncProds.t=setTimeout(function(){redraw();setHero()},heroRefs[p.ref]?60:250)}).catch(function(){})};
+      var busca=function(){return fbg('fotos/'+p.ref).then(function(d){var o=fbd(d);if(!o.d)return;poeFoto(p,o.d);fcSet(p.ref,{v:p.fv,d:o.d});if(heroRefs[p.ref]){setHero()}clearTimeout(syncProds.t);syncProds.t=setTimeout(function(){redraw();setHero()},heroRefs[p.ref]?60:250)}).catch(function(){})};
       /* as fotos do destaque vêm primeiro; o resto do catálogo só depois, para não disputar a rede */
-      if(heroRefs[p.ref])busca();else setTimeout(busca,900)});
+      esp.push(heroRefs[p.ref]?busca():new Promise(function(r){setTimeout(function(){busca().then(r)},900)}))});
+    /* a primeira tela está pronta (peças e fotos): só agora o selo é pedido — o reCAPTCHA (350 KB) não disputa a rede com o catálogo */
+    Promise.all(esp).then(acTok);
     if(fo)redraw()})}
   /* reservas em tempo real: a lista pública estoque/<ref> só existe enquanto há peça reservada */
   var EST=null,ESTT=0,ESTAG=0,ESTRD=0;

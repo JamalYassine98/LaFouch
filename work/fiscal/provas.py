@@ -145,6 +145,10 @@ def p2_tela(p, nome, abre, camada):
         if not inicio(e0): falha('2 navegação', nome, 'o site não abriu no Início', pg); return
         abre(pg); e1 = est(pg)
         if inicio(e1): falha('2 navegação', nome, 'a tela não abriu', pg); return
+        # "voltou" = fechou o que abriu por último. A peça e os Filtros abrem de dentro do catálogo: o voltar e o Esc devolvem o catálogo, não o Início.
+        voltou = lambda e: fora(e) or (nome in ('Produto (do catálogo)', 'Filtros') and e['abertos'] == ['painel:vitrine'])
+        # Filtros é tarefa em janela de baixo (regra 16): fecha arrastando/tocando fora/voltar; o fundo dela cobre o topo de propósito, como o menu e a busca.
+        JANELA = nome in ('Menu', 'Busca', 'Filtros')
         # logo → Início (só quando o logo está à vista: com menu/busca por cima ele fica coberto de propósito)
         if topo_em(pg, '.top .logo'):
             clica_real(pg, '.top .logo'); pg.wait_for_timeout(1700); e = est(pg)
@@ -154,25 +158,26 @@ def p2_tela(p, nome, abre, camada):
         carrega(pg); abre(pg); antes = None
         pg.go_back(); pg.wait_for_timeout(1500); e = est(pg)
         if pg.url.startswith('about:'): falha('2 navegação', f'{nome} · voltar do celular', 'o voltar saiu do site', None)
-        elif fora(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · voltar do celular')
+        elif voltou(e): passou('2 navegação', f'{nome} · voltar do celular')
         else: falha('2 navegação', f'{nome} · voltar do celular', f'o voltar não voltou (ficou em: {txt(e)})', pg)
         # Esc fecha camadas
         if camada:
             if pg.url.startswith('about:'): carrega(pg)
             carrega(pg); abre(pg); pg.keyboard.press('Escape'); pg.wait_for_timeout(1300); e = est(pg)
-            if fora(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']) or (nome == 'Filtros' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · Esc')
+            if voltou(e): passou('2 navegação', f'{nome} · Esc')
             else: falha('2 navegação', f'{nome} · Esc', f'o Esc não fechou (ficou em: {txt(e)})', pg, grave=False)
         # "‹ Início"/"‹ Leitura" à vista → volta um passo
         carrega(pg); abre(pg)
         bk = pg.evaluate("""(()=>{const L=[...document.querySelectorAll('.vback,.gzbk,.pgback,[data-pgback]')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.bottom>0&&r.top<innerHeight});
            for(const e of L){const r=e.getBoundingClientRect(),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);if(t&&(t===e||e.contains(t))){e.setAttribute('data-fiscal-bk','1');return e.textContent.trim().slice(0,20)}}return L.length?'COBERTO:'+L[0].textContent.trim().slice(0,20):''})()""")
-        if bk.startswith('COBERTO:'): falha('2 navegação', f'{nome} · botão “{bk[8:]}”', f'o botão “{bk[8:]}” está escondido atrás de outra coisa', pg)
+        if bk.startswith('COBERTO:') and JANELA: pass
+        elif bk.startswith('COBERTO:'): falha('2 navegação', f'{nome} · botão “{bk[8:]}”', f'o botão “{bk[8:]}” está escondido atrás de outra coisa', pg)
         elif bk:
             clica_real(pg, '[data-fiscal-bk]'); pg.wait_for_timeout(1500); e = est(pg)
             if fora(e) or (nome.startswith('Produto') and e['abertos'] in ([], ['painel:vitrine'])): passou('2 navegação', f'{nome} · botão “{bk}”')
             else: falha('2 navegação', f'{nome} · botão “{bk}”', f'o botão “{bk}” não voltou (ficou em: {txt(e)})', pg)
         # menu, busca e carrinho por cima: abrem por cima e, ao fechar, a tela continua a mesma
-        if nome not in ('Menu', 'Busca'):
+        if not JANELA:
             for qual, sel, aberto in (('menu', '#mnb', lambda e: e['menu']), ('busca', '#sbtn', lambda e: e['busca']), ('carrinho', '#bagbtn', None)):
                 if nome == 'Carrinho' and qual == 'carrinho': continue
                 carrega(pg); abre(pg); e1 = est(pg)
@@ -802,7 +807,10 @@ def p7_pedido_pela_nuvem(p):
             except Exception: j = {}
             R.append((nome, r.request.headers.get('authorization', ''), j))
             if nome == 'reserva': r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': True, 'exp': 9e15, 'agora': 0}))
-            elif nome == 'pedido': r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': True}))
+            elif nome == 'pedido':
+                # a 1ª tentativa do pedido cai (503): o site tem de tentar de novo sozinho uma vez (B1, 11/11 — a ligação tinha se perdido)
+                n_ped = len([x for x in R if x[0] == 'pedido' and not (x[2].get('doc') or {}).get('tipo')])
+                r.fulfill(status=409 if (j.get('doc') or {}).get('tipo') == 'cancel' else (503 if n_ped == 1 else 200), content_type='application/json', body=json.dumps({'ok': True}))  # cancelar responde 409 "já cancelado": tem de valer como feito
             else: r.fulfill(status=200, content_type='application/json', body=json.dumps({'ok': False}))
         c.route('**cloudfunctions.net/**', nuvem)
         c.route('**/documents/pedidos**', lambda r: (R.append(('BANCO', '', {})), r.abort())[1])
@@ -812,18 +820,19 @@ def p7_pedido_pela_nuvem(p):
         toca('#layer [data-addm]', 1500)
         if not pg.evaluate("!!document.querySelector('#layer .cartp')"): pg.keyboard.press('Escape'); pg.wait_for_timeout(300); pg.click('#bagbtn'); pg.wait_for_timeout(1200)
         faltou = [x for x in ('[data-cta=prosseguir]', '[data-ent=loja]', '[data-cta=irpag]', '[data-cta=pg][data-v=pix]', '[data-send]') if not toca(x)]
-        pg.wait_for_timeout(2500); nome = 'Compra inteira: pedido pela porta da nuvem, reserva com o login'
+        pg.wait_for_timeout(2500); nome = 'Compra inteira: pedido pela porta da nuvem (tenta de novo sozinho se cair), reserva com o login'
         ped = [x for x in R if x[0] == 'pedido']; res = [x for x in R if x[0] == 'reserva' and x[2].get('acao') == 'reservar']; ruim = []
         if faltou: ruim.append('não achei ' + faltou[0])
         if any(x[0] == 'BANCO' for x in R): ruim.append('o site gravou o pedido direto no banco')
         if not ped: ruim.append('nenhuma chamada à porta pedido')
+        elif len([x for x in ped if not (x[2].get('doc') or {}).get('tipo')]) != 2: ruim.append('a 1ª tentativa caiu e o site não tentou de novo sozinho (uma vez)')
         elif not (ped[0][2].get('id') and isinstance(ped[0][2].get('doc'), dict) and ped[0][2]['doc'].get('itens') and ped[0][2]['doc'].get('total')): ruim.append('pedido sem id/doc/itens/total')
         if res and (res[0][1] != 'Bearer kit' or 'tel' in res[0][2]): ruim.append('reserva sem o login ou com telefone')
         if not pg.evaluate("!!document.querySelector('#pkok')"): ruim.append('a tela de pagamento não apareceu')
         if ruim: falha(P7, nome, ' | '.join(ruim), pg)
         else: passou(P7, nome, f'{len(R)} chamadas')
         # 20/11: cancelar o pedido também vai pela porta 'pedido' (um caminho só, o mesmo usado ao excluir a conta), nunca direto no banco
-        nome = 'Cancelar o pedido: pela porta da nuvem'; n0 = len(R)
+        nome = 'Cancelar o pedido: pela porta da nuvem (e "já cancelado" vale como feito)'; n0 = len(R)
         if not pg.evaluate("!!document.querySelector('#pkok')"): falha(P7, nome, 'sem a tela de pagamento, não deu para provar', pg)
         else:
             # o botão de cancelar fica no pedido pendente, em Minha conta
@@ -1093,6 +1102,25 @@ def p7_esc_voltar(p):
             else: passou(P7, t)
 
 
+# 21/11 (internet fraca, medido em rede limpa): na 1ª visita o catálogo esperava o selo do reCAPTCHA (até 4 s para as peças e mais 4 s para as
+# fotos, e 350 KB disputando a rede). A leitura pública sai na hora; o selo só é pedido depois que as fotos da primeira tela chegaram.
+def p7_selo_depois(p):
+    b, c, pg, E = novo(p)
+    try:
+        T = {}
+        def req(r):
+            u = r.url
+            if 'documents/produtos' in u: T.setdefault('pecas', time.time())
+            elif '/documents/fotos/' in u: T.setdefault('foto', time.time())
+            elif 'recaptcha' in u: T.setdefault('selo', time.time())
+        pg.on('request', req); pg.goto('about:blank'); t0 = time.time(); pg.goto(URL, wait_until='load'); t1 = time.time(); pg.wait_for_timeout(7000)
+        nome = '1ª visita: o catálogo não espera o selo (o selo vem depois das fotos)'
+        if 'pecas' not in T: falha(P7, nome, 'o site não pediu as peças à nuvem', pg)
+        elif T['pecas'] - t1 > 2.5: falha(P7, nome, f"as peças só foram pedidas {T['pecas'] - t1:.1f} s depois de a página carregar (esperando o selo)", None)
+        elif 'selo' in T and T['selo'] < T.get('foto', T['pecas']): falha(P7, nome, 'o selo foi pedido antes das fotos da primeira tela', None)
+        else: passou(P7, nome, f"peças pedidas {max(0, T['pecas'] - t1):.1f} s depois da página; selo {'%.1f s depois' % (T['selo'] - T['pecas']) if 'selo' in T else 'ainda não pedido'}")
+    finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1127,7 +1155,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
