@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "4c parte 2 (149d): Histórico — linhas de semana na margem das outras, desenhadas já no grupo",
- "arquivos": [
-  "src/97-hist-busca.js",
-  "src/98z-s374d-padrao.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795265933.064614,
+   "r": "v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)"
+  },
   {
    "t": 1795264844.7448895,
    "r": "v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)"
@@ -43,10 +42,6 @@
   {
    "t": 1795226855.294042,
    "r": "v587 no ar: (35) o tratamento do giro agora termina no celular — as duas bibliotecas vão dentro do app.js (o APK instalado não tinha os arquivos; a atualização só leva app.js e style.css); (34) 'Qual é a frente?' tira a frente e a 3/4 com o tratamento do giro. 343 provas, 0 falhas; reproduzido no simulador o erro do celular e o conserto. NÃO testado em aparelho real. Próximo: resultado do teste do dono (tempo do tratamento no celular); item 36 (prova v468 instável)."
-  },
-  {
-   "t": 1795223626.6234937,
-   "r": "v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família)."
   }
  ],
  "leu": 1795265930.2372332
