@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11",
+ "arquivos": [
+  "index.html"
+ ],
  "ultimas": [
   {
    "t": 1795264267.1587992,
@@ -44,5 +46,5 @@
    "r": "CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)"
   }
  ],
- "leu": 1795261959.2227888
+ "leu": 1795264622.7765708
 }

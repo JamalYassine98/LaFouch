@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 4c parte 1 (149t): título do Dashboard/Giro/Preços/Reservas é h1 de verdade | src/98-dash-cabecalho.js, src/99c-navegacao-s435.js, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
+| SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 
 ## Fila
 
