@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 33: câmera do giro no celular real — clarão ao gravar, volta não fecha, aviso escondido atrás do Estúdio, gravação perdida | src/98z-camera-u149f.js, src/97-giro-trata.js, src/97-estudio-giro.js, src/97-estudio.js, src/99-render-persistencia.js, www/style.css, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 | SITE | Fila 32: Esc = voltar e carrinho por cima (ramo esb-voltar do catalogo); plano da internet fraca | js/lf-site.js |
 
@@ -91,6 +90,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 20/11 22:13 — APP: v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família).
 - 20/11 21:21 — SITE: 3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca
 - 20/11 21:10 — SITE: investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono
 - 20/11 20:45 — APP: v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py
@@ -115,4 +115,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 13:56 — NUVEM: Parte 3 do S1/S2 (item 11) publicada depois do 09 do site: funções + regras, limpeza rodada na hora (workflow ganhou a opção 'limpeza'), sonda 0 falhas; recado ao APP para publicar o 21.
 - 20/11 13:43 — SITE: CÓPIA LIMPA NO AR (site 1795192682): itens 9, 20 e 21 publicados; porteiro 0 falhas; NUVEM avisada. Varredura de código morto continua (medir durante as provas do porteiro)
 - 20/11 13:27 — NUVEM: Pagamento parte 2 pronta (commit 8dd640d): robô do Gmail confia só na 1ª linha Authentication-Results do Gmail (ou ARC aprovado), bancos num lugar só, pagador+hora no Nubank, função confereUltimos para o dono conferir; travas teste-robo (12). Falta o dono colar no Apps Script.
-- 20/11 13:14 — SITE: tema escuro fora da cópia limpa (comparador 0 diferenças, claro=escuro, porteiro 0 falhas); regra 12d completada; varredura com o site rodando: 1ª rodada superficial (987 de 2023 funções executadas) — próxima: medir durante as 205 provas do porteiro

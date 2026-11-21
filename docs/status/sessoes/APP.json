@@ -1,16 +1,12 @@
 {
  "nome": "APP",
- "agora": "item 33: câmera do giro no celular real — clarão ao gravar, volta não fecha, aviso escondido atrás do Estúdio, gravação perdida",
- "arquivos": [
-  "src/98z-camera-u149f.js",
-  "src/97-giro-trata.js",
-  "src/97-estudio-giro.js",
-  "src/97-estudio.js",
-  "src/99-render-persistencia.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795223626.6234937,
+   "r": "v586 no ar (item 33, urgente): giro no celular real — sem clarão ao gravar (só trava de branco), a volta fecha com o prato ligado depois de gravar, avisos do Estúdio por cima da tela, gravação não se perde na escolha à mão; 341 provas, 0 falhas; ensaio de ponta a ponta no simulador. NÃO testado em aparelho real (o tratamento do giro nunca rodou num celular). Dono decide: escolha à mão do giro (sai ou fica?) e diário da câmera (fica?). Próximo: resultado do teste do dono; depois segue a ordem (limpezas por dentro por família)."
+  },
   {
    "t": 1795218326.0454235,
    "r": "v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py"
@@ -46,11 +42,7 @@
   {
    "t": 1795179686.9978998,
    "r": "v573 publicado: item 22 bug do Entrar na nuvem em aparelho novo (328/328). Próximo: item 23 (remendos parte 1, render), esperando o 'pode' do dono"
-  },
-  {
-   "t": 1795173483.918695,
-   "r": "guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código"
   }
  ],
- "leu": 1795223157.4930499
+ "leu": 1795223626.1724725
 }
