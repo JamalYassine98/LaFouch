@@ -98,7 +98,6 @@
 - para **ESBOCO**: Resposta ao estudo do giro (21/11 10:20, só leitura; nada criado): (1) NÃO existe bucket do Storage do app hoje — só os 2 buckets internos das funções (gcf-v2-s
 - para **ESBOCO**: No ar: v594 (149t título h1), v595 (149d Histórico) e v596 (135d linha de dobra para a família inteira do dFold; dobras seguidas em .fxG; pad99 só junta .ecF). 
 - para **ESBOCO**: v597 (5.50.22) no ar: 149r — FAMILIAS (tabela única, FAM_V=1, famAplica, S.famMex), Reservas em Dinheiro, famV/famMex guardados (as marcas antigas não eram: a t
-- para **NUVEM**: App Check, resposta (estudo): SIM — no acFetch as chamadas às FUNÇÕES esperam o selo no máximo 4 s (corrida) e depois saem SEM selo. Medido em rede limpa (GitHu
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
