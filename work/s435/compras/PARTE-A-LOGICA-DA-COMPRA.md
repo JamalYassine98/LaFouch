@@ -58,19 +58,25 @@ Por ordem de peso:
 - Quando o equivalente chega, o "Chegou mercadoria" mostra **"5 clientes esperavam algo assim"** e traz a mensagem pronta no WhatsApp: "Chegou um parecido com o que você queria", com a foto.
 - **"Deixar sem"** só aparece quando ninguém está esperando. A vaga reabre no primeiro "me avise".
 
-## 7. Oferta não é fracasso: o que conta é a resposta à oferta (dono 21/11 13:34, corrige a versão anterior)
+## 7. O segredo é o fluxo (dono 21/11 13:38, substitui a versão por degraus)
 
-A oferta pode ser a solução. Exemplo: 100 solares parados entram em oferta e as 100 vendem em pouco tempo. Essa peça **virou estrela**.
-O que mostra que uma peça é ruim é **quanta oferta ela precisou** e **quão rápido vendeu com ela**.
+**O que decide se uma peça é boa ou ruim é o fluxo (giro):**
+- fluxo **acima da média** é bom;
+- fluxo **abaixo da média** é ruim.
 
-O app já tem as ofertas em degraus do preço automático. A conta usa esses mesmos degraus, numa regra só:
+O **Guardião aprende a média** com as vendas reais da loja. Não há número fixo.
 
-| Como reagiu à oferta | O que é | O que a lista faz |
-|---|---|---|
-| **1º degrau (leve) e vendeu rápido** (no ritmo de uma peça normal do mesmo tipo, ou mais) | **Estrela pela oferta.** O preço da oferta era o preço certo. | Repõe. O Guardião confere se o **preço da oferta** ainda dá margem com o custo da nova compra. Se der, esse vira o preço normal da peça. |
-| **2º degrau e vendeu em ritmo médio** | Normal | Repõe só se o custo novo for **menor**, para vender a esse preço com margem. |
-| **Precisou do último degrau (oferta potenciada), vendeu devagar e a margem caiu abaixo do mínimo do Guardião** | **Ruim** | Não repõe. A vaga mostra "No lugar de X, que só vendeu com oferta forte · tendências agora", com 2 ou 3 opções e o motivo de cada uma. |
+**A oferta não decide nada.** A sensação de oferta pode ser justamente o que fez a venda disparar. Então o número do degrau **não** é critério. O que vale é:
+- o **fluxo** com o preço que a peça teve de verdade;
+- a **margem** desse preço, que o Guardião confere com o que ele aprendeu ser sustentável.
 
-**A venda com oferta forte não conta como procura.** A peça ruim que zerou na liquidação não pode voltar para a lista. Hoje a lista de compras conta toda venda igual; isso precisa ser corrigido junto.
+Proposta de uma conta só, que junta os dois: **quanto a peça rende por dia na loja** (lucro × fluxo).
 
-**A troca:** entram as maiores tendências do momento, na ordem da seção 5. Mantém o tipo e o equilíbrio de material.
+| Rende por dia | O que a lista faz |
+|---|---|
+| **Acima da média** | **Repõe**, mesmo que só venda em oferta. Nesse caso a oferta vira **tática**: o preço "de/por" fica fixo, porque é o que faz a peça sair. |
+| **Abaixo da média**, mesmo com oferta | **Troca** pelas maiores tendências do momento, na ordem da seção 5. Mantém o tipo e o equilíbrio de material. |
+
+**"Vendeu rápido"** = no ritmo de uma peça normal do mesmo tipo, ou mais rápido (dono 13:38).
+
+**A lista de compras deve medir procura pelo fluxo, não pelo total vendido.** Hoje ela conta toda venda igual. Isso precisa ser corrigido junto.
