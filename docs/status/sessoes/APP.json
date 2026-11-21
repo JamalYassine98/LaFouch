@@ -1,7 +1,15 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 33: câmera do giro no celular real — clarão ao gravar, volta não fecha, aviso escondido atrás do Estúdio, gravação perdida",
+ "arquivos": [
+  "src/98z-camera-u149f.js",
+  "src/97-giro-trata.js",
+  "src/97-estudio-giro.js",
+  "src/97-estudio.js",
+  "src/99-render-persistencia.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795218326.0454235,
@@ -44,5 +52,5 @@
    "r": "guardado o aprovado 20/11 08:17: comparador único (site + app, duas listas de telas); recados para SITE e ESBOCO; nada no código"
   }
  ],
- "leu": 1795218552.7301838
+ "leu": 1795220231.9269755
 }

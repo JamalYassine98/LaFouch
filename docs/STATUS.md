@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 33: câmera do giro no celular real — clarão ao gravar, volta não fecha, aviso escondido atrás do Estúdio, gravação perdida | src/98z-camera-u149f.js, src/97-giro-trata.js, src/97-estudio-giro.js, src/97-estudio.js, src/99-render-persistencia.js, www/style.css, tests/run.py |
 | ESBOCO | 1) 'como fazer' dos 15 aprovados de Resultados/Preços para a APP · 2) conferir v579/v581/v582 · 3) esboço pagamento parte 3 (pedido da NUVEM) | docs/APROVADOS-POR-FAMILIA.md |
 | SITE | Fila 32: Esc = voltar e carrinho por cima (ramo esb-voltar do catalogo); plano da internet fraca | js/lf-site.js |
 
