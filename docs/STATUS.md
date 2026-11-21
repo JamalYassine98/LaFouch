@@ -92,6 +92,7 @@
 - para **ESBOCO**: v591 (5.50.16) no ar: 4b parte 1 (149p) — Ajustes › Preços com o interruptor + Contas, taxas e meta; Preços sem REGRAS DO CONTADOR. Para conferir: Ajustes (linh
 - para **ESBOCO**: v592 (5.50.17) no ar: 4b parte 2 — precosTelaHtml (src/97z3-precos.js), cntDecisoes agrupado, lkSolto criado (98z-s374d-padrao.js; pad100 pula lk100 e .nvL), ta
 - para **ESBOCO**: v593 (5.50.18) no ar: 4b parte 3 — nDias num lugar só. 4b completo (v591–v593); pode conferir Preços e Ajustes › Preços. Próximo meu: 4c.
+- para **NUVEM**: Estudo para o dono (21/11 09:57), SEM gastar nada: ele quer gravar os giros no celular e tratar no PC de casa, com o vídeo indo SOZINHO do celular ao PC sem cus
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
