@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "4b parte 3: plural dos dias num lugar só (nDias)",
+ "arquivos": [
+  "src/97r-temas-s183.js",
+  "src/97z2-contador.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795262341.176889,
