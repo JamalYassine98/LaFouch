@@ -42,3 +42,6 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 - `teste-email.js`: um só envio de e-mail · `teste-selo.js`: toda porta pública chama o selo.
 - No ar: `tools/sonda-nuvem.sh` confere as portas publicadas (sem login, sem gravar). Roda no fim de "Publicar a nuvem" e sozinho pelo workflow "Conferir a nuvem no ar":
   `gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/conferir-nuvem.yml/dispatches -f ref=main`
+- **Teste de compra de ponta a ponta** (workflow "Teste de compra…", tools/teste-compra/compra.js; só quando chamado): reservar → pedido pela porta → ficha com o valor exato → PIX do robô simulado → pago, peça segura, token no lugar fechado → token pelo telefone (errado recusado) → aviso repetido = 1 → apaga tudo. O celular do dono recebe o aviso "Novo pedido … Teste automático (robô)".
+  `gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/teste-compra.yml/dispatches -f ref=main`
+- **Vigia diário** (workflow "Vigia diário da nuvem", tools/vigia-nuvem.sh; 06:37 no Paraguai): sonda, erros das funções nas últimas 24 h e selo de ontem → recado VIGIA → NUVEM no status.
