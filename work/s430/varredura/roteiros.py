@@ -14,6 +14,7 @@ def init(logada):
     if logada: s += "localStorage.setItem('lf_conta',%s);localStorage.setItem('lf_auth',%s);localStorage.setItem('lf_ped',%s);" % tuple(json.dumps(json.dumps(x)) for x in (CONTA, AUTH, PED))
     return s + "}catch(e){}"
 COB = {}
+import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'testes')); from base import INIT as BASE_INIT  # câmera e rosto de mentira (os mesmos das provas)
 def nuvem(r):
     nome = r.request.url.split('cloudfunctions.net/')[1].split('?')[0]
     try: j = json.loads(r.request.post_data or '{}')
@@ -28,13 +29,13 @@ def nuvem(r):
     if nome == 'cupom': return r.fulfill(json={'ok': True, 'cupons': [{'cod': 'ABC123', 'pct': 10, 'tipo': 'pe', 'estado': 'ok', 'fim': 9e15}], 'vip': 0, 'refs': []})
     if nome == 'reserva': return r.fulfill(json={'ok': True, 'tok': 'LF-T', 'exp': 9e15, 'agora': 0})
     return r.fulfill(json={'ok': True})
-TOCA = """(feitos)=>{let R=[...document.querySelectorAll('#layer, #sov, #mapw, .modal, #drw.on, #gw')].filter(e=>e.getBoundingClientRect().height>40&&e.querySelector('button,a,input'));if(!R.length)R=[document.querySelector('main')||document.body];
+TOCA = """(feitos)=>{let R=[...document.querySelectorAll('#layer, #sov, #mapw, .modal, #drw.on, #gw, .sec.pop, #dlgb, #cad, #pkok')].filter(e=>e.getBoundingClientRect().height>40&&e.querySelector('button,a,input'));if(!R.length)R=[document.querySelector('main')||document.body];
  const L=[];R.forEach(r=>r.querySelectorAll('button,a,[data-cta],[role=button],input[type=checkbox],input[type=radio],summary,label[for],select').forEach(e=>{const b=e.getBoundingClientRect();if(!b.width||!b.height)return;
   const h=e.getAttribute('href')||'';if(/wa\\.me|whatsapp|mailto:|tel:|^https?:\\/\\/(?!localhost)/.test(h))return;if(e.hasAttribute('data-close')||/sair|excluir|exc2?$/i.test(e.getAttribute('data-cta')||''))return;
   const k=(e.id||'')+'|'+(e.getAttribute('data-cta')||'')+'|'+e.className+'|'+e.textContent.trim().slice(0,18);if(feitos.includes(k)||L.some(x=>x[0]===k))return;e.setAttribute('data-vr2',L.length);L.push([k])}));return L.map(x=>x[0])}"""
 def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22):
-    c = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, reduced_motion='reduce', permissions=['camera', 'geolocation'], geolocation={'latitude': -25.51, 'longitude': -54.61})
-    c.add_init_script(init(logada)); c.route('**cloudfunctions.net/**', nuvem)
+    c = b.new_context(bypass_csp=True, viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, reduced_motion='reduce', permissions=['camera', 'geolocation'], geolocation={'latitude': -25.51, 'longitude': -54.61})
+    c.add_init_script(init(logada)); c.add_init_script('if(/^http/.test(location.protocol)){' + BASE_INIT + '}'); c.route('**cloudfunctions.net/**', nuvem)
     c.route('**identitytoolkit**', lambda r: r.fulfill(json={'users': [{'emailVerified': True, 'email': 'maria@exemplo.com'}]}))
     pg = c.new_page(); cdp = c.new_cdp_session(pg); cdp.send('Profiler.enable'); cdp.send('Profiler.startPreciseCoverage', {'callCount': True, 'detailed': False})
     def colhe():
@@ -57,7 +58,7 @@ def roteiro(b, nome, logada, w, h, mob, abre, rodadas=4, por_rodada=22):
                 try:
                     e = pg.query_selector(f'[data-vr2="{i}"]')
                     if e and e.is_visible(): e.click(timeout=900, force=True); n += 1; pg.wait_for_timeout(450)
-                    for cx in pg.query_selector_all('#layer input:not([type=checkbox]):not([type=radio]):not([type=file]), #layer textarea')[:6]:
+                    for cx in pg.query_selector_all('#layer input:not([type=checkbox]):not([type=radio]):not([type=file]), #layer textarea, .sec.pop input:not([type=checkbox]):not([type=radio]):not([type=file]), .sec.pop textarea, #dlgb input')[:8]:
                         try:
                             if cx.is_visible() and not cx.input_value(): cx.fill('teste 123', timeout=400)
                         except Exception: pass
@@ -72,7 +73,7 @@ def peca(pg):
     pg.evaluate("()=>{const e=document.querySelector('#grid .card .open');e&&e.click()}"); pg.wait_for_timeout(1800)
 def pedido(pg): pg.click('#contabtn'); pg.wait_for_timeout(1200); js_click('[data-cta=mcaba][data-v=peds],[data-cta=peds]')(pg); pg.wait_for_timeout(900); js_click('[data-cta=ped]')(pg)
 with sync_playwright() as p:
-    b = p.chromium.launch(args=['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'])
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'])
     for w, h, mob in ((390, 844, True), (1440, 900, False)):
         roteiro(b, 'mapa (Como chegar)', False, w, h, mob, lambda pg: (pg.evaluate("()=>scrollTo(0,document.documentElement.scrollHeight)"), pg.wait_for_timeout(600), js_click('[data-map],[data-cta=mapa],.lfft a[href*="map"],button[data-como]')(pg), pg.evaluate("()=>{const e=[...document.querySelectorAll('a,button')].find(x=>/Como chegar/.test(x.textContent));e&&e.click()}")))
         roteiro(b, 'rosto / formato (câmera de mentira)', False, w, h, mob, hash_('#rosto'), rodadas=5)
