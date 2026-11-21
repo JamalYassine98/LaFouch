@@ -81,6 +81,7 @@
 
 ## Recados esperando
 
+- para **ESBOCO**: v589 publicada: item 39b — dentro da caixa vale ponto a ponto (m2 só recebe os pontos do pedaço que estão dentro da caixa; o pedaço inteiro só entra se tocar o 
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
 - para **NUVEM**: Site 1795232856 (21/11): a LEITURA PÚBLICA do Firestore (produtos, fotos, estoque, config, reservas) não espera mais o selo do App Check — sai na hora e leva o 
 - para **NUVEM**: S5 no site: publicado 1795234339 — novidades mostra 'Enviamos um e-mail para confirmar' com confirmar:true (conf:true mantém o agradecimento; erro/429 = 'tente 
