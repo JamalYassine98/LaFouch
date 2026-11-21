@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 597;
+  var APP_BUILD = 598;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.22'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.23'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -45491,6 +45491,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
+  // 136a: a seta das dobras da ficha ("Lucro real", "De onde vem o preço") — o ⌄ do conjunto de ícones, que gira ao abrir; nasce na marcação
+  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
   function lucroPecaHtml(ref) {
     var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
     if (!it || !(p > 0)) return '';
@@ -45499,7 +45501,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
     var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
     return (
-      '<details class="card col lrcard"><summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Lucro real</b><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b></summary>' +
+      '<details class="card col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
       lrLinha('Preço de venda', gs(r.preco)) + lrLinha('− IVA da venda (10%)', '− ' + gs(r.ivaV)) + lrLinha('− Custo (+ frete da compra)', '− ' + gs(r.custo)) +
       (r.taxa ? lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) : '') +
@@ -45865,7 +45867,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var cuG = lucroCustoGs(ref), ivG = Math.round(p - p / 1.1); lu = lucroUnico(ref, p);
     var seg = [['IVA da venda', ivG, '#c4567f'], ['Custo da peça', cuG, '#7a2a59'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
     var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = lucroDesceAte(ref, p);
-    return '<details class="card cntP"><summary>De onde vem o preço · <b>' + gs(p) + '</b></summary>' +
+    return '<details class="card cntP"><summary class="dbS">De onde vem o preço<b class="dbV">' + gs(p) + '</b>' + dobraSeta() + '</summary>' +
       '<div class="cntBar">' + seg.map(function (x) { return x[1] > 0 ? '<i style="flex:' + x[1] + ';background:' + x[2] + '"></i>' : ''; }).join('') + '</div>' +
       '<div class="cntLeg">' + seg.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + x[0] + ' ' + gs(x[1]) + '</span>'; }).join('') + '</div>' +
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +

@@ -4453,6 +4453,21 @@ async def main():
             if not ok: falhas.append('4c parte 3 linha de dobra'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # 4d parte 1 (136a, aprovado 18/11 18:27): na ficha, "Lucro real" e "De onde vem o preço" nascem com a seta do conjunto de ícones (gira ao abrir),
+            # o valor encostado à direita e sem o "·" solto — tudo na marcação, sem triângulo do navegador e sem conserto depois do desenho.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('estoque'); await w(500); const it = S.items.find(i => i.custo > 0 && i.qty > 0 && !i.bulk); [...document.querySelectorAll('#v-estoque .pcard')].find(x => x.dataset.ref === it.ref).click(); await w(900);
+              const ds = [...document.querySelectorAll('details.lrcard, details.cntP')];
+              const m = d => { const s = d.querySelector('summary'), v = s.querySelector('.dbV'), st = s.querySelector('.dbSt'); return !!st && !!v && getComputedStyle(s).listStyleType === 'none' && !/·\\s*$/.test(s.firstChild.textContent) && st.getBoundingClientRect().left >= v.getBoundingClientRect().right && s.getBoundingClientRect().right - st.getBoundingClientRect().right < 6 && getComputedStyle(st).transform === 'none' ? st.querySelector('path').getAttribute('d') : 'x'; };
+              const a = ds.map(m); ds.forEach(d => d.querySelector('summary').click()); await w(400);
+              return [ds.length, a.join('|'), ds.every(d => d.open && getComputedStyle(d.querySelector('.dbSt')).transform !== 'none')]; }""")
+            total += 1
+            ok = got == [2, 'M6 9l6 6 6-6|M6 9l6 6 6-6', True] and not any('b136' in t for t in fontes.values()) and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '4d parte 1 (136a): ficha — "Lucro real" e "De onde vem o preço" com a mesma seta que gira, valor à direita, sem "·" solto')
+            if not ok: falhas.append('4d parte 1 dobras da ficha'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"
@@ -4572,7 +4587,9 @@ async def main():
             abre = r2[0].startswith(pre + '/loja.html') and r2[1] and r2[2] == 1 and r2[3] == 'em dia'
             versao['v'] = V0 + 2; pedidos.clear()
             r3 = await pg.evaluate("() => window.__lju.busca()")
-            so_texto = r3 == f'baixada {V0 + 2}' and sorted(p for p in pedidos if p != 'manifest.json') == ['js/lf-i18n.js', 'js/lf-site.js', 'loja.html'] and len([k for k in disco if k.startswith(f'lojaupd/{V0 + 2}/')]) == len(mfl['files']) and not any(k.startswith(f'lojaupd/{V0 + 1}/') for k in disco)
+            # 21/11: o site passou a listar as páginas das peças (p/*.html); "texto" é o que o app reescreve e sempre baixa de novo (loja.html e js/*.js,
+            # a regra de src/97-atualiza-loja.js). Página de peça que não mudou é copiada da versão anterior, como as fotos.
+            so_texto = r3 == f'baixada {V0 + 2}' and sorted(p for p in pedidos if p != 'manifest.json') == sorted(f[0] for f in mfl['files'] if re.match(r'^(loja\.html|js/[\w.\-]+\.js)$', f[0])) and len([k for k in disco if k.startswith(f'lojaupd/{V0 + 2}/')]) == len(mfl['files']) and not any(k.startswith(f'lojaupd/{V0 + 1}/') for k in disco)
             disco[f'lojaupd/{V0 + 2}/loja.html'] = b'<!doctype html><html><body>estragado</body></html>'
             r4 = await pg.evaluate("async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)); L.ACT.mcLiga(); for (let i = 0; i < 40 && !document.getElementById('mlWrap'); i++) await w(150); const s1 = document.getElementById('mlFr').getAttribute('src'); await w(10800); const f = document.getElementById('mlFr'); const s2 = f ? f.getAttribute('src') : ''; const m = window.__lju.marca(); L.mcSair(); await w(900); try { localStorage.removeItem('lf_modoCli'); localStorage.removeItem('lf_lju'); } catch (e) {} delete window.Capacitor; return [s1, s2, m.ruim, !!m.ok, await window.__lju.busca()]; }")
             volta = r4[0].startswith(f'/_capacitor_file_/data/files/lojaupd/{V0 + 2}/') and r4[1].startswith('loja/loja.html') and r4[2] == V0 + 2 and r4[3] is False and r4[4] == 'sem'

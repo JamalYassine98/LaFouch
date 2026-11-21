@@ -1,8 +1,7 @@
 {
- "nome": "5.50.22",
+ "nome": "5.50.23",
  "notas": [
-  "Reservas agora fica em Dinheiro (Caixa · Reservas · Despesas · Câmbio). Giro e preços fica com Giro e Preços.",
-  "O que você muda em \"Gerenciar grupo\" passa a ficar guardado ao fechar e abrir o app."
+  "Ficha da peça: \"Lucro real\" e \"De onde vem o preço\" com a mesma seta das outras dobras e o valor à direita."
  ],
- "build": 597
+ "build": 598
 }

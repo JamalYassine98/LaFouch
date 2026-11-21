@@ -83,6 +83,8 @@
     render();
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
+  // 136a: a seta das dobras da ficha ("Lucro real", "De onde vem o preço") — o ⌄ do conjunto de ícones, que gira ao abrir; nasce na marcação
+  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
   function lucroPecaHtml(ref) {
     var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
     if (!it || !(p > 0)) return '';
@@ -91,7 +93,7 @@
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
     var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
     return (
-      '<details class="card col lrcard"><summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Lucro real</b><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b></summary>' +
+      '<details class="card col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
       lrLinha('Preço de venda', gs(r.preco)) + lrLinha('− IVA da venda (10%)', '− ' + gs(r.ivaV)) + lrLinha('− Custo (+ frete da compra)', '− ' + gs(r.custo)) +
       (r.taxa ? lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) : '') +

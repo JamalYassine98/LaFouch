@@ -2123,7 +2123,10 @@ html.mlOn #lockScr{z-index:2147483600}
 .cntUm{display:flex;gap:6px;width:100%;justify-content:center}.cntUm[hidden]{display:none}
 .cntB{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 .cntQ{font-size:13.5px;line-height:1.45;color:var(--tx,inherit)}
-.cntP summary{cursor:pointer;font-size:14px;padding:4px 0}
+.cntP summary{font-size:14px;padding:4px 0}
+/* 136a: dobra da ficha — título, valor encostado à direita e a seta do conjunto de ícones (sem o triângulo do navegador) */
+.dbS{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer}.dbS::-webkit-details-marker{display:none}
+.dbS .dbV{margin-left:auto}.dbSt{display:flex;margin:0 -4.5px 0 2px;color:var(--sub);transition:transform .2s}details[open]>.dbS>.dbSt{transform:rotate(180deg)}
 .cntBar{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:10px 0 8px;gap:2px}.cntBar i{display:block;min-width:3px}
 .cntLeg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;margin-bottom:8px}.cntLeg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .cntRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.cntRow .in{flex:1;min-width:80px}
