@@ -1,7 +1,12 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Pendências parte 3: plano das ferramentas — parte 1 (um simulador só)",
+ "arquivos": [
+  "work/kit/sim.py",
+  "work/fiscal/provas.py",
+  "work/fiscal/fiscal.py",
+  "work/s430/comparador/compara.py"
+ ],
  "ultimas": [
   {
    "t": 1795282468.9022424,
@@ -44,5 +49,5 @@
    "r": "3 esboços mandados ao dono (Fila 32): Esc nos Filtros, entrar→carrinho→voltar, internet fraca"
   }
  ],
- "leu": 1795279188.3974912
+ "leu": 1795286404.5128088
 }
