@@ -14,14 +14,14 @@ def frame(pw,qual):
   b,pg,w=nova(pw);I=imgs(pg);pg.evaluate("()=>{__LF.S.nvP=['grp:g:pecas'];__LF.S.nvG='g:pecas';__LF.setView('grp')}");w(900)
   html=pg.evaluate("(I)=>{"+H+J+r"""return TOP('Peças','Compras','O que comprar e de quem',0)+LBL('Para comprar · 4 vagas')+
     VAGA(I[3]||I[0],'Solar · feminino · metal','faltam 3 · até US$ 4','<small style="font-size:13px;color:'+AV+'">★ estrela · repor o mesmo SL2201</small>')+
-    VAGA(I[2]||I[0],'Armação · feminina · nylon','faltam 2 · até US$ 3','<small style="font-size:13px;color:'+AC+'">no lugar de BR44133, que só saiu com oferta</small>')+
+    VAGA(I[2]||I[0],'Armação · feminina · nylon','faltam 2 · até US$ 3','<small style="font-size:13px;color:'+AC+'">no lugar de BR44133, que só vendeu com oferta forte</small>')+
     VAGA(I[1]||I[0],'Armação · unissex · acetato','faltam 5 · até US$ 3,50','<small style="font-size:13px;color:var(--mute)">pedida em 21/11 · esperando resposta</small>')+
     VAGA(I[0],'Pré-graduado · +1,50','faltam 24 · 1 pacote','<small style="font-size:13px;color:'+OK+'">fechado com Kazwini · esperando chegar</small>')+
     '<button type="button" style="display:block;width:100%;min-height:52px;margin:24px 0 8px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Pedir · 3 vagas sem fechar</button>'}""",I)
   pagina(pg,'<div class="e49">'+html+'</div>');w(500)
   if qual=='vaga': pg.evaluate("(I)=>{"+H+J+r"""const ALT=(img,t,s,on)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:0 0 64px;height:48px;border-radius:10px;overflow:hidden;background:#fff"><img src="'+img+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><span style="width:22px;height:22px;border-radius:50%;flex:none;'+(on?'border:7px solid var(--accent)':'border:1.5px solid var(--mute)')+'"></span></div>';
-     JAN('No lugar de BR44133','armação · feminina · acetato · só saiu com oferta',
-     '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:0 0 8px">Não repõe o que vendeu mal ou só saiu com oferta. No lugar, as maiores tendências do momento no mesmo tipo:</div>'+
+     JAN('No lugar de BR44133','armação · feminina · acetato · só vendeu com oferta forte',
+     '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:0 0 8px">Precisou do último degrau de oferta, vendeu devagar e a margem caiu. Não repõe. No lugar, as maiores tendências do momento no mesmo tipo:</div>'+
      ALT(I[2]||I[0],'Feminina · nylon gatinho','a que mais vende na loja · até US$ 3',1)+ALT(I[1]||I[0],'Unissex · acetato redonda','a mais visitada no site · 4 na espera',0)+ALT(I[3]||I[0],'Feminina · metal hexagonal','sobe na internet · até US$ 3,50',0)+
      ROW('','Fechei com…','a compra combinada: com quem, modelo, peças e preço')+ROW('','Ninguém tinha','procurar equivalente ou avisar quando aparecer'),'Salvar')}""",I);w(500)
   if qual=='pedir': pg.evaluate("(I)=>{"+H+J+r"""JAN('Pedir','3 vagas sem fechar · em espanhol',

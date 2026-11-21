@@ -58,16 +58,19 @@ Por ordem de peso:
 - Quando o equivalente chega, o "Chegou mercadoria" mostra **"5 clientes esperavam algo assim"** e traz a mensagem pronta no WhatsApp: "Chegou um parecido com o que você queria", com a foto.
 - **"Deixar sem"** só aparece quando ninguém está esperando. A vaga reabre no primeiro "me avise".
 
-## 7. O fracasso: o que vendeu mal ou só saiu com oferta (dono 21/11 13:29)
+## 7. Oferta não é fracasso: o que conta é a resposta à oferta (dono 21/11 13:34, corrige a versão anterior)
 
-**O que conta como fracasso:**
-- vendeu mal: parado há 60 dias ou mais, ou "sobrando";
-- ou **só saiu com oferta**: a maior parte das vendas foi com desconto do preço automático ou com "Oferta ›".
+A oferta pode ser a solução. Exemplo: 100 solares parados entram em oferta e as 100 vendem em pouco tempo. Essa peça **virou estrela**.
+O que mostra que uma peça é ruim é **quanta oferta ela precisou** e **quão rápido vendeu com ela**.
 
-**A venda com oferta não conta como procura.** Uma peça que acabou numa liquidação não "vendeu bem": a lista não pode pedir para repor só porque ela zerou. Hoje a lista de compras conta toda venda igual. É uma falha que precisa ser corrigida junto.
+O app já tem as ofertas em degraus do preço automático. A conta usa esses mesmos degraus, numa regra só:
 
-**O que entra no lugar:** as **maiores tendências do momento**, que o Semp põe em ordem com os pesos da seção 5 (vendas do app, Analisador, lista de espera e, por último, a internet).
-- Mantém o **tipo**, para não desequilibrar a vitrine: um solar fracassado dá lugar a um solar em tendência.
-- Respeita o **equilíbrio de material**, para a loja não ficar toda de metal, nylon ou acetato.
+| Como reagiu à oferta | O que é | O que a lista faz |
+|---|---|---|
+| **1º degrau (leve) e vendeu rápido** (no ritmo de uma peça normal do mesmo tipo, ou mais) | **Estrela pela oferta.** O preço da oferta era o preço certo. | Repõe. O Guardião confere se o **preço da oferta** ainda dá margem com o custo da nova compra. Se der, esse vira o preço normal da peça. |
+| **2º degrau e vendeu em ritmo médio** | Normal | Repõe só se o custo novo for **menor**, para vender a esse preço com margem. |
+| **Precisou do último degrau (oferta potenciada), vendeu devagar e a margem caiu abaixo do mínimo do Guardião** | **Ruim** | Não repõe. A vaga mostra "No lugar de X, que só vendeu com oferta forte · tendências agora", com 2 ou 3 opções e o motivo de cada uma. |
 
-Na tela, a vaga aparece assim: "No lugar de BR44133, que só saiu com oferta · tendências agora:", seguido das 2 ou 3 melhores, com o motivo de cada uma.
+**A venda com oferta forte não conta como procura.** A peça ruim que zerou na liquidação não pode voltar para a lista. Hoje a lista de compras conta toda venda igual; isso precisa ser corrigido junto.
+
+**A troca:** entram as maiores tendências do momento, na ordem da seção 5. Mantém o tipo e o equilíbrio de material.
