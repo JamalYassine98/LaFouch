@@ -1,23 +1,12 @@
 {
  "nome": "APP",
- "agora": "37c links soltos declarados ao nascer; sai a adivinhação do pad100",
- "arquivos": [
-  "src/98z-s374d-padrao.js",
-  "src/97y-familias-s265.js",
-  "src/95-caixa.js",
-  "src/98-dash-cabecalho.js",
-  "src/98z-dashboard-s48.js",
-  "src/97-lista-compras.js",
-  "src/97-hist-busca.js",
-  "src/97u-navegacao-s184.js",
-  "src/97-cambio-aba.js",
-  "src/95-pedidos.js",
-  "src/89-notificacoes.js",
-  "src/60-vendas.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795298077.6029198,
+   "r": "v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos)."
+  },
   {
    "t": 1795293927.694783,
    "r": "v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto)."
@@ -53,11 +42,7 @@
   {
    "t": 1795282183.4467187,
    "r": "v603 no ar: 134b Fornecedores. Próximo: 134d Editar na janela de baixo"
-  },
-  {
-   "t": 1795280865.667937,
-   "r": "v602 no ar: 134 ficha sem caixas. Próximo: 134b Fornecedores"
   }
  ],
- "leu": 1795294122.2961252
+ "leu": 1795298077.1861622
 }
