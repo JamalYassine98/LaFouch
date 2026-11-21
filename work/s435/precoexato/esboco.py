@@ -38,7 +38,7 @@ def app(pw,modo):
      c.innerHTML='<div style="color:var(--mute);font-size:14px;margin:0 0 8px">PIX de <b style="color:var(--fg)">R$ 178,90</b> · hoje 02:14 · Nubank</div>'+
       '<div class="lbl" style="margin:16px 0 0;font-size:11px;letter-spacing:.14em;color:var(--mute)">PEDIDOS A PAGAR · MESMO VALOR</div>'+row('K7Q2','João Teste','reserva até 02:28','R$ 178,90',true)+
       '<div class="lbl" style="margin:24px 0 0;font-size:11px;letter-spacing:.14em;color:var(--mute)">OUTROS PEDIDOS A PAGAR</div>'+row('M2X8','Ana Ruiz','reserva até 03:05','R$ 210,00',false)+row('T5B1','Carlos Gómez','reserva até 02:50','Gs. 180.000',false)+
-      '<button type="button" style="display:block;width:100%;min-height:52px;margin:24px 0 8px;border-radius:14px;border:0;background:var(--accent);color:#fff;font:inherit;font-size:16px;font-weight:700">Ligar ao pedido K7Q2</button>'}""")
+      '<button type="button" style="display:block;width:100%;min-height:52px;margin:24px 0 8px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Ligar ao pedido K7Q2</button>'}""")
     w(500)
   f='/tmp/pa.png';pg.screenshot(path=f);b.close();im=Image.open(f);im.load();return im.copy()
 def quadro(arq,q,bg=(17,20,26),fg=(235,235,240)):

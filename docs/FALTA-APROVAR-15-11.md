@@ -898,3 +898,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - **Esboço 40 (S435 · ESBOCO, 21/11) — câmera do giro: Câmera reta (sensor em graus) e Peça reta (pela imagem)** — esboço pronto, esperando o dono (pedido 20/11 23:29). Decisão aberta: só avisar, ou o tratamento também endireitar até ±3°. work/s435/giro/.
 
 - **Esboço 41 (S435 · ESBOCO, 21/11) — Estúdio: Frente · 3/4 · Giro em cada peça, Galeria da peça (girar o giro com o dedo) e a câmera dizendo para qual peça vai** — esboço pronto, esperando o dono (pedido 20/11 23:36). work/s435/giro/COMO-FAZER-41.md.
+
+- **Esboço 42 (S435 · ESBOCO, 21/11) — Editar produto › Cores e fotos: sai 'Trocar foto' (foto crua, fora do tratamento do Estúdio) e 'Nova cor' vira janela de baixo (escolher a cor sem foto; a foto entra pela fila do Estúdio)** — esboço pronto, esperando o dono. work/s435/giro/COMO-FAZER-42.md.
