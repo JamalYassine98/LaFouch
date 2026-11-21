@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 37d parte 2: linha Marca em Ajustes › Loja (o Kit da marca sai do Marketing) | src/97-ajustes-lista.js, src/97-ajustes-marca.js, src/97-marketing.js, src/96-ajustes.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila

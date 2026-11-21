@@ -1,7 +1,14 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "37d parte 2: linha Marca em Ajustes › Loja (o Kit da marca sai do Marketing)",
+ "arquivos": [
+  "src/97-ajustes-lista.js",
+  "src/97-ajustes-marca.js",
+  "src/97-marketing.js",
+  "src/96-ajustes.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795300194.6253505,
@@ -44,5 +51,5 @@
    "r": "v604 no ar: 134d parte 1. Próximo: 134d parte 2 (Sair sem salvar?)"
   }
  ],
- "leu": 1795300194.191451
+ "leu": 1795300372.8533072
 }
