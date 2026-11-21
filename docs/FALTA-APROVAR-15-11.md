@@ -5,3 +5,4 @@
 
 - **Esboço 37 (S435 · ESBOCO, 20/11 23:12) — Ajustes padronizado · Peças alinhado · grupo pelo Início abre a escolha** — esboço pronto, esperando o dono. Causa única das linhas tortas: `pad100` adivinha "link solto" pelo "›" do texto. Arquivos: work/s435/ajpecas/ (COMO-FAZER.md + 6 imagens).
   - Ajuste do dono 20/11 23:23 no esboço 37: ícones das listas (Início e índice dos grupos) em cinza — substitui "ícones rosa" de 149g/149n.
+  - **APROVADO pelo dono 20/11 23:42** (esboço 37 inteiro, com ícones em cinza). Espera o "implementar".
