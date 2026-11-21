@@ -1,2 +1,2 @@
-NUVEM no ar (21/11 10:48) — falta a parte do APP (Pendências do Guardião: pixSemPar sem 'ligado'; COMO-FAZER em work/s435/precoexato/, esboço 39c) — entra na ordem depois do 4c
+NUVEM ✅ 10:48 · SITE ✅ v1795274857 (sem final único; conferido: uqGera/uq/pagar fora; teste de compra 14/14 às 13:02) — falta o APP (Pendências + Ligar)
 Site: PIX e Banco Familiar mostram o preço do carrinho (sem final único). App: cada PIX sem par vira linha das Pendências com o motivo (sem pedido / empate / peça vendida) + janela 'Ligar a um pedido'. Achado: S.pixSemPar é lido a cada 20 s e nunca mostrado. Risco a medir pela NUVEM: empates de mesmo valor. work/s435/precoexato/COMO-FAZER.md
