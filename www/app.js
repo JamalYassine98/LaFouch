@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 606;
+  var APP_BUILD = 607;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.31'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.32'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -35677,11 +35677,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function giroTrata(blob, o) {
     o = o || {};
     var aviso = o.aviso || function () {}, vt_, v, W, H, cv, cx, t0, per, dur, w2, h2, tr;
+    // Item 38 (etapa 1): quanto tempo cada fase leva (ms), para o diário do celular dizer onde o tratamento demora. Não muda o resultado.
+    // fases em ordem: abre, volta, fundo, medir, escolher, video, quadros; busca/le = dentro delas, o tempo só de ir ao quadro e de ler os pontos
+    var T = { busca: 0, le: 0 }, r0 = performance.now(), marca = function (n) { var a = performance.now(); T[n] = Math.round(a - r0); r0 = a; };
     function pega(t) {
       if (o.para && o.para()) return Promise.reject(new Error('cancelado'));
+      var a = performance.now();
       return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
+        var b = performance.now();
         cx.drawImage(v, 0, 0, W, H);
-        return cx.getImageData(0, 0, W, H).data;
+        var d = cx.getImageData(0, 0, W, H).data;
+        T.busca += b - a; T.le += performance.now() - b;
+        return d;
       });
     }
     // 1) a volta: assinaturas pequenas ao longo do vídeo (uma a cada meio segundo) e a primeira volta inteira que elas mostram;
@@ -35718,14 +35725,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       v = vid; dur = v.duration;
       W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; w2 = W >> 1; h2 = H >> 1; tr = gtTratador(W, H);
       cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
+      marca('abre');
       // quem gravou já sabe a volta (a câmera parou quando ela fechou): ela termina no fim do vídeo
       return o.per ? { per: o.per, casa: 0, meio: 1, fim: dur - 0.2 } : acha_volta();
     }).then(function (vt) {
+      marca('volta');
       if (!vt || !(vt.per > 6)) throw new Error('giro-curto'); // não deu uma volta inteira
       // a volta tratada é a que TERMINA onde ela fechou — nunca o começo da gravação, que é a peça parada esperando o prato ligar
       vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, vt.fim - per);
       if (t0 + per > dur + 0.3) throw new Error('giro-curto');
       return monta_fundo().then(function () {
+        marca('fundo');
         // 1ª passada: onde a peça está em cada grau, e a nitidez
         var med = [], n = 0;
         function um() {
@@ -35752,6 +35762,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return um().then(function () { return med; });
       });
     }).then(function (med) {
+      marca('medir');
       // passeio = a parte que dá UMA volta por volta
       function harm(ix) {
         var a = 0, b = 0;
@@ -35791,6 +35802,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return VideoEncoder.isConfigSupported(vp).then(function (q) { if (!q.supported) throw new Error('sem-gravador'); return ['webm', vp]; });
         });
       }
+      marca('escolher');
       return codec().then(function (cc) {
         tipo = cc[0];
         var Lib = tipo === 'mp4' ? appLib('mp4-muxer', 'Mp4Muxer') : appLib('webm-muxer', 'WebMMuxer'); // vêm dentro do app.js (src/01-build.js)
@@ -35821,6 +35833,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return enc.flush();
         }).then(function () {
           mux.finalize();
+          marca('video');
           // imagens inteiras do vídeo bruto nos graus pedidos (ex.: frente e 3/4 para as fotos da peça), no tamanho em que a câmera gravou
           var qs = {}, lista = (o.quadros || []).slice();
           function umQ() {
@@ -35835,7 +35848,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return umQ().then(function () { return qs; });
         }).then(function (qs) {
           try { URL.revokeObjectURL(v.src); } catch (e) {}
+          marca('quadros');
+          T.busca = Math.round(T.busca); T.le = Math.round(T.le); T.total = T.abre + T.volta + T.fundo + T.medir + T.escolher + T.video + T.quadros; T.tipo = tipo; T.n = GT_N; T.larg = W;
+          if (typeof camDiario === 'function') camDiario('tempos', T);
           return {
+            tempos: T,
             quadros: qs, fotos: fotos,
             blob: new Blob([alvoV.buffer], { type: (tipo === 'mp4' ? 'video/mp4' : 'video/webm') + ';gn=' + GT_N }), n: GT_N, /* gn no tipo: o giro tratado se reconhece mesmo depois de guardado no aparelho */ capa: capa, tipo: tipo,
             info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }

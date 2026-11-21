@@ -1,1 +1,1 @@
-{"v":606,"nat":1,"nome":"5.50.31","notas":["Pendências: PIX ou transferência que não bateu com nenhum pedido agora aparece no Guardião, com \"Ligar\" para escolher o pedido."]}
+{"v":607,"nat":1,"nome":"5.50.32","notas":["Giro (por dentro): o app passa a anotar quanto tempo cada parte do tratamento leva, para acelerar o que mais pesa. O resultado do giro não muda."]}

@@ -1,7 +1,7 @@
 {
- "nome": "5.50.31",
+ "nome": "5.50.32",
  "notas": [
-  "Pendências: PIX ou transferência que não bateu com nenhum pedido agora aparece no Guardião, com \"Ligar\" para escolher o pedido."
+  "Giro (por dentro): o app passa a anotar quanto tempo cada parte do tratamento leva, para acelerar o que mais pesa. O resultado do giro não muda."
  ],
- "build": 606
+ "build": 607
 }

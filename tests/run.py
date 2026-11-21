@@ -4583,6 +4583,14 @@ async def main():
             if not ok: falhas.append('134d editar na janela de baixo'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Item 38, etapa 1 (21/11/2026): o tratamento do giro mede cada fase e grava no diário ("[LF-CAM] tempos {…}"), para o teste no celular
+            # dizer onde o tempo vai. Não muda o resultado (prova de igualdade em work/s436/camera-giro/TEMPOS-ITEM-38.md: info, fotos, capa e quadro idênticos).
+            total += 1
+            gt = fontes['97-giro-trata.js']; fases = re.findall(r"marca\('(\w+)'\)", gt.split('function giroTrata')[1])
+            ok = fases == ['abre', 'volta', 'fundo', 'medir', 'escolher', 'video', 'quadros'] and "camDiario('tempos', T)" in gt and 'tempos: T' in gt and 'T.busca +=' in gt and 'T.le +=' in gt
+            print(('  ok  ' if ok else ' FALHA ') + 'Item 38 (etapa 1): o tratamento do giro grava no diário o tempo de cada fase (abre, volta, fundo, medir, escolher, vídeo, quadros) e o de buscar/ler os quadros')
+            if not ok: falhas.append('item 38 tempos por fase'); print('        veio', fases)
+
             # 39 · preço exato (aprovado 21/11 07:51), parte do APP: cada pixSemPar ainda não ligado é uma linha do Guardião nas Pendências, primeiro da lista,
             # com o texto vindo do motivo (uma tabela só); "Ligar" abre a janela com os pedidos a pagar (mesmo valor primeiro) e pede à NUVEM
             # (reserva {acao:'ligar', pix, pedido}) — o app não grava "pago"; depois de ligar a linha some. "sem-peca" leva ao pedido.
