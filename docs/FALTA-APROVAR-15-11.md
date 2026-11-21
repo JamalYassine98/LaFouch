@@ -891,3 +891,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 20/11/2026 23:52 — ✅ PUBLICADO (NUVEM, run 44857930676): S5+S7 — inscrição nas novidades e "Avise-me" só valem com o e-mail confirmado (dono: "Implementar S5S7" 23:48). Falta o SITE mostrar "Enviamos um e-mail para confirmar".
 
 - **Esboço 38 (S435 · ESBOCO, 21/11) — aviso curto acima da barra e com a cor do tipo** — esboço pronto, esperando o dono. work/s435/aviso/.
+
+- **Esboço 39 (S435 · ESBOCO, 21/11) — pagamento parte 3: preço exato** (pedido da NUVEM, ideia do dono 20/11 12:30) — esboço pronto, esperando o dono. Site: valor = preço do carrinho (sem final único); App: PIX sem par vira linha das Pendências com o motivo + janela 'Ligar a um pedido'. Achado: S.pixSemPar é lido e nunca mostrado. work/s435/precoexato/.
