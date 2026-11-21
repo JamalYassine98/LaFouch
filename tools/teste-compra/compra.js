@@ -5,19 +5,15 @@
 // Roda no GitHub (workflow teste-compra), com a conta de publicação (sem chave guardada) e a chave do robô lida do Secret Manager.
 // Aviso: o celular do dono recebe o aviso "Novo pedido … Teste automático" (é o caminho de verdade).
 'use strict';
-const admin = require('firebase-admin');
 const crypto = require('crypto');
 const Reserva = require('../../functions/reserva');
 
 const B = 'https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net';
 const O = 'https://lafouch.com';
 const ROBO = process.env.PIX_ROBO || '';
-// a conta de publicação entra pelo GitHub (Workload Identity): o firebase-admin não lê esse tipo de credencial, então o acesso
-// vem da biblioteca do Google (google-auth-library, a mesma que o Firestore usa por baixo)
-const { GoogleAuth } = require('google-auth-library');
-const gauth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
-admin.initializeApp({ projectId: 'lafouch-2f6bd', credential: { getAccessToken: async () => { const t = await (await gauth.getClient()).getAccessToken(); return { access_token: t.token, expires_in: 3000 }; } } });
-const db = admin.firestore();
+// a conta de publicação entra pelo GitHub (Workload Identity): o cliente do Firestore do Google lê esse tipo de credencial sozinho
+const { Firestore } = require('@google-cloud/firestore');
+const db = new Firestore({ projectId: 'lafouch-2f6bd' });
 
 let falhas = 0;
 const ok = (c, t, extra) => { console.log((c ? '  ok     ' : '  FALHA  ') + t + (extra ? '  ' + extra : '')); if (!c) falhas++; return c; };
