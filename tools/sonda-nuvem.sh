@@ -27,6 +27,10 @@ confere "pix sem a chave do robô" 403 "$(post pix application/json '{}')"
 FS='https://firestore.googleapis.com/v1/projects/lafouch-2f6bd/databases/(default)/documents'; K='AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc'
 confere "banco: criar pedido direto é recusado" 403 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X POST -H 'Content-Type: application/json' -d '{"fields":{"nome":{"stringValue":"sonda"}}}' "$FS/pedidos?documentId=sonda$(date +%s)&key=$K")"
 confere "banco: gravar vista direto é recusado" 403 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X PATCH -H 'Content-Type: application/json' -d '{"fields":{"ts":{"integerValue":"1"},"r":{"mapValue":{}}}}' "$FS/vistas/vsonda$(date +%s)?key=$K")"
+# hospedagem parte 1 (21/11): o app também sai do Firebase Hosting
+APPF=https://lafouch-2f6bd.web.app
+confere "app no Firebase: version.json" 200 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$APPF/version.json")"
+confere "app no Firebase: app.js" 200 "$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$APPF/app.js")"
 cors() { curl -s -D - -o /dev/null --max-time 30 -X OPTIONS -H "Origin: $2" -H 'Access-Control-Request-Method: POST' "$B/$1" | tr -d '\r' | awk -F': ' 'tolower($1)=="access-control-allow-origin"{print $2}'; }
 for f in reserva conta mensagem atacado; do
   confere "$f aceita o site" "https://lafouch.com" "$(cors $f https://lafouch.com)"

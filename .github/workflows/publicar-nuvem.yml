@@ -12,7 +12,7 @@ on:
         required: true
         default: functions
         type: choice
-        options: [functions, regras, tudo, limpeza]
+        options: [functions, regras, tudo, limpeza, app]
 
 permissions:
   contents: read
@@ -51,6 +51,7 @@ jobs:
           case "$O_QUE" in
             functions) A=functions ;;
             regras) A=firestore:rules ;;
+            app) A=hosting ;; # hospedagem parte 1 (20/11): o app (www/) também no Firebase Hosting, em paralelo ao GitHub Pages
             *) A=functions,firestore:rules ;;
           esac
           # sem --force: se o Firebase quiser APAGAR alguma função, ele para (em vez de apagar sozinho)
