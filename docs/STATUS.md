@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 37c links soltos declarados ao nascer; sai a adivinhação do pad100 | src/98z-s374d-padrao.js, src/97y-familias-s265.js, src/95-caixa.js, src/98-dash-cabecalho.js, src/98z-dashboard-s48.js, src/97-lista-compras.js, src/97-hist-busca.js, src/97u-navegacao-s184.js, src/97-cambio-aba.js, src/95-pedidos.js, src/89-notificacoes.js, src/60-vendas.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
