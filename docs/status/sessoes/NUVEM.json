@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "39 preço exato: parte da nuvem (busca exata, motivos, ação ligar)",
- "arquivos": [
-  "functions/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795267175.2697825,
+   "r": "39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO."
+  },
   {
    "t": 1795259043.8031511,
    "r": "Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono."
@@ -40,10 +42,6 @@
   {
    "t": 1795200121.8186638,
    "r": "S3 parte 1 publicada e conferida no ar: porta 'pedido' (formato das regras, limites, comprovante só de pedido recebido e não pago); recado ao SITE com a parte 2."
-  },
-  {
-   "t": 1795199585.8374639,
-   "r": "S6 publicado (VIP só para a cliente logada) e conferido no ar; recado ao SITE para mandar o login no presentes/reservar; tudo é teste até o lançamento (memória do projeto + recado a todas)."
   }
  ],
  "leu": 1795264863.4555042
