@@ -6,7 +6,7 @@ Atualizar esta lista quando um item sair (marcar ✅ com a versão).
 ## 1. Só o dono pode fazer
 | # | O quê | Por quê |
 |---|---|---|
-| D1 | **Hospedagem do site** (GitHub Pages não permite loja; proposta de 15/11: A Cloudflare Pages · B Firebase Hosting · C ficar) | As regras do GitHub Pages proíbem uso comercial: precisa decidir ANTES de abrir ao público |
+| D1 | **Hospedagem do APP** (o SITE já está na Cloudflare Pages desde 16/11; o app e as atualizações dos APKs ainda saem do GitHub Pages) — plano em docs/PLANO-HOSPEDAGEM-20-11.md: A Firebase Hosting (recomendado) · B Cloudflare | As regras do GitHub Pages não permitem uso para loja |
 | D2 | ✅ 20/11 20:15 — robô novo colado; 7/7 avisos autênticos | Pagamento parte 2 |
 | D3 | Uma transferência de teste de verdade (PIX e Banco Familiar), com o robô novo | Nunca testamos o pagamento automático de ponta a ponta |
 | D4 | Gravar o giro definitivo | Giro 360° das peças |
