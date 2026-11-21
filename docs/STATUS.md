@@ -71,7 +71,7 @@
 - **35-varredura-codigo-morto** — 4ª rodada feita (64% do programa roda nas provas): saíram 4 funções mortas certas (site 1795232856); 119 blocos (74 KB) só são alcançados por telas que as provas ainda não percorrem — próximo: uma prova por área (coração voando, cidade, recibo, pedido pago, código por e-mail, Google, câmera do rosto, modo loja, atacado) e depois os suspeitos vão ao dono com imagem
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
-- **37-giro-camera-reta-e-peca-reta** — esboço pronto — esperando o dono
+- **37-giro-camera-reta-e-peca-reta** — aprovado 21/11 07:51: avisa E o tratamento endireita até ±3° — espera o 'implementar'
 - **38-aviso-curto-acima-da-barra-e-com-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
