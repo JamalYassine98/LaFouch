@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 134 (2a): ficha do Inventário sai do cartão grande; linhas de cor/grau como linha de lista | src/10-estoque-detalhe.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
 
 ## Fila
