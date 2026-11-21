@@ -74,7 +74,7 @@
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
 - **37-giro-camera-reta-e-peca-reta** — aprovado 21/11 07:51: avisa E o tratamento endireita até ±3° — espera o 'implementar'
 - **38-aviso-curto-acima-da-barra-e-com-cor** — aprovado 21/11 07:51 — espera o 'implementar'
-- **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE (dono 20/11 23:39: ~5 min por peça no celular não serve para 1.000 peças)
+- **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE · decisões do dono 21/11 09:51 (recado do ESBOCO): meta ≈ 60 s por giro no celular (5 min por peça com todas as cores), tratar por trás enquanto grava a próxima cor; REPROVADO menos quadros/resolução menor; APROVADO GPU do celular (WebGL/WebGPU); tudo no celular; prato 40 s por volta. Entra depois do 4c
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — aprovado 21/11 07:51 — espera o 'implementar' (ordem: NUVEM → SITE → APP)
 - **40-hospedagem-app-firebase** — parte 1 ✅ 21/11 08:05 (lafouch-2f6bd.web.app, em paralelo) — partes 2 (APP) e 3 (dono) só no fim, antes de lançar
