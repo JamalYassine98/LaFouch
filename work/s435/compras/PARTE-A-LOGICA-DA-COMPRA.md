@@ -57,3 +57,17 @@ Por ordem de peso:
 - Se a peça não volta mais, a vaga passa para **"procurar equivalente"**. O Semp compara com a foto da original e usa as vendas e o Analisador. O Guardião confere o preço.
 - Quando o equivalente chega, o "Chegou mercadoria" mostra **"5 clientes esperavam algo assim"** e traz a mensagem pronta no WhatsApp: "Chegou um parecido com o que você queria", com a foto.
 - **"Deixar sem"** só aparece quando ninguém está esperando. A vaga reabre no primeiro "me avise".
+
+## 7. O fracasso: o que vendeu mal ou só saiu com oferta (dono 21/11 13:29)
+
+**O que conta como fracasso:**
+- vendeu mal: parado há 60 dias ou mais, ou "sobrando";
+- ou **só saiu com oferta**: a maior parte das vendas foi com desconto do preço automático ou com "Oferta ›".
+
+**A venda com oferta não conta como procura.** Uma peça que acabou numa liquidação não "vendeu bem": a lista não pode pedir para repor só porque ela zerou. Hoje a lista de compras conta toda venda igual. É uma falha que precisa ser corrigida junto.
+
+**O que entra no lugar:** as **maiores tendências do momento**, que o Semp põe em ordem com os pesos da seção 5 (vendas do app, Analisador, lista de espera e, por último, a internet).
+- Mantém o **tipo**, para não desequilibrar a vitrine: um solar fracassado dá lugar a um solar em tendência.
+- Respeita o **equilíbrio de material**, para a loja não ficar toda de metal, nylon ou acetato.
+
+Na tela, a vaga aparece assim: "No lugar de BR44133, que só saiu com oferta · tendências agora:", seguido das 2 ou 3 melhores, com o motivo de cada uma.
