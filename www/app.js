@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 607;
+  var APP_BUILD = 608;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.32'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.33'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -24797,9 +24797,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
   }
   // Abre o grupo na última tela usada dele (ou na primeira). Marketing (família) lembra qual grupo está aberto.
+  // Esboço 37 (aprovado 20/11 23:42): UM jeito só de abrir um grupo — o índice com as telas dele (o mesmo da barra de baixo),
+  // para o Início, a busca e qualquer atalho. Antes o Início pulava direto para a última tela usada. Marketing é família com tela própria.
   function grpAbre(g) {
-    if (g && g.id === 'g:mkt' && g.fam) S._gAt = g.id;
-    return inicioGo(g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0]);
+    if (g && g.id === 'g:mkt' && g.fam) { S._gAt = g.id; return inicioGo(g.itens[0]); }
+    return window.__nvIndice(g);
   }
   // Abas do grupo no topo da tela.
   // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER
@@ -24809,7 +24811,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el) return;
     var g = grpAtivo();
     S._gAt = g ? g.id : null;
-    if (g) g.itens.forEach(function (t) { if (navOn(t)) g.ult = t; });
     el.hidden = true;
     el.textContent = '';
   }
@@ -53418,10 +53419,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       try { window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
     }
     window.__nvVolta = nvVolta;
+    window.__nvIndice = nvIndice; // grpAbre (src/95-barra-grupos.js) abre o grupo por aqui
     ACT.nvVolta = function () { nvVolta(); };
     ACT.nvIr = function (t) {
-      var g = grpGet(S.nvG);
-      if (g) g.ult = t;
       S.nvP = ['grp:' + S.nvG];
       S._nvModo = 1;
       inicioGo(t);

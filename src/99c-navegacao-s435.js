@@ -81,10 +81,9 @@
       try { window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
     }
     window.__nvVolta = nvVolta;
+    window.__nvIndice = nvIndice; // grpAbre (src/95-barra-grupos.js) abre o grupo por aqui
     ACT.nvVolta = function () { nvVolta(); };
     ACT.nvIr = function (t) {
-      var g = grpGet(S.nvG);
-      if (g) g.ult = t;
       S.nvP = ['grp:' + S.nvG];
       S._nvModo = 1;
       inicioGo(t);

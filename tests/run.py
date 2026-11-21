@@ -435,19 +435,22 @@ async def main():
             # S374 (esboço 59): Giro e preços abre o Giro e a flecha mostra Giro, Preços e Reservas; Marketing abre a lista
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
             await pg.locator('#v-inicio .tl[data-id="g:gp"]').click(); await pg.wait_for_timeout(700)
-            await pg.evaluate("() => window.__LF.ACT.dVer()"); await pg.wait_for_timeout(500)
-            m1 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab, [...document.querySelectorAll('#dFolha [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
-            await pg.evaluate("() => { window.__LF.lfaFecha('dFolha'); window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
+            # esboço 37a: o grupo abre o índice com as telas dele (Giro e Preços); a tela escolhida abre a partir dali
+            m1 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#v-grp .nvL')].map(b => b.getAttribute('data-id'))]")
+            await pg.locator('#v-grp .nvL[data-id=giro]').click(); await pg.wait_for_timeout(500)
+            m1.append(await pg.evaluate("() => window.__LF.S.view + '/' + window.__LF.S.dTab"))
+            await pg.evaluate("() => { window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
             await pg.locator('#v-inicio .tl[data-id="g:mkt"]').click(); await pg.wait_for_timeout(600)
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['dash', 'giro', ['giro', 'prec']] and m2 == ['mkt', []] and not pg.erros
+            ok = m1 == ['grp', ['giro', 'prec'], 'dash/giro'] and m2 == ['mkt', []] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (59/98): Giro e preços com a flecha certa; Marketing abre a tela Marketing')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
             await pg.locator('#v-inicio .tl[data-id="g:site"]').click(); await pg.wait_for_timeout(700)
+            await pg.locator('#v-grp .nvL[data-id=site]').click(); await pg.wait_for_timeout(700)  # esboço 37a: o grupo abre o índice; "Resumo" é a 1ª tela
             s1 = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-site .stN').length, document.querySelectorAll('#v-site .stL').length, !!document.querySelector('#v-site .st96'), !!document.querySelector('#v-site .pv97')]")
             await pg.locator('#v-site .stN[data-id=msg]').click(); await pg.wait_for_timeout(700)
             s2 = await pg.evaluate("() => [window.__LF.S.view, !!document.querySelector('#mainnav .mn.on[data-id=vendas]')]")
@@ -2680,12 +2683,12 @@ async def main():
             j1 = await pg.evaluate("() => { const S = window.__LF.S; const g = S.grupos[0]; return [g && g.itens, g && g.nome, g && S.inicioT.indexOf(g.id) >= 0, S.inicioT.indexOf('giro'), !!document.querySelector('#v-inicio .tl.tlG'), document.getElementById('lfDesf').className]; }")
             gi = await pg.evaluate("() => window.__LF.S.grupos[0] && window.__LF.S.grupos[0].id")
             if gi: await pg.locator('#v-inicio .tl[data-id="%s"]' % gi).click(); await pg.wait_for_timeout(600)
-            j2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S._gAt]")
+            j2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.nvG]")  # esboço 37a: o grupo abre o índice dele
             await pg.evaluate("g => { window.__LF.S._gg = g; window.__LF.ACT.grpDesfazer(); }", gi); await pg.wait_for_timeout(900)
             j3 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.view, window.__LF.S.inicioT.indexOf('giro') >= 0, window.__LF.S.inicioT.indexOf('prec') >= 0]")
             total += 1
             ok = (j1[0] == ['prec', 'giro'] and j1[1] == 'Preço e giro' and j1[2] and j1[3] < 0 and j1[4] and 'on' in j1[5]
-                  and j2 == ['dash', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
+                  and j2 == ['grp', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S370: juntar dois atalhos do Início (anel), abrir o grupo e desfazer')
             if not ok: falhas.append('grupo no Início'); print('        veio', j1, j2, j3, pg.erros)
             # S374 (esboço 61): arrastar um grupo da barra para o Início leva o grupo inteiro (não desfaz); Desfazer volta
@@ -4590,6 +4593,24 @@ async def main():
             ok = fases == ['abre', 'volta', 'fundo', 'medir', 'escolher', 'video', 'quadros'] and "camDiario('tempos', T)" in gt and 'tempos: T' in gt and 'T.busca +=' in gt and 'T.le +=' in gt
             print(('  ok  ' if ok else ' FALHA ') + 'Item 38 (etapa 1): o tratamento do giro grava no diário o tempo de cada fase (abre, volta, fundo, medir, escolher, vídeo, quadros) e o de buscar/ler os quadros')
             if not ok: falhas.append('item 38 tempos por fase'); print('        veio', fases)
+
+            # Esboço 37a (aprovado 20/11 23:42): UM jeito só de abrir um grupo — tocar num grupo no Início mostra o índice com as telas dele
+            # (o mesmo da barra de baixo), não pula para a última tela usada; a tela escolhida abre e "‹ GRUPO" volta ao índice; Marketing abre a tela dele.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
+              for (const id of ['g:gp', 'g:res', 'g:site']) { L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="' + id + '"]').click(); await w(500);
+                R.push(S.view === 'grp' && S.nvG === id && document.querySelectorAll('#v-grp .nvL').length === S.grupos.find(g => g.id === id).itens.length); }
+              document.querySelector('#v-grp .nvL').click(); await w(500); const tela = S.view; L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:site"]').click(); await w(500);
+              R.push(tela !== 'grp' && S.view === 'grp');                                       // usar uma tela do grupo não muda como ele abre
+              L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:gp"]').click(); await w(500); document.querySelector('#v-grp .nvL[data-id=prec]').click(); await w(500);
+              R.push(S.view === 'dash' && S.dTab === 'prec'); document.querySelector('.nvVs').click(); await w(500); R.push(S.view === 'grp' && S.nvG === 'g:gp');
+              L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:mkt"]').click(); await w(500); R.push(S.view === 'mkt');
+              return R; }""")
+            total += 1
+            ok = got == [True] * 7 and not any(re.search(r'\bg\.ult\b', t) for t in fontes.values()) and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37a: grupo pelo Início abre o índice das telas (um jeito só, igual à barra); a tela abre, "‹ grupo" volta; Marketing abre a tela dele')
+            if not ok: falhas.append('37a grupo abre o indice'); print('        veio', got, pg.erros)
+            await pg.close()
 
             # 39 · preço exato (aprovado 21/11 07:51), parte do APP: cada pixSemPar ainda não ligado é uma linha do Guardião nas Pendências, primeiro da lista,
             # com o texto vindo do motivo (uma tabela só); "Ligar" abre a janela com os pedidos a pagar (mesmo valor primeiro) e pede à NUVEM

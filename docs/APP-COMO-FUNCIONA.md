@@ -573,4 +573,4 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Gravar: `giroGrava(stream, video, {k, fim}, ui)` em src/97-estudio-giro.js (o `estGiro` agora só abre a câmera no Vídeo). Para quando `gtFechou` acha a volta ou em `GIRO_MAX` = 60 s; câmera fechada no meio = descarta. Depois `estGiroAuto`/`estGiroEscolhe` como antes.
 - `c149Cabe(ov)`: a coluna da esquerda (deitado) sobe `data-cabe` 0→3 até a frase e a lista caberem (regra 14 L4).
 - Guias (149cam-G, v570): `c149Guias(ov, r, mm, vid)` desenha o SVG `.ecGuias` dentro do `.ecVf` a cada conferência (só Vídeo deitado, fora da gravação). Quadro 640×360 → vídeo → tela pelo mesmo `cover` (`X()`/`Y()`). CSS: bloco "guias na imagem (149cam-G)" no fim do style.css.
-
+- **v608 (esboço 37a — um jeito só de abrir um grupo):** `grpAbre(g)` (`src/95-barra-grupos.js`) abre o índice do grupo (`nvIndice`, exposto como `window.__nvIndice` em `src/99c-navegacao-s435.js`) para Início, busca e atalhos — igual à barra. Saiu o caminho `g.ult`/`g.itens[0]` (a "última tela" do grupo não é mais guardada). Exceção única: Marketing (`g:mkt`) abre a tela Marketing direto. Trava no porteiro: "Esboço 37a".

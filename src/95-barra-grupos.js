@@ -59,9 +59,11 @@
     return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
   }
   // Abre o grupo na última tela usada dele (ou na primeira). Marketing (família) lembra qual grupo está aberto.
+  // Esboço 37 (aprovado 20/11 23:42): UM jeito só de abrir um grupo — o índice com as telas dele (o mesmo da barra de baixo),
+  // para o Início, a busca e qualquer atalho. Antes o Início pulava direto para a última tela usada. Marketing é família com tela própria.
   function grpAbre(g) {
-    if (g && g.id === 'g:mkt' && g.fam) S._gAt = g.id;
-    return inicioGo(g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0]);
+    if (g && g.id === 'g:mkt' && g.fam) { S._gAt = g.id; return inicioGo(g.itens[0]); }
+    return window.__nvIndice(g);
   }
   // Abas do grupo no topo da tela.
   // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER
@@ -71,7 +73,6 @@
     if (!el) return;
     var g = grpAtivo();
     S._gAt = g ? g.id : null;
-    if (g) g.itens.forEach(function (t) { if (navOn(t)) g.ult = t; });
     el.hidden = true;
     el.textContent = '';
   }
