@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold | src/89-dash-abas.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 44: cadastro do Inventário (Adicionar, passo 1 em linhas, passo 2 cores da Galeria) | work/s435/cadastro |
-| IDEIAS | IDEIAS 01 formato do rosto: esboço | work/ideias/01-formato |
 | NUVEM | 39 preço exato: parte da nuvem (busca exata, motivos, ação ligar) | functions/ |
 | SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 
@@ -118,6 +117,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 10:14 — IDEIAS: IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS
 - 21/11 09:58 — APP: v595 no ar: 4c parte 2 (149d Histórico). Próximo: 4c parte 3 (135d dobras sem cartão)
 - 21/11 09:40 — APP: v594 no ar: 4c parte 1 (149t título h1). Próximo: 4c parte 2 (149d Histórico)
 - 21/11 09:31 — SITE: URGENTE resolvido — site 1795264209: a câmera do 'descubra o seu formato' e o comparar voltaram a abrir na tela (erro da limpeza de estilos de 19/11: a base das janelas soltas tinha sido cortada). Antes, na mesma manhã: site 1795261801 com o começo rápido (internet fraca parte 1). Porteiro 229 provas, 0 falhas. PRÓXIMO: conferir as outras janelas soltas (mensagem, atacado, separado) e o resto do corte de 19/11 contra a versão de 19/11; medir o começo rápido em rede limpa.
@@ -142,4 +142,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 20:16 — NUVEM: Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos.
 - 20/11 20:10 — NUVEM: S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto.
 - 20/11 20:03 — SITE: recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP
-- 20/11 19:45 — NUVEM: Lista docs/FALTA-PARA-LANCAR.md (o que falta para lançar, por quem faz) — pedido do dono 19:44.
