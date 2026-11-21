@@ -1,0 +1,38 @@
+name: Teste de compra de ponta a ponta (nuvem de verdade)
+
+# 21/11/2026 (NUVEM; dono: "Faça 1 e 2"): faz o caminho de uma cliente — reservar, pedir, conferir, pagar por PIX (aviso do robô simulado),
+# token — e confere cada etapa; no fim apaga tudo o que criou. Só quando chamado (botão "Run workflow" ou gh api ... dispatches).
+# O celular do dono recebe o aviso "Novo pedido … Teste automático (robô)".
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: teste-compra
+  cancel-in-progress: false
+
+jobs:
+  compra:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
+          service_account: github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+      - name: Instalar
+        working-directory: functions
+        run: npm install --no-audit --no-fund
+      - name: Comprar, conferir e limpar
+        run: |
+          K=$(gcloud secrets versions access latest --secret=PIX_ROBO --project=lafouch-2f6bd)
+          echo "::add-mask::$K"
+          PIX_ROBO="$K" NODE_PATH=functions/node_modules node tools/teste-compra/compra.js
