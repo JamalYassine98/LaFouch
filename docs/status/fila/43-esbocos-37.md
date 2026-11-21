@@ -1,2 +1,2 @@
-37a publicado v608 (grupo abre o índice); faltam 37b ícones, 37c links soltos, 37d Ajustes
+37a v608 e 37b v609 publicados (grupo abre o índice; ícones em cinza); faltam 37c links soltos, 37d Ajustes
 
