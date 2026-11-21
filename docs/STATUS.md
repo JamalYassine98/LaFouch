@@ -71,6 +71,7 @@
 - **37-ajustes-pecas-grupo-escolha** — esboço pronto — esperando o dono
 - **37-giro-camera-reta-e-peca-reta** — na fila — esboço com o ESBOCO (pedido do dono 20/11 23:29)
 - **38-giro-tratamento-mais-rapido** — na fila — APP (por dentro)
+- **39-giro-frente-com-um-lado-apagado** — na fila — APP, urgente
 
 ## Recados esperando
 
