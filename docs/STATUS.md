@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 149s etapa A: estudo da superfície sem cartão (fotos antes × depois de todas as telas; nada publicado) | work/s436/4d |
 | ESBOCO | esboço 52 — desfazer Giro e preços (parte 1: Início + Inventário + Parados e sobrando) | work/s435/giroprecos |
 
 ## Fila
