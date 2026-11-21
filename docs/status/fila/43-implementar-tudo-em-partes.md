@@ -1,2 +1,2 @@
-em andamento — 4b ✅ · 4c ✅ · 4d: 136a/134/134b/134d ✅ v598–v605 · 149s esperando o dono (Fila 44) · 39 app ✅ v606 (5.50.31). Próximas: 38 giro → resto dos 52 → aprovados de 21/11
+em andamento — feitos: 4b, 4c, 4d (menos 149s, que espera o dono — Fila 44), 39 app, 38 etapa 1 (v591–v607). Agora: esboço 37 (Ajustes/Peças/grupo/links declarados) → 38 aviso curto → 40 → 41 → 42. Resto dos 52: pedi o 'como fazer' por família ao ESBOCO
 
