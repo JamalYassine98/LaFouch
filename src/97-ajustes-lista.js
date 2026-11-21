@@ -14,6 +14,7 @@
     site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
     ped: AJ_SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>'), // sacola: o globo fica só no Site
     pauto: AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
+    marca: AJ_SVG('<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
     upd: AJ_SVG('<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/>'),
@@ -23,7 +24,7 @@
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
     // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
     AJ_BLOCOS = [
-      ['Loja', ['site', 'ped', 'pa', 'pauto']],
+      ['Loja', ['marca', 'site', 'ped', 'pa', 'pauto']],
       ['Contas ligadas', ['bk', 'sync']],
       ['Este aparelho', ['imp', 'tema', 'seg', 'av', 'upd']]
     ],
@@ -45,23 +46,24 @@
       localStorage.setItem('lf_ajOrd', JSON.stringify(o));
     } catch (e) {}
   }
-  // Monta o grupo. secs = { chave: { t: título, r: resumo, al: pede atenção, h: conteúdo } }
+  // Monta o grupo. secs = { chave: { t: título, r: resumo, al: pede atenção, h: conteúdo } } — a linha que abre no lugar (⌄).
+  // Linha que NÃO abre no lugar diz para onde vai: { vai: 'ação' } = outra tela (›, ex.: Site) · { vai: 'ação', tarefa: true } = janela de baixo, sem seta (ex.: Marca).
   function ajListaHtml(secs) {
     var ab = S.ajAberta || '';
     var ord = ajOrdem();
     return (
       '<div class="ajGrp" id="ajGrp">' +
       AJ_BLOCOS.map(function (bl) {
-        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && secs[k].h; });
+        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai); });
         if (!ls.length) return '';
         return '<div class="ajBl"><div class="ajBt">' + bl[0] + '</div>' + ls.map(function (k) {
           var s = secs[k],
             on = ab === k || !!S._rtudo; // testes antigos: tudo aberto
           return (
-            '<div class="ajS' + (on ? ' on' : '') + '" data-k="' + k + '">' +
-            '<button type="button" class="ajR" aria-expanded="' + (on ? 'true' : 'false') + '"><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
+            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa ? ' ajT' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
+            '<button type="button" class="ajR"' + (s.h ? ' aria-expanded="' + (on ? 'true' : 'false') + '"' : '') + '><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
             '<span class="ajRes' + (s.al ? ' al' : '') + '">' + (s.al ? '<i class="ajPt"></i>' : '') + esc(s.r || '') + '</span><span class="ajCh">' + AJ_SETA + '</span><span class="ajAl">' + AJ_ALCA + '</span></button>' +
-            '<div class="ajB"><div class="ajBi">' + s.h + '</div></div></div>'
+            (s.h ? '<div class="ajB"><div class="ajBi">' + s.h + '</div></div>' : '') + '</div>'
           );
         }).join('') + '</div>';
       }).join('') +
@@ -78,7 +80,7 @@
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
-    if (s.dataset.k === 'site') return ACT.ajSite(); // S374 (95d): abre os ajustes do site (painel integrado)
+    if (s.dataset.vai) return ACT[s.dataset.vai](); // outra tela (Site) ou janela de baixo (Marca): não abre no lugar
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
     [].forEach.call(g.querySelectorAll('.ajS.on'), function (x) {

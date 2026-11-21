@@ -2822,7 +2822,7 @@ button.rw77{cursor:pointer}
 .card.lcCard{animation:none!important}
 /* 99 abrir no lugar */
 .g99{border:1px solid var(--line);background:var(--panel);border-radius:16px;overflow:hidden;margin:0 0 16px;box-shadow:none}
-#ajGrp .ajS:not([data-k=site]) .ajCh{transform:rotate(90deg)}#ajGrp .ajS.on:not([data-k=site]) .ajCh{transform:rotate(-90deg)}
+#ajGrp .ajS:not([data-vai]) .ajCh{transform:rotate(90deg)}#ajGrp .ajS.on:not([data-vai]) .ajCh{transform:rotate(-90deg)}#ajGrp .ajS.ajT .ajCh{visibility:hidden}
 
 .g99>.card.ecF{margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-bottom:1px solid var(--line)!important}
 .g99>.card.ecF:last-child{border-bottom:0!important}

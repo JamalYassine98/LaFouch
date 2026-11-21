@@ -661,11 +661,6 @@
             if (R.ab.A.n && R.ab.B.n) h += '<div class="hint" style="margin:4px 0 0">Teste A/B: versão A ' + (R.ab.A.v / R.ab.A.n).toFixed(1).replace('.', ',') + ' × versão B ' + (R.ab.B.v / R.ab.B.n).toFixed(1).replace('.', ',') + ' vendas por post.</div>';
           }
           h += '</details>';
-          // kit
-          var K = mkKit();
-          h += '<details class="mkDt"><summary class="mkSec">Kit da marca</summary><div class="mkKit">' + [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']].map(function (k) {
-            return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
-          }).join('') + '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma"><option value="ambos"' + (K.idioma === 'ambos' ? ' selected' : '') + '>Português e Español</option><option value="pt"' + (K.idioma === 'pt' ? ' selected' : '') + '>Português</option><option value="es"' + (K.idioma === 'es' ? ' selected' : '') + '>Español</option></select></label><div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div></div></details>';
           c.innerHTML = h;
         };
         pinta();
@@ -694,12 +689,6 @@
           }
           if (b.dataset.giro) return mkGiroStatus(b.dataset.giro);
           if (b.dataset.cria) mkCria(b.dataset.cria, b.dataset.refs ? b.dataset.refs.split(',').filter(Boolean) : null, b.dataset.pid, pinta);
-        };
-        c.onchange = function (e) {
-          var k = e.target.dataset && e.target.dataset.kit;
-          if (!k) return;
-          mkKit()[k] = e.target.value;
-          saveSoon();
         };
       }
   }

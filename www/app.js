@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 611;
+  var APP_BUILD = 612;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.36'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.37'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -26902,7 +26902,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
-      site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', h: '<span></span>' }, // S374 (95d)
+      marca: { t: 'Marca', r: marcaResumo(), vai: 'ajMarca', tarefa: true },
+      site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', vai: 'ajSite' }, // S374 (95d)
       // 149p: o interruptor do preço automático (com a prévia ao ligar) e "Contas, taxas e meta" moram aqui; Preços só mostra e decide
       pa: { t: 'Preços', r: 'automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado'), h: paSwitchHtml() + dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml()) },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
@@ -28691,6 +28692,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
     ped: AJ_SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>'), // sacola: o globo fica só no Site
     pauto: AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
+    marca: AJ_SVG('<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
     upd: AJ_SVG('<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/>'),
@@ -28700,7 +28702,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
     // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
     AJ_BLOCOS = [
-      ['Loja', ['site', 'ped', 'pa', 'pauto']],
+      ['Loja', ['marca', 'site', 'ped', 'pa', 'pauto']],
       ['Contas ligadas', ['bk', 'sync']],
       ['Este aparelho', ['imp', 'tema', 'seg', 'av', 'upd']]
     ],
@@ -28722,23 +28724,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       localStorage.setItem('lf_ajOrd', JSON.stringify(o));
     } catch (e) {}
   }
-  // Monta o grupo. secs = { chave: { t: título, r: resumo, al: pede atenção, h: conteúdo } }
+  // Monta o grupo. secs = { chave: { t: título, r: resumo, al: pede atenção, h: conteúdo } } — a linha que abre no lugar (⌄).
+  // Linha que NÃO abre no lugar diz para onde vai: { vai: 'ação' } = outra tela (›, ex.: Site) · { vai: 'ação', tarefa: true } = janela de baixo, sem seta (ex.: Marca).
   function ajListaHtml(secs) {
     var ab = S.ajAberta || '';
     var ord = ajOrdem();
     return (
       '<div class="ajGrp" id="ajGrp">' +
       AJ_BLOCOS.map(function (bl) {
-        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && secs[k].h; });
+        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai); });
         if (!ls.length) return '';
         return '<div class="ajBl"><div class="ajBt">' + bl[0] + '</div>' + ls.map(function (k) {
           var s = secs[k],
             on = ab === k || !!S._rtudo; // testes antigos: tudo aberto
           return (
-            '<div class="ajS' + (on ? ' on' : '') + '" data-k="' + k + '">' +
-            '<button type="button" class="ajR" aria-expanded="' + (on ? 'true' : 'false') + '"><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
+            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa ? ' ajT' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
+            '<button type="button" class="ajR"' + (s.h ? ' aria-expanded="' + (on ? 'true' : 'false') + '"' : '') + '><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
             '<span class="ajRes' + (s.al ? ' al' : '') + '">' + (s.al ? '<i class="ajPt"></i>' : '') + esc(s.r || '') + '</span><span class="ajCh">' + AJ_SETA + '</span><span class="ajAl">' + AJ_ALCA + '</span></button>' +
-            '<div class="ajB"><div class="ajBi">' + s.h + '</div></div></div>'
+            (s.h ? '<div class="ajB"><div class="ajBi">' + s.h + '</div></div>' : '') + '</div>'
           );
         }).join('') + '</div>';
       }).join('') +
@@ -28755,7 +28758,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
-    if (s.dataset.k === 'site') return ACT.ajSite(); // S374 (95d): abre os ajustes do site (painel integrado)
+    if (s.dataset.vai) return ACT[s.dataset.vai](); // outra tela (Site) ou janela de baixo (Marca): não abre no lugar
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
     [].forEach.call(g.querySelectorAll('.ajS.on'), function (x) {
@@ -28935,6 +28938,50 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         4000
       );
   }
+  // ===== Marca (Ajustes › Loja) — Ajustes organizado, aprovado 20/11/2026 15:53 =====
+  // O "Kit da marca" saiu do Marketing e mora só aqui: a linha Marca mostra "nome · idiomas" e abre a janela de baixo (tarefa, sem seta).
+  // Os dados continuam em S.mkt.kit (mkKit) — é dali que posts, cartões e vídeos leem. Regra 15: um "Salvar", sem "Fechar";
+  // sair com mudança pergunta "Sair sem salvar?".
+  var MARCA_CAMPOS = [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']],
+    MARCA_IDI = [['ambos', 'Português e Español', 'PT e ES'], ['pt', 'Português', 'PT'], ['es', 'Español', 'ES']];
+  function marcaResumo() {
+    var K = mkKit(),
+      i = MARCA_IDI.filter(function (x) { return x[0] === K.idioma; })[0] || MARCA_IDI[0];
+    return (K.nome || 'Sem nome') + ' · ' + i[2];
+  }
+  ACT.ajMarca = function () {
+    var K = mkKit(), api,
+      le = function () {
+        var o = {};
+        [].forEach.call(api.corpo.querySelectorAll('[data-kit]'), function (e) { o[e.getAttribute('data-kit')] = e.value; });
+        return o;
+      },
+      mudou = function () {
+        var o = le();
+        return Object.keys(o).some(function (k) { return o[k] !== (K[k] || ''); });
+      };
+    api = lfJanela({
+      titulo: 'Marca',
+      mudou: mudou,
+      monta: function (box) {
+        box.innerHTML = '<div class="mkKit">' + MARCA_CAMPOS.map(function (k) {
+          return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
+        }).join('') +
+          '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma">' + MARCA_IDI.map(function (x) { return '<option value="' + x[0] + '"' + ((K.idioma || 'ambos') === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select></label>' +
+          '<div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div>' +
+          '<button type="button" class="go" data-marca="salva">Salvar</button></div>';
+        box.onclick = function (e) {
+          if (!e.target.closest('[data-marca=salva]')) return;
+          var o = le();
+          Object.keys(o).forEach(function (k) { K[k] = o[k]; });
+          saveSoon();
+          api.fecha(true);
+          S._ajForce = true;
+          render();
+        };
+      }
+    });
+  };
   // ===== Arquivo das vendas antigas (v438, aprovado 05/11/2026) =====
   // Vendas de mais de 12 meses saem da lista do dia a dia (o app fica leve para sempre) e viram um RESUMO POR MÊS.
   // A venda completa fica guardada no aparelho (IndexedDB 'estado'/'arquivo') e entra na cópia da nuvem;
@@ -38082,11 +38129,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             if (R.ab.A.n && R.ab.B.n) h += '<div class="hint" style="margin:4px 0 0">Teste A/B: versão A ' + (R.ab.A.v / R.ab.A.n).toFixed(1).replace('.', ',') + ' × versão B ' + (R.ab.B.v / R.ab.B.n).toFixed(1).replace('.', ',') + ' vendas por post.</div>';
           }
           h += '</details>';
-          // kit
-          var K = mkKit();
-          h += '<details class="mkDt"><summary class="mkSec">Kit da marca</summary><div class="mkKit">' + [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']].map(function (k) {
-            return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
-          }).join('') + '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma"><option value="ambos"' + (K.idioma === 'ambos' ? ' selected' : '') + '>Português e Español</option><option value="pt"' + (K.idioma === 'pt' ? ' selected' : '') + '>Português</option><option value="es"' + (K.idioma === 'es' ? ' selected' : '') + '>Español</option></select></label><div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div></div></details>';
           c.innerHTML = h;
         };
         pinta();
@@ -38115,12 +38157,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }
           if (b.dataset.giro) return mkGiroStatus(b.dataset.giro);
           if (b.dataset.cria) mkCria(b.dataset.cria, b.dataset.refs ? b.dataset.refs.split(',').filter(Boolean) : null, b.dataset.pid, pinta);
-        };
-        c.onchange = function (e) {
-          var k = e.target.dataset && e.target.dataset.kit;
-          if (!k) return;
-          mkKit()[k] = e.target.value;
-          saveSoon();
         };
       }
   }

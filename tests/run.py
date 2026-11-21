@@ -1398,7 +1398,7 @@ async def main():
             a2 = await pg.evaluate("() => { const o = JSON.parse(localStorage.getItem('lf_ajOrd')); return [document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k, o.indexOf('upd') < o.indexOf('imp') && o.indexOf('site') < o.indexOf('bk'), document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on'), document.querySelector('#ajGrp .ajBl .ajS').dataset.k]; }")
             await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
             a3 = await pg.evaluate("() => document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k")
-            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['upd', True, True, 'site'] and a3 == 'imp' and not pg.erros
+            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['upd', True, True, 'marca'] and a3 == 'imp' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: uma aberta por vez, segurar e arrastar dentro do bloco com Desfazer')
             if not ok: falhas.append('ajustes ordem'); print('        veio', a0, a1, a2, a3, pg.erros)
             total += 1
@@ -4339,7 +4339,7 @@ async def main():
               try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
               S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.paPrev = false; S.ajAberta = ''; L.setView('ajustes'); await w(400);
               const ks = [...document.querySelectorAll('#ajGrp .ajS')].map(x => x.dataset.k), l = () => document.querySelector('#ajGrp .ajS[data-k=pa]');
-              R.push(ks.join().indexOf('site,ped,pa,pauto') === 0, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
+              R.push(ks.join().indexOf('site,ped,pa,pauto') >= 0, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
               l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').click(); await w(500);
               R.push(l().classList.contains('on') && S.view === 'ajustes', !!l().querySelector('#paCard [data-act=paTog]'), !!l().querySelector('[data-act=dfold][data-id=cfg]'));
               l().querySelector('[data-act=paTog]').click(); await w(300); R.push(!!l().querySelector('.paPrev [data-act=paLiga]'));
@@ -4636,11 +4636,40 @@ async def main():
                 erros37d = list(pg.erros); await pg.close(); await ctx37.close()
                 if erros37d: break
             total += 1
-            B37 = ['Loja:site,ped,pa,pauto', 'Contas ligadas:bk', 'Este aparelho:imp,tema,seg,av,upd']
+            B37 = ['Loja:marca,site,ped,pa,pauto', 'Contas ligadas:bk', 'Este aparelho:imp,tema,seg,av,upd']
             ok = (len(got) == 3 and all(r['blocos'] == B37 and r['plano'] == 'rgba(0, 0, 0, 0)|0px|0px|rgba(0, 0, 0, 0)|0px' and r['ico'] and r['fora0'] == [] and r['fora1'] == [] and r['nuvem'] == 4 for r in got)
                   and got[0]['cabe'] == '0' and not any(re.search(r"AJ_PADRAO\.push|AJ_PADRAO = \[", t) for t in fontes.values()) and not erros37d)
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (1): Ajustes em 3 blocos de uma tabela só, linhas sem cartão, sacola em Pedidos do site, nenhuma linha quebra (letra 1× e 1,3×)')
             if not ok: falhas.append('37d ajustes em blocos'); print('        veio', got, erros37d)
+
+            # Esboço 37d parte 2 (Ajustes organizado, aprovado 20/11 15:53): a Marca mora só em Ajustes › Loja — linha "nome · idiomas" sem seta que abre
+            # a janela de baixo com um "Salvar" (sem "Fechar"); mudar e sair pergunta "Sair sem salvar?"; salvar grava no kit e atualiza a linha.
+            # O Marketing não tem mais o "Kit da marca". Site continua "›" (outra tela) pela mesma regra (vai).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const esc = () => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+              const toca = k => { const r = document.querySelector('#ajGrp .ajS[data-k=' + k + '] .ajR'); r.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); r.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); };
+              try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
+              S.ajAberta = ''; L.setView('ajustes'); S._ajForce = true; L.render(); await w(400);
+              const m = () => document.querySelector('#ajGrp .ajS[data-k=marca]');
+              R.linha = [m().querySelector('b').textContent, m().querySelector('.ajRes').textContent, getComputedStyle(m().querySelector('.ajCh')).visibility, !m().querySelector('.ajB'), document.querySelector('#ajGrp .ajS').dataset.k];
+              toca('marca'); await w(600); let j = document.querySelector('.ljJn');
+              R.janela = [!!j, j ? j.querySelectorAll('[data-kit]').length : 0, j ? [...j.querySelectorAll('button')].map(b => b.textContent.trim()).join('|') : '', !m().classList.contains('on')];
+              esc(); await w(500); R.semMudar = !document.querySelector('.ljJn');
+              toca('marca'); await w(600); j = document.querySelector('.ljJn'); j.querySelector('[data-kit=nome]').value = 'Loja Teste'; j.querySelector('[data-kit=idioma]').value = 'es';
+              esc(); await w(500); R.pergunta = document.body.innerText.includes('Sair sem salvar?') && !!document.querySelector('.ljJn');
+              const volta = [...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Voltar' && b.getClientRects().length); if (volta) volta.click(); await w(400);
+              R.voltou = !!document.querySelector('.ljJn') && S.mkt.kit.nome !== 'Loja Teste';
+              document.querySelector('.ljJn [data-marca=salva]').click(); await w(700);
+              R.salvou = [!document.querySelector('.ljJn'), S.mkt.kit.nome, S.mkt.kit.idioma, m().querySelector('.ajRes').textContent];
+              L.inicioGo('mkt'); await w(500); R.mkt = [S.view, document.querySelectorAll('#v-mkt [data-kit]').length, /Kit da marca/.test(document.getElementById('v-mkt').textContent)];
+              return R; }""")
+            total += 1
+            ok = (got['linha'] == ['Marca', 'La Fouch · PT e ES', 'hidden', True, 'marca'] and got['janela'] == [True, 8, 'Salvar', True] and got['semMudar'] and got['pergunta'] and got['voltou']
+                  and got['salvou'] == [True, 'Loja Teste', 'es', 'Loja Teste · ES'] and got['mkt'] == ['mkt', 0, False] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (2): Marca em Ajustes › Loja — linha sem seta abre a janela com um Salvar, "Sair sem salvar?", grava no kit; saiu do Marketing')
+            if not ok: falhas.append('37d marca em ajustes'); print('        veio', got, pg.erros)
+            await pg.close()
 
             # Esboço 37c (aprovado 20/11 23:42): link solto NASCE declarado (lkSolto/lkCls/lkLinha); ninguém adivinha pelo texto depois do desenho —
             # as linhas da nuvem e "Gerenciar grupo ›" ficam no estilo próprio, e redesenhar a tela não muda a classe de nenhum botão.
@@ -5021,12 +5050,12 @@ async def main():
               L.inicioGo('din'); await w(500); const po = !!q('paraonde') && !document.querySelector('[data-act=dfold].chip');
               L.setView('caixa'); await w(400); const cx = [...v().querySelectorAll('.lk100.c101,.slVai.r100')].length >= 2;
               L.inicioGo('hoje'); await w(400); const vd = [...v().querySelectorAll('.btn-sc.p')].every(b => b.classList.contains('inl'));
-              L.inicioGo('mkt'); await w(500); const mk = S.view === 'mkt' && !document.querySelector('.ljJn.mkJn') && document.querySelectorAll('#v-mkt .mkDtG details.mkDt').length === 3;
+              L.inicioGo('mkt'); await w(500); const mk = S.view === 'mkt' && !document.querySelector('.ljJn.mkJn') && document.querySelectorAll('#v-mkt .mkDtG details.mkDt').length === 2;  // 37d: o Kit da marca foi para Ajustes › Loja › Marca
               const d = document.querySelector('#v-mkt details.mkDt'); d.querySelector('summary').click(); await w(600); const mkA = d.open; d.querySelector('summary').click(); await w(600);
               return [soltos, abre, anim, fecha, po, cx, vd, mk, mkA && !d.open]; }""")
             total += 1
             ok = got == [0, True, 'none', True, True, True, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (98–103): blocos juntos num cartão abrem e fecham, lista não pisca, links no padrão, Marketing como tela com 3 blocos')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (98–103): blocos juntos num cartão abrem e fecham, lista não pisca, links no padrão, Marketing como tela com 2 blocos')
             if not ok: falhas.append('catalogo 98 103'); print('        veio', got, pg.erros)
             await pg.close()
 
