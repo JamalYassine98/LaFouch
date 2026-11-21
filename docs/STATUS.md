@@ -77,7 +77,7 @@
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — aprovado 21/11 07:51 — espera o 'implementar' (ordem: NUVEM → SITE → APP)
 - **41-estudio-galeria-e-peca-na-camera** — aprovado 21/11 07:51 (giro só de peça já cadastrada) — espera o 'implementar'
-- **42-cores-e-fotos-nova-cor** — esboço pronto — esperando o dono
+- **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
 
 ## Recados esperando
 
