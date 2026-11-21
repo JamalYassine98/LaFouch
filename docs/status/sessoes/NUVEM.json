@@ -1,12 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "hospedagem parte 1: app também no Firebase Hosting (em paralelo)",
- "arquivos": [
-  "firebase.json",
-  ".github/workflows/publicar-nuvem.yml",
-  "tools/sonda-nuvem.sh"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795259043.8031511,
+   "r": "Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono."
+  },
   {
    "t": 1795229740.362719,
    "r": "Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'."
@@ -42,10 +42,6 @@
   {
    "t": 1795199585.8374639,
    "r": "S6 publicado (VIP só para a cliente logada) e conferido no ar; recado ao SITE para mandar o login no presentes/reservar; tudo é teste até o lançamento (memória do projeto + recado a todas)."
-  },
-  {
-   "t": 1795199103.7760172,
-   "r": "texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava)."
   }
  ],
  "leu": 1795258850.5079708
