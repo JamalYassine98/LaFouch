@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 134 (2a): ficha do Inventário sai do cartão grande; linhas de cor/grau como linha de lista | src/10-estoque-detalhe.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 49 — selo no botão que resolve (Atacado, Modelos, Inventário) + 50 Giro | work/s435/selo |
+| SITE | Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada) | work/s430/varredura/roteiros.py |
 
 ## Fila
 

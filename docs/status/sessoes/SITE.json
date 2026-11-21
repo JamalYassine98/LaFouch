@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Pendências parte 2: roteiros das áreas sem medição + varredura de código morto (5ª rodada)",
+ "arquivos": [
+  "work/s430/varredura/roteiros.py"
+ ],
  "ultimas": [
   {
    "t": 1795275187.8232677,
@@ -44,5 +46,5 @@
    "r": "investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono"
   }
  ],
- "leu": 1795275062.528173
+ "leu": 1795279188.3974912
 }
