@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com a dobra do app | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
-| ESBOCO | esboço 45: peça nasce no Estúdio (haste → rascunho → cores → Terminei) e Inventário 'A completar' | work/s435/fluxo |
+| ESBOCO | esboço 47 — painel do Site inteiro (estudo e redesenho) | work/s435/painelsite |
 | NUVEM | teste de compra de ponta a ponta + vigia diário | tools/teste-compra, .github/workflows/teste-compra.yml, .github/workflows/vigia-nuvem.yml |
 
 ## Fila
