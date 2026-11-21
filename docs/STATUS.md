@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 4d parte 1 (136a): ficha — Lucro real e De onde vem o preço com a dobra do app | src/97y-lucro-real.js, src/97z2-contador.js, www/style.css, tests/run.py |
-| ESBOCO | esboço 47 — painel do Site inteiro (estudo e redesenho) | work/s435/painelsite |
+| ESBOCO | esboço 48 — Peças: Inventário · Estúdio · Compras (parte 1) | work/s435/compras |
 | SITE | Esboço 39 (preço exato) — implementar (dono 21/11 12:04) | js/lf-site.js, js/lf-i18n.js |
 
 ## Fila
