@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 614;
+  var APP_BUILD = 615;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.39'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.40'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -29959,6 +29959,33 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     window.scrollTo(0, 0);
   }
+  // ===== Nível da câmera — um sensor, uma função (esboço 40, aprovado 21/11/2026) =====
+  // camNivel() → quantos graus o horizonte aparece inclinado na tela (positivo = lado direito mais baixo → "endireite para a direita"),
+  // ou null quando o aparelho não tem o sensor ou está quase deitado na mesa. Vale em pé e deitado: a inclinação é medida em relação ao eixo
+  // da tela mais próximo da gravidade (sai sempre entre −45° e 45°). Usam: modo Foto ("Reto"), fotos padrão e o conferidor do Vídeo ("Câmera reta").
+  // Conta: a gravidade vista pelo aparelho é (cosβ·senγ, −senβ, −cosβ·cosγ) — β e γ do evento deviceorientation.
+  var CAM_NIVEL = { v: null, ts: 0, on: false };
+  function camNivelDe(beta, gamma) {
+    if (beta == null || gamma == null) return null;
+    var R = Math.PI / 180, dx = Math.cos(beta * R) * Math.sin(gamma * R), dy = -Math.sin(beta * R), dz = -Math.cos(beta * R) * Math.cos(gamma * R);
+    if (Math.abs(dz) > 0.94) return null; // quase deitado na mesa: não há horizonte para medir
+    var bruto = Math.atan2(-dx, -dy) / R;
+    return bruto - 90 * Math.round(bruto / 90);
+  }
+  function camNivel() {
+    if (!CAM_NIVEL.on) {
+      CAM_NIVEL.on = true;
+      try {
+        window.addEventListener('deviceorientation', function (e) {
+          var n = camNivelDe(e.beta, e.gamma);
+          // alisa o chiado do sensor (cada leitura puxa 35%); salto grande (virou o aparelho) vale na hora
+          CAM_NIVEL.v = n == null ? null : CAM_NIVEL.v == null || Math.abs(n - CAM_NIVEL.v) > 8 ? n : CAM_NIVEL.v + (n - CAM_NIVEL.v) * 0.35;
+          CAM_NIVEL.ts = Date.now();
+        });
+      } catch (e) {}
+    }
+    return CAM_NIVEL.ts && Date.now() - CAM_NIVEL.ts < 3000 ? CAM_NIVEL.v : null; // sensor calado há 3 s = sem leitura
+  }
   // ===== Aba Câmbio simples (v426, esboço aprovado 04/11/2026 — versão A) =====
   // Topo: Dólar G$ · Real G$ · Dólar em reais R$ (La Moneda Jebai), cada um com a variação de 7 dias; tocar abre a janela com o gráfico.
   // Cartão Reposição: selo (Bom momento / Normal / Pode esperar / Troque hoje), "Faltam US$ X", barra, "US$ a de US$ b"
@@ -33327,17 +33354,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     $('ecT2').classList.toggle('on', st.t2);
     // nível (reto)
-    var gama = null,
-      ori = function (e) {
-        if (e && e.gamma != null) gama = e.beta > 45 ? e.gamma : null;
-      };
-    window.addEventListener('deviceorientation', ori);
+    camNivel(); // liga o sensor (um só para a câmera toda: 97-cam-nivel.js)
     // análise ao vivo: histograma, fundo, foco, distância, peaking
     var an = document.createElement('canvas'),
       LOOP = setInterval(function () {
         if (!ov.isConnected) {
           clearInterval(LOOP);
-          window.removeEventListener('deviceorientation', ori);
           return;
         }
         var vw = vid.videoWidth,
@@ -33395,21 +33417,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         try {
           nit = sharpOf(an);
         } catch (e) {}
-        var ok = {
+        var nv = camNivel(),
+          ok = {
           fundo: bf >= 235,
           foco: nit > 18,
-          reto: gama == null ? true : Math.abs(gama) < 1.5,
+          reto: nv == null ? true : Math.abs(nv) < 1.5,
           dist: maxX > 0 && (maxX - minX) / Wd > 0.55 && (maxX - minX) / Wd < 0.93 && minX > 3 && maxX < Wd - 4
         };
         [].forEach.call($('ecChips').children, function (sp) {
           sp.classList.toggle('ok', !!ok[sp.dataset.k]);
         });
         var lv = $('ecLvl');
-        lv.style.display = gama == null ? 'none' : '';
-        if (gama != null) {
-          lv.style.transform = 'translateX(-50%) rotate(' + -gama + 'deg)';
-          lv.classList.toggle('ok', Math.abs(gama) < 1.5);
-          lv.firstChild.textContent = (Math.round(gama * 10) / 10).toString().replace('.', ',') + '°';
+        lv.style.display = nv == null ? 'none' : '';
+        if (nv != null) {
+          lv.style.transform = 'translateX(-50%) rotate(' + nv + 'deg)'; // a régua acompanha o horizonte
+          lv.classList.toggle('ok', Math.abs(nv) < 1.5);
+          lv.firstChild.textContent = (Math.round(Math.abs(nv) * 10) / 10).toString().replace('.', ',') + '°';
         }
         st.bf = bf;
         // v465: dispara sozinho quando a peça fica parada e certinha (~1 s); o botão e o volume continuam valendo
@@ -34937,18 +34960,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return '<span data-k="' + l[0] + '"><i></i>' + l[1] + '</span>';
     }).join('');
     stg.appendChild(ch);
-    var gama = null,
-      ori = function (e) {
-        if (e && e.gamma != null) gama = e.gamma;
-      };
-    try {
-      window.addEventListener('deviceorientation', ori);
-    } catch (e) {}
+    camNivel(); // liga o sensor (97-cam-nivel.js)
     var cv = document.createElement('canvas'),
       T = setInterval(function () {
         if (!stg.isConnected) {
           clearInterval(T);
-          window.removeEventListener('deviceorientation', ori);
           return;
         }
         var vw = vid.videoWidth,
@@ -35018,7 +35034,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }
         var temP = bb[2] > 0,
           okDentro = temP && bb[0] > gx0 + 1 && bb[2] < gx1 - 1 && bb[1] > gy0 + 1 && bb[3] < gy1 - 1 && bb[2] - bb[0] > (gx1 - gx0) * 0.45,
-          okReto = gama != null ? Math.abs(gama) < 6 : ln > 5 && rn > 5 && Math.abs(lmy / ln - rmy / rn) < Hd * 0.04;
+          okReto = camNivel() != null ? Math.abs(camNivel()) < 6 : ln > 5 && rn > 5 && Math.abs(lmy / ln - rmy / rn) < Hd * 0.04;
         var st = { luz: lum > 110, fundo: okFundo, dentro: okDentro, reto: okReto };
         [].forEach.call(ch.children, function (sp) {
           sp.classList.toggle('ok', !!st[sp.dataset.k]);
@@ -51056,7 +51072,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
        com folga, e quem estava errado só vira certo se entrar com folga. Assim o chiado da câmera perto do limite não faz o aviso piscar. */
     function faixa(id,v,a,b,f){var era=ant[id];if(era===true)return v>=a-f&&v<=b+f;if(era===false)return v>=a+f&&v<=b-f;return v>=a&&v<=b}
     function acima(id,v,a,f){var era=ant[id];if(era===true)return v>=a-f;if(era===false)return v>=a+f;return v>=a}
-    add('deitado','Celular deitado',ex.emPe?false:true,'Deite o celular');
+    /* esboço 40: "Câmera reta" = deitado E nivelado (|inclinação| ≤ 1°, pelo sensor — camNivel); sem sensor, vale só o deitado. A frase diz o lado e os graus. */
+    var nv=ex.nivel,nvOk=nv==null?true:faixa('reto',Math.abs(nv),0,1,.3);
+    add('reto','Câmera reta',ex.emPe?false:nvOk,ex.emPe?'Deite o celular':'Endireite o celular: '+Math.max(1,Math.round(Math.abs(nv||0)))+'° para a '+(nv>0?'direita':'esquerda'));
     add('firme','Celular parado',ex.mexe==null?null:!acima('firme_',ex.mexe,1.6,.5),'O celular está mexendo: apoie ou prenda melhor');
     add('luz','Luz do fundo',acima('luz',m.parede,118,6)&&m.desv<.06,m.parede<124?'Falta luz: aumente a luz da caixa':'Fundo manchado: tire sombras e reflexos de trás da peça');
     if(!p){add('peca','Peça no prato',m.cortada?false:null,m.cortada?'A peça está saindo do quadro ou encostada numa costura: afaste o celular e centralize':'Coloque a peça no prato, de frente para a câmera');return fim(it)}
@@ -51082,7 +51100,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
   };
   // a ordem da lista é a do esboço 149cam-F; os nomes curtos também
-  var C149_IT = [['deitado', 'Celular deitado'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
+  var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
     C149_FT = [['fundo', 'Fundo branco'], ['foco', 'Foco'], ['reto', 'Reto'], ['dist', 'Distância']];
   function c149Lista(ov, itens) {
     var l = ov.querySelector('.ecLista');
@@ -51186,8 +51204,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return '<path d="' + d + '" ' + (f ? 'fill="' + c + '" stroke="none"' : 'stroke="' + c + '" stroke-width="' + w + '" fill="none"') + '/>';
       },
       sv = '';
-    // nível: horizonte nas laterais
-    sv += ln(W * 0.06, H / 2, W * 0.2, H / 2, cor(M.deitado), 2) + ln(W * 0.8, H / 2, W * 0.94, H / 2, cor(M.deitado), 2);
+    // nível: horizonte nas laterais, girado pela inclinação real do celular (esboço 40); torto = amarelo, com os graus, e o tracejado branco mostra o reto
+    var nv = M.reto === false && r.nivel != null ? r.nivel : 0,
+      rad = (nv * Math.PI) / 180,
+      hz = function (d1, d2) {
+        return ln(W / 2 + Math.cos(rad) * d1, H / 2 + Math.sin(rad) * d1, W / 2 + Math.cos(rad) * d2, H / 2 + Math.sin(rad) * d2, cor(M.reto), 2);
+      };
+    sv += hz(-W * 0.44, -W * 0.3) + hz(W * 0.3, W * 0.44);
+    if (nv) {
+      sv += '<line x1="' + (W * 0.06).toFixed(1) + '" y1="' + (H / 2).toFixed(1) + '" x2="' + (W * 0.2).toFixed(1) + '" y2="' + (H / 2).toFixed(1) + '" stroke="' + C149_B + '" stroke-width="1" stroke-dasharray="4 4"/>' +
+        '<line x1="' + (W * 0.8).toFixed(1) + '" y1="' + (H / 2).toFixed(1) + '" x2="' + (W * 0.94).toFixed(1) + '" y2="' + (H / 2).toFixed(1) + '" stroke="' + C149_B + '" stroke-width="1" stroke-dasharray="4 4"/>' +
+        '<text x="' + (W * 0.94).toFixed(1) + '" y="' + (H / 2 + Math.sin(rad) * W * 0.44 - 10).toFixed(1) + '" fill="' + C149_A + '" font-size="15" font-weight="700" text-anchor="end" font-family="system-ui,Roboto">' + Math.max(1, Math.round(Math.abs(nv))) + '°</text>';
+    }
     // meio: traço do centro da imagem
     sv += ln(W / 2, H * 0.06, W / 2, H * 0.16, C149_B, 2) + ln(W / 2, H * 0.84, W / 2, H * 0.94, C149_B, 2);
     var p = mm && mm.peca,
@@ -51419,7 +51447,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         mm.peca = { x0: f('x0'), x1: f('x1'), y0: f('y0'), y1: f('y1'), nit: f('nit') };
       }
       var mx = H.filter(function (h) { return h.mexe != null; }).map(function (h) { return h.mexe; }),
-        r = confereGiro(mm, { emPe: emPe, mexe: mx.length ? c149Mediana(mx) : null, ant: V.antR });
+        r = confereGiro(mm, { emPe: emPe, nivel: camNivel(), mexe: mx.length ? c149Mediana(mx) : null, ant: V.antR });
+      r.nivel = camNivel();
       V.antR = r.mapa;
       V.bons = r.tudo ? V.bons + 1 : 0;
       V.ok = V.bons >= 4 && !emPe;
@@ -53345,7 +53374,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

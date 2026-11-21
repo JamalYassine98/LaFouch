@@ -4103,6 +4103,35 @@ async def main():
             if not ok: falhas.append('camera estudio modos'); print('        veio', v1, f1, e1, fechou, pg.erros)
             await pg.close()
 
+            # Esboço 40a (aprovado 21/11 07:51): "Celular deitado" virou "Câmera reta" — deitado E nivelado (|nível| ≤ 1°) por UM sensor (camNivel,
+            # usado pelo Foto e pelo Vídeo); torto, a frase diz os graus e o lado, o horizonte das guias gira e mostra o número, e não dá para gravar.
+            pg = await pagina()
+            await pg.set_viewport_size({'width': 844, 'height': 390})
+            conta = await pg.evaluate("""() => { const L = window.__LF, n = L.camNivelDe, a = x => x == null ? null : Math.round(x * 10) / 10;
+              const m = { W: 640, H: 360, parede: 180, desv: .01, cost: [], borda: 250, cortada: false, peca: { x0: 170, x1: 470, y0: 150, y1: 260, nit: 1 } }, c = (ex) => { const r = L.confereGiro(m, ex), i = r.itens[0]; return [i.id, i.nome, i.ok, i.fazer]; };
+              return [a(n(90, 0)), a(n(0, -90)), a(n(0, 90)), a(n(3, -90)), a(n(-3, -90)), a(n(87, 0) ), n(0, 0), n(null, null),
+                c({ nivel: 0 }), c({ nivel: null }), c({ nivel: 3 }), c({ nivel: -2.4 }), c({ nivel: 0, emPe: true }), c({ nivel: 1.2, ant: { reto: true } })[2], c({ nivel: 0.8, ant: { reto: false } })[2]]; }""")
+            await pg.evaluate(cena)
+            await pg.evaluate("() => { window.__LF.ACT.estAbre(); }"); await pg.wait_for_timeout(600)
+            await pg.evaluate("() => document.querySelector('[data-e=nova]').click()"); await pg.wait_for_timeout(4500)
+            le40 = """() => { const o = document.getElementById('estCam'), l = [...o.querySelectorAll('.ecLista span')], g = o.querySelector('.ecGuias'), t = g && g.querySelector('text'), r = o.querySelector('#ecRec');
+              return [l.length, l[0].textContent, l[0].className, o.querySelector('.ecFrase').textContent, t ? t.textContent : '', g ? g.querySelectorAll('line[stroke-dasharray]').length : -1, !!r && !r.disabled]; }"""
+            sensor = "a => { window.__sn = setInterval(() => window.dispatchEvent(new DeviceOrientationEvent('deviceorientation', { alpha: 0, beta: a[0], gamma: a[1] })), 100); }"
+            n0 = await pg.evaluate(le40)
+            await pg.evaluate(sensor, [-3, -90]); await pg.wait_for_timeout(2600); n3 = await pg.evaluate(le40)
+            await pg.evaluate("() => clearInterval(window.__sn)"); await pg.evaluate(sensor, [0, -90]); await pg.wait_for_timeout(3200); n1 = await pg.evaluate(le40)
+            await pg.evaluate("() => clearInterval(window.__sn)")
+            total += 1
+            ok = (conta[:8] == [0, 0, 0, -3, 3, 0, None, None] and conta[8] == ['reto', 'Câmera reta', True, ''] and conta[9][2] is True
+                  and conta[10] == ['reto', 'Câmera reta', False, 'Endireite o celular: 3° para a direita'] and conta[11][3] == 'Endireite o celular: 2° para a esquerda'
+                  and conta[12] == ['reto', 'Câmera reta', False, 'Deite o celular'] and conta[13] is True and conta[14] is False
+                  and n0 == [10, 'Câmera reta', 'ok', n0[3], '', 0, True] and n3[:3] == [10, 'Câmera reta', 'ruim'] and n3[3] == 'Endireite o celular: 3° para a direita' and n3[4] == '3°' and n3[5] == 2 and not n3[6]
+                  and n1[2] == 'ok' and n1[4] == '' and n1[5] == 0 and n1[6]
+                  and sum(len(re.findall(r"addEventListener\('deviceorientation'", t)) for t in fontes.values()) == 1 and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40a: "Câmera reta" — um sensor de nível (Foto e Vídeo); torto diz os graus e o lado, o horizonte gira com o número e não grava; reto volta ao verde')
+            if not ok: falhas.append('40a camera reta'); print('        veio', conta, n0, n3, n1, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

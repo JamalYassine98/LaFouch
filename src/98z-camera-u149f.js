@@ -51,7 +51,9 @@
        com folga, e quem estava errado só vira certo se entrar com folga. Assim o chiado da câmera perto do limite não faz o aviso piscar. */
     function faixa(id,v,a,b,f){var era=ant[id];if(era===true)return v>=a-f&&v<=b+f;if(era===false)return v>=a+f&&v<=b-f;return v>=a&&v<=b}
     function acima(id,v,a,f){var era=ant[id];if(era===true)return v>=a-f;if(era===false)return v>=a+f;return v>=a}
-    add('deitado','Celular deitado',ex.emPe?false:true,'Deite o celular');
+    /* esboço 40: "Câmera reta" = deitado E nivelado (|inclinação| ≤ 1°, pelo sensor — camNivel); sem sensor, vale só o deitado. A frase diz o lado e os graus. */
+    var nv=ex.nivel,nvOk=nv==null?true:faixa('reto',Math.abs(nv),0,1,.3);
+    add('reto','Câmera reta',ex.emPe?false:nvOk,ex.emPe?'Deite o celular':'Endireite o celular: '+Math.max(1,Math.round(Math.abs(nv||0)))+'° para a '+(nv>0?'direita':'esquerda'));
     add('firme','Celular parado',ex.mexe==null?null:!acima('firme_',ex.mexe,1.6,.5),'O celular está mexendo: apoie ou prenda melhor');
     add('luz','Luz do fundo',acima('luz',m.parede,118,6)&&m.desv<.06,m.parede<124?'Falta luz: aumente a luz da caixa':'Fundo manchado: tire sombras e reflexos de trás da peça');
     if(!p){add('peca','Peça no prato',m.cortada?false:null,m.cortada?'A peça está saindo do quadro ou encostada numa costura: afaste o celular e centralize':'Coloque a peça no prato, de frente para a câmera');return fim(it)}
@@ -77,7 +79,7 @@
     x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
   };
   // a ordem da lista é a do esboço 149cam-F; os nomes curtos também
-  var C149_IT = [['deitado', 'Celular deitado'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
+  var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
     C149_FT = [['fundo', 'Fundo branco'], ['foco', 'Foco'], ['reto', 'Reto'], ['dist', 'Distância']];
   function c149Lista(ov, itens) {
     var l = ov.querySelector('.ecLista');
@@ -181,8 +183,18 @@
         return '<path d="' + d + '" ' + (f ? 'fill="' + c + '" stroke="none"' : 'stroke="' + c + '" stroke-width="' + w + '" fill="none"') + '/>';
       },
       sv = '';
-    // nível: horizonte nas laterais
-    sv += ln(W * 0.06, H / 2, W * 0.2, H / 2, cor(M.deitado), 2) + ln(W * 0.8, H / 2, W * 0.94, H / 2, cor(M.deitado), 2);
+    // nível: horizonte nas laterais, girado pela inclinação real do celular (esboço 40); torto = amarelo, com os graus, e o tracejado branco mostra o reto
+    var nv = M.reto === false && r.nivel != null ? r.nivel : 0,
+      rad = (nv * Math.PI) / 180,
+      hz = function (d1, d2) {
+        return ln(W / 2 + Math.cos(rad) * d1, H / 2 + Math.sin(rad) * d1, W / 2 + Math.cos(rad) * d2, H / 2 + Math.sin(rad) * d2, cor(M.reto), 2);
+      };
+    sv += hz(-W * 0.44, -W * 0.3) + hz(W * 0.3, W * 0.44);
+    if (nv) {
+      sv += '<line x1="' + (W * 0.06).toFixed(1) + '" y1="' + (H / 2).toFixed(1) + '" x2="' + (W * 0.2).toFixed(1) + '" y2="' + (H / 2).toFixed(1) + '" stroke="' + C149_B + '" stroke-width="1" stroke-dasharray="4 4"/>' +
+        '<line x1="' + (W * 0.8).toFixed(1) + '" y1="' + (H / 2).toFixed(1) + '" x2="' + (W * 0.94).toFixed(1) + '" y2="' + (H / 2).toFixed(1) + '" stroke="' + C149_B + '" stroke-width="1" stroke-dasharray="4 4"/>' +
+        '<text x="' + (W * 0.94).toFixed(1) + '" y="' + (H / 2 + Math.sin(rad) * W * 0.44 - 10).toFixed(1) + '" fill="' + C149_A + '" font-size="15" font-weight="700" text-anchor="end" font-family="system-ui,Roboto">' + Math.max(1, Math.round(Math.abs(nv))) + '°</text>';
+    }
     // meio: traço do centro da imagem
     sv += ln(W / 2, H * 0.06, W / 2, H * 0.16, C149_B, 2) + ln(W / 2, H * 0.84, W / 2, H * 0.94, C149_B, 2);
     var p = mm && mm.peca,
@@ -414,7 +426,8 @@
         mm.peca = { x0: f('x0'), x1: f('x1'), y0: f('y0'), y1: f('y1'), nit: f('nit') };
       }
       var mx = H.filter(function (h) { return h.mexe != null; }).map(function (h) { return h.mexe; }),
-        r = confereGiro(mm, { emPe: emPe, mexe: mx.length ? c149Mediana(mx) : null, ant: V.antR });
+        r = confereGiro(mm, { emPe: emPe, nivel: camNivel(), mexe: mx.length ? c149Mediana(mx) : null, ant: V.antR });
+      r.nivel = camNivel();
       V.antR = r.mapa;
       V.bons = r.tudo ? V.bons + 1 : 0;
       V.ok = V.bons >= 4 && !emPe;

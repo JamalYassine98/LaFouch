@@ -1,1 +1,1 @@
-{"v":614,"nat":1,"nome":"5.50.39","notas":["O aviso curto não tampa mais a barra de baixo: fica logo acima dela. Com uma janela aberta, fica acima do botão da janela.","No tablet deitado e no computador, o aviso não entra mais por cima da barra do lado."]}
+{"v":615,"nat":1,"nome":"5.50.40","notas":["Câmera do giro: \"Celular deitado\" virou \"Câmera reta\". Fica verde só com o celular deitado e nivelado; se estiver torto, o app diz quantos graus e para que lado endireitar, e a linha do horizonte gira junto."]}

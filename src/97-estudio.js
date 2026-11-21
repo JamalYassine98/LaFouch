@@ -889,17 +889,12 @@
     }
     $('ecT2').classList.toggle('on', st.t2);
     // nível (reto)
-    var gama = null,
-      ori = function (e) {
-        if (e && e.gamma != null) gama = e.beta > 45 ? e.gamma : null;
-      };
-    window.addEventListener('deviceorientation', ori);
+    camNivel(); // liga o sensor (um só para a câmera toda: 97-cam-nivel.js)
     // análise ao vivo: histograma, fundo, foco, distância, peaking
     var an = document.createElement('canvas'),
       LOOP = setInterval(function () {
         if (!ov.isConnected) {
           clearInterval(LOOP);
-          window.removeEventListener('deviceorientation', ori);
           return;
         }
         var vw = vid.videoWidth,
@@ -957,21 +952,22 @@
         try {
           nit = sharpOf(an);
         } catch (e) {}
-        var ok = {
+        var nv = camNivel(),
+          ok = {
           fundo: bf >= 235,
           foco: nit > 18,
-          reto: gama == null ? true : Math.abs(gama) < 1.5,
+          reto: nv == null ? true : Math.abs(nv) < 1.5,
           dist: maxX > 0 && (maxX - minX) / Wd > 0.55 && (maxX - minX) / Wd < 0.93 && minX > 3 && maxX < Wd - 4
         };
         [].forEach.call($('ecChips').children, function (sp) {
           sp.classList.toggle('ok', !!ok[sp.dataset.k]);
         });
         var lv = $('ecLvl');
-        lv.style.display = gama == null ? 'none' : '';
-        if (gama != null) {
-          lv.style.transform = 'translateX(-50%) rotate(' + -gama + 'deg)';
-          lv.classList.toggle('ok', Math.abs(gama) < 1.5);
-          lv.firstChild.textContent = (Math.round(gama * 10) / 10).toString().replace('.', ',') + '°';
+        lv.style.display = nv == null ? 'none' : '';
+        if (nv != null) {
+          lv.style.transform = 'translateX(-50%) rotate(' + nv + 'deg)'; // a régua acompanha o horizonte
+          lv.classList.toggle('ok', Math.abs(nv) < 1.5);
+          lv.firstChild.textContent = (Math.round(Math.abs(nv) * 10) / 10).toString().replace('.', ',') + '°';
         }
         st.bf = bf;
         // v465: dispara sozinho quando a peça fica parada e certinha (~1 s); o botão e o volume continuam valendo

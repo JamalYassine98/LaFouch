@@ -263,18 +263,11 @@
       return '<span data-k="' + l[0] + '"><i></i>' + l[1] + '</span>';
     }).join('');
     stg.appendChild(ch);
-    var gama = null,
-      ori = function (e) {
-        if (e && e.gamma != null) gama = e.gamma;
-      };
-    try {
-      window.addEventListener('deviceorientation', ori);
-    } catch (e) {}
+    camNivel(); // liga o sensor (97-cam-nivel.js)
     var cv = document.createElement('canvas'),
       T = setInterval(function () {
         if (!stg.isConnected) {
           clearInterval(T);
-          window.removeEventListener('deviceorientation', ori);
           return;
         }
         var vw = vid.videoWidth,
@@ -344,7 +337,7 @@
           }
         var temP = bb[2] > 0,
           okDentro = temP && bb[0] > gx0 + 1 && bb[2] < gx1 - 1 && bb[1] > gy0 + 1 && bb[3] < gy1 - 1 && bb[2] - bb[0] > (gx1 - gx0) * 0.45,
-          okReto = gama != null ? Math.abs(gama) < 6 : ln > 5 && rn > 5 && Math.abs(lmy / ln - rmy / rn) < Hd * 0.04;
+          okReto = camNivel() != null ? Math.abs(camNivel()) < 6 : ln > 5 && rn > 5 && Math.abs(lmy / ln - rmy / rn) < Hd * 0.04;
         var st = { luz: lum > 110, fundo: okFundo, dentro: okDentro, reto: okReto };
         [].forEach.call(ch.children, function (sp) {
           sp.classList.toggle('ok', !!st[sp.dataset.k]);
