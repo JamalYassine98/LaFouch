@@ -43,8 +43,15 @@ A Galeria mostra o giro como o da BR44140 do teste do dono, só para mostrar o e
 - **Trava no porteiro:** cada linha do Estúdio tem 3 marcas que batem com `estTem`; "Galeria ›" abre a tela da peça certa;
   a `.ecTag` da câmera contém o ref da sessão; a lista de 10 itens cabe a 844×390 e 740×360.
 
-## DECISÃO DO DONO (21/11 07:51): aprovado, com uma condição
-"Sistema do giro gravar nome, código e cor da peça aprovado, mas com a condição dele já estar cadastrado previamente."
-- A câmera do giro **só grava para uma peça já cadastrada** (ref e cor que existem no Inventário). Com peça cadastrada: "GIRO PARA" + nome, cor e código, como no esboço.
-- Sem cadastro (ex.: "Peça nova, ainda sem cadastro ›"), o "Gravar a volta" fica desligado com a frase "Cadastre a peça antes de gravar o giro". As fotos (Foto) continuam como hoje.
-- Trava: `estCam` em modo Vídeo sem `ctx.ref` cadastrado → o botão de gravar fica desligado e `giroGrava` recusa.
+## DECISÃO DO DONO (21/11 07:54) — substitui a condição de 07:51
+"Ele faz gravar a volta, e se tiver cadastro acrescenta diretamente a peça e guarda na galeria; se não tiver, ele guarda na galeria,
+e eu posso cadastrar o produto na aba de Inventário e escolher da galeria a foto desse produto para o cadastro."
+- **Gravar a volta sempre funciona.**
+- **Peça cadastrada:** o giro (com a frente e a 3/4) vai direto para a peça ("GIRO PARA" + nome, cor e código na câmera) e fica na Galeria.
+- **Sem cadastro:** o giro fica na Galeria como **"sem peça"**. Na câmera aparece "GIRO SEM PEÇA · vai para a Galeria".
+- **No cadastro (Inventário › Adicionar)** e no Editar › Cores e fotos: "Escolher da Galeria ›" abre os giros e fotos sem peça.
+  Ao escolher, eles passam para a peça e a cor, e saem de "sem peça".
+- Como fazer: um lugar só para o que foi gravado, a Galeria (`S.galeria`, itens `{id, ts, giro, frente, tres4, ref|null, cor|null}`).
+  `giroGrava` sempre grava ali; com `ctx.ref` cadastrado, liga na hora (`galLiga(id, ref, cor)`, a mesma função do "Escolher da Galeria").
+  Sem caminho paralelo: a Galeria da peça (esboço 41) e a "sem peça" leem a mesma lista.
+- Esboço da parte nova (Galeria sem peça + "Escolher da Galeria" no cadastro): work/s435/giro/esboco_41c_*.jpg.

@@ -41,3 +41,5 @@ Este esboço mostra **só o aviso**. Se o dono escolher corrigir, o "Peça reta"
 O aviso fica, como no esboço. **O tratamento também endireita**: no `giroTrata`, depois de achar a frente, mede a diferença de altura
 dos dois lados nos quadros de frente. Se a inclinação for de até ±3°, gira os 360 quadros no mesmo ângulo (uma conta só, no mesmo recorte).
 Acima de 3° não endireita: fica o aviso para refazer. A frente e a 3/4 saem do giro já endireitado. Trava: uma cena com a peça a 2° sai reta; a 5° não mexe e avisa.
+- **Extra do dono (21/11 07:54):** se a peça já estiver reta, o tratamento **não mexe** (não gira nem reamostra os quadros).
+  "Reta" é a inclinação medida abaixo da tolerância do item "Peça reta" (|e − d| ≤ 2% da altura, por volta de 0,5°). Trava: uma cena reta sai byte a byte igual ao tratamento sem a correção.
