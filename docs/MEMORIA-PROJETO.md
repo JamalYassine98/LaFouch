@@ -3371,3 +3371,11 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
     - (2) usar a placa de vídeo do celular: **APROVADO**, "usa todos os recursos que precisem".
     - (3) PC: impossível (sem câmera que mande direto ao PC). Tudo no celular.
   - Ainda há pontos importantes do Estúdio a elaborar.
+
+- 21/11 09:54–09:57 — IDEIA DO DONO (Estúdio): o celular **guarda os vídeos** dos giros e ele **escolhe onde tratar**: no próprio celular, ou no PC de casa (o PC só trata e não precisa de câmera).
+  - Casa: PC e celular na **mesma rede Wi-Fi**.
+  - Quer **os dois caminhos**: pelo Wi-Fi de casa e o automático, **com alternativas sem custo**.
+  - Estudo S435: um giro ≈ 25 MB.
+  - O bucket novo do Firebase Storage (*.firebasestorage.app) tem cota sem custo de 5 GB-mês guardados, 100 GB/mês baixados e 5 mil envios/mês. Cabe se o vídeo for apagado depois de tratado e o app parar antes do limite (passa para o Wi-Fi).
+  - Bucket antigo (appspot): 1 GB/dia baixado, não cabe.
+  - A NUVEM confere qual bucket o projeto tem.
