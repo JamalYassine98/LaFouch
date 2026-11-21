@@ -94,7 +94,7 @@
 - **48-pecas-compras-parte-1** — esboço pronto — esperando o dono
 - **49-selo-no-botao-que-resolve** — esboço pronto — esperando o dono
 - **50-giro-sobrando-e-lista** — esboço pronto — esperando o dono
-- **52-desfazer-giro-e-precos** — esboço pronto — esperando o dono (parte 1 de 6)
+- **52-desfazer-giro-e-precos** — parte 1 aprovada 21/11 15:38 — espera o 'implementar' · partes 2–6 a fazer
 
 ## Recados esperando
 
