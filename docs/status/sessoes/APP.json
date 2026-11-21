@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "4b parte 3: plural dos dias num lugar só (nDias)",
- "arquivos": [
-  "src/97r-temas-s183.js",
-  "src/97z2-contador.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795263473.6537156,
+   "r": "4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c"
+  },
   {
    "t": 1795262341.176889,
    "r": "v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c"
@@ -42,10 +42,6 @@
   {
    "t": 1795218326.0454235,
    "r": "v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py"
-  },
-  {
-   "t": 1795216742.8093283,
-   "r": "v584 publicado: URGENTE câmera branca ao gravar a volta (trava de luz só com o valor em uso; solta se a imagem estourar). 339/339 no simulador; falta o dono testar no celular real"
   }
  ],
  "leu": 1795259038.3684282

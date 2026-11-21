@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 4b parte 3: plural dos dias num lugar só (nDias) | src/97r-temas-s183.js, src/97z2-contador.js, tests/run.py |
 | ESBOCO | esboço 41c: Galeria do app + câmera sem cadastro + cadastro escolhendo da Galeria | work/s435/giro |
 | SITE | Internet fraca parte 1 (1ª tela dentro da página): estudo do robô das páginas + implementação por dentro | js/lf-site.js, index.html |
 
@@ -111,6 +110,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 09:17 — APP: 4b Preços completo: v591 (Ajustes › Preços), v592 (tela por uma função só + Ferramentas), v593 (nDias). Próximo: 4c
 - 21/11 08:59 — APP: v592 no ar: 4b parte 2 (Preços por uma função só, Ferramentas). Próximo: 4b parte 3, depois 4c
 - 21/11 08:34 — APP: v591 no ar: 4b parte 1 (preço automático em Ajustes › Preços). Próximo: 4b parte 2
 - 21/11 08:04 — NUVEM: Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono.
@@ -130,7 +130,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 21:10 — SITE: investigadas as 9 falhas do porteiro completo: 5 de animação eram da máquina de teste (provas de tempo agora rodam sozinhas), 2 eram provas velhas (Filtros, carrinho) — consertadas; reais: Esc não fecha os Filtros, conta→carrinho→voltar pula a tela de entrar, internet fraca ~12 s até a 1ª foto; contraste do painel intermitente. Nada mudou no site; esperando o dono
 - 20/11 20:45 — APP: v585 publicado: URGENTE câmera desfocada/rosada ao gravar (foco, luz e branco só travam com o valor em uso; solta tudo se a imagem mudar). 339/339 no simulador; falta o dono testar no celular. Próximo: item 33 (quadro do giro com nota baixa não vira foto) — remendo pronto em /tmp/p33.py
 - 20/11 20:33 — SITE: varredura rodada 3: 64% das funções rodam (porteiro completo + roteiros); faltam provas próprias de câmera do rosto, consulta do grau, atacado, conta, avaliação, recibo; o porteiro COMPLETO tem 9 falhas que o rápido não roda (animação da busca/menu, 4G fraco, Filtros, carrinho por cima da conta, contraste no painel)
-- 20/11 20:19 — APP: v584 publicado: URGENTE câmera branca ao gravar a volta (trava de luz só com o valor em uso; solta se a imagem estourar). 339/339 no simulador; falta o dono testar no celular real
 - 20/11 20:16 — NUVEM: Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos.
 - 20/11 20:10 — NUVEM: S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto.
 - 20/11 20:03 — SITE: recados da NUVEM feitos e NO AR (site 1795215331): pedido pela porta 'pedido', login no cupom e na reserva (S6), 6 funções mortas fora; porteiro 208 provas 0 falhas; NUVEM avisada. Vistas espera o APP
