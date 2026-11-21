@@ -11,19 +11,21 @@ def imgs(pg):
   return pg.evaluate("()=>{const S=__LF.S;return 1}") and pg.evaluate("""async()=>{__LF.setView('estoque');await new Promise(r=>setTimeout(r,900));const m={};document.querySelectorAll('.pcard').forEach(c=>{const i=c.querySelector('img');const t=c.textContent;if(i&&/^data:image\\/svg/.test(i.src))m[Object.keys(m).length]=i.src});return Object.values(m)}""")
 def frame(pw,qual):
   b,pg,w=nova(pw);I=imgs(pg);pg.evaluate("()=>{__LF.S.nvP=['grp:g:pecas'];__LF.S.nvG='g:pecas';__LF.setView('grp')}");w(900)
-  html=pg.evaluate("(I)=>{"+H+J+r"""return TOP('Peças','Compras','O que comprar e de quem',0)+LBL('Para comprar · 3 vagas')+
+  html=pg.evaluate("(I)=>{"+H+J+r"""return TOP('Peças','Compras','O que comprar e de quem',0)+LBL('Para comprar · 4 vagas')+
     VAGA(I[3]||I[0],'Solar · feminino · metal','faltam 3 · até US$ 4','<small style="font-size:13px;color:'+AV+'">★ estrela · repor o mesmo SL2201</small>')+
-    VAGA(I[1]||I[0],'Armação · unissex · acetato','faltam 5 · até US$ 3,50','<small style="font-size:13px;color:'+AC+'">procurando · mandada a 2</small>')+
+    VAGA(I[2]||I[0],'Armação · feminina · nylon','faltam 2 · até US$ 3','<small style="font-size:13px;color:'+AC+'">no lugar de BR44133, que não vendeu</small>')+
+    VAGA(I[1]||I[0],'Armação · unissex · acetato','faltam 5 · até US$ 3,50','<small style="font-size:13px;color:var(--mute)">pedida em 21/11 · esperando resposta</small>')+
     VAGA(I[0],'Pré-graduado · +1,50','faltam 24 · 1 pacote','<small style="font-size:13px;color:'+OK+'">fechado com Kazwini · esperando chegar</small>')+
-    LBL('Não repor · 1')+'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2);color:var(--mute)"><span style="flex:0 0 56px;height:42px;border-radius:8px;overflow:hidden;background:#fff;opacity:.5"><img src="'+(I[2]||I[0])+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1"><b style="display:block;font-size:16px;font-weight:500">BR44133</b><small style="font-size:13px">parado há 60+ dias · a vaga não reabre</small></span></div>'}""",I)
+    '<button type="button" style="display:block;width:100%;min-height:52px;margin:24px 0 8px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Pedir · 3 vagas sem fechar</button>'}""",I)
   pagina(pg,'<div class="e49">'+html+'</div>');w(500)
-  if qual=='vaga': pg.evaluate("(I)=>{"+H+J+r"""JAN('Solar · feminino · metal','faltam 3 · custo até US$ 4',
-     '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:0 0 8px">SL2201 vendeu 10 em 30 dias: é estrela. Primeiro o mesmo modelo; se não tiver, um equivalente de preço parecido.</div>'+
-     '<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:0 0 64px;height:48px;border-radius:10px;overflow:hidden;background:#fff"><img src="'+(I[3]||I[0])+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1"><b style="display:block;font-size:16px;font-weight:500">SL2201 · o mesmo</b><small style="font-size:13px;color:var(--mute)">última compra US$ 3,60 · Kazwini</small></span></div>'+
-     ROW('','Fechei com…','a compra combinada: com quem, modelo, peças e preço')+ROW('','Ninguém tinha','a vaga sai da lista por um tempo'),'Pedir às distribuidoras')}""",I);w(500)
-  if qual=='pedir': pg.evaluate("(I)=>{"+H+J+r"""JAN('Pedir às distribuidoras','Solar · feminino · metal · faltam 3',
-     CK('Kazwini','já vendeu SL2201 para você',1)+CK('Outra distribuidora','escolher da lista',0)+
-     LBL('A mensagem')+'<div style="background:var(--panel2);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;color:var(--fg)">Hola, ¿tienen 3 lentes de sol de mujer, de metal, modelo SL2201 o parecido, hasta US$ 4? Gracias. La Fouch</div>','Mandar · 1 distribuidora')}""",I);w(500)
+  if qual=='vaga': pg.evaluate("(I)=>{"+H+J+r"""const ALT=(img,t,s,on)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:0 0 64px;height:48px;border-radius:10px;overflow:hidden;background:#fff"><img src="'+img+'" style="width:100%;height:100%;object-fit:contain"></span><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><span style="width:22px;height:22px;border-radius:50%;flex:none;'+(on?'border:7px solid var(--accent)':'border:1.5px solid var(--mute)')+'"></span></div>';
+     JAN('No lugar de BR44133','armação · feminina · acetato · parada há 60+ dias',
+     '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:0 0 8px">Não repõe o que não vendeu. Alternativas que estão saindo na sua loja, no mesmo tipo e gênero:</div>'+
+     ALT(I[2]||I[0],'Feminina · nylon','vende 3× mais · até US$ 3',1)+ALT(I[1]||I[0],'Feminina · acetato redonda','formato da foto que mais vende · até US$ 3,50',0)+
+     ROW('','Fechei com…','a compra combinada: com quem, modelo, peças e preço')+ROW('','Ninguém tinha','a vaga sai da lista por um tempo'),'Salvar')}""",I);w(500)
+  if qual=='pedir': pg.evaluate("(I)=>{"+H+J+r"""JAN('Pedir','3 vagas sem fechar · em espanhol',
+     '<div style="background:var(--panel2);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--fg)">Hola, ¿qué tienen de esto?<br>· 3 lentes de sol de mujer, metal (SL2201 o parecido), hasta US$ 4<br>· 2 armazones de mujer, nylon, hasta US$ 3<br>· 5 armazones unisex, acetato, hasta US$ 3,50<br>Gracias. La Fouch</div>'+
+     '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 0">Você escolhe para quem mandar no próprio WhatsApp: uma distribuidora ou várias. As vagas ficam "pedida · esperando resposta".</div>','Mandar')}""",I);w(500)
   if qual=='fechei': pg.evaluate("(I)=>{"+H+J+r"""const QT='<span style="display:inline-flex;align-items:center;gap:16px"><b style="color:var(--mute);font-size:20px">−</b><b style="font-size:16px">3</b><b style="font-size:20px">+</b></span>';
      JAN('Fechei com…','Solar · feminino · metal · faltam 3',LIN('Distribuidora','Kazwini','›')+LIN('Modelo','SL2201 · o mesmo','›')+'<div style="display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px">Peças</span>'+QT+'</div>'+LIN('Custo por peça','US$ 3,80')+
      '<div style="color:'+OK+';font-size:14px;margin:16px 0 0">Guardião: margem boa a G$ 60.000 · pode fechar</div>','Salvar')}""",I);w(500)
@@ -36,4 +38,4 @@ def quadro(arq,q):
   S.save(O+arq,quality=88);print('ok',arq)
 if __name__=='__main__':
  with sync_playwright() as pw:
-  quadro('esboco_51_compras_por_vaga.jpg',[('1 · Compras','a lista pede vagas, não modelos',frame(pw,'lista')),('2 · tocar numa vaga','estrela: o mesmo primeiro',frame(pw,'vaga')),('3 · Pedir às distribuidoras','várias, sem prazo · em espanhol',frame(pw,'pedir')),('4 · Fechei com…','a vaga fecha · chega pelo Chegou mercadoria',frame(pw,'fechei'))])
+  quadro('esboco_51_compras_por_vaga.jpg',[('1 · Compras','a lista pede vagas, não modelos',frame(pw,'lista')),('2 · vaga no lugar de um fracasso','alternativas para comprar já',frame(pw,'vaga')),('3 · Pedir','uma mensagem com todas as vagas · você escolhe no WhatsApp',frame(pw,'pedir')),('4 · Fechei com…','a vaga fecha · chega pelo Chegou mercadoria',frame(pw,'fechei'))])
