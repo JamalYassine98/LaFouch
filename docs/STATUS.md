@@ -74,7 +74,7 @@
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
 - **37-giro-camera-reta-e-peca-reta** — aprovado 21/11 07:51: avisa E o tratamento endireita até ±3° — espera o 'implementar'
 - **38-aviso-curto-acima-da-barra-e-com-cor** — aprovado 21/11 07:51 — espera o 'implementar'
-- **38-giro-tratamento-mais-rapido** — etapa 1 ✅ v607 (5.50.32): tempos por fase no diário; simulador: ir ao quadro 2× = 36%, ler 8%, conta+codificação 56% (work/s436/camera-giro/TEMPOS-ITEM-38.md). Falta: o diário do celular do dono (um giro na v607) e a etapa 2 (plano: uma passada só, conta na placa gráfica com prova ponto a ponto, fora da tela principal)
+- **38-giro-tratamento-mais-rapido** — etapa 1 ✅ v607 (tempos no diário) · plano em work/s436/camera-giro/PLANO-ITEM-38.md: B (tratar por trás, resultado idêntico por construção) primeiro; A (ler cada quadro uma vez) ou C (placa gráfica) conforme o diário do celular — ESPERA um giro do dono na v607 + camera.txt
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — APP ✅ v606 (5.50.31, 21/11): PIX sem par nas Pendências + janela Ligar a um pedido (chama reserva{acao:'ligar'}); testado com a nuvem simulada — falta um teste de ponta a ponta com a NUVEM real (um pixSemPar de teste) e o SITE terminar a parte dele
 - **39-preco-exato-site** — ✅ publicado no site 1795274857 (21/11): sem final único; PIX = brl, Banco Familiar = total
