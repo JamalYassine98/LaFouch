@@ -1,2 +1,2 @@
-na fila — APP · dono 21/11 10:01: prioridade é o tratamento CERTO; a meta de 5 min por peça deixa de ser dura (ele trata por trás na loja e termina em casa). Valem: REPROVADO menos quadros/resolução; APROVADO GPU; tudo no celular
+etapa 1 ✅ v607 (5.50.32): tempos por fase no diário; simulador: ir ao quadro 2× = 36%, ler 8%, conta+codificação 56% (work/s436/camera-giro/TEMPOS-ITEM-38.md). Falta: o diário do celular do dono (um giro na v607) e a etapa 2 (plano: uma passada só, conta na placa gráfica com prova ponto a ponto, fora da tela principal)
 1) uma passada só pelas 360 imagens; 2) medir menos para achar a frente (só se o giro sair igual); 3) tratar fora da tela principal. Esperar os tempos reais do celular (diário [LF-CAM]).
