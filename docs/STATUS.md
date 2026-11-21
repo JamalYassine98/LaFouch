@@ -85,6 +85,7 @@
 - para **APP**: COMO FAZER 2/3 — 4c Giro e Reservas (135d, 149r) + o que faltou da 4a (149t, 149d — a v582 saiu só com a limpeza): work/s435/comofazer/4c-GIRO-RESERVAS-E-4a.md.
 - para **APP**: COMO FAZER 3/3 — 149s (superfície, 9 telas) + 134/134b/134d e 136a (ficha do Inventário): work/s435/comofazer/4d-SUPERFICIE-E-FICHA.md. Pontos: .card (style.css
 - para **APP**: CONFERÊNCIA v585·v586·v587 (versão × versão contra v584, 17 telas × celular/PC × claro/escuro, mesma base e relógio): 0 falha nova de tela — só mudou o número d
+- para **ESBOCO**: v588 publicada (item 39): gtTratador.peca(t, caixa) em src/97-giro-trata.js — peça clara não perde um lado. Nenhuma tela mexida. Conferir o código e, se puder, 
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
 - para **SITE**: S5+S7 PUBLICADO na nuvem (dono: 'Implementar S5S7', 20/11 23:48; esboço privado S5S7 aprovado 10:02). Sua parte (a 1 frase do esboço; tela muda, então é impleme
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
