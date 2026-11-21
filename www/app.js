@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 605;
+  var APP_BUILD = 606;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.30'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.31'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -22494,7 +22494,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return l.slice();
   }
   function notifAgora0() {
-    var l = [],
+    var l = pixSemParItens(), // 39: dinheiro que entrou e a nuvem não soube ligar a um pedido vem primeiro (97z-pix-email.js)
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
@@ -45618,12 +45618,89 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       S.pixSemPar = (j.documents || []).map(function (d) {
         var f = {};
         Object.keys(d.fields || {}).forEach(function (x) { f[x] = pxFv(d.fields[x]); });
-        return { id: d.name.split('/').pop(), valor: +f.valor || 0, ts: +f.ts || 0, n: +f.candidatos || 0 };
+        // 39: o que a nuvem gravou — moeda/banco/pagador, o motivo (sem-pedido | empate | sem-peca), o pedido (sem-peca) e se o dono já ligou
+        return { id: d.name.split('/').pop(), valor: +f.valor || 0, ts: +f.ts || 0, n: +f.candidatos || 0, moeda: f.moeda || 'brl', banco: f.banco || '', de: f.de || '', motivo: f.motivo || 'sem-pedido', pedido: f.id || '', ligado: !!f.ligado };
       });
     }).catch(function () {}));
     return Promise.all(tarefas);
   }
   setInterval(function () { try { pixEspVarre(); pixEmailCheca(); } catch (e) {} }, 20000);
+
+  // ===== 39 · preço exato (aprovado 21/11/2026 07:51): PIX ou transferência que a nuvem não conseguiu ligar sozinha =====
+  // Cada documento de pixSemPar ainda não ligado é uma linha do Guardião nas Pendências (pixSemParItens → atencaoItens).
+  // O texto sai do motivo numa tabela só. "Ligar ›" abre a janela de baixo com os pedidos a pagar; ligar é da nuvem
+  // (reserva {acao:'ligar'}): o app nunca grava o "pago" direto.
+  var PIX_MOTIVO = {
+    'sem-pedido': function () { return 'não bate com nenhum pedido aberto'; },
+    empate: function (x) { return 'bate com ' + Math.max(2, x.n) + ' pedidos do mesmo valor'; },
+    'sem-peca': function () { return 'pagou, mas a peça já foi vendida'; }
+  };
+  function pixVal(moeda, v) { return moeda === 'brl' ? 'R$ ' + (+v || 0).toFixed(2).replace('.', ',') : 'Gs. ' + String(Math.round(+v || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  function pixNome(x) { return (x.moeda === 'brl' ? 'PIX de ' : 'Transferência de ') + pixVal(x.moeda, x.valor); }
+  function pixHora(ts) { return (dayKey(ts) === dayKey(Date.now()) ? 'hoje ' : fd(ts) + ' ') + fh(ts); }
+  function pixBanco(x) { return x.moeda === 'brl' ? 'Nubank' : 'Banco Familiar'; }
+  function pixPedNum(sid) {
+    var p = (S.pedidos || []).filter(function (q) { return q.sid === sid; })[0];
+    return p ? String(p.num) : String(sid || '').slice(0, 5).toUpperCase();
+  }
+  function pixAbertos() { return (S.pixSemPar || []).filter(function (x) { return !x.ligado; }); }
+  function pixSemParItens() {
+    return pixAbertos().map(function (x) {
+      var sp = x.motivo === 'sem-peca';
+      return { t: pixNome(x) + (sp ? ' · pedido ' + pixPedNum(x.pedido) : ' sem pedido'), s: (PIX_MOTIVO[x.motivo] || PIX_MOTIVO['sem-pedido'])(x) + ' · ' + pixHora(x.ts),
+        c: 'var(--bad)', urg: true, b: sp ? 'Ver pedido' : 'Ligar', act: sp ? 'pixVerPed' : 'pixLigar', id: x.id };
+    });
+  }
+  // os pedidos do site que ainda esperam pagamento (os mesmos que o app confere em pixEmailCheca) e o valor de cada um na moeda do pagamento
+  function pixPedidosAPagar() {
+    return (S.pedidos || []).filter(function (p) {
+      return p.orig === 'site' && (p.pag === 'pix' || p.pag === 'alias') && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && p.sid;
+    }).map(function (p) { var m = p.pag === 'pix' ? 'brl' : 'pyg'; return { p: p, moeda: m, valor: m === 'brl' ? +p.brl || 0 : pedTotal(p) }; });
+  }
+  ACT.pixVerPed = function (id) {
+    var x = pixAbertos().filter(function (q) { return q.id === id; })[0], p = x && (S.pedidos || []).filter(function (q) { return q.sid === x.pedido; })[0];
+    if (p) S.pedSel = p.id;
+    setView('ped');
+  };
+  ACT.pixLigar = function (id) {
+    var x = pixAbertos().filter(function (q) { return q.id === id; })[0];
+    if (!x) return;
+    var L = pixPedidosAPagar(), igual = function (o) { return o.moeda === x.moeda && Math.abs(o.valor - x.valor) < 0.005; },
+      mesmos = L.filter(igual), outros = L.filter(function (o) { return !igual(o); }), sel = mesmos.length ? mesmos[0].p.sid : '';
+    lfJanela({
+      titulo: 'Ligar a um pedido',
+      cls: 'pxJn',
+      monta: function (c, api) {
+        var linha = function (o) {
+          return '<button type="button" class="pxL" role="radio" aria-checked="' + (o.p.sid === sel) + '" data-sid="' + esc(o.p.sid) + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Pedido ' + esc(String(o.p.num)) + (o.p.cli ? ' · ' + esc(o.p.cli) : '') + '</b><small>pedido de ' + pixHora(o.p.ts) + '</small></span><b class="pxV">' + pixVal(o.moeda, o.valor) + '</b></button>';
+        }, desenha = function () {
+          var num = sel ? pixPedNum(sel) : '';
+          c.innerHTML = '<div class="pxO">' + (x.moeda === 'brl' ? 'PIX de ' : 'Transferência de ') + '<b>' + pixVal(x.moeda, x.valor) + '</b> · ' + pixHora(x.ts) + ' · ' + pixBanco(x) + (x.de ? ' · ' + esc(x.de) : '') + '</div>' +
+            (mesmos.length ? '<div class="lbl">PEDIDOS A PAGAR · MESMO VALOR</div><div role="radiogroup">' + mesmos.map(linha).join('') + '</div>' : '') +
+            (outros.length ? '<div class="lbl">' + (mesmos.length ? 'OUTROS PEDIDOS A PAGAR' : 'PEDIDOS A PAGAR') + '</div><div role="radiogroup">' + outros.map(linha).join('') + '</div>' : '') +
+            (L.length ? '<button type="button" class="go pxOk"' + (sel ? '' : ' disabled') + '>' + (sel ? 'Ligar ao pedido ' + esc(num) : 'Escolha o pedido') + '</button>'
+              : '<div class="hint" style="text-align:center;margin:16px 0">Nenhum pedido do site esperando pagamento agora.</div>');
+          [].forEach.call(c.querySelectorAll('.pxL'), function (b) { b.onclick = function () { sel = b.getAttribute('data-sid'); desenha(); }; });
+          var ok = c.querySelector('.pxOk');
+          if (ok) ok.onclick = function () {
+            if (!sel || ok.disabled) return;
+            ok.disabled = true;
+            ok.textContent = 'Ligando…';
+            resChama({ acao: 'ligar', pix: x.id, pedido: sel }).then(function (j) {
+              if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.'); return desenha(); }
+              x.ligado = true; // some das Pendências já; a nuvem marcou o pixSemPar e o "pago" chega pela conferência de sempre
+              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel));
+              api.fecha();
+              saveSoon();
+              render();
+              pixEmailCheca(true);
+            });
+          };
+        };
+        desenha();
+      }
+    });
+  };
   // ===== S265 + decisão do dono de 14/11/2026: VOLTAR NO TEMPO — cada mudança de produto fica guardada no aparelho =====
   // O que é guardado, por código (ref): custo e dólar de cada linha, nome/descrição, preço escrito à mão (S.pprice),
   // estoque total e se a foto mudou. A cada salvamento o estado é comparado com o anterior e a diferença vira uma linha.
@@ -53172,7 +53249,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

@@ -4583,6 +4583,40 @@ async def main():
             if not ok: falhas.append('134d editar na janela de baixo'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # 39 · preço exato (aprovado 21/11 07:51), parte do APP: cada pixSemPar ainda não ligado é uma linha do Guardião nas Pendências, primeiro da lista,
+            # com o texto vindo do motivo (uma tabela só); "Ligar" abre a janela com os pedidos a pagar (mesmo valor primeiro) e pede à NUVEM
+            # (reserva {acao:'ligar', pix, pedido}) — o app não grava "pago"; depois de ligar a linha some. "sem-peca" leva ao pedido.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), n = Date.now(), R = {};
+              const P = (id, sid, num, cli, pag, brl, total) => ({ id, sid, num, cli, orig: 'site', pag, pg: 'pagar', st: 'novo', brl, total, ts: n - 36e5, itens: [] });
+              S.pedidos = [P(9001, 'k7q2aaaa', 'K7Q2', 'João Teste', 'pix', 178.9, 250000), P(9002, 'm2x8aaaa', 'M2X8', 'Ana Ruiz', 'pix', 210, 290000), P(9003, 't5b1aaaa', 'T5B1', 'Carlos Gómez', 'alias', 0, 180000), P(9004, 'h3p9aaaa', 'H3P9', 'Bia', 'pix', 95, 130000)];
+              S.pixSemPar = [{ id: 'px1', valor: 178.9, moeda: 'brl', ts: n - 6e5, n: 0, motivo: 'sem-pedido', de: 'Maria S' }, { id: 'px2', valor: 120, moeda: 'brl', ts: n - 9e5, n: 2, motivo: 'empate' },
+                { id: 'px3', valor: 95, moeda: 'brl', ts: n - 9e5, n: 1, motivo: 'sem-peca', pedido: 'h3p9aaaa' }, { id: 'px4', valor: 250000, moeda: 'pyg', ts: n - 7e5, n: 0, motivo: 'sem-pedido' }, { id: 'px5', valor: 10, moeda: 'brl', ts: n, n: 0, motivo: 'sem-pedido', ligado: true }];
+              L.setView('notif'); await w(600); const linhas = () => [...document.querySelectorAll('#v-notif section')].map(s => s.innerText.split(String.fromCharCode(10)).map(x => x.trim()).filter(Boolean));
+              const l0 = linhas(); R.txt = l0.slice(0, 4).map(x => x[0] + ' | ' + x[1].replace(/ · (hoje )?[0-9/ :]+$/, '') + ' | ' + x[2]);
+              R.n = l0.filter(x => /^(PIX|Transferência) de /.test(x[0])).length;
+              document.querySelector('[data-act=pixVerPed][data-id=px3]').click(); await w(500); R.ver = [S.view, S.pedSel]; L.setView('notif'); await w(500);
+              document.querySelector('[data-act=pixLigar][data-id=px1]').click(); await w(700); const j = document.querySelector('.ljJn.pxJn');
+              R.jan = [...j.querySelectorAll('.lbl, .pxT b, .pxOk')].map(e => e.textContent).join(' | '); R.sel = j.querySelector('.pxL[aria-checked=true]').dataset.sid;
+              R.h = [...j.querySelectorAll('.pxL')].every(b => b.getBoundingClientRect().height >= 64);
+              j.querySelectorAll('.pxL')[1].click(); await w(200); R.troca = document.querySelector('.pxJn .pxOk').textContent; document.querySelector('.pxJn .pxL').click(); await w(200);
+              // a nuvem responde: guarda o que o app mandou
+              const F = window.fetch, env = []; S.nuvem = Object.assign(S.nuvem || {}, { rt: 'x' });
+              window.fetch = (u, o) => { env.push([String(u), o && o.body]); return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({ ok: true, id_token: 't', access_token: 't', expires_in: 3600, refresh_token: 'x', documents: [] }) }); };
+              try { const pago0 = JSON.stringify(S.pedidos.map(p => p.pg)); document.querySelector('.pxJn .pxOk').click(); await w(900);
+                const r = env.filter(e => /cloudfunctions\\.net\\/reserva/.test(e[0])).map(e => JSON.parse(e[1])); R.env = JSON.stringify(r); R.naoPaga = JSON.stringify(S.pedidos.map(p => p.pg)) === pago0;
+              } finally { window.fetch = F; S.nuvem.rt = ''; }
+              await w(500); R.depois = [document.querySelectorAll('.ljJn').length, linhas().filter(x => /^(PIX|Transferência) de /.test(x[0])).length, !document.querySelector('[data-act=pixLigar][data-id=px1]')];
+              return R; }""")
+            total += 1
+            ok = (got['txt'] == ['PIX de R$ 178,90 sem pedido | não bate com nenhum pedido aberto | Ligar', 'PIX de R$ 120,00 sem pedido | bate com 2 pedidos do mesmo valor | Ligar', 'PIX de R$ 95,00 · pedido H3P9 | pagou, mas a peça já foi vendida | Ver pedido', 'Transferência de Gs. 250.000 sem pedido | não bate com nenhum pedido aberto | Ligar']
+                  and got['n'] == 4 and got['jan'] == 'PEDIDOS A PAGAR · MESMO VALOR | Pedido K7Q2 · João Teste | OUTROS PEDIDOS A PAGAR | Pedido M2X8 · Ana Ruiz | Pedido T5B1 · Carlos Gómez | Pedido H3P9 · Bia | Ligar ao pedido K7Q2'
+                  and got['sel'] == 'k7q2aaaa' and got['h'] and got['troca'] == 'Ligar ao pedido M2X8' and got['env'] == '[{"acao":"ligar","pix":"px1","pedido":"k7q2aaaa"}]' and got['naoPaga']
+                  and got['depois'] == [0, 3, True] and got['ver'] == ['ped', 9004] and len(re.findall(r"'sem-pedido':", ''.join(fontes.values()))) == 1 and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '39 preço exato (app): cada PIX/transferência sem par é uma linha das Pendências pelo motivo; "Ligar" escolhe o pedido e pede à nuvem; a linha some; o app não marca pago')
+            if not ok: falhas.append('39 pix sem par'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

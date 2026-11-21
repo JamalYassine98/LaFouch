@@ -398,6 +398,15 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .lfok.on{animation:lfpop .45s cubic-bezier(.2,1.8,.3,1) forwards}
 @keyframes lfpop{to{transform:scale(1)}}
 /* progresso da compra (v9) */
+/* 39 (aprovado 21/11): janela "Ligar a um pedido" — origem, pedidos a pagar em linhas de 64 px com escolha redonda, valor à direita */
+.pxO{color:var(--sub);font-size:15px;margin:0 0 8px}.pxO b{color:var(--fg)}
+.pxJn .lbl{margin:16px 0 4px}
+.pxL{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:8px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+.pxR{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--mute)}
+.pxL[aria-checked=true] .pxR{border-color:var(--accent-fg);background:radial-gradient(circle,var(--accent-fg) 0 5px,transparent 6px)}
+.pxT{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.pxT b{font-size:16px;font-weight:600}.pxT small{font-size:13px;color:var(--mute)}
+.pxV{flex:none;font-size:16px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pxJn .pxOk{width:100%;margin-top:20px}
 /* 134b (aprovado 18/11): Inventário › Fornecedores — cada compra numa linha fina; "Editar" e a lixeira no centro da 1ª linha do nome; barra de 4 px */
 .lotC{padding:14px 0 26px;border-bottom:1px solid var(--line2,var(--line))}
 .lotHd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}

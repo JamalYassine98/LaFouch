@@ -27,7 +27,7 @@
     return l.slice();
   }
   function notifAgora0() {
-    var l = [],
+    var l = pixSemParItens(), // 39: dinheiro que entrou e a nuvem não soube ligar a um pedido vem primeiro (97z-pix-email.js)
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
