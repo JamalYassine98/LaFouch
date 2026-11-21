@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "39 preço exato: parte da nuvem (busca exata, motivos, ação ligar)",
+ "arquivos": [
+  "functions/"
+ ],
  "ultimas": [
   {
    "t": 1795259043.8031511,
