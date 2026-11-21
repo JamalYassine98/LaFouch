@@ -100,6 +100,7 @@
 
 - para **ESBOCO**: No ar: v598 (136a) e v599 (por dentro: renderDetail = fichaCorpo + fichaBotao/fichaBarra/fichaLucro/fichaPreco; saíram as 4 camadas; HTML idêntico). Próximo: 13
 - para **ESBOCO**: No ar: v600 (links da ficha no fim, fichaLinks) e v601 (ficha do Inventário sem o cartão no celular; .pl.pick como linha de lista; rowLabel sem '· ' solto). Par
+- para **ESBOCO**: No ar: v602 (ficha sem caixas: preço, % Oferta neutro, aviso em frase, No site e dobras em linhas — nascem sem a classe card) e v603 (134b Fornecedores: section
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
