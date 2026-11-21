@@ -61,3 +61,18 @@ if __name__ == '__main__':
     for f in range(30):
         b = io.BytesIO(); quadro(**EST[e], dx=math.sin(f / 5) * 3).save(b, 'JPEG', quality=88); out.write(b.getvalue())
     out.close(); quadro(**EST[e]).save('/tmp/manequim-%s.jpg' % e); print('/tmp/manequim-%s.mjpeg' % e)
+
+# ---- roteiro para o vídeo (video.py): o mesmo "cliente" passa por virado → boca aberta → pouca luz → parado ----
+def roteiro(t, luz_volta):
+    """t em segundos desde que a câmera abriu. luz_volta=True: na Proposta a luz da tela clareia o rosto a partir de 8,0 s."""
+    yaw = 35 if t < 3.5 else (35 * (1 - (t - 3.5)) if t < 4.5 else 0)
+    boca = 1.6 if 4.5 <= t < 6.5 else (1.6 * (1 - (t - 6.5) * 2) if 6.5 <= t < 7.0 else 0)
+    luz = 1.0 if t < 7.0 else (1 - (t - 7.0) / .3 * .72 if t < 7.3 else .28)
+    if luz_volta and t >= 8.0: luz = min(.9, .28 + (t - 8.0) / .4 * .62)
+    return dict(yaw=yaw, boca=boca, luz=luz, dx=math.sin(t * 6) * 3)
+
+def filme(nome, luz_volta, seg=24, fps=30):
+    out = open('/tmp/filme-%s.mjpeg' % nome, 'wb')
+    for f in range(seg * fps):
+        b = io.BytesIO(); quadro(**roteiro(f / fps, luz_volta)).resize((960, 720)).save(b, 'JPEG', quality=85); out.write(b.getvalue())
+    out.close(); return '/tmp/filme-%s.mjpeg' % nome

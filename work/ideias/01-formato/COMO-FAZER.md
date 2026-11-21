@@ -2,7 +2,7 @@
 
 Pedido do dono 21/11 09:53: "melhorar para ser ainda mais preciso" e "mostrar o resultado de forma elegante; hoje fica um desenho em roxo do formato, de forma amadora".
 Dono 21/11 10:21: "não tem como medir sob essas formas (perto, cabeça torta)?" e "precisamos atualizar a descrição dos formatos de rosto". Dono 21/11 12:13: "a descrição precisa ser dos modelos que combinam e não do formato do rosto". Dono 21/11 13:50: "a câmera precisa ser extremamente boa" (Parte A, abaixo na parte 2) + mais formatos e mais filtro (Parte B, a seguir).
-Base: site real 1795269030, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg` (Parte A; a versão anterior foi para work/obsoletos/ideias-01-camera-v1), `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera2.py`, `manequim.py`, `serve.sh`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
+Base: site real 1795269030, celular. Esboços: `esboco-01-resultado.jpg`, `esboco-02-camera.jpg` + vídeo `esboco-06-camera-video.mp4` (Parte A, Hoje × Proposta lado a lado, mesmo manequim e mesmo roteiro: virado → boca aberta → pouca luz → parado; Hoje ~20 s até o resultado, Proposta ~11 s; a versão anterior foi para work/obsoletos/ideias-01-camera-v1), `esboco-03-formatos.jpg`, `esboco-04-precisao.jpg`. Ferramentas: `copias.py`, `captura.py`, `camera2.py`, `video.py`, `manequim.py`, `serve.sh`, `vitrine.py`, `simula.py`, `compara_formato.py`, `prancha.py`.
 
 ## Aprovados incluídos
 - 11/11 15:29–15:32 (dono): tirar o desenho em volta do rosto do cliente e trocar a foto pela **ilustração do formato** (opção A) — nunca implementado; é a parte 1 abaixo.

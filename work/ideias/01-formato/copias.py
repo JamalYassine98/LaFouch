@@ -89,6 +89,11 @@ assert j.count(o) == 1; j = j.replace(o, "<small>'+faMod(f)+'</small>")
 # lista: um toque abre o catálogo do formato (hoje, no celular, o 1º toque só gira o carrossel escondido #fcar)
 o = "if(fi!==fk&&!matchMedia('(min-width:700px)').matches)faceGo(fi);else{st.rosto=st.rosto===d.face?'':d.face;drawFaces();drawGrid();goTo('vitrine')}"
 assert j.count(o) == 1; j = j.replace(o, "st.rosto=st.rosto===d.face?'':d.face;drawFaces();drawGrid();goTo('vitrine')")
+# SÓ PARA O VÍDEO (pintura): a câmera da cópia para de decidir sozinha quando o vídeo assume (window.__lfPinta)
+o = "    function tick(){\n      var v=$('favid');if(!v||!CAM.st){camStop();return}"
+assert j.count(o) == 1, 'tick'
+j = j.replace(o, "    function tick(){if(window.__lfPinta)return;\n      var v=$('favid');if(!v||!CAM.st){camStop();return}")
+j = j.replace("open:faOpen};", "open:faOpen,stop:camStop};")
 # guia (art. 'rosto'): nunca roda — guiaAbre('rosto') manda para a página do formato. Sai no implementar (código morto), não é pintado.
 open(p, 'w').write(j)
 print('ok /tmp/ih /tmp/ip')
