@@ -1,7 +1,7 @@
 {
- "nome": "5.50.26",
+ "nome": "5.50.27",
  "notas": [
-  "Ficha da peça no Inventário: sem o cartão em volta; cor e grau em linhas finas, com a quantidade à direita."
+  "Ficha da peça: preço, \"% Oferta\", aviso de prejuízo e \"No site\" sem caixas, em linhas finas."
  ],
- "build": 601
+ "build": 602
 }

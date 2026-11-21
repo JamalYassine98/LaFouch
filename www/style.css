@@ -168,6 +168,15 @@ select.in{appearance:auto}
 #detail .pl.pick{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));border-radius:0}
 #detail .pl.pick .cell{margin-left:10px;padding:0;background:none;color:var(--mute);font-size:13px}
 #detail .pl.pick>b{white-space:nowrap}
+/* 134 (2d): na ficha do Inventário o preço, "% Oferta", o aviso, "No site" e as dobras ficam sem caixa — linhas finas no lugar */
+#detail .zcd{background:none;border:0;border-radius:0;padding:0}
+#detail #precoCard .lbl{font-size:11px;letter-spacing:.14em}
+#detail .ofAbreBtn{background:none;border:1px solid var(--line);border-radius:999px;color:var(--fg);min-height:44px;font-weight:600}
+#detail .ofSt{border:0;padding:4px 0 0}
+#detail .ofSt.r .ofHd{font-size:14px;font-weight:600;letter-spacing:0;text-transform:none}
+#detail .siteChave{border-top:1px solid var(--line2,var(--line));border-bottom:1px solid var(--line2,var(--line));padding:12px 0}
+#detail .siteChave .scLin{min-height:44px}
+#detail .lrcard,#detail .cntP{border-bottom:1px solid var(--line2,var(--line));padding:13px 0}
 .vbar{position:sticky;bottom:8px;z-index:5}
 .go:disabled{opacity:.45}
 

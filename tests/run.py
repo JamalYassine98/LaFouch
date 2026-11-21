@@ -4516,6 +4516,24 @@ async def main():
             if not ok: falhas.append('134 ficha linhas'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # 134 (2d): na ficha do Inventário o preço, "% Oferta", o aviso, "No site" e as dobras não têm caixa — "% Oferta" é pílula neutra,
+            # o aviso de prejuízo é frase vermelha (14 px, sem caixa-alta), "No site" e as dobras são linhas com linha fina e nascem sem a classe de cartão.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(900);
+              const d = document.getElementById('detail'), c = q => getComputedStyle(d.querySelector(q)), T = 'rgba(0, 0, 0, 0)', linha = (x, k) => x['border' + k + 'Width'] === '1px' && x['border' + k + 'Color'] !== T;
+              const pc = c('#precoCard'), of = c('#ofAbre'), st = c('#pvSt'), hd = d.querySelector('#pvSt .ofHd'), si = c('#edSite'), lr = c('.lrcard'), cp = c('.cntP');
+              return [pc.backgroundColor === T && pc.borderTopWidth === '0px' && pc.paddingLeft === '0px', c('#precoCard .lbl').fontSize === '11px',
+                of.backgroundColor === T && parseFloat(of.borderTopLeftRadius) > 100 && d.querySelector('#ofAbre').getBoundingClientRect().height >= 44,
+                st.borderTopWidth === '0px' && (!hd || (getComputedStyle(hd).textTransform === 'none' && getComputedStyle(hd).fontSize === '14px')),
+                si.backgroundColor === T && linha(si, 'Top') && linha(si, 'Bottom') && si.borderLeftWidth === '0px', [lr, cp].every(x => x.backgroundColor === T && linha(x, 'Bottom') && x.borderLeftWidth === '0px'),
+                !d.querySelector('.siteChave.card, .lrcard.card, .cntP.card')]; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '134 (2d): ficha sem caixas — preço, "% Oferta" pílula neutra, aviso como frase, "No site" e dobras em linhas finas')
+            if not ok: falhas.append('134 ficha sem caixas'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"

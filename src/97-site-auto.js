@@ -65,7 +65,7 @@
   };
   // Chave "No site" (no lugar do botão "Liberar para o site")
   function siteChave(ref) {
-    var w = mk('div', 'card col siteChave'),
+    var w = mk('div', 'col siteChave'), // 134: linha da ficha, não cartão
       on = siteOn(ref),
       ck = siteCheck(ref),
       fora = S.siteFora && S.siteFora[ref];

@@ -75,7 +75,7 @@
     var cuG = lucroCustoGs(ref), ivG = Math.round(p - p / 1.1); lu = lucroUnico(ref, p);
     var seg = [['IVA da venda', ivG, '#c4567f'], ['Custo da peça', cuG, '#7a2a59'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
     var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = lucroDesceAte(ref, p);
-    return '<details class="card cntP"><summary class="dbS">De onde vem o preço<b class="dbV">' + gs(p) + '</b>' + dobraSeta() + '</summary>' +
+    return '<details class="cntP"><summary class="dbS">De onde vem o preço<b class="dbV">' + gs(p) + '</b>' + dobraSeta() + '</summary>' +
       '<div class="cntBar">' + seg.map(function (x) { return x[1] > 0 ? '<i style="flex:' + x[1] + ';background:' + x[2] + '"></i>' : ''; }).join('') + '</div>' +
       '<div class="cntLeg">' + seg.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + x[0] + ' ' + gs(x[1]) + '</span>'; }).join('') + '</div>' +
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +

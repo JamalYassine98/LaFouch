@@ -93,7 +93,7 @@
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
     var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
     return (
-      '<details class="card col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
+      '<details class="col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
       lrLinha('Preço de venda', gs(r.preco)) + lrLinha('− IVA da venda (10%)', '− ' + gs(r.ivaV)) + lrLinha('− Custo (+ frete da compra)', '− ' + gs(r.custo)) +
       (r.taxa ? lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) : '') +
