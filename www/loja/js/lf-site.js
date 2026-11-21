@@ -16,7 +16,8 @@
   var $=function(id){return document.getElementById(id)};
   var fmt=function(n){return LFI.fmt(n)},fmtL=function(p,q){return LFI.fmtD(LFI.pv(p.n)*q)};
   /* o lugar da foto existe sempre; quando a foto chega da nuvem, poeFoto preenche todos os lugares daquela peça (a tela aberta não fica esperando) */
-  function vis(p){return '<img class="pf" data-pf="'+p.ref+'"'+(p.foto?' src="'+p.foto+'"':'')+' alt="'+esc(p.nome)+'" draggable="false">'}
+  /* loading=lazy: a foto que está fora da tela (ou em tela fechada) só desce quando chega perto — as da 1ª tela ficam com a rede (internet fraca) */
+  function vis(p){return '<img class="pf" data-pf="'+p.ref+'"'+(p.foto?' src="'+p.foto+'"':'')+' alt="'+esc(p.nome)+'" loading="lazy" decoding="async" draggable="false">'}
   function poeFoto(p,d){p.foto=d;document.querySelectorAll('[data-pf="'+p.ref+'"]').forEach(function(e){if(e.tagName==='IMG'){if(!e.getAttribute('src'))e.src=d}else if(!e.style.backgroundImage)e.style.backgroundImage='url("'+d+'")'})}
   function colorFoto(p,i,cb){if(!i){cb(p.foto);return}p.fc=p.fc||[];if(p.fc[i]){cb(p.fc[i]);return}fbg('fotos/'+p.ref+'~'+i).then(function(d){var o=fbd(d);if(o.d){p.fc[i]=o.d;cb(o.d)}}).catch(function(){})}
   function find(ref){return P.filter(function(p){return p.ref===ref})[0]}
@@ -3263,6 +3264,9 @@
     v.src=u;v.load()}
   /* 08/11 SITE LEVE: fotos guardadas no banco do navegador (IndexedDB), lidas uma vez e sem travar a tela.
      Antes ficavam no localStorage (~800 KB lidos de forma síncrona a cada visita, o que congelava celular fraco). */
+  /* começo rápido (21/11, internet fraca parte 1): /dados/inicio.json é pedido no <head>, junto com o programa; aqui só se usa a resposta.
+     Sem o arquivo (ou sem rede) vale {} e tudo vem da nuvem, como antes. */
+  var INI=(window.__lfIni||Promise.resolve({})).then(function(j){return j&&typeof j==='object'?j:{}},function(){return {}});
   var FCM=null,FCQ=[],FCDB=null;
   function fcDb(){if(FCDB)return FCDB;FCDB=new Promise(function(ok,no){try{var r=indexedDB.open('lf-fotos',1);r.onupgradeneeded=function(){r.result.createObjectStore('f')};r.onsuccess=function(){ok(r.result)};r.onerror=function(){no(r.error)}}catch(e){no(e)}});return FCDB}
   function fcPronto(fn){if(FCM)return fn();FCQ.push(fn)}
@@ -3341,15 +3345,17 @@
     redraw();
     var heroRefs={};String(CFG.slide||'').split(',').concat([CFG.destaque||''],String(CFG.dauto||'').split(',')).forEach(function(r){if(r)heroRefs[r]=1});
     if(CFG.dmodo==='auto'||!Object.keys(heroRefs).length){P.slice().sort(function(a,b){return (b.est||0)-(a.est||0)}).slice(0,4).forEach(function(q){heroRefs[q.ref]=1})}
-    fcPronto(function(){var fo=0,esp=[];P.forEach(function(p){
-      if(!(p.fv>0))return;var c=FCM&&FCM[p.ref];
+    INI.then(function(ini){fcPronto(function(){var fo=0,esp=[],AQ=ini.fotos||{};P.forEach(function(p){
+      if(!(p.fv>0))return;var c=FCM&&FCM[p.ref],q=AQ[p.ref];
       if(c&&c.v===p.fv&&c.d){poeFoto(p,c.d);fo=1;return}
+      /* a foto desta versão já é um arquivo do site (robô das páginas): o navegador baixa como imagem comum, sem ir à nuvem */
+      if(q&&+q[0]===+p.fv){poeFoto(p,q[1]);fo=1;return}
       var busca=function(){return fbg('fotos/'+p.ref).then(function(d){var o=fbd(d);if(!o.d)return;poeFoto(p,o.d);fcSet(p.ref,{v:p.fv,d:o.d});if(heroRefs[p.ref]){setHero()}clearTimeout(syncProds.t);syncProds.t=setTimeout(function(){redraw();setHero()},heroRefs[p.ref]?60:250)}).catch(function(){})};
       /* as fotos do destaque vêm primeiro; o resto do catálogo só depois, para não disputar a rede */
       esp.push(heroRefs[p.ref]?busca():new Promise(function(r){setTimeout(function(){busca().then(r)},900)}))});
     /* a primeira tela está pronta (peças e fotos): só agora o selo é pedido — o reCAPTCHA (350 KB) não disputa a rede com o catálogo */
     Promise.all(esp).then(acTok);
-    if(fo)redraw()})}
+    if(fo)redraw()})})}
   /* reservas em tempo real: a lista pública estoque/<ref> só existe enquanto há peça reservada */
   var EST=null,ESTT=0,ESTAG=0,ESTRD=0;
   function aplicaEst(){
@@ -3416,6 +3422,11 @@
       try{if(t.hasAttribute('data-lg')){localStorage.setItem('lf_lang',t.getAttribute('data-lg'));localStorage.setItem('lf_cur','auto')}else localStorage.setItem('lf_cur',t.getAttribute('data-cu'));sessionStorage.setItem('lf_skip','1');sessionStorage.setItem('lf_drw','1')}catch(_){}
       var bg=getComputedStyle(document.body).backgroundColor,ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:calc(var(--c-sistema) + 9);background:'+bg+';opacity:0;transition:opacity .28s ease;pointer-events:all';document.body.appendChild(ov);try{sessionStorage.setItem('lf_fade',bg)}catch(_){}requestAnimationFrame(function(){ov.style.opacity='1'});setTimeout(function(){location.reload()},300)},true)})();
   try{var _cd=PREV?null:JSON.parse(localStorage.getItem('lf_pdocs')||'null');if(_cd&&_cd.length)syncProds(_cd)}catch(_){}
+  /* 1ª visita (sem cópia guardada): abre com o começo rápido — as mesmas peças e a mesma configuração que a nuvem entrega, deixadas no site pelo robô.
+     A nuvem continua sendo conferida logo em seguida (syncRun); se ela já respondeu, o começo rápido não desfaz nada. */
+  if(!PREV&&!(_cd&&_cd.length))INI.then(function(ini){if(prodVivo.ult||!ini.docs||!ini.docs.length)return;
+    if(!CFG._f&&ini.cfg){var ci=fbd(ini.cfg)||{};delete ci.ativo;CFG=Object.assign({},CFG,ci);applyCot()}
+    syncProds(ini.docs)});
   if((PREV||!P.length)&&!/[?&]nosync/.test(location.search)){var _pl=document.createElement('div');_pl.id='prevld';_pl.setAttribute('role','status');_pl.innerHTML='<i></i><span>'+LFI.tr(PREV?'Carregando a vitrine atual…':'Carregando as peças…')+'</span>';document.body.appendChild(_pl)}
   drawGen();drawChips();drawFaces();drawBag();setHero();
 
