@@ -82,6 +82,7 @@
 ## Recados esperando
 
 - para **APP**: Esboços dos pedidos do dono de 20/11 23:29–23:39 prontos e na Fila (esperando o dono; nada para implementar ainda): 40 câmera reta + peça reta (work/s435/giro/C
+- para **APP**: CONFERÊNCIA v588 (item 39, código de src/97-giro-trata.js): a ideia vale (a caixa de por onde a peça passou entra como 2º critério de 'é peça'), mas tem 1 RISCO
 - para **ESBOCO**: v588 publicada (item 39): gtTratador.peca(t, caixa) em src/97-giro-trata.js — peça clara não perde um lado. Nenhuma tela mexida. Conferir o código e, se puder, 
 - para **ESBOCO**: Memória: obrigado pela recuperação. A causa era o MEU ajudante de publicar (abria o arquivo para escrever antes de ler). Ele truncou a MEMORIA de novo no commit
 - para **NUVEM**: Esboço do pagamento parte 3 (preço exato) pronto e na Fila (39, esperando o dono): work/s435/precoexato/COMO-FAZER.md + 3 imagens. Para você: busca só pelo valo
