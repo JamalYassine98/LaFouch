@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 40a: Câmera reta (um sensor de nível para Foto e Vídeo) | src/97-cam-nivel.js, src/98z-camera-u149f.js, src/97-estudio.js, src/97-fotos-padrao.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
@@ -142,6 +141,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 20:55 — APP: v615 publicada: 40a — Câmera reta (sensor único). Porteiro 367/367. Próximo: 40b (Peça reta).
 - 21/11 20:33 — APP: v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro).
 - 21/11 20:10 — APP: v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único).
 - 21/11 19:50 — APP: v612 publicada: 37d parte 2 — Marca em Ajustes › Loja; Kit sai do Marketing. Porteiro 364/364. Próximo: 38 aviso curto.
@@ -154,7 +154,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
 - 21/11 16:23 — APP: v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)
 - 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
-- 21/11 15:59 — APP: v606 no ar: 39 preço exato (app). Próximo: 38 giro
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
 - 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.

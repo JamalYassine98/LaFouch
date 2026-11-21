@@ -1,14 +1,12 @@
 {
  "nome": "APP",
- "agora": "40a: Câmera reta (um sensor de nível para Foto e Vídeo)",
- "arquivos": [
-  "src/97-cam-nivel.js",
-  "src/98z-camera-u149f.js",
-  "src/97-estudio.js",
-  "src/97-fotos-padrao.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795305344.7300808,
+   "r": "v615 publicada: 40a — Câmera reta (sensor único). Porteiro 367/367. Próximo: 40b (Peça reta)."
+  },
   {
    "t": 1795304005.4077296,
    "r": "v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro)."
@@ -44,11 +42,7 @@
   {
    "t": 1795289038.8023083,
    "r": "v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)"
-  },
-  {
-   "t": 1795287548.7350852,
-   "r": "v606 no ar: 39 preço exato (app). Próximo: 38 giro"
   }
  ],
- "leu": 1795304217.0844297
+ "leu": 1795305344.2385852
 }
