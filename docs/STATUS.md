@@ -82,7 +82,7 @@
 - **40-hospedagem-app-firebase** — parte 1 ✅ 21/11 08:05 (lafouch-2f6bd.web.app, em paralelo) — partes 2 (APP) e 3 (dono) só no fim, antes de lançar
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
-- **43-esbocos-37** — 37a v608, 37b v609, 37c v610 publicados; falta 37d Ajustes em 3 blocos
+- **43-esbocos-37** — 37a v608, 37b v609, 37c v610, 37d parte 1 v611 (Ajustes em 3 blocos); falta 37d parte 2 (linha Marca); Instagram espera o dono/nuvem
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **43-implementar-tudo-em-partes** — em andamento — feitos: 4b, 4c, 4d (menos 149s, que espera o dono — Fila 44), 39 app, 38 etapa 1 (v591–v607). Agora: esboço 37 (Ajustes/Peças/grupo/links declarados) → 38 aviso curto → 40 → 41 → 42. Resto dos 52: pedi o 'como fazer' por família ao ESBOCO
 - **44-149s-superficie-caixa-e-vender** — esperando o dono — estudo em work/s436/4d/149s/ESTUDO.md: com o cartão plano na classe, Caixa e Vender/Catálogo (fora das 9 aprovadas) também mudam; imagens enviadas ao dono 21/11; nada publicado
