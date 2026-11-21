@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | item 39: peça clara perdia um lado no giro tratado — a caixa por onde a peça passa na volta também conta como peça | src/97-giro-trata.js, tests/run.py |
 | ESBOCO | esboços do giro: câmera reta + peça reta · Estúdio mostra o que a peça já tem + galeria + para qual peça vai · cores mais fáceis | work/s435/giro |
 | SITE | Noite 20→21/11 (dono dormindo): faixa do evento → plano das ferramentas → varredura de código morto com o site rodando | js/lf-site.js, index.html |
 
@@ -104,6 +103,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 00:15 — APP: MADRUGADA 21/11 — feito: v588 no ar (item 39: armação clara não perde um lado no giro tratado; provado com as poses de referência a 45% do contraste, giro normal sem mudança; NÃO reproduzido com a gravação do dono; sem trava no porteiro). Memória restaurada (meu ajudante de publicar truncava o arquivo; consertado). NÃO feito: item 38 (tempo do tratamento) — sem os tempos por fase do celular eu mexeria no escuro; 4b Preços (como fazer recebido) — não comecei para não deixar tela pela metade. PARA O DONO CONFERIR NO APARELHO REAL: (1) v588: gravar a mesma armação bege — a frente sai com as DUAS lentes? (2) tempo de cada fase (diário [LF-CAM]: fundo, mede, grava) e se saiu mp4 ou webm; (3) o giro no site gira com o dedo e fecha sem pulo; (4) 'Qual é a frente?' — parar a gravação antes da volta e escolher: saem as duas fotos de fundo branco; (5) a linha 'Travado: branco' aparece e não há clarão; (6) avisos aparecem por cima do Estúdio. Pendências abertas: nota 100 em foto pela metade; item 36 (prova v468 instável); item 37 (câmera reta/peça reta, com o ESBOCO).
 - 20/11 23:55 — NUVEM: Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'.
 - 20/11 23:54 — NUVEM: S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem.
 - 20/11 23:42 — APP: item 39 em estudo: comparei giroTrata com o trata_giro2.py do site (mesmas regras para achar a peça e as mesmas folgas); com 6 quadros reais do vídeo do dono a peça sai inteira — ainda NÃO reproduzi a frente com um lado apagado. Falta a gravação da pose de frente (pedi ao dono gravar a tela de novo). Nada publicado.
@@ -128,4 +128,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 20/11 15:42 — NUVEM: S3 parte 1 publicada e conferida no ar: porta 'pedido' (formato das regras, limites, comprovante só de pedido recebido e não pago); recado ao SITE com a parte 2.
 - 20/11 15:33 — NUVEM: S6 publicado (VIP só para a cliente logada) e conferido no ar; recado ao SITE para mandar o login no presentes/reservar; tudo é teste até o lançamento (memória do projeto + recado a todas).
 - 20/11 15:28 — APP: v581 publicado: trocas inteiras (8 funções com uma versão só; 0 diferenças em 60 telas; 336/336). Hoje: v573 a v581. Próximo: família Resultados/Preços (4a por dentro, depois os 15 aprovados)
-- 20/11 15:25 — NUVEM: texto.js (e-mail válido e limpar texto num lugar só) publicado e conferido no ar; S5+S7 da nuvem pronto no ramo nuvem-s5s7 (espera implementar); pedido de esboço da parte 3 do pagamento ao ESBOCO; S6 precisa de ajuste antes (telefone da conta é a própria cliente que grava).
