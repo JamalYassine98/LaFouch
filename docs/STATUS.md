@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 4c parte 3 (135d): dobras nascem como linha de dobra (sem cartão), família inteira do dFold | src/89-dash-abas.js, src/98z-s374d-padrao.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 44: cadastro do Inventário (Adicionar, passo 1 em linhas, passo 2 cores da Galeria) | work/s435/cadastro |
+| IDEIAS | IDEIAS 01 formato do rosto: esboço | work/ideias/01-formato |
 | NUVEM | 39 preço exato: parte da nuvem (busca exata, motivos, ação ligar) | functions/ |
 | SITE | Conferência das janelas soltas e do corte de estilos de 19/11 contra a versão de 19/11 | index.html |
 
