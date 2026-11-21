@@ -79,6 +79,7 @@
 - **38-giro-tratamento-mais-rapido** — na fila — APP, PRIORIDADE · decisões do dono 21/11 09:51 (recado do ESBOCO): meta ≈ 60 s por giro no celular (5 min por peça com todas as cores), tratar por trás enquanto grava a próxima cor; REPROVADO menos quadros/resolução menor; APROVADO GPU do celular (WebGL/WebGPU); tudo no celular; prato 40 s por volta. Entra depois do 4c
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
 - **39-pagamento-parte-3-preco-exato** — NUVEM ✅ 21/11 10:48 (run 44908025336: valor exato, motivos, ação ligar) → SITE (sem final único) → APP (linhas + janela Ligar)
+- **39-preco-exato-site** — na vez do SITE — esboço 39 aprovado 21/11 07:51, ESPERANDO o 'implementar' do dono (muda o valor mostrado na tela de pagar). A nuvem já está no ar: até lá, pagamento de teste pelo Banco Familiar com o valor antigo cai em 'sem par'.
 - **40-hospedagem-app-firebase** — parte 1 ✅ 21/11 08:05 (lafouch-2f6bd.web.app, em paralelo) — partes 2 (APP) e 3 (dono) só no fim, antes de lançar
 - **41-estudio-galeria-e-peca-na-camera** — 41 aprovado (07:51) · 41c esboço pronto — esperando o dono (Galeria do app; giro sempre grava; cadastro escolhe da Galeria)
 - **42-cores-e-fotos-nova-cor** — aprovado 21/11 07:51 — espera o 'implementar'
