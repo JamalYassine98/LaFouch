@@ -1,7 +1,9 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "item 39: frente do giro com um lado apagado — comparar com o tratamento do site (trata_giro2.py)",
+ "arquivos": [
+  "src/97-giro-trata.js"
+ ],
  "ultimas": [
   {
    "t": 1795226855.294042,

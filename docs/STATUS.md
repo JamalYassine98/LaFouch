@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | item 39: frente do giro com um lado apagado — comparar com o tratamento do site (trata_giro2.py) | src/97-giro-trata.js |
 | ESBOCO | esboço: Ajustes padronizado + Peças alinhado + entrar no grupo sem pular a escolha | work/semp |
 
 ## Fila
