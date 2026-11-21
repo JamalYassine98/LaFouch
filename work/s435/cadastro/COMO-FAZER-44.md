@@ -12,7 +12,8 @@ Base: aprovados (base_app) + 41 / 41c (Galeria do app, giros "sem peça") + 42 (
 - O botão "Foto" vira **"Ler etiqueta"**, com o ícone de etiqueta. Faz o mesmo de hoje (`fmAnalisa`: código, grau e quantidade da etiqueta, caixa ou pacote), agora com o nome certo.
 - Entra **"DA GALERIA · SEM PEÇA · N"**, com os cartões do 41c, acima de "Dar entrada de novo".
   Tocar num giro abre a Nova peça já com esse giro como a primeira cor.
-- "Dar entrada de novo", "Chegou mercadoria" e "Preencher à mão" ficam.
+- **Sai "Dar entrada de novo"** (dono 21/11 10:15: "polui a tela"). Dar entrada numa peça que já existe continua pela ficha (quantidade +) e por "Chegou mercadoria". Apagar `renderDeNovo`, `#addDeNovo` e o CSS deles (97-entrada-de-novo.js), se nada mais os usar.
+- "Chegou mercadoria" e "Preencher à mão" ficam.
 
 **Passo 1 · o modelo** (título "Nova peça", "Passo 1 de 2 · o modelo")
 - **Campos em linha** (rótulo versalete 11 + linha fina), não em caixa. Isso vale para o Código da haste (com o ícone de ler à direita) e o Custo.

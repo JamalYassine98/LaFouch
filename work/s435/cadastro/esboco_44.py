@@ -23,7 +23,7 @@ def tela(pw,qual):
     pg.evaluate(r"""(I)=>{"""+CARD+r"""const ft=document.getElementById('btnFoto');ft.querySelector('b').textContent='Ler etiqueta';ft.setAttribute('aria-label','Ler etiqueta');
      ft.querySelector('svg').innerHTML='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
      const lb=[...document.querySelectorAll('body *')].filter(e=>/^dar entrada de novo$/i.test((e.textContent||'').trim())&&e.getBoundingClientRect().height).pop();
-     const d=document.createElement('div');d.innerHTML='<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 8px">Da Galeria · sem peça · 2</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:24px">'+card(I[3],'Giro','hoje 07:30',1)+card(I[1],'Giro','hoje 07:22',1)+'</div>';lb.parentNode.insertBefore(d,lb)}""",I)
+     const d=document.createElement('div');d.innerHTML='<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 8px">Da Galeria · sem peça · 2</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:24px">'+card(I[3],'Giro','hoje 07:30',1)+card(I[1],'Giro','hoje 07:22',1)+'</div>';const dn=document.getElementById('addDeNovo');dn.parentNode.insertBefore(d,dn);if(dn)dn.style.setProperty('display','none','important');lb.style.setProperty('display','none','important');let n=lb.nextElementSibling;while(n&&!/Chegou/.test(n.textContent)&&!n.querySelector('#addToLote')){n.style.setProperty('display','none','important');n=n.nextElementSibling}}""",I)
   if qual in ('p1','p1_p','p2','p2_p'):
     pg.evaluate("()=>document.getElementById('addToMan').click()");w(1500)
     pg.evaluate("()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='Armação'&&x.getBoundingClientRect().height);b&&b.click()}");w(600)
@@ -56,6 +56,6 @@ def quadro(arq,q):
     x=g+i*(w+g);d.text((x,24),t,font=F(32),fill=(235,235,240));d.text((x,68),s,font=F(20),fill=(140,150,165));S.paste(im,(x,112));d.rectangle([x-1,111,x+w,112+h],outline=(90,90,100))
   S.save(O+arq,quality=88);print('ok',arq)
 with sync_playwright() as pw:
-  quadro('esboco_44a_adicionar.jpg',[('HOJE · Adicionar','"Foto" = foto da etiqueta, mas parece foto da peça',tela(pw,'add')),('PROPOSTA · Adicionar','"Ler etiqueta" · Da Galeria · sem peça',tela(pw,'add_p'))])
+  quadro('esboco_44a_adicionar.jpg',[('HOJE · Adicionar','"Foto" = foto da etiqueta, mas parece foto da peça',tela(pw,'add')),('PROPOSTA · Adicionar','"Ler etiqueta" · Da Galeria · sem "Dar entrada de novo"',tela(pw,'add_p'))])
   quadro('esboco_44b_passo1_modelo.jpg',[('HOJE · Novo modelo','caixas · pílulas ▾ · ▸ do navegador',tela(pw,'p1')),('PROPOSTA · Nova peça · passo 1','campos em linha · escolhas › · Mais detalhes ⌄',tela(pw,'p1_p'))])
   quadro('esboco_44c_passo2_cores.jpg',[('HOJE · Cores e fotos','foto crua por cor · cartões · botão "‹" quadrado',tela(pw,'p2')),('PROPOSTA · passo 2','"‹ O MODELO" · da Galeria · Nova cor · No site em linha',tela(pw,'p2_p'))])
