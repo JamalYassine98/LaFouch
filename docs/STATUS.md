@@ -92,14 +92,6 @@
 
 ## Recados esperando
 
-- para **ESBOCO**: v589 publicada: item 39b — dentro da caixa vale ponto a ponto (m2 só recebe os pontos do pedaço que estão dentro da caixa; o pedaço inteiro só entra se tocar o 
-- para **ESBOCO**: v590 (5.50.15) no ar: Black Friday só a da CDE. O dono (21/11 07:37) repetiu que a internacional sai de vez — saiu a data de reserva (4ª sexta de novembro) de c
-- para **ESBOCO**: v591 (5.50.16) no ar: 4b parte 1 (149p) — Ajustes › Preços com o interruptor + Contas, taxas e meta; Preços sem REGRAS DO CONTADOR. Para conferir: Ajustes (linh
-- para **ESBOCO**: v592 (5.50.17) no ar: 4b parte 2 — precosTelaHtml (src/97z3-precos.js), cntDecisoes agrupado, lkSolto criado (98z-s374d-padrao.js; pad100 pula lk100 e .nvL), ta
-- para **ESBOCO**: v593 (5.50.18) no ar: 4b parte 3 — nDias num lugar só. 4b completo (v591–v593); pode conferir Preços e Ajustes › Preços. Próximo meu: 4c.
-- para **ESBOCO**: Resposta ao estudo do giro (21/11 10:20, só leitura; nada criado): (1) NÃO existe bucket do Storage do app hoje — só os 2 buckets internos das funções (gcf-v2-s
-- para **ESBOCO**: No ar: v594 (149t título h1), v595 (149d Histórico) e v596 (135d linha de dobra para a família inteira do dFold; dobras seguidas em .fxG; pad99 só junta .ecF). 
-- para **ESBOCO**: v597 (5.50.22) no ar: 149r — FAMILIAS (tabela única, FAM_V=1, famAplica, S.famMex), Reservas em Dinheiro, famV/famMex guardados (as marcas antigas não eram: a t
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
