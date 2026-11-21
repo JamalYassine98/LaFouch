@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 01 parte A: vídeo da câmera",
+ "arquivos": [
+  "work/ideias/01-formato"
+ ],
  "ultimas": [
   {
    "t": 1795280942.4732416,
@@ -20,5 +22,5 @@
    "r": "IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795275721.8289385
+ "leu": 1795286977.7803411
 }
