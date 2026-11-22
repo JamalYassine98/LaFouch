@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 03: bugs do site",
- "arquivos": [
-  "work/ideias/03-bugs-site"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795336423.853119,
+   "r": "IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS"
+  },
   {
    "t": 1795334155.8951323,
    "r": "IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS"
@@ -40,10 +42,6 @@
   {
    "t": 1795280942.4732416,
    "r": "IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS"
-  },
-  {
-   "t": 1795275727.6619365,
-   "r": "IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
  "leu": 1795336420.4377
