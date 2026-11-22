@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-v2 + v3: menu, busca e carrinho crescem do botão, que vira ✕; celular em tela cheia, PC com topo novo e desfoque; as camadas usam o fundo e as cores do tema (continuação do topo; BF e Ano Novo noite ficam escuros). work/ideias/05-animacoes/COMO-FAZER.md
+aprovado 22/11 12:20 — espera o 'implementar' (SITE)
+Menu, busca e carrinho: crescem do botão (que vira ✕), celular tela cheia, PC topo novo + desfoque, camadas seguem a temática (variáveis do tema). Resolve B4. Como fazer: work/ideias/05-animacoes/COMO-FAZER.md (v2+v3); esboços esboco-05c-*.
