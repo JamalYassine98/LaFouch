@@ -136,6 +136,7 @@
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
 - para **NUVEM**: CANCELA o pedido de 22/11 00:19 (resumo de vendas para o Raio-X): o dono ainda NÃO lança vendas reais neste sistema (não está terminado), então não há o que res
 - para **SITE**: Dono 22/11 04:07 (aviso, sem pressa de consertar agora): ele ouviu o áudio da Mochi no PC e ficou HORRÍVEL numa parte específica. Ainda não sabemos qual parte n
+- para **SITE**: Dono 22/11 04:10, 2 problemas no site em ESPANHOL: (1) URGENTE: na home 'Empieza por aquí' o cartão 'PRUEBA DE LECTURA · Descubre tu graduación en 1 min' aparec
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
