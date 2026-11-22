@@ -236,10 +236,17 @@ Cada item abaixo é **uma função só**, usada por todas as telas (regra 12c). 
 - Ele **não entra** em nada que o Titan ou o Semp fazem com peças à venda: oferta, desconto, parado/giro, destaque, posts, mola.
 - O "parado há N dias" dele é a idade da compra, não falta de venda.
 - No 54 aprovado, a linha "Oferta para o Lote Kazwini" era desse engano. O "O Titan decide hoje" mostra só o que existe, calculado das peças registradas.
+- **No código, os dois nunca se misturam** (dono 15:36: o nome "lote" fica nos dois; quem não pode confundir é o código).
+  - Compra: `S.lotes`, mais o campo `lote` de cada peça registrada a partir dela (src/51, 52, 13).
+  - Atacado: `S.ataLotes` (src/97s2, 98z-atacado-tela).
+  - Nenhuma função recebe os dois.
+  - Toda conta de peça à venda (oferta, giro, parado, destaque, mola) usa só peças registradas, nunca uma compra fechada.
+  - Nome de função novo diz qual é: `compra…` ou `ata…`, nunca `lote…` sozinho.
 - O **lote do atacado** (pacote virtual que filtra o catálogo para o lojista e vira a caixa fechada do pedido) é outra coisa e continua como está na parte G.
 
 ### Provas novas no Argus (Parte 2)
 - Nenhum lote de compra aparece em oferta, parado, destaque ou "O Titan decide hoje".
+- Nenhuma função lê `S.lotes` e `S.ataLotes` juntas.
 - Nenhuma busca a open.er-api nem à currency-api.
 - Loja = site.
 - Venda 6.550 → 6.700.
