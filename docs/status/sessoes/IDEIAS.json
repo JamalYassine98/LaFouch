@@ -1,7 +1,10 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 04 aprovado: guardar",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795334107.949743,
@@ -44,5 +47,5 @@
    "r": "IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795334078.7271855
+ "leu": 1795334150.2425036
 }
