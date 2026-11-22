@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795371346.8585467,
+   "r": "Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok."
+  },
+  {
    "t": 1795370883.2251105,
    "r": "Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho)."
   },
@@ -38,11 +42,7 @@
   {
    "t": 1795229660.63511,
    "r": "S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem."
-  },
-  {
-   "t": 1795226577.8254116,
-   "r": "Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo."
   }
  ],
- "leu": 1795369442.0958629
+ "leu": 1795371346.1757154
 }

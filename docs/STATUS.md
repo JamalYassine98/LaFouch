@@ -142,6 +142,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 15:15 — NUVEM: Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok.
 - 22/11 15:10 — IDEIAS: IDEIAS 06d: campanha em câmera lenta (Fila 65)
 - 22/11 15:08 — NUVEM: Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho).
 - 22/11 15:03 — IDEIAS: IDEIAS 06c v4: sem brilho, movimento vem da campanha (Fila 65)
@@ -166,4 +167,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 00:10 — APP: v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça).
 - 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
 - 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
-- 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
