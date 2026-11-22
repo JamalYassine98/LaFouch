@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Reserva suspeita: nuvem detecta e grava (sem notificação)",
+ "arquivos": [
+  "functions/suspeita.js",
+  "firestore.rules"
+ ],
  "ultimas": [
   {
    "t": 1795371346.8585467,
