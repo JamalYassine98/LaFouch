@@ -4096,10 +4096,10 @@ async def main():
             await pg.evaluate("() => document.querySelector('#estCam [data-c=x]').click()"); await pg.wait_for_timeout(300)
             fechou = await pg.evaluate("() => !document.getElementById('estCam')")
             total += 1
-            ok = (v1 and v1[0] == 'video' and v1[1] == 'Giro · volta de 360°' and v1[2] == 10 and v1[3] and v1[4] and v1[5] and v1[6] == 'Mudar para foto' and v1[7] == 'none'
+            ok = (v1 and v1[0] == 'video' and v1[1] == 'Giro · volta de 360°' and v1[2] == 11 and v1[3] and v1[4] and v1[5] and v1[6] == 'Mudar para foto' and v1[7] == 'none'
                   and v1[9] >= 10 and v1[10] == 'block' and f1 and f1[0] == 'foto' and f1[2] == 4 and f1[6] == 'Mudar para vídeo' and f1[7] != 'none' and f1[10] == 'none'
                   and e1 and e1[0] == 'video' and not e1[4] and e1[8] == 'Deite o celular' and fechou and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '149cam-F/M2/G: câmera do Estúdio — Vídeo confere os 10 itens, guias na imagem e Gravar no verde; ícone troca para Foto (4 itens, sem guias); em pé pede para deitar')
+            print(('  ok  ' if ok else ' FALHA ') + '149cam-F/M2/G: câmera do Estúdio — Vídeo confere os 11 itens, guias na imagem e Gravar no verde; ícone troca para Foto (4 itens, sem guias); em pé pede para deitar')
             if not ok: falhas.append('camera estudio modos'); print('        veio', v1, f1, e1, fechou, pg.erros)
             await pg.close()
 
@@ -4110,12 +4110,12 @@ async def main():
             conta = await pg.evaluate("""() => { const L = window.__LF, n = L.camNivelDe, a = x => x == null ? null : Math.round(x * 10) / 10;
               const m = { W: 640, H: 360, parede: 180, desv: .01, cost: [], borda: 250, cortada: false, peca: { x0: 170, x1: 470, y0: 150, y1: 260, nit: 1 } }, c = (ex) => { const r = L.confereGiro(m, ex), i = r.itens[0]; return [i.id, i.nome, i.ok, i.fazer]; };
               return [a(n(90, 0)), a(n(0, -90)), a(n(0, 90)), a(n(3, -90)), a(n(-3, -90)), a(n(87, 0) ), n(0, 0), n(null, null),
-                c({ nivel: 0 }), c({ nivel: null }), c({ nivel: 3 }), c({ nivel: -2.4 }), c({ nivel: 0, emPe: true }), c({ nivel: 1.2, ant: { reto: true } })[2], c({ nivel: 0.8, ant: { reto: false } })[2]]; }""")
+                c({ nivel: 0 }), c({ nivel: null }), c({ nivel: 3 }), c({ nivel: -2.4 }), c({ nivel: 0, emPe: true }), c({ nivel: 1.2, ant: { reto: true } })[2], c({ nivel: 0.8, ant: { reto: false } })[2], c({ nivel: 0, ant: { reto: false } })[2]]; }""")
             await pg.evaluate(cena)
             await pg.evaluate("() => { window.__LF.ACT.estAbre(); }"); await pg.wait_for_timeout(600)
             await pg.evaluate("() => document.querySelector('[data-e=nova]').click()"); await pg.wait_for_timeout(4500)
             le40 = """() => { const o = document.getElementById('estCam'), l = [...o.querySelectorAll('.ecLista span')], g = o.querySelector('.ecGuias'), t = g && g.querySelector('text'), r = o.querySelector('#ecRec');
-              return [l.length, l[0].textContent, l[0].className, o.querySelector('.ecFrase').textContent, t ? t.textContent : '', g ? g.querySelectorAll('line[stroke-dasharray]').length : -1, !!r && !r.disabled]; }"""
+              return [l.length, l[0].textContent, l[0].className, o.querySelector('.ecFrase').textContent, t ? t.textContent : '', g ? g.querySelectorAll('line[stroke-dasharray="4 4"]').length : -1, !!r && !r.disabled]; }"""
             sensor = "a => { window.__sn = setInterval(() => window.dispatchEvent(new DeviceOrientationEvent('deviceorientation', { alpha: 0, beta: a[0], gamma: a[1] })), 100); }"
             n0 = await pg.evaluate(le40)
             await pg.evaluate(sensor, [-3, -90]); await pg.wait_for_timeout(2600); n3 = await pg.evaluate(le40)
@@ -4124,13 +4124,43 @@ async def main():
             total += 1
             ok = (conta[:8] == [0, 0, 0, -3, 3, 0, None, None] and conta[8] == ['reto', 'Câmera reta', True, ''] and conta[9][2] is True
                   and conta[10] == ['reto', 'Câmera reta', False, 'Endireite o celular: 3° para a direita'] and conta[11][3] == 'Endireite o celular: 2° para a esquerda'
-                  and conta[12] == ['reto', 'Câmera reta', False, 'Deite o celular'] and conta[13] is True and conta[14] is False
-                  and n0 == [10, 'Câmera reta', 'ok', n0[3], '', 0, True] and n3[:3] == [10, 'Câmera reta', 'ruim'] and n3[3] == 'Endireite o celular: 3° para a direita' and n3[4] == '3°' and n3[5] == 2 and not n3[6]
+                  and conta[12] == ['reto', 'Câmera reta', False, 'Deite o celular'] and conta[13] is True and conta[14] is False and conta[15] is True   # torto → exatamente reto volta ao verde (falha da v615: a folga pedia ≥ 0,3°)
+                  and n0 == [11, 'Câmera reta', 'ok', n0[3], '', 0, True] and n3[:3] == [11, 'Câmera reta', 'ruim'] and n3[3] == 'Endireite o celular: 3° para a direita' and n3[4] == '3°' and n3[5] == 2 and not n3[6]
                   and n1[2] == 'ok' and n1[4] == '' and n1[5] == 0 and n1[6]
                   and sum(len(re.findall(r"addEventListener\('deviceorientation'", t)) for t in fontes.values()) == 1 and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40a: "Câmera reta" — um sensor de nível (Foto e Vídeo); torto diz os graus e o lado, o horizonte gira com o número e não grava; reto volta ao verde')
             if not ok: falhas.append('40a camera reta'); print('        veio', conta, n0, n3, n1, pg.erros)
             await pg.close()
+
+            # Esboço 40b (aprovado 21/11 07:51): item novo "Peça reta" depois de "Peça no prato" — pela imagem, o topo de cada lado da armação na mesma
+            # altura (≤ 2% do quadro). Peça girada 4° no prato: item em falta, frase diz o lado baixo, seta na guia e não grava; reta: verde.
+            # A lista de 11 itens cabe na coluna (L4, lfCabe) a 844×390 e a 740×360.
+            cena40 = cena.replace("const draw = () => { x.fillStyle = '#b4b4b2';", "const draw = () => { x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = '#b4b4b2';").replace("const cx = 960, W = 1920 * 0.48, cy = 600,", "x.translate(960, 600); x.rotate((window.__fkRot || 0) * Math.PI / 180); x.translate(-960, -600); const cx = 960, W = 1920 * 0.48, cy = 600,")
+            assert cena40.count('__fkRot') == 1 and 'setTransform' in cena40
+            le40b = """() => { const o = document.getElementById('estCam'), l = [...o.querySelectorAll('.ecLista span')], g = o.querySelector('.ecGuias'), r = o.querySelector('#ecRec'), L = o.querySelector('.ecPainel.ecL'), i = l.findIndex(x => x.textContent === 'Peça reta');
+              return [l.length, i, i >= 0 ? l[i - 1].textContent : '', i >= 0 ? l[i].className : '', o.querySelector('.ecFrase').textContent, g ? g.querySelectorAll('line[stroke-dasharray="5 5"]').length : -1, !!r && !r.disabled,
+                L.scrollHeight <= L.clientHeight + 1 && l.every(e => e.scrollWidth <= e.clientWidth + 1), o.getAttribute('data-cabe')]; }"""
+            got = []
+            for W40, H40 in ((844, 390), (740, 360)):
+                pg = await pagina()
+                await pg.set_viewport_size({'width': W40, 'height': H40})
+                await pg.evaluate(cena40)
+                await pg.evaluate("() => { window.__LF.ACT.estAbre(); }"); await pg.wait_for_timeout(600)
+                await pg.evaluate("() => document.querySelector('[data-e=nova]').click()"); await pg.wait_for_timeout(4500)
+                reta = await pg.evaluate(le40b)
+                await pg.evaluate("() => { window.__fkRot = 4; }"); await pg.wait_for_timeout(4500); t4 = await pg.evaluate(le40b)
+                await pg.evaluate("() => { window.__fkRot = -4; }"); await pg.wait_for_timeout(4500); tm4 = await pg.evaluate(le40b)
+                await pg.evaluate("() => { window.__fkRot = 0; }"); await pg.wait_for_timeout(5000); volta = await pg.evaluate(le40b)
+                got.append([reta, t4, tm4, volta]); erros40b = list(pg.erros); await pg.close()
+                if erros40b: break
+            total += 1
+            ok = len(got) == 2 and not erros40b and all(
+                r[0][:4] == [11, 4, 'Peça no prato', 'ok'] and r[0][5] == 1 and r[0][6] and r[0][7]
+                and r[1][3] == 'ruim' and r[1][4] == 'Endireite a armação no prato: o lado direito está baixo' and not r[1][6] and r[1][7]
+                and r[2][3] == 'ruim' and r[2][4] == 'Endireite a armação no prato: o lado esquerdo está baixo' and not r[2][6]
+                and r[3][3] == 'ok' and r[3][6] for r in got)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40b: "Peça reta" — peça girada 4° no prato fica em falta com o lado baixo na frase e a seta na guia; reta fica verde; 11 itens cabem a 844×390 e 740×360')
+            if not ok: falhas.append('40b peca reta'); print('        veio', got, erros40b)
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()

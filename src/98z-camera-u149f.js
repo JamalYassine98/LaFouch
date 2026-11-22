@@ -37,6 +37,11 @@
     if(bons.length&&bons[0].a>w*h*.008&&(bons[0].x1-bons[0].x0)>w*.12){var s0=bons[0],ex=(s0.x1-s0.x0)*.25+6,ey=(s0.y1-s0.y0)*.35+6,bx={x0:s0.x0,x1:s0.x1,y0:s0.y0,y1:s0.y1,n:0};
       bons.forEach(function(c){var mx=(c.x0+c.x1)/2,my=(c.y0+c.y1)/2;if(mx>s0.x0-ex&&mx<s0.x1+ex&&my>s0.y0-ey&&my<s0.y1+ey){bx.x0=Math.min(bx.x0,c.x0);bx.x1=Math.max(bx.x1,c.x1);bx.y0=Math.min(bx.y0,c.y0);bx.y1=Math.max(bx.y1,c.y1);bx.n+=c.a}});
       peca={x0:2*bx.x0,x1:2*bx.x1+1,y0:2*bx.y0,y1:2*bx.y1+1,n:bx.n};
+      /* esboço 40 "Peça reta": o topo de cada lado da armação — em cada metade da caixa, a faixa do meio da lente (30% a 80% a partir da ponta de fora,
+         longe das hastes e da ponte); em cada coluna, o primeiro ponto da peça de cima para baixo; vale a mediana. e/d = altura do topo, xe/xd = onde foi medido. */
+      var meiaL=(bx.x1-bx.x0)/2,lado=function(a,b){var ts=[],xa=Math.round(Math.min(a,b)),xb=Math.round(Math.max(a,b));for(var xx=xa;xx<=xb;xx++)for(var yy=bx.y0;yy<=bx.y1;yy++)if(M[yy*w+xx]){ts.push(yy);break}return ts.length>=3?{y:2*med(ts),x:xa+xb}:null},
+        tE=lado(bx.x0+meiaL*.3,bx.x0+meiaL*.8),tD=lado(bx.x1-meiaL*.3,bx.x1-meiaL*.8);
+      if(tE&&tD)peca.topo={e:tE.y,d:tD.y,xe:tE.x,xd:tD.x};
       /* nitidez: média dos 5% contornos mais fortes dentro da caixa, relativa ao tom da parede */
       var gs=[];for(y=Math.max(2,peca.y0);y<=Math.min(H-3,peca.y1);y++)for(x=Math.max(2,peca.x0);x<=Math.min(W-3,peca.x1);x++){if(ehC[x])continue;var gg=Math.abs(L[y*W+x+1]-L[y*W+x-1])+Math.abs(L[(y+1)*W+x]-L[(y-1)*W+x]);if(gg>parede*.06)gs.push(gg)}
       gs.sort(function(a,b){return b-a});var nq=Math.max(1,Math.round(gs.length*.05)),sn=0;for(i=0;i<nq;i++)sn+=gs[i];peca.nit=gs.length?sn/nq/parede:0}
@@ -50,15 +55,18 @@
     /* 14/11 (celular real: o aviso ficava trocando com tudo parado): cada item tem FOLGA de troca — quem estava certo só vira errado se sair da faixa
        com folga, e quem estava errado só vira certo se entrar com folga. Assim o chiado da câmera perto do limite não faz o aviso piscar. */
     function faixa(id,v,a,b,f){var era=ant[id];if(era===true)return v>=a-f&&v<=b+f;if(era===false)return v>=a+f&&v<=b-f;return v>=a&&v<=b}
+    function abaixo(id,v,b,f){var era=ant[id];if(era===true)return v<=b+f;if(era===false)return v<=b-f;return v<=b}
     function acima(id,v,a,f){var era=ant[id];if(era===true)return v>=a-f;if(era===false)return v>=a+f;return v>=a}
     /* esboço 40: "Câmera reta" = deitado E nivelado (|inclinação| ≤ 1°, pelo sensor — camNivel); sem sensor, vale só o deitado. A frase diz o lado e os graus. */
-    var nv=ex.nivel,nvOk=nv==null?true:faixa('reto',Math.abs(nv),0,1,.3);
+    var nv=ex.nivel,nvOk=nv==null?true:abaixo('reto',Math.abs(nv),1,.3);
     add('reto','Câmera reta',ex.emPe?false:nvOk,ex.emPe?'Deite o celular':'Endireite o celular: '+Math.max(1,Math.round(Math.abs(nv||0)))+'° para a '+(nv>0?'direita':'esquerda'));
     add('firme','Celular parado',ex.mexe==null?null:!acima('firme_',ex.mexe,1.6,.5),'O celular está mexendo: apoie ou prenda melhor');
     add('luz','Luz do fundo',acima('luz',m.parede,118,6)&&m.desv<.06,m.parede<124?'Falta luz: aumente a luz da caixa':'Fundo manchado: tire sombras e reflexos de trás da peça');
     if(!p){add('peca','Peça no prato',m.cortada?false:null,m.cortada?'A peça está saindo do quadro ou encostada numa costura: afaste o celular e centralize':'Coloque a peça no prato, de frente para a câmera');return fim(it)}
     var larg=(p.x1-p.x0)/W,cx=(p.x0+p.x1)/2/W,zona=[(cx-.75*larg)*W,(cx+.75*larg)*W];
     add('peca','Peça no prato',true,'');
+    /* esboço 40 "Peça reta": os dois lados da armação na mesma altura (diferença ≤ 2% da altura do quadro); lado mais baixo = o que precisa subir */
+    var tp=p.topo;add('preta','Peça reta',tp?abaixo('preta',Math.abs(tp.e-tp.d)/H,.02,.004):null,'Endireite a armação no prato: o lado '+(tp&&tp.e>tp.d?'esquerdo':'direito')+' está baixo');
     /* distância: faixa larga de propósito (0,36 a 0,62 da largura). O tratamento aguenta essa variação; o aviso é só para erro grande. */
     add('dist','Distância',faixa('dist',larg,.36,.62,.035),larg<.45?'Aproxime o celular (a peça está pequena)':'Afaste um pouco o celular (a peça gira e precisa de folga)');
     add('meio','Peça no meio do quadro',faixa('meio',cx,.43,.57,.025),cx<.5?'Vire o celular um pouco para a esquerda (a peça está à esquerda)':'Vire o celular um pouco para a direita (a peça está à direita)');
@@ -79,7 +87,7 @@
     x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
   };
   // a ordem da lista é a do esboço 149cam-F; os nomes curtos também
-  var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
+  var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['preta', 'Peça reta'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
     C149_FT = [['fundo', 'Fundo branco'], ['foco', 'Foco'], ['reto', 'Reto'], ['dist', 'Distância']];
   function c149Lista(ov, itens) {
     var l = ov.querySelector('.ecLista');
@@ -240,6 +248,17 @@
             return 'M' + (x0 - d * 6) + ' ' + (yy - 6) + ' L' + x0 + ' ' + yy + ' L' + (x0 - d * 6) + ' ' + (yy + 6);
           };
         sv += pa(sl(l + dentro * 14, dentro), C149_A, 2.5) + pa(sl(rr - dentro * 14, -dentro), C149_A, 2.5);
+      }
+      // peça reta (esboço 40): um traço sobre o topo de cada lado, o tracejado no nível do lado mais alto e a seta no lado que precisa subir
+      var tp = p.topo;
+      if (tp) {
+        var xl = X(tp.xe), xr = X(tp.xd), yl = Y(tp.e), yr = Y(tp.d), ct = cor(M.preta), alto = Math.min(yl, yr);
+        sv += ln(xl - 34, yl, xl + 34, yl, ct, 3) + ln(xr - 34, yr, xr + 34, yr, ct, 3);
+        sv += '<line x1="' + (xl + 34).toFixed(1) + '" y1="' + alto.toFixed(1) + '" x2="' + (xr - 34).toFixed(1) + '" y2="' + alto.toFixed(1) + '" stroke="' + ct + '" stroke-width="1.5" stroke-dasharray="5 5"/>';
+        if (M.preta === false) {
+          var baixoD = yr > yl, sx = baixoD ? xr + 44 : xl - 44, sy = baixoD ? yr : yl;
+          sv += pa('M' + sx.toFixed(1) + ' ' + sy.toFixed(1) + ' V' + alto.toFixed(1) + ' M' + (sx - 6).toFixed(1) + ' ' + (alto + 8).toFixed(1) + ' L' + sx.toFixed(1) + ' ' + alto.toFixed(1) + ' L' + (sx + 6).toFixed(1) + ' ' + (alto + 8).toFixed(1), C149_A, 2.5);
+        }
       }
       // altura: pontos nas laterais na altura do centro da peça
       sv += '<circle cx="' + W * 0.13 + '" cy="' + cy.toFixed(1) + '" r="5" fill="' + cor(M.altura) + '"/><circle cx="' + W * 0.87 + '" cy="' + cy.toFixed(1) + '" r="5" fill="' + cor(M.altura) + '"/>';
@@ -424,6 +443,9 @@
       if (com.length >= Math.ceil(H.length / 2)) {
         var f = function (n) { return c149Mediana(com.map(function (h) { return h.m.peca[n]; })); };
         mm.peca = { x0: f('x0'), x1: f('x1'), y0: f('y0'), y1: f('y1'), nit: f('nit') };
+        var comT = com.filter(function (h) { return h.m.peca.topo; }),
+          ft = function (n) { return c149Mediana(comT.map(function (h) { return h.m.peca.topo[n]; })); };
+        if (comT.length >= Math.ceil(com.length / 2)) mm.peca.topo = { e: ft('e'), d: ft('d'), xe: ft('xe'), xd: ft('xd') };
       }
       var mx = H.filter(function (h) { return h.mexe != null; }).map(function (h) { return h.mexe; }),
         r = confereGiro(mm, { emPe: emPe, nivel: camNivel(), mexe: mx.length ? c149Mediana(mx) : null, ant: V.antR });
