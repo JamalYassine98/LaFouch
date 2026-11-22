@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 65b — cálculo das margens de atacado no Titan | work/s435/titan |
+| ESBOCO | esboço 66 — Titan, setor Ferramentas | work/s435/titan |
 
 ## Fila
 
