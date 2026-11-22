@@ -93,3 +93,12 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - começa quando o destaque aparece na tela;
   - **sai a `fx()`** inteira (neve, pétalas, brilhos e morcegos) e as `@keyframes evcai/evpis/evvoa/evasa`.
 - **Vídeo:** `esboco-06c-luxo-natal.mp4` (Hoje | Proposta).
+
+### 06c v4 (dono 22/11 15:02): o brilho sai, porque é clichê. Neve não combina: no Paraguai o Natal é no verão.
+- **Ficam só dois movimentos**, iguais em toda data:
+  - a foto da campanha "respira" (4% em 8 s, uma vez);
+  - o texto se revela.
+- **Recomendação (o caminho do luxo):** o movimento vem da **própria campanha**: um vídeo curto, mudo, em loop (6–8 s), filmado pelo Semp. Exemplos para o Natal paraguaio (verão): o sol batendo na lente, um tecido mexendo no vento, uma taça de clericó.
+  - O site já aceita vídeo no destaque (`CFG.video` / `dmodo:'video'`). O Destaque Campanha usa **foto OU vídeo** no mesmo lugar, com a mesma regra.
+  - Com vídeo, a foto não "respira", porque o próprio vídeo já é o movimento.
+- **Vídeo:** `esboco-06c-luxo-natal.mp4` (Hoje | Proposta v4).

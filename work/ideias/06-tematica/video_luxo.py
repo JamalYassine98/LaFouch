@@ -36,5 +36,5 @@ def grava(porta, nome):
 FT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 lab = lambda t, c: "pad=iw:ih+80:0:80:color=white,drawtext=fontfile=%s:text='%s':x=20:y=24:fontsize=32:fontcolor=%s" % (FT, t, c)
 v = [grava(8729, 'hoje'), grava(8733, 'luxo')]
-fc = '[0:v]%s[a];[1:v]%s[b];[a][b]hstack=inputs=2,trim=duration=10[v]' % (lab('HOJE (14 flocos, 10 s)', '#b3261e'), lab('PROPOSTA (movimento de luxo)', '#8d3a69'))
+fc = '[0:v]%s[a];[1:v]%s[b];[a][b]hstack=inputs=2,trim=duration=10[v]' % (lab('HOJE (14 flocos, 10 s)', '#b3261e'), lab('PROPOSTA (foto respira + texto)', '#8d3a69'))
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', v[0], '-i', v[1], '-filter_complex', fc, '-map', '[v]', '-r', '30', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '22', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(AQUI, 'esboco-06c-luxo-natal.mp4')], check=True); print('ok')
