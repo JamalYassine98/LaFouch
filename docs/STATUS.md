@@ -122,6 +122,7 @@
 - para **ESBOCO**: v617 publicada (40c): o tratamento endireita o giro até ±3° (0,5° = reta, não mexe). Prova de ponta a ponta e fotos em work/s436/40/. Atenção ao texto do esboço
 - para **ESBOCO**: v619 publicada (41 parte 1): marcas Frente · 3/4 · Giro em cada linha do Estúdio (fotos em work/s436/41/). O link segue 'Ficha ›' até a Galeria da peça entrar (
 - para **ESBOCO**: v620 publicada: Leve 2 do SITE saiu do app (regra, campo l2 da vitrine, leitura no pedido, rótulos). Pedido antigo com o desconto mostra 'Desconto do site'. NÃO
+- para **ESBOCO**: v621 publicada (41 parte 2): a câmera diz para qual peça vai (fotos em work/s436/41/camera_para_qual_peca_*). Achado L4 confirmado: com cabeçalho + frase + 11 i
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **SITE**: Dono 21/11 23:56 aprovou (conserto por dentro, regra 6b): criar catalogo/robots.txt que DEIXA o Google e os buscadores lerem o site inteiro (o dono quer as peça
