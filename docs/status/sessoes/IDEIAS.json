@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "08: estudo luxo (Madë + óticas de luxo) — menu, abertura, acesso rápido no PC",
+ "arquivos": [
+  "work/ideias/08-menu-luxo/"
+ ],
  "ultimas": [
   {
    "t": 1795380905.3912997,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06g: nota retirada × delivery (Fila 67)"
   }
  ],
- "leu": 1795378329.7324233
+ "leu": 1795388650.001632
 }

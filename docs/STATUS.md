@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
+| IDEIAS | 08: estudo luxo (Madë + óticas de luxo) — menu, abertura, acesso rápido no PC | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
