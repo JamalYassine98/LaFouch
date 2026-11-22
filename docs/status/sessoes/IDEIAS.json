@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06g v4: presente por pedido + mimo do evento",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795373319.2117314,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06c v2: neve com sensação de neve (Fila 65)"
   }
  ],
- "leu": 1795373316.4415264
+ "leu": 1795373978.6240547
 }
