@@ -60,7 +60,7 @@
       f._h = h;
     }
   }
-  // ---------- a tela Parados e sobrando (52b, 3º quadro): "‹ INVENTÁRIO" volta pela pilha da navegação ----------
+  // ---------- a tela Parados e sobrando (52b, 3º quadro): "‹ INVENTÁRIO" volta pela pilha da navegação; sem título de tipo (como no aprovado) ----------
   if (!$('v-parsob')) {
     var _vp = document.createElement('div');
     _vp.id = 'v-parsob';
@@ -88,9 +88,9 @@
       h = '<div class="top"><div><h1>Parados e sobrando</h1><div class="crumb">O que está sem vender ou acima do ideal</div></div></div>' +
         '<section class="lcLs psCard">' +
         '<div class="lcSec"><span>Parado 60+ dias · ' + P.length + '</span><b>' + usd0(vp) + '</b></div>' +
-        (P.length ? '<div class="psPar">' + lcGrupos(P.slice(pg.de, pg.ate).map(function (m) { return { m: m }; }), function (x) { return invParLinha(x.m); }) + '</div>' : '<p class="psVz">Nada sem vender há 60+ dias.</p>') +
+        (P.length ? '<div class="psPar split">' + P.slice(pg.de, pg.ate).map(invParLinha).join('') + '</div>' : '<p class="psVz">Nada sem vender há 60+ dias.</p>') +
         '<div class="lcSec"><span>Sobrando · ' + L.sobra.length + '</span>' + (L.sobra.length ? '<b>' + usd0(L.parado) + '</b>' : '') + '</div>' +
-        (L.sobra.length ? '<div class="psSob">' + lcGrupos(L.sobra.slice(pgS.de, pgS.ate), lcSobraLinha) + '</div>' : '<p class="psVz">Nada acima do ideal agora.</p>') +
+        (L.sobra.length ? '<div class="psSob split">' + L.sobra.slice(pgS.de, pgS.ate).map(lcSobraLinha).join('') + '</div>' : '<p class="psVz">Nada acima do ideal agora.</p>') +
         '</section>';
     if (el._h !== h) {
       el.innerHTML = h;

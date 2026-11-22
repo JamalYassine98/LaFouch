@@ -4438,6 +4438,35 @@ async def main():
             if not ok: falhas.append('65b paginas parados'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Família Inventário 65e (58h + achado do dono 22/11 06:26): filtros com o bloco "Site" (No site · Ocultos, o mesmo botão da Situação);
+            # nenhuma escolha de lados com texto maior que o botão (função única lfCabe, 3 degraus); Atacado › Mensagens vazio = balão B; Parados sem título de tipo.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const refs = [...new Set(S.items.filter(i => i.qty > 0 && !i.bulk).map(i => i.ref))];
+              S.site = {}; S.site[refs[0]] = 1; S.siteFora = {}; S.siteFora[refs[1]] = Date.now();
+              S.faixas = [{ id: 'f1', nome: 'Econômico' }, { id: 'f2', nome: 'Intermediário' }, { id: 'f3', nome: 'Luxo' }].map((f, i) => Object.assign({}, (S.faixas || [])[i] || {}, f));
+              S.todos = true; L.setView('estoque'); await w(300); document.getElementById('btnFilt').click(); await w(600);
+              const fs = document.getElementById('fSite');
+              R.site = fs ? [...fs.querySelectorAll('.tab')].map(b => b.innerText.replace(/\\s+/g, ' ').trim()) : null;
+              R.lbl = fs && fs.previousElementSibling && fs.previousElementSibling.textContent;
+              R.lados = [...document.querySelectorAll('.ladosC')].filter(l => l.offsetWidth).map(l => [l.id || l.className, l.getAttribute('data-cabe'), [...l.children].filter(c => c.tagName === 'BUTTON' && c.offsetWidth && c.scrollWidth > c.clientWidth + 1).length]);
+              fs.querySelector('[data-id=site]').click(); await w(400);
+              R.filtro = [S.sitF, [...document.querySelectorAll('#rows .pcard')].map(c => c.getAttribute('data-ref'))];
+              L.ACT.invLimpa(); await w(200);
+              S.ataMsgs = []; S.ataPeds = {}; S._ataMsgTs = Date.now(); S._ataMsgErr = 0; S.ataAba = 'msg'; L.setView('ata'); await w(400);
+              const vz = document.querySelector('#v-ata .lfVazio');
+              R.ata = [!!vz, vz && vz.querySelector('b').textContent, !!(vz && vz.querySelector('path[d^="M4 4.5h16"]')), !document.querySelector('#v-ata .ataNt')];
+              L.setView('parsob'); await w(400); R.parsob = !document.querySelector('#v-parsob .lcGr');
+              return R; }""")
+            total += 1
+            ok = (got['site'] == ['No site 1', 'Ocultos 1'] and (got['lbl'] or '').strip().lower() == 'site'
+                  and len(got['lados']) >= 2 and all(x[2] == 0 and (x[1] or '0') in '0123' for x in got['lados'])
+                  and got['filtro'][0] == 'site' and len(got['filtro'][1]) == 1
+                  and got['ata'] == [True, 'Nenhuma mensagem', True, True] and got['parsob'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Inventário 65e: filtros com Site (No site · Ocultos); escolhas de lados sem texto maior que o botão; Atacado › Mensagens vazio com o balão B; Parados sem título de tipo')
+            if not ok: falhas.append('65e filtros site'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

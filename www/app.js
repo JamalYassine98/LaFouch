@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 626;
+  var APP_BUILD = 627;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.51'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.52'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -46554,7 +46554,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       f._h = h;
     }
   }
-  // ---------- a tela Parados e sobrando (52b, 3º quadro): "‹ INVENTÁRIO" volta pela pilha da navegação ----------
+  // ---------- a tela Parados e sobrando (52b, 3º quadro): "‹ INVENTÁRIO" volta pela pilha da navegação; sem título de tipo (como no aprovado) ----------
   if (!$('v-parsob')) {
     var _vp = document.createElement('div');
     _vp.id = 'v-parsob';
@@ -46582,9 +46582,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h = '<div class="top"><div><h1>Parados e sobrando</h1><div class="crumb">O que está sem vender ou acima do ideal</div></div></div>' +
         '<section class="lcLs psCard">' +
         '<div class="lcSec"><span>Parado 60+ dias · ' + P.length + '</span><b>' + usd0(vp) + '</b></div>' +
-        (P.length ? '<div class="psPar">' + lcGrupos(P.slice(pg.de, pg.ate).map(function (m) { return { m: m }; }), function (x) { return invParLinha(x.m); }) + '</div>' : '<p class="psVz">Nada sem vender há 60+ dias.</p>') +
+        (P.length ? '<div class="psPar split">' + P.slice(pg.de, pg.ate).map(invParLinha).join('') + '</div>' : '<p class="psVz">Nada sem vender há 60+ dias.</p>') +
         '<div class="lcSec"><span>Sobrando · ' + L.sobra.length + '</span>' + (L.sobra.length ? '<b>' + usd0(L.parado) + '</b>' : '') + '</div>' +
-        (L.sobra.length ? '<div class="psSob">' + lcGrupos(L.sobra.slice(pgS.de, pgS.ate), lcSobraLinha) + '</div>' : '<p class="psVz">Nada acima do ideal agora.</p>') +
+        (L.sobra.length ? '<div class="psSob split">' + L.sobra.slice(pgS.de, pgS.ate).map(lcSobraLinha).join('') + '</div>' : '<p class="psVz">Nada acima do ideal agora.</p>') +
         '</section>';
     if (el._h !== h) {
       el.innerHTML = h;
@@ -46667,6 +46667,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
 
     // ---------- d. telas vazias: ícone desenha em linha ----------
+    // BALÃO B (esboço 58f, aprovado 22/11 06:26): o ícone de "nenhuma mensagem" — Atacado › Mensagens e Site › Mensagens
+    window.LF_ICO_MSG = '<path d="M4 4.5h16v11.5H9.5L6 19.5V16H4z"/><path d="M8 8.5h8"/><path d="M8 12h5"/>';
     window.lfVazioHtml = function (ico, titulo, texto) {
       return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
     };
@@ -50268,12 +50270,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
 
   // ---------- Situação (filtro) ----------
+  // 58h (22/11): o bloco "Site" (No site · Ocultos) é o mesmo botão da Situação, num 2º bloco — um filtro só (S.sitF)
   var INV_SIT = [
-    ['preco', 'Preço a corrigir'],
-    ['pouco', 'Pouco estoque'],
-    ['esg', 'Esgotado'],
-    ['enc', 'Encalhada']
+    ['preco', 'Preço a corrigir', 'sit'],
+    ['pouco', 'Pouco estoque', 'sit'],
+    ['esg', 'Esgotado', 'sit'],
+    ['enc', 'Encalhada', 'sit'],
+    ['site', 'No site', 'site'],
+    ['oculto', 'Ocultos', 'site']
   ];
+  var INV_SIT_BL = [['sit', 'Situação', 'fSit'], ['site', 'Site', 'fSite']];
   function invSitOk(ref, sit) {
     sit = sit || S.sitF;
     if (!sit) return true;
@@ -50282,6 +50288,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (sit === 'pouco') return n > 0 && n <= 2;
     if (sit === 'esg') return n === 0;
     if (sit === 'enc') return typeof encDias === 'function' && encDias(ref) > 0;
+    // No site = o que está no ar no catálogo (a chave "No site" da ficha); Ocultos = o que você tirou do site
+    if (sit === 'site') return siteOn(ref);
+    if (sit === 'oculto') return !siteOn(ref) && !!(S.siteFora && S.siteFora[ref]);
     return true;
   }
   try {
@@ -50395,12 +50404,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (sec && !$('fSitB')) {
       var d = document.createElement('div');
       d.id = 'fSitB';
-      d.innerHTML = '<div class="lbl">Situação</div><div id="fSit"></div>';
+      d.innerHTML = INV_SIT_BL.map(function (g) { return '<div class="lbl">' + g[1] + '</div><div class="fSit" id="' + g[2] + '"></div>'; }).join('');
       sec.parentNode.insertBefore(d, sec.nextSibling);
     }
-    var fs = $('fSit');
-    if (fs && S.filtOpen) {
-      fs.innerHTML = INV_SIT.map(function (s) {
+    if (S.filtOpen) INV_SIT_BL.forEach(function (g) {
+      var fs = $(g[2]);
+      if (!fs) return;
+      fs.innerHTML = INV_SIT.filter(function (s) { return s[2] === g[0]; }).map(function (s) {
         var n = 0,
           vis = {};
         S.items.forEach(function (i) {
@@ -50411,7 +50421,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var on = S.sitF === s[0];
         return '<button type="button" class="tab' + (on ? ' on' : '') + '" data-act="invSit" data-id="' + s[0] + '" aria-pressed="' + on + '">' + (s[0] === 'preco' ? '<b class="pSin ex">!</b> ' : '') + '<span>' + s[1] + '</span><em>' + n + '</em></button>';
       }).join('');
-    }
+    });
     // S370 (aprovado 15/11/2026): sem "Ver N peças" e "Cancelar" — cada toque vale na hora; fecha arrastando, tocando fora ou Esc
     var ap = $('filtApply');
     if (ap && ap.parentNode && ap.parentNode.style.display !== 'none') ap.parentNode.style.display = 'none';
@@ -51048,8 +51058,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var sel = ataPC() ? (S.ataMsgs || []).filter(function (m) { return m.id === S._ataSel; })[0] || (S.ataMsgs || [])[0] : null;
       h = L.length
         ? '<section class="card ataLs">' + L.map(function (x) { return ataLinha(x.k === 'm' ? 'ataMsgAbre' : 'ataPedAbre', x.id, x.tit, x.sub, x.novo ? 1 : 0).replace('class="ataL"', 'class="ataL' + (sel && sel.id === x.id ? ' on' : '') + '"'); }).join('') + '</section>'
-        : '<div class="ataVz">' + (S._ataMsgErr && !(S.ataMsgs || []).length ? 'Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.' : 'Nenhuma mensagem de lojista ainda.') + '</div>';
-      h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>';
+        : (S._ataMsgErr && !(S.ataMsgs || []).length ? '<div class="ataVz">Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.</div>' : lfVazioHtml(LF_ICO_MSG, 'Nenhuma mensagem', 'Quando um lojista pedir orçamento pelo site, aparece aqui.'))
+      if (L.length) h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>'; // vazio: a explicação já está na tela vazia
       if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel, true) + '</div></div>';
     } else if (a === 'loj') {
       var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });
@@ -52893,11 +52903,28 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     });
   }
+  // L4 nas ESCOLHAS DE LADOS (achado do dono 22/11 06:26, "Intermediário" maior que o botão): a lista das escolhas mora AQUI.
+  // Se uma opção não cabe no lado dela, a letra da escolha inteira desce (3 degraus: 14 · 13 · 12 px, no CSS .ladosC).
+  var LADOS = '#sortChips,#fFaixas,.trk,.tmseg,.adSeg,.catbar3,.pdSeg,.impSeg';
+  function ladosCabe(raiz) {
+    [].forEach.call(raiz.querySelectorAll(LADOS), function (l) {
+      if (!l.offsetWidth) return;
+      l.classList.add('ladosC');
+      var op = [].filter.call(l.children, function (c) { return c.tagName === 'BUTTON' && c.offsetWidth; });
+      if (op.length < 2) return;
+      lfCabe(l, function () {
+        for (var i = 0; i < op.length; i++) if (op[i].scrollWidth > op[i].clientWidth + 1) return true;
+        return false;
+      });
+    });
+  }
+  window.__ladosCabe = ladosCabe;
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;
     try { pad99(v); } catch (e) {}
     try { nvListaCabe(v); } catch (e) {}
+    try { ladosCabe(document); } catch (e) {}
   }
   aposRender(padTela);
 

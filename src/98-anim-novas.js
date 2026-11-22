@@ -69,6 +69,8 @@
     }
 
     // ---------- d. telas vazias: ícone desenha em linha ----------
+    // BALÃO B (esboço 58f, aprovado 22/11 06:26): o ícone de "nenhuma mensagem" — Atacado › Mensagens e Site › Mensagens
+    window.LF_ICO_MSG = '<path d="M4 4.5h16v11.5H9.5L6 19.5V16H4z"/><path d="M8 8.5h8"/><path d="M8 12h5"/>';
     window.lfVazioHtml = function (ico, titulo, texto) {
       return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
     };

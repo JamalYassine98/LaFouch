@@ -1109,7 +1109,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .impSp{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--line);border-top-color:#d4537e;animation:impG .9s linear infinite;flex:none}
 @keyframes impG{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.impSp{animation:none}}
-.impSeg .cb3{font-size:13px;white-space:nowrap;padding:0 4px}
+.impSeg .cb3{padding:0 4px}
 /* ===== v416 Etapa 1 (aprovado 04/11/2026): hierarquia de botões + vendas B2+ ===== */
 /* nível 3 — escolha/classificação: trilho único cinza, a escolhida cinza-clara e desliza; nunca rosa */
 #vTabBar{flex-wrap:nowrap!important;align-items:center}
@@ -1215,7 +1215,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .brSep{font-size:13.5px;color:var(--mute);text-align:center}
 @media (prefers-reduced-motion:reduce){.cfRow.entra{animation:none}}
 .nvChip.ok{border-color:var(--mute)}
-#nvTipoTrk .trkB,#brMoeda .trkB,#eFaixas .trkB{white-space:nowrap;font-size:14px;padding:0 4px}
+#nvTipoTrk .trkB,#brMoeda .trkB,#eFaixas .trkB{padding:0 4px}
 .cfTx .nvChip span{white-space:normal;line-height:1.2;text-align:left}.cfTx .nvChip{padding:6px 12px;height:auto}
 .cfCls .chip.on{background:var(--selbg,#2c323b);color:var(--fg);border-color:var(--mute)}
 @media (prefers-color-scheme:light){:root:not([data-tema=escuro]) .cfCls .chip.on{--selbg:#e3dfe4}}
@@ -2001,13 +2001,14 @@ html.lfTrava body{position:fixed;left:0;right:0;width:auto}
 #sortChips,#fFaixas{display:flex!important;flex-wrap:nowrap!important;gap:0!important;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:4px}
 #sortChips .chip,#fFaixas .chip{flex:1 1 0;min-width:0;justify-content:center;border:0!important;background:none!important;border-radius:10px!important;min-height:38px;color:var(--mute);box-shadow:none!important;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #sortChips .chip.on,#fFaixas .chip.on{background:var(--panel)!important;color:var(--fg)!important}
-#tipos,#fSit{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
-#tipos .tab,#fSit .tab{display:flex!important;align-items:center;gap:8px;justify-content:space-between;border:1px solid var(--line)!important;background:none!important;border-radius:13px!important;min-height:44px;padding:0 12px!important;color:var(--fg)!important;font-size:14px;text-align:left}
-#tipos .tab em,#fSit .tab em{font-style:normal;color:var(--mute);font-size:12.5px;margin-left:auto}
-#tipos .tab.on,#fSit .tab.on{border-color:var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--pri)!important;background:rgba(243,192,220,.07)!important;font-weight:600}
-#tipos .tab.on em,#fSit .tab.on em{color:var(--pri)}
-#fSit .pSin{margin:0}
+#tipos,.fSit{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
+#tipos .tab,.fSit .tab{display:flex!important;align-items:center;gap:8px;justify-content:space-between;border:1px solid var(--line)!important;background:none!important;border-radius:13px!important;min-height:44px;padding:0 12px!important;color:var(--fg)!important;font-size:14px;text-align:left}
+#tipos .tab em,.fSit .tab em{font-style:normal;color:var(--mute);font-size:12.5px;margin-left:auto}
+#tipos .tab.on,.fSit .tab.on{border-color:var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--pri)!important;background:rgba(243,192,220,.07)!important;font-weight:600}
+#tipos .tab.on em,.fSit .tab.on em{color:var(--pri)}
+.fSit .pSin{margin:0}
 #fSitB{margin-top:4px}
+#fSitB .fSit+.lbl{margin-top:16px}
 #filtApply{flex:1.2;min-height:50px!important;border-radius:14px!important;background:none!important;border:1px solid var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--pri)!important;font-weight:600}
 #filtCancel{flex:1;min-height:50px!important;border-radius:14px!important}
 /* aviso de preços */
@@ -3180,3 +3181,8 @@ body.nvRail .nvVs{display:none}
 .nvLista[data-cabe='1'] .nvTx b{font-size:15px}.nvLista[data-cabe='1'] .nvTx small{font-size:12.5px}
 .nvLista[data-cabe='2'] .nvTx b{font-size:14.5px}.nvLista[data-cabe='2'] .nvTx small{font-size:12px}
 .nvLista[data-cabe='3'] .nvTx b{font-size:14px}.nvLista[data-cabe='3'] .nvTx small{font-size:11.5px}
+/* L4 nas escolhas de lados (lista em src/98z-s374d-padrao.js, ladosCabe): a opção não quebra; se não cabe, a letra da escolha inteira desce */
+.ladosC>button{white-space:nowrap;overflow:hidden}
+.ladosC[data-cabe='1']>button{font-size:14px}
+.ladosC[data-cabe='2']>button{font-size:13px}
+.ladosC[data-cabe='3']>button{font-size:12px}

@@ -44,12 +44,16 @@
   }
 
   // ---------- Situação (filtro) ----------
+  // 58h (22/11): o bloco "Site" (No site · Ocultos) é o mesmo botão da Situação, num 2º bloco — um filtro só (S.sitF)
   var INV_SIT = [
-    ['preco', 'Preço a corrigir'],
-    ['pouco', 'Pouco estoque'],
-    ['esg', 'Esgotado'],
-    ['enc', 'Encalhada']
+    ['preco', 'Preço a corrigir', 'sit'],
+    ['pouco', 'Pouco estoque', 'sit'],
+    ['esg', 'Esgotado', 'sit'],
+    ['enc', 'Encalhada', 'sit'],
+    ['site', 'No site', 'site'],
+    ['oculto', 'Ocultos', 'site']
   ];
+  var INV_SIT_BL = [['sit', 'Situação', 'fSit'], ['site', 'Site', 'fSite']];
   function invSitOk(ref, sit) {
     sit = sit || S.sitF;
     if (!sit) return true;
@@ -58,6 +62,9 @@
     if (sit === 'pouco') return n > 0 && n <= 2;
     if (sit === 'esg') return n === 0;
     if (sit === 'enc') return typeof encDias === 'function' && encDias(ref) > 0;
+    // No site = o que está no ar no catálogo (a chave "No site" da ficha); Ocultos = o que você tirou do site
+    if (sit === 'site') return siteOn(ref);
+    if (sit === 'oculto') return !siteOn(ref) && !!(S.siteFora && S.siteFora[ref]);
     return true;
   }
   try {
@@ -171,12 +178,13 @@
     if (sec && !$('fSitB')) {
       var d = document.createElement('div');
       d.id = 'fSitB';
-      d.innerHTML = '<div class="lbl">Situação</div><div id="fSit"></div>';
+      d.innerHTML = INV_SIT_BL.map(function (g) { return '<div class="lbl">' + g[1] + '</div><div class="fSit" id="' + g[2] + '"></div>'; }).join('');
       sec.parentNode.insertBefore(d, sec.nextSibling);
     }
-    var fs = $('fSit');
-    if (fs && S.filtOpen) {
-      fs.innerHTML = INV_SIT.map(function (s) {
+    if (S.filtOpen) INV_SIT_BL.forEach(function (g) {
+      var fs = $(g[2]);
+      if (!fs) return;
+      fs.innerHTML = INV_SIT.filter(function (s) { return s[2] === g[0]; }).map(function (s) {
         var n = 0,
           vis = {};
         S.items.forEach(function (i) {
@@ -187,7 +195,7 @@
         var on = S.sitF === s[0];
         return '<button type="button" class="tab' + (on ? ' on' : '') + '" data-act="invSit" data-id="' + s[0] + '" aria-pressed="' + on + '">' + (s[0] === 'preco' ? '<b class="pSin ex">!</b> ' : '') + '<span>' + s[1] + '</span><em>' + n + '</em></button>';
       }).join('');
-    }
+    });
     // S370 (aprovado 15/11/2026): sem "Ver N peças" e "Cancelar" — cada toque vale na hora; fecha arrastando, tocando fora ou Esc
     var ap = $('filtApply');
     if (ap && ap.parentNode && ap.parentNode.style.display !== 'none') ap.parentNode.style.display = 'none';

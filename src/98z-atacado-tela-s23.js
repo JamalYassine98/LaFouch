@@ -63,8 +63,8 @@
       var sel = ataPC() ? (S.ataMsgs || []).filter(function (m) { return m.id === S._ataSel; })[0] || (S.ataMsgs || [])[0] : null;
       h = L.length
         ? '<section class="card ataLs">' + L.map(function (x) { return ataLinha(x.k === 'm' ? 'ataMsgAbre' : 'ataPedAbre', x.id, x.tit, x.sub, x.novo ? 1 : 0).replace('class="ataL"', 'class="ataL' + (sel && sel.id === x.id ? ' on' : '') + '"'); }).join('') + '</section>'
-        : '<div class="ataVz">' + (S._ataMsgErr && !(S.ataMsgs || []).length ? 'Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.' : 'Nenhuma mensagem de lojista ainda.') + '</div>';
-      h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>';
+        : (S._ataMsgErr && !(S.ataMsgs || []).length ? '<div class="ataVz">Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.</div>' : lfVazioHtml(LF_ICO_MSG, 'Nenhuma mensagem', 'Quando um lojista pedir orçamento pelo site, aparece aqui.'))
+      if (L.length) h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>'; // vazio: a explicação já está na tela vazia
       if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel, true) + '</div></div>';
     } else if (a === 'loj') {
       var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });

@@ -49,11 +49,28 @@
       });
     });
   }
+  // L4 nas ESCOLHAS DE LADOS (achado do dono 22/11 06:26, "Intermediário" maior que o botão): a lista das escolhas mora AQUI.
+  // Se uma opção não cabe no lado dela, a letra da escolha inteira desce (3 degraus: 14 · 13 · 12 px, no CSS .ladosC).
+  var LADOS = '#sortChips,#fFaixas,.trk,.tmseg,.adSeg,.catbar3,.pdSeg,.impSeg';
+  function ladosCabe(raiz) {
+    [].forEach.call(raiz.querySelectorAll(LADOS), function (l) {
+      if (!l.offsetWidth) return;
+      l.classList.add('ladosC');
+      var op = [].filter.call(l.children, function (c) { return c.tagName === 'BUTTON' && c.offsetWidth; });
+      if (op.length < 2) return;
+      lfCabe(l, function () {
+        for (var i = 0; i < op.length; i++) if (op[i].scrollWidth > op[i].clientWidth + 1) return true;
+        return false;
+      });
+    });
+  }
+  window.__ladosCabe = ladosCabe;
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;
     try { pad99(v); } catch (e) {}
     try { nvListaCabe(v); } catch (e) {}
+    try { ladosCabe(document); } catch (e) {}
   }
   aposRender(padTela);
 
