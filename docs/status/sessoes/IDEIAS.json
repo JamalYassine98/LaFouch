@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06e: cor única por data",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795371538.5282192,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06: prancha Mães × Pais (Fila 64)"
   }
  ],
- "leu": 1795371535.7403083
+ "leu": 1795371762.0314338
 }

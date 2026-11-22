@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
+| IDEIAS | IDEIAS 06e: cor única por data | work/ideias/06-tematica |
 | NUVEM | Reserva suspeita: nuvem detecta e grava (sem notificação) | functions/suspeita.js, firestore.rules |
 
 ## Fila
