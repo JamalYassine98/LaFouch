@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 58b — Ajustes do site | work/s435/painelsite |
+| ESBOCO | estudo 47b — painel do Site inteiro (redundâncias com o app) | work/s435/painelsite |
 
 ## Fila
 
