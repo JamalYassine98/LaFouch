@@ -62,3 +62,21 @@ Comparador no PC e no tablet: 0 falhas novas. As diferenças são só três: o m
   - Os vídeos anteriores (topo A/B) vão para `work/obsoletos/` quando o dono aprovar.
 - **Comparador:** 0 falhas novas em celular, celular com letra 1,2×, tablet e PC (`comp-8725*`).
   - Diferenças esperadas: os ícones do topo do PC mudam de lugar, o Minha conta some do topo do PC, as camadas abrem embaixo do topo, o site atrás recua no PC, e no celular a busca e o menu ficam em tela cheia.
+
+## Versão 3 (dono 22/11 12:01): as camadas acompanham a temática
+- **Causa:** cada tema muda cada peça com uma regra própria (48 regras só na Black Friday), e as camadas não estão nessa lista.
+  - Por isso, na Black Friday, o topo é preto e o menu, a busca e o carrinho ficam cinza-claros.
+  - O "Ofertas" do menu tem cor fixa (`#c0392b`), enquanto o da busca já usa a cor do tema.
+- **Jeito natural (a mesma lógica do B6):**
+  - cada tema só declara variáveis: o fundo do tema (cor + desenho de pontinhos), o texto, o texto apagado, a linha, o cartão e a cor de ação;
+  - o topo e as três camadas leem essas mesmas variáveis, porque **a camada é a continuação do topo**;
+  - os temas de topo escuro (Black Friday e Ano Novo à noite) trocam as variáveis só dentro da camada, e tudo lá dentro acompanha sem nenhuma regra nova;
+  - nenhuma cor fixa dentro das camadas: "Ofertas" usa a cor de ação do tema, e o campo da busca usa o texto do tema com 7% de opacidade;
+  - sai a cor fixa `#drw nav.dnv>a.dof{color:#c0392b}`.
+  - Tema novo = só as variáveis; as camadas já saem certas.
+- **Pranchas** (Hoje × Proposta):
+  - `esboco-05c-temas-celular-1.jpg` (Black Friday, Ano Novo noite e dia, Natal);
+  - `esboco-05c-temas-celular-2.jpg` (Halloween, Mães, Pais);
+  - `esboco-05c-temas-pc.jpg` (Black Friday e Natal).
+  - O tema foi forçado no simulador, por isso a faixa mostra o texto da Black Friday em todos.
+- **Notado, sem mudar:** a setinha ">" é cinza no menu e da cor do tema na busca. É a mesma função com desenho diferente (regra 15). Fica para o dono decidir.
