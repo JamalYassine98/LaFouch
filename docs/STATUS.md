@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
+| IDEIAS | 08: esboço menu enxuto (celular) + topo com links e janelinhas (PC) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
