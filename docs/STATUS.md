@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 66 — Titan, setor Ferramentas | work/s435/titan |
+| ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
 
 ## Fila
 
