@@ -116,6 +116,7 @@
 - **70-marketing-do-semp** — 'implementar' do dono 22/11 15:49 ('Sim') · ESPERA os esboços dos setores (Agenda · Criar · Resultados · Temática · Cartões · Marca) na base nova, para o APP não inventar telas; depois o como fazer e vai à fila do APP junto com o 68
 - **72-pc-estilo-made** — esboço pronto — esperando o dono
 - **73-setores-semp** — esboço pronto — esperando o dono (Criar · Resultados · Temática · Cartões · Marca; work/s435/semp/esboco_73s_*)
+- **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 
 ## Recados esperando
 
