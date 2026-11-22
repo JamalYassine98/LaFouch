@@ -84,7 +84,7 @@
 - **42-cores-e-fotos-nova-cor** — ✅ 42a v623 (sem 'Trocar foto') · 42b v624 ('+ Nova cor ›' com a janela, no Editar) — ficou de fora: sugerir a cor pela foto (precisa de esboço) e o Cadastro de peça nova (work/s436/42/PENDENTE-DONO.md)
 - **43-esbocos-37** — ✅ 37a v608 · 37b v609 · 37c v610 · 37d v611+v612 (Ajustes em 3 blocos + Marca) — falta só a linha Instagram: espera o dono/nuvem (work/s436/37d/PENDENTE-DONO.md)
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
-- **43-implementar-tudo-em-partes** — em andamento — feitos: 4b, 4c, 4d (menos 149s, que espera o dono — Fila 44), 39 app, 38 etapa 1 (v591–v607). Agora: esboço 37 (Ajustes/Peças/grupo/links declarados) → 38 aviso curto → 40 → 41 → 42. Resto dos 52: pedi o 'como fazer' por família ao ESBOCO
+- **43-implementar-tudo-em-partes** — ✅ feito até onde dá sem o dono (v589–v624): 4b, 4c, 4d (menos 149s), 37a–d, 38, 39 app, 40a–c, 41a/b, 42a/b, Leve 2 — lista final em work/s436/LISTA-FINAL-DONO.md; faltam decisões do dono e o que foi aprovado depois de 08:03
 - **44-149s-superficie-caixa-e-vender** — esperando o dono — estudo em work/s436/4d/149s/ESTUDO.md: com o cartão plano na classe, Caixa e Vender/Catálogo (fora das 9 aprovadas) também mudam; imagens enviadas ao dono 21/11; nada publicado
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
