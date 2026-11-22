@@ -30,3 +30,23 @@ Pedido do dono, 22/11 12:23: manter as datas, mas do jeito das lojas de luxo.
   - o rodapé fica claro (proposto) ou preto o ano todo?
   - os títulos pequenos ficam escuros (proposto) ou na cor do acento?
 - `esboco-06-maes-pais.jpg`: Dia das Mães e Dia dos Pais, início e menu (pedido do dono, 12:35). Na proposta, o "Ofertas" do menu usa o acento do tema (aprovado na IDEIAS 05).
+
+## 06b · Molde único de data, mostrado no Natal (dono 22/11 12:44, a partir de REFERENCIAS.md)
+Toda data usa o MESMO molde, com 4 peças e nada mais:
+1. **Faixa:** a mensagem e o aviso prático ("retirada no mesmo dia", "peça até X").
+2. **Uma cor de acento** (`--act`), que pinta a faixa, o botão e o título pequeno do destaque.
+3. **Mochi com o chapéu da data:** já existe hoje e não muda.
+4. **Destaque Campanha no topo do Início** (o 3º formato do Destaque, recado do ESBOCO 06:04):
+   - foto grande (a foto editorial da data, do post da semana do Semp; no esboço é a foto real da SL2265);
+   - título pequeno com o nome da data, na cor do acento;
+   - título serifado: uma frase só;
+   - preço discreto da peça da foto;
+   - **um** botão ("Ver presentes"), que abre o catálogo filtrado da data;
+   - **seleção da data**: três escolhas de dois lados/pílulas ("Para ela · Para ele · Para todos"), que levam ao catálogo filtrado por gênero (`gen f/m/u` já existe nas peças).
+- **Jeito natural:**
+  - o painel do app ganha, no evento, só estes campos: faixa, cor, foto, título, peça da foto e seleção;
+  - o site monta o Destaque Campanha com eles (uma função só, família "destaque");
+  - sem o evento ativo, o bloco não aparece.
+- **Esboço:** `esboco-06b-molde-natal.jpg`.
+- **Comparador:** 0 falhas novas (celular; `comp-molde/`).
+- As pranchas da 06 foram refeitas com o topo com fundo próprio (antes o conteúdo passava por baixo do topo transparente).

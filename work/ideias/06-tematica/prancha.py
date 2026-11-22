@@ -25,11 +25,11 @@ def tira(porta, nome):
         pg.tap('#mnb'); pg.wait_for_timeout(1300); f = '/tmp/a6-%s-%s-m.png' % (nome, TEMA); pg.screenshot(path=f); out.append(f)
         c.close(); b.close()
     return out
-h = tira(8721, 'hoje'); p = tira(8727, 'prop')
+PP = int(os.environ.get('PP', '8727')); h = tira(8721, 'hoje'); p = tira(PP, 'prop')
 FT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'; f = ImageFont.truetype(FT, 34)
 s = 0.5; w, hh = int(W * 2 * s), int(H * 2 * s)
 c = Image.new('RGB', (w * len(h) + 20 * (len(h) + 1), (hh + 70) * 2 + 10), 'white'); d = ImageDraw.Draw(c)
-for r, (lista, lab, cor) in enumerate(((h, 'HOJE', '#b3261e'), (p, 'PROPOSTA (campanha)', '#8d3a69'))):
+for r, (lista, lab, cor) in enumerate(((h, 'HOJE', '#b3261e'), (p, os.environ.get('ROT', 'PROPOSTA (campanha)'), '#8d3a69'))):
     y = 10 + r * (hh + 70); d.text((20, y), '%s · %s' % (TEMA.upper(), lab), font=f, fill=cor)
     for i, fn in enumerate(lista): c.paste(Image.open(fn).resize((w, hh)), (20 + i * (w + 20), y + 55))
-c.save(os.path.join(AQUI, 'esboco-06-%s.jpg' % TEMA), quality=86); print('ok')
+c.save(os.path.join(AQUI, os.environ.get('SAIDA', 'esboco-06-%s.jpg' % TEMA)), quality=86); print('ok')

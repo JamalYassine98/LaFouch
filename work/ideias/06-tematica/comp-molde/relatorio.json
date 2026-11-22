@@ -1,0 +1,3699 @@
+[
+ {
+  "aparelho": "celular",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "apareceu",
+    "section.lfcamp",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.ft",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.k \"Natal La Fouch\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "h2 \"O presente que se usa todo dia\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "p.p \"Óculos de sol gatinho · G$ 139\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.bt \"Ver presentes\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Para ela\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Para ele\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "a.lx44 \"Para todos\"",
+    ""
+   ],
+   [
+    "apareceu",
+    "div",
+    ""
+   ],
+   [
+    "apareceu",
+    "div.fbt",
+    ""
+   ],
+   [
+    "mudou",
+    "p.hsub \"Estoque limitado: quando acaba\"",
+    "cor rgba(255, 255, 255, 0.8)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.bar",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.p1.lx44 \"Ver modelo\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "esq 16→0, topo 200→0, larg 161→374, alt 172→372, cor rgb(189, 189, 189)→rgb(107, 103, 99), classe —→in"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.olhos",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 197→16, topo 200→28, larg 161→342, alt 116→152, cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "esq 1→0, topo 234→3179, larg 372→374, alt 218→33, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hatt→hsh"
+   ],
+   [
+    "mudou",
+    "span \"em CDE\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→4, topo 3367→27, larg 374→366, alt 486→84, cor rgb(189, 189, 189)→rgb(20, 20, 20), fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0), letra 13.5px 400→16px 400, classe lfft→—"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.pe2",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"Armações\"",
+    "topo 133→137, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "text \"FRIDAY\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Retirada\"",
+    "cor rgb(212, 27, 68)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Mais vendidos\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Descubra seu grau em 1 min\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgba(255, 255, 255, 0.267)→rgb(239, 239, 239)"
+   ],
+   [
+    "mudou",
+    "img",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "esq 4→0, topo 27→3222, larg 366→374, alt 84→453, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe —→hata"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"PARA REVENDER\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.gi.mo",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "section#hdst.hd",
+    "topo 12→615, alt 633→624, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Preços especiais para lojas, r\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Avisamos quando chegam modelos\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.sel",
+    "esq 123→24, topo 148→220, larg 129→292, alt 68→44, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe hcd→sel"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgba(255, 255, 255, 0.267)→rgb(239, 239, 239)"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 2110→1923, alt 428→733, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hcom hgu→hg"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a",
+    "alt 172→176, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "g.aBe",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path.corpoF",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#hnf.nf",
+    "esq 0→4, topo 0→129, larg 374→366, alt 372→79, cor rgb(189, 189, 189)→rgb(20, 20, 20), letra 13.5px 400→16px 400, classe in→nf"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 24→26, topo 20→21, larg 298→322, alt 199→215, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Compre por categoria\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1277→1574, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"AJUDA\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"A armação ideal para o seu ros\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Novidades\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3853→4468, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 120\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "esq 4→12, topo 100→112"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgba(255, 255, 255, 0.267)→rgb(239, 239, 239)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p.hsub",
+    "cor rgba(255, 255, 255, 0.8)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 244→248, alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.pis",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span#badge.badge \"0\"",
+    "fundo rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hati",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.bW",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"TESTE DE LEITURA\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "em \"primeiro\"",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "ellipse.sombra",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.nwb.lx44 \"Receber pelo WhatsApp\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20), fundo color(srgb 0.882353 0.113725 0.282353 / 0.06)→color(srgb 0.831373 0.105882 0.266667 / 0.06)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 100\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.sq",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"12\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"todo o Paraguai\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "g.oclT",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.tx",
+    "esq 0→1, topo 266→290, larg 374→340, alt 367→288, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe hdt→tx"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 2067→1880, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hsh→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "div.hpr \"R$ 140\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"Solar\"",
+    "topo 133→137, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "alt 3853→4468, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.ocl",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hcd",
+    "esq 71→123, topo 0→148, larg 58→129, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe —→hcd"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a",
+    "alt 172→176, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Delivery\"",
+    "cor rgb(212, 27, 68)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.hatt",
+    "esq 4→1, topo 129→234, larg 366→372, alt 79→218, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe nf→hatt"
+   ],
+   [
+    "mudou",
+    "text \"%\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgb(10, 10, 10)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 16→0, topo 28→3982, larg 342→374, alt 152→486, cor rgb(189, 189, 189)→rgb(107, 103, 99), classe —→lfft"
+   ],
+   [
+    "mudou",
+    "g.lfth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hlb \"SÓ ESTA SEMANA\"",
+    "cor rgb(255, 59, 92)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.tilt",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.aBd",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "rect",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"SL2250\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1320→1617, alt 721→236, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.pup",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"HORAS\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2607→2725, alt 453→428, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe hata→hcom hgu"
+   ],
+   [
+    "mudou",
+    "a.p2.lx44 \"Ver ofertas\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Para lojistas\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"PIX ou Banco Familiar\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ver todos ›\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1055\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Comece por aqui\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3345\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.htr",
+    "topo 777→1250, alt 172→53, cor rgb(17, 17, 17)→rgb(107, 103, 99), letra 16px 400→11.5px 400, classe hcat→htr"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 165→181, alt 124→136, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "h2 \"Novidades e ofertas\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 67→0, topo 279→0, larg 240→63, alt 44→68, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe hbt→—"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 244→248, alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 3088→3703, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"MIN\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · metal\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→16, topo 398→200, larg 374→161, alt 88→172, cor rgb(189, 189, 189)→rgb(107, 103, 99), letra 12px 400→13.5px 400, classe fbt→—"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 90\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hdots",
+    "esq 0→151, topo 734→337, larg 374→72, alt 33→8, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hsh→hdots"
+   ],
+   [
+    "mudou",
+    "div.hbt",
+    "esq 0→67, topo 655→279, larg 374→240, alt 53→44, cor rgb(102, 102, 102)→rgb(20, 20, 20), letra 11.5px 400→16px 400, classe htr→hbt"
+   ],
+   [
+    "mudou",
+    "button.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgba(255, 255, 255, 0.267)→rgb(239, 239, 239)"
+   ],
+   [
+    "mudou",
+    "div#evbar \"⚡ BLACK FRIDAY · ofertas em to\"",
+    "fundo rgb(0, 0, 0)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"11\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"ESTILO\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "button",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 163→179, alt 122→134, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.hcat",
+    "topo 1019→1372, alt 232→176, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hg→hcat"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "em.gsub \"Pagamento, entrega e troca\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 2564→2682, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.hdt",
+    "topo 0→257, larg 63→374, alt 68→367, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe —→hdt"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "text \"La Fouch\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.resp",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Óculos de sol LaFouch quadrado\"",
+    "cor rgba(255, 255, 255, 0.8)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "em \"FRIDAY\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3350\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 177→181, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "text \"BLACK\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 140\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.logo",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.pulo",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Tire suas dúvidas\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "div.hsh",
+    "topo 976→1329, cor rgb(17, 17, 17)→rgb(20, 20, 20), classe hsh hsh1→hsh"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 197→201, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h3 \"Compre em quantidade\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 25→26, larg 116→129, alt 97→108, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "g.pe1",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3853→4468, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 151→71, topo 337→0, larg 72→58, alt 8→68, cor rgb(255, 255, 255)→rgb(20, 20, 20), classe hdots→—"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 131→135, cor rgb(163, 163, 163)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 489→497, alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "esq 4→12, topo 100→112"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · quadrado\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.nlk.lx44 \"Prefiro por e-mail\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"Pagamento seguro\"",
+    "cor rgb(212, 27, 68)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 25→26, larg 116→129, alt 97→108, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h1 \"BLACK\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "esq 9→1, topo 9→1, larg 165→181, alt 124→136, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 489→497, alt 232→236, cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(18, 18, 18)→rgb(255, 255, 255)"
+   ],
+   [
+    "mudou",
+    "button.hdi",
+    "esq 14→0, topo 14→0, larg 346→374, alt 238→257, cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "div.bar",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#lfgen.lfgen",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(243, 243, 243)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3340\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · metal\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 4026→4641, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 120\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span#badge.badge \"0\"",
+    "fundo rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 100\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b#vtitT \"Armações\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 95\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.mobsearch",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgb(10, 10, 10)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99), fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0)"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"AC1055\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"AC1050\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3345\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 90\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#evbar \"⚡ BLACK FRIDAY · ofertas em to\"",
+    "fundo rgb(0, 0, 0)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3350\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.logo",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 5\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 4026→4641, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"BR44145\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 115\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "i.rds \"LaFouch · metal\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 115\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.cim",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.vnav",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.meds",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"Cor\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "small \"AC1050\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99), fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0)"
+   ],
+   [
+    "mudou",
+    "button#contabtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 90\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.rel",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"AC1050\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3345\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.buyrow",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b.navrh \"Mais Armações\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "nav.lfcam",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "section.dsec",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Armações\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.med",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.logo",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 5\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Masculino\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.med",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.bar",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.mq",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dúvidas frequentes\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3340\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"GR3340\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span \"Haste\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 100\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"GR3345\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 100\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.chips",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 120\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.on.lxpos.lx44 \"Todos\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i \"mm\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Feminino\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 120\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#bagbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 115\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button#mnb.ib.mnb.lxpos",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref \"ARMAÇÃO · ACETATO\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.buy",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "div.pdesc",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Óculos de leitura quadrado pre\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "h2 \"Armação LaFouch quadrada\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.big",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#evbar \"⚡ BLACK FRIDAY · ofertas em to\"",
+    "fundo rgb(0, 0, 0)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"GR3350\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Preto\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"+\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.dmi",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.bd \"Unissex\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"GR3350\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.bd \"Acetato\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"BR44145\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.esw",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 115\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i \"mm\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div#lfgen.lfgen",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "small \"AC1050\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"145\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#relm.relg.relm",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "alt 3853→4468, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span#badge.badge \"0\"",
+    "fundo rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 100\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.dm",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b#vtitT \"Armações\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "small \"BR44145\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 95\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.mobsearch",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "div#vscr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.scrim.pg",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(243, 243, 243)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.mp.lx44 \"Como chegar ›\"",
+    "cor rgb(255, 255, 255)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button#sbtn.ib.lxpos.lx44",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Ver mais\"",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span \"Ponte\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"1\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 95\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"AC1055\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Catálogo\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"−\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.modal.pgm",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.cth.cthm.one",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.det",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Ofertas\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.vtit",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · metal\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span \"Lente\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 5\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "main#topo",
+    "alt 3853→4468, cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"BR44145\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "circle",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref \"GR3340\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.pgbar",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(243, 243, 243)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "div.pgl",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "section#vitrine.sec.in.pop",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20), fundo rgb(243, 243, 243)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rr",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.ph",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.ri",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.on",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.cthl \"·\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.navv.lx44 \"Ver todas ›\"",
+    "cor rgb(212, 27, 68)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.ref.lfds \"LaFouch · metal\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.dp",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.dsl \"Medidas\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99), fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "img.pf",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "small \"AC1055\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Entre em contato\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "header.dh",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.med",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div#grid.grid",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "path",
+    "cor rgb(225, 29, 72)→rgb(212, 27, 68)"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div.top",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20), fundo rgb(10, 10, 10)→rgb(245, 243, 240)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"19\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Leitura\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "small \"AC1055\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.rth",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i \"mm\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "svg",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "article.card.still",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"52\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 120\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Armações\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "i.rds \"LaFouch · acetato\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Solar\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "span.pr \"R$ 90\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "cor rgb(255, 255, 255)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Atacado\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "div",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 90\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "b \"R$ 5\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Dicas e cuidados\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "span.nm.lfcod \"GR3350\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "div.info",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "button.open",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "cor rgb(189, 189, 189)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "button.lxpos.lx44.lxb \"Unissex\"",
+    "cor rgb(102, 102, 102)→rgb(107, 103, 99)"
+   ],
+   [
+    "mudou",
+    "small \"GR3345\"",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ],
+   [
+    "mudou",
+    "i",
+    "cor rgb(17, 17, 17)→rgb(20, 20, 20)"
+   ]
+  ],
+  "ruido_ignorado": 0
+ }
+]
