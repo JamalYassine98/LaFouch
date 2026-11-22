@@ -108,7 +108,7 @@
 - **61-camadas-um-movimento** — aprovado 22/11 12:20 (+ setinha › cinza 12:22) — espera o 'implementar' (SITE)
 - **64-tematica-campanha** — aprovado 22/11 14:07 — espera o 'implementar' (SITE)
 - **65-efeito-do-evento** — esboço pronto — esperando o dono
-- **65-familia-inventario-lista** — na fila — 'implementar' do dono 22/11 12:51 · APP · 1º
+- **65-familia-inventario-lista** — 65a ✅ v625 (topo: resumo, sem números grandes, preços no sino, botão na linha do título) · a seguir 65b páginas + Parados e sobrando + Contar o estoque
 - **66-familia-compras** — na fila — 'implementar' do dono 22/11 12:51 · APP · 2º (3 partes)
 - **67-familia-site-no-app** — na fila — 'implementar' do dono 22/11 12:51 · APP · 3º (SITE/IDEIAS: Campanha e ordem pelo Semp; painel web sai depois)
 - **68-destaque-da-semana-semp** — na fila — 'implementar' do dono 22/11 12:51 · APP · 4º (depois do Marketing 1c)
