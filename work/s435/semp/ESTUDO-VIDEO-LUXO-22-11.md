@@ -38,3 +38,45 @@ Pedidos: estudar como as marcas de luxo de óculos montam vídeo, e pensar o pos
 - É o que o lojista e o cliente do WhatsApp entendem na hora: "tem nessas cores".
 
 **Para testar:** preciso do giro de uma peça no Estúdio, ou das fotos de um modelo em várias cores. As folhas que o dono mandou são do fornecedor (marca Manxer), então servem só como referência, não para publicar.
+
+---
+
+## Parte 2 — como é feito o comercial de um óculos de luxo (dono 16:45)
+**Situação:** o esboço 73 foi pelo caminho certo, mas ficou vazio. É o mesmo giro em zooms diferentes, e o fundo precisa melhorar. O sticker sai, e no lugar dele entra o nome ou o material.
+
+### O que as casas fazem (fontes na conversa)
+- **Detalhe como herói.** Persol põe a dobradiça Arrow no centro da campanha. Oliver Peoples filma o bisel do acetato, a alma de metal, a plaquinha e a dobradiça.
+- **Cinema, não catálogo.** Oliver Peoples usa travellings longos, câmera lenta e paleta rica de cor. Persol conta a marca por gêneros de filme. Jacques Marie Mage constrói aura.
+- **Cenário e material.** Nos filmes da Cartier, macros, tempo, ângulos e materiais diferentes contam o design.
+- **Luz que dá forma.** Sobre fundo branco, o profissional subtrai luz com cartões pretos ("negative fill") para dar forma e separação à armação. Superfícies que refletem (acrílico) dão o reflexo.
+
+### Tipos de tomada de um comercial de óculos (o que faltou no 73)
+1. **Revelação pela luz:** a peça sai da sombra; uma faixa de luz passa por ela.
+2. **Giro herói:** sobre superfície que reflete (acrílico, pedra polida), com o reflexo embaixo.
+3. **Macro do acabamento:** dobradiça, bisel, alma de metal, plaquinha, o nome gravado.
+4. **Luz atravessando o acetato:** a luz vinda de trás mostra a profundidade da cor. É perfeita para a BR44118, que é translúcida.
+5. **Mãos:** abrir ou dobrar as hastes, pegar a peça, guardar no estojo. Em câmera lenta.
+6. **No rosto:** a pessoa vira o rosto devagar, num olhar.
+7. **As cores:** a fila de cores, uma por batida.
+8. **Fechamento:** o logo pequeno e o nome do modelo.
+
+**Cada tomada tem um cenário e uma luz diferentes.** É isso que tira o "vazio".
+
+### Fundo: o que dá para fazer já, só com o giro
+- O fundo branco da gravação sai, e a peça vai para um cenário.
+- As lentes transparentes deixam o cenário aparecer através delas, como na realidade.
+- **Cenários sugeridos**, todos em tons tirados da peça:
+  - pedra clara (travertino) com a sombra de uma janela passando devagar;
+  - superfície que reflete, com o reflexo embaixo;
+  - fundo escuro com luz de borda para a macro;
+  - luz por trás para o acetato brilhar.
+
+### O que só gravando dá (o Estúdio guia, com o celular, 3–5 s cada)
+- Giro (já existe).
+- Dobrar as hastes.
+- Dobradiça de perto com luz passando.
+- No rosto, virando devagar.
+- Guardar no estojo.
+- Cada cor (giro curto ou foto).
+
+O app monta o vídeo sozinho com essas tomadas, sempre na mesma linguagem.
