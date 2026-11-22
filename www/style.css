@@ -3208,3 +3208,6 @@ p.cpE{margin:0 0 8px;font-size:14px}
 .cpLnB b i{font-style:normal;color:var(--mute);margin-left:4px}
 .cpTi{margin:16px 0;font-size:14px}.cpTi.ok{color:var(--ok)}.cpTi.warn{color:var(--warn)}.cpTi.bad{color:var(--bad,#ff8f8f)}
 .cpMsg{background:var(--panel2);border-radius:12px;padding:16px;font-size:15px;line-height:1.5;margin:8px 0}
+.cpTx .cpE.est,p.cpE.est{color:var(--warn)}.cpTx .cpE.fra,p.cpE.fra{color:var(--bad,#ff8f8f)}
+.cpExp{margin:0 0 8px}
+.cpAlt .lcTh{width:52px;height:36px}

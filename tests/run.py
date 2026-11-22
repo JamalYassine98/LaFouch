@@ -4528,6 +4528,39 @@ async def main():
             if not ok: falhas.append('66 compras telas'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Família Compras 66 parte 2 (Parte A §2 e §7): o FLUXO decide — rende por dia (lucro real ÷ dias na loja) contra a média do tipo.
+            # Estrela: "★ estrela · repor o mesmo X" e o pedido diz "X o parecido"; fracasso: "No lugar de X", alternativas do mesmo tipo
+            # (nunca o mesmo modelo nem a mesma combinação), o pedido não cita o modelo e o "Modelo" do Fechei com… não oferece o mesmo.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const V = L.cpVagas(), est = V.find(v => v.cls === 'estrela'), fra = V.find(v => v.cls === 'fracasso' && v.alts.length);
+              R.tem = [!!est, !!fra];
+              if (!est || !fra) return R;
+              const msg = L.cpMensagem([est, fra]).split('\\n');
+              R.msg = [msg[1].indexOf(est.mod + ' o parecido') >= 0, msg[2].indexOf(fra.mod) < 0];
+              const sai = fra.k.split('|');
+              R.alts = fra.alts.every(a => !(a.pub === sai[1] && a.mat === sai[2]) && fra.refs.indexOf(a.ref) < 0);
+              L.inicioGo('comp'); await w(500);
+              const linha = k => [...document.querySelectorAll('#v-comp .cpL')].find(b => b.getAttribute('data-id') === k);
+              R.linhas = [linha(est.k).innerText.indexOf('★ estrela · repor o mesmo ' + est.mod) >= 0, linha(fra.k).innerText.indexOf('no lugar de ' + fra.mod) >= 0];
+              linha(fra.k).click(); await w(500);
+              const jn = document.querySelector('.cpJn');
+              R.janela = [jn.getAttribute('aria-label'), jn.querySelectorAll('.cpAlt').length === fra.alts.length, jn.querySelectorAll('.cpAlt[aria-checked=true]').length, !!jn.querySelector('[data-ok]')];
+              const alv = jn.querySelectorAll('.cpAlt')[fra.alts.length - 1]; alv.click(); await w(200);
+              document.querySelector('.cpJn [data-ok]').click(); await w(500);
+              R.salvou = S.cpV[fra.k] && S.cpV[fra.k].alt === fra.alts[fra.alts.length - 1].id;
+              linha(fra.k).click(); await w(500); document.querySelector('.cpJn [data-cp=fech]').click(); await w(500);
+              const mod = document.querySelector('.cpJn [data-cp=mod] b').textContent;
+              R.modelo = [mod.indexOf(fra.mod) < 0, mod.trim() !== 'escolher ›'];
+              return R; }""")
+            total += 1
+            ok = (got.get('tem') == [True, True] and got.get('msg') == [True, True] and got.get('alts') is True and got.get('linhas') == [True, True]
+                  and got.get('janela', [None])[0] and got['janela'][0].startswith('No lugar de ') and got['janela'][1:] == [True, 1, True]
+                  and got.get('salvou') is True and got.get('modelo') == [True, True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Compras 66 parte 2: o fluxo decide — estrela repõe o mesmo; fracasso vira "No lugar de" com alternativas, sem o mesmo modelo no pedido nem no Fechei com…')
+            if not ok: falhas.append('66 compras fluxo'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
