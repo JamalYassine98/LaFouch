@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "42b: '+ Nova cor ›' com a janela (corNova) no Editar",
+ "arquivos": [
+  "src/97-cor-nova.js",
+  "src/10-estoque-detalhe.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795319720.801968,
@@ -44,5 +49,5 @@
    "r": "v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro)."
   }
  ],
- "leu": 1795319720.3183937
+ "leu": 1795319908.44021
 }

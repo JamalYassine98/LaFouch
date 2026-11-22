@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 42b: '+ Nova cor ›' com a janela (corNova) no Editar | src/97-cor-nova.js, src/10-estoque-detalhe.js, www/style.css, tests/run.py |
 
 ## Fila
 
