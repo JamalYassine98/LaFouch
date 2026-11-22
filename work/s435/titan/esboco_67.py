@@ -29,36 +29,39 @@ JS6='const I='+json.dumps(IC2)+JS[JS.index(';const R='):]
 # Substitui o 67 v1 (histórico só de preço, no obsoletos).
 SHEET=r"""(h)=>{const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:flex;align-items:flex-end';
  d.innerHTML='<div style="width:100%;background:var(--panel,#1b1f27);border-radius:24px 24px 0 0;padding:12px 24px 32px;color:var(--fg)"><div style="width:44px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 16px"></div>'+h+'</div>';document.body.appendChild(d)}"""
-SH=r"""const SEG=(L,on)=>'<div class="sg77" style="margin:16px 0 8px">'+L.map((t,i)=>'<button type="button" class="'+(i==on?'on':'')+'">'+t+'</button>').join('')+'</div>';
- const E=(h,t,s,v,v2)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+t+'</b><small style="display:block;font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;font-variant-numeric:tabular-nums">'+h+' · '+s+'</small></span><span style="text-align:right;white-space:nowrap;font-size:15px;font-variant-numeric:tabular-nums">'+v+(v2?'<small style="display:block;font-size:13px;color:var(--mute)">'+v2+'</small>':'')+'</span><span style="color:var(--mute);font-size:18px">⌄</span></div>';
- const F=(r,v,b)=>'<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid var(--line2);font-size:15px;'+(b?'font-weight:700':'')+'"><span>'+r+'</span><span style="font-variant-numeric:tabular-nums">'+v+'</span></div>';
- const LK=t=>'<div style="text-align:center;margin:32px 0"><button type="button" style="background:none;border:0;color:var(--accent,#f0a6c8);font:600 16px system-ui;min-height:44px">'+t+' ›</button></div>';
- const OF=E('14:05','SP57765 · oferta','Preço · você','G$ 23.000','era 25.000');
- const MG=E('13:55','Atacado · margens','Preço · Titan · 5 tabelas','10K 27%','era 18%');
- const V6=E('01:34','1× SL2201 C1 · Preto','Venda · V-1996','US$ 9,01','≈ G$ 60.000');
- const V4=E('01:28','2× YM7735 C3 · Azul','Venda · V-1994','G$ 85.000');
- const V5=E('01:16','2× SP57765 +1.75 · Preto','Venda · V-1995','R$ 41,70','≈ G$ 50.000');"""
+# v4 (22/11 14:30, dono 'Aprovado' + conferência de luxo): a tela do dia é a REAL (título Dashboard, bloco Hoje, Fechamento na ordem real);
+# só 'Vendas do dia' vira 'Tudo do dia' e ganha as linhas de preço NO MESMO MOLDE das vendas (sl418L: título · '22/11 às HH:MM' · valor · ⌄).
+# O ⌄ de preço só mostra (sl418R); desfazer fica onde a coisa mora: 'Mudar na ficha ›' / 'Ver as tabelas ›'. 'era G$ 25.000' (regra 17).
+SH=r"""const RW=(id,t,s,v,v2)=>'<button type="button" class="sl418L" data-act="hopen" data-id="'+id+'" aria-expanded="false"><span class="t"><b>'+t+'</b><small>'+s+'</small></span><span class="v"><b>'+v+'</b>'+(v2?'<small>'+v2+'</small>':'')+'</span><i class="ch" aria-hidden="true">⌄</i></button>';
+ const DT=(L,lk)=>'<div class="sl418D">'+L.map(r=>'<div class="sl418R"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('')+'<div class="sl418E" style="text-align:center"><button type="button" style="background:none;border:0;color:var(--fg);font:600 16px system-ui;min-height:44px">'+lk+' ›</button></div></div>';
+ const OF=RW('P-of','SP57765 · oferta','Preço · você · 22/11 às 14:05','G$ 23.000','era G$ 25.000');
+ const MG=RW('P-mg','Atacado · margens','Preço · Titan · 22/11 às 13:55','10K 27%','era 18%');
+ const OFd=DT([['Quem','você, na ficha da peça'],['Válida até','30/11'],['Preço normal','G$ 25.000'],['Oferta','G$ 23.000 (−8%)']],'Mudar na ficha');
+ const MGd=DT([['Por quê','nenhuma tabela sem lucro'],['Óptica','70% → 56%'],['Vendedor','55% → 45%'],['Atacado 1K','40% → 36%'],['Atacado 5K','25% → 29%'],['Atacado 10K','18% → 27%']],'Ver as tabelas');"""
+def dia(pw):
+  b,pg,w=ap.abre(pw,'hist',True,'celular',base=True);w(1500)
+  r=[x for x in pg.query_selector_all('#v-hist button, #v-hist [data-act]') if '›' in (x.inner_text() or '')];r[0].click();w(1500)
+  return b,pg,w
 def hist(pw,qual):
-  b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
-  pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
+  b,pg,w=dia(pw)
+  pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}')
+  V5=pg.evaluate("()=>document.querySelector('button.sl418L[data-id=\"V-1995\"]').outerHTML")
   if qual=='dia':
-    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Histórico','Hoje','Domingo, 22 de novembro · 5 acontecimentos',0)+T('Tudo do dia',1)+
-      OF+MG+V6+V4+V5+
-      T('Fechamento do dia')+F('Vendido','G$ 195.000')+F('Reposição separada','G$ 59.141')+F('Contas separadas','G$ 57.500')+F('Colchão separado','G$ 7.098')+F('Caixa de melhorias','G$ 5.000')+F('Gastos extras','−G$ 0')+F('Lucro livre','G$ 66.261',1)+
-      LK('Dias anteriores')+'</div>'}""")
-  elif qual=='titan':
-    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Escritório do Titan','Histórico','Domingo, 22 de novembro · preços do dia',0)+T('Hoje · 22/11',1)+OF+MG+LK('Ver o dia inteiro')+'</div>'}""")
+    pg.evaluate("()=>{"+SH+r"""const v=document.getElementById('v-dia');const l=[...v.querySelectorAll('.lbl')].find(x=>/vendas do dia/i.test(x.textContent));l.textContent='Tudo do dia';
+      const c=v.querySelector('.sl418');c.insertAdjacentHTML('beforebegin','<div class="sl418">'+OF+'</div><div class="sl418">'+MG+'</div>')}""")
   else:
-    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('SP57765','Histórico','Óculos de leitura de acetato · só desta peça',0)+
-      T('Hoje · 22/11',1)+OF+V5+LK('Dias anteriores')+'</div>'}""")
-  pagina(pg,html);w(500)
-  # L4: letra do grupo diminui junto (uma função só) até o título mais longo caber
-  # a MESMA medida nas 3 portas (L3): a letra que coube no dia inteiro vale para todas
-  pg.evaluate("()=>{const B=[...document.querySelectorAll('.e49 b')],S=B.map(b=>b.nextElementSibling).filter(x=>x);let f=16;while(f>12&&[...B,...S].some(e=>e.scrollWidth>e.clientWidth+1)){f-=.5;B.forEach(e=>e.style.fontSize=f+'px');S.forEach(e=>e.style.fontSize=(f-3)+'px')}}")
-  pg.add_style_tag(content='#mainnav .mn{color:var(--mute)!important}#mainnav .mn,#mainnav .mn *{color:var(--mute)!important}#mainnav .mn svg,#mainnav .mn svg *{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
-  ov=pg.evaluate("()=>[...document.querySelectorAll('.sg77 button,.e49 b')].filter(e=>e.scrollWidth>e.clientWidth+1).map(e=>e.textContent)")
-  print(qual,'transborda:',ov)
-  confere(pg,'Histórico '+qual);x=shot(pg,'h67'+qual);b.close();return x
+    b.close();b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
+    pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
+    if qual=='titan':
+      html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Escritório do Titan','Histórico','Domingo, 22 de novembro · preços do dia',0)+T('Hoje · 22/11',1)+
+        '<div class="sl418">'+OF+'</div><div class="sl418">'+MG.replace('false','true')+MGd+'</div><div class="famC2" style="text-align:center;margin:32px 0"><button type="button" style="background:none;border:0;color:var(--accent,#f0a6c8);font:600 16px system-ui;min-height:44px">Ver o dia inteiro ›</button></div></div>'}""")
+    else:
+      html=pg.evaluate("(v5)=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('SP57765','Histórico','Óculos de leitura de acetato · só desta peça',0)+T('Hoje · 22/11',1)+
+        '<div class="sl418">'+OF.replace('false','true')+OFd+'</div><div class="sl418">'+v5+'</div><div class="famC2" style="text-align:center;margin:32px 0"><button type="button" style="background:none;border:0;color:var(--accent,#f0a6c8);font:600 16px system-ui;min-height:44px">Dias anteriores ›</button></div></div>'}""",V5)
+    pagina(pg,html)
+  w(500)
+  confere(pg,'Histórico '+qual);x=pg.screenshot(path='/tmp/h67%s.png'%qual,full_page=(qual=='dia'));b.close()
+  from PIL import Image as I;im=I.open('/tmp/h67%s.png'%qual);im.load();return im.copy()
 if __name__=='__main__':
  with sync_playwright() as pw:
   quadro('esboco_67_historico_do_dia.jpg',[('PROPOSTA · Resultados › Histórico','o dia inteiro · tudo com a hora',hist(pw,'dia')),
