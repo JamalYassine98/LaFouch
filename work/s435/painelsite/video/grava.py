@@ -14,7 +14,7 @@ def grava(nome,cfg,css=None,mexe=False,pronto=False):
     c=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,locale='pt-BR',record_video_dir=d,record_video_size={'width':390,'height':844})
     c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
     c.add_init_script("try{localStorage.setItem('lf_lang','pt');localStorage.setItem('lf_cfg',%r);sessionStorage.setItem('lf_ni','1')}catch(e){}"%json.dumps(cfg))
-    if pronto: c.add_init_script("window.__p58=1;document.documentElement.setAttribute('data-ev','bf');document.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('style');s.id='p58';s.textContent='.stage .sli{transition:none!important}';document.head.appendChild(s);setTimeout(()=>s.remove(),2500)})")
+    if pronto: c.add_init_script("window.__p58=1;(function go(){if(!document.documentElement||!document.head){return setTimeout(go,5)}document.documentElement.setAttribute('data-ev','bf');var st=document.createElement('style');st.textContent='#hdst .hdi img{opacity:0!important;transition:none!important}#hdst .hdi img.p58ok{opacity:1!important;transition:opacity .9s cubic-bezier(.4,0,.2,1)!important}#hdst .hdi img{animation-duration:10s!important}@keyframes hdkb{from{transform:scale(1)}to{transform:scale(1.025)}}';document.head.appendChild(st);var ult=null,k0=null,t=0;setInterval(function(){var im=document.querySelector('#hdst .hdi img');if(!im)return;var pronto=im.complete&&im.naturalWidth&&!im.classList.contains('lfq0')&&/^blob:/.test(im.src||'');if(im!==ult||im.src!==k0){ult=im;k0=im.src;t=performance.now()}if(pronto&&performance.now()-t>350&&!im.classList.contains('p58ok'))im.classList.add('p58ok')},30)})()")
     if css: c.add_init_script("document.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('style');s.textContent=%r;document.head.appendChild(s)})"%css)
     pg=c.new_page();pg.goto(U);pg.wait_for_timeout(5000)
     if mexe:
@@ -33,6 +33,6 @@ print(hoje,prop)
 f=O+'esboco_58e_efeitos.mp4'
 subprocess.run(['ffmpeg','-y','-loglevel','error','-i',hoje,'-i',prop,'-filter_complex',
  "[0:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='HOJE · 4 efeitos (inclina com o dedo, reflexo, slide que vira)':fontcolor=white:fontsize=12:x=12:y=20[a];"
- "[1:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='PROPOSTA · já pronto no 1º quadro · sem piscar · fade só entre fotos':fontcolor=white:fontsize=12:x=12:y=20[b];[a][b]hstack=inputs=2,format=yuv420p[o]",
+ "[1:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='RESULTADO FINAL · a foto aparece uma vez · sem piscar · respiração lenta':fontcolor=white:fontsize=12:x=12:y=20[b];[a][b]hstack=inputs=2,format=yuv420p[o]",
  '-map','[o]','-c:v','libx264','-preset','veryfast','-crf','23','-t','12',f],check=True)
 print('ok',f)
