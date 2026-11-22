@@ -94,7 +94,7 @@
 - **48-pecas-compras-parte-1** — aprovado (48a) 22/11 05:44 — vai no item 66 · 48b/48c superados (obsoletos)
 - **49-selo-no-botao-que-resolve** — 49a REPROVADO · 49b superado pelo 58 (Modelos vira filtro) · 49c superado — fechado
 - **50-giro-sobrando-e-lista** — superado pelo 52 (obsoletos 22/11)
-- **52-desfazer-giro-e-precos** — partes 1 e 2 aprovadas (15:38 e 16:17) — esperam o 'implementar' · partes 3–6 a fazer
+- **52-desfazer-giro-e-precos** — 52b/52d/52e no item 65 · 52a vai com o Titan
 - **53-destaque-da-semana-do-semp** — esboço pronto — esperando o dono
 - **54-precos-escritorio-do-guardiao** — aprovado 21/11 18:06 — espera o 'implementar' · setores e desconto no Vender a fazer
 - **55-desconto-do-guardiao-no-vender** — aprovado 21/11 18:15 — espera o 'implementar'
