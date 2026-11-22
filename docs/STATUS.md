@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
+| IDEIAS | IDEIAS 04: ferramentas que pegam o erro antes do dono | work/ideias/04-ferramentas |
 
 ## Fila
 

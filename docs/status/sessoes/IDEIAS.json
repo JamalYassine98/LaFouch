@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 04: ferramentas que pegam o erro antes do dono",
+ "arquivos": [
+  "work/ideias/04-ferramentas"
+ ],
  "ultimas": [
   {
    "t": 1795333768.2185452,
@@ -44,5 +46,5 @@
    "r": "IDEIAS: esboço 01 do Descubra seu formato (resultado elegante + precisão) na Fila como item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795333764.9289434
+ "leu": 1795334078.7271855
 }
