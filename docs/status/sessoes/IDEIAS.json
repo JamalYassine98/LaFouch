@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06g: opção Para presente no carrinho",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795372849.4121552,
+   "r": "IDEIAS 06g esboço pronto: Para presente (Fila 67)"
+  },
   {
    "t": 1795372454.8128173,
    "r": "IDEIAS 06f esboço pronto: página da seleção (Fila 66)"
@@ -40,10 +42,6 @@
   {
    "t": 1795367300.7692323,
    "r": "IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória"
-  },
-  {
-   "t": 1795362534.2679079,
-   "r": "IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64"
   }
  ],
  "leu": 1795372846.8611197

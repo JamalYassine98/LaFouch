@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | IDEIAS 06g: opção Para presente no carrinho | work/ideias/06-tematica |
 | SITE | Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js) | work/kit/mede.js, work/kit/mede.py, work/kit/mede_prova.py, work/s430/comparador/compara.py, work/s430/comparador/roteiro_site.py |
 
 ## Fila
@@ -150,6 +149,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 15:40 — IDEIAS: IDEIAS 06g esboço pronto: Para presente (Fila 67)
 - 22/11 15:34 — IDEIAS: IDEIAS 06f esboço pronto: página da seleção (Fila 66)
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
 - 22/11 15:24 — IDEIAS: IDEIAS 06e: cor única por data — BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo (Fila 65)
@@ -164,7 +164,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 14:48 — IDEIAS: IDEIAS 06c v2: neve com sensação de neve (Fila 65)
 - 22/11 14:17 — IDEIAS: IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha
 - 22/11 14:08 — IDEIAS: IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória
-- 22/11 12:48 — IDEIAS: IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
