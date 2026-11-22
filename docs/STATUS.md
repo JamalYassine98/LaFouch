@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | IDEIAS 06c v4: sem brilho | work/ideias/06-tematica |
 
 ## Fila
 
@@ -141,6 +140,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 15:03 — IDEIAS: IDEIAS 06c v4: sem brilho, movimento vem da campanha (Fila 65)
 - 22/11 15:00 — IDEIAS: IDEIAS 06c v3: movimento de luxo (Fila 65)
 - 22/11 14:57 — SITE: Ferramentas parte 1: comparador/Argus olha as 22 telas do site (roteiro único, nuvem simulada, logada); 50 combinações em 26 min, 0 diferenças; defeito plantado achado. Próximo: parte 2 (uma biblioteca de medidas).
 - 22/11 14:50 — NUVEM: App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'.
@@ -152,7 +152,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 12:36 — IDEIAS: IDEIAS 06: prancha Mães × Pais (Fila 64)
 - 22/11 12:30 — IDEIAS: IDEIAS 06 esboço pronto (Fila 64): temática estilo campanha
 - 22/11 12:22 — IDEIAS: IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)
-- 22/11 12:20 — IDEIAS: IDEIAS 05 APROVADO (Fila 61) — guardado na lista viva e na memória; espera o implementar do SITE
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.

@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06c v4: sem brilho",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795370633.972027,
+   "r": "IDEIAS 06c v4: sem brilho, movimento vem da campanha (Fila 65)"
+  },
   {
    "t": 1795370427.8122702,
    "r": "IDEIAS 06c v3: movimento de luxo (Fila 65)"
@@ -40,10 +42,6 @@
   {
    "t": 1795360965.1661427,
    "r": "IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)"
-  },
-  {
-   "t": 1795360844.4003854,
-   "r": "IDEIAS 05 APROVADO (Fila 61) — guardado na lista viva e na memória; espera o implementar do SITE"
   }
  ],
  "leu": 1795370578.3605907
