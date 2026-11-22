@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 05: celular tela cheia × PC topo novo",
- "arquivos": [
-  "work/ideias/05-animacoes"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795341140.8392453,
+   "r": "IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)"
+  },
   {
    "t": 1795339111.619566,
    "r": "IDEIAS 05: versão PC/tablet do esboço (Fila 61)"
@@ -40,10 +42,6 @@
   {
    "t": 1795289120.3420415,
    "r": "IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS"
-  },
-  {
-   "t": 1795287167.7890613,
-   "r": "IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS"
   }
  ],
  "leu": 1795341135.3654733
