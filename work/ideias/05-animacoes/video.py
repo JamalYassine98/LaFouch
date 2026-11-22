@@ -56,7 +56,7 @@ def copia(dst, extra):
     shutil.rmtree(dst, ignore_errors=True); shutil.copytree(SRC, dst, ignore=shutil.ignore_patterns('.git'))
     p = dst + '/js/lf-site.js'; open(p, 'a').write(extra)
 
-def grava(nome, porta, W=390, H=844):
+def grava(nome, porta, W=390, H=844, x=False):
     pc = W > 700
     pasta = '/tmp/va5-%s-%d' % (nome, W); shutil.rmtree(pasta, ignore_errors=True); os.makedirs(pasta)
     with sync_playwright() as pw:
@@ -70,7 +70,8 @@ def grava(nome, porta, W=390, H=844):
         pg.wait_for_timeout(600)
         for sel in ('#mnb', '#sbtn', '#bagbtn'):
             (pg.click(sel) if pc else pg.tap(sel)); pg.wait_for_timeout(1300)
-            pg.keyboard.press('Escape') if sel != '#bagbtn' else pg.evaluate("history.back()")
+            if x: (pg.click(sel) if pc else pg.tap(sel))
+            else: pg.keyboard.press('Escape') if sel != '#bagbtn' else pg.evaluate("history.back()")
             pg.wait_for_timeout(900)
         pg.evaluate("window.scrollTo({top:700,behavior:'instant'})"); pg.wait_for_timeout(700)
         (pg.click('#mnb') if pc else pg.tap('#mnb')); pg.wait_for_timeout(1400); pg.keyboard.press('Escape'); pg.wait_for_timeout(900)

@@ -41,3 +41,24 @@ A mesma regra, sem mudar nada: o menu cresce do ☰ e a busca da lupa (ela conti
 O topo B é só do celular: no PC o topo não muda.
 Vídeo: `esboco-05-animacoes-pc.mp4` (Hoje em cima, Proposta embaixo).
 Comparador no PC e no tablet: 0 falhas novas. As diferenças são só três: o menu abre embaixo do topo, o site atrás recua e a busca desce para baixo do topo.
+
+## Versão 2 (pedido do dono, 22/11 06:21–06:22): esta substitui as anteriores (regra 7)
+- **Celular:** cada camada (menu, busca, carrinho) ocupa a **tela toda embaixo do topo**, sem desfoque.
+  - O topo fica como hoje: ☰ e conta à esquerda, logo no centro, lupa e sacola à direita.
+- **PC e tablet (≥ 900 px):** topo novo, com logo à esquerda e lupa · sacola · ☰ à direita, 24 px entre eles.
+  - O botão Minha conta sai do topo e vira o cartão "Minha conta · Meus pedidos", que já está no topo do menu.
+  - O menu abre do lado direito, porque o ☰ está à direita. A busca continua no centro. O fundo desfoca.
+- **Nos dois:**
+  - a camada cresce do botão tocado e volta para ele (420/280 ms, uma curva);
+  - **o botão tocado vira ✕** no mesmo lugar e fecha a camada;
+  - saem o ✕ e o título "MENU" de dentro do menu e o ✕ de dentro do carrinho (regra 12d).
+  - O ✕ volta a ser o ícone quando a camada fecha, por qualquer caminho (✕, Esc, voltar ou tocar fora).
+- **Como fazer, além do que está acima:**
+  - a função `camada()` recebe o botão;
+  - o estado "aberto" do botão é uma classe só, que troca o ícone pelo ✕;
+  - a largura da camada vem de uma variável por aparelho: tela cheia no celular, 360 px (menu) ou 640 px (busca) no PC;
+  - no PC, a ordem do `.bar` é só `order`, e o logo sai do `position:absolute`.
+- **Vídeos:** `esboco-05b-celular.mp4` (Hoje | Proposta) e `esboco-05b-pc.mp4` (Hoje em cima, Proposta embaixo).
+  - Os vídeos anteriores (topo A/B) vão para `work/obsoletos/` quando o dono aprovar.
+- **Comparador:** 0 falhas novas em celular, celular com letra 1,2×, tablet e PC (`comp-8725*`).
+  - Diferenças esperadas: os ícones do topo do PC mudam de lugar, o Minha conta some do topo do PC, as camadas abrem embaixo do topo, o site atrás recua no PC, e no celular a busca e o menu ficam em tela cheia.

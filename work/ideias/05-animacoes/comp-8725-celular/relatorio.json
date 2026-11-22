@@ -1,0 +1,1272 @@
+[
+ {
+  "aparelho": "celular",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Menu aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "button.ib.lxpos.lx44",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Menu\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "div",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.fbt",
+    ""
+   ],
+   [
+    "mudou",
+    "a.dacc",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "div.hdt",
+    "topo 0→266, larg 406→374, alt 3853→367, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe wrap→hdt"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→0, topo 38→2, larg 98→60, alt 6→39"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Dicas e cuidados\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 16→197, topo 28→200, larg 342→161, alt 152→116"
+   ],
+   [
+    "mudou",
+    "span",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→16, topo 3367→28, larg 374→342, alt 486→152, fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0), classe lfft→—"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Dúvidas frequentes\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Leitura\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "esq 0→6, topo 0→7, larg 26→9, alt 24→7, classe p→h"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Atacado\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div.hcat",
+    "topo 655→777, alt 53→172, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400, classe htr→hcat"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, larg 111→98, alt 8→6"
+   ],
+   [
+    "mudou",
+    "path.corpoF",
+    "esq 12→23, topo 7→27, larg 8→65, alt 7→65, classe h→corpoF"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "esq 18→16, topo 926→0, larg 313→374, alt 142→3853, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 14px 400→16px 400, classe dct dct5→—"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Solar\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Ajuda\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "a \"Unissex\"",
+    "esq 209→247, larg 104→123"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 49→0, topo 4→2, larg 13→4, alt 2→6"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "esq 92→121"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→29, alt 39→11"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 123→71, topo 148→0, larg 129→58, classe hcd→—"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 29→0, larg 60→8, alt 11→1"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 976→1277"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→3, topo 5→12, larg 10→13, alt 10→5, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→17px 800"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Comprar\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 51→15"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Descubra o seu formato\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 734→976, classe hsh→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "b#dacn \"Entrar ou criar conta\"",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div.hbt",
+    "esq 0→67, topo 0→279, larg 63→240, alt 68→44, classe —→hbt"
+   ],
+   [
+    "mudou",
+    "a.dcm.lx44 \"›\"",
+    "esq 106→135"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 3→2, topo 12→2, alt 5→13, letra 17px 800→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 23→34, topo 27→34, larg 65→17, alt 65→16, classe corpoF→—"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Para lojistas\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→35, topo 16→0, larg 18→15, alt 18→15, letra 16px 400→11.5px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 15→20, topo 0→28, larg 15→94, alt 15→78, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400"
+   ],
+   [
+    "mudou",
+    "div.hsh",
+    "esq 151→0, topo 337→734, larg 72→374, alt 8→33, cor rgb(255, 255, 255)→rgb(17, 17, 17), classe hdots→hsh"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "esq 4→0, topo 129→0, larg 366→374, alt 79→372, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe nf→in"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Ferramentas\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→4, topo 2607→27, larg 374→366, alt 453→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe hata→—"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→49"
+   ],
+   [
+    "mudou",
+    "div#drw.on",
+    "topo 0→105, alt 903→798"
+   ],
+   [
+    "mudou",
+    "div.dfb \"· · © 2026 La Fouch\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 13→2, topo 11→16, larg 20→18, alt 20→18, letra 17px 800→16px 400"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 777→1019, alt 172→232, classe hcat→hg"
+   ],
+   [
+    "mudou",
+    "div#dset.dset",
+    "esq 0→18, topo 0→747, larg 349→370, alt 98→51, classe dhd→dset"
+   ],
+   [
+    "mudou",
+    "b \"Português\"",
+    "esq 219→275"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→5, topo 4→2, larg 11→5, alt 6→4"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2110→2607, alt 428→453, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe hcom hgu→hata"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "esq 6→0, topo 7→0, larg 9→26, alt 7→25, classe h→p"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "esq 3→0, topo 2→0, larg 9→26, alt 12→24, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400, classe —→p"
+   ],
+   [
+    "mudou",
+    "nav.dnv",
+    "topo 98→0, larg 349→406"
+   ],
+   [
+    "mudou",
+    "div.hdots",
+    "esq 71→151, topo 0→337, larg 58→72, alt 68→8, classe —→hdots"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2067→2564"
+   ],
+   [
+    "mudou",
+    "div.dct.dct5",
+    "topo 321→828, larg 313→370, alt 56→142, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→14px 400, classe dch→dct dct5"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 305→361"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Armações\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "a \"Masculino\"",
+    "esq 104→123, larg 104→123"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "esq 18→0, topo 845→0, larg 313→406, alt 51→3853, classe dset→wrap"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→16, topo 0→200, larg 374→161, alt 372→172, classe in→—"
+   ],
+   [
+    "mudou",
+    "a.dof.lx44.lxb \"Ofertas\"",
+    "larg 313→370, classe dof→dof lx44 lxb"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 20→26, topo 28→13, larg 94→19, alt 78→19, cor rgb(17, 17, 17)→rgb(212, 27, 68), letra 16px 400→16px 500"
+   ],
+   [
+    "mudou",
+    "span \"Idioma\"",
+    "larg 175→231"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1019→1320, alt 232→721"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→15, larg 4→24, alt 6→1"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 4→0, topo 27→3367, larg 366→374, alt 84→486, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgba(0, 0, 0, 0)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe —→lfft"
+   ],
+   [
+    "mudou",
+    "div#hnf.nf",
+    "esq 1→4, topo 234→129, larg 372→366, alt 218→79, classe hatt→nf"
+   ],
+   [
+    "mudou",
+    "small#dacs \"Minha conta · Meus pedidos ›\"",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div.dch",
+    "esq 0→18, topo 0→321, larg 406→370, alt 903→56, fundo rgba(0, 0, 0, 0.55)→rgba(0, 0, 0, 0), classe dsc→dch"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, larg 13→11, alt 13→6, letra 16px 400→11.5px 400"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "esq 0→12, topo 0→7, larg 26→8, alt 25→7, classe p→h"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→3, larg 5→9, alt 4→12"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 266→0, larg 374→63, alt 367→68, classe hdt→—"
+   ],
+   [
+    "mudou",
+    "div.hcd",
+    "esq 16→123, topo 0→148, larg 374→129, alt 3853→68, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe —→hcd"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "esq 38→66"
+   ],
+   [
+    "mudou",
+    "a \"Feminino\"",
+    "larg 104→123"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 1320→2110, alt 721→428, classe hg→hcom hgu"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 10→13, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→17px 800"
+   ],
+   [
+    "mudou",
+    "button",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "aside.dpn",
+    "larg 349→406, alt 903→798"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 1277→2067, classe hsh hsh1→hsh"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 15→0, topo 2→38, larg 24→111, alt 1→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→2, topo 0→2, larg 8→16, alt 1→16, cor rgb(17, 17, 17)→rgb(212, 27, 68), letra 16px 400→16px 500"
+   ],
+   [
+    "mudou",
+    "div.hatt",
+    "esq 0→1, topo 2564→234, larg 374→372, alt 33→218, classe hsh→hatt"
+   ],
+   [
+    "mudou",
+    "div.htr",
+    "esq 67→0, topo 279→655, larg 240→374, alt 44→53, cor rgb(255, 255, 255)→rgb(102, 102, 102), letra 16px 400→11.5px 400, classe hbt→htr"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 35→51"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Descubra o seu grau\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 34→27, topo 34→5, larg 17→7, alt 16→2"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "esq 16→0, topo 200→398, larg 161→374, alt 172→88, letra 13.5px 400→12px 400, classe —→fbt"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 27→0, larg 7→13"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Busca aberta",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.socat",
+    ""
+   ],
+   [
+    "mudou",
+    "div.sofld",
+    "esq 1→14, topo 1→12, larg 380→378, alt 72→48, fundo rgba(0, 0, 0, 0)→color(srgb 0.0666667 0.0666667 0.0666667 / 0.06), classe sobar→sofld"
+   ],
+   [
+    "mudou",
+    "div.sohint \"Busque pelo nome ou pelo códig\"",
+    "larg 368→394"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Leitura\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "input#q5.lx44",
+    "larg 282→308"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Solar\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "button.at.lx44 \"Atacado\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.socat",
+    "esq 1→6, topo 73→56, larg 380→394, alt 329→266, classe sores→socat"
+   ],
+   [
+    "mudou",
+    "small \"OU VEJA POR CATEGORIA\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.sobar",
+    "alt 903→72, fundo rgba(20, 10, 18, 0.45)→rgba(0, 0, 0, 0), classe sosc→sobar"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Armações\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.sopn",
+    "esq 12→0, topo 12→0, larg 382→406, alt 403→903"
+   ],
+   [
+    "mudou",
+    "button.of.lx44 \"Ofertas\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "div#sores.sores",
+    "esq 14→0, topo 12→72, larg 352→406, alt 48→329, fundo color(srgb 0.0666667 0.0666667 0.0666667 / 0.06)→rgba(0, 0, 0, 0), classe sofld→sores"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "celular",
+  "tela": "Carrinho aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Menu aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "button.ib.lxpos.lx44",
+    ""
+   ],
+   [
+    "sumiu",
+    "b \"Menu\"",
+    ""
+   ],
+   [
+    "sumiu",
+    "svg",
+    ""
+   ],
+   [
+    "sumiu",
+    "path",
+    ""
+   ],
+   [
+    "sumiu",
+    "div",
+    ""
+   ],
+   [
+    "sumiu",
+    "div.fbt",
+    ""
+   ],
+   [
+    "mudou",
+    "a.dacc",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "div.hdt",
+    "topo 0→266, larg 406→374, alt 3853→367, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe wrap→hdt"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 6→0, topo 38→2, larg 98→60, alt 6→39"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Dicas e cuidados\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 16→197, topo 28→200, larg 342→161, alt 152→116"
+   ],
+   [
+    "mudou",
+    "span",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→16, topo 3367→28, larg 374→342, alt 486→152, fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0), classe lfft→—"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Dúvidas frequentes\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Leitura\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "esq 0→6, topo 0→7, larg 26→9, alt 24→7, classe p→h"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Atacado\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div.hcat",
+    "topo 655→777, alt 53→172, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400, classe htr→hcat"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→6, larg 111→98, alt 8→6"
+   ],
+   [
+    "mudou",
+    "path.corpoF",
+    "esq 12→23, topo 7→27, larg 8→65, alt 7→65, classe h→corpoF"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "esq 18→16, topo 926→0, larg 313→374, alt 142→3853, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 14px 400→16px 400, classe dct dct5→—"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Solar\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Ajuda\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "a \"Unissex\"",
+    "esq 209→247, larg 104→123"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 49→0, topo 4→2, larg 13→4, alt 2→6"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Privacidade\"",
+    "esq 92→121"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→29, alt 39→11"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 123→71, topo 148→0, larg 129→58, classe hcd→—"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 29→0, larg 60→8, alt 11→1"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 976→1277"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→3, topo 5→12, larg 10→13, alt 10→5, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→17px 800"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Comprar\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 51→15"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Descubra o seu formato\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 734→976, classe hsh→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "b#dacn \"Entrar ou criar conta\"",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div.hbt",
+    "esq 0→67, topo 0→279, larg 63→240, alt 68→44, classe —→hbt"
+   ],
+   [
+    "mudou",
+    "a.dcm.lx44 \"›\"",
+    "esq 106→135"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 3→2, topo 12→2, alt 5→13, letra 17px 800→16px 400"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 23→34, topo 27→34, larg 65→17, alt 65→16, classe corpoF→—"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Para lojistas\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 2→35, topo 16→0, larg 18→15, alt 18→15, letra 16px 400→11.5px 400"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 15→20, topo 0→28, larg 15→94, alt 15→78, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400"
+   ],
+   [
+    "mudou",
+    "div.hsh",
+    "esq 151→0, topo 337→734, larg 72→374, alt 8→33, cor rgb(255, 255, 255)→rgb(17, 17, 17), classe hdots→hsh"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "esq 4→0, topo 129→0, larg 366→374, alt 79→372, cor rgb(17, 17, 17)→rgb(189, 189, 189), letra 16px 400→13.5px 400, classe nf→in"
+   ],
+   [
+    "mudou",
+    "small.dgl \"Ferramentas\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→4, topo 2607→27, larg 374→366, alt 453→84, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe hata→—"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→49"
+   ],
+   [
+    "mudou",
+    "div#drw.on",
+    "topo 0→105, alt 903→798"
+   ],
+   [
+    "mudou",
+    "div.dfb \"· · © 2026 La Fouch\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 13→2, topo 11→16, larg 20→18, alt 20→18, letra 17px 800→16px 400"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 777→1019, alt 172→232, classe hcat→hg"
+   ],
+   [
+    "mudou",
+    "div#dset.dset",
+    "esq 0→18, topo 0→747, larg 349→370, alt 98→51, classe dhd→dset"
+   ],
+   [
+    "mudou",
+    "b \"Português\"",
+    "esq 219→275"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 2→5, topo 4→2, larg 11→5, alt 6→4"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2110→2607, alt 428→453, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe hcom hgu→hata"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "esq 6→0, topo 7→0, larg 9→26, alt 7→25, classe h→p"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "esq 3→0, topo 2→0, larg 9→26, alt 12→24, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 11.5px 400→16px 400, classe —→p"
+   ],
+   [
+    "mudou",
+    "nav.dnv",
+    "topo 98→0, larg 349→406"
+   ],
+   [
+    "mudou",
+    "div.hdots",
+    "esq 71→151, topo 0→337, larg 58→72, alt 68→8, classe —→hdots"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2067→2564"
+   ],
+   [
+    "mudou",
+    "div.dct.dct5",
+    "topo 321→828, larg 313→370, alt 56→142, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→14px 400, classe dch→dct dct5"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 305→361"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Armações\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "a \"Masculino\"",
+    "esq 104→123, larg 104→123"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "esq 18→0, topo 845→0, larg 313→406, alt 51→3853, classe dset→wrap"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→16, topo 0→200, larg 374→161, alt 372→172, classe in→—"
+   ],
+   [
+    "mudou",
+    "a.dof.lx44.lxb \"Ofertas\"",
+    "larg 313→370, classe dof→dof lx44 lxb"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 20→26, topo 28→13, larg 94→19, alt 78→19, cor rgb(17, 17, 17)→rgb(212, 27, 68), letra 16px 400→16px 500"
+   ],
+   [
+    "mudou",
+    "span \"Idioma\"",
+    "larg 175→231"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1019→1320, alt 232→721"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→15, larg 4→24, alt 6→1"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 4→0, topo 27→3367, larg 366→374, alt 84→486, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgba(0, 0, 0, 0)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe —→lfft"
+   ],
+   [
+    "mudou",
+    "div#hnf.nf",
+    "esq 1→4, topo 234→129, larg 372→366, alt 218→79, classe hatt→nf"
+   ],
+   [
+    "mudou",
+    "small#dacs \"Minha conta · Meus pedidos ›\"",
+    "larg 229→286"
+   ],
+   [
+    "mudou",
+    "div.dch",
+    "esq 0→18, topo 0→321, larg 406→370, alt 903→56, fundo rgba(0, 0, 0, 0.55)→rgba(0, 0, 0, 0), classe dsc→dch"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 2→4, larg 13→11, alt 13→6, letra 16px 400→11.5px 400"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "esq 0→12, topo 0→7, larg 26→8, alt 25→7, classe p→h"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 5→3, larg 5→9, alt 4→12"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 266→0, larg 374→63, alt 367→68, classe hdt→—"
+   ],
+   [
+    "mudou",
+    "div.hcd",
+    "esq 16→123, topo 0→148, larg 374→129, alt 3853→68, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe —→hcd"
+   ],
+   [
+    "mudou",
+    "a.lx44 \"Termos\"",
+    "esq 38→66"
+   ],
+   [
+    "mudou",
+    "a \"Feminino\"",
+    "larg 104→123"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 1320→2110, alt 721→428, classe hg→hcom hgu"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 10→13, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→17px 800"
+   ],
+   [
+    "mudou",
+    "button",
+    "larg 313→370"
+   ],
+   [
+    "mudou",
+    "aside.dpn",
+    "larg 349→406, alt 903→798"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 1277→2067, classe hsh hsh1→hsh"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 15→0, topo 2→38, larg 24→111, alt 1→8"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 0→2, topo 0→2, larg 8→16, alt 1→16, cor rgb(17, 17, 17)→rgb(212, 27, 68), letra 16px 400→16px 500"
+   ],
+   [
+    "mudou",
+    "div.hatt",
+    "esq 0→1, topo 2564→234, larg 374→372, alt 33→218, classe hsh→hatt"
+   ],
+   [
+    "mudou",
+    "div.htr",
+    "esq 67→0, topo 279→655, larg 240→374, alt 44→53, cor rgb(255, 255, 255)→rgb(102, 102, 102), letra 16px 400→11.5px 400, classe hbt→htr"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 35→51"
+   ],
+   [
+    "mudou",
+    "a.lx44.lxb \"Descubra o seu grau\"",
+    "larg 313→370, classe —→lx44 lxb"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 34→27, topo 34→5, larg 17→7, alt 16→2"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "esq 16→0, topo 200→398, larg 161→374, alt 172→88, letra 13.5px 400→12px 400, classe —→fbt"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 27→0, larg 7→13"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Busca aberta",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.socat",
+    ""
+   ],
+   [
+    "mudou",
+    "div.sofld",
+    "esq 1→14, topo 1→12, larg 380→378, alt 72→48, fundo rgba(0, 0, 0, 0)→color(srgb 0.0666667 0.0666667 0.0666667 / 0.06), classe sobar→sofld"
+   ],
+   [
+    "mudou",
+    "div.sohint \"Busque pelo nome ou pelo códig\"",
+    "larg 368→394"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Leitura\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "input#q5.lx44",
+    "larg 282→308"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Solar\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "button.at.lx44 \"Atacado\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.socat",
+    "esq 1→6, topo 73→56, larg 380→394, alt 329→266, classe sores→socat"
+   ],
+   [
+    "mudou",
+    "small \"OU VEJA POR CATEGORIA\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.sobar",
+    "alt 903→72, fundo rgba(20, 10, 18, 0.45)→rgba(0, 0, 0, 0), classe sosc→sobar"
+   ],
+   [
+    "mudou",
+    "button.lx44 \"Armações\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 326→352"
+   ],
+   [
+    "mudou",
+    "div.sopn",
+    "esq 12→0, topo 12→0, larg 382→406, alt 403→903"
+   ],
+   [
+    "mudou",
+    "button.of.lx44 \"Ofertas\"",
+    "larg 332→358"
+   ],
+   [
+    "mudou",
+    "div#sores.sores",
+    "esq 14→0, topo 12→72, larg 352→406, alt 48→329, fundo color(srgb 0.0666667 0.0666667 0.0666667 / 0.06)→rgba(0, 0, 0, 0), classe sofld→sores"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "celular letra 1,2×",
+  "tela": "Carrinho aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ }
+]
