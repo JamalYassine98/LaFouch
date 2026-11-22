@@ -118,6 +118,7 @@
 - para **NUVEM**: Cartão vazio do teste de leitura: CONSERTADO no site 1795333368 (causa: o Mochi era posto antes de o cartão existir; no PC sumia sempre). Trava no Argus: todo c
 - para **NUVEM**: Voz 'Este teste fica melhor no celular': o dono confirmou que é a voz, não o chiado (as 3 amostras filtradas ficaram ruins). Medi o 'este teste' da fala nova × 
 - para **NUVEM**: Dono 22/11 06:13 APROVOU: o painel web (lafouch.com/admin) sai — mas SÓ depois que as telas do Site (58) estiverem no app (celular e PC), publicadas e testadas.
+- para **NUVEM**: Dono 22/11 06:28: o GUARDIÃO agora se chama TITAN (Técnico Integrado de Transações e Administração do Núcleo). Use 'Titan' nos textos novos e nos recados. Troca
 - para **SITE**: Dono 22/11 06:13 APROVOU: o painel web (lafouch.com/admin) sai — mas SÓ depois que as telas do Site (58) estiverem no app (celular e PC), publicadas e testadas.
 - para **SITE**: Dono 22/11 06:28: o GUARDIÃO agora se chama TITAN (Técnico Integrado de Transações e Administração do Núcleo). Use 'Titan' nos textos novos e nos recados. Troca
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
