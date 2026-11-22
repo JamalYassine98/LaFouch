@@ -113,7 +113,7 @@
 - **66-selecao-da-data** — esboço pronto — esperando o dono
 - **67-familia-site-no-app** — na fila — 'implementar' do dono 22/11 12:51 · APP · 3º (SITE/IDEIAS: Campanha e ordem pelo Semp; painel web sai depois)
 - **67-para-presente** — esboço pronto — esperando o dono
-- **68-destaque-da-semana-semp** — PARADO — espera o Semp refeito sobre a base nova (Marketing 1c é de 20/11, sem 'implementar'); dono 22/11 14:33
+- **68-destaque-da-semana-semp** — PARADO (ESBOCO 22/11 14:33): espera o Semp ser refeito sobre a base nova, depois do Titan — não usar o Marketing 1c
 
 ## Recados esperando
 
