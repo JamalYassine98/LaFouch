@@ -141,6 +141,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 12:18 — IDEIAS: IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)
 - 22/11 12:14 — IDEIAS: IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
 - 22/11 06:52 — IDEIAS: IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)
@@ -164,5 +165,4 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
 - 21/11 22:26 — APP: v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro).
-- 21/11 17:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
 - 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
