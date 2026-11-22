@@ -1,7 +1,10 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Ferramentas parte 1 (aprovada 22/11 02:22): o Argus/comparador olha todas as telas do site (roteiro único)",
+ "arquivos": [
+  "work/s430/comparador/compara.py",
+  "work/fiscal/argus.py"
+ ],
  "ultimas": [
   {
    "t": 1795341253.0000076,
@@ -44,5 +47,5 @@
    "r": "21/11 manhã: (1) URGENTE resolvido — câmera do formato do rosto e comparar voltaram (site 1795264209); (2) conferência contra a versão de 19/11: janelas soltas e avisos iguais; telas só com as mudanças aprovadas (work/s430/janelas/LEIA.md); (3) internet fraca: começo rápido + sem recarga na 1ª abertura (site 1795266930) — rede limpa: 4G fraco 31 s → ~15 s até a 1ª foto, 4G bom 6,1 → 1,8 s; (4) esperando o dono: 'implementar' do esboço 39 (preço exato, parte do site) e o esboço do logo leve (Fila 36). Porteiro 230 provas, 0 falhas. PRÓXIMO: internet fraca parte 2 (programa em pedaços)."
   }
  ],
- "leu": 1795341244.5862846
+ "leu": 1795367776.773968
 }

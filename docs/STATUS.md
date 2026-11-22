@@ -22,6 +22,7 @@
 | APP | 65a Inventário: topo com resumo, sem os números grandes, preços para corrigir no sino, botão na linha do título | src/11-estoque-lista.js, src/12-estoque-filtros-cadastro.js, src/14-estoque-abas.js, src/97-contagem.js, src/89-inicio.js, src/98z-pc-s244.js, src/98-inv-limpo.js, src/89-dash-abas.js, www/style.css, www/index.html, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
 | IDEIAS | IDEIAS 06c: animação do evento (Natal) | work/ideias/06-tematica |
+| SITE | Ferramentas parte 1 (aprovada 22/11 02:22): o Argus/comparador olha todas as telas do site (roteiro único) | work/s430/comparador/compara.py, work/fiscal/argus.py |
 
 ## Fila
 
