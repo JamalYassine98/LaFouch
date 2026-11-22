@@ -80,3 +80,11 @@ Comparador no PC e no tablet: 0 falhas novas. As diferenças são só três: o m
   - `esboco-05c-temas-pc.jpg` (Black Friday e Natal).
   - O tema foi forçado no simulador, por isso a faixa mostra o texto da Black Friday em todos.
 - **Notado, sem mudar:** a setinha ">" é cinza no menu e da cor do tema na busca. É a mesma função com desenho diferente (regra 15). Fica para o dono decidir.
+
+## Setinha › (aprovado pelo dono, 22/11 12:22)
+- A setinha › das linhas fica **cinza** no menu e na busca, com a cor de texto apagado do tema (`var(--mu)`). Isso vale para todos os temas.
+- A cor do tema fica só no destaque, como "Ofertas".
+- **Causa:** a busca tem uma regra própria, `#sov .socat button i{color:var(--ac)}`.
+- **Jeito natural:**
+  - uma regra só, a da família "linha com ›", serve ao menu e à busca;
+  - a cor da busca sai no mesmo passo.
