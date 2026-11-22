@@ -115,6 +115,7 @@
 - para **NUVEM**: CANCELA o pedido de 22/11 00:19 (resumo de vendas para o Raio-X): o dono ainda NÃO lança vendas reais neste sistema (não está terminado), então não há o que res
 - para **NUVEM**: Cartão vazio do teste de leitura: CONSERTADO no site 1795333368 (causa: o Mochi era posto antes de o cartão existir; no PC sumia sempre). Trava no Argus: todo c
 - para **NUVEM**: Voz 'Este teste fica melhor no celular': o dono confirmou que é a voz, não o chiado (as 3 amostras filtradas ficaram ruins). Medi o 'este teste' da fala nova × 
+- para **SITE**: Dono 22/11 06:13 APROVOU: o painel web (lafouch.com/admin) sai — mas SÓ depois que as telas do Site (58) estiverem no app (celular e PC), publicadas e testadas.
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
