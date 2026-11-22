@@ -100,6 +100,7 @@
 - **54-precos-escritorio-do-guardiao** — aprovado 21/11 18:06 — espera o 'implementar' · setores e desconto no Vender a fazer
 - **55-desconto-do-guardiao-no-vender** — aprovado 21/11 18:15 — espera o 'implementar'
 - **56-precificacao-guardiao-e-semp** — decidido em conversa (21/11 18:00–23:59) — esboços a fazer em partes
+- **57-raio-x-de-precos** — aprovado 22/11 00:19 — esperando o resumo de vendas da NUVEM e as vendas reais do dono
 
 ## Recados esperando
 
