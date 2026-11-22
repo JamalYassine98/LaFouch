@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06c v4: sem brilho",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795370427.8122702,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 05 APROVADO (Fila 61) — guardado na lista viva e na memória; espera o implementar do SITE"
   }
  ],
- "leu": 1795370425.2446985
+ "leu": 1795370578.3605907
 }
