@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | 41 parte 3: Galeria da peça (frente, 3/4 e giro que gira com o dedo) | src/97-estudio-galeria.js, src/97-estudio.js, www/style.css, tests/run.py |
-| ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
 
@@ -151,6 +150,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 00:26 — ESBOCO: 21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)
 - 22/11 00:10 — APP: v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça).
 - 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
 - 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
@@ -175,4 +175,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
 - 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
 - 21/11 11:12 — SITE: Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site.
-- 21/11 10:52 — IDEIAS: IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS
