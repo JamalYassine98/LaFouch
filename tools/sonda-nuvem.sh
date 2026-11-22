@@ -16,6 +16,7 @@ post() { curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X POST -H "Conten
 confere "reserva ação inválida" 400 "$(post reserva application/json '{"acao":"xyz"}')"
 confere "reserva ação inválida em texto" 400 "$(post reserva text/plain '{"acao":"xyz"}')"
 confere "reserva pagar sem login" 403 "$(post reserva application/json '{"acao":"pagar"}')"
+confere "reserva marcar rede da loja sem login" 403 "$(post reserva application/json '{"acao":"loja"}')"
 confere "cupom ação do dono sem login" 403 "$(post cupom application/json '{"acao":"lista"}')"
 confere "conta ação inválida" 400 "$(post conta application/json '{"acao":"xyz"}')"
 confere "codigo sem login" 401 "$(post codigo application/json '{"acao":"enviar"}')"

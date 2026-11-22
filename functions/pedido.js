@@ -6,8 +6,7 @@
 'use strict';
 const { Falha } = require('./falha');
 
-const HORA = 36e5;
-const LIMITE = { pedido: 10, comp: 10, cancel: 20, avise: 10 }; // por rede (e o pedido também por telefone), por hora
+const { HORA, LIMITE } = require('./rede'); // os números moram em rede.js (22/11: pedido 30 por rede, 5 por telefone)
 const ID_OK = /^[A-Za-z0-9_-]{4,40}$/;
 const CHAVES = {
   pedido: ['ts', 'nome', 'tel', 'lang', 'moeda', 'total', 'rosto', 'itens', 'pais', 'cod', 'ate', 'nac', 'doc', 'nasc', 'email', 'cidade', 'end', 'ent', 'endE', 'refE', 'depE', 'pag', 'uq', 'brl', 'pagar', 'teste', 'obsC', 'cup', 'cupd'],
@@ -47,9 +46,10 @@ async function entrega(db, b, agora, ipk) {
     if (p.cancelado) throw new Falha('cancelado', 409);
     if (tipo === 'comp' && p.pago) throw new Falha('pago', 409);
   }
-  if ((await db.conta(tipo + '_r' + ipk, agora)) > LIMITE[tipo]) throw new Falha('espera', 429);
+  // ipk vazio = rede da loja (o app do dono marcou): sem limite por rede
+  if (ipk && (await db.conta(tipo + '_r' + ipk, agora)) > LIMITE[tipo]) throw new Falha('espera', 429);
   const tel = so(doc.tel).slice(-9);
-  if (tipo === 'pedido' && tel.length >= 6 && (await db.conta('pedido_t' + tel, agora)) > LIMITE.pedido) throw new Falha('espera', 429);
+  if (tipo === 'pedido' && tel.length >= 6 && (await db.conta('pedido_t' + tel, agora)) > LIMITE.tel) throw new Falha('espera', 429);
   await db.cria(id, Object.assign({}, doc, tipo === 'pedido' ? {} : { tipo }), tipo);
   return { ok: true };
 }

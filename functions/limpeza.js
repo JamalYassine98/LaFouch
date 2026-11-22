@@ -26,6 +26,9 @@ async function limpa(db, agora) {
   r.limite = 0; r.pedidoIds = 0;
   for (const d of await db.velhos('limite', agora - 864e5)) { await db.apaga('limite', d.id); r.limite++; }
   for (const d of await db.velhos('pedidoIds', agora - 60 * 864e5)) { await db.apaga('pedidoIds', d.id); r.pedidoIds++; }
+  // 22/11: marca da rede da loja (vale 12 h; o app renova ao abrir na loja)
+  r.lojaRede = 0;
+  for (const d of await db.velhos('lojaRede', agora - 864e5)) { await db.apaga('lojaRede', d.id); r.lojaRede++; }
   // S5 (20/11): inscrição nas novidades que ninguém confirmou em 7 dias (o link venceu) — some
   r.inscricoes = 0;
   for (const d of await db.velhos('inscricoes', agora - 7 * 864e5)) { if (d.conf !== true) { await db.apaga('inscricoes', d.id); r.inscricoes++; } }

@@ -48,11 +48,16 @@ const pedido = (extra) => Object.assign({ ts: T0, nome: 'Cliente Teste', tel: '+
   db = banco();
   for (let i = 0; i < P.LIMITE.pedido; i++) await P.entrega(db, { id: 'lim' + i + 'abc', doc: pedido({ tel: '9810' + (10000 + i) }) }, T0 + i, 'rede2');
   const e11 = await erro(P.entrega(db, { id: 'lim99abc', doc: pedido({ tel: '981099999' }) }, T0 + 20, 'rede2'));
-  t('11º pedido da mesma rede na mesma hora → espera', e11 instanceof Falha && e11.motivo === 'espera' && e11.status === 429);
+  t('pedido além do limite da mesma rede na mesma hora → espera', e11 instanceof Falha && e11.motivo === 'espera' && e11.status === 429);
   t('na hora seguinte volta a aceitar', (await P.entrega(db, { id: 'lim98abc', doc: pedido({ tel: '981099998' }) }, T0 + P.HORA + 1000, 'rede2')).ok);
   db = banco();
-  for (let i = 0; i < P.LIMITE.pedido; i++) await P.entrega(db, { id: 'tel' + i + 'abc', doc: pedido() }, T0 + i, 'rede' + i);
-  t('11º pedido do mesmo telefone na mesma hora (de redes diferentes) → espera', ((await erro(P.entrega(db, { id: 'tel99abc', doc: pedido() }, T0 + 20, 'redeX'))) || {}).motivo === 'espera');
+  for (let i = 0; i < P.LIMITE.tel; i++) await P.entrega(db, { id: 'tel' + i + 'abc', doc: pedido() }, T0 + i, 'rede' + i);
+  t('pedido além do limite do mesmo telefone na mesma hora (de redes diferentes) → espera', ((await erro(P.entrega(db, { id: 'tel99abc', doc: pedido() }, T0 + 20, 'redeX'))) || {}).motivo === 'espera');
+  // 22/11: rede da loja (ipk vazio) não tem limite por rede — Black Friday no Wi-Fi da loja
+  db = banco();
+  let todos = true;
+  for (let i = 0; i < P.LIMITE.pedido * 3; i++) todos = todos && !!(await P.entrega(db, { id: 'loj' + i + 'abc', doc: pedido({ tel: '9820' + (10000 + i) }) }, T0 + i, '')).ok;
+  t('rede da loja: ' + P.LIMITE.pedido * 3 + ' pedidos na mesma hora passam (o limite por telefone continua)', todos);
   console.log(falhas.length ? `pedido: ${falhas.length} falha(s)` : `pedido: ${ok} testes ok`);
   process.exit(falhas.length ? 1 : 0);
 })();
