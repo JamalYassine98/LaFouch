@@ -2,27 +2,26 @@
 # Uso: python3 fiscal.py <porta> <saida_dir> [rapido]
 import sys,os,json,time;sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','testes'));from base import *  # o base do projeto (antes: um arquivo de fora, /home/claude/gz)
 PORTA=sys.argv[1];OUT=sys.argv[2];RAP=len(sys.argv)>3;os.makedirs(OUT+'/f',exist_ok=True)
-AUD=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'audita.js')).read()
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','kit'));import mede as M  # o medidor único (plano das ferramentas, parte 2)
 AP=[('celular pequeno',320,568),('celular',360,640),('iPhone SE',375,667),('iPhone',390,844),('Android grande',412,915),('iPhone Max',430,932),('celular deitado',844,390),
     ('tablet pequeno',600,960),('iPad em pé',768,1024),('iPad Air em pé',820,1180),('iPad deitado',1024,768),('iPad Air deitado',1180,820),('notebook',1366,768),('notebook grande',1536,864),('monitor',1920,1080),('monitor 2K',2560,1440)]
 if RAP:AP=[AP[3]]
 VAR=[('pt','normal')] if RAP else [('pt','normal'),('pt','grande'),('pt','maior'),('es','normal')]
 DRAW="""(rs)=>{document.querySelectorAll('.__fx').forEach(e=>e.remove());rs.forEach(([x,y,w,h])=>{const d=document.createElement('div');d.className='__fx';d.style.cssText=`position:fixed;left:${x-2}px;top:${y-2}px;width:${w+4}px;height:${h+4}px;border:2px solid #ff0040;background:#ff004022;z-index:2147483647;pointer-events:none;border-radius:3px`;document.body.appendChild(d)})}"""
 res=[];n=[0]
-def audita(pg,ap,var,tela):
-  try:iss=pg.evaluate(AUD)
+def audita(pg,ap,var,tela,r=None):
+  try:
+    r=r or M.mede(pg);por={e['id']:e for e in r['L']}
+    iss=[{'t':a['regra'],'d':a['d'],'r':(lambda e:[round(e['rx']-r['sx']),round(e['ry']-r['sy']),round(e['rw']),round(e['rh'])])(por[a['ids'][0]]) if a['ids'] and a['ids'][0] in por else None} for a in r['achados']]
   except Exception as e:iss=[{'t':'erro_fiscal','d':str(e)[:120]}]
   f=None
-  if [x for x in iss if x['t'] not in ('reticencias','sob_fixo')]:
+  if iss:
     f=f'f/{n[0]:04d}.png';n[0]+=1
-    pg.evaluate(DRAW,[x['r'] for x in iss if x.get('r') and x['t'] not in ('reticencias','sob_fixo')][:40]);pg.screenshot(path=OUT+'/'+f);pg.evaluate("document.querySelectorAll('.__fx').forEach(e=>e.remove())")
+    pg.evaluate(DRAW,[x['r'] for x in iss if x.get('r')][:40]);pg.screenshot(path=OUT+'/'+f);pg.evaluate("document.querySelectorAll('.__fx').forEach(e=>e.remove())")
   res.append({'ap':ap,'var':var,'tela':tela,'iss':iss,'foto':f})
 def rola(pg,ap,var,tela,alvo=None,maxp=8):
-  sel=alvo
-  h=pg.evaluate(f"(()=>{{const e={('document.querySelector('+json.dumps(sel)+')') if sel else 'null'};return e?e.scrollHeight:document.documentElement.scrollHeight}})()");vh=pg.evaluate('innerHeight')
-  for k in range(min(maxp,max(1,int((h-1)//vh)+1))):
-    pg.evaluate(f"(()=>{{const e={('document.querySelector('+json.dumps(sel)+')') if sel else 'null'};(e||window).scrollTo(0,{k*vh})}})()");pg.wait_for_timeout(450)
-    audita(pg,ap,var,f'{tela} · parte {k+1}')
+  # rola TUDO o que rola (a página, o catálogo em #vscr, a peça na camada) — o mesmo percurso do comparador (work/kit/mede.py)
+  m=[0];M.percorre(pg,lambda pg,k,y,r:(m.__setitem__(0,m[0]+1),audita(pg,ap,var,f'{tela} · parte {m[0]}',r)),max_y=maxp*900)
 def roda(p,ap,W,H,lg,tam):
   ls={'t_perm':'granted'};ls.update({'lf_lang':'es'} if lg=='es' else {});ls.update({'lf_zoom':'2'} if tam=='grande' else {})
   b,pg,errs=abre(p,lang='es-PY' if lg=='es' else 'pt-BR',W=W,H=H,perm=False,ls=ls,csp=True);var=f'{lg} · letra {tam}'

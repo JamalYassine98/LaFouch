@@ -12,6 +12,7 @@ sys.path.insert(0, AQUI); sys.path.insert(0, os.path.join(AQUI, '..', 's430', 'c
 import sim, mede as M, roteiro_site as RS
 from playwright.sync_api import sync_playwright
 OUT = '/tmp/mede_prova'; os.makedirs(OUT, exist_ok=True)
+if os.path.exists(OUT + '/relatorio.json'): os.remove(OUT + '/relatorio.json')   # nunca ler o resultado de uma rodada antiga
 BF = "localStorage.setItem('lf_cfg',JSON.stringify({ativo:true,evento:{tema:'bf'}}))"
 INIT = "try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang','pt')}catch(e){}"
 T = {t['nome']: t for t in RS.TELAS}

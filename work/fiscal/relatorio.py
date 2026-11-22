@@ -2,12 +2,11 @@ import json, sys, os, re, html, base64, io
 from PIL import Image
 src, out = sys.argv[1], sys.argv[2]
 R = json.load(open(os.path.join(src, 'resultado.json')))
-NOME = {'pagina_larga': 'Página rola de lado', 'fora_da_tela': 'Texto sai da tela', 'texto_cortado': 'Texto cortado',
-        'texto_sobre_texto': 'Texto em cima de texto', 'coberto': 'Texto escondido por outro elemento',
-        'botao_coberto': 'Botão escondido', 'botao_pequeno': 'Botão pequeno demais para o dedo',
-        'reticencias': 'Texto com “…”', 'sob_fixo': 'Atrás da barra fixa (normal)'}
-GRAVE = ['pagina_larga', 'texto_sobre_texto', 'fora_da_tela', 'texto_cortado', 'coberto', 'botao_coberto']
-LEVE = ['botao_pequeno']
+NOME = {'sobreposto': 'Texto em cima de texto', 'cortado': 'Texto cortado', 'fora da tela': 'Sai da tela', 'página larga': 'Página rola de lado',
+        'janela fora da tela': 'Janela fora da tela', 'coberto': 'Não dá para tocar (coberto)', 'quebrou a linha': 'Texto quebrou a linha',
+        'encosta na foto': 'Texto encostando no desenho da foto'}   # as regras do medidor único (work/kit/mede.js)
+GRAVE = list(NOME)
+LEVE = []
 # agrupa pelo mesmo defeito (tipo + elemento), juntando os aparelhos onde aparece
 g = {}
 for x in R:
@@ -19,7 +18,7 @@ for x in R:
         if e['ex'] is None: e['ex'] = (x, i)
 def foto(x, i):
     im = Image.open(os.path.join(src, x['foto'])).convert('RGB')
-    l, t, w, h = i['r']; W, H = im.size
+    W, H = im.size; l, t, w, h = i.get('r') or [0, 0, W, H]
     pad = 90; box = (max(0, l - pad), max(0, t - pad), min(W, l + w + pad), min(H, t + h + pad))
     im = im.crop(box); im.thumbnail((360, 260))
     b = io.BytesIO(); im.save(b, 'JPEG', quality=70)
@@ -44,7 +43,6 @@ small{{color:#888;font-weight:400}}.c{{display:flex;gap:12px;align-items:flex-st
 <h1>Fiscal do layout — lafouch.com (site de hoje)</h1>
 <p>{NT} combinações (aparelho × idioma × tamanho de letra) · {telas} telas vistas · só o que está realmente à vista conta (o que fica atrás do menu, da busca ou do carrinho abertos é ignorado). Nada foi mudado no site.</p>
 {bloco(GRAVE, 'Defeitos que se veem')}
-{bloco(LEVE, 'Botões pequenos para o dedo (menos de 36 px)')}
 '''
 open(out, 'w').write(doc)
 print(len(g), 'defeitos agrupados')

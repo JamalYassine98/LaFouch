@@ -28,6 +28,11 @@ def percorre(pg, parada=None, max_y=9000):
         while True:
             vai_para(pg, k, y); pg.wait_for_timeout(200)
             r = mede(pg)
+            if r['achados']:
+                # confirma: o que some 0,6 s depois era movimento (carrossel passando, animação de entrada), não defeito
+                pg.wait_for_timeout(600)
+                r2 = mede(pg)
+                r = dict(r2, achados=[a for a in r2['achados'] if (a['regra'], tuple(a['ids'])) in {(b['regra'], tuple(b['ids'])) for b in r['achados']}])
             if parada: parada(pg, k, y, r)
             for a in r['achados']:
                 ch = (a['regra'], tuple(a['ids']))

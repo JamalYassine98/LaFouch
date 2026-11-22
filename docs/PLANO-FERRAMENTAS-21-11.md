@@ -78,3 +78,13 @@ Não: cada parte tira o que substitui. O risco é o portão ficar frouxo — por
 - Site de hoje, 22 telas × celular e PC: 1 achado de verdade — "Ver este modelo" quebra em 2 linhas no Comparar do celular (regra L4). Vira esboço.
 - ACHADO: o comparador rolava só a janela; o catálogo rola dentro de #vscr e a peça dentro da camada — ele via só a 1ª tela delas. O `percorre` do mede.py resolve; entra na parte 2b.
 - Falta (2b): o comparador e o Argus usarem a biblioteca (sai a COLETA de dentro do compara.py, o audita.js do fiscal, o olho.js); prova no Argus: mede_prova com 5 de 5.
+
+### Parte 2b feita em 22/11 — comparador, fiscal e Argus medem pelo medidor único
+- Comparador: saiu a COLETA de dentro do compara.py; mede e rola por `work/kit/mede.py` (percorre: a página, o catálogo em #vscr, a peça na camada). As falhas são os achados do medidor; a foto de cada diferença é a parada em que a peça aparece.
+- Fiscal: saiu o `audita.js` (work/obsoletos/ferramentas-22-11); o fiscal mede pelo mesmo medidor e rola pelo mesmo percurso. Linha de base do visual refeita com a rodada completa (16 aparelhos × letras × espanhol).
+- Medidor confirma cada achado 0,6 s depois (o que some era movimento: carrossel, animação de entrada) — um "svg fora da tela" passageiro sumiu assim.
+- Argus roda também `mede_prova.py so-erros`: o medidor tem de seguir pegando os 5 erros de referência (parte "medidor", 5 provas).
+- Defeito plantado (base das janelas cortada): o comparador agora acusa FALHA NOVA "janela fora da tela" (antes só diferenças).
+- Falta (2c, combinar com a ESBOCO): o kit de esboço (kit.py usa olho.js, centro.js, sobre.js), o atlas e tools/teste-site/analise.py passarem ao medidor; olho.js sai depois.
+- Argus inteiro (22/11): 246 provas, 1 falha — "Animação · Carrinho · 1440px" com a máquina ocupada pela rodada completa do fiscal; sozinha, 2 de 2 passam (era carga, não defeito). Medidor 5 de 5.
+- Rodada completa do fiscal com o medidor novo (2206 telas): 3 achados reais que já existem no site (entraram na linha de base, viram esboço da ESBOCO): "Solicitar orçamento/presupuesto" quebra em 2 linhas no iPad em pé (Início e Menu); celular deitado, peça: "‹ Solar" em cima de "Total" na barra de compra; iPad deitado, peça: o coração de favoritar passa por baixo da faixa do evento.

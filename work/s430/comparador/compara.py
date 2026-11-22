@@ -10,18 +10,16 @@ O que faz, em cada aparelho (celular, celular com letra 1,2×, tablet, PC) e em 
   3. Lista toda diferença entre Hoje e Proposta:
        mudou de lugar ou tamanho (em relação à caixa-mãe: uma mudança não arrasta a tela inteira),
        mudou cor/fundo/letra/classe, apareceu, sumiu.
-  4. Procura falhas na Proposta e diz se são NOVAS ou se já existiam Hoje:
-       sobreposição (duas coisas de ler, com texto, uma em cima da outra na mesma camada de rolagem;
-       texto em cima de foto e o topo fixo passando por cima do conteúdo são desenho, não falha),
-       texto cortado (o texto não cabe na caixa),
-       fora da tela (passa da borda do aparelho).
+  4. Procura falhas na Proposta e diz se são NOVAS ou se já existiam Hoje — pelo medidor único (work/kit/mede.js:
+       sobreposto, cortado, fora da tela, página larga, janela fora da tela, coberto, quebrou a linha, encosta na foto),
+       rolando tudo o que rola (a página, o catálogo em #vscr, a peça na camada aberta).
   5. Gera um relatório (relatorio.json + texto) e uma imagem por tela com diferença (a faixa da tela onde ela está): Hoje × Proposta,
      com as diferenças marcadas (vermelho = falha nova, laranja = diferença).
 """
 import sys, os, json
 from playwright.sync_api import sync_playwright
 from PIL import Image, ImageDraw, ImageFont
-import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..', 'kit')); import sim
+import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..', 'kit')); import sim, mede as M   # UM simulador e UM medidor (work/kit)
 
 INIT = "try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang','pt')}catch(e){}"
 LETRA = "document.addEventListener('DOMContentLoaded',()=>{document.documentElement.style.fontSize='120%'});"
@@ -37,56 +35,6 @@ TELAS = RS.TELAS
 if _o.environ.get('CMP_SO_TRES'): TELAS = TELAS[:3]   # modo antigo (só Início, Catálogo e Peça)
 if _o.environ.get('CMP_TELAS'): TELAS = [t for t in TELAS if t['nome'] in _o.environ['CMP_TELAS'].split(',')]   # só algumas (conferir um esboço)
 
-COLETA = r"""()=>{
-const z=parseFloat(getComputedStyle(document.body).zoom)||1,W=innerWidth;
-// para ver o que está por cima de verdade, todo elemento responde ao toque durante a coleta
-const st=document.createElement('style');st.textContent='*{pointer-events:auto!important}';document.head.appendChild(st);
-const oculto=e=>{for(let x=e;x;x=x.parentElement){const k=getComputedStyle(x);if(k.display==='none'||k.visibility==='hidden'||+k.opacity===0)return true}return false};
-const caixa=e=>{const r=e.getBoundingClientRect();return r.width>=1&&r.height>=1&&!oculto(e)?r:null};
-const texto=e=>[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent.trim()).filter(Boolean).join(' ').replace(/\s+/g,' ').slice(0,40);
-const fixoDe=e=>{for(let x=e;x&&x!==document.body;x=x.parentElement){const p=getComputedStyle(x).position;if(p==='fixed'||p==='sticky')return x}return null};
-const dentroDeSvg=e=>!!(e.parentElement&&e.parentElement.closest('svg'));
-// recorte: a caixa visível de verdade (o que sai de um carrossel ou de uma caixa com rolagem não aparece)
-const recorte=e=>{let L=-1e9,T=-1e9,R=1e9,B=1e9;for(let x=e.parentElement;x&&x!==document.body;x=x.parentElement){const k=getComputedStyle(x);if(k.overflowX!=='visible'||k.overflowY!=='visible'){const r=x.getBoundingClientRect();if(k.overflowX!=='visible'){L=Math.max(L,r.left);R=Math.min(R,r.right)}if(k.overflowY!=='visible'){T=Math.max(T,r.top);B=Math.min(B,r.bottom)}}}return {L,T,R,B}};
-const out=[],cont={},M=new Map();
-for(const e of document.querySelectorAll('body *')){
-  if(/^(SCRIPT|STYLE|LINK|META|BR|NOSCRIPT|TEMPLATE)$/.test(e.tagName))continue;
-  const r=caixa(e);if(!r)continue;
-  let p=e.parentElement,pr=null;while(p&&!(pr=caixa(p)))p=p.parentElement;
-  const t=texto(e),tag=e.tagName.toLowerCase();
-  const id=tag+'|'+t+'|'+(e.getAttribute('aria-label')||'')+'|'+(e.getAttribute('data-open')||e.getAttribute('data-fav')||'');
-  cont[id]=(cont[id]||0)+1;
-  const c=getComputedStyle(e),folha=!dentroDeSvg(e)&&(!!t||/^(IMG|SVG|CANVAS|VIDEO|INPUT|SELECT|TEXTAREA)$/i.test(e.tagName));
-  let cortado=false;
-  if(t&&c.overflow!=='visible'&&(e.scrollWidth>e.clientWidth+1||e.scrollHeight>e.clientHeight+2))cortado=true;
-  if(t&&c.textOverflow==='ellipsis'&&e.scrollWidth>e.clientWidth+1)cortado=true;
-  const k=recorte(e),fora=folha&&Math.min(r.right,k.R)>W+1&&k.R>W+1||folha&&Math.max(r.left,k.L)<-1&&k.L<-1;
-  const o={id:id+'#'+cont[id],nome:tag+(e.id?'#'+e.id:'')+[...e.classList].slice(0,3).map(x=>'.'+x).join('')+(t?' "'+t.slice(0,30)+'"':''),
-    cls:[...e.classList].sort().join(' '),
-    x:(r.left-(pr?pr.left:0))/z,y:(r.top-(pr?pr.top:0))/z,w:r.width/z,h:r.height/z,
-    rx:r.left+scrollX,ry:r.top+scrollY,rw:r.width,rh:r.height,
-    folha,cortado,fora,cor:c.color,fundo:c.backgroundColor,letra:c.fontSize+' '+c.fontWeight};
-  out.push(o);if(folha&&t)M.set(e,{o,fixo:!!fixoDe(e)})}
-// sobreposição = duas coisas DE LER (com texto) se cobrindo, na mesma camada de rolagem
-// (texto em cima de foto é desenho; o topo fixo passando por cima do conteúdo ao rolar é desenho;
-//  um embaixo de uma janela não conta: ele nem aparece na pilha do que está desenhado ali; um dentro do outro não conta)
-const F=[...M.keys()],sob=[];
-for(let i=0;i<F.length;i++)for(let j=i+1;j<F.length;j++){const a=F[i],b=F[j];if(a.contains(b)||b.contains(a)||M.get(a).fixo!==M.get(b).fixo)continue;
-  const A=a.getBoundingClientRect(),B=b.getBoundingClientRect(),L=Math.max(A.left,B.left),R=Math.min(A.right,B.right),T=Math.max(A.top,B.top),D=Math.min(A.bottom,B.bottom);
-  if(R-L<1||D-T<1)continue;const x=(L+R)/2,y=(T+D)/2;
-  const pilha=document.elementsFromPoint(Math.min(Math.max(x,0),innerWidth-1),Math.min(Math.max(y,0),innerHeight-1));
-  const ia=pilha.findIndex(n=>n===a||a.contains(n)),ib=pilha.findIndex(n=>n===b||b.contains(n));
-  if(!(x>=0&&y>=0&&x<innerWidth&&y<innerHeight&&ia>=0&&ib>=0))continue;
-  // entre os dois, uma camada com fundo (janela, cartão por cima) esconde o de baixo: aí não é sobreposição que se vê
-  const cima=ia<ib?a:b,baixo=ia<ib?b:a;let tampa=false;for(let k=Math.min(ia,ib)+1;k<Math.max(ia,ib);k++){const n=pilha[k];
-    // o fundo de quem contém o de baixo é o chão dele; já o fundo de uma caixa que só contém o de cima (a janela) tampa o de baixo
-    if(n.contains(baixo)||cima.contains(n)||baixo.contains(n))continue;
-    const bg=getComputedStyle(n).backgroundColor,m=bg.match(/rgba?\(([^)]+)\)/),al=m?(m[1].split(',')[3]===undefined?1:+m[1].split(',')[3]):0;if(al>.5||n.tagName==='IMG'){tampa=true;break}}
-  if(!tampa)sob.push([M.get(a).o.id,M.get(b).o.id])}
-st.remove();
-return {L:out,sob}}"""
-
-
 def abre(b, url, ap, tela, foto=None):
     nome, w, h, mob, letra = ap
     c = sim.contexto(b, w, h, toque=mob, movimento=False, csp_livre=False, camera=True)
@@ -99,47 +47,25 @@ def abre(b, url, ap, tela, foto=None):
     c.route('**identitytoolkit**', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body='{"users":[{"emailVerified":true,"email":"maria@exemplo.com"}]}'))
     pg = c.new_page()
     RS.vai(pg, url, tela)
-    # fotos por faixa (sem "página inteira": esticar a janela muda a escala do site e mexe na tela)
-    L, S, fotos = [], set(), []
-    alto = pg.evaluate("document.documentElement.scrollHeight")
-    y = 0
-    while True:
-        pg.evaluate("y=>scrollTo(0,y)", y)
-        pg.wait_for_timeout(150)
-        r = pg.evaluate(COLETA)
-        if foto:
-            fn = '%s_%d.png' % (foto[:-4], len(fotos))
-            pg.screenshot(path=fn)
-            fotos.append((pg.evaluate("scrollY"), fn))
-        if not L:
-            L = r['L']
-        S |= {tuple(sorted(x)) for x in r['sob']}
-        y += h - 100
-        if y >= alto - 50 or y > 12000:
-            break
-    pg.evaluate("scrollTo(0,0)")
-    pg.wait_for_timeout(150)
-    L = pg.evaluate(COLETA)['L']
-    for e in L:
-        e['sob'] = 0
-    L = {'L': L, 'sob': S, 'fotos': fotos, 'alto_janela': h}
+    # rola tudo o que rola (a página, o catálogo em #vscr, a peça na camada) — o mesmo percurso do medidor
+    fotos = []
+    def parada(pg, k, y, r):
+        if not foto: return
+        fn = '%s_%d.png' % (foto[:-4], len(fotos))
+        pg.screenshot(path=fn)
+        fotos.append((fn, {e['id']: (e['rx'] - r['sx'], e['ry'] - r['sy'], e['rw'], e['rh']) for e in r['L']}))
+    achados, onde = M.percorre(pg, parada)
+    L = M.mede(pg)['L']   # as peças com tudo no começo (é por elas que Hoje e Proposta se comparam)
     c.close()
-    return L
+    return {'L': L, 'achados': achados, 'fotos': fotos, 'alto_janela': h, 'largura': w}
 
 
 def falhas(T):
-    """falhas da tela, cada uma com a sua identidade (para dizer se já existia Hoje)"""
+    """falhas da tela (os achados do medidor), cada uma com a sua identidade (para dizer se já existia Hoje)"""
+    por = {e['id']: e for e in T['L']}
     F = {}
-    L = T['L']
-    por = {e['id']: e for e in L}
-    for a, b in T['sob']:
-        if a in por and b in por:
-            F[('sobreposição', a, b)] = (por[a], por[b])
-    for e in L:
-        if e['cortado']:
-            F[('texto cortado', e['id'])] = (e,)
-        if e['fora']:
-            F[('fora da tela', e['id'])] = (e,)
+    for (regra, ids), a in T['achados'].items():
+        F[(regra,) + ids] = tuple(por.get(i, {'id': i, 'nome': i}) for i in ids) or ({'id': '', 'nome': a['d']},)
     return F
 
 
@@ -183,12 +109,13 @@ def ruido_de(H1, H2):
 
 
 def faixa(T, marcas):
-    """a foto da faixa onde está a primeira marca, e as marcas na posição dessa foto"""
+    """a foto da parada onde mais peças marcadas aparecem, e as marcas na posição daquela foto"""
     if not T['fotos']:
         return None, []
-    alvo = min(m[0]['ry'] for m in marcas) if marcas else 0
-    y, fn = min(T['fotos'], key=lambda f: abs((f[0] + T['alto_janela'] / 3) - alvo))
-    return (y, fn), [(dict(c, ry=c['ry'] - y), cor) for c, cor in marcas]
+    def vistas(F):
+        return [(F[1][e['id']], cor) for e, cor in marcas if e.get('id') in F[1] and -10 < F[1][e['id']][1] < T['alto_janela'] - 10 and F[1][e['id']][2] > 0]
+    F = max(T['fotos'], key=lambda F: len(vistas(F)))
+    return F[0], vistas(F)
 
 
 def imagem(TH, TP, marcas_h, marcas_p, titulo, saida):
@@ -204,10 +131,10 @@ def imagem(TH, TP, marcas_h, marcas_p, titulo, saida):
     def pinta(fn, M):
         I = Image.open(fn).convert('RGB')
         d = ImageDraw.Draw(I)
-        for c, cor in M:
-            d.rectangle([c['rx'] - 3, c['ry'] - 3, c['rx'] + c['rw'] + 3, c['ry'] + c['rh'] + 3], outline=cor, width=4)
+        for (x, y, w, h), cor in M:
+            d.rectangle([x - 3, y - 3, x + w + 3, y + h + 3], outline=cor, width=4)
         return I
-    a, b = pinta(fh[1], mh), pinta(fp[1], mp)
+    a, b = pinta(fh, mh), pinta(fp, mp)
     W = a.width + b.width + 24
     H = max(a.height, b.height) + 44
     out = Image.new('RGB', (W, H), 'white')
@@ -253,7 +180,7 @@ def main():
                     mh = [(e, LAR) for t, n, d, _, e in D if e]
                     imagem(H1, P, mh, mp, ap[0] + ' · ' + tela['nome'], os.path.join(pasta, tag + '.jpg'))
                 for T in (H1, P):
-                    for _, fn in T['fotos']:
+                    for fn, _ in T['fotos']:
                         os.remove(fn)
         b.close()
     json.dump(rel, open(os.path.join(pasta, 'relatorio.json'), 'w'), ensure_ascii=False, indent=1)

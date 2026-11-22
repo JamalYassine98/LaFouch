@@ -42,6 +42,8 @@ def comparador_le():
     return out
 PC = comparador_liga()
 if PC: P.append(PC)
+# plano das ferramentas, parte 2: o medidor único (work/kit/mede.js) tem de continuar pegando os 5 erros de referência do dono
+if not SO_CMP: P.append(subprocess.Popen(['python3', os.path.join(D, '..', 'kit', 'mede_prova.py'), 'so-erros'], stdout=open(f'{OUT}/log_medidor.txt', 'w'), stderr=subprocess.STDOUT))
 for p in P: p.wait()
 for sv in SERV: sv.kill()
 # provas de tempo: sozinhas, com a máquina livre
@@ -52,6 +54,10 @@ for i in range(len(grupos)):
     f = f'{OUT}/provas_{i}.json'
     if os.path.exists(f): R += json.load(open(f))['res']
     else: R.append({'parte': '?', 'nome': f'grupo {grupos[i]}', 'ok': False, 'grave': True, 'd': 'as provas não terminaram (ver log)'})
+try:
+    for e in ([] if SO_CMP else json.load(open('/tmp/mede_prova/relatorio.json'))['erros']):
+        R.append({'parte': 'medidor', 'nome': 'medidor pega: ' + e['erro'], 'ok': e['pegou'], 'grave': True, 'd': ('regra “%s”: ' % e['regra']) + ('; '.join(e['achados'][:2]) if e['pegou'] else 'NÃO pegou' + (' (a tela limpa acusou: ' + '; '.join(e['limpo_acusou'][:2]) + ')' if e['limpo_acusou'] else ''))})
+except Exception as e: R.append({'parte': 'medidor', 'nome': 'medidor pega os erros de referência', 'ok': False, 'grave': True, 'd': 'a prova não rodou: ' + str(e)[:80]})
 # regras do Firestore (12/11/2026): o que o site manda tem que caber nas regras do projeto
 try:
     for x in ([] if SO_CMP else json.loads(subprocess.run(['python3', os.path.join(D, 'regras.py')], capture_output=True, text=True).stdout)):
@@ -67,7 +73,6 @@ try:
     import re
     for x in ([] if SO_CMP else json.load(open(OUT + '/visual/resultado.json'))):
         for i in x['iss']:
-            if i['t'] in ('sob_fixo', 'reticencias', 'botao_pequeno'): continue
             k = i['t'] + '|' + x['tela'].split(' · parte')[0] + '|' + re.sub(r'\(\d+×\d+ px\)', '', i['d'])[:90]
             if k not in base: VIS.append(k)
 except Exception as e: VIS.append('fiscal visual não terminou: ' + str(e)[:80])

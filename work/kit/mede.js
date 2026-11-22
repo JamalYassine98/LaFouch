@@ -115,4 +115,4 @@ for(const e of document.querySelectorAll('button,a[href],[role=button],input,sel
   const ft=fixoDe(t);if(!ft||ft.contains(e))continue;
   if(!fe)continue; // conteúdo rolando por baixo de uma barra fixa: desenho
   A.push({regra:'coberto',ids:[idDe(e),idDe(t)],d:'não dá para tocar: '+(e.getAttribute('aria-label')||e.innerText||e.tagName).trim().slice(0,30)+' está embaixo de '+(t.innerText||t.className||t.tagName).toString().trim().slice(0,30)})}
-return {L:out,sob,achados:A}}
+return {L:out,sob,achados:A,sx:scrollX,sy:scrollY}}
