@@ -1,6 +1,6 @@
 # Compras · Parte A — a lógica da compra (sem tela)
 
-Esboço ESBOCO/S435 · 21/11/2026. Base: direção aprovada 12:12 (Peças = Inventário · Estúdio · Compras) e decisão do dono 12:51.
+Esboço ESBOCO/S435 · 21/11/2026, atualizado 22/11 05:50 com os aprovados 51/51b (versão anterior em work/obsoletos/s435-superados-21-11/). Base: direção aprovada 12:12 (Peças = Inventário · Estúdio · Compras) e decisão do dono 12:51.
 
 ## 1. A lista pede VAGAS, não modelos
 
@@ -15,31 +15,28 @@ A vaga é calculada de novo todo dia a partir das vendas. Ela nunca acumula mode
 
 ## 2. Três tipos de modelo, três jeitos de repor
 
+Quem decide o tipo é o **fluxo** (seção 7), não a curva ABC nem os dias parado.
+
 | O modelo que acabou | O que a lista propõe |
 |---|---|
-| **Estrela** (vende muito) | 1º o **mesmo** modelo. Se a distribuidora não tiver, um **equivalente** de preço parecido; pode ser um pouco mais caro. O Guardião confere se a margem continua boa. |
+| **Estrela** (fluxo acima da média) | 1º o **mesmo** modelo. Se a distribuidora não tiver, um **equivalente** de preço parecido; pode ser um pouco mais caro. O Guardião confere se a margem continua boa. Nunca é trocada enquanto der para repor. |
 | **Normal** | A vaga aberta. Qualquer modelo que sirva para ela. |
-| **Fracasso** (não vendeu ou ficou parado) | **Não repõe.** A vaga só reabre se outra coisa da mesma família estiver vendendo, e com alternativas melhores. |
+| **Fracasso** (fluxo abaixo da média, mesmo com oferta) | Não repõe **o mesmo**. A vaga já traz as **alternativas para comprar agora**: as maiores tendências do mesmo tipo, mantendo o equilíbrio de material (esboço 51, quadro 2). |
 
-O app já tem os dados para separar os três:
-- **Estrela:** curva A da Curva ABC e giro rápido.
-- **Fracasso:** parado há 60 dias ou mais, ou "sobrando".
-- **Normal:** o resto.
+## 3. O caminho de cada vaga (esboços 51 e 51b, aprovados 22/11)
 
-## 3. O caminho de cada vaga
+1. **Vaga aberta.** O app calcula a vaga pelas vendas, todo dia.
+2. **Sugestão.** Primeiro o app copia o seu jeito: o que você costuma comprar para aquela vaga. Só depois o Semp sugere modelos melhores, e o Guardião confere o preço (essência do projeto, dono 22/11 00:21).
+3. **Pedida.** "Pedir" junta todas as vagas sem fechar numa **mensagem só, em espanhol**. Você escolhe no próprio WhatsApp para quem mandar: uma distribuidora ou várias. Não precisa escolher a distribuidora antes. A vaga fica "pedida · esperando resposta", sem prazo: ela não volta sozinha.
+4. **Fechada.** Um toque em **"Fechei com…"** diz a distribuidora, o modelo, as peças e o custo, e o Guardião diz se a margem é boa. A vaga diminui na hora; se ainda faltar, o resto continua pedida.
+5. **Chegou.** "Chegou mercadoria" (no "+" do Inventário) puxa o que foi fechado e confere o que chegou e o que faltou. A peça vai para o Estúdio e depois para "Completar peça do Estúdio".
+6. **Ninguém tinha (51b).** Três saídas: **procurar parecido** (outro material ou formato que vende, ou custo um pouco maior) · **avisar quando aparecer** (o Semp confere as distribuidoras e avisa no sino) · **deixar sem** (só quando ninguém está esperando; reabre no primeiro "me avise").
 
-1. **Vaga aberta.** O app calcula a vaga pelas vendas.
-2. **Sugestão.** Hoje é você quem escolhe o modelo. Depois, o Semp mostra os modelos das distribuidoras que servem para a vaga, e o Guardião confere o preço.
-3. **Procurando.** "Pedir ao fornecedor" manda a mensagem em espanhol. Você manda a mesma vaga para **várias distribuidoras**, até uma atender. A vaga fica "procurando · mandada a 3". Não tem prazo: ela não volta sozinha (dono 12:58).
-4. **Fechado.** Quando uma distribuidora atende, um toque em **"Fechei com…"** diz com quem, qual modelo, quantas peças e por quanto. A vaga diminui na hora. Se ainda faltar, o resto continua procurando. As outras distribuidoras ficam como "não precisa mais".
-5. **Chegou.** "Chegou mercadoria" puxa o que foi fechado e confere o que chegou e o que faltou. A peça vai para o Estúdio e depois para "A completar".
+## 4. Como a lista se atualiza
 
-## 4. Para elaborar juntos: como a lista se atualiza
-
-Proposta para começar a conversa:
-- **Sozinha, todo dia:** as vendas abrem vagas, e o que chega pelo "Chegou mercadoria" fecha vagas.
-- **Por você, com um toque:** "Fechei com…" (a compra combinada) e "Ninguém tinha" (a vaga sai da lista por um tempo, ou muda a faixa de custo).
-- **Pelo Semp, depois:** troca o modelo sugerido quando aparece um melhor numa distribuidora.
+- **Sozinha, todo dia:** as vendas abrem vagas e o "Chegou mercadoria" fecha.
+- **Por você, com um toque:** "Fechei com…" e "Ninguém tinha".
+- **Pelo Semp:** troca a sugestão quando aparece um modelo melhor numa distribuidora, e avisa quando aparece o que ninguém tinha.
 
 ## 5. De onde vêm os dados (dono 21/11 13:22–13:25)
 
