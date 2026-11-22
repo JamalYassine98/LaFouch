@@ -89,15 +89,14 @@
         act: 'dtab',
         id: 'giro'
       });
-    var pa = parados().length;
+    var pa = invParados().length;
     if (pa)
       it.push({
         t: 'Estoque parado',
         s: pa + ' produto(s) sem vender há 60 dias ou mais',
         c: 'var(--warn)',
         b: 'Ver peças',
-        act: 'dtab',
-        id: 'giro'
+        act: 'invParSob'
       });
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : Infinity;
     if (S.sales.length && dias >= 7)

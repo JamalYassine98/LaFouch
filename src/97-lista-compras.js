@@ -283,8 +283,12 @@
       '<small>Tem ' + b.stock + ' · <b class="lcSo">Sobra ' + b.sobra + '</b>' + (d ? ' · acaba em ~' + d + ' dias' : '') + '</small>' +
       (b.of ? '<small class="lcOfV">A oferta valeu? Economizou ' + usd(b.of.econ) + ' · ' + (vira ? 'ainda não: o extra está parado mais tempo do que a economia compensa' : 'sim, se vender no ritmo atual') + '</small>' : '') +
       (vira ? '<small class="lcVira">vai virar parada</small>' : '') +
-      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
+      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? lcOfBtn(b.m) : '') + '</span></div>'
     );
+  }
+  // "Oferta ›" de uma peça (Sobrando aqui e Parados e sobrando no Inventário): abre a janela Oferta do produto
+  function lcOfBtn(m) {
+    return '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(m.tipo + '|' + m.ref) + '">Oferta ›</button>';
   }
   // agrupa pelo tipo, na ordem em que aparece (a lista já vem do mais urgente)
   function lcGrupos(l, fn) {
@@ -301,7 +305,7 @@
   function lcHtml() {
     var L = lcLista(),
       rp = fxRepo(),
-      h = '<section class="card col lcCard" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
+      h = '<section class="card col lcCard lcLs" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
         (S.lcCalc ? '<div class="hint lcCalcT" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +. Sobrando = mercadoria acima do ideal.</div>' : '');
     h += lcPedHtml();
     if (L.novo.length)
@@ -460,12 +464,9 @@
     });
   };
   ACT.lcOferta = function (id) {
-    var p = String(id).split('|');
-    S.tipo = p[0];
-    S.open = S.todos ? p[0] + '|' + p.slice(1).join('|') : p.slice(1).join('|');
-    S.det = true;
-    S.lotesView = false;
-    setView('estoque');
+    var p = String(id).split('|'), ref = p.slice(1).join('|');
+    S.ofOpen = ref;
+    prodAbre(p[0], ref);
   };
   ACT.lcPedFim = function () {
     S.lcPed = null;

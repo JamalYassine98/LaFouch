@@ -78,7 +78,7 @@
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
     ['giro', 'Giro do estoque', 'Números › Giro', 'giro parado vitrine da semana lista de compras'],
-    ['parado', 'Estoque parado (vender com saída)', 'Números › Giro › Estoque parado', 'parado encalhado liquidacao saida vender com saida oferta'],
+    ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
     ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
     ['ped', 'Pedidos do site', 'Início › Pedidos', 'pedido site reserva pix'],
@@ -163,12 +163,8 @@
     else if (k === 'fun') {
       if (v === 'repo') {
         if (window.__lcIrGiro) window.__lcIrGiro();
-      } else if (v === 'parado') {
-        S.dTab = 'giro';
-        S.dfold = S.dfold || {};
-        S.dfold.par = true;
-        setView('dash');
-      } else inicioGo(v);
+      } else if (v === 'parado') setView('parsob');
+      else inicioGo(v);
     }
     window.scrollTo(0, 0);
   }

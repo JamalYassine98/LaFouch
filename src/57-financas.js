@@ -508,10 +508,11 @@
       }),
       now = Date.now(),
       total = 0,
-      parado = 0;
+      parado = invParados().reduce(function (a, m) {
+        return a + m.costUsd;
+      }, 0);
     st.forEach(function (m) {
       total += m.costUsd;
-      if ((now - (m.last || S.appStart || now)) / DAY >= 60) parado += m.costUsd;
     });
     var lucro30 = S.sales
       .filter(function (s) {

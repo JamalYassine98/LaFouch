@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 625;
+  var APP_BUILD = 626;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.50'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.51'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -3693,7 +3693,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       hd.appendChild(hs);
       rows.appendChild(hd);
     }
-    refs.forEach(function (r) {
+    // um cartão por modelo (o grupo de modelos com o mesmo nome é um cartão só) — 24 por página (src/53p-paginas.js)
+    var gVisto = {},
+      unid = refs.filter(function (r) {
+        var g = gOf[r];
+        if (drill) return g === drill;
+        if (!g) return true;
+        if (gVisto[g]) return false;
+        return (gVisto[g] = 1);
+      }),
+      pg = paginas('inv', unid.length, pgSig(unid, S.sortO + '|' + (S.todos ? '*' : S.tipo)));
+    unid.slice(pg.de, pg.ate).forEach(function (r) {
       var gk = gOf[r];
       if (drill) {
         if (gk !== drill) return;
@@ -3768,24 +3778,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             render();
             return;
           }
-          if (S.todos) {
-            S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
-            S.todos = false;
-            S.lotesView = false;
-            S.tipo = ri[0].tipo;
-            S.fmtF = 'all';
-            S.corF = 'all';
-            S.q = '';
-          }
-          S.open = rr;
-          S.det = true;
-          S.selItem = null;
-          S.detCor = '';
-          S.detVr = null;
-          S.qty = 1;
-          S.msg = '';
-          render();
-          prodTopo($('detail')); // v474: o produto abre no topo (igual ao Catálogo), sem rolar no meio da animação
+          prodAbre(ri[0].tipo, rr);
         },
         r === openRef
       );
@@ -3977,6 +3970,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       rows.appendChild(
         mk('div', 'note n-warn', 'Nada com esse filtro. Tire um filtro ou dê entrada de estoque.')
       );
+    paginador(pg, rows);
+    invFim(rows.parentNode, !drill && !S.pdMode);
 
     var lines = fl.filter(function (i) {
       return i.ref === effRef;
@@ -4230,7 +4225,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._known = known;
     renderGuia();
   }
-
+  // Abre a ficha de um produto no Inventário (o cartão e o "Oferta ›" das listas usam esta): sai de "Todos" e de outro tipo
+  // para o tipo dele, sem filtro que o esconda; o produto abre no topo (v474, igual ao Catálogo).
+  function prodAbre(tipo, ref) {
+    if (S.todos || S.tipo !== tipo) {
+      if (S.todos) S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
+      S.todos = false;
+      S.lotesView = false;
+      S.tipo = tipo;
+      S.fmtF = 'all';
+      S.corF = 'all';
+      S.q = '';
+    }
+    S.open = ref;
+    S.det = true;
+    S.selItem = null;
+    S.detCor = '';
+    S.detVr = null;
+    S.qty = 1;
+    S.msg = '';
+    if (S.view === 'estoque') render();
+    else setView('estoque');
+    prodTopo($('detail'));
+  }
   // ===== Estoque: painéis de filtro, lista de códigos e abertura/fechamento do cadastro. =====
   $('mV').onclick = function () {
     S.mode = 'venda';
@@ -10628,6 +10645,81 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     })[0];
     return k || v[v.length - 1].fmt || '';
   }
+  // ===== PÁGINAS — um componente só para as listas longas do app (esboço 52d, "implementar" do dono 22/11/2026 12:51) =====
+  // 24 por página · "Anterior · 1 de 3 · Próxima" embaixo (dois botões grandes iguais; o que não anda fica apagado) ·
+  // deslizar o dedo na lista troca de página · o app guarda a página de cada lista (volta à 1ª quando a lista muda).
+  var PG_TAM = 24;
+  function pgTodas() {
+    try {
+      return JSON.parse(localStorage.getItem('lf_pg') || '{}') || {};
+    } catch (e) {
+      return {};
+    }
+  }
+  // identidade curta de uma lista (o que está nela, não a ordem) — mudou o filtro ou a busca, muda a identidade
+  function pgSig(ids, extra) {
+    var s = (extra || '') + '|' + ids.slice().sort().join('\n'),
+      h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return ids.length + ':' + (h >>> 0).toString(36);
+  }
+  // em que página a lista está: {chave, sig, p, n, de, ate}
+  function paginas(chave, total, sig) {
+    var n = Math.max(1, Math.ceil(total / PG_TAM)),
+      g = pgTodas()[chave],
+      p = g && g.s === sig ? g.p | 0 : 0;
+    p = Math.min(Math.max(0, p), n - 1);
+    return { chave: chave, sig: sig, p: p, n: n, de: p * PG_TAM, ate: Math.min(total, (p + 1) * PG_TAM) };
+  }
+  function pgVai(pg, lista, d) {
+    var p = pg.p + d;
+    if (p < 0 || p >= pg.n) return;
+    var o = pgTodas();
+    o[pg.chave] = { s: pg.sig, p: p };
+    try {
+      localStorage.setItem('lf_pg', JSON.stringify(o));
+    } catch (e) {}
+    render();
+    // a página nova começa do alto da lista
+    var y = lista.getBoundingClientRect().top + (window.scrollY || 0) - 96;
+    if ((window.scrollY || 0) > y) window.scrollTo(0, Math.max(0, y));
+  }
+  // a barra embaixo da lista (some com uma página só) + o deslizar na própria lista
+  function paginador(pg, lista) {
+    if (lista._pgBar && lista._pgBar.parentNode) lista._pgBar.remove();
+    lista._pgBar = null;
+    lista._pg = pg;
+    if (!lista._pgSw) {
+      lista._pgSw = 1;
+      var t0 = null;
+      lista.addEventListener('touchstart', function (e) {
+        var t = e.touches[0];
+        // a borda esquerda é do "arrastar para voltar"
+        t0 = e.touches.length === 1 && t.clientX > 24 ? { x: t.clientX, y: t.clientY } : null;
+      }, { passive: true });
+      lista.addEventListener('touchend', function (e) {
+        if (!t0 || !lista._pg || lista._pg.n < 2) return;
+        var t = e.changedTouches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y;
+        t0 = null;
+        if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 2) pgVai(lista._pg, lista, dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+    if (pg.n < 2) return null;
+    var b = mk('nav', 'pgBar');
+    b.setAttribute('aria-label', 'Páginas');
+    var ant = btn('pgB', 'Anterior', function () { pgVai(pg, lista, -1); }),
+      prx = btn('pgB', 'Próxima', function () { pgVai(pg, lista, 1); }),
+      nn = mk('span', 'pgN', pg.p + 1 + ' de ' + pg.n);
+    ant.disabled = pg.p === 0;
+    prx.disabled = pg.p >= pg.n - 1;
+    nn.setAttribute('aria-live', 'polite');
+    b.appendChild(ant);
+    b.appendChild(nn);
+    b.appendChild(prx);
+    lista.parentNode.insertBefore(b, lista.nextSibling);
+    lista._pgBar = b;
+    return b;
+  }
   // ===== Análises: meta do mês, reposição, estoque parado, curva ABC, sugestão de margem e câmbio x piso. =====
   // Lucro livre de uma venda em US$ (ao câmbio da venda).
   function lucroUsd(s) {
@@ -12388,10 +12480,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }),
       now = Date.now(),
       total = 0,
-      parado = 0;
+      parado = invParados().reduce(function (a, m) {
+        return a + m.costUsd;
+      }, 0);
     st.forEach(function (m) {
       total += m.costUsd;
-      if ((now - (m.last || S.appStart || now)) / DAY >= 60) parado += m.costUsd;
     });
     var lucro30 = S.sales
       .filter(function (s) {
@@ -21454,15 +21547,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         act: 'dtab',
         id: 'giro'
       });
-    var pa = parados().length;
+    var pa = invParados().length;
     if (pa)
       it.push({
         t: 'Estoque parado',
         s: pa + ' produto(s) sem vender há 60 dias ou mais',
         c: 'var(--warn)',
         b: 'Ver peças',
-        act: 'dtab',
-        id: 'giro'
+        act: 'invParSob'
       });
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : Infinity;
     if (S.sales.length && dias >= 7)
@@ -29700,7 +29792,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
     ['giro', 'Giro do estoque', 'Números › Giro', 'giro parado vitrine da semana lista de compras'],
-    ['parado', 'Estoque parado (vender com saída)', 'Números › Giro › Estoque parado', 'parado encalhado liquidacao saida vender com saida oferta'],
+    ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
     ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
     ['ped', 'Pedidos do site', 'Início › Pedidos', 'pedido site reserva pix'],
@@ -29785,12 +29877,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     else if (k === 'fun') {
       if (v === 'repo') {
         if (window.__lcIrGiro) window.__lcIrGiro();
-      } else if (v === 'parado') {
-        S.dTab = 'giro';
-        S.dfold = S.dfold || {};
-        S.dfold.par = true;
-        setView('dash');
-      } else inicioGo(v);
+      } else if (v === 'parado') setView('parsob');
+      else inicioGo(v);
     }
     window.scrollTo(0, 0);
   }
@@ -30678,6 +30766,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = S.conf && S.conf[key];
     return t ? Math.floor((Date.now() - t) / DAY) : null;
   }
+  // Quantos dos 20% mais valiosos estão sem conferir há mais de 10 dias (a tela de contagem e o "Contar o estoque ›" do Inventário).
+  function contVelhos(gr) {
+    gr = gr || contagemGrupos();
+    return gr.slice(0, Math.max(1, Math.ceil(gr.length * 0.2))).filter(function (g) {
+      var d = diasConf(g.key);
+      return d == null || d > 10;
+    }).length;
+  }
   // Tela de contagem (substitui a lista enquanto está aberta).
   function renderContagem() {
     var c = $('contCard');
@@ -30698,11 +30794,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var nConf = gr.filter(function (g) {
         return tocados[g.key];
       }).length,
-      corte = Math.max(1, Math.ceil(gr.length * 0.2)),
-      velhos = gr.slice(0, corte).filter(function (g) {
-        var d = diasConf(g.key);
-        return d == null || d > 10;
-      }).length;
+      velhos = contVelhos(gr);
     var hd = mk('div', '');
     hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
     var h2 = mk('h2', '', 'Contagem de estoque');
@@ -37380,8 +37472,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<small>Tem ' + b.stock + ' · <b class="lcSo">Sobra ' + b.sobra + '</b>' + (d ? ' · acaba em ~' + d + ' dias' : '') + '</small>' +
       (b.of ? '<small class="lcOfV">A oferta valeu? Economizou ' + usd(b.of.econ) + ' · ' + (vira ? 'ainda não: o extra está parado mais tempo do que a economia compensa' : 'sim, se vender no ritmo atual') + '</small>' : '') +
       (vira ? '<small class="lcVira">vai virar parada</small>' : '') +
-      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
+      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? lcOfBtn(b.m) : '') + '</span></div>'
     );
+  }
+  // "Oferta ›" de uma peça (Sobrando aqui e Parados e sobrando no Inventário): abre a janela Oferta do produto
+  function lcOfBtn(m) {
+    return '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(m.tipo + '|' + m.ref) + '">Oferta ›</button>';
   }
   // agrupa pelo tipo, na ordem em que aparece (a lista já vem do mais urgente)
   function lcGrupos(l, fn) {
@@ -37398,7 +37494,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function lcHtml() {
     var L = lcLista(),
       rp = fxRepo(),
-      h = '<section class="card col lcCard" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
+      h = '<section class="card col lcCard lcLs" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
         (S.lcCalc ? '<div class="hint lcCalcT" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +. Sobrando = mercadoria acima do ideal.</div>' : '');
     h += lcPedHtml();
     if (L.novo.length)
@@ -37557,12 +37653,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   };
   ACT.lcOferta = function (id) {
-    var p = String(id).split('|');
-    S.tipo = p[0];
-    S.open = S.todos ? p[0] + '|' + p.slice(1).join('|') : p.slice(1).join('|');
-    S.det = true;
-    S.lotesView = false;
-    setView('estoque');
+    var p = String(id).split('|'), ref = p.slice(1).join('|');
+    S.ofOpen = ref;
+    prodAbre(p[0], ref);
   };
   ACT.lcPedFim = function () {
     S.lcPed = null;
@@ -46418,6 +46511,91 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = Object.keys(refs).length;
     return n + (n === 1 ? ' referência' : ' referências') + ' · ' + usd0(custo) + ' a custo';
   }
+  // ---------- 65b/65c (esboços 52d e 52b): depois das páginas, "Parados e sobrando ›" e "Contar o estoque ›" ----------
+  // Parado = peça (sem estojos) com estoque e sem venda há 60+ dias. Uma definição só: esta lista, o "Parado 60+ dias"
+  // do capital do estoque (src/57-financas.js) e a tela Parados e sobrando usam a mesma.
+  function invParados() {
+    var now = Date.now();
+    return prodStats()
+      .filter(function (m) {
+        if (!(m.stock > 0) || isSimple(m.tipo)) return false;
+        m.diasParado = (now - (m.last || S.appStart || now)) / DAY;
+        return m.diasParado >= 60;
+      })
+      .sort(function (a, b) {
+        return b.costUsd - a.costUsd;
+      });
+  }
+  // linha "lugar" (regra 16: abre outra tela): título, frase, valor e ›
+  function invLugar(act, tit, sub, val) {
+    return '<button type="button" class="nvL" data-act="' + act + '"><span class="nvTx"><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span>' +
+      (val ? '<em>' + esc(val) + '</em>' : '') + '<i aria-hidden="true">›</i></button>';
+  }
+  // o fim da lista do Inventário (embaixo da legenda)
+  function invFim(sec, mostra) {
+    var f = $('invFim');
+    if (!mostra) {
+      if (f) f.remove();
+      return;
+    }
+    if (!f) {
+      f = mk('section', 'nvLista');
+      f.id = 'invFim';
+      f.setAttribute('aria-label', 'Estoque');
+    }
+    if (f.parentNode !== sec || f !== sec.lastElementChild) sec.appendChild(f);
+    var ce = capitalEstoque(),
+      v = contVelhos(),
+      h =
+        invLugar('invParSob', 'Parados e sobrando', ce.parado > 0 ? Math.round(ce.pct * 100) + '% do investido sem vender há 60+ dias' : 'Nada sem vender há 60+ dias', usd0(ce.parado)) +
+        invLugar('contTroca', 'Contar o estoque', v ? v + ' dos mais valiosos sem conferir há 10+ dias' : 'Os mais valiosos estão conferidos');
+    if (f._h !== h) {
+      f.innerHTML = h;
+      f._h = h;
+    }
+  }
+  // ---------- a tela Parados e sobrando (52b, 3º quadro): "‹ INVENTÁRIO" volta pela pilha da navegação ----------
+  if (!$('v-parsob')) {
+    var _vp = document.createElement('div');
+    _vp.id = 'v-parsob';
+    _vp.className = 'view';
+    _vp.hidden = true;
+    var _ve = $('v-estoque');
+    if (_ve && _ve.parentNode) _ve.parentNode.insertBefore(_vp, _ve.nextSibling);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'parsob'; })) VIEWS.push(['parsob', 'Parados e sobrando']);
+  ACT.invParSob = function () {
+    setView('parsob');
+  };
+  function invParLinha(m) {
+    return '<div class="sl lcL">' + lcThumb(m.ref) + '<span>' + lcNomeL(m) + '<small>' + m.stock + ' un. · ' + Math.round(m.diasParado) + ' dias sem venda</small></span>' +
+      '<span class="lcV">' + usd0(m.costUsd) + lcOfBtn(m) + '</span></div>';
+  }
+  function renderParSob() {
+    var el = $('v-parsob');
+    if (!el || S.view !== 'parsob') return;
+    var P = invParados(),
+      L = lcLista(),
+      vp = P.reduce(function (a, m) { return a + m.costUsd; }, 0),
+      pg = paginas('parsob', P.length, pgSig(P.map(function (m) { return m.key; }))),
+      pgS = paginas('parsob-sobra', L.sobra.length, pgSig(L.sobra.map(function (x) { return x.m.key + '|' + (x.grau || ''); }))),
+      h = '<div class="top"><div><h1>Parados e sobrando</h1><div class="crumb">O que está sem vender ou acima do ideal</div></div></div>' +
+        '<section class="lcLs psCard">' +
+        '<div class="lcSec"><span>Parado 60+ dias · ' + P.length + '</span><b>' + usd0(vp) + '</b></div>' +
+        (P.length ? '<div class="psPar">' + lcGrupos(P.slice(pg.de, pg.ate).map(function (m) { return { m: m }; }), function (x) { return invParLinha(x.m); }) + '</div>' : '<p class="psVz">Nada sem vender há 60+ dias.</p>') +
+        '<div class="lcSec"><span>Sobrando · ' + L.sobra.length + '</span>' + (L.sobra.length ? '<b>' + usd0(L.parado) + '</b>' : '') + '</div>' +
+        (L.sobra.length ? '<div class="psSob">' + lcGrupos(L.sobra.slice(pgS.de, pgS.ate), lcSobraLinha) + '</div>' : '<p class="psVz">Nada acima do ideal agora.</p>') +
+        '</section>';
+    if (el._h !== h) {
+      el.innerHTML = h;
+      el._h = h;
+    }
+    var lp = el.querySelector('.psPar');
+    if (lp) paginador(pg, lp);
+    var ls = el.querySelector('.psSob');
+    if (ls) paginador(pgS, ls);
+  }
+  aposRender(renderParSob);
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -52704,10 +52882,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!naoCabe()) return;
     }
   }
+  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) — a lista inteira é um grupo
+  function nvListaCabe(v) {
+    [].forEach.call(v.querySelectorAll('.nvLista'), function (l) {
+      var tx = l.querySelectorAll('.nvTx>b,.nvTx>small');
+      if (!tx.length || !l.offsetWidth) return;
+      lfCabe(l, function () {
+        for (var i = 0; i < tx.length; i++) if (tx[i].scrollWidth > tx[i].clientWidth + 1) return true;
+        return false;
+      });
+    });
+  }
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;
     try { pad99(v); } catch (e) {}
+    try { nvListaCabe(v); } catch (e) {}
   }
   aposRender(padTela);
 
@@ -53520,7 +53710,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, invParados: invParados, contVelhos: contVelhos, paginas: paginas, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

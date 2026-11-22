@@ -4400,6 +4400,44 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Família Inventário 65a: resumo embaixo do título, sem os números grandes, preços para corrigir no sino; botão redondo na linha do título em toda tela (celular e computador)')
             if not ok: falhas.append('65a inventario topo'); print('        veio', got, erros65)
 
+            # Família Inventário 65b/65c (52d e 52b): 24 cartões por página, "Anterior · 1 de 3 · Próxima" (Anterior apagado na 1ª), deslizar troca,
+            # a página fica guardada; depois da legenda "Parados e sobrando ›" (US$ = o parado do capital) e "Contar o estoque ›" (abre a contagem);
+            # a tela Parados e sobrando tem "‹ INVENTÁRIO", as duas listas e "Oferta ›" em cada parada (abre a janela Oferta do produto).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              try { localStorage.removeItem('lf_pg'); } catch (e) {}
+              const base = S.items.filter(i => i.qty > 0 && !i.bulk)[0];
+              for (let k = 0; k < 40; k++) S.items.push(Object.assign({}, base, { ref: 'PG' + (100 + k), qty: 3 }));
+              S.todos = true; L.setView('estoque'); await w(400);
+              const bar = () => document.querySelector('#v-estoque .pgBar'), cards = () => document.querySelectorAll('#rows .pcard').length;
+              const b = bar(); R.p1 = [cards(), b && b.innerText.replace(/\\s+/g, ' ').trim(), b && b.children[0].disabled, b && !b.children[2].disabled];
+              b.children[2].click(); await w(300); R.p2 = [cards(), bar().querySelector('.pgN').textContent];
+              const rows = document.getElementById('rows'), ev = (t, x) => { const e = new Event(t, { bubbles: true }); e[t === 'touchstart' ? 'touches' : 'changedTouches'] = [{ clientX: x, clientY: 300 }]; rows.dispatchEvent(e); };
+              ev('touchstart', 300); ev('touchend', 150); await w(300); R.desliza = bar().querySelector('.pgN').textContent;
+              ev('touchstart', 10); ev('touchend', 200); await w(300); R.borda = bar().querySelector('.pgN').textContent;
+              L.setView('caixa'); await w(200); L.setView('estoque'); await w(300); R.guarda = bar().querySelector('.pgN').textContent;
+              const f = document.getElementById('invFim'), sec = rows.parentNode, ce = L.capitalEstoque();
+              R.fim = [!!f && sec.lastElementChild === f, f && f.innerText.replace(/\\s+/g, ' ').trim(),
+                Math.abs(ce.parado - L.invParados().reduce((a, m) => a + m.costUsd, 0)) < 0.01];
+              R.fimTxt = f.querySelector('[data-act=invParSob] em').textContent;
+              f.querySelector('[data-act=contTroca]').click(); await w(300); R.conta = !!S.cont; L.ACT.contTroca(); await w(200);
+              document.querySelector('#invFim [data-act=invParSob]').click(); await w(400);
+              const v = document.getElementById('v-parsob');
+              R.tela = [S.view, v.querySelector('.top h1').textContent, !!document.querySelector('#v-parsob > .nvVs'), (document.querySelector('#v-parsob > .nvVs') || {}).textContent,
+                v.querySelectorAll('.psPar .lcL [data-act=lcOferta]').length === Math.min(24, L.invParados().length), /Sobrando · \\d+/i.test(v.innerText)];
+              const of = v.querySelector('[data-act=lcOferta]'), ref = of.getAttribute('data-id').split('|').slice(1).join('|'); of.click(); await w(500);
+              R.oferta = [S.view, S.ofOpen === ref, !!document.getElementById('ofModal')]; 
+              return R; }""")
+            total += 1
+            ok = (got['p1'][0] == 24 and got['p1'][1] == 'Anterior 1 de 3 Próxima' and got['p1'][2] and got['p1'][3] and got['p2'] == [24, '2 de 3']
+                  and got['desliza'] == '3 de 3' and got['borda'] == '3 de 3' and got['guarda'] == '3 de 3'
+                  and got['fim'][0] and got['fim'][1].startswith('Parados e sobrando') and 'Contar o estoque' in got['fim'][1] and got['fim'][2] and got['fimTxt'].startswith('US$')
+                  and got['conta'] and got['tela'][:2] == ['parsob', 'Parados e sobrando'] and got['tela'][2] and 'Inventário' in got['tela'][3] and all(got['tela'][4:])
+                  and got['oferta'] == ['estoque', True, True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Inventário 65b/65c: 24 por página, Anterior · N de M · Próxima, deslizar troca, página guardada; Parados e sobrando › e Contar o estoque › no fim; a tela nova com Oferta ›')
+            if not ok: falhas.append('65b paginas parados'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

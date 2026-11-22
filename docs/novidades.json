@@ -1,9 +1,9 @@
 {
- "nome": "5.50.50",
+ "nome": "5.50.51",
  "notas": [
-  "Inventário: embaixo do título agora aparece o resumo (\"16 referências · US$ 420 a custo\"). Saíram os números grandes.",
-  "\"Preços para corrigir\" saiu da barra do Inventário e agora fica no sino.",
-  "Em todas as telas, o botão redondo do título (+, etc.) fica na mesma linha do título, centralizado com ele."
+  "Inventário: a lista agora vem em páginas de 24, com \"Anterior · 1 de 3 · Próxima\" embaixo. Deslizar o dedo também troca de página, e o app lembra em que página você estava.",
+  "No fim do Inventário: \"Parados e sobrando ›\" (quanto está sem vender há 60+ dias) e \"Contar o estoque ›\".",
+  "Tela nova Parados e sobrando: o que está parado e o que sobra, com \"Oferta ›\" em cada peça parada."
  ],
- "build": 625
+ "build": 626
 }

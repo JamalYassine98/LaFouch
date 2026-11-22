@@ -2650,34 +2650,34 @@ section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!imp
 /* S374 · esboços 67 + 68 (dono 16/11): Giro › Lista de compras limpa e botões no padrão de luxo.
    1 principal (Marcar como pedido) · secundária neutra (Mandar ao fornecedor, Salvar da vitrine) · "Oferta ›" e "como calcula ›" texto rosa ·
    − n + num seletor só · texto à esquerda · peça em 2 andares agrupada por tipo · Sobrando com o valor no título. */
-#lcCard .sl.lcL{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);text-align:left}
-#lcCard .split>.sl.lcL:first-child{border-top:0}
-#lcCard .sl.lcL.lcNao{grid-template-columns:minmax(0,1fr)}
-#lcCard .sl.lcL>span:nth-child(2),#lcCard .sl.lcL small{text-align:left}
-#lcCard .lcN{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px;font-size:15px;line-height:1.3;color:var(--fg)}
-#lcCard .lcN .lcG{flex:none}
-#lcCard .sl.lcL small{display:block;font-size:12.5px;color:var(--mute);margin-top:3px}
-#lcCard .sl.lcL small.lcVira{color:var(--bad,#e07a7a)}
-#lcCard .lcSec{display:flex;justify-content:space-between;align-items:baseline;text-align:left;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sub);margin:20px 0 4px}
-#lcCard .lcSec b{letter-spacing:0;color:var(--warn);font-size:13px}
-#lcCard .lcGr{font-size:12.5px;font-weight:600;color:var(--sub);margin:12px 0 2px;text-align:left}
-#lcCard .lcTer{display:flex;justify-content:flex-start}
-#lcCard .lcT,#lcCard .lcOf{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
-#lcCard .lcV{display:flex;flex-direction:column;align-items:flex-end;gap:0;font-weight:600}
-#lcCard .lcOf{padding:4px 0}
-#lcCard .lcQ{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px;padding:0 2px;gap:0}
-#lcCard .lcQ .mini{border:0!important;background:none!important;box-shadow:none!important;width:40px;min-width:40px;height:40px;padding:0;color:var(--fg);font-size:18px}
-#lcCard .lcQ b{min-width:26px;text-align:center;font-weight:600}
-#lcCard .lcTot{background:var(--panel2);border:1px solid var(--line)}
-#lcCard .lcEnv,[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
+.lcLs .sl.lcL{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);text-align:left}
+.lcLs .split>.sl.lcL:first-child{border-top:0}
+.lcLs .sl.lcL.lcNao{grid-template-columns:minmax(0,1fr)}
+.lcLs .sl.lcL>span:nth-child(2),.lcLs .sl.lcL small{text-align:left}
+.lcLs .lcN{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px;font-size:15px;line-height:1.3;color:var(--fg)}
+.lcLs .lcN .lcG{flex:none}
+.lcLs .sl.lcL small{display:block;font-size:12.5px;color:var(--mute);margin-top:3px}
+.lcLs .sl.lcL small.lcVira{color:var(--bad,#e07a7a)}
+.lcLs .lcSec{display:flex;justify-content:space-between;align-items:baseline;text-align:left;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sub);margin:20px 0 4px}
+.lcLs .lcSec b{letter-spacing:0;color:var(--warn);font-size:13px}
+.lcLs .lcGr{font-size:12.5px;font-weight:600;color:var(--sub);margin:12px 0 2px;text-align:left}
+.lcLs .lcTer{display:flex;justify-content:flex-start}
+.lcLs .lcT,.lcLs .lcOf{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
+.lcLs .lcV{display:flex;flex-direction:column;align-items:flex-end;gap:0;font-weight:600}
+.lcLs .lcOf{padding:4px 0}
+.lcLs .lcQ{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px;padding:0 2px;gap:0}
+.lcLs .lcQ .mini{border:0!important;background:none!important;box-shadow:none!important;width:40px;min-width:40px;height:40px;padding:0;color:var(--fg);font-size:18px}
+.lcLs .lcQ b{min-width:26px;text-align:center;font-weight:600}
+.lcLs .lcTot{background:var(--panel2);border:1px solid var(--line)}
+.lcLs .lcEnv,[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
 /* S374 · esboço 60a (dono 16/11 11:13): painel do site sem a caixa (borda, cantos) e título no tamanho das telas. */
 #grpTabs.gtF .dHdT{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
 .sbox iframe{border:0;border-radius:0}
 @media (max-width:760px){#siteBox:not(.full){width:100vw;margin:0 0 0 calc(50% - 50vw)}}
 /* S374 · uma lista de compras só: linha no Inventário que leva ao Giro, e os pacotes dos pré-graduados na lista */
 #lcIrInv{margin:-2px 0 6px}#lcIrInv .lcT{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
-#lcCard .lcPk{display:flex;flex-direction:column;gap:6px;text-align:left;border-top:1px solid var(--line);padding:12px 0 4px;margin-top:6px}
-#lcCard .lcPk>span{font-size:13px;font-weight:600;color:var(--sub)}#lcCard .lcPk small{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--fg)}#lcCard .lcPkG{white-space:nowrap}
+.lcLs .lcPk{display:flex;flex-direction:column;gap:6px;text-align:left;border-top:1px solid var(--line);padding:12px 0 4px;margin-top:6px}
+.lcLs .lcPk>span{font-size:13px;font-weight:600;color:var(--sub)}.lcLs .lcPk small{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--fg)}.lcLs .lcPkG{white-space:nowrap}
 /* S374 · esboço 70 (Hoje, aprovado 16/11 16:57): "Ver detalhes ›" texto rosa, "Estornar" perigo em texto (44 px), Contas do dia › leva a Despesas,
    títulos dos cartões na mesma letra, links rosa à esquerda. */
 .nav.vAc{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:2px}
@@ -3038,17 +3038,17 @@ section.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh{transform:r
 .nvVs i{font-style:normal;font-size:16px;font-weight:400;letter-spacing:0;transform:translateY(-1px)}
 .nvVs:active{opacity:.6}
 /* índice do grupo: uma linha por tela, ícone + nome + frase + › */
-#v-grp .nvLista,#v-dash .nvLista{display:flex;flex-direction:column;margin-top:4px}
-#v-grp .nvL,#v-dash .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#v-grp .nvL:last-child,#v-dash .nvL:last-child{border-bottom:0}
-#v-grp .nvL:active,#v-dash .nvL:active{opacity:.6}
-#v-grp .nvIc,#v-dash .nvIc{flex:none;display:flex;width:22px}
+.nvLista{display:flex;flex-direction:column;margin-top:4px}
+.nvLista .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nvLista .nvL:last-child{border-bottom:0}
+.nvLista .nvL:active{opacity:.6}
+.nvLista .nvIc{flex:none;display:flex;width:22px}
 /* esboço 37b (dono 20/11 23:23): ícone de linha de lista = cinza, em todo lugar — a cor mora só aqui */
 .nvIc,.tl .ti,.hero .hi{color:var(--mute)}
-#v-grp .nvTx,#v-dash .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-#v-grp .nvTx b,#v-dash .nvTx b{font-size:16px;font-weight:500}
-#v-grp .nvTx small,#v-dash .nvTx small{font-size:13px;color:var(--mute)}
-#v-grp .nvL>i,#v-dash .nvL>i{font-style:normal;font-size:20px;color:var(--mute)}
+.nvLista .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.nvLista .nvTx b{font-size:16px;font-weight:500}
+.nvLista .nvTx small{font-size:13px;color:var(--mute)}
+.nvLista .nvL>i{font-style:normal;font-size:20px;color:var(--mute)}
 #v-grp .nvGer{align-self:center;min-height:44px;margin-top:8px;background:none;border:0;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
 /* 147-7: o Dashboard usa o mesmo cabeçalho das outras telas (título 28 px a 0 do topo, frase 4 px abaixo) */
 .dHd{margin:0!important;align-items:flex-start!important}
@@ -3163,3 +3163,20 @@ body.nvRail .nvVs{display:none}
 #estCam.ecP .ecGuias{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;stroke-linecap:round;stroke-linejoin:round}
 #estCam.ecP:not([data-modo=video]) .ecGuias,#estCam.ecP.ecGrav .ecGuias,#estCam.ecPE .ecGuias{display:none}
 
+/* ===== PÁGINAS — um componente só para as listas longas (52d, 22/11/2026): "Anterior · 1 de 3 · Próxima" ===== */
+.pgBar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;margin-top:24px}
+.pgBar .pgB{min-height:48px;margin:0;padding:0 16px;border:1px solid var(--line);border-radius:16px;background:none;color:var(--fg);font:inherit;font-size:16px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pgBar .pgB:disabled{opacity:.4;cursor:default}
+.pgBar .pgB:not(:disabled):active{opacity:.6}
+.pgBar .pgN{font-size:16px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* ===== FAMÍLIA INVENTÁRIO (52d e 52b, 22/11/2026): o fim da lista e a tela Parados e sobrando ===== */
+#invFim{margin-top:32px;border-top:1px solid var(--line2,var(--line))}
+#invFim .nvL:last-child{border-bottom:1px solid var(--line2,var(--line))}
+.nvLista .nvL>em{flex:none;font-style:normal;font-size:16px;font-weight:600;color:var(--warn);font-variant-numeric:tabular-nums}
+.psCard .lcSec:first-child{margin-top:0}
+.psVz{margin:8px 0 0;padding:8px 0 16px;color:var(--mute);font-size:15px;border-bottom:1px solid var(--line2,var(--line))}
+/* L4 nas linhas "lugar" (.nvLista): o texto não quebra; se não cabe, a letra da lista inteira desce um degrau (lfCabe) */
+.nvLista .nvTx>b,.nvLista .nvTx>small{white-space:nowrap;overflow:hidden}
+.nvLista[data-cabe='1'] .nvTx b{font-size:15px}.nvLista[data-cabe='1'] .nvTx small{font-size:12.5px}
+.nvLista[data-cabe='2'] .nvTx b{font-size:14.5px}.nvLista[data-cabe='2'] .nvTx small{font-size:12px}
+.nvLista[data-cabe='3'] .nvTx b{font-size:14px}.nvLista[data-cabe='3'] .nvTx small{font-size:11.5px}

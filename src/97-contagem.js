@@ -59,6 +59,14 @@
     var t = S.conf && S.conf[key];
     return t ? Math.floor((Date.now() - t) / DAY) : null;
   }
+  // Quantos dos 20% mais valiosos estão sem conferir há mais de 10 dias (a tela de contagem e o "Contar o estoque ›" do Inventário).
+  function contVelhos(gr) {
+    gr = gr || contagemGrupos();
+    return gr.slice(0, Math.max(1, Math.ceil(gr.length * 0.2))).filter(function (g) {
+      var d = diasConf(g.key);
+      return d == null || d > 10;
+    }).length;
+  }
   // Tela de contagem (substitui a lista enquanto está aberta).
   function renderContagem() {
     var c = $('contCard');
@@ -79,11 +87,7 @@
     var nConf = gr.filter(function (g) {
         return tocados[g.key];
       }).length,
-      corte = Math.max(1, Math.ceil(gr.length * 0.2)),
-      velhos = gr.slice(0, corte).filter(function (g) {
-        var d = diasConf(g.key);
-        return d == null || d > 10;
-      }).length;
+      velhos = contVelhos(gr);
     var hd = mk('div', '');
     hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
     var h2 = mk('h2', '', 'Contagem de estoque');

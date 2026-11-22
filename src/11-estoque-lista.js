@@ -730,7 +730,17 @@
       hd.appendChild(hs);
       rows.appendChild(hd);
     }
-    refs.forEach(function (r) {
+    // um cartão por modelo (o grupo de modelos com o mesmo nome é um cartão só) — 24 por página (src/53p-paginas.js)
+    var gVisto = {},
+      unid = refs.filter(function (r) {
+        var g = gOf[r];
+        if (drill) return g === drill;
+        if (!g) return true;
+        if (gVisto[g]) return false;
+        return (gVisto[g] = 1);
+      }),
+      pg = paginas('inv', unid.length, pgSig(unid, S.sortO + '|' + (S.todos ? '*' : S.tipo)));
+    unid.slice(pg.de, pg.ate).forEach(function (r) {
       var gk = gOf[r];
       if (drill) {
         if (gk !== drill) return;
@@ -805,24 +815,7 @@
             render();
             return;
           }
-          if (S.todos) {
-            S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
-            S.todos = false;
-            S.lotesView = false;
-            S.tipo = ri[0].tipo;
-            S.fmtF = 'all';
-            S.corF = 'all';
-            S.q = '';
-          }
-          S.open = rr;
-          S.det = true;
-          S.selItem = null;
-          S.detCor = '';
-          S.detVr = null;
-          S.qty = 1;
-          S.msg = '';
-          render();
-          prodTopo($('detail')); // v474: o produto abre no topo (igual ao Catálogo), sem rolar no meio da animação
+          prodAbre(ri[0].tipo, rr);
         },
         r === openRef
       );
@@ -1014,6 +1007,8 @@
       rows.appendChild(
         mk('div', 'note n-warn', 'Nada com esse filtro. Tire um filtro ou dê entrada de estoque.')
       );
+    paginador(pg, rows);
+    invFim(rows.parentNode, !drill && !S.pdMode);
 
     var lines = fl.filter(function (i) {
       return i.ref === effRef;
@@ -1267,4 +1262,26 @@
     S._known = known;
     renderGuia();
   }
-
+  // Abre a ficha de um produto no Inventário (o cartão e o "Oferta ›" das listas usam esta): sai de "Todos" e de outro tipo
+  // para o tipo dele, sem filtro que o esconda; o produto abre no topo (v474, igual ao Catálogo).
+  function prodAbre(tipo, ref) {
+    if (S.todos || S.tipo !== tipo) {
+      if (S.todos) S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
+      S.todos = false;
+      S.lotesView = false;
+      S.tipo = tipo;
+      S.fmtF = 'all';
+      S.corF = 'all';
+      S.q = '';
+    }
+    S.open = ref;
+    S.det = true;
+    S.selItem = null;
+    S.detCor = '';
+    S.detVr = null;
+    S.qty = 1;
+    S.msg = '';
+    if (S.view === 'estoque') render();
+    else setView('estoque');
+    prodTopo($('detail'));
+  }

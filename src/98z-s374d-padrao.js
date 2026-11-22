@@ -38,10 +38,22 @@
       if (!naoCabe()) return;
     }
   }
+  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) — a lista inteira é um grupo
+  function nvListaCabe(v) {
+    [].forEach.call(v.querySelectorAll('.nvLista'), function (l) {
+      var tx = l.querySelectorAll('.nvTx>b,.nvTx>small');
+      if (!tx.length || !l.offsetWidth) return;
+      lfCabe(l, function () {
+        for (var i = 0; i < tx.length; i++) if (tx[i].scrollWidth > tx[i].clientWidth + 1) return true;
+        return false;
+      });
+    });
+  }
   function padTela() {
     var v = document.querySelector('.view:not([hidden])');
     if (!v) return;
     try { pad99(v); } catch (e) {}
+    try { nvListaCabe(v); } catch (e) {}
   }
   aposRender(padTela);
 
