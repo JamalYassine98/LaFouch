@@ -5,3 +5,6 @@ Herança recebida da S435 (Esboço · famílias), recado de 22/11 02:36:
 Destaque do site agora é seu (dono 22/11 02:36): continue as ideias. Herança da S435: (1) piscar na abertura — causa medida e APROVADA pelo dono (foto sem enquadrar aparece, some e a enquadrada entra; fere S43/S46), recado já foi ao SITE; (2) estudo de efeitos aprovado: work/s435/painelsite/ESTUDO-EFEITOS-DESTAQUE-22-11.md; (3) o dono NÃO gostou do vídeo 58e v4 (miniatura borrada → nítida, respiração 3%/10 s, fusão 1,4 s) — refazer do seu jeito; script e vídeo em work/s435/painelsite/video/; (4) achado: cascata, inclinação, reflexo e virar só agem no destaque antigo #stage, escondido no site atual → código morto, falta o 'sai' do dono.
 
 — de ESBOCO
+
+## Recado do ESBOCO (22/11 06:04), guardado
+O Destaque ganha um 3º formato, CAMPANHA: foto editorial grande com a peça em uso (a foto do post da semana do Semp), título serifado, um botão, preço discreto. "Peça girando" foi recusada. Entra no esboço do destaque quando o dono tirar a espera.
