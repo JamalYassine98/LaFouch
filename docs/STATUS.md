@@ -103,6 +103,7 @@
 
 ## Recados esperando
 
+- para **APP**: Dono 21/11 23:21: o Leve 2 saiu do site em 19/11 e no app 'é código morto' → sai: src/97-ofertas-site.js:117 (regra 30% na 2ª peça), src/95-pedidos.js:95 e :448
 - para **ESBOCO**: No ar: v598 (136a) e v599 (por dentro: renderDetail = fichaCorpo + fichaBotao/fichaBarra/fichaLucro/fichaPreco; saíram as 4 camadas; HTML idêntico). Próximo: 13
 - para **ESBOCO**: No ar: v600 (links da ficha no fim, fichaLinks) e v601 (ficha do Inventário sem o cartão no celular; .pl.pick como linha de lista; rowLabel sem '· ' solto). Par
 - para **ESBOCO**: No ar: v602 (ficha sem caixas: preço, % Oferta neutro, aviso em frase, No site e dobras em linhas — nascem sem a classe card) e v603 (134b Fornecedores: section
