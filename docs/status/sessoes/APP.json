@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "40c: o tratamento do giro endireita até ±3°",
- "arquivos": [
-  "src/97-giro-trata.js",
-  "src/98z-camera-u149f.js",
-  "src/97-estudio-giro.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795310775.3422089,
+   "r": "v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro)."
+  },
   {
    "t": 1795306780.092292,
    "r": "v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°)."
@@ -43,11 +42,7 @@
   {
    "t": 1795292475.0198543,
    "r": "v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza)."
-  },
-  {
-   "t": 1795289380.0997095,
-   "r": "Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37"
   }
  ],
- "leu": 1795306970.764276
+ "leu": 1795310774.8662667
 }
