@@ -36,6 +36,17 @@
     var t = estTem(k);
     return '<span class="estMk">' + EST_MARCAS.map(function (m) { return '<span class="' + (t[m[0]] ? 'tem' : 'falta') + '"><i aria-hidden="true"></i>' + m[1] + '</span>'; }).join('') + '</span>';
   }
+  // Esboço 41 (aprovado 21/11 07:51): a câmera diz PARA QUAL PEÇA vai, antes de fotografar ou gravar — "GIRO PARA" / "FOTO PARA" + nome (até 2
+  // linhas) + cor + código. É o único lugar que escreve a etiqueta (.ecTag): ao abrir e a cada troca de modo. Sem peça (peça nova, medir o fundo)
+  // fica o texto de sempre. No Foto, o passo ("Frente · 1 de 2", peça N de M, cor N de M) vem numa linha própria, embaixo.
+  function estCamTag(ctx, modo) {
+    if (ctx.medir) return 'Aponte só para a cartolina e toque em Medir fundo';
+    var k = ctx.k || (ctx.ref ? ctx.ref + '|' + (ctx.cor || '') : ''), ref = String(k).split('|')[0], cor = String(k).split('|').slice(1).join('|'),
+      passo = ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2';
+    if (!ref) return modo === 'video' ? 'Giro · volta de 360°' : passo + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '');
+    return '<small class="ecPara">' + (modo === 'video' ? 'Giro para' : 'Foto para') + '</small><b>' + esc(pn(ref)) + '</b>' + (cor ? '<span>' + esc(cor) + '</span>' : '') + '<span class="ecCod">' + esc(ref) + '</span>' +
+      (modo === 'video' ? '' : '<span class="ecPasso">' + [passo, ctx.prog, ctx.corTxt].filter(Boolean).map(esc).join(' · ') + '</span>');
+  }
   function estFila() {
     var f = [];
     estChaves().forEach(function (x) {
@@ -625,6 +636,7 @@
       sessao: true,
       corRef: ref0 ? { cor: ref0.cor, foto: S.fotos[ref0.k] } : null,
       corTxt: mesmas.length > 1 ? 'cor ' + (ic + 1) + ' de ' + mesmas.length : '',
+      prog: lista.length > 1 ? 'peça ' + (i + 1) + ' de ' + lista.length : '',
       titulo: (lista.length > 1 ? i + 1 + ' de ' + lista.length + ' · ' : '') + pn(x.ref) + ' · ' + x.cor,
       salva: true,
       prox: function () {
@@ -698,7 +710,7 @@
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
       '<div class="ecLvl" id="ecLvl"><span>0,0°</span></div><canvas class="ecHist" id="ecHist" width="92" height="40"></canvas>' +
       '<div class="ecMsg" id="ecMsg" hidden></div>' +
-      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '')) + '</div>' +
+      '<div class="ecTag">' + estCamTag(ctx, 'foto') + '</div>' +
       (ctx.corRef && !ctx.medir ? '<div class="ecRef"><img src="' + esc(ctx.corRef.foto) + '" alt=""><span>Mesma posição da ' + esc(ctx.corRef.cor) + '</span></div>' : '') +
       (ctx.sessao && !ctx.medir ? '<div class="ecAuto" id="ecAuto">' + (ctx.passo === '34' ? 'Gire a peça um pouco (3/4) e deixe parada' : 'Peça de frente, centralizada e parada') + '</div>' : '') +
       '<div class="ecGd"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>' +
@@ -1317,13 +1329,13 @@
       if (st.t2) {
         var n = 2,
           tg = ov.querySelector('.ecTag'),
-          t0 = tg.textContent;
+          t0 = tg.innerHTML;
         tg.textContent = '2';
         var iv = setInterval(function () {
           n--;
           if (n <= 0) {
             clearInterval(iv);
-            tg.textContent = t0;
+            tg.innerHTML = t0;
             go();
           } else tg.textContent = String(n);
         }, 1000);

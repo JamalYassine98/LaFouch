@@ -4237,6 +4237,39 @@ async def main():
             if not ok: falhas.append('leve 2 fora'); print('        veio', got, sobra, pg.erros)
             await pg.close()
 
+            # Esboço 41 parte 2 (aprovado 21/11 07:51): a câmera diz PARA QUAL PEÇA vai — "GIRO PARA" / "FOTO PARA" + nome + cor + código, escritos por
+            # UMA função (estCamTag) ao abrir e a cada troca de modo; sem peça fica o texto de sempre. Com o cabeçalho, a frase mais longa e os 11
+            # itens a coluna da esquerda cabe (L4) a 844×390 e a 740×360.
+            got = []
+            for W41, H41 in ((844, 390), (740, 360)):
+                pg = await pagina()
+                await pg.set_viewport_size({'width': W41, 'height': H41})
+                await pg.evaluate(cena)
+                r41 = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+                  const F = L.estFila(), x = F.slice().sort((a, b) => L.pn(b.ref).length - L.pn(a.ref).length)[0];   // a peça de nome mais comprido
+                  const tag = () => document.querySelector('#estCam .ecTag'), le = () => [...tag().children].map(e => e.textContent);
+                  L.estGiro({ k: x.k }); await w(4200);
+                  R.video = le(); R.certo = [L.pn(x.ref), x.cor, x.ref];
+                  const o = document.getElementById('estCam'), col = o.querySelector('.ecPainel.ecL');
+                  o.querySelector('.ecFrase').lastChild.textContent = 'Fundo manchado: tire sombras e reflexos de trás da peça'; L.c149Cabe(o); await w(100);
+                  R.cabe = [col.scrollHeight <= col.clientHeight + 1, [...o.querySelectorAll('.ecLista span')].length, o.getAttribute('data-cabe')];
+                  o.querySelector('.ecModo').click(); await w(500); R.foto = le();
+                  o.querySelector('.ecModo').click(); await w(300); R.volta = le()[0];
+                  o.querySelector('[data-c=x]').click(); await w(400);
+                  R.nova = [L.estCamTag({ nova: true, passo: 'frente', titulo: 'Antes de cadastrar' }, 'foto'), L.estCamTag({ nova: true }, 'video'), L.estCamTag({ medir: true }, 'foto')];
+                  R.sessao = L.estCamTag({ k: x.k, passo: '34', prog: 'peça 3 de 24', corTxt: 'cor 1 de 2' }, 'foto').replace(/<[^>]+>/g, '|');
+                  return R; }""")
+                got.append(r41); erros41 = list(pg.erros); await pg.close()
+                if erros41: break
+            total += 1
+            ok = len(got) == 2 and not erros41 and all(
+                r['video'] == ['Giro para'] + r['certo'] and r['cabe'][0] and r['cabe'][1] == 11
+                and r['foto'][0] == 'Foto para' and r['foto'][1:4] == r['certo'] and r['foto'][4] == 'Frente · 1 de 2' and r['volta'] == 'Giro para'
+                and r['nova'] == ['Frente · 1 de 2 · Antes de cadastrar', 'Giro · volta de 360°', 'Aponte só para a cartolina e toque em Medir fundo']
+                and r['sessao'].endswith('3/4 · 2 de 2 · peça 3 de 24 · cor 1 de 2|') for r in got) and 'dataset.orig' not in fontes['98z-camera-u149f.js']
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 41 (2): a câmera diz para qual peça vai — GIRO PARA / FOTO PARA + nome, cor e código, por uma função só; a coluna cabe a 844×390 e 740×360')
+            if not ok: falhas.append('41 camera para qual peca'); print('        veio', got, erros41)
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

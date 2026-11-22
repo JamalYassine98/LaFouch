@@ -274,7 +274,6 @@
       tag = q('.ecTag'),
       vf = q('.ecVf'),
       vid = q('#ecV');
-    if (tag) tag.dataset.orig = tag.textContent;
     var lista = document.createElement('div');
     lista.className = 'ecLista';
     lista.setAttribute('role', 'list');
@@ -328,7 +327,7 @@
       V.antR = {};
       V.bons = 0;
       V.ok = false;
-      if (tag) tag.textContent = m === 'video' ? 'Giro · volta de 360°' : tag.dataset.orig;
+      if (tag) tag.innerHTML = estCamTag(ctx, m);
       if (tr) {
         tr.innerHTML = m === 'video' ? C149_ICO.foto : C149_ICO.video;
         tr.setAttribute('aria-label', m === 'video' ? 'Mudar para foto' : 'Mudar para vídeo');

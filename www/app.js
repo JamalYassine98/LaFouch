@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 620;
+  var APP_BUILD = 621;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.45'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.46'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -32500,6 +32500,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = estTem(k);
     return '<span class="estMk">' + EST_MARCAS.map(function (m) { return '<span class="' + (t[m[0]] ? 'tem' : 'falta') + '"><i aria-hidden="true"></i>' + m[1] + '</span>'; }).join('') + '</span>';
   }
+  // Esboço 41 (aprovado 21/11 07:51): a câmera diz PARA QUAL PEÇA vai, antes de fotografar ou gravar — "GIRO PARA" / "FOTO PARA" + nome (até 2
+  // linhas) + cor + código. É o único lugar que escreve a etiqueta (.ecTag): ao abrir e a cada troca de modo. Sem peça (peça nova, medir o fundo)
+  // fica o texto de sempre. No Foto, o passo ("Frente · 1 de 2", peça N de M, cor N de M) vem numa linha própria, embaixo.
+  function estCamTag(ctx, modo) {
+    if (ctx.medir) return 'Aponte só para a cartolina e toque em Medir fundo';
+    var k = ctx.k || (ctx.ref ? ctx.ref + '|' + (ctx.cor || '') : ''), ref = String(k).split('|')[0], cor = String(k).split('|').slice(1).join('|'),
+      passo = ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2';
+    if (!ref) return modo === 'video' ? 'Giro · volta de 360°' : passo + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '');
+    return '<small class="ecPara">' + (modo === 'video' ? 'Giro para' : 'Foto para') + '</small><b>' + esc(pn(ref)) + '</b>' + (cor ? '<span>' + esc(cor) + '</span>' : '') + '<span class="ecCod">' + esc(ref) + '</span>' +
+      (modo === 'video' ? '' : '<span class="ecPasso">' + [passo, ctx.prog, ctx.corTxt].filter(Boolean).map(esc).join(' · ') + '</span>');
+  }
   function estFila() {
     var f = [];
     estChaves().forEach(function (x) {
@@ -33089,6 +33100,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sessao: true,
       corRef: ref0 ? { cor: ref0.cor, foto: S.fotos[ref0.k] } : null,
       corTxt: mesmas.length > 1 ? 'cor ' + (ic + 1) + ' de ' + mesmas.length : '',
+      prog: lista.length > 1 ? 'peça ' + (i + 1) + ' de ' + lista.length : '',
       titulo: (lista.length > 1 ? i + 1 + ' de ' + lista.length + ' · ' : '') + pn(x.ref) + ' · ' + x.cor,
       salva: true,
       prox: function () {
@@ -33162,7 +33174,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
       '<div class="ecLvl" id="ecLvl"><span>0,0°</span></div><canvas class="ecHist" id="ecHist" width="92" height="40"></canvas>' +
       '<div class="ecMsg" id="ecMsg" hidden></div>' +
-      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '')) + '</div>' +
+      '<div class="ecTag">' + estCamTag(ctx, 'foto') + '</div>' +
       (ctx.corRef && !ctx.medir ? '<div class="ecRef"><img src="' + esc(ctx.corRef.foto) + '" alt=""><span>Mesma posição da ' + esc(ctx.corRef.cor) + '</span></div>' : '') +
       (ctx.sessao && !ctx.medir ? '<div class="ecAuto" id="ecAuto">' + (ctx.passo === '34' ? 'Gire a peça um pouco (3/4) e deixe parada' : 'Peça de frente, centralizada e parada') + '</div>' : '') +
       '<div class="ecGd"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>' +
@@ -33781,13 +33793,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (st.t2) {
         var n = 2,
           tg = ov.querySelector('.ecTag'),
-          t0 = tg.textContent;
+          t0 = tg.innerHTML;
         tg.textContent = '2';
         var iv = setInterval(function () {
           n--;
           if (n <= 0) {
             clearInterval(iv);
-            tg.textContent = t0;
+            tg.innerHTML = t0;
             go();
           } else tg.textContent = String(n);
         }, 1000);
@@ -51376,7 +51388,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tag = q('.ecTag'),
       vf = q('.ecVf'),
       vid = q('#ecV');
-    if (tag) tag.dataset.orig = tag.textContent;
     var lista = document.createElement('div');
     lista.className = 'ecLista';
     lista.setAttribute('role', 'list');
@@ -51430,7 +51441,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       V.antR = {};
       V.bons = 0;
       V.ok = false;
-      if (tag) tag.textContent = m === 'video' ? 'Giro · volta de 360°' : tag.dataset.orig;
+      if (tag) tag.innerHTML = estCamTag(ctx, m);
       if (tr) {
         tr.innerHTML = m === 'video' ? C149_ICO.foto : C149_ICO.video;
         tr.setAttribute('aria-label', m === 'video' ? 'Mudar para foto' : 'Mudar para vídeo');
@@ -53475,7 +53486,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);
