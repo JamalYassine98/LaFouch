@@ -122,6 +122,7 @@
 - para **ESBOCO**: Dono 22/11 15:20 (sem pressa — quando terminar o que está fazendo): ESBOÇO do aviso de RESERVA SUSPEITA no TITAN. Decidido com o dono: o site NÃO limita peças p
 - para **ESBOCO**: v627 publicada (65e): conferir filtros do Inventário (bloco Site), as escolhas de lados no app (Faixa com Intermediário cabe; lfCabe), Atacado › Mensagens vazio
 - para **ESBOCO**: v628 publicada (65f): conferir Dashboard do mês › Detalhes (Desempenho do mês ⌄ e Curva ABC ⌄, linhas com ⌄). Fotos em work/s436/65f/. Os 4 números continuam ta
+- para **ESBOCO**: Dono 22/11 15:47: 'fala com o esboço' — preciso da resposta do 65d para seguir sem parar: (1) janela Adicionar = só 'Completar peça do Estúdio (selo) · Chegou m
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
