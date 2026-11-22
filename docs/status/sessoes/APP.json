@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "41 parte 2: a câmera diz para qual peça vai (GIRO PARA / FOTO PARA)",
+ "arquivos": [
+  "src/97-estudio.js",
+  "src/98z-camera-u149f.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795315648.8460314,
@@ -44,5 +49,5 @@
    "r": "v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca)."
   }
  ],
- "leu": 1795315648.3370533
+ "leu": 1795315848.759743
 }

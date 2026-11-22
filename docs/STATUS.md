@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 41 parte 2: a câmera diz para qual peça vai (GIRO PARA / FOTO PARA) | src/97-estudio.js, src/98z-camera-u149f.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
