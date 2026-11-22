@@ -63,3 +63,10 @@ Não: cada parte tira o que substitui. O risco é o portão ficar frouxo — por
 ### O que o dono decide
 - "Aprovado" para a ordem 3a → 2 → 3b (minha sugestão), ou outra ordem.
 - Se aceita o portão mais demorado (~30 min) em troca de olhar todas as telas.
+
+### Feito em 22/11 — o comparador olha todas as telas do site
+- As telas saem de UM roteiro (`work/s430/comparador/roteiro_site.py`): 22 telas (Início, Catálogo, Peça, Menu, Busca, Filtros, Aviso adicionado, Carrinho, Entrar, Mapa, Consulta do grau, Formato do rosto, Janela da câmera, Comparar, Atacado, Portal do atacado, Separado para você, Ajuda e, logada, Minha conta, Meus pedidos, Pagar pedido, Aviso de cancelar). A nuvem é simulada (pedidos e conta de teste), nada é gravado.
+- Rodada inteira: 50 combinações tela × aparelho em 26 min, 0 falhas novas, 0 diferenças (publicado × o mesmo).
+- Defeito plantado (sem a base das janelas soltas): diferenças em Janela da câmera, Comparar e Portal do atacado → o Argus reprova.
+- `CMP_TELAS="Carrinho,Mapa"` roda só as telas mexidas (conferir esboço rápido).
+- Falta: prova "o roteiro cobre todas as telas" (cada tela nova do site entra no roteiro ou numa lista de fora) — vai junto da parte 2.

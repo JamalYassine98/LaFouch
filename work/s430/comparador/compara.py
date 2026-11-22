@@ -31,8 +31,11 @@ APAR = [  # nome, largura, altura, celular, letra 1,2×
     ('tablet', 768, 1024, True, False),
     ('PC', 1440, 900, False, False),
 ]
-TELAS = [('Início', '/?cliente=1', None), ('Catálogo', '/?cliente=1&r=armazones', None),
-         ('Peça', '/?cliente=1&r=armazones', '#grid .card .open')]
+# as telas vêm do ROTEIRO ÚNICO (roteiro_site.py): plano das ferramentas, parte 1 (dono 22/11)
+_s.path.insert(0, _o.path.dirname(_o.path.abspath(__file__))); import roteiro_site as RS
+TELAS = RS.TELAS
+if _o.environ.get('CMP_SO_TRES'): TELAS = TELAS[:3]   # modo antigo (só Início, Catálogo e Peça)
+if _o.environ.get('CMP_TELAS'): TELAS = [t for t in TELAS if t['nome'] in _o.environ['CMP_TELAS'].split(',')]   # só algumas (conferir um esboço)
 
 COLETA = r"""()=>{
 const z=parseFloat(getComputedStyle(document.body).zoom)||1,W=innerWidth;
@@ -86,16 +89,23 @@ return {L:out,sob}}"""
 
 def abre(b, url, ap, tela, foto=None):
     nome, w, h, mob, letra = ap
-    c = sim.contexto(b, w, h, toque=mob, movimento=False, csp_livre=False)
+    c = sim.contexto(b, w, h, toque=mob, movimento=False, csp_livre=False, camera=True)
     c.add_init_script(INIT)
     if letra:
         c.add_init_script(LETRA)
+    if tela.get('logada'):
+        c.add_init_script(RS.LOGADA)
+    c.route('**cloudfunctions.net/**', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body=RS.NUVEM))
+    c.route('**identitytoolkit**', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body='{"users":[{"emailVerified":true,"email":"maria@exemplo.com"}]}'))
     pg = c.new_page()
-    pg.goto(url + tela[1], wait_until='load')
+    pg.goto(url + tela['q'], wait_until='load')
     pg.wait_for_timeout(5500)
-    if tela[2]:
-        pg.evaluate("s=>{const e=document.querySelector(s);e&&e.click()}", tela[2])
-        pg.wait_for_timeout(2500)
+    for k, v in tela['passos']:
+        if k == 'toca': pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(e=>e.offsetParent)||document.querySelector(s);e&&e.click()}", v)
+        elif k == 'menu': pg.evaluate("h=>{document.querySelector('#mnb').click();setTimeout(()=>{const e=document.querySelector('#drw a[href=\"'+h+'\"]');e&&e.click()},700)}", v); pg.wait_for_timeout(700)
+        elif k == 'js': pg.evaluate(v)
+        elif k == 'escreve': pg.keyboard.type(v)
+        pg.wait_for_timeout(v if k == 'espera' else 1500)
     # fotos por faixa (sem "página inteira": esticar a janela muda a escala do site e mexe na tela)
     L, S, fotos = [], set(), []
     alto = pg.evaluate("document.documentElement.scrollHeight")
@@ -228,7 +238,8 @@ def main():
         b = sim.navegador(p)
         for ap in APAR:
             for tela in TELAS:
-                tag = (ap[0] + '_' + tela[0]).replace(' ', '_').replace(',', '')
+                if tela.get('ap') == 'cp' and ap[0] not in ('celular', 'PC'): continue
+                tag = (ap[0] + '_' + tela['nome']).replace(' ', '_').replace(',', '')
                 fh, fp = os.path.join(pasta, tag + '_hoje.png'), os.path.join(pasta, tag + '_prop.png')
                 H1 = abre(b, uh, ap, tela, fh)
                 P = abre(b, up, ap, tela, fp)
@@ -238,7 +249,7 @@ def main():
                 FH, FP = falhas(H1), falhas(P)
                 novas = [k for k in FP if k not in FH]
                 velhas = [k for k in FP if k in FH]
-                rel.append({'aparelho': ap[0], 'tela': tela[0],
+                rel.append({'aparelho': ap[0], 'tela': tela['nome'],
                             'falhas_novas': [[k[0]] + [e['nome'] for e in FP[k]] for k in novas],
                             'falhas_que_ja_existiam': [[k[0]] + [e['nome'] for e in FP[k]] for k in velhas],
                             'diferencas': [[t, n, d] for t, n, d, _, _ in D],
@@ -247,7 +258,7 @@ def main():
                     # na Proposta: falha nova em vermelho e diferença em laranja; em Hoje: a mesma peça onde ela estava
                     mp = [(e, VERM) for k in novas for e in FP[k]] + [(e, LAR) for t, n, d, e, _ in D if e]
                     mh = [(e, LAR) for t, n, d, _, e in D if e]
-                    imagem(H1, P, mh, mp, ap[0] + ' · ' + tela[0], os.path.join(pasta, tag + '.jpg'))
+                    imagem(H1, P, mh, mp, ap[0] + ' · ' + tela['nome'], os.path.join(pasta, tag + '.jpg'))
                 for T in (H1, P):
                     for _, fn in T['fotos']:
                         os.remove(fn)
