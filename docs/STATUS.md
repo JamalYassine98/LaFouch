@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 58 — painel do Site redesenhado (parte 1: a estrutura) | work/s435/painelsite |
+| ESBOCO | esboço 58b — Ajustes do site | work/s435/painelsite |
 
 ## Fila
 
