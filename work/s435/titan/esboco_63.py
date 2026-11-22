@@ -16,13 +16,12 @@ def ofertas(pw,escuro=True):
   b,pg,w=ap.abre(pw,'inicio',escuro,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
   pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
   html=pg.evaluate("()=>{"+H+JS2+r"""return '<div class="e49">'+TOP('Preços','Ofertas','descontos que o Titan confere',1)+
-    T('Hoje dá para dar',1)+
-    R('mola','Folga de desconto','15 preços abaixo do mínimo','0%','⌄')+
+    T('Ofertas no ar · 0',1)+
+    lfVazioHtml(I.cup,'Nenhuma oferta no ar','Quando uma peça parar de girar, o Semp sugere a oferta, o Titan confere e você aceita pelo sino.').replace('<svg ','<svg data-i142="1" ')+
     T('Cupons · 2')+
+    R('mola','Folga de hoje','15 preços abaixo do mínimo','até 0%','⌄')+
     R('ult','Última peça','o Titan cria na hora, no caixa','automático','⌄')+
     R('cup','Black Friday','evento · nenhuma peça entra ainda','0 peças','›')+
-    T('Ofertas no ar · 0')+
-    lfVazioHtml(I.cup,'Nenhuma oferta no ar','Quando uma peça parar de girar, o Semp sugere a oferta, o Titan confere e você aceita pelo sino.').replace('<svg ','<svg data-i142="1" ')+
     T('Como o Titan decide')+
     R('flu','Peça parada','pelo ritmo de vendas, não por dias fixos','','⌄')+
     R('dp','De/por honesto','o "de" é um preço que já vendeu','','⌄')+'</div>'}""")
@@ -34,6 +33,6 @@ if __name__=='__main__':
   a=Image.open(O+'h63_auto.png');p=Image.open('/home/claude/lafouch/work/s435/selo/h_precos.jpg')
   quadro('esboco_63_ofertas_titan.jpg',[('HOJE · Ajustes › Preço automático','degraus fixos: 60 dias −5% · 75 −10% · 90 −15% · 120 = piso',a.crop((0,400,780,400+2000))),
     ('HOJE · Preços','Black Friday como decisão; ofertas espalhadas',p.crop((0,0,780,1688))),
-    ('PROPOSTA · Preços › Ofertas','folga do dia (mola) · cupons · ofertas no ar · como decide',ofertas(pw))])
+    ('PROPOSTA · Preços › Ofertas','o que está no ar · cupons (com a folga de hoje) · como decide',ofertas(pw))])
   quadro('esboco_63_ofertas_titan_claro.jpg',[('PROPOSTA · Ofertas (claro)','mesma tela no tema claro',ofertas(pw,False))])
  for n,f in REL: print(n,len(f),f[:4])
