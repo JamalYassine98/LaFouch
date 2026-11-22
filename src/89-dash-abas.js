@@ -85,9 +85,8 @@
         t: 'Repor mercadoria',
         s: rp + ' produto(s) vão acabar logo',
         c: 'var(--warn)',
-        b: 'Ver reposição',
-        act: 'dtab',
-        id: 'giro'
+        b: 'Ver compras',
+        act: 'cpAbre'
       });
     var pa = invParados().length;
     if (pa)
@@ -139,7 +138,6 @@
     if (t === 'giro') {
       var ce = capitalEstoque(),
         x2 = dashExtra(),
-        rp = reposicao(),
         pa = parados(),
         ct = S.contagens.filter(function (c) {
           return Date.now() - c.ts <= 30 * DAY;
@@ -149,9 +147,8 @@
         kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
-      // v428: lista de compras melhorada + vitrine da semana
+      // a lista de compras saiu para Peças › Compras (66)
       h += '<div class="fxG">'; // dobras seguidas = um grupo de linhas, sem espaço entre elas
-      h += dFold('rep', 'Lista de compras', rp.length ? rp.length + ' produto(s) vão acabar logo' : 'nada acabando nos próximos 21 dias', rp.length ? 'var(--warn)' : 'var(--ok)', lcHtml());
       h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
       h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
       h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());

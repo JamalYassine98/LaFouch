@@ -84,7 +84,7 @@
   S.per = 'mes';
   S.perDe = '';
   S.perAte = '';
-  S.volume = 350;
+  S.volume = 350; // padrão interno das peças por mês, só até o app aprender (66 parte 3: não é mais digitado nem guardado)
   S.melhPeca = 1000;
   S.janela = 90;
   S.hf = 'all';

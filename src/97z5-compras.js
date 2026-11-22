@@ -29,7 +29,7 @@
   // as vagas abertas de hoje, das vendas (a lista de compras de antes, juntada por vaga)
   function cpVagas() {
     if (!S.cpV) S.cpV = {};
-    var L = lcLista(), por = {}, ord = [], F = cpFluxo();
+    var L = lcLista(), por = {}, ord = [], F = cpFluxo(), fa = aprendeFator();
     L.todos.forEach(function (x) {
       if (!(x.q > 0)) return;
       var k = cpChave(x.m, x.grau), v = por[k];
@@ -39,7 +39,7 @@
           falta: 0, cu: 0, refs: [], esp: 0 };
         ord.push(k);
       }
-      v.falta += x.q;
+      v.falta += Math.max(1, Math.round(x.q * fa)); // aprendendo: com poucos dias de vendas, pede pouco
       v.cu = Math.max(v.cu, x.cu || 0);
       v.esp += x.esp || 0;
       if (v.refs.indexOf(x.m.ref) < 0) v.refs.push(x.m.ref);
@@ -133,7 +133,8 @@
     var V = cpVagas(), sf = cpSemFechar(V), nf = (S.grp || []).length,
       pend = (S.grp || []).filter(function (g) { return typeof grpFalta === 'function' && grpFalta(g) > 0; }).length,
       h = '<div class="top"><div><h1>Compras</h1><div class="crumb">O que comprar e de quem</div></div></div>' +
-        '<div class="lbl cpT">Para comprar · ' + V.length + (V.length === 1 ? ' vaga' : ' vagas') + '</div>';
+        '<div class="lbl cpT">Para comprar · ' + V.length + (V.length === 1 ? ' vaga' : ' vagas') + '</div>' +
+        (aprendeFator() < 1 ? '<p class="cpApr">aprendendo · ' + aprendeDias() + (aprendeDias() === 1 ? ' dia de vendas' : ' dias de vendas') + ' · pede pouco por enquanto</p>' : '');
     if (V.length)
       h += '<section class="cpLs">' + V.map(function (v) {
         var e = cpEstado(v);
@@ -150,6 +151,7 @@
     }
   }
   aposRender(renderCompras);
+  ACT.cpAbre = function () { inicioGo('comp'); };
   // "Fornecedores ›": a tela de compras e lotes (antes a aba do Inventário)
   ACT.cpForn = function () {
     S.cont = false;

@@ -290,7 +290,7 @@
   // ================= 2) Atividade por aparelho (últimos 30 dias) =================
   var ATV_DIAS = 30,
     ATV_MAX = 2000;
-  var ATV_CFG = { pprice: 'preços das peças', faixas: 'faixas de preço', pfaixa: 'faixa dos produtos', metaUsd: 'meta do mês', metaDia: 'meta do dia', diasLoja: 'dias de loja', colchUsd: 'colchão do caixa', tolUsd: 'tolerância do caixa', volume: 'volume', formas: 'formas de pagamento', notaCidade: 'cidade da nota', cat2: 'categorias', tiposX: 'tipos', tiposDel: 'tipos', tiposOrd: 'ordem dos tipos', pnome: 'nomes dos produtos', desc: 'descrições', attr: 'atributos', faixaAuto: 'faixas automáticas', ini: 'início', site: 'dados do site', fxc: 'câmbio da loja' };
+  var ATV_CFG = { pprice: 'preços das peças', faixas: 'faixas de preço', pfaixa: 'faixa dos produtos', metaUsd: 'meta do mês', colchUsd: 'colchão do caixa', tolUsd: 'tolerância do caixa', formas: 'formas de pagamento', notaCidade: 'cidade da nota', cat2: 'categorias', tiposX: 'tipos', tiposDel: 'tipos', tiposOrd: 'ordem dos tipos', pnome: 'nomes dos produtos', desc: 'descrições', attr: 'atributos', faixaAuto: 'faixas automáticas', ini: 'início', site: 'dados do site', fxc: 'câmbio da loja' };
   var ATV_LISTA = { exp: ['c', 'Despesa'], retiradas: ['c', 'Retirada'], cambios: ['c', 'Câmbio de moeda'], cpay: ['c', 'Pagamento'], imprev: ['c', 'Imprevisto'], compras: ['e', 'Compra de mercadoria'], descartes: ['e', 'Descartou peça'], melhUso: ['e', 'Usou material'], fechos: ['c', 'Fechou o dia'] };
   function atvNum(v) {
     return typeof v === 'number' && isFinite(v) ? gs(v) : '';

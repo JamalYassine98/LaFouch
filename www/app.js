@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 630;
+  var APP_BUILD = 631;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.55'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.56'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1222,7 +1222,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'cpV', 'vit', 'mkt', 'fotoNota'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'colchUsd', 'tolUsd', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'cpV', 'vit', 'mkt', 'fotoNota'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -7140,7 +7140,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.per = 'mes';
   S.perDe = '';
   S.perAte = '';
-  S.volume = 350;
+  S.volume = 350; // padrão interno das peças por mês, só até o app aprender (66 parte 3: não é mais digitado nem guardado)
   S.melhPeca = 1000;
   S.janela = 90;
   S.hf = 'all';
@@ -9947,7 +9947,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.contagens = [];
   S.conf = {}; // última conferência de estoque por produto (tipo|código) -> data
   S.tolUsd = 0.5; // diferença de contagem tolerada (US$)
-  S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   // Faixa de um produto pelo código. v421: é a LINHA AUTOMÁTICA (53-linhas.js); a escolha à mão virou correção (S.linhaFix).
@@ -10165,39 +10164,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
 
   // Média mensal real de peças vendidas (0 enquanto não há histórico suficiente).
-  function volumeAuto() {
-    var now = Date.now(),
-      first = S.sales.reduce(function (a, s) {
-        return Math.min(a, s.ts);
-      }, S.appStart || now),
-      hist = (now - Math.min(first, S.appStart || now)) / DAY;
-    if (hist < 14) return 0; // v422: 14 dias de vendas bastam (antes eram 2 meses)
-    var win = Math.min(90, hist),
-      units = 0;
-    S.sales.forEach(function (s) {
-      if (!s.estorno && now - s.ts <= win * DAY) units += s.qty;
-    });
-    return units >= 10 ? Math.round(units / (win / 30)) : 0;
-  }
-  // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
+  // Peças por mês usadas para ratear as contas: o aprendido (volTipos); sem nada ainda, o padrão interno (S.volume).
   function volumeEfetivo() {
     var m = volTipos(),
       tot = Object.keys(m).reduce(function (a, k) {
         return a + m[k];
       }, 0);
-    if (tot > 0) return Math.round(tot);
-    var a = S.volAuto !== false ? volumeAuto() : 0;
-    return a > 0 ? a : S.volume;
+    return tot > 0 ? Math.round(tot) : S.volume; // as vendas reais já entram por volTipos (o antigo volumeAuto e a chave volAuto saíram)
   }
-  // Peças por mês de cada tipo: a meta mínima do dono (por dia × dias de loja aberta), misturada com as vendas reais
-  // conforme elas aparecem (30 dias de venda começa a pesar; 90 dias já vale só o real).
-  S.metaDia = {}; // tipo -> peças por dia que o dono espera vender no mínimo
-  S.diasLoja = 26;
+  // 66 parte 3 (Parte A §8, 22/11): o app aprende sozinho — nada digitado (saíram a meta por dia, os dias de loja e o volume).
   S.rateio = 'peca'; // 'peca' = igual por peça; 'custo' = proporcional ao custo de reposição
   S.faixaAuto = { on: false, lim: [4, 10] }; // faixa pelo custo (US$): até lim[0] = 1ª faixa, até lim[1] = 2ª, o resto = última
-  var vtReal = { n: -1, ts: 0, m: {}, hist: 0 };
+  var vtReal = { sig: '', ts: 0, m: {}, hist: 0 };
   function vendasReaisTipo() {
-    if (vtReal.n === S.sales.length && Date.now() - vtReal.ts < 5000) return vtReal;
+    // guardado por 5 s: vale enquanto as vendas (quantas, a 1ª e a última) e o 1º dia do app forem os mesmos
+    var sig = S.sales.length + '|' + S.appStart + '|' + (S.sales.length ? S.sales[0].ts + '|' + S.sales[S.sales.length - 1].ts : '');
+    if (vtReal.sig === sig && Date.now() - vtReal.ts < 5000) return vtReal;
     var now = Date.now(),
       first = S.sales.reduce(function (a, s) {
         return Math.min(a, s.ts);
@@ -10211,31 +10193,40 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     Object.keys(m).forEach(function (k) {
       m[k] = m[k] / (win / 30);
     });
-    vtReal = { n: S.sales.length, ts: now, m: m, hist: hist };
+    vtReal = { sig: sig, ts: now, m: m, hist: hist };
     return vtReal;
   }
-  function volTipos() {
-    var md = S.metaDia || {},
-      dias = S.diasLoja > 0 ? S.diasLoja : 26,
-      out = {},
-      temMeta = false;
-    Object.keys(md).forEach(function (k) {
-      if (md[k] > 0) {
-        out[k] = md[k] * dias;
-        temMeta = true;
-      }
+  // A aposta do dono: as peças de cada tipo na primeira compra (o lote mais antigo de cada tipo).
+  function primeiraCompraTipos() {
+    var o = {}, ts = {};
+    (S.grp || []).forEach(function (g) {
+      if (!g.tipo || !(g.qty > 0)) return;
+      if (ts[g.tipo] == null || (+g.ts || 0) < ts[g.tipo]) { ts[g.tipo] = +g.ts || 0; o[g.tipo] = g.qty; }
     });
-    if (!temMeta) return {};
+    return o;
+  }
+  // Peças por mês de cada tipo: as vendas reais (14 dias e 10 peças já valem sozinhas); antes disso, a primeira compra
+  // misturada com o ritmo real conforme ele aparece. Sem venda e sem compra: {} (quem usa cai no automático/padrão).
+  function volTipos() {
     var r = vendasReaisTipo(),
-      unid = Object.keys(r.m).reduce(function (a, k) {
-        return a + r.m[k];
-      }, 0),
-      w = r.hist >= 14 && unid >= 10 ? 1 : 0; // v425: 14 dias de vendas reais já valem sozinhos
-    if (w > 0)
-      Object.keys(r.m).forEach(function (k) {
-        out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);
-      });
+      unid = Object.keys(r.m).reduce(function (a, k) { return a + r.m[k]; }, 0),
+      out = {};
+    if (r.hist >= 14 && unid >= 10) {
+      Object.keys(r.m).forEach(function (k) { out[k] = r.m[k]; });
+      return out;
+    }
+    var pc = primeiraCompraTipos(), w = Math.max(0, Math.min(1, r.hist / 14));
+    Object.keys(pc).forEach(function (k) {
+      out[k] = w * (r.m[k] || 0) + (1 - w) * pc[k];
+    });
     return out;
+  }
+  // Aprendendo: com menos de 30 dias de vendas a lista de compras pede pouco (o fator sobe com os dias).
+  function aprendeDias() {
+    return Math.floor(vendasReaisTipo().hist);
+  }
+  function aprendeFator() {
+    return Math.max(0.34, Math.min(1, aprendeDias() / 30));
   }
   // ===== Linha automática (v421, aprovado 04/11/2026): Econômica · Intermediária · Luxo — OCULTA para o cliente. =====
   // Substitui as faixas escolhidas à mão. O app classifica cada produto sozinho:
@@ -21501,9 +21492,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: 'Repor mercadoria',
         s: rp + ' produto(s) vão acabar logo',
         c: 'var(--warn)',
-        b: 'Ver reposição',
-        act: 'dtab',
-        id: 'giro'
+        b: 'Ver compras',
+        act: 'cpAbre'
       });
     var pa = invParados().length;
     if (pa)
@@ -21555,7 +21545,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (t === 'giro') {
       var ce = capitalEstoque(),
         x2 = dashExtra(),
-        rp = reposicao(),
         pa = parados(),
         ct = S.contagens.filter(function (c) {
           return Date.now() - c.ts <= 30 * DAY;
@@ -21565,9 +21554,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
-      // v428: lista de compras melhorada + vitrine da semana
+      // a lista de compras saiu para Peças › Compras (66)
       h += '<div class="fxG">'; // dobras seguidas = um grupo de linhas, sem espaço entre elas
-      h += dFold('rep', 'Lista de compras', rp.length ? rp.length + ' produto(s) vão acabar logo' : 'nada acabando nos próximos 21 dias', rp.length ? 'var(--warn)' : 'var(--ok)', lcHtml());
       h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
       h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
       h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());
@@ -22291,7 +22279,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       S.dTab = id;
       setView('dash');
     } else if (id === 'repo') {
-      return lcIrGiro();
+      return inicioGo('comp'); // a lista de compras mora em Compras (66)
     } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {
       return onlPainel(id); // telas do painel do site
     } else if (id === 'mkt') {
@@ -22361,7 +22349,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
     if (id === 'g:site' && noPnl && grpGet('g:site')) return true; // painel aberto = família Site
     if (id === 'vendas' && noPnl && grpGet('g:site')) return false;
-    if (id === 'repo') return v === 'dash' && S.dTab === 'giro';
+    if (id === 'repo') return v === 'comp';
     if (id === 'hoje' && v === 'dia') return true;
     gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);
@@ -24497,10 +24485,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             ').'
           : 'Altere e veja o efeito antes de salvar.';
     }
-    if (k === 'volume') {
-      S.volume = Math.max(1, toNum(t.value));
-      $('tmPeca').textContent = gs(contasPeca());
-    }
     if (k === 'melh') {
       S.melhPeca = campoParaGs(t.value);
     }
@@ -24553,8 +24537,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.appStart = Date.now();
     S.conf = {};
     S.pfaixa = {};
-    S.metaDia = {};
-    S.diasLoja = 26;
     S.rateio = 'peca';
     S.faixaAuto = { on: false, lim: [4, 10] };
     S.contagens = [];
@@ -26754,18 +26736,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = parseFloat(String(v).replace(',', '.'));
     return isNaN(n) ? 0 : n;
   }
-  // Meta mínima de vendas por dia, rateio das contas e faixa automática.
+  // Divisão das contas (66 parte 3: os dias de loja saíram — o app aprende sozinho).
   function precosMetaHtml() {
-    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>';
-    h +=
-      '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
-      (S.diasLoja || 26) +
-      '" style="max-width:90px"></div>';
     // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
-    h += '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div>';
-    // v421: a faixa automática pelo custo saiu: a linha agora é sempre automática (53-linhas.js)
-    h += '</div>'; // S374: havia um </div> a mais (com o conteúdo dentro do cartão, ele empurrava as taxas para fora)
-    return h;
+    return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
+      '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div></div>';
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
@@ -26865,14 +26840,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
       else delete f.precos[t.getAttribute('data-tipo')];
     }
-    if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
     if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
-    if (k === 'mdia') {
-      var tv = Math.max(0, numIn(t.value) || 0);
-      if (tv > 0) S.metaDia[t.getAttribute('data-tipo')] = tv;
-      else delete S.metaDia[t.getAttribute('data-tipo')];
-    }
-    if (k === 'dias') S.diasLoja = Math.max(1, Math.min(31, Math.round(numIn(t.value)) || 26));
     if (k === 'flim') {
       if (!S.faixaAuto) S.faixaAuto = { on: true, lim: [4, 10] };
       S.faixaAuto.lim = (S.faixaAuto.lim || []).slice();
@@ -29741,7 +29709,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var BU_FUN = [
     ['vendas', 'Catálogo (vender)', 'Barra › Catálogo', 'venda vender cobrar balcao carrinho'],
     ['estoque', 'Inventário', 'Barra › Inventário', 'estoque pecas produtos cadastro'],
-    ['repo', 'Lista de compras', 'Giro › Lista de compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
+    ['repo', 'Lista de compras', 'Peças › Compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
     ['lotes', 'Fornecedores e lotes', 'Inventário › Fornecedores', 'compra lote fornecedor kazwini'],
     ['novo', 'Cadastrar peça nova', 'Inventário › +', 'novo cadastrar adicionar entrada'],
     ['cont', 'Contagem do estoque', 'Inventário › Contagem', 'contar conferir inventario'],
@@ -29835,9 +29803,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (ACT.opendia) ACT.opendia(v);
     } else if (k === 'desp') setView('desp');
     else if (k === 'fun') {
-      if (v === 'repo') {
-        if (window.__lcIrGiro) window.__lcIrGiro();
-      } else if (v === 'parado') setView('parsob');
+      if (v === 'repo') inicioGo('comp');
+      else if (v === 'parado') setView('parsob');
       else inicioGo(v);
     }
     window.scrollTo(0, 0);
@@ -37147,11 +37114,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
     } catch (e) {}
   }
-  // ===== Lista de compras melhorada (v428, aprovado 04/11/2026) =====
-  // Sem cor (o dono não controla cor na compra). Pré-graduados por GRAU. Três seções: Acabando, Época chegando
-  // e Não recompre. Quantidade com − / +. Total comparado com o dinheiro da reposição. Compartilhar com o
-  // fornecedor. "Marcar como pedido" guarda o pedido e confere sozinho quando a mercadoria entra.
-  S.lcQtd = {}; // chave -> quantidade escolhida pelo dono
+  // ===== Lista de compras: os DADOS (v428) — a tela é Peças › Compras (src/97z5-compras.js, 66, 22/11/2026) =====
+  // lcLista: o que acaba (pelo ritmo de venda, com a estação), a época chegando e o que sobra. Sem cor; pré-graduados por GRAU.
+  // A lista do Giro (− / +, "Marcar como pedido", "Mandar ao fornecedor", "como calcula") saiu: Compras pede por vaga.
+  // S.lcPed (pedido antigo) continua só para conferir o que ainda chegar dele (Chegou mercadoria · lcPedResumoHtml).
   S.lcPed = null; // {ts, itens:[{k, ref, tipo, grau, q, s0}]}
   function lcChave(tipo, ref, grau) {
     return tipo + '|' + ref + (grau ? '|' + grau : '');
@@ -37336,13 +37302,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     out.nao = out.nao.slice(0, 8);
     out.todos = out.acab.concat(out.epoca);
     out.todos.forEach(function (x) {
-      x.q = S.lcQtd[x.k] != null ? S.lcQtd[x.k] : x.sug;
+      x.q = x.sug;
     });
     out.total = out.todos.reduce(function (a, x) {
       return a + x.q * x.cu;
     }, 0);
     out.porIdeal = porIdeal;
-    out.novo = lcComprarNovo();
     return out;
   }
   // O que veio a mais no pedido (entrou mais do que o pedido).
@@ -37355,47 +37320,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!p) return 0;
     return Math.max(0, lcEntrou(p) - p.q);
   }
-  // "O que comprar de NOVO": formato/material que vende bem acima da média e tem poucos modelos.
-  function lcComprarNovo() {
-    var lim = Date.now() - 90 * DAY,
-      ven = {},
-      mods = {},
-      tv = 0,
-      tm = 0,
-      visto = {};
-    S.items.forEach(function (i) {
-      if (i.bulk || isSimple(i.tipo) || visto[i.ref] || !(i.qty > 0)) return;
-      visto[i.ref] = 1;
-      tm++;
-      var a = attrOf(i.ref) || {};
-      ['formato', 'material'].forEach(function (c) {
-        if (a[c]) mods[c + '|' + a[c]] = (mods[c + '|' + a[c]] || 0) + 1;
-      });
-    });
-    (S.sales || []).forEach(function (s) {
-      if (s.estorno || s.ts < lim || isSimple(s.tipo)) return;
-      tv += s.qty;
-      var a = attrOf(s.ref) || {};
-      ['formato', 'material'].forEach(function (c) {
-        if (a[c]) ven[c + '|' + a[c]] = (ven[c + '|' + a[c]] || 0) + s.qty;
-      });
-    });
-    if (!tv || !tm) return [];
-    var media = tv / tm,
-      o = [];
-    Object.keys(ven).forEach(function (k) {
-      var nm = mods[k] || 0,
-        v = ven[k];
-      if (v < 5 || nm > 3) return;
-      var r = v / Math.max(1, nm) / media;
-      if (r < 1.8) return;
-      var p = k.split('|');
-      o.push({ k: k, c: p[0], v: p[1], r: r, nm: nm, q: v });
-    });
-    return o.sort(function (a, b) {
-      return b.r - a.r;
-    }).slice(0, 2);
-  }
   function lcNoPedido(k) {
     var P = S.lcPed;
     if (!P) return false;
@@ -37403,25 +37327,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return p.k === k && lcEntrou(p) < p.q;
     });
   }
-  function lcNome(x) {
-    return pn(x.m.ref) + (x.grau ? ' · grau ' + x.grau : '');
-  }
   function lcThumb(ref) {
     var f = photoOf(ref);
     return '<span class="lcTh">' + (f ? '<img src="' + esc(f) + '" alt="">' : '<i>sem foto</i>') + '</span>';
   }
-  // S374 · esboço 68 (dono 16/11): linha de 2 andares — nome (+ grau na etiqueta) e "Tem 9 · ~7 dias"; tipo vira título do grupo.
-  function lcMot(x) {
-    return String(x.mot || '').replace(/Ideal \d+ · /, '').replace('restam ~', '~');
-  }
   function lcNomeL(m, grau) {
     return '<span class="lcN"><span>' + esc(pn(m.ref)) + '</span>' + (grau ? ' <b class="lcG">' + esc(grau) + '</b>' : '') + '</span>';
-  }
-  function lcLinha(x) {
-    return (
-      '<div class="sl lcL">' + lcThumb(x.m.ref) + '<span>' + lcNomeL(x.m, x.grau) + '<small' + (x.esp ? ' class="lcEsp"' : '') + '>' + esc(lcMot(x)) + '</small></span>' +
-      '<span class="lcQ"><button type="button" class="mini" data-act="lcMenos" data-id="' + esc(x.k) + '" aria-label="Menos">−</button><b>' + x.q + '</b><button type="button" class="mini" data-act="lcMais" data-id="' + esc(x.k) + '" aria-label="Mais">+</button></span></div>'
-    );
   }
   function lcSobraLinha(b) {
     var d = isFinite(b.dias) ? Math.round(b.dias) : 0,
@@ -37439,68 +37350,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function lcOfBtn(m) {
     return '<button type="button" class="lcOf' + lkCls(true) + '" data-act="lcOferta" data-id="' + esc(m.tipo + '|' + m.ref) + '">Oferta ›</button>';
   }
-  // agrupa pelo tipo, na ordem em que aparece (a lista já vem do mais urgente)
-  function lcGrupos(l, fn) {
-    var ord = [], por = {};
-    l.forEach(function (x) {
-      var tp = tipoOf(x.m.tipo), t = tp ? tp.label : '';
-      if (!por[t]) { por[t] = []; ord.push(t); }
-      por[t].push(x);
-    });
-    return ord.map(function (t) {
-      return (t ? '<div class="lcGr">' + esc(t) + '</div>' : '') + '<div class="split">' + por[t].map(fn).join('') + '</div>';
-    }).join('');
-  }
-  function lcHtml() {
-    var L = lcLista(),
-      rp = fxRepo(),
-      h = '<section class="card col lcCard lcLs" id="lcCard"><div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcCalc">como calcula ›</button></div>' +
-        (S.lcCalc ? '<div class="hint lcCalcT" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +. Sobrando = mercadoria acima do ideal.</div>' : '');
-    h += lcPedHtml();
-    if (L.novo.length)
-      h += '<div class="lcNovo">' + L.novo.map(function (n) {
-        return '<div><b>Comprar de novo:</b> ' + esc(n.v) + ' (' + (n.c === 'formato' ? 'formato' : 'material') + ') vende ' + (Math.round(n.r * 10) / 10).toString().replace('.', ',') + '× a média e você só tem ' + n.nm + (n.nm === 1 ? ' modelo' : ' modelos') + '.</div>';
-      }).join('') + '</div>';
-    if (!L.todos.length && !L.nao.length && !L.sobra.length) return h + '<div class="note n-ok">Nada para comprar agora.</div></section>';
-    var todos = S.lcTodos || {};
-    var sec = function (t, l) {
-      if (!l.length) return '';
-      var ver = todos[t] || l.length <= 5 ? l : l.slice(0, 5);
-      return '<div class="lcSec"><span>' + t + ' · ' + l.length + '</span></div>' + lcGrupos(ver, lcLinha) +
-        (l.length > 5 ? '<div class="lcTer"><button type="button" class="lcT' + lkCls(true) + '" data-act="lcTodos" data-id="' + t + '">' + (todos[t] ? 'mostrar só os 5 mais urgentes ›' : 'ver os ' + l.length + ' ›') + '</button></div>' : '');
-    };
-    h += sec('Acabando', L.acab);
-    h += sec('Época chegando', L.epoca);
-    // pré-graduados em pacotes (veio da antiga aba Reposição do Inventário): soma por grau e arredonda no pacote
-    var pk = typeof packPre === 'function' ? packPre() : 20, pg = {}, gs = [];
-    L.todos.forEach(function (x) {
-      if (!x.grau || !(x.q > 0)) return;
-      if (pg[x.grau] == null) { pg[x.grau] = 0; gs.push(x.grau); }
-      pg[x.grau] += x.q;
-    });
-    if (gs.length) {
-      gs.sort(function (a, b) { return parseFloat(a) - parseFloat(b); });
-      h += '<div class="lcPk"><span>Pré-graduados em pacotes de ' + pk + '</span><small>' + gs.map(function (g) {
-        var p = Math.ceil(pg[g] / pk);
-        return '<span class="lcPkG"><b class="lcG">' + esc(g) + '</b> ' + p + (p === 1 ? ' pacote' : ' pacotes') + '</span>';
-      }).join('') + '</small></div>';
-    }
-    if (L.sobra.length) h += '<div class="lcSec lcSecS"><span>Sobrando · ' + L.sobra.length + '</span><b>' + usd0(L.parado) + '</b></div>' + lcGrupos(L.sobra, lcSobraLinha);
-    if (L.nao.length)
-      h += '<div class="lcSec"><span>Não recompre · ' + L.nao.length + '</span></div><div class="split">' + L.nao.map(function (x) {
-        return '<div class="sl lcL lcNao"><span>' + lcNomeL(x.m) + '<small>' + esc(x.mot) + '</small></span></div>';
-      }).join('') + '</div>';
-    if (L.todos.length) {
-      var pct = rp.tot > 0 ? Math.min(100, Math.round((L.total / rp.tot) * 100)) : 0,
-        sobra = rp.tot - L.total;
-      h +=
-        '<div class="lcTot"><div style="display:flex;justify-content:space-between;align-items:baseline"><span>Total <b>' + usd0(L.total) + '</b></span><span class="hint" style="margin:0">reposição ' + usd0(rp.tot) + '</span></div>' +
-        '<div class="lcBar"><i style="width:' + pct + '%;background:' + (sobra < 0 ? 'var(--warn)' : 'var(--ok)') + '"></i></div>' +
-        '<div class="hint" style="margin:0">' + (rp.tot <= 0 ? 'Sem dinheiro de reposição guardado ainda.' : sobra >= 0 ? 'Cabe no dinheiro da reposição (sobram ' + usd0(sobra) + ').' : 'Passa ' + usd0(-sobra) + ' do dinheiro da reposição.') + '</div></div>' +
-        '<button type="button" class="go" data-act="lcPedir">Marcar como pedido</button><button type="button" class="mini lcEnv" data-act="lcEnvia" style="width:100%">Mandar ao fornecedor</button>';
-    }
-    return h + '</section>';
-  }
   // Pedido feito: confere sozinho pelo estoque que entrou.
   function lcStockDe(p) {
     return S.items.reduce(function (a, i) {
@@ -37514,154 +37363,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     return Math.max(t, lcStockDe(p) - p.s0);
   }
-  function lcPedHtml() {
-    var P = S.lcPed;
-    if (!P || !P.itens.length) return '';
-    var ok = 0,
-      ls = P.itens.map(function (p) {
-        var ch = Math.min(p.q, Math.max(0, lcEntrou(p)));
-        if (ch >= p.q) ok++;
-        return '<div class="sl"><span>' + esc(pn(p.ref)) + (p.grau ? ' <b class="lcG">' + esc(p.grau) + '</b>' : '') + '</span><b style="color:' + (ch >= p.q ? 'var(--ok)' : 'var(--sub)') + '">' + (ch >= p.q ? '✓ chegou' : ch + ' de ' + p.q) + '</b></div>';
-      });
-    return (
-      '<details class="lcPed"' + (ok < P.itens.length ? ' open' : '') + '><summary><b>Pedido de ' + new Date(P.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + '</b> · ' + ok + ' de ' + P.itens.length + ' chegaram</summary><div class="split">' + ls.join('') + '</div>' +
-      '<button type="button" class="mini" data-act="lcPedFim" style="margin-top:8px">' + (ok >= P.itens.length ? 'Concluir pedido' : 'Apagar pedido') + '</button></details>'
-    );
-  }
-  function lcMuda(k, d) {
-    var L = lcLista(),
-      x = L.todos.filter(function (y) {
-        return y.k === k;
-      })[0];
-    if (!x) return;
-    S.lcQtd[k] = Math.max(0, x.q + d);
-    saveSoon();
-    render();
-  }
-  ACT.lcCalc = function () {
-    S.lcCalc = !S.lcCalc;
-    render();
-  };
-  ACT.lcTodos = function (t) {
-    S.lcTodos = S.lcTodos || {};
-    S.lcTodos[t] = !S.lcTodos[t];
-    render();
-  };
-  ACT.lcMais = function (k) {
-    lcMuda(k, 1);
-  };
-  ACT.lcMenos = function (k) {
-    lcMuda(k, -1);
-  };
-  function lcPedirJa(L) {
-    var its = L.todos.filter(function (x) {
-        return x.q > 0;
-      }).map(function (x) {
-        var p = { k: x.k, ref: x.m.ref, tipo: x.m.tipo, grau: x.grau, q: x.q };
-        p.s0 = lcStockDe(p);
-        return p;
-      });
-    if (!its.length) return;
-    S.lcPed = { ts: Date.now(), itens: its };
-    S.lcQtd = {};
-    saveSoon();
-    lfToast('Pedido guardado · confiro quando a mercadoria entrar', 'ok');
-    render();
-  }
-  // Peças que ficariam acima do ideal depois que o pedido chegar.
-  function lcExcessoPedido(L) {
-    return L.todos.filter(function (x) {
-      return x.q > 0 && x.ideal > 0 && x.stock + x.q > x.ideal + Math.max(1, Math.round(x.ideal * 0.25));
-    }).map(function (x) {
-      return { x: x, mais: x.stock + x.q - x.ideal };
-    });
-  }
-  ACT.lcPedir = function () {
-    var L = lcLista(),
-      ex = lcExcessoPedido(L);
-    if (!ex.length) return lcPedirJa(L);
-    var pecas = ex.reduce(function (a, e) {
-        return a + e.mais;
-      }, 0),
-      val = ex.reduce(function (a, e) {
-        return a + e.mais * e.x.cu;
-      }, 0);
-    lfJanela({
-      titulo: 'Este pedido deixa peças sobrando',
-      cls: 'lcAvJn',
-      monta: function (c, api) {
-        c.innerHTML =
-          '<div class="hint" style="margin:0 0 6px">Depois de chegar, ficariam acima do ideal:</div>' +
-          ex.map(function (e) {
-            return '<div class="sl lcL">' + lcThumb(e.x.m.ref) + '<span>' + esc(lcNome(e.x)) + '<small>Ideal ' + e.x.ideal + ' · ficaria com ' + (e.x.stock + e.x.q) + '</small></span><b class="lcSo">+' + e.mais + '</b></div>';
-          }).join('') +
-          '<div class="sl"><span><b>Total sobrando</b></span><b class="lcSo">' + pecas + (pecas === 1 ? ' peça' : ' peças') + ' · ' + usd0(val) + '</b></div>' +
-          '<button type="button" class="go" id="lcAj">Ajustar para o ideal</button><button type="button" class="mini" id="lcSeg" style="width:100%">Continuar mesmo assim</button>';
-        c.querySelector('#lcAj').onclick = function () {
-          ex.forEach(function (e) {
-            S.lcQtd[e.x.k] = Math.max(0, e.x.ideal - e.x.stock);
-          });
-          saveSoon();
-          api.fecha();
-          render();
-        };
-        c.querySelector('#lcSeg').onclick = function () {
-          api.fecha();
-          lcPedirJa(lcLista());
-        };
-      }
-    });
-  };
   ACT.lcOferta = function (id) {
     var p = String(id).split('|'), ref = p.slice(1).join('|');
     S.ofOpen = ref;
     prodAbre(p[0], ref);
   };
-  ACT.lcPedFim = function () {
-    S.lcPed = null;
-    saveSoon();
-    render();
-  };
-  function lcTexto(forn) {
-    var L = lcLista(),
-      porRef = {},
-      ord = [];
-    L.todos.forEach(function (x) {
-      if (!(x.q > 0)) return;
-      if (forn != null && lcForn(x.m.ref) !== forn) return;
-      var r = x.m.ref;
-      if (!porRef[r]) {
-        porRef[r] = [];
-        ord.push(r);
-      }
-      porRef[r].push(x);
-    });
-    return (
-      'Pedido La Fouch · ' + new Date().toLocaleDateString('pt-BR') + '\n\n' +
-      ord.map(function (r) {
-        var l = porRef[r];
-        return l[0].grau ? r + '\n' + l.map(function (x) { return '  grau ' + x.grau + ': ' + x.q; }).join('\n') : r + ': ' + l[0].q;
-      }).join('\n') +
-      '\n\nCores variadas.'
-    );
-  }
-  // Fornecedores do pedido de agora (cada um recebe só as peças dele).
-  function lcForns() {
-    var o = {},
-      ord = [];
-    lcLista().todos.forEach(function (x) {
-      if (!(x.q > 0)) return;
-      var f = lcForn(x.m.ref);
-      if (!o[f]) {
-        o[f] = 0;
-        ord.push(f);
-      }
-      o[f] += x.q;
-    });
-    return ord.map(function (f) {
-      return { f: f, q: o[f] };
-    });
-  }
   function lcManda(t) {
     var P = shPlug(),
       u = SH_APPS.filter(function (a) {
@@ -37671,28 +37377,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (navigator.share) return navigator.share({ text: t }).catch(function () {});
     window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank');
   }
-  ACT.lcEnvia = function () {
-    var fs = lcForns();
-    if (fs.length <= 1) return lcManda(lcTexto());
-    lfJanela({
-      titulo: 'Mandar ao fornecedor',
-      monta: function (c, api) {
-        c.innerHTML =
-          '<div class="hint" style="margin:0 0 6px">Cada fornecedor recebe só as peças dele.</div>' +
-          fs.map(function (f, i) {
-            return '<button type="button" class="mini lcFb" data-i="' + i + '" style="width:100%;margin:4px 0">' + esc(f.f || 'Sem fornecedor') + ' · ' + f.q + (f.q === 1 ? ' peça' : ' peças') + ' ›</button>';
-          }).join('');
-        [].forEach.call(c.querySelectorAll('.lcFb'), function (b) {
-          b.onclick = function () {
-            var f = fs[+b.dataset.i];
-            lcManda(lcTexto(f.f));
-            b.classList.add('on');
-            b.textContent = '✓ ' + b.textContent;
-          };
-        });
-      }
-    });
-  };
   // Entrada da compra (Chegou mercadoria): o que chegou do pedido da lista, o que faltou, o que sobra e as ofertas.
   function lcPedResumoHtml(ids) {
     var P = S.lcPed;
@@ -43143,7 +42827,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ================= 2) Atividade por aparelho (últimos 30 dias) =================
   var ATV_DIAS = 30,
     ATV_MAX = 2000;
-  var ATV_CFG = { pprice: 'preços das peças', faixas: 'faixas de preço', pfaixa: 'faixa dos produtos', metaUsd: 'meta do mês', metaDia: 'meta do dia', diasLoja: 'dias de loja', colchUsd: 'colchão do caixa', tolUsd: 'tolerância do caixa', volume: 'volume', formas: 'formas de pagamento', notaCidade: 'cidade da nota', cat2: 'categorias', tiposX: 'tipos', tiposDel: 'tipos', tiposOrd: 'ordem dos tipos', pnome: 'nomes dos produtos', desc: 'descrições', attr: 'atributos', faixaAuto: 'faixas automáticas', ini: 'início', site: 'dados do site', fxc: 'câmbio da loja' };
+  var ATV_CFG = { pprice: 'preços das peças', faixas: 'faixas de preço', pfaixa: 'faixa dos produtos', metaUsd: 'meta do mês', colchUsd: 'colchão do caixa', tolUsd: 'tolerância do caixa', formas: 'formas de pagamento', notaCidade: 'cidade da nota', cat2: 'categorias', tiposX: 'tipos', tiposDel: 'tipos', tiposOrd: 'ordem dos tipos', pnome: 'nomes dos produtos', desc: 'descrições', attr: 'atributos', faixaAuto: 'faixas automáticas', ini: 'início', site: 'dados do site', fxc: 'câmbio da loja' };
   var ATV_LISTA = { exp: ['c', 'Despesa'], retiradas: ['c', 'Retirada'], cambios: ['c', 'Câmbio de moeda'], cpay: ['c', 'Pagamento'], imprev: ['c', 'Imprevisto'], compras: ['e', 'Compra de mercadoria'], descartes: ['e', 'Descartou peça'], melhUso: ['e', 'Usou material'], fechos: ['c', 'Fechou o dia'] };
   function atvNum(v) {
     return typeof v === 'number' && isFinite(v) ? gs(v) : '';
@@ -46587,7 +46271,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // as vagas abertas de hoje, das vendas (a lista de compras de antes, juntada por vaga)
   function cpVagas() {
     if (!S.cpV) S.cpV = {};
-    var L = lcLista(), por = {}, ord = [], F = cpFluxo();
+    var L = lcLista(), por = {}, ord = [], F = cpFluxo(), fa = aprendeFator();
     L.todos.forEach(function (x) {
       if (!(x.q > 0)) return;
       var k = cpChave(x.m, x.grau), v = por[k];
@@ -46597,7 +46281,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           falta: 0, cu: 0, refs: [], esp: 0 };
         ord.push(k);
       }
-      v.falta += x.q;
+      v.falta += Math.max(1, Math.round(x.q * fa)); // aprendendo: com poucos dias de vendas, pede pouco
       v.cu = Math.max(v.cu, x.cu || 0);
       v.esp += x.esp || 0;
       if (v.refs.indexOf(x.m.ref) < 0) v.refs.push(x.m.ref);
@@ -46691,7 +46375,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var V = cpVagas(), sf = cpSemFechar(V), nf = (S.grp || []).length,
       pend = (S.grp || []).filter(function (g) { return typeof grpFalta === 'function' && grpFalta(g) > 0; }).length,
       h = '<div class="top"><div><h1>Compras</h1><div class="crumb">O que comprar e de quem</div></div></div>' +
-        '<div class="lbl cpT">Para comprar · ' + V.length + (V.length === 1 ? ' vaga' : ' vagas') + '</div>';
+        '<div class="lbl cpT">Para comprar · ' + V.length + (V.length === 1 ? ' vaga' : ' vagas') + '</div>' +
+        (aprendeFator() < 1 ? '<p class="cpApr">aprendendo · ' + aprendeDias() + (aprendeDias() === 1 ? ' dia de vendas' : ' dias de vendas') + ' · pede pouco por enquanto</p>' : '');
     if (V.length)
       h += '<section class="cpLs">' + V.map(function (v) {
         var e = cpEstado(v);
@@ -46708,6 +46393,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   aposRender(renderCompras);
+  ACT.cpAbre = function () { inicioGo('comp'); };
   // "Fornecedores ›": a tela de compras e lotes (antes a aba do Inventário)
   ACT.cpForn = function () {
     S.cont = false;
@@ -53109,20 +52795,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
 
-  // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
-  // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
-  // Os pacotes dos pré-graduados entram na lista do Giro (linha "Pré-graduados em pacotes de N", 97-lista-compras.js).
-  function lcIrGiro() {
-    S.repoView = false;
-    S.lotesView = false;
-    S.cont = false;
-    S.dTab = 'giro';
-    S.dfold = S.dfold || {};
-    S.dfold.rep = true;
-    return setView('dash');
-  }
-  window.__lcIrGiro = lcIrGiro;
-  ACT.lcIrGiro = function () { lcIrGiro(); };
   // S374 (esboço 72): Caixa › "Livre e reservado ›" abre o Dashboard na aba Reservas
   ACT.cxReservas = function () {
     S.dTab = 'din';
@@ -53784,8 +53456,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'cad',
       'memo',
       'cadInit',
-      'metaDia',
-      'diasLoja',
       'rateio',
       'faixaAuto',
       'vModo',
@@ -53827,7 +53497,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'matX',
       'brindes',
       'desc',
-      'volume',
       'melhPeca',
       'fxHist',
       'lm',
@@ -53838,7 +53507,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'siteFora',
       'pTeste',
       'pTeste16',
-      'lcQtd',
       'lcPed',
       'cpV',
       'vit',
@@ -53888,7 +53556,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'contagens',
       'conf',
       'tolUsd',
-      'volAuto',
       'retiradas',
       'descartes',
       'totM',
@@ -54132,7 +53799,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
@@ -54141,7 +53808,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, invParados: invParados, contVelhos: contVelhos, paginas: paginas, cpVagas: cpVagas, cpFluxo: cpFluxo, cpMensagem: cpMensagem, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, invParados: invParados, contVelhos: contVelhos, paginas: paginas, cpVagas: cpVagas, cpFluxo: cpFluxo, cpMensagem: cpMensagem, aprendeFator: aprendeFator, primeiraCompraTipos: primeiraCompraTipos, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

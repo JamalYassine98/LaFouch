@@ -1521,14 +1521,10 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .lcSec{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:6px 0 -2px}
 .lcG{display:inline-block;font-size:11px;padding:1px 6px;border-radius:8px;background:var(--soft,rgba(138,47,102,.1));color:var(--accent-fg)}
 .lcL{align-items:center}
-.lcQ{display:flex;align-items:center;gap:6px;flex:none}
-.lcQ b{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
-.lcQ .mini{width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center;font-size:18px}
-.lcTot{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:12px;background:var(--soft,rgba(128,128,128,.08))}
 .lcBar{height:6px;border-radius:3px;background:rgba(128,128,128,.2);overflow:hidden}
 .lcBar i{display:block;height:100%;border-radius:3px;transition:width .4s}
-.lcPed summary,.vtFi summary{cursor:pointer;list-style:none}
-.lcPed summary::-webkit-details-marker,.vtFi summary::-webkit-details-marker{display:none}
+.vtFi summary{cursor:pointer;list-style:none}
+.vtFi summary::-webkit-details-marker{display:none}
 .vtL{align-items:center;gap:10px}
 .vtI{width:44px;height:30px;border-radius:6px;background:#fff;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .vtI img{max-width:100%;max-height:100%;object-fit:contain}
@@ -1694,8 +1690,7 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 .lcSo{color:var(--warn)}
 .lcPill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--warn);color:var(--warn);vertical-align:1px}
 .lcV{display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap;color:var(--warn);font-weight:700;flex:none}.lcV.bad{color:var(--bad,#ff8f8f)}
-.lcVira{color:var(--bad,#ff8f8f)!important}.lcOfV{color:var(--sub)}.lcEsp{color:var(--warn)!important}
-.lcNovo{border:1px dashed var(--line);border-radius:12px;padding:8px 11px;font-size:13px;line-height:1.4;display:flex;flex-direction:column;gap:4px}
+.lcVira{color:var(--bad,#ff8f8f)!important}.lcOfV{color:var(--sub)}
 .lcPedBox{margin-top:8px}.lcPedBox .lbl{margin-bottom:4px}
 /* v441 busca única no Início */
 .buBox{margin-bottom:12px}
@@ -2653,7 +2648,6 @@ section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!imp
    − n + num seletor só · texto à esquerda · peça em 2 andares agrupada por tipo · Sobrando com o valor no título. */
 .lcLs .sl.lcL{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);text-align:left}
 .lcLs .split>.sl.lcL:first-child{border-top:0}
-.lcLs .sl.lcL.lcNao{grid-template-columns:minmax(0,1fr)}
 .lcLs .sl.lcL>span:nth-child(2),.lcLs .sl.lcL small{text-align:left}
 .lcLs .lcN{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px;font-size:15px;line-height:1.3;color:var(--fg)}
 .lcLs .lcN .lcG{flex:none}
@@ -2661,23 +2655,15 @@ section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!imp
 .lcLs .sl.lcL small.lcVira{color:var(--bad,#e07a7a)}
 .lcLs .lcSec{display:flex;justify-content:space-between;align-items:baseline;text-align:left;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sub);margin:20px 0 4px}
 .lcLs .lcSec b{letter-spacing:0;color:var(--warn);font-size:13px}
-.lcLs .lcGr{font-size:12.5px;font-weight:600;color:var(--sub);margin:12px 0 2px;text-align:left}
-.lcLs .lcTer{display:flex;justify-content:flex-start}
 .lcLs .lcT,.lcLs .lcOf{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
 .lcLs .lcV{display:flex;flex-direction:column;align-items:flex-end;gap:0;font-weight:600}
 .lcLs .lcOf{padding:4px 0}
-.lcLs .lcQ{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px;padding:0 2px;gap:0}
-.lcLs .lcQ .mini{border:0!important;background:none!important;box-shadow:none!important;width:40px;min-width:40px;height:40px;padding:0;color:var(--fg);font-size:18px}
-.lcLs .lcQ b{min-width:26px;text-align:center;font-weight:600}
-.lcLs .lcTot{background:var(--panel2);border:1px solid var(--line)}
-.lcLs .lcEnv,[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
+[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
 /* S374 · esboço 60a (dono 16/11 11:13): painel do site sem a caixa (borda, cantos) e título no tamanho das telas. */
 #grpTabs.gtF .dHdT{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
 .sbox iframe{border:0;border-radius:0}
 @media (max-width:760px){#siteBox:not(.full){width:100vw;margin:0 0 0 calc(50% - 50vw)}}
 /* S374 · uma lista de compras só: linha no Inventário que leva ao Giro, e os pacotes dos pré-graduados na lista */
-.lcLs .lcPk{display:flex;flex-direction:column;gap:6px;text-align:left;border-top:1px solid var(--line);padding:12px 0 4px;margin-top:6px}
-.lcLs .lcPk>span{font-size:13px;font-weight:600;color:var(--sub)}.lcLs .lcPk small{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--fg)}.lcLs .lcPkG{white-space:nowrap}
 /* S374 · esboço 70 (Hoje, aprovado 16/11 16:57): "Ver detalhes ›" texto rosa, "Estornar" perigo em texto (44 px), Contas do dia › leva a Despesas,
    títulos dos cartões na mesma letra, links rosa à esquerda. */
 .nav.vAc{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:2px}
@@ -3211,3 +3197,4 @@ p.cpE{margin:0 0 8px;font-size:14px}
 .cpTx .cpE.est,p.cpE.est{color:var(--warn)}.cpTx .cpE.fra,p.cpE.fra{color:var(--bad,#ff8f8f)}
 .cpExp{margin:0 0 8px}
 .cpAlt .lcTh{width:52px;height:36px}
+.cpApr{margin:4px 0 0;font-size:13px;color:var(--mute)}

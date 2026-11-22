@@ -91,18 +91,11 @@
     var n = parseFloat(String(v).replace(',', '.'));
     return isNaN(n) ? 0 : n;
   }
-  // Meta mínima de vendas por dia, rateio das contas e faixa automática.
+  // Divisão das contas (66 parte 3: os dias de loja saíram — o app aprende sozinho).
   function precosMetaHtml() {
-    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>';
-    h +=
-      '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
-      (S.diasLoja || 26) +
-      '" style="max-width:90px"></div>';
     // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
-    h += '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div>';
-    // v421: a faixa automática pelo custo saiu: a linha agora é sempre automática (53-linhas.js)
-    h += '</div>'; // S374: havia um </div> a mais (com o conteúdo dentro do cartão, ele empurrava as taxas para fora)
-    return h;
+    return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
+      '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div></div>';
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
@@ -202,14 +195,7 @@
       if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
       else delete f.precos[t.getAttribute('data-tipo')];
     }
-    if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
     if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
-    if (k === 'mdia') {
-      var tv = Math.max(0, numIn(t.value) || 0);
-      if (tv > 0) S.metaDia[t.getAttribute('data-tipo')] = tv;
-      else delete S.metaDia[t.getAttribute('data-tipo')];
-    }
-    if (k === 'dias') S.diasLoja = Math.max(1, Math.min(31, Math.round(numIn(t.value)) || 26));
     if (k === 'flim') {
       if (!S.faixaAuto) S.faixaAuto = { on: true, lim: [4, 10] };
       S.faixaAuto.lim = (S.faixaAuto.lim || []).slice();

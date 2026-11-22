@@ -273,7 +273,7 @@
       S.dTab = id;
       setView('dash');
     } else if (id === 'repo') {
-      return lcIrGiro();
+      return inicioGo('comp'); // a lista de compras mora em Compras (66)
     } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {
       return onlPainel(id); // telas do painel do site
     } else if (id === 'mkt') {
@@ -343,7 +343,7 @@
     if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
     if (id === 'g:site' && noPnl && grpGet('g:site')) return true; // painel aberto = família Site
     if (id === 'vendas' && noPnl && grpGet('g:site')) return false;
-    if (id === 'repo') return v === 'dash' && S.dTab === 'giro';
+    if (id === 'repo') return v === 'comp';
     if (id === 'hoje' && v === 'dia') return true;
     gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);

@@ -67,7 +67,7 @@
   var BU_FUN = [
     ['vendas', 'Catálogo (vender)', 'Barra › Catálogo', 'venda vender cobrar balcao carrinho'],
     ['estoque', 'Inventário', 'Barra › Inventário', 'estoque pecas produtos cadastro'],
-    ['repo', 'Lista de compras', 'Giro › Lista de compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
+    ['repo', 'Lista de compras', 'Peças › Compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
     ['lotes', 'Fornecedores e lotes', 'Inventário › Fornecedores', 'compra lote fornecedor kazwini'],
     ['novo', 'Cadastrar peça nova', 'Inventário › +', 'novo cadastrar adicionar entrada'],
     ['cont', 'Contagem do estoque', 'Inventário › Contagem', 'contar conferir inventario'],
@@ -161,9 +161,8 @@
       if (ACT.opendia) ACT.opendia(v);
     } else if (k === 'desp') setView('desp');
     else if (k === 'fun') {
-      if (v === 'repo') {
-        if (window.__lcIrGiro) window.__lcIrGiro();
-      } else if (v === 'parado') setView('parsob');
+      if (v === 'repo') inicioGo('comp');
+      else if (v === 'parado') setView('parsob');
       else inicioGo(v);
     }
     window.scrollTo(0, 0);

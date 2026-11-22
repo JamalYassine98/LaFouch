@@ -15,7 +15,6 @@
   S.contagens = [];
   S.conf = {}; // última conferência de estoque por produto (tipo|código) -> data
   S.tolUsd = 0.5; // diferença de contagem tolerada (US$)
-  S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   // Faixa de um produto pelo código. v421: é a LINHA AUTOMÁTICA (53-linhas.js); a escolha à mão virou correção (S.linhaFix).
@@ -233,39 +232,22 @@
   };
 
   // Média mensal real de peças vendidas (0 enquanto não há histórico suficiente).
-  function volumeAuto() {
-    var now = Date.now(),
-      first = S.sales.reduce(function (a, s) {
-        return Math.min(a, s.ts);
-      }, S.appStart || now),
-      hist = (now - Math.min(first, S.appStart || now)) / DAY;
-    if (hist < 14) return 0; // v422: 14 dias de vendas bastam (antes eram 2 meses)
-    var win = Math.min(90, hist),
-      units = 0;
-    S.sales.forEach(function (s) {
-      if (!s.estorno && now - s.ts <= win * DAY) units += s.qty;
-    });
-    return units >= 10 ? Math.round(units / (win / 30)) : 0;
-  }
-  // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
+  // Peças por mês usadas para ratear as contas: o aprendido (volTipos); sem nada ainda, o padrão interno (S.volume).
   function volumeEfetivo() {
     var m = volTipos(),
       tot = Object.keys(m).reduce(function (a, k) {
         return a + m[k];
       }, 0);
-    if (tot > 0) return Math.round(tot);
-    var a = S.volAuto !== false ? volumeAuto() : 0;
-    return a > 0 ? a : S.volume;
+    return tot > 0 ? Math.round(tot) : S.volume; // as vendas reais já entram por volTipos (o antigo volumeAuto e a chave volAuto saíram)
   }
-  // Peças por mês de cada tipo: a meta mínima do dono (por dia × dias de loja aberta), misturada com as vendas reais
-  // conforme elas aparecem (30 dias de venda começa a pesar; 90 dias já vale só o real).
-  S.metaDia = {}; // tipo -> peças por dia que o dono espera vender no mínimo
-  S.diasLoja = 26;
+  // 66 parte 3 (Parte A §8, 22/11): o app aprende sozinho — nada digitado (saíram a meta por dia, os dias de loja e o volume).
   S.rateio = 'peca'; // 'peca' = igual por peça; 'custo' = proporcional ao custo de reposição
   S.faixaAuto = { on: false, lim: [4, 10] }; // faixa pelo custo (US$): até lim[0] = 1ª faixa, até lim[1] = 2ª, o resto = última
-  var vtReal = { n: -1, ts: 0, m: {}, hist: 0 };
+  var vtReal = { sig: '', ts: 0, m: {}, hist: 0 };
   function vendasReaisTipo() {
-    if (vtReal.n === S.sales.length && Date.now() - vtReal.ts < 5000) return vtReal;
+    // guardado por 5 s: vale enquanto as vendas (quantas, a 1ª e a última) e o 1º dia do app forem os mesmos
+    var sig = S.sales.length + '|' + S.appStart + '|' + (S.sales.length ? S.sales[0].ts + '|' + S.sales[S.sales.length - 1].ts : '');
+    if (vtReal.sig === sig && Date.now() - vtReal.ts < 5000) return vtReal;
     var now = Date.now(),
       first = S.sales.reduce(function (a, s) {
         return Math.min(a, s.ts);
@@ -279,29 +261,38 @@
     Object.keys(m).forEach(function (k) {
       m[k] = m[k] / (win / 30);
     });
-    vtReal = { n: S.sales.length, ts: now, m: m, hist: hist };
+    vtReal = { sig: sig, ts: now, m: m, hist: hist };
     return vtReal;
   }
-  function volTipos() {
-    var md = S.metaDia || {},
-      dias = S.diasLoja > 0 ? S.diasLoja : 26,
-      out = {},
-      temMeta = false;
-    Object.keys(md).forEach(function (k) {
-      if (md[k] > 0) {
-        out[k] = md[k] * dias;
-        temMeta = true;
-      }
+  // A aposta do dono: as peças de cada tipo na primeira compra (o lote mais antigo de cada tipo).
+  function primeiraCompraTipos() {
+    var o = {}, ts = {};
+    (S.grp || []).forEach(function (g) {
+      if (!g.tipo || !(g.qty > 0)) return;
+      if (ts[g.tipo] == null || (+g.ts || 0) < ts[g.tipo]) { ts[g.tipo] = +g.ts || 0; o[g.tipo] = g.qty; }
     });
-    if (!temMeta) return {};
+    return o;
+  }
+  // Peças por mês de cada tipo: as vendas reais (14 dias e 10 peças já valem sozinhas); antes disso, a primeira compra
+  // misturada com o ritmo real conforme ele aparece. Sem venda e sem compra: {} (quem usa cai no automático/padrão).
+  function volTipos() {
     var r = vendasReaisTipo(),
-      unid = Object.keys(r.m).reduce(function (a, k) {
-        return a + r.m[k];
-      }, 0),
-      w = r.hist >= 14 && unid >= 10 ? 1 : 0; // v425: 14 dias de vendas reais já valem sozinhos
-    if (w > 0)
-      Object.keys(r.m).forEach(function (k) {
-        out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);
-      });
+      unid = Object.keys(r.m).reduce(function (a, k) { return a + r.m[k]; }, 0),
+      out = {};
+    if (r.hist >= 14 && unid >= 10) {
+      Object.keys(r.m).forEach(function (k) { out[k] = r.m[k]; });
+      return out;
+    }
+    var pc = primeiraCompraTipos(), w = Math.max(0, Math.min(1, r.hist / 14));
+    Object.keys(pc).forEach(function (k) {
+      out[k] = w * (r.m[k] || 0) + (1 - w) * pc[k];
+    });
     return out;
+  }
+  // Aprendendo: com menos de 30 dias de vendas a lista de compras pede pouco (o fator sobe com os dias).
+  function aprendeDias() {
+    return Math.floor(vendasReaisTipo().hist);
+  }
+  function aprendeFator() {
+    return Math.max(0.34, Math.min(1, aprendeDias() / 30));
   }

@@ -150,7 +150,7 @@ TESTES = [
    return [a.piso>0, b.piso>a.piso, a.margem<b.margem, b.margem]""", [True, True, True, 0.5]),
  ("rateio das contas: proporcional ao custo soma as contas do mês e peça cara carrega mais", """
    L.primeiroUso(); S.exp=[{id:1,nome:'Aluguel',cat:'loja',tipo:'fixa',moeda:'pyg',orig:1800000,valor:1800000,rate0:1,hist:[],dia:10}];
-   const ids=[...new Set(S.items.map(i=>i.tipo))]; S.metaDia={}; ids.forEach(t=>{S.metaDia[t]=2}); S.diasLoja=26;
+   const ids=[...new Set(S.items.map(i=>i.tipo))]; S.sales=[]; S.appStart=Date.now(); S.grp=ids.map((t,i)=>({id:'r'+i,tipo:t,qty:52,ts:1}));  // 66: a primeira compra no lugar da meta por dia
    S.rateio='peca'; const flat=L.contasPeca();
    S.items[0].custo=1; S.items[S.items.length-1].custo=6; S.rateio='custo'; const its=S.items.slice().sort((a,b)=>L.tFor(a).repUSD-L.tFor(b).repUSD);
    const lo=L.contasPeca(its[0]), hi=L.contasPeca(its[its.length-1]);
@@ -341,9 +341,9 @@ TESTES = [
    S.sales=[{ts:n-864e5,qty:3,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false},{ts:n-60*864e5,qty:20,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false}];
    const r=L.sugestoes(); return [r[0].acao, r[0].para]""", ["descer", 27]),
  ("sugestoes: sem histórico não sugere nada", """S.appStart=Date.now()-10*864e5; S.sales=[]; S.sugIgn={}; return L.sugestoes()[0].acao""", "sem-base"),
- ("volumeAuto: usa a média real só com histórico", """const n=Date.now(); S.volume=350; S.volAuto=true; S.appStart=n-10*864e5; S.sales=[{ts:n-864e5,qty:50,estorno:false}]; const a=L.volumeEfetivo();
-   S.appStart=n-120*864e5; S.sales=[{ts:n-10*864e5,qty:60,estorno:false},{ts:n-40*864e5,qty:30,estorno:false},{ts:n-5*864e5,qty:99,estorno:true}]; const b=[L.volumeAuto(), L.volumeEfetivo()];
-   S.volAuto=false; const c=L.volumeEfetivo(); S.volAuto=true; S.sales=[{ts:n-10*864e5,qty:5,estorno:false}]; return [a, b, c, L.volumeEfetivo()]""", [350, [30, 30], 350, 350]),
+ ("peças por mês aprendidas (66): antes de 14 dias a primeira compra; depois, a média real; sem nada, o padrão", """const n=Date.now(); S.volume=350; S.grp=[]; S.appStart=n-10*864e5; S.sales=[{id:'a',ts:n-864e5,qty:50,estorno:false,tipo:'sem'}]; const a=L.volumeEfetivo();
+   S.appStart=n-120*864e5; S.sales=[{id:'b',ts:n-10*864e5,qty:60,estorno:false,tipo:'sem'},{id:'c',ts:n-40*864e5,qty:30,estorno:false,tipo:'sem'},{id:'d',ts:n-5*864e5,qty:99,estorno:true,tipo:'sem'}]; const b=L.volumeEfetivo();
+   S.sales=[{id:'e',ts:n-10*864e5,qty:5,estorno:false,tipo:'sem'},{id:'e2',ts:n-9*864e5,qty:9,estorno:true,tipo:'sem'}]; const c=L.volumeEfetivo(); S.appStart=n-864e5; S.sales=[{id:'f',ts:n-864e5,qty:1,estorno:false,tipo:'sem'}]; S.grp=[{id:'g',tipo:'sem',qty:80,ts:1}]; return [a, b, c, L.volumeEfetivo()]""", [350, 30, 350, 76]),  # 1 dia de venda: 1/14 do ritmo real (30) + 13/14 da 1ª compra (80)
  ("backup: exporta e restaura tudo", """S.metaUsd=77; S.items=[{tipo:'pre',ref:'K1',grau:'+1.00',cor:'Preto',qty:3}]; S.pfaixa={K1:'f1'}; const txt=L.backupDados();
    S.metaUsd=1; S.items=[]; S.pfaixa={}; const e=L.restaurarDados(txt); return [e, S.metaUsd, S.items.length, S.pfaixa.K1, L.restaurarDados('lixo').length>0, L.restaurarDados('{"app":"outro"}').length>0]""", ["", 77, 1, "f1", True, True]),
  ("tema: Ajustes tem Auto/Claro/Escuro, troca, lembra e volta ao automático", """
@@ -3905,7 +3905,7 @@ async def main():
             troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(inicioGo|navOn) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              for (const [id, view, aceso] of [['hoje', 'dia', 'hoje'], ['giro', 'dash', 'giro'], ['repo', 'dash', 'repo'], ['cli', 'clientes', 'cli'], ['site', 'site', 'site'], ['cup', 'cup', 'cup'], ['vit', 'onl', 'vit'], ['anl', 'onl', 'g:mkt'], ['caixa', 'caixa', 'caixa'], ['lotes', 'estoque', 'lotes']]) {
+              for (const [id, view, aceso] of [['hoje', 'dia', 'hoje'], ['giro', 'dash', 'giro'], ['repo', 'comp', 'repo'], ['cli', 'clientes', 'cli'], ['site', 'site', 'site'], ['cup', 'cup', 'cup'], ['vit', 'onl', 'vit'], ['anl', 'onl', 'g:mkt'], ['caixa', 'caixa', 'caixa'], ['lotes', 'estoque', 'lotes']]) {
                 L.inicioGo(id); await w(250); R.push(S.view === view && L.navOn(aceso) === true ? 1 : id + '→' + S.view); }
               L.inicioGo('vit'); await w(200); const pn = [L.navOn('vendas'), L.navOn('g:site'), L.navOn('prod')];
               return [R.filter(x => x !== 1), pn]; }""")
@@ -4559,6 +4559,30 @@ async def main():
                   and got.get('salvou') is True and got.get('modelo') == [True, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Família Compras 66 parte 2: o fluxo decide — estrela repõe o mesmo; fracasso vira "No lugar de" com alternativas, sem o mesmo modelo no pedido nem no Fechei com…')
             if not ok: falhas.append('66 compras fluxo'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Família Compras 66 parte 3 (Parte A §8): aprende sozinho — sem meta por dia, dias de loja nem volume digitados (saem dos Ajustes,
+            # do que é guardado e da sincronia); no começo vale a primeira compra de cada tipo; com menos de 30 dias de vendas a lista pede pouco
+            # e Compras mostra "aprendendo · N dias de vendas". A meta de lucro do mês fica.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {}, n = Date.now();
+              L.setView('ajustes'); await w(300); R.aj = !/Dias de loja aberta/.test(document.body.innerText);
+              const sales = S.sales, grp = S.grp, st = S.appStart;
+              S.sales = []; S.appStart = n; S.grp = [{ id: 'a', tipo: 'solar', qty: 30, ts: n - 5e6 }, { id: 'b', tipo: 'solar', qty: 99, ts: n }, { id: 'c', tipo: 'sem', qty: 12, ts: n }];
+              R.pc = JSON.stringify(L.primeiraCompraTipos()); R.inicio = JSON.stringify(Object.fromEntries(Object.entries(L.volTipos()).map(e => [e[0], Math.round(e[1])]))); R.fa0 = L.aprendeFator();
+              S.appStart = n - 20 * 864e5; S.sales = Array.from({ length: 12 }, (x, i) => ({ id: 'x' + i, ts: n - i * 864e5, tipo: 'solar', ref: 'Z', qty: 1, price: 60000 }));
+              const vt = L.volTipos(); R.real = Math.round(vt.solar) === 18 && !('sem' in vt); R.fa20 = Math.round(L.aprendeFator() * 100);
+              S.grp = grp; S.appStart = n - 10 * 864e5; S.sales = sales.filter(x => n - x.ts < 10 * 864e5).slice(0, 7); // 10 dias de vendas
+              L.inicioGo('comp'); await w(500); R.apr = (document.querySelector('#v-comp .cpApr') || {}).textContent || '';
+              S.sales = sales; S.appStart = st;
+              return R; }""")
+            src = open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read() + open(os.path.join(RAIZ, 'src', '05-sync.js'), encoding='utf-8').read()
+            semChave = not any(("'" + k + "'") in src for k in ('metaDia', 'diasLoja', 'volume')) and "'metaUsd'" in src
+            total += 1
+            ok = (got['aj'] and got['pc'] == '{"solar":30,"sem":12}' and got['inicio'] == '{"solar":30,"sem":12}' and got['fa0'] == 0.34
+                  and got['real'] and got['fa20'] == 67 and got['apr'].startswith('aprendendo · ') and semChave and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Compras 66 parte 3: aprende sozinho — sem meta por dia, dias de loja e volume; começa pela primeira compra; "aprendendo · N dias de vendas" pede pouco')
+            if not ok: falhas.append('66 compras aprende'); print('        veio', got, semChave, pg.erros)
             await pg.close()
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
@@ -5568,9 +5592,9 @@ async def main():
               L.inicioGo('giro'); await w(500); const v = () => document.querySelector('.view:not([hidden])');
               const soltos = [...v().querySelectorAll('section.fxF')].filter(x => x.classList.contains('card') || x.closest('.g99')).length;  // 135d: a dobra é linha, não cartão
               const q = id => document.querySelector('section.fxF[data-fx="' + id + '"]');
-              q('rep').querySelector('.fxH').click(); await w(700); const abre = !!q('rep').querySelector('.fxB') && q('rep').parentElement.classList.contains('fxG');
-              const lc = document.getElementById('lcCard'), anim = lc ? getComputedStyle(lc).animationName : 'x';
-              q('rep').querySelector('.fxH').click(); await w(700); const fecha = !q('rep').querySelector('.fxB');
+              q('ret').querySelector('.fxH').click(); await w(700); const abre = !!q('ret').querySelector('.fxB') && q('ret').parentElement.classList.contains('fxG');
+              const lc = q('ret').querySelector('.fxB > *'), anim = lc ? getComputedStyle(lc).animationName : 'x';  // 66: a lista saiu do Giro; a dobra Retorno faz o papel
+              q('ret').querySelector('.fxH').click(); await w(700); const fecha = !q('ret').querySelector('.fxB');
               L.inicioGo('din'); await w(500); const po = !!q('paraonde') && !document.querySelector('[data-act=dfold].chip');
               L.setView('caixa'); await w(400); const cx = [...v().querySelectorAll('.lk100.c101,.slVai.r100')].length >= 2;
               L.inicioGo('hoje'); await w(400); const vd = [...v().querySelectorAll('.btn-sc.p')].every(b => b.classList.contains('inl'));
@@ -5645,48 +5669,32 @@ async def main():
             if not ok: falhas.append('fechar sem pulo'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Lista de compras sem excesso (v440): Sobrando (ideal × tem × sobra, dinheiro parado), avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada
+            # Lista de compras sem excesso (v440), depois de 66: Sobrando (ideal × tem × sobra, dinheiro parado) na tela Parados e sobrando,
+            # quem espera ("me avise") vem primeiro, e o pedido antigo (S.lcPed) ainda aparece na Entrada da compra
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              S.lcPed = null; S.lcQtd = {}; S.espera = [];
+              S.lcPed = null; S.espera = [];
               let Ls = L.lcLista(); const cand = Object.values(Ls.porIdeal).filter(b => b.ideal > 0 && !b.grau && b.cu > 0);
               const a = cand[0]; S.items.filter(i => i.ref === a.m.ref && i.tipo === a.m.tipo && !i.bulk)[0].qty += a.ideal * 3 + 4;
               const z = cand.find(b => b.m.ref !== a.m.ref); S.items.filter(i => i.ref === z.m.ref && i.tipo === z.m.tipo).forEach(i => i.qty = 0);
               S.espera.push({ id: 'e1', ref: z.m.ref, nome: 'Ana', tel: '1', ts: Date.now(), av: false }, { id: 'e2', ref: z.m.ref, nome: 'Bia', tel: '2', ts: Date.now(), av: false });
-              S.dTab = 'giro'; S.dfold.rep = true; L.setView('dash'); await w(300);
               Ls = L.lcLista(); const so = Ls.sobra.find(b => b.m.ref === a.m.ref);
-              const c = document.getElementById('lcCard'), topo = /US\$/.test((c.querySelector('.lcSecS b') || {}).textContent || '') && !c.querySelector('.lcSobTop'), secS = /Sobrando/.test(c.textContent), mini = c.querySelectorAll('.lcTh').length > 0;
               const prim = Ls.acab[0] && Ls.acab[0].m.ref === z.m.ref && /2 clientes esperando/.test(Ls.acab[0].mot);
-              // aviso antes de pedir
-              const k = Ls.acab[0].k; S.lcQtd[k] = 40; L.render(); await w(100);
-              document.querySelector('#lcCard [data-act=lcPedir]').click(); await w(500);
-              const av = !!document.querySelector('.lcAvJn'); document.getElementById('lcAj').click(); await w(400);
-              const ajust = S.lcQtd[k] < 40 && !S.lcPed;
-              document.querySelector('#lcCard [data-act=lcPedir]').click(); await w(500);
-              if (document.querySelector('.lcAvJn')) { document.getElementById('lcSeg').click(); await w(300); }
-              const pediu = !!S.lcPed;
+              L.setView('parsob'); await w(400); const ps = document.getElementById('v-parsob'), secS = /Sobrando · [1-9]/i.test(ps.innerText) && /US\$/.test(ps.innerText), mini = !!ps.querySelector('.psSob .lcTh');
+              const x = Ls.acab[0]; S.lcPed = { ts: Date.now(), itens: [{ k: x.k, ref: x.m.ref, tipo: x.m.tipo, grau: x.grau, q: 2, s0: 0 }] };
               const g = S.grp[0]; const html = L.lcPedResumoHtml(g ? [g.id] : []);
-              return [!!so && so.sobra >= 2 && so.valor > 0, Ls.parado > 0, topo, secS, mini, prim, av, ajust, pediu, /Do pedido da lista/.test(html), /pedido \d+ · chegou/.test(html)]; }""")
+              return [!!so && so.sobra >= 2 && so.valor > 0, Ls.parado > 0, secS, mini, prim, /Do pedido da lista/.test(html)]; }""")
             total += 1
-            ok = got == [True] * 11 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Lista sem excesso: Sobrando com dinheiro parado, avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada')
+            ok = got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Lista sem excesso: Sobrando com dinheiro parado em Parados e sobrando, avise-me primeiro, pedido antigo na Entrada')
             if not ok: falhas.append('lista sem excesso'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Giro (v428): lista de compras (sem cor, por grau, − / +, total × reposição, pedido que confere sozinho) e vitrine da semana
+            # Giro (v428): vitrine da semana (a lista de compras saiu para Peças › Compras em 66)
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              S.dTab = 'giro'; S.dfold.rep = true; S.dfold.vit = true; L.setView('dash'); await w(300);
-              const c = document.getElementById('lcCard'), secs = [...c.querySelectorAll('.lcSec')].map(e => e.textContent.split(' ')[0]);
-              const graus = c.querySelectorAll('.lcG').length > 0 && /pacotes? de \d+|pacote/.test((c.querySelector('.lcPk') || {}).textContent || ''), b0 = c.querySelector('.lcQ b').textContent;
-              c.querySelector('[data-act=lcMais]').click(); await w(150);
-              const b1 = document.querySelector('#lcCard .lcQ b').textContent, tot = /reposição/.test(document.querySelector('#lcCard .lcTot').textContent);
-              const n0 = document.querySelectorAll('#lcCard .lcQ').length;
-              document.querySelector('[data-act=lcPedir]').click(); await w(150);
-              if (document.querySelector('.lcAvJn')) { document.getElementById('lcSeg').click(); await w(150); }
-              const ped = S.lcPed && S.lcPed.itens.length, n1 = document.querySelectorAll('#lcCard .lcQ').length;
-              const p0 = S.lcPed.itens[0], it = S.items.find(i => i.ref === p0.ref && i.tipo === p0.tipo && (!p0.grau || i.grau === p0.grau)); it.qty += p0.q; L.render(); await w(150);
-              const chegou = /chegou/.test(document.querySelector('#lcCard .lcPed').textContent);
+              S.dTab = 'giro'; S.dfold.vit = true; L.setView('dash'); await w(300);
+              const semLista = !document.getElementById('lcCard') && !document.querySelector('section.fxF[data-fx="rep"]');
               const pede = !!document.getElementById('vtLug'); document.getElementById('vtLug').value = '3'; document.querySelector('[data-act=vitLug]').click(); await w(150);
               const sug = document.querySelectorAll('#vtCard .vtL').length, r0 = document.querySelector('#vtCard [data-act=vitFixa]').dataset.id;
               document.querySelector('#vtCard [data-act=vitFixa]').click(); await w(100);
@@ -5694,10 +5702,10 @@ async def main():
               const atual = S.vit.atual.slice(), fix = atual.indexOf(r0) >= 0, boa = /Nada para trocar/.test(document.getElementById('vtCard').textContent);
               const r1 = atual.find(r => r !== r0); S.items.filter(i => i.ref === r1).forEach(i => i.qty = 0); L.render(); await w(150);
               const saem = /Saem/.test(document.getElementById('vtCard').textContent) && /Entram/.test(document.getElementById('vtCard').textContent);
-              return [secs.indexOf('Acabando') >= 0, graus, +b1 === +b0 + 1, tot, ped > 0, n1 < n0, chegou, pede, sug, atual.length, fix, boa, saem]; }""")
+              return [semLista, pede, sug, atual.length, fix, boa, saem]; }""")
             total += 1
-            ok = got == [True, True, True, True, True, True, True, True, 3, 3, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Giro: lista de compras (grau, − / +, total × reposição, pedido confere) e vitrine da semana (lugares, fixar, trocar)')
+            ok = got == [True, True, 3, 3, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Giro: sem a lista de compras (66) e vitrine da semana (lugares, fixar, trocar)')
             if not ok: falhas.append('giro lista vitrine'); print('        veio', got, pg.erros)
             await pg.close()
 

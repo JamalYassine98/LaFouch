@@ -194,20 +194,6 @@
   };
   if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
 
-  // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
-  // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
-  // Os pacotes dos pré-graduados entram na lista do Giro (linha "Pré-graduados em pacotes de N", 97-lista-compras.js).
-  function lcIrGiro() {
-    S.repoView = false;
-    S.lotesView = false;
-    S.cont = false;
-    S.dTab = 'giro';
-    S.dfold = S.dfold || {};
-    S.dfold.rep = true;
-    return setView('dash');
-  }
-  window.__lcIrGiro = lcIrGiro;
-  ACT.lcIrGiro = function () { lcIrGiro(); };
   // S374 (esboço 72): Caixa › "Livre e reservado ›" abre o Dashboard na aba Reservas
   ACT.cxReservas = function () {
     S.dTab = 'din';
