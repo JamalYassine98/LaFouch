@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
-| SITE | Ferramentas parte 4: porteiro roda o comparador (publicado × o que vai subir) | work/fiscal/porteiro.py |
 
 ## Fila
 
@@ -144,6 +143,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
 - 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
@@ -168,4 +168,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
 - 21/11 11:12 — SITE: Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site.
 - 21/11 10:52 — IDEIAS: IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS
-- 21/11 10:51 — SITE: Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato).
