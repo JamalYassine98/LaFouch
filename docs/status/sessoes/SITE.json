@@ -1,14 +1,12 @@
 {
  "nome": "SITE",
- "agora": "Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js)",
- "arquivos": [
-  "work/kit/mede.js",
-  "work/kit/mede.py",
-  "work/kit/mede_prova.py",
-  "work/s430/comparador/compara.py",
-  "work/s430/comparador/roteiro_site.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795380356.5253747,
+   "r": "Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3."
+  },
   {
    "t": 1795370248.0376189,
    "r": "Ferramentas parte 1: comparador/Argus olha as 22 telas do site (roteiro único, nuvem simulada, logada); 50 combinações em 26 min, 0 diferenças; defeito plantado achado. Próximo: parte 2 (uma biblioteca de medidas)."
@@ -44,10 +42,6 @@
   {
    "t": 1795270331.2005324,
    "r": "Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site."
-  },
-  {
-   "t": 1795269103.0911064,
-   "r": "Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato)."
   }
  ],
  "leu": 1795380339.6032312

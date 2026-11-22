@@ -22,7 +22,6 @@
 | APP | 66 parte 1 Compras (telas) | src/97z5-compras.js, src/14-estoque-abas.js, src/98z-s374.js, www/style.css |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
 | IDEIAS | 07: PC estilo Madë — topo em cartão + página de produto | work/ideias/07-pc-made/ |
-| SITE | Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js) | work/kit/mede.js, work/kit/mede.py, work/kit/mede_prova.py, work/s430/comparador/compara.py, work/s430/comparador/roteiro_site.py |
 
 ## Fila
 
@@ -153,6 +152,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
 - 22/11 17:22 — IDEIAS: 05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë
 - 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
 - 22/11 16:31 — IDEIAS: IDEIAS 07: ilustração da caixa de presente
@@ -177,4 +177,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 01:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
 - 22/11 00:55 — APP: v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor).
 - 22/11 00:33 — APP: v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos).
-- 22/11 00:26 — ESBOCO: 21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)
