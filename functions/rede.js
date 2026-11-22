@@ -1,15 +1,12 @@
-// Limites por rede (aprovado pelo dono 22/11/2026 15:01; nenhuma tela muda — regra 6b). UM lugar só para:
+// Limites por rede (aprovado pelo dono 22/11/2026 15:01; "rede da loja" retirada pelo dono às 15:10 — complicado demais;
+// nenhuma tela muda — regra 6b). UM lugar só para:
 //  · o que é "a mesma rede": IPv4 inteiro; IPv6 pelos 64 primeiros bits (uma casa/um celular tem um bloco /64 inteiro e
 //    troca o fim do endereço à vontade — contar o endereço inteiro deixava escapar);
-//  · a REDE DA LOJA: o app do dono, aberto na loja, avisa "esta é a rede da loja" (reserva acao 'loja'); por 12 horas essa rede
-//    não tem limite por rede — na Black Friday todos os clientes no Wi-Fi da loja saem pelo mesmo endereço;
-//  · os números (por hora): crescer não esbarra neles, porque cada cliente em casa/4G é outra rede.
-// Regra pura: db = { get(id) -> {ate}|null, set(id, o) }  (lojaRede/<id>, só a nuvem lê e grava)
+//  · os números (por hora): crescer não esbarra neles, porque cada cliente em casa/4G é outra rede. 30 por rede dá folga
+//    para a Black Friday no Wi-Fi da loja (todos saem pelo mesmo endereço).
 'use strict';
-const crypto = require('crypto');
 
 const HORA = 36e5;
-const LOJA_MS = 12 * HORA;
 // por rede, por hora (o pedido também por telefone: tel)
 const LIMITE = { reserva: 30, pedido: 30, tel: 5, comp: 10, cancel: 20, avise: 10 };
 
@@ -28,23 +25,4 @@ function chave(ip) {
   return g.join(':') + '::/64';
 }
 
-const id = (k) => crypto.createHash('sha256').update('lf-rede|' + k).digest('hex').slice(0, 40);
-
-// { k: chave da rede, loja: true se é a rede da loja agora }
-async function de(db, ip, agora) {
-  const k = chave(ip);
-  if (!k) return { k: '?', loja: false };
-  let loja = false;
-  try { const o = await db.get(id(k)); loja = !!o && +o.ate > agora; } catch (e) { loja = false; }
-  return { k, loja };
-}
-
-// o app do dono, aberto na loja: marca a rede de onde ele chama
-async function marcaLoja(db, ip, agora) {
-  const k = chave(ip);
-  if (!k) return { ok: false, motivo: 'rede' };
-  await db.set(id(k), { ts: agora, ate: agora + LOJA_MS });
-  return { ok: true, ate: agora + LOJA_MS };
-}
-
-module.exports = { HORA, LOJA_MS, LIMITE, chave, de, marcaLoja };
+module.exports = { HORA, LIMITE, chave };

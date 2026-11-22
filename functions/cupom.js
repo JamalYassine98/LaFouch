@@ -106,9 +106,9 @@ async function bloqueado(db, ipk, agora) {
 }
 // confere tudo antes de usar (sem gravar o uso)
 async function confere(db, b, ipk, agora) {
-  const bloq = ipk ? await bloqueado(db, ipk, agora) : false; // ipk vazio = rede da loja: sem anti-robô por rede
+  const bloq = await bloqueado(db, ipk, agora);
   const cod = codN(b.cod), c = !bloq && cod.length >= 4 ? await db.get(cod) : null;
-  if (!c) { if (ipk) await errou(db, ipk, agora); return { ok: false, motivo: 'nao' }; }
+  if (!c) { await errou(db, ipk, agora); return { ok: false, motivo: 'nao' }; }
   const v = vivo(c, agora);
   if (v) return { ok: false, motivo: v, c: publico(c, agora) };
   const tel = telN(b.tel), em = emN(b.email);

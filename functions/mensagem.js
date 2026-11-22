@@ -41,9 +41,8 @@ function textoEmail(o) {
 
 async function enviar(db, envia, b, ip, agora) {
   const o = valida(b);
-  // ip null = rede da loja (o app do dono marcou): sem limite por rede
-  const chave = ip === null ? 'loja' : crypto.createHash('sha256').update(String(ip || '?')).digest('hex').slice(0, 16);
-  if (ip !== null && (await db.contaRecentes(chave, agora - 3600e3)) >= 5) throw new Falha('muitas', 429);
+  const chave = crypto.createHash('sha256').update(String(ip || '?')).digest('hex').slice(0, 16);
+  if ((await db.contaRecentes(chave, agora - 3600e3)) >= 5) throw new Falha('muitas', 429);
   const id = (agora.toString(36) + crypto.randomBytes(3).toString('hex'));
   Object.assign(o, { ts: agora, est: 'novo', ipk: chave });
   await db.salva(id, o);

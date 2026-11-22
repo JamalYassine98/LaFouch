@@ -46,8 +46,7 @@ async function entrega(db, b, agora, ipk) {
     if (p.cancelado) throw new Falha('cancelado', 409);
     if (tipo === 'comp' && p.pago) throw new Falha('pago', 409);
   }
-  // ipk vazio = rede da loja (o app do dono marcou): sem limite por rede
-  if (ipk && (await db.conta(tipo + '_r' + ipk, agora)) > LIMITE[tipo]) throw new Falha('espera', 429);
+  if ((await db.conta(tipo + '_r' + ipk, agora)) > LIMITE[tipo]) throw new Falha('espera', 429);
   const tel = so(doc.tel).slice(-9);
   if (tipo === 'pedido' && tel.length >= 6 && (await db.conta('pedido_t' + tel, agora)) > LIMITE.tel) throw new Falha('espera', 429);
   await db.cria(id, Object.assign({}, doc, tipo === 'pedido' ? {} : { tipo }), tipo);

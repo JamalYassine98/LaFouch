@@ -93,14 +93,10 @@ const tokDb = {
   get: async (p) => { const d = await fsx().doc(p).get(); return d.exists ? d.data() : null; },
   set: (p, dados) => fsx().doc(p).set(dados, { merge: true }),
 };
-// Limites por rede (22/11, rede.js): IPv6 conta pelo bloco /64; a rede da loja (marcada pelo app do dono) fica sem limite por rede.
+// Limites por rede (22/11, rede.js): a mesma rede = IPv4 inteiro, IPv6 pelo bloco /64. redeDe = a chave; ipkDe = o resumo guardado.
 const Rede = require('./rede');
-const redeDb = {
-  get: async (id) => { const d = await fsx().doc('lojaRede/' + id).get(); return d.exists ? d.data() : null; },
-  set: (id, o) => fsx().doc('lojaRede/' + id).set(o),
-};
-const redeDe = (req) => Rede.de(redeDb, req.ip || req.get('x-forwarded-for') || '', Date.now());
-const ipkDe = (r) => (r.loja ? '' : hash(r.k, 24)); // '' = rede da loja: as portas pulam o limite por rede
+const redeDe = (req) => Rede.chave(req.ip || req.get('x-forwarded-for') || '') || '?';
+const ipkDe = (req) => hash(redeDe(req), 24);
 // App Check (20/11): toda porta pública chama seloOk no começo. O modo (anotar/exigir) fica num lugar só: selo.js.
 // Contagem por dia em seloDia/<AAAA-MM-DD> (só o dono lê) para ver quem chega sem selo antes de exigir.
 const Selo = require('./selo');
@@ -181,7 +177,7 @@ exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: RE
 const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
-const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH', 'ligar', 'loja']; // P1b: orfas e liberarH só o dono · 39: ligar (PIX sem par → pedido) · 22/11: loja (o app marca a rede da loja)
+const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH', 'ligar']; // P1b: orfas e liberarH só o dono · 39: ligar (PIX sem par → pedido)
 
 async function ehDono(req) {
   const t = await tokenDe(req);
@@ -215,9 +211,8 @@ exports.reserva = onRequest(
       const refs = (Array.isArray(b.itens) && b.itens.length ? b.itens.map((i) => i && i.ref) : Array.isArray(b.refs) ? b.refs : []).filter(Boolean).map(String);
       let r;
       if (acao === 'reservar') {
-        // 22/11: no máximo LIMITE.reserva reservas novas por rede por hora (a rede da loja não conta). Passou: o site segue o pedido sem segurar a peça.
-        const rd = await redeDe(req);
-        if (!rd.loja && (await pedDb.conta('reserva_r' + ipkDe(rd), agora)) > Rede.LIMITE.reserva) throw new Falha('espera', 429);
+        // 22/11: no máximo LIMITE.reserva reservas novas por rede por hora. Passou: o site segue o pedido sem segurar a peça.
+        if ((await pedDb.conta('reserva_r' + ipkDe(req), agora)) > Rede.LIMITE.reserva) throw new Falha('espera', 429);
         // S409 (70c): Cliente VIP tem 3 horas para pagar, UMA reserva longa por vez (as outras ficam com os 30 minutos de sempre)
         let ate = 0;
         try {
@@ -248,7 +243,6 @@ exports.reserva = onRequest(
         r = await Reserva.orfas(db, todos, Array.isArray(b.conhecidos) ? b.conhecidos.slice(0, 5000) : []);
       } else if (acao === 'liberarH') r = await Reserva.liberarH(db, agora, String(b.h || ''), refs);
       else if (acao === 'ligar') r = await ligaPix(String(b.pix || ''), String(b.pedido || ''));
-      else if (acao === 'loja') r = await Rede.marcaLoja(redeDb, req.ip || req.get('x-forwarded-for') || '', agora);
       else if (acao === 'liberar') {
         r = await Reserva.liberar(db, agora, b.pedido, refs);
         // S400 (17/11/2026): o app chama "liberar" quando o dono marca o pedido ENTREGUE (e também ao cancelar/apagar, mas aí a reserva
@@ -417,7 +411,7 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
     }
     if (b.acao === 'inscrever') {
       if (!(await seloOk(req, res, 'novidades'))) return;
-      return res.json(await Inscricao.inscrever(insDb, emailResend(), { email: b.email, lang: b.lang }, Date.now(), ipkDe(await redeDe(req)), urlFn('novidades')));
+      return res.json(await Inscricao.inscrever(insDb, emailResend(), { email: b.email, lang: b.lang }, Date.now(), ipkDe(req), urlFn('novidades')));
     }
     // S183: no começo do tema o app (dono) manda 1 e-mail aos inscritos (1 vez por tema e ano)
     if (b.acao === 'tema') {
@@ -480,7 +474,7 @@ const pedDb = {
 };
 exports.pedido = post('pedido', { cors: CORS_SITE, maxInstances: 10 }, async (req, res, b) => {
   if (!(await seloOk(req, res, 'pedido'))) return;
-  return res.json(await Pedido.entrega(pedDb, b, Date.now(), ipkDe(await redeDe(req))));
+  return res.json(await Pedido.entrega(pedDb, b, Date.now(), ipkDe(req)));
 });
 
 // ---------- Mensagens do site (11/11/2026): "Entre em contato" (e-mail para lafouch.eyewear@gmail.com) e cópia dos pedidos de Atacado ----------
@@ -501,8 +495,7 @@ exports.mensagem = post('mensagem', { cors: CORS_SITE, maxInstances: 5, secrets:
   if (b.acao !== 'enviar') return res.status(400).json({ ok: false, motivo: 'acao' });
   if (!(await seloOk(req, res, 'mensagem'))) return;
   const envia = emailResend({ falha: () => new Falha('envio', 502) });
-  const rd = await redeDe(req);
-  return res.json(await Mensagem.enviar(msgDb, envia, b, rd.loja ? null : rd.k, Date.now()));
+  return res.json(await Mensagem.enviar(msgDb, envia, b, redeDe(req), Date.now()));
 });
 
 // ---------- Analisador (11/11/2026): contagens anônimas por visita; o painel lê os totais ----------
@@ -714,7 +707,7 @@ exports.conferePedido = onDocumentCreated({ document: 'pedidos/{id}', region: RE
   } catch (e) { console.error('conferePedido', ev.params.id, e && e.message); }
 });
 exports.cupom = post('cupom', { cors: true, maxInstances: 10, secrets: [RESEND_KEY] }, async (req, res, b) => {
-  const ipk = ipkDe(await redeDe(req));
+  const ipk = ipkDe(req);
   const envia = emailResend();
   const agora = Date.now();
   // público (site)
