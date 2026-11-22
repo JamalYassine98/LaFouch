@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 63 — Titan, setor Ofertas | work/s435/titan |
+| IDEIAS | IDEIAS 06: temática estilo campanha (Natal) | work/ideias/06-tematica |
 
 ## Fila
 
