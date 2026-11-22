@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono: página de escuta com 6 opções do aviso inteiro (PT e ES); gasto 816 de 8.000 créditos; nada no site
+dono escolheu opção 1 (PT e ES) 22/11 05:53 · antes: padronizar volume das 390 falas (preparado: só ganho em 75) e decidir sobre a variação de voz (regravar grupos?) — esperando o dono
 
