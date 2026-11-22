@@ -1,4 +1,4 @@
-# Esboço 58b (S435, 22/11 01:40) — Site › Ajustes do site como tela do app (estrutura aprovada 01:23).
+# Esboço 58b v2 (S435, 22/11 06:30: Avaliações virou tela própria — 58c; Segurança e Conta eram do painel web, que sai — 06:13). Antes: (S435, 22/11 01:40) — Site › Ajustes do site como tela do app (estrutura aprovada 01:23).
 # Sai: "O site está no ar" (vira o botão do Resumo, 58a) e "Se você desligar" (vai para a janela do botão). Ajustes › Site do app sai (fica só aqui).
 # Base: Ajustes organizado (aprovado 20/11: blocos com título, ícone por linha, valor à direita) + rótulos/ícones cinza (21/11 17:54) + 149s.
 exec(open('/home/claude/lafouch/work/s435/selo/esboco_49.py').read().split("def atacado(pw):")[0].replace("O='/home/claude/lafouch/work/s435/selo/'","O='/home/claude/lafouch/work/s435/painelsite/'"))
@@ -19,8 +19,8 @@ def ajustes(pw):
    const T=(t,first)=>'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:'+(first?'24px':'32px')+' 0 4px">'+t+'</div>';
    return '<div class="e49">'+TOP('Site','Ajustes do site','lafouch.com',0)+
     T('Entrega',1)+R('fr','Frete e transportadoras','por cidade')+R('ac','Estojo e flanela','vão junto')+
-    T('Clientes')+R('av','Avaliações','para revisar','›')+R('nw','Inscritos em novidades','e-mail','›')+
-    T('Arquivos e acesso')+R('fo','Fotos e vídeos','do destaque')+R('sg','Segurança','2 etapas')+R('co','Conta','')+'</div>'}""")
+    T('Clientes')+R('nw','Inscritos em novidades','e-mail','›')+
+    T('Arquivos')+R('fo','Fotos e vídeos','do destaque')+'</div>'}""")
   pagina(pg,html);w(500);confere(pg,'Ajustes do site proposta')
   pg.add_style_tag(content='#mainnav .mn{color:var(--mute)!important}#mainnav .mn svg{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
   x=shot(pg,'aj58');b.close();return x
