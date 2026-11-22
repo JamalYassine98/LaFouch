@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | estudo 47b — painel do Site inteiro (redundâncias com o app) | work/s435/painelsite |
+| ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
 
 ## Fila
 
