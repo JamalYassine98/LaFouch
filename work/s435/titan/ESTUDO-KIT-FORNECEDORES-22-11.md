@@ -40,3 +40,19 @@
 **Combinação sugerida para a LaFouch:**
 - 3 + 2 + 7, e 6 na loja.
 - 9 é opcional (barato, mas é o que mais marca o "abrir a caixa").
+
+## Lista por item, com fornecedor, preço e mínimo (22/11 18:25 · vitrine pública, pedir cotação)
+| Item | Fornecedor (site) | Preço | Mínimo |
+|---|---|---|---|
+| Kit completo (estojo PU + caixa + saco + flanela) | Classic Packing (classicpacking.com) | a partir de US$ 2,20 | 500 |
+| Estojo couro + caixa de gaveta | Wenzhou Yangming Eyewear Accessories (Made-in-China) | US$ 2,10 | 50 |
+| Estojo PU + caixa | Yiwu Qmoon Sunglasses (Alibaba) | US$ 1,54–1,78 | 10 |
+| Estojo duro PU com logo | Wenzhou Dongtian Glasses Manufacturing (Global Sources) | US$ 1,75–1,99 | 300 |
+| Estojo + saquinho | IENJOY Group (Made-in-China) | US$ 0,48–0,56 | 300 |
+| Caixa de gaveta de papelão com logo | Alibaba (anúncio 1600546605757) | US$ 0,10–1,00 | 200 |
+| Caixa rígida magnética com logo | Global Sources (vários) | US$ 0,09–0,89 | 500 |
+| Sacola de papel com logo | Guangzhou Lixin Printing & Packaging / Gadus Tech (Alibaba) | US$ 0,02–0,30 / US$ 0,21–0,23 | 50 / 500 |
+| Flanela microfibra com logo | Vinerstar (HKTDC) | US$ 0,12–0,15 | a pedir |
+| Flanela microfibra com logo | Canterberry Gifts | US$ 0,50 (100) a 0,39 (500) | 100 |
+| Papel de seda com logo | Alibaba (anúncio 1600536415252) | US$ 0,30 (200–1999) | 200 |
+| Cartão de agradecimento | Huangshan Stonedoing (Alibaba) | US$ 0,04–0,22 | 100 |
