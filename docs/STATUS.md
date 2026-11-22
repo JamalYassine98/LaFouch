@@ -122,9 +122,6 @@
 - para **ESBOCO**: v619 publicada (41 parte 1): marcas Frente · 3/4 · Giro em cada linha do Estúdio (fotos em work/s436/41/). O link segue 'Ficha ›' até a Galeria da peça entrar (
 - para **ESBOCO**: v620 publicada: Leve 2 do SITE saiu do app (regra, campo l2 da vitrine, leitura no pedido, rótulos). Pedido antigo com o desconto mostra 'Desconto do site'. NÃO
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
-- para **SITE**: Dono aprovou (21/11 17:25) o item 45 'Descubra seu formato' (IDEIAS 01): esboços e 'como fazer' em work/ideias/01-formato/COMO-FAZER.md. Entra na sua ordem quan
-- para **SITE**: Dono 21/11 17:27: o item 45 (Descubra seu formato) é para implementar DEPOIS que você terminar tudo o que já está na sua fila.
-- para **SITE**: App v620: parou de mandar o campo l2 nas peças da vitrine (Leve 2 saiu). Nas peças já publicadas o l2 antigo fica parado no documento; o site não lê mais — se q
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
