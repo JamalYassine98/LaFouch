@@ -1,7 +1,13 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js)",
+ "arquivos": [
+  "work/kit/mede.js",
+  "work/kit/mede.py",
+  "work/kit/mede_prova.py",
+  "work/s430/comparador/compara.py",
+  "work/s430/comparador/roteiro_site.py"
+ ],
  "ultimas": [
   {
    "t": 1795370248.0376189,
@@ -44,5 +50,5 @@
    "r": "Site 1795269030 publicado (por dentro): roupas do Mochi de Mães/Pais fora do programa (813 → 733 KB). Logo leve REPROVADO pelo dono (fica como está). Porteiro 232 provas, 0 falhas. PRÓXIMO: seguir a parte 2 (consulta do grau em pedaço próprio — estudo em work/s430/pedacos). Esperando o dono: 'implementar' do esboço 39 (preço exato)."
   }
  ],
- "leu": 1795367776.773968
+ "leu": 1795370294.394762
 }
