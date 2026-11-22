@@ -3,40 +3,68 @@
 #      python3 porteiro.py completo   → todas as provas + fiscal visual em todos os aparelhos (~1 h)
 # Falhas já conhecidas (aguardando esboço do dono) ficam em conhecidos.json e não bloqueiam — mas aparecem no relatório.
 import sys, os, json, subprocess, time, html, shutil
-D = os.path.dirname(os.path.abspath(__file__)); COMP = len(sys.argv) > 1 and sys.argv[1] == 'completo'
+D = os.path.dirname(os.path.abspath(__file__)); COMP = len(sys.argv) > 1 and sys.argv[1] == 'completo'; SO_CMP = len(sys.argv) > 1 and sys.argv[1] == 'comparador'  # 'comparador' = só o portão das diferenças (rápido, para conferir um esboço)
 PORTA = 8790; OUT = '/tmp/porteiro'
 shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 subprocess.run(['bash', os.path.join(D, '..', 'mkcopy.sh'), 'porteiro', str(PORTA)], check=True, stdout=subprocess.DEVNULL)
 modo = [] if COMP else ['rapido']
-grupos = ['6,1', '2', '3', '4,5', '7']
+grupos = [] if SO_CMP else ['6,1', '2', '3', '4,5', '7']
 t0 = time.time(); P = []
 for i, g in enumerate(grupos):
     env = dict(os.environ, FISCAL_PARTES=g, FISCAL_SUF=f'_{i}')
     P.append(subprocess.Popen(['python3', os.path.join(D, 'provas.py'), str(PORTA), OUT] + modo, env=env, stdout=open(f'{OUT}/log_{i}.txt', 'w'), stderr=subprocess.STDOUT))
-P.append(subprocess.Popen(['python3', os.path.join(D, 'fiscal.py'), str(PORTA), OUT + '/visual'] + modo, stdout=open(f'{OUT}/log_visual.txt', 'w'), stderr=subprocess.STDOUT))
+if not SO_CMP: P.append(subprocess.Popen(['python3', os.path.join(D, 'fiscal.py'), str(PORTA), OUT + '/visual'] + modo, stdout=open(f'{OUT}/log_visual.txt', 'w'), stderr=subprocess.STDOUT))
+# Plano das ferramentas, parte 4 (aprovado 21/11): o porteiro é o PORTÃO — além das provas, roda o COMPARADOR entre o site publicado
+# (origin/main do catalogo) e o que vai subir (a pasta de trabalho). Falha nova reprova. Toda diferença tem de estar na lista do que foi
+# aprovado (work/fiscal/diferencas-aprovadas.txt: um trecho por linha, que apareça na linha da diferença); diferença sem dono reprova.
+CAT = '/home/claude/catalogo'; HOJE = '/tmp/porteiro_hoje'; CMP = OUT + '/comparador'; SERV = []
+def _g(*a, onde=CAT): return subprocess.run(['git', '-C', onde] + list(a), capture_output=True, text=True)
+def comparador_liga():
+    _g('fetch', '-q', '--depth=200', 'origin', 'main')
+    if not _g('status', '--porcelain').stdout.strip() and _g('rev-parse', 'HEAD').stdout == _g('rev-parse', 'origin/main').stdout: return None
+    if os.path.isdir(HOJE): _g('checkout', '-q', '--detach', 'origin/main', onde=HOJE)
+    else: _g('worktree', 'add', '--detach', HOJE, 'origin/main')
+    for pasta, porta in ((HOJE, 8788), (CAT, 8789)):
+        SERV.append(subprocess.Popen(['python3', '-m', 'http.server', str(porta)], cwd=pasta, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+    time.sleep(1)
+    return subprocess.Popen(['python3', os.path.join(D, '..', 's430', 'comparador', 'compara.py'), 'http://localhost:8788/', 'http://localhost:8789/', CMP], stdout=open(f'{OUT}/log_comparador.txt', 'w'), stderr=subprocess.STDOUT)
+def comparador_le():
+    out = []
+    try: rel = json.load(open(CMP + '/relatorio.json'))
+    except Exception as e: return [{'parte': 'comparador', 'nome': 'comparador publicado × o que vai subir', 'ok': False, 'grave': True, 'd': 'o comparador não terminou (ver log_comparador.txt)'}]
+    apr = [l.strip() for l in open(os.path.join(D, 'diferencas-aprovadas.txt'), encoding='utf-8').read().split('\n') if l.strip() and not l.startswith('#')] if os.path.exists(os.path.join(D, 'diferencas-aprovadas.txt')) else []
+    for x in rel:
+        onde = x['aparelho'] + ' · ' + x['tela']
+        for f in x['falhas_novas']: out.append({'parte': 'comparador', 'nome': 'falha nova · ' + onde + ' · ' + str(f[0])[:60], 'ok': False, 'grave': True, 'd': ' × '.join(str(y)[:70] for y in f[1:])})
+        sem = [d for d in x['diferencas'] if not any(a in (onde + ' | ' + ' | '.join(map(str, d))) for a in apr)]
+        out.append({'parte': 'comparador', 'nome': 'toda diferença aprovada · ' + onde, 'ok': not sem, 'grave': True, 'd': '%d diferença(s) sem aprovação: ' % len(sem) + ' ; '.join(' | '.join(map(str, d))[:90] for d in sem[:4]) if sem else '%d diferença(s), todas na lista' % len(x['diferencas'])})
+    return out
+PC = comparador_liga()
+if PC: P.append(PC)
 for p in P: p.wait()
+for sv in SERV: sv.kill()
 # provas de tempo: sozinhas, com a máquina livre
-subprocess.run(['python3', os.path.join(D, 'provas.py'), str(PORTA), OUT] + modo, env=dict(os.environ, FISCAL_PARTES='T', FISCAL_SUF=f'_{len(grupos)}'), stdout=open(f'{OUT}/log_{len(grupos)}.txt', 'w'), stderr=subprocess.STDOUT)
-grupos = grupos + ['T']
-R = []
+if not SO_CMP: subprocess.run(['python3', os.path.join(D, 'provas.py'), str(PORTA), OUT] + modo, env=dict(os.environ, FISCAL_PARTES='T', FISCAL_SUF=f'_{len(grupos)}'), stdout=open(f'{OUT}/log_{len(grupos)}.txt', 'w'), stderr=subprocess.STDOUT)
+grupos = grupos + ([] if SO_CMP else ['T'])
+R = comparador_le() if PC else [{'parte': 'comparador', 'nome': 'comparador publicado × o que vai subir', 'ok': True, 'd': 'a pasta de trabalho é igual ao site publicado'}]
 for i in range(len(grupos)):
     f = f'{OUT}/provas_{i}.json'
     if os.path.exists(f): R += json.load(open(f))['res']
     else: R.append({'parte': '?', 'nome': f'grupo {grupos[i]}', 'ok': False, 'grave': True, 'd': 'as provas não terminaram (ver log)'})
 # regras do Firestore (12/11/2026): o que o site manda tem que caber nas regras do projeto
 try:
-    for x in json.loads(subprocess.run(['python3', os.path.join(D, 'regras.py')], capture_output=True, text=True).stdout):
+    for x in ([] if SO_CMP else json.loads(subprocess.run(['python3', os.path.join(D, 'regras.py')], capture_output=True, text=True).stdout)):
         R.append({'parte': 'regras', 'nome': x['nome'], 'ok': x['ok'], 'grave': True, 'd': x['d']})
 except Exception as e: R.append({'parte': 'regras', 'nome': 'regras do Firestore', 'ok': False, 'grave': True, 'd': 'a prova não rodou: ' + str(e)[:80]})
 try:
-    for x in json.loads(subprocess.run(['python3', os.path.join(D, 'csp.py'), str(PORTA)], capture_output=True, text=True, env=dict(os.environ, PLAYWRIGHT_BROWSERS_PATH='/opt/pw-browsers')).stdout):
+    for x in ([] if SO_CMP else json.loads(subprocess.run(['python3', os.path.join(D, 'csp.py'), str(PORTA)], capture_output=True, text=True, env=dict(os.environ, PLAYWRIGHT_BROWSERS_PATH='/opt/pw-browsers')).stdout)):
         R.append({'parte': 'regras', 'nome': x['nome'], 'ok': x['ok'], 'grave': True, 'd': x['d']})
 except Exception as e: R.append({'parte': 'regras', 'nome': 'CSP', 'ok': False, 'grave': True, 'd': 'a prova não rodou: ' + str(e)[:80]})
 # visual: só o que é novo em relação à linha de base guardada
 VIS = []; base = set(json.load(open(os.path.join(D, 'base_visual.json')))) if os.path.exists(os.path.join(D, 'base_visual.json')) else set()
 try:
     import re
-    for x in json.load(open(OUT + '/visual/resultado.json')):
+    for x in ([] if SO_CMP else json.load(open(OUT + '/visual/resultado.json'))):
         for i in x['iss']:
             if i['t'] in ('sob_fixo', 'reticencias', 'botao_pequeno'): continue
             k = i['t'] + '|' + x['tela'].split(' · parte')[0] + '|' + re.sub(r'\(\d+×\d+ px\)', '', i['d'])[:90]

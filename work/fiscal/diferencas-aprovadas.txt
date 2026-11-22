@@ -1,0 +1,3 @@
+# Diferenças APROVADAS entre o site publicado e o que vai subir (plano das ferramentas, parte 4).
+# Um trecho por linha; a diferença passa se a linha dela (aparelho · tela | tipo | peça | detalhe) contiver o trecho.
+# Depois de publicar, apague as linhas que já foram ao ar. Sem linha = nenhuma diferença é esperada.
