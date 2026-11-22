@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 62 — escritório do Titan, setor Regras | work/s435/guardiao |
-| SITE | Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz | media/voz |
 
 ## Fila
 
@@ -141,6 +140,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
 - 22/11 06:52 — IDEIAS: IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)
 - 22/11 06:18 — IDEIAS: IDEIAS 05: versão PC/tablet do esboço (Fila 61)
 - 22/11 06:07 — IDEIAS: IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)
@@ -165,4 +165,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 17:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
 - 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
 - 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
-- 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.
