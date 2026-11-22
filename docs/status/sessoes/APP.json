@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "41 parte 1: Estúdio mostra Frente · 3/4 · Giro em cada peça (estTem)",
+ "arquivos": [
+  "src/97-estudio.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795313102.1497254,
@@ -44,5 +48,5 @@
    "r": "v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto)."
   }
  ],
- "leu": 1795313101.6497464
+ "leu": 1795313342.3217008
 }
