@@ -7,6 +7,7 @@ Para o dono saber / decidir:
    pôr o nome ao lado do ×, ou mostrar só os itens que faltam.
 2. **Modo Foto:** além de "FOTO PARA" + peça, mantive uma linha com o passo ("Frente · 1 de 2 · peça 3 de 24 · cor 1 de 2") — o esboço não mostrava,
    mas sem ela a pessoa não sabe se está na frente ou na 3/4.
-3. O link da linha do Estúdio continua "Ficha ›" até a Galeria da peça entrar (parte 3).
+3. **Galeria da peça (v622):** feita. O giro gira com o dedo com a mesma conta do site. Só gira o giro guardado NESTE aparelho; se foi gravado em outro, a Galeria diz "O giro está no site (foi gravado em outro aparelho)". Conferir no celular: arrastar o giro (liso? trava?), "Refazer ›" da frente, "Tirar agora ›" da 3/4 e "Gravar agora ›".
 4. 41c (Galeria do app, "GIRO SEM PEÇA", escolher da Galeria no cadastro) espera a sua resposta.
 Fotos: estudio_marcas_*.png, camera_para_qual_peca_*.png.
+Fotos da Galeria: galeria_topo.png, galeria_giro.png.

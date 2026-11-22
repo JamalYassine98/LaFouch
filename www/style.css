@@ -2267,6 +2267,19 @@ html.mlOn #lockScr{z-index:2147483600}
 .fiBtn{background:var(--panel)}
 .fnLk:active{transform:scale(.96)}
 .estRw{display:flex;align-items:center;border-bottom:1px solid var(--line2,var(--line))}
+/* esboço 41: Galeria da peça */
+.estGal{z-index:361}.galHd{padding:max(16px,env(safe-area-inset-top)) 12px 0;max-width:640px;margin:0 auto}
+.galVs{background:none;border:0;min-height:44px;padding:0;color:var(--mute);font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.galNm{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:26px;line-height:1.2;margin:0 0 8px}
+.galB{margin-top:16px}.galT{display:flex;align-items:center;justify-content:space-between;min-height:44px;margin-bottom:8px}
+.galT>span{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fg)}
+.galF{background:#fff;border-radius:16px;overflow:hidden}.galF img{display:block;width:100%;aspect-ratio:3/2;object-fit:contain}
+.galV{border:1px dashed var(--line);border-radius:16px;aspect-ratio:2/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px}
+.galV b{font-size:16px;font-weight:600}.galV small{font-size:14px;color:var(--mute)}
+.galG{position:relative;background:#fff;border-radius:16px;overflow:hidden;aspect-ratio:3/2;touch-action:pan-y;cursor:grab}.galG video{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.galGi{position:absolute;left:16px;right:16px;bottom:8px;height:3px;border-radius:2px;background:rgba(0,0,0,.12)}.galGi i{display:block;height:100%;width:0;border-radius:2px;background:var(--accent)}
+.galGl{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:8px;font-size:14px;font-variant-numeric:tabular-nums}.galGl small{color:var(--mute);font-size:13px}
+.galFim{margin:32px 0 16px}
 /* esboço 41: Frente · 3/4 · Giro em cada peça — bolinha verde = tem, anel = falta */
 .estMk{display:flex;gap:16px;margin-top:8px;font-size:13px}.estMk span{display:inline-flex;align-items:center;gap:8px;color:var(--mute)}.estMk span.tem{color:var(--fg)}
 .estMk i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--mute);box-sizing:border-box}.estMk .tem i{background:var(--ok);border-color:var(--ok)}

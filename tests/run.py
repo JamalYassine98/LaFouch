@@ -4270,6 +4270,45 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 41 (2): a câmera diz para qual peça vai — GIRO PARA / FOTO PARA + nome, cor e código, por uma função só; a coluna cabe a 844×390 e 740×360')
             if not ok: falhas.append('41 camera para qual peca'); print('        veio', got, erros41)
 
+            # Esboço 41 parte 3 (aprovado 21/11 07:51): Galeria da peça — "Galeria ›" na linha do Estúdio abre a peça certa ("‹ Estúdio", nome, cor);
+            # os blocos FRENTE · 3/4 · GIRO batem com estTem (foto ou lugar tracejado; "Refazer ›" / "Tirar agora ›" / "Gravar agora ›"); o giro gira
+            # com o dedo pela conta do site (220° por largura, quadro = ângulo/360 × n, vídeo no meio do quadro); "‹ Estúdio" volta à lista.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              // um giro de mentira de 2 s (60 quadros) guardado como o app guarda
+              const cv = document.createElement('canvas'); cv.width = 320; cv.height = 214; const x = cv.getContext('2d'); let i = 0, vivo = true;
+              (function d() { x.fillStyle = '#fff'; x.fillRect(0, 0, 320, 214); x.fillStyle = '#222'; x.fillRect(40 + (i++ % 200), 80, 60, 40); if (vivo) requestAnimationFrame(d); })();
+              const rec = new MediaRecorder(cv.captureStream(30)), ch = []; rec.ondataavailable = e => e.data.size && ch.push(e.data); const fim = new Promise(r => rec.onstop = r); rec.start(); await w(2100); rec.stop(); await fim; vivo = false;
+              const F = L.estFila(), a = F.find(z => z.st === '34') || F[0];
+              await L.estGiroGuarda(a.k, new Blob(ch, { type: 'video/webm;gn=60' })); await w(300);
+              L.ACT.estAbre(); await w(500);
+              const linha = [...document.querySelectorAll('.estOv .estRw')].find(l => l.querySelector('.estFi').getAttribute('data-k') === a.k);
+              R.link = linha.querySelector('.estFi').textContent; linha.querySelector('.estFi').click(); await w(1500);
+              const g = document.querySelector('.estGal'), t = L.estTem(a.k), bl = [...g.querySelectorAll('.galB')];
+              R.topo = [g.querySelector('.galVs').textContent, g.querySelector('.galNm').textContent === L.pn(a.ref), g.querySelector('.estSub').textContent.indexOf(a.cor) === 0];
+              R.blocos = bl.map(b => [b.querySelector('.galT span').textContent, (b.querySelector('.galT button') || {}).textContent || '', !!b.querySelector('.galF img'), !!b.querySelector('.galV'), !!b.querySelector('.galG')]);
+              R.tem = [t.frente || t.fotoRuim, t.tres4, t.giro];
+              const cx = g.querySelector('#galG'), G = cx._gal; R.pronto = !!G && G.ok && G.n === 60;
+              // arrastar 100 px para a esquerda = 100 × 220/largura graus para a frente
+              const larg = cx.clientWidth, r0 = cx.getBoundingClientRect(), ev = (tp, px) => cx.dispatchEvent(new PointerEvent(tp, { bubbles: true, cancelable: true, pointerId: 7, clientX: px, clientY: r0.top + 50, button: 0 }));
+              ev('pointerdown', r0.left + 250); ev('pointermove', r0.left + 150); await w(600);
+              const esper = L.galQuadro(100 * L.galGrausPorPx(larg), 60);
+              R.gira = [G.mostr === esper, Math.abs(G.v.currentTime - (esper + 0.5) / 30) < 0.02, g.querySelector('#galGa').textContent === Math.round(esper * 360 / 60) + '° de 360°'];
+              ev('pointerup', r0.left + 150); await w(200);
+              R.conta = [L.galQuadro(0, 360), L.galQuadro(-1, 360), L.galQuadro(360, 360), L.galQuadro(136, 360), L.galGrausPorPx(100), L.galGrausPorPx(440)];
+              g.querySelector('.galVs').click(); await w(300); R.voltou = !document.querySelector('.estGal') && !!document.querySelector('.estOv .estRw');
+              return R; }""")
+            total += 1
+            bl41 = got['blocos']
+            ok = (got['link'] == 'Galeria ›' and got['topo'] == ['‹ Estúdio', True, True] and len(bl41) == 3 and [x[0] for x in bl41] == ['Frente', '3/4', 'Giro · 360°']
+                  and bl41[0][1] == ('Refazer ›' if got['tem'][0] else 'Tirar agora ›') and bl41[0][2] == bool(got['tem'][0])
+                  and bl41[1][1] == ('Refazer ›' if got['tem'][1] else 'Tirar agora ›') and bl41[1][2] == got['tem'][1] and bl41[1][3] == (not got['tem'][1])
+                  and bl41[2][1] == 'Refazer ›' and bl41[2][4] and got['tem'][2] and got['pronto'] and got['gira'] == [True, True, True]
+                  and got['conta'] == [0, 359, 0, 136, 1.1, 0.5] and got['voltou'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 41 (3): Galeria da peça — abre a peça certa, blocos batem com estTem, o giro gira com o dedo pela conta do site, "‹ Estúdio" volta')
+            if not ok: falhas.append('41 galeria da peca'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -5220,7 +5259,7 @@ async def main():
             if not ok: falhas.append('clientes luxo'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # S374 (85, 86): Inventário com "+" redondo, "Em estoque (filtro) ›" sem frase, "N preços para corrigir ›"; Estúdio 44 px, "Ficha ›", um só "Ver as N"
+            # S374 (85, 86): Inventário com "+" redondo, "Em estoque (filtro) ›" sem frase, "N preços para corrigir ›"; Estúdio 44 px, "Galeria ›" (esboço 41), um só "Ver as N"
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               L.setView('estoque'); await w(400); const a = document.getElementById('btnAdd'), ra = a.getBoundingClientRect();
@@ -5229,12 +5268,12 @@ async def main():
               const n = document.querySelector('#invInfo .ifNum'), pr = !n || (/^\\d+ preços? para corrigir ›$/.test(n.textContent) && n.getBoundingClientRect().height >= 44);
               const lt = [...document.querySelectorAll('#v-estoque .pcard')].every(p => p.querySelector('.pbox'));
               L.estAbre(); await w(400); const ic = document.querySelector('.estIc').getBoundingClientRect().width >= 44 && document.querySelector('.estX').getBoundingClientRect().width >= 44;
-              const fi = [...document.querySelectorAll('.estFi')].every(x => x.textContent === 'Ficha ›'), td = !document.querySelector('.estLbl2 .estLink');
+              const fi = [...document.querySelectorAll('.estFi')].every(x => x.textContent === 'Galeria ›'), td = !document.querySelector('.estLbl2 .estLink');
               const F = document.querySelectorAll('.estIt').length, m = document.querySelector('.estMais'), vm = !m || /^Ver as \\d+ peças ›$/.test(m.textContent);
               return [mais, kk, pr, lt, ic, fi, td, vm]; }""")
             total += 1
             ok = got == [True] * 8 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, contagem sem frase, preços para corrigir; Estúdio 44 px, "Ficha ›", um só "Ver as N peças ›"')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, contagem sem frase, preços para corrigir; Estúdio 44 px, "Galeria ›", um só "Ver as N peças ›"')
             if not ok: falhas.append('inventario estudio 85 86'); print('        veio', got, pg.erros)
             await pg.close()
 

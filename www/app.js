@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 621;
+  var APP_BUILD = 622;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.46'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.47'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -32187,6 +32187,127 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cv.toBlob(ok, 'image/jpeg', 0.9);
     });
   }
+  // ===== Galeria da peça (esboço 41, aprovado 21/11/2026 07:51) =====
+  // Lugar próprio, aberto pela linha do Estúdio ("Galeria ›"): "‹ ESTÚDIO", o nome da peça, a cor e três blocos — FRENTE · 3/4 · GIRO · 360°.
+  // Cada bloco mostra o que a peça tem (estTem, o mesmo lugar que a fila e as marcas da lista leem) e o link do que dá para fazer:
+  // "Refazer ›" / "Tirar agora ›" (estSessao, o caminho da fila) e "Gravar agora ›" (estGiro). No fim, "Ver a ficha da peça ›".
+  // O giro gira com o dedo com a MESMA conta do site (catalogo js/lf-site.js, ggPinta): 220° por largura da imagem (no mínimo 200 px),
+  // quadro = ângulo/360 × n, vídeo no meio do quadro ((q + 0,5)/30 s) e, ao soltar, segue girando e perde força (×0,994 por ms).
+  var GAL_FPS = 30, GAL_GRAUS = 220, GAL_ATRITO = 0.994;
+  function galQuadro(ang, n) { return ((Math.round(ang / 360 * n) % n) + n) % n; }
+  function galGrausPorPx(larg) { return GAL_GRAUS / Math.max(200, larg); }
+  // monta o tocador dentro de `caixa` com o vídeo `blob` de n quadros; avisa(ângulo 0–359) a cada quadro mostrado. Devolve { para() }.
+  function galTocador(caixa, blob, n, avisa) {
+    var v = document.createElement('video'), url = URL.createObjectURL(blob),
+      g = { ang: 0, vel: 0, n: n, mostr: -1, quer: 0, busc: false, arr: false, ok: false, v: v };
+    v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.preload = 'auto'; v.disablePictureInPicture = true;
+    caixa._gal = g;
+    var pinta = function () {
+      if (!g.ok || g.busc) return;
+      var q = galQuadro(g.ang, g.n);
+      if (q === g.mostr) return;
+      g.busc = true; g.quer = q;
+      try { v.currentTime = (q + 0.5) / GAL_FPS; } catch (e) { g.busc = false; }
+    };
+    v.addEventListener('seeked', function () { g.busc = false; g.mostr = g.quer; if (avisa) avisa(Math.round(g.mostr * 360 / g.n) % 360); pinta(); });
+    v.addEventListener('loadeddata', function () {
+      if (g.ok) return;
+      if (!(g.n > 1)) g.n = Math.max(2, Math.round((v.duration || 0) * GAL_FPS)); // giro ainda não tratado: os quadros são os do próprio vídeo
+      g.ok = true; g.dur = v.duration || 0; caixa.classList.add('pronto');
+      try { v.currentTime = 0.5 / GAL_FPS; } catch (e) {}
+      if (avisa) avisa(0);
+    });
+    caixa.addEventListener('pointerdown', function (e) {
+      if (!g.ok || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      g.pid = e.pointerId; g.px = e.clientX; g.pt = performance.now(); g.vel = 0; g.arr = true;
+      try { caixa.setPointerCapture(e.pointerId); } catch (x) {}
+    });
+    caixa.addEventListener('pointermove', function (e) {
+      if (!g.arr || e.pointerId !== g.pid) return;
+      var a = performance.now(), dt = Math.max(1, a - g.pt), gr = galGrausPorPx(caixa.clientWidth), dx = e.clientX - g.px;
+      g.ang -= dx * gr; g.vel = -dx * gr / dt; g.px = e.clientX; g.pt = a;
+      pinta();
+      e.preventDefault();
+    });
+    var solta = function (e) {
+      if (!g.arr || (e && e.pointerId !== g.pid)) return;
+      g.arr = false;
+      var u = performance.now();
+      (function f() {
+        if (g.arr || !caixa.isConnected) return;
+        var a = performance.now(), dt = a - u; u = a;
+        g.ang += g.vel * dt; g.vel *= Math.pow(GAL_ATRITO, dt);
+        pinta();
+        if (Math.abs(g.vel) > 0.01 && !REDUCED) requestAnimationFrame(f);
+      })();
+    };
+    caixa.addEventListener('pointerup', solta);
+    caixa.addEventListener('pointercancel', solta);
+    caixa.insertBefore(v, caixa.firstChild);
+    v.src = url; v.load();
+    return { para: function () { try { v.pause(); v.removeAttribute('src'); v.load(); URL.revokeObjectURL(url); } catch (e) {} } };
+  }
+  function galQuando(ts) {
+    var d = new Date(ts), h = new Date();
+    return d.toDateString() === h.toDateString() ? 'hoje' : 'em ' + fd(ts);
+  }
+  // k = "ref|cor"; volta() redesenha quem abriu (a lista do Estúdio)
+  function estGaleria(k, volta) {
+    var ref = String(k).split('|')[0], cor = String(k).split('|').slice(1).join('|'),
+      ov = document.createElement('div'), toc = null;
+    ov.className = 'estOv estGal';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-label', 'Galeria · ' + pn(ref));
+    document.body.appendChild(ov);
+    var bloco = function (tit, link, corpo) {
+        return '<section class="galB"><div class="galT"><span>' + tit + '</span>' + (link ? '<button type="button" class="' + lkCls(false).trim() + '" data-g="' + link[1] + '">' + link[0] + ' ›</button>' : '') + '</div>' + corpo + '</section>';
+      },
+      foto = function (u, alt) { return '<div class="galF"><img src="' + esc(u) + '" alt="' + esc(alt) + '"></div>'; },
+      falta = function (t, s) { return '<div class="galV"><b>' + t + '</b><small>' + s + '</small></div>'; },
+      fecha = function () { if (toc) toc.para(); toc = null; ov.remove(); },
+      reabre = function () { if (volta) volta(); estGaleria(k, volta); },
+      pinta = function () {
+        var t = estTem(k), F = S.fotos || {}, gi = (S.giros && S.giros[ref]) || null;
+        ov.innerHTML =
+          '<div class="galHd"><button type="button" class="galVs" data-g="volta">‹ Estúdio</button></div>' +
+          '<div class="estBody"><h1 class="galNm">' + esc(pn(ref)) + '</h1><p class="estSub">' + esc(cor ? cor + ' · ' : '') + 'as fotos que vão para o site</p>' +
+          bloco('Frente', F[k] ? ['Refazer', 'frente'] : ['Tirar agora', 'frente'], F[k] ? foto(F[k], 'Frente') : falta('Falta a foto da frente', 'a peça de frente, no fundo branco')) +
+          bloco('3/4', t.tres4 ? ['Refazer', '34'] : F[k] ? ['Tirar agora', '34'] : null, t.tres4 ? foto(F[k + '|34'], '3/4') : falta('Falta a foto de 3/4', 'a peça virada de lado, como no site')) +
+          bloco('Giro · 360°', t.giro ? ['Refazer', 'giro'] : ['Gravar agora', 'giro'], t.giro
+            ? '<div class="galG" id="galG"><div class="galGi" aria-hidden="true"><i></i></div></div><div class="galGl"><span id="galGa">' + (gi ? 'Arraste para girar' : 'O giro está no site (foi gravado em outro aparelho)') + '</span><small id="galGq">' + (gi ? 'gravado ' + galQuando(gi.ts) : '') + '</small></div>'
+            : falta('Falta o giro', 'a peça dando uma volta no prato')) +
+          '<div class="galFim"><button type="button" class="' + lkCls(true).trim() + '" data-g="ficha">Ver a ficha da peça ›</button></div></div>';
+        var cx = ov.querySelector('#galG');
+        if (cx && gi)
+          estGiroLe(ref).then(function (b) {
+            if (!b || !cx.isConnected) { if (cx.isConnected) ov.querySelector('#galGa').textContent = 'O vídeo do giro não está neste aparelho'; return; }
+            toc = galTocador(cx, b, gi.n || 0, function (graus) {
+              ov.querySelector('#galGa').textContent = graus + '° de 360°';
+              cx.querySelector('.galGi i').style.width = (graus / 360 * 100).toFixed(1) + '%';
+              var g = cx._gal, s = Math.round(g.dur || 0);
+              if (s) ov.querySelector('#galGq').textContent = 'gravado ' + galQuando(gi.ts) + ' · ' + Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+            });
+          });
+      };
+    pinta();
+    ov.onclick = function (e) {
+      var b = e.target.closest('[data-g]');
+      if (!b) return;
+      var a = b.getAttribute('data-g');
+      if (a === 'volta') { fecha(); if (volta) volta(); return; }
+      if (a === 'ficha') { // a ficha mora no Inventário: fecha a Galeria e o Estúdio
+        fecha();
+        [].forEach.call(document.querySelectorAll('.estOv'), function (x) { x.remove(); });
+        if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref);
+        return;
+      }
+      fecha();
+      EST_SES = null;
+      if (a === 'giro') return estGiro({ k: k, fim: reabre });
+      estSessao([{ k: k, ref: ref, cor: cor, st: a === '34' ? '34' : 'sem' }], 0, reabre); // o mesmo caminho da fila, só com esta peça e este passo
+    };
+    return ov;
+  }
   // ===== Estúdio: um giro, três fotos (v442, aprovado 05/11/2026) =====
   // Filma uma volta da peça no prato; o app guarda quadros a cada 0,25 s e depois você só confirma, numa régua,
   // o quadro da FRENTE (o app já sugere o mais simétrico) e o da 3/4. Saem frente + 3/4 (com a luz de estúdio) + o vídeo do giro.
@@ -32997,7 +33118,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ? '<div class="estLbl estLbl2"><span>Na fila · ' + F.length + '</span></div>' + // S374 86: um só "Ver as N peças ›" no fim
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + (x.st === 'nota' ? ' · refazer: ' + esc(x.sub) : '') + '</small>' + estMarcasHtml(x.k) + '</span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha ›</button></div>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + (x.st === 'nota' ? ' · refazer: ' + esc(x.sub) : '') + '</small>' + estMarcasHtml(x.k) + '</span></button><button type="button" class="estFi" data-e="galeria" data-k="' + esc(x.k) + '" aria-label="Galeria de ' + esc(pn(x.ref)) + '">Galeria ›</button></div>';
             }).join('') +
             (F.length > 6 ? '<button type="button" class="estMais" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver as ' + F.length + ' peças ›') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
@@ -33021,11 +33142,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         render();
         return;
       }
-      if (b.dataset.e === 'ficha') { // S267: da fila direto para a ficha da peça no Inventário
-        ov.remove();
-        if (typeof fnAbreEstoque === 'function') fnAbreEstoque(b.dataset.ref);
-        return;
-      }
+      if (b.dataset.e === 'galeria') return estGaleria(b.dataset.k, pinta); // esboço 41: a ficha da peça fica no fim da Galeria
       if (b.dataset.mont) {
         S.estMont[b.dataset.mont] = !S.estMont[b.dataset.mont];
         saveSoon();
@@ -53486,7 +53603,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, estGaleria: estGaleria, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);
