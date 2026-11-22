@@ -26,12 +26,12 @@ Ordem de implementação. Cada passo vai até o fim antes do próximo, porque o 
   - Isso é seguro porque a tela Giro já sai na família Inventário (65).
   - Faz-se junto com o passo 3, para Preços nunca ficar sem caminho.
 
-### 3. Preços = Escritório do Titan (54 + 46b)
+### 3. Preços = o escritório do Titan (54 + 46b)
 - **Esboços:**
   - work/s435/guardiao/esboco_54_precos_guardiao_{escuro,claro}.jpg
   - work/s435/switch/esboco_46b_precos.jpg (com COMO-FAZER-46.md)
 - **A tela, de cima para baixo:**
-  1. "‹ Início" · h1 "Escritório do Titan" · pílula "○ Automático" ao lado do título (46b).
+  1. "‹ Início" · h1 **"Preços"** com o subtítulo "O escritório do Titan" (como no 54) · pílula "○ Automático" ao lado do título (46b).
   2. "O Titan decide hoje · N": uma linha por assunto (preços para corrigir, oferta sugerida, evento). Some quando é 0.
   3. Setores em linhas ›: **Regras · Ofertas · Atacado · Ferramentas · Histórico**.
      - Atacado é uma linha só: "7 tabelas · …".
@@ -129,7 +129,7 @@ Ordem de implementação. Cada passo vai até o fim antes do próximo, porque o 
   - Desfazer fica onde a coisa mora: "Mudar na ficha ›" / "Ver as tabelas ›".
 - **Três portas, um histórico. Sem abas: a porta é o filtro.**
   - Resultados: tudo.
-  - Escritório do Titan › Histórico: só preços, com "Ver o dia inteiro ›".
+  - Preços › Histórico (o escritório do Titan): só preços, com "Ver o dia inteiro ›".
   - Ficha › Histórico: só a peça, com "Dias anteriores ›".
 - **Como fazer:**
   - **Um registro de acontecimentos só**, por exemplo `S.diaLog`, sincronizado pela nuvem como as vendas.

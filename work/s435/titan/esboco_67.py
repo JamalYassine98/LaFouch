@@ -53,7 +53,7 @@ def hist(pw,qual):
     b.close();b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
     pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
     if qual=='titan':
-      html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Escritório do Titan','Histórico','Domingo, 22 de novembro · preços do dia',0)+T('Hoje · 22/11',1)+
+      html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Preços','Histórico','Domingo, 22 de novembro · preços do dia',0)+T('Hoje · 22/11',1)+
         '<div class="sl418">'+OF+'</div><div class="sl418">'+MG.replace('false','true')+MGd+'</div><div class="famC2" style="text-align:center;margin:32px 0"><button type="button" style="background:none;border:0;color:var(--accent,#f0a6c8);font:600 16px system-ui;min-height:44px">Ver o dia inteiro ›</button></div></div>'}""")
     else:
       html=pg.evaluate("(v5)=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('SP57765','Histórico','Óculos de leitura de acetato · só desta peça',0)+T('Hoje · 22/11',1)+
@@ -65,6 +65,6 @@ def hist(pw,qual):
 if __name__=='__main__':
  with sync_playwright() as pw:
   quadro('esboco_67_historico_do_dia.jpg',[('PROPOSTA · Resultados › Histórico','o dia inteiro · tudo com a hora',hist(pw,'dia')),
-    ('PROPOSTA · Escritório do Titan › Histórico','o mesmo histórico, só os preços · a porta é o filtro',hist(pw,'titan')),
+    ('PROPOSTA · Preços › Histórico','o mesmo histórico, só os preços · a porta é o filtro',hist(pw,'titan')),
     ('PROPOSTA · Ficha › Histórico','o mesmo histórico, só da peça',hist(pw,'peca'))])
  for n,f in REL: print(n,len(f),f[:4])
