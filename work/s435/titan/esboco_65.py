@@ -28,16 +28,34 @@ def atacado(pw,conta):
      f();new MutationObserver(f).observe(document.body,{childList:true,subtree:true})}""");w(500)
   if conta:
     pg.click('[data-act=ataLojAbre][data-id=t65]');w(1500)
-    pg.evaluate(r"""()=>{const f=()=>{const lb=[...document.querySelectorAll('.lb77')].find(x=>/^Moeda/.test(x.textContent));if(!lb||document.querySelector('.e65tab'))return;
-       lb.insertAdjacentHTML('beforebegin','<div class="lb77 e65tab">Tabela de preço</div><div class="gp77"><div class="rw77"><span class="tx"><b>Atacado 1K</b><small>40% · mín. US$ 1.000</small></span><span class="vl" style="color:var(--mute)">›</span></div></div>')};
-       f();new MutationObserver(f).observe(document.body,{childList:true,subtree:true})}""");w(500)
+    # conta do lojista no padrão de luxo atual (dono 22/11 13:06): um título (o nome), um eixo à esquerda, linhas finas, sem caixas
+    pg.evaluate(r"""()=>{const box=document.querySelector('.ata77');if(!box)return;const host=box.parentElement;
+      [...document.querySelectorAll('h1,h2,h3,b,div')].filter(x=>x.children.length==0&&x.textContent.trim()==='Conta atacadista').forEach(x=>x.style.display='none');
+      const L=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:24px 0 4px">'+t+'</div>';
+      const R=(t,s,v)=>'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b>'+(s?'<small style="font-size:13px;color:var(--mute)">'+s+'</small>':'')+'</span>'+v+'</div>';
+      const CH='<i style="font-style:normal;color:var(--mute);font-size:18px">›</i>';
+      const ST='<span style="display:flex;align-items:center;gap:16px;border:1px solid var(--line2);border-radius:22px;height:44px;padding:0 16px"><b style="font-weight:400;color:var(--mute)">−</b><b>3</b><b style="font-weight:400;color:var(--mute)">+</b></span>';
+      host.innerHTML='<div style="padding:0 4px 24px;text-align:left">'+
+        '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">Lojista de teste</h2>'+
+        '<div style="color:var(--mute);font-size:14px;margin-top:4px">Lojista fixo · <span style="color:var(--ok,#4fbf7f)">Ativa</span> · não vence</div>'+
+        L('Tabela de preço')+R('Atacado 1K','40% · mín. US$ 1.000',CH)+
+        L('Aparelhos')+R('Em uso','ainda não entrou de nenhum aparelho','<span style="color:var(--mute)">0 de 3</span>')+R('Limite','',ST)+
+        L('Acesso')+R('Pode trocar de aparelho','ele troca sozinho, até o limite','<button type="button" class="nfTg on" role="switch" aria-checked="true"><i></i></button>')+
+        L('Moeda que ele vê primeiro')+'<div class="sg77" style="margin-top:8px"><button type="button" class="on">US$</button><button type="button">Gs.</button><button type="button">R$</button></div>'+
+        '<div style="margin-top:8px">'+R('Lotes de atacado','preços congelados até uma data',CH)+'</div>'+
+        '<button type="button" class="go77" style="margin-top:24px">Enviar convite pelo WhatsApp</button>'+
+        '<div style="text-align:center;margin-top:16px"><button type="button" style="display:block;margin:16px auto 0;background:none;border:0;color:var(--fg);font:600 17px system-ui;min-height:44px;line-height:44px;padding:0 16px">Pausar conta</button><small style="display:block;color:var(--mute);font-size:14px">o catálogo some; nada é apagado</small><button type="button" style="display:block;margin:16px auto 0;background:none;border:0;color:var(--bad,#e5484d);font:600 17px system-ui;min-height:44px;line-height:44px;padding:0 16px">Cancelar conta</button><small style="display:block;color:var(--mute);font-size:14px">apaga o acesso; para voltar, novo convite</small></div></div>'}""");w(500)
   pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}')
-  confere(pg,'Atacado '+('conta' if conta else 'lojistas'));f='/tmp/a65_%d.png'%conta;pg.screenshot(path=f,full_page=not conta);x=Image.open(f).copy();b.close();return x
+  confere(pg,'Atacado '+('conta' if conta else 'lojistas'));f='/tmp/a65_%d.png'%conta
+  if not conta:
+    pg.screenshot(path=f,full_page=True);x=Image.open(f).copy();b.close();return x
+  # a janela inteira cabe: a tela do simulador fica mais alta só nesta foto
+  pg.set_viewport_size({'width':390,'height':1120});w(700);pg.screenshot(path=f);x=Image.open(f).copy();b.close();return x
 if __name__=='__main__':
  with sync_playwright() as pw:
   h=Image.open(O+'h65_tabela.png')
   quadro('esboco_65_atacado_titan.jpg',[('HOJE · Atacado › Tabela','enviar catálogo · ver a tabela · editar margens',h.crop((0,0,780,min(h.height,1688)))),
     ('PROPOSTA · Preços › Atacado','o Titan: só as margens das 7 tabelas',titan(pw)),
     ('PROPOSTA · Atacado (3 abas)','sem a aba Tabela · enviar catálogo em Lojistas',atacado(pw,False)),
-    ('PROPOSTA · conta do lojista','você escolhe a tabela dele (lojista de teste)',atacado(pw,True))])
+    ('PROPOSTA · conta do lojista','padrão de luxo · você escolhe a tabela (lojista de teste)',atacado(pw,True))])
  for n,f in REL: print(n,len(f),f[:4])
