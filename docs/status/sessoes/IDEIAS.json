@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06e: destaque campanha por evento",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795371044.278934,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06 esboço pronto (Fila 64): temática estilo campanha"
   }
  ],
- "leu": 1795371041.7500594
+ "leu": 1795371414.8065412
 }
