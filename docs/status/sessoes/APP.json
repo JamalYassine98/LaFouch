@@ -1,7 +1,9 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "lista final para o dono (o que conferir e decidir)",
+ "arquivos": [
+  "work/s436/LISTA-FINAL-DONO.md"
+ ],
  "ultimas": [
   {
    "t": 1795321077.9392383,
@@ -44,5 +46,5 @@
    "r": "v615 publicada: 40a — Câmera reta (sensor único). Porteiro 367/367. Próximo: 40b (Peça reta)."
   }
  ],
- "leu": 1795321077.450743
+ "leu": 1795321340.9565425
 }

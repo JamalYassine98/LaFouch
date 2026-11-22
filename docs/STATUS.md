@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | lista final para o dono (o que conferir e decidir) | work/s436/LISTA-FINAL-DONO.md |
 | ESBOCO | esboço 58 — painel do Site redesenhado (parte 1: a estrutura) | work/s435/painelsite |
 
 ## Fila
