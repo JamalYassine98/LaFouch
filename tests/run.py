@@ -3227,7 +3227,7 @@ async def main():
             if not ok: falhas.append('cambio simples'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # S173-4 + Leve 2 (12/11/2026): saída no site com prazo e limite de 3; Leve 2 só sem furar o piso
+            # S173-4 (12/11/2026): saída no site com prazo e limite de 3 (o Leve 2 do site saiu do app na v620 — dono 21/11 23:21)
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, n = Date.now(), D = 864e5;
               const it = S.items.find(i => i.qty > 0 && (i.tipo === 'pre' || i.tipo === 'solar')), ref = it.ref;
@@ -3237,9 +3237,9 @@ async def main():
               const p1 = L.sitePrecoOferta(ref, 380000, 0, it.tipo), a1 = !!L.saidaSiteAtiva(ref);
               S.saidaSite[ref].ate = n - 1; const a2 = !!L.saidaSiteAtiva(ref);
               S.saidaSite[ref].ate = 0; const s0 = S.sales; S.sales = [{ref, ts: n + 1, qty: 3}].concat(s0); const a3 = !!L.saidaSiteAtiva(ref); S.sales = s0; S.saidaSite = null;
-              return [p1.n < p0, p1.n >= 1000, a1, a2, a3, L.siteL2(ref, 'armacao', 380000), typeof L.siteL2(ref, it.tipo, 380000)] }""")
-            ok = got == [True, True, True, False, False, False, 'boolean'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Vender com saída no site: prazo, termina ao vender 3, piso; Leve 2 só leitura/solar')
+              return [p1.n < p0, p1.n >= 1000, a1, a2, a3] }""")
+            ok = got == [True, True, True, False, False] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Vender com saída no site: prazo, termina ao vender 3, piso')
             if not ok: falhas.append('saida site'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -4216,6 +4216,25 @@ async def main():
                   and fontes['97-estudio.js'].count('S.fotoNota[x.k]') <= 2 and "sub: 'sem a de 3/4'" not in fontes['97-estudio.js'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 41 (1): Estúdio mostra Frente · 3/4 · Giro em cada peça, lido de estTem (a mesma conta da fila); sem a frase "falta a foto de 3/4"')
             if not ok: falhas.append('41 marcas do estudio'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Leve 2 do site fora do app (dono 21/11 23:21: "é código morto" — o site tirou em 19/11): sem a regra dos 30%, sem o campo l2 na vitrine,
+            # sem ler l2 do pedido novo e sem os rótulos. Pedido ANTIGO gravado com o desconto continua mostrando o valor ("Desconto do site") e o total fecha.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              S.pedidos.push({ id: 'pL2', sid: 'SIDL2', cod: 'L2A', orig: 'site', st: 'novo', cli: 'Antiga', tel: '', ts: Date.now() - 5 * 864e5, total: 170000, l2: 30000, itens: [{ ref: 'AAA1', t: 'Óculos', cor: 'Preto', q: 2, preco: 100000 }] });
+              L.setView('ped'); await w(400); L.ACT.pedab('pL2'); await w(500);
+              const tx = document.getElementById('v-ped').innerText;
+              R.antigo = [/Desconto do site/.test(tx), /30[.]000/.test(tx), /170[.]000/.test(tx), /Leve 2/i.test(tx)];
+              R.api = typeof L.siteL2;
+              const ref = (S.items.find(i => i.qty > 0) || {}).ref; R.vitrine = L.vitProduto ? ('l2' in (L.vitProduto(ref) || {})) : 'sem função';
+              S.pedidos = S.pedidos.filter(p => p.id !== 'pL2');
+              return R; }""")
+            sobra = [f for f, t in fontes.items() if f != '98-carrinho.js' and re.search(r'Leve 2|siteL2|SITE_L2', t)]   # 98-carrinho: a sugestão "Leve 2" do balcão é outra coisa e espera o dono
+            total += 1
+            ok = got['antigo'] == [True, True, True, False] and got['api'] == 'undefined' and got['vitrine'] in (False, 'sem função') and not sobra and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Leve 2 do site fora do app: sem regra, sem campo na vitrine, sem rótulos; pedido antigo com o desconto continua fechando')
+            if not ok: falhas.append('leve 2 fora'); print('        veio', got, sobra, pg.erros)
             await pg.close()
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site

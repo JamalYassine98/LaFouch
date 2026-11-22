@@ -171,7 +171,6 @@
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
-      l2: siteL2(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       cmx: siteCupMax(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
@@ -211,7 +210,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'gn', 'gvc', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'gn', 'gvc', 'fv', 'fm', 'mr', 'cmx', 'pol'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];

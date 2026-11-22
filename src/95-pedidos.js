@@ -92,11 +92,7 @@
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
       uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
-      // Leve 2: o desconto vem dentro de cada linha (as regras do Firestore só aceitam os campos conhecidos no pedido)
-      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0),
-      l2: (Array.isArray(f.itens) ? f.itens : []).slice(0, 30).reduce(function (a, l) {
-        return a + Math.max(0, Math.round(+(l && l.l2)) || 0);
-      }, Math.max(0, Math.round(+f.l2) || 0))
+      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -445,7 +441,8 @@
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
     if (p.cupd > 0) h += pr418('Código ' + esc(p.cup || '') + ' (cupom do site)', '− ' + gs(p.cupd));
-    if (p.l2 > 0) h += pr418('Leve 2 do site (30% na 2ª peça)', '− ' + gs(p.l2));
+    // pedido antigo (até 19/11/2026) gravado com desconto de promoção do site que não existe mais: o valor continua na tela para a conta do pedido fechar
+    if (p.l2 > 0) h += pr418('Desconto do site', '− ' + gs(p.l2));
     h += pr418('<b style="font-size:15px;font-weight:600">Total</b>', tot ? gs(tot) : '—', '', 'tot') + '</section>';
     h += pedAcoes(p, false);
     return h;

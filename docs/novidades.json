@@ -1,7 +1,7 @@
 {
- "nome": "5.50.44",
+ "nome": "5.50.45",
  "notas": [
-  "Estúdio: cada peça da fila mostra o que já tem — Frente · 3/4 · Giro. Bolinha verde = tem; anel = falta."
+  "Saiu do app o que sobrava do \"Leve 2\" do site (a promoção acabou em 19/11): a regra, os rótulos e a conta de simulação. Pedidos antigos com esse desconto continuam mostrando o valor, como \"Desconto do site\"."
  ],
- "build": 619
+ "build": 620
 }

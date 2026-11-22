@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 619;
+  var APP_BUILD = 620;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.44'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.45'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -25529,11 +25529,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
       uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
-      // Leve 2: o desconto vem dentro de cada linha (as regras do Firestore só aceitam os campos conhecidos no pedido)
-      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0),
-      l2: (Array.isArray(f.itens) ? f.itens : []).slice(0, 30).reduce(function (a, l) {
-        return a + Math.max(0, Math.round(+(l && l.l2)) || 0);
-      }, Math.max(0, Math.round(+f.l2) || 0))
+      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -25882,7 +25878,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
     if (p.cupd > 0) h += pr418('Código ' + esc(p.cup || '') + ' (cupom do site)', '− ' + gs(p.cupd));
-    if (p.l2 > 0) h += pr418('Leve 2 do site (30% na 2ª peça)', '− ' + gs(p.l2));
+    // pedido antigo (até 19/11/2026) gravado com desconto de promoção do site que não existe mais: o valor continua na tela para a conta do pedido fechar
+    if (p.l2 > 0) h += pr418('Desconto do site', '− ' + gs(p.l2));
     h += pr418('<b style="font-size:15px;font-weight:600">Total</b>', tot ? gs(tot) : '—', '', 'tot') + '</section>';
     h += pedAcoes(p, false);
     return h;
@@ -27954,7 +27951,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
-      l2: siteL2(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       cmx: siteCupMax(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
@@ -27994,7 +27990,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'gn', 'gvc', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'gn', 'gvc', 'fv', 'fm', 'mr', 'cmx', 'pol'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
@@ -40667,15 +40663,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if ((o.ate && o.ate <= Date.now()) || saidaVendidas(ref, o.ini) >= (o.max || 3)) return null;
     return o;
   }
-  // Leve 2 no site (aprovado 11/11/2026): 30% na 2ª peça (a mais barata), só pré-graduado e solar.
-  // O site só recebe "pode" (l2:true) quando 70% do preço do site não fura o piso; o piso nunca vai para o site.
-  var SITE_L2 = 0.3;
-  function siteL2(ref, tipo, n) {
-    if ((tipo !== 'pre' && tipo !== 'solar') || !(n > 0)) return false;
-    var ps = pisoDoRef(ref, tipo),
-      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
-    return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
-  }
   // Cupons (S174, 12/11/2026): o maior % de cupom (15, 10 ou 5) que esta peça aguenta sem furar o piso. Só esse número vai ao site.
   function siteCupMax(ref, tipo, n) {
     if (!(n > 0)) return 0;
@@ -45651,7 +45638,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== S200 (aprovado 12/11/2026): LUCRO REAL por peça e do mês =====
   // Regra do dono: IVA da venda (10% dentro do preço) sai da receita (preço ÷ 1,10); IVA pago na compra vira CUSTO
   // (sem crédito fiscal); frete da compra já está rateado no custo da peça (lote); frete da entrega pago pela loja,
-  // taxa do pagamento e descontos (cupom / Leve 2) saem do lucro. Nada aqui muda as vendas: só mostra a conta.
+  // taxa do pagamento e descontos (cupom) saem do lucro. Nada aqui muda as vendas: só mostra a conta.
   var LR_IVA = 0.1;
   function lrIvaCompra() { return S.ivaCompraPct != null ? +S.ivaCompraPct / 100 : LR_IVA; }
   // uma venda → a conta inteira (Gs.)
@@ -45719,7 +45706,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lrLinha('Custo + IVA da compra', '− ' + gs(t.custo + t.ivaC)) +
       lrLinha('Taxas do pagamento', '− ' + gs(t.taxa)) +
       lrLinha('Frete das entregas', (t.freteV ? '− ' : '') + gs(t.freteV)) +
-      lrLinha('Descontos (cupom, Leve 2)', '− ' + gs(t.desc)) +
+      lrLinha('Descontos (cupom)', '− ' + gs(t.desc)) +
       '<div class="hint" style="margin:6px 0 0">O frete das compras já está dentro do custo de cada peça.</div>' +
       (top.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MAIS LUCRO REAL</b>' + top.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un'); }).join('') : '') +
       (low.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MENOS LUCRO REAL</b>' + low.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un', x.un < 20000 ? 'var(--warn)' : ''); }).join('') : '') + '</section>'
@@ -45741,7 +45728,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var base = { price: p, rep: lucroCustoGs(ref), qty: 1, taxa: 0 };
     var r = lrVenda(base), pct = r.preco ? Math.round((r.lucro / r.preco) * 100) : 0;
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
-    var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
+    var c10 = Math.floor((base.price * 0.1) / 1000) * 1000;
     return (
       '<details class="col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
@@ -45750,7 +45737,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Lucro real</b></span><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + ';font-size:18px">' + gs(r.lucro) + '</b></div>' +
       '<div class="hint">' + pct + '% do preço</div>' +
       '<b style="display:block;margin:12px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">SE VENDER COM…</b>' +
-      lrLinha('Cupom 10%', gs(sim({ price: base.price - c10 }))) + lrLinha('Leve 2 (2ª peça −30%)', gs(sim({ price: base.price - l2 }))) + (function () { var f = S.fretes && S.fretes.pya && +S.fretes.pya.p; return f ? lrLinha('Delivery pago pela loja', gs(sim({ freteLoja: f }))) : ''; })() +
+      lrLinha('Cupom 10%', gs(sim({ price: base.price - c10 }))) + (function () { var f = S.fretes && S.fretes.pya && +S.fretes.pya.p; return f ? lrLinha('Delivery pago pela loja', gs(sim({ freteLoja: f }))) : ''; })() +
       '</details>'
     );
   }
@@ -46157,7 +46144,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       vs = (S.sales || []).filter(function (s) { return !s.estorno && s.ts >= ini && ((s.cup && s.cup.desc > 0) || +s.l2d > 0 || (S.pprice[s.ref] && S.pprice[s.ref].ant > S.pprice[s.ref].novo)); });
     if (!vs.length) return '';
     var t = lrSoma(vs);
-    return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
+    return '"Este mês os descontos (cupons, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};
@@ -53477,7 +53464,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo, navOn: navOn,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
-      loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

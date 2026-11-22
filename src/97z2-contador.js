@@ -54,7 +54,7 @@
       vs = (S.sales || []).filter(function (s) { return !s.estorno && s.ts >= ini && ((s.cup && s.cup.desc > 0) || +s.l2d > 0 || (S.pprice[s.ref] && S.pprice[s.ref].ant > S.pprice[s.ref].novo)); });
     if (!vs.length) return '';
     var t = lrSoma(vs);
-    return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
+    return '"Este mês os descontos (cupons, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};

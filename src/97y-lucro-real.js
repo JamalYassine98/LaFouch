@@ -1,7 +1,7 @@
   // ===== S200 (aprovado 12/11/2026): LUCRO REAL por peça e do mês =====
   // Regra do dono: IVA da venda (10% dentro do preço) sai da receita (preço ÷ 1,10); IVA pago na compra vira CUSTO
   // (sem crédito fiscal); frete da compra já está rateado no custo da peça (lote); frete da entrega pago pela loja,
-  // taxa do pagamento e descontos (cupom / Leve 2) saem do lucro. Nada aqui muda as vendas: só mostra a conta.
+  // taxa do pagamento e descontos (cupom) saem do lucro. Nada aqui muda as vendas: só mostra a conta.
   var LR_IVA = 0.1;
   function lrIvaCompra() { return S.ivaCompraPct != null ? +S.ivaCompraPct / 100 : LR_IVA; }
   // uma venda → a conta inteira (Gs.)
@@ -69,7 +69,7 @@
       lrLinha('Custo + IVA da compra', '− ' + gs(t.custo + t.ivaC)) +
       lrLinha('Taxas do pagamento', '− ' + gs(t.taxa)) +
       lrLinha('Frete das entregas', (t.freteV ? '− ' : '') + gs(t.freteV)) +
-      lrLinha('Descontos (cupom, Leve 2)', '− ' + gs(t.desc)) +
+      lrLinha('Descontos (cupom)', '− ' + gs(t.desc)) +
       '<div class="hint" style="margin:6px 0 0">O frete das compras já está dentro do custo de cada peça.</div>' +
       (top.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MAIS LUCRO REAL</b>' + top.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un'); }).join('') : '') +
       (low.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MENOS LUCRO REAL</b>' + low.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un', x.un < 20000 ? 'var(--warn)' : ''); }).join('') : '') + '</section>'
@@ -91,7 +91,7 @@
     var base = { price: p, rep: lucroCustoGs(ref), qty: 1, taxa: 0 };
     var r = lrVenda(base), pct = r.preco ? Math.round((r.lucro / r.preco) * 100) : 0;
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
-    var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
+    var c10 = Math.floor((base.price * 0.1) / 1000) * 1000;
     return (
       '<details class="col lrcard"><summary class="dbS"><b>Lucro real</b><b class="dbV" style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b>' + dobraSeta() + '</summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
@@ -100,7 +100,7 @@
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Lucro real</b></span><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + ';font-size:18px">' + gs(r.lucro) + '</b></div>' +
       '<div class="hint">' + pct + '% do preço</div>' +
       '<b style="display:block;margin:12px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">SE VENDER COM…</b>' +
-      lrLinha('Cupom 10%', gs(sim({ price: base.price - c10 }))) + lrLinha('Leve 2 (2ª peça −30%)', gs(sim({ price: base.price - l2 }))) + (function () { var f = S.fretes && S.fretes.pya && +S.fretes.pya.p; return f ? lrLinha('Delivery pago pela loja', gs(sim({ freteLoja: f }))) : ''; })() +
+      lrLinha('Cupom 10%', gs(sim({ price: base.price - c10 }))) + (function () { var f = S.fretes && S.fretes.pya && +S.fretes.pya.p; return f ? lrLinha('Delivery pago pela loja', gs(sim({ freteLoja: f }))) : ''; })() +
       '</details>'
     );
   }

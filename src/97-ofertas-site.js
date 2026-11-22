@@ -114,15 +114,6 @@
     if ((o.ate && o.ate <= Date.now()) || saidaVendidas(ref, o.ini) >= (o.max || 3)) return null;
     return o;
   }
-  // Leve 2 no site (aprovado 11/11/2026): 30% na 2ª peça (a mais barata), só pré-graduado e solar.
-  // O site só recebe "pode" (l2:true) quando 70% do preço do site não fura o piso; o piso nunca vai para o site.
-  var SITE_L2 = 0.3;
-  function siteL2(ref, tipo, n) {
-    if ((tipo !== 'pre' && tipo !== 'solar') || !(n > 0)) return false;
-    var ps = pisoDoRef(ref, tipo),
-      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
-    return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
-  }
   // Cupons (S174, 12/11/2026): o maior % de cupom (15, 10 ou 5) que esta peça aguenta sem furar o piso. Só esse número vai ao site.
   function siteCupMax(ref, tipo, n) {
     if (!(n > 0)) return 0;
