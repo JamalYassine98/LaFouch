@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | IDEIAS 06c: flocos com sensação de neve | work/ideias/06-tematica |
 | NUVEM | Estudo App Check exigir: site esperar o selo (esboço para SITE) | work/nuvem-appcheck |
 | SITE | Ferramentas parte 1 (aprovada 22/11 02:22): o Argus/comparador olha todas as telas do site (roteiro único) | work/s430/comparador/compara.py, work/fiscal/argus.py |
 
@@ -142,6 +141,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 14:48 — IDEIAS: IDEIAS 06c v2: neve com sensação de neve (Fila 65)
 - 22/11 14:17 — IDEIAS: IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha
 - 22/11 14:08 — IDEIAS: IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória
 - 22/11 12:48 — IDEIAS: IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64
@@ -151,7 +151,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 12:22 — IDEIAS: IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)
 - 22/11 12:20 — IDEIAS: IDEIAS 05 APROVADO (Fila 61) — guardado na lista viva e na memória; espera o implementar do SITE
 - 22/11 12:18 — IDEIAS: IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)
-- 22/11 12:14 — IDEIAS: IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.

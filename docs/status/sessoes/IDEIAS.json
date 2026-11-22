@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06c: flocos com sensação de neve",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795369733.1086907,
+   "r": "IDEIAS 06c v2: neve com sensação de neve (Fila 65)"
+  },
   {
    "t": 1795367868.6849036,
    "r": "IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha"
@@ -40,10 +42,6 @@
   {
    "t": 1795360688.3587482,
    "r": "IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)"
-  },
-  {
-   "t": 1795360453.7735794,
-   "r": "IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)"
   }
  ],
  "leu": 1795369730.388993
