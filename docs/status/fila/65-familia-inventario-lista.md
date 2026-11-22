@@ -1,2 +1,2 @@
-65a ✅ v625 · 65b/65c ✅ v626 · 65e ✅ v627 (filtros Site, escolhas que cabem, balão B no Atacado) · 65d PARADO (dúvida da janela Adicionar, recado ao ESBOCO) · a seguir 65f (Dashboard: Desempenho do mês ⌄ e Curva ABC ⌄); a tela Giro sai junto com a família Compras (66), para a Lista de compras não ficar sem caminho
+65a ✅ v625 · 65b/65c ✅ v626 · 65e ✅ v627 · 65f ✅ v628 (Dashboard › Detalhes: Desempenho do mês ⌄ e Curva ABC ⌄) · falta: 65d (janela Adicionar — dúvida com o ESBOCO) e tirar a tela Giro (vai junto com o 66, quando Compras tiver a Lista de compras)
 Como fazer: work/s435/implementar/COMO-FAZER-INVENTARIO-52.md (52d · 52b só Parados e sobrando · 52e · 58h). O 52a vai junto com o Titan.
