@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06f: página da seleção da data",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795372454.8128173,
+   "r": "IDEIAS 06f esboço pronto: página da seleção (Fila 66)"
+  },
   {
    "t": 1795371845.4385655,
    "r": "IDEIAS 06e: cor única por data — BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo (Fila 65)"
@@ -40,10 +42,6 @@
   {
    "t": 1795362534.2679079,
    "r": "IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64"
-  },
-  {
-   "t": 1795362199.013061,
-   "r": "IDEIAS 06: estudo de referências (Cellshop, Nissei, Monalisa, Cartier, Gentle Monster) → molde único de data"
   }
  ],
  "leu": 1795372452.1857767
