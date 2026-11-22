@@ -76,3 +76,20 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
 - **Continua igual:** só na foto da campanha, 4 s, some em 1,2 s, nada com "reduzir movimento".
 - **Vídeo:** `esboco-06c-neve-natal.mp4`: Hoje | Proposta em foto clara | Proposta em foto escura (exemplo de fundo, sem foto real).
 - **Recomendação para o dono:** a foto da campanha do Natal deve ter fundo escuro ou colorido, porque é nela que a neve aparece de verdade.
+
+### 06c v3 · Movimento de LUXO (dono 22/11 14:57): substitui a neve (v1 e v2)
+- **Por que mudar:** o dono achou o fundo escuro problemático e os flocos grandes. O estudo mostra que, no luxo, **o movimento mora na foto ou no filme da campanha**, lento, uma vez só, e serve para revelar e não para enfeitar.
+  - Tiffany e Cartier: filme de campanha.
+  - Sites de luxo: animação ambiente lenta, revelação suave, nada que distraia.
+  - Por isso, **sem partículas** (neve, pétalas, brilhos piscando, morcegos).
+- **Três movimentos, iguais em TODA data** (a data muda só a foto, a cor e o chapéu do Mochi):
+  1. **A foto respira:** aproxima 4% em 8 s, uma vez.
+  2. **Um brilho de luz** atravessa a foto uma vez (1,8 s, velocidade uniforme), como reflexo na lente.
+  3. **O texto se revela:** título pequeno, título, preço, botão e seleção sobem 12 px e aparecem; 500 ms cada, 80 ms entre um e outro.
+- **Curva:** a mesma das camadas (`.16,1,.3,1`). O brilho usa velocidade uniforme, para dar para ver.
+- Nada disso roda com "reduzir movimento".
+- **Jeito natural:**
+  - uma família "campanha" no CSS com esses três movimentos;
+  - começa quando o destaque aparece na tela;
+  - **sai a `fx()`** inteira (neve, pétalas, brilhos e morcegos) e as `@keyframes evcai/evpis/evvoa/evasa`.
+- **Vídeo:** `esboco-06c-luxo-natal.mp4` (Hoje | Proposta).
