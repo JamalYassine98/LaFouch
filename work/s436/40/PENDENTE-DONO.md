@@ -28,3 +28,8 @@ Para o dono saber:
 2. O tratamento gira os 360 quadros no mesmo ângulo (como aprovado). Isso corrige bem câmera torta; se só a ARMAÇÃO estiver caída no prato,
    de lado ela aparece inclinada para a frente/trás e o giro não fica perfeito — por isso o aviso "Peça reta" antes de gravar continua importante.
 3. Nada disso rodou no celular: conferir com um giro de verdade (a frente tem de sair reta; o resto do giro, sem "pulo").
+
+## v618 — a escolha da frente com a cena torta (consertado, por dentro)
+O achado da v617 foi resolvido: em 0, ±2, ±3 e ±5° o app acha a frente certa (saída em escolha_da_frente_ponta_a_ponta_saida.txt).
+±2° saem retas; ±3° (o app mede 3,1° e 3,3°) e ±5° não são endireitados e avisam. A medida erra uns ±0,5° (a própria peça do teste tem −0,4°),
+então bem perto de 3° pode endireitar ou avisar. Só simulador, com UMA peça (clara): conferir no celular com armações diferentes (escura, metal fino).

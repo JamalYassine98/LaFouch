@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 617;
+  var APP_BUILD = 618;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.42'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.43'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -35900,7 +35900,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (n >= GT_N) return Promise.resolve();
           return pega(t0 + n * per / GT_N).then(function (d) {
             var t = tr.trata(d), pc = tr.peca(t);
-            if (!pc.achou) med.push(med.length ? med[med.length - 1].slice() : [W / 2, H / 2, 10, 10, 1, 1e9, 0.5]);
+            if (!pc.achou) med.push(med.length ? med[med.length - 1].slice() : [W / 2, H / 2, 10, 10, 1, 1e9, 0.5, 0]);
             else {
               // simetria (a frente e as costas são as vistas mais simétricas) e onde ficam os pontos mais baixos da peça:
               // perto do meio = aros = FRENTE; nas pontas = hastes vindo para a câmera = costas
@@ -35911,7 +35911,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               }
               var lado = 0, nl = 0, ylim = (pc.y1 - bh * 0.12) / 2, xm = (pc.x0 + pc.x1) / 4;
               for (yy = Math.ceil(ylim); yy < h2; yy++) for (xx = 0; xx < w2; xx++) if (pc.m[yy * w2 + xx]) { lado += Math.abs(xx - xm); nl++; }
-              med.push([(pc.x0 + pc.x1) / 2, (pc.y0 + pc.y1) / 2, bw, bh, tr.nitidez(t, gtExtremo(pc.m, w2, h2, 2, true, Uint8Array)), ns ? sim / ns / Math.max(bw, 1) : 1e9, nl ? lado / nl / Math.max(bw / 2, 1) : 0.5]);
+              // [7] o quanto a peça é igual ao próprio espelho DESCONTADA a inclinação dela neste quadro (gtTopo → ângulo → gtEspelho): a simetria [5] é medida
+              // em volta do eixo em pé e, com a cena torta 3° ou mais, uma vista de lado ganha da frente (achado da v617, work/s436/40)
+              var tpn = gtTopo(pc.m, w2, pc.x0 >> 1, pc.x1 >> 1, pc.y0 >> 1, pc.y1 >> 1),
+                espn = gtEspelho(pc.m, w2, pc.x0 >> 1, pc.x1 >> 1, pc.y0 >> 1, pc.y1 >> 1, tpn && tpn.xd > tpn.xe ? Math.atan2(tpn.d - tpn.e, tpn.xd - tpn.xe) * 180 / Math.PI : 0);
+              med.push([(pc.x0 + pc.x1) / 2, (pc.y0 + pc.y1) / 2, bw, bh, tr.nitidez(t, gtExtremo(pc.m, w2, h2, 2, true, Uint8Array)), ns ? sim / ns / Math.max(bw, 1) : 1e9, nl ? lado / nl / Math.max(bw / 2, 1) : 0.5, espn]);
             }
             n++; aviso('mede', n / GT_N);
             return um();
@@ -35943,6 +35947,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (o.frente == null) {
         var cand = 0, n2;
         for (n = 1; n < GT_N; n++) if (med[n][5] < med[cand][5]) cand = n;
+        // a vista mais simétrica só vale de frente se for mesmo igual ao próprio espelho; se não for (cena torta), a frente é a vista que mais
+        // se parece com o espelho descontada a inclinação — o desempate frente × costas continua o mesmo, logo abaixo
+        if (med[cand][7] < GT_ESPELHO) for (n = 0; n < GT_N; n++) if (med[n][7] > med[cand][7]) cand = n;
         var outro = (cand + GT_N / 2) % GT_N, jan = function (i) { var q = 0; for (var d = -4; d <= 4; d++) q += med[(i + d + GT_N) % GT_N][6]; return q / 9; };
         frente = jan(cand) <= jan(outro) ? cand : outro;
       } else frente = o.frente;

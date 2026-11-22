@@ -1,5 +1,5 @@
 # 40c de ponta a ponta no simulador: grava um giro de mentira (360 quadros de /tmp/e2e/q, fora do repositório) com a cena inteira girada N graus,
-# trata com o giroTrata e mede a inclinação da FRENTE que saiu. Com 0° compara, com o MESMO vídeo, o resultado desta versão com o da v616 (sem a correção).
+# trata com o giroTrata e mede a inclinação da FRENTE que saiu. Com 0° compara, com o MESMO vídeo, o resultado desta versão com o da versão anterior publicada (cópia em /tmp/www617, tirada do git).
 import asyncio, subprocess, sys, json, base64
 from playwright.async_api import async_playwright
 GRAVA = """async (CFG) => { const w = ms => new Promise(r => setTimeout(r, ms));
@@ -25,10 +25,10 @@ TRATA = """async (V) => { const u8 = Uint8Array.from(atob(V[1]), c => c.charCode
     let x0 = W, x1 = -1, y0 = H, y1 = -1; for (let y = 0; y < H; y++) for (let xx = 0; xx < W; xx++) { const k = (y * W + xx) * 4; if (Math.min(d[k], d[k + 1], d[k + 2]) < 225) { m[y * W + xx] = 1; if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; } }
     const tp = window.__gtTopo ? window.__gtTopo(m, W, x0, x1, y0, y1) : null, saiu = tp ? Math.round(Math.atan2(tp.d - tp.e, tp.xd - tp.xe) * 1800 / Math.PI) / 10 : null;
     let h = 0; const tudo = r.fotos[0] + r.fotos[45] + r.capa; for (let i = 0; i < tudo.length; i++) h = (h * 31 + tudo.charCodeAt(i)) | 0;
-    return { ok: true, seg: Math.round((performance.now() - t1) / 100) / 10, reto: r.info.reto || null, frenteSaiu: saiu, frente: r.info.frente, marca: h, kb: Math.round(r.blob.size / 1024), foto: r.fotos[0] }; }
+    return { ok: true, seg: Math.round((performance.now() - t1) / 100) / 10, reto: r.info.reto || null, frenteSaiu: saiu, frente: r.info.frente, frenteNoPrato: Math.round((((r.info.inicio + r.info.frente * r.info.volta / 360 - 3) / 14 * 360) % 360 + 360) % 360), marca: h, kb: Math.round(r.blob.size / 1024), foto: r.fotos[0] }; }
   catch (e) { return { ok: false, erro: String(e && e.message) }; } }"""
 async def main():
-    srvs = [subprocess.Popen([sys.executable, '-m', 'http.server', str(p), '-d', d], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) for p, d in ((8793, '/home/claude/lafouch/www'), (8794, '/tmp/www616/www'))]
+    srvs = [subprocess.Popen([sys.executable, '-m', 'http.server', str(p), '-d', d], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) for p, d in ((8793, '/home/claude/lafouch/www'), (8794, '/tmp/www617/www'))]
     await asyncio.sleep(1)
     try:
         async with async_playwright() as p:
@@ -46,7 +46,7 @@ async def main():
                 print('cena girada', rot, '→ nova:', json.dumps(r, ensure_ascii=False), flush=True)
                 if rot == 0:
                     pv = await pagina(8794); rv = await pv.evaluate(TRATA, V); rv.pop('foto', None)
-                    print('   mesmo vídeo na v616 (sem correção):', json.dumps(rv, ensure_ascii=False), '| fotos e capa iguais:', rv.get('marca') == r.get('marca'), flush=True)
+                    print('   mesmo vídeo na versão anterior publicada:', json.dumps(rv, ensure_ascii=False), '| fotos e capa iguais:', rv.get('marca') == r.get('marca'), flush=True)
                     await pv.context.close()
                 await pg.context.close()
             await b.close()

@@ -1,0 +1,9 @@
+cena girada 0.0 → nova: {"ok": true, "seg": 63.6, "reto": {"ang": -0.0, "gira": 0, "torta": false, "espelho": 0.5}, "frenteSaiu": 0, "frente": 283, "frenteNoPrato": 0, "marca": 1128034110, "kb": 2899}
+   mesmo vídeo na versão anterior publicada: {"ok": true, "seg": 61.8, "reto": {"ang": -0.0, "gira": 0, "torta": false, "espelho": 0.5}, "frenteSaiu": 0, "frente": 283, "frenteNoPrato": 0, "marca": 1128034110, "kb": 2898} | fotos e capa iguais: True
+cena girada 2.0 → nova: {"ok": true, "seg": 59.9, "reto": {"ang": 1.6, "gira": -1.62114591365341, "torta": false, "espelho": 0.58}, "frenteSaiu": 0, "frente": 286, "frenteNoPrato": 3, "marca": 1305425848, "kb": 2941}
+cena girada -2.0 → nova: {"ok": true, "seg": 60.2, "reto": {"ang": -2.8, "gira": 2.7924225301128742, "torta": false, "espelho": 0.61}, "frenteSaiu": 0.2, "frente": 290, "frenteNoPrato": 7, "marca": -996624801, "kb": 2917}
+cena girada 3.0 → nova: {"ok": true, "seg": 60.2, "reto": {"ang": 3.1, "gira": 0, "torta": true, "espelho": 0.56}, "frenteSaiu": 3, "frente": 234, "frenteNoPrato": 3, "marca": 391804001, "kb": 2966}
+cena girada -3.0 → nova: {"ok": true, "seg": 57, "reto": {"ang": -3.3, "gira": 0, "torta": true, "espelho": 0.44}, "frenteSaiu": -3.3, "frente": 232, "frenteNoPrato": 1, "marca": 214551929, "kb": 2948}
+cena girada 5.0 → nova: {"ok": true, "seg": 59.1, "reto": {"ang": 5.3, "gira": 0, "torta": true, "espelho": 0.53}, "frenteSaiu": 5.3, "frente": 231, "frenteNoPrato": 360, "marca": -983204661, "kb": 3030}
+cena girada -5.0 → nova: {"ok": true, "seg": 68.3, "reto": {"ang": -5.5, "gira": 0, "torta": true, "espelho": 0.53}, "frenteSaiu": -5.5, "frente": 233, "frenteNoPrato": 2, "marca": 1728680468, "kb": 2992}
+FIM

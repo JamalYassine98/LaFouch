@@ -1,1 +1,1 @@
-{"v":617,"nat":1,"nome":"5.50.42","notas":["Giro: se a peça ficou um pouco torta (até 3°), o tratamento endireita o giro inteiro sozinho. Se já estava reta, não mexe em nada.","Se ficou torta demais, o app avisa para arrumar a armação no prato e gravar de novo."]}
+{"v":618,"nat":1,"nome":"5.50.43","notas":["Giro (por dentro): com a peça ou a câmera torta, o app escolhia uma vista de lado como se fosse a frente. Agora acha a frente certa também nesses casos, e aí endireita ou avisa."]}

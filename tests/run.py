@@ -4188,7 +4188,8 @@ async def main():
             total += 1
             ok = (all(abs(a - b) <= 0.35 for a, b in zip(got['mede'], [0, 2, -2, 5, 0.3])) and got['decide'] == [[0, False], [0, False], [0, False], [-2, False], [2.9, False], [0, True], [0, True]] and got['vazio'] is None and got['espelho'] == [True, True, True]
                   and 'gtTopo(M,w,' in cam and cam.count('lado=function') == 0            # o conferidor usa a mesma medida, sem cópia
-                  and 'tr.gira(reto.gira)' in gt and 'if (giroG) {' in gt and 'reto: reto' in gt and 'reto.espelho < GT_ESPELHO' in gt  # o giro dos quadros sai da decisão e vai para o resultado
+                  and 'tr.gira(reto.gira)' in gt and 'if (giroG) {' in gt and 'reto: reto' in gt and 'reto.espelho < GT_ESPELHO' in gt
+                  and 'if (med[cand][7] < GT_ESPELHO)' in gt and 'espn]);' in gt     # v618: a frente achada só vale se for igual ao espelho; senão vale a mais parecida, descontada a inclinação  # o giro dos quadros sai da decisão e vai para o resultado
                   and "lfToast(torta, 'atencao')" in eg and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40c: o tratamento endireita o giro — mesma medida do "Peça reta", até 0,5° não mexe, até 3° gira ao contrário, acima avisa')
             if not ok: falhas.append('40c tratamento endireita'); print('        veio', got, pg.erros)
