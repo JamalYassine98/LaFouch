@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06c: flocos com sensação de neve",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795367868.6849036,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)"
   }
  ],
- "leu": 1795367866.0143793
+ "leu": 1795369392.1449387
 }
