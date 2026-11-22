@@ -202,9 +202,11 @@ Cada item abaixo é **uma função só**, usada por todas as telas (regra 12c). 
 ### E. Custo por compra — aprovado 22/11 13:40
 - **Cada peça carrega o custo da compra em que veio.** Saem primeiro as mais antigas.
 - **Compra nova mais cara:** muda só o preço das peças NOVAS. Vale para varejo e atacado.
-- **O que sai:** o uso de `repUSD` (custo da última compra) para dar PREÇO ao estoque velho.
-- **O que fica com o custo de reposição:** a **separação** do dinheiro na venda ("Reposição separada"), porque ela serve para recomprar.
-  - Ponto a confirmar com o dono no teste.
+- **Um custo só no app inteiro** (dono 22/11 14:39): preço, lucro e **"Reposição separada"** usam o custo da compra da peça que saiu.
+  - A recompra é por VAGA: o ideal é a mesma peça que vendeu rápido, mas nem sempre dá.
+  - O Semp escolhe o que entra, e o Titan aprova o preço.
+  - O dinheiro separado vai para a vaga. O colchão (C) cobre se a mercadoria nova vier mais cara.
+- **Sai por inteiro:** o `repUSD` (custo da última compra do modelo), no preço e na separação.
 
 ### F. O Titan aprende o jeito do dono — aprovado 22/11 00:21
 - **`titanJeito(tipo)`:** o multiplicador do tipo, aprendido de três fontes:
@@ -240,3 +242,54 @@ Cada item abaixo é **uma função só**, usada por todas as telas (regra 12c). 
 - Margens do atacado = 56/45/36/32/29/27 com colchão 3%.
 - O guarani do lote muda quando a cotação do dia muda e o US$ não.
 - "De" maior que o praticado é recusado.
+
+---
+
+## PARTE 3 — SEGUNDO PLANO (aprovado 22/11 12:10–12:11 · work/s435/titan/PACOTE-SEGUNDO-PLANO-22-11.md)
+
+Por que existe: há dias sem abrir o app (férias, doença). O celular acorda **1×/dia sozinho**, com o app fechado, e faz tudo numa
+acordada só, para poupar bateria. Sem custo.
+
+### APP — uma função só: `acordadaDiaria()`, com 4 passos nesta ordem
+1. **Lê a venda da casa.** Usa a mesma leitura de hoje (`lmBusca`, src/97-lamoneda.js) e grava no `S.fxHist` como da casa.
+   - A nuvem não serve para isso: a La Moneda bloqueia servidores (erro 522).
+2. **Garante a cópia na nuvem.** Usa a mesma sincronização de hoje. Se falhar, tenta de novo na próxima acordada e avisa no sino depois de 2 dias sem cópia.
+3. **O Titan confere a mola** (Parte 2 · B) com a cotação do dia.
+   - Só avisa no sino quando um preço precisa mudar (7 dias de alta / 30 de baixa). Fora isso, fica quieto.
+   - Cada aviso também vira linha no Histórico do dia (Parte 1 · passo 9).
+4. **Avisa as contas a vencer no dia.** Mesmo texto de hoje (`avisosVenc`, src/92-despesas.js), uma vez por conta por dia.
+
+- **Onde vale:** só no APK, pela tarefa em segundo plano do Android. No Windows e no navegador nada muda: eles leem com o app aberto.
+- **APK:** só sai quando o dono pedir (regra 21).
+
+### NUVEM — avisar mensagens de clientes e de lojistas na hora
+- Mensagem nova = um aviso no celular, com o mesmo som escolhido.
+- Usa o mesmo caminho do aviso de pedido do site (src/97-push.js + a função da nuvem que já manda esse aviso), só com mais um gatilho: mensagem nova.
+- **Quem faz:** a sessão NUVEM (functions/). O APP só mostra o aviso, que já sabe mostrar.
+
+### Provas novas no Argus (Parte 3)
+- A acordada chama **uma** função com os 4 passos, na ordem.
+- Nenhum passo busca o mercado.
+- A mola só avisa quando passa do limite.
+- O aviso de conta sai uma vez por dia.
+
+### Não dá para testar no simulador
+- A acordada com o app fechado.
+- O atraso do Android para poupar bateria.
+- A leitura da La Moneda de verdade.
+
+Esses três ficam para o aparelho real: Test Lab dentro dos 30 min grátis, ou o celular do dono.
+
+---
+
+## ORDEM DE ENTREGA DA FAMÍLIA (sugestão para a Fila)
+
+1. Parte 1, passos 1–3 (nome, Início, escritório).
+2. Parte 2, A + B + C + D (cotação, mola, colchão, IVA). Sem isso, Regras e Ofertas não têm números verdadeiros.
+3. Parte 1, passos 4–6 (Regras, Ofertas, ficha + janela Oferta).
+4. Parte 2, E + F (custo por compra, jeito do dono).
+5. Parte 2 · G + Parte 1 · passo 7 (atacado). Junto, um recado à SITE para a conversão do dia no catálogo do lojista.
+6. Parte 1, passos 8–9 (Ferramentas, Histórico).
+7. Parte 3, primeiro a parte do APP; a da NUVEM em paralelo, pela sessão NUVEM.
+
+Cada número é um item da Fila: implementar → testar → publicar → marcar feito com a versão. A ESBOCO confere as telas depois de cada publicação.
