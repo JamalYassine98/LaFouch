@@ -93,7 +93,7 @@
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
 - **48-pecas-compras-parte-1** — aprovado (48a) 22/11 05:44 — vai no item 66 · 48b/48c superados (obsoletos)
 - **49-selo-no-botao-que-resolve** — 49a REPROVADO 22/11 00:29 (Atacado mantém as abas) · 49b esperando o dono · 49c superado
-- **50-giro-sobrando-e-lista** — esboço pronto — esperando o dono
+- **50-giro-sobrando-e-lista** — superado pelo 52 (obsoletos 22/11)
 - **52-desfazer-giro-e-precos** — partes 1 e 2 aprovadas (15:38 e 16:17) — esperam o 'implementar' · partes 3–6 a fazer
 - **53-destaque-da-semana-do-semp** — esboço pronto — esperando o dono
 - **54-precos-escritorio-do-guardiao** — aprovado 21/11 18:06 — espera o 'implementar' · setores e desconto no Vender a fazer
