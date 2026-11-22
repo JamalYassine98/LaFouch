@@ -29,7 +29,7 @@ def base(pw):
 SHEET=r"""(h)=>{const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:flex;align-items:flex-end';
  d.innerHTML='<div style="width:100%;background:var(--panel,#1b1f27);border-radius:24px 24px 0 0;padding:12px 24px 32px;color:var(--fg)"><div style="width:44px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 16px"></div>'+h+'</div>';document.body.appendChild(d)}"""
 LR=r"""const Lr=(r,v,c,sub)=>'<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+(sub?'<small style="display:block;font-size:13px;color:var(--mute)">'+sub+'</small>':'')+'</span><span style="color:'+(c||'var(--fg)')+';white-space:nowrap">'+v+'</span></div>';
- const In=(r,v)=>'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+'</span><span style="border:1px solid var(--line2);border-radius:12px;padding:8px 14px;font-weight:600">'+v+'</span></div>';
+ const In=(r,v)=>'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+'</span><span style="font-weight:600">'+v+'</span></div>';
  const Lb=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:24px 0 4px">'+t+'</div>';"""
 def calc(pw):
   b,pg,w=base(pw)
@@ -40,11 +40,14 @@ def calc(pw):
   pg.evaluate(SHEET,h);w(400);confere(pg,'Calculadora');x=shot(pg,'c66');b.close();return x
 def ese(pw):
   b,pg,w=base(pw)
-  h=pg.evaluate("()=>{"+LR+r"""const C=(t,on)=>'<span style="display:inline-block;padding:10px 16px;border-radius:22px;border:1px solid '+(on?'var(--accent,#c06)':'var(--line2)')+';color:'+(on?'var(--accent-fg,#f6b)':'var(--mute)')+';font-size:15px;margin:0 8px 8px 0">'+t+'</span>';
-   return '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">E se…?</h2><div style="color:var(--mute);font-size:14px;margin:4px 0 16px">só conta: nada muda até você aceitar</div>'+
-   '<div>'+C('Dólar da casa',1)+C('Fornecedor sobe')+C('Cupom')+C('Contas sobem')+C('Meta do mês')+'</div>'+In('Venda da casa a','G$ 7.000')+
-   '<div style="font-size:16px;line-height:1.5;margin:16px 0 0">O custo de repor sobe <b>8%</b>. Primeiro a folga de desconto acaba. Se ficar assim <b>7 dias</b>, <b>10 preços</b> sobem um degrau, e o Titan avisa no sino.</div>'+
-   '<div style="font-size:16px;line-height:1.5;margin:12px 0 0;color:var(--mute)">Até lá, o lucro do mês cai até <span style="color:var(--bad,#e5484d)">G$ 201.294</span>. O atacado não muda: ele é em dólar.</div>'}""")
+  # regra 16: perguntas = linhas com ⌄ (ler: abre ali); a aberta mostra o campo em linha fina e a resposta
+  h=pg.evaluate("()=>{"+LR+r"""const Q=(t,s,ab)=>'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:'+(ab?'0':'1px solid var(--line2)')+'"><span style="flex:1"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><i style="font-style:normal;color:var(--mute);font-size:16px;display:inline-block;transform:rotate('+(ab?'180deg':'0')+')">⌄</i></div>';
+   return '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">E se…?</h2><div style="color:var(--mute);font-size:14px;margin:4px 0 8px">só conta: nada muda até você aceitar</div>'+
+   Q('Dólar da casa','o que acontece com os preços',1)+
+   '<div style="padding:0 0 16px;border-bottom:1px solid var(--line2)">'+In('Venda da casa a','G$ 7.000')+
+   '<div style="font-size:15px;line-height:1.5;margin:12px 0 0">O custo de repor sobe <b>8%</b>. Primeiro a folga de desconto acaba. Se ficar assim <b>7 dias</b>, <b>10 preços</b> sobem um degrau, e o Titan avisa no sino.</div>'+
+   '<div style="font-size:15px;line-height:1.5;margin:8px 0 0;color:var(--mute)">Até lá, o lucro do mês cai até <span style="color:var(--bad,#e5484d)">G$ 201.294</span>. O atacado não muda: ele é em dólar.</div></div>'+
+   Q('Fornecedor sobe','e o colchão aguenta?',0)+Q('Cupom','quanto lucro fica por peça',0)+Q('Contas sobem','quanto a mais precisa vender',0)+Q('Meta do mês','quanto falta e em quantos dias',0)}""")
   pg.evaluate(SHEET,h);w(400);confere(pg,'E se');x=shot(pg,'e66');b.close();return x
 def setor(pw):
   b,pg,w=base(pw);pg.add_style_tag(content='#mainnav .mn{color:var(--mute)!important}#mainnav .mn svg{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
@@ -54,6 +57,6 @@ if __name__=='__main__':
   quadro('esboco_66_ferramentas_titan.jpg',[('HOJE · Calculadora','faixa com margem fixa · atacado antigo · copia texto',Image.open(O+'h66_calc.png').crop((0,0,780,1688))),
     ('HOJE · E se…?','"Vender tudo parado" (degraus que saíram)',Image.open(O+'h66_ese.png').crop((0,0,780,1688))),
     ('PROPOSTA · Preços › Ferramentas','duas ferramentas, o mesmo motor do Titan',setor(pw)),
-    ('PROPOSTA · Calculadora','antes de comprar: loja, site e atacado',calc(pw)),
-    ('PROPOSTA · E se…?','com a mola: folga primeiro, preço só depois',ese(pw))])
+    ('PROPOSTA · Calculadora','campos em linhas finas · loja, site e atacado',calc(pw)),
+    ('PROPOSTA · E se…?','perguntas em linhas ⌄ · com a mola',ese(pw))])
  for n,f in REL: print(n,len(f),f[:4])
