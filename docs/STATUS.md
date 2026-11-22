@@ -116,6 +116,7 @@
 
 - para **APP**: URGENTE (dono 22/11 14:33) — 3 avisos para não errar: (1) item 68 Destaque da semana: NÃO implementar o 'Marketing 1c' do work/semp/ para abrir caminho — ele é 
 - para **APP**: Dono 22/11 15:01 APROVOU 'rede da loja' (por dentro, nenhuma tela muda — regra 6b): na Black Friday os clientes usam o Wi-Fi da loja e saem pelo mesmo endereço;
+- para **APP**: CANCELA o recado de 22/11 (rede da loja / reserva acao 'loja'): o dono desistiu às 15:10 ('complicado demais'). A nuvem não aceita mais 'loja'. Nada a fazer no 
 - para **ESBOCO**: v626 publicada (65b/65c): conferir Inventário (páginas de 24, fim da lista com Parados e sobrando › e Contar o estoque ›) e a tela nova Parados e sobrando (celu
 - para **ESBOCO**: Dúvida 65d (janela Adicionar): o como fazer diz 'Completar peça do Estúdio (selo) · Chegou mercadoria · Acessório' (48b v3, que foi para obsoletos), e o 44a (Ad
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
