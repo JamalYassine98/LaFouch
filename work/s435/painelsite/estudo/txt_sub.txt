@@ -1,0 +1,38 @@
+=== vit › Mudar (BUTTON.btn o)
+Destaque do site | É o cartão grande no topo da página do cliente. | Nada | O site mostra só o título e os botões. | Automático | 4 peças trocando sozinhas, cada uma por um motivo: Girar (parada no estoque), Mais vendido, Novidade e Tema do calendário. | Um produto | Você escolhe um modelo. | Vídeo | Um vídeo seu (.mp4), sem som. | Slide de fotos | Fotos dos modelos passando sozinhas, com bolinhas. | Salvar destaque | Cancelar
+
+=== vit › Efeitos (BUTTON.btn o)
+Efeitos do cartão | Movimentos extras do destaque no site. O selo da loja fica sempre parado. | Entrada em cascata | O cartão sobe e o óculos desliza ao abrir a página. | Inclinação 3D | O cartão inclina com o mouse ou o dedo, com brilho. | Respiração | O óculos aproxima e volta devagar, com sombra. | Reflexo nas lentes | Uma faixa de luz passa pelas lentes de tempos em tempos. | Salvar efeitos | Cancelar
+
+=== vit › Ordem do catálogo (BUTTON.lin)
+ORDEM DO CATÁLOGO | Como o site organiza os modelos (você ainda pode fixar no topo): | Equilibrada | Vender parados | Novidades primeiro | Equilibrada = mistura mais vistos, novidades e peças paradas; esgotados vão para o fim. | Prévia dos 6 primeiros | 1 | KT002 | 2 | KT003 | 3 | KT004 | 4 | KT005 | 5 | KT007 | 6 | KT008 | … e no tema, as peças do tema sobem (ex.: Mães → femininas). | Precisa de atenção | 📷 Sem foto: 4
+
+=== vit › Precisa de atenção (DIV.)
+ORDEM DO CATÁLOGO | Como o site organiza os modelos (você ainda pode fixar no topo): | Equilibrada | Vender parados | Novidades primeiro | Equilibrada = mistura mais vistos, novidades e peças paradas; esgotados vão para o fim. | Prévia dos 6 primeiros | 1 | KT002 | 2 | KT003 | 3 | KT004 | 4 | KT005 | 5 | KT007 | 6 | KT008 | … e no tema, as peças do tema sobem (ex.: Mães → femininas). | Precisa de atenção | 📷 Sem foto: 4
+
+=== vit › Opiniões para revisar (BUTTON.lin)
+Opiniões para revisar | O porteiro segurou porque parecem suspeitas. Só publica se você aprovar. As normais publicam sozinhas. | ★ | Nada para revisar | Quando uma opinião parecer suspeita, ela aparece aqui.
+
+=== cfg › Entrega (BUTTON.lin)
+ENTREGA · TRANSPORTADORAS | Preço do frete que o cliente vê no site (em guaranis). Vazio = "pago na entrega". Desligada some da lista. | PedidosYa Envíos | DISPONÍVEL | Bolt Envío | DISPONÍVEL | Tiemsa | DISPONÍVEL | MCGroup | DISPONÍVEL | Salvar entrega
+
+=== cfg › Avaliações dos clientes (BUTTON.lin)
+AVALIAÇÕES DOS CLIENTES | Ver as últimas avaliações
+
+=== cfg › Inscritos em novidades (BUTTON.lin)
+INSCRITOS EM NOVIDADES (E-MAIL) | Ver inscritos
+
+=== cfg › Se você desligar (BUTTON.lin)
+SE VOCÊ DESLIGAR | MENSAGEM QUE OS CLIENTES VEEM | Salvar mensagem
+
+=== cfg › Github (BUTTON.lin)
+GITHUB (VÍDEO E FOTOS DO DESTAQUE) | Conectado pelo Firebase | Permanente e seguro: a chave do GitHub fica guardada no Firebase, nenhum aparelho precisa dela.
+
+=== cfg › Segurança (BUTTON.lin)
+SEGURANÇA | Carregando…
+
+=== cfg › Conta (BUTTON.lin)
+CONTA | Alterar senha | Sair do painel
+
+=== prod › Leitura retangular 2 (DIV.g)
+Sem foto | Leitura retangular 2 | PRODUTO ANTIGO DO PAINEL | Este produto não vem do app, então o preço e o estoque não são atualizados. Libere o modelo no Inventário ("Liberar para o site") e exclua este. | Aparece no site | Esgotado sai sozinho depois de alguns dias | Fixar no topo | Fica antes de todos os outros, na ordem automática | COLEÇÃO NO SITE (OPCIONAL) | Peças com o mesmo nome formam uma coleção na página inicial (a partir de 2 peças). | Salvar | Cancelar | Excluir produto

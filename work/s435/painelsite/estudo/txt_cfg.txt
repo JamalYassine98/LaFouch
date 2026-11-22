@@ -1,0 +1,30 @@
+Sair
+No ar
+Cliente
+Ajustes
+lafouch.com
+O site está no ar
+Os clientes veem o catálogo agora.
+Entrega · transportadoras
+Preço do frete que o cliente vê no site (em guaranis). Vazio = "pago na entrega". Desligada some da lista.
+›
+Avaliações dos clientes
+›
+Inscritos em novidades (e-mail)
+›
+Se você desligar
+›
+Github (vídeo e fotos do destaque)
+Os arquivos ficam guardados no próprio site, de graça. Crie uma chave em github.com/settings/personal-access-tokens: só o repositório catalogo, permissão Contents: Read and write. Cole aqui (fica só neste celular).
+›
+Segurança
+Carregando…
+›
+Conta
+›
+Vitrine
+Modelos
+Mensagens
+Temática
+Analisador
+Ajustes

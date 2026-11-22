@@ -1,0 +1,93 @@
+Sair
+No ar
+Cliente
+Modelos
+18 no total
+Todos
+No ar
+Ocultos
+Sem foto
+Esgotado
+📷
+Solar hexagonal 1
+KT001 · 0 un.
+Gs. 20
+antigo sem foto esgotado
+Leitura retangular 2
+KT002 · 1 un.
+Gs. 25
+antigo
+Armação redonda 3
+KT003 · 2 un.
+Gs. 30
+antigo
+Solar aviador 4
+KT004 · 5 un.
+Gs. 35
+antigo
+📷
+Leitura gatinho 5
+KT005 · 9 un.
+Gs. 40
+antigo sem foto
+Armação quadrada 6
+KT006 · 0 un.
+Gs. 45
+antigo esgotado
+Solar hexagonal 7
+KT007 · 1 un.
+Gs. 50
+antigo
+Leitura retangular 8
+KT008 · 2 un.
+Gs. 20
+antigo
+📷
+Armação redonda 9
+KT009 · 5 un.
+Gs. 25
+antigo sem foto oculto
+Solar aviador 10
+KT010 · 9 un.
+Gs. 30
+antigo
+Leitura gatinho 11
+KT011 · 0 un.
+Gs. 35
+antigo esgotado
+Armação quadrada 12
+KT012 · 1 un.
+Gs. 40
+antigo
+📷
+Solar hexagonal 13
+KT013 · 2 un.
+Gs. 45
+antigo sem foto
+Leitura retangular 14
+KT014 · 5 un.
+Gs. 50
+antigo
+Armação redonda 15
+KT015 · 9 un.
+Gs. 20
+antigo
+Solar aviador 16
+KT016 · 0 un.
+Gs. 25
+antigo esgotado
+📷
+Leitura gatinho 17
+KT017 · 1 un.
+Gs. 30
+antigo sem foto
+Armação quadrada 18
+KT018 · 2 un.
+Gs. 35
+antigo oculto
+Vitrine
+Modelos
+Mensagens
+Temática
+Analisador
+Ajustes
