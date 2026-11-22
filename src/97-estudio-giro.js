@@ -151,19 +151,22 @@
       var r = rr[0], R1 = rr[1][0] ? estProcessa(rr[1][0]) : {}, R2 = rr[1][1] ? estProcessa(rr[1][1]) : {};
       camDiario('tratou', { seg: Math.round((Date.now() - t0t) / 100) / 10, tipo: r.tipo, kb: Math.round(r.blob.size / 1024), info: r.info, frente: [R1.n, R1.mot], t34: [R2.n, R2.mot] });
       if (!estFotoServe(R1)) return manual(); // a frente do giro tratado não serve de foto: escolha à mão
+      // 40c: peça torta além do que o tratamento endireita (3°) — o giro fica guardado, mas o aviso pede para arrumar a armação e gravar de novo
+      var rt = r.info.reto, torta = rt && rt.torta ? 'A peça ficou torta no giro (' + Math.round(Math.abs(rt.ang)) + '°): endireite a armação no prato e grave de novo' : '';
       parou = true;
       ov.remove();
       if (ctx.k) {
         estGrava(ctx.k, 'frente', R1);
         if (estFotoServe(R2)) estGrava(ctx.k, '34', R2);
         estGiroGuarda(ctx.k, r.blob);
-        lfToast('Giro pronto: frente, 3/4 e giro salvos', 'ok');
+        if (torta) lfToast(torta, 'atencao'); else lfToast('Giro pronto: frente, 3/4 e giro salvos', 'ok');
         render();
         if (ctx.fim) ctx.fim();
         return;
       }
       var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: r.blob };
       if (estFotoServe(R2)) c2.fotos['34'] = R2;
+      if (torta) lfToast(torta, 'atencao');
       estDestino(c2, ctx.fim);
     }).catch(function (e) {
       // não deu para tratar: o vídeo não tem uma volta inteira (avisa) ou o aparelho falhou no meio — nos dois casos, a escolha à mão

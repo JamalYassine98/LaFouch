@@ -156,8 +156,46 @@
   //  · amostra(d) / aprende(am): o fundo parado, tirado de várias imagens da própria gravação (em cada ponto, o tom claro que se repete);
   //  · trata(d): imagem ÷ fundo; peca(t): onde a peça está; nitidez(t, pm); recorte(...): a janela 3:2 em volta da peça;
   //  · imagem(fonte, fW, fH, pc, X0, Y0, w, h): a imagem tratada desse recorte, numa tela 960×640 (a mesma tela a cada chamada).
+  // Esboço 40 "Peça reta": o topo de cada lado da armação, numa máscara da peça (m, largura w, caixa x0..x1 × y0..y1, tudo em pontos da máscara).
+  // Em cada metade da caixa olha a faixa do meio da lente (30% a 80% a partir da ponta de fora — longe das hastes e da ponte); em cada coluna,
+  // o primeiro ponto da peça de cima para baixo; vale a média (dá fração de ponto). Devolve { e, d } = altura do topo de cada lado e { xe, xd } =
+  // onde foi medido, ou null. Uma medida só: o conferidor da câmera (medeQuadro) e o tratamento (giroTrata) usam esta.
+  function gtTopo(m, w, x0, x1, y0, y1) {
+    var meia = (x1 - x0) / 2,
+      lado = function (a, b) {
+        var s = 0, n = 0, xa = Math.round(Math.min(a, b)), xb = Math.round(Math.max(a, b));
+        for (var x = xa; x <= xb; x++) for (var y = y0; y <= y1; y++) if (m[y * w + x]) { s += y; n++; break; }
+        return n >= 3 ? { y: s / n, x: (xa + xb) / 2 } : null;
+      },
+      E = lado(x0 + meia * 0.3, x0 + meia * 0.8), D = lado(x1 - meia * 0.3, x1 - meia * 0.8);
+    return E && D ? { e: E.y, d: D.y, xe: E.x, xd: D.x } : null;
+  }
+  // Esboço 40c (dono 21/11 07:51 e 07:54): o que o tratamento faz com a inclinação medida na frente (graus; positivo = lado direito mais baixo).
+  // Até 0,5° a peça já está reta: NÃO mexe (o giro sai igual, ponto a ponto). Até 3° gira os 360 quadros no ângulo contrário. Acima disso não
+  // endireita (girar tanto corta a peça e muda a vista): fica o aviso para arrumar a armação no prato e gravar de novo.
+  // Quanto a máscara da peça (m, largura w, caixa x0..x1 × y0..y1) fica igual ao próprio espelho depois de desfeita a inclinação `ang` (graus):
+  // 1 = espelho perfeito. A FRENTE de uma armação é simétrica; uma vista de lado não. Serve para saber se a "frente" achada é mesmo a frente
+  // antes de confiar na inclinação medida nela (com a peça muito torta, a escolha da frente pela simetria erra).
+  function gtEspelho(m, w, x0, x1, y0, y1, ang) {
+    var cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, c = Math.cos(ang * Math.PI / 180), s = Math.sin(ang * Math.PI / 180), h = (m.length / w) | 0, igual = 0, tudo = 0,
+      em = function (u, v) { // ponto (u, v) da peça já endireitada → onde ele está na máscara torta
+        var X = Math.round(cx + u * c - v * s), Y = Math.round(cy + u * s + v * c);
+        return X >= 0 && Y >= 0 && X < w && Y < h ? m[Y * w + X] : 0;
+      };
+    for (var v = y0 - cy - 6; v <= y1 - cy + 6; v += 2) for (var u = 0; u <= (x1 - x0) / 2 + 6; u += 2) {
+      var a = em(u, v), b = em(-u, v);
+      if (a || b) { tudo++; if (a && b) igual++; }
+    }
+    return tudo ? igual / tudo : 0;
+  }
+  var GT_RETA = 0.5, GT_ENDIREITA = 3,
+    GT_ESPELHO = 0.37; // frente de verdade deu 0,44 a 0,54 no simulador; vista de lado tomada por frente, 0,23 a 0,30 (work/s436/40)
+  function gtRetoDecide(ang) {
+    var a = Math.abs(ang);
+    return { ang: Math.round(ang * 10) / 10, gira: a <= GT_RETA || a > GT_ENDIREITA ? 0 : -ang, torta: a > GT_ENDIREITA };
+  }
   function gtTratador(W, H) {
-    var P = W * H, w2 = W >> 1, h2 = H >> 1, fundo, fmin, fmax, suja,
+    var P = W * H, w2 = W >> 1, h2 = H >> 1, fundo, fmin, fmax, suja, giroG = 0,
       sai = document.createElement('canvas'), sx, fcv = document.createElement('canvas'), fxc = fcv.getContext('2d', { willReadFrequently: true }), rc = document.createElement('canvas'), rx = rc.getContext('2d');
     sai.width = GT_SAI[0]; sai.height = GT_SAI[1]; sx = sai.getContext('2d');
     function amostra(d) {
@@ -307,7 +345,11 @@
       sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
       sx.imageSmoothingQuality = 'high';
       var kx = GT_SAI[0] / fw, ky = GT_SAI[1] / fh;
+      if (giroG) { // 40c: endireita — gira em volta do meio da imagem que sai (o mesmo ângulo e o mesmo meio nos 360 quadros)
+        sx.save(); sx.translate(GT_SAI[0] / 2, GT_SAI[1] / 2); sx.rotate(giroG * Math.PI / 180); sx.translate(-GT_SAI[0] / 2, -GT_SAI[1] / 2);
+      }
       sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
+      if (giroG) sx.restore();
       return sai;
     }
         // a caixa que junta várias medidas da peça (cada uma { x0, x1, y0, y1, achou })
@@ -316,7 +358,7 @@
       l.forEach(function (p) { if (!p.achou) return; if (p.x0 < c.x0) c.x0 = p.x0; if (p.x1 > c.x1) c.x1 = p.x1; if (p.y0 < c.y0) c.y0 = p.y0; if (p.y1 > c.y1) c.y1 = p.y1; });
       return c.x1 < 0 ? null : c;
     }
-    return { amostra: amostra, aprende: aprende, trata: trata, peca: peca, nitidez: nitidez, recorte: recorte, imagem: imagem, junta: junta };
+    return { amostra: amostra, aprende: aprende, trata: trata, peca: peca, nitidez: nitidez, recorte: recorte, imagem: imagem, junta: junta, gira: function (g) { giroG = g || 0; } };
   }
   // As fotos escolhidas à mão (a frente e a 3/4 da tela "Qual é a frente?") com o MESMO tratamento do giro (item 34, 20/11/2026):
   // o fundo parado é aprendido das imagens da própria gravação (até 24, espalhadas por ela), cada imagem escolhida é dividida por ele e
@@ -498,8 +540,35 @@
           return VideoEncoder.isConfigSupported(vp).then(function (q) { if (!q.supported) throw new Error('sem-gravador'); return ['webm', vp]; });
         });
       }
+      // 40c: a inclinação da peça na frente (5 quadros em volta dela, mediana) decide se o giro sai como está, endireitado ou com aviso
+      var reto = { ang: 0, gira: 0, torta: false };
+      function mede_reto() {
+        var as = [], es = [], q = [-2, -1, 0, 1, 2];
+        function um() {
+          if (!q.length) return Promise.resolve();
+          var n = (frente + q.shift() + GT_N) % GT_N;
+          return pega(t0 + n * per / GT_N).then(function (d) {
+            var pc = tr.peca(tr.trata(d), caixa), tp = pc.achou ? gtTopo(pc.m, w2, pc.x0 >> 1, pc.x1 >> 1, pc.y0 >> 1, pc.y1 >> 1) : null;
+            if (tp && tp.xd > tp.xe) {
+              var a1 = Math.atan2(tp.d - tp.e, tp.xd - tp.xe) * 180 / Math.PI;
+              as.push(a1); es.push(gtEspelho(pc.m, w2, pc.x0 >> 1, pc.x1 >> 1, pc.y0 >> 1, pc.y1 >> 1, a1));
+            }
+            return um();
+          });
+        }
+        return um().then(function () {
+          if (as.length >= 3) { as.sort(function (a, b) { return a - b; }); es.sort(function (a, b) { return a - b; }); reto = gtRetoDecide(as[as.length >> 1]); reto.espelho = Math.round(es[es.length >> 1] * 100) / 100;
+            // a "frente" achada não é simétrica nem depois de desfeita a inclinação: não é a frente (peça torta demais engana a escolha) —
+            // a medida não vale, então não gira nem acusa; o giro sai como sairia sem esta correção
+            if (reto.espelho < GT_ESPELHO) { reto.gira = 0; reto.torta = false; reto.incerta = true; }
+          }
+          tr.gira(reto.gira);
+        });
+      }
+      return mede_reto().then(function () {
       marca('escolher');
-      return codec().then(function (cc) {
+      return codec();
+      }).then(function (cc) {
         tipo = cc[0];
         var Lib = tipo === 'mp4' ? appLib('mp4-muxer', 'Mp4Muxer') : appLib('webm-muxer', 'WebMMuxer'); // vêm dentro do app.js (src/01-build.js)
         alvoV = new Lib.ArrayBufferTarget();
@@ -551,7 +620,7 @@
             tempos: T,
             quadros: qs, fotos: fotos,
             blob: new Blob([alvoV.buffer], { type: (tipo === 'mp4' ? 'video/mp4' : 'video/webm') + ';gn=' + GT_N }), n: GT_N, /* gn no tipo: o giro tratado se reconhece mesmo depois de guardado no aparelho */ capa: capa, tipo: tipo,
-            info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }
+            info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, reto: reto, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }
           };
         });
       });
@@ -559,5 +628,8 @@
   }
   window.giroTrata = giroTrata;
   window.__gtVolta = gtVolta;
+  window.__gtTopo = gtTopo;
+  window.__gtEspelho = gtEspelho;
+  window.__gtRetoDecide = gtRetoDecide;
   window.__gtFechou = gtFechou;
   window.__gtPrimeira = gtPrimeira;

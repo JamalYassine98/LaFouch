@@ -4162,6 +4162,38 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40b: "Peça reta" — peça girada 4° no prato fica em falta com o lado baixo na frase e a seta na guia; reta fica verde; 11 itens cabem a 844×390 e 740×360')
             if not ok: falhas.append('40b peca reta'); print('        veio', got, erros40b)
 
+            # Esboço 40c (dono 21/11 07:51 e 07:54): o tratamento do giro endireita — a MESMA medida do "Peça reta" (gtTopo) dá a inclinação da frente;
+            # até 0,5° não mexe (o giro sai igual), até 3° gira os quadros no ângulo contrário, acima disso não endireita e avisa. A prova de ponta a
+            # ponta (vídeo gravado, 0°/2°/−2°/5°) é o work/s436/40/endireita_ponta_a_ponta.py: aqui ficam a medida, a decisão e o giro do quadro.
+            pg = await pagina()
+            got = await pg.evaluate("""() => { const topo = window.__gtTopo, dec = window.__gtRetoDecide, R = {};
+              // máscara de uma armação (dois aros) girada N graus em volta do meio
+              const cena = (g) => { const W = 480, H = 320, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
+                x.translate(W / 2, H / 2); x.rotate(g * Math.PI / 180); x.translate(-W / 2, -H / 2); x.strokeStyle = '#000'; x.lineWidth = 8; x.strokeRect(110, 120, 110, 70); x.strokeRect(260, 120, 110, 70); x.beginPath(); x.moveTo(220, 150); x.lineTo(260, 150); x.stroke();
+                const d = c.getContext('2d').getImageData(0, 0, W, H).data, m = new Uint8Array(W * H); let x0 = W, x1 = -1, y0 = H, y1 = -1;
+                for (let y = 0; y < H; y++) for (let xx = 0; xx < W; xx++) if (d[(y * W + xx) * 4] < 128) { m[y * W + xx] = 1; if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+                const t = topo(m, W, x0, x1, y0, y1); return t ? Math.round(Math.atan2(t.d - t.e, t.xd - t.xe) * 1800 / Math.PI) / 10 : null; };
+              R.mede = [0, 2, -2, 5, 0.3].map(cena);
+              R.decide = [0, 0.4, -0.5, 2, -2.9, 3.2, -5].map(a => { const r = dec(a); return [r.gira, r.torta]; });
+              R.vazio = topo(new Uint8Array(100), 10, 0, 9, 0, 9);
+              // espelho: a frente (dois aros iguais) girada 2° e desfeita fica igual ao próprio espelho; uma vista de lado (um aro largo e um estreito) não
+              const esp = (g, lado) => { const W = 480, H = 320, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
+                x.translate(W / 2, H / 2); x.rotate(g * Math.PI / 180); x.translate(-W / 2, -H / 2); x.strokeStyle = '#000'; x.lineWidth = 8; x.strokeRect(110, 120, lado ? 150 : 110, 70); x.strokeRect(lado ? 290 : 260, lado ? 130 : 120, lado ? 60 : 110, lado ? 50 : 70);
+                const d = c.getContext('2d').getImageData(0, 0, W, H).data, m = new Uint8Array(W * H); let x0 = W, x1 = -1, y0 = H, y1 = -1;
+                for (let y = 0; y < H; y++) for (let xx = 0; xx < W; xx++) if (d[(y * W + xx) * 4] < 128) { m[y * W + xx] = 1; if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+                return window.__gtEspelho(m, W, x0, x1, y0, y1, g); };
+              R.espelho = [esp(0, 0) > 0.6, esp(2, 0) > 0.6, esp(2, 1) < 0.37];
+              return R; }""")
+            gt = fontes['97-giro-trata.js']; eg = fontes['97-estudio-giro.js']; cam = fontes['98z-camera-u149f.js']
+            total += 1
+            ok = (all(abs(a - b) <= 0.35 for a, b in zip(got['mede'], [0, 2, -2, 5, 0.3])) and got['decide'] == [[0, False], [0, False], [0, False], [-2, False], [2.9, False], [0, True], [0, True]] and got['vazio'] is None and got['espelho'] == [True, True, True]
+                  and 'gtTopo(M,w,' in cam and cam.count('lado=function') == 0            # o conferidor usa a mesma medida, sem cópia
+                  and 'tr.gira(reto.gira)' in gt and 'if (giroG) {' in gt and 'reto: reto' in gt and 'reto.espelho < GT_ESPELHO' in gt  # o giro dos quadros sai da decisão e vai para o resultado
+                  and "lfToast(torta, 'atencao')" in eg and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 40c: o tratamento endireita o giro — mesma medida do "Peça reta", até 0,5° não mexe, até 3° gira ao contrário, acima avisa')
+            if not ok: falhas.append('40c tratamento endireita'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

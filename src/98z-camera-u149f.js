@@ -37,11 +37,9 @@
     if(bons.length&&bons[0].a>w*h*.008&&(bons[0].x1-bons[0].x0)>w*.12){var s0=bons[0],ex=(s0.x1-s0.x0)*.25+6,ey=(s0.y1-s0.y0)*.35+6,bx={x0:s0.x0,x1:s0.x1,y0:s0.y0,y1:s0.y1,n:0};
       bons.forEach(function(c){var mx=(c.x0+c.x1)/2,my=(c.y0+c.y1)/2;if(mx>s0.x0-ex&&mx<s0.x1+ex&&my>s0.y0-ey&&my<s0.y1+ey){bx.x0=Math.min(bx.x0,c.x0);bx.x1=Math.max(bx.x1,c.x1);bx.y0=Math.min(bx.y0,c.y0);bx.y1=Math.max(bx.y1,c.y1);bx.n+=c.a}});
       peca={x0:2*bx.x0,x1:2*bx.x1+1,y0:2*bx.y0,y1:2*bx.y1+1,n:bx.n};
-      /* esboço 40 "Peça reta": o topo de cada lado da armação — em cada metade da caixa, a faixa do meio da lente (30% a 80% a partir da ponta de fora,
-         longe das hastes e da ponte); em cada coluna, o primeiro ponto da peça de cima para baixo; vale a mediana. e/d = altura do topo, xe/xd = onde foi medido. */
-      var meiaL=(bx.x1-bx.x0)/2,lado=function(a,b){var ts=[],xa=Math.round(Math.min(a,b)),xb=Math.round(Math.max(a,b));for(var xx=xa;xx<=xb;xx++)for(var yy=bx.y0;yy<=bx.y1;yy++)if(M[yy*w+xx]){ts.push(yy);break}return ts.length>=3?{y:2*med(ts),x:xa+xb}:null},
-        tE=lado(bx.x0+meiaL*.3,bx.x0+meiaL*.8),tD=lado(bx.x1-meiaL*.3,bx.x1-meiaL*.8);
-      if(tE&&tD)peca.topo={e:tE.y,d:tD.y,xe:tE.x,xd:tD.x};
+      /* esboço 40 "Peça reta": o topo de cada lado da armação (gtTopo, 97-giro-trata.js — a mesma medida do tratamento). e/d = altura do topo, xe/xd = onde foi medido. */
+      var tp0=gtTopo(M,w,bx.x0,bx.x1,bx.y0,bx.y1);
+      if(tp0)peca.topo={e:2*tp0.e,d:2*tp0.d,xe:2*tp0.xe,xd:2*tp0.xd};
       /* nitidez: média dos 5% contornos mais fortes dentro da caixa, relativa ao tom da parede */
       var gs=[];for(y=Math.max(2,peca.y0);y<=Math.min(H-3,peca.y1);y++)for(x=Math.max(2,peca.x0);x<=Math.min(W-3,peca.x1);x++){if(ehC[x])continue;var gg=Math.abs(L[y*W+x+1]-L[y*W+x-1])+Math.abs(L[(y+1)*W+x]-L[(y-1)*W+x]);if(gg>parede*.06)gs.push(gg)}
       gs.sort(function(a,b){return b-a});var nq=Math.max(1,Math.round(gs.length*.05)),sn=0;for(i=0;i<nq;i++)sn+=gs[i];peca.nit=gs.length?sn/nq/parede:0}

@@ -1,0 +1,8 @@
+cena girada 0.0 → nova: {"ok": true, "seg": 57.3, "reto": {"ang": -0.4, "gira": 0, "torta": false, "espelho": 0.63}, "frenteSaiu": -0.4, "frente": 287, "marca": 1555773583, "kb": 2903}
+   mesmo vídeo na v616 (sem correção): {"ok": true, "seg": 60.1, "reto": null, "frenteSaiu": null, "frente": 287, "marca": 1555773583, "kb": 2902} | fotos e capa iguais: True
+cena girada 2.0 → nova: {"ok": true, "seg": 57.2, "reto": {"ang": 2.1, "gira": -2.14214439156518, "torta": false, "espelho": 0.53}, "frenteSaiu": -0.3, "frente": 245, "marca": -1983791992, "kb": 2940}
+cena girada -2.0 → nova: {"ok": true, "seg": 57.4, "reto": {"ang": -2.5, "gira": 2.528480069660335, "torta": false, "espelho": 0.65}, "frenteSaiu": 0.2, "frente": 286, "marca": 981433463, "kb": 2914}
+cena girada 3.0 → nova: {"ok": true, "seg": 58, "reto": {"ang": -1.6, "gira": 0, "torta": false, "espelho": 0.24, "incerta": true}, "frenteSaiu": -1.6, "frente": 205, "marca": -1887774847, "kb": 2965}
+cena girada -3.0 → nova: {"ok": true, "seg": 57.9, "reto": {"ang": -3.2, "gira": 0, "torta": true, "espelho": 0.44}, "frenteSaiu": -3.3, "frente": 232, "marca": 78418952, "kb": 2958}
+cena girada 5.0 → nova: {"ok": true, "seg": 58.1, "reto": {"ang": 2.9, "gira": 0, "torta": false, "espelho": 0.22, "incerta": true}, "frenteSaiu": 2.9, "frente": 169, "marca": -910246221, "kb": 3049}
+FIM
