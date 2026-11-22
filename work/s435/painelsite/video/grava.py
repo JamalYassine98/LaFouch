@@ -7,13 +7,14 @@ kit.prep_site();kit.serve(kit.SITE,kit.PS);U='http://localhost:%d/?kit=1'%kit.PS
 REFS='SL2210,SL2250,SL2255,GR3340'
 CSS_PROP="""@keyframes rsp{50%{scale:1.025;translate:0 -.5%}}.stage[data-fx~=resp] img.pf,.stage[data-fx~=resp] .sli.on{animation-duration:10s!important}
 .stage .sli{transition:opacity 1.6s cubic-bezier(.4,0,.2,1)!important}"""
-def grava(nome,cfg,css=None,mexe=False):
+def grava(nome,cfg,css=None,mexe=False,pronto=False):
   d='/tmp/v58_'+nome;shutil.rmtree(d,ignore_errors=True)
   with sync_playwright() as pw:
     b=pw.chromium.launch(executable_path=kit.EXE,args=['--no-sandbox'])
     c=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,locale='pt-BR',record_video_dir=d,record_video_size={'width':390,'height':844})
     c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
     c.add_init_script("try{localStorage.setItem('lf_lang','pt');localStorage.setItem('lf_cfg',%r);sessionStorage.setItem('lf_ni','1')}catch(e){}"%json.dumps(cfg))
+    if pronto: c.add_init_script("window.__p58=1;document.documentElement.setAttribute('data-ev','bf');document.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('style');s.id='p58';s.textContent='.stage .sli{transition:none!important}';document.head.appendChild(s);setTimeout(()=>s.remove(),2500)})")
     if css: c.add_init_script("document.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('style');s.textContent=%r;document.head.appendChild(s)})"%css)
     pg=c.new_page();pg.goto(U);pg.wait_for_timeout(5000)
     if mexe:
@@ -26,12 +27,12 @@ def grava(nome,cfg,css=None,mexe=False):
     v=pg.video.path();c.close();b.close()
   return v
 hoje=grava('hoje',{'ativo':True,'dmodo':'slide','slide':REFS,'sanim':'flip','efx':'cascata,resp,incl,refl'},mexe=True)
-prop=grava('prop',{'ativo':True,'dmodo':'slide','slide':REFS,'sanim':'fade','efx':'cascata,resp'},CSS_PROP)
+prop=grava('prop',{'ativo':True,'dmodo':'slide','slide':REFS,'sanim':'fade','efx':'cascata,resp'},CSS_PROP,pronto=True)
 print(hoje,prop)
 # lado a lado com títulos
 f=O+'esboco_58e_efeitos.mp4'
 subprocess.run(['ffmpeg','-y','-loglevel','error','-i',hoje,'-i',prop,'-filter_complex',
  "[0:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='HOJE · 4 efeitos (inclina com o dedo, reflexo, slide que vira)':fontcolor=white:fontsize=12:x=12:y=20[a];"
- "[1:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='PROPOSTA · entrada suave · respiração lenta · fade longo':fontcolor=white:fontsize=12:x=12:y=20[b];[a][b]hstack=inputs=2,format=yuv420p[o]",
- '-map','[o]','-c:v','libx264','-preset','veryfast','-crf','23','-t','10',f],check=True)
+ "[1:v]scale=390:844,pad=410:904:10:60:color=0x11141a,drawtext=text='PROPOSTA · já pronto no 1º quadro · sem piscar · fade só entre fotos':fontcolor=white:fontsize=12:x=12:y=20[b];[a][b]hstack=inputs=2,format=yuv420p[o]",
+ '-map','[o]','-c:v','libx264','-preset','veryfast','-crf','23','-t','12',f],check=True)
 print('ok',f)
