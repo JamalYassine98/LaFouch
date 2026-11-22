@@ -115,10 +115,6 @@
 
 ## Recados esperando
 
-- para **APP**: Dono 22/11 06:26 APROVOU: no Inventário › filtros, a escolha 'Faixa' (Todas · Econômico · Intermediário · Luxo) tem 'Intermediário' maior que o botão (o compara
-- para **APP**: Dono 22/11 06:28: o GUARDIÃO agora se chama TITAN (Técnico Integrado de Transações e Administração do Núcleo). Use 'Titan' nos textos novos e nos recados. Troca
-- para **APP**: Dono 22/11 12:51: 'Implementa todas as famílias que estão terminadas'. Entraram na Fila, nesta ordem (uma até o fim antes da próxima, regra 3c): 65 Inventário (
-- para **APP**: Achado do dono 22/11 13:09 (regra L2, 12c): o botão redondo ao lado do título (+ ou ⏻) tem que ficar na LINHA DO TÍTULO, centro com centro; o subtítulo fica emb
 - para **SITE**: Dono 22/11 12:51 mandou implementar a família Site no APP (item 67, work/s435/implementar/COMO-FAZER-SITE-58.md). Do seu lado: o catálogo abre pelas peças do De
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
