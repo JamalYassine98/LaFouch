@@ -17,8 +17,10 @@ VERM='var(--bad,#e5484d)';OKC='var(--ok,#4fbf7f)'
 # v2 (dono 13:48): as margens JÁ VÊM CALCULADAS pelo Titan para ter LUCRO (não 'sugere'). Lucro alvo por tabela (% do preço), maior
 # nas tabelas pequenas (pagam o serviço) e menor nas grandes: margem = 1,13 ÷ (10/11 − lucro) − 1. As contas do mês ficam com o varejo
 # (o atacado é venda a mais) — premissa a confirmar com o dono.
-LIN=[('Óptica','71%','US$ 2,14 (25%)'),('Vendedor','59%','US$ 1,59 (20%)'),('Atacado 1K','49%','US$ 1,12 (15%)'),
-     ('Atacado 2K','45%','US$ 0,94 (13%)'),('Atacado 5K','41%','US$ 0,78 (11%)'),('Atacado 10K','40%','US$ 0,70 (10%)')]
+# v3 (dono 13:51–13:53): colchão do ATACADO = só a alta do fornecedor (o cliente paga em dólar: sem risco de câmbio), começa em 3%;
+# o atacado não pensa nas contas — é reforço. margem = 1,03 ÷ (10/11 − lucro) − 1.
+LIN=[('Óptica','56%','US$ 1,95 (25%)'),('Vendedor','45%','US$ 1,45 (20%)'),('Atacado 1K','36%','US$ 1,02 (15%)'),
+     ('Atacado 2K','32%','US$ 0,86 (13%)'),('Atacado 5K','29%','US$ 0,71 (11%)'),('Atacado 10K','27%','US$ 0,64 (10%)')]
 def titan2(pw,janela):
   b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
   pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
@@ -27,7 +29,7 @@ def titan2(pw,janela):
    return '<div class="e49">'+TOP('Preços','Atacado','margens calculadas pelo Titan · sempre com lucro',0)+
     '<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2);margin-top:16px"><span style="flex:1"><b style="display:block;font-size:16px;font-weight:500">Calculadas em 22/11</b><small style="font-size:13px;color:var(--mute)">próxima revisão 01/12 ou num lote novo</small></span></div>'+
     T('Tabelas · margem e lucro por peça')+L_.map(x=>row(x[0],x[1],x[2])).join('')+
-    '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 32px">Exemplo: armação de acetato que custa US$ 5. Lucro = preço − IVA − custo − colchão. As contas do mês ficam com o varejo: o atacado é venda a mais.</div></div>'}""",LIN)
+    '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 32px">Exemplo: armação de acetato que custa US$ 5. Lucro = preço − IVA − custo − colchão do atacado (3%, só a alta do fornecedor). O atacado não paga as contas do mês: é um reforço.</div></div>'}""",LIN)
   pagina(pg,html);w(500)
   if janela:
     pg.evaluate(r"""()=>{const Lr=(r,v,c,sub)=>'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+(sub?'<small style="display:block;font-size:13px;color:var(--mute)">'+sub+'</small>':'')+'</span><span style="color:'+(c||'var(--fg)')+'">'+v+'</span></div>';
@@ -35,9 +37,9 @@ def titan2(pw,janela):
       d.innerHTML='<div style="width:100%;background:var(--panel,#1b1f27);border-radius:24px 24px 0 0;padding:12px 24px 32px;color:var(--fg)"><div style="width:44px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 16px"></div>'+
        '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">Atacado 10K</h2><div style="color:var(--mute);font-size:14px;margin:4px 0 16px">o Titan calcula · você só escolhe o lojista</div>'+
        Lr('Compra mínima','US$ 10.000')+
-       Lr('Margem','40%','var(--fg)','calculada pelo Titan · lucro de 10%')+
+       Lr('Margem','27%','var(--fg)','calculada pelo Titan · lucro de 10%')+
        '<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:24px 0 4px">Acetato de US$ 5</div>'+
-       Lr('Preço para o lojista','US$ 6,98')+Lr('− IVA','US$ 0,63','var(--mute)')+Lr('− Custo e colchão','US$ 5,65','var(--mute)')+Lr('Lucro','US$ 0,70','var(--ok,#4fbf7f)')+
+       Lr('Preço para o lojista','US$ 6,37')+Lr('− IVA','US$ 0,58','var(--mute)')+Lr('− Custo e colchão (3%)','US$ 5,15','var(--mute)')+Lr('Lucro','US$ 0,64','var(--ok,#4fbf7f)')+
        '<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;font-size:16px;margin-top:8px"><span>Ver os preços como o lojista vê</span><i style="font-style:normal;color:var(--mute);font-size:18px">›</i></div></div>';document.body.appendChild(d)}""");w(400)
   else: pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}')
   confere(pg,'Titan atacado '+('janela' if janela else 'lista'));f='/tmp/t65b_%d.png'%janela;pg.screenshot(path=f,full_page=not janela);x=Image.open(f).copy();b.close();return x
