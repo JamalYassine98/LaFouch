@@ -151,6 +151,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 17:22 — IDEIAS: 05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë
 - 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
 - 22/11 16:31 — IDEIAS: IDEIAS 07: ilustração da caixa de presente
 - 22/11 16:28 — IDEIAS: IDEIAS 07 v5: sacola com cordão (modelo da referência) e nosso design
@@ -160,7 +161,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 16:11 — IDEIAS: IDEIAS 07: quadro de embalagens e cartões para a gráfica (cartão, adesivo, caixa de presente, caixa de delivery, sacola, ficha A4)
 - 22/11 16:01 — IDEIAS: IDEIAS 06g: nota retirada × delivery (Fila 67)
 - 22/11 16:00 — IDEIAS: IDEIAS 06g v4 (Fila 67)
-- 22/11 15:48 — IDEIAS: IDEIAS 06g v3 (Fila 67)
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
