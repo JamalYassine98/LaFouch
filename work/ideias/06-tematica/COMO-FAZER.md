@@ -159,3 +159,17 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - nenhum cartão novo; o rótulo da aba mantém o tamanho de letra do grupo (regra L4).
 - **Aviso:** o preço no destaque deve usar o mesmo formatador dos cartões. No simulador em pt-BR os cartões mostram R$, e o destaque do esboço mostrava G$.
 - **Esboço:** `esboco-06f-selecao-natal.jpg` (Hoje | Proposta em 3 alturas).
+
+## 06g · "Para presente" no carrinho (dono 22/11 15:38)
+- **Onde:** no carrinho, logo abaixo das peças, um cartão no mesmo desenho do cartão da peça.
+- **O que tem:**
+  - título "Para presente", com o ícone de presente (do mesmo conjunto de ícones do site);
+  - a frase "Embalagem La Fouch e um cartão com a sua mensagem." e, durante a data, "Grátis no Natal.";
+  - **escolha de dois lados: Não | Sim** (regra 15);
+  - no Sim, abre ali mesmo (regra 16): campo em linha fina "Mensagem do cartão (opcional)", até 200 letras com contador, e "O pacote vai sem o preço.".
+- **Pedido:** grava `presente:{sim, msg}`. O pedido no app mostra 🎁 e a mensagem, para quem monta o pacote.
+- **Em aberto para o dono:**
+  - a mensagem é impressa ou escrita à mão?
+  - fora das datas é grátis ou tem um valor?
+  - qual a regra de troca para quem ganhou?
+- **Esboço:** `esboco-06g-presente.jpg` (Hoje | Proposta fechado | Proposta com "Sim" e mensagem).
