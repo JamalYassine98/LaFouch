@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06: temática estilo campanha (Natal)",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795361401.748334,
+   "r": "IDEIAS 06 esboço pronto (Fila 64): temática estilo campanha"
+  },
   {
    "t": 1795360965.1661427,
    "r": "IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)"
@@ -40,10 +42,6 @@
   {
    "t": 1795334155.8951323,
    "r": "IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS"
-  },
-  {
-   "t": 1795334107.949743,
-   "r": "IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS"
   }
  ],
  "leu": 1795361398.7693965
