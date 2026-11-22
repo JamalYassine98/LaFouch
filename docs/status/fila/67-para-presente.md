@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-v3: caixinha de presente por peça (tampa fecha ao marcar), 'Como embrulhar os presentes? Cada peça em um | Todas juntas' com 2+ peças, cartão na janela de baixo, pedido no app lista os pacotes; botão de pagar em vinho (regra 17: ação). work/ideias/06-tematica/COMO-FAZER.md (06g v3)
+v4 (como Cartier/Tiffany): presente por PEDIDO — peças já com flanela e estojo; no evento todo pedido leva mimo (spray + cartão); única escolha 'Embrulhar para presente' (caixinha) + 'Escrever o cartão ›' (janela de baixo); resumo 'cortesia'; botão de pagar vinho. work/ideias/06-tematica/COMO-FAZER.md (06g v4)
