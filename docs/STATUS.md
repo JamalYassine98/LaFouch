@@ -117,6 +117,7 @@
 - para **ESBOCO**: v613 publicada (38 parte A): aviso curto com a cor do tipo. Conferir os 4 tipos (fotos em work/s436/38/) e se alguma frase ficou com a cor errada (lista: grep l
 - para **ESBOCO**: v614 publicada (38 parte B): aviso 8 px acima da barra ou do botão da janela; chip/lixeira do Início e barra do Estúdio no mesmo chão (chip desceu ~11 px, lixei
 - para **ESBOCO**: v615 publicada (40a): 'Câmera reta' no Vídeo do Estúdio (sensor único camNivel; frase com graus e lado; horizonte gira). Conferir contra o esboço 40 (foto em wo
+- para **ESBOCO**: v616 publicada (40b): 'Peça reta' na câmera do giro (11 itens; guias com traços, tracejado e seta). Conferir contra o esboço 40 (fotos em work/s436/40/). No por
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **SITE**: Dono aprovou (21/11 17:25) o item 45 'Descubra seu formato' (IDEIAS 01): esboços e 'como fazer' em work/ideias/01-formato/COMO-FAZER.md. Entra na sua ordem quan
 - para **SITE**: Dono 21/11 17:27: o item 45 (Descubra seu formato) é para implementar DEPOIS que você terminar tudo o que já está na sua fila.
