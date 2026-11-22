@@ -142,3 +142,20 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
 | Halloween | roxo `#5a2f72` | já era o roxo do tema; não repete o laranja do dourado |
 
 - Todas têm texto branco legível no botão.
+
+## 06f · Página da SELEÇÃO da data (dono 22/11 15:27): para onde leva "Descobrir a seleção"
+- **Hoje:** o 2º botão do destaque de evento ("Ver presentes") leva a `#vitrine`, o catálogo comum com tudo.
+- **Proposta:** a mesma tela do catálogo, com o mesmo componente e os mesmos cartões, em modo "seleção da data":
+  - "‹ Início";
+  - título serifado "Seleção de *Natal*", com a palavra da data na cor da data;
+  - **faixa da campanha**: as mesmas fotos (ou vídeo) do destaque, se dissolvendo devagar;
+  - uma frase: "Escolhidas pela La Fouch para presentear. Retirada no mesmo dia em Ciudad del Este.";
+  - abas no desenho das abas do catálogo: **Todos · Para ela · Para ele** (o unissex aparece nas duas);
+  - grade com **só as peças escolhidas para a data** (8 no Natal), com a contagem certa;
+  - sem "Filtros ›", porque a seleção é curta.
+- **Jeito natural:**
+  - a vitrine ganha um modo `selecao` com a lista de refs, o título, a frase e as fotos, vindos do evento no painel;
+  - as pílulas do destaque (Para ela / Para ele / Para todos) abrem essa mesma tela já na aba certa;
+  - nenhum cartão novo; o rótulo da aba mantém o tamanho de letra do grupo (regra L4).
+- **Aviso:** o preço no destaque deve usar o mesmo formatador dos cartões. No simulador em pt-BR os cartões mostram R$, e o destaque do esboço mostrava G$.
+- **Esboço:** `esboco-06f-selecao-natal.jpg` (Hoje | Proposta em 3 alturas).
