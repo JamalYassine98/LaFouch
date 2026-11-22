@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
+| IDEIAS | IDEIAS 03: bugs do site | work/ideias/03-bugs-site |
 
 ## Fila
 

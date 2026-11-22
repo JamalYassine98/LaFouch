@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 03: bugs do site",
+ "arquivos": [
+  "work/ideias/03-bugs-site"
+ ],
  "ultimas": [
   {
    "t": 1795334155.8951323,
@@ -44,5 +46,5 @@
    "r": "IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795334150.2425036
+ "leu": 1795336420.4377
 }
