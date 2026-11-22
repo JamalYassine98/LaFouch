@@ -1,17 +1,12 @@
 {
  "nome": "APP",
- "agora": "65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque",
- "arquivos": [
-  "src/11-estoque-lista.js",
-  "src/97z4-inventario.js",
-  "src/53p-paginas.js",
-  "src/97-lista-compras.js",
-  "src/57-financas.js",
-  "src/97-contagem.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795372940.9976776,
+   "r": "Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66."
+  },
   {
    "t": 1795322804.8659735,
    "r": "Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'."
@@ -47,11 +42,7 @@
   {
    "t": 1795313102.1497254,
    "r": "v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria)."
-  },
-  {
-   "t": 1795310775.3422089,
-   "r": "v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro)."
   }
  ],
- "leu": 1795370481.283239
+ "leu": 1795372940.5020797
 }
