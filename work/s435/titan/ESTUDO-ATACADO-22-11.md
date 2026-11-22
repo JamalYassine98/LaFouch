@@ -45,3 +45,25 @@ Esboço do setor Atacado do Titan com o cálculo:
 - "Compartilhar uma lista de distribuidora" para o Semp ler.
 
 Antes do esboço, confirmar com o dono a conclusão acima.
+
+## Tabela de estudo (22/11 13:45) — as margens de HOJE com IVA e colchão
+Peças com os números do dono: **acetato** custo US$ 5,00 / varejo US$ 20 · **leitura** custo US$ 0,50 / varejo US$ 4.
+Conta: preço = custo × (1 + margem) · IVA = preço ÷ 11 (incluído) · colchão 13% do custo · **sobra = preço − IVA − custo − colchão** (antes das contas).
+
+| Tabela | Margem | Acetato: preço | Acetato: sobra | Leitura: preço | Leitura: sobra |
+|---|---|---|---|---|---|
+| Óptica | 70% | US$ 8,50 | US$ 2,08 (24%) | US$ 0,85 | US$ 0,21 |
+| Vendedor | 55% | US$ 7,75 | US$ 1,40 (18%) | US$ 0,78 | US$ 0,14 |
+| Atacado 1K | 40% | US$ 7,00 | US$ 0,71 (10%) | US$ 0,70 | US$ 0,07 |
+| Atacado 2K | 32% | US$ 6,60 | US$ 0,35 (5%) | US$ 0,66 | US$ 0,03 |
+| Atacado 5K | 25% | US$ 6,25 | US$ 0,03 (0,5%) | US$ 0,62 | US$ 0,00 |
+| Atacado 10K | 18% | US$ 5,90 | **−US$ 0,29 (prejuízo)** | US$ 0,59 | **−US$ 0,03** |
+
+Achados:
+1. Com o IVA e o colchão, o 5K empata e o **10K dá prejuízo**, antes mesmo das contas.
+2. A **margem sobre o custo distorce a peça barata**: a leitura que sai a US$ 4 no varejo vai a US$ 0,59–0,85 no atacado (−80% a −85%). O lojista pagaria bem mais.
+3. A alternativa natural é o preço do atacado como **fração do preço de varejo**, nunca abaixo do chão. Com 55% / 45% / 35% do varejo:
+   - acetato US$ 11 / 9 / 7;
+   - leitura US$ 2,20 / 1,80 / 1,40.
+   Os números são só para estudo: o Titan aprende a fração.
+4. **Falta saber:** quanto as distribuidoras de CDE cobram do lojista por material e por quantidade. São as listas do WhatsApp do dono: compartilhar 1 ou 2 com o app.
