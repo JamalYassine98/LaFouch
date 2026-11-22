@@ -1266,6 +1266,23 @@ def p7_robots(p):
     if ruim2: falha(P7, 'robots.txt: robôs de IA e de coleta bloqueados', 'liberado para ' + ', '.join(ruim2), None)
     else: passou(P7, 'robots.txt: robôs de IA e de coleta bloqueados')
 
+# 22/11 (bug que o dono viu no PC, em espanhol): o cartão "Prueba de lectura / Teste de leitura" do Início aparecia VAZIO — o Mochi sumia
+# quando o Início era pintado de novo. Trava (pedido do dono): cartão do "Comece por aqui" sem desenho = falha, em PT e ES, celular e PC,
+# na abertura E depois de o Início ser pintado de novo (favoritar uma peça obriga a repintar).
+CARTOES_JS = """(()=>{const L=[...document.querySelectorAll('#home .hcom button, #home .hgu button')];return L.map(b=>{const g=b.querySelector('.gi');const d=g&&g.querySelector('svg,img');const r=d?d.getBoundingClientRect():{width:0,height:0};
+  return [(b.querySelector('.gt b')||b).textContent.trim().slice(0,26), !!d&&r.width>20&&r.height>20&&(d.tagName!=='IMG'||d.naturalWidth>0)]})})()"""
+def p7_cartoes_com_desenho(p):
+    for W, H, lang in ((1440, 900, 'es-PY'), (1440, 900, 'pt-BR'), (390, 844, 'es-PY'), (390, 844, 'pt-BR')):
+        b, c, pg, E = novo(p, W, H, lang, touch=W < 700); nome = f'Comece por aqui: todo cartão tem desenho · {lang[:2]} · {W}px'
+        try:
+            carrega(pg); pg.wait_for_timeout(3500); a = pg.evaluate(CARTOES_JS)
+            if not a: raise SemPecas('o Início não mostra os cartões do Comece por aqui')
+            pg.evaluate("(()=>{const f=[...document.querySelectorAll('#home [data-fav]')].find(e=>e.offsetParent);if(f){f.click();setTimeout(()=>f.click(),400)}})()"); pg.wait_for_timeout(1800); d = pg.evaluate(CARTOES_JS)
+            ruim = [x[0] + ' (na abertura)' for x in a if not x[1]] + [x[0] + ' (depois de repintar)' for x in d if not x[1]]
+            if ruim: falha(P7, nome, 'cartão sem desenho: ' + ' · '.join(ruim[:4]), pg)
+            else: passou(P7, nome, f'{len(a)} cartões')
+        finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1300,7 +1317,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('roupas do Mochi', p7_mochi_roupa), ('destaque não pisca', p7_destaque_nao_pisca), ('robots.txt', p7_robots), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('roupas do Mochi', p7_mochi_roupa), ('destaque não pisca', p7_destaque_nao_pisca), ('robots.txt', p7_robots), ('cartões com desenho', p7_cartoes_com_desenho), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa

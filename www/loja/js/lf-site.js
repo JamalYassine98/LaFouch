@@ -2102,8 +2102,12 @@
     /* novidades */
     /* B4 (11/11, S124–S148 aprovados): Comece por aqui (3 cartões) → Para lojistas (cartão largo, 1 óculos) → Novidades e ofertas (no fim) */
     var GF=guiaFotos(),fot=function(f){return f&&f.foto?'<img src="'+f.foto+'" alt="" loading="lazy">':''},gf=function(fn){var x=GF.filter(fn)[0];return x?x.f:null};
-    var com=function(at,img,tag,t,sub){return '<button type="button" '+at+'><span class="gi'+(img==='MO'?' mo" data-mochi="1':'')+'">'+(img==='MO'?'':img)+'</span><span class="gt"><small>'+LFI.tr(tag)+'</small><b>'+LFI.tr(t)+'</b>'+(sub?'<em class="gsub">'+LFI.tr(sub)+'</em>':'')+'</span></button>'};
-    var moI='MO';(function poe(n){var f=window.__lfMochiSvg;if(!f){if(n<20)setTimeout(function(){poe(n+1)},250);return}document.querySelectorAll('[data-mochi]').forEach(function(e){if(!e.firstChild){e.innerHTML=f().replace(/id="(lf[a-z0-9]+)"/g,'id="h$1"').replace(/url\(#(lf[a-z0-9]+)\)/g,'url(#h$1)');if(window.__lfMochiArms)window.__lfMochiArms(e.querySelector('svg'))}})})(0);
+    /* 22/11 (bug do dono: o cartão do teste de leitura aparecia VAZIO): o Mochi faz parte do desenho do cartão desde o começo.
+       Antes ele era posto depois, num passo marcado ANTES de o cartão existir na página — na 2ª pintura (dados da nuvem) o cartão novo
+       chegava vazio e apagava o Mochi do antigo. Agora o cartão já vem com ele; os braços são postos depois de cada pintura (homeDraw). */
+    var moF=window.__lfMochiSvg,moH=moF?moF().replace(/id="(lf[a-z0-9]+)"/g,'id="h$1"').replace(/url\(#(lf[a-z0-9]+)\)/g,'url(#h$1)'):'';
+    var com=function(at,img,tag,t,sub){return '<button type="button" '+at+'><span class="gi'+(img==='MO'?' mo" data-mochi="1':'')+'">'+(img==='MO'?moH:img)+'</span><span class="gt"><small>'+LFI.tr(tag)+'</small><b>'+LFI.tr(t)+'</b>'+(sub?'<em class="gsub">'+LFI.tr(sub)+'</em>':'')+'</span></button>'};
+    var moI='MO';
     h+='<div class="hsh" id="hguia"><h2 class="h2">'+LFI.tr('Comece por aqui')+'</h2></div><div class="hgu hcom">'+
       com('data-gzopen',moI,'TESTE DE LEITURA','Descubra seu grau em 1 min','')+
       com('data-gpan="rosto"',fot(gf(function(x){return x.g.pan==='rosto'})),'ESTILO','A armação ideal para o seu rosto','')+
@@ -2125,10 +2129,14 @@
   function homeDraw(){
     var H=$('home');if(!H){H=document.createElement('div');H.id='home';var hero=document.querySelector('.hero');hero.style.setProperty('display','none','important');hero.parentNode.insertBefore(H,hero.nextSibling)}
     evAplica();if(st.rosto){try{localStorage.setItem('lf_rosto5',st.rosto)}catch(_){}}
-    var ht=homeHtml();if(H._h===ht)return;var ja=!!H._h&&H.firstChild;H._h=ht;
+    var ht=homeHtml();
+    /* o Mochi ainda não está pronto (roupa do evento chegando): pinta de novo quando estiver — no máximo 5 s, como antes */
+    if(!window.__lfMochiSvg&&ht.indexOf('data-mochi')>=0&&(homeDraw.mo=(homeDraw.mo||0)+1)<=20)setTimeout(homeDraw,250);
+    if(H._h===ht)return;var ja=!!H._h&&H.firstChild;H._h=ht;
     /* 09/11 S43 (aprovado): a 2ª pintura (dados da nuvem) troca só o que mudou — as fotos, os cartões e as animações do Destaque continuam os mesmos (sem piscar nem recomeçar) */
-    if(ja){var t=document.createElement('div');t.innerHTML=ht;try{lfMorph(H,t);try{lfDsFit(true)}catch(_){}return}catch(_){}}
-    H.innerHTML=ht;dstGira()}
+    if(ja){var t=document.createElement('div');t.innerHTML=ht;try{lfMorph(H,t);moBracos(H);try{lfDsFit(true)}catch(_){}return}catch(_){}}
+    H.innerHTML=ht;moBracos(H);dstGira()}
+  function moBracos(H){if(window.__lfMochiArms)H.querySelectorAll('[data-mochi] svg').forEach(function(sv){window.__lfMochiArms(sv)})}
   function lfMorph(a,b){var A=[].slice.call(a.childNodes),B=[].slice.call(b.childNodes);
     for(var i=0;i<B.length;i++){var x=A[i],y=B[i];
       if(!x){a.appendChild(y);continue}
