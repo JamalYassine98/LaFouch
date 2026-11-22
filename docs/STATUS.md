@@ -65,7 +65,7 @@
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — ✅ FECHADO pelo dono 21/11 11:13: Esc/voltar e carrinho no ar; internet fraca encerrada (31 s → ~14 s no 4G fraco). Partes restantes do plano guardadas, sem fila.
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
-- **34-plano-das-ferramentas** — partes 1 ✅ (um simulador) e 4 ✅ (porteiro roda o comparador; diferença sem aprovação reprova) — 21/11 · faltam 2 (um jeito de medir) → 3 (comparador único com as telas do app)
+- **34-plano-das-ferramentas** — partes 1 e 4 ✅ · partes 2 e 3 ELABORADAS — esboço pronto, esperando o dono (docs/PLANO-FERRAMENTAS-21-11.md: 3a todas as telas no comparador → 2 um jeito de medir → 3b telas do app)
 - **34-qual-e-a-frente-com-o-tratamento-do-giro** — ✅ v587 (5.50.12, 20/11) — pedido do dono 20/11 22:18 ('corrija'); falta o dono testar no celular real
 - **35-tratamento-do-giro-parava-no-celular** — ✅ v587 (5.50.12, 20/11) — falta o dono testar no celular real
 - **35-varredura-codigo-morto** — ✅ fechada 21/11 (site 1795282455): 67% do programa roda nas provas; saíram 7 funções mortas no total hoje; o resto é fluxo de verdade fora do alcance do simulador — sem suspeito para mostrar

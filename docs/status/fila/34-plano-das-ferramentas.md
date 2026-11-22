@@ -1,2 +1,2 @@
-partes 1 ✅ (um simulador) e 4 ✅ (porteiro roda o comparador; diferença sem aprovação reprova) — 21/11 · faltam 2 (um jeito de medir) → 3 (comparador único com as telas do app)
+partes 1 e 4 ✅ · partes 2 e 3 ELABORADAS — esboço pronto, esperando o dono (docs/PLANO-FERRAMENTAS-21-11.md: 3a todas as telas no comparador → 2 um jeito de medir → 3b telas do app)
 
