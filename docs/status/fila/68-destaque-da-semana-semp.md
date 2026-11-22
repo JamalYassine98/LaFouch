@@ -1,2 +1,2 @@
-PARADO (ESBOCO 22/11 14:33): espera o Semp ser refeito sobre a base nova, depois do Titan — não usar o Marketing 1c
+PARADO — base nova aprovada 15:48 (70 Marketing + 71 Destaque); falta o 'implementar' do 70
 Como fazer: work/s435/implementar/COMO-FAZER-DESTAQUE-53.md.
