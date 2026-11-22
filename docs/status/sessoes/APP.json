@@ -1,7 +1,15 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "tirar o Leve 2 do site (código morto — dono 21/11 23:21)",
+ "arquivos": [
+  "src/95-pedidos.js",
+  "src/97-ofertas-site.js",
+  "src/96-loja-online.js",
+  "src/97y-lucro-real.js",
+  "src/97z2-contador.js",
+  "src/99-render-persistencia.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795314399.2863827,
@@ -44,5 +52,5 @@
    "r": "v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos)."
   }
  ],
- "leu": 1795314398.7776127
+ "leu": 1795314593.262505
 }

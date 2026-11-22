@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | tirar o Leve 2 do site (código morto — dono 21/11 23:21) | src/95-pedidos.js, src/97-ofertas-site.js, src/96-loja-online.js, src/97y-lucro-real.js, src/97z2-contador.js, src/99-render-persistencia.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 | SITE | Ferramentas parte 4: porteiro roda o comparador (publicado × o que vai subir) | work/fiscal/porteiro.py |
 
