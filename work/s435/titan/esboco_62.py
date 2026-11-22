@@ -4,6 +4,7 @@
 # 'dias de loja' nem 'peças por mês' digitados; meta de lucro fica, é o objetivo pessoal 'como um jogo').
 # Dados REAIS do app de teste: contas G$ 4.200.000 (7 contas) · débito 2% · crédito 4% · colchão 13,0% · cotação da loja G$ 6.800
 # travada desde 22/11 (dólar de hoje G$ 6.487) · peças por mês 186 · meta G$ 2.854.280 (automática).
+# IVA (dono 22/11 06:37): INCLUÍDO no preço e sempre em guaranis — venda de G$ 110.000 tem G$ 10.000 de IVA (preço ÷ 11).
 # NOVO: IVA 10% (o dono pediu o IVA nas contas, 21/11) — hoje o app não considera imposto.
 exec(open('/home/claude/lafouch/work/s435/painelsite/esboco_58fgh.py').read().split("def mensagens(pw")[0].replace("BAL={","BAL0={"))
 O='/home/claude/lafouch/work/s435/titan/'
@@ -25,7 +26,7 @@ def regras(pw,escuro=True):
     T('Cada venda cobre',1)+
     R('contas','Contas do mês','7 contas · em Dinheiro','G$ 4.200.000','›')+
     R('taxa','Taxas da maquininha','débito 2% · crédito 4%','','')+
-    R('iva','Imposto','IVA sobre a venda','10%','')+
+    R('iva','IVA','incluído no preço · em guaranis','10%','⌄')+
     R('res','Reserva para imprevistos','o Titan aprende sozinho','13%','⌄')+
     T('Dólar da loja')+
     R('cot','Cotação nos preços','travada · dólar hoje G$ 6.487','G$ 6.800','⌄')+
