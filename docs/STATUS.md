@@ -159,6 +159,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 04:15 — IDEIAS: IDEIAS: destaque do site (herança da S435, guardada em work/ideias/02-destaque/HERANCA.md) em ESPERA por ordem do dono 22/11 04:13 — urgências maiores (erros da SITE no site). Conferidor agora se chama Argus. — IDEIAS
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
 - 22/11 01:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
@@ -183,4 +184,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 12:33 — SITE: Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar.
 - 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
 - 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
-- 21/11 11:12 — SITE: Parte 2 (consulta em pedaço): PARADO antes de mexer — a medida com a Mochi separada mostra ganho de 33 KB (~1,3 s no 4G fraco), não ~3 s como eu tinha dito ao dono. Esperando o dono decidir: seguir assim mesmo, ou trocar pelas letras guardadas no próprio site. Nada foi mudado no site.
