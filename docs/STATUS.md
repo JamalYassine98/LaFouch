@@ -106,6 +106,7 @@
 - **61-camadas-um-movimento** — aprovado 22/11 12:20 (+ setinha › cinza 12:22) — espera o 'implementar' (SITE)
 - **64-tematica-campanha** — esboço pronto — esperando o dono
 - **65-familia-inventario-lista** — na fila — 'implementar' do dono 22/11 12:51 · APP · 1º
+- **66-familia-compras** — na fila — 'implementar' do dono 22/11 12:51 · APP · 2º (3 partes)
 
 ## Recados esperando
 
