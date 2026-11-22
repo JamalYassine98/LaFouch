@@ -1,7 +1,9 @@
 {
  "nome": "SITE",
- "agora": "",
- "arquivos": [],
+ "agora": "Ferramentas parte 4: porteiro roda o comparador (publicado × o que vai subir)",
+ "arquivos": [
+  "work/fiscal/porteiro.py"
+ ],
  "ultimas": [
   {
    "t": 1795288118.1208649,
@@ -44,5 +46,5 @@
    "r": "Fila 32 partes 1 e 2 publicadas no site 1795225493: Esc = voltar (uma regra), carrinho/conta por cima, avisos fecham com o voltar; vistas/ fora do site; cancelar por um caminho só. Porteiro 221 provas, 0 falhas; comparador 12 telas, 0 diferenças. Falta a parte 3 (internet fraca): medir em rede limpa e levar o plano ao dono."
   }
  ],
- "leu": 1795288110.7600846
+ "leu": 1795314098.763266
 }

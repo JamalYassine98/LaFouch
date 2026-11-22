@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | 41 parte 1: Estúdio mostra Frente · 3/4 · Giro em cada peça (estTem) | src/97-estudio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
+| SITE | Ferramentas parte 4: porteiro roda o comparador (publicado × o que vai subir) | work/fiscal/porteiro.py |
 
 ## Fila
 
