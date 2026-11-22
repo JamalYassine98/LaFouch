@@ -2267,6 +2267,9 @@ html.mlOn #lockScr{z-index:2147483600}
 .fiBtn{background:var(--panel)}
 .fnLk:active{transform:scale(.96)}
 .estRw{display:flex;align-items:center;border-bottom:1px solid var(--line2,var(--line))}
+/* esboço 41: Frente · 3/4 · Giro em cada peça — bolinha verde = tem, anel = falta */
+.estMk{display:flex;gap:16px;margin-top:8px;font-size:13px}.estMk span{display:inline-flex;align-items:center;gap:8px;color:var(--mute)}.estMk span.tem{color:var(--fg)}
+.estMk i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--mute);box-sizing:border-box}.estMk .tem i{background:var(--ok);border-color:var(--ok)}
 .estRw .estIt,.estOv .estRw .estIt{border-bottom:0;flex:1;min-width:0;width:auto}
 .estFi{flex:none;min-height:44px;min-width:44px;padding:0 2px 0 12px;border:0;background:none;color:var(--fg);font-family:inherit;font-size:13px;font-weight:500}
 /* ===== S266 · ícone do grupo no menu rápido do mesmo tamanho dos outros (era 24 px, os outros 22 px) ===== */

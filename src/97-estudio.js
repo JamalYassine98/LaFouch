@@ -24,14 +24,26 @@
     });
     return out;
   }
+  // Esboço 41 (aprovado 21/11 07:51): o que a peça TEM, num lugar só — a fila, as marcas da lista e a Galeria leem daqui.
+  //   frente = há foto e ela está no padrão (nota ≥ 75) · tres4 = há a foto de 3/4 · giro = há o giro (do modelo: vale para todas as cores do ref),
+  //   gravado neste aparelho (S.giros) ou já no site (S.giroSite). fotoRuim = há foto, mas com nota baixa (refazer).
+  function estTem(k) {
+    var ref = String(k).split('|')[0], nt = S.fotoNota[k], foto = !!(S.fotos && S.fotos[k]), ruim = foto && !!nt && nt.n < 75;
+    return { frente: foto && !ruim, fotoRuim: ruim, tres4: !!(S.fotos && S.fotos[k + '|34']), giro: !!((S.giros && S.giros[ref]) || (S.giroSite && S.giroSite[ref])) };
+  }
+  var EST_MARCAS = [['frente', 'Frente'], ['tres4', '3/4'], ['giro', 'Giro']];
+  function estMarcasHtml(k) {
+    var t = estTem(k);
+    return '<span class="estMk">' + EST_MARCAS.map(function (m) { return '<span class="' + (t[m[0]] ? 'tem' : 'falta') + '"><i aria-hidden="true"></i>' + m[1] + '</span>'; }).join('') + '</span>';
+  }
   function estFila() {
     var f = [];
     estChaves().forEach(function (x) {
-      var tem = !!(S.fotos && S.fotos[x.k]),
+      var t = estTem(x.k),
         nt = S.fotoNota[x.k];
-      if (!tem) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'sem', o: 0, sub: 'frente e 3/4' });
-      else if (nt && nt.n < 75) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'nota', o: 1, sub: (nt.mot || []).slice(0, 2).join(' · ') || 'refazer', n: nt.n });
-      else if (!(S.fotos && S.fotos[x.k + '|34'])) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: '34', o: 2, sub: 'sem a de 3/4' });
+      if (t.fotoRuim) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'nota', o: 1, sub: (nt.mot || []).slice(0, 2).join(' · ') || 'refazer', n: nt.n });
+      else if (!t.frente) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'sem', o: 0 });
+      else if (!t.tres4) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: '34', o: 2 });
     });
     // v465: primeiro as sem foto e as que mais vendem; as cores do mesmo modelo ficam juntas (fotos iguais entre si)
     var vend = {};
@@ -510,7 +522,7 @@
           ? '<div class="estLbl estLbl2"><span>Na fila · ' + F.length + '</span></div>' + // S374 86: um só "Ver as N peças ›" no fim
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha ›</button></div>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + (x.st === 'nota' ? ' · refazer: ' + esc(x.sub) : '') + '</small>' + estMarcasHtml(x.k) + '</span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha ›</button></div>';
             }).join('') +
             (F.length > 6 ? '<button type="button" class="estMais" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver as ' + F.length + ' peças ›') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +

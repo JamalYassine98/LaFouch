@@ -4195,6 +4195,29 @@ async def main():
             if not ok: falhas.append('40c tratamento endireita'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 41 parte 1 (aprovado 21/11 07:51): o Estúdio mostra o que cada peça TEM — Frente · 3/4 · Giro, sempre nessa ordem, bolinha = tem,
+            # anel = falta; as marcas, a fila e (depois) a Galeria leem de UMA função, estTem(k). Saiu a frase "falta a foto de 3/4".
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const F0 = L.estFila(); const a = F0.find(x => x.st === '34') || F0[0]; S.giros = S.giros || {}; S.giros[a.ref] = { k: a.k, ts: Date.now(), n: 360 };
+              L.ACT.estAbre(); await w(600);
+              const linhas = [...document.querySelectorAll('.estOv .estRw')], F = L.estFila();
+              R.n = linhas.length;
+              R.batem = linhas.every((l, i) => { const t = L.estTem(F[i].k), m = [...l.querySelectorAll('.estMk > span')];
+                return m.length === 3 && m.map(x => x.textContent).join('|') === 'Frente|3/4|Giro' && m[0].classList.contains(t.frente ? 'tem' : 'falta') && m[1].classList.contains(t.tres4 ? 'tem' : 'falta') && m[2].classList.contains(t.giro ? 'tem' : 'falta'); });
+              const la = linhas[F.findIndex(x => x.k === a.k)]; R.giro = la ? la.querySelector('.estMk > span:nth-child(3)').className : 'fora da lista';
+              const i1 = document.querySelector('.estMk .tem i'), i0 = document.querySelector('.estMk .falta i'); R.cor = [!!i1 && getComputedStyle(i1).backgroundColor !== 'rgba(0, 0, 0, 0)', !!i0 && getComputedStyle(i0).backgroundColor === 'rgba(0, 0, 0, 0)'];
+              R.frase = /falta a foto de 3.4|sem foto/.test(document.querySelector('.estOv').textContent);
+              R.tem = [L.estTem('NAO-EXISTE|x'), Object.keys(L.estTem(a.k)).sort().join()];
+              return R; }""")
+            total += 1
+            ok = (got['n'] >= 3 and got['batem'] and got['giro'] == 'tem' and got['cor'] == [True, True] and not got['frase']
+                  and got['tem'][0] == {'frente': False, 'fotoRuim': False, 'tres4': False, 'giro': False} and got['tem'][1] == 'fotoRuim,frente,giro,tres4'
+                  and fontes['97-estudio.js'].count('S.fotoNota[x.k]') <= 2 and "sub: 'sem a de 3/4'" not in fontes['97-estudio.js'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 41 (1): Estúdio mostra Frente · 3/4 · Giro em cada peça, lido de estTem (a mesma conta da fila); sem a frase "falta a foto de 3/4"')
+            if not ok: falhas.append('41 marcas do estudio'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

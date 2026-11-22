@@ -1,7 +1,7 @@
 {
- "nome": "5.50.43",
+ "nome": "5.50.44",
  "notas": [
-  "Giro (por dentro): com a peça ou a câmera torta, o app escolhia uma vista de lado como se fosse a frente. Agora acha a frente certa também nesses casos, e aí endireita ou avisa."
+  "Estúdio: cada peça da fila mostra o que já tem — Frente · 3/4 · Giro. Bolinha verde = tem; anel = falta."
  ],
- "build": 618
+ "build": 619
 }
