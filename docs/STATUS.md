@@ -147,6 +147,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 16:28 — IDEIAS: IDEIAS 07 v5: sacola com cordão (modelo da referência) e nosso design
 - 22/11 16:26 — IDEIAS: IDEIAS 07 v4: sacola com armação grande tom sobre tom
 - 22/11 16:21 — IDEIAS: IDEIAS 07 v3: embalagens — vinho liso, logo uma vez, assinatura óculos dourado
 - 22/11 16:18 — IDEIAS: IDEIAS 07 v2: embalagens com detalhes de luxo
@@ -158,7 +159,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:40 — IDEIAS: IDEIAS 06g esboço pronto: Para presente (Fila 67)
-- 22/11 15:34 — IDEIAS: IDEIAS 06f esboço pronto: página da seleção (Fila 66)
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
 - 22/11 15:15 — NUVEM: Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok.
 - 22/11 15:08 — NUVEM: Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho).
