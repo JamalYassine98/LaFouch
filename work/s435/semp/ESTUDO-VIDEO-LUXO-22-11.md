@@ -110,3 +110,20 @@ O dono disse: "dá para simplificar várias coisas e melhorar o Estúdio sem que
 - O app monta sozinho a ficha, o carrossel com panorama, a wishlist ou montagem de cores, e o status.
 - As legendas vêm do cadastro (material, lente, UV, medidas), nunca de frase inventada.
 - Vídeo = gente usando, gravado no celular, que o app só corta e legenda. O comercial gerado em código sai da proposta (73–75 ficam como estudo).
+
+---
+
+## Parte 4 — de novo na @made.glasses: limpo, não detalhado (dono 17:48)
+Vi 8 posts e 1 reel recentes.
+- **Quase todo post é UMA imagem com UMA ideia**, sem texto:
+  - a peça na mão sobre um piso;
+  - a peça num prato, com garfo e faca;
+  - gente usando.
+- **Quando há texto, é uma linha só ou uma promoção** em letra grande ("25% OFF no pix", "Black Madë · Wishlist").
+- **A informação vai na LEGENDA do post** ("Conheça o modelo Butterfly em madeglasses.com"), não na imagem.
+- **A ficha com detalhes (Évora) era a exceção.**
+
+**Para a LaFouch:**
+- A imagem é a peça grande e limpa, o nome pequeno e o escudo LF pequeno.
+- O carrossel tem no máximo a peça + um detalhe sem texto.
+- Material, medidas, UV, cores e site vão na legenda, em PT e ES. O app escreve a legenda com os dados do cadastro.
