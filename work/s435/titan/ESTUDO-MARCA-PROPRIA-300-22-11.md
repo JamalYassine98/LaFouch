@@ -10,3 +10,13 @@ Premissas: preço de fábrica (FOB) pelas faixas públicas de 2026; frete aéreo
 
 Comparação: hoje em CDE a peça sai US$ 5–6 + kit local US$ 1–4 = US$ 6–10 por peça, sem marca própria.
 Ponto de atenção: o mínimo de 300 costuma ser POR MODELO (300 = um modelo, em 2–3 cores). Somam-se amostras (~US$ 50–150), molde/logo e 30–60 dias de prazo.
+
+
+## Preço pelo Titan (simulação com os dados do app de teste)
+Cotação nos preços G$ 6.700 · contas G$ 4.200.000/186 peças = G$ 22580 por peça · colchão 13% · IVA = preço ÷ 11 · jeito do dono: acetato US$ 5 → G$ 130.000 (x26.000 por dólar de custo).
+
+| Cenário | Custo posto | Mínimo seguro | Pelo seu jeito | Lucro livre por peça |
+|---|---|---|---|---|
+| Econômico | US$ 8.29 | G$ 95.000 | G$ 220.000 (≈ US$ 33) | ≈ G$ 115.000 |
+| Médio | US$ 12.06 | G$ 130.000 | G$ 315.000 (≈ US$ 47) | ≈ G$ 172.000 |
+| Melhor | US$ 17.43 | G$ 170.000 | G$ 455.000 (≈ US$ 68) | ≈ G$ 259.000 |
