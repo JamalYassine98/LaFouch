@@ -7,7 +7,7 @@
 # COTAÇÃO (dono 22/11 06:41): a base é a VENDA da casa de câmbio (o mercado não importa); uma folga só, ~2%, arredondada de 100
 # em 100 para cima — ex. do dono: venda 6.550 → cobra 6.700. Sem a 2ª folga do site. Números do quadro = exemplo do dono.
 # IVA (dono 22/11 06:37): INCLUÍDO no preço e sempre em guaranis — venda de G$ 110.000 tem G$ 10.000 de IVA (preço ÷ 11).
-# NOVO: IVA 10% (o dono pediu o IVA nas contas, 21/11) — hoje o app não considera imposto.
+# IVA: o app JÁ tira o IVA da venda (preço ÷ 11) no Lucro real e no contador (src/97y-lucro-real.js:2); em Regras ele só aparece.
 exec(open('/home/claude/lafouch/work/s435/painelsite/esboco_58fgh.py').read().split("def mensagens(pw")[0].replace("BAL={","BAL0={"))
 O='/home/claude/lafouch/work/s435/titan/'
 IC2=dict(contas='<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
