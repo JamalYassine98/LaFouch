@@ -231,7 +231,15 @@ Cada item abaixo é **uma função só**, usada por todas as telas (regra 12c). 
   - A conta no site é da **SITE** (www/loja/js/lf-site.js ~100–130). Mando recado.
 - **Testes de lote para lote:** com o ok do dono pelo sino.
 
+### H. Lote de COMPRA não é peça (dono 22/11 15:25)
+- No Inventário, um **lote de compra** (Inventário › Lotes, src/51-lote-grupos.js / 52-lotes.js) é a compra fechada que o dono ainda vai abrir para registrar as peças. Exemplo: "Lote Kazwini · 343".
+- Ele **não entra** em nada que o Titan ou o Semp fazem com peças à venda: oferta, desconto, parado/giro, destaque, posts, mola.
+- O "parado há N dias" dele é a idade da compra, não falta de venda.
+- No 54 aprovado, a linha "Oferta para o Lote Kazwini" era desse engano. O "O Titan decide hoje" mostra só o que existe, calculado das peças registradas.
+- O **lote do atacado** (pacote virtual que filtra o catálogo para o lojista e vira a caixa fechada do pedido) é outra coisa e continua como está na parte G.
+
 ### Provas novas no Argus (Parte 2)
+- Nenhum lote de compra aparece em oferta, parado, destaque ou "O Titan decide hoje".
 - Nenhuma busca a open.er-api nem à currency-api.
 - Loja = site.
 - Venda 6.550 → 6.700.

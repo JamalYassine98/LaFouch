@@ -4,6 +4,8 @@
 # vendas dos últimos 30 dias (SP58110 27 · SL2201 25 · SL2210 24) e o Lote Kazwini parado (o mesmo do 54/70, até 20% com margem boa).
 # Plano da semana real: 2 de 6 posts usam estas peças (Seg SP58110 · Qua carrossel SL2201 + SL2210). A TROCA (quadro 3) é um estado
 # simulado: quando o SL2201 acabar, o Semp propõe o Óculos solar #13 (solar com estoque, 9).
+# v2 (dono 15:25): 'Lote Kazwini' é uma COMPRA fechada (Inventário › Lotes, src/51-lote-grupos.js), não peça → saiu. 4ª peça = SP57765
+# (25 no mês). Desconto real do Titan: nenhum hoje (o preço já está abaixo do mínimo, folga 0% — 63/64).
 # Nome curto (uma regra só): o nome da peça sem 'Óculos de'/'Óculos' (Leitura…, Solar…), como no 70; cabe sem cortar (L4).
 # (texto antigo) Esboço 53 (S435, 21/11 17:50) — Destaque da semana do Semp em Marketing (aprovado 17:40: UMA lista de 3–6 peças; o Semp escolhe,
 # o dono confirma; a mesma lista vira o destaque do site, a base dos posts/vídeos/cartões/temática e o conselho de venda).
@@ -34,7 +36,7 @@ const OK='var(--ok,#4fbf7f)',AV='var(--warn,#e0b44c)',AC='var(--accent-fg)';"""
 STAR='<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.3L7 21l5-2.6 5 2.6-1.5-7.7"/>'  # medalha: a estrela já é o ícone de Criar (um ícone por linha)
 def marketing(pw,qual):
   b,pg,w=ap.abre(pw,'mkt',True,'celular',base=True);w(600);I=imgs(pg)
-  N=['Óculos de leitura Kazwini de acetato masculino','Óculos solar Ray-Ban de metal masculino','Óculos solar Kazwini de tr90 feminino','Lote Kazwini','Óculos solar #13']
+  N=['Óculos de leitura Kazwini de acetato masculino','Óculos solar Ray-Ban de metal masculino','Óculos solar Kazwini de tr90 feminino','Óculos de leitura de acetato unissex','Óculos solar #13']
   im=[I.get(n) or list(I.values())[k%len(I)] for k,n in enumerate(N)]
   pg.add_style_tag(content='#v-mkt .mkSec{color:var(--mute)!important}')  # regra 17: rosa = ação; rótulo de seção não é ação → cinza, como .lbl no resto do app
   if qual=='mkt':
@@ -45,14 +47,14 @@ def marketing(pw,qual):
       TOPO('Marketing','Destaque da semana','');
       const top=v.querySelector('.top');const box=document.createElement('div');
       const troca=(qual=='video'||qual=='camp')?'<div style="color:var(--mute);font-size:13px;margin:16px 0 0">Confirmado em 22/11 · vale até 29/11</div>':qual=='troca'?'<div style="margin:24px 0 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:16px 0"><b style="display:block;font-size:16px;font-weight:500">O Semp propõe 1 troca</b><small style="display:block;font-size:13px;color:var(--mute);margin:4px 0 12px">O Solar Ray-Ban de metal masculino acabou · entra o Solar #13, com 9 no estoque</small><button type="button" style="display:block;width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Confirmar a troca</button></div>':'<div style="color:var(--mute);font-size:13px;margin:16px 0 0">Confirmado em 22/11 · vale até 29/11</div>';
-      box.innerHTML=troca+LBL('As peças · 4')+PECA(im[0],'Leitura Kazwini de acetato masculino','a que mais vende · 27 no mês',OK)+(qual=='troca'?PECA(im[4],'Solar #13','entra na troca · 9 no estoque',AC):PECA(im[1],'Solar Ray-Ban de metal masculino','25 no mês · solar para o verão'))+PECA(im[2],'Solar Kazwini de tr90 feminino','24 no mês · solar para o verão')+PECA(im[3],'Lote Kazwini','parado há 430 dias · oferta até 20%',AV)+
+      box.innerHTML=troca+LBL('As peças · 4')+PECA(im[0],'Leitura Kazwini de acetato masculino','a que mais vende · 27 no mês',OK)+(qual=='troca'?PECA(im[4],'Solar #13','entra na troca · 9 no estoque',AC):PECA(im[1],'Solar Ray-Ban de metal masculino','25 no mês · solar para o verão'))+PECA(im[2],'Solar Kazwini de tr90 feminino','24 no mês · solar para o verão')+PECA(im[3],'Leitura de acetato unissex','25 no mês · a mais vendida da leitura')+
        LBL('Onde aparece')+LINHA('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/>','Site',qual=='video'?'destaque em vídeo · o comercial da semana':qual=='camp'?'destaque em campanha · a foto do post':'destaque em slide · as 4 peças')+LINHA('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>','Agenda','2 de 6 posts da semana usam estas peças')+LINHA('<path d="M4 10h16v10H4z"/><path d="M3 10l2-6h14l2 6"/>','Na loja','o que oferecer a quem entra');
       (top.parentNode===v?v:top.parentNode).appendChild(box)}""",[im,qual])
     if qual=='vender':
       pg.evaluate("(im)=>{"+H+r"""const bk=document.createElement('div');bk.className='ljBk';bk.style.opacity='.5';const j=document.createElement('div');j.className='ljJn';j.style.transform='none';
-        j.innerHTML='<div class="ljPuxa"></div><div class="ljHd" style="display:block"><b>Lote Kazwini</b></div><div class="ljCorpo">'+
+        j.innerHTML='<div class="ljPuxa"></div><div class="ljHd" style="display:block"><b>Leitura de acetato unissex</b></div><div class="ljCorpo">'+
         '<div style="display:flex;justify-content:center;margin:0 0 8px"><span style="width:160px;height:96px;border-radius:12px;overflow:hidden;background:#fff"><img src="'+im[3]+'" style="width:100%;height:100%;object-fit:contain"></span></div>'+
-        LIN('Por que','parado há 430 dias',AV)+LIN('Como vender','leve 2: um em casa, um na bolsa')+LIN('Desconto possível','até 20% · Titan ok',OK)+LIN('Preço com o desconto','G$ 20.000')+
+        LIN('Por que','25 vendidas no mês')+LIN('Como vender','leve 2: um em casa, um na bolsa')+LIN('Desconto possível','nenhum hoje · Titan',AV)+LIN('Preço','G$ 25.000 · já abaixo do mínimo')+
         '<div style="display:flex;align-items:center;min-height:56px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px;color:var(--accent-fg);font-weight:600">Trocar esta peça</span><span style="color:var(--mute);font-size:18px">›</span></div></div>';
         document.body.appendChild(bk);document.body.appendChild(j)}""",im)
   # L4: a letra do grupo de nomes diminui junto até o mais longo caber (uma função só)

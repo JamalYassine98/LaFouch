@@ -9,6 +9,8 @@
 # v3 (dono 14:48 'a navegação tem marketing → marketing'): o GRUPO Marketing do Início (Marketing · Temática · Cartões · Analisador) deixa
 # de existir: Início › Marketing abre o escritório direto ('‹ Início', como o 54); Temática e Cartões viram setores; Analisador já foi para
 # Resultados (58c). Mesmo jeito do 52a (grupo Giro e preços saiu, Preços virou linha do Início).
+# v4 (dono 15:25): 'Lote Kazwini' é uma COMPRA fechada no Inventário (343 peças ainda sem registrar), não uma peça → não pode ser
+# oferta, destaque nem 'parado'. Sai 'Divulgar a oferta' (no app de teste não há peça parada de verdade).
 # 'Comprar a tendência' do 1c NÃO entra: o Mercado do Semp ainda não existe, não há tendência real (proibido produto de exemplo).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');sys.path.insert(0,'/home/claude/lafouch/work/s430/comparador');import ap,compara
 from playwright.sync_api import sync_playwright
@@ -41,9 +43,8 @@ const topo=v.querySelector('.top');
 [...v.children].forEach(e=>{if(e!==topo&&!e.contains(topo)&&!topo.contains(e)&&!e.classList.contains('nvVs'))e.remove()});
 
 const box=document.createElement('div');box.innerHTML=
-tit('O Semp sugere hoje · 3')+
+tit('O Semp sugere hoje · 2')+
 linha(I.mega,'Postar às 20h','Leitura Kazwini de acetato · 27 vendas no mês')+
-linha(I.etq,'Divulgar a oferta','Lote Kazwini · parado há 430 dias · Titan ok')+
 linha(I.ev,'Natal em 33 dias','presente: embalagem e combo · preparar o post')+
 tit('Setores')+
 linha(I.med,'Destaque da semana','4 peças · no site, nos posts e na loja')+
