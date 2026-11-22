@@ -34,7 +34,8 @@ def grava(porta, nome):
     return out
 FT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 lab = lambda t, c: "pad=iw:ih+80:0:80:color=white,drawtext=fontfile=%s:text='%s':x=20:y=22:fontsize=34:fontcolor=%s" % (FT, t, c)
-a, b = grava(8729, 'hoje'), grava(8730, 'prop')
-fc = '[0:v]%s[a];[1:v]%s[b];[a][b]hstack=inputs=2,trim=duration=13[v]' % (lab('HOJE (14 flocos, 10 s)', '#b3261e'), lab('PROPOSTA (8 flocos, 4 s)', '#8d3a69'))
+a, b = grava(8729, 'hoje'), grava(int(os.environ.get('PB', '8730')), 'prop')
+CROP = os.environ.get('CROP', '')
+fc = '[0:v]%s%s[a];[1:v]%s%s[b];[a][b]hstack=inputs=2,trim=duration=13[v]' % (CROP, lab('HOJE (14 flocos, 10 s)', '#b3261e'), CROP, lab(os.environ.get('RB', 'PROPOSTA (8 flocos, 4 s)'), '#8d3a69'))
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', a, '-i', b, '-filter_complex', fc, '-map', '[v]', '-r', '30', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23',
-                '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(AQUI, 'esboco-06c-efeito-natal.mp4')], check=True); print('ok')
+                '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(AQUI, os.environ.get('SAIDA', 'esboco-06c-efeito-natal.mp4'))], check=True); print('ok')

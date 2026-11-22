@@ -63,3 +63,16 @@ Toda data usa o MESMO molde, com 4 peças e nada mais:
   - "reduzir movimento" continua sem efeito.
 - **Jeito natural:** a mesma `fx()`, com o lugar trocado para a foto da campanha (`.lfcamp .ft`) e um tempo só (4 s) para todas as datas. Sai o `#home .hd` como lugar do efeito.
 - **Vídeo:** `esboco-06c-efeito-natal.mp4`. Com a foto de produto em fundo branco a neve é discreta; com a foto editorial da data ela aparece mais.
+
+### 06c v2 · Flocos com sensação de neve (dono 22/11 14:42): substitui os flocos da v1
+O que dá a sensação de neve, mesmo com só 8 flocos:
+- **Profundidade:** 3 flocos perto (11–14 px, levemente desfocados, um pouco mais rápidos) e 5 longe (4–6 px, nítidos, mais lentos).
+- **Balanço:** cada floco cai oscilando de um lado para o outro (5–16 px, 1,6–2,6 s), porque neve não cai reta.
+- **Queda lenta:** de 45 a 75 px por segundo.
+- **Já começa nevando:** os flocos começam espalhados no ar e entram com um esmaecer suave, sem "chuva" saindo do topo.
+- **Floco macio:** o miolo claro se desfaz na borda.
+- **Cor da neve pelo brilho da foto:** em foto escura, branco; em foto clara, cinza-azulado (neve branca some em fundo branco).
+  - Para isso, a foto da campanha ganha um campo "foto escura/clara" no painel. Uma variável só (`--nv1/--nv2`).
+- **Continua igual:** só na foto da campanha, 4 s, some em 1,2 s, nada com "reduzir movimento".
+- **Vídeo:** `esboco-06c-neve-natal.mp4`: Hoje | Proposta em foto clara | Proposta em foto escura (exemplo de fundo, sem foto real).
+- **Recomendação para o dono:** a foto da campanha do Natal deve ter fundo escuro ou colorido, porque é nela que a neve aparece de verdade.
