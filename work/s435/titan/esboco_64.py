@@ -22,7 +22,8 @@ def abre(pw):
   return b,pg,w
 def tela(pw,qual):
   b,pg,w=abre(pw);ficha(pg,w,qual=='depois')
-  pg.evaluate("()=>document.getElementById('precoCard').scrollIntoView({block:'center'})");w(300)
+  pg.evaluate(r"""()=>{const a=[...document.querySelectorAll('button,a')].find(x=>/^Fotografar no Estúdio/.test(x.textContent.trim()));if(a&&!document.getElementById('e64t')){const n=a.cloneNode(true);n.id='e64t';n.removeAttribute('data-act');n.textContent='Ver no escritório do Titan ›';a.after(n)}}""");w(200)  # 3º link aprovado 22/11 12:48
+  pg.evaluate("()=>(()=>{const e=document.getElementById('precoCard');window.scrollTo(0,e.getBoundingClientRect().top+scrollY-160)})()");w(300)
   if qual=='janela':
     pg.evaluate(r"""()=>{const L=(r,v,c)=>'<div style="display:flex;align-items:center;justify-content:space-between;min-height:52px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+'</span><span style="color:'+(c||'var(--fg)')+'">'+v+'</span></div>';
       const d=document.createElement('div');d.id='e64';d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:flex;align-items:flex-end';
