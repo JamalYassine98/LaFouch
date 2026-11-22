@@ -1,11 +1,12 @@
 {
  "nome": "APP",
- "agora": "40b: Peça reta (item novo no conferidor do giro + guias)",
- "arquivos": [
-  "src/98z-camera-u149f.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795306780.092292,
+   "r": "v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°)."
+  },
   {
    "t": 1795305344.7300808,
    "r": "v615 publicada: 40a — Câmera reta (sensor único). Porteiro 367/367. Próximo: 40b (Peça reta)."
@@ -41,11 +42,7 @@
   {
    "t": 1795289380.0997095,
    "r": "Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37"
-  },
-  {
-   "t": 1795289038.8023083,
-   "r": "v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)"
   }
  ],
- "leu": 1795305583.2326295
+ "leu": 1795306779.63382
 }

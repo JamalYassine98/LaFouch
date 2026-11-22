@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 40b: Peça reta (item novo no conferidor do giro + guias) | src/98z-camera-u149f.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
@@ -143,6 +142,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 21:19 — APP: v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°).
 - 21/11 20:55 — APP: v615 publicada: 40a — Câmera reta (sensor único). Porteiro 367/367. Próximo: 40b (Peça reta).
 - 21/11 20:33 — APP: v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro).
 - 21/11 20:10 — APP: v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único).
@@ -154,7 +154,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 17:21 — APP: v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza).
 - 21/11 16:29 — APP: Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37
 - 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
-- 21/11 16:23 — APP: v607 no ar: item 38 etapa 1 (tempos no diário). Próximo: plano do item 38 (etapa 2)
 - 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
