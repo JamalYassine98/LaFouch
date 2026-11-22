@@ -105,6 +105,7 @@
 - **58-painel-do-site** — 58a e 58b aprovados (22/11) · 58c e 58d esboço pronto — esperando o dono · estudo 47b em work/s435/painelsite/ESTUDO-PAINEL-SITE-22-11.md
 - **59-ideias-ferramentas-pegam-antes** — aprovado 22/11 04:55 — espera o 'implementar' (SITE, plano das ferramentas)
 - **60-voz-aviso-qr** — dono escolheu opção 1 (PT e ES) 22/11 05:53 · antes: padronizar volume das 390 falas (preparado: só ganho em 75) e decidir sobre a variação de voz (regravar grupos?) — esperando o dono
+- **61-camadas-um-movimento** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
