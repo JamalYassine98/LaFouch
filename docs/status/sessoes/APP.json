@@ -1,10 +1,12 @@
 {
  "nome": "APP",
- "agora": "guardar a lista final para depois da próxima fase",
- "arquivos": [
-  "work/s436/LISTA-FINAL-DONO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795322804.8659735,
+   "r": "Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'."
+  },
   {
    "t": 1795321394.1806786,
    "r": "Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista)."
@@ -40,10 +42,6 @@
   {
    "t": 1795310775.3422089,
    "r": "v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro)."
-  },
-  {
-   "t": 1795306780.092292,
-   "r": "v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°)."
   }
  ],
  "leu": 1795322777.5971663
