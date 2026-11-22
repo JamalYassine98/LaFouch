@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 05: camadas seguem a temática",
+ "arquivos": [
+  "work/ideias/05-animacoes"
+ ],
  "ultimas": [
   {
    "t": 1795341140.8392453,
@@ -44,5 +46,5 @@
    "r": "IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795341135.3654733
+ "leu": 1795359758.250982
 }
