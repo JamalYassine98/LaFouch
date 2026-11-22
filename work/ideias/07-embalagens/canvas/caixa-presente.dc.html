@@ -12,21 +12,24 @@
 <style>
 body{margin:0}
 a{color:#7e4a6e}a:hover{color:#5c3450}
+.pv{background-color:#7e4a6e;background-image:url(/_blob/15e3d347143f127012cafa085912fa26);background-size:120px 120px}
+.ps{background-color:#f6f1ec;background-image:url(/_blob/ebc671c552a52b360f4ac1b935bb51d8);background-size:120px 120px}
 </style>
 </helmet>
-<div style="position: relative; width: 680px; height: 302px; box-sizing: border-box; background: {{vinho}}; overflow: hidden">
-<img src="/_blob/dcb987dc4de0097b3064a5e693356123" alt="La Fouch · Tudo em Óculos" style="position: absolute; left: 150px; top: 86px; width: 210px">
+<div class="pv" style="position: relative; width: 680px; height: 302px; box-sizing: border-box; overflow: hidden">
+<div style="position: absolute; inset: 10px; border: 1px solid #b89a63"></div>
+<div style="position: absolute; left: 116px; top: 51px; width: 200px; height: 200px; border-radius: 50%; background: #7e4a6e"></div>
+<img src="/_blob/dcb987dc4de0097b3064a5e693356123" alt="La Fouch · Tudo em Óculos" style="position: absolute; left: 126px; top: 108px; width: 180px">
 <div style="position: absolute; left: 500px; top: 0; width: 38px; height: 302px; background: #f6f1ec"></div>
-<div style="position: absolute; left: 0; top: 132px; width: 680px; height: 38px; background: #f6f1ec; opacity: 0"></div>
-<div style="position: absolute; left: 481px; top: 113px; width: 76px; height: 76px; border-radius: 50%; background: {{vinho}}; box-shadow: 0 0 0 3px #f6f1ec; display: flex; align-items: center; justify-content: center">
+<div style="position: absolute; left: 481px; top: 113px; width: 76px; height: 76px; border-radius: 50%; background: #7e4a6e; box-shadow: 0 0 0 3px #b89a63; display: flex; align-items: center; justify-content: center">
 <img src="/_blob/c7bfb41e0e0392609c569f311e06643d" alt="Selo La Fouch" style="height: 38px">
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"vinho":{"editor":"color","default":"#7E4A6E"},"$preview":{"width":680,"height":302}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":680,"height":302}}'>
 class Component extends DCLogic {
 renderVals() {
-return { vinho: this.props.vinho ?? '#7E4A6E' };
+return {};
 }
 }
 </script>
