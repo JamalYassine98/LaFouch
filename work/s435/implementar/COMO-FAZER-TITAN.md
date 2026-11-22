@@ -31,7 +31,7 @@ Ordem de implementação. Cada passo vai até o fim antes do próximo, porque o 
   - work/s435/guardiao/esboco_54_precos_guardiao_{escuro,claro}.jpg
   - work/s435/switch/esboco_46b_precos.jpg (com COMO-FAZER-46.md)
 - **A tela, de cima para baixo:**
-  1. "‹ Início" · h1 **"Preços"** com o subtítulo "O escritório do Titan" (como no 54) · pílula "○ Automático" ao lado do título (46b).
+  1. "‹ Início" · h1 **"Preços"**, sem subtítulo (dono 22/11 14:46: tira descrição inútil como "o escritório do …") · pílula "○ Automático" ao lado do título (46b).
   2. "O Titan decide hoje · N": uma linha por assunto (preços para corrigir, oferta sugerida, evento). Some quando é 0.
   3. Setores em linhas ›: **Regras · Ofertas · Atacado · Ferramentas · Histórico**.
      - Atacado é uma linha só: "7 tabelas · …".

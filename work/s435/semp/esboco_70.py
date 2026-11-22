@@ -33,7 +33,7 @@ const linha=(ic,t,s)=>'<div style="'+L+'">'+SV(ic)+'<div style="min-width:0;flex
 const tit=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);margin:32px 0 8px">'+t+'</div>';
 const topo=v.querySelector('.top');
 [...v.children].forEach(e=>{if(e!==topo&&!e.contains(topo)&&!topo.contains(e)&&!e.classList.contains('nvVs'))e.remove()});
-const h=topo.querySelector('h1');const s=document.createElement('div');s.style.cssText='color:var(--mute);font-size:14px;margin-top:4px';s.textContent='O escritório do Semp · foco: Novos clientes BR';h.after(s);
+const h=topo.querySelector('h1');const s=document.createElement('div');s.style.cssText='color:var(--mute);font-size:14px;margin-top:4px';s.textContent='foco: Novos clientes BR';h.after(s);
 const box=document.createElement('div');box.innerHTML=
 tit('O Semp sugere hoje · 3')+
 linha(I.mega,'Postar às 20h','Leitura Kazwini de acetato · 27 vendas no mês')+
