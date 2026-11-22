@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-Carrinho: cartão 'Para presente' (Não | Sim); no Sim abre mensagem do cartão (200) e 'o pacote vai sem o preço'; grátis nas datas. Pedido leva presente:{sim,msg}. Em aberto: impressa ou à mão, valor fora das datas, regra de troca. work/ideias/06-tematica/COMO-FAZER.md (06g)
+v2: presente POR PEÇA — linha fina 'Embrulhar para presente' em cada peça; cartão escrito na janela de baixo (Salvar) e mostrado em itálico serifado; 'cortesia'. Resumo conta os embrulhos. work/ideias/06-tematica/COMO-FAZER.md (06g v2)
