@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 05: animações no PC",
- "arquivos": [
-  "work/ideias/05-animacoes"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795339111.619566,
+   "r": "IDEIAS 05: versão PC/tablet do esboço (Fila 61)"
+  },
   {
    "t": 1795338446.6983001,
    "r": "IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)"
@@ -40,10 +42,6 @@
   {
    "t": 1795287167.7890613,
    "r": "IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS"
-  },
-  {
-   "t": 1795286980.9987233,
-   "r": "IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS"
   }
  ],
  "leu": 1795338669.5443196
