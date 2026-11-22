@@ -108,7 +108,7 @@
 - **61-camadas-um-movimento** — aprovado 22/11 12:20 (+ setinha › cinza 12:22) — espera o 'implementar' (SITE)
 - **64-tematica-campanha** — aprovado 22/11 14:07 — espera o 'implementar' (SITE)
 - **65-efeito-do-evento** — esboço pronto — esperando o dono
-- **65-familia-inventario-lista** — 65a ✅ v625 · 65b/65c ✅ v626 (páginas de 24, Parados e sobrando ›, Contar o estoque ›, tela Parados e sobrando) · a seguir 65d (+ com selo e janela Adicionar)
+- **65-familia-inventario-lista** — 65a ✅ v625 · 65b/65c ✅ v626 · 65e ✅ v627 (filtros Site, escolhas que cabem, balão B no Atacado) · 65d PARADO (dúvida da janela Adicionar, recado ao ESBOCO) · a seguir 65f (Dashboard: Desempenho do mês ⌄ e Curva ABC ⌄); a tela Giro sai junto com a família Compras (66), para a Lista de compras não ficar sem caminho
 - **66-familia-compras** — na fila — 'implementar' do dono 22/11 12:51 · APP · 2º (3 partes)
 - **67-familia-site-no-app** — na fila — 'implementar' do dono 22/11 12:51 · APP · 3º (SITE/IDEIAS: Campanha e ordem pelo Semp; painel web sai depois)
 - **68-destaque-da-semana-semp** — PARADO — espera o Semp refeito sobre a base nova (Marketing 1c é de 20/11, sem 'implementar'); dono 22/11 14:33
