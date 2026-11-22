@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 627;
+  var APP_BUILD = 628;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.52'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.53'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -10958,6 +10958,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   }
   // Linha simples de lista: título, apoio e valor à direita.
+  // Curva ABC (90 dias) em linhas: A · B · C, sem venda e os campeões (52e: Dashboard › Detalhes › "Curva ABC ⌄")
+  function abcCorpo(ab2) {
+    ab2 = ab2 || curvaAbc();
+    var n = function (l) { return l.length + (l.length === 1 ? ' produto' : ' produtos'); },
+      nA = ab2.lista.filter(function (m) { return m.abc === 'A'; }),
+      nB = ab2.lista.filter(function (m) { return m.abc === 'B'; }),
+      nC = ab2.lista.filter(function (m) { return m.abc === 'C'; }),
+      h = '<div class="split">' +
+        dxRow('A · dão 80% do lucro', '', n(nA)) +
+        dxRow('B · próximos 15%', '', n(nB)) +
+        dxRow('C · últimos 5%', '', n(nC)) +
+        dxRow('Sem venda em 90 dias', 'têm estoque', '<span' + (ab2.sem.length ? ' style="color:var(--warn)"' : '') + '>' + n(ab2.sem) + '</span>') +
+        '</div>';
+    if (nA.length)
+      h += '<div class="hint abcCamp">Campeões: ' + nA.slice(0, 5).map(function (m) { return esc(pn(m.ref)) + ' (' + usd0(m.profit90) + ')'; }).join(', ') + '.</div>';
+    return h;
+  }
   function dxRow(titulo, apoio, dir, extra) {
     return (
       '<div class="sl"><span>' +
@@ -11163,37 +11180,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     out.perdasC = html;
     html = '';
-    // curva abc
+    // curva abc (as linhas moram em abcCorpo: Giro e Dashboard › Detalhes)
     var ab2 = curvaAbc();
-    if (ab2.lista.length || ab2.sem.length) {
-      var nA = ab2.lista.filter(function (m) {
-          return m.abc === 'A';
-        }),
-        nB = ab2.lista.filter(function (m) {
-          return m.abc === 'B';
-        }).length,
-        nC = ab2.lista.filter(function (m) {
-          return m.abc === 'C';
-        }).length;
+    if (ab2.lista.length || ab2.sem.length)
       html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div><div class="split">' +
-        dxRow('A', 'dão 80% do lucro', nA.length + ' produto(s)') +
-        dxRow('B', 'próximos 15%', nB + ' produto(s)') +
-        dxRow('C', 'últimos 5%', nC + ' produto(s)') +
-        dxRow('Sem venda', 'têm estoque e não venderam em 90 dias', ab2.sem.length + ' produto(s)') +
-        '</div>';
-      if (nA.length) {
-        html += '<div class="hint" style="margin:0">Campeões: ';
-        html += nA
-          .slice(0, 5)
-          .map(function (m) {
-            return esc(pn(m.ref)) + ' (' + u0(m.profit90) + ')';
-          })
-          .join(', ');
-        html += '.</div>';
-      }
-      html += '</section>';
-    }
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div>' +
+        abcCorpo(ab2) +
+        '</section>';
     out.abc = html;
     return out;
   }
@@ -51906,12 +51899,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var abR = !!S._d48.res, bR = document.createElement('button'), cR = document.createElement('div');
         bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : lkCls(false));
         bR.setAttribute('data-act', 'd48Abre'); bR.setAttribute('data-id', 'res'); bR.setAttribute('aria-expanded', abR ? 'true' : 'false');
-        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '›') + '</i>';
+        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '⌄') + '</i>';
         cR.className = 'esCorpo esRes'; cR.innerHTML = rmH;
         if (!abR) cR.hidden = true;
         ls.appendChild(bR); ls.appendChild(cR);
       }
     } catch (e) {}
+    // 52e: "Desempenho do mês" (de Preços e do Giro) e "Curva ABC" (do Giro), na mesma linha que abre no lugar
+    [['des', 'Desempenho do mês', 'margem, lucro por peça, contas e retorno', d48Desempenho], ['abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', abcCorpo]].forEach(function (x) {
+      try { d48Linha(ls, x[0], x[1], x[2], x[3]()); } catch (e) {}
+    });
     cards.forEach(function (c, i) {
       var h = c.querySelector('h2'), t = d48Txt(h);
       if (!h) return;
@@ -51929,7 +51926,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : lkCls(false));
       b.setAttribute('data-act', 'd48Abre'); b.setAttribute('data-id', id); b.setAttribute('aria-expanded', ab ? 'true' : 'false');
-      b.innerHTML = '<span class="g"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">' + (ab ? '⌃' : '›') + '</i>';
+      b.innerHTML = '<span class="g"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</i>';
       ls.appendChild(b);
       c.classList.add('esCorpo');
       if (!ab) c.hidden = true;
@@ -51957,6 +51954,26 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (nota && nota.parentNode && nota !== n2) nota.remove();
     } else ks.after(t2);
     t2.after(ls);
+  }
+  // uma linha de Detalhes que abre no lugar (⌄) com o corpo embaixo
+  function d48Linha(ls, id, tit, sub, corpo) {
+    var ab = !!S._d48[id], b = document.createElement('button'), c = document.createElement('div');
+    b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : lkCls(false));
+    b.setAttribute('data-act', 'd48Abre'); b.setAttribute('data-id', id); b.setAttribute('aria-expanded', ab ? 'true' : 'false');
+    b.innerHTML = '<span class="g"><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span><i aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</i>';
+    c.className = 'esCorpo esD52'; c.innerHTML = corpo;
+    if (!ab) c.hidden = true;
+    ls.appendChild(b); ls.appendChild(c);
+  }
+  // os 4 números do mês: margem média, lucro por peça, contas cobertas e retorno do estoque (30 dias)
+  function d48Desempenho() {
+    var s = cntSaude(), ce = capitalEstoque(), r = function (v) { return 'US$ ' + v.toFixed(2).replace('.', ','); };
+    return '<div class="split">' +
+      dxRow('Margem média', 'sobre o preço de venda', Math.round(s.mg) + '%') +
+      dxRow('Lucro por peça', 'média do mês', gs(s.porPeca)) +
+      dxRow('Contas do mês cobertas', s.falta ? 'faltam ' + s.falta + (s.falta === 1 ? ' peça' : ' peças') : 'todas cobertas', '<span style="color:var(' + (s.cob >= 100 ? '--ok' : '--warn') + ')">' + s.cob + '%</span>') +
+      dxRow('Retorno do estoque', '30 dias · cada US$ 1 rendeu ' + r(ce.retorno), Math.round(ce.retorno * 100) + '%') +
+      '</div>';
   }
   // ---------- período Hoje (tela v-dia, só quando o dia é hoje) ----------
   function d48Dia() {

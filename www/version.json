@@ -1,1 +1,1 @@
-{"v":627,"nat":1,"nome":"5.50.52","notas":["Filtros do Inventário: novo bloco Site, com \"No site\" e \"Ocultos\".","Nenhuma escolha de opções corta mais o texto (ex.: \"Intermediário\"): se não couber, a letra diminui um pouco.","Atacado › Mensagens: tela vazia nova, com o balão de conversa."]}
+{"v":628,"nat":1,"nome":"5.50.53","notas":["Dashboard do mês › Detalhes: entram \"Desempenho do mês\" (margem, lucro por peça, contas cobertas e retorno do estoque) e \"Curva ABC\".","As linhas de Detalhes agora abrem ali mesmo, com a setinha ⌄."]}

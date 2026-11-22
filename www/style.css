@@ -3186,3 +3186,10 @@ body.nvRail .nvVs{display:none}
 .ladosC[data-cabe='1']>button{font-size:14px}
 .ladosC[data-cabe='2']>button{font-size:13px}
 .ladosC[data-cabe='3']>button{font-size:12px}
+/* 52e: as linhas de número dentro de "Desempenho do mês" e "Curva ABC" (Dashboard › Detalhes) */
+.esD52 .split{display:flex;flex-direction:column;gap:0}
+.esD52 .split>.sl{min-height:56px;padding:8px 0;border-top:1px solid var(--line2,var(--line));font-size:16px}
+.esD52 .split>.sl:first-child{border-top:0}
+.esD52 .sl small{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+.esD52 .sl>b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.abcCamp{margin:0}.esD52 .abcCamp{margin-top:8px}

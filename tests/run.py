@@ -4467,6 +4467,30 @@ async def main():
             if not ok: falhas.append('65e filtros site'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Família Inventário 65f (52e): Dashboard do mês › Detalhes ganha "Desempenho do mês ⌄" e "Curva ABC ⌄" (logo depois de Resultado do mês);
+            # as linhas de Detalhes abrem no lugar e usam ⌄ (regra 16); os números são os mesmos de Preços (cntSaude) e do capital do estoque.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              S.dTab = 'hoje'; L.setView('dash'); await w(700);
+              const ln = () => [...document.querySelectorAll('#v-dash .esLs > .esLn')];
+              R.linhas = ln().map(b => [b.getAttribute('data-id'), b.querySelector('b').textContent, b.querySelector('i').textContent]);
+              L.ACT.d48Abre('des'); await w(400);
+              let c = document.querySelector('[data-act=d48Abre][data-id=des]').nextElementSibling;
+              R.des = [!c.hidden, [...c.querySelectorAll('.sl')].map(x => x.querySelector('span').firstChild.textContent.trim() + '=' + x.querySelector('b').textContent.trim()), document.querySelector('[data-id=des] i').textContent];
+              L.ACT.d48Abre('abc'); await w(400);
+              c = document.querySelector('[data-act=d48Abre][data-id=abc]').nextElementSibling;
+              R.abc = [!c.hidden, [...c.querySelectorAll('.sl')].map(x => x.querySelector('span').firstChild.textContent.trim())];
+              L.ACT.d48Abre('des'); L.ACT.d48Abre('abc'); await w(200);
+              return R; }""")
+            total += 1
+            ids = [x[0] for x in got['linhas']]
+            ok = (ids[:3] == ['res', 'des', 'abc'] and all(x[2] == '⌄' for x in got['linhas'])
+                  and got['des'][0] and [x.split('=')[0] for x in got['des'][1]] == ['Margem média', 'Lucro por peça', 'Contas do mês cobertas', 'Retorno do estoque'] and all(x.split('=')[1] for x in got['des'][1]) and got['des'][2] == '⌃'
+                  and got['abc'] == [True, ['A · dão 80% do lucro', 'B · próximos 15%', 'C · últimos 5%', 'Sem venda em 90 dias']] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Inventário 65f: Dashboard › Detalhes com Desempenho do mês ⌄ e Curva ABC ⌄ depois de Resultado do mês; linhas de Detalhes com ⌄')
+            if not ok: falhas.append('65f dashboard detalhes'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

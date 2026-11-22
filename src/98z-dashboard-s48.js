@@ -97,12 +97,16 @@
         var abR = !!S._d48.res, bR = document.createElement('button'), cR = document.createElement('div');
         bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : lkCls(false));
         bR.setAttribute('data-act', 'd48Abre'); bR.setAttribute('data-id', 'res'); bR.setAttribute('aria-expanded', abR ? 'true' : 'false');
-        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '›') + '</i>';
+        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '⌄') + '</i>';
         cR.className = 'esCorpo esRes'; cR.innerHTML = rmH;
         if (!abR) cR.hidden = true;
         ls.appendChild(bR); ls.appendChild(cR);
       }
     } catch (e) {}
+    // 52e: "Desempenho do mês" (de Preços e do Giro) e "Curva ABC" (do Giro), na mesma linha que abre no lugar
+    [['des', 'Desempenho do mês', 'margem, lucro por peça, contas e retorno', d48Desempenho], ['abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', abcCorpo]].forEach(function (x) {
+      try { d48Linha(ls, x[0], x[1], x[2], x[3]()); } catch (e) {}
+    });
     cards.forEach(function (c, i) {
       var h = c.querySelector('h2'), t = d48Txt(h);
       if (!h) return;
@@ -120,7 +124,7 @@
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : lkCls(false));
       b.setAttribute('data-act', 'd48Abre'); b.setAttribute('data-id', id); b.setAttribute('aria-expanded', ab ? 'true' : 'false');
-      b.innerHTML = '<span class="g"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">' + (ab ? '⌃' : '›') + '</i>';
+      b.innerHTML = '<span class="g"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</i>';
       ls.appendChild(b);
       c.classList.add('esCorpo');
       if (!ab) c.hidden = true;
@@ -148,6 +152,26 @@
       if (nota && nota.parentNode && nota !== n2) nota.remove();
     } else ks.after(t2);
     t2.after(ls);
+  }
+  // uma linha de Detalhes que abre no lugar (⌄) com o corpo embaixo
+  function d48Linha(ls, id, tit, sub, corpo) {
+    var ab = !!S._d48[id], b = document.createElement('button'), c = document.createElement('div');
+    b.type = 'button'; b.className = 'esLn' + (ab ? ' on' : lkCls(false));
+    b.setAttribute('data-act', 'd48Abre'); b.setAttribute('data-id', id); b.setAttribute('aria-expanded', ab ? 'true' : 'false');
+    b.innerHTML = '<span class="g"><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span><i aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</i>';
+    c.className = 'esCorpo esD52'; c.innerHTML = corpo;
+    if (!ab) c.hidden = true;
+    ls.appendChild(b); ls.appendChild(c);
+  }
+  // os 4 números do mês: margem média, lucro por peça, contas cobertas e retorno do estoque (30 dias)
+  function d48Desempenho() {
+    var s = cntSaude(), ce = capitalEstoque(), r = function (v) { return 'US$ ' + v.toFixed(2).replace('.', ','); };
+    return '<div class="split">' +
+      dxRow('Margem média', 'sobre o preço de venda', Math.round(s.mg) + '%') +
+      dxRow('Lucro por peça', 'média do mês', gs(s.porPeca)) +
+      dxRow('Contas do mês cobertas', s.falta ? 'faltam ' + s.falta + (s.falta === 1 ? ' peça' : ' peças') : 'todas cobertas', '<span style="color:var(' + (s.cob >= 100 ? '--ok' : '--warn') + ')">' + s.cob + '%</span>') +
+      dxRow('Retorno do estoque', '30 dias · cada US$ 1 rendeu ' + r(ce.retorno), Math.round(ce.retorno * 100) + '%') +
+      '</div>';
   }
   // ---------- período Hoje (tela v-dia, só quando o dia é hoje) ----------
   function d48Dia() {

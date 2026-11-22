@@ -236,6 +236,23 @@
     });
   }
   // Linha simples de lista: título, apoio e valor à direita.
+  // Curva ABC (90 dias) em linhas: A · B · C, sem venda e os campeões (52e: Dashboard › Detalhes › "Curva ABC ⌄")
+  function abcCorpo(ab2) {
+    ab2 = ab2 || curvaAbc();
+    var n = function (l) { return l.length + (l.length === 1 ? ' produto' : ' produtos'); },
+      nA = ab2.lista.filter(function (m) { return m.abc === 'A'; }),
+      nB = ab2.lista.filter(function (m) { return m.abc === 'B'; }),
+      nC = ab2.lista.filter(function (m) { return m.abc === 'C'; }),
+      h = '<div class="split">' +
+        dxRow('A · dão 80% do lucro', '', n(nA)) +
+        dxRow('B · próximos 15%', '', n(nB)) +
+        dxRow('C · últimos 5%', '', n(nC)) +
+        dxRow('Sem venda em 90 dias', 'têm estoque', '<span' + (ab2.sem.length ? ' style="color:var(--warn)"' : '') + '>' + n(ab2.sem) + '</span>') +
+        '</div>';
+    if (nA.length)
+      h += '<div class="hint abcCamp">Campeões: ' + nA.slice(0, 5).map(function (m) { return esc(pn(m.ref)) + ' (' + usd0(m.profit90) + ')'; }).join(', ') + '.</div>';
+    return h;
+  }
   function dxRow(titulo, apoio, dir, extra) {
     return (
       '<div class="sl"><span>' +
@@ -441,37 +458,13 @@
     }
     out.perdasC = html;
     html = '';
-    // curva abc
+    // curva abc (as linhas moram em abcCorpo: Giro e Dashboard › Detalhes)
     var ab2 = curvaAbc();
-    if (ab2.lista.length || ab2.sem.length) {
-      var nA = ab2.lista.filter(function (m) {
-          return m.abc === 'A';
-        }),
-        nB = ab2.lista.filter(function (m) {
-          return m.abc === 'B';
-        }).length,
-        nC = ab2.lista.filter(function (m) {
-          return m.abc === 'C';
-        }).length;
+    if (ab2.lista.length || ab2.sem.length)
       html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div><div class="split">' +
-        dxRow('A', 'dão 80% do lucro', nA.length + ' produto(s)') +
-        dxRow('B', 'próximos 15%', nB + ' produto(s)') +
-        dxRow('C', 'últimos 5%', nC + ' produto(s)') +
-        dxRow('Sem venda', 'têm estoque e não venderam em 90 dias', ab2.sem.length + ' produto(s)') +
-        '</div>';
-      if (nA.length) {
-        html += '<div class="hint" style="margin:0">Campeões: ';
-        html += nA
-          .slice(0, 5)
-          .map(function (m) {
-            return esc(pn(m.ref)) + ' (' + u0(m.profit90) + ')';
-          })
-          .join(', ');
-        html += '.</div>';
-      }
-      html += '</section>';
-    }
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div>' +
+        abcCorpo(ab2) +
+        '</section>';
     out.abc = html;
     return out;
   }
