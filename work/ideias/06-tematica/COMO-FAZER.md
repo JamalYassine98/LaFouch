@@ -202,3 +202,20 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - **Mais de uma unidade da mesma peça:** cada unidade é um pacote, com o mesmo cartão. Em "Todas juntas", vai tudo junto.
 - **Botão "Prosseguir com o pagamento" em vinho (`#7a1f3d`) no lugar do verde.** A regra 17 já diz "rosa/vinho = ação" e "verde = certo". Prosseguir é uma ação, então vinho é o certo, e é mais luxo. O verde fica para o que está certo (preços, "salvo").
 - **Esboço:** `esboco-06g-presente.jpg` (Hoje | caixinha | como embrulhar | Todas juntas | o cartão).
+
+### 06g v4 (dono 22/11 15:57–15:59): presente POR PEDIDO, como no luxo. Substitui as v1–v3.
+- **Referência:** Cartier e Tiffany entregam tudo embalado numa sacola só, e o "presente" é o cartão. A Cartier põe um cartão em toda compra; a Tiffany deixa escrever.
+- **La Fouch:**
+  - toda peça já vai com flanela e estojo;
+  - **nos eventos, todo pedido leva um mimo**: spray de limpeza e um cartão La Fouch;
+  - **a única escolha é o embrulho**, um por pedido.
+- **Carrinho:**
+  - frase em itálico no topo (só no evento): "Neste Natal, todo pedido leva um mimo: spray de limpeza e um cartão La Fouch.";
+  - **um** cartão abaixo das peças: caixinha "Embrulhar para presente" (a tampa fecha ao marcar, na cor da data) e "Escrever o cartão ›";
+  - o cartão abre na janela de baixo com **Salvar**; salvo, aparece em itálico serifado, com "Editar o cartão ›";
+  - Resumo: "Embrulho para presente · cortesia".
+  - O botão de pagar fica em vinho (regra 17).
+- **Saem:** a caixinha em cada peça e a pergunta "Como embrulhar os presentes?".
+- **Pedido no app:** "🎁 Embrulhar · cartão: '…'" ou "cartão: '…'" (sem embrulho). O mimo do evento entra sempre que o evento está ligado.
+- **Custo previsível:** estojo e flanela (já existem), mais o mimo e o cartão no evento, mais um embrulho só quando o cliente pede.
+- **Esboço:** `esboco-06g-presente.jpg` (Hoje | topo | sem embrulho | o cartão | com embrulho e cartão).
