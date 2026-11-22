@@ -1,8 +1,7 @@
 {
- "nome": "5.50.47",
+ "nome": "5.50.48",
  "notas": [
-  "Estúdio: cada peça tem a Galeria dela — a frente, a 3/4 e o giro. No giro, arraste com o dedo para girar a peça e conferir antes de ir para o site.",
-  "Na Galeria dá para refazer a frente, tirar a 3/4 que falta ou gravar o giro. A ficha da peça fica no fim."
+  "Editar produto › Cores e fotos: saiu o \"Trocar foto\" do topo, que tirava foto sem tratamento e sem dizer a cor. A foto de cada cor se troca na linha da cor e passa sempre pela câmera do Estúdio."
  ],
- "build": 622
+ "build": 623
 }

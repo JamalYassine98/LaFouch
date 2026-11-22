@@ -1210,7 +1210,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 /* Editar produto (Cadastro B completo) */
 .edFoto{display:flex;align-items:center;gap:12px}
 .edFotoI{width:120px;height:84px;border-radius:12px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px;flex:none}.edFotoI img{width:100%;height:100%;object-fit:contain}
-.edTroca,.edSec{background:transparent!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important}
+.edSec{background:transparent!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important}
 .edTrk{margin:2px 0}
 .trkB:disabled{opacity:.35}
 .edLixo{color:var(--bad)}

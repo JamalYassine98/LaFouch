@@ -226,18 +226,6 @@
       }),
       cor = sel.cor,
       src = photoOf(ref, cor);
-    // escolhe a foto da cor atual (galeria ou câmera)
-    function pickPhoto() {
-      S.photoFor = { ref: ref, cor: cor };
-      camOpen(
-        function (f) {
-          window.__GAL = false;
-          $('file').onchange({ target: { files: [f] } });
-        },
-        'Foto da cor ' + cor,
-        { gallery: true, peca: ref + '|' + cor, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
-      );
-    }
     var head = mk('div', '');
     head.style.cssText =
       'display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center';
@@ -820,23 +808,17 @@
         d.appendChild(el);
         return d;
       };
-      // v417: Editar produto = Cadastro B completo. Foto no topo (Trocar foto), lixeira com tampa,
+      // v417: Editar produto = Cadastro B completo. Foto no topo (a identidade da peça, sem botão — esboço 42), lixeira com tampa,
       // abas Modelo | Cores e fotos em trilho e "Salvar alterações" fixo.
       var cur = S.edStep === 2 ? 2 : 1,
         gA = mk('div', 'col'),
         gB = mk('div', 'col'),
         g = [null, gA, gB, gA, gA];
       gA.style.gap = gB.style.gap = '14px';
+      // Esboço 42 (aprovado 21/11 07:51): a foto de uma cor tem UM caminho — a câmera do Estúdio, que trata (fundo branco, enquadramento, nota)
+      // e grava na cor certa. A miniatura da linha, o "Trocar foto" da cor aberta e o selo "refazer ›" chamam esta função; saiu a câmera crua.
       var fotoDaCor = function (c) {
-        S.photoFor = { ref: ref, cor: c };
-        camOpen(
-          function (fl) {
-            window.__GAL = false;
-            $('file').onchange({ target: { files: [fl] } });
-          },
-          'Foto da cor ' + c,
-          { gallery: true, peca: ref + '|' + c, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
-        );
+        estCam({ k: ref + '|' + c, ref: ref, cor: c, passo: 'frente', titulo: pn(ref) + ' · ' + c, salva: true, fim: function () { render(); } });
       };
       var hd = mk('div', '');
       hd.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:8px';
@@ -933,12 +915,9 @@
         pz.appendChild(pr0);
         bx.appendChild(pz);
       }
-      // foto no topo + Trocar foto
+      // foto no topo: a identidade da peça, sem botão (a foto de cada cor se troca na linha da cor, pelo Estúdio)
       var pt = mk('div', 'edFoto');
       pt.innerHTML = '<div class="edFotoI">' + (src ? '<img alt="' + esc(cor) + '" src="' + src + '">' : '<span>sem foto</span>') + '</div>';
-      var tf = btn('mini edTroca', src ? 'Trocar foto' : 'Adicionar foto', pickPhoto);
-      tf.id = 'edTrocaFoto';
-      pt.appendChild(tf);
       if (!f.bulk) bx.appendChild(pt);
       // abas em trilho
       var etp = mk('div', 'trk edTrk');
@@ -1175,7 +1154,7 @@
             var rf = sx.querySelector('[data-refaz]');
             if (rf)
               rf.onclick = function () {
-                estCam({ k: ref + '|' + i.cor, ref: ref, cor: i.cor, passo: 'frente', titulo: pn(ref) + ' · ' + i.cor, salva: true, fim: function () { render(); } });
+                fotoDaCor(i.cor);
               };
           }
         } catch (e) {}

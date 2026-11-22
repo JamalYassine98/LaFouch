@@ -4309,6 +4309,31 @@ async def main():
             if not ok: falhas.append('41 galeria da peca'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 42a (aprovado 21/11 07:51): Editar produto › Cores e fotos sem o "Trocar foto" do topo (câmera crua, sem dizer a cor); a foto de uma
+            # cor tem UM caminho — a câmera do Estúdio, que trata e grava na cor certa: a miniatura da linha e o selo "refazer ›" abrem #estCam nessa cor.
+            pg = await pagina()
+            await pg.evaluate(cena)
+            await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(600)
+            await pg.evaluate("() => { [...document.querySelectorAll('#v-estoque .pcard')].find(x => x.dataset.ref === 'SP58110').click(); }"); await pg.wait_for_timeout(800)
+            await pg.evaluate("() => { window.__LF.S.qEdit = true; window.__LF.render(); document.getElementById('edTab2').click(); }"); await pg.wait_for_timeout(900)
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)), R = {}, j = document.querySelector('.ljJn.edJn') || document;
+              R.topo = [!!document.getElementById('edTrocaFoto'), !!j.querySelector('.edFoto'), j.querySelectorAll('.edFoto button').length, /Adicionar foto/.test(j.textContent)];
+              const ft = j.querySelector('.cfFt[aria-label^="Foto da cor"]'), cor = ft.getAttribute('aria-label').replace('Foto da cor ', '');
+              ft.click(); await w(2500);
+              const cam = document.getElementById('estCam'), tag = cam && cam.querySelector('.ecTag');
+              R.cam = [!!cam, tag ? [...tag.children].map(e => e.textContent).slice(0, 4) : [], cor];
+              if (cam) cam.querySelector('[data-c=x]').click(); await w(400);
+              return R; }""")
+            det = fontes['10-estoque-detalhe.js']
+            total += 1
+            ok = (got['topo'] == [False, True, 0, False] and got['cam'][0] and got['cam'][1][0] in ('Giro para', 'Foto para') and   # a câmera do Estúdio abre no Vídeo (149cam-F); o ícone troca para Foto
+                   got['cam'][1][2] == got['cam'][2] and got['cam'][1][3] == 'SP58110'
+                  and 'pickPhoto' not in det and 'S.photoFor = { ref: ref' not in det and det.count('estCam({ k: ref + ') == 1
+                  and '.edTroca' not in open(os.path.join(RAIZ, 'www', 'style.css'), encoding='utf-8').read() and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 42a: Cores e fotos sem "Trocar foto" no topo; a foto da cor abre a câmera do Estúdio na cor certa (um caminho só, sem câmera crua)')
+            if not ok: falhas.append('42a sem trocar foto'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
