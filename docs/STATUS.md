@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| NUVEM | Estudo App Check exigir: site esperar o selo (esboço para SITE) | work/nuvem-appcheck |
 | SITE | Ferramentas parte 1 (aprovada 22/11 02:22): o Argus/comparador olha todas as telas do site (roteiro único) | work/s430/comparador/compara.py, work/fiscal/argus.py |
 
 ## Fila
@@ -141,6 +140,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 14:50 — NUVEM: App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'.
 - 22/11 14:48 — IDEIAS: IDEIAS 06c v2: neve com sensação de neve (Fila 65)
 - 22/11 14:17 — IDEIAS: IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha
 - 22/11 14:08 — IDEIAS: IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória
@@ -165,4 +165,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
 - 21/11 22:26 — APP: v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro).
-- 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.

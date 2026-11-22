@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "Estudo App Check exigir: site esperar o selo (esboço para SITE)",
- "arquivos": [
-  "work/nuvem-appcheck"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795369800.1692832,
+   "r": "App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'."
+  },
   {
    "t": 1795276981.3124948,
    "r": "39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP."
@@ -40,10 +42,6 @@
   {
    "t": 1795216590.9806871,
    "r": "Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos."
-  },
-  {
-   "t": 1795216249.9101667,
-   "r": "S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto."
   }
  ],
  "leu": 1795369442.0958629
