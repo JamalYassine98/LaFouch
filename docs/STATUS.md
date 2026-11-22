@@ -107,32 +107,6 @@
 
 ## Recados esperando
 
-- para **ESBOCO**: No ar: v598 (136a) e v599 (por dentro: renderDetail = fichaCorpo + fichaBotao/fichaBarra/fichaLucro/fichaPreco; saíram as 4 camadas; HTML idêntico). Próximo: 13
-- para **ESBOCO**: No ar: v600 (links da ficha no fim, fichaLinks) e v601 (ficha do Inventário sem o cartão no celular; .pl.pick como linha de lista; rowLabel sem '· ' solto). Par
-- para **ESBOCO**: No ar: v602 (ficha sem caixas: preço, % Oferta neutro, aviso em frase, No site e dobras em linhas — nascem sem a classe card) e v603 (134b Fornecedores: section
-- para **ESBOCO**: No ar: v604 — 134d parte 1: 'Editar produto' na lfJanela (classe edJn; conteúdo #editModal/.edBx), sem Fechar; Esc/fora/arrastar saem sem salvar. Falta a pergun
-- para **ESBOCO**: No ar: v605 — lfJanela com a opção mudou() (pergunta 'Sair sem salvar?' via lfConfirma; api.fecha(true) força). 'Editar produto' já usa; as outras janelas de cr
-- para **ESBOCO**: No ar: v606 — 39 no app (Pendências com PIX sem par primeiro; janela 'Ligar a um pedido'). Diferença do esboço 39c: a linha do pedido diz 'pedido de hoje HH:MM'
-- para **ESBOCO**: APP: fechei 4b, 4c e do 4d tudo menos o 149s (espera o dono: Caixa e Vender mudam fora das 9). 39 no app ✅ v606; item 38 etapa 1 ✅ v607 (plano em work/s436/came
-- para **ESBOCO**: v608 publicada (37a): tocar num grupo no Início/busca abre o índice do grupo; Marketing segue direto. Conferir Início › grupos e busca.
-- para **ESBOCO**: v609 publicada (37b): ícones de lista em cinza no Início, 'Vendido hoje' e índice dos grupos, claro e escuro. Conferir. Fotos em work/s436/37b/.
-- para **ESBOCO**: v610 publicada (37c): links soltos nascem declarados, sem adivinhação. Conferir: Ajustes › Cópias e nuvem (linhas normais), 'Gerenciar grupo ›' cinza, busca do 
-- para **ESBOCO**: v611 publicada (37d parte 1): Ajustes em 3 blocos, sem cartão, sacola em Pedidos do site, nuvem sem quebrar. Conferir Ajustes claro/escuro, abrir cada linha, ar
-- para **ESBOCO**: v612 publicada (37d parte 2): Marca em Ajustes › Loja abre janela com Salvar; Kit da marca saiu do Marketing. Conferir a linha, a janela (campos ainda em caixas
-- para **ESBOCO**: v613 publicada (38 parte A): aviso curto com a cor do tipo. Conferir os 4 tipos (fotos em work/s436/38/) e se alguma frase ficou com a cor errada (lista: grep l
-- para **ESBOCO**: v614 publicada (38 parte B): aviso 8 px acima da barra ou do botão da janela; chip/lixeira do Início e barra do Estúdio no mesmo chão (chip desceu ~11 px, lixei
-- para **ESBOCO**: v615 publicada (40a): 'Câmera reta' no Vídeo do Estúdio (sensor único camNivel; frase com graus e lado; horizonte gira). Conferir contra o esboço 40 (foto em wo
-- para **ESBOCO**: v616 publicada (40b): 'Peça reta' na câmera do giro (11 itens; guias com traços, tracejado e seta). Conferir contra o esboço 40 (fotos em work/s436/40/). No por
-- para **ESBOCO**: v617 publicada (40c): o tratamento endireita o giro até ±3° (0,5° = reta, não mexe). Prova de ponta a ponta e fotos em work/s436/40/. Atenção ao texto do esboço
-- para **ESBOCO**: v619 publicada (41 parte 1): marcas Frente · 3/4 · Giro em cada linha do Estúdio (fotos em work/s436/41/). O link segue 'Ficha ›' até a Galeria da peça entrar (
-- para **ESBOCO**: v620 publicada: Leve 2 do SITE saiu do app (regra, campo l2 da vitrine, leitura no pedido, rótulos). Pedido antigo com o desconto mostra 'Desconto do site'. NÃO
-- para **ESBOCO**: v621 publicada (41 parte 2): a câmera diz para qual peça vai (fotos em work/s436/41/camera_para_qual_peca_*). Achado L4 confirmado: com cabeçalho + frase + 11 i
-- para **ESBOCO**: v622 publicada (41 parte 3): Galeria da peça (fotos em work/s436/41/galeria_*). Conferir contra o esboço 41a: topo, blocos, tracejado, giro com o dedo, links. P
-- para **ESBOCO**: v623 publicada (42a): Editar › Cores e fotos sem 'Trocar foto' no topo; miniatura da cor e 'refazer ›' abrem a câmera do Estúdio (que abre no Vídeo). Conferir c
-- para **ESBOCO**: v624 publicada (42b): '+ Nova cor ›' com a janela no Editar (fotos em work/s436/42/). Dois pontos do esboço 42 não fecham com o código: (1) 'tirar uma foto e o 
-- para **ESBOCO**: APP terminou o 'implementar tudo' de 21/11 08:03 (v589–v624). Lista final para o dono: work/s436/LISTA-FINAL-DONO.md (o que conferir no celular, 19 decisões, o 
-- para **ESBOCO**: Dono 22/11 01:46: a lista final da APP fica guardada até depois da fase do esboço 'famílias'. Quando o esboço estiver aprovado e com o 'implementar', mande à AP
-- para **ESBOCO**: Pisca do Destaque: CONSERTADO no site 1795331899. Causa 1: img.lfq0 (esconder para enquadrar) herdava a saída suave de .45 s do destaque e a foto crua aparecia 
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
