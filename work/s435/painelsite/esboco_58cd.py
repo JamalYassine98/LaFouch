@@ -26,12 +26,11 @@ def destaque(pw):
    return '<div class="e49">'+TOP('Site','Destaque','o cartão grande no topo do site',0)+
     T('As peças',1)+'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">Destaque da semana</b><small style="font-size:13px;color:var(--mute)">4 peças escolhidas pelo Semp</small></span><i style="font-style:normal;color:var(--mute);font-size:20px">›</i></div>'+
     T('Formato')+RAD('Slide de fotos','as 4 peças passando sozinhas',1)+RAD('Vídeo','o comercial da semana, sem som',0)+RAD('Uma peça','só a primeira do destaque',0)+RAD('Nada','só o título e os botões',0)+
-    T('Efeitos')+SW('Entrada em cascata','o cartão sobe ao abrir',1)+SW('Inclinação 3D','inclina com o dedo, com brilho',0)+SW('Respiração','o óculos aproxima e volta',1)+SW('Reflexo nas lentes','uma luz passa pelas lentes',0)+
     T('Ordem do catálogo')+'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">Pelo Semp</b><small style="font-size:13px;color:var(--mute)">destaque e as mais vendidas · igual ao Vender</small></span><i style="font-style:normal;color:var(--mute);font-size:20px">⌄</i></div>'+
     '<div style="color:var(--mute);font-size:13px;margin:16px 0 32px">Para fixar uma peça no topo: na ficha dela, aba Site.</div></div>'}""",I)
   pagina(pg,html);w(500);pg.add_style_tag(content='#mainnav,#nvBar{display:none!important}')
   confere(pg,'Destaque proposta');pg.screenshot(path='/tmp/d58.png',full_page=True);x=Image.open('/tmp/d58.png').copy();b.close();return x
 with sync_playwright() as pw:
   quadro('esboco_58c_familia_site.jpg',[('HOJE · Site','Resumo · Pedidos · Mensagens · Vitrine · Modelos',indice(pw,0)),('PROPOSTA · Site','sem repetir: Modelos e Analisador saem · Avaliações juntas',indice(pw,1))])
-  quadro('esboco_58d_destaque.jpg',[('HOJE · Vitrine (painel)','destaque "Automático" · ordem · precisa de atenção · opiniões',Image.open(O+'h4_vitrine.jpg').crop((0,0,780,1688))),('PROPOSTA · Destaque','peças do Semp · formato · efeitos · ordem única',destaque(pw))])
+  quadro('esboco_58d_destaque.jpg',[('HOJE · Vitrine (painel)','destaque "Automático" · ordem · precisa de atenção · opiniões',Image.open(O+'h4_vitrine.jpg').crop((0,0,780,1688))),('PROPOSTA · Destaque','peças do Semp · formato · ordem única (movimento: sessão de ideias do site)',destaque(pw))])
 for n,f in REL: print(n,len(f),f[:4])
