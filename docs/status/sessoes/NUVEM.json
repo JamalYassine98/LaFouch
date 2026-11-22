@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Estudo App Check exigir: site esperar o selo (esboço para SITE)",
+ "arquivos": [
+  "work/nuvem-appcheck"
+ ],
  "ultimas": [
   {
    "t": 1795276981.3124948,
@@ -44,5 +46,5 @@
    "r": "S3 completo: regras fecham pedidos/ e vistas/ (publicado e conferido no ar, 403); sonda ganhou essa conferência; recado ao SITE para tirar o vistaEnvia morto."
   }
  ],
- "leu": 1795367781.4094827
+ "leu": 1795369442.0958629
 }
