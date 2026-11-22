@@ -1,2 +1,2 @@
-49a REPROVADO 22/11 00:29 (Atacado mantém as abas) · 49b esperando o dono · 49c superado
+49a REPROVADO · 49b superado pelo 58 (Modelos vira filtro) · 49c superado — fechado
 work/s435/selo/esboco_49b_modelos.jpg
