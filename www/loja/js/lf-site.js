@@ -19,7 +19,7 @@
   /* loading=lazy: a foto que está fora da tela (ou em tela fechada) só desce quando chega perto — as da 1ª tela ficam com a rede (internet fraca) */
   function vis(p){return '<img class="pf" data-pf="'+p.ref+'"'+(p.foto?' src="'+p.foto+'"':'')+' alt="'+esc(p.nome)+'" loading="lazy" decoding="async" draggable="false">'}
   function poeFoto(p,d){p.foto=d;document.querySelectorAll('[data-pf="'+p.ref+'"]').forEach(function(e){if(e.tagName==='IMG'){if(!e.getAttribute('src'))e.src=d}else if(!e.style.backgroundImage)e.style.backgroundImage='url("'+d+'")'})}
-  function colorFoto(p,i,cb){if(!i){cb(p.foto);return}p.fc=p.fc||[];if(p.fc[i]){cb(p.fc[i]);return}fbg('fotos/'+p.ref+'~'+i).then(function(d){var o=fbd(d);if(o.d){p.fc[i]=o.d;cb(o.d)}}).catch(function(){})}
+  function colorFoto(p,i,cb){if(!i){cb(p.foto);return}p.fc=p.fc||[];if(p.fc[i]){cb(p.fc[i]);return}fbg('fotos/'+p.ref+'~'+i).then(function(d){var o=fbd(d);if(o.d)p.fc[i]=o.d;cb(o.d||'')},function(){cb('')})}/* sem a foto da cor, avisa com '' (quem pediu decide o que mostrar) */
   function find(ref){return P.filter(function(p){return p.ref===ref})[0]}
   function bruto(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*find(k).n},0)}
   function brutoD(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*LFI.pv(find(k).n)},0)}
@@ -2050,8 +2050,12 @@
     var lab=ed?(((e&&e.lab)||ed.lab)+(e.tema==='natal'?' '+new Date().getFullYear():e.tema==='anonovo'?' '+(new Date().getFullYear()+(new Date().getMonth()===0?0:1)):'')):'DESTAQUE DA SEMANA';
     var tit=e&&e.th?e.th:e&&e.tit?esc(e.tit):(ed?ed.h:nomeEm(p?nomeSC(p):'')),sub=e&&e.sub?esc(e.sub):(ed?ed.sub:'');
     var gv=p&&p.gv&&!matchMedia('(prefers-reduced-motion: reduce)').matches?'/'+String(p.gv).replace(/^\/+/,''):'';
-    var hci=p?melhorCor(p):0,pF=p&&hci&&p.fc&&p.fc[hci]?Object.assign({},p,{foto:p.fc[hci]}):p;if(p&&hci&&!(p.fc&&p.fc[hci])&&p.lib)colorFoto(p,hci,function(u){var im=document.querySelector('#hdst .hdi img');if(im&&u)im.src=u});
-    var imgA=vid?'<video src="'+esc(vid)+'" autoplay muted loop playsinline></video>':gv?img5(pF)+'<video class="hgv" src="'+esc(gv)+'" autoplay muted loop playsinline disablepictureinpicture onerror="this.remove()"></video>':img5(pF);
+    /* 22/11 (bug do dono: o Destaque piscava): a foto do destaque é decidida ANTES de aparecer. Se a cor que vai ser mostrada ainda não chegou,
+       o lugar fica vazio até ela chegar (antes aparecia a foto da 1ª cor e era trocada em seguida); se ela não vier, entra a foto principal. */
+    var hci=p?melhorCor(p):0,temC=!!(p&&hci&&p.fc&&p.fc[hci]),espC=!!(p&&hci&&!temC&&p.lib),pF=temC?Object.assign({},p,{foto:p.fc[hci]}):p;
+    if(espC)colorFoto(p,hci,function(u){var im=document.querySelector('#hdst[data-hcor="'+hci+'"] .hdi img');if(im&&!im.getAttribute('src'))im.src=u||p.foto||''});
+    var imgD=espC?'<img class="pf" alt="'+esc(p.nome)+'" draggable="false">':img5(pF);
+    var imgA=vid?'<video src="'+esc(vid)+'" autoplay muted loop playsinline></video>':gv?imgD+'<video class="hgv" src="'+esc(gv)+'" autoplay muted loop playsinline disablepictureinpicture onerror="this.remove()"></video>':imgD;
     return '<section class="hd" id="hdst"'+(p&&hci?' data-hcor="'+hci+'"':'')+'><button type="button" class="hdi" '+(p?'data-open="'+p.ref+'" aria-label="'+LFI.tr('Ver')+' '+esc(p.nome)+'"':'')+'>'+imgA+(p&&p.gv?'<span class="h360">↻ 360°</span>':'')+(p&&multiC(p)?'<span class="hnc">'+p.cores.length+' '+LFI.tr('cores')+'</span>':'')+(ed&&ed.deco?'<span class="hdeco">'+ed.deco+'</span>':'')+'</button>'+
       '<div class="hdt"><span class="hlb">'+lab+'</span><h1>'+tit+'</h1>'+(sub?'<p class="hsub">'+sub+'</p>':'')+(ed&&p?'<p class="hsub" style="margin-top:6px"><b>'+esc(p.nome)+'</b></p>':'')+cdHtml(e)+(p&&multiC(p)&&!ed?'<p class="hcor">'+LFI.tr('Cor:')+' <b>'+esc(corNome(p,hci))+'</b></p>':'')+
       (p?'<div class="hpr">'+prc5(p)+'</div>':'')+'<div class="hbt">'+(p?'<button type="button" class="p1" data-open="'+p.ref+'">'+LFI.tr('Ver modelo')+'</button>':'')+'<a class="p2" href="#vitrine"'+(e&&e.tema==='bf'?' data-mf="tipo:of"':'')+'>'+LFI.tr(ed?ed.b2:'Ver catálogo')+' <i>›</i></a></div>'+

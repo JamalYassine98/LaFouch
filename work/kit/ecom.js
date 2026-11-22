@@ -1,5 +1,5 @@
 // DESIGNER DE E-COMMERCE (13/11/2026, pedido do dono): critérios de loja online profissional, medidos na tela real.
-// Devolve uma lista de textos "ECOM: ...". Rodado pelo kit (kit.py) e pelo porteiro (parte 8).
+// Devolve uma lista de textos "ECOM: ...". Rodado pelo kit (kit.py) e pelo Argus (parte 8).
 (() => {
   const out = [], W = innerWidth, H = innerHeight, mob = W < 700;
   const vis = (e) => { const r = e.getBoundingClientRect(), s = getComputedStyle(e); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity > 0.05 && r.bottom > 0 && r.top < H * 3; };

@@ -1,6 +1,6 @@
 # Prova das regras do Firestore (12/11/2026, bloco 5 item 6; refeita 20/11 com o pedido pela nuvem): o site não grava direto em
 # pedidos/ nem vistas/, as regras fecham as duas, e as coleções privadas ficam fechadas.
-# Uso: python3 regras.py  → imprime JSON [{nome, ok, d}]. O porteiro chama isto.
+# Uso: python3 regras.py  → imprime JSON [{nome, ok, d}]. O Argus chama isto.
 import re, json, os, sys
 D = os.path.dirname(os.path.abspath(__file__))
 RULES = os.path.join(D, '..', '..', 'firestore.rules')

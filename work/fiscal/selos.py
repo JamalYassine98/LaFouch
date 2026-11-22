@@ -1,4 +1,4 @@
-"""Prova dos selos (aprovada pelo dono 20/11 11:40; o porteiro usa o JS daqui — um lugar só): em cada cartão com foto,
+"""Prova dos selos (aprovada pelo dono 20/11 11:40; o Argus usa o JS daqui — um lugar só): em cada cartão com foto,
   - nada na foto encosta no DESENHO da armação (medido nos pontos da imagem), com folga mínima;
   - "Últimas N": dentro da foto, vermelho, sem fundo, alinhado com o texto do cartão;
   - nenhuma coisa da foto cobre outra; não existe selo de tema.

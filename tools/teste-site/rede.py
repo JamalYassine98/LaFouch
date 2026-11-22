@@ -1,5 +1,5 @@
 """Internet fraca: onde o tempo vai até o topo, o 1º cartão e a 1ª foto (rede limpa do GitHub; só LÊ o site no ar, não muda nada).
-uso: rede.py URL [fraco|bom] — 4G fraco = 400 kbps e 400 ms de espera (o mesmo da prova do porteiro); bom = 4 Mbps e 100 ms."""
+uso: rede.py URL [fraco|bom] — 4G fraco = 400 kbps e 400 ms de espera (o mesmo da prova do Argus); bom = 4 Mbps e 100 ms."""
 import sys, json, time
 from playwright.sync_api import sync_playwright
 URL=sys.argv[1]; BOM=len(sys.argv)>2 and sys.argv[2]=='bom'

@@ -30,7 +30,7 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
     b) **Jeito natural:** fazer como seria se tivesse sido feito certo desde o começo (ex.: o Mochi aponta para a esquerda levantando o braço esquerdo, não espelhando o desenho).
     c) **Um lugar só, vale para tudo:** a regra fica num ponto e serve para todas as telas e famílias (ex.: uma só medida do topo para todas as telas que abrem por cima; uma só ordem de camadas para faixa, topo, menu e janelas).
     d) **Apaga o que substitui** no mesmo passo (botão vira redondo → sai a regra que o deixava quadrado). Correção que só acrescenta código é remendo: volta para (b). Não apagar função preparada que ainda não foi ligada. **Código morto se procura com o site/app RODANDO, não só lendo o texto** (dono 20/11 12:37): abrir cada tela, tocar em tudo e cruzar o que aparece e o que é executado com a planta aprovada — o que nunca roda é morto; o que roda e não está na planta é suspeito e vai ao dono com imagem, para ele dizer "sai" ou "fica".
-    e) **Trava:** cada erro corrigido ganha uma prova no porteiro, para não voltar em nenhuma tela.
+    e) **Trava:** cada erro corrigido ganha uma prova no **Argus** (o conferidor que roda antes de publicar; antes chamado "porteiro" — nome do dono, 22/11), para não voltar em nenhuma tela.
     **Antes de propor qualquer solução, perguntar-se: "o que eu estou propondo é remendo?"** (dono 20/11 11:04) — se for (não passa em a–e, ou depende de sorte), refazer; só o que não é remendo vai ao dono.
 13. **Família inteira:** mudar um botão = mudar a família toda, com a regra num lugar só (inventário 1 = app atual, inventário 2 = aprovados; só publica com os dois iguais).
 
@@ -45,7 +45,7 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
 19. **Aparelho real:** Firebase Test Lab só dentro dos 30 min grátis por dia (rodada de no máximo 25 min); o que não couber fica para o dia seguinte e é avisado.
 
 ## 7. Publicar
-20. **Site:** atualizar SITE-COMO-FUNCIONA → porteiro com 0 falhas → versão (`date +%s` no version.json e no index.html) → commit/push do catalogo → `node build.js` aqui e subir www/loja/.
+20. **Site:** atualizar SITE-COMO-FUNCIONA → Argus com 0 falhas (`python3 work/fiscal/argus.py`: provas + comparador publicado × o que vai subir) → versão (`date +%s` no version.json e no index.html) → commit/push do catalogo → `node build.js` aqui e subir www/loja/.
 21. **App:** testes (`python3 tests/run.py`) → subir lafouch-vNNN no www/sw.js JUNTO com docs/novidades.json → commit/push em main. APK e Windows só quando o dono pedir:
     `gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-apk.yml/dispatches -f ref=main` (Windows: build-windows.yml).
 

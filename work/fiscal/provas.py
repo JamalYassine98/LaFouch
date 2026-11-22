@@ -1233,6 +1233,39 @@ def p7_mochi_roupa(p):
                 else: passou(P7, nome)
         finally: b.close()
 
+# 22/11 (bug que o dono viu): o Destaque do topo PISCAVA ao abrir — a foto crua aparecia no meio da saída suave e era trocada pela
+# enquadrada (e, em peça de várias cores, a foto da 1ª cor era trocada pela da cor certa). Regra aprovada em 09/11 (S43/S46): foto na tela
+# nunca some. Trava: nos primeiros 5 s, depois que a foto do destaque aparece, ela não some nem é trocada.
+PISCA_JS = """()=>{window.__T=[];let ult='';const f=()=>{const im=document.querySelector('#hdst .hdi img');let s='-';if(im){const src=im.getAttribute('src')||'';const c=getComputedStyle(im);
+  const vis=src&&im.complete&&im.naturalWidth>0&&c.visibility!=='hidden'&&+c.opacity>0.05&&!document.documentElement.classList.contains('bootp');s=(vis?'V|':'E|')+src.slice(0,60)}
+  if(s!==ult){ult=s;window.__T.push([Math.round(performance.now()),s])}requestAnimationFrame(f)};f()}"""
+def p7_destaque_nao_pisca(p):
+    b, c, pg, E = novo(p)
+    try:
+        for visita in ('1ª visita', '2ª visita'):
+            pg2 = c.new_page(); pg2.add_init_script('(' + PISCA_JS + ')()'); pg2.goto(URL); pg2.wait_for_timeout(5000)
+            T = [x for x in pg2.evaluate('window.__T') if x[0] < 5000]; pg2.close(); nome = f'Destaque não pisca ao abrir · {visita}'
+            vis = [i for i, x in enumerate(T) if x[1].startswith('V|')]
+            if not vis: falha(P7, nome, 'a foto do destaque não apareceu em 5 s', None); continue
+            depois = T[vis[0]:]; fotos = {x[1][2:] for x in depois if x[1].startswith('V|')}
+            if any(x[1].startswith('E|') or x[1] == '-' for x in depois): falha(P7, nome, 'a foto apareceu e sumiu: ' + ' → '.join('%d ms %s' % (x[0], x[1][:14]) for x in depois[:5]), None)
+            elif len(fotos) > 1: falha(P7, nome, 'a foto que apareceu foi trocada por outra: ' + ' → '.join(f[:24] for f in list(fotos)[:3]), None)
+            else: passou(P7, nome, 'apareceu aos %d ms e ficou' % T[vis[0]][0])
+    finally: b.close()
+
+# 22/11 (dono 21/11 23:56 e 22/11 02:38): robots.txt — buscadores leem o site inteiro; robôs de IA e de coleta, não.
+def p7_robots(p):
+    import urllib.robotparser, urllib.request
+    try: txt = urllib.request.urlopen(URL + 'robots.txt', timeout=10).read().decode()
+    except Exception as e: falha(P7, 'robots.txt existe', 'não abriu: ' + str(e)[:60], None); return
+    rp = urllib.robotparser.RobotFileParser(); rp.parse(txt.split('\n'))
+    ruim = [a for a in ('Googlebot', 'Bingbot', 'DuckDuckBot') for u in ('/', '/catalogo.html', '/p/SL2250.html') if not rp.can_fetch(a, u)]
+    ruim2 = [a for a in ('GPTBot', 'ChatGPT-User', 'CCBot', 'ClaudeBot', 'anthropic-ai', 'PerplexityBot', 'Bytespider', 'Amazonbot', 'Applebot-Extended', 'Google-Extended') if rp.can_fetch(a, '/') or rp.can_fetch(a, '/p/SL2250.html')]
+    if ruim: falha(P7, 'robots.txt: buscadores leem tudo', 'bloqueado para ' + ', '.join(sorted(set(ruim))), None)
+    else: passou(P7, 'robots.txt: buscadores leem tudo')
+    if ruim2: falha(P7, 'robots.txt: robôs de IA e de coleta bloqueados', 'liberado para ' + ', '.join(ruim2), None)
+    else: passou(P7, 'robots.txt: robôs de IA e de coleta bloqueados')
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -1267,7 +1300,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('roupas do Mochi', p7_mochi_roupa), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('foto por link direto', p7_foto_link_direto), ('pedido pela nuvem', p7_pedido_pela_nuvem), ('Esc = voltar', p7_esc_voltar), ('selo depois', p7_selo_depois), ('novidades', p7_novidades_confirma), ('começo rápido', p7_comeco_rapido), ('janela solta', p7_janela_solta), ('versão sem recarga', p7_versao_sem_recarga), ('roupas do Mochi', p7_mochi_roupa), ('destaque não pisca', p7_destaque_nao_pisca), ('robots.txt', p7_robots), ('dica', p7_dica), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if 'T' in PARTES:
      # provas de TEMPO (quadros travados, pulos): rodam SOZINHAS, depois das outras — junto com 5 grupos em paralelo a máquina engasga e a prova acusa o site sem culpa
