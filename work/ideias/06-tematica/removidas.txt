@@ -1,0 +1,144 @@
+html[data-ev] body #dacs,html[data-ev] body #drw .dcm,html[data-ev] body #drw .dcm span,html[data-ev] body #home .hsh a,html[data-ev] body #home .hgu .gt small,{…}
+o destaque escurecido */
+html[data-ev=natal] #home .hd .hbt .p1,html[data-ev=natal] #home .hd .hbt .p2,html[data-ev=natal] #home .hd .hbt .p2 i{…}
+html[data-ev=anonovo-n] #home .hd .hbt .p1,html[data-ev=anonovo-n] #home .hd .hbt .p2,html[data-ev=anonovo-n] #home .hd .hbt .p2 i{…}
+html[data-ev=pais] #home .hd .hbt .p1,html[data-ev=pais] #home .hd .hbt .p2,html[data-ev=pais] #home .hd .hbt .p2 i{…}
+html[data-ev=maes] #home .hd .hbt .p1,html[data-ev=maes] #home .hd .hbt .p2,html[data-ev=maes] #home .hd .hbt .p2 i{…}
+html[data-ev=bf] #home .hd .hbt .p1,html[data-ev=bf] #home .hd .hbt .p2,html[data-ev=bf] #home .hd .hbt .p2 i{…}
+html[data-ev=anonovo-d] #home .hd .hbt .p1,html[data-ev=anonovo-d] #home .hd .hbt .p2,html[data-ev=anonovo-d] #home .hd .hbt .p2 i,html[data-ev=anonovo-d] #home{…}
+link no rodapé escuro */
+html[data-ev=bf] #home .htr b,html[data-ev^=anonovo] #home .htr b{…}
+html[data-ev=bf] body #home .hcat a small{…}
+html[data-ev=natal] body .in a.mp,html[data-ev=halloween] body .in a.mp,html[data-ev=bf] body .in a.mp{…}
+[data-ev=natal] #grid .card .gpt{…}
+[data-ev=halloween] #grid .card .gpt{…}
+[data-ev=maes] #grid .card .gpt{…}
+[data-ev=pais] #grid .card .gpt{…}
+[data-ev^=anonovo] #grid .card .gpt{…}
+[data-ev=bf] #grid .card .gpt{…}
+html[data-ev] #evbar{…}
+html[data-ev] #home .hd{…}
+html[data-ev] #home .hd .hdi{…}
+html[data-ev] #home .hd .hdt{…}
+html[data-ev] #home .hd .hdots button{…}
+html[data-ev] .hc .hb.of{…}
+verde e vermelho */
+html[data-ev=natal]{…}
+html[data-ev=natal] body,html[data-ev=natal] .top{…}
+html[data-ev=natal] #evbar{…}
+html[data-ev=natal] #home .hd{…}
+html[data-ev=natal] #home .hd .hlb{…}
+html[data-ev=natal] #home .hd .hsub{…}
+html[data-ev=natal] #home .hd .hpr s{…}
+html[data-ev=natal] #home h2.h2{…}
+html[data-ev=natal] .htr b{…}
+html[data-ev=natal] .lfft{…}
+html[data-ev=natal] .lfft b{…}
+html[data-ev=natal] .lfft .flg{…}
+html[data-ev=natal] .lfft .fbt{…}
+html[data-ev=natal] .lfft .lng{…}
+html[data-ev=natal] .lfft .lng button{…}
+/* Halloween: roxo escuro e laranja */
+html[data-ev=halloween] #evbar{…}
+html[data-ev=halloween] #home .hd{…}
+html[data-ev=halloween] #home .hd .hlb,html[data-ev=halloween] #home .hd h1 em{…}
+html[data-ev=halloween] #home .hd .hsub{…}
+html[data-ev=halloween] .hc,html[data-ev=halloween] .hcat{…}
+html[data-ev=halloween] .hc .hci,html[data-ev=halloween] .hcat .hci{…}
+topo/destaque/rodapé pretos e vermelho */
+html[data-ev=bf]{…}
+html[data-ev=bf] body{…}
+html[data-ev=bf] .top{…}
+html[data-ev=bf] .top .ib{…}
+html[data-ev=bf] .top .logo{…}
+html[data-ev=bf] #evbar{…}
+html[data-ev=bf] #home .hd{…}
+html[data-ev=bf] #home .hd .hlb{…}
+html[data-ev=bf] #home .hd .hsub{…}
+html[data-ev=bf] #home .hd .hpr s{…}
+html[data-ev=bf] .hc,html[data-ev=bf] .hcat a{…}
+html[data-ev=bf] .hc,html[data-ev=bf] .hcat{…}
+html[data-ev=bf] .hc .hci,html[data-ev=bf] .hcat .hci{…}
+html[data-ev=bf] .hc .hn,html[data-ev=bf] .hc .hp s{…}
+html[data-ev=bf] .hc .hp,html[data-ev=bf] .hcat span{…}
+html[data-ev=bf] .hc .hsw i{…}
+html[data-ev=bf] .lfft{…}
+html[data-ev=bf] .lfft b{…}
+html[data-ev=bf] .lfft .flg{…}
+html[data-ev=bf] .lfft .fbt{…}
+html[data-ev=bf] .lfft .lng{…}
+html[data-ev=bf] .lfft .lng button{…}
+/* Ano Novo de dia: branco e dourado metálico */
+html[data-ev=anonovo-d]{…}
+html[data-ev=anonovo-d] body,html[data-ev=anonovo-d] .top{…}
+html[data-ev=anonovo-d] #evbar{…}
+html[data-ev=anonovo-d] #home .hd{…}
+html[data-ev=anonovo-d] #home .hd .hdots button{…}
+html[data-ev=anonovo-d] .lfft{…}
+dourado e azul-noite */
+html[data-ev=anonovo-n]{…}
+html[data-ev=anonovo-n] body{…}
+html[data-ev=anonovo-n] .top{…}
+html[data-ev=anonovo-n] .top .ib{…}
+html[data-ev=anonovo-n] .top .logo{…}
+html[data-ev=anonovo-n] #evbar{…}
+html[data-ev=anonovo-n] #home .hd{…}
+html[data-ev=anonovo-n] #home .hd .hlb{…}
+html[data-ev=anonovo-n] #home .hd .hsub{…}
+html[data-ev=anonovo-n] .lfft{…}
+html[data-ev=anonovo-n] .lfft b{…}
+html[data-ev=anonovo-n] .lfft .flg{…}
+html[data-ev=anonovo-n] .lfft .fbt{…}
+html[data-ev=anonovo-n] .lfft .lng{…}
+html[data-ev=anonovo-n] .lfft .lng button{…}
+html[data-ev^=anonovo] #home .hd .hbt .p1,html[data-ev^=anonovo] .hc .hb,html[data-ev^=anonovo] .lfft .lng button.on{…}
+html[data-ev^=anonovo] #home .hd h1 em{…}
+html[data-ev=anonovo-d] #home .hd h1 em{…}
+html[data-ev] body,html[data-ev] .top,html[data-ev] #home .hd{…}
+html[data-ev=bf] .top .ib,html[data-ev=anonovo-n] .top .ib{…}
+html[data-ev] #home #hdst .hdots button.on{…}
+html[data-ev] #home #hdst .hdots button.on::after{…}
+html[data-ev=anonovo-d] #home #hdst .hdots button.on{…}
+html[data-ev=anonovo-d] #home #hdst .hdots button.on::after{…}
+html[data-ev=natal] .lfft .fbr,html[data-ev=bf] .lfft .fbr,html[data-ev=anonovo-n] .lfft .fbr,html[data-ev=halloween] .lfft .fbr{…}
+destaque e rodapé */
+html[data-ev=halloween]{…}
+html[data-ev=halloween] body,html[data-ev=halloween] .top{…}
+html[data-ev=halloween] #home h2.h2,html[data-ev=halloween] .htr b{…}
+html[data-ev=halloween] .lfft{…}
+vinho rosado e dourado suave */
+html[data-ev=maes]{…}
+html[data-ev=maes] body,html[data-ev=maes] .top{…}
+html[data-ev=maes] #evbar{…}
+html[data-ev=maes] #home .hd{…}
+html[data-ev=maes] #home .hd .hlb,html[data-ev=maes] #home .hd h1 em{…}
+html[data-ev=maes] #home .hd .hsub{…}
+html[data-ev=maes] #home .hd .hpr s{…}
+html[data-ev=maes] #home h2.h2,html[data-ev=maes] .htr b{…}
+azul-marinho e caramelo */
+html[data-ev=pais]{…}
+html[data-ev=pais] body,html[data-ev=pais] .top{…}
+html[data-ev=pais] #evbar{…}
+html[data-ev=pais] #home .hd{…}
+html[data-ev=pais] #home .hd .hlb,html[data-ev=pais] #home .hd h1 em{…}
+html[data-ev=pais] #home .hd .hsub{…}
+html[data-ev=pais] #home .hd .hpr s{…}
+html[data-ev=pais] #home h2.h2,html[data-ev=pais] .htr b{…}
+/* rodapé escuro em todos (mesmo padrão) */
+html[data-ev=maes] .lfft,html[data-ev=pais] .lfft,html[data-ev=halloween] .lfft{…}
+html[data-ev=maes] .lfft{…}
+html[data-ev=pais] .lfft{…}
+html[data-ev=maes] .lfft b,html[data-ev=pais] .lfft b,html[data-ev=halloween] .lfft b,html[data-ev=maes] .lfft .fbr,html[data-ev=pais] .lfft .fbr{…}
+html[data-ev=maes] .lfft .flg,html[data-ev=pais] .lfft .flg,html[data-ev=halloween] .lfft .flg{…}
+html[data-ev=maes] .lfft .fbt,html[data-ev=pais] .lfft .fbt,html[data-ev=halloween] .lfft .fbt{…}
+html[data-ev=maes] .lfft .lng{…}
+html[data-ev=pais] .lfft .lng{…}
+html[data-ev=halloween] .lfft .lng{…}
+html[data-ev=maes] .lfft .lng button,html[data-ev=pais] .lfft .lng button,html[data-ev=halloween] .lfft .lng button{…}
+html[data-ev]:not([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a{…}
+html[data-ev]:not([data-ev=bf]) .hc:hover,html[data-ev]:not([data-ev=bf]) .hcat a:hover{…}
+html[data-ev]:not([data-ev=bf]) .hc:active,html[data-ev]:not([data-ev=bf]) .hcat a:active{…}
+html[data-ev]:not([data-ev=bf]) #grid .card:hover{…}
+#grid .card 
+/* v2 contorno: mais visível (1,5 px a 42% + sombra leve na cor do tema) */
+html[data-ev]:not([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hc{…}
