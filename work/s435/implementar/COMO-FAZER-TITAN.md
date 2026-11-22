@@ -151,3 +151,92 @@ Ordem de implementação. Cada passo vai até o fim antes do próximo, porque o 
 - Escada de preços (aprovada como ideia).
 - Preço sugerido em Completar peça.
 - Imprevistos.
+
+---
+
+## PARTE 2 — O MOTOR (por dentro; as telas da Parte 1 só mostram o que ele calcula)
+
+Regra de ouro (dono 22/11 00:21): o Titan **copia o jeito do dono primeiro**. Nada de fórmula fixa de margem no varejo.
+Cada item abaixo é **uma função só**, usada por todas as telas (regra 12c). O código velho que ela substitui sai no mesmo passo.
+
+### A. Cotação: uma fonte, a casa de câmbio (estudo: work/s435/titan/ESTUDO-SAIDA-MERCADO-22-11.md)
+- **`cotacaoPrecos()`** = venda da casa (La Moneda Jebai, `fxDaCasa`) + ~2%, arredondada de 100 em 100 para cima.
+  Exemplo do dono: 6.550 → 6.700.
+  - Loja e site usam a MESMA cotação.
+  - A cotação fica **travada** e só muda pela mola (B).
+- **Sem resposta da casa:** vale a última cotação da casa, com o aviso "cotação de DD/MM · a casa não respondeu". O valor inventado sai.
+- **Sai no mesmo passo:**
+  - `fetchFx` (open.er-api);
+  - `fxHistReal` (currency-api);
+  - `FX_MARGEM`/`FX_TETO`/`fxMargemInfo`;
+  - `SITE_FOLGA`;
+  - os avisos "Margem da loja subiu";
+  - o "Valor de exemplo".
+- **Fica:** `S.fx` e os seus usos (já recebem a casa). O histórico `S.fxHist` passa a ser só da casa.
+
+### B. A mola (varejo) — aprovada 22/11 06:52
+- **Preço da peça:** é guardado em guaranis, num valor fácil, e fica parado.
+- **Conferência diária:** todo dia, **`titanMola(it)`** recalcula o preço justo: custo da compra (E) × jeito do dono para o tipo (F) × `cotacaoPrecos()`, arredondado ao valor fácil.
+- **Quando o preço muda:** só se o valor fácil recalculado cair noutro degrau **7 dias seguidos na subida** ou **30 dias na descida**.
+  - Na descida, o Titan propõe pelo sino e o dono aceita.
+  - Gasto imprevisto **nunca** sobe preço.
+- **Folga do dia:** é a diferença entre o preço parado e o preço justo do dia. É o **limite do desconto** em três lugares:
+  - "Folga de hoje · até X%" em Ofertas (63);
+  - o aviso da janela Oferta (64);
+  - os cupons do caixa.
+- **Com o dólar subindo:** a folga encolhe primeiro; o preço só sobe quando a mola chega no limite.
+- **Sai:** os degraus fixos de parados (src/97-preco-auto.js:10). A revisão "toda segunda" do Preço automático passa a ser a mola diária.
+
+### C. Colchão = reserva da mercadoria
+- **Varejo:** **`colchao()`** (src/40-formatos-venda.js:201) passa a contar só duas coisas:
+  - a alta da venda da casa **acima da cotação travada**;
+  - a alta de custo do fornecedor em 90 dias.
+  - Continua entre 5% e 25%, sem proteção dobrada com a folga da cotação.
+- **Atacado:** colchão = **só a alta do fornecedor**. Começa em 3% e o Titan ajusta pelo que os fornecedores sobem de verdade.
+- **Imprevistos:** ficam fora do colchão (são a conta "Provisão de imprevistos"; elaborar à parte).
+
+### D. IVA
+- Preço ÷ 11, sempre em guaranis. Já existe em src/97y-lucro-real.js.
+- Vira **uma função só** (`ivaDe(g)`), usada também na Calculadora (66) e nas margens do atacado (G).
+
+### E. Custo por compra — aprovado 22/11 13:40
+- **Cada peça carrega o custo da compra em que veio.** Saem primeiro as mais antigas.
+- **Compra nova mais cara:** muda só o preço das peças NOVAS. Vale para varejo e atacado.
+- **O que sai:** o uso de `repUSD` (custo da última compra) para dar PREÇO ao estoque velho.
+- **O que fica com o custo de reposição:** a **separação** do dinheiro na venda ("Reposição separada"), porque ela serve para recomprar.
+  - Ponto a confirmar com o dono no teste.
+
+### F. O Titan aprende o jeito do dono — aprovado 22/11 00:21
+- **`titanJeito(tipo)`:** o multiplicador do tipo, aprendido de três fontes:
+  - os preços que o dono aceita ou digita no cadastro;
+  - o preço cobrado na venda;
+  - os descontos que ele dá.
+- Nunca pede regra, tabela nem questionário.
+- **Começo sem vendas:** o ponto de partida são os preços que ele já pôs nas peças.
+- **De/por honesto (pacote 21/11 23:59):** o "de" só aparece se foi o preço praticado por **≥ 30 dias e com venda**. O Titan não deixa criar um "de" maior.
+
+### G. Atacado — aprovado 22/11 13:19–13:55
+- **Preço em US$** = custo da compra (E) × (1 + margem da tabela).
+- **Margem calculada pelo Titan** (nunca digitada): margem = (1 + colchão do atacado) ÷ (10/11 − lucro alvo) − 1.
+  - Lucro alvo por tabela: Óptica 25 · Vendedor 20 · 1K 15 · 2K 13 · 5K 11 · 10K 10%.
+  - Com colchão de 3%, isso dá 56 · 45 · 36 · 32 · 29 · 27%.
+  - O atacado **não paga as contas do mês**: elas ficam com o varejo. O atacado só precisa dar lucro bom.
+- **Quando o US$ muda:** só com custo novo ou na revisão do Titan, ao criar um lote ou 1×/mês. Nunca no meio de um lote.
+- **G$ e R$ do atacado:** seguem a **cotação da loja do DIA**, por uma função só (`ataConverte()`), nas tabelas, nos lotes e no catálogo do lojista.
+  - **Só no atacado.** O varejo é a mola (B).
+- **Lote:** **sai o congelamento de preço** (src/97s2-atacado-lotes.js:88). O lote fica só com a validade do catálogo.
+- **Hoje** o guarani do catálogo de atacado fica preso na última publicação (`ataPrecos`, src/97s-atacado-conta.js:31). O APP passa a publicar o US$ e a cotação do dia.
+  - A conta no site é da **SITE** (www/loja/js/lf-site.js ~100–130). Mando recado.
+- **Testes de lote para lote:** com o ok do dono pelo sino.
+
+### Provas novas no Argus (Parte 2)
+- Nenhuma busca a open.er-api nem à currency-api.
+- Loja = site.
+- Venda 6.550 → 6.700.
+- O preço não muda com 6 dias de alta e muda no 7º.
+- Imprevisto não sobe preço.
+- Folga 0% quando o preço está abaixo do mínimo.
+- Compra nova cara não muda o preço da peça velha.
+- Margens do atacado = 56/45/36/32/29/27 com colchão 3%.
+- O guarani do lote muda quando a cotação do dia muda e o US$ não.
+- "De" maior que o praticado é recusado.
