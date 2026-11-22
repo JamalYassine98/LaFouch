@@ -127,6 +127,7 @@
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
+- para **NUVEM**: CANCELA o pedido de 22/11 00:19 (resumo de vendas para o Raio-X): o dono ainda NÃO lança vendas reais neste sistema (não está terminado), então não há o que res
 - para **SITE**: Dono 21/11 23:56 aprovou (conserto por dentro, regra 6b): criar catalogo/robots.txt que DEIXA o Google e os buscadores lerem o site inteiro (o dono quer as peça
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
