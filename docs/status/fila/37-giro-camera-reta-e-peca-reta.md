@@ -1,2 +1,2 @@
-40a ✅ v615 · 40b ✅ v616 (Peça reta + conserto da folga) — falta conferir no celular · 40c tratamento endireita a fazer
+✅ 40a v615 · 40b v616 · 40c v617 (tratamento endireita até ±3°) — falta conferir no celular · achado: a escolha da frente erra com 3°+ de inclinação (conserto por dentro a seguir)
 Esboço 40: 'Celular deitado' vira 'Câmera reta' (deitado e nivelado ±1°, horizonte das guias gira com os graus); item novo 'Peça reta' (topo dos dois lados da armação, seta no lado baixo). Em pé não muda. Decisão do dono: só avisar ou também o tratamento endireitar até ±3°. work/s435/giro/COMO-FAZER-40.md

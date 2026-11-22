@@ -73,7 +73,7 @@
 - **36-logo-leve** — REPROVADO pelo dono 21/11 10:26 (perde a nitidez) — o logo fica como está; esboço em work/obsoletos/s430/
 - **36-prova-v468-nuvem-segura-instavel** — na fila — investigar (APP)
 - **37-ajustes-pecas-grupo-escolha** — aprovado 20/11 23:42 — espera o 'implementar'
-- **37-giro-camera-reta-e-peca-reta** — 40a ✅ v615 · 40b ✅ v616 (Peça reta + conserto da folga) — falta conferir no celular · 40c tratamento endireita a fazer
+- **37-giro-camera-reta-e-peca-reta** — ✅ 40a v615 · 40b v616 · 40c v617 (tratamento endireita até ±3°) — falta conferir no celular · achado: a escolha da frente erra com 3°+ de inclinação (conserto por dentro a seguir)
 - **38-aviso-curto-acima-da-barra-e-com-cor** — ✅ v613 (cor pelo tipo) + v614 (um chão só, 8 px acima da barra/janela)
 - **38-giro-tratamento-mais-rapido** — etapa 1 ✅ v607 (tempos no diário) · plano em work/s436/camera-giro/PLANO-ITEM-38.md: B (tratar por trás, resultado idêntico por construção) primeiro; A (ler cada quadro uma vez) ou C (placa gráfica) conforme o diário do celular — ESPERA um giro do dono na v607 + camera.txt
 - **39-giro-frente-com-um-lado-apagado** — ✅ v588 (5.50.13, 21/11) — falta o dono testar no celular real; sem trava no porteiro
