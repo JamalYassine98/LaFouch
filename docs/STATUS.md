@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 66 parte 1 Compras (telas) | src/97z5-compras.js, src/14-estoque-abas.js, src/98z-s374.js, www/style.css |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
 | SITE | Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js) | work/kit/mede.js, work/kit/mede.py, work/kit/mede_prova.py, work/s430/comparador/compara.py, work/s430/comparador/roteiro_site.py |
 
