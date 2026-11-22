@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
+| SITE | BUG: o Destaque do topo pisca ao abrir (dono aprovou passar na frente) + robots.txt | js/lf-site.js, index.html, robots.txt |
 
 ## Fila
 
