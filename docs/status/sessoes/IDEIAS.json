@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06c v3: movimento de luxo no evento",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795369733.1086907,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)"
   }
  ],
- "leu": 1795369730.388993
+ "leu": 1795370267.299386
 }
