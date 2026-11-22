@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06e: cor única por data",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795371845.4385655,
+   "r": "IDEIAS 06e: cor única por data — BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo (Fila 65)"
+  },
   {
    "t": 1795371538.5282192,
    "r": "IDEIAS 06e: Destaque Campanha em cada evento (Fila 65)"
@@ -40,10 +42,6 @@
   {
    "t": 1795362199.013061,
    "r": "IDEIAS 06: estudo de referências (Cellshop, Nissei, Monalisa, Cartier, Gentle Monster) → molde único de data"
-  },
-  {
-   "t": 1795361817.5367508,
-   "r": "IDEIAS 06: prancha Mães × Pais (Fila 64)"
   }
  ],
  "leu": 1795371762.0314338
