@@ -32,7 +32,7 @@ def tela(pw,qual):
        '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">Oferta</h2>'+
        '<div style="color:var(--mute);font-size:14px;margin:4px 0 16px">Óculos de leitura de acetato unissex · SP57765</div>'+
        L('Preço normal','G$ 25.000')+
-       '<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>Preço da oferta</span><span style="border:1px solid var(--line2);border-radius:12px;padding:8px 14px;font-weight:600">G$ 23.000</span></div>'+
+       '<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>Preço da oferta</span><span style="font-weight:600">G$ 23.000</span></div>'+
        L('Desconto','8%')+L('Até','30/11','var(--fg)')+
        '<div style="margin:16px 0 0;font-size:14px;line-height:1.45;color:var(--bad,#e5484d)">Titan: abaixo do mínimo (G$ 25.947). Cada peça vendida assim dá G$ 2.947 de prejuízo.</div>'+
        '<div style="margin:6px 0 0;font-size:14px;color:var(--mute)">Folga de hoje: 0% · o preço normal já está abaixo do mínimo.</div>'+
