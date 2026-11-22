@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Caixa de presente · como fica</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#7e4a6e}a:hover{color:#5c3450}
+</style>
+</helmet>
+<div style="position: relative; width: 1100px; height: 640px; background: #ECE6E0; overflow: hidden; font-family: Inter, sans-serif">
+<div style="position: absolute; left: 40px; top: 32px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #6b6460">Fechada</div>
+<div style="position: absolute; left: 580px; top: 32px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #6b6460">Aberta</div>
+<!-- FECHADA: tampa vista de cima em perspectiva + frente -->
+<div style="position: absolute; left: 70px; top: 150px; width: 400px; height: 170px; background: #8E5A7E; transform: skewX(-28deg); transform-origin: 0 100%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+<div style="position: absolute; left: 70px; top: 320px; width: 400px; height: 150px; background: #7E4A6E"></div>
+<div style="position: absolute; left: 470px; top: 150px; width: 0; height: 0"></div>
+<div style="position: absolute; left: 470px; top: 320px; width: 90px; height: 150px; background: #66395A; transform: skewY(-62deg); transform-origin: 0 0"></div>
+<img src="/_blob/dcb987dc4de0097b3064a5e693356123" alt="La Fouch" style="position: absolute; left: 150px; top: 205px; width: 120px; transform: skewX(-28deg)">
+<div style="position: absolute; left: 340px; top: 150px; width: 26px; height: 170px; background: #F6F1EC; transform: skewX(-28deg); transform-origin: 0 100%"></div>
+<div style="position: absolute; left: 340px; top: 320px; width: 26px; height: 150px; background: #E9E1D8"></div>
+<div style="position: absolute; left: 366px; top: 203px; width: 64px; height: 64px; border-radius: 50%; background: #7E4A6E; box-shadow: 0 0 0 2px #B89A63, 0 6px 14px rgba(40,20,30,.25); display: flex; align-items: center; justify-content: center"><img src="/_blob/b977171d4e975c215233fd6354a54b22" alt="" style="height: 30px"></div>
+<div style="position: absolute; left: 60px; top: 478px; width: 520px; height: 24px; border-radius: 50%; background: rgba(40,20,30,.18); filter: blur(10px)"></div>
+<!-- ABERTA: base com seda e estojo; tampa atrás mostrando o interior -->
+<div style="position: absolute; left: 640px; top: 90px; width: 380px; height: 210px; background: #F6F1EC; box-shadow: 0 0 0 10px #7E4A6E; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+<div style="width: 40px; height: 1px; background: #B89A63"></div>
+<p style="margin: 0; font-family: Fraunces, serif; font-style: italic; font-weight: 500; font-size: 22px; color: #7E4A6E">Para ver o mundo do seu jeito.</p>
+<div style="width: 40px; height: 1px; background: #B89A63"></div>
+</div>
+<div style="position: absolute; left: 600px; top: 330px; width: 420px; height: 150px; background: #7E4A6E; transform: skewX(-28deg); transform-origin: 0 100%"></div>
+<div style="position: absolute; left: 616px; top: 342px; width: 388px; height: 126px; background: #FBF8F4; transform: skewX(-28deg); transform-origin: 0 100%; box-shadow: inset 0 0 18px rgba(120,90,80,.18)"></div>
+<div style="position: absolute; left: 640px; top: 372px; width: 300px; height: 70px; border-radius: 34px; background: #2a2224; transform: skewX(-28deg); transform-origin: 0 100%; box-shadow: 0 6px 10px rgba(0,0,0,.25)"></div>
+<div style="position: absolute; left: 905px; top: 360px; width: 110px; height: 76px; background: #7E4A6E; transform: skewX(-28deg) rotate(-4deg); transform-origin: 0 100%; display: flex; align-items: center; justify-content: center"><img src="/_blob/dcb987dc4de0097b3064a5e693356123" alt="" style="width: 64px"></div>
+<div style="position: absolute; left: 708px; top: 400px; width: 70px; height: 70px; border-radius: 50%; background: #7E4A6E; box-shadow: 0 0 0 2px #B89A63; display: flex; align-items: center; justify-content: center; transform: scale(.7)"><img src="/_blob/b977171d4e975c215233fd6354a54b22" alt="" style="height: 32px"></div>
+<div style="position: absolute; left: 600px; top: 480px; width: 420px; height: 90px; background: #66395A"></div>
+<div style="position: absolute; left: 590px; top: 578px; width: 460px; height: 22px; border-radius: 50%; background: rgba(40,20,30,.18); filter: blur(10px)"></div>
+<div style="position: absolute; left: 40px; bottom: 24px; right: 40px; font-size: 13px; color: #6b6460">Ilustração para entender a ideia: a caixa real segue a medida do estojo. Dentro: papel de seda creme fechado com o selo, o estojo com a flanela e o cartão (no evento, o spray).</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1100,"height":640}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
