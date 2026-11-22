@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06g v2: presente por peça, mais luxuoso",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795372849.4121552,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória"
   }
  ],
- "leu": 1795372846.8611197
+ "leu": 1795372935.5293138
 }
