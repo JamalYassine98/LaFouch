@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 66 parte 1 Compras (telas) | src/97z5-compras.js, src/14-estoque-abas.js, src/98z-s374.js, www/style.css |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | 07: PC estilo Madë — topo em cartão + página de produto | work/ideias/07-pc-made/ |
 
 ## Fila
 
@@ -153,6 +152,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 17:55 — IDEIAS: 07: esboço PC estilo Madë (topo cartão + produto) na Fila 72
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
 - 22/11 17:22 — IDEIAS: 05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë
 - 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
@@ -163,7 +163,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 16:18 — IDEIAS: IDEIAS 07 v2: embalagens com detalhes de luxo
 - 22/11 16:11 — IDEIAS: IDEIAS 07: quadro de embalagens e cartões para a gráfica (cartão, adesivo, caixa de presente, caixa de delivery, sacola, ficha A4)
 - 22/11 16:01 — IDEIAS: IDEIAS 06g: nota retirada × delivery (Fila 67)
-- 22/11 16:00 — IDEIAS: IDEIAS 06g v4 (Fila 67)
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.

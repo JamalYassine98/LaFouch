@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "07: PC estilo Madë — topo em cartão + página de produto",
- "arquivos": [
-  "work/ideias/07-pc-made/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795380905.3912997,
+   "r": "07: esboço PC estilo Madë (topo cartão + produto) na Fila 72"
+  },
   {
    "t": 1795378920.4191153,
    "r": "05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë"
@@ -40,10 +42,6 @@
   {
    "t": 1795374109.6408768,
    "r": "IDEIAS 06g: nota retirada × delivery (Fila 67)"
-  },
-  {
-   "t": 1795374034.4327326,
-   "r": "IDEIAS 06g v4 (Fila 67)"
   }
  ],
  "leu": 1795378329.7324233
