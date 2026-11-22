@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 05: menu, busca e carrinho com um movimento",
+ "arquivos": [
+  "work/ideias/05-animacoes"
+ ],
  "ultimas": [
   {
    "t": 1795336423.853119,
@@ -44,5 +46,5 @@
    "r": "IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS"
   }
  ],
- "leu": 1795336420.4377
+ "leu": 1795337347.3655612
 }

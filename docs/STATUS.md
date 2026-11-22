@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
+| IDEIAS | IDEIAS 05: menu, busca e carrinho com um movimento | work/ideias/05-animacoes |
 | SITE | Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz | media/voz |
 
 ## Fila
