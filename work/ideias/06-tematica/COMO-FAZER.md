@@ -50,3 +50,16 @@ Toda data usa o MESMO molde, com 4 peças e nada mais:
 - **Esboço:** `esboco-06b-molde-natal.jpg`.
 - **Comparador:** 0 falhas novas (celular; `comp-molde/`).
 - As pranchas da 06 foram refeitas com o topo com fundo próprio (antes o conteúdo passava por baixo do topo transparente).
+
+## 06c · Animação do evento (dono 22/11 14:07–14:15)
+- **Hoje** (`fx()` em lf-site.js):
+  - já é **um efeito por data**: Natal 14 flocos caindo; Mães 10 pétalas; Pais e Ano Novo, brilhos; Halloween, 2 morcegos que voam **dentro** do destaque;
+  - fica só no destaque `#home .hd`, dura **10 s** e some em 1,2 s;
+  - respeita o "reduzir movimento".
+- **Proposta:**
+  - o mesmo efeito da data, mas **dentro da foto do Destaque Campanha**;
+  - **menos peças** (Natal: 8 flocos finos) e **só 4 s** ao chegar; depois some em 1,2 s e não volta;
+  - flocos com uma sombra leve, para aparecer em foto clara;
+  - "reduzir movimento" continua sem efeito.
+- **Jeito natural:** a mesma `fx()`, com o lugar trocado para a foto da campanha (`.lfcamp .ft`) e um tempo só (4 s) para todas as datas. Sai o `#home .hd` como lugar do efeito.
+- **Vídeo:** `esboco-06c-efeito-natal.mp4`. Com a foto de produto em fundo branco a neve é discreta; com a foto editorial da data ela aparece mais.
