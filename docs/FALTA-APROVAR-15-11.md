@@ -1071,3 +1071,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 22/11 05:50 · ESBOCO: regra 7 — PARTE-A-LOGICA-DA-COMPRA.md atualizada com os aprovados (51/51b, fluxo decide estrela/fracasso, 'Pedir' sem escolher distribuidora, sem 'A completar'); versão de 21/11 em obsoletos. Enviada ao dono (parte 2).
 - 22/11 05:45 · DONO: 'aprovado' → APROVADA a PARTE-A-LOGICA-DA-COMPRA.md (versão 22/11 05:50). Esperando 'implementar'.
 - 22/11 05:48 · ESBOCO: regra 7 — 49b (→ 58 Site, Modelos vira filtro no Inventário) e 50 (→ 52, Giro desfeito) movidos para obsoletos; não precisam de resposta. Próximo enviado: 53 (Destaque da semana do Semp).
+- 22/11 05:55 · ESBOCO: 53 refeito só no ícone — 'Destaque da semana' ganha a MEDALHA (a estrela já é o ícone de Criar; um ícone por linha). Comparador: única marca é a área de toque do '‹ Marketing' (44 px) encostando 4 px no título — igual no app de hoje, não é do esboço. Enviado ao dono.

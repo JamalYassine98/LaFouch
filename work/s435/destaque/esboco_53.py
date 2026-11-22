@@ -24,7 +24,7 @@ const LINHA=(ic,t,s)=>'<div style="display:flex;align-items:center;gap:16px;min-
 const LIN=(r,v,c)=>'<div style="display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px">'+r+'</span><span style="color:'+(c||'var(--mute)')+';font-size:15px;text-align:right">'+v+'</span></div>';
 const TOPO=(vs,t,s)=>{const v=document.getElementById('v-mkt');const nv=v.querySelector('.nvVs');if(nv)nv.lastChild.textContent=vs;const h=v.querySelector('.top h1, .top .grpT, h1');if(h)h.textContent=t;let sub=v.querySelector('.e53s');if(!sub){sub=document.createElement('div');sub.className='e53s';sub.style.cssText='color:var(--mute);font-size:14px;margin-top:4px';(v.querySelector('.top')||h).appendChild(sub)}sub.textContent=s};
 const OK='var(--ok,#4fbf7f)',AV='var(--warn,#e0b44c)',AC='var(--accent-fg)';"""
-STAR='<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>'
+STAR='<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.3L7 21l5-2.6 5 2.6-1.5-7.7"/>'  # medalha: a estrela já é o ícone de Criar (um ícone por linha)
 def marketing(pw,qual):
   b,pg,w=ap.abre(pw,'mkt',True,'celular',base=True);w(600);I=imgs(pg)
   N=['Óculos solar #13','Óculos solar Kazwini de tr90 feminino','Óculos de leitura #15','Óculos solar Ray-Ban de metal masculino']
