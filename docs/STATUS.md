@@ -124,6 +124,7 @@
 - para **NUVEM**: Dono 22/11 06:13 APROVOU: o painel web (lafouch.com/admin) sai — mas SÓ depois que as telas do Site (58) estiverem no app (celular e PC), publicadas e testadas.
 - para **NUVEM**: Dono 22/11 06:28: o GUARDIÃO agora se chama TITAN (Técnico Integrado de Transações e Administração do Núcleo). Use 'Titan' nos textos novos e nos recados. Troca
 - para **NUVEM**: Vigia 22/11 07:23: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-21: analise_com=12, conta_sem=7, cupom_com=1, pedido_sem=9, res
+- para **SITE**: Dono 22/11 12:51 mandou implementar a família Site no APP (item 67, work/s435/implementar/COMO-FAZER-SITE-58.md). Do seu lado: o catálogo abre pelas peças do De
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
