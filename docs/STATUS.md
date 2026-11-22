@@ -88,7 +88,7 @@
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
 - **45-ideias-formato-preciso-e-elegante** — aprovado 21/11 17:25 — implementar DEPOIS que a SITE terminar tudo o que está na fila dela (dono 17:27)
 - **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
-- **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
+- **46-liga-desliga-na-tela-do-assunto** — aprovado 22/11 01:22 — espera o 'implementar' (b Preços, c Pedidos só impressão, d Ajustes; Site no redesenho do painel)
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
 - **48-pecas-compras-parte-1** — esboço pronto — esperando o dono
 - **49-selo-no-botao-que-resolve** — 49a REPROVADO 22/11 00:29 (Atacado mantém as abas) · 49b esperando o dono · 49c superado
