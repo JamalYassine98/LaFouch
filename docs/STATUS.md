@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58f/g/h — Site: Mensagens, Avaliações, filtro No site no Inventário | work/s435/painelsite |
+| IDEIAS | IDEIAS 05: celular tela cheia × PC topo novo | work/ideias/05-animacoes |
 | SITE | Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz | media/voz |
 
 ## Fila
