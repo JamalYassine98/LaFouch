@@ -147,6 +147,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 16:21 — IDEIAS: IDEIAS 07 v3: embalagens — vinho liso, logo uma vez, assinatura óculos dourado
 - 22/11 16:18 — IDEIAS: IDEIAS 07 v2: embalagens com detalhes de luxo
 - 22/11 16:11 — IDEIAS: IDEIAS 07: quadro de embalagens e cartões para a gráfica (cartão, adesivo, caixa de presente, caixa de delivery, sacola, ficha A4)
 - 22/11 16:01 — IDEIAS: IDEIAS 06g: nota retirada × delivery (Fila 67)
@@ -159,7 +160,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 15:34 — IDEIAS: IDEIAS 06f esboço pronto: página da seleção (Fila 66)
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
 - 22/11 15:24 — IDEIAS: IDEIAS 06e: cor única por data — BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo (Fila 65)
-- 22/11 15:18 — IDEIAS: IDEIAS 06e: Destaque Campanha em cada evento (Fila 65)
 - 22/11 15:15 — NUVEM: Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok.
 - 22/11 15:08 — NUVEM: Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho).
 - 22/11 14:57 — SITE: Ferramentas parte 1: comparador/Argus olha as 22 telas do site (roteiro único, nuvem simulada, logada); 50 combinações em 26 min, 0 diferenças; defeito plantado achado. Próximo: parte 2 (uma biblioteca de medidas).
