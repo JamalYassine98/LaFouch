@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 05: animações no PC",
+ "arquivos": [
+  "work/ideias/05-animacoes"
+ ],
  "ultimas": [
   {
    "t": 1795338446.6983001,
@@ -44,5 +46,5 @@
    "r": "IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795338430.446239
+ "leu": 1795338669.5443196
 }
