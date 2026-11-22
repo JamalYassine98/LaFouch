@@ -25,3 +25,18 @@
 - **Mínimo:** entre 300 e 500 costuma ser o ponto de partida. Os de 10–50 peças servem para amostra.
 - **Ainda soma:** o frete e os impostos no Paraguai (IVA 10% + imposto + despachante).
 - **Passo seguro:** pedir de 2 a 3 amostras (custam, e precisam da autorização do dono) antes do lote. O app não fala com fornecedor: o dono envia a mensagem.
+
+## Referências vistas com o dono (22/11 18:15–18:20, busca de imagens)
+1. Kit completo: estojo PU + caixa de papel + saquinho + flanela.
+2. Caixa rígida de tampa magnética.
+3. Estojo duro de PU com o logo em relevo.
+4. Caixa de gaveta com saquinho e flanela.
+5. Caixa de gaveta minimalista (tipo KALI).
+6. Sacola de papel pequena com logo, com corte especial para óculos.
+7. Flanela de microfibra com estampa.
+8. Estojo forrado de veludo, com fecho magnético.
+9. Papel de seda, adesivo-selo e cartão de agradecimento.
+
+**Combinação sugerida para a LaFouch:**
+- 3 + 2 + 7, e 6 na loja.
+- 9 é opcional (barato, mas é o que mais marca o "abrir a caixa").
