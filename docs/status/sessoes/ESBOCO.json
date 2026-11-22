@@ -1,6 +1,6 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço 58e — efeitos do destaque em vídeo",
+ "agora": "esboço 58f/g/h — Site: Mensagens, Avaliações, filtro No site no Inventário",
  "arquivos": [
   "work/s435/painelsite"
  ],
@@ -26,5 +26,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795336959.6808345
+ "leu": 1795338906.8433664
 }
