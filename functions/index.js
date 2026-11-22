@@ -98,7 +98,7 @@ const tokDb = {
 const Selo = require('./selo');
 async function seloOk(req, res, porta) {
   const r = await Selo.confere(req, porta, Date.now(), (t) => admin.appCheck().verifyToken(t),
-    (d, campo) => fsx().doc('seloDia/' + d).set({ [campo]: admin.firestore.FieldValue.increment(1) }, { merge: true }));
+    (d, campo) => fsx().doc('seloDia/' + d).set({ [campo]: admin.firestore.FieldValue.increment(1) }, { merge: true }), CORS_SITE);
   if (!r.passa) res.status(401).json({ ok: false, motivo: 'selo' });
   return r.passa;
 }

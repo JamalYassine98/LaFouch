@@ -19,7 +19,7 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
 | `Email.esc` (email.js) | O único escape de HTML dos e-mails. |
 | `catalogoPisos()` | Todas as peças com os pisos (presente especial). |
 | `hash(t, n)`, `urlFn(nome)`, `criaUmaVez(ref, o)` | Resumo sha256, endereço de uma função e "cria só se não existe". |
-| `seloOk(req, res, porta)` | App Check (modo em functions/selo.js). |
+| `seloOk(req, res, porta)` | App Check (modo em functions/selo.js). Conta em seloDia/<dia> por porta, estado (com/sem/ruim) e origem (site = lafouch.com, local = localhost, robo = sem Origin: nossas sondas/testes ou robôs de fora), ex. `reserva_sem_site` (22/11). Para ligar o "exigir", olhar só os `_site`. |
 
 ## Pagamento automático pelo e-mail do banco (pix.js; atualizado em 20/11/2026)
 - **Ficha do pedido:** `conferePedido` confere o pedido do site com o catálogo e o valor a pagar com a cotação de `config/site` (`Presente.confere` → `pagar`). Pedido dentro da regra ganha a ficha `pixEspera/<pedido>` (`tipo: 'site'`, `conf: true`, `moeda`, `valor` = o preço do carrinho, sem final único — 39, 21/11; `nome`, `itens`), que o app não apaga. Pedido suspeito, de teste ou com erro não ganha ficha e nunca é confirmado sozinho.
