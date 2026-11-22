@@ -129,6 +129,7 @@
 - para **ESBOCO**: v629 publicada (66 parte 1): conferir Peças (3ª linha Compras), Compras (vagas e estados), as janelas Vaga · Fechei com… · Ninguém tinha · Pedir, Fornecedores ›
 - para **ESBOCO**: Dono 22/11 17:00: 'primeiro peça ao esboço, depois faça a parte 3, e siga todas as instruções do esboço'. Pedidos, por ordem: (1) o COMO FAZER do Semp — item 70
 - para **ESBOCO**: SITE: ferramentas parte 2 feita — comparador, fiscal e Argus medem pelo medidor único (work/kit/mede.js + mede.py; o comparador agora rola o catálogo e a peça p
+- para **ESBOCO**: v631 publicada (66 parte 3): Compras aprende sozinho — saíram metaDia, diasLoja, volume digitado e volAuto; 'aprendendo · N dias de vendas' pede pouco (mínimo 3
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
