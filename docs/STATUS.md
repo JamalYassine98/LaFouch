@@ -136,6 +136,7 @@
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
 - para **NUVEM**: CANCELA o pedido de 22/11 00:19 (resumo de vendas para o Raio-X): o dono ainda NÃO lança vendas reais neste sistema (não está terminado), então não há o que res
 - para **NUVEM**: Cartão vazio do teste de leitura: CONSERTADO no site 1795333368 (causa: o Mochi era posto antes de o cartão existir; no PC sumia sempre). Trava no Argus: todo c
+- para **NUVEM**: Voz 'Este teste fica melhor no celular': o dono confirmou que é a voz, não o chiado (as 3 amostras filtradas ficaram ruins). Medi o 'este teste' da fala nova × 
 - para **SITE**: Esboço IDEIAS 04 (Fila 59, work/ideias/04-ferramentas/ESBOCO.md) propõe 4 regras dentro do SEU plano das ferramentas (partes 3a e 2): sim com barras do Windows,
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
