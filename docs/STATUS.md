@@ -141,6 +141,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 12:22 — IDEIAS: IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)
 - 22/11 12:20 — IDEIAS: IDEIAS 05 APROVADO (Fila 61) — guardado na lista viva e na memória; espera o implementar do SITE
 - 22/11 12:18 — IDEIAS: IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)
 - 22/11 12:14 — IDEIAS: IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)
@@ -151,7 +152,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 05:33 — IDEIAS: IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS
 - 22/11 04:55 — IDEIAS: IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS
 - 22/11 04:55 — IDEIAS: IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS
-- 22/11 04:49 — IDEIAS: IDEIAS: 03 bugs do site — causas de B1 imagens que trocam, B2 foto BR44140, B4 topo some com menu (trava no body), B5 barras nas abas da Minha conta (cópia solta) — sem corrigir, juntando numa lógica — IDEIAS
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
