@@ -177,6 +177,23 @@ exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: RE
 const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
+// 22/11 (aprovado 15:20): reserva que parece abuso fica marcada em suspeitas/<pedido> para o TITAN avisar o dono (suspeita.js)
+const Suspeita = require('./suspeita');
+const susDb = {
+  anota: (redeId, pid, refs, agora) => fsx().runTransaction(async (tx) => {
+    const ref = fsx().doc('redeRes/' + redeId), d = await tx.get(ref), p = Object.assign({}, (d.exists && d.data().p) || {});
+    for (const k of Object.keys(p)) if (agora - (+p[k].ts || 0) > Suspeita.HORA) delete p[k];
+    p[pid] = p[pid] || { ts: agora, refs: refs.slice(0, 30) };
+    tx.set(ref, { ts: agora, p });
+    return Object.keys(p).map((k) => ({ pid: k, refs: p[k].refs || [] }));
+  }),
+  aberta: async (x) => {
+    const r = await fsx().doc('reservas/' + x.pid).get(), o = (r.exists && r.data()) || {};
+    if (o.pago === true || o.cancelado) return false;
+    return Reserva.aberta(fsx(), Date.now(), x.pid, x.refs);
+  },
+  grava: (pid, o) => fsx().doc('suspeitas/' + pid).set(o, { merge: true }),
+};
 const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH', 'ligar']; // P1b: orfas e liberarH só o dono · 39: ligar (PIX sem par → pedido)
 
 async function ehDono(req) {
@@ -232,6 +249,7 @@ exports.reserva = onRequest(
         } catch (e) { console.error('reserva vip', e && e.message); ate = 0; }
         r = await Reserva.reservar(db, agora, b.pedido, b.itens, Object.assign({ pag: b.pag === 'alias' ? 'alias' : 'pix' }, ate ? { ate } : {}));
         if (ate) r.vip = true;
+        if (r && r.ok) await Suspeita.confere(susDb, String(b.pedido || ''), b.itens, ipkDe(req), agora, r.exp).catch((e) => console.error('suspeita', e && e.message));
       }
       else if (acao === 'comp') r = await Reserva.comprovante(db, agora, b.pedido, b.itens);
       // P1: a cliente só solta o que não foi pago nem tem comprovante (pago/comprovante: só o dono pelo app)

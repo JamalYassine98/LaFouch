@@ -66,6 +66,10 @@ service cloud.firestore {
     match /seloDia/{d} {
       allow read: if dono();
     }
+    // 22/11: reserva que parece abuso (a nuvem grava; o TITAN mostra ao dono, que apaga o aviso depois de resolver)
+    match /suspeitas/{d} {
+      allow read, delete: if dono();
+    }
     // S2: contaTent (tentativas de login por nome) não tem "match": fica fechada, só o servidor usa.
     match /backups/{d} {
       allow read, write: if dono();
