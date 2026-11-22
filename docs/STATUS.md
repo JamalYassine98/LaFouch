@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 66 parte 1 Compras (telas) | src/97z5-compras.js, src/14-estoque-abas.js, src/98z-s374.js, www/style.css |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | 05: vídeo com a curva da Madë (0,7s) | work/ideias/05-animacoes/ |
 | SITE | Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js) | work/kit/mede.js, work/kit/mede.py, work/kit/mede_prova.py, work/s430/comparador/compara.py, work/s430/comparador/roteiro_site.py |
 
 ## Fila
@@ -152,6 +151,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
 - 22/11 16:31 — IDEIAS: IDEIAS 07: ilustração da caixa de presente
 - 22/11 16:28 — IDEIAS: IDEIAS 07 v5: sacola com cordão (modelo da referência) e nosso design
 - 22/11 16:26 — IDEIAS: IDEIAS 07 v4: sacola com armação grande tom sobre tom
@@ -161,7 +161,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 16:01 — IDEIAS: IDEIAS 06g: nota retirada × delivery (Fila 67)
 - 22/11 16:00 — IDEIAS: IDEIAS 06g v4 (Fila 67)
 - 22/11 15:48 — IDEIAS: IDEIAS 06g v3 (Fila 67)
-- 22/11 15:43 — IDEIAS: IDEIAS 06g v2: presente por peça (Fila 67)
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.

@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "05: vídeo com a curva da Madë (0,7s)",
- "arquivos": [
-  "work/ideias/05-animacoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795378437.6282322,
+   "r": "05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b"
+  },
   {
    "t": 1795375893.139543,
    "r": "IDEIAS 07: ilustração da caixa de presente"
@@ -40,10 +42,6 @@
   {
    "t": 1795373319.2117314,
    "r": "IDEIAS 06g v3 (Fila 67)"
-  },
-  {
-   "t": 1795373026.207125,
-   "r": "IDEIAS 06g v2: presente por peça (Fila 67)"
   }
  ],
  "leu": 1795378329.7324233
