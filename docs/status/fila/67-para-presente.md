@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-v2: presente POR PEÇA — linha fina 'Embrulhar para presente' em cada peça; cartão escrito na janela de baixo (Salvar) e mostrado em itálico serifado; 'cortesia'. Resumo conta os embrulhos. work/ideias/06-tematica/COMO-FAZER.md (06g v2)
+v3: caixinha de presente por peça (tampa fecha ao marcar), 'Como embrulhar os presentes? Cada peça em um | Todas juntas' com 2+ peças, cartão na janela de baixo, pedido no app lista os pacotes; botão de pagar em vinho (regra 17: ação). work/ideias/06-tematica/COMO-FAZER.md (06g v3)
