@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 05: camadas seguem a temática",
- "arquivos": [
-  "work/ideias/05-animacoes"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795360453.7735794,
+   "r": "IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)"
+  },
   {
    "t": 1795341140.8392453,
    "r": "IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)"
@@ -40,11 +42,7 @@
   {
    "t": 1795292730.491575,
    "r": "IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS"
-  },
-  {
-   "t": 1795289120.3420415,
-   "r": "IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
- "leu": 1795359758.250982
+ "leu": 1795360453.181166
 }
