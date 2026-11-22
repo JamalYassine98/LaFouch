@@ -1,7 +1,11 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "42a: Cores e fotos sem 'Trocar foto' — a foto da cor passa sempre pelo Estúdio",
+ "arquivos": [
+  "src/10-estoque-detalhe.js",
+  "www/style.css",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795318403.0299108,
@@ -44,5 +48,5 @@
    "r": "v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único)."
   }
  ],
- "leu": 1795318402.5887167
+ "leu": 1795318617.2477255
 }

@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 42a: Cores e fotos sem 'Trocar foto' — a foto da cor passa sempre pelo Estúdio | src/10-estoque-detalhe.js, www/style.css, tests/run.py |
 
 ## Fila
 
