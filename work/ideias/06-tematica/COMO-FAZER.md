@@ -127,3 +127,18 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
 - **Para todas:** a mesma estrutura, o mesmo movimento (06d), uma cor de acento (o *destaque* do título e o botão), o chapéu do Mochi e a faixa.
 - **No painel do evento:** título pequeno, título, subtítulo, 3 fotos (ou vídeo) com a peça de cada uma, e a seleção (3 escolhas).
 - **Pranchas:** `esboco-06e-eventos-1.jpg` (BF, Natal, Ano Novo) e `esboco-06e-eventos-2.jpg` (Mães, Pais, Halloween).
+
+#### Cor única por data (dono 22/11 15:22: "por que não o azul nos Pais? por que dois vermelhos?")
+- **Causa:** no esboço eu usei o `--act` de hoje de cada tema, e ele não é a cor-assinatura da data. Nos Pais é o caramelo, mas a faixa é azul-marinho. A BF e o Natal eram dois vermelhos quase iguais.
+- **Regra:** cada data tem UMA cor-assinatura, sem repetir com outra data. Ela pinta a faixa, o botão e o *destaque* do título.
+
+| Data | Cor | Por quê |
+|---|---|---|
+| Black Friday | preto `#111111` | o próprio nome; o mais sóbrio |
+| Natal | vermelho `#b3263a` | a cor clássica do Natal |
+| Ano Novo | dourado `#8d703e` | brinde, brilho, sem clichê |
+| Dia das Mães | rosa `#b8436f` | já era a cor da data |
+| Dia dos Pais | azul-marinho `#1e2f4d` | o azul que o dono gosta; já era a faixa de hoje |
+| Halloween | roxo `#5a2f72` | já era o roxo do tema; não repete o laranja do dourado |
+
+- Todas têm texto branco legível no botão.

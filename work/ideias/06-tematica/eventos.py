@@ -19,7 +19,8 @@ for x in cat['docs']:
     nome = f['nome']['stringValue'].replace('LaFouch ', '').replace('Óculos de sol', 'Óculos de sol').strip()
     n = int(f['n']['integerValue']); P[r] = ['/dados/f/' + [a for a in fs if a.startswith(r + '_')][0], '%s · G$ %s' % (nome, '{:,}'.format(n).replace(',', '.'))]
 for k in D: D[k]['f'] = [P[r] for r in D[k]['p']]
-CSS = (".lfcamp{margin:16px 16px 8px;border-radius:22px;overflow:hidden;background:var(--pn);border:1px solid var(--ln)}"
+COR = 'html[data-ev=bf]{--act:#111111}html[data-ev=natal]{--act:#b3263a}html[data-ev=anonovo-n],html[data-ev=anonovo-d]{--act:#8d703e}html[data-ev=maes]{--act:#b8436f}html[data-ev=pais]{--act:#1e2f4d}html[data-ev=halloween]{--act:#5a2f72}'  # uma cor por data, sem repetir: BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo
+CSS = (COR + ".lfcamp{margin:16px 16px 8px;border-radius:22px;overflow:hidden;background:var(--pn);border:1px solid var(--ln)}"
        ".lfcamp .ft{position:relative;overflow:hidden;aspect-ratio:4/3.4;background:#fff}"
        ".lfcamp .ft .sl{position:absolute;inset:0;background:#fff center/86% no-repeat;opacity:0;transition:opacity 1.4s cubic-bezier(.45,0,.25,1)}"
        ".lfcamp .ft .sl.on{opacity:1}.lfcamp .ft .sl.vai{transition:opacity 1.4s cubic-bezier(.45,0,.25,1),transform 6.5s linear;transform:scale(1.06)}"
