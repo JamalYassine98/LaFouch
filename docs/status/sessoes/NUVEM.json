@@ -1,11 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "Reserva suspeita: nuvem detecta e grava (sem notificação)",
- "arquivos": [
-  "functions/suspeita.js",
-  "firestore.rules"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795371928.9013982,
+   "r": "Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan."
+  },
   {
    "t": 1795371346.8585467,
    "r": "Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok."
@@ -41,10 +42,6 @@
   {
    "t": 1795229740.362719,
    "r": "Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'."
-  },
-  {
-   "t": 1795229660.63511,
-   "r": "S5+S7 publicado na nuvem e conferido no ar; recado ao SITE com a frase do esboço. Conferido depois da recuperação: minhas linhas na memória e na lista viva estão lá. Próximo: plano da hospedagem."
   }
  ],
  "leu": 1795371926.0256608

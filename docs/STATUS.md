@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65b/65c Inventário: páginas + Parados e sobrando + Contar o estoque | src/11-estoque-lista.js, src/97z4-inventario.js, src/53p-paginas.js, src/97-lista-compras.js, src/57-financas.js, src/97-contagem.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| NUVEM | Reserva suspeita: nuvem detecta e grava (sem notificação) | functions/suspeita.js, firestore.rules |
 
 ## Fila
 
@@ -147,6 +146,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
 - 22/11 15:24 — IDEIAS: IDEIAS 06e: cor única por data — BF preto, Natal vermelho, Ano Novo dourado, Mães rosa, Pais azul-marinho, Halloween roxo (Fila 65)
 - 22/11 15:18 — IDEIAS: IDEIAS 06e: Destaque Campanha em cada evento (Fila 65)
 - 22/11 15:15 — NUVEM: Rede da loja retirada (dono 15:10), publicado ccd38f42 (run ok + sonda ok). Ficam os limites por rede (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone). Recado ao APP cancelado. 24/24 arquivos de teste ok.
@@ -171,4 +171,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 00:26 — ESBOCO: 21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)
 - 22/11 00:10 — APP: v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça).
 - 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
-- 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
