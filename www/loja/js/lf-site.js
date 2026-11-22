@@ -2137,7 +2137,10 @@
     if(ja){var t=document.createElement('div');t.innerHTML=ht;try{lfMorph(H,t);moBracos(H);try{lfDsFit(true)}catch(_){}return}catch(_){}}
     H.innerHTML=ht;moBracos(H);dstGira()}
   function moBracos(H){if(window.__lfMochiArms)H.querySelectorAll('[data-mochi] svg').forEach(function(sv){window.__lfMochiArms(sv)})}
-  function lfMorph(a,b){var A=[].slice.call(a.childNodes),B=[].slice.call(b.childNodes);
+  /* 22/11 (o Destaque piscava de novo): a troca compara posição por posição, então uma camada que a página põe por conta própria (efeito do
+     evento .evfx, inserido como 1º filho) deslocava tudo e a foto era trocada por uma cópia. Regra única: o que tem data-lfvivo só existe na página
+     viva (o desenho não tem) — fica fora da comparação e nunca é apagado pela troca. */
+  function lfMorph(a,b){var A=[].slice.call(a.childNodes).filter(function(n){return !(n.nodeType===1&&n.hasAttribute('data-lfvivo'))}),B=[].slice.call(b.childNodes);
     for(var i=0;i<B.length;i++){var x=A[i],y=B[i];
       if(!x){a.appendChild(y);continue}
       if(x.nodeType!==y.nodeType||x.nodeName!==y.nodeName||(x.nodeType===1&&((x.id||'')!==(y.id||'')||(x.getAttribute('data-open')||'')!==(y.getAttribute('data-open')||'')))){a.replaceChild(y.cloneNode(true),x);continue}
@@ -4994,7 +4997,7 @@ function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em 
   function fx(){
     var ev=(document.documentElement.getAttribute('data-ev')||'').replace(/-[nd]$/,'');
     var hd=document.querySelector('#home .hd');if(!ev||!hd||hd.querySelector('.evfx'))return;
-    var c=document.createElement('div');c.className='evfx';var W=hd.offsetWidth,H=hd.offsetHeight,h='',i;
+    var c=document.createElement('div');c.className='evfx';c.setAttribute('data-lfvivo','');var W=hd.offsetWidth,H=hd.offsetHeight,h='',i;
     function cai(cls,n,t0,t1){for(i=0;i<n;i++)h+='<i class="'+cls+'" style="left:'+r(0,98)+'%;--t:'+r(t0,t1)+'px;--d:'+r(7,12)+'s;--a:-'+r(0,10)+'s;--dx:'+r(-30,30)+'px;--h:'+(H+40)+'px;--r:'+r(-180,180)+'deg"></i>'}
     function pis(n,cor,t0,t1){for(i=0;i<n;i++)h+='<i class="br" style="left:'+r(3,95)+'%;top:'+r(4,90)+'%;--t:'+r(t0,t1)+'px;--d:'+r(1.8,3.2)+'s;--a:'+r(0,3)+'s;--c:'+cor+'"></i>'}
     if(ev==='natal')cai('fl',14,3,6);
