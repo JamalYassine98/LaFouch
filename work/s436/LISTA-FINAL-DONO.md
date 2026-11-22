@@ -1,5 +1,7 @@
 # LaFouch · app — lista final do "implementar tudo" (v589 → v624)
 
+> **GUARDADA (dono 22/11 01:46):** entregar de novo DEPOIS da próxima fase de implementação (a do esboço "famílias", que o dono está fechando com a sessão de esboço). Antes de reentregar: atualizar com o que a fase nova mudar e tirar o que ela resolver. As correções desta lista se aplicam depois, com calma.
+
 Sessão APP · 22/11/2026. Tudo abaixo foi publicado e **testado só no simulador** (porteiro com 375 provas + provas próprias).
 **Nada foi testado em celular de verdade.** O app do celular se atualiza sozinho para a v624 (5.50.49).
 
