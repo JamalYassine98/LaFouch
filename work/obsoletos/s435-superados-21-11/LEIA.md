@@ -4,3 +4,4 @@
 - esboco_55_desconto_vender_{escuro,claro}.jpg — linhas do Guardião por peça no Carrinho → superadas pelos CUPONS no caixa (dono 21/11 23:34): "Cupons para esta venda ›" (cupom de balcão, última peça, brinde, próxima compra; o Semp sugere, o Guardião aprova). Esboço novo a fazer.
 - esboco_49c_precos_corrigir.jpg — selo 15 na linha Preços de "Giro e preços" → superado: a família Giro e preços se desfaz (52) e os preços para corrigir vão para "O Guardião decide hoje" (54).
 Também superado EM PARTE (esboço de outra sessão, não movido): 149p — o preço automático e "Contas, taxas e meta" saem de Ajustes e vão para Preços › Regras/Ofertas (54).
+- esboco_49a_atacado.jpg — REPROVADO pelo dono 22/11 00:29 ('muito feia'): o Atacado MANTÉM as abas (Mensagens · Lojistas · Lotes · Tabela).
