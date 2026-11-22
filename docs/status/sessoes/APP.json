@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "42a: Cores e fotos sem 'Trocar foto' — a foto da cor passa sempre pelo Estúdio",
- "arquivos": [
-  "src/10-estoque-detalhe.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795319720.801968,
+   "r": "v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor)."
+  },
   {
    "t": 1795318403.0299108,
    "r": "v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos)."
@@ -42,11 +42,7 @@
   {
    "t": 1795304005.4077296,
    "r": "v614 publicada: 38 parte B — chão único do aviso. Porteiro 366/366. Próximo: 40/41/42 (giro)."
-  },
-  {
-   "t": 1795302656.6910415,
-   "r": "v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único)."
   }
  ],
- "leu": 1795318617.2477255
+ "leu": 1795319720.3183937
 }
