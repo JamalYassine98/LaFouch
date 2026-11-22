@@ -1,7 +1,19 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "65a Inventário: topo com resumo, sem os números grandes, preços para corrigir no sino, botão na linha do título",
+ "arquivos": [
+  "src/11-estoque-lista.js",
+  "src/12-estoque-filtros-cadastro.js",
+  "src/14-estoque-abas.js",
+  "src/97-contagem.js",
+  "src/89-inicio.js",
+  "src/98z-pc-s244.js",
+  "src/98-inv-limpo.js",
+  "src/89-dash-abas.js",
+  "www/style.css",
+  "www/index.html",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795322804.8659735,
@@ -44,5 +56,5 @@
    "r": "v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro)."
   }
  ],
- "leu": 1795322777.5971663
+ "leu": 1795367227.7052662
 }
