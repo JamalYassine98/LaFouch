@@ -219,3 +219,7 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
 - **Pedido no app:** "🎁 Embrulhar · cartão: '…'" ou "cartão: '…'" (sem embrulho). O mimo do evento entra sempre que o evento está ligado.
 - **Custo previsível:** estojo e flanela (já existem), mais o mimo e o cartão no evento, mais um embrulho só quando o cliente pede.
 - **Esboço:** `esboco-06g-presente.jpg` (Hoje | topo | sem embrulho | o cartão | com embrulho e cartão).
+- **Retirada × delivery** (dono 22/11 16:01): os pedidos da loja saem em sacola; os do site com delivery vão em pacote.
+  - **Retirada:** sacola La Fouch, com o embrulho dentro se o cliente pediu.
+  - **Delivery:** o pacote de envio, com o embrulho dentro, e **uma sacola La Fouch dobrada junto**, para quem vai dar o presente entregar bonito. A Cartier faz assim: o pacote de entrega é discreto e leva a sacola da marca dentro.
+  - O carrinho não muda: a frase é a mesma ("Embrulhar para presente"). A entrega só é escolhida no passo 2, e o pedido no app diz "sacola" ou "pacote + sacola dobrada" conforme a entrega.
