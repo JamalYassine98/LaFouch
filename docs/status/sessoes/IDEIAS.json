@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06g v3: caixinha, pacotes, botão vinho",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795373319.2117314,
+   "r": "IDEIAS 06g v3 (Fila 67)"
+  },
   {
    "t": 1795373026.207125,
    "r": "IDEIAS 06g v2: presente por peça (Fila 67)"
@@ -40,10 +42,6 @@
   {
    "t": 1795369733.1086907,
    "r": "IDEIAS 06c v2: neve com sensação de neve (Fila 65)"
-  },
-  {
-   "t": 1795367868.6849036,
-   "r": "IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha"
   }
  ],
  "leu": 1795373316.4415264
