@@ -142,6 +142,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 15:08 — NUVEM: Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho).
 - 22/11 15:03 — IDEIAS: IDEIAS 06c v4: sem brilho, movimento vem da campanha (Fila 65)
 - 22/11 15:00 — IDEIAS: IDEIAS 06c v3: movimento de luxo (Fila 65)
 - 22/11 14:57 — SITE: Ferramentas parte 1: comparador/Argus olha as 22 telas do site (roteiro único, nuvem simulada, logada); 50 combinações em 26 min, 0 diferenças; defeito plantado achado. Próximo: parte 2 (uma biblioteca de medidas).
@@ -166,4 +167,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
 - 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
-- 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).

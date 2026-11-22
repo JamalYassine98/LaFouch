@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795370883.2251105,
+   "r": "Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho)."
+  },
+  {
    "t": 1795369800.1692832,
    "r": "App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795226577.8254116,
    "r": "Respondido ao SITE (cancelamento sem login aceito); visitas num lugar só completo."
-  },
-  {
-   "t": 1795216590.9806871,
-   "r": "Pagamento parte 2 no ar: dono colou o robô novo; confereUltimos 7/7 autênticos."
   }
  ],
  "leu": 1795369442.0958629
