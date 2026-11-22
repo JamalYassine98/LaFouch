@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 63 — Titan, setor Ofertas | work/s435/titan |
+| ESBOCO | esboço 64 — ficha da peça (preço/oferta do Titan) e janela Oferta | work/s435/titan |
 
 ## Fila
 
