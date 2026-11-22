@@ -1,12 +1,12 @@
 {
  "nome": "APP",
- "agora": "41 parte 1: Estúdio mostra Frente · 3/4 · Giro em cada peça (estTem)",
- "arquivos": [
-  "src/97-estudio.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795314399.2863827,
+   "r": "v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça)."
+  },
   {
    "t": 1795313102.1497254,
    "r": "v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria)."
@@ -42,11 +42,7 @@
   {
    "t": 1795298077.6029198,
    "r": "v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos)."
-  },
-  {
-   "t": 1795293927.694783,
-   "r": "v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto)."
   }
  ],
- "leu": 1795313342.3217008
+ "leu": 1795314398.7776127
 }

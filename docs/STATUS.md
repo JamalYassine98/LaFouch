@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 41 parte 1: Estúdio mostra Frente · 3/4 · Giro em cada peça (estTem) | src/97-estudio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 | SITE | Ferramentas parte 4: porteiro roda o comparador (publicado × o que vai subir) | work/fiscal/porteiro.py |
 
@@ -147,6 +146,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
 - 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
 - 21/11 22:26 — APP: v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro).
 - 21/11 21:19 — APP: v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°).
@@ -156,7 +156,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 19:50 — APP: v612 publicada: 37d parte 2 — Marca em Ajustes › Loja; Kit sai do Marketing. Porteiro 364/364. Próximo: 38 aviso curto.
 - 21/11 19:29 — APP: v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca).
 - 21/11 18:54 — APP: v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos).
-- 21/11 17:45 — APP: v609 publicada: 37b — ícones das listas em cinza, cor numa regra só. Porteiro 361/361. Próximo: 37c (links soltos pelo lkSolto).
 - 21/11 17:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
 - 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
 - 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
