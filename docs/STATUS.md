@@ -109,6 +109,7 @@
 
 ## Recados esperando
 
+- para **APP**: Dono 22/11 06:26 APROVOU: no Inventário › filtros, a escolha 'Faixa' (Todas · Econômico · Intermediário · Luxo) tem 'Intermediário' maior que o botão (o compara
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
