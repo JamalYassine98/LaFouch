@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06g: opção Para presente no carrinho",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795372454.8128173,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64"
   }
  ],
- "leu": 1795372452.1857767
+ "leu": 1795372730.7960923
 }
