@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 40c: o tratamento do giro endireita até ±3° | src/97-giro-trata.js, src/98z-camera-u149f.js, src/97-estudio-giro.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila

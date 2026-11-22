@@ -1,7 +1,12 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "40c: o tratamento do giro endireita até ±3°",
+ "arquivos": [
+  "src/97-giro-trata.js",
+  "src/98z-camera-u149f.js",
+  "src/97-estudio-giro.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795306780.092292,
@@ -44,5 +49,5 @@
    "r": "Plano do item 38 escrito (espera o diário do celular). Próximo: esboço 37"
   }
  ],
- "leu": 1795306779.63382
+ "leu": 1795306970.764276
 }
