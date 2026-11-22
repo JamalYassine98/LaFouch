@@ -5,3 +5,4 @@
 - esboco_49c_precos_corrigir.jpg — selo 15 na linha Preços de "Giro e preços" → superado: a família Giro e preços se desfaz (52) e os preços para corrigir vão para "O Guardião decide hoje" (54).
 Também superado EM PARTE (esboço de outra sessão, não movido): 149p — o preço automático e "Contas, taxas e meta" saem de Ajustes e vão para Preços › Regras/Ofertas (54).
 - esboco_49a_atacado.jpg — REPROVADO pelo dono 22/11 00:29 ('muito feia'): o Atacado MANTÉM as abas (Mensagens · Lojistas · Lotes · Tabela).
+- esboco_46a_site.jpg — superado 22/11: o botão de estado do Site será desenhado junto com o redesenho do painel do Site (estudo 47), sobre a base nova.
