@@ -33,3 +33,33 @@ Não: cada parte tira o que substitui no mesmo passo e nenhuma ferramenta nova f
 - Ordem que falta: 4 (porteiro só portão, rodando o comparador) → 2 (um jeito de medir) → 3 (comparador único com as telas do app).
 - **Parte 4 — o porteiro é o portão: FEITA em 21/11.** `porteiro.py` roda também o comparador entre o site publicado (origin/main do catalogo, em /tmp/porteiro_hoje) e a pasta de trabalho: falha nova reprova; toda diferença tem de casar com uma linha de `work/fiscal/diferencas-aprovadas.txt` (o que o dono aprovou), senão reprova. Pasta igual ao publicado = 1 prova "igual". `python3 work/fiscal/porteiro.py comparador` roda só esse portão (5 min), para conferir um esboço. Defeito plantado (logo de 56 para 62 px): reprovou com 9 falhas, dizendo onde. Porteiro inteiro depois: 233 provas, 0 falhas. Falta: o fiscal visual e a linha de base dele saírem (só depois da parte 2/3, quando o comparador cobrir os mesmos aparelhos e telas).
 - Ordem que falta: 2 (um jeito de medir) → 3 (comparador único com as telas do app).
+
+## Partes 2 e 3 elaboradas (22/11, pedido do dono "vamos para as ferramentas, elabore") — esboço, esperando o dono
+
+### Parte 3a (proponho fazer PRIMEIRO) — o comparador olhar TODAS as telas do site, não só três
+Hoje o comparador e o portão só abrem Início, Catálogo e Peça. Foi por isso que a câmera do formato do rosto ficou um dia fora da tela sem ninguém acusar.
+- A lista de telas do comparador vira um **roteiro** num arquivo só (`work/s430/comparador/roteiro_site.py`): as 3 de hoje + as 22 que usei na conferência de 21/11 (menu, busca, filtros, aviso "adicionado", carrinho, entrar, criar conta, Minha conta logada, mapa, consulta do grau, rosto, janela da câmera, comparar, atacado, portal do atacado, "Separado para você", ajuda, aviso de excluir conta…).
+- Tela nova no site = linha nova no roteiro, no mesmo passo (vira prova: tela que existe na planta e não está no roteiro reprova).
+- Custo: o portão passa de ~19 para ~30 min. O modo rápido "só comparador" continua.
+- Fecha quando: recolocando o defeito de 19/11 (base das janelas cortada), o comparador reprova sozinho.
+
+### Parte 2 — um jeito só de medir
+Hoje 9 medidores + as medidas de dentro do comparador, das provas e dos selos dizem "sobreposto", "cortado" e "alinhado" cada um do seu jeito (dois deles discordavam: a prova do painel ignorava fundo em degradê).
+- Uma biblioteca: `work/kit/mede.js`. Ela devolve, de qualquer tela aberta, a lista das peças (o que é, texto, caixa, desenho visível, camada de rolagem, fundo de verdade, cor, letra) e os achados por regra.
+- Regras, cada uma escrita uma vez: sobreposto · cortado · fora da tela · coberto (não dá para tocar) · toque menor que 44 · margens/eixo/linha de base · espaços 8/16/24/32/48 · contraste (com degradê) · janela presa na tela.
+- Cada regra só entra se pegar sozinha um erro REAL que o dono achou e um defeito plantado. Erros de referência: faixa da Black Friday cobrindo o topo; "Últimas" batendo na armação; selo da Black Friday em cima de "Últimas"; janela da câmera fora da tela; texto quebrando em 2 linhas.
+- Ordem de troca: comparador → fiscal do portão → provas → selos. Cada medidor antigo vai para work/obsoletos só depois de a biblioteca pegar tudo o que ele pegava.
+- Fecha quando: porteiro com o mesmo número de provas e 0 falhas, e os 5 erros de referência achados.
+
+### Parte 3b — as telas do app no mesmo comparador
+- Segundo roteiro: as 60 telas de `tools/teste-android/telas.py`, claro e escuro, 3 letras, abertas pelo simulador único com todos os aprovados por cima.
+- O comparador do app feito pela APP (`work/s436/compara_app.py`) é aposentado depois; o que ele tem de bom (quebra de linha nova × igual à de hoje, agrupar o que só foi empurrado, confirmar numa 2ª abertura) entra no único.
+- Inventário 1/2 e inventário de botões viram relatórios do comparador. O fiscal visual e a linha de base dele saem quando o comparador cobrir os mesmos aparelhos.
+- Depende da APP (as telas são dela): combinar por recado antes.
+
+### É remendo?
+Não: cada parte tira o que substitui. O risco é o portão ficar frouxo — por isso toda parte fecha com defeito plantado achado.
+
+### O que o dono decide
+- "Aprovado" para a ordem 3a → 2 → 3b (minha sugestão), ou outra ordem.
+- Se aceita o portão mais demorado (~30 min) em troca de olhar todas as telas.
