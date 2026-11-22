@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "IDEIAS 06g v3: caixinha, pacotes, botão vinho",
+ "arquivos": [
+  "work/ideias/06-tematica"
+ ],
  "ultimas": [
   {
    "t": 1795373026.207125,
@@ -44,5 +46,5 @@
    "r": "IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha"
   }
  ],
- "leu": 1795373023.6041718
+ "leu": 1795373230.9659717
 }

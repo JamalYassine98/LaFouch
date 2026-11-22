@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
+| IDEIAS | IDEIAS 06g v3: caixinha, pacotes, botão vinho | work/ideias/06-tematica |
 | SITE | Ferramentas parte 2: uma biblioteca de medidas (work/kit/mede.js) | work/kit/mede.js, work/kit/mede.py, work/kit/mede_prova.py, work/s430/comparador/compara.py, work/s430/comparador/roteiro_site.py |
 
 ## Fila
