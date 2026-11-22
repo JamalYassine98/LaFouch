@@ -24,6 +24,7 @@ def avaliacoes(pw):
     LBL('Publicadas · 0')+lfVazioHtml('"""+STAR+r"""','Nenhuma avaliação ainda','Quando um cliente avaliar uma peça no site, ela aparece aqui.')+'</div>'""",'Avaliações proposta')
 def filtros(pw,prop):
   b,pg,w=ap.abre(pw,'estoque',True,'celular',base=True);w(800)
+  pg.evaluate("()=>{const f=()=>{const c=document.getElementById('crumb');if(c&&c.textContent!=='16 referências · US$ 420 a custo')c.textContent='16 referências · US$ 420 a custo';const pb=[...document.querySelectorAll('#v-estoque button')].find(x=>x.textContent.trim()==='+'||x.getAttribute('aria-label')==='Adicionar');if(pb&&!pb.querySelector('.e58sel')){pb.style.position='relative';pb.insertAdjacentHTML('beforeend','<i class=\"e58sel\" style=\"position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#d33;color:#fff;font:normal 700 11px/20px system-ui;text-align:center\">2</i>')}};f();new MutationObserver(f).observe(document.body,{childList:true,subtree:true,characterData:true})}") if prop else None  # 52b/52d aprovados: resumo no lugar do caminho fixo
   pg.click('#btnFilt');w(900)
   if prop:
     pg.evaluate(r"""()=>{const f=()=>{if(document.querySelector('.e58site'))return;const s=document.getElementById('fSitB');if(!s||!s.querySelector('#fSit .tab'))return;
