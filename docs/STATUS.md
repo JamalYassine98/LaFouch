@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
-| SITE | Voz: regravar o aviso inteiro do QR (3 frases, PT e ES) — dono autorizou 8.000 créditos (22/11 05:36) | media/voz |
+| SITE | Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz | media/voz |
 
 ## Fila
 

@@ -1,6 +1,6 @@
 {
  "nome": "SITE",
- "agora": "Voz: regravar o aviso inteiro do QR (3 frases, PT e ES) — dono autorizou 8.000 créditos (22/11 05:36)",
+ "agora": "Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz",
  "arquivos": [
   "media/voz"
  ],
@@ -46,5 +46,5 @@
    "r": "URGENTE resolvido — site 1795264209: a câmera do 'descubra o seu formato' e o comparar voltaram a abrir na tela (erro da limpeza de estilos de 19/11: a base das janelas soltas tinha sido cortada). Antes, na mesma manhã: site 1795261801 com o começo rápido (internet fraca parte 1). Porteiro 229 provas, 0 falhas. PRÓXIMO: conferir as outras janelas soltas (mensagem, atacado, separado) e o resto do corte de 19/11 contra a versão de 19/11; medir o começo rápido em rede limpa."
   }
  ],
- "leu": 1795336642.9368048
+ "leu": 1795337619.9674401
 }
