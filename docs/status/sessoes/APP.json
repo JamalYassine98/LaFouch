@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "giro: escolha da frente com a peça torta (por dentro)",
+ "arquivos": [
+  "src/97-giro-trata.js",
+  "tests/run.py"
+ ],
  "ultimas": [
   {
    "t": 1795310775.3422089,
@@ -44,5 +47,5 @@
    "r": "v608 publicada: 37a — grupo pelo Início/busca abre o índice; sai g.ult. Porteiro 360/360. Próximo: 37b (ícones das listas em cinza)."
   }
  ],
- "leu": 1795310774.8662667
+ "leu": 1795311025.828206
 }

@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | giro: escolha da frente com a peça torta (por dentro) | src/97-giro-trata.js, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
