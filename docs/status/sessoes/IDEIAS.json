@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06g v2: presente por peça, mais luxuoso",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795373026.207125,
+   "r": "IDEIAS 06g v2: presente por peça (Fila 67)"
+  },
   {
    "t": 1795372849.4121552,
    "r": "IDEIAS 06g esboço pronto: Para presente (Fila 67)"
@@ -40,10 +42,6 @@
   {
    "t": 1795367868.6849036,
    "r": "IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha"
-  },
-  {
-   "t": 1795367300.7692323,
-   "r": "IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória"
   }
  ],
  "leu": 1795373023.6041718
