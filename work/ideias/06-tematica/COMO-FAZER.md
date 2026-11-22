@@ -102,3 +102,15 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - O site já aceita vídeo no destaque (`CFG.video` / `dmodo:'video'`). O Destaque Campanha usa **foto OU vídeo** no mesmo lugar, com a mesma regra.
   - Com vídeo, a foto não "respira", porque o próprio vídeo já é o movimento.
 - **Vídeo:** `esboco-06c-luxo-natal.mp4` (Hoje | Proposta v4).
+
+### 06d (dono 22/11 15:06): campanha em câmera lenta. Substitui as v3 e v4 do movimento, que o dono não chegou a ver de tão sutis.
+- **O destaque da data passa a ter 3 fotos da campanha** (ou um vídeo). Cada uma fica 4,5 s na tela e se dissolve em 1,4 s na seguinte, aproximando 6% devagar enquanto aparece.
+  - O nome e o preço da peça da foto trocam junto, com um fade.
+- **O texto entra uma vez, coreografado:** título pequeno, título, preço, botão e seleção (700 ms, 120 ms entre um e outro).
+- **Botão:** "**Descobrir a seleção**" no lugar de "Ver presentes". O verbo é de experiência e diz o que vem. Vale para toda data (sai o `b2` de cada tema).
+- **Seleção:** Para ela · Para ele · Para todos.
+- "Reduzir movimento": a 1ª foto fica parada e não troca.
+- **Jeito natural:**
+  - o destaque de evento que já existe (`EVD`/`.hd`) vira o Destaque Campanha, com `fotos[3]` ou `video`, e cada foto ligada a uma peça (ref) para o nome e o preço;
+  - sai a `fx()` de partículas.
+- **Vídeo:** `esboco-06d-campanha-natal.mp4`. Usa 3 fotos reais de peças (SL2265, SL2300, SL2270) no lugar das fotos do Semp.

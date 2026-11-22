@@ -25,3 +25,22 @@
    - o **Destaque Campanha**: foto da data e uma **seleção da data** ("Para ela", "Para ele", "Presentes até G$ 200.000"), como o guia de presentes da Cartier.
 3. Na Black Friday, ter um nome próprio da casa, como fez a Cellshop. Por exemplo "La Fouch Week" ou "Semana Fouch". O nome fica para o dono escolher.
 4. Os avisos práticos ficam na faixa ("retirada no mesmo dia", "peça até X para chegar").
+
+## Parte 2 · Movimento e palavras (22/11 15:06)
+### O site hoje
+- O destaque de evento **já existe** (`EVD` em lf-site.js). Cada data tem `lab`, título com `<em>`, subtítulo e um 2º botão (`b2`):
+  - Natal, Mães e Pais: "Ver presentes";
+  - Halloween: "Ver a seleção";
+  - BF: "Ver ofertas";
+  - Ano Novo: "Ver catálogo".
+- Logo, o Destaque Campanha deve ser **esse mesmo destaque transformado**, e não um bloco novo (regra 12).
+- O site já usa uma curva só (`.16,1,.3,1`). O efeito da data hoje é `fx()` (partículas, 10 s).
+
+### Luxo
+- **Câmera lenta dá sensação de luxo:** estudo de Jung & Dubois (2023, Journal of Marketing Research). Sites de luxo usam fades longos.
+- **O movimento da página inicial é a campanha:**
+  - vídeo de desfile (Prada);
+  - vídeo lento com close no produto (Richard Mille);
+  - fotos que se dissolvem devagar (~1,2 s, "corte de cinema") com aproximação lenta e texto coreografado.
+- **Botões:** verbos de experiência ("Descobrir", "Explorar") e específicos sobre o que se vai ver ("Shop New Arrivals"), nunca genéricos.
+- **Não consultado:** os sites da Oliver Peoples e da Gentle Monster. A leitura precisava de uma permissão que ficou sem resposta.
