@@ -27,14 +27,16 @@ def ficha():
   esp(d,(72,74),'SL2305',JO(22),MU,5,'l')
   esp(d,(W/2,170),'AVIADOR',FR(92),TX,10);d.line([(W/2-40,292),(W/2+40,292)],fill=VI,width=3)
   c=no_fundo(FOTO.crop((50,80,870,480)));p=c.resize((960,int(960*c.height/c.width)),Image.LANCZOS);b.paste(p,(60,345))
-  boxes=[(745,165,865,285),(390,165,510,285),(190,245,350,405),(95,95,225,225)]
-  legs=[('Metal e acetato','Metal y acetato'),('Preto e dourado','Negro y dorado'),('Proteção UV','Protección UV'),('52-21-145','52-21-145')]
-  lado=210;g=(W-2*72-4*lado)//3;y=930
+  boxes=[(745,165,865,285),(390,165,510,285),(95,95,225,225)]
+  legs=[('Metal e acetato','Metal y acetato'),('Preto e dourado','Negro y dorado'),('52-21-145','52-21-145')]
+  lado=250;g=(W-2*72-3*lado)//2;y=900
+  # dono 17:45: 'Proteção UV' mais discreto → sai do quadrinho (era um quadrado preto da lente) e vira uma linha pequena
+  esp(d,(W/2,1252),'Proteção UV  ·  Protección UV',JO(19),MU,2)
   for k,(bx,(pt,es)) in enumerate(zip(boxes,legs)):
     x=72+k*(lado+g);cr=no_fundo(FOTO.crop(bx)).resize((lado,lado),Image.LANCZOS);m=Image.new('L',(lado,lado),0);ImageDraw.Draw(m).rounded_rectangle([0,0,lado-1,lado-1],26,fill=255)
     b.paste(cr,(x,y),m);d.rounded_rectangle([x,y,x+lado-1,y+lado-1],26,outline=LN,width=2)
     for j,(t,cor) in enumerate(((pt,TX),(es,MU)) if es!=pt else ((pt,TX),)):f=JO(21);tw=d.textlength(t,font=f);d.text((x+lado/2-tw/2,y+lado+14+j*28),t,font=f,fill=cor)
-  esp(d,(W/2,1268),'LAFOUCH.COM',JO(20),MU,6);return b
+  esp(d,(W/2,1292),'LAFOUCH.COM',JO(19),MU,6);return b
 def panorama():
   P=Image.new('RGB',(2*W,H),BG);big=no_fundo(FOTO).resize((2250,1500),Image.LANCZOS);P.paste(big,(int(W-big.width/2),int(H*.48-big.height/2)))
   d=ImageDraw.Draw(P);esp(d,(W/2,H-262),'Disponível em preto.',FR(44),TX,1);esp(d,(W/2,H-196),'Disponible en negro.',FR(34,'300i'),MU,1)
