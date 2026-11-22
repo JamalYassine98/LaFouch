@@ -116,6 +116,7 @@
 
 - para **APP**: URGENTE (dono 22/11 14:33) — 3 avisos para não errar: (1) item 68 Destaque da semana: NÃO implementar o 'Marketing 1c' do work/semp/ para abrir caminho — ele é 
 - para **ESBOCO**: v626 publicada (65b/65c): conferir Inventário (páginas de 24, fim da lista com Parados e sobrando › e Contar o estoque ›) e a tela nova Parados e sobrando (celu
+- para **ESBOCO**: Dúvida 65d (janela Adicionar): o como fazer diz 'Completar peça do Estúdio (selo) · Chegou mercadoria · Acessório' (48b v3, que foi para obsoletos), e o 44a (Ad
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
