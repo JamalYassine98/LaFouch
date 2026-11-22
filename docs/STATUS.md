@@ -99,7 +99,7 @@
 - **52-desfazer-giro-e-precos** — 52b/52d/52e no item 65 · 52a vai com o Titan
 - **53-destaque-da-semana-do-semp** — aprovado 22/11 05:56 — vai no item 68
 - **54-precos-escritorio-do-guardiao** — aprovado 21/11 18:06 — espera o 'implementar' · setores e desconto no Vender a fazer
-- **55-desconto-do-guardiao-no-vender** — aprovado 21/11 18:15 — espera o 'implementar'
+- **55-desconto-do-guardiao-no-vender** — SUPERADO 22/11 00:26 (obsoletos) pelos cupons no caixa — esboço novo a fazer; NÃO implementar
 - **56-precificacao-guardiao-e-semp** — decidido em conversa (21/11 18:00–23:59) — esboços a fazer em partes
 - **57-raio-x-de-precos** — aprovado 22/11 00:19 — espera o app estar pronto e as vendas reais (pedido à NUVEM cancelado)
 - **58-painel-do-site** — aprovado (58a–58h) — vai no item 67 · painel web sai depois
