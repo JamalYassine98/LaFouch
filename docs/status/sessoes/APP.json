@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "66 parte 1 Compras (telas)",
- "arquivos": [
-  "src/97z5-compras.js",
-  "src/14-estoque-abas.js",
-  "src/98z-s374.js",
-  "www/style.css"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795381421.892901,
+   "r": "66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços."
+  },
   {
    "t": 1795372964.399543,
    "r": "Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço."
@@ -43,11 +42,7 @@
   {
    "t": 1795315648.8460314,
    "r": "v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça)."
-  },
-  {
-   "t": 1795314399.2863827,
-   "r": "v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça)."
   }
  ],
- "leu": 1795377557.4663165
+ "leu": 1795381421.4022324
 }

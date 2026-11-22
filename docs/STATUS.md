@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | 66 parte 1 Compras (telas) | src/97z5-compras.js, src/14-estoque-abas.js, src/98z-s374.js, www/style.css |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
 
 ## Fila
@@ -153,6 +152,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
 - 22/11 17:55 — IDEIAS: 07: esboço PC estilo Madë (topo cartão + produto) na Fila 72
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
 - 22/11 17:22 — IDEIAS: 05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë
@@ -177,4 +177,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
 - 22/11 01:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
 - 22/11 00:55 — APP: v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor).
-- 22/11 00:33 — APP: v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos).
