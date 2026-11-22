@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06d: estudo site + luxo (movimento e palavras do destaque)",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795371044.278934,
+   "r": "IDEIAS 06d: campanha em câmera lenta (Fila 65)"
+  },
   {
    "t": 1795370633.972027,
    "r": "IDEIAS 06c v4: sem brilho, movimento vem da campanha (Fila 65)"
@@ -40,10 +42,6 @@
   {
    "t": 1795361401.748334,
    "r": "IDEIAS 06 esboço pronto (Fila 64): temática estilo campanha"
-  },
-  {
-   "t": 1795360965.1661427,
-   "r": "IDEIAS 05: setinha › cinza aprovada e guardada (Fila 61)"
   }
  ],
  "leu": 1795371041.7500594
