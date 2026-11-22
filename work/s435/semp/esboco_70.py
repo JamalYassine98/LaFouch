@@ -6,6 +6,9 @@
 # Dados REAIS do app de teste: foco 'Novos clientes BR' (o objetivo marcado hoje), Kazwini de acetato masculino 27 vendidas em 30 dias
 # (Status de hoje), plano 0 de 6 (Seg · Post · 20h), Lote Kazwini parado (o mesmo do 54), Natal em 33 dias (Datas que vêm aí).
 # v2: o foco vai para o subtítulo (o rótulo quebrava em 2 linhas, L4) e o rótulo fica igual ao do 54: 'O Semp sugere hoje · 3'.
+# v3 (dono 14:48 'a navegação tem marketing → marketing'): o GRUPO Marketing do Início (Marketing · Temática · Cartões · Analisador) deixa
+# de existir: Início › Marketing abre o escritório direto ('‹ Início', como o 54); Temática e Cartões viram setores; Analisador já foi para
+# Resultados (58c). Mesmo jeito do 52a (grupo Giro e preços saiu, Preços virou linha do Início).
 # 'Comprar a tendência' do 1c NÃO entra: o Mercado do Semp ainda não existe, não há tendência real (proibido produto de exemplo).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');sys.path.insert(0,'/home/claude/lafouch/work/s430/comparador');import ap,compara
 from playwright.sync_api import sync_playwright
@@ -25,12 +28,15 @@ IC=dict(
  tend='<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
  cria='<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
  res='<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+ tem='<path d="M12 3a9 9 0 1 0 9 9c0-1.5-1.2-2-2.5-2H16a2 2 0 0 1-2-2V6.5C14 4.6 13.4 3 12 3z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="10" cy="7.5" r="1"/>',
+ cart='<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
  marca='<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/>')
 JS=r"""(I)=>{const v=document.getElementById('v-mkt');
 const L='display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)';
 const SV=p=>'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none">'+p+'</svg>';
 const linha=(ic,t,s)=>'<div style="'+L+'">'+SV(ic)+'<div style="min-width:0;flex:1"><b style="font-size:16px;font-weight:500;display:block">'+t+'</b><small style="font-size:13px;color:var(--mute);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s+'</small></div><span style="color:var(--mute);font-size:18px">›</span></div>';
 const tit=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);margin:32px 0 8px">'+t+'</div>';
+const nv=v.querySelector('.nvVs');if(nv)nv.lastChild.textContent='Início';
 const topo=v.querySelector('.top');
 [...v.children].forEach(e=>{if(e!==topo&&!e.contains(topo)&&!topo.contains(e)&&!e.classList.contains('nvVs'))e.remove()});
 
@@ -45,6 +51,8 @@ linha(I.cal,'Agenda','0 de 6 feitos · próximo: Seg · Post · 20h')+
 linha(I.tend,'Mercado','tendências e distribuidoras de CDE')+
 linha(I.cria,'Criar','post · story · status · carrossel · vídeo · listas')+
 linha(I.res,'Resultados','o que deu certo · o Semp aprende com isso')+
+linha(I.tem,'Temática','o site e o app vestidos para o evento')+
+linha(I.cart,'Cartões','cartão do cliente e cupons')+
 linha(I.marca,'Marca','kit da marca · logo, cores e textos');
 const wrap=topo.parentNode===v?v:topo.parentNode;wrap.appendChild(box);}"""
 def mkt(pw,prop,esc=True):
@@ -56,5 +64,5 @@ if __name__=='__main__':
  with sync_playwright() as pw:
   for esc in (True,False):
     n='escuro' if esc else 'claro'
-    quadro('esboco_70_marketing_semp_%s.jpg'%n,esc,[('HOJE · Marketing','objetivo em botões · criar · plano · datas',mkt(pw,0,esc)),('PROPOSTA · Marketing = escritório do Semp','o que fazer hoje + 6 setores',mkt(pw,1,esc))])
+    quadro('esboco_70_marketing_semp_%s.jpg'%n,esc,[('HOJE · Marketing','objetivo em botões · criar · plano · datas',mkt(pw,0,esc)),('PROPOSTA · Marketing = escritório do Semp','‹ Início · o grupo Marketing vira o próprio escritório',mkt(pw,1,esc))])
  for n,f in REL: print(n,len(f),f[:4])
