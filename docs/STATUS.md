@@ -100,7 +100,7 @@
 - **55-desconto-do-guardiao-no-vender** — aprovado 21/11 18:15 — espera o 'implementar'
 - **56-precificacao-guardiao-e-semp** — decidido em conversa (21/11 18:00–23:59) — esboços a fazer em partes
 - **57-raio-x-de-precos** — aprovado 22/11 00:19 — espera o app estar pronto e as vendas reais (pedido à NUVEM cancelado)
-- **58-painel-do-site** — 58a e 58b aprovados (22/11) · 58c e 58d esboço pronto — esperando o dono · estudo 47b em work/s435/painelsite/ESTUDO-PAINEL-SITE-22-11.md
+- **58-painel-do-site** — aprovado (58a–58h) — vai no item 67 · painel web sai depois
 - **59-ideias-ferramentas-pegam-antes** — aprovado 22/11 04:55 — espera o 'implementar' (SITE, plano das ferramentas)
 - **60-voz-aviso-qr** — ✅ publicado no site 1795341195 (22/11): opção 1 do aviso (PT e ES) + volume padronizado nas 390 falas; dono: tom não precisa regravar
 - **61-camadas-um-movimento** — aprovado 22/11 12:20 (+ setinha › cinza 12:22) — espera o 'implementar' (SITE)

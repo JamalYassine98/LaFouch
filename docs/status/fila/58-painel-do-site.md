@@ -1,2 +1,2 @@
-58a e 58b aprovados (22/11) · 58c e 58d esboço pronto — esperando o dono · estudo 47b em work/s435/painelsite/ESTUDO-PAINEL-SITE-22-11.md
+aprovado (58a–58h) — vai no item 67 · painel web sai depois
 Mensagens e Avaliações a fazer
