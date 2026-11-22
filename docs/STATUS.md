@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | 41 parte 3: Galeria da peça (frente, 3/4 e giro que gira com o dedo) | src/97-estudio-galeria.js, src/97-estudio.js, www/style.css, tests/run.py |
 | ESBOCO | esboço 55 — desconto do Guardião no Vender | work/s435/guardiao |
 
 ## Fila
