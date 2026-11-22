@@ -123,6 +123,7 @@
 - para **ESBOCO**: v619 publicada (41 parte 1): marcas Frente · 3/4 · Giro em cada linha do Estúdio (fotos em work/s436/41/). O link segue 'Ficha ›' até a Galeria da peça entrar (
 - para **ESBOCO**: v620 publicada: Leve 2 do SITE saiu do app (regra, campo l2 da vitrine, leitura no pedido, rótulos). Pedido antigo com o desconto mostra 'Desconto do site'. NÃO
 - para **ESBOCO**: v621 publicada (41 parte 2): a câmera diz para qual peça vai (fotos em work/s436/41/camera_para_qual_peca_*). Achado L4 confirmado: com cabeçalho + frase + 11 i
+- para **ESBOCO**: v622 publicada (41 parte 3): Galeria da peça (fotos em work/s436/41/galeria_*). Conferir contra o esboço 41a: topo, blocos, tracejado, giro com o dedo, links. P
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
