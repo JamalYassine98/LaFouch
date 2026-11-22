@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 05: menu, busca e carrinho com um movimento",
- "arquivos": [
-  "work/ideias/05-animacoes"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795338446.6983001,
+   "r": "IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)"
+  },
   {
    "t": 1795336423.853119,
    "r": "IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS"
@@ -40,10 +42,6 @@
   {
    "t": 1795286980.9987233,
    "r": "IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS"
-  },
-  {
-   "t": 1795280942.4732416,
-   "r": "IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS"
   }
  ],
  "leu": 1795338430.446239

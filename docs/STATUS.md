@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
-| IDEIAS | IDEIAS 05: menu, busca e carrinho com um movimento | work/ideias/05-animacoes |
 | SITE | Voz: dono escolheu opção 1 (PT e ES); antes, padronizar o volume de todas as falas e verificar variação na voz | media/voz |
 
 ## Fila
@@ -138,6 +137,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 06:07 — IDEIAS: IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)
 - 22/11 05:33 — IDEIAS: IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS
 - 22/11 04:55 — IDEIAS: IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS
 - 22/11 04:55 — IDEIAS: IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS
@@ -162,4 +162,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 15:52 — IDEIAS: IDEIAS: 01 — carregamento só na galeria (anotado no COMO-FAZER) — IDEIAS
 - 21/11 15:49 — IDEIAS: IDEIAS: vídeo da câmera (esboco-06-camera-video.mp4) junto do item 45 — esperando o dono — IDEIAS
 - 21/11 14:34 — SITE: Pendências partes 1 e 2 FECHADAS (janelas conferidas; varredura 5ª rodada, site 1795282455, porteiro 232/0). PRÓXIMAS: parte 3 (plano das ferramentas 1→4→2→3) e parte 4 (esboços: bugs da Mochi, animação no lugar do brilho). No fim: lista única do que o dono faz e testa.
-- 21/11 14:09 — IDEIAS: IDEIAS: 01 parte A (câmera) na Fila 45 — esperando o dono; parte B (tabela/filtro) a seguir — IDEIAS
