@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 64 — ficha da peça (preço/oferta do Titan) e janela Oferta | work/s435/titan |
+| IDEIAS | IDEIAS 06b: molde de data (Natal) | work/ideias/06-tematica |
 
 ## Fila
 
