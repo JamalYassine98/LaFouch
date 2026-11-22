@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06b: molde de data (Natal)",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795362534.2679079,
+   "r": "IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64"
+  },
   {
    "t": 1795362199.013061,
    "r": "IDEIAS 06: estudo de referências (Cellshop, Nissei, Monalisa, Cartier, Gentle Monster) → molde único de data"
@@ -40,10 +42,6 @@
   {
    "t": 1795339111.619566,
    "r": "IDEIAS 05: versão PC/tablet do esboço (Fila 61)"
-  },
-  {
-   "t": 1795338446.6983001,
-   "r": "IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)"
   }
  ],
  "leu": 1795362531.6631284
