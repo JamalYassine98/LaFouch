@@ -44,9 +44,9 @@ def marketing(pw,qual):
     pg.evaluate("(a)=>{"+H+r"""const [im,qual]=a;const v=document.getElementById('v-mkt');{const tp=v.querySelector('.top');[...v.children].forEach(e=>{if(e!==tp&&!e.contains(tp)&&!tp.contains(e)&&!e.classList.contains('nvVs'))e.remove()})}
       TOPO('Marketing','Destaque da semana','');
       const top=v.querySelector('.top');const box=document.createElement('div');
-      const troca=qual=='troca'?'<div style="margin:24px 0 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:16px 0"><b style="display:block;font-size:16px;font-weight:500">O Semp propõe 1 troca</b><small style="display:block;font-size:13px;color:var(--mute);margin:4px 0 12px">O Solar Ray-Ban de metal masculino acabou · entra o Solar #13, com 9 no estoque</small><button type="button" style="display:block;width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Confirmar a troca</button></div>':'<div style="color:var(--mute);font-size:13px;margin:16px 0 0">Confirmado em 22/11 · vale até 29/11</div>';
+      const troca=(qual=='video'||qual=='camp')?'<div style="color:var(--mute);font-size:13px;margin:16px 0 0">Confirmado em 22/11 · vale até 29/11</div>':qual=='troca'?'<div style="margin:24px 0 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:16px 0"><b style="display:block;font-size:16px;font-weight:500">O Semp propõe 1 troca</b><small style="display:block;font-size:13px;color:var(--mute);margin:4px 0 12px">O Solar Ray-Ban de metal masculino acabou · entra o Solar #13, com 9 no estoque</small><button type="button" style="display:block;width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-size:16px;font-weight:700">Confirmar a troca</button></div>':'<div style="color:var(--mute);font-size:13px;margin:16px 0 0">Confirmado em 22/11 · vale até 29/11</div>';
       box.innerHTML=troca+LBL('As peças · 4')+PECA(im[0],'Leitura Kazwini de acetato masculino','a que mais vende · 27 no mês',OK)+(qual=='troca'?PECA(im[4],'Solar #13','entra na troca · 9 no estoque',AC):PECA(im[1],'Solar Ray-Ban de metal masculino','25 no mês · solar para o verão'))+PECA(im[2],'Solar Kazwini de tr90 feminino','24 no mês · solar para o verão')+PECA(im[3],'Lote Kazwini','parado há 430 dias · oferta até 20%',AV)+
-       LBL('Onde aparece')+LINHA('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/>','Site','destaque em slide · as 4 peças')+LINHA('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>','Agenda','2 de 6 posts da semana usam estas peças')+LINHA('<path d="M4 10h16v10H4z"/><path d="M3 10l2-6h14l2 6"/>','Na loja','o que oferecer a quem entra');
+       LBL('Onde aparece')+LINHA('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/>','Site',qual=='video'?'destaque em vídeo · o comercial da semana':qual=='camp'?'destaque em campanha · a foto do post':'destaque em slide · as 4 peças')+LINHA('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>','Agenda','2 de 6 posts da semana usam estas peças')+LINHA('<path d="M4 10h16v10H4z"/><path d="M3 10l2-6h14l2 6"/>','Na loja','o que oferecer a quem entra');
       (top.parentNode===v?v:top.parentNode).appendChild(box)}""",[im,qual])
     if qual=='vender':
       pg.evaluate("(im)=>{"+H+r"""const bk=document.createElement('div');bk.className='ljBk';bk.style.opacity='.5';const j=document.createElement('div');j.className='ljJn';j.style.transform='none';
@@ -62,7 +62,15 @@ def marketing(pw,qual):
     pg.add_style_tag(content='#nvBar,#mainnav{display:none!important}');pg.screenshot(path='/tmp/v53.png');x=Image.open('/tmp/v53.png');x=x.copy()
   else: x=tira(pg,qual)
   b.close();return x
-if __name__=='__main__':
+def formatos():
+ with sync_playwright() as pw:
+  q=[(t,sub,marketing(pw,k)) for t,sub,k in [('Site em SLIDE','como está no 71','lista'),('Site em VÍDEO','só a linha Site muda','video'),('Site em CAMPANHA','só a linha Site muda','camp')]]
+  q=[(t,sb,im.crop((0,700,780,im.height))) for t,sb,im in q]
+  quadro('esboco_71b_destaque_formatos.jpg',True,q)
+import os
+if __name__=='__main__' and os.environ.get('FMT'):
+ formatos()
+elif __name__=='__main__':
  with sync_playwright() as pw:
   quadro('esboco_71_destaque_semana.jpg',True,[('1 · Marketing › Destaque da semana','as peças reais · o motivo · onde aparece',marketing(pw,'lista')),('2 · tocar numa peça','como vender · desconto do Titan',marketing(pw,'vender')),('3 · quando uma peça acaba','o Semp propõe a troca · você confirma',marketing(pw,'troca'))])
  for n,f in REL: print(n,len(f),f[:4])
