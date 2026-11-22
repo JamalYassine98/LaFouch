@@ -29,7 +29,7 @@ def regras(pw,escuro=True):
     R('contas','Contas do mês','7 contas · em Dinheiro','G$ 4.200.000','›')+
     R('taxa','Taxas da maquininha','débito 2% · crédito 4%','','')+
     R('iva','IVA','incluído no preço · em guaranis','10%','⌄')+
-    R('res','Reserva para imprevistos','o Titan aprende sozinho','13%','⌄')+
+    R('res','Colchão','reserva da mercadoria · amortece','13%','⌄')+
     T('Dólar da loja')+
     R('cot','Cotação nos preços','travada · venda da casa G$ 6.550','G$ 6.700','⌄')+
     T('O Titan aprende com você')+
