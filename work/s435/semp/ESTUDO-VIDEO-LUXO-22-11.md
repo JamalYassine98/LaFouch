@@ -80,3 +80,33 @@ Pedidos: estudar como as marcas de luxo de óculos montam vídeo, e pensar o pos
 - Cada cor (giro curto ou foto).
 
 O app monta o vídeo sozinho com essas tomadas, sempre na mesma linguagem.
+
+---
+
+## Parte 3 — referência do dono: @made.glasses (22/11 17:35, olhado no navegador)
+O dono disse: "dá para simplificar várias coisas e melhorar o Estúdio sem quebrar a cabeça". O post de exemplo é o "Évora", um carrossel de 3 imagens.
+
+**Imagem 1 — a ficha**
+- Fundo branco e um cabeçalho fino: MADÉ ——— GLASSES.
+- O nome do modelo em letra serifada (ÉVORA).
+- A foto da peça de frente, grande.
+- Uma fileira de 4 recortes de detalhe, em quadrados arredondados com legenda curta e factual: Armação de metal · Lentes coloridas · Proteção UV400 · Detalhes modernos.
+- O logo embaixo.
+
+**Imagens 2 e 3**
+- Uma foto de ângulo, grande e cortada pela borda, que continua de uma imagem para a outra (panorama dividido).
+- Uma linha só: "Disponível em marrom e roxo." + o site.
+
+**O resto do perfil**
+- Gente usando a peça, gravado no celular, com legenda curta.
+- Natureza-morta simples: a peça num prato com garfo e faca, ou na mão sobre um piso.
+- "Wishlist": peças numeradas sobre fundo branco, com um título serifado.
+- Post de texto grande.
+- **Nenhum comercial de estúdio.**
+
+**Conclusão:** o luxo acessível que funciona é simples:
+- **Foto boa no branco + detalhes + tipografia limpa + gente de verdade.**
+- O Estúdio só precisa de **foto de frente, de ângulo e 3 de detalhe**, todas no fundo branco.
+- O app monta sozinho a ficha, o carrossel com panorama, a wishlist ou montagem de cores, e o status.
+- As legendas vêm do cadastro (material, lente, UV, medidas), nunca de frase inventada.
+- Vídeo = gente usando, gravado no celular, que o app só corta e legenda. O comercial gerado em código sai da proposta (73–75 ficam como estudo).
