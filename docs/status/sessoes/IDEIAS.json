@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 04 aprovado: guardar",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795334155.8951323,
+   "r": "IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS"
+  },
   {
    "t": 1795334107.949743,
    "r": "IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS"
@@ -41,10 +42,6 @@
   {
    "t": 1795275727.6619365,
    "r": "IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS"
-  },
-  {
-   "t": 1795269123.800192,
-   "r": "IDEIAS: esboço 01 v2 (medir mesmo perto/torto; descrição dos formatos; 2 erros achados) na Fila 45 — esperando o dono — IDEIAS"
   }
  ],
  "leu": 1795334150.2425036
