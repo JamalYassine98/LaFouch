@@ -43,7 +43,7 @@ if __name__ == '__main__':
     BASE = (':root{--bg:#f5f3f0;--pn:#fff;--tx:#141414;--mu:#6b6763;--ln:#e6e1db;--ln2:#d8d2ca;--ac:var(--act,#8d3a69);color-scheme:light}'
             'body{background:var(--bg)}#evbar{background:var(--act,#141414);color:#fff}')
     h = open(p).read().replace('</head>', '<style id="lfBase">' + BASE + '</style></head>', 1); open(p, 'w').write(h)
-    SETA = "\n(function(){var s=document.createElement('style');s.textContent='#sov .socat button i{color:var(--mu)!important}';document.head.appendChild(s)})();\n"
+    SETA = "\n(function(){var s=document.createElement('style');s.textContent='#sov .socat button i{color:var(--mu)!important}#drw nav.dnv>a.dof{color:var(--act,var(--ac))!important}';document.head.appendChild(s)})();\n"
     open(DST + '/js/lf-site.js', 'a').write(V2.PINTA2 + SETA)
     open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'removidas.txt'), 'w').write('\n'.join(sai))
     print(len(sai), 'regras de tema saem')

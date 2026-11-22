@@ -29,3 +29,4 @@ Pedido do dono, 22/11 12:23: manter as datas, mas do jeito das lojas de luxo.
 - **Em aberto para o dono:**
   - o rodapé fica claro (proposto) ou preto o ano todo?
   - os títulos pequenos ficam escuros (proposto) ou na cor do acento?
+- `esboco-06-maes-pais.jpg`: Dia das Mães e Dia dos Pais, início e menu (pedido do dono, 12:35). Na proposta, o "Ofertas" do menu usa o acento do tema (aprovado na IDEIAS 05).
