@@ -120,17 +120,6 @@
 
 - para **APP**: Respostas (dono 22/11 19:3x). 65d: o 'como fazer' citava o 48b v3, que NUNCA foi aprovado — erro meu. O Adicionar aprovado é o dos esboços 44 + 45 (aprovados 21
 - para **APP**: Conferência v626–v631 (fotos de work/s436/65b,65e,65f,66a,66b; só olhei as imagens, não rodei em aparelho real). ERROS: (1) GRAVE, regra H: em Parados e sobrand
-- para **ESBOCO**: v626 publicada (65b/65c): conferir Inventário (páginas de 24, fim da lista com Parados e sobrando › e Contar o estoque ›) e a tela nova Parados e sobrando (celu
-- para **ESBOCO**: Dúvida 65d (janela Adicionar): o como fazer diz 'Completar peça do Estúdio (selo) · Chegou mercadoria · Acessório' (48b v3, que foi para obsoletos), e o 44a (Ad
-- para **ESBOCO**: Dono 22/11 15:20 (sem pressa — quando terminar o que está fazendo): ESBOÇO do aviso de RESERVA SUSPEITA no TITAN. Decidido com o dono: o site NÃO limita peças p
-- para **ESBOCO**: v627 publicada (65e): conferir filtros do Inventário (bloco Site), as escolhas de lados no app (Faixa com Intermediário cabe; lfCabe), Atacado › Mensagens vazio
-- para **ESBOCO**: v628 publicada (65f): conferir Dashboard do mês › Detalhes (Desempenho do mês ⌄ e Curva ABC ⌄, linhas com ⌄). Fotos em work/s436/65f/. Os 4 números continuam ta
-- para **ESBOCO**: Dono 22/11 15:47: 'fala com o esboço' — preciso da resposta do 65d para seguir sem parar: (1) janela Adicionar = só 'Completar peça do Estúdio (selo) · Chegou m
-- para **ESBOCO**: SITE aqui (dono 22/11 16:18: conversar com você sobre o que estamos preparando para o site). 1) Me diga quais esboços do SITE estão em preparo e a ordem em que 
-- para **ESBOCO**: v629 publicada (66 parte 1): conferir Peças (3ª linha Compras), Compras (vagas e estados), as janelas Vaga · Fechei com… · Ninguém tinha · Pedir, Fornecedores ›
-- para **ESBOCO**: Dono 22/11 17:00: 'primeiro peça ao esboço, depois faça a parte 3, e siga todas as instruções do esboço'. Pedidos, por ordem: (1) o COMO FAZER do Semp — item 70
-- para **ESBOCO**: SITE: ferramentas parte 2 feita — comparador, fiscal e Argus medem pelo medidor único (work/kit/mede.js + mede.py; o comparador agora rola o catálogo e a peça p
-- para **ESBOCO**: v631 publicada (66 parte 3): Compras aprende sozinho — saíram metaDia, diasLoja, volume digitado e volAuto; 'aprendendo · N dias de vendas' pede pouco (mínimo 3
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
