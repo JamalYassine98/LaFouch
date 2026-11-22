@@ -114,3 +114,16 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - o destaque de evento que já existe (`EVD`/`.hd`) vira o Destaque Campanha, com `fotos[3]` ou `video`, e cada foto ligada a uma peça (ref) para o nome e o preço;
   - sai a `fx()` de partículas.
 - **Vídeo:** `esboco-06d-campanha-natal.mp4`. Usa 3 fotos reais de peças (SL2265, SL2300, SL2270) no lugar das fotos do Semp.
+
+### 06e · O Destaque Campanha em cada evento (dono 22/11 15:16)
+| Data | Título pequeno | Título (o de hoje no site) | Botão | Seleção | Peças do esboço |
+|---|---|---|---|---|---|
+| Black Friday | Só esta semana | Black *Friday* | Descobrir as ofertas | Solar · Armações · Leitura | GR3340, SL2285, SL2255 |
+| Natal | Natal La Fouch | Presenteie estilo neste *Natal* | Descobrir a seleção | Para ela · Para ele · Para todos | SL2265, SL2275, SL2260 |
+| Ano Novo | Ano Novo | Ano novo, *novo olhar* | Descobrir a seleção | Solar · Armações · Leitura | SL2270, SL2250, BR44145 |
+| Dia das Mães | Dia das Mães | Um presente com *carinho* | Descobrir a seleção | Solar · Armações · Leitura | SL2300, AC1055, SL2270 |
+| Dia dos Pais | Dia dos Pais | Estilo para o seu *pai* | Descobrir a seleção | Solar · Armações · Leitura | SL2305, GR3345, SL2250 |
+| Halloween | Halloween | Olhar *misterioso* | Descobrir a seleção | Solar · Gatinho · Armações | SL2255, BR44140, SL2285 |
+- **Para todas:** a mesma estrutura, o mesmo movimento (06d), uma cor de acento (o *destaque* do título e o botão), o chapéu do Mochi e a faixa.
+- **No painel do evento:** título pequeno, título, subtítulo, 3 fotos (ou vídeo) com a peça de cada uma, e a seleção (3 escolhas).
+- **Pranchas:** `esboco-06e-eventos-1.jpg` (BF, Natal, Ano Novo) e `esboco-06e-eventos-2.jpg` (Mães, Pais, Halloween).
