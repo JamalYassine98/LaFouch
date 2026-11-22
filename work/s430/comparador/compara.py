@@ -98,14 +98,7 @@ def abre(b, url, ap, tela, foto=None):
     c.route('**cloudfunctions.net/**', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body=RS.NUVEM))
     c.route('**identitytoolkit**', lambda r, q=None: r.fulfill(status=200, content_type='application/json', body='{"users":[{"emailVerified":true,"email":"maria@exemplo.com"}]}'))
     pg = c.new_page()
-    pg.goto(url + tela['q'], wait_until='load')
-    pg.wait_for_timeout(5500)
-    for k, v in tela['passos']:
-        if k == 'toca': pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(e=>e.offsetParent)||document.querySelector(s);e&&e.click()}", v)
-        elif k == 'menu': pg.evaluate("h=>{document.querySelector('#mnb').click();setTimeout(()=>{const e=document.querySelector('#drw a[href=\"'+h+'\"]');e&&e.click()},700)}", v); pg.wait_for_timeout(700)
-        elif k == 'js': pg.evaluate(v)
-        elif k == 'escreve': pg.keyboard.type(v)
-        pg.wait_for_timeout(v if k == 'espera' else 1500)
+    RS.vai(pg, url, tela)
     # fotos por faixa (sem "página inteira": esticar a janela muda a escala do site e mexe na tela)
     L, S, fotos = [], set(), []
     alto = pg.evaluate("document.documentElement.scrollHeight")

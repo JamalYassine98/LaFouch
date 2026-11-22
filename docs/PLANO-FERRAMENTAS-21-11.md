@@ -70,3 +70,11 @@ Não: cada parte tira o que substitui. O risco é o portão ficar frouxo — por
 - Defeito plantado (sem a base das janelas soltas): diferenças em Janela da câmera, Comparar e Portal do atacado → o Argus reprova.
 - `CMP_TELAS="Carrinho,Mapa"` roda só as telas mexidas (conferir esboço rápido).
 - Falta: prova "o roteiro cobre todas as telas" (cada tela nova do site entra no roteiro ou numa lista de fora) — vai junto da parte 2.
+
+### Parte 2a feita em 22/11 — a biblioteca de medidas e a prova dela
+- `work/kit/mede.js` (medidas, cada regra escrita uma vez) + `work/kit/mede.py` (medir e ROLAR tudo o que rola: a página, o catálogo dentro de #vscr, a peça dentro da camada aberta) + `work/kit/mede_prova.py` (a prova).
+- Regras: sobreposto (pela tinta do texto, não pela caixa) · cortado · fora da tela · página larga · janela fora da tela · coberto (coisa parada tampada por outra parada) · quebrou a linha · encosta na foto (texto em cima do desenho da armação, medido nos pontos da foto).
+- Os 5 erros de referência, refeitos pela mesma causa numa cópia: 5 de 5 pegos, e a mesma tela limpa não acusa. Foto: work/s430/ferramentas/medidor_5_erros_22-11.jpg.
+- Site de hoje, 22 telas × celular e PC: 1 achado de verdade — "Ver este modelo" quebra em 2 linhas no Comparar do celular (regra L4). Vira esboço.
+- ACHADO: o comparador rolava só a janela; o catálogo rola dentro de #vscr e a peça dentro da camada — ele via só a 1ª tela delas. O `percorre` do mede.py resolve; entra na parte 2b.
+- Falta (2b): o comparador e o Argus usarem a biblioteca (sai a COLETA de dentro do compara.py, o audita.js do fiscal, o olho.js); prova no Argus: mede_prova com 5 de 5.

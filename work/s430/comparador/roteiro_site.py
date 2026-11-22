@@ -44,3 +44,15 @@ TELAS = [
 ]
 # a nuvem imitada (igual nas duas versões): o que a tela mostra não depende da hora nem da internet
 NUVEM = '{"ok":true,"cupons":[],"tok":"LF-T","exp":9e15,"agora":0,"aparelhos":[],"pedidos":[]}'
+
+
+def vai(pg, url, tela):
+    """abre a tela no navegador: endereço + passos (UM jeito só, usado pelo comparador e pela prova do medidor)"""
+    pg.goto(url + tela['q'], wait_until='load')
+    pg.wait_for_timeout(5500)
+    for k, v in tela['passos']:
+        if k == 'toca': pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(e=>e.offsetParent)||document.querySelector(s);e&&e.click()}", v)
+        elif k == 'menu': pg.evaluate("h=>{document.querySelector('#mnb').click();setTimeout(()=>{const e=document.querySelector('#drw a[href=\"'+h+'\"]');e&&e.click()},700)}", v); pg.wait_for_timeout(700)
+        elif k == 'js': pg.evaluate(v)
+        elif k == 'escreve': pg.keyboard.type(v)
+        pg.wait_for_timeout(v if k == 'espera' else 1500)
