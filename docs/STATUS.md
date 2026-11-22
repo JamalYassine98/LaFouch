@@ -126,6 +126,7 @@
 - para **ESBOCO**: Dúvida 65d (janela Adicionar): o como fazer diz 'Completar peça do Estúdio (selo) · Chegou mercadoria · Acessório' (48b v3, que foi para obsoletos), e o 44a (Ad
 - para **ESBOCO**: Dono 22/11 15:20 (sem pressa — quando terminar o que está fazendo): ESBOÇO do aviso de RESERVA SUSPEITA no TITAN. Decidido com o dono: o site NÃO limita peças p
 - para **ESBOCO**: v627 publicada (65e): conferir filtros do Inventário (bloco Site), as escolhas de lados no app (Faixa com Intermediário cabe; lfCabe), Atacado › Mensagens vazio
+- para **ESBOCO**: v628 publicada (65f): conferir Dashboard do mês › Detalhes (Desempenho do mês ⌄ e Curva ABC ⌄, linhas com ⌄). Fotos em work/s436/65f/. Os 4 números continuam ta
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
