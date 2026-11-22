@@ -173,3 +173,19 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
   - fora das datas é grátis ou tem um valor?
   - qual a regra de troca para quem ganhou?
 - **Esboço:** `esboco-06g-presente.jpg` (Hoje | Proposta fechado | Proposta com "Sim" e mensagem).
+
+### 06g v2 (dono 22/11 15:41: "mais luxuoso; e vários presentes? e várias peças?"): substitui a v1
+- **Lógica: cada peça é um pacote.** O presente fica **dentro do cartão de cada peça**, então 1, 3 ou 10 peças funcionam igual, e cada uma pode ser um presente com o seu cartão.
+- **Na peça:**
+  - uma linha fina "○ Embrulhar para presente"; ao tocar, o círculo fica marcado na cor da data;
+  - marcada, aparece "Escrever o cartão ›", que abre a **janela de baixo** (regra 15): título "O cartão", "Vai junto com a peça, escrito à mão.", a mensagem (até 200) e **Salvar**;
+  - salva, a mensagem aparece **em itálico serifado, entre aspas**, com "Editar o cartão ›".
+- **Mais luxo:**
+  - uma frase discreta em itálico no topo: "Embrulho de presente cortesia neste Natal.";
+  - "cortesia" no lugar de "grátis";
+  - a escolha preto/branco Não|Sim sai e entra o círculo fino;
+  - a mensagem aparece como num cartão de verdade.
+- **Resumo:** linha "Presentes · N embrulhos · cortesia".
+- **Quantidade maior que 1 na mesma peça:** "Embrulhar cada uma separada" fica como pergunta para o dono. Proposta: um pacote por unidade, e o mesmo cartão vale para todas.
+- **Esboço:** `esboco-06g-presente.jpg` (Hoje com 3 peças | Proposta: topo, descendo, escrevendo o cartão).
+- **Notado, sem mudar:** o botão verde "Prosseguir com o pagamento" é a regra de cor de hoje (verde = certo). Fica para o dono decidir se no luxo ele vira a cor da marca.
