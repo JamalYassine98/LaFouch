@@ -1,13 +1,12 @@
 {
  "nome": "APP",
- "agora": "41 parte 3: Galeria da peça (frente, 3/4 e giro que gira com o dedo)",
- "arquivos": [
-  "src/97-estudio-galeria.js",
-  "src/97-estudio.js",
-  "www/style.css",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795318403.0299108,
+   "r": "v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos)."
+  },
   {
    "t": 1795317019.5588572,
    "r": "v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça)."
@@ -43,11 +42,7 @@
   {
    "t": 1795302656.6910415,
    "r": "v613 publicada: 38 parte A — aviso curto com a cor do tipo. Porteiro 365/365. Próximo: 38 parte B (chão único)."
-  },
-  {
-   "t": 1795301407.4284365,
-   "r": "v612 publicada: 37d parte 2 — Marca em Ajustes › Loja; Kit sai do Marketing. Porteiro 364/364. Próximo: 38 aviso curto."
   }
  ],
- "leu": 1795317209.0183308
+ "leu": 1795318402.5887167
 }
