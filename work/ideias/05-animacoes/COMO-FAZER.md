@@ -35,3 +35,9 @@ Resultado: 3 tempos de abrir, 3 de fechar, 3 curvas, 3 direções e 3 fundos dif
 
 ## Não testado
 Aparelho real. O desfoque (`backdrop-filter`) custa mais em celular fraco: medir no Test Lab antes de publicar.
+
+## PC e tablet (pedido do dono, 22/11 06:10)
+A mesma regra, sem mudar nada: o menu cresce do ☰ e a busca da lupa (ela continua centralizada, com 640 px). O carrinho cresce da sacola. O fundo desfoca e o topo fica à vista.
+O topo B é só do celular: no PC o topo não muda.
+Vídeo: `esboco-05-animacoes-pc.mp4` (Hoje em cima, Proposta embaixo).
+Comparador no PC e no tablet: 0 falhas novas. As diferenças são só três: o menu abre embaixo do topo, o site atrás recua e a busca desce para baixo do topo.

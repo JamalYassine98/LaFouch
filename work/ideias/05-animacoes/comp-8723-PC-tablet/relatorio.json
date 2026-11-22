@@ -1,0 +1,2672 @@
+[
+ {
+  "aparelho": "tablet",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Menu aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.hp \"R$ 90\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 100\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "a \"Dúvidas frequentes\"",
+    "larg 124→121"
+   ],
+   [
+    "mudou",
+    "span \"todo o Paraguai\"",
+    "esq 63→61, larg 176→170"
+   ],
+   [
+    "mudou",
+    "g.pis",
+    "larg 43→42"
+   ],
+   [
+    "mudou",
+    "h2 \"Novidades e ofertas\"",
+    "larg 600→582"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 721→953, larg 608→590, alt 224→41, classe hcat→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "larg 36→35, alt 34→33"
+   ],
+   [
+    "mudou",
+    "div#dset.dset",
+    "topo 319→842, alt 56→50, classe dch→dset"
+   ],
+   [
+    "mudou",
+    "div.hdots",
+    "esq 40→140, topo 414→464, larg 280→70, alt 46→8, classe hth→hdots"
+   ],
+   [
+    "mudou",
+    "div.hcat",
+    "topo 665→699, larg 608→590, alt 42→217, classe hsh→hcat"
+   ],
+   [
+    "mudou",
+    "ellipse.sombra",
+    "esq 45→44, topo 95→92, larg 67→65"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 278→270, alt 139→135"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→31, topo 0→35, larg 608→528, alt 387→147, classe in→—"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 124→121, alt 83→80"
+   ],
+   [
+    "mudou",
+    "g.pe1",
+    "esq 52→50, topo 122→118"
+   ],
+   [
+    "mudou",
+    "g",
+    "esq 36→35, larg 83→81, alt 57→56"
+   ],
+   [
+    "mudou",
+    "span.hati",
+    "larg 340→330, alt 340→330"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 87→85, larg 258→250"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 144→140, larg 258→250"
+   ],
+   [
+    "mudou",
+    "div.htr",
+    "esq 144→0, topo 478→543, larg 72→590, alt 8→65, cor rgb(255, 255, 255)→rgb(102, 102, 102), letra 16px 400→13px 400, classe hdots→htr"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "g.olhos",
+    "esq 56→54, topo 83→81, larg 43→42"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 120\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 41→39, larg 197→191, alt 104→101"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 207→201, topo 259→251, larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "button.hdi",
+    "larg 220→213, alt 498→483"
+   ],
+   [
+    "mudou",
+    "p",
+    "larg 258→250"
+   ],
+   [
+    "mudou",
+    "a \"Ver todos ›\"",
+    "esq 528→512, larg 80→77"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 116→0, topo 206→0, larg 128→61, alt 68→66, classe hcd→—"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 216→209, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3345\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "button.p1 \"Ver modelo\"",
+    "larg 131→127, alt 44→43"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 72→70, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Para lojistas\"",
+    "larg 132→128, alt 42→41"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 96→93, larg 173→168, alt 145→141"
+   ],
+   [
+    "mudou",
+    "h3 \"Compre em quantidade\"",
+    "esq 52→50, topo 61→59, larg 162→157, alt 74→71"
+   ],
+   [
+    "mudou",
+    "g.oclT",
+    "larg 86→84"
+   ],
+   [
+    "mudou",
+    "a \"Termos\"",
+    "esq 158→153, larg 43→41"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 32→308, topo 215→209, larg 258→250, alt 172→167"
+   ],
+   [
+    "mudou",
+    "small \"HORAS\"",
+    "topo 43→42, larg 41→40"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 34→33, larg 158→153, alt 109→106"
+   ],
+   [
+    "mudou",
+    "button.nlk \"Prefiro por e-mail\"",
+    "esq 236→229, topo 60→58, larg 128→124"
+   ],
+   [
+    "mudou",
+    "g.pulo",
+    "larg 155→150, alt 133→129"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 4→0, topo 128→2883, larg 600→590, alt 79→490, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgba(0, 0, 0, 0)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe nf→lfft"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 415→402, topo 259→251, larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · metal\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "a \"Dicas e cuidados\"",
+    "larg 109→106"
+   ],
+   [
+    "mudou",
+    "span.hlb \"SÓ ESTA SEMANA\"",
+    "esq 117→114, topo 40→39, larg 125→122"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "b \"17\"",
+    "larg 41→40"
+   ],
+   [
+    "mudou",
+    "img",
+    "topo 186→180, larg 189→184, alt 126→123"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1039→1282, larg 608→590, alt 245→41, classe hg→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "g.ocl",
+    "esq 34→33, topo 81→78, larg 86→84"
+   ],
+   [
+    "mudou",
+    "a \"Leitura\"",
+    "larg 44→42"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 87→85, larg 258→250"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 140\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "div#__fundo",
+    "topo 413→133, larg 608→640, alt 92→721, cor rgb(189, 189, 189)→rgb(17, 17, 17), fundo rgba(0, 0, 0, 0)→rgba(18, 8, 14, 0.22), letra 12px 400→16px 400, classe fbt→—"
+   ],
+   [
+    "mudou",
+    "a \"Privacidade\"",
+    "esq 210→204, larg 67→65"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "topo 53→51, larg 155→150"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→57, alt 40→39"
+   ],
+   [
+    "mudou",
+    "path.corpoF",
+    "topo 38→37, larg 91→88, alt 91→88"
+   ],
+   [
+    "mudou",
+    "text \"BLACK\"",
+    "larg 42→40"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "g.aBd",
+    "esq 109→105, topo 92→89, larg 36→35, alt 35→34"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 59→57, larg 258→250"
+   ],
+   [
+    "mudou",
+    "a.mp \"Como chegar ›\"",
+    "larg 97→94"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "g.pup",
+    "larg 43→42"
+   ],
+   [
+    "mudou",
+    "b \"Descubra seu grau em 1 min\"",
+    "topo 42→41, larg 225→218, alt 48→47"
+   ],
+   [
+    "mudou",
+    "div.dhd",
+    "larg 640→300, alt 853→98, fundo rgba(0, 0, 0, 0.55)→rgba(0, 0, 0, 0), classe dsc→dhd"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 1919→1916, larg 608→590, alt 42→229, classe hsh→hcom hgu"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 433→420, larg 175→169, alt 236→229"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Comece por aqui\"",
+    "larg 187→181, alt 42→41"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 38→37"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 53→52, larg 137→133"
+   ],
+   [
+    "mudou",
+    "text \"FRIDAY\"",
+    "topo 24→23, larg 45→43"
+   ],
+   [
+    "mudou",
+    "p",
+    "larg 258→250"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "a \"Entre em contato\"",
+    "larg 109→105"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 59→57, larg 258→250"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 341→4, topo 1→26, larg 266→582, alt 359→81, classe hatt→—"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 144→140, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "g.tilt",
+    "larg 155→150, alt 133→129"
+   ],
+   [
+    "mudou",
+    "div.dch",
+    "esq 0→18, topo 0→319, larg 300→264, alt 98→56, classe dhd→dch"
+   ],
+   [
+    "mudou",
+    "b \"Tire suas dúvidas\"",
+    "topo 42→41, larg 173→168"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "a \"Termos\"",
+    "esq 397→386, larg 41→40"
+   ],
+   [
+    "mudou",
+    "b \"A armação ideal para o seu ros\"",
+    "topo 42→41, larg 173→168, alt 48→47"
+   ],
+   [
+    "mudou",
+    "g.bW",
+    "esq 72→70, topo 109→106"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→68, larg 62→56, alt 68→66"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 123→119, larg 544→528"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 50→48"
+   ],
+   [
+    "mudou",
+    "a \"Privacidade\"",
+    "esq 324→314, larg 64→62"
+   ],
+   [
+    "mudou",
+    "small \"6 modelos\"",
+    "larg 262→254"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→57, alt 40→39"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "larg 173→168, alt 97→94"
+   ],
+   [
+    "mudou",
+    "a.p2 \"Ver ofertas\"",
+    "esq 141→137, larg 98→95, alt 44→43"
+   ],
+   [
+    "mudou",
+    "div#drw.on",
+    "topo 0→133, alt 853→721"
+   ],
+   [
+    "mudou",
+    "p.hsub",
+    "esq 77→75, topo 175→170, larg 206→200"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "topo 38→37, larg 544→528"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 41→40, larg 83→81"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "button.lfba \"Solicitar orçamento\"",
+    "esq 52→50, topo 275→267, larg 162→157, alt 44→43"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "larg 173→168, alt 97→94"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 97→94, topo 103→100"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 100→97, larg 173→168, alt 136→132"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "larg 36→35, alt 35→34"
+   ],
+   [
+    "mudou",
+    "span \"PIX ou Banco Familiar\"",
+    "esq 267→259, larg 278→270"
+   ],
+   [
+    "mudou",
+    "div.hdt",
+    "esq 16→241, larg 608→349, alt 3478→510, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe —→hdt"
+   ],
+   [
+    "mudou",
+    "em.gsub \"Pagamento, entrega e troca\"",
+    "topo 72→70, larg 173→168, alt 33→32"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 53→51, larg 155→150"
+   ],
+   [
+    "mudou",
+    "aside.dpn",
+    "alt 853→721"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 983→1008, larg 608→590, alt 42→237, classe hsh hsh1→hg"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 48→46"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 124→121, alt 83→80"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "larg 258→250"
+   ],
+   [
+    "mudou",
+    "a \"Ofertas\"",
+    "larg 47→46"
+   ],
+   [
+    "mudou",
+    "a \"Atacado\"",
+    "larg 53→51"
+   ],
+   [
+    "mudou",
+    "a \"Ver todos ›\"",
+    "esq 528→512, larg 80→77"
+   ],
+   [
+    "mudou",
+    "span \"em CDE\"",
+    "esq 240→233, topo 47→46, larg 128→124"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "esq 318→0, topo 215→401, larg 258→590, alt 172→89, letra 13.5px 400→12px 400, classe —→fbt"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 38→37"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "div.hth",
+    "esq 60→39, topo 352→402, larg 240→272, classe hbt→hth"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "esq 0→25, topo 0→52, larg 640→590, alt 3478→3373, classe wrap→—"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 278→270, alt 139→135"
+   ],
+   [
+    "mudou",
+    "b \"Armação LaFouch quadrada\"",
+    "larg 206→200"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 243→236, larg 175→169, alt 236→229"
+   ],
+   [
+    "mudou",
+    "a \"Armações\"",
+    "larg 65→63"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "larg 258→250"
+   ],
+   [
+    "mudou",
+    "p \"Avisamos quando chegam modelos\"",
+    "esq 130→126, topo 40→39, larg 340→330, alt 43→42"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "larg 77→75"
+   ],
+   [
+    "mudou",
+    "g.resp",
+    "larg 155→150, alt 133→129"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "topo 55→53, larg 137→133"
+   ],
+   [
+    "mudou",
+    "g.aBe",
+    "topo 91→89, larg 36→35, alt 34→33"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · quadrado\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "small \"ESTILO\"",
+    "larg 42→41"
+   ],
+   [
+    "mudou",
+    "div.hatt",
+    "esq 0→331, topo 2306→1, larg 608→258, alt 361→348, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe hata→hatt"
+   ],
+   [
+    "mudou",
+    "b \"Delivery\"",
+    "larg 52→50"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 259→251, larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 36→209, larg 544→250, alt 151→167"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 115→112, larg 225→218, alt 136→132"
+   ],
+   [
+    "mudou",
+    "div#hnf.nf",
+    "topo 27→125, larg 600→582, alt 84→76, classe —→nf"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Mais vendidos\"",
+    "larg 160→156, alt 42→41"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "topo 2972→0, larg 608→590, alt 505→376, fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0), classe lfft→in"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 40→38, topo 103→100"
+   ],
+   [
+    "mudou",
+    "h1 \"BLACK\"",
+    "esq 42→41, topo 67→65, larg 276→268, alt 43→42"
+   ],
+   [
+    "mudou",
+    "section#hdst.hd",
+    "larg 608→590, alt 526→510"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "topo 94→92, larg 544→528"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1322→1336, larg 608→590, alt 42→489, classe hsh hsh1→hg"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "g.lfth",
+    "larg 155→150, alt 64→62"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "topo 109→106, larg 168→163"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "a",
+    "esq 312→303, larg 296→287, alt 224→217"
+   ],
+   [
+    "mudou",
+    "button",
+    "larg 227→220, alt 236→229"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "topo 53→51, larg 544→528"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→57, alt 40→39"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 48→46, topo 47→46"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 37→36, topo 82→79, larg 265→257, alt 177→171"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 64→62"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "topo 66→64, larg 544→528"
+   ],
+   [
+    "mudou",
+    "g.pe2",
+    "esq 83→81, topo 122→118"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "a",
+    "larg 296→287, alt 224→217"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 1975→2182, larg 608→590, alt 236→41, classe hcom hgu→hsh"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 49→47"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "esq 18→0, topo 923→0, larg 264→640, alt 163→3478, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 14px 400→16px 400, classe dct dct5→wrap"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1055\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 57→55, alt 39→38"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "b \"Retirada\"",
+    "larg 52→50"
+   ],
+   [
+    "mudou",
+    "em \"FRIDAY\"",
+    "esq 143→139, larg 133→129, alt 44→43"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "larg 544→528"
+   ],
+   [
+    "mudou",
+    "div.hpr \"R$ 95\"",
+    "esq 146→142, topo 298→289, larg 68→66, alt 36→35"
+   ],
+   [
+    "mudou",
+    "small \"11 modelos\"",
+    "larg 262→254"
+   ],
+   [
+    "mudou",
+    "g.sq",
+    "larg 155→150, alt 133→129"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 116→112, larg 258→250"
+   ],
+   [
+    "mudou",
+    "b \"Pagamento seguro\"",
+    "larg 118→114"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Compre por categoria\"",
+    "larg 238→231, alt 42→41"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 208→201, larg 192→186, alt 36→35"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 207→201, larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "div.dct.dct5",
+    "topo 842→923, alt 50→163, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→14px 400, classe dset→dct dct5"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Novidades\"",
+    "larg 117→114, alt 42→41"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "path",
+    "larg 83→81, alt 55→53"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 168→163"
+   ],
+   [
+    "mudou",
+    "small \"TESTE DE LEITURA\"",
+    "larg 111→108"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 88→86"
+   ],
+   [
+    "mudou",
+    "div.hcd",
+    "esq 248→112, topo 0→200, larg 360→125, alt 526→66, classe hdt→hcd"
+   ],
+   [
+    "mudou",
+    "small \"AJUDA\"",
+    "larg 42→41"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3350\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 1378→1862, larg 608→590, alt 504→41, classe hg→hsh"
+   ],
+   [
+    "mudou",
+    "span.gi.mo",
+    "larg 225→218, alt 127→123"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 415→402, larg 193→188, alt 245→237"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 36→35"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 41→39, larg 197→191, alt 104→101"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"SL2250\"",
+    "topo 141→136, larg 192→186, alt 47→46"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "topo 109→106, larg 168→163"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 67→65"
+   ],
+   [
+    "mudou",
+    "small \"MIN\"",
+    "topo 43→42"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2250→2236, larg 608→590, alt 42→350, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe hsh→hata"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "larg 544→528, alt 36→35"
+   ],
+   [
+    "mudou",
+    "p.hsub \"Estoque limitado: quando acaba\"",
+    "esq 40→39, topo 118→115, larg 280→272, alt 45→44"
+   ],
+   [
+    "mudou",
+    "p \"Preços especiais para lojas, r\"",
+    "esq 52→50, topo 141→137, larg 162→157, alt 116→113"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 49→48"
+   ],
+   [
+    "mudou",
+    "em \"primeiro\"",
+    "esq 365→354, larg 95→92"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 176→170, alt 132→128"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 68→66"
+   ],
+   [
+    "mudou",
+    "button.nwb \"Receber pelo WhatsApp\"",
+    "esq 167→162, larg 266→258, alt 46→45"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 2694→2614, larg 608→590, alt 234→227"
+   ],
+   [
+    "mudou",
+    "small \"PARA REVENDER\"",
+    "esq 52→50, topo 40→39, larg 117→113"
+   ],
+   [
+    "mudou",
+    "div.hbt",
+    "esq 70→58, topo 0→342, larg 58→233, alt 68→43, classe —→hbt"
+   ],
+   [
+    "mudou",
+    "span \"Solar\"",
+    "topo 148→144, larg 294→286, alt 75→73"
+   ],
+   [
+    "mudou",
+    "button.on",
+    "larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "span \"Armações\"",
+    "topo 148→144, larg 294→286, alt 75→73"
+   ],
+   [
+    "mudou",
+    "g",
+    "esq 40→39"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 188→182, larg 192→186"
+   ],
+   [
+    "mudou",
+    "div.hsh",
+    "topo 560→645, larg 608→590, alt 67→41, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13px 400→16px 400, classe htr→hsh"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Busca aberta",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.socat",
+    ""
+   ],
+   [
+    "mudou",
+    "div.sobar",
+    "larg 640→614, alt 853→72, fundo rgba(20, 10, 18, 0.45)→rgba(0, 0, 0, 0), classe sosc→sobar"
+   ],
+   [
+    "mudou",
+    "div#sores.sores",
+    "esq 14→1, topo 12→73, larg 586→614, alt 48→328, fundo color(srgb 0.0666667 0.0666667 0.0666667 / 0.06)→rgba(0, 0, 0, 0), classe sofld→sores"
+   ],
+   [
+    "mudou",
+    "div.socat",
+    "esq 1→6, topo 73→56, larg 614→602, alt 328→266, classe sores→socat"
+   ],
+   [
+    "mudou",
+    "div.sofld",
+    "esq 1→14, topo 1→12, larg 614→586, alt 72→48, fundo rgba(0, 0, 0, 0)→color(srgb 0.0666667 0.0666667 0.0666667 / 0.06), classe sobar→sofld"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "tablet",
+  "tela": "Carrinho aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Início",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Catálogo",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Peça",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Menu aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "mudou",
+    "span.hp \"R$ 90\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 100\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "a \"Dúvidas frequentes\"",
+    "larg 124→121"
+   ],
+   [
+    "mudou",
+    "span \"todo o Paraguai\"",
+    "esq 341→330, larg 176→170"
+   ],
+   [
+    "mudou",
+    "g.pis",
+    "larg 98→95, alt 35→34"
+   ],
+   [
+    "mudou",
+    "h2 \"Novidades e ofertas\"",
+    "larg 1312→1273"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 651→1058, larg 1320→1280, alt 402→41, classe hcat→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "larg 82→80, alt 77→74"
+   ],
+   [
+    "mudou",
+    "div#dset.dset",
+    "topo 300→754, classe dch→dset"
+   ],
+   [
+    "mudou",
+    "div.hdots",
+    "esq 140→237, topo 391→442, larg 280→70, alt 46→8, classe hth→hdots"
+   ],
+   [
+    "mudou",
+    "div.hcat",
+    "topo 595→631, larg 1320→1280, alt 42→390, classe hsh→hcat"
+   ],
+   [
+    "mudou",
+    "ellipse.sombra",
+    "esq 72→70, topo 216→209, larg 154→149"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 634→615, alt 317→307"
+   ],
+   [
+    "mudou",
+    "div",
+    "topo 0→35, larg 1320→528, alt 208→167, classe in→—"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "g.pe1",
+    "esq 117→114, topo 278→270, larg 45→44"
+   ],
+   [
+    "mudou",
+    "g",
+    "esq 81→79, larg 190→184, alt 131→127"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "larg 426→413, alt 320→310"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 88→85, larg 340→330"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · retangular\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 144→140, larg 340→330"
+   ],
+   [
+    "mudou",
+    "div.htr",
+    "esq 244→0, topo 455→521, larg 72→1280, alt 8→19, cor rgb(255, 255, 255)→rgb(102, 102, 102), letra 16px 400→13px 400, classe hdots→htr"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1050\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "g.olhos",
+    "esq 127→124, topo 189→184, larg 98→95, alt 35→34"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 120\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 76→74, larg 482→467, alt 264→256"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "topo 355→345, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "button.hdi",
+    "larg 731→709, alt 475→461"
+   ],
+   [
+    "mudou",
+    "p",
+    "larg 340→330"
+   ],
+   [
+    "mudou",
+    "a \"Ver todos ›\"",
+    "esq 1240→1203, larg 80→77"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 216→0, topo 183→0, larg 129→61, alt 68→66, classe hcd→—"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"SL2255\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 320→311, larg 426→413, alt 113→110"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 216→210, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3345\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "button.p1 \"Ver modelo\"",
+    "larg 132→128, alt 44→43"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 72→70, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Para lojistas\"",
+    "larg 132→128, alt 42→41"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 320→311, larg 426→413, alt 96→93"
+   ],
+   [
+    "mudou",
+    "h3 \"Compre em quantidade\"",
+    "esq 52→50, topo 105→102, larg 292→283, alt 37→36"
+   ],
+   [
+    "mudou",
+    "g.oclT",
+    "larg 197→191, alt 46→45"
+   ],
+   [
+    "mudou",
+    "a \"Termos\"",
+    "esq 546→529, larg 43→41"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 49→47, larg 75→73"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 592→951, topo 36→35, larg 340→330, alt 172→167"
+   ],
+   [
+    "mudou",
+    "small \"HORAS\"",
+    "topo 43→42, larg 41→40"
+   ],
+   [
+    "mudou",
+    "svg",
+    "esq 64→62, topo 36→34, larg 298→289, alt 248→241"
+   ],
+   [
+    "mudou",
+    "button.nlk \"Prefiro por e-mail\"",
+    "esq 592→574, topo 60→58, larg 128→124"
+   ],
+   [
+    "mudou",
+    "g.pulo",
+    "larg 352→342, alt 303→294"
+   ],
+   [
+    "mudou",
+    "text \"La Fouch\"",
+    "esq 53→52, topo 103→99, larg 83→81"
+   ],
+   [
+    "mudou",
+    "div.lfft",
+    "esq 4→0, topo 129→3436, larg 1312→1280, alt 79→317, cor rgb(17, 17, 17)→rgb(189, 189, 189), fundo rgba(0, 0, 0, 0)→rgb(10, 10, 10), letra 16px 400→13.5px 400, classe nf→lfft"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 334→324, topo 355→345, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · metal\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "a \"Dicas e cuidados\"",
+    "larg 109→106"
+   ],
+   [
+    "mudou",
+    "span.hlb \"SÓ ESTA SEMANA\"",
+    "esq 218→211, topo 40→39, larg 125→122"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 95\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "b \"17\"",
+    "larg 41→40"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 51→50, topo 73→71, larg 629→610, alt 330→320"
+   ],
+   [
+    "mudou",
+    "div.hsh.hsh1",
+    "topo 1147→1477, larg 1320→1280, alt 337→41, classe hg→hsh hsh1"
+   ],
+   [
+    "mudou",
+    "g.ocl",
+    "esq 78→76, topo 184→179, larg 197→191, alt 46→45"
+   ],
+   [
+    "mudou",
+    "a \"Leitura\"",
+    "larg 44→43"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 88→85, larg 340→330"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 140\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "div#__fundo",
+    "topo 234→116, larg 1320→1440, alt 92→784, cor rgb(189, 189, 189)→rgb(17, 17, 17), fundo rgba(0, 0, 0, 0)→rgba(18, 8, 14, 0.22), letra 12px 400→16px 400, classe fbt→—"
+   ],
+   [
+    "mudou",
+    "a \"Privacidade\"",
+    "esq 598→580, larg 67→65"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "topo 120→116, larg 352→342, alt 50→48"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→56, alt 40→39"
+   ],
+   [
+    "mudou",
+    "path.corpoF",
+    "esq 72→70, topo 87→85, larg 208→202, alt 208→202"
+   ],
+   [
+    "mudou",
+    "text \"BLACK\"",
+    "esq 47→46, larg 95→92"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "larg 45→44"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 5\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "g.aBd",
+    "esq 248→240, topo 210→203, larg 82→79, alt 79→77"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 59→57, larg 340→330"
+   ],
+   [
+    "mudou",
+    "a.mp \"Como chegar ›\"",
+    "larg 97→94"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "g.pup",
+    "larg 98→95, alt 35→34"
+   ],
+   [
+    "mudou",
+    "b \"Descubra seu grau em 1 min\"",
+    "topo 46→45, larg 390→378"
+   ],
+   [
+    "mudou",
+    "div.dhd",
+    "larg 1440→360, alt 900→58, fundo rgba(0, 0, 0, 0.55)→rgba(0, 0, 0, 0), classe dsc→dhd"
+   ],
+   [
+    "mudou",
+    "div.hgu.hcom",
+    "topo 2309→2294, larg 1320→1280, alt 42→421, classe hsh→hcom hgu"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 892→865, larg 428→415, alt 434→421"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Comece por aqui\"",
+    "larg 187→181, alt 42→41"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 86→83"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 37→36"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 122→118, larg 312→302"
+   ],
+   [
+    "mudou",
+    "text \"FRIDAY\"",
+    "esq 44→43, topo 55→54, larg 102→99"
+   ],
+   [
+    "mudou",
+    "p",
+    "larg 340→330"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "a \"Entre em contato\"",
+    "larg 109→106"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 59→57, larg 340→330"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 341→4, topo 1→26, larg 978→1273, alt 340→81, classe hatt→—"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 144→140, larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 125\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "g.tilt",
+    "larg 352→342, alt 303→294"
+   ],
+   [
+    "mudou",
+    "div.dch",
+    "esq 0→18, topo 0→300, larg 360→324, alt 58→50, classe dhd→dch"
+   ],
+   [
+    "mudou",
+    "b \"Tire suas dúvidas\"",
+    "topo 46→45, larg 390→378"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"BR44145\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "a \"Termos\"",
+    "esq 785→762, larg 41→40"
+   ],
+   [
+    "mudou",
+    "b \"A armação ideal para o seu ros\"",
+    "topo 46→45, larg 390→378"
+   ],
+   [
+    "mudou",
+    "g.bW",
+    "esq 164→159, topo 249→241"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→69, larg 63→56, alt 68→66"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 123→119, larg 544→528"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 50→48"
+   ],
+   [
+    "mudou",
+    "a \"Privacidade\"",
+    "esq 712→690, larg 64→62"
+   ],
+   [
+    "mudou",
+    "small \"6 modelos\"",
+    "larg 618→599"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→56, alt 40→39"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "a.p2 \"Ver ofertas\"",
+    "esq 142→137, larg 98→95, alt 44→43"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "larg 45→44"
+   ],
+   [
+    "mudou",
+    "div#drw.on",
+    "topo 0→116, alt 900→784"
+   ],
+   [
+    "mudou",
+    "p.hsub",
+    "esq 178→172, topo 153→148, larg 206→200"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3340\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "p \"Tudo em óculos · Ciudad del Es\"",
+    "topo 38→37, larg 544→528"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 94→91, larg 190→184, alt 36→35"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "button.lfba \"Solicitar orçamento\"",
+    "esq 394→382, topo 213→206, larg 189→184, alt 44→43"
+   ],
+   [
+    "mudou",
+    "span.gi.mo",
+    "larg 426→413, alt 320→310"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 221→215, topo 235→228, larg 41→39"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "path.p",
+    "larg 82→79, alt 79→77"
+   ],
+   [
+    "mudou",
+    "span.gt",
+    "topo 320→311, larg 426→413, alt 96→93"
+   ],
+   [
+    "mudou",
+    "span \"PIX ou Banco Familiar\"",
+    "esq 544→528, larg 279→270"
+   ],
+   [
+    "mudou",
+    "div.hdt",
+    "esq 60→736, larg 1320→544, alt 3869→488, cor rgb(17, 17, 17)→rgb(255, 255, 255), classe —→hdt"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 426→413, alt 320→310"
+   ],
+   [
+    "mudou",
+    "em.gsub \"Pagamento, entrega e troca\"",
+    "topo 76→74, larg 390→378"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "path",
+    "topo 121→117, larg 352→342"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 669→649, topo 355→345, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "aside.dpn",
+    "alt 900→784"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1091→1113, larg 1320→1280, alt 42→327, classe hsh hsh1→hg"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 109→106, larg 46→45, alt 46→45"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "b \"Comprar\"",
+    "larg 340→330"
+   ],
+   [
+    "mudou",
+    "a \"Ofertas\"",
+    "larg 47→46"
+   ],
+   [
+    "mudou",
+    "a \"Atacado\"",
+    "larg 53→51"
+   ],
+   [
+    "mudou",
+    "a \"Ver todos ›\"",
+    "esq 1240→1203, larg 80→77"
+   ],
+   [
+    "mudou",
+    "span \"em CDE\"",
+    "esq 851→825, larg 128→125"
+   ],
+   [
+    "mudou",
+    "span.gi",
+    "larg 426→413, alt 320→310"
+   ],
+   [
+    "mudou",
+    "div.fbt",
+    "esq 980→0, topo 36→227, larg 340→1280, alt 172→89, letra 13.5px 400→12px 400, classe —→fbt"
+   ],
+   [
+    "mudou",
+    "path.h",
+    "esq 38→37"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 87→85"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 72→70"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "div.hth",
+    "esq 160→136, topo 329→380, larg 240→272, classe hbt→hth"
+   ],
+   [
+    "mudou",
+    "div#home",
+    "esq 0→80, topo 0→58, larg 1440→1280, alt 3869→3752, classe wrap→—"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 68→66, alt 35→34"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 634→615, alt 317→307"
+   ],
+   [
+    "mudou",
+    "b \"Armação LaFouch quadrada\"",
+    "larg 206→200"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 446→433, larg 428→415, alt 434→421"
+   ],
+   [
+    "mudou",
+    "a \"Armações\"",
+    "larg 65→63"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "b \"Ajuda\"",
+    "larg 340→330"
+   ],
+   [
+    "mudou",
+    "p \"Avisamos quando chegam modelos\"",
+    "esq 486→471, topo 40→39, larg 340→330, alt 44→42"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "larg 176→171"
+   ],
+   [
+    "mudou",
+    "g.resp",
+    "larg 352→342, alt 303→294"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "topo 126→122, larg 312→302, alt 36→35"
+   ],
+   [
+    "mudou",
+    "g.aBe",
+    "topo 208→202, larg 82→80, alt 77→74"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · quadrado\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "small \"ESTILO\"",
+    "larg 42→41"
+   ],
+   [
+    "mudou",
+    "div.hatt",
+    "esq 0→331, topo 2893→1, larg 1320→949, alt 342→330, fundo rgb(255, 255, 255)→rgba(0, 0, 0, 0), classe hata→hatt"
+   ],
+   [
+    "mudou",
+    "b \"Delivery\"",
+    "larg 52→50"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 1004→973, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "div",
+    "esq 0→574, topo 36→35, larg 544→330, alt 172→167"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "div#hnf.nf",
+    "topo 27→125, larg 1312→1273, alt 84→77, classe —→nf"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Mais vendidos\"",
+    "larg 160→156, alt 42→41"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 1004→973, topo 355→345, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "div.in",
+    "topo 3542→0, larg 1320→1280, alt 326→202, fundo rgb(10, 10, 10)→rgba(0, 0, 0, 0), classe lfft→in"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "esq 90→88, topo 235→228, larg 41→39"
+   ],
+   [
+    "mudou",
+    "h1 \"BLACK\"",
+    "esq 142→138, topo 67→65, larg 276→268, alt 43→42"
+   ],
+   [
+    "mudou",
+    "section#hdst.hd",
+    "larg 1320→1280, alt 503→488"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "p \"Segunda a sábado, das 7h30 às \"",
+    "topo 94→92, larg 544→528"
+   ],
+   [
+    "mudou",
+    "div.hg",
+    "topo 1522→1531, larg 1320→1280, alt 42→672, classe hsh hsh1→hg"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "g.lfth",
+    "larg 352→342, alt 145→141"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 45→44, larg 39→38, alt 39→38"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Últimas 3 unidades\"",
+    "topo 202→195, larg 290→282"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "a",
+    "esq 668→648, larg 652→632, alt 402→390"
+   ],
+   [
+    "mudou",
+    "button",
+    "larg 428→415, alt 434→421"
+   ],
+   [
+    "mudou",
+    "div.frc \"Protegido pelo reCAPTCHA do Go\"",
+    "topo 53→51, larg 1320→1280"
+   ],
+   [
+    "mudou",
+    "b \"43\"",
+    "larg 36→35"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"SL2260\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 58→56, alt 40→39"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 108→105, topo 108→104, larg 54→53, alt 52→50"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 426→413, alt 320→310"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 64→62"
+   ],
+   [
+    "mudou",
+    "p \"Galeria Jebai Center, 3° piso,\"",
+    "topo 66→64, larg 544→528"
+   ],
+   [
+    "mudou",
+    "g.pe2",
+    "esq 190→184, topo 278→270, larg 45→44"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "a",
+    "larg 652→632, alt 402→390"
+   ],
+   [
+    "mudou",
+    "div#hloj.hsh",
+    "topo 2365→2752, larg 1320→1280, alt 434→41, classe hcom hgu→hsh"
+   ],
+   [
+    "mudou",
+    "ellipse",
+    "alt 35→34"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 111→108, larg 42→41, alt 42→41"
+   ],
+   [
+    "mudou",
+    "div.wrap",
+    "esq 18→0, topo 834→0, larg 324→1440, alt 142→3869, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 14px 400→16px 400, classe dct dct5→wrap"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"AC1055\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · redondo\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "img",
+    "larg 56→54, alt 38→37"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "b \"Retirada\"",
+    "larg 52→51"
+   ],
+   [
+    "mudou",
+    "em \"FRIDAY\"",
+    "esq 143→139, larg 133→129, alt 45→44"
+   ],
+   [
+    "mudou",
+    "div \"· · © 2026 La Fouch\"",
+    "larg 1320→1280"
+   ],
+   [
+    "mudou",
+    "div.hpr \"R$ 95\"",
+    "esq 246→239, topo 275→267, larg 68→66, alt 36→35"
+   ],
+   [
+    "mudou",
+    "small \"11 modelos\"",
+    "larg 618→599"
+   ],
+   [
+    "mudou",
+    "g.sq",
+    "topo -74→-71, larg 352→342, alt 303→294"
+   ],
+   [
+    "mudou",
+    "p",
+    "topo 116→112, larg 340→330"
+   ],
+   [
+    "mudou",
+    "b \"Pagamento seguro\"",
+    "larg 118→115"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Compre por categoria\"",
+    "larg 239→231, alt 42→41"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 71→69"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 115\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 334→324, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "div.dct.dct5",
+    "topo 754→834, alt 50→142, cor rgb(17, 17, 17)→rgb(102, 102, 102), letra 16px 400→14px 400, classe dset→dct dct5"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 37→36, topo 82→79, larg 265→257, alt 177→171"
+   ],
+   [
+    "mudou",
+    "h2.h2 \"Novidades\"",
+    "larg 117→114, alt 42→41"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "path",
+    "larg 190→184, alt 125→122"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "span.hati",
+    "larg 340→330, alt 340→330"
+   ],
+   [
+    "mudou",
+    "small.hds \"LaFouch · acetato\"",
+    "larg 290→282"
+   ],
+   [
+    "mudou",
+    "small \"TESTE DE LEITURA\"",
+    "larg 111→108"
+   ],
+   [
+    "mudou",
+    "i \"›\"",
+    "esq 88→86"
+   ],
+   [
+    "mudou",
+    "div.hcd",
+    "esq 759→210, topo 0→178, larg 561→125, alt 503→66, classe hdt→hcd"
+   ],
+   [
+    "mudou",
+    "small \"AJUDA\"",
+    "larg 42→41"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"GR3350\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "div#hguia.hsh",
+    "topo 1578→2240, larg 1320→1280, alt 693→41, classe hg→hsh"
+   ],
+   [
+    "mudou",
+    "button.hc",
+    "esq 669→649, larg 316→307, alt 337→327"
+   ],
+   [
+    "mudou",
+    "button",
+    "esq 36→35"
+   ],
+   [
+    "mudou",
+    "img",
+    "esq 76→74, larg 482→467, alt 264→256"
+   ],
+   [
+    "mudou",
+    "span.hn.lfcod \"SL2250\"",
+    "topo 233→226, larg 314→305, alt 47→46"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 43→42, larg 42→41, alt 42→41"
+   ],
+   [
+    "mudou",
+    "path",
+    "larg 40→39"
+   ],
+   [
+    "mudou",
+    "span.ulin \"Última unidade\"",
+    "topo 202→195, larg 290→282"
+   ],
+   [
+    "mudou",
+    "circle",
+    "esq 153→149"
+   ],
+   [
+    "mudou",
+    "small \"MIN\"",
+    "topo 43→42"
+   ],
+   [
+    "mudou",
+    "div.hata",
+    "topo 2837→2807, larg 1320→1280, alt 42→332, fundo rgba(0, 0, 0, 0)→rgb(255, 255, 255), classe hsh→hata"
+   ],
+   [
+    "mudou",
+    "p.fbr \"La Fouch\"",
+    "larg 544→528, alt 36→35"
+   ],
+   [
+    "mudou",
+    "p.hsub \"Estoque limitado: quando acaba\"",
+    "esq 136→132, topo 118→115, larg 288→279"
+   ],
+   [
+    "mudou",
+    "span.hp \"R$ 130\"",
+    "topo 300→291, larg 314→305, alt 36→35"
+   ],
+   [
+    "mudou",
+    "p \"Preços especiais para lojas, r\"",
+    "esq 52→50, topo 148→144, larg 440→427, alt 46→45"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 113→109, larg 39→38, alt 39→38"
+   ],
+   [
+    "mudou",
+    "em \"primeiro\"",
+    "esq 721→699, larg 95→92"
+   ],
+   [
+    "mudou",
+    "span.hci",
+    "larg 298→290, alt 224→217"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "path",
+    "esq 156→151, larg 40→39"
+   ],
+   [
+    "mudou",
+    "section.hnews.hn2",
+    "topo 3263→3165, larg 1320→1280, alt 235→228"
+   ],
+   [
+    "mudou",
+    "button.nwb \"Receber pelo WhatsApp\"",
+    "esq 523→507, larg 266→258, alt 46→45"
+   ],
+   [
+    "mudou",
+    "small \"PARA REVENDER\"",
+    "esq 52→50, topo 83→81, larg 117→113"
+   ],
+   [
+    "mudou",
+    "div.hbt",
+    "esq 71→156, topo 0→320, larg 58→233, alt 68→43, classe —→hbt"
+   ],
+   [
+    "mudou",
+    "span \"Solar\"",
+    "topo 326→316, larg 650→630, alt 75→73"
+   ],
+   [
+    "mudou",
+    "button.on",
+    "larg 64→62, alt 46→45"
+   ],
+   [
+    "mudou",
+    "span \"Armações\"",
+    "topo 326→316, larg 650→630, alt 75→73"
+   ],
+   [
+    "mudou",
+    "polygon",
+    "esq 41→40, larg 46→45, alt 46→45"
+   ],
+   [
+    "mudou",
+    "g",
+    "esq 91→89"
+   ],
+   [
+    "mudou",
+    "span.hsw",
+    "topo 280→272, larg 314→305"
+   ],
+   [
+    "mudou",
+    "div.hsh",
+    "topo 537→577, larg 1320→1280, alt 20→41, cor rgb(102, 102, 102)→rgb(17, 17, 17), letra 13px 400→16px 400, classe htr→hsh"
+   ]
+  ],
+  "ruido_ignorado": 2
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Busca aberta",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [
+   [
+    "sumiu",
+    "div.socat",
+    ""
+   ],
+   [
+    "mudou",
+    "div.sobar",
+    "larg 1440→638, alt 900→72, fundo rgba(20, 10, 18, 0.45)→rgba(0, 0, 0, 0), classe sosc→sobar"
+   ],
+   [
+    "mudou",
+    "div#sores.sores",
+    "esq 14→1, topo 12→73, larg 610→638, alt 48→334, fundo color(srgb 0.0666667 0.0666667 0.0666667 / 0.06)→rgba(0, 0, 0, 0), classe sofld→sores"
+   ],
+   [
+    "mudou",
+    "div.sopn",
+    "topo 90→16"
+   ],
+   [
+    "mudou",
+    "div.socat",
+    "esq 1→6, topo 73→56, larg 638→626, alt 334→272, classe sores→socat"
+   ],
+   [
+    "mudou",
+    "div.sofld",
+    "esq 1→14, topo 1→12, larg 638→610, alt 72→48, fundo rgba(0, 0, 0, 0)→color(srgb 0.0666667 0.0666667 0.0666667 / 0.06), classe sobar→sofld"
+   ]
+  ],
+  "ruido_ignorado": 0
+ },
+ {
+  "aparelho": "PC",
+  "tela": "Carrinho aberto",
+  "falhas_novas": [],
+  "falhas_que_ja_existiam": [],
+  "diferencas": [],
+  "ruido_ignorado": 2
+ }
+]

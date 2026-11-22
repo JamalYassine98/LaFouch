@@ -21,7 +21,7 @@ PINTA = r"""
   '#drw{top:var(--lfTopo)!important;transition:visibility 0s linear .3s!important}#drw.on{transition:visibility 0s!important}'+
   '#drw .dpn{transition:none!important;transform:none!important}#drw .dsc{display:none!important}'+
   '#sov{top:var(--lfTopo)!important}#sov .sosc{display:none!important}'+
-  '#sov .sopn{animation:none!important;transform:none!important;left:12px!important;right:12px!important;width:auto!important;top:12px!important}'+
+  '#sov .sopn{animation:none!important;transform:none!important;top:12px!important}'+'@media (max-width:899px){#sov .sopn{left:12px!important;right:12px!important;width:auto!important}}'+'@media (min-width:900px){#sov .sopn{left:0!important;right:0!important;margin:0 auto!important;top:16px!important}}'+
   '#__fundo{position:fixed;left:0;right:0;bottom:0;top:var(--lfTopo);background:rgba(18,8,14,.22);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;pointer-events:none}'+
   'html.lock>body:not(#__x){overflow:visible!important}';
  document.head.appendChild(st);
@@ -57,27 +57,28 @@ def copia(dst, extra):
     p = dst + '/js/lf-site.js'; open(p, 'a').write(extra)
 
 def grava(nome, porta, W=390, H=844):
-    pasta = '/tmp/va5-%s' % nome; shutil.rmtree(pasta, ignore_errors=True); os.makedirs(pasta)
+    pc = W > 700
+    pasta = '/tmp/va5-%s-%d' % (nome, W); shutil.rmtree(pasta, ignore_errors=True); os.makedirs(pasta)
     with sync_playwright() as pw:
-        b = sim.navegador(pw); c = sim.contexto(b, W, H, toque=True, dpr=2, lingua='pt-BR')
+        b = sim.navegador(pw); c = sim.contexto(b, W, H, toque=not pc, dpr=1 if pc else 2, lingua='pt-BR')
         c.add_init_script(INIT); c.route('**/*', rota); pg = c.new_page()
         cdp = c.new_cdp_session(pg); Q = []
         def q(ev): Q.append((ev['metadata']['timestamp'], ev['data'])); cdp.send('Page.screencastFrameAck', {'sessionId': ev['sessionId']})
         cdp.on('Page.screencastFrame', q)
         pg.goto('http://localhost:%d/?cliente=1' % porta); pg.wait_for_timeout(3000)
-        cdp.send('Page.startScreencast', {'format': 'jpeg', 'quality': 88, 'maxWidth': W * 2, 'maxHeight': H * 2})
+        cdp.send('Page.startScreencast', {'format': 'jpeg', 'quality': 88, 'maxWidth': W * (1 if pc else 2), 'maxHeight': H * (1 if pc else 2)})
         pg.wait_for_timeout(600)
         for sel in ('#mnb', '#sbtn', '#bagbtn'):
-            pg.tap(sel); pg.wait_for_timeout(1300)
+            (pg.click(sel) if pc else pg.tap(sel)); pg.wait_for_timeout(1300)
             pg.keyboard.press('Escape') if sel != '#bagbtn' else pg.evaluate("history.back()")
             pg.wait_for_timeout(900)
         pg.evaluate("window.scrollTo({top:700,behavior:'instant'})"); pg.wait_for_timeout(700)
-        pg.tap('#mnb'); pg.wait_for_timeout(1400); pg.keyboard.press('Escape'); pg.wait_for_timeout(900)
+        (pg.click('#mnb') if pc else pg.tap('#mnb')); pg.wait_for_timeout(1400); pg.keyboard.press('Escape'); pg.wait_for_timeout(900)
         cdp.send('Page.stopScreencast')
         for sel, f in (('#mnb', 'menu'), ('#sbtn', 'busca')):
-            pg.tap(sel); pg.wait_for_timeout(1200); pg.screenshot(path='%s/%s.png' % (AQUI, '%s-%s' % (nome, f))); pg.keyboard.press('Escape'); pg.wait_for_timeout(800)
+            (pg.click(sel) if pc else pg.tap(sel)); pg.wait_for_timeout(1200); pg.screenshot(path='%s/%s.png' % (AQUI, '%s-%s%s' % (nome, f, '-pc' if pc else ''))); pg.keyboard.press('Escape'); pg.wait_for_timeout(800)
         pg.evaluate("window.scrollTo({top:0,behavior:'instant'})"); pg.wait_for_timeout(400)
-        pg.screenshot(path='%s/%s-topo.png' % (AQUI, nome), clip={'x': 0, 'y': 0, 'width': W, 'height': 108})
+        pg.screenshot(path='%s/%s-topo%s.png' % (AQUI, nome, '-pc' if pc else ''), clip={'x': 0, 'y': 0, 'width': W, 'height': 108 if not pc else 130})
         c.close(); b.close()
     L = []
     for i, (ts, d) in enumerate(Q):
@@ -87,11 +88,17 @@ def grava(nome, porta, W=390, H=844):
             f.write("file '%s'\nduration %.4f\n" % (fn, (L[i + 1][0] - ts) if i + 1 < len(L) else 1.0))
         f.write("file '%s'\n" % L[-1][1])
     out = pasta + '/v.mp4'
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', pasta + '/l.txt', '-vf', 'scale=780:1688,fps=30',
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', pasta + '/l.txt', '-vf', ('scale=%d:%d' % (W, H) if pc else 'scale=780:1688') + ',fps=30',
                     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', out], check=True)
     return out
 
 if __name__ == '__main__':
+    if 'pc' in sys.argv:
+        FT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+        lab = lambda t, c: "pad=iw:ih+60:0:60:color=white,drawtext=fontfile=%s:text='%s':x=20:y=14:fontsize=32:fontcolor=%s" % (FT, t, c)
+        v = [grava('hoje', 8721, 1128, 720), grava('prop', 8723, 1128, 720)]
+        fc = '[0:v]%s,tpad=stop_mode=clone:stop_duration=4[a];[1:v]%s,tpad=stop_mode=clone:stop_duration=4[b];[a][b]vstack=inputs=2[v]' % (lab('HOJE', '#b3261e'), lab('PROPOSTA', '#8d3a69'))
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', v[0], '-i', v[1], '-filter_complex', fc, '-map', '[v]', '-r', '30', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(AQUI, 'esboco-05-animacoes-pc.mp4')], check=True); print('ok'); raise SystemExit
     if 'copias' in sys.argv:
         copia('/tmp/a5p', PINTA); copia('/tmp/a5q', PINTA + TOPO_B); raise SystemExit
     FT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'

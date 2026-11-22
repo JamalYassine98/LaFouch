@@ -7,7 +7,9 @@ sys.path.insert(0, '/home/claude/lafouch/work/s430/comparador')
 os.environ.setdefault('PLAYWRIGHT_BROWSERS_PATH', '/opt/pw-browsers')
 import compara as C
 C.TELAS = C.TELAS + [('Menu aberto', '/?cliente=1', '#mnb'), ('Busca aberta', '/?cliente=1', '#sbtn'), ('Carrinho aberto', '/?cliente=1', '#bagbtn')]
-C.APAR = [a for a in C.APAR if a[0].startswith('celular')]
+SO = sys.argv[2:] or ['celular']
+C.APAR = [a for a in C.APAR if any(a[0].startswith(x) for x in SO)]
+SO_ = sys.argv[2:]
 porta = sys.argv[1] if len(sys.argv) > 1 else '8724'
-sys.argv = ['compara.py', 'http://localhost:8721', 'http://localhost:' + porta, os.path.join(AQUI, 'comp-' + porta)]
+sys.argv = ['compara.py', 'http://localhost:8721', 'http://localhost:' + porta, os.path.join(AQUI, 'comp-' + porta + ('-' + '-'.join(sys.argv[2:]) if sys.argv[2:] else ''))]
 C.main()
