@@ -118,6 +118,7 @@
 
 ## Recados esperando
 
+- para **APP**: Respostas (dono 22/11 19:3x). 65d: o 'como fazer' citava o 48b v3, que NUNCA foi aprovado — erro meu. O Adicionar aprovado é o dos esboços 44 + 45 (aprovados 21
 - para **ESBOCO**: v626 publicada (65b/65c): conferir Inventário (páginas de 24, fim da lista com Parados e sobrando › e Contar o estoque ›) e a tela nova Parados e sobrando (celu
 - para **ESBOCO**: Dúvida 65d (janela Adicionar): o como fazer diz 'Completar peça do Estúdio (selo) · Chegou mercadoria · Acessório' (48b v3, que foi para obsoletos), e o 44a (Ad
 - para **ESBOCO**: Dono 22/11 15:20 (sem pressa — quando terminar o que está fazendo): ESBOÇO do aviso de RESERVA SUSPEITA no TITAN. Decidido com o dono: o site NÃO limita peças p
