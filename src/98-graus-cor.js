@@ -128,7 +128,7 @@
             if (st.g && tem[st.g]) h += '<div class="note gcNota">' + st.g + ' já tem ' + tem[st.g] + ' peça' + (tem[st.g] === 1 ? '' : 's') + ' nesta cor. As ' + q0 + ' de ' + g0 + ' se juntam: <b>' + st.g + ' fica com ' + (tem[st.g] + q0) + '</b>.</div>';
             ok = st.g ? 'Trocar para ' + st.g : '';
           } else if (st.aba === 1) {
-            if (!outras.length) h += '<div class="note">Este modelo só tem a cor ' + esc(cor) + '. Para outra cor, use "Cor nova" e tire a foto.</div>';
+            if (!outras.length) h += '<div class="note">Este modelo só tem a cor ' + esc(cor) + '. Para outra cor, use "Nova cor".</div>';
             else {
               h += '<div class="hint">Para qual cor vão estas peças?</div>' + outras.map(function (oc) {
                 var t2 = gcTem(ref, oc)[g0] || 0,

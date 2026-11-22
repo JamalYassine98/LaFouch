@@ -4334,6 +4334,44 @@ async def main():
             if not ok: falhas.append('42a sem trocar foto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Esboço 42b (aprovado 21/11 07:51): "+ Nova cor ›" no Editar › Cores e fotos abre a janela "Nova cor" — as cores que a loja já usa, por uso,
+            # sem as que a peça já tem, + "Outra…"; código sugerido (o próximo C#), quantidade e custo; Salvar cria a cor por UMA função (corNova),
+            # sem foto, e ela entra na fila do Estúdio; sair com mudança pergunta "Sair sem salvar?". Sem linha de rascunho nem câmera antes.
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(600)
+            ref42 = await pg.evaluate("() => { const S = window.__LF.S, i = S.items.find(x => !x.bulk && x.tipo !== 'pre' && x.qty > 0 && S.items.filter(y => y.ref === x.ref).length >= 2); return i.ref; }")
+            await pg.evaluate("r => { [...document.querySelectorAll('#v-estoque .pcard')].find(x => x.dataset.ref === r).click(); }", ref42); await pg.wait_for_timeout(800)
+            await pg.evaluate("() => { window.__LF.S.qEdit = true; window.__LF.render(); document.getElementById('edTab2').click(); }"); await pg.wait_for_timeout(900)
+            got = await pg.evaluate("""async (ref) => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const esc = () => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+              const b = document.getElementById('edCorNova'); R.linha = [b.textContent.trim(), !!b.querySelector('.pl78 svg'), /tire a foto/.test(b.textContent)];
+              const tem = S.items.filter(i => i.ref === ref).map(i => i.cor), loja = L.coresDaLoja(tem), vr = L.corProximaClasse(ref), n0 = S.items.length, base = S.items.find(i => i.ref === ref && !i.bulk);
+              b.click(); await w(600); let j = document.querySelector('.ljJn.cnJn');
+              const pil = [...j.querySelectorAll('.cnCor[data-cor]')].map(x => x.getAttribute('data-cor'));
+              R.janela = [j.getAttribute('aria-label'), pil.join() === loja.slice(0, 8).join(), pil.some(c => tem.indexOf(c) >= 0), !!j.querySelector('.cnCor[data-outra]'), j.querySelector('.cnLn b').textContent === vr, j.querySelector('#cnQ').textContent, [...j.querySelectorAll('button')].filter(x => x.classList.contains('go')).map(x => x.textContent).join()];
+              esc(); await w(500); R.semMudar = !document.querySelector('.ljJn.cnJn');
+              b.click(); await w(600); j = document.querySelector('.ljJn.cnJn'); j.querySelector('.cnCor[data-cor]').click(); await w(150);
+              esc(); await w(500); R.pergunta = document.body.innerText.includes('Sair sem salvar?');
+              const volta = [...document.querySelectorAll('button')].find(x => x.textContent.trim() === 'Voltar' && x.getClientRects().length); if (volta) volta.click(); await w(400);
+              j = document.querySelector('.ljJn.cnJn'); j.querySelector('[data-d="1"]').click(); j.querySelector('[data-d="1"]').click(); j.querySelector('#cnCusto').value = '7,25';
+              j.querySelector('[data-cn=salva]').click(); await w(700);
+              const nova = S.items[S.items.length - 1];
+              R.criou = [S.items.length - n0, nova.ref === ref, nova.cor === pil[0], nova.vr === vr, nova.qty, nova.custo, nova.tipo === base.tipo, !document.querySelector('.ljJn.cnJn'), !!document.querySelector('.ljJn.edJn')];
+              R.fila = L.estFila().some(x => x.k === ref + '|' + pil[0] && x.st === 'sem');
+              R.lista = [...document.querySelectorAll('.ljJn.edJn .cfRow')].some(r => r.textContent.indexOf(pil[0]) >= 0) && !document.querySelector('.cfRow.nova');
+              const s1 = L.corNova(ref, { cor: pil[0], q: 2 }), s2 = L.corNova(ref, { cor: '' }), s3 = L.corNova(ref, { cor: 'Verde-água de teste', q: 1 });
+              R.regra = [s1.ok && s1.somou, S.items.length - n0, nova.qty, s2.ok, s3.ok && !s3.somou, !!S.palette['Verde-água de teste'], L.corProximaClasse(ref) !== vr];
+              return R; }""", ref42)
+            det = fontes['10-estoque-detalhe.js']
+            total += 1
+            ok = (got['linha'] == ['Nova cor ›', True, False] and got['janela'] == ['Nova cor', True, False, True, True, '1', 'Salvar'] and got['semMudar'] and got['pergunta']
+                  and got['criou'] == [1, True, True, True, 3, 7.25, True, True, True] and got['fila'] and got['lista']
+                  and got['regra'] == [True, 2, 5, False, True, True, True]   # somar não cria linha; a cor escrita à mão cria a 2ª
+                  and not re.search(r'edNovas|edFotoNova|edCorSheet', det) and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 42b: "+ Nova cor ›" abre a janela — cores da loja por uso, código sugerido, quantidade e custo; salvar cria a cor (corNova) e ela entra na fila do Estúdio')
+            if not ok: falhas.append('42b nova cor'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

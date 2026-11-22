@@ -1,1 +1,1 @@
-{"v":623,"nat":1,"nome":"5.50.48","notas":["Editar produto › Cores e fotos: saiu o \"Trocar foto\" do topo, que tirava foto sem tratamento e sem dizer a cor. A foto de cada cor se troca na linha da cor e passa sempre pela câmera do Estúdio."]}
+{"v":624,"nat":1,"nome":"5.50.49","notas":["Editar produto › Cores e fotos: \"+ Nova cor ›\" abre uma janela para escolher a cor entre as que a loja já usa (ou escrever outra), com o código sugerido, a quantidade e o custo. Não precisa mais tirar a foto antes: a cor entra na fila do Estúdio."]}

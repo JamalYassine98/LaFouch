@@ -692,7 +692,6 @@
         S.pdAsk = false;
         S.edStep = 1;
         S.edTipo = '';
-        S.edNovas = [];
         S.edAbre = -1;
         S.edMais = false;
       };
@@ -703,7 +702,7 @@
       ov._sair = fechar; // a janela fechou (arrastou, tocou fora ou Esc): sai sem salvar
       // há algo digitado ou escolhido que ainda não foi salvo? (os mesmos rascunhos que o zerar limpa) — a janela pergunta "Sair sem salvar?"
       ov._mudou = function () {
-        return !!(Object.keys(S.qDraft || {}).length || Object.keys(S.cDraft || {}).length || S.rnV != null || S.rnN != null || S.dDraft != null || S.fDraft != null || S.fDel || S.edTipo || (S.edNovas || []).length);
+        return !!(Object.keys(S.qDraft || {}).length || Object.keys(S.cDraft || {}).length || S.rnV != null || S.rnN != null || S.dDraft != null || S.fDraft != null || S.fDel || S.edTipo);
       };
       // Identificação com as mesmas listas do cadastro (Label Select)
       var edSel = function (key, rotulo, lista, valor, set) {
@@ -1291,48 +1290,14 @@
           // S370: sem a pergunta na tela (a cor já sai e o aviso tem "Desfazer")
         }
       });
-      // cores novas (ainda não salvas): mesma linha do cadastro
-      S.edNovas = S.edNovas || [];
-      S.edNovas.forEach(function (w) {
-        var r = mk('div', 'cfRow nova');
-        r.innerHTML =
-          '<button type="button" class="cfFt" aria-label="Trocar a foto">' + (w.fotoT ? '<img alt="" src="' + w.fotoT + '">' : NV_ICAM) + '</button>' +
-          '<div class="cfTx"><button type="button" class="nvChip cfCor' + (w.cor ? ' ok' : '') + '"><span>' + esc((w.vr ? w.vr + ' · ' : '') + (w.cor || 'Cor')) + '</span><i aria-hidden="true">▾</i></button>' +
-          (f.tipo === 'pre' ? '<input class="in cfGrau" inputmode="decimal" placeholder="Grau (ex.: +1,75)" value="' + esc(w.grau || '') + '" aria-label="Grau da peça">' : '') +
-          '<button type="button" class="cfMaisB">Excluir esta cor</button></div>' +
-          '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Menos">−</span><span class="vs-n">' + w.q + '</span><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Mais">+</span></span>';
-        r.querySelector('.cfCor').onclick = function () {
-          edCorSheet(w);
-        };
-        r.querySelector('.cfFt').onclick = function () {
-          edFotoNova(w);
-        };
-        r.querySelector('.cfMaisB').onclick = function () {
-          S.edNovas = S.edNovas.filter(function (x) {
-            return x !== w;
-          });
-          render();
-        };
-        var gi = r.querySelector('.cfGrau');
-        if (gi)
-          gi.oninput = function () {
-            w.grau = gi.value;
-          };
-        [].forEach.call(r.querySelectorAll('.cfStep .vs-b'), function (b) {
-          b.onclick = function () {
-            w.q = Math.max(1, Math.min(999, w.q + +b.dataset.d));
-            r.querySelector('.vs-n').textContent = w.q;
-          };
-        });
-        cl0.appendChild(r);
-      });
+      // esboço 42: "+ Nova cor ›" abre a janela "Nova cor" (src/97-cor-nova.js); a cor nasce ao salvar a janela, sem linha de rascunho nem câmera antes
       if (!f.bulk && !smp) {
         var cn = mk('button', 'cfNova');
         cn.type = 'button';
         cn.id = 'edCorNova';
-        cn.innerHTML = NV_ICAM + '<span>Cor nova <small>(tire a foto)</small></span>';
+        cn.innerHTML = '<span class="pl78" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>Nova cor ›</span>';
         cn.onclick = function () {
-          edFotoNova(null);
+          corNovaJanela(ref, function () { render(); });
         };
         cl0.appendChild(cn);
       }
@@ -1344,69 +1309,6 @@
           hpe.innerHTML = hp;
           g[2].appendChild(hpe);
         }
-      }
-      // foto de cor nova: câmera → linha nova com a próxima classe
-      function edFotoNova(w) {
-        camOpen(
-          function (fl) {
-            var url = URL.createObjectURL(fl),
-              im = new Image();
-            im.onload = function () {
-              try {
-                var cv = fitCanvas(im, 1800),
-                  t = thumbOf(cv),
-                  h = cv.toDataURL('image/jpeg', 0.92);
-                if (w) {
-                  w.fotoT = t;
-                  w.fotoH = h;
-                } else {
-                  var mx = 0;
-                  S.items.concat(S.edNovas).forEach(function (x) {
-                    if (x.ref && x.ref !== ref) return;
-                    var n = parseInt(String(x.vr || '').replace(/\D/g, ''), 10);
-                    if (n > mx) mx = n;
-                  });
-                  S.edNovas.push({ vr: 'C' + (mx + 1), cor: '', q: 1, grau: '', fotoT: t, fotoH: h });
-                }
-              } catch (e) {
-                popErr('Não consegui processar essa foto. Tente outra.');
-              }
-              URL.revokeObjectURL(url);
-              render();
-            };
-            im.src = url;
-          },
-          'Foto da cor nova',
-          { gallery: true, peca: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
-        );
-      }
-      function edCorSheet(w) {
-        var lista = Object.keys(S.palette).filter(function (k) {
-            return k !== 'Sem detalhe' && k !== 'Sem cor';
-          }),
-          ov2 = comoSheet('lfa-cor', 'Cor', lista, w.cor, function (v) {
-            w.cor = v;
-            render();
-          }),
-          cl = mk('div', 'cfCls');
-        cl.innerHTML =
-          '<div class="lbl" style="margin:0">Classe</div><div class="nav">' +
-          varChips(w.vr || 'C1')
-            .map(function (v) {
-              return '<button type="button" class="chip' + (w.vr === v ? ' on' : '') + '" data-v="' + v + '">' + v + '</button>';
-            })
-            .join('') +
-          '</div>';
-        cl.onclick = function (e) {
-          var b = e.target.closest('[data-v]');
-          if (!b) return;
-          w.vr = b.dataset.v;
-          [].forEach.call(cl.querySelectorAll('.chip'), function (c) {
-            c.classList.toggle('on', c === b);
-          });
-          render();
-        };
-        ov2.querySelector('.cg-tt').insertAdjacentElement('afterend', cl);
       }
       if (S._edDir) {
         g[cur].style.animation = (S._edDir > 0 ? 'edEntraD' : 'edEntraE') + ' .32s cubic-bezier(.2,.8,.2,1) both';
@@ -1442,38 +1344,6 @@
         if (dk.length) {
           msgs = salvarEstoque(dk);
           partes.push('Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : ''));
-        }
-        var novas = S.edNovas || [];
-        var nsc = novas.filter(function (w) {
-          return !w.cor;
-        })[0];
-        if (nsc) return popErr('Escolha a cor da linha ' + (nsc.vr || 'nova') + '.');
-        if (
-          f.tipo === 'pre' &&
-          novas.some(function (w) {
-            return !normGrau(w.grau || '');
-          })
-        )
-          return popErr('Informe o grau da cor nova (ex.: +1.75 ou 175).');
-        if (novas.length) {
-          var base = rows.filter(function (i) {
-              return !i.bulk;
-            })[0] || f,
-            nq = 0;
-          novas.forEach(function (w) {
-            var gr = f.tipo === 'pre' ? normGrau(w.grau) : '',
-              ex = S.items.filter(function (i) {
-                return i.ref === ref && !i.bulk && i.cor === w.cor && (i.grau || '') === gr && !i.lote;
-              })[0];
-            if (ex) ex.qty += w.q;
-            else S.items.push({ custo: base.custo, tipo: f.tipo, grau: gr, ref: ref, med: base.med || '', vr: w.vr, fmt: base.fmt || '', cor: w.cor, qty: w.q });
-            entradaEstoque(f.tipo, ref, w.cor, gr, w.q);
-            if (w.fotoT) setFoto(ref + '|' + w.cor, w.fotoT, w.fotoH);
-            nq += w.q;
-          });
-          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
-          S.edNovas = [];
-          partes.push(novas.length + (novas.length === 1 ? ' cor nova' : ' cores novas') + ' (+' + nq + ' peças).');
         }
         if (S.dDraft != null) {
           if (S.dDraft !== (S.desc[ref] != null ? S.desc[ref] : '')) {

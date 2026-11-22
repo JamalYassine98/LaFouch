@@ -1188,7 +1188,19 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cfMais{grid-column:1/-1;display:flex;gap:8px}.cfMais .mini{flex:1;margin:0}
 .cfDel{color:var(--bad)!important;border-color:rgba(239,68,68,.6)!important;background:transparent!important}
 .cfNova{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:6px 0;margin:0;border:0;background:transparent;color:var(--accent);font:inherit;font-size:15px;text-align:left}
-.cfNova svg{width:22px;height:22px;flex:none}.cfNova small{color:var(--mute);font-size:12.5px}
+.cfNova svg{width:22px;height:22px;flex:none}.cfNova small{color:var(--mute);font-size:12.5px}/* o Cadastro de peça nova ainda usa a câmera + "(tire a foto)" */
+.cfNova .pl78{margin:0}.cfNova>span:last-child{color:var(--accent-fg);font-weight:600}
+/* esboço 42: janela "Nova cor" */
+.cnSub{margin:0 0 16px;color:var(--mute);font-size:14px}.cnLb{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.cnCores{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.cnCor{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--fg);font:inherit;font-size:15px}
+.cnCor i{width:14px;height:14px;border-radius:50%;border:1px solid var(--line)}.cnCor i.v{background:none;border-color:var(--mute)}
+.cnCor.on{background:var(--sel-bg);border-color:var(--sel-bd)}
+.cnOutra{margin-bottom:8px}
+.cnLn{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;border-bottom:1px solid var(--line2)}.cnLn>span:first-child{color:var(--mute);font-size:15px}.cnLn b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.cnIn{width:96px;background:none;border:0;color:var(--fg);font:inherit;font-size:16px;font-weight:600;text-align:right;min-height:44px}.cnCu{font-weight:600}
+.cnQt{display:inline-flex;align-items:center;gap:16px}.cnQt button{width:44px;height:44px;border:0;background:none;color:var(--fg);font-size:22px}
+.cnNota{margin:16px 0;color:var(--mute);font-size:14px}
 .cfTot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:10px 0 6px;font-size:14px;color:var(--mute)}.cfTot b{color:var(--fg);font-variant-numeric:tabular-nums}
 /* v417 Etapa 4: compra de brindes */
 .brTot{display:flex;justify-content:space-between;align-items:baseline;padding-top:4px}.brTot span{color:var(--mute)}.brTot b{font-size:20px}
