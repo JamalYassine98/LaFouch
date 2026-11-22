@@ -1,16 +1,12 @@
 {
  "nome": "APP",
- "agora": "tirar o Leve 2 do site (código morto — dono 21/11 23:21)",
- "arquivos": [
-  "src/95-pedidos.js",
-  "src/97-ofertas-site.js",
-  "src/96-loja-online.js",
-  "src/97y-lucro-real.js",
-  "src/97z2-contador.js",
-  "src/99-render-persistencia.js",
-  "tests/run.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795315648.8460314,
+   "r": "v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça)."
+  },
   {
    "t": 1795314399.2863827,
    "r": "v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça)."
@@ -46,11 +42,7 @@
   {
    "t": 1795300194.6253505,
    "r": "v611 publicada: 37d parte 1 — Ajustes em 3 blocos, sem cartão, sacola, L4 (lfCabe). Porteiro 363/363. Próximo: 37d parte 2 (linha Marca)."
-  },
-  {
-   "t": 1795298077.6029198,
-   "r": "v610 publicada: 37c — link solto declarado ao nascer; sai a adivinhação do pad100. Porteiro 362/362. Próximo: 37d (Ajustes em 3 blocos)."
   }
  ],
- "leu": 1795314593.262505
+ "leu": 1795315648.3370533
 }
