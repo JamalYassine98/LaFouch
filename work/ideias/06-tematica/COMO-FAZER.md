@@ -189,3 +189,16 @@ O que dá a sensação de neve, mesmo com só 8 flocos:
 - **Quantidade maior que 1 na mesma peça:** "Embrulhar cada uma separada" fica como pergunta para o dono. Proposta: um pacote por unidade, e o mesmo cartão vale para todas.
 - **Esboço:** `esboco-06g-presente.jpg` (Hoje com 3 peças | Proposta: topo, descendo, escrevendo o cartão).
 - **Notado, sem mudar:** o botão verde "Prosseguir com o pagamento" é a regra de cor de hoje (verde = certo). Fica para o dono decidir se no luxo ele vira a cor da marca.
+
+### 06g v3 (dono 22/11 15:46): caixinha, pacotes e botão principal
+- **A caixinha no lugar do círculo:**
+  - o ícone é uma caixinha de presente;
+  - desmarcada fica cinza, com a tampa levantada e inclinada;
+  - marcada, a tampa fecha (420 ms, a curva única), a caixinha ganha a cor da data e um fundo leve.
+- **Como a loja sabe os pacotes:** o cliente diz.
+  - Com **2 ou mais peças marcadas**, aparece abaixo das peças: "Como embrulhar os presentes?", com escolha de dois lados **Cada peça em um | Todas juntas**. Padrão: cada peça em um.
+  - **Todas juntas:** um pacote só, com **um** cartão. As linhas "Escrever o cartão" das peças viram uma só, dentro desse quadro. No esboço as linhas das peças ainda aparecem; o certo é juntar.
+  - **No pedido do app:** "Pacote 1: SL2265 · cartão '…'", "Pacote 2: SL2300 · sem cartão"; ou "Pacote único: SL2265 + SL2300 · cartão '…'".
+  - **Mais de uma unidade da mesma peça:** cada unidade é um pacote, com o mesmo cartão. Em "Todas juntas", vai tudo junto.
+- **Botão "Prosseguir com o pagamento" em vinho (`#7a1f3d`) no lugar do verde.** A regra 17 já diz "rosa/vinho = ação" e "verde = certo". Prosseguir é uma ação, então vinho é o certo, e é mais luxo. O verde fica para o que está certo (preços, "salvo").
+- **Esboço:** `esboco-06g-presente.jpg` (Hoje | caixinha | como embrulhar | Todas juntas | o cartão).

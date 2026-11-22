@@ -8,8 +8,14 @@ O Resumo conta: 'Presentes · 2 embrulhos · cortesia'. Palavras de luxo: 'corte
 Sai a versão v1 (cartão separado com Não|Sim). Uso: python3 presente2.py → /tmp/a6fp3 (:8738)"""
 import shutil
 CSS = (".lfgw{grid-column:1/-1;flex:0 0 100%;width:100%}.lfgl{display:flex;align-items:center;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--ln);cursor:pointer;font:400 15px Inter,sans-serif;color:var(--tx)}"
-       ".lfgl .ck{width:22px;height:22px;border-radius:50%;border:1px solid var(--ln2);display:grid;place-items:center;flex:none;transition:background .3s,border-color .3s}"
-       ".lfgl.on .ck{background:var(--act,var(--ac));border-color:var(--act,var(--ac))}.lfgl .ck svg{opacity:0;transition:opacity .3s}.lfgl.on .ck svg{opacity:1}"
+       ".lfgl .ck{width:26px;height:26px;display:grid;place-items:center;flex:none;color:var(--mu);transition:color .42s cubic-bezier(.16,1,.3,1)}"
+       ".lfgl .ck .tp{transform-origin:12px 9px;transform:translateY(-2.5px) rotate(-12deg);transition:transform .42s cubic-bezier(.16,1,.3,1)}"
+       ".lfgl .ck .cx{fill:transparent;transition:fill .42s cubic-bezier(.16,1,.3,1)}"
+       ".lfgl.on .ck{color:var(--act,var(--ac))}.lfgl.on .ck .tp{transform:none}.lfgl.on .ck .cx{fill:color-mix(in srgb,var(--act,var(--ac)) 14%,transparent)}"
+       ".lfgpk{margin:0 0 16px;padding:16px;border-radius:22px;background:var(--pn);border:1px solid var(--ln)}.lfgpk b{display:block;font:600 15px Inter,sans-serif;color:var(--tx);margin-bottom:12px}"
+       ".lfgpk .dl{display:flex;border:1px solid var(--ln2);border-radius:999px;padding:4px;gap:4px}.lfgpk .dl button{all:unset;flex:1;text-align:center;height:40px;line-height:40px;border-radius:999px;font:500 15px Inter,sans-serif;color:var(--mu);text-transform:none!important;letter-spacing:0!important}"
+       ".lfgpk .dl button.on{background:var(--tx);color:var(--bg)}.lfgpk p{font:400 13px/1.4 Inter,sans-serif;color:var(--mu);margin:8px 0 0}"
+       "#layer .cartp .cs-b,#layer .cartp .btn.w{background:#7a1f3d!important;border-color:#7a1f3d!important}"
        ".lfgm{margin:8px 0 0 34px;font:400 15px Inter,sans-serif}.lfgm a{color:var(--act,var(--ac));text-decoration:none}"
        ".lfgm q{display:block;font:italic 500 16px/1.45 Fraunces,serif;color:var(--tx);quotes:'“' '”'}.lfgm .ed{display:inline-block;margin-top:4px;font-size:14px}"
        ".lfgtop{font:italic 500 15px Fraunces,serif;color:var(--mu);margin:0 0 16px}"
@@ -20,7 +26,9 @@ CSS = (".lfgw{grid-column:1/-1;flex:0 0 100%;width:100%}.lfgl{display:flex;align
        ".lfgsh textarea{all:unset;display:block;width:100%;min-height:96px;font:italic 500 18px/1.45 Fraunces,serif;color:var(--tx);margin-top:6px}"
        ".lfgsh .ct{text-align:right;font:400 12px Inter,sans-serif;color:var(--mu);margin:6px 0 16px;font-variant-numeric:tabular-nums}"
        ".lfgsh .sv{display:flex;align-items:center;justify-content:center;height:48px;border-radius:999px;background:var(--act,var(--ac));color:#fff;font:600 16px Inter,sans-serif}")
-CK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>'
+CK = ('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+      '<g class="tp"><path d="M3 9h18v3H3z"/><path d="M12 9c-2-4-6-4-6-1.5S12 9 12 9zm0 0c2-4 6-4 6-1.5S12 9 12 9z"/></g>'
+      '<path class="cx" d="M4.5 12h15v8.5a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1z"/><path d="M12 9v12.5"/></svg>')
 JS = ("\n/* PINTURA · IDEIAS 06g v2: presente por peça */\n(function(){var s=document.createElement('style');s.textContent=%r;document.head.appendChild(s);var CK=%r;window.__lfG={};"
       "function cards(p){return [].filter.call(p.querySelectorAll('*'),function(e){return e.querySelector&&e.querySelector('.crl')&&!e.parentElement.closest('.lfcard')&&getComputedStyle(e).borderTopLeftRadius!=='0px'&&e.getBoundingClientRect().width>300&&!e.querySelector('*[style*=\"border-top-left-radius\"]')})}"
       "function linha(c,ref){var g=window.__lfG[ref]||{};var l=c.querySelector('.lfgl');if(!l){var w=document.createElement('div');w.className='lfgw';if(getComputedStyle(c).display.indexOf('flex')>=0)c.style.flexWrap='wrap';c.appendChild(w);l=document.createElement('div');l.className='lfgl';l.innerHTML='<span class=\"ck\">'+CK+'</span><span>Embrulhar para presente</span>';w.appendChild(l);"
@@ -31,9 +39,12 @@ JS = ("\n/* PINTURA · IDEIAS 06g v2: presente por peça */\n(function(){var s=d
       "function folha(c,ref){var g=window.__lfG[ref];var f=document.createElement('div');f.className='lfgsh';f.innerHTML='<div class=\"pn\"><div class=\"gr\"></div><h3>O cartão</h3><p>Vai junto com a peça, escrito à mão.</p><label class=\"cp\"><small>Mensagem</small><textarea maxlength=\"200\"></textarea></label><div class=\"ct\">0/200</div><div class=\"sv\" role=\"button\">Salvar</div></div>';"
       " document.body.appendChild(f);var t=f.querySelector('textarea');t.value=g.msg||'';var ct=f.querySelector('.ct');function n(){ct.textContent=t.value.length+'/200'}n();t.oninput=n;"
       " f.onclick=function(e){if(e.target===f)f.remove()};f.querySelector('.sv').onclick=function(){g.msg=t.value.trim();f.remove();linha(c,ref)};window.__lfFolha=f}"
-      "function resumo(){var n=0;for(var k in window.__lfG)if(window.__lfG[k].on)n++;var p=document.querySelector('#layer .cartp');if(!p)return;var r=p.querySelector('.lfgres');"
+      "function resumo(){var n=0;for(var k in window.__lfG)if(window.__lfG[k].on)n++;var p=document.querySelector('#layer .cartp');if(!p)return;"
+      " var pk=p.querySelector('.lfgpk');if(n>=2&&!pk){var ult=[].slice.call(p.querySelectorAll('.lfgw')).pop();var card=ult&&ult.parentElement;pk=document.createElement('div');pk.className='lfgpk';pk.innerHTML='<b>Como embrulhar os presentes?</b><div class=\"dl\"><button class=\"on\" data-j=\"0\">Cada peça em um</button><button data-j=\"1\">Todas juntas</button></div><p>Cada peça em um pacote, com o seu cartão.</p>';card.parentNode.insertBefore(pk,card.nextSibling);"
+      "  pk.querySelectorAll('button').forEach(function(b){b.onclick=function(){pk.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});window.__lfJunto=b.dataset.j==='1';pk.querySelector('p').textContent=window.__lfJunto?'Um pacote só, com um cartão.':'Cada peça em um pacote, com o seu cartão.'}})}"
+      " if(pk)pk.style.display=n>=2?'':'none';var r=p.querySelector('.lfgres');"
       " var ent=[].find.call(p.querySelectorAll('span'),function(x){return x.textContent.trim()==='Entrega'});if(!ent)return;var row=ent.parentElement;"
-      " if(!r){r=row.cloneNode(true);r.classList.add('lfgres');row.parentNode.insertBefore(r,row.nextSibling)}r.style.display=n?'':'none';r.children[0].textContent='Presentes';r.children[1].textContent=n+(n>1?' embrulhos':' embrulho')+' · cortesia'}"
+      " if(!r){r=row.cloneNode(true);r.classList.add('lfgres');row.parentNode.insertBefore(r,row.nextSibling)}r.style.display=n?'':'none';r.children[0].textContent='Presentes';r.children[1].textContent=(window.__lfJunto?'1 pacote':n+(n>1?' pacotes':' pacote'))+' · cortesia'}"
       "setInterval(function(){var p=document.querySelector('#layer .cartp');if(!p)return;"
       " if(!p.querySelector('.lfgtop')){var h=p.querySelector('h2');if(h){var t=document.createElement('p');t.className='lfgtop';t.textContent='Embrulho de presente cortesia neste Natal.';var st=h.parentElement.nextSibling;h.parentElement.parentNode.insertBefore(t,st)}}"
       " p.querySelectorAll('.crl').forEach(function(b){var c=b.closest('[class]');while(c&&!(getComputedStyle(c).borderTopLeftRadius!=='0px'&&c.getBoundingClientRect().width>300))c=c.parentElement;if(!c||c._lfg)return;c._lfg=1;"
