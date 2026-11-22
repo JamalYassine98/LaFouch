@@ -67,3 +67,14 @@ Achados:
    - leitura US$ 2,20 / 1,80 / 1,40.
    Os números são só para estudo: o Titan aprende a fração.
 4. **Falta saber:** quanto as distribuidoras de CDE cobram do lojista por material e por quantidade. São as listas do WhatsApp do dono: compartilhar 1 ou 2 com o app.
+
+## Simulação do lucro total por tabela (22/11 13:58) — margens do 65b v3, só acetato de US$ 5, no pedido mínimo
+| Tabela | Pedido | Peças | Custo | IVA | Lucro total |
+|---|---|---|---|---|---|
+| Óptica (sem mínimo; ex. US$ 500) | US$ 500 | 64 | US$ 320 | US$ 45 | **US$ 125** |
+| Vendedor (ex. US$ 500) | US$ 500 | 69 | US$ 344 | US$ 45 | **US$ 100** |
+| Atacado 1K | US$ 1.000 | 147 | US$ 737 | US$ 91 | **US$ 150** |
+| Atacado 2K | US$ 2.000 | 303 | US$ 1.513 | US$ 182 | **US$ 260** |
+| Atacado 5K | US$ 5.000 | 776 | US$ 3.879 | US$ 455 | **US$ 550** |
+| Atacado 10K | US$ 10.000 | 1.571 | US$ 7.855 | US$ 909 | **US$ 1.000** |
+(O restante de cada pedido é o colchão de 3%, que volta para a próxima compra.)
