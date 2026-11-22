@@ -66,9 +66,7 @@
 
   // peças que a lista mostra agora (tipo, faixa, busca e situação)
   function invPecas() {
-    var k = document.querySelector('#kCont b'),
-      n = k ? +String(k.textContent).replace(/\D/g, '') || 0 : 0;
-    if (!S.sitF) return n;
+    if (!S.sitF) return S._flPecas || 0;
     var ts = tSel();
     return S.items.reduce(function (a, i) {
       var noTipo = S.lotesView ? false : ts.length ? ts.indexOf(i.tipo) >= 0 : true;
@@ -149,7 +147,6 @@
       info.textContent = (n ? n + (n === '1' ? ' peça' : ' peças') + ' · ' : '') + [lab].concat(extra).join(' · ');
     }
     invFiltrosEnfeita();
-    invAviso();
   }
 
   // ---------- folha de filtros no estilo do Catálogo ----------
@@ -230,31 +227,7 @@
   };
 
   // ---------- Preços para corrigir ----------
-  // S374 (esboço 57b, R8): o aviso mora em Pendências e em Preços; no Inventário fica só o número na linha da contagem
-  function invAviso() {
-    var rows = $('rows');
-    if (!rows) return;
-    var av = $('invFix');
-    if (av) av.remove();
-    var info = $('invInfo'),
-      n = info && info.querySelector('.ifNum'),
-      mostra = S.view === 'estoque' && !S.lotesView && !S.repoView && !S.cont && !S.det && !S.selMode && !S.pdMode && S.sitF !== 'preco';
-    var L = mostra && info ? invPrecosAcorrigir() : [];
-    if (!L.length) {
-      if (n) n.remove();
-      return;
-    }
-    if (!n) {
-      n = document.createElement('button');
-      n.type = 'button';
-      n.className = 'ifNum';
-      n.setAttribute('data-act', 'pcAbre');
-      info.appendChild(n);
-    }
-    var t = L.length + (L.length === 1 ? ' preço para corrigir ›' : ' preços para corrigir ›'); // S374 85
-    if (n.textContent !== t) n.textContent = t;
-    n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
-  }
+  // 52d (22/11): a contagem "N preços para corrigir" mora no sino (notifAgora) e em Preços; a lista, em Preços (pcCorpo).
   // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
   function pcCorpo(naTela) {
     var L = invPrecosAcorrigir(),

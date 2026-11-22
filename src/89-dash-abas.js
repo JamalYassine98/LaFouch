@@ -67,14 +67,16 @@
         act: 'view',
         id: 'fx'
       });
-    var pp = precoPerigoso().length;
-    if (pp)
+    // 52d (22/11): os preços para corrigir moram aqui (saíram da barra do Inventário); vermelho quando algum já não cobre custo e contas
+    var pc = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : 0,
+      pp = precoPerigoso().length;
+    if (pc || pp)
       it.push({
-        t: 'Preço ficou perigoso',
-        s: pp + ' produto(s) com preço que não cobre custo e contas',
-        c: 'var(--bad)',
+        t: cntPl(Math.max(pc, pp), 'preço para corrigir', 'preços para corrigir'),
+        s: pp ? pp + (pp === 1 ? ' não cobre' : ' não cobrem') + ' o custo e as contas' : 'abaixo do que a peça precisa ou sem o preço do site',
+        c: pp ? 'var(--bad)' : 'var(--warn)',
         b: 'Ver preços',
-        act: 'dtab',
+        act: 'pcAbre',
         id: 'prec'
       });
     var rp = reposicao().length;

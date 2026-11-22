@@ -1028,7 +1028,7 @@ async def main():
             await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
             mapa = await pg.evaluate("""() => [...document.querySelectorAll('#grFolha .gcell')].map(c => c.className.replace('gcell','').replace('on','').trim() + ':' + c.querySelector('b').innerText.replace('—','0'))""")
             abas = await pg.evaluate("() => [...document.querySelectorAll('#eTabs .chip')].map(b => b.innerText.replace(/\\s+/g,' '))")
-            kl = await pg.evaluate("() => document.getElementById('kLot').hidden")
+            kl = await pg.evaluate("() => !document.getElementById('kLot')")  # 52d: os números grandes saíram
             await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
             filtro = await pg.evaluate("() => window.__LF.S.q")
             await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
@@ -1051,10 +1051,11 @@ async def main():
             # v469: contador sem quadrado, barra Selecionar/lixeira fora, trava única de rolagem
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.tipo = 'sem'; S.todos = false; S.cont = false; L.setView('estoque'); }"); await pg.wait_for_timeout(400)
-            await pg.click('#kCont'); await pg.wait_for_timeout(300)
-            k1 = await pg.evaluate("() => { const k = document.getElementById('kCont'); return [k.style.outline, k.querySelector('.hint').innerText, getComputedStyle(k.querySelector('.lbl')).color !== getComputedStyle(document.querySelector('#kpisE .kpi:not(#kCont) .lbl')).color]; }")
-            await pg.click('#kCont'); await pg.wait_for_timeout(300)
-            k2 = await pg.evaluate("() => document.querySelector('#kCont .hint').innerText")
+            # 52d (22/11): os números grandes saíram; a contagem abre e fecha pela mesma função (contTroca, "Contar o estoque ›")
+            await pg.evaluate("() => window.__LF.ACT.contTroca()"); await pg.wait_for_timeout(300)
+            k1 = await pg.evaluate("() => [!document.getElementById('kpisE'), !document.getElementById('contCard').hidden, document.getElementById('listCard').hidden]")
+            await pg.evaluate("() => window.__LF.ACT.contTroca()"); await pg.wait_for_timeout(300)
+            k2 = await pg.evaluate("() => document.getElementById('contCard').hidden")
             barra = await pg.evaluate("() => getComputedStyle(document.getElementById('lt').parentElement).display === 'none' && getComputedStyle(document.getElementById('lh')).display === 'none'")
             await pg.evaluate("() => { const S = window.__LF.S; S.todos = true; window.__LF.render(); }"); await pg.wait_for_timeout(500)
             y0 = await pg.evaluate("() => { window.scrollTo({top: 600, behavior: 'instant'}); return Math.round(window.scrollY); }"); await pg.wait_for_timeout(200)
@@ -1064,8 +1065,8 @@ async def main():
             await pg.evaluate("() => document.getElementById('mTeste').remove()"); await pg.wait_for_timeout(250)
             tr2 = await pg.evaluate("() => [document.documentElement.classList.contains('lfTrava'), Math.round(window.scrollY)]")
             total += 1
-            ok = k1 == ['', 'contando · toque para fechar', True] and k2 == '' and barra and y0 > 100 and tr1 == [True, '-' + str(y0) + 'px'] and tr2 == [False, y0] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'v469: contador sem quadrado (cor suave), barra Selecionar/lixeira fora, janela aberta trava o fundo e devolve a posição')
+            ok = k1 == [True, True, True] and k2 is True and barra and y0 > 100 and tr1 == [True, '-' + str(y0) + 'px'] and tr2 == [False, y0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v469: contagem abre e fecha (sem os números grandes), barra Selecionar/lixeira fora, janela aberta trava o fundo e devolve a posição')
             if not ok: falhas.append('v469 inventario'); print('        veio', k1, k2, barra, y0, tr1, tr2, pg.erros)
             await pg.close()
 
@@ -1089,7 +1090,7 @@ async def main():
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.todos = true; S.selSet = []; S.det = false; S.cont = false; S.sitF = ''; L.setView('estoque'); }"); await pg.wait_for_timeout(500)
             v1 = await pg.evaluate("""() => { const c = [...document.querySelectorAll('#rows .pcard')];
               return [!!document.getElementById('invBs') && document.getElementById('invBs').contains(document.getElementById('q')), /peças · Todos/.test(document.getElementById('invInfo').innerText),
-                c.some(x => x.querySelector('.pSin')), !document.querySelector('#rows .pcard .ftag, #rows .pcard .zbd:not([hidden])') || getComputedStyle(document.querySelector('#rows .pcard .zbd') || document.body).display === 'none', !!document.querySelector('#invInfo .ifNum') && !document.getElementById('invFix')]; }""")
+                c.some(x => x.querySelector('.pSin')), !document.querySelector('#rows .pcard .ftag, #rows .pcard .zbd:not([hidden])') || getComputedStyle(document.querySelector('#rows .pcard .zbd') || document.body).display === 'none', !document.querySelector('#invInfo .ifNum') && !document.getElementById('invFix')]; }""")  # 52d: a linha de preços saiu da barra (está no sino)
             f1 = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const S = window.__LF.S; const c = [...document.querySelectorAll('#rows .pcard[data-ref]')].find(x => !/Lote|modelos/.test(x.innerText));
               c.click(); await w(400); const durante = [S.todos, S.det, /×/.test(document.getElementById('fsum').innerText)]; S.det = false; S.open = ''; window.__LF.render(); await w(300); return durante.concat([S.todos]); }""")
             await pg.click('#btnFilt'); await pg.wait_for_timeout(400)
@@ -1098,7 +1099,7 @@ async def main():
             n1 = await pg.evaluate("() => [String(document.querySelectorAll('#rows .pcard[data-ref]').length), window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length, getComputedStyle(document.getElementById('filtApply').parentNode).display]")
             await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); await pg.evaluate(SAIR_SEM_SALVAR); await pg.wait_for_timeout(500)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
-            await pg.click('#invInfo .ifNum'); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => window.__LF.ACT.pcAbre()"); await pg.wait_for_timeout(500)  # 52d: Preços abre pelo sino (o mesmo pcAbre)
             antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
             ref1 = await pg.evaluate("() => { const b = document.querySelector('#v-dash .pcNaTela [data-act=pcUsa]'); return b ? b.getAttribute('data-id') : ''; }")
             if ref1: await pg.click('#v-dash .pcNaTela [data-act=pcUsa]'); await pg.wait_for_timeout(500)
@@ -3003,7 +3004,7 @@ async def main():
               S.todos = true; S.q = ''; S.faixaF = ''; S.sales = []; S.contagens = []; S.elog = []; S.conf = {}; S.tolUsd = 0.5; L.setView('estoque'); }""")
             await pg.wait_for_timeout(300)
             total += 1
-            await pg.click('#kCont'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.ACT.contTroca()"); await pg.wait_for_timeout(300)
             ordem = await pg.evaluate("() => [...document.querySelectorAll('#contCard .card b')].map(b => b.textContent)")
             await pg.locator('#contCard input').nth(0).fill('2'); await pg.locator('#contCard input').nth(0).press('Tab'); await pg.wait_for_timeout(300)
             await pg.locator('#contCard input').nth(1).fill('9'); await pg.locator('#contCard input').nth(1).press('Tab'); await pg.wait_for_timeout(300)
@@ -4372,6 +4373,33 @@ async def main():
             if not ok: falhas.append('42b nova cor'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Família Inventário 65a (52d, implementar 22/11 12:51): embaixo do título o resumo "N referências · US$ X a custo" (no lugar do caminho fixo);
+            # sem os números grandes; "N preços para corrigir" sai da barra e vai para o sino (uma linha só de preço, abre Preços).
+            # Achado do dono 22/11 13:09 (L2): em TODA tela com botão redondo no título, centro do botão = centro do h1 (±1 px), celular e computador.
+            got = []
+            for W65 in (390, 1366):
+                ctx65 = await b.new_context(viewport={'width': W65, 'height': 844}, color_scheme='dark', service_workers='block')
+                pg = await pagina(ctx=ctx65, fam=True, tudo=False)
+                got.append(await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+                  L.setView('estoque'); await w(500);
+                  const refs = new Set(S.items.filter(i => i.qty > 0).map(i => i.ref)).size, custo = S.items.reduce((a, i) => a + (i.qty > 0 ? (+i.custo || 0) * i.qty : 0), 0);
+                  R.resumo = document.getElementById('crumb').textContent === refs + ' referências · US$ ' + Math.round(custo).toLocaleString('pt-BR').replace(/,/g, '.') + ' a custo';
+                  R.sem = [!document.getElementById('kpisE'), !document.querySelector('#invInfo .ifNum'), /^\\d+ peças · Todos$/.test(document.getElementById('invInfo').textContent.trim())];
+                  const pc = L.invPrecosAcorrigir ? L.invPrecosAcorrigir().length : -1, it = L.notifAgora ? L.notifAgora().filter(i => /preços? para corrigir/.test(i.t)) : null;
+                  R.sino = [pc > 0, !!it && it.length === 1 && it[0].act === 'pcAbre', !!it && !L.notifAgora().some(i => i.t === 'Preço ficou perigoso')];
+                  R.fora = [];
+                  for (const v of [...document.querySelectorAll('.view')].map(e => e.id.slice(2))) { try { L.setView(v); } catch (e) { continue; } await w(250);
+                    const t = document.querySelector('#v-' + v + '>.top'), h = t && t.querySelector('h1'); if (!h || !h.getClientRects().length) continue;
+                    [...t.querySelectorAll('button')].forEach(bt => { const r = bt.getBoundingClientRect(), hr = h.getBoundingClientRect(); if (!r.width || r.top > hr.bottom) return;
+                      const d = (r.top + r.bottom) / 2 - (hr.top + hr.bottom) / 2; if (Math.abs(d) > 1) R.fora.push(v + ':' + (bt.id || bt.className) + ':' + Math.round(d)); }); }
+                  return R; }"""))
+                erros65 = list(pg.erros); await pg.close(); await ctx65.close()
+                if erros65: break
+            total += 1
+            ok = len(got) == 2 and all(r['resumo'] and r['sem'] == [True, True, True] and r['sino'] == [True, True, True] and r['fora'] == [] for r in got) and not erros65
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Inventário 65a: resumo embaixo do título, sem os números grandes, preços para corrigir no sino; botão redondo na linha do título em toda tela (celular e computador)')
+            if not ok: falhas.append('65a inventario topo'); print('        veio', got, erros65)
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -5327,8 +5355,8 @@ async def main():
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               L.setView('estoque'); await w(400); const a = document.getElementById('btnAdd'), ra = a.getBoundingClientRect();
               const mais = a.classList.contains('pl78') && Math.round(ra.width) === 44 && a.getAttribute('aria-label') === 'Adicionar';
-              const k = document.getElementById('kCont'), kk = /› *$/.test(k.querySelector('.lbl').textContent) && k.querySelector('.hint').hidden;
-              const n = document.querySelector('#invInfo .ifNum'), pr = !n || (/^\\d+ preços? para corrigir ›$/.test(n.textContent) && n.getBoundingClientRect().height >= 44);
+              const kk = !document.getElementById('kpisE') && !document.getElementById('kCont');   // 52d: sem os números grandes
+              const pr = !document.querySelector('#invInfo .ifNum');                               // 52d: "N preços para corrigir" foi para o sino
               const lt = [...document.querySelectorAll('#v-estoque .pcard')].every(p => p.querySelector('.pbox'));
               L.estAbre(); await w(400); const ic = document.querySelector('.estIc').getBoundingClientRect().width >= 44 && document.querySelector('.estX').getBoundingClientRect().width >= 44;
               const fi = [...document.querySelectorAll('.estFi')].every(x => x.textContent === 'Galeria ›'), td = !document.querySelector('.estLbl2 .estLink');
@@ -5336,7 +5364,7 @@ async def main():
               return [mais, kk, pr, lt, ic, fi, td, vm]; }""")
             total += 1
             ok = got == [True] * 8 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, contagem sem frase, preços para corrigir; Estúdio 44 px, "Galeria ›", um só "Ver as N peças ›"')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, sem os números grandes nem a linha de preços; Estúdio 44 px, "Galeria ›", um só "Ver as N peças ›"')
             if not ok: falhas.append('inventario estudio 85 86'); print('        veio', got, pg.erros)
             await pg.close()
 

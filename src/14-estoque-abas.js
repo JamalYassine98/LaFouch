@@ -311,7 +311,7 @@
       tb.appendChild(b);
     };
     mkTab('eTabP', 'Produtos', !S.lotesView && !S.repoView, function () {
-      if (S.lotesView) $('kLot').onclick();
+      if (S.lotesView) lotesTroca();
       S.repoView = false;
       S.repLista = false;
       render();
@@ -323,13 +323,13 @@
       function () {
         S.repoView = false;
         S.cont = false;
-        if (!S.lotesView) $('kLot').onclick();
+        if (!S.lotesView) lotesTroca();
         else render();
       },
       pend
     );
     mkTab('eTabR', 'Reposição', !!S.repoView, function () {
-      if (S.lotesView) $('kLot').onclick();
+      if (S.lotesView) lotesTroca();
       S.repoView = true;
       S.repLista = false;
       S.cont = false;
@@ -338,7 +338,6 @@
       render();
     });
     var rv = !!S.repoView;
-    $('kpisE').hidden = rv || !!S.lotesView;
     if (rv) {
       $('listCard').hidden = true;
       $('detail').hidden = true;

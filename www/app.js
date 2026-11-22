@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 624;
+  var APP_BUILD = 625;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.49'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.50'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -3033,9 +3033,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var falta = 0;
     var isV = false;
 
-    $('crumb').textContent = isPre
-      ? 'Grupo Pré-graduados › Grau › Formato › Referência'
-      : 'Referência › Variante C1–C6 › Cor';
+    // 52d (família Inventário, implementar 22/11 12:51): embaixo do título, o resumo do estoque no lugar do caminho fixo
+    $('crumb').textContent = invResumo();
     var tb = $('tipos');
     tb.textContent = '';
     if (!S.delMode)
@@ -3352,18 +3351,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ' por peça. Preencha só se esta peça custou diferente.'
       : 'Obrigatório: este produto não está em nenhum lote.';
     S._flAll = flAll;
-    $('k1').textContent = sum(fl);
-    $('k2').textContent = new Set(
-      fl.map(function (i) {
-        return i.ref;
-      })
-    ).size;
-    var lpn = S.grp.filter(function (g) {
-      return grpFalta(g) > 0;
-    }).length;
-    $('kLotN').textContent = lpn;
-    $('kLot').setAttribute('aria-pressed', !!S.lotesView);
-    $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
+    S._flPecas = sum(fl); // peças que a lista mostra agora (a barra "470 peças · Todos" lê daqui)
 
     var qOk = function (i) {
       return !qm || qm(i);
@@ -4621,7 +4609,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (e.target === $('filtPanel')) filtClose(false);
   });
   var LSNAP = null;
-  $('kLot').onclick = function () {
+  // abre/fecha a aba Fornecedores (lotes), guardando e devolvendo os filtros da lista
+  function lotesTroca() {
     if (S.lotesView) {
       S.lotesView = false;
       if (LSNAP) {
@@ -4655,7 +4644,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.msg = '';
     S.pdMode = false;
     render();
-  };
+  }
   try {
     $('eMedB').parentNode.appendChild($('eGrauB'));
   } catch (e) {}
@@ -5665,7 +5654,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tb.appendChild(b);
     };
     mkTab('eTabP', 'Produtos', !S.lotesView && !S.repoView, function () {
-      if (S.lotesView) $('kLot').onclick();
+      if (S.lotesView) lotesTroca();
       S.repoView = false;
       S.repLista = false;
       render();
@@ -5677,13 +5666,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       function () {
         S.repoView = false;
         S.cont = false;
-        if (!S.lotesView) $('kLot').onclick();
+        if (!S.lotesView) lotesTroca();
         else render();
       },
       pend
     );
     mkTab('eTabR', 'Reposição', !!S.repoView, function () {
-      if (S.lotesView) $('kLot').onclick();
+      if (S.lotesView) lotesTroca();
       S.repoView = true;
       S.repLista = false;
       S.cont = false;
@@ -5692,7 +5681,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       render();
     });
     var rv = !!S.repoView;
-    $('kpisE').hidden = rv || !!S.lotesView;
     if (rv) {
       $('listCard').hidden = true;
       $('detail').hidden = true;
@@ -21444,14 +21432,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         act: 'view',
         id: 'fx'
       });
-    var pp = precoPerigoso().length;
-    if (pp)
+    // 52d (22/11): os preços para corrigir moram aqui (saíram da barra do Inventário); vermelho quando algum já não cobre custo e contas
+    var pc = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : 0,
+      pp = precoPerigoso().length;
+    if (pc || pp)
       it.push({
-        t: 'Preço ficou perigoso',
-        s: pp + ' produto(s) com preço que não cobre custo e contas',
-        c: 'var(--bad)',
+        t: cntPl(Math.max(pc, pp), 'preço para corrigir', 'preços para corrigir'),
+        s: pp ? pp + (pp === 1 ? ' não cobre' : ' não cobrem') + ' o custo e as contas' : 'abaixo do que a peça precisa ou sem o preço do site',
+        c: pp ? 'var(--bad)' : 'var(--warn)',
         b: 'Ver preços',
-        act: 'dtab',
+        act: 'pcAbre',
         id: 'prec'
       });
     var rp = reposicao().length;
@@ -22266,7 +22256,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       $('btnAdd').click();
     } else if (id === 'cont') {
       setView('estoque');
-      $('kCont').click();
+      contTroca();
     } else if (id === 'lotes') {
       S.lotesView = true;
       setView('estoque');
@@ -30692,11 +30682,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function renderContagem() {
     var c = $('contCard');
     c.hidden = !S.cont;
-    $('kCont').setAttribute('aria-pressed', !!S.cont);
-    // v469: sem quadrado; enquanto conta, as letras ficam rosa suave (CSS) e a dica diz como fechar
-    $('kCont').style.outline = '';
-    var kh = $('kCont').querySelector('.hint');
-    if (kh) { kh.textContent = S.cont ? 'contando · toque para fechar' : ''; kh.hidden = !S.cont; } // S374 85: sem a frase quando não conta
     if (!S.cont) return;
     $('listCard').hidden = true;
     $('detail').hidden = true;
@@ -30931,8 +30916,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.contSum = false;
   S.contVals = {};
   S.contOk = {};
-  // Tocar no cartão "Em estoque" abre/fecha a contagem.
-  $('kCont').onclick = function () {
+  // abre/fecha a contagem ("Contar o estoque ›" no fim da lista e o atalho do Início)
+  function contTroca() {
     S.cont = !S.cont;
     S.contSum = false;
     S.contVals = {};
@@ -30946,7 +30931,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     render();
     window.scrollTo(0, 0);
-  };
+  }
+  ACT.contTroca = contTroca;
   // ===== Nova cor (esboço 42, aprovado 21/11/2026 07:51) =====
   // "+ Nova cor ›" abre a janela de baixo: QUAL COR (as cores que a loja já usa, das mais usadas para as menos, ou "Outra…" para escrever),
   // Código (o próximo C# da peça, sugerido), Quantidade e Custo (o das outras cores, dá para mudar); pré-graduado pede também o Grau.
@@ -46413,6 +46399,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
     if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
   };
+  // ===== Família INVENTÁRIO (a lista) — "implementar" do dono 22/11/2026 12:51 (esboços 52d, 52b, 52e e 58h) =====
+  // Retrato do aprovado: work/s435/titan/inventario_aprovado.jpg · como fazer: work/s435/implementar/COMO-FAZER-INVENTARIO-52.md
+  // Topo: título, o resumo "16 referências · US$ 420 a custo" embaixo e o + na linha do título; sem os números grandes.
+  // Os números grandes (#kpisE) moram no index.html do aparelho (o APK só recebe app.js e style.css): saem daqui, uma vez.
+  (function () {
+    var k = $('kpisE');
+    if (k) k.remove();
+  })();
+  // referências com peça em estoque e quanto elas custaram (custo × quantidade, em dólar)
+  function invResumo() {
+    var refs = {}, custo = 0;
+    S.items.forEach(function (i) {
+      if (!(i.qty > 0)) return;
+      refs[i.ref] = 1;
+      custo += (+i.custo || 0) * i.qty;
+    });
+    var n = Object.keys(refs).length;
+    return n + (n === 1 ? ' referência' : ' referências') + ' · ' + usd0(custo) + ' a custo';
+  }
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -50107,9 +50112,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
 
   // peças que a lista mostra agora (tipo, faixa, busca e situação)
   function invPecas() {
-    var k = document.querySelector('#kCont b'),
-      n = k ? +String(k.textContent).replace(/\D/g, '') || 0 : 0;
-    if (!S.sitF) return n;
+    if (!S.sitF) return S._flPecas || 0;
     var ts = tSel();
     return S.items.reduce(function (a, i) {
       var noTipo = S.lotesView ? false : ts.length ? ts.indexOf(i.tipo) >= 0 : true;
@@ -50190,7 +50193,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       info.textContent = (n ? n + (n === '1' ? ' peça' : ' peças') + ' · ' : '') + [lab].concat(extra).join(' · ');
     }
     invFiltrosEnfeita();
-    invAviso();
   }
 
   // ---------- folha de filtros no estilo do Catálogo ----------
@@ -50271,31 +50273,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
 
   // ---------- Preços para corrigir ----------
-  // S374 (esboço 57b, R8): o aviso mora em Pendências e em Preços; no Inventário fica só o número na linha da contagem
-  function invAviso() {
-    var rows = $('rows');
-    if (!rows) return;
-    var av = $('invFix');
-    if (av) av.remove();
-    var info = $('invInfo'),
-      n = info && info.querySelector('.ifNum'),
-      mostra = S.view === 'estoque' && !S.lotesView && !S.repoView && !S.cont && !S.det && !S.selMode && !S.pdMode && S.sitF !== 'preco';
-    var L = mostra && info ? invPrecosAcorrigir() : [];
-    if (!L.length) {
-      if (n) n.remove();
-      return;
-    }
-    if (!n) {
-      n = document.createElement('button');
-      n.type = 'button';
-      n.className = 'ifNum';
-      n.setAttribute('data-act', 'pcAbre');
-      info.appendChild(n);
-    }
-    var t = L.length + (L.length === 1 ? ' preço para corrigir ›' : ' preços para corrigir ›'); // S374 85
-    if (n.textContent !== t) n.textContent = t;
-    n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
-  }
+  // 52d (22/11): a contagem "N preços para corrigir" mora no sino (notifAgora) e em Preços; a lista, em Preços (pcCorpo).
   // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
   function pcCorpo(naTela) {
     var L = invPrecosAcorrigir(),
@@ -52111,10 +52089,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // ===== S370 (16/11/2026) — item 7 de 13/11 (aprovado 14/11 00:08; esboços work/s244) =====
   // Computador (≥ 1024 px): a ação da página fica AO LADO do título (não no canto); o Inventário usa a largura toda —
-  // os dois números sobem para a linha das abas e a busca ocupa a largura inteira. O celular não muda.
+  // as abas ganham a linha toda e a busca ocupa a largura inteira. O celular não muda.
   function pcLarga() {
-    var v = $('v-estoque'), k = $('kpisE'), t = $('eTabs');
-    if (!v || !k || !t) return;
+    var v = $('v-estoque'), t = $('eTabs');
+    if (!v || !t) return;
     var on = window.innerWidth >= 1024 && S.view === 'estoque',
       w = $('eLinha'),
       q = $('q'),
@@ -52126,14 +52104,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t.parentNode.insertBefore(w, t);
       }
       if (t.parentNode !== w) w.appendChild(t);
-      if (k.parentNode !== w) w.appendChild(k);
       v.classList.add('pcLarga');
       if (bx) bx.classList.add('pcBusca');
     } else if (w) {
       w.parentNode.insertBefore(t, w);
-      var mn = v.querySelector(':scope > .main');
-      if (mn) mn.parentNode.insertBefore(k, mn);
-      else t.parentNode.insertBefore(k, t.nextSibling);
       w.remove();
       v.classList.remove('pcLarga');
       if (bx) bx.classList.remove('pcBusca');
@@ -53546,7 +53520,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

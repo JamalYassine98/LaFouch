@@ -376,7 +376,8 @@
     if (e.target === $('filtPanel')) filtClose(false);
   });
   var LSNAP = null;
-  $('kLot').onclick = function () {
+  // abre/fecha a aba Fornecedores (lotes), guardando e devolvendo os filtros da lista
+  function lotesTroca() {
     if (S.lotesView) {
       S.lotesView = false;
       if (LSNAP) {
@@ -410,7 +411,7 @@
     S.msg = '';
     S.pdMode = false;
     render();
-  };
+  }
   try {
     $('eMedB').parentNode.appendChild($('eGrauB'));
   } catch (e) {}

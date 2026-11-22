@@ -1,9 +1,9 @@
   // ===== S370 (16/11/2026) — item 7 de 13/11 (aprovado 14/11 00:08; esboços work/s244) =====
   // Computador (≥ 1024 px): a ação da página fica AO LADO do título (não no canto); o Inventário usa a largura toda —
-  // os dois números sobem para a linha das abas e a busca ocupa a largura inteira. O celular não muda.
+  // as abas ganham a linha toda e a busca ocupa a largura inteira. O celular não muda.
   function pcLarga() {
-    var v = $('v-estoque'), k = $('kpisE'), t = $('eTabs');
-    if (!v || !k || !t) return;
+    var v = $('v-estoque'), t = $('eTabs');
+    if (!v || !t) return;
     var on = window.innerWidth >= 1024 && S.view === 'estoque',
       w = $('eLinha'),
       q = $('q'),
@@ -15,14 +15,10 @@
         t.parentNode.insertBefore(w, t);
       }
       if (t.parentNode !== w) w.appendChild(t);
-      if (k.parentNode !== w) w.appendChild(k);
       v.classList.add('pcLarga');
       if (bx) bx.classList.add('pcBusca');
     } else if (w) {
       w.parentNode.insertBefore(t, w);
-      var mn = v.querySelector(':scope > .main');
-      if (mn) mn.parentNode.insertBefore(k, mn);
-      else t.parentNode.insertBefore(k, t.nextSibling);
       w.remove();
       v.classList.remove('pcLarga');
       if (bx) bx.classList.remove('pcBusca');

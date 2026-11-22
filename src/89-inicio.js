@@ -288,7 +288,7 @@
       $('btnAdd').click();
     } else if (id === 'cont') {
       setView('estoque');
-      $('kCont').click();
+      contTroca();
     } else if (id === 'lotes') {
       S.lotesView = true;
       setView('estoque');

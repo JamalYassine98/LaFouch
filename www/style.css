@@ -27,6 +27,14 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent-fg);outl
 .demo{font-size:12px;color:var(--mute);border:1px dashed var(--line);border-radius:999px;padding:6px 12px}
 h1{margin:0;font-size:26px}
 .crumb{font-size:13px;color:var(--mute);margin-top:4px}
+/* Cabeçalho das telas — UMA regra (achado do dono 22/11 13:09, L2): o título e o botão redondo dele ficam na MESMA linha, centro com centro;
+   o subtítulo (e o que mais vier com o título) fica embaixo, fora dessa linha. No celular o botão vai à direita; no computador, ao lado do título. */
+.view>.top{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;row-gap:0;align-items:center}
+.view>.top>div:first-child{display:contents}
+.view>.top>div:first-child>h1{grid-column:1;grid-row:1;min-width:0;align-self:center}
+.view>.top>div:first-child>:not(h1){grid-column:1/-1}
+.view>.top>:not(:first-child){grid-column:2;grid-row:1;justify-self:end;align-self:center;margin:0}
+@media (min-width:1024px){.view>.top{grid-template-columns:auto auto;justify-content:start;column-gap:28px}}
 .tabs{display:flex;gap:8px;flex-wrap:wrap}
 .tab{min-height:44px;padding:0 18px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--sub);font-size:14px}
 #filtPanel{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px}
@@ -1733,7 +1741,7 @@ body.modoCli.mcAberto #vListCard{filter:blur(14px) saturate(.9);pointer-events:n
 body.modoCli.mcAberto #vDetail{position:fixed;inset:0;margin:auto;height:fit-content;width:min(820px,94vw);max-height:92vh;overflow:auto;z-index:60;box-shadow:0 30px 80px rgba(0,0,0,.45);animation:mcIn .24s cubic-bezier(.2,.8,.2,1)}
 @keyframes mcIn{from{opacity:0;scale:.96}to{opacity:1;scale:1}}
 body.modoCli #sino,body.modoCli #sino2{display:none!important}
-#v-vendas>.top{flex-wrap:nowrap;align-items:flex-start}#v-vendas>.top>div{flex:1;min-width:0}.mcBtn{margin-top:2px}body.modoCli .mcBtn{display:none!important}
+body.modoCli .mcBtn{display:none!important}
 body.modoCli .logo-top .brand{touch-action:none}.logo-top .brand img{pointer-events:none;-webkit-user-drag:none}
 /* v465 modo cliente: com o produto aberto a página de trás não rola (igual ao site) */
 html.mcTrava,html.mcTrava body{overflow:hidden!important;overscroll-behavior:none}
@@ -1816,18 +1824,11 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 .cxL b{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
 .cxTot{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);padding:12px 0 4px}.cxTot b{color:var(--fg)}
 /* v465 Inventário: mesma posição dos botões, visual limpo (abas de texto sublinhadas, números sem caixa, lista sem a caixa grande) */
-#v-estoque>.top{display:flex;flex-wrap:nowrap;align-items:flex-start;justify-content:space-between;gap:12px}
-#v-estoque>.top>div:first-child{min-width:0;flex:1}
-#v-estoque>.top .tabs{flex:none;margin-top:4px}
 #eTabs{display:flex;flex-wrap:nowrap;gap:22px;border-bottom:1px solid var(--line2);overflow-x:auto;scrollbar-width:none;position:relative}
 #eTabs .chip,#eTabs .chip.on,#eTabs .chip[aria-pressed="true"]{background:transparent!important;border:0!important;border-radius:0!important;padding:10px 0!important;min-height:0!important;color:var(--mute)!important;font-weight:500;box-shadow:inset 0 -2px 0 transparent!important}
 #eTabs .chip.on,#eTabs .chip[aria-pressed="true"]{color:var(--pri)!important;box-shadow:inset 0 -2px 0 var(--accent)!important}
 #eTabs .chip:active{transform:none!important;background:transparent!important}
 #eTabs .bdg{font-size:0;width:7px;height:7px;padding:0;border-radius:50%;background:var(--warn);display:inline-block;vertical-align:middle;margin-left:5px}
-#kpisE{display:grid!important;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line2);margin:0 0 14px}
-#kpisE .kpi{background:transparent!important;border:0!important;box-shadow:none!important;padding:14px 0!important;border-radius:0!important}
-#kpisE .kpi .lbl{font-size:11px;letter-spacing:.14em}
-#kpisE #kLot:not([hidden]){grid-column:1/-1;border-top:1px solid var(--line2)!important}
 #listCard{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
 /* ===== v465 animações novas ===== */
 /* b: fotos com brilho cinza até carregar */
@@ -1987,7 +1988,6 @@ html.lfTrava body{position:fixed;left:0;right:0;width:auto}
 #v-estoque .pcard .cell.low{color:#e9c27a}
 #v-estoque .pcard .cell.zero{color:#e0707a}
 #v-estoque .pcard .zbd{display:none}
-#kpisE{border-bottom:0!important;padding-bottom:0!important;margin-bottom:0!important}
 /* folha de filtros no estilo do Catálogo */
 #filtPanel{align-items:flex-end!important;padding:0!important;background:rgba(5,4,8,.55)!important}
 #filtBox{max-width:560px!important;border-radius:24px 24px 0 0!important;border:0!important;border-top:1px solid var(--line)!important;padding:8px 18px calc(16px + env(safe-area-inset-bottom,0px))!important;max-height:88vh!important;animation:fbSobe .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -12px 30px rgba(0,0,0,.35)}
@@ -2011,8 +2011,6 @@ html.lfTrava body{position:fixed;left:0;right:0;width:auto}
 #filtApply{flex:1.2;min-height:50px!important;border-radius:14px!important;background:none!important;border:1px solid var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--pri)!important;font-weight:600}
 #filtCancel{flex:1;min-height:50px!important;border-radius:14px!important}
 /* aviso de preços */
-.invFix{display:flex;align-items:center;gap:12px;border:1px solid var(--line2,rgba(127,127,127,.15));border-radius:16px;padding:11px 13px;margin:0 0 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s;grid-column:1/-1}
-.invFix:active{transform:scale(.98)}
 /* folha Preços para corrigir */
 #pcFolha .pcT{margin:2px 0 8px;font-size:18px}
 #pcFolha .pcVazio{color:var(--mute);font-size:14px}
@@ -2227,13 +2225,8 @@ html.mlOn #lockScr{z-index:2147483600}
 .view .lbl,.view .tp,.view .pSin,.view small,.view th,.view .cxLb,.view .ajVer{font-size:12px}
 
 /* 14/11 S237 (aprovado, esboço S228): Clientes — um botão principal e as três ações de atacado numa fileira só, do mesmo tamanho */
-#v-clientes .top{flex-wrap:wrap}
-#v-clientes .top .tabs{display:flex;flex-wrap:wrap;gap:8px;width:100%}
-#v-clientes .top .tabs .mini{min-height:44px;white-space:nowrap}
-#v-clientes .top .tabs .mini.ghost{flex:1 1 auto;min-width:0;padding-left:8px;padding-right:8px}
-#v-clientes .top .tabs .mini:not(.ghost){flex:1 0 100%}
-@media (min-width:700px){#v-clientes .top .tabs .mini:not(.ghost){flex:0 0 auto}#v-clientes .top .tabs .mini.ghost{flex:0 0 auto;padding-left:16px;padding-right:16px}}
-@media (max-width:340px){#v-clientes .top .tabs .mini.ghost{font-size:13px;padding-left:5px;padding-right:5px}#v-clientes .top .tabs{gap:6px}}
+@media (min-width:700px){}
+@media (max-width:340px){}
 
 /* ===== S250 (14/11/2026) · aprovado pelo dono: acabamento S241 + botões S247 + movimentos S247/S248 ===== */
 /* 1 · títulos na letra serifada do site; subtítulo mais leve */
@@ -2390,8 +2383,6 @@ html{overscroll-behavior-y:none}
 /* 4 · AÇÃO: uma cheia por janela; a de página em pílula de contorno ao lado do título; terciárias em link com "›" */
 /* S327: "Enviar no…" volta ao B1 (contorno rosa fino), regra do dono de 08/11 para todo botão principal — o cheio da v520 foi erro */
 .pgAc{flex:none;min-height:44px;padding:0 16px;border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;background:none;color:var(--fg);font:inherit;font-weight:600;font-size:15px}
-#v-clientes .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
-#v-clientes .top>div:first-child{flex:1 1 0;min-width:0}
 .obNovo{border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;min-height:44px;font-weight:600}
 /* título de tela sempre serifado (o Dashboard fugia) */
 .dHdT{font-family:Fraunces,Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
@@ -2498,7 +2489,7 @@ html{overscroll-behavior-y:none}
 .ataBd{display:inline-flex;min-width:18px;height:18px;border-radius:9px;align-items:center;justify-content:center;background:#e8b04a;color:#241a05;font-size:11px;font-weight:700;margin-left:4px;padding:0 5px}
 .ataL.on b{color:var(--pri)}
 @media (min-width:1024px){.ataDuo{display:grid;grid-template-columns:minmax(300px,2fr) 3fr;gap:24px;align-items:start}.ataDet{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:var(--panel)}.ataDet h2{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0 0 10px}.ataDet>.card{border:0;background:none;padding:0}}
-#v-ata .top{flex-wrap:nowrap;align-items:flex-start;gap:12px}#v-ata .top>div{min-width:0;flex:1}
+
 #ataTabs .ataBd{background:#e8b04a!important;color:#241a05!important}
 .ataDet .sl{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line2,var(--line))}.ataDet .go{margin-top:16px}
 /* S370 (esboço 31): lista + ficha lado a lado no tablet e no computador */
@@ -2574,12 +2565,8 @@ html{overscroll-behavior-y:none}
 #eTabs.lfPillOn>.chip.on{box-shadow:none!important}
 /* S370 (item 7 de 13/11, esboços work/s244): computador — ação ao lado do título; Inventário na largura toda */
 @media (min-width:1024px){
-.view>.top{justify-content:flex-start!important;gap:28px;align-items:center}
-.view>.top>div:first-child{flex:0 1 auto!important}
 #v-estoque.pcLarga #eLinha{display:flex;align-items:flex-end;gap:28px;border-bottom:1px solid var(--line2,var(--line));margin:4px 0 18px}
 #v-estoque.pcLarga #eLinha #eTabs{flex:1;border-bottom:0;margin:0!important}
-#v-estoque.pcLarga #eLinha #kpisE{display:flex!important;gap:28px;margin:0 0 8px!important;flex:none;border:0!important}
-#v-estoque.pcLarga #eLinha #kpisE #kLot:not([hidden]){border-top:0!important}
 #v-estoque.pcLarga #eLinha .kpi{display:flex!important;flex-direction:row-reverse;align-items:baseline;gap:8px;padding:0!important;background:none!important;border:0!important;min-height:0!important}
 #v-estoque.pcLarga #eLinha .kpi .lbl{margin:0;font-size:11px}
 #v-estoque.pcLarga #eLinha .kpi b{font-size:22px}
@@ -2622,8 +2609,6 @@ html{overscroll-behavior-y:none}
 #dFolha .dOp.qLev{transform:scale(1.025);box-shadow:0 14px 36px rgba(0,0,0,.28);border-radius:14px;background:var(--panel2);transition:transform .14s var(--lux-out,ease-out),box-shadow .14s}
 #dFolha .dOp{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 /* S374 (esboço 57b): número dos preços a corrigir na linha da contagem do Inventário */
-#invInfo .ifNum{background:none;border:0;padding:0 2px;margin:0 0 0 4px;color:var(--warn);font:inherit;font-weight:600;white-space:nowrap;cursor:pointer;min-height:32px}
-#invInfo .ifNum::before{content:'· ';color:var(--mute);font-weight:400}
 /* S374 (esboço 58a): conta de Despesas como linha que abre */
 .ecF{padding:6px 14px}.ecF.on{padding:6px 14px 14px}
 .ecRow{display:flex;align-items:center;gap:10px;min-height:48px}
@@ -2725,7 +2710,6 @@ section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!imp
 #v-caixa .note.n-bad .slVai{color:var(--accent-fg)!important}#v-caixa .note.n-bad .slVai b{font-weight:600!important}
 .cxDes{background:none;border:0;padding:0 2px;margin:-14px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer;display:inline-flex;align-items:center}
 /* S374 · esboço 73 (Despesas, aprovado 16/11 17:43): "+ Nova" no topo, "Marcar como paga ›" texto rosa, conta paga sem círculo cheio nem riscado */
-#v-desp>.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .nv73{flex:none;border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;height:44px;padding:0 18px;font:inherit;font-weight:600;margin-top:6px;cursor:pointer}
 .nv73[aria-expanded=true]{border-color:var(--accent);color:var(--accent-fg)}
 .esLn.slVai.mpg73{justify-content:flex-start!important;min-height:44px;margin-top:-6px}
@@ -2769,7 +2753,6 @@ section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!imp
 .s75{font-size:12.5px;color:var(--mute);text-align:center;margin-top:-2px}
 @media (prefers-reduced-motion:reduce){.rg75,.ck75,.l75,.s75{animation:none!important}}
 /* S374 · Clientes (esboços 81a + 77 + 84, aprovados 17/11 06:22): "+" redondo no topo; ficha no padrão de luxo. */
-#v-clientes>.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .pl78{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--fg);display:grid;place-items:center;margin-top:6px;cursor:pointer}
 .pl78 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
 .cf77{position:relative;padding:18px 16px 20px!important;gap:0!important}
@@ -2814,7 +2797,6 @@ button.rw77{cursor:pointer}
 /* S374 85 — Inventário: "+" redondo, preços para corrigir em amarelo 44 px, lote com quadro de pacote */
 #v-estoque .pl78{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--fg);display:grid;place-items:center;padding:0}
 #v-estoque .pl78 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
-#v-estoque #invInfo .ifNum{min-height:44px;padding:0 2px!important;background:none!important;border:0!important;color:var(--warn)!important;font-weight:600}
 #v-estoque .pbox.lt85{display:grid;place-items:center;background:var(--panel2)!important;border:1px solid var(--line)}
 #v-estoque .pbox.lt85 svg{width:44px;height:44px;stroke:var(--sub);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 /* S374 86 — Estúdio: botões 44 px, links em rosa, nomes em até 2 linhas */

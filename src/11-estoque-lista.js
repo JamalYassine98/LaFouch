@@ -70,9 +70,8 @@
     var falta = 0;
     var isV = false;
 
-    $('crumb').textContent = isPre
-      ? 'Grupo Pré-graduados › Grau › Formato › Referência'
-      : 'Referência › Variante C1–C6 › Cor';
+    // 52d (família Inventário, implementar 22/11 12:51): embaixo do título, o resumo do estoque no lugar do caminho fixo
+    $('crumb').textContent = invResumo();
     var tb = $('tipos');
     tb.textContent = '';
     if (!S.delMode)
@@ -389,18 +388,7 @@
         ' por peça. Preencha só se esta peça custou diferente.'
       : 'Obrigatório: este produto não está em nenhum lote.';
     S._flAll = flAll;
-    $('k1').textContent = sum(fl);
-    $('k2').textContent = new Set(
-      fl.map(function (i) {
-        return i.ref;
-      })
-    ).size;
-    var lpn = S.grp.filter(function (g) {
-      return grpFalta(g) > 0;
-    }).length;
-    $('kLotN').textContent = lpn;
-    $('kLot').setAttribute('aria-pressed', !!S.lotesView);
-    $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
+    S._flPecas = sum(fl); // peças que a lista mostra agora (a barra "470 peças · Todos" lê daqui)
 
     var qOk = function (i) {
       return !qm || qm(i);

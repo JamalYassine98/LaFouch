@@ -63,11 +63,6 @@
   function renderContagem() {
     var c = $('contCard');
     c.hidden = !S.cont;
-    $('kCont').setAttribute('aria-pressed', !!S.cont);
-    // v469: sem quadrado; enquanto conta, as letras ficam rosa suave (CSS) e a dica diz como fechar
-    $('kCont').style.outline = '';
-    var kh = $('kCont').querySelector('.hint');
-    if (kh) { kh.textContent = S.cont ? 'contando · toque para fechar' : ''; kh.hidden = !S.cont; } // S374 85: sem a frase quando não conta
     if (!S.cont) return;
     $('listCard').hidden = true;
     $('detail').hidden = true;
@@ -302,8 +297,8 @@
   S.contSum = false;
   S.contVals = {};
   S.contOk = {};
-  // Tocar no cartão "Em estoque" abre/fecha a contagem.
-  $('kCont').onclick = function () {
+  // abre/fecha a contagem ("Contar o estoque ›" no fim da lista e o atalho do Início)
+  function contTroca() {
     S.cont = !S.cont;
     S.contSum = false;
     S.contVals = {};
@@ -317,4 +312,5 @@
     }
     render();
     window.scrollTo(0, 0);
-  };
+  }
+  ACT.contTroca = contTroca;
