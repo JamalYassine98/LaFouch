@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | 65a Inventário: topo com resumo, sem os números grandes, preços para corrigir no sino, botão na linha do título | src/11-estoque-lista.js, src/12-estoque-filtros-cadastro.js, src/14-estoque-abas.js, src/97-contagem.js, src/89-inicio.js, src/98z-pc-s244.js, src/98-inv-limpo.js, src/89-dash-abas.js, www/style.css, www/index.html, tests/run.py |
 | ESBOCO | esboço 67 — Titan, setor Histórico | work/s435/titan |
-| IDEIAS | IDEIAS 06c: animação do evento (Natal) | work/ideias/06-tematica |
 | SITE | Ferramentas parte 1 (aprovada 22/11 02:22): o Argus/comparador olha todas as telas do site (roteiro único) | work/s430/comparador/compara.py, work/fiscal/argus.py |
 
 ## Fila
@@ -144,6 +143,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 14:17 — IDEIAS: IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha
 - 22/11 14:08 — IDEIAS: IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória
 - 22/11 12:48 — IDEIAS: IDEIAS 06b esboço pronto: molde único de data (Natal), Fila 64
 - 22/11 12:43 — IDEIAS: IDEIAS 06: estudo de referências (Cellshop, Nissei, Monalisa, Cartier, Gentle Monster) → molde único de data
@@ -154,7 +154,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 12:18 — IDEIAS: IDEIAS 05: vídeo da v3 na Black Friday (celular e PC)
 - 22/11 12:14 — IDEIAS: IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
-- 22/11 06:52 — IDEIAS: IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).

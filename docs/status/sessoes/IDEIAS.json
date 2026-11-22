@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "IDEIAS 06c: animação do evento (Natal)",
- "arquivos": [
-  "work/ideias/06-tematica"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795367868.6849036,
+   "r": "IDEIAS 06c esboço pronto (Fila 65): efeito do evento na foto da campanha"
+  },
   {
    "t": 1795367300.7692323,
    "r": "IDEIAS 06 APROVADO (Fila 64) — guardado na lista viva e memória"
@@ -40,10 +42,6 @@
   {
    "t": 1795360453.7735794,
    "r": "IDEIAS 05 v3 pronto: camadas seguem a temática (Fila 61)"
-  },
-  {
-   "t": 1795341140.8392453,
-   "r": "IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)"
   }
  ],
  "leu": 1795367866.0143793
