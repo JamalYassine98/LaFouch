@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-work/s435/selo/esboco_49a/b/c: Atacado, Modelos, preços para corrigir
+49a REPROVADO 22/11 00:29 (Atacado mantém as abas) · 49b esperando o dono · 49c superado
+work/s435/selo/esboco_49b_modelos.jpg

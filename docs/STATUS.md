@@ -92,7 +92,7 @@
 - **46-liga-desliga-na-tela-do-assunto** — esboço pronto — esperando o dono
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
 - **48-pecas-compras-parte-1** — esboço pronto — esperando o dono
-- **49-selo-no-botao-que-resolve** — esboço pronto — esperando o dono
+- **49-selo-no-botao-que-resolve** — 49a REPROVADO 22/11 00:29 (Atacado mantém as abas) · 49b esperando o dono · 49c superado
 - **50-giro-sobrando-e-lista** — esboço pronto — esperando o dono
 - **52-desfazer-giro-e-precos** — partes 1 e 2 aprovadas (15:38 e 16:17) — esperam o 'implementar' · partes 3–6 a fazer
 - **53-destaque-da-semana-do-semp** — esboço pronto — esperando o dono
