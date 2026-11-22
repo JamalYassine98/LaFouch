@@ -103,7 +103,7 @@
 - **57-raio-x-de-precos** — aprovado 22/11 00:19 — espera o app estar pronto e as vendas reais (pedido à NUVEM cancelado)
 - **58-painel-do-site** — 58a e 58b aprovados (22/11) · 58c e 58d esboço pronto — esperando o dono · estudo 47b em work/s435/painelsite/ESTUDO-PAINEL-SITE-22-11.md
 - **59-ideias-ferramentas-pegam-antes** — aprovado 22/11 04:55 — espera o 'implementar' (SITE, plano das ferramentas)
-- **60-voz-aviso-qr** — dono escolheu opção 1 (PT e ES) 22/11 05:53 · antes: padronizar volume das 390 falas (preparado: só ganho em 75) e decidir sobre a variação de voz (regravar grupos?) — esperando o dono
+- **60-voz-aviso-qr** — ✅ publicado no site 1795341195 (22/11): opção 1 do aviso (PT e ES) + volume padronizado nas 390 falas; dono: tom não precisa regravar
 - **61-camadas-um-movimento** — esboço pronto — esperando o dono
 
 ## Recados esperando

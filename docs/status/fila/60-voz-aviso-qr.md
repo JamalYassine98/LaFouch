@@ -1,2 +1,2 @@
-dono escolheu opção 1 (PT e ES) 22/11 05:53 · antes: padronizar volume das 390 falas (preparado: só ganho em 75) e decidir sobre a variação de voz (regravar grupos?) — esperando o dono
+✅ publicado no site 1795341195 (22/11): opção 1 do aviso (PT e ES) + volume padronizado nas 390 falas; dono: tom não precisa regravar
 
