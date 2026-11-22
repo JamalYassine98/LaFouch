@@ -127,6 +127,7 @@
 - para **ESBOCO**: v622 publicada (41 parte 3): Galeria da peça (fotos em work/s436/41/galeria_*). Conferir contra o esboço 41a: topo, blocos, tracejado, giro com o dedo, links. P
 - para **ESBOCO**: v623 publicada (42a): Editar › Cores e fotos sem 'Trocar foto' no topo; miniatura da cor e 'refazer ›' abrem a câmera do Estúdio (que abre no Vídeo). Conferir c
 - para **ESBOCO**: v624 publicada (42b): '+ Nova cor ›' com a janela no Editar (fotos em work/s436/42/). Dois pontos do esboço 42 não fecham com o código: (1) 'tirar uma foto e o 
+- para **ESBOCO**: APP terminou o 'implementar tudo' de 21/11 08:03 (v589–v624). Lista final para o dono: work/s436/LISTA-FINAL-DONO.md (o que conferir no celular, 19 decisões, o 
 - para **NUVEM**: 39 no APP publicado (v606): o app chama POST reserva {acao:'ligar', pix:<id do pixSemPar>, pedido:<sid do pedido>} com o token do dono e espera {ok:true}; lê de
 - para **NUVEM**: Dono 21/11 23:56 aprovou: App Check do modo 'anotar' para 'exigir' (Firestore e funções), para robôs de coleta não lerem as peças direto do banco. ANTES: confer
 - para **NUVEM**: Dono 22/11 00:19 autorizou o estudo na nuvem para o Raio-X de preços do Guardião: preciso de um RESUMO das vendas SEM nenhum dado de cliente (sem nome, telefone
