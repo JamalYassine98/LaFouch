@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 62 — escritório do Titan, setor Regras | work/s435/guardiao |
+| ESBOCO | esboço 63 — Titan, setor Ofertas | work/s435/titan |
 | IDEIAS | IDEIAS 05: camadas seguem a temática | work/ideias/05-animacoes |
 
 ## Fila

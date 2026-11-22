@@ -1,8 +1,8 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço 62 — escritório do Titan, setor Regras",
+ "agora": "esboço 63 — Titan, setor Ofertas",
  "arquivos": [
-  "work/s435/guardiao"
+  "work/s435/titan"
  ],
  "ultimas": [
   {
@@ -26,5 +26,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795338906.8433664
+ "leu": 1795360418.221911
 }
