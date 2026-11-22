@@ -20,41 +20,49 @@ IC2.update(calc='<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h
   ese='<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6M12 17h.01"/>')
 JS6='const I='+json.dumps(IC2)+JS[JS.index(';const R='):]
 
-# Esboço 67 (S435, 22/11 14:15) — escritório do TITAN, setor HISTÓRICO (aprovado 21/11 18:03: o que mudou de preço, quando e por quê).
-# HOJE: o 'Voltar no tempo' (src/97z-voltar-tempo.js) guarda custo, nome e preço escrito à mão SÓ NESTE APARELHO (não sincroniza) e o preço
-# automático guarda as suas mudanças em S.pAuto.mudas; não há uma tela de histórico de preço. No app de teste não há nenhuma mudança.
-# As 2 linhas do quadro são AÇÕES SIMULADAS dos esboços aprovados (a oferta do 64 e as margens do 65b), não dados inventados.
+# Esboço 67 v2 (S435, 22/11 15:40) — UM SÓ HISTÓRICO DO DIA (dono 22/11: "não seria melhor ter um único histórico do dia? De tudo que aconteceu?" → "Sim").
+# Cada acontecimento vira uma linha com a hora (venda, preço, mercadoria, troca de moeda, conta, pedido do site). Três portas, o MESMO histórico:
+#  Resultados › Histórico (o dia inteiro, Tudo) · Escritório do Titan › Histórico (abre em Preços) · Ficha › Histórico (só a peça).
+# Base: tela real do dia (v-dia: 'Dias anteriores no Histórico ›', Fechamento do dia com os números reais). Vendas = reais do app de teste
+# (01:16 V-1995, 01:28 V-1994, 01:34 V-1996). As 2 linhas de preço são AÇÕES SIMULADAS dos aprovados 64 (oferta) e 65b (margens).
+# Substitui o 67 v1 (histórico só de preço, no obsoletos).
 SHEET=r"""(h)=>{const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:flex;align-items:flex-end';
  d.innerHTML='<div style="width:100%;background:var(--panel,#1b1f27);border-radius:24px 24px 0 0;padding:12px 24px 32px;color:var(--fg)"><div style="width:44px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 16px"></div>'+h+'</div>';document.body.appendChild(d)}"""
-LR=r"""const Lr=(r,v,c,sub)=>'<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+(sub?'<small style="display:block;font-size:13px;color:var(--mute)">'+sub+'</small>':'')+'</span><span style="color:'+(c||'var(--fg)')+';white-space:nowrap">'+v+'</span></div>';
- const In=(r,v)=>'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px"><span>'+r+'</span><span style="font-weight:600">'+v+'</span></div>';
- const Lb=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:24px 0 4px">'+t+'</div>';"""
-
 SH=r"""const SEG=(L,on)=>'<div class="sg77" style="margin:16px 0 8px">'+L.map((t,i)=>'<button type="button" class="'+(i==on?'on':'')+'">'+t+'</button>').join('')+'</div>';
- const H=(t,s,v,c)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">'+t+'</b><small style="font-size:13px;color:var(--mute)">'+s+'</small></span><span style="font-size:15px;white-space:nowrap;color:'+(c||'var(--fg)')+'">'+v+'</span></div>';"""
+ const E=(h,t,s,v,v2)=>'<div style="display:flex;align-items:center;gap:16px;min-height:72px;border-bottom:1px solid var(--line2)"><span style="width:48px;flex:none;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums">'+h+'</span><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+t+'</b><small style="display:block;font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden">'+s+'</small></span><span style="text-align:right;white-space:nowrap;font-size:15px;font-variant-numeric:tabular-nums">'+v+(v2?'<small style="display:block;font-size:13px;color:var(--mute)">'+v2+'</small>':'')+'</span><span style="color:var(--mute);font-size:18px">⌄</span></div>';
+ const F=(r,v,b)=>'<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid var(--line2);font-size:15px;'+(b?'font-weight:700':'')+'"><span>'+r+'</span><span style="font-variant-numeric:tabular-nums">'+v+'</span></div>';
+ const LK=t=>'<div style="text-align:center;margin:32px 0"><button type="button" style="background:none;border:0;color:var(--accent,#f0a6c8);font:600 16px system-ui;min-height:44px">'+t+' ›</button></div>';
+ const OF=E('14:05','SP57765 · oferta','Preço · você, na ficha','G$ 23.000','era 25.000');
+ const MG=E('13:55','Atacado · margens','Preço · Titan · 5 tabelas','10K 27%','era 18%');
+ const V6=E('01:34','1× SL2201 C1 · Preto','Venda · V-1996 · Solares','US$ 9,01','≈ G$ 60.000');
+ const V4=E('01:28','2× YM7735 C3 · Azul','Venda · V-1994 · Armações','G$ 85.000');
+ const V5=E('01:16','2× SP57765 +1.75 · Preto','Venda · V-1995 · Pré-graduados','R$ 41,70','≈ G$ 50.000');"""
 def hist(pw,qual):
   b,pg,w=ap.abre(pw,'inicio',True,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
   pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
-  if qual=='peca':
-    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Inventário','Histórico','SP57765 · Óculos de leitura de acetato',0)+
-      T('Hoje · 22/11',1)+H('Oferta até 30/11','você · na ficha da peça','G$ 25.000 → 23.000')+
-      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 32px">Só desta peça. O histórico inteiro fica em Preços › Histórico.</div></div>'}""")
+  if qual=='dia':
+    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Histórico','Hoje','Domingo, 22 de novembro · 5 acontecimentos',0)+
+      SEG(['Tudo','Vendas','Preços','Estoque','Dinheiro'],0)+OF+MG+V6+V4+V5+
+      T('Fechamento do dia')+F('Vendido','G$ 195.000')+F('Reposição separada','G$ 59.141')+F('Contas separadas','G$ 57.500')+F('Colchão separado','G$ 7.098')+F('Caixa de melhorias','G$ 5.000')+F('Gastos extras','−G$ 0')+F('Lucro livre','G$ 66.261',1)+
+      LK('Dias anteriores')+'</div>'}""")
+  elif qual=='titan':
+    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Escritório do Titan','Histórico','Domingo, 22 de novembro · 2 de preço',0)+
+      SEG(['Tudo','Vendas','Preços','Estoque','Dinheiro'],2)+OF+MG+
+      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 0">O mesmo histórico do dia, aberto em Preços. Tocar em Tudo mostra o dia inteiro.</div>'+LK('Dias anteriores')+'</div>'}""")
   else:
-    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('Preços','Histórico','o que mudou de preço, quando e por quê',0)+
-      SEG(['Tudo','Titan','Você'],0)+
-      T('Hoje · 22/11')+H('SP57765 · leitura','oferta até 30/11 · você','G$ 25.000 → 23.000')+H('Atacado · margens','5 tabelas mudaram · Titan','10K 18% → 27%')+
-      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 32px">Tocar numa mudança mostra o porquê e, quando dá, Desfazer.</div></div>'}""")
+    html=pg.evaluate("()=>{"+H+JS6+SH+r"""return '<div class="e49">'+TOP('SP57765','Histórico','Óculos de leitura de acetato · só desta peça',0)+
+      SEG(['Tudo','Vendas','Preços','Estoque','Dinheiro'],0)+T('Hoje · 22/11')+OF+V5+
+      '<div style="color:var(--mute);font-size:14px;line-height:1.45;margin:16px 0 0">O mesmo histórico, só com esta peça.</div>'+LK('Dias anteriores')+'</div>'}""")
   pagina(pg,html);w(500)
-  if qual=='janela':
-    h=pg.evaluate("()=>{"+LR+r"""return '<h2 style="margin:0;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:28px">Atacado · margens</h2><div style="color:var(--mute);font-size:14px;margin:4px 0 8px">22/11 13:55 · Titan</div>'+
-      Lr('Por quê','nenhuma tabela sem lucro')+'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:24px 0 4px">5 tabelas mudaram</div>'+Lr('Óptica','70% → 56%')+Lr('Vendedor','55% → 45%')+Lr('Atacado 1K','40% → 36%')+Lr('Atacado 5K','25% → 29%')+Lr('Atacado 10K','18% → 27%')+
-      '<button type="button" style="display:block;margin:24px auto 0;background:none;border:0;color:var(--fg);font:600 17px system-ui;min-height:44px">Desfazer</button><small style="display:block;text-align:center;color:var(--mute);font-size:14px">volta as margens de antes; o Titan avisa se alguma dá prejuízo</small>'}""")
-    pg.evaluate(SHEET,h);w(400)
-  else: pg.add_style_tag(content='#mainnav .mn{color:var(--mute)!important}#mainnav .mn svg{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
+  # L4: letra do grupo diminui junto (uma função só) até o título mais longo caber
+  pg.evaluate("()=>{const B=[...document.querySelectorAll('.e49 b')],S=B.map(b=>b.nextElementSibling).filter(x=>x);let f=16;while(f>12&&[...B,...S].some(e=>e.scrollWidth>e.clientWidth+1)){f-=.5;B.forEach(e=>e.style.fontSize=f+'px');S.forEach(e=>e.style.fontSize=(f-3)+'px')}}")
+  pg.add_style_tag(content='#mainnav .mn{color:var(--mute)!important}#mainnav .mn,#mainnav .mn *{color:var(--mute)!important}#mainnav .mn svg,#mainnav .mn svg *{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
+  ov=pg.evaluate("()=>[...document.querySelectorAll('.sg77 button,.e49 b')].filter(e=>e.scrollWidth>e.clientWidth+1).map(e=>e.textContent)")
+  print(qual,'transborda:',ov)
   confere(pg,'Histórico '+qual);x=shot(pg,'h67'+qual);b.close();return x
 if __name__=='__main__':
  with sync_playwright() as pw:
-  quadro('esboco_67_historico_titan.jpg',[('PROPOSTA · Preços › Histórico','tudo o que mudou de preço · Tudo · Titan · Você',hist(pw,'lista')),
-    ('PROPOSTA · tocar numa mudança','o porquê e Desfazer',hist(pw,'janela')),
-    ('PROPOSTA · vindo da ficha','"Ver no escritório do Titan ›": só desta peça',hist(pw,'peca'))])
+  quadro('esboco_67_historico_do_dia.jpg',[('PROPOSTA · Resultados › Histórico','o dia inteiro · tudo com a hora',hist(pw,'dia')),
+    ('PROPOSTA · Escritório do Titan › Histórico','o mesmo histórico, aberto em Preços',hist(pw,'titan')),
+    ('PROPOSTA · Ficha › Histórico','o mesmo histórico, só da peça',hist(pw,'peca'))])
  for n,f in REL: print(n,len(f),f[:4])
