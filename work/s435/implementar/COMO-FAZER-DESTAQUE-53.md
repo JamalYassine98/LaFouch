@@ -5,7 +5,7 @@
 **Ícones e rótulos:** em cinza.
 
 ## Antes de começar
-Se o Marketing 1c ainda não estiver implementado, ele entra primeiro, porque o 53 é um setor dele.
+**PARADO (dono 22/11 14:33):** o Marketing 1c é de 20/11, com design antigo e sem 'implementar'. NÃO implementar o 1c para abrir caminho. O 53 espera o Semp refeito sobre a base nova (Titan, Histórico único, padrões de luxo).
 
 ## O que é
 É **uma lista só**, de 3 a 6 peças, escolhida pelo Semp (fluxo + tendências). O dono confirma.
