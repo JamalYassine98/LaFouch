@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono
+IDEIAS 04 (work/ideias/04-ferramentas/ESBOCO.md + prova_movimento.py): 4 regras nas ferramentas da SITE (partes 3a/2 do plano): barras como no Windows; conta de teste com dados; olho em movimento (a cada 40 ms após cada toque); reproduzir antes de consertar. Protótipo: o Argus de hoje passa B4 (topo some com o menu) e B5 (barras nas abas da Minha conta); as provas novas reprovam os dois no site do ar e passam B5 na proposta

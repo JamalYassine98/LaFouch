@@ -102,6 +102,7 @@
 - **56-precificacao-guardiao-e-semp** — decidido em conversa (21/11 18:00–23:59) — esboços a fazer em partes
 - **57-raio-x-de-precos** — aprovado 22/11 00:19 — espera o app estar pronto e as vendas reais (pedido à NUVEM cancelado)
 - **58-painel-do-site** — 58a e 58b aprovados (22/11) · 58c e 58d esboço pronto — esperando o dono · estudo 47b em work/s435/painelsite/ESTUDO-PAINEL-SITE-22-11.md
+- **59-ideias-ferramentas-pegam-antes** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
