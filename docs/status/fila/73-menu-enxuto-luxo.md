@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono
+Estudo de luxo (Madë, Gentle Monster, JMM, Oliver Peoples). Celular: menu só com o que vende (sai conta-cartão, Ajuda, rótulos, endereço; ferramentas menores; Atacado·Idioma pequenos no fim). PC: sem ☰, links no topo com janelinha (Feminino/Masculino/Unissex/Ver todos; Descubra: formato/grau) + conta volta ao topo. Comparador celular+PC: 0 falha nova (PC: abaixo do topo idêntico pixel a pixel). work/ideias/08-menu-luxo/

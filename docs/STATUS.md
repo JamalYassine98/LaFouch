@@ -115,6 +115,7 @@
 - **68-destaque-da-semana-semp** — PARADO — base nova aprovada 15:48 (70 Marketing + 71 Destaque); falta o 'implementar' do 70
 - **70-marketing-do-semp** — 'implementar' do dono 22/11 15:49 ('Sim') · ESPERA os esboços dos setores (Agenda · Criar · Resultados · Temática · Cartões · Marca) na base nova, para o APP não inventar telas; depois o como fazer e vai à fila do APP junto com o 68
 - **72-pc-estilo-made** — esboço pronto — esperando o dono
+- **73-menu-enxuto-luxo** — esboço pronto — esperando o dono
 - **73-setores-semp** — esboço pronto — esperando o dono (Criar · Resultados · Temática · Cartões · Marca; work/s435/semp/esboco_73s_*)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
