@@ -299,44 +299,11 @@
     var tb = $('eTabs');
     if (!tb) return;
     if (S.lotesView) S.repoView = false;
-    var pend = S.grp.filter(function (g) {
-      return grpFalta(g) > 0;
-    }).length;
+    // 66 (22/11): o Inventário fica sem abas — Fornecedores é uma tela de Compras ("Fornecedores ›"), com o título dela
     tb.textContent = '';
-    var mkTab = function (id, txt, on, fn, badge) {
-      var b = btn('chip' + (on ? ' on' : ''), '', fn, on);
-      b.id = id;
-      b.appendChild(document.createTextNode(txt));
-      if (badge) b.appendChild(mk('em', 'bdg', String(badge)));
-      tb.appendChild(b);
-    };
-    mkTab('eTabP', 'Produtos', !S.lotesView && !S.repoView, function () {
-      if (S.lotesView) lotesTroca();
-      S.repoView = false;
-      S.repLista = false;
-      render();
-    });
-    mkTab(
-      'eTabL',
-      'Fornecedores',
-      !!S.lotesView,
-      function () {
-        S.repoView = false;
-        S.cont = false;
-        if (!S.lotesView) lotesTroca();
-        else render();
-      },
-      pend
-    );
-    mkTab('eTabR', 'Reposição', !!S.repoView, function () {
-      if (S.lotesView) lotesTroca();
-      S.repoView = true;
-      S.repLista = false;
-      S.cont = false;
-      S.det = false;
-      S.open = '';
-      render();
-    });
+    tb.hidden = true;
+    var h1 = document.querySelector('#v-estoque > .top h1');
+    if (h1) h1.textContent = S.lotesView ? 'Fornecedores' : 'Inventário';
     var rv = !!S.repoView;
     if (rv) {
       $('listCard').hidden = true;

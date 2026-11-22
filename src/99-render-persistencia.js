@@ -310,6 +310,7 @@
       'pTeste16',
       'lcQtd',
       'lcPed',
+      'cpV',
       'vit',
       'fpOk',
       'siteAutoLote',

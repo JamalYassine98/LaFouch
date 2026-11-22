@@ -74,22 +74,6 @@
   }
   aposRender(padTela);
 
-  // 102: "Lista de compras ›" sai de Produtos e fica no fim da aba Fornecedores, centralizada
-  var _rEA102 = renderEstoqueAbas;
-  renderEstoqueAbas = function () {
-    var r = _rEA102.apply(this, arguments), ln = $('lcIrInv'), v = $('v-estoque');
-    if (!ln || !v) return r;
-    if (S.view === 'estoque' && S.lotesView) {
-      var n = 0;
-      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
-      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
-      ln.hidden = false;
-      ln.classList.add('c102');
-      if (v.lastElementChild !== ln) v.appendChild(ln);
-    } else ln.hidden = true;
-    return r;
-  };
-
   // 98: Marketing é tela do app (#v-mkt); a família abre a tela como as outras
   if (!$('v-mkt')) {
     var _vm = document.createElement('div');

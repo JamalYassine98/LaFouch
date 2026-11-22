@@ -9,7 +9,7 @@
     giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', cat: 'Catálogo pelo WhatsApp', ajustes: 'Aparelho, loja, site e segurança',
     ped: 'O que chegou pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e lotes',
     novo: 'Cadastrar produto', notif: 'O que precisa de você agora', mkt: 'Posts, vídeos e plano', est: 'Fotos das peças', msg: 'Contato e atacado',
-    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela'
+    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela', comp: 'Lista de compras e fornecedores'
   };
   function grpVerHtml(g) {
     var h = '<div class="dFt"><span>VER</span></div>';

@@ -13,9 +13,9 @@
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 1,
+  var FAM_V = 2, // 2: Peças ganha Compras (66, 22/11)
     FAMILIAS = [
-      { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] },
+      { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
       { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['giro', 'prec'] },
@@ -208,23 +208,6 @@
   }
   window.__lcIrGiro = lcIrGiro;
   ACT.lcIrGiro = function () { lcIrGiro(); };
-  var _rEA74 = renderEstoqueAbas;
-  renderEstoqueAbas = function () {
-    if (S.repoView) { S.repoView = false; setTimeout(lcIrGiro, 0); }
-    var r = _rEA74.apply(this, arguments);
-    var t = $('eTabR');
-    if (t) t.remove();
-    var tb = $('eTabs'), ln = $('lcIrInv');
-    if (tb && S.view === 'estoque' && !S.lotesView) {
-      var n = 0;
-      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
-      if (!ln) { ln = document.createElement('div'); ln.id = 'lcIrInv'; tb.after(ln); }
-      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
-      ln.hidden = false;
-    } else if (ln) ln.hidden = true;
-    return r;
-  };
-
   // S374 (esboço 72): Caixa › "Livre e reservado ›" abre o Dashboard na aba Reservas
   ACT.cxReservas = function () {
     S.dTab = 'din';

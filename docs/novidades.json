@@ -1,8 +1,10 @@
 {
- "nome": "5.50.53",
+ "nome": "5.50.54",
  "notas": [
-  "Dashboard do mês › Detalhes: entram \"Desempenho do mês\" (margem, lucro por peça, contas cobertas e retorno do estoque) e \"Curva ABC\".",
-  "As linhas de Detalhes agora abrem ali mesmo, com a setinha ⌄."
+  "Peças › Compras: a lista do que comprar agora pede vagas (tipo · gênero · material, ou o grau), com o estado de cada uma.",
+  "Tocar numa vaga: \"Fechei com…\" (distribuidora, modelo, peças e custo — o Titan diz se a margem é boa) ou \"Ninguém tinha\".",
+  "\"Pedir\" monta uma mensagem só, em espanhol, com todas as vagas sem fechar; você escolhe no WhatsApp para quem mandar.",
+  "Fornecedores agora fica no fim de Compras, e o Inventário ficou sem abas."
  ],
- "build": 628
+ "build": 629
 }

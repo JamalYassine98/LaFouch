@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 628;
+  var APP_BUILD = 629;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.53'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.50.54'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1222,7 +1222,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'vit', 'mkt', 'fotoNota'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'cpV', 'vit', 'mkt', 'fotoNota'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -3034,7 +3034,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var isV = false;
 
     // 52d (família Inventário, implementar 22/11 12:51): embaixo do título, o resumo do estoque no lugar do caminho fixo
-    $('crumb').textContent = invResumo();
+    $('crumb').textContent = S.lotesView ? 'Compras e lotes, de cada distribuidora' : invResumo();
     var tb = $('tipos');
     tb.textContent = '';
     if (!S.delMode)
@@ -5659,44 +5659,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var tb = $('eTabs');
     if (!tb) return;
     if (S.lotesView) S.repoView = false;
-    var pend = S.grp.filter(function (g) {
-      return grpFalta(g) > 0;
-    }).length;
+    // 66 (22/11): o Inventário fica sem abas — Fornecedores é uma tela de Compras ("Fornecedores ›"), com o título dela
     tb.textContent = '';
-    var mkTab = function (id, txt, on, fn, badge) {
-      var b = btn('chip' + (on ? ' on' : ''), '', fn, on);
-      b.id = id;
-      b.appendChild(document.createTextNode(txt));
-      if (badge) b.appendChild(mk('em', 'bdg', String(badge)));
-      tb.appendChild(b);
-    };
-    mkTab('eTabP', 'Produtos', !S.lotesView && !S.repoView, function () {
-      if (S.lotesView) lotesTroca();
-      S.repoView = false;
-      S.repLista = false;
-      render();
-    });
-    mkTab(
-      'eTabL',
-      'Fornecedores',
-      !!S.lotesView,
-      function () {
-        S.repoView = false;
-        S.cont = false;
-        if (!S.lotesView) lotesTroca();
-        else render();
-      },
-      pend
-    );
-    mkTab('eTabR', 'Reposição', !!S.repoView, function () {
-      if (S.lotesView) lotesTroca();
-      S.repoView = true;
-      S.repLista = false;
-      S.cont = false;
-      S.det = false;
-      S.open = '';
-      render();
-    });
+    tb.hidden = true;
+    var h1 = document.querySelector('#v-estoque > .top h1');
+    if (h1) h1.textContent = S.lotesView ? 'Fornecedores' : 'Inventário';
     var rv = !!S.repoView;
     if (rv) {
       $('listCard').hidden = true;
@@ -9124,15 +9091,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })[0];
       if (!g) {
         S.lotSel = '';
-        var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Fornecedores'));
-        t.firstChild.style.cssText = 'margin:0;font-size:16px';
+        var t = mk('div', ''); // o título "Fornecedores" é o da tela (66: um título por tela)
         var hh = mk(
           'div',
           'hint',
           'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
         );
-        hh.style.margin = '2px 0 0';
+        hh.style.margin = '0';
         t.appendChild(hh);
         h.appendChild(t);
         if (!S.grp.length) {
@@ -22071,7 +22036,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     p_mes: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M12 14h2M16 14h2M8 18h2M12 18h2"/>',
     p_30: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
     p_custom: '<path d="M12 5v14M5 12h14"/>',
-    hero: '<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>'
+    hero: '<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>',
+    comp: '<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/>'
   };
   function ico(k, px) {
     px = px || 22;
@@ -22346,6 +22312,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       S.lotesView = true;
       setView('estoque');
     } else {
+      if (id === 'estoque') S.lotesView = false; // Inventário abre a lista; Fornecedores mora em Compras (66)
       if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
       setView(id);
     }
@@ -22357,7 +22324,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     vendas: 'Vender', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
     din: 'Reservas', giro: 'Giro', prec: 'Preços', cat: 'Enviar catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Site',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Pendências', mkt: 'Marketing', est: 'Estúdio',
-    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
+    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado', comp: 'Compras'
   };
   function barraLista() {
     iniLista();
@@ -46589,6 +46556,341 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (ls) paginador(pgS, ls);
   }
   aposRender(renderParSob);
+  // ===== Família COMPRAS — "implementar" do dono 22/11/2026 12:51 (esboços 48a, 51 e 51b; lógica: work/s435/compras/PARTE-A-LOGICA-DA-COMPRA.md) =====
+  // Compras serve SÓ para repor mercadoria. A lista pede VAGAS (tipo · gênero · material, ou o grau do pré-graduado), nunca modelos.
+  // Parte 1 (telas): Peças ganha "Compras"; a tela Compras lista as vagas e termina em "Fornecedores ›" (a tela de compras e lotes,
+  // que saiu das abas do Inventário). O estado de cada vaga (pedida · fechada · ninguém tinha) mora em S.cpV[chave].
+  if (!$('v-comp')) {
+    var _vcp = document.createElement('div');
+    _vcp.id = 'v-comp';
+    _vcp.className = 'view';
+    _vcp.hidden = true;
+    var _vei = $('v-estoque');
+    if (_vei && _vei.parentNode) _vei.parentNode.insertBefore(_vcp, _vei.nextSibling);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'comp'; })) VIEWS.push(['comp', 'Compras']);
+  S.cpV = S.cpV || {};
+  // a vaga de uma peça: tipo · gênero · material (pré-graduado: o grau)
+  function cpChave(m, grau) {
+    if (grau) return m.tipo + '|g|' + grau;
+    var a = attrOf(m.ref);
+    return m.tipo + '|' + (a.publico || '') + '|' + (a.material || '');
+  }
+  function cpAte(v) {
+    var x = Math.ceil(v * 2) / 2;
+    return 'US$ ' + (x % 1 ? x.toFixed(2).replace('.', ',') : String(x));
+  }
+  // as vagas abertas de hoje, das vendas (a lista de compras de antes, juntada por vaga)
+  function cpVagas() {
+    if (!S.cpV) S.cpV = {};
+    var L = lcLista(), por = {}, ord = [];
+    L.todos.forEach(function (x) {
+      if (!(x.q > 0)) return;
+      var k = cpChave(x.m, x.grau), v = por[k];
+      if (!v) {
+        var a = x.grau ? {} : attrOf(x.m.ref), t = tipoOf(x.m.tipo) || {};
+        v = por[k] = { k: k, tipo: x.m.tipo, grau: x.grau || '', tit: [t.label || x.m.tipo].concat(x.grau ? [x.grau.replace('.', ',')] : [a.publico, a.material].filter(Boolean)).join(' · '),
+          falta: 0, cu: 0, refs: [], esp: 0 };
+        ord.push(k);
+      }
+      v.falta += x.q;
+      v.cu = Math.max(v.cu, x.cu || 0);
+      v.esp += x.esp || 0;
+      if (v.refs.indexOf(x.m.ref) < 0) v.refs.push(x.m.ref);
+    });
+    var pk = typeof packPre === 'function' ? packPre() : 24, mudou = false;
+    // pré-graduado: os 16 graus ficam sempre abastecidos (regra do mapa de graus, repSug): grau em falta vira vaga mesmo sem venda
+    if (tipoOf('pre') && typeof graus16 === 'function') {
+      var tot = grauTotais(), tp = tipoOf('pre');
+      graus16().forEach(function (gr) {
+        var pq = repQtd(gr, tot[gr]);
+        if (!(pq > 0)) return;
+        var k = 'pre|g|' + gr, v = por[k];
+        if (!v) {
+          v = por[k] = { k: k, tipo: 'pre', grau: gr, tit: tp.label + ' · ' + gr.replace('.', ','), falta: 0, cu: custoPreUsd(), refs: [], esp: 0 };
+          ord.push(k);
+        }
+        v.falta = Math.max(v.falta, pq * pk); // pacote fechado: compra o pacote inteiro
+      });
+    }
+    // o que não é mais vaga (e não tem compra fechada a caminho) esquece o estado
+    Object.keys(S.cpV).forEach(function (k) {
+      if (!por[k] && !(S.cpV[k].fech && cpPend(k) > 0)) { delete S.cpV[k]; mudou = true; }
+    });
+    var V = ord.map(function (k) {
+      var v = por[k], st = S.cpV[k] || {}, pend = st.fech ? cpPend(k) : 0;
+      if (st.fech && !pend) { delete st.fech; mudou = true; } // chegou tudo o que foi fechado
+      v.st = st;
+      v.resto = Math.max(0, v.falta - pend);
+      v.sub = 'faltam ' + v.falta + ' · ' + (v.grau ? Math.ceil(v.falta / pk) + (Math.ceil(v.falta / pk) === 1 ? ' pacote' : ' pacotes') : 'até ' + cpAte(v.cu));
+      v.fechada = !!st.fech && !v.resto;
+      return v;
+    }).filter(function (v) {
+      return !(v.st.nin === 'sem' && !v.esp);
+    });
+    if (mudou) saveSoon();
+    return V;
+  }
+  // peças fechadas que ainda não chegaram: a compra fechada menos o que entrou nesta vaga depois dela
+  function cpPend(k) {
+    var f = (S.cpV[k] || {}).fech;
+    if (!f) return 0;
+    var ch = 0;
+    (S.elog || []).forEach(function (e) {
+      if (e.qty > 0 && !e.ajuste && !e.estorno && e.ts >= f.ts && cpChave({ tipo: e.tipo, ref: e.ref }, e.tipo === 'pre' ? e.grau : '') === k) ch += e.qty;
+    });
+    return Math.max(0, f.q - ch);
+  }
+  // a linha de estado da vaga (uma só)
+  function cpEstado(v) {
+    var s = v.st;
+    if (s.fech) return v.resto ? ['', 'fechado ' + s.fech.q + ' com ' + s.fech.dist + ' · faltam ' + v.resto + (s.ped ? ' pedidas' : '')] : ['ok', 'fechado com ' + s.fech.dist + ' · esperando chegar'];
+    if (s.nin === 'avisar') return ['', 'esperando aparecer · o Semp avisa no sino'];
+    if (s.nin === 'equiv') return ['', 'procurar equivalente · entra no próximo Pedir'];
+    if (s.ped) return ['', 'pedida em ' + new Date(s.ped).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' · esperando resposta'];
+    return null;
+  }
+  function cpThumb(v) {
+    return lcThumb(v.refs[0]);
+  }
+  function cpSemFechar(V) {
+    return V.filter(function (v) { return !v.fechada && v.st.nin !== 'avisar'; });
+  }
+  function renderCompras() {
+    var el = $('v-comp');
+    if (!el || S.view !== 'comp') return;
+    var V = cpVagas(), sf = cpSemFechar(V), nf = (S.grp || []).length,
+      pend = (S.grp || []).filter(function (g) { return typeof grpFalta === 'function' && grpFalta(g) > 0; }).length,
+      h = '<div class="top"><div><h1>Compras</h1><div class="crumb">O que comprar e de quem</div></div></div>' +
+        '<div class="lbl cpT">Para comprar · ' + V.length + (V.length === 1 ? ' vaga' : ' vagas') + '</div>';
+    if (V.length)
+      h += '<section class="cpLs">' + V.map(function (v) {
+        var e = cpEstado(v);
+        return '<button type="button" class="cpL" data-act="cpVaga" data-id="' + esc(v.k) + '">' + cpThumb(v) + '<span class="cpTx"><b>' + esc(v.tit) + '</b><small>' + esc(v.sub) + '</small>' +
+          (e ? '<small class="cpE' + (e[0] ? ' ' + e[0] : '') + '">' + esc(e[1]) + '</small>' : '') + '</span><i aria-hidden="true">›</i></button>';
+      }).join('') + '</section>' +
+        (sf.length ? '<button type="button" class="cpPedir" data-act="cpPedir">Pedir · ' + sf.length + (sf.length === 1 ? ' vaga sem fechar' : ' vagas sem fechar') + '</button>' : '');
+    else h += lfVazioHtml('<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/>', 'Nada para comprar agora', 'Quando as vendas abrirem uma vaga no estoque, ela aparece aqui.');
+    h += '<section class="nvLista cpFim" aria-label="Fornecedores">' +
+      invLugar('cpForn', 'Fornecedores', nf ? nf + (nf === 1 ? ' compra' : ' compras') + (pend ? ' · ' + pend + ' para conferir' : '') : 'compras e lotes', '') + '</section>';
+    if (el._h !== h) {
+      el.innerHTML = h;
+      el._h = h;
+    }
+  }
+  aposRender(renderCompras);
+  // "Fornecedores ›": a tela de compras e lotes (antes a aba do Inventário)
+  ACT.cpForn = function () {
+    S.cont = false;
+    S.det = false;
+    S.open = '';
+    inicioGo('lotes');
+  };
+
+  // ---------- as janelas da vaga (esboço 51, quadros 2 a 4, e 51b) ----------
+  function cpVagaDe(k) {
+    return cpVagas().filter(function (v) { return v.k === k; })[0] || null;
+  }
+  function cpGuarda(k, patch) {
+    S.cpV[k] = Object.assign({}, S.cpV[k] || {}, patch);
+    Object.keys(S.cpV[k]).forEach(function (x) { if (S.cpV[k][x] == null) delete S.cpV[k][x]; });
+    saveSoon();
+    render();
+  }
+  // linha que abre outra janela (tarefa) dentro de uma janela
+  function cpLnVai(id, tit, sub) {
+    return '<button type="button" class="pxL cpVai" data-cp="' + id + '"><span class="pxT"><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span><i aria-hidden="true">›</i></button>';
+  }
+  // tocar numa vaga: o que dá para fazer com ela
+  ACT.cpVaga = function (k) {
+    var v = cpVagaDe(k);
+    if (!v) return;
+    var e = cpEstado(v), api = lfJanela({
+      titulo: v.tit,
+      cls: 'pxJn cpJn',
+      monta: function (box) {
+        box.innerHTML = '<p class="cnSub">' + esc(v.sub) + (v.refs.length && !v.grau ? ' · acabou ' + esc(v.refs.slice(0, 3).join(', ')) : '') + '</p>' +
+          (e ? '<p class="cpE' + (e[0] ? ' ' + e[0] : '') + '">' + esc(e[1]) + '</p>' : '') +
+          cpLnVai('fech', 'Fechei com…', 'a compra combinada: com quem, modelo, peças e preço') +
+          cpLnVai('nin', 'Ninguém tinha', 'procurar equivalente ou avisar quando aparecer');
+        box.onclick = function (ev) {
+          var b = ev.target.closest('[data-cp]');
+          if (!b) return;
+          api.fecha(true);
+          if (b.dataset.cp === 'fech') cpFechei(k);
+          else cpNinguem(k);
+        };
+      }
+    });
+  };
+  // distribuidoras que você já usou (das compras), a mais recente primeiro
+  function cpDists() {
+    var o = [];
+    (S.grp || []).slice().sort(function (a, b) { return (+b.ts || 0) - (+a.ts || 0); }).forEach(function (g) {
+      var f = String(g.forn || '').trim();
+      if (f && o.indexOf(f) < 0) o.push(f);
+    });
+    return o;
+  }
+  // Titan: a margem com esse custo, no preço de hoje da peça (o mesmo piso e a mesma trava do resto do app: pisoPeca)
+  function cpTitan(v, cu) {
+    if (!(cu > 0)) return null;
+    var ref = v.refs[0], it = S.items.filter(function (i) { return i.ref === ref && i.tipo === v.tipo; })[0] || { tipo: v.tipo, ref: ref },
+      x = Object.assign({}, it, { custo: cu, qty: 0, lote: '', bulk: false }), pp = pisoPeca(x), p = tFor(x).price;
+    if (!(p > 0) || !(pp.trava > 0)) return null;
+    if (p < pp.trava) return ['bad', 'Titan: a ' + gs(p) + ' dá prejuízo com esse custo · não feche'];
+    if (p < pp.piso) return ['warn', 'Titan: a ' + gs(p) + ' a margem fica baixa · o piso seria ' + gs(pp.piso)];
+    return ['ok', 'Titan: margem boa a ' + gs(p) + ' · pode fechar'];
+  }
+  // escolher numa lista (distribuidora, modelo): uma linha por opção + "Outra…" escrita, e Salvar
+  function cpEscolhe(tit, ops, atual, outraTxt, fim) {
+    var E = { v: atual || '', outra: !!atual && ops.indexOf(atual) < 0 }, api;
+    var pinta = function (box) {
+      box.innerHTML = ops.map(function (o) {
+        return '<button type="button" class="pxL" role="radio" aria-checked="' + (!E.outra && E.v === o) + '" data-o="' + esc(o) + '"><span class="pxT"><b>' + esc(o) + '</b></span><span class="pxR"></span></button>';
+      }).join('') +
+        '<button type="button" class="pxL" role="radio" aria-checked="' + E.outra + '" data-outra="1"><span class="pxT"><b>' + esc(outraTxt) + '</b></span><span class="pxR"></span></button>' +
+        (E.outra ? '<input class="in cnOutra" id="cpOutra" maxlength="40" aria-label="' + esc(outraTxt) + '" value="' + esc(E.v) + '">' : '') +
+        '<button type="button" class="go pxOk" data-ok="1">Salvar</button>';
+    };
+    api = lfJanela({
+      titulo: tit,
+      cls: 'pxJn',
+      mudou: function () { var o = api.corpo.querySelector('#cpOutra'); return (o ? o.value.trim() : E.v) !== (atual || ''); },
+      monta: function (box) {
+        pinta(box);
+        box.onclick = function (ev) {
+          var b = ev.target.closest('button');
+          if (!b) return;
+          var o = box.querySelector('#cpOutra');
+          if (o) E.v = o.value.trim();
+          if (b.dataset.o != null) { E.v = b.dataset.o; E.outra = false; return pinta(box); }
+          if (b.dataset.outra) { E.outra = true; E.v = ''; pinta(box); var n = box.querySelector('#cpOutra'); if (n) n.focus(); return; }
+          if (b.dataset.ok) {
+            if (!E.v) return lfToast('Escolha uma opção.', 'atencao');
+            api.fecha(true);
+            fim(E.v);
+          }
+        };
+      }
+    });
+  }
+  // "Fechei com…": distribuidora · modelo · peças · custo por peça · a linha do Titan · Salvar
+  function cpFechei(k) {
+    var v = cpVagaDe(k);
+    if (!v) return;
+    var f0 = v.st.fech || {}, ds = cpDists(),
+      E = { dist: f0.dist || ds[0] || '', mod: f0.mod || (v.grau ? 'grau ' + v.grau : v.refs[0] + ' · o mesmo'), q: f0.q || v.falta, cu: f0.cu != null ? String(f0.cu).replace('.', ',') : v.cu ? String(v.cu).replace('.', ',') : '' },
+      E0 = JSON.stringify(E), api;
+    var le = function (box) { var c = box.querySelector('#cpCu'); if (c) E.cu = c.value; };
+    var pinta = function (box) {
+      var cu = parseFloat(String(E.cu).replace(',', '.')), ti = cpTitan(v, cu);
+      box.innerHTML = '<p class="cnSub">' + esc(v.tit) + ' · faltam ' + v.falta + '</p>' +
+        '<button type="button" class="cnLn cpLnB" data-cp="dist"><span>Distribuidora</span><b>' + esc(E.dist || 'escolher') + ' <i aria-hidden="true">›</i></b></button>' +
+        (v.grau ? '' : '<button type="button" class="cnLn cpLnB" data-cp="mod"><span>Modelo</span><b>' + esc(E.mod) + ' <i aria-hidden="true">›</i></b></button>') +
+        '<div class="cnLn"><span>Peças</span><span class="cnQt"><button type="button" data-d="-1" aria-label="Menos">−</button><b id="cpQ">' + E.q + '</b><button type="button" data-d="1" aria-label="Mais">+</button></span></div>' +
+        '<label class="cnLn"><span>Custo por peça</span><span class="cnCu">US$ <input class="cnIn" id="cpCu" inputmode="decimal" placeholder="0,00" aria-label="Custo por peça em US$" value="' + esc(E.cu) + '"></span></label>' +
+        (ti ? '<p class="cpTi ' + ti[0] + '">' + esc(ti[1]) + '</p>' : '<p class="cnNota">Diga o custo para o Titan conferir a margem.</p>') +
+        '<button type="button" class="go pxOk" data-cp="salva">Salvar</button>';
+    };
+    api = lfJanela({
+      titulo: 'Fechei com…',
+      cls: 'pxJn cpJn',
+      mudou: function () { le(api.corpo); return JSON.stringify(E) !== E0; },
+      monta: function (box) {
+        pinta(box);
+        box.addEventListener('change', function (ev) { if (ev.target.id === 'cpCu') { le(box); pinta(box); } });
+        box.onclick = function (ev) {
+          var b = ev.target.closest('button');
+          if (!b) return;
+          le(box);
+          if (b.dataset.d) { E.q = Math.max(1, Math.min(999, E.q + +b.dataset.d)); box.querySelector('#cpQ').textContent = E.q; return; }
+          if (b.dataset.cp === 'dist') return cpEscolhe('Distribuidora', ds, E.dist, 'Outra distribuidora…', function (x) { E.dist = x; pinta(box); });
+          if (b.dataset.cp === 'mod') return cpEscolhe('Modelo', v.refs.map(function (r) { return r + ' · o mesmo'; }), E.mod, 'Outro modelo…', function (x) { E.mod = x; pinta(box); });
+          if (b.dataset.cp === 'salva') {
+            var cu = parseFloat(String(E.cu).replace(',', '.'));
+            if (!E.dist) return lfToast('Diga com qual distribuidora fechou.', 'atencao');
+            api.fecha(true);
+            cpGuarda(k, { fech: { dist: E.dist, mod: E.mod, q: E.q, cu: isFinite(cu) ? cu : null, ts: Date.now() }, nin: null });
+            lfToast('✓ Fechado com ' + E.dist + ' · ' + E.q + (E.q === 1 ? ' peça' : ' peças'), 'ok');
+          }
+        };
+      }
+    });
+  }
+  // "Ninguém tinha" (51b): procurar equivalente · avisar quando aparecer · deixar sem (só sem ninguém esperando)
+  function cpNinguem(k) {
+    var v = cpVagaDe(k);
+    if (!v) return;
+    var ref = v.refs[0] || '', esp = v.esp, E = { o: v.st.nin || 'equiv', ab: false }, o0 = E.o, api,
+      nomes = (S.espera || []).filter(function (e) { return v.refs.indexOf(e.ref) >= 0 && !e.av; }).map(function (e) { return e.nome || e.tel || 'Cliente'; });
+    var op = function (id, tit, sub) {
+      return '<button type="button" class="pxL" role="radio" aria-checked="' + (E.o === id) + '" data-o="' + id + '"><span class="pxT"><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span><span class="pxR"></span></button>';
+    };
+    var pinta = function (box) {
+      box.innerHTML = '<p class="cnSub">' + esc(v.tit) + ' · faltam ' + v.falta + '</p>' +
+        (esp ? '<button type="button" class="cnLn cpLnB" data-ab="1" aria-expanded="' + E.ab + '"><span>' + esp + (esp === 1 ? ' cliente espera esta peça' : ' clientes esperam esta peça') + '</span><b>me avise <i aria-hidden="true">' + (E.ab ? '⌃' : '⌄') + '</i></b></button>' +
+          (E.ab ? '<p class="cnNota">' + esc(nomes.join(', ')) + '</p>' : '') : '') +
+        op('equiv', 'Procurar equivalente', (ref ? 'pela foto da ' + ref + ': ' : '') + 'mesmo formato, material e faixa de preço. Entra no próximo Pedir.' + (esp ? ' Quando chegar, aviso ' + (esp === 1 ? 'o cliente.' : 'os ' + esp + ' clientes.') : '')) +
+        op('avisar', 'Avisar quando aparecer', (ref ? 'espera a própria ' + ref + '. ' : '') + 'O Semp confere as distribuidoras e avisa no sino.') +
+        (esp ? '<p class="cnNota">"Deixar sem" só aparece quando ninguém está esperando.</p>' : op('sem', 'Deixar sem', 'sai da lista até alguém pedir "me avise"')) +
+        '<button type="button" class="go pxOk" data-ok="1">Salvar</button>';
+    };
+    api = lfJanela({
+      titulo: 'Ninguém tinha',
+      cls: 'pxJn cpJn',
+      mudou: function () { return E.o !== o0 || !v.st.nin; },
+      monta: function (box) {
+        pinta(box);
+        box.onclick = function (ev) {
+          var b = ev.target.closest('button');
+          if (!b) return;
+          if (b.dataset.ab) { E.ab = !E.ab; return pinta(box); }
+          if (b.dataset.o) { E.o = b.dataset.o; return pinta(box); }
+          if (b.dataset.ok) {
+            api.fecha(true);
+            cpGuarda(k, { nin: E.o, fech: null });
+          }
+        };
+      }
+    });
+  }
+  // ---------- Pedir: uma mensagem só, em espanhol, com todas as vagas sem fechar (quadro 3) ----------
+  var CP_ES_TIPO = { pre: 'lentes de lectura', sem: 'armazones', solar: 'lentes de sol' },
+    CP_ES_PUB = { Feminino: 'de mujer', Masculino: 'de hombre', Infantil: 'infantiles', Unissex: 'unisex' },
+    CP_ES_MAT = { Metal: 'metal', Acetato: 'acetato', 'Plástico': 'plástico', TR90: 'TR90', 'Titânio': 'titanio', Nylon: 'nylon' };
+  function cpLinhaEs(v) {
+    if (v.grau) return '· ' + v.resto + ' ' + (CP_ES_TIPO[v.tipo] || (tipoOf(v.tipo) || {}).label || v.tipo) + ' ' + v.grau.replace('.', ',');
+    var p = v.k.split('|'), d = [CP_ES_PUB[p[1]] || '', CP_ES_MAT[p[2]] || p[2] || ''].filter(Boolean);
+    return '· ' + v.resto + ' ' + (CP_ES_TIPO[v.tipo] || (tipoOf(v.tipo) || {}).label || v.tipo) + (d.length ? ' ' + d.join(', ') : '') +
+      (v.st.nin === 'equiv' && v.refs[0] ? ' (parecido a ' + v.refs[0] + ')' : '') + (v.cu > 0 ? ', hasta ' + cpAte(v.cu) : '');
+  }
+  function cpMensagem(V) {
+    return 'Hola, ¿qué tienen de esto?\n' + V.map(cpLinhaEs).join('\n') + '\nGracias. La Fouch';
+  }
+  ACT.cpPedir = function () {
+    var V = cpSemFechar(cpVagas());
+    if (!V.length) return;
+    var api = lfJanela({
+      titulo: 'Pedir',
+      cls: 'pxJn cpJn',
+      monta: function (box) {
+        box.innerHTML = '<p class="cnSub">' + V.length + (V.length === 1 ? ' vaga sem fechar' : ' vagas sem fechar') + ' · em espanhol</p>' +
+          '<div class="cpMsg">' + esc(cpMensagem(V)).replace(/\n/g, '<br>') + '</div>' +
+          '<p class="cnNota">Você escolhe para quem mandar no próprio WhatsApp: uma distribuidora ou várias. As vagas ficam "pedida · esperando resposta".</p>' +
+          '<button type="button" class="go pxOk" data-ok="1">Mandar</button>';
+        box.onclick = function (ev) {
+          if (!ev.target.closest('[data-ok]')) return;
+          var t = Date.now();
+          V.forEach(function (v) { S.cpV[v.k] = Object.assign({}, S.cpV[v.k] || {}, { ped: t }); });
+          saveSoon();
+          api.fecha(true);
+          lcManda(cpMensagem(V));
+          render();
+        };
+      }
+    });
+  };
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -50024,10 +50326,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaFecha('grFolha');
     render();
   };
+  // "Repor": os graus em falta são vagas de Compras (66)
   ACT.grauRepor = function () {
     lfaFecha('grFolha');
-    var t = $('eTabR');
-    if (t) t.click();
+    inicioGo('comp');
   };
   // atalho discreto no topo da aba Reposição
   function grauAtalhoRepo() {
@@ -52150,7 +52452,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', cat: 'Catálogo pelo WhatsApp', ajustes: 'Aparelho, loja, site e segurança',
     ped: 'O que chegou pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e lotes',
     novo: 'Cadastrar produto', notif: 'O que precisa de você agora', mkt: 'Posts, vídeos e plano', est: 'Fotos das peças', msg: 'Contato e atacado',
-    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela'
+    anl: 'Visitas do site e o que trouxe cliente', tem: 'Calendário do site', ata: 'Lojistas, lotes e tabela', comp: 'Lista de compras e fornecedores'
   };
   function grpVerHtml(g) {
     var h = '<div class="dFt"><span>VER</span></div>';
@@ -52509,9 +52811,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 1,
+  var FAM_V = 2, // 2: Peças ganha Compras (66, 22/11)
     FAMILIAS = [
-      { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] },
+      { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
       { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['giro', 'prec'] },
@@ -52704,23 +53006,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   window.__lcIrGiro = lcIrGiro;
   ACT.lcIrGiro = function () { lcIrGiro(); };
-  var _rEA74 = renderEstoqueAbas;
-  renderEstoqueAbas = function () {
-    if (S.repoView) { S.repoView = false; setTimeout(lcIrGiro, 0); }
-    var r = _rEA74.apply(this, arguments);
-    var t = $('eTabR');
-    if (t) t.remove();
-    var tb = $('eTabs'), ln = $('lcIrInv');
-    if (tb && S.view === 'estoque' && !S.lotesView) {
-      var n = 0;
-      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
-      if (!ln) { ln = document.createElement('div'); ln.id = 'lcIrInv'; tb.after(ln); }
-      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
-      ln.hidden = false;
-    } else if (ln) ln.hidden = true;
-    return r;
-  };
-
   // S374 (esboço 72): Caixa › "Livre e reservado ›" abre o Dashboard na aba Reservas
   ACT.cxReservas = function () {
     S.dTab = 'din';
@@ -52944,22 +53229,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { ladosCabe(document); } catch (e) {}
   }
   aposRender(padTela);
-
-  // 102: "Lista de compras ›" sai de Produtos e fica no fim da aba Fornecedores, centralizada
-  var _rEA102 = renderEstoqueAbas;
-  renderEstoqueAbas = function () {
-    var r = _rEA102.apply(this, arguments), ln = $('lcIrInv'), v = $('v-estoque');
-    if (!ln || !v) return r;
-    if (S.view === 'estoque' && S.lotesView) {
-      var n = 0;
-      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
-      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
-      ln.hidden = false;
-      ln.classList.add('c102');
-      if (v.lastElementChild !== ln) v.appendChild(ln);
-    } else ln.hidden = true;
-    return r;
-  };
 
   // 98: Marketing é tela do app (#v-mkt); a família abre a tela como as outras
   if (!$('v-mkt')) {
@@ -53454,6 +53723,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'pTeste16',
       'lcQtd',
       'lcPed',
+      'cpV',
       'vit',
       'fpOk',
       'siteAutoLote',

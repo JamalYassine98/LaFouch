@@ -18,7 +18,8 @@
     p_mes: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M12 14h2M16 14h2M8 18h2M12 18h2"/>',
     p_30: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
     p_custom: '<path d="M12 5v14M5 12h14"/>',
-    hero: '<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>'
+    hero: '<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>',
+    comp: '<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/>'
   };
   function ico(k, px) {
     px = px || 22;
@@ -293,6 +294,7 @@
       S.lotesView = true;
       setView('estoque');
     } else {
+      if (id === 'estoque') S.lotesView = false; // Inventário abre a lista; Fornecedores mora em Compras (66)
       if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
       setView(id);
     }
@@ -304,7 +306,7 @@
     vendas: 'Vender', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
     din: 'Reservas', giro: 'Giro', prec: 'Preços', cat: 'Enviar catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Site',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Pendências', mkt: 'Marketing', est: 'Estúdio',
-    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
+    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado', comp: 'Compras'
   };
   function barraLista() {
     iniLista();

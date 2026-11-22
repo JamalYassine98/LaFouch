@@ -428,9 +428,9 @@ async def main():
             f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
             total += 1
             ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
-                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'est']] and f3 == ['estoque', True]
+                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'est', 'comp']] and f3 == ['estoque', True]
                   and f4 == [6, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Peças só com Inventário e Estúdio — 63)')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Peças com Inventário, Estúdio e Compras — 63 e 66)')
             if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
             # S374 (esboço 59): Giro e preços abre o Giro e a flecha mostra Giro, Preços e Reservas; Marketing abre a lista
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
@@ -1033,19 +1033,14 @@ async def main():
             filtro = await pg.evaluate("() => window.__LF.S.q")
             await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
             await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
-            # S374: a aba Reposição saiu; a linha "Lista de compras ›" leva ao Giro › Lista de compras (uma lista só)
-            # S374 (102c): a linha "Lista de compras ›" fica no fim da aba Fornecedores (não em Produtos)
-            await pg.evaluate("() => { const L = window.__LF; L.S.lotesView = true; L.render(); }"); await pg.wait_for_timeout(400)
-            linha = await pg.evaluate("() => { const l = document.getElementById('lcIrInv'), b = l && l.querySelector('[data-act=lcIrGiro]'); return !!b && !l.hidden && document.getElementById('v-estoque').lastElementChild === l && !document.getElementById('eTabR'); }")
-            await pg.click('#lcIrInv [data-act=lcIrGiro]'); await pg.wait_for_timeout(400)
-            giro = await pg.evaluate("() => { const S = window.__LF.S; return [S.view, S.dTab, !!S.dfold.rep, !!document.getElementById('lcCard'), S.repoView]; }")
-            await pg.evaluate("() => { const L = window.__LF; L.S.repoView = true; L.setView('estoque'); }"); await pg.wait_for_timeout(400)
-            antiga = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
-            ok = (botao and mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1'] and kl is True
-                  and filtro == '+1.50' and linha and giro == ['dash', 'giro', True, True, False] and antiga == ['dash', 'giro'] and not pg.erros)
+            # 66 (22/11): o Inventário fica sem abas; o "Repor" do mapa de graus leva a Compras (os graus em falta são vagas)
+            await pg.evaluate("() => window.__LF.ACT.grauRepor()"); await pg.wait_for_timeout(400)
+            linha = await pg.evaluate("() => window.__LF.S.view === 'comp' && [...document.querySelectorAll('#v-comp .cpL')].some(b => /Pré-graduados · \\+/.test(b.innerText))")
+            ok = (botao and mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == [] and kl is True
+                  and filtro == '+1.50' and linha and not pg.erros)
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas (sem Reposição), mapa de graus e a linha da lista de compras que leva ao Giro')
-            if not ok: falhas.append('estoque abas'); print('        veio', botao, mapa, abas, kl, filtro, linha, giro, antiga, pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Estoque: sem abas (66), mapa de graus e o "Repor" que leva a Compras')
+            if not ok: falhas.append('estoque abas'); print('        veio', botao, mapa, abas, kl, filtro, linha, pg.erros)
             await pg.close()
 
             # v469: contador sem quadrado, barra Selecionar/lixeira fora, trava única de rolagem
@@ -1347,7 +1342,7 @@ async def main():
             await pg.evaluate("() => window.__LF.setView('notif')"); await pg.wait_for_timeout(500)
             ini = ('8 peças da compra de ' if semIni else '') + await pg.evaluate("() => { const b = [...document.querySelectorAll('#v-notif [data-act=inicio][data-id=lotes]')][0]; const c = b && (b.closest('.card,section,li') || b.parentElement); return c ? c.innerText.replace(/\\s+/g,' ') : '' }")
             await pg.click('#v-notif [data-act=inicio][data-id=lotes]'); await pg.wait_for_timeout(500)
-            irc = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.lotesView, document.querySelector('#lotView h2') && document.querySelector('#lotView h2').innerText]")
+            irc = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.lotesView, document.querySelector('#v-estoque > .top h1').innerText]")  # 66: um título por tela
             ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini.lower() and irc == ['estoque', True, 'Fornecedores'] and not pg.erros)
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'Início sem o aviso repetido (57a); o Guardião leva às Compras')
@@ -3897,8 +3892,8 @@ async def main():
               L.setView('inicio'); await w(200); S.famV = 0; S.famMex = {}; L.render(); await w(200);
               return R; }""")
             guarda = "'famV'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read() and "'famMex'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read()
-            ok = (not troca and guarda and got['novo'] == ['giro,prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 1, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est']
-                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 1, False]
+            ok = (not troca and guarda and got['novo'] == ['giro,prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 2, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est,comp']
+                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 2, False]
                   and got['v596'] == ['giro,prec', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,g:gp,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'giro,prec', True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Item 26 + 4c parte 4 (149r): famílias numa tabela só com versão — Reservas em Dinheiro, aparelho antigo migra uma vez, arranjo do dono e grupo mexido ficam')
             if not ok: falhas.append('item 26 familias tabela unica'); print('        veio', troca, guarda, got, pg.erros)
@@ -4491,6 +4486,48 @@ async def main():
             if not ok: falhas.append('65f dashboard detalhes'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Família Compras 66 parte 1 (48a, 51, 51b): Peças ganha Compras; a lista pede VAGAS (tipo · gênero · material ou o grau);
+            # tocar na vaga: "Fechei com…" (Titan confere a margem) e "Ninguém tinha"; "Pedir" = uma mensagem só, em espanhol, com as vagas sem fechar;
+            # "Fornecedores ›" no fim abre a tela de compras e lotes (que saiu das abas do Inventário).
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              window.open = () => null; navigator.share = null;
+              const g = (S.grupos || []).find(x => x.id === 'g:pecas'); R.grupo = g && g.itens.slice();
+              L.inicioGo('comp'); await w(500);
+              const ls = () => [...document.querySelectorAll('#v-comp .cpL')];
+              R.n = ls().length; R.tit = document.querySelector('#v-comp .top h1').textContent;
+              R.lbl = document.querySelector('#v-comp .cpT').textContent;
+              const k0 = ls()[0].getAttribute('data-id'), k1 = ls()[1].getAttribute('data-id');
+              ls()[0].click(); await w(500);
+              R.vaga = [...document.querySelectorAll('.cpJn [data-cp]')].map(b => b.getAttribute('data-cp'));
+              document.querySelector('.cpJn [data-cp=fech]').click(); await w(500);
+              const cu = document.getElementById('cpCu'); cu.value = '0,50'; cu.dispatchEvent(new Event('change', { bubbles: true })); await w(200);
+              R.titan = (document.querySelector('.cpTi') || {}).className;
+              document.querySelector('.cpJn [data-cp=salva]').click(); await w(500);
+              R.fech = [!!(S.cpV[k0] && S.cpV[k0].fech), (ls().find(x => x.getAttribute('data-id') === k0) || {}).innerText];
+              const pb = document.querySelector('#v-comp .cpPedir'); R.pedirTxt = pb && pb.textContent;
+              pb.click(); await w(500);
+              R.msg = (document.querySelector('.cpMsg') || {}).innerText || '';
+              document.querySelector('.cpJn [data-ok]').click(); await w(500);
+              R.ped = [!S.cpV[k0].ped, !!(S.cpV[k1] && S.cpV[k1].ped), /pedida em \\d\\d\\/\\d\\d/.test((ls().find(x => x.getAttribute('data-id') === k1) || {}).innerText || '')];
+              document.querySelector('#v-comp [data-act=cpForn]').click(); await w(600);
+              R.forn = [S.view, S.lotesView, document.querySelector('#v-estoque > .top h1').textContent, (document.querySelector('#v-estoque > .nvVs') || {}).textContent, document.getElementById('eTabs').hidden];
+              L.inicioGo('estoque'); await w(400);
+              R.inv = [S.lotesView, document.querySelector('#v-estoque > .top h1').textContent, document.getElementById('eTabs').hidden];
+              return R; }""")
+            total += 1
+            msg = got['msg']
+            ok = (got['grupo'] == ['estoque', 'est', 'comp'] and got['n'] >= 2 and got['tit'] == 'Compras' and str(got['n']) in got['lbl']
+                  and got['vaga'] == ['fech', 'nin'] and (got['titan'] or '').startswith('cpTi') and got['fech'][0] and 'fechado com' in got['fech'][1]
+                  and got['pedirTxt'] == 'Pedir · ' + str(got['n'] - 1) + ' vagas sem fechar'
+                  and msg.startswith('Hola, ¿qué tienen de esto?') and msg.strip().endswith('Gracias. La Fouch') and 'faltam' not in msg and ' até ' not in msg
+                  and got['ped'] == [True, True, True]
+                  and got['forn'][:3] == ['estoque', True, 'Fornecedores'] and got['forn'][4] is True
+                  and got['inv'] == [False, 'Inventário', True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Família Compras 66 parte 1: Peças com Compras; vagas; Fechei com… (Titan) e Ninguém tinha; Pedir em espanhol só com as vagas sem fechar; Fornecedores › com o título dela; Inventário sem abas')
+            if not ok: falhas.append('66 compras telas'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -4932,7 +4969,7 @@ async def main():
             # 1ª linha do nome, a lixeira termina na margem direita; "Ver peças (N) ›" como link centralizado; barra de 4 px. Alinhado por flex na marcação.
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
-              L.setView('estoque'); await w(500); [...document.querySelectorAll('#v-estoque button')].find(x => /^Fornecedores/.test(x.textContent.trim())).click(); await w(700);
+              L.inicioGo('comp'); await w(500); document.querySelector('#v-comp [data-act=cpForn]').click(); await w(700); // 66: Fornecedores mora em Compras
               const c = document.querySelector('#lotView .lotC'); if (!c) return ['sem compra']; const cs = getComputedStyle(c), R = e => e.getBoundingClientRect(), cy = e => (R(e).top + R(e).bottom) / 2;
               const t = c.querySelector('.lotHd b'), rg = document.createRange(); rg.selectNodeContents(t); const l1 = rg.getClientRects()[0], cl = (l1.top + l1.bottom) / 2;
               const ed = c.querySelector('.lotAc .lk100'), tr = c.querySelector('.lotAc .trash'), sv = tr.querySelector('svg'), vp = [...c.querySelectorAll('button')].find(b => /^Ver peças/.test(b.textContent));

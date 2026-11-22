@@ -60,10 +60,10 @@
     lfaFecha('grFolha');
     render();
   };
+  // "Repor": os graus em falta são vagas de Compras (66)
   ACT.grauRepor = function () {
     lfaFecha('grFolha');
-    var t = $('eTabR');
-    if (t) t.click();
+    inicioGo('comp');
   };
   // atalho discreto no topo da aba Reposição
   function grauAtalhoRepo() {

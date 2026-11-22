@@ -71,7 +71,7 @@
     var isV = false;
 
     // 52d (família Inventário, implementar 22/11 12:51): embaixo do título, o resumo do estoque no lugar do caminho fixo
-    $('crumb').textContent = invResumo();
+    $('crumb').textContent = S.lotesView ? 'Compras e lotes, de cada distribuidora' : invResumo();
     var tb = $('tipos');
     tb.textContent = '';
     if (!S.delMode)

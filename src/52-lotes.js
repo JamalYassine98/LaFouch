@@ -859,15 +859,13 @@
         })[0];
       if (!g) {
         S.lotSel = '';
-        var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Fornecedores'));
-        t.firstChild.style.cssText = 'margin:0;font-size:16px';
+        var t = mk('div', ''); // o título "Fornecedores" é o da tela (66: um título por tela)
         var hh = mk(
           'div',
           'hint',
           'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
         );
-        hh.style.margin = '2px 0 0';
+        hh.style.margin = '0';
         t.appendChild(hh);
         h.appendChild(t);
         if (!S.grp.length) {
