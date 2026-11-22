@@ -117,6 +117,7 @@
 - para **NUVEM**: Voz 'Este teste fica melhor no celular': o dono confirmou que é a voz, não o chiado (as 3 amostras filtradas ficaram ruins). Medi o 'este teste' da fala nova × 
 - para **NUVEM**: Dono 22/11 06:13 APROVOU: o painel web (lafouch.com/admin) sai — mas SÓ depois que as telas do Site (58) estiverem no app (celular e PC), publicadas e testadas.
 - para **NUVEM**: Dono 22/11 06:28: o GUARDIÃO agora se chama TITAN (Técnico Integrado de Transações e Administração do Núcleo). Use 'Titan' nos textos novos e nos recados. Troca
+- para **NUVEM**: Vigia 22/11 07:23: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-21: analise_com=12, conta_sem=7, cupom_com=1, pedido_sem=9, res
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
@@ -140,28 +141,28 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
-- 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
-- 22/11 06:52 — IDEIAS: IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)
-- 22/11 06:18 — IDEIAS: IDEIAS 05: versão PC/tablet do esboço (Fila 61)
-- 22/11 06:07 — IDEIAS: IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)
-- 22/11 05:33 — IDEIAS: IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS
-- 22/11 04:55 — IDEIAS: IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS
-- 22/11 04:55 — IDEIAS: IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS
-- 22/11 04:49 — IDEIAS: IDEIAS: 03 bugs do site — causas de B1 imagens que trocam, B2 foto BR44140, B4 topo some com menu (trava no body), B5 barras nas abas da Minha conta (cópia solta) — sem corrigir, juntando numa lógica — IDEIAS
-- 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
-- 22/11 04:15 — IDEIAS: IDEIAS: destaque do site (herança da S435, guardada em work/ideias/02-destaque/HERANCA.md) em ESPERA por ordem do dono 22/11 04:13 — urgências maiores (erros da SITE no site). Conferidor agora se chama Argus. — IDEIAS
-- 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
-- 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
-- 22/11 01:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
-- 22/11 00:55 — APP: v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor).
-- 22/11 00:33 — APP: v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos).
-- 22/11 00:26 — ESBOCO: 21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)
-- 22/11 00:10 — APP: v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça).
-- 21/11 23:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
-- 21/11 23:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
-- 21/11 23:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
-- 21/11 23:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
-- 21/11 22:26 — APP: v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro).
-- 21/11 17:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
-- 21/11 16:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
-- 21/11 16:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
+- 22/11 09:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
+- 22/11 09:52 — IDEIAS: IDEIAS 05 v2 pronto (Fila 61): celular tela cheia × PC topo novo + desfoque. Recado Titan lido (não há 'Guardião' nos textos da IDEIAS)
+- 22/11 09:18 — IDEIAS: IDEIAS 05: versão PC/tablet do esboço (Fila 61)
+- 22/11 09:07 — IDEIAS: IDEIAS 05 esboço pronto (Fila 61): menu/busca/carrinho crescem do botão, fundo desfocado, topo à vista; topo A × B. Recado CAMPANHA guardado no 02 (em espera)
+- 22/11 08:33 — IDEIAS: IDEIAS: 03 bugs do site — 8 pontos do dono com causa (B1–B8); esperando as 2 fotos que o dono vai tirar no Estúdio para montar o esboço único — IDEIAS
+- 22/11 07:55 — IDEIAS: IDEIAS: 04 aprovado (04:55) — guardado; Fila 59 espera o implementar da SITE — IDEIAS
+- 22/11 07:55 — IDEIAS: IDEIAS: 04 ferramentas (Fila 59) esboço pronto — esperando o dono — IDEIAS
+- 22/11 07:49 — IDEIAS: IDEIAS: 03 bugs do site — causas de B1 imagens que trocam, B2 foto BR44140, B4 topo some com menu (trava no body), B5 barras nas abas da Minha conta (cópia solta) — sem corrigir, juntando numa lógica — IDEIAS
+- 22/11 07:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
+- 22/11 07:15 — IDEIAS: IDEIAS: destaque do site (herança da S435, guardada em work/ideias/02-destaque/HERANCA.md) em ESPERA por ordem do dono 22/11 04:13 — urgências maiores (erros da SITE no site). Conferidor agora se chama Argus. — IDEIAS
+- 22/11 04:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
+- 22/11 04:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
+- 22/11 04:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
+- 22/11 03:55 — APP: v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor).
+- 22/11 03:33 — APP: v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos).
+- 22/11 03:26 — ESBOCO: 21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)
+- 22/11 03:10 — APP: v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça).
+- 22/11 02:50 — SITE: Ferramentas partes 1 e 4 feitas (porteiro 233 provas, 0 falhas; comparador dentro do portão). Faltam: ferramentas 2 e 3; esboços da Mochi e da animação; depois o item 45 (Descubra seu formato, aprovado — implementar depois da fila). Site no ar 1795282455.
+- 22/11 02:47 — APP: v620 publicada: Leve 2 do site fora do app (recado do dono feito). Porteiro 371/371. Próximo: 41 parte 2 (câmera diz para qual peça).
+- 22/11 02:26 — APP: v619 publicada: 41 parte 1 — marcas Frente · 3/4 · Giro no Estúdio. Porteiro 370/370. Próximo: 41 parte 2 (câmera diz para qual peça).
+- 22/11 02:05 — APP: v618 publicada (por dentro): a frente do giro é achada com a cena torta. Porteiro 369/369 + prova de ponta a ponta em 7 inclinações. Próximo: esboço 41 (Estúdio + Galeria).
+- 22/11 01:26 — APP: v617 publicada: 40c — tratamento endireita até ±3°. Porteiro 369/369 + prova de ponta a ponta. Próximo: escolha da frente com a peça torta (por dentro).
+- 21/11 20:25 — IDEIAS: IDEIAS: 01 aprovado (17:25) — guardado na lista viva, memória e Fila 45 (espera o implementar) — IDEIAS
+- 21/11 19:25 — IDEIAS: IDEIAS: 01 parte B na Fila 45 — esperando o dono — IDEIAS
+- 21/11 19:08 — SITE: Pendências: partes 1 e 2 fechadas; parte 3 (ferramentas) — parte 1 do plano FEITA (um simulador só; porteiro 232/0, comparador 0 diferenças). Faltam do plano: 4 → 2 → 3; e a parte 4 das pendências (esboços: bugs da Mochi, animação). Site no ar 1795282455.
