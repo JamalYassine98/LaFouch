@@ -1,3 +1,5 @@
+**ATUALIZADO 22/11 15:48:** o esboço valido agora é o **71** (work/s435/semp/esboco_71_destaque_semana.jpg + 71b formatos), sobre o Marketing **70** (work/s435/semp/esboco_70_marketing_semp_*.jpg). O 53 está em obsoletos. Diferenças: sem subtítulo; Titan (não Guardião); desconto = o que o Titan deixa (folga/mola); peças reais; lote de compra nunca entra; nome curto (Leitura…/Solar…). Onde o texto abaixo diz 1c, leia 70.
+
 # DESTAQUE DA SEMANA do Semp (Marketing) — "implementar" do dono 22/11 12:51
 
 **Esboço:** work/s435/destaque/esboco_53_destaque.jpg, com 4 quadros.
