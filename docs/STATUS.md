@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
-| SITE | BUG: o Destaque do topo pisca ao abrir (dono aprovou passar na frente) + robots.txt | js/lf-site.js, index.html, robots.txt |
 
 ## Fila
 
@@ -159,6 +158,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 04:15 — IDEIAS: IDEIAS: destaque do site (herança da S435, guardada em work/ideias/02-destaque/HERANCA.md) em ESPERA por ordem do dono 22/11 04:13 — urgências maiores (erros da SITE no site). Conferidor agora se chama Argus. — IDEIAS
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
@@ -183,4 +183,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 21/11 12:42 — IDEIAS: IDEIAS: esboço 01 v3 (descrição = modelos que combinam) na Fila 45 — esperando o dono — IDEIAS
 - 21/11 12:33 — SITE: Pendências parte 1 FECHADA: janelas 'Separado para você' e portal do atacado iguais à versão de 19/11 (fora os cartões novos). Site no ar 1795274857 (esboço 39). PRÓXIMA: parte 2 — provas das áreas sem medição (recibo, pedido pago, câmera do rosto por dentro, atacado por dentro, código por e-mail, Google) e suspeitos de código morto com imagem; depois parte 3 (ferramentas) e parte 4 (esboços Mochi e animação). No fim: lista única do que o dono precisa fazer e testar.
 - 21/11 12:28 — SITE: Esboço 39 (preço exato) publicado no site 1795274857; porteiro 232 provas, 0 falhas. Dono 12:04: depois do 39, terminar as pendências e só então os testes de fluidez. PENDÊNCIAS DA SITE, na ordem: (1) janelas não conferidas contra 19/11 (resultado do rosto, pagamento, portal do atacado, separado, foto ampliada); (2) provas das áreas sem medição + suspeitos de código morto com imagem; (3) plano das ferramentas 1→4→2→3; (4) esboços para o dono: bugs da Mochi, animação no lugar do brilho. Dono 11:13: otimização = gargalos, travadas e bugs (não carregamento).
-- 21/11 11:26 — NUVEM: Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar.
