@@ -1,7 +1,9 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "guardar a lista final para depois da próxima fase",
+ "arquivos": [
+  "work/s436/LISTA-FINAL-DONO.md"
+ ],
  "ultimas": [
   {
    "t": 1795321394.1806786,
@@ -44,5 +46,5 @@
    "r": "v616 publicada: 40b — Peça reta + conserto da folga do 40a. Porteiro 368/368. Próximo: 40c (tratamento endireita até ±3°)."
   }
  ],
- "leu": 1795321340.9565425
+ "leu": 1795322777.5971663
 }

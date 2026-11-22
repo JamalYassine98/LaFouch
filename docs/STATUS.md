@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | guardar a lista final para depois da próxima fase | work/s436/LISTA-FINAL-DONO.md |
 | ESBOCO | esboço 58e — efeitos do destaque em vídeo | work/s435/painelsite |
 
 ## Fila
