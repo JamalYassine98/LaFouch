@@ -8,3 +8,5 @@ Também superado EM PARTE (esboço de outra sessão, não movido): 149p — o pr
 - esboco_46a_site.jpg — superado 22/11: o botão de estado do Site será desenhado junto com o redesenho do painel do Site (estudo 47), sobre a base nova.
 
 - 22/11 05:45 · 48b (Inventário + janela Adicionar) → superado pelo 52b APROVADO (feito sobre o 48b). 48c (Compras = lista antiga + 'como calcula' + 'Marcar como pedido') → superado pelo 51/51b (compras por vaga).
+
+- 22/11 05:48 · 49b (Modelos com 'Precisa de atenção') → superado pela estrutura do painel do Site aprovada (58: Modelos sai, vira filtro 'No site · Ocultos' no Inventário). 50 v2 (Giro) → superado pelo 52 aprovado (família 'Giro e preços' desfeita; estoque no Inventário; Vitrine da semana saiu).
