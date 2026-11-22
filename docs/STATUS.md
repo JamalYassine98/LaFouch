@@ -116,6 +116,7 @@
 - **67-para-presente** — esboço pronto — esperando o dono
 - **68-destaque-da-semana-semp** — PARADO — base nova aprovada 15:48 (70 Marketing + 71 Destaque); falta o 'implementar' do 70
 - **70-marketing-do-semp** — 'implementar' do dono 22/11 15:49 ('Sim') · ESPERA os esboços dos setores (Agenda · Criar · Resultados · Temática · Cartões · Marca) na base nova, para o APP não inventar telas; depois o como fazer e vai à fila do APP junto com o 68
+- **72-pc-estilo-made** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
