@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | esboço 64 — ficha da peça (preço/oferta do Titan) e janela Oferta | work/s435/titan |
+| ESBOCO | esboço 65b — cálculo das margens de atacado no Titan | work/s435/titan |
 
 ## Fila
 
