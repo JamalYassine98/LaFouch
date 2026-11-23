@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08l: alinhar vistos + tirar vistos do Início",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795403055.8924546,
+   "r": "08l v4: busca com uma margem só + sai o 'Você estava vendo' do Início"
+  },
   {
    "t": 1795402779.934328,
    "r": "08l v3: em alta abre o catálogo; vistos na linha de peça"
@@ -40,10 +42,6 @@
   {
    "t": 1795399792.8735225,
    "r": "08i v2: rodapé em 2 tempos como a Madë"
-  },
-  {
-   "t": 1795398894.7816076,
-   "r": "08i: animação do rodapé subindo (vídeos)"
   }
  ],
  "leu": 1795388650.001632
