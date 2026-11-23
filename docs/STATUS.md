@@ -136,7 +136,7 @@
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
 - **80-barras** — publicado v632
 - **80-familia-barras** — publicado v632 (APP)
-- **81-familia-botoes** — aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
+- **81-familia-botoes** — publicado v632 (APP)
 - **82-varredura-campos** — aprovado 22/11 23:49 — espera o 'implementar' · anotado: seta do Voltar no tempo (Títulos e linhas) e a família das pílulas ▾
 - **83-varredura-textos** — aprovado 23/11 00:00 (v2 com o trilho 80) — espera o 'implementar'
 - **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
