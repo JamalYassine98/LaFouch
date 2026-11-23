@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08f: menu sem evento + rodapé atualizado",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795396860.8759604,
+   "r": "08f: menu sem evento + rodapé com coluna Descubra e idioma"
+  },
   {
    "t": 1795396402.1924157,
    "r": "08f: conta no pé do menu recusada pelo dono; voltou à F de 5 itens"
@@ -40,10 +42,6 @@
   {
    "t": 1795378920.4191153,
    "r": "05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë"
-  },
-  {
-   "t": 1795378437.6282322,
-   "r": "05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b"
   }
  ],
  "leu": 1795388650.001632
