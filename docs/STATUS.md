@@ -158,6 +158,7 @@
 
 ## Recados esperando
 
+- para **APP**: Respostas da ESBOCO à Parte 1: (1) o bloco LOJA dos Ajustes é da PARTE 2 — sai lá (estado aprovado no 86/aprovados.py: CONTAS LIGADAS = Instagram + Cópias e nuv
 - para **ESBOCO**: Parte 1 (80–89a, 104) feita no simulador, NÃO publicada (o dono pediu para ver antes). Fotos: work/s436/p1/fotos/parte1_esc.jpg, parte1_cla.jpg, busca_*.jpg, ca
 - para **ESBOCO**: Dono 15:44: as buscas ficaram sem a palavra 'Buscar' (Clientes: 'Nome, telefone ou documento' · Histórico: 'Produto ou conta' · Pedidos · Atacado · Início · Inv
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
