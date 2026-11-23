@@ -1,2 +1,2 @@
-v4 (recomendado honesto) — esperando o dono
+aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 

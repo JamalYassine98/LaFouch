@@ -141,7 +141,7 @@
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
-- **98-carrinho-simples** — v4 (recomendado honesto) — esperando o dono
+- **98-carrinho-simples** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 
 ## Recados esperando
 
