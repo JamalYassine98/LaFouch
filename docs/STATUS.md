@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09n: Comprar 'menos é mais' (profundo × rosé) | work/ideias/09-botoes/ |
 
 ## Fila
 
