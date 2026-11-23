@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08: prancha final (tudo junto, com e sem evento, celular e PC)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795398509.0210032,
+   "r": "08: enviado o que já existia (regra 9), sem gerar de novo"
+  },
   {
    "t": 1795398447.4377234,
    "r": "08g APROVADO (Fila 73) — guardado na lista viva e na memória"
@@ -40,10 +42,6 @@
   {
    "t": 1795394336.5365012,
    "r": "08b: menu celular A e B + PC só Descubra com janelinha + idioma no rodapé (Fila 73)"
-  },
-  {
-   "t": 1795391014.415173,
-   "r": "08: esboço menu enxuto + topo PC com janelinhas (Fila 73)"
   }
  ],
  "leu": 1795388650.001632
