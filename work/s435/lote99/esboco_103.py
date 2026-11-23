@@ -1,3 +1,4 @@
+# v3 (dono 13:26): o Cupom de Natal é o CARTÃO DE LUXO aprovado que o cliente recebe (tema do evento Natal, functions/email.js).
 # v2 (dono 13:19 'só precisa ficar alinhado'): status como linha comum na margem; › dos dois cartões no mesmo eixo (centro, 18 px da
 # borda); 'Adicionar item ›' na margem. Esboço 103 (S435, 23/11 13:25) — NATAL SEM INTERRUPTORES + KITS DE VÁRIOS TIPOS (dono 13:14: 'esses switches não estão feios? e se eu quiser
 # montar outros tipos de kits?'). (a) A data: o status numa linha ('No ar · 01/12 a 25/12 · liga e desliga sozinho' · pausar); os presentes são
@@ -8,7 +9,7 @@ exec(open('/home/claude/lafouch/work/s435/lote99/esboco_102.py').read().rsplit("
 KC=r"""const KIT=(t,s,e)=>'<div style="display:flex;align-items:center;gap:16px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;margin-top:16px"><span style="flex:1;min-width:0"><b style="display:block;font:700 18px Georgia,serif">'+t+'</b><small style="display:block;font-size:13px;color:var(--mute);white-space:nowrap">'+s+'</small></span><span style="font-size:15px;color:var(--mute);white-space:nowrap">'+e+'</span><span style="color:var(--mute);font-size:18px">›</span></div>';"""
 NAT3=r"""TOP('Temática','Natal','01/12 a 25/12',1)+
  '<div style="display:flex;align-items:center;gap:16px;min-height:64px;margin-top:16px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">Liga sozinho em 01/12</b><small style="display:block;font-size:13px;color:var(--mute)">e desliga em 25/12</small></span><button type="button" class="lkTx on">pausar</button></div>'+
- T('O que o cliente recebe')+'<div class="cupCard" style="margin:8px 0 0;display:flex!important;align-items:center;gap:16px"><span style="flex:1;min-width:0;display:grid;gap:4px"><small>LA FOUCH</small><b>10% · Cupom de Natal</b><i>na conta de todos · até 25/12</i></span><span style="font-size:18px;opacity:.85">›</span></div>'+
+ T('O que o cliente recebe')+LUXO({tema:'natal',rot:'CUPOM DE NATAL',pct:'10%',tit:'na conta de todo cliente cadastrado',nome:'NOME DO CLIENTE',val:'ATÉ 25/12',mt:8})+
  KIT('Kit de Natal','estojo, flanela e líquido','40')+
  '<div style="margin-top:24px">'+LN('','Custo estimado','30 cupons usados + 40 kits','G$ 756.000','')+'</div>'"""
 KITS=r"""TOP('Marketing','Kits','',1)+T('Seus kits · 3',1)+LN('pres','Kit de Natal','estojo, flanela e líquido · US$ 1,50','40','›')+LN('pres','Kit Dia das Mães','estojo floral, flanela e cartão · US$ 1,80','0','›')+LN('pres','Kit Dia dos Pais','estojo de couro e flanela · US$ 2,10','0','›')"""
@@ -18,7 +19,7 @@ NOVO=r"""(()=>{const L=(t,v,ch)=>'<div style="display:flex;align-items:center;ga
  '<div class="lbl" style="margin-top:24px">Custo e estoque</div>'+L('Custo por kit','US$ 1,80','')+'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)"><span style="flex:1;font-size:16px">Em estoque</span><span class="c54Q"><button type="button">−</button><b>0</b><button type="button">+</button></span></div>'+
  '<button type="button" class="go" style="width:100%;margin-top:24px">Salvar</button>'})()"""
 def t103(pw,esc,corpo,n,jan=None):
-  b,pg,w=base(pw,esc);html=pg.evaluate("()=>{"+H+JS+S3B+KC+"return '<div class=\"e49\">'+"+corpo+"+'</div>'}");pagina(pg,html);w(500)
+  b,pg,w=base(pw,esc);html=pg.evaluate("()=>{"+H+JS+S3B+KC+open("/home/claude/lafouch/work/s435/varredura/cartao_luxo.js").read().split("\n",3)[3]+"return '<div class=\"e49\">'+"+corpo+"+'</div>'}");pagina(pg,html);w(500)
   if jan:
     vs=pg.viewport_size;pg.set_viewport_size({'width':vs['width'],'height':vs['height']+430});w(300)
     pg.evaluate("""()=>{const S=window.__LF.S;S.pixSemPar=[{id:'x',moeda:'brl',valor:1,ts:Date.now(),motivo:'sem-pedido'}];window.__LF.ACT.pixLigar('x')}""");w(900)
@@ -30,5 +31,5 @@ def t103(pw,esc,corpo,n,jan=None):
 with sync_playwright() as pw:
   for esc in (True,False):
     n='escuro' if esc else 'claro'
-    quadro('esboco_103_natal_e_kits_v2_%s.jpg'%n,[('PROPOSTA · Natal',n+' · sem interruptores · os presentes são os cartões',t103(pw,esc,NAT3,'Natal')),('PROPOSTA · Marketing › Kits',n+' · um kit por data (ilustração)',t103(pw,esc,KITS,'Kits')),('PROPOSTA · Novo kit',n+' · o + abre a janela',t103(pw,esc,KITS,'Novo',1))])
+    quadro('esboco_103_natal_e_kits_v3_%s.jpg'%n,[('PROPOSTA · Natal',n+' · sem interruptores · os presentes são os cartões',t103(pw,esc,NAT3,'Natal')),('PROPOSTA · Marketing › Kits',n+' · um kit por data (ilustração)',t103(pw,esc,KITS,'Kits')),('PROPOSTA · Novo kit',n+' · o + abre a janela',t103(pw,esc,KITS,'Novo',1))])
 for n,f in REL: print(n,f)
