@@ -157,6 +157,7 @@
 ## Recados esperando
 
 - para **APP**: IMPORTANTE antes de começar: no fim do plano (work/s435/implementar/PLANO-IMPLEMENTAR-APP-23-11.md) está o ÍNDICE com o ÚLTIMO aprovado de cada item — caminho e
+- para **APP**: AVISO DO DONO (14:11): você começou antes do meu ÍNDICE (fim do PLANO-IMPLEMENTAR-APP-23-11.md) — leia agora e confira o que já fez contra ele. E SEM REDUNDÂNCI
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
