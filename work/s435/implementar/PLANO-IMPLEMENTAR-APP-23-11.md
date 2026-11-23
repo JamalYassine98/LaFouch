@@ -41,7 +41,7 @@ Regras de todas as partes:
 ## Parte 7 · Marketing do Semp
 19. Setores do Semp (70 / 73s, em 6 partes, `COMO-FAZER-MARKETING-70.md`) e Destaque da semana (68 / 53).
 20. Cartões: Próxima compra com as regras (97a); Cartões ativos por cliente (96e).
-21. Temática: toda data com ›; Natal e Kits (103); presentes da data no carrinho e no pedido (99d v2, a confirmar).
+21. Temática: toda data com ›; Natal e Kits (103); lembrete do kit com a contagem no Carrinho (98 v6) e 'Kit de Natal na caixa' na separação do pedido do site (aprovado 13:47).
 
 ## Fora deste plano
 - Estúdio (43 / 45 câmera): fora até o dono liberar.
@@ -49,4 +49,3 @@ Regras de todas as partes:
 
 ## Ainda falta o dono dizer
 - "Implementar", uma parte por vez, começando pela Parte 1.
-- 99d v2 (carrinho e pedido com o kit): confirmar junto do 103.
