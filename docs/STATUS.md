@@ -135,7 +135,7 @@
 - **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
-- **87-cores-padronizadas** — esboço pronto — esperando o dono
+- **87-cores-padronizadas** — aprovado 23/11 10:52 — espera o 'implementar' (SITE e APP)
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
