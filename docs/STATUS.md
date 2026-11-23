@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 08d: menu celular em letra pequena (padrão de luxo) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
@@ -151,6 +150,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 22:04 — IDEIAS: 08e: menu celular uma letra/um tamanho (como a Madë)
 - 22/11 21:53 — IDEIAS: 08c: base corrigida (BF preto 06e) + menu C e A suave
 - 22/11 21:38 — IDEIAS: 08b: menu celular A e B + PC só Descubra com janelinha + idioma no rodapé (Fila 73)
 - 22/11 20:43 — IDEIAS: 08: esboço menu enxuto + topo PC com janelinhas (Fila 73)
@@ -163,7 +163,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
 - 22/11 16:31 — IDEIAS: IDEIAS 07: ilustração da caixa de presente
 - 22/11 16:28 — IDEIAS: IDEIAS 07 v5: sacola com cordão (modelo da referência) e nosso design
-- 22/11 16:26 — IDEIAS: IDEIAS 07 v4: sacola com armação grande tom sobre tom
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
