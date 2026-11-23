@@ -127,7 +127,7 @@
 - **80-familia-barras** — aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 - **81-familia-botoes** — aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
 - **82-varredura-campos** — aprovado 22/11 23:49 — espera o 'implementar' · anotado: seta do Voltar no tempo (Títulos e linhas) e a família das pílulas ▾
-- **83-varredura-textos** — esboço pronto — esperando o dono (90 textos: 65 explicam = saem · 17 vazio = padrão · 8 aviso = curto; lista em work/s435/varredura/TEXTOS-EXPLICATIVOS.md)
+- **83-varredura-textos** — aprovado 23/11 00:00 (v2 com o trilho 80) — espera o 'implementar'
 
 ## Recados esperando
 
