@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09 parte 2: telas finais com os botões novos | work/ideias/09-botoes/ |
 
 ## Fila
 

@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "09 parte 2: telas finais com os botões novos",
+ "arquivos": [
+  "work/ideias/09-botoes/"
+ ],
  "ultimas": [
   {
    "t": 1795405643.4803107,
@@ -44,5 +46,5 @@
    "r": "08l v2: busca vazia C (vistos OU em alta)"
   }
  ],
- "leu": 1795388650.001632
+ "leu": 1795406080.0480707
 }
