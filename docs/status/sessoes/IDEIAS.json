@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08: topo do PC em branco (sem evento)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795400852.9837773,
+   "r": "08: topo do PC em branco (esboco-08g-topo-pc.jpg); o de creme foi para obsoletos"
+  },
   {
    "t": 1795400302.8685896,
    "r": "08h2: faixa de baixo centrada (pedido do dono)"
@@ -40,10 +42,6 @@
   {
    "t": 1795398090.4293475,
    "r": "08f em branco (padrão sem evento) + correção do dono no 06: creme só nos eventos"
-  },
-  {
-   "t": 1795396860.8759604,
-   "r": "08f: menu sem evento + rodapé com coluna Descubra e idioma"
   }
  ],
  "leu": 1795388650.001632
