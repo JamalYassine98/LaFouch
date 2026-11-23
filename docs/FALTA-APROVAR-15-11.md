@@ -1243,3 +1243,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 23/11 13:37 · DONO: 'Aprovado' → 98 v6 APROVADO (substitui o 98 v4 aprovado: mesma janela Desconto, agora com os cartões de luxo aprovados — Natal no tema do evento, fiel no vinho oficial — e o 'Usar ›' da 3ª peça centrado). Espera o 'implementar'.
 
 - 23/11 13:47 · DONO: 'Sim' → do 99d v2 ficam só 2 coisas, juntadas ao aprovado: (1) a contagem no lembrete do Carrinho 'Presente de Natal na sacola · sobram N kits' (98 v6, quadro no Natal); (2) a linha na separação do pedido do site 'Kit de Natal na caixa · sobram N kits'. O resto do 99d v2 (janela) é superado pelo 103 v3. APROVADO, espera o 'implementar' (Parte 7 do plano).
+
+- 23/11 13:52 · DONO: 'Perfeito, aprovado' → 104 APROVADO: o cartão SAI também do Caixa ('Objetivos da loja', 'Movimentos') e do Vender/Catálogo (busca e lista; o catálogo fica em 2 colunas) — a regra mora na classe (.view .card plano), junto das 9 telas do 149. Entra na Parte 1 do plano (base visual).

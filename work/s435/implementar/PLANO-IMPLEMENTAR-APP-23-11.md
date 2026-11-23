@@ -13,7 +13,8 @@ Regras de todas as partes:
 3. Família dos botões: principal, pequeno e perigo com "Voltar" (81 / 75 / 88 Lente 14 px).
 4. Campos em linha fina (82), um conjunto de ícones com traço 1,6 e sem emoji (84).
 5. Títulos e linhas: um rótulo e uma linha de lista (86); pílulas ▾ viram linhas com janela (87).
-6. Avisos de dois tipos (85), com a bolinha de atenção #e0ac00 (89a); textos explicativos removidos (83).
+6. Tela sem cartão (.view .card plano) nas 9 telas do 149 e também no Caixa e no Vender/Catálogo, com o catálogo em 2 colunas (104, aprovado 13:52).
+7. Avisos de dois tipos (85), com a bolinha de atenção #e0ac00 (89a); textos explicativos removidos (83).
 
 ## Parte 2 · Ajustes e telas de assunto
 7. Ajustes: só as linhas gerais (86), com o liga e desliga na tela do assunto (46).
