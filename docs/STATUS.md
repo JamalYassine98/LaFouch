@@ -201,6 +201,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 15:50 — IDEIAS: 12e aprovado no Natal; feitas as 6 datas (esboco-12e-datas-1/2)
 - 23/11 15:47 — IDEIAS: 12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)
 - 23/11 15:30 — IDEIAS: 12d: todas as datas na cor oficial enviadas
 - 23/11 15:21 — IDEIAS: 12c: vitrine da data nas 6 datas enviada
@@ -210,7 +211,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 14:24 — IDEIAS: 12b: VER A COLEÇÃO + faixas curtas, esboços refeitos
 - 23/11 14:16 — IDEIAS: 12b: campanha forte nas 6 datas enviada
 - 23/11 14:03 — IDEIAS: Fundo branco nas datas anotado
-- 23/11 14:00 — IDEIAS: 12: temática em 3 camadas (Natal, BF, Mães) enviada
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
