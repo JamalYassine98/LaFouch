@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09 v3: botões pretos, vinho só no caminho do dinheiro",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795405643.4803107,
+   "r": "09 v3 família de botões (preto + vinho só no dinheiro) enviada ao dono — Fila 75"
+  },
   {
    "t": 1795405200.3192716,
    "r": "09 v2: família de botões estruturada (papel × tamanho + marca)"
@@ -40,10 +42,6 @@
   {
    "t": 1795402525.267972,
    "r": "08l v2: busca vazia C (vistos OU em alta)"
-  },
-  {
-   "t": 1795402099.523516,
-   "r": "08l parte 1: busca só busca + padrão da linha de peça"
   }
  ],
  "leu": 1795388650.001632
