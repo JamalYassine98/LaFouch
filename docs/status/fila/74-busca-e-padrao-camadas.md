@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (parte 1 de 2)
-Parte 1: a busca só busca. Campo vazio = UM bloco por vez: 'Vistos por último' (linha de peça) OU 'Em alta' (4 palavras; tocar abre o catálogo filtrado). Uma margem só (16 px) na camada. Sai do Início o 'Você estava vendo' (redundante). Padrão da linha de peça: nome Fraunces 400 17 px, código corpo 13 cinza, preço corpo 15; 'Ver todos' preso no pé. Parte 2: conta e carrinho. work/ideias/08-menu-luxo/esboco-08l-busca-celular.jpg
+parte 1 aprovada 23/11 00:17 (busca) — espera o 'implementar' (SITE) · parte 2 (conta e carrinho) em esboço
+Busca 08l aprovada: só busca; vazio = Vistos por último OU Em alta (abre o catálogo filtrado); uma margem; linha de peça padrão; 'Ver todos' link discreto; sai o 'Você estava vendo' do Início. work/ideias/08-menu-luxo/COMO-FAZER.md
