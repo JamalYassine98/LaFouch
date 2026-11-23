@@ -15,12 +15,12 @@ def venda(pw,esc,prop):
     pg.evaluate("""()=>{const S=window.__LF.S;S.pixSemPar=[{id:'x',moeda:'brl',valor:1,ts:Date.now(),motivo:'sem-pedido'}];window.__LF.ACT.pixLigar('x')}""");w(900)
     pg.evaluate("h=>{const j=[...document.querySelectorAll('.ljJn')].pop();const t=j.querySelector('.ljHd b');if(t)t.textContent='Cartão do cliente';(j.querySelector('.ljCorpo')||j).innerHTML=h}",HOJEJ);w(500)
   else:
-    A2.aplica(pg);w(200);pg.evaluate("()=>window.__LF.lfToast('Cartão de 10% na conta da Ana','ok')");w(700)
-    pg.evaluate("()=>{const e=[...document.querySelectorAll('body *')].filter(e=>/^Cartão de 10% na conta da Ana$/.test(e.textContent.trim())).pop();let t=e;while(t&&t.parentElement&&getComputedStyle(t).position!='fixed')t=t.parentElement;[t,e].forEach(x=>{x.style.setProperty('background','var(--panel2)','important');x.style.setProperty('color','var(--fg)','important');x.style.setProperty('border-color','var(--line)','important')})}")
+    A2.aplica(pg);w(200);pg.evaluate("()=>window.__LF.lfToast('Presente de 10% na conta da Ana','ok')");w(700)
+    pg.evaluate("()=>{const e=[...document.querySelectorAll('body *')].filter(e=>/^Presente de 10% na conta da Ana/.test(e.textContent.trim())).pop();let t=e;while(t&&t.parentElement&&getComputedStyle(t).position!='fixed')t=t.parentElement;[t,e].forEach(x=>{x.style.setProperty('background','var(--panel2)','important');x.style.setProperty('color','var(--fg)','important');x.style.setProperty('border-color','var(--line)','important')})}")
   w(300);pg.screenshot(path='/tmp/e96f.png');b.close();im=Image.open('/tmp/e96f.png');im.load();return im.copy()
 with sync_playwright() as pw:
   for esc in (True,False):
     n='escuro' if esc else 'claro'
     quadro('esboco_96e_cartoes_ativos_%s.jpg'%n,[('PROPOSTA · Marketing › Cartões',n+' · "Cartões ativos" (era "Códigos ativos")',tela(pw,esc,CART2,'Cartões')),('PROPOSTA · Cartões ativos',n+' · por cliente · sem código · sem "Aplicar no pedido"',tela(pw,esc,LISTA,'Lista'))])
-    quadro('esboco_96f_depois_da_venda_%s.jpg'%n,[('HOJE · depois da venda',n+' · janela com código, WhatsApp e QR',venda(pw,esc,0)),('PROPOSTA · depois da venda',n+' · o cartão já foi para a conta dela',venda(pw,esc,1))])
+    quadro('esboco_96f_depois_da_venda_v2_%s.jpg'%n,[('HOJE · depois da venda',n+' · janela com código, WhatsApp e QR',venda(pw,esc,0)),('PROPOSTA · depois da venda',n+' · o cartão já foi para a conta dela',venda(pw,esc,1))])
 for n,f in REL: print(n,f)
