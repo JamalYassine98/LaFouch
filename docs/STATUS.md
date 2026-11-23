@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09m: cor do logo suavizada para o Comprar | work/ideias/09-botoes/ |
 
 ## Fila
 
