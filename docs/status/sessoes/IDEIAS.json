@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "13 Mochi recusado",
- "arquivos": [
-  "work/ideias/13-mochi/",
-  "work/obsoletos/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795456001.0604959,
+   "r": "13 Mochi recusado e guardado em obsoletos"
+  },
   {
    "t": 1795455944.8828375,
    "r": "13: Mochi luxuoso (com braços) enviado; causa dos braços anotada"
@@ -41,10 +42,6 @@
   {
    "t": 1795444981.769148,
    "r": "bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento"
-  },
-  {
-   "t": 1795444169.5474238,
-   "r": "Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE"
   }
  ],
  "leu": 1795455635.1393123
