@@ -35,7 +35,7 @@
 - **100-botao-principal** — decidido 23/11 11:25: continua só contorno (o design fica, só a cor muda)
 - **101-so-a-cor-oficial** — aprovado 23/11 11:28 — vale para toda implementação (APP avisada)
 - **102-natal-luxo** — superado pelo 103 (23/11 13:25)
-- **103-natal-e-kits** — v2 alinhado — esperando o dono
+- **103-natal-e-kits** — aprovado 23/11 13:24 — espera o 'implementar'
 - **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — ✅ publicado 20/11 13:58 (run 44777476972: funções + regras; limpeza do token rodada na hora; sonda 0 falhas) — usuarios/ fechada, token só em reservasTok
 - **12-p1b-orfas-nuvem-dono-implementar-16-12-e** — ✅ publicado pelo dono 19/11 16:21; conferido: `orfas` sem login = sem-permissao · NUVEM · pedido 19/11 16:12
 - **13-p1b-orfas-app-depois-do-item-12-publicad** — ✅ v567 (19/11) · APP · pedido 19/11 16:12
