@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 2 · Ajustes aprovado, ⏻ nas telas (Pedidos, Preços), Fornecedores 89b | src/96-ajustes.js, src/97-ajustes-lista.js, src/97-pagamento-auto.js, src/95-pedidos.js, src/97z3-precos.js, src/52-lotes.js, www/style.css |
-| IDEIAS | 12f enfeites de traço + frase do Halloween | work/ideias/12-tematica-base |
 
 ## Fila
 
@@ -204,6 +203,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
 - 23/11 16:56 — IDEIAS: 12e aprovado nas 6 datas
 - 23/11 16:54 — IDEIAS: 12e: BF e Halloween levemente clareados
 - 23/11 16:44 — IDEIAS: 12e: 3 ajustes nas 6 datas + comparador (0 falha nova)
@@ -214,7 +214,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 15:21 — IDEIAS: 12c: vitrine da data nas 6 datas enviada
 - 23/11 14:46 — IDEIAS: 13 Mochi recusado e guardado em obsoletos
 - 23/11 14:45 — IDEIAS: 13: Mochi luxuoso (com braços) enviado; causa dos braços anotada
-- 23/11 14:33 — IDEIAS: 12b: faixas com frase de efeito do olhar, sem promessa de entrega
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
