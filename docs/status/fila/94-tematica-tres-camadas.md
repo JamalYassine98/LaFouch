@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (12 + 12b campanha forte nas 6 datas, fundo branco)
-Identidade fixa (botões na cor da marca, fundo branco); a data no conteúdo: faixa, campanha, seleção, gesto, Mochi. work/ideias/12-tematica-base/
+esboço pronto — esperando o dono (12c: a vitrine da data)
+Loja branca e na cor da marca; a data ganha a vitrine (fundo profundo da data, linhas douradas, arco branco, Mochi aprovado). work/ideias/12-tematica-base/esboco-12c-*
