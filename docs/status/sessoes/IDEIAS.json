@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08f: menu celular com 5 itens (como a Madë)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795396179.1692412,
+   "r": "08f: menu celular 5 itens (como a Madë)"
+  },
   {
    "t": 1795395847.927815,
    "r": "08e: menu celular uma letra/um tamanho (como a Madë)"
@@ -40,10 +42,6 @@
   {
    "t": 1795375893.139543,
    "r": "IDEIAS 07: ilustração da caixa de presente"
-  },
-  {
-   "t": 1795375704.8466632,
-   "r": "IDEIAS 07 v5: sacola com cordão (modelo da referência) e nosso design"
   }
  ],
  "leu": 1795388650.001632
