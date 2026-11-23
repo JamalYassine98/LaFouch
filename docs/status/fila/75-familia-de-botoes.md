@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (09g: 5 propostas só do Comprar)
-Princípio: vinho do logo = cor dos botões (como o app, 81). Primeiro o Comprar: A liso · B etiqueta · C degradê refinado · D Fraunces · E estojo. work/ideias/09-botoes/comprar/
+esboço pronto — esperando o dono (09h: Comprar em cores suaves F–J)
+Comprar: F rosé · G malva · H rosé seda · I nude · J pó de rosa. work/ideias/09-botoes/comprar/esboco-09h-comprar-suave.jpg
