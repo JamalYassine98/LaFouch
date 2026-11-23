@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 10: padronizar as cores (cor oficial CMYK) + esboço acetinado | work/ideias/10-cores/, work/ideias/09-botoes/ |
 
 ## Fila
 

@@ -1,7 +1,10 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "10: padronizar as cores (cor oficial CMYK) + esboço acetinado",
+ "arquivos": [
+  "work/ideias/10-cores/",
+  "work/ideias/09-botoes/"
+ ],
  "ultimas": [
   {
    "t": 1795440358.5948489,
@@ -44,5 +47,5 @@
    "r": "09k: botões de 6 marcas de luxo (redesenhados das medidas publicadas) × Hoje × N2 enviados"
   }
  ],
- "leu": 1795440197.407328
+ "leu": 1795441071.7498705
 }
