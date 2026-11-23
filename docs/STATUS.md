@@ -151,6 +151,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 22:47 — IDEIAS: 08g APROVADO (Fila 73) — guardado na lista viva e na memória
 - 22/11 22:46 — IDEIAS: 08g: menu F em Fraunces 400 (identidade) + achado da fonte 600 no simulador
 - 22/11 22:41 — IDEIAS: 08f em branco (padrão sem evento) + correção do dono no 06: creme só nos eventos
 - 22/11 22:21 — IDEIAS: 08f: menu sem evento + rodapé com coluna Descubra e idioma
@@ -161,7 +162,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 21:38 — IDEIAS: 08b: menu celular A e B + PC só Descubra com janelinha + idioma no rodapé (Fila 73)
 - 22/11 20:43 — IDEIAS: 08: esboço menu enxuto + topo PC com janelinhas (Fila 73)
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
-- 22/11 20:05 — IDEIAS: 08: estudo menu/abertura (Madë, Gentle Monster, JMM, Oliver Peoples) — propostas ao dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
