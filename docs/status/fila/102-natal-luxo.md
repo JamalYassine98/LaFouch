@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (substitui a janela do 99d v2)
+v2 (cartão = o do site; toda data com ›) — esperando o dono
 
