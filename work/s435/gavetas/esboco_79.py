@@ -7,6 +7,8 @@
 # v3 (dono 22:54–22:55): por que dividir em dois? → UM botão 'Retirar' com 'Para quê': Para mim (sai do Pode tirar) · Imprevisto da
 # loja · Imprevisto pessoal (saem primeiro da caixinha); o Titan mostra de onde sai antes de salvar. A caixinha na tela é só para
 # acompanhar (sem ›, sem botão).
+# v4 (dono 22:58): a barra É bonita — o erro foi o MEU: usei .adSeg (outra peça) espremida numa linha. Volta a barra do app (.trk, a
+# mesma do Pagamento: título pequeno em cima e a barra na largura toda): Para mim · Loja · Pessoal.
 # Sai a conta fixa 'Provisão de imprevistos' (G$ 200.000) — a caixinha a substitui.
 # Base: app real — Caixa › 'Retirada do dono' (src/57-financas.js retiradaHtml, src/95-caixa.js:277) e resultadoMes(nov/2026) REAL:
 # vendas 6.569.000 · custo das peças 1.888.004 · taxas 36.270 · contas da loja 1.320.000 · salário 1.500.000 · imprevisto 60.000
@@ -37,13 +39,12 @@ def janela(pw,esc,k):
    const O=(t,s,on)=>'<button type="button" class="pxL" role="radio" aria-checked="'+on+'" style="min-height:60px"><i class="pxR" aria-hidden="true"></i><span style="flex:1;min-width:0"><span style="display:block;font-size:15px">'+t+'</span><small style="display:block;font-size:13px;color:var(--mute)">'+s+'</small></span></button>';
    const T2=t=>'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:16px 0 0">'+t+'</div>';
    const P=k=='mim';
-   return F('O que foi',P?'Mercado':'Compressor do carro')+F('Valor',P?'G$ 200.000':'G$ 3.300.000')+T2('Para quê')+
-    O('Para mim','mercado, escola, o que for seu',P)+O('Imprevisto da loja','imposto novo, manutenção',false)+O('Imprevisto pessoal','carro, saúde, casa',!P)+
-    T2('O Titan tira daqui · preços não mudam')+
+   return F('O que foi',P?'Mercado':'Compressor do carro')+F('Valor',P?'G$ 200.000':'G$ 3.300.000')+'<div class="lbl" style="margin-top:16px">Para quê</div><div class="trk" role="group" aria-label="Para quê"><span class="trkTh"></span><button class="trkB'+(P?' on':'')+'" type="button">Para mim</button><button class="trkB" type="button">Loja</button><button class="trkB'+(P?'':' on')+'" type="button">Pessoal</button></div>'+
+    '<div style="font-size:13px;color:var(--mute);padding:8px 0 0">'+(P?'mercado, escola, o que for seu':'imprevisto · sai primeiro da caixinha')+'</div>'+T2('O Titan tira daqui · preços não mudam')+
     (P?L('Do Pode tirar','sobram G$ 170.000 em novembro','G$ 200.000'):L('Da caixinha · fica vazia','','G$ 730.000')+L('Do Pode tirar','G$ 370.000 agora e o resto em uns 3 meses','G$ 2.570.000','var(--warn,#e0b44c)'))+
     '<button type="button" class="go" style="width:100%;margin-top:16px">Salvar</button>'}""",k)
   pg.evaluate("""()=>{const S=window.__LF.S;S.pixSemPar=[{id:'x',moeda:'brl',valor:1,ts:Date.now(),motivo:'sem-pedido'}];window.__LF.ACT.pixLigar('x')}""");w(900)
-  pg.evaluate("""h=>{const j=[...document.querySelectorAll('.ljJn')].pop();j.querySelector('.ljHd b').textContent='Retirar';const c=j.querySelector('.ljCorpo')||j;c.innerHTML=h}""",html);w(700)
+  pg.evaluate("""h=>{const j=[...document.querySelectorAll('.ljJn')].pop();j.querySelector('.ljHd b').textContent='Retirar';const c=j.querySelector('.ljCorpo')||j;c.innerHTML=h;const t=c.querySelector('.trk'),o=t.querySelector('.trkB.on'),th=t.querySelector('.trkTh');th.style.cssText='width:'+o.offsetWidth+'px!important;transform:translateX('+(o.offsetLeft-3)+'px)!important;left:3px!important'}""",html);w(700)
   confere(pg,'Janela '+k);pg.evaluate("k=>{document.querySelectorAll('*').forEach(e=>{if(e.scrollTop)e.scrollTop=0});if(k!='mim'){const j=[...document.querySelectorAll('.ljJn')].pop();[j,...j.querySelectorAll('*')].forEach(e=>{if(e.scrollHeight>e.clientHeight+4)e.scrollTop=9999})}}",k);w(400)
   pg.screenshot(path='/tmp/g2.png');b.close();return Image.open('/tmp/g2.png').convert('RGB')
 if __name__=='__main__':
