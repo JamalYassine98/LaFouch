@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 2 · Ajustes aprovado, ⏻ nas telas (Pedidos, Preços), Fornecedores 89b | src/96-ajustes.js, src/97-ajustes-lista.js, src/97-pagamento-auto.js, src/95-pedidos.js, src/97z3-precos.js, src/52-lotes.js, www/style.css |
+| IDEIAS | 12f enfeites de traço + frase do Halloween | work/ideias/12-tematica-base |
 
 ## Fila
 
