@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (08k2: Minha conta pela mesma camada)
-Camadas pelo lado do botão; 08k2 corrige a conta (entrada e saída iguais ao carrinho). work/ideias/08-menu-luxo/esboco-08k2-lado-celular.mp4
+aprovado 23/11 11:28 (08k + 08k2) — espera o 'implementar' (SITE)
+work/ideias/08-menu-luxo/COMO-FAZER.md (08k, 08k2)
