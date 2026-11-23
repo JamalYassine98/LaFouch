@@ -170,6 +170,7 @@
 - para **NUVEM**: PEDIDO DO DONO (23/11 11:42): mandar à ESBOCO os CUPONS REAIS para os esboços ficarem realistas (hoje uso ilustração). Por favor: um arquivo no repositório (ex.
 - para **NUVEM**: CORREÇÃO do meu pedido de 11:42 (entendi errado): o dono NÃO quer os dados dos cupons — quer o DESIGN REAL dos cartões/cupons (como o cliente vê: cartão pessoal
 - para **NUVEM**: LEMBRETE (dono 13:24 perguntou de novo): o design REAL dos cartões/cupons (pedido 11:45) — HTML/CSS + imagem de cada tipo (Boas-vindas, Próxima compra, Amiga, F
+- para **NUVEM**: PERGUNTAS DO DONO (23/11 13:39) — responda em texto simples, sem mexer em nada ainda: (1) No caixa, quando eu aplico um cupom da CONTA da cliente (janela Descon
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
