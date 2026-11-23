@@ -4,7 +4,9 @@
 #   (rosa em Ajustes, cinza no resto) → UM rótulo: 12 px, peso 600, espaço .14em, cinza (aprovado 37b, 21/11: rótulos cinza).
 # · linhas de lista: 14 alturas (44 a 109 px) e o texto principal em 8 tamanhos/pesos → UMA linha: título 16 px peso 500, frase 13 px cinza;
 #   altura 56 (uma linha de texto) ou 64 (título + frase) — múltiplos de 8 (L3). Números grandes (valores) ficam como dado.
-# · Ajustes na proposta: sem Preços/Preço automático/Contas, taxas e meta (aprovados 46d/54/62: Preços é do Titan).
+# · v2 (dono 00:43: 'está usando modelos antigos'): Ajustes no estado APROVADO (22/11 01:28 + 21:56 + 46): só Contas ligadas (Instagram ·
+#   Cópias e nuvem) e Este aparelho (Impressora · Tema · Segurança · Sons e avisos · Atualização); saem Marca, Site, Pedidos do site, Preços,
+#   Pagamento automático e o bloco Loja. (aprovados.ajustes)
 # · subtítulo 'Aparelho, loja, site e segurança.' sai (descrição inútil, mesma regra do 70/54/83).
 # · Despesas leva o aprovado 79: 'Salário' vira 'Dia a dia do dono'; sai 'Provisão de imprevistos' (a caixinha substitui) → contas G$ 4.000.000,
 #   cada peça separa G$ 21.390 (4.000.000 ÷ 187). Histórico: a frase da linha não pode quebrar (L4) → 'lucro' no lugar de 'lucro livre'.
@@ -30,7 +32,7 @@ def cena(pw,esc,prop,v):
   b,pg,w=ap.abre(pw,v,esc,'celular',base=prop);w(1000)
   if prop:
     aprovados.aplica(pg)
-    if v=='ajustes': pg.add_style_tag(content='#v-ajustes .ajS[data-k=preco],#v-ajustes .ajS[data-k=pa],#v-ajustes .paCard,#v-ajustes .fxF{display:none!important}');pg.evaluate("()=>{const c=[...document.querySelectorAll('#v-ajustes *')].find(e=>e.children.length==0&&/^Aparelho, loja, site e segurança/.test(e.textContent.trim()));c&&c.remove()}");w(300)
+    if v=='ajustes': aprovados.ajustes(pg)
     if v=='desp': pg.evaluate(DESP);w(300)
     if v=='hist': pg.evaluate("()=>{document.querySelectorAll('#v-hist small, #v-hist .hint, #v-hist span, #v-hist div').forEach(e=>{if(e.children.length==0&&/lucro livre/.test(e.textContent))e.textContent=e.textContent.replace('lucro livre','lucro')});document.querySelectorAll('#v-hist *').forEach(e=>{if(e.children.length<=3&&/· 1 outro ·/.test(e.textContent)&&e.children.length==0)e.textContent=e.textContent.replace(' 1 outro ·','')})}");w(300)
     pg.evaluate(REGRA);w(400)

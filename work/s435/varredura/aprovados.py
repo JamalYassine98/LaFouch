@@ -13,3 +13,17 @@ def aplica(pg):
   pg.add_style_tag(content=LINHA)
   pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO)
   pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');pg.wait_for_timeout(300);pg.evaluate(ALIN);pg.wait_for_timeout(200)
+
+# AJUSTES no estado APROVADO (22/11 01:28 'cada ajuste mora na tela do assunto' + 21:56 Marca só no Marketing + 46 sem Preços/Pagamento
+# automático): Ajustes = só gerais — CONTAS LIGADAS: Instagram · Cópias e nuvem · ESTE APARELHO: Impressora · Tema · Segurança · Sons e avisos ·
+# Atualização. Saem Marca, Site, Pedidos do site, Preços (e Preço automático / Contas, taxas e meta), Pagamento automático, e o bloco LOJA.
+AJUSTES_CSS='#v-ajustes .ajS[data-k=marca],#v-ajustes .ajS[data-k=site],#v-ajustes .ajS[data-k=ped],#v-ajustes .ajS[data-k=preco],#v-ajustes .ajS[data-k=pa],#v-ajustes .ajS[data-k=pauto],#v-ajustes .paCard,#v-ajustes .fxF{display:none!important}'
+AJUSTES_JS=r"""()=>{const v=document.getElementById('v-ajustes');if(!v)return;
+ v.querySelectorAll('.ajBl').forEach(b=>{const t=b.querySelector('.ajBt');if(t&&/^loja$/i.test(t.textContent.trim()))b.style.setProperty('display','none','important')});
+ const c=[...v.querySelectorAll('*')].find(e=>e.children.length==0&&/^Aparelho, loja, site e segurança/.test(e.textContent.trim()));c&&c.remove();
+ [...v.querySelectorAll('*')].filter(e=>e.children.length==0&&/^Versão [\d.]+$/.test(e.textContent.trim())&&!e.closest('.ajS')).forEach(e=>e.remove());
+ const bk=v.querySelector('.ajS[data-k=bk]');if(bk&&!v.querySelector('.ajS[data-k=ig]')){const ig=bk.cloneNode(true);ig.dataset.k='ig';ig.querySelectorAll('.ajB,.ajBi').forEach(x=>x.remove());
+  ig.querySelector('.ajR b').textContent='Instagram';const r=ig.querySelector('.ajRes');if(r){r.textContent='não ligado';r.style.color='var(--mute)'}
+  const s=ig.querySelector('.ajIc svg');if(s)s.innerHTML='<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>';bk.parentNode.insertBefore(ig,bk)}}"""
+def ajustes(pg):
+  pg.add_style_tag(content=AJUSTES_CSS);pg.evaluate(AJUSTES_JS);pg.wait_for_timeout(200)
