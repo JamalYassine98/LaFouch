@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (v3 + telas finais 09d)
-Família v3 aplicada nas telas reais: preto, vinho só em Comprar/Prosseguir/Finalizar; sem verde, degradê nem ícone dentro; comparador 0 falha (celular e PC). work/ideias/09-botoes/esboco-09d-* + COMO-FAZER
+esboço pronto — esperando o dono (09e: A vinho liso · B degradê só no dinheiro · C degradê em todo principal)
+3 propostas de identidade com ícones de volta; Sair/Excluir/Cédula originais; Cancelar pedido aprovado. work/ideias/09-botoes/esboco-09e-propostas-identidade.jpg + COMO-FAZER
