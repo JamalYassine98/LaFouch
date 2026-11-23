@@ -150,6 +150,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 22:13 — IDEIAS: 08f: conta no pé do menu recusada pelo dono; voltou à F de 5 itens
 - 22/11 22:09 — IDEIAS: 08f: menu celular 5 itens (como a Madë)
 - 22/11 22:04 — IDEIAS: 08e: menu celular uma letra/um tamanho (como a Madë)
 - 22/11 21:53 — IDEIAS: 08c: base corrigida (BF preto 06e) + menu C e A suave
@@ -162,7 +163,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
 - 22/11 17:22 — IDEIAS: 05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë
 - 22/11 17:13 — IDEIAS: 05d: vídeo do celular com a curva da Madë (0,7 s) × aprovado; na Fila 61b
-- 22/11 16:31 — IDEIAS: IDEIAS 07: ilustração da caixa de presente
 - 22/11 15:42 — APP: Item 65 quase todo publicado (v626–v628); 65d e a saída do Giro dependem de resposta/66; 68 parado pelo ESBOCO; reserva suspeita espera esboço.
 - 22/11 15:42 — APP: Item 65: v626 páginas + Parados e sobrando + Contar o estoque; v627 filtros Site + escolhas que cabem + balão B; v628 Dashboard Detalhes. 65d parado (dúvida). Giro sai com o 66.
 - 22/11 15:25 — NUVEM: Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan.
