@@ -120,7 +120,7 @@
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
-- **78-cupons-no-caixa** — esboço pronto — esperando o dono (Carrinho: O Semp sugere · o Titan conferiu + Código do cliente + 'costuma fechar com X%'; work/s435/caixa/)
+- **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
 
 ## Recados esperando
 
