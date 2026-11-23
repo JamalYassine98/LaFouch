@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09: inventário dos botões do site (família de botões)",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795405027.0379999,
+   "r": "09: inventário dos botões (29 desenhos → 4 tipos)"
+  },
   {
    "t": 1795404629.871454,
    "r": "08m parte 2 (conta e carrinho) APROVADA — guardada"
@@ -40,10 +42,6 @@
   {
    "t": 1795401760.4490964,
    "r": "08k: camadas do lado do botão com fio vinho + dois tempos (vídeos)"
-  },
-  {
-   "t": 1795401127.6507204,
-   "r": "08j: vídeos abrindo busca/conta/carrinho (pacote final, branco) + achado do desfoque preso no PC (conserto = saída no lugar do 05d)"
   }
  ],
  "leu": 1795388650.001632
