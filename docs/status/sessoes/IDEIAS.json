@@ -1,12 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "10 aprovado + 11: formato de luxo do botão",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md",
-  "work/ideias/11-formato/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795442068.1607265,
+   "r": "Cores do 10 aprovadas e guardadas (recado às sessões) + 11: 6 formatos de botão enviados"
+  },
   {
    "t": 1795441426.343266,
    "r": "10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões"
@@ -42,10 +42,6 @@
   {
    "t": 1795435104.508693,
    "r": "09m: Comprar com a cor do logo suavizada enviado"
-  },
-  {
-   "t": 1795434999.3755229,
-   "r": "09l: Comprar N3 (N2 na cor do logo) enviado"
   }
  ],
  "leu": 1795441987.0872908
