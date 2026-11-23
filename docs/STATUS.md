@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 10 aprovado + 11: formato de luxo do botão | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md, work/ideias/11-formato/ |
 
 ## Fila
 

@@ -1,7 +1,11 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "10 aprovado + 11: formato de luxo do botão",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md",
+  "work/ideias/11-formato/"
+ ],
  "ultimas": [
   {
    "t": 1795441426.343266,
@@ -44,5 +48,5 @@
    "r": "09l: Comprar N3 (N2 na cor do logo) enviado"
   }
  ],
- "leu": 1795441071.7498705
+ "leu": 1795441987.0872908
 }
