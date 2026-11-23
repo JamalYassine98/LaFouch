@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 11: formato Lente aprovado | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md, work/ideias/11-formato/ |
 
 ## Fila
 
