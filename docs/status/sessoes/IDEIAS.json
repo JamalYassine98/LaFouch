@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08h: 3 propostas do idioma no rodapé",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795398675.4372313,
+   "r": "08h: 3 propostas do idioma no rodapé"
+  },
   {
    "t": 1795398509.0210032,
    "r": "08: enviado o que já existia (regra 9), sem gerar de novo"
@@ -40,10 +42,6 @@
   {
    "t": 1795395183.2177892,
    "r": "08c: base corrigida (BF preto 06e) + menu C e A suave"
-  },
-  {
-   "t": 1795394336.5365012,
-   "r": "08b: menu celular A e B + PC só Descubra com janelinha + idioma no rodapé (Fila 73)"
   }
  ],
  "leu": 1795388650.001632
