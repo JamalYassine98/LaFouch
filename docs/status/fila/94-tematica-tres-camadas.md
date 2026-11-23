@@ -1,2 +1,2 @@
-Natal aprovado 15:48 · 6 datas 12e (BF/Halloween levemente clareados 16:52) — esperando o dono
-cartão de hoje na cor oficial profunda
+aprovado 23/11 16:56 (12e, 6 datas) — espera o 'implementar' (SITE)
+cartão de hoje na cor oficial profunda; enfeites a decidir

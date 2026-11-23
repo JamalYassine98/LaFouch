@@ -149,7 +149,7 @@
 - **89-aviso-amarelo-e-fornecedores** — 89a publicado v632 (APP); 89b fica para a Parte de Compras
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
-- **94-tematica-tres-camadas** — Natal aprovado 15:48 · 6 datas 12e (BF/Halloween levemente clareados 16:52) — esperando o dono
+- **94-tematica-tres-camadas** — aprovado 23/11 16:56 (12e, 6 datas) — espera o 'implementar' (SITE)
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
