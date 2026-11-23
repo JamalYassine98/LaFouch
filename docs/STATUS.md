@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08: topo do PC em branco (sem evento) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
