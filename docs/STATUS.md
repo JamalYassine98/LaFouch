@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | bug: destaque mexe ao fechar o menu (08k2) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
@@ -198,6 +197,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 11:43 — IDEIAS: bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento
 - 23/11 11:29 — IDEIAS: Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE
 - 23/11 11:22 — IDEIAS: 08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)
 - 23/11 11:07 — IDEIAS: Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados
@@ -207,7 +207,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 10:25 — IDEIAS: Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)
 - 23/11 10:23 — IDEIAS: Família de botões do site APROVADA (Fila 75): P1 suave acetinado
 - 23/11 10:17 — IDEIAS: 09r: Comprar fosco × acetinado enviado
-- 23/11 09:54 — IDEIAS: 09q: família P1 suave aplicada em 12 telas enviada
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

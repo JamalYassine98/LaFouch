@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "bug: destaque mexe ao fechar o menu (08k2)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795444981.769148,
+   "r": "bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento"
+  },
   {
    "t": 1795444169.5474238,
    "r": "Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE"
@@ -40,10 +42,6 @@
   {
    "t": 1795439858.8259954,
    "r": "09r: Comprar fosco × acetinado enviado"
-  },
-  {
-   "t": 1795438485.3520858,
-   "r": "09q: família P1 suave aplicada em 12 telas enviada"
   }
  ],
  "leu": 1795444148.6389084
