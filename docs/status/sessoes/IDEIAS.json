@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09i: Comprar rosé mais luxuoso na cor do logo",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795434351.0634067,
+   "r": "09i: Comprar rosé/seda na cor do logo (K–O) enviado"
+  },
   {
    "t": 1795433677.0659432,
    "r": "09h: Comprar em 5 cores suaves enviado"
@@ -40,10 +42,6 @@
   {
    "t": 1795404566.1981716,
    "r": "08m parte 2: conta e carrinho no padrão"
-  },
-  {
-   "t": 1795403864.922351,
-   "r": "08l parte 1 (busca) APROVADA — guardada na lista viva e na memória"
   }
  ],
  "leu": 1795432245.6583207
