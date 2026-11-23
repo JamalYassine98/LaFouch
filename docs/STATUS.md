@@ -138,6 +138,7 @@
 - **87-cores-padronizadas** — aprovado 23/11 10:52 — espera o 'implementar' (SITE e APP)
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
+- **88-formato-do-botao** — esboço pronto — esperando o dono
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
