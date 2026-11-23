@@ -133,7 +133,7 @@
 - **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
-- **87-varredura-pilulas** — esboço pronto — esperando o dono (Sons e avisos: uma linha por aviso + janela Som; Preencher à mão já resolvido no 44; work/s435/varredura/pilulas/)
+- **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 
 ## Recados esperando
 
