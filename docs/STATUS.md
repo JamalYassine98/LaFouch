@@ -148,6 +148,7 @@
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
+- **94-tematica-tres-camadas** — esboço pronto — esperando o dono
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'
