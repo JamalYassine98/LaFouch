@@ -1,2 +1,2 @@
-v6 (Usar centrado no cartão da 3ª peça) — esperando o dono
+aprovado 23/11 13:37 (v6) — espera o 'implementar'
 
