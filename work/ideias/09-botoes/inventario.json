@@ -1,0 +1,2330 @@
+[
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "16px 400"
+  ],
+  "telas": [
+   "Ajuda",
+   "Atacado",
+   "Aviso adicionado",
+   "Aviso de cancelar",
+   "Busca",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Consulta do grau",
+   "Entrar",
+   "Filtros",
+   "Formato do rosto",
+   "Início",
+   "Janela da câmera",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Peça",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "+595",
+   "0",
+   "1",
+   "Alongado Combina: grandes e largas ›",
+   "Coração Combina: aviador ou leves ›",
+   "Diamante Combina: gatinho ou ovais ›",
+   "Oval Combina: quase qualquer formato ›",
+   "Paraguaio",
+   "Quadrado Combina: arredondadas ou ovais ›",
+   "Redondo Combina: retangulares ou angulares ›"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b000.png",
+    "0"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b046.png",
+    "1"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b067.png",
+    "Oval Combina: quase qualquer formato ›"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.ib lxpos lx44 lxb#bagbtn",
+   "i": "8",
+   "t": "0",
+   "tipo": "texto",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 40,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   "",
+   "rgb(141, 58, 105)",
+   "1px rgb(141, 58, 105)",
+   "pílula",
+   42,
+   "15px 500"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Busca",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "Ver modelo"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b037.png",
+    "Ver modelo"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.p1 lx44#",
+   "i": "63",
+   "t": "Ver modelo",
+   "tipo": "contorno",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 42,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "15px 500"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Busca",
+   "Carrinho",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "Continuar comprando",
+   "Ver catálogo ›",
+   "Ver todos os 11 resultados"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b038.png",
+    "Ver catálogo ›"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b039.png",
+    "Ver todos os 11 resultados"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b053.png",
+    "Continuar comprando"
+   ]
+  ],
+  "x": {
+   "cls": "A.p2 lx44#",
+   "i": "64",
+   "t": "Ver catálogo ›",
+   "tipo": "texto",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 18",
+   168,
+   "16px 400"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Busca",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "Armações",
+   "Solar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b003.png",
+    "Solar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b004.png",
+    "Armações"
+   ]
+  ],
+  "x": {
+   "cls": "A.#",
+   "i": "73",
+   "t": "Solar",
+   "tipo": "cheio",
+   "forma": "cantos 18",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 169,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "15px 600"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Aviso de cancelar",
+   "Busca",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Peça",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "Ver todas ›",
+   "Ver todos ›"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b005.png",
+    "Ver todos ›"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b027.png",
+    "Ver todas ›"
+   ]
+  ],
+  "x": {
+   "cls": "A.lx44#",
+   "i": "75",
+   "t": "Ver todos ›",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 17,
+   "letra": "15px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 16",
+   222,
+   "16px 400"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Busca",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "LaFouch · acetato AC1055 R$ 100",
+   "LaFouch · acetato GR3340 R$ 95",
+   "LaFouch · acetato GR3345 R$ 90",
+   "LaFouch · acetato GR3350 R$ 120",
+   "LaFouch · quadrado SL2250 R$ 140",
+   "Última unidade LaFouch · metal BR44145 R$ 115",
+   "Últimas 3 unidades LaFouch · acetato AC1050 R$ 5"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b006.png",
+    "LaFouch · acetato AC1055 R$ 100"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b007.png",
+    "Última unidade LaFouch · metal BR44145 R$ 115"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b008.png",
+    "LaFouch · acetato GR3340 R$ 95"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.hc#",
+   "i": "76",
+   "t": "LaFouch · acetato AC1055 R$ 100",
+   "tipo": "cheio",
+   "forma": "cantos 16",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 227,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 18",
+   126,
+   "16px 400"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Busca",
+   "Consulta do grau",
+   "Entrar",
+   "Início",
+   "Mapa",
+   "Menu",
+   "Meus pedidos",
+   "Minha conta",
+   "Pagar pedido",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "ESTILO A armação ideal para o seu rosto",
+   "TESTE DE LEITURA Descubra seu grau em 1 min"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b009.png",
+    "TESTE DE LEITURA Descubra seu grau em 1 min"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b010.png",
+    "ESTILO A armação ideal para o seu rosto"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.#",
+   "i": "86",
+   "t": "TESTE DE LEITURA Descubra seu grau em 1 min",
+   "tipo": "cheio",
+   "forma": "cantos 18",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 131,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "15px 600"
+  ],
+  "telas": [
+   "Ajuda",
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Fazer o teste ›",
+   "Início",
+   "‹ Ajuda"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b011.png",
+    "Início"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b083.png",
+    "‹ Ajuda"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b084.png",
+    "Fazer o teste ›"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.navb vback lx44#",
+   "i": "112",
+   "t": "Início",
+   "tipo": "texto",
+   "forma": "cantos 10",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "14px 500"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Filtros ›"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b012.png",
+    "Filtros ›"
+   ]
+  ],
+  "x": {
+   "cls": "A.lfgf lxpos lx44 lxb#",
+   "i": "113",
+   "t": "Filtros ›",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 16,
+   "letra": "14px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "15px 500"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Todos"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b013.png",
+    "Todos"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.on lxpos lx44 lxb#",
+   "i": "116",
+   "t": "Todos",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "15px 500"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Feminino",
+   "Masculino",
+   "Unissex"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b014.png",
+    "Feminino"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b015.png",
+    "Masculino"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b016.png",
+    "Unissex"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lxpos lx44 lxb#",
+   "i": "117",
+   "t": "Feminino",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "14px 700"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Como chegar ›",
+   "Ver mais"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b017.png",
+    "Como chegar ›"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b023.png",
+    "Ver mais"
+   ]
+  ],
+  "x": {
+   "cls": "A.mp lx44#",
+   "i": "138",
+   "t": "Como chegar ›",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 18,
+   "letra": "14px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "14px 400"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Armações",
+   "Atacado",
+   "Dicas e cuidados",
+   "Dúvidas frequentes",
+   "Entre em contato",
+   "Leitura",
+   "Limpar filtros",
+   "Ofertas",
+   "Seu formato",
+   "Seu grau",
+   "Solar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b018.png",
+    "Solar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b019.png",
+    "Leitura"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b020.png",
+    "Armações"
+   ]
+  ],
+  "x": {
+   "cls": "A.lx44#",
+   "i": "139",
+   "t": "Solar",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 16,
+   "letra": "14px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "12px 400"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Carrinho",
+   "Catálogo",
+   "Comparar",
+   "Filtros",
+   "Peça"
+  ],
+  "textos": [
+   "Português ›"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b021.png",
+    "Português ›"
+   ]
+  ],
+  "x": {
+   "cls": "A.l8lg#",
+   "i": "149",
+   "t": "Português ›",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 18,
+   "letra": "12px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "16px 600"
+  ],
+  "telas": [
+   "Atacado",
+   "Aviso adicionado",
+   "Formato do rosto",
+   "Janela da câmera",
+   "Pagar pedido",
+   "Peça"
+  ],
+  "textos": [
+   "Armações",
+   "Início",
+   "Minha conta"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b022.png",
+    "Armações"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b065.png",
+    "Início"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b097.png",
+    "Minha conta"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.pgback navb lx44#",
+   "i": "170",
+   "t": "Armações",
+   "tipo": "texto",
+   "forma": "cantos 10",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 42,
+   "letra": "16px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "24px 400"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Peça"
+  ],
+  "textos": [
+   "+",
+   "−"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b024.png",
+    "−"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b025.png",
+    "+"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lx44#",
+   "i": "178",
+   "t": "−",
+   "tipo": "texto",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 48,
+   "letra": "24px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(255, 255, 255)",
+   "16px 700"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Peça"
+  ],
+  "textos": [
+   "Comprar · R$ 95"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b026.png",
+    "Comprar · R$ 95"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.bb p#",
+   "i": "180",
+   "t": "Comprar · R$ 95",
+   "tipo": "texto",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "",
+   "alt": 50,
+   "letra": "16px 700",
+   "img": true
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 14",
+   180,
+   "16px 400"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Peça"
+  ],
+  "textos": [
+   "LaFouch · acetato AC1050 R$ 5",
+   "LaFouch · acetato AC1055 R$ 100",
+   "LaFouch · acetato GR3345 R$ 90",
+   "LaFouch · acetato GR3350 R$ 120",
+   "LaFouch · metal BR44145 R$ 115"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b028.png",
+    "LaFouch · acetato AC1050 R$ 5"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b029.png",
+    "LaFouch · acetato GR3350 R$ 120"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b030.png",
+    "LaFouch · acetato GR3345 R$ 90"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.ri#",
+   "i": "182",
+   "t": "LaFouch · acetato AC1050 R$ 5",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 183,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "13px 500"
+  ],
+  "telas": [
+   "Aviso adicionado",
+   "Peça"
+  ],
+  "textos": [
+   "Armações",
+   "Catálogo"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b031.png",
+    "Catálogo"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b032.png",
+    "Armações"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lx44#",
+   "i": "192",
+   "t": "Catálogo",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 42,
+   "letra": "13px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "20px 400"
+  ],
+  "telas": [
+   "Menu"
+  ],
+  "textos": [
+   "Armações",
+   "Descubra ›",
+   "Leitura",
+   "Ofertas",
+   "Solar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b033.png",
+    "Solar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b034.png",
+    "Leitura"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b035.png",
+    "Armações"
+   ]
+  ],
+  "x": {
+   "cls": "A.#",
+   "i": "37",
+   "t": "Solar",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 58,
+   "letra": "20px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "17px 400"
+  ],
+  "telas": [
+   "Menu"
+  ],
+  "textos": [
+   "Atacado"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b036.png",
+    "Atacado"
+   ]
+  ],
+  "x": {
+   "cls": "A.lx44#",
+   "i": "51",
+   "t": "Atacado",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 42,
+   "letra": "17px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "16px 500"
+  ],
+  "telas": [
+   "Filtros"
+  ],
+  "textos": [
+   "Feminino",
+   "Maior preço",
+   "Masculino",
+   "Menor preço",
+   "Solar",
+   "Todos",
+   "Unissex"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b040.png",
+    "Todos"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b041.png",
+    "Solar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b044.png",
+    "Feminino"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.#",
+   "i": "17",
+   "t": "Todos",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 47,
+   "letra": "16px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "16px 500"
+  ],
+  "telas": [
+   "Filtros"
+  ],
+  "textos": [
+   "Armações",
+   "Novidades",
+   "Todos"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b042.png",
+    "Armações"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b043.png",
+    "Todos"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b045.png",
+    "Novidades"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.on#",
+   "i": "19",
+   "t": "Armações",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 47,
+   "letra": "16px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(31, 143, 78)",
+   "rgb(255, 255, 255)",
+   "1px rgba(0, 0, 0, 0)",
+   "cantos 14",
+   54,
+   "16px 700"
+  ],
+  "telas": [
+   "Aviso adicionado"
+  ],
+  "textos": [
+   "Finalizar compra"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b047.png",
+    "Finalizar compra"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.btn w#",
+   "i": "211",
+   "t": "Finalizar compra",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(31, 143, 78)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgba(0, 0, 0, 0)",
+   "alt": 54,
+   "letra": "16px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "16px 600"
+  ],
+  "telas": [
+   "Aviso adicionado"
+  ],
+  "textos": [
+   "Continuar comprando"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b048.png",
+    "Continuar comprando"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.cs-c#",
+   "i": "212",
+   "t": "Continuar comprando",
+   "tipo": "texto",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 50,
+   "letra": "16px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "18px 400"
+  ],
+  "telas": [
+   "Carrinho"
+  ],
+  "textos": [
+   "+",
+   "−"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b049.png",
+    "−"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b050.png",
+    "+"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lx44#",
+   "i": "171",
+   "t": "−",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 36,
+   "letra": "18px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "16px 400"
+  ],
+  "telas": [
+   "Carrinho"
+  ],
+  "textos": [
+   "×"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b051.png",
+    "×"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.crm lxpos lx44#",
+   "i": "174",
+   "t": "×",
+   "tipo": "texto",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 25,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(141, 58, 105)",
+   "rgb(255, 255, 255)",
+   "1px rgb(141, 58, 105)",
+   "pílula",
+   48,
+   "16px 500"
+  ],
+  "telas": [
+   "Carrinho",
+   "Entrar"
+  ],
+  "textos": [
+   "Iniciar sessão",
+   "Prosseguir com o pagamento"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b052.png",
+    "Prosseguir com o pagamento"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b055.png",
+    "Iniciar sessão"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.btn w cs-b#",
+   "i": "175",
+   "t": "Prosseguir com o pagamento",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(141, 58, 105)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 50,
+   "letra": "16px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "14px 600"
+  ],
+  "telas": [
+   "Consulta do grau",
+   "Entrar",
+   "Pagar pedido"
+  ],
+  "textos": [
+   "Ainda não tenho conta · Criar conta",
+   "Copiar",
+   "Esqueci minha senha",
+   "Início"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b054.png",
+    "Esqueci minha senha"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b057.png",
+    "Ainda não tenho conta · Criar conta"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b063.png",
+    "Início"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.cfx lx44#",
+   "i": "173",
+   "t": "Esqueci minha senha",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 32,
+   "letra": "14px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(216, 210, 202)",
+   "pílula",
+   48,
+   "15px 700"
+  ],
+  "telas": [
+   "Entrar"
+  ],
+  "textos": [
+   "Continuar com Google"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b056.png",
+    "Continuar com Google"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.gbtn#",
+   "i": "175",
+   "t": "Continuar com Google",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(216, 210, 202)",
+   "alt": 50,
+   "letra": "15px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(34, 34, 34)",
+   "",
+   "pílula",
+   36,
+   "24px 400"
+  ],
+  "telas": [
+   "Mapa"
+  ],
+  "textos": [
+   "×"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b058.png",
+    "×"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.mx lxpos lx44#",
+   "i": "172",
+   "t": "×",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(34, 34, 34)",
+   "borda": "",
+   "alt": 36,
+   "letra": "24px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(34, 34, 34)",
+   "",
+   "cantos 12",
+   36,
+   "22px 600"
+  ],
+  "telas": [
+   "Mapa"
+  ],
+  "textos": [
+   "+",
+   "−"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b059.png",
+    "+"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b060.png",
+    "−"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lx44#",
+   "i": "174",
+   "t": "+",
+   "tipo": "cheio",
+   "forma": "cantos 12",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(34, 34, 34)",
+   "borda": "",
+   "alt": 38,
+   "letra": "22px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(255, 255, 255)",
+   "14px 700"
+  ],
+  "telas": [
+   "Comparar",
+   "Mapa"
+  ],
+  "textos": [
+   "Como chegar",
+   "Limpar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b061.png",
+    "Como chegar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b071.png",
+    "Limpar"
+   ]
+  ],
+  "x": {
+   "cls": "A.p lx44#",
+   "i": "176",
+   "t": "Como chegar",
+   "tipo": "texto",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "",
+   "alt": 42,
+   "letra": "14px 700",
+   "img": true
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   "",
+   "rgb(141, 58, 105)",
+   "1px rgb(141, 58, 105)",
+   "cantos 14",
+   42,
+   "14px 700"
+  ],
+  "telas": [
+   "Mapa"
+  ],
+  "textos": [
+   "Abrir no Google Maps"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b062.png",
+    "Abrir no Google Maps"
+   ]
+  ],
+  "x": {
+   "cls": "A.s lx44#",
+   "i": "177",
+   "t": "Abrir no Google Maps",
+   "tipo": "contorno",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 42,
+   "letra": "14px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(141, 58, 105)",
+   "rgb(255, 255, 255)",
+   "",
+   "pílula",
+   48,
+   "16px 700"
+  ],
+  "telas": [
+   "Consulta do grau"
+  ],
+  "textos": [
+   "Começar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b064.png",
+    "Começar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.gzgo#gzcom",
+   "i": "174",
+   "t": "Começar",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(141, 58, 105)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "",
+   "alt": 52,
+   "letra": "16px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(255, 255, 255)",
+   "15px 700"
+  ],
+  "telas": [
+   "Formato do rosto",
+   "Janela da câmera"
+  ],
+  "textos": [
+   "Abrir a câmera"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b066.png",
+    "Abrir a câmera"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.rzg lx44#",
+   "i": "109",
+   "t": "Abrir a câmera",
+   "tipo": "texto",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "",
+   "alt": 38,
+   "letra": "15px 700",
+   "img": true
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 12",
+   42,
+   "16px 400"
+  ],
+  "telas": [
+   "Comparar",
+   "Janela da câmera"
+  ],
+  "textos": [
+   "×"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b068.png",
+    "×"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.x lx44#",
+   "i": "185",
+   "t": "×",
+   "tipo": "cheio",
+   "forma": "cantos 12",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 42,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   " degradê",
+   "rgb(255, 255, 255)",
+   "1px rgba(0, 0, 0, 0)",
+   "cantos 14",
+   48,
+   "15px 700"
+  ],
+  "telas": [
+   "Janela da câmera"
+  ],
+  "textos": [
+   "Abrir a câmera"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b069.png",
+    "Abrir a câmera"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.btn p ic#",
+   "i": "186",
+   "t": "Abrir a câmera",
+   "tipo": "contorno",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgba(0, 0, 0, 0)",
+   "alt": 52,
+   "letra": "15px 700",
+   "img": true
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(141, 58, 105)",
+   "rgb(255, 255, 255)",
+   "",
+   "pílula",
+   36,
+   "14px 700"
+  ],
+  "telas": [
+   "Comparar"
+  ],
+  "textos": [
+   "Comparar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b070.png",
+    "Comparar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.go lx44#",
+   "i": "168",
+   "t": "Comparar",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(141, 58, 105)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "",
+   "alt": 38,
+   "letra": "14px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   " degradê",
+   "rgb(255, 255, 255)",
+   "1px rgba(0, 0, 0, 0)",
+   "cantos 14",
+   42,
+   "14px 700"
+  ],
+  "telas": [
+   "Comparar"
+  ],
+  "textos": [
+   "Ver este modelo"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b072.png",
+    "Ver este modelo"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.btn p lx44#",
+   "i": "171",
+   "t": "Ver este modelo",
+   "tipo": "contorno",
+   "forma": "cantos 14",
+   "fundo": "",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgba(0, 0, 0, 0)",
+   "alt": 42,
+   "letra": "14px 700",
+   "img": true
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "pílula",
+   36,
+   "15px 500"
+  ],
+  "telas": [
+   "Atacado"
+  ],
+  "textos": [
+   "Armações",
+   "Leitura",
+   "Solar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b073.png",
+    "Solar"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b074.png",
+    "Leitura"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b075.png",
+    "Armações"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lx44#",
+   "i": "150",
+   "t": "Solar",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 40,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(31, 143, 78)",
+   "rgb(255, 255, 255)",
+   "1px rgba(0, 0, 0, 0)",
+   "cantos 14",
+   48,
+   "16px 700"
+  ],
+  "telas": [
+   "Atacado",
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "Quero estas · falar com a loja",
+   "Receber o código",
+   "Solicitar orçamento"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b076.png",
+    "Solicitar orçamento"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b078.png",
+    "Receber o código"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b082.png",
+    "Quero estas · falar com a loja"
+   ]
+  ],
+  "x": {
+   "cls": "A.btn w#lojista",
+   "i": "153",
+   "t": "Solicitar orçamento",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(31, 143, 78)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgba(0, 0, 0, 0)",
+   "alt": 50,
+   "letra": "16px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgba(255, 255, 255, 0.94)",
+   "rgb(42, 31, 39)",
+   "1px rgba(0, 0, 0, 0.12)",
+   "cantos 12",
+   42,
+   "22px 400"
+  ],
+  "telas": [
+   "Portal do atacado",
+   "Separado para você"
+  ],
+  "textos": [
+   "×"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b077.png",
+    "×"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.x lxpos lx44#",
+   "i": "171",
+   "t": "×",
+   "tipo": "cheio",
+   "forma": "cantos 12",
+   "fundo": "rgba(255, 255, 255, 0.94)",
+   "cor": "rgb(42, 31, 39)",
+   "borda": "1px rgba(0, 0, 0, 0.12)",
+   "alt": 42,
+   "letra": "22px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "cantos 16",
+   228,
+   "16px 400"
+  ],
+  "telas": [
+   "Separado para você"
+  ],
+  "textos": [
+   "LaFouch · acetato GR3340 R$ 95",
+   "LaFouch · quadrado SL2250 R$ 140",
+   "Últimas 3 unidades LaFouch · acetato AC1050 R$ 5"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b079.png",
+    "LaFouch · quadrado SL2250 R$ 140"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b080.png",
+    "LaFouch · acetato GR3340 R$ 95"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b081.png",
+    "Últimas 3 unidades LaFouch · acetato AC1050 R$ 5"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.hc#",
+   "i": "172",
+   "t": "LaFouch · quadrado SL2250 R$ 140",
+   "tipo": "cheio",
+   "forma": "cantos 16",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 228,
+   "letra": "16px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(20, 20, 20)",
+   "15px 400"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Meus pedidos",
+   "Minha conta"
+  ],
+  "textos": [
+   "Pedidos",
+   "Perfil"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b085.png",
+    "Perfil"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b095.png",
+    "Pedidos"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.on lxpos lx44#",
+   "i": "172",
+   "t": "Perfil",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "15px 400"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Meus pedidos",
+   "Minha conta"
+  ],
+  "textos": [
+   "Cartões",
+   "Endereços",
+   "Pedidos",
+   "Perfil"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b086.png",
+    "Endereços"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b087.png",
+    "Pedidos"
+   ],
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b088.png",
+    "Cartões"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.lxpos lx44#",
+   "i": "173",
+   "t": "Endereços",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 42,
+   "letra": "15px 400",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(248, 238, 244)",
+   "rgb(141, 58, 105)",
+   "1px rgb(141, 58, 105)",
+   "cantos 14",
+   42,
+   "15px 600"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "Cédula"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b089.png",
+    "Cédula"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.on#",
+   "i": "182",
+   "t": "Cédula",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(248, 238, 244)",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 46,
+   "letra": "15px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(58, 47, 53)",
+   "1px rgb(227, 214, 221)",
+   "cantos 14",
+   42,
+   "15px 500"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "RUC"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b090.png",
+    "RUC"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.#",
+   "i": "183",
+   "t": "RUC",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(58, 47, 53)",
+   "borda": "1px rgb(227, 214, 221)",
+   "alt": 46,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(141, 58, 105)",
+   "rgb(255, 255, 255)",
+   "1px rgb(141, 58, 105)",
+   "pílula",
+   36,
+   "16px 500"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "Salvar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b091.png",
+    "Salvar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.btn w lx44#",
+   "i": "184",
+   "t": "Salvar",
+   "tipo": "cheio",
+   "forma": "pílula",
+   "fundo": "rgb(141, 58, 105)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 38,
+   "letra": "16px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   "",
+   "rgb(141, 58, 105)",
+   "1px rgb(141, 58, 105)",
+   "pílula",
+   30,
+   "15px 700"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "Sincronizar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b092.png",
+    "Sincronizar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.gsb lx44#",
+   "i": "185",
+   "t": "Sincronizar",
+   "tipo": "contorno",
+   "forma": "pílula",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "1px rgb(141, 58, 105)",
+   "alt": 35,
+   "letra": "15px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(255, 255, 255)",
+   "rgb(20, 20, 20)",
+   "1px rgb(20, 20, 20)",
+   "cantos 14",
+   48,
+   "16px 700"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "Sair da conta"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b093.png",
+    "Sair da conta"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.bsair#",
+   "i": "186",
+   "t": "Sair da conta",
+   "tipo": "cheio",
+   "forma": "cantos 14",
+   "fundo": "rgb(255, 255, 255)",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(20, 20, 20)",
+   "alt": 50,
+   "letra": "16px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(179, 38, 30)",
+   "15px 600"
+  ],
+  "telas": [
+   "Minha conta"
+  ],
+  "textos": [
+   "Excluir minha conta"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b094.png",
+    "Excluir minha conta"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.bexc lx44#",
+   "i": "187",
+   "t": "Excluir minha conta",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(179, 38, 30)",
+   "borda": "",
+   "alt": 32,
+   "letra": "15px 600",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(107, 103, 99)",
+   "12px 500"
+  ],
+  "telas": [
+   "Aviso de cancelar",
+   "Meus pedidos"
+  ],
+  "textos": [
+   "Cancelar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b096.png",
+    "Cancelar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.cfk lxpos lx44#",
+   "i": "181",
+   "t": "Cancelar",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(107, 103, 99)",
+   "borda": "",
+   "alt": 42,
+   "letra": "12px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   "",
+   "rgb(20, 20, 20)",
+   "1px rgb(230, 225, 219)",
+   "reto",
+   48,
+   "15px 500"
+  ],
+  "telas": [
+   "Pagar pedido"
+  ],
+  "textos": [
+   "Precisa de ajuda? Fale com a loja"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b098.png",
+    "Precisa de ajuda? Fale com a loja"
+   ]
+  ],
+  "x": {
+   "cls": "A.zA#",
+   "i": "175",
+   "t": "Precisa de ajuda? Fale com a loja",
+   "tipo": "contorno",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(230, 225, 219)",
+   "alt": 50,
+   "letra": "15px 500",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "texto",
+   "rgb(141, 58, 105)",
+   "13px 700"
+  ],
+  "telas": [
+   "Pagar pedido"
+  ],
+  "textos": [
+   "Termos e Condições"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b099.png",
+    "Termos e Condições"
+   ]
+  ],
+  "x": {
+   "cls": "A.lx44#",
+   "i": "176",
+   "t": "Termos e Condições",
+   "tipo": "texto",
+   "forma": "reto",
+   "fundo": "",
+   "cor": "rgb(141, 58, 105)",
+   "borda": "",
+   "alt": 33,
+   "letra": "13px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "contorno",
+   "",
+   "rgb(20, 20, 20)",
+   "1px rgb(216, 210, 202)",
+   "cantos 12",
+   42,
+   "16px 700"
+  ],
+  "telas": [
+   "Aviso de cancelar"
+  ],
+  "textos": [
+   "Voltar"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b100.png",
+    "Voltar"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.dc#",
+   "i": "184",
+   "t": "Voltar",
+   "tipo": "contorno",
+   "forma": "cantos 12",
+   "fundo": "",
+   "cor": "rgb(20, 20, 20)",
+   "borda": "1px rgb(216, 210, 202)",
+   "alt": 46,
+   "letra": "16px 700",
+   "img": false
+  }
+ },
+ {
+  "sig": [
+   "cheio",
+   "rgb(192, 57, 43)",
+   "rgb(255, 255, 255)",
+   "1px rgba(0, 0, 0, 0)",
+   "cantos 12",
+   42,
+   "16px 700"
+  ],
+  "telas": [
+   "Aviso de cancelar"
+  ],
+  "textos": [
+   "Cancelar pedido"
+  ],
+  "ex": [
+   [
+    "/home/claude/lafouch/work/ideias/09-botoes/rec/b101.png",
+    "Cancelar pedido"
+   ]
+  ],
+  "x": {
+   "cls": "BUTTON.dk dr#",
+   "i": "185",
+   "t": "Cancelar pedido",
+   "tipo": "cheio",
+   "forma": "cantos 12",
+   "fundo": "rgb(192, 57, 43)",
+   "cor": "rgb(255, 255, 255)",
+   "borda": "1px rgba(0, 0, 0, 0)",
+   "alt": 46,
+   "letra": "16px 700",
+   "img": false
+  }
+ }
+]
