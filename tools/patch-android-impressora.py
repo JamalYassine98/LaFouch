@@ -12,7 +12,7 @@ os.makedirs(pkg, exist_ok=True)
 shutil.copy('android-extra/LfPrinterPlugin.java', os.path.join(pkg, 'LfPrinterPlugin.java'))
 shutil.copy('android-extra/LfSharePlugin.java', os.path.join(pkg, 'LfSharePlugin.java'))  # v427: compartilhar direto no app
 shutil.copy('android-extra/LfInstallPlugin.java', os.path.join(pkg, 'LfInstallPlugin.java'))  # S334: instalar o APK novo de dentro do app
-for f in ('LfNotifPlugin.java', 'LfNotifService.java', 'LfBarsPlugin.java'):  # v450: PIX automático pelo Nubank · v464: barras do Android no tema
+for f in ('LfBarsPlugin.java',):  # v464: barras do Android no tema (o LfNotif do PIX pelo Nubank saiu na v633)
     shutil.copy('android-extra/' + f, os.path.join(pkg, f))
 
 # MainActivity: registerPlugin antes do super.onCreate
@@ -30,12 +30,8 @@ if 'LfSharePlugin' not in s:
     s = s.replace('registerPlugin(LfPrinterPlugin.class);', 'registerPlugin(LfPrinterPlugin.class);\n        registerPlugin(LfSharePlugin.class);', 1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfSharePlugin.class)' in s, 'MainActivity sem o LfShare'
-if 'LfNotifPlugin' not in s:
-    s = s.replace('registerPlugin(LfSharePlugin.class);', 'registerPlugin(LfSharePlugin.class);\n        registerPlugin(LfNotifPlugin.class);', 1)
-    open(ma, 'w').write(s)
-assert 'registerPlugin(LfNotifPlugin.class)' in s, 'MainActivity sem o LfNotif'
 if 'LfBarsPlugin' not in s:
-    s = s.replace('registerPlugin(LfNotifPlugin.class);', 'registerPlugin(LfNotifPlugin.class);\n        registerPlugin(LfBarsPlugin.class);', 1)
+    s = s.replace('registerPlugin(LfSharePlugin.class);', 'registerPlugin(LfSharePlugin.class);\n        registerPlugin(LfBarsPlugin.class);', 1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfBarsPlugin.class)' in s, 'MainActivity sem o LfBars'
 if 'LfInstallPlugin' not in s:
@@ -66,13 +62,4 @@ if '<queries>' not in m:
     q = '<queries>\n        <package android:name="com.whatsapp.w4b" />\n        <package android:name="com.whatsapp" />\n        <package android:name="com.instagram.android" />\n    </queries>\n    '
     m = m.replace('<application', q + '<application', 1)
     open(mf, 'w').write(m)
-# v450: serviço que lê só as notificações do Nubank (o dono liga o acesso no Android)
-m = open(mf).read()
-if 'LfNotifService' not in m:
-    sv = ('<service android:name=".LfNotifService" android:exported="true" '
-          'android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">\n'
-          '            <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>\n'
-          '        </service>\n    ')
-    m = m.replace('</application>', '    ' + sv + '</application>', 1)
-    open(mf, 'w').write(m)
-print('LfPrinter, LfShare, LfNotif e LfBars instalados;', len(add), 'permissões novas')
+print('LfPrinter, LfShare e LfBars instalados;', len(add), 'permissões novas')
