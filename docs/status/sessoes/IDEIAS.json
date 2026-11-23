@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795398090.4293475,
+   "r": "08f em branco (padrão sem evento) + correção do dono no 06: creme só nos eventos"
+  },
+  {
    "t": 1795396860.8759604,
    "r": "08f: menu sem evento + rodapé com coluna Descubra e idioma"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795380905.3912997,
    "r": "07: esboço PC estilo Madë (topo cartão + produto) na Fila 72"
-  },
-  {
-   "t": 1795378920.4191153,
-   "r": "05d: saída do carrinho/busca corrigida no esboço (sai no lugar, volta à sacola) + estudo do PC da Madë"
   }
  ],
  "leu": 1795388650.001632
