@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 1 base visual (cor oficial, barras, botões, campos, ícones, títulos, sem cartão, avisos) — sem publicar até o dono ver | www/style.css, src/ |
+| IDEIAS | 12b: botão VER A COLEÇÃO + faixas curtas | work/ideias/12-tematica-base/ |
 
 ## Fila
 
