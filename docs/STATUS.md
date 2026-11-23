@@ -143,7 +143,7 @@
 - **85-varredura-avisos** — publicado v632 (APP)
 - **86-varredura-titulos-linhas** — publicado v632 (APP)
 - **87-cores-padronizadas** — aprovado 23/11 10:52 — espera o 'implementar' (SITE e APP)
-- **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
+- **87-varredura-pilulas** — publicado v632 (APP)
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
 - **88-formato-do-botao** — aprovado 23/11 11:05 (D · Lente 14 px) — espera o 'implementar' (SITE e APP)
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
