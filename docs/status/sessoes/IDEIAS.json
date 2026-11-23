@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09m: cor do logo suavizada para o Comprar",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795435104.508693,
+   "r": "09m: Comprar com a cor do logo suavizada enviado"
+  },
   {
    "t": 1795434999.3755229,
    "r": "09l: Comprar N3 (N2 na cor do logo) enviado"
@@ -40,10 +42,6 @@
   {
    "t": 1795405643.4803107,
    "r": "09 v3 família de botões (preto + vinho só no dinheiro) enviada ao dono — Fila 75"
-  },
-  {
-   "t": 1795405200.3192716,
-   "r": "09 v2: família de botões estruturada (papel × tamanho + marca)"
   }
  ],
  "leu": 1795432245.6583207
