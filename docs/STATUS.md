@@ -136,7 +136,7 @@
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
-- **89-aviso-amarelo-e-fornecedores** — v2: frase cinza + bolinha amarela (85) — esperando o dono
+- **89-aviso-amarelo-e-fornecedores** — 89b aprovado 23/11 08:05 · 89a v3 (bolinha --ptw amarelo-ouro no claro) esperando o dono
 
 ## Recados esperando
 
