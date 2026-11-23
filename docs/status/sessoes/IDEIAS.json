@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "12e temática: cartão de hoje na cor oficial profunda (teste Natal)",
+ "arquivos": [
+  "work/ideias/12-tematica-base"
+ ],
  "ultimas": [
   {
    "t": 1795458618.8147047,
@@ -44,5 +46,5 @@
    "r": "Conserto do topo (08k2) aprovado e guardado"
   }
  ],
- "leu": 1795457540.126982
+ "leu": 1795459404.2413714
 }
