@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "12c: temática bonita e luxuosa (vitrine da data)",
+ "arquivos": [
+  "work/ideias/12-tematica-base/"
+ ],
  "ultimas": [
   {
    "t": 1795456001.0604959,
@@ -44,5 +46,5 @@
    "r": "bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento"
   }
  ],
- "leu": 1795455635.1393123
+ "leu": 1795457540.126982
 }
