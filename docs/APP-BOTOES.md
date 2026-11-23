@@ -842,3 +842,8 @@ Atualizar: rodar work/verif/botoes.py e estilos.py e regerar este arquivo (tools
 - Próximos 30 dias Saldo G$ 5.576.187 · co → muda a tela (+1132 letras)
 
 ## vender
+
+## Parte 1 · base visual (v632)
+- Principal `.go` (contorno da marca, linha toda) · pequeno `.mini` (contorno neutro) · perigo `.cf418B` (vermelho) com `.cf418V` "Voltar" embaixo · barras `.trk`/`.trkB` · aviso com ação `#lfToast .lfTA` ("Desfazer").
+- Apagar foto: apaga na hora e mostra "Foto na lixeira · Desfazer"; só "Lixeira cheia" abre janela (Ir para a lixeira + Voltar). Esvaziar: `.cf418B` desligado até escrever "esvaziar".
+- Sons e avisos: tocar na linha abre "Som · <aviso>" (bolinhas, ▶ para ouvir, Salvar).

@@ -50,7 +50,7 @@
     return grpNomeSugerido(a, b) || BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
   }
   // Nome sugerido para qualquer tamanho de grupo: família (3 ou mais telas da mesma família) ou o nome do par principal.
-  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'giro', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
+  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
   function grpNomeAuto(itens) {
     if (itens.length >= 3) {
       var f = GRP_FAM.filter(function (x) { return itens.every(function (i) { return x[1].indexOf(i) >= 0; }); })[0];

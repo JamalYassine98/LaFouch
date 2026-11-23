@@ -278,7 +278,7 @@
         );
       };
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Cada conta na sua moeda; o dólar vai para a mercadoria e o colchão sai de cada moeda na proporção do que sobrou. Câmbio de hoje.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2></div>' +
       '<div style="' + grade + ';font-size:11px;letter-spacing:.06em;color:var(--mute);text-transform:uppercase"><span></span>' +
       ms.map(function (m) {
         return '<span style="text-align:right">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[m] + '</span>';
@@ -286,7 +286,7 @@
       '</div>' +
       ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
       ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#6cc3e0', false, true) +
-      ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
+      ln('Contas', 'cada uma na sua moeda', sp.con, '#943d6f', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
       ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#e9c27a', false, false) +
       ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
@@ -338,7 +338,7 @@
       usos = (S.colchUsos || []).slice(0, 3);
     if (!(r.colch > 0) && !emUsd) return '';
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2><div class="hint" style="margin:2px 0 0">Reserva contra a alta do dólar. Em dólar ele não perde valor.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2></div>' +
       '<div class="sl"><span>Já em dólar<small>protegido</small></span><b style="color:var(--ok)">' + usd(emUsd) + '</b></div>' +
       '<div class="sl"><span>Ainda não trocado<small>espera o dólar ficar barato (em guaranis)</small></span><b>' + gs(Math.round(falta)) + '</b></div>' +
       (livre3().colUso > 0.5
@@ -347,7 +347,7 @@
       usos.map(function (x) {
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
-      '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div>' +
+      '' +
       (falta > 500 ? lkLinha('Trocar ' + gs(Math.round(falta)) + ' por dólar no Câmbio', 'd48Troca', 'pyg|' + Math.round(falta)) : '') + '</section>'
     );
   }

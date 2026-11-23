@@ -47,7 +47,7 @@
     tr.setAttribute('aria-label', 'Remover lote');
     tr.setAttribute('aria-pressed', S.gDel === g.id);
     tr.innerHTML =
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
     tr.onclick = function () {
       S.gDel = S.gDel === g.id ? '' : g.id;
       S.gEdit = '';
@@ -403,7 +403,7 @@
           tr3.title = 'Remover esta linha';
           tr3.setAttribute('aria-label', 'Remover a linha ' + (ix + 1));
           tr3.innerHTML =
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
           tr3.onclick = function () {
             D.rows.splice(ix, 1);
             render();
@@ -601,7 +601,7 @@
     if (recem) {
       fl.className = 'lfallok';
       fl.innerHTML =
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
     }
     r.appendChild(fl);
     c.appendChild(r);
@@ -811,9 +811,9 @@
     var r = mk('div', '');
     r.style.cssText = 'display:flex;gap:8px;align-items:center';
     var ih =
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M7 9v3M11 9v4M15 9v3M19 9v2"/></svg>',
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M7 9v3M11 9v4M15 9v3M19 9v2"/></svg>',
       ic =
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
     var bh = btn('go', '', function () {
       entGo(g, 'haste');
     });
@@ -957,7 +957,7 @@
             'text-align:left;width:100%;cursor:pointer;' +
             (on2 ? 'border-color:var(--accent);background:var(--panel2);' : '');
           r.setAttribute('aria-pressed', on2);
-          r.appendChild(mk('span', '', on2 ? '☑' : '☐'));
+          { var cq = mk('span', 'lfCq' + (on2 ? ' on' : ''), ''); if (on2) cq.innerHTML = ICO.chk; r.appendChild(cq); }
           var lab = (i.tipo === 'pre' ? i.grau : isSimple(i.tipo) ? '' : i.vr) || '';
           r.appendChild(
             mk(
@@ -998,7 +998,7 @@
           tb2.title = 'Excluir esta peça';
           tb2.setAttribute('aria-label', 'Excluir ' + i.ref);
           tb2.innerHTML =
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
           tb2.onclick = function () {
             S.pDel = S.pDel === ix ? -1 : ix;
             S.pEdit = -1;
@@ -1380,7 +1380,7 @@
         tr.title = 'Remover esta linha';
         tr.setAttribute('aria-label', 'Remover a linha ' + (ix + 1));
         tr.innerHTML =
-          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
         tr.onclick = function () {
           f.rows.splice(ix, 1);
           renderLotForm();

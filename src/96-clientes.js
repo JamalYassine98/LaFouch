@@ -30,10 +30,10 @@
     var n = cliEstr(c) ? 'ex' : 'py',
       d = CLI_DOC[n],
       b = function (k, t) {
-        return '<button type="button" class="cb3' + (k === n ? ' on' : '') + '" data-act="clinac" data-id="' + pre + '|' + k + '">' + t + '</button>';
+        return { on: k === n, attrs: 'data-act="clinac" data-id="' + pre + '|' + k + '"', html: t };
       };
     return (
-      '<div class="catbar3 cliNac" id="' + pre + 'Nac" data-nac="' + n + '" role="group" aria-label="Nacionalidade">' + b('py', 'Paraguaio') + b('ex', 'Estrangeiro') + '</div>' +
+      trilho('cliNac', 'Nacionalidade', [b('py', 'Paraguaio'), b('ex', 'Estrangeiro')]).replace('<div class="trk cliNac"', '<div class="trk cliNac" id="' + pre + 'Nac" data-nac="' + n + '"') +
       '<div class="docF"><span class="docL" id="' + pre + 'DocL">' + d[0] + '</span><input class="in" id="' + pre + 'Ruc" placeholder="' + d[1] + '" value="' + esc((c && c.ruc) || '') + '" autocomplete="off" aria-labelledby="' + pre + 'DocL"></div>'
     );
   }
@@ -46,9 +46,11 @@
       d = CLI_DOC[p[1]];
     if (!box || !d || box.dataset.nac === p[1]) return;
     box.dataset.nac = p[1];
-    box.querySelectorAll('.cb3').forEach(function (x) {
+    box.querySelectorAll('.trkB').forEach(function (x) {
       x.classList.toggle('on', x.getAttribute('data-id') === arg);
+      x.setAttribute('aria-pressed', String(x.getAttribute('data-id') === arg));
     });
+    trilhoAcerta(box.parentNode);
     if (l) {
       l.classList.add('swap');
       setTimeout(function () {
@@ -177,7 +179,7 @@
       })
       .join('');
   }
-  var CLI_WA = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-.9.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.9-1-2z"/></svg>';
+  var CLI_WA = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-.9.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.9-1-2z"/></svg>';
   // Compras feitas no balcão ligadas ao cliente (uma linha por venda/pedido).
   function cliComprasHtml(c) {
     if (!c.id) return '';
@@ -229,7 +231,7 @@
         '<div class="hd77"><h2>' + esc(c.id ? c.nome || 'Sem nome' : 'Novo cliente') + '</h2>' + (sub.length ? '<small>' + sub.join(' · ') + '</small>' : '') + '</div>' +
         (c.id && (z || c.email)
           ? '<div class="qa77">' + (z ? '<a href="' + z + '" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"><i class="wa77">' + CLI_WA + '</i>WhatsApp</a>' : '') +
-            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
+            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
           : '') +
         '<div class="lb77">Dados</div><div class="gp77">' +
         rw('Nome', '<input id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">') +
@@ -261,7 +263,7 @@
     }
     // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)
     if (!c) {
-      h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+      h += buscaCampo('id="cliQ" placeholder="Nome, telefone ou documento" value="' + esc(S.cliQ) + '" aria-label="Buscar cliente"');
       h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
     }
     el.innerHTML = h;
@@ -341,7 +343,7 @@
     S.clientes = S.clientes.filter(function (x) { return x.id !== c.id; });
     S.cliSel = o.id;
     delete o.dup;
-    lfaToast('<b>Clientes juntados</b><br>' + esc(o.nome || ''));
+    lfToast('Clientes juntados' + (o.nome ? ' · ' + o.nome : ''), 'ok');
     render();
   };
   ACT.climanter = function () {

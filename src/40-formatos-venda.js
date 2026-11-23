@@ -390,7 +390,7 @@
         'Contas da loja e de casa',
         'Parte do mês coberta por esta venda. Obrigatório.',
         sale.contas,
-        '#a2447c'
+        '#943d6f'
       ],
       [
         'Colchão de segurança',

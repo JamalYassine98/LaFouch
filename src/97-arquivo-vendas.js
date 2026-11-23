@@ -128,7 +128,7 @@
     if (!ms.length) return '';
     var nomes = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
     return (
-      '<section class="card col arqCard"><div><b>Vendas arquivadas</b><div class="hint" style="margin:2px 0 0">Mais de 12 meses. Resumo por mês; a venda completa está guardada e pode voltar.</div></div>' +
+      '<section class="card col arqCard"><div><b>Vendas arquivadas</b></div>' +
       ms
         .map(function (m) {
           var r = S.arqRes[m],

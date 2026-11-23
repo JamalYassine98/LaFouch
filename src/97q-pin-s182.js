@@ -5,7 +5,7 @@
   (function () {
     var scr = $('lockScr'), inp = $('lockPin');
     if (!scr || !inp || $('pinKb')) return;
-    var BIO = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/></svg>';
+    var BIO = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/></svg>';
     var w = document.createElement('div');
     w.id = 'pinKb';
     w.innerHTML = '<div class="pkDots" id="pkDots" aria-hidden="true"></div><div class="pkGrid">' +

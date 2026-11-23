@@ -13,12 +13,12 @@
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 2, // 2: Peças ganha Compras (66, 22/11)
+  var FAM_V = 3, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai (Giro e preços fica só com Preços até o Titan)
     FAMILIAS = [
       { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
-      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['giro', 'prec'] },
+      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['prec'] },
       { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, vitrine e modelos', itens: ['site', 'ped', 'msg', 'vit', 'prod'] },
       { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática, cartões e visitas', itens: ['mkt', 'tem', 'cup', 'anl'] }
     ],

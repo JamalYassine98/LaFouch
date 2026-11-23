@@ -299,7 +299,7 @@
           ov.classList.remove('vout');
         }, 320);
       }
-      lfToast('✓ Venda registrada', 'ok');
+      lfToast('Venda registrada', 'ok');
     }
   }
   function notaConfirma(titulo, sub, ok, acao) {
@@ -341,7 +341,7 @@
       feito = function () {
         if (b) {
           b.classList.add('vok');
-          b.textContent = '✓ Enviado';
+          b.textContent = 'Enviado';
         }
         setTimeout(notaFechar, REDUCED ? 0 : 800);
       };
@@ -355,7 +355,7 @@
         // impressora térmica conectada (Ajustes > Impressora): manda direto pelo Wi-Fi/Bluetooth
         impEnviar(impBytes(impTicketLinhas(n, notaFisOn(n))))
           .catch(function () {
-            lfaToast('<b>A impressora não respondeu</b><br>Abrindo a impressão do sistema.');
+            lfToast('A impressora não respondeu · abrindo a impressão do sistema', 'atencao');
             sistema();
           })
           .then(function () {

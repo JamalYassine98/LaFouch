@@ -26,8 +26,8 @@
       '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + pvm(p) + '</div>' : '') + '</div></div>' +
       (Object.keys(cores).length > 1 ? '<div class="vcores" style="margin:10px 0">' + ch + '</div>' : '') +
       '<div class="folha-q"><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="folhaN">' + o.qty + '</span><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="1" aria-label="Mais">+</span></span><span class="hint" style="margin:0">' + gLivre(it) + ' un. disponíveis</span></div>' +
-      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + pvm(p * o.qty) : '') + '</button>' +
-      '<div class="hint" style="text-align:center;margin:8px 0 0">Deslize para cima para ver a vitrine</div>'
+      '<button type="button" class="go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + pvm(p * o.qty) : '') + '</button>' +
+      ''
     );
   }
   function folhaDesenha() {

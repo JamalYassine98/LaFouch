@@ -50,7 +50,7 @@
         // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
         if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
           window.__nvVencT = Date.now();
-          lfaToast('<span class="lfa-ic">' + lfaSvg('warn') + '</span><div><b>A sessão da nuvem venceu</b><div class="hint" style="margin:0">Entre de novo em Ajustes → Nuvem (a senha é necessária só desta vez).</div></div>', 7000);
+          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Nuvem', 'erro');
         }
         throw e;
       });
@@ -125,7 +125,7 @@
         } catch (e) {}
         var lf = $('lojaFrame');
         if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
-        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
+        lfToast('Nuvem conectada', 'ok');
         nvMsg('Conectado. Procurando cópias na nuvem…');
         try {
           apReg(true);
@@ -232,7 +232,7 @@
     } else if (S.nvFeito === chave) {
       st = ' ok';
       ic =
-        '<svg class="nvCk" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        '<svg class="nvCk" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       lb = feito;
     } else if (S.nvConf && chave === 'rest' + S.nvConf) st = ' ask';
     return (
@@ -519,9 +519,7 @@
   // ---------- cartão em Ajustes
   function nvCard() {
     var h =
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2><div class="hint" style="margin:2px 0 0">Cópia de segurança automática (até 1 h depois de qualquer mudança; guarda a última de cada dia, as últimas ' +
-      NV_GUARDA +
-      ') e cotação da loja no site. Usa o mesmo e-mail e senha do catálogo.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2></div>';
     if (S.nvMsg) h += '<div class="note n-ok" role="status">' + esc(S.nvMsg) + '</div>';
     if (!S.nuvem.rt) {
       h +=

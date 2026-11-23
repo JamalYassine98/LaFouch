@@ -1,9 +1,9 @@
 {
- "nome": "5.50.56",
+ "nome": "5.51.0",
  "notas": [
-  "Compras aprende sozinho: saíram dos Ajustes a meta de peças por dia, os dias de loja e o volume.",
-  "No começo o app usa a primeira compra de cada tipo e pede pouco, mostrando \"aprendendo · N dias de vendas\".",
-  "A lista de compras saiu do Giro: agora tudo fica em Peças › Compras."
+  "Visual novo em todo o app: botões de contorno, campos em linha fina, telas sem cartão e ícones finos, sem emoji.",
+  "Avisos de dois tipos: o que passa embaixo (com Desfazer quando dá) e o que fica, em linha com a bolinha da cor.",
+  "Sons e avisos em linhas: toque num aviso para escolher e ouvir o som. O Giro saiu do Dashboard."
  ],
- "build": 631
+ "build": 632
 }

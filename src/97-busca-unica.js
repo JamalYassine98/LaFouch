@@ -2,11 +2,15 @@
   // Um campo só acha qualquer coisa: peça, cliente, venda, pedido do site ou despesa. Fica no lugar da faixa
   // "N avisos urgentes" (os avisos continuam no sino). Toque num resultado abre a tela certa.
   S._buQ = '';
-  var BU_LUPA = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+  var BU_LUPA = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+  // 82 (aprovado): campo de busca é família própria (lupa + caixa); os campos de formulário são linha fina.
+  function buscaCampo(attrs) {
+    return '<label class="buIn">' + BU_LUPA + '<input type="search" autocomplete="off" enterkeyhint="search" ' + attrs + '></label>';
+  }
   function buscaHtml() {
     return (
       '<div class="buBox"><label class="buIn">' + BU_LUPA +
-      '<input id="buQ" type="search" autocomplete="off" enterkeyhint="search" placeholder="Buscar peça, cliente, venda, pedido…" aria-label="Buscar em todo o app" value="' + esc(S._buQ || '') + '"></label>' +
+      '<input id="buQ" type="search" autocomplete="off" enterkeyhint="search" placeholder="Peça, cliente, venda, pedido…" aria-label="Buscar em todo o app" value="' + esc(S._buQ || '') + '"></label>' +
       '<div id="buRes" role="listbox">' + buResHtml(S._buQ || '') + '</div></div>'
     );
   }
@@ -77,7 +81,6 @@
     ['hist', 'Histórico de vendas', 'Início › Histórico', 'vendas antigas dia estorno'],
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
-    ['giro', 'Giro do estoque', 'Números › Giro', 'giro parado vitrine da semana lista de compras'],
     ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
     ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],

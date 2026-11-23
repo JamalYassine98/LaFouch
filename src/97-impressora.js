@@ -68,7 +68,7 @@
       if (impScan.aviso) h += '<div class="hint" style="margin:0">' + esc(impScan.aviso) + '</div>';
       if (!impScan.busy && !impScan.itens.length) {
         h += '<div class="hint" style="margin:0">Confira se ela está ligada, no mesmo Wi-Fi do celular ou com o Bluetooth ligado.</div>';
-        h += '<button type="button" class="impBp" data-act="impProcurar">' + IMP_LUPA + 'Procurar de novo</button>';
+        h += '<button type="button" class="mini" data-act="impProcurar">' + IMP_LUPA + 'Procurar de novo</button>';
       }
     } else if (imp) {
       var w = impTemWifi(),
@@ -77,16 +77,16 @@
       if (w && b) {
         var m = imp.modo || 'auto',
           sb = function (k, t) {
-            return '<button type="button" class="cb3' + (m === k ? ' on' : '') + '" data-act="impModo" data-id="' + k + '">' + t + '</button>';
+            return { on: m === k, attrs: 'data-act="impModo" data-id="' + k + '"', html: t };
           };
-        h += '<div class="impLb">Conexão</div><div class="catbar3 impSeg" role="group" aria-label="Conexão">' + sb('auto', 'Automático') + sb('wifi', 'Só Wi-Fi') + sb('bt', 'Só Bluetooth') + '</div>';
+        h += '<div class="impLb">Conexão</div>' + trilho('impSeg', 'Conexão', [sb('auto', 'Automático'), sb('wifi', 'Só Wi-Fi'), sb('bt', 'Só Bluetooth')]);
         h += '<div class="hint" id="impModoH" style="margin:0">' + IMP_MODO_H[m] + '</div>';
       }
       h += '<button type="button" class="impBs" data-act="impTeste">' + IMP_REC + 'Imprimir teste</button>';
       h += '<button type="button" class="impBs impDel" data-act="impEsquecer">Esquecer impressora</button>';
     } else {
       h += cab('Impressora', '<span class="impDot"></span>Nenhuma conectada');
-      h += '<button type="button" class="impBp" data-act="impProcurar">' + IMP_LUPA + 'Procurar impressora</button>';
+      h += '<button type="button" class="mini" data-act="impProcurar">' + IMP_LUPA + 'Procurar impressora</button>';
     }
     return h + '</section>';
   }
@@ -111,7 +111,7 @@
   ACT.impProcurar = function () {
     var P = impPlugin();
     if (!P) {
-      lfaToast('<b>Procurar impressora</b><br>Funciona no app do celular com a versão nova. Por enquanto o comprovante usa a impressão do sistema.');
+      lfToast('Procurar impressora funciona no app do celular · por enquanto, a impressão do sistema', 'atencao');
       return;
     }
     impScan = { busy: true, itens: [], aviso: '' };
@@ -166,15 +166,17 @@
     impScan = null;
     impSalvar();
     impRedesenha();
-    lfaToast('<b>Impressora conectada</b><br>' + esc(imp.nome));
+    lfToast('Impressora conectada · ' + imp.nome, 'ok');
   };
   ACT.impModo = function (k) {
     if (!imp || !IMP_MODO_H[k]) return;
     imp.modo = k;
     impSalvar();
-    document.querySelectorAll('#impCard .impSeg .cb3').forEach(function (b) {
+    document.querySelectorAll('#impCard .impSeg .trkB').forEach(function (b) {
       b.classList.toggle('on', b.getAttribute('data-id') === k);
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-id') === k));
     });
+    trilhoAcerta($('impCard'));
     var h = $('impModoH');
     if (h) h.textContent = IMP_MODO_H[k];
   };
@@ -188,10 +190,10 @@
     if (b) b.disabled = true;
     impEnviar(impBytes(impTesteLinhas()))
       .then(function () {
-        lfaToast('<b>Teste enviado</b><br>Confira o papel na impressora.');
+        lfToast('Teste enviado · confira o papel', 'ok');
       })
       .catch(function (e) {
-        lfaToast('<b>A impressora não respondeu</b><br>' + esc((e && e.message) || 'Confira se ela está ligada.'));
+        lfToast('A impressora não respondeu · ' + ((e && e.message) || 'confira se ela está ligada'), 'erro');
       })
       .then(function () {
         if (b) b.disabled = false;

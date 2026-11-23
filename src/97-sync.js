@@ -46,7 +46,7 @@
     var h = ' · <span style="color:var(--accent-fg);font-weight:700">' + esc(apNome(s.ap)) + '</span>';
     if (s.off) {
       var st = vendaRevStatus(s);
-      h += ' · <span style="color:var(' + (st === 'conferir' ? '--warn' : '--ok') + ');font-weight:700">🕓 sem internet' + (st === 'conferir' ? ' · conferir' : ' · conferida ✓') + '</span>';
+      h += ' · <span style="color:var(' + (st === 'conferir' ? '--warn' : '--ok') + ');font-weight:700">sem internet' + (st === 'conferir' ? ' · conferir' : ' · conferida') + '</span>';
     }
     return h;
   }
@@ -65,20 +65,20 @@
   }
   function revBannerHtml() {
     var n = vendasRevisar().length;
-    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>⚠️ ' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink' + lkCls(true) + '" data-act="revabrir">Revisar ›</button></div>' : '';
+    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink' + lkCls(true) + '" data-act="revabrir">Revisar ›</button></div>' : '';
   }
   function revJanelaHtml() {
     if (!S._revAberta) return '';
     var l = vendasRevisar();
-    var h = '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Revisar vendas" data-act="revfechar"><div class="pdSh" style="max-height:84vh;overflow:auto"><div class="pdAl"></div><b style="font-size:19px">Revisar vendas</b><div class="hint" style="margin:2px 0 10px">Vendas feitas sem internet que o estoque não confirmou.</div>';
-    if (!l.length) h += '<div class="hint">Nada para revisar. 👍</div>';
+    var h = '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Revisar vendas" data-act="revfechar"><div class="pdSh" style="max-height:84vh;overflow:auto"><div class="pdAl"></div><b style="font-size:19px">Revisar vendas</b>';
+    if (!l.length) h += '<div class="hint">Nada para revisar.</div>';
     l.slice(0, 20).forEach(function (s) {
       h += '<div class="card col" style="padding:12px;margin-bottom:10px"><b>' + esc(descOf(s)) + '</b><div class="hint" style="margin:2px 0">' + esc(apNome(s.ap)) + ' · ' + fh(s.ts) + ' · ' + gs(s.price) + '</div>' +
         '<div class="note n-warn" style="margin:6px 0">O estoque dessa peça ficou negativo: outra venda da mesma peça foi feita em outro aparelho.</div>' +
-        '<button type="button" class="btn" data-act="revok" data-id="' + esc(s.id) + '" style="width:100%;margin-bottom:6px">Está certo (a peça existe)</button>' +
-        '<button type="button" class="btn" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Faltou a peça (tratar com a cliente)</button></div>';
+        '<button type="button" class="go" data-act="revok" data-id="' + esc(s.id) + '" style="width:100%;margin-bottom:6px">Está certo (a peça existe)</button>' +
+        '<button type="button" class="mini" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%">Faltou a peça (tratar com a cliente)</button></div>';
     });
-    return h + '<button type="button" class="btn" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
+    return h + '<button type="button" class="mini" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
   }
   ACT.syncver = function (ap) {
     atvAbre(ap);
@@ -505,7 +505,7 @@
       h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + 'Desligar neste aparelho' + '</button>';
     } else {
       h +=
-        '<div class="hint" style="margin:0">Ambiente de teste. Os aparelhos trocam estoque, caixa e vendas. Comece pelo aparelho principal (o que tem os dados certos); depois entre com os outros.</div>' +
+        '' +
         '<button type="button" class="mini" data-act="syncbase">' + (S._syncC === 'base' ? 'Confirmar: este é o principal' : 'Este é o aparelho principal') + '</button>' +
         '<button type="button" class="mini" data-act="syncentra" style="background:var(--card2,#2a303b)">' + (S._syncC === 'entra' ? 'Confirmar: trocar os dados deste aparelho' : 'Entrar na sincronização (outro aparelho)') + '</button>';
     }

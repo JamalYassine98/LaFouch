@@ -10,7 +10,7 @@
     var e = document.createElement('div');
     e.className = 'encP';
     e.innerHTML =
-      '<svg viewBox="0 0 48 40" width="48" height="40" aria-hidden="true"><path d="' + (lado === 'L' ? ENC_PL : ENC_PR) + '" fill="var(--tbg,#2a1a26)" stroke="var(--accent,#a2447c)" stroke-width="1.6" stroke-linejoin="round"/></svg>' +
+      '<svg viewBox="0 0 48 40" width="48" height="40" aria-hidden="true"><path d="' + (lado === 'L' ? ENC_PL : ENC_PR) + '" fill="var(--tbg,#2a1a22)" stroke="var(--accent,#943d6f)" stroke-width="1.6" stroke-linejoin="round"/></svg>' +
       '<span class="encI" style="left:' + (lado === 'L' ? 10 : 13) + 'px">' + ico(id, 22) + '</span>';
     return e;
   }

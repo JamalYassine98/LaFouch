@@ -6,7 +6,7 @@
   S.fretes = S.fretes || {};
   function fretesCard() {
     return (
-      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b><div class="hint" style="margin:2px 0 0">Preço que o cliente vê no site (vazio = pago na entrega). Desligue a que não está atendendo.</div></div>' +
+      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b></div>' +
       FRT.map(function (t) {
         var f = S.fretes[t[0]] || {};
         return (
@@ -35,6 +35,6 @@
     FRT.forEach(function (t) { var f = S.fretes[t[0]] || {}; o[t[0]] = { p: f.p || 0, off: !!f.off }; });
     if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho', 'ok'); return; }
     vitApi('PATCH', 'config/site?updateMask.fieldPaths=fretes', vBody({ fretes: o }))
-      .then(function () { lfToast('✓ Fretes no site', 'ok'); })
+      .then(function () { lfToast('Fretes no site', 'ok'); })
       .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet', 'atencao'); S.fretesPend = 1; saveSoon(); });
   };

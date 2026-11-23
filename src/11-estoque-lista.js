@@ -537,41 +537,13 @@
     $('filtPanel').hidden = !S.filtOpen;
     $('btnFilt').setAttribute('aria-pressed', !!S.filtOpen);
     $('btnFilt').classList.toggle('on', !!S.filtOpen || !!S.sortO);
-    var ff = $('fFaixas');
-    ff.textContent = '';
     $('fFaixaB').hidden = !S.faixas.length;
-    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
-      ff.appendChild(
-        btn(
-          'chip' + ((S.faixaF || '') === x.id ? ' on' : ''),
-          x.nome,
-          function () {
-            S.faixaF = x.id;
-            render();
-          },
-          (S.faixaF || '') === x.id
-        )
-      );
-    });
-    var sc = $('sortChips');
-    sc.textContent = '';
-    [
-      ['', 'Padrão'],
-      ['az', 'A a Z'],
-      ['za', 'Z a A']
-    ].forEach(function (o) {
-      sc.appendChild(
-        btn(
-          'chip' + ((S.sortO || '') === o[0] ? ' on' : ''),
-          o[1],
-          function () {
-            S.sortO = o[0];
-            render();
-          },
-          (S.sortO || '') === o[0]
-        )
-      );
-    });
+    trilhoPoe($('fFaixas'), [{ id: '', nome: 'Todas' }].concat(S.faixas).map(function (x) {
+      return { on: (S.faixaF || '') === x.id, html: esc(x.nome), fn: function () { S.faixaF = x.id; render(); } };
+    }));
+    trilhoPoe($('sortChips'), [['', 'Padrão'], ['az', 'A a Z'], ['za', 'Z a A']].map(function (o) {
+      return { on: (S.sortO || '') === o[0], html: o[1], fn: function () { S.sortO = o[0]; render(); } };
+    }));
     var fs = $('fsum');
     fs.textContent = '';
     var act = [];
@@ -715,7 +687,7 @@
         render();
       });
       bk.innerHTML =
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
       bk.setAttribute('aria-label', 'Voltar');
       bk.title = 'Voltar';
       var f00 = fl.filter(function (i) {
@@ -833,7 +805,7 @@
         card.appendChild(bg);
       }
       if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
-      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
+      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = SEM_FOTO_SVG; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
@@ -1122,7 +1094,7 @@
         known.fmt +
         ' lembrado. Se a cor e a variante forem iguais, a quantidade é somada.'
       : ref && !S._other && !t.simple
-        ? '✓ Código livre'
+        ? 'Código livre'
         : '';
     (function () {
       var qb = $('eQuickBtn');

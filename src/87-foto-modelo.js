@@ -327,7 +327,7 @@
         bq.appendChild(l);
       });
       bx.appendChild(bq);
-      bx.appendChild(mk('div', 'fmDica', '✓ Usar esta foto como foto da cor. Sem código na foto: o app cria o número interno.'));
+      bx.appendChild(mk('div', 'fmDica', 'Usar esta foto como foto da cor. Sem código na foto: o app cria o número interno.'));
       var b = mk('button', 'fmBtn pri', 'Continuar para Novo modelo');
       b.onclick = function () {
         close();

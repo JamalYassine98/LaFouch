@@ -52,7 +52,7 @@
     return h;
   }
   function dOpHtml(act, id, nome, sub, on, seta) {
-    return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
+    return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? ICO.chk : seta ? '›' : '') + '</i></button>';
   }
   // A folha "VER" do título do Dashboard (uma ação só): família → as telas dela; senão as abas do Dashboard + Histórico
   // e, num grupo comum, as outras telas do grupo e "Gerenciar grupo".
@@ -66,7 +66,7 @@
     var o = $('dFolha'),
       sh = o && o.querySelector('.lfa-sh');
     if (!g || !sh) return;
-    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
+    var DASH = ['hoje', 'din', 'prec', 'hist'],
       fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
       h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
     sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));

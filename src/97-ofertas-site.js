@@ -167,7 +167,7 @@
       'Vender na loja',
       l.length + ' peça(s) encalhada(s) · paradas há 120 dias ou mais',
       'var(--warn)',
-      '<div class="split" style="padding:0 14px 14px"><div class="hint" style="margin:0 0 6px">Na loja o preço já está no piso. No site, o desconto vai até 50%.</div>' +
+      '<div class="split" style="padding:0 14px 14px">' +
         l.map(function (x) {
           return '<div class="sl"><span>' + esc(pn(x.ref)) + '<small>parada ' + x.d + ' dias · ' + x.q + ' em estoque</small></span><b>' + gs(x.p) + '</b></div>';
         }).join('') +

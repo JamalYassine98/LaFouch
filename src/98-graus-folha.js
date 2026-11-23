@@ -1,7 +1,7 @@
   // ===== v469 (aprovado 08/11, opção C): mapa de graus numa folha, aberto por um botão redondo discreto =====
   // O mapa saiu da lista de produtos. Botão de barras ao lado do leitor/filtro (só com Pré-graduados filtrado)
   // e atalho "Graus de leitura" na aba Reposição. Grade sóbria 4×4: "—" = acabou, ponto âmbar = pouco.
-  var GR_IC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>';
+  var GR_IC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>';
   function grauResumo() {
     var tot = grauTotais(),
       r = { tot: tot, n: 0, falta: [], pouco: [], bem: 0 };

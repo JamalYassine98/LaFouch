@@ -176,7 +176,7 @@
       d = new Date(),
       dia = d.getDate(),
       h = '<section class="card col mtCard"><div class="paMt"><span class="hint" style="margin:0">Meta do mês</span><span class="hint" style="margin:0">' + (meta > 0 ? 'meta ' + gs(Math.ceil(meta / 1000) * 1000) : 'aprendendo') + '</span></div><b class="paBig">' + gs(lucro) + '</b>';
-    if (!(meta > 0)) return h + '<div class="hint" style="margin:0">A meta aparece sozinha com 14 dias de vendas (média dos últimos meses + época do ano + estoque).</div></section>';
+    if (!(meta > 0)) return h + '</section>';
     var p = Math.max(0, Math.min(100, (lucro / meta) * 100)),
       hoje = Math.min(100, (dia / mi.dias) * 100),
       proj = dia > 0 ? Math.round((lucro / dia) * mi.dias) : 0,
@@ -192,7 +192,7 @@
         (lucro >= (meta * dia) / mi.dias ? 'Adiantado' : 'Atrasado') +
         ' · no ritmo de hoje fecha o mês em <b>' + gs(proj) + '</b></div>' +
         (pdia > 0 ? '<div class="hint" style="margin:0">Para chegar lá: <b>~' + String(Math.round(pdia * 10) / 10).replace('.', ',') + ' peças por dia</b> até o fim do mês</div>' : '') +
-        '<div class="hint" style="margin:0">Passou da meta → metade vai para os Objetivos da loja</div>';
+        '';
     }
     return h + '</section>';
   }
@@ -201,7 +201,7 @@
     var pl = objPlano(),
       h = '<section class="card col obCard"><div class="paMt"><h2 style="margin:0;font-size:16px">Objetivos da loja</h2><span class="hint" style="margin:0">guardado <b>' + gs(Math.round(pl.total)) + '</b></span></div>';
     if (!pl.itens.length) {
-      h += '<div class="hint" style="margin:0">Diga o que quer para a loja (reforma, vitrine, ar-condicionado…). Cada venda guarda um pouco e metade do que passar da meta vai para cá.</div>';
+      h += '';
     } else {
       h +=
         '<div class="hint" style="margin:0">Cada venda guarda <b>' + gs(melhPecaAuto()) + '</b> · enche um por vez, na ordem (segure para mudar)</div><div class="obLista" id="obLista">';
@@ -216,7 +216,7 @@
           '<div class="obIt" data-id="' + o.id + '"><div class="obL"><b>' + esc(o.nome) + '</b><span>' + gs(Math.round(x.tem)) + ' de ' + gs(o.custo) + '</span></div>' +
           '<div class="mtBar"><i style="width:' + Math.round(x.pct * 100) + '%"></i></div>' +
           '<div class="obS"><small>' + st + '</small>' +
-          (x.pronto ? '<button type="button" class="btn go obUsar" data-act="obUsar" data-id="' + o.id + '">Usar</button>' : '<button type="button" class="obX" data-act="obDel" data-id="' + o.id + '" aria-label="Remover objetivo">×</button>') +
+          (x.pronto ? '<button type="button" class="go obUsar" data-act="obUsar" data-id="' + o.id + '">Usar</button>' : '<button type="button" class="obX" data-act="obDel" data-id="' + o.id + '" aria-label="Remover objetivo">×</button>') +
           '</div></div>';
       });
       h += '</div>';
@@ -237,7 +237,7 @@
       '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
       '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
       '<div><div class="lbl">Quero até</div><select class="in selAl" id="obAte">' + ops + '</select></div></div>' +
-      '<button type="button" class="pd418P" data-act="obAdd" style="margin-top:16px">Guardar objetivo</button></section>' // S418 (125b)
+      '<button type="button" class="go" data-act="obAdd" style="margin-top:16px">Guardar objetivo</button></section>' // S418 (125b)
     );
   }
   ACT.obAdd = function () {
@@ -259,7 +259,7 @@
     S._objPV = null;
     S.cxAcao = '';
     vibrar(20);
-    lfToast('✓ Objetivo guardado', 'ok');
+    lfToast('Objetivo guardado', 'ok');
     saveSoon();
     renderCaixa();
   };

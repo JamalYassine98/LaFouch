@@ -38,20 +38,21 @@
       if (!naoCabe()) return;
     }
   }
-  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) — a lista inteira é um grupo
+  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) e as vagas de Compras (.cpLs)
+  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small']]; // listas de linhas: a lista inteira é um grupo
   function nvListaCabe(v) {
-    [].forEach.call(v.querySelectorAll('.nvLista'), function (l) {
-      var tx = l.querySelectorAll('.nvTx>b,.nvTx>small');
+    LISTAS_CABE.forEach(function (lc) { [].forEach.call(v.querySelectorAll(lc[0]), function (l) {
+      var tx = l.querySelectorAll(lc[1]);
       if (!tx.length || !l.offsetWidth) return;
       lfCabe(l, function () {
         for (var i = 0; i < tx.length; i++) if (tx[i].scrollWidth > tx[i].clientWidth + 1) return true;
         return false;
       });
-    });
+    }); });
   }
   // L4 nas ESCOLHAS DE LADOS (achado do dono 22/11 06:26, "Intermediário" maior que o botão): a lista das escolhas mora AQUI.
   // Se uma opção não cabe no lado dela, a letra da escolha inteira desce (3 degraus: 14 · 13 · 12 px, no CSS .ladosC).
-  var LADOS = '#sortChips,#fFaixas,.trk,.tmseg,.adSeg,.catbar3,.pdSeg,.impSeg';
+  var LADOS = '.trk,.pdSeg'; // 80: toda barra de escolha é o trilho (.trk); .pdSeg são as abas de Pedidos
   function ladosCabe(raiz) {
     [].forEach.call(raiz.querySelectorAll(LADOS), function (l) {
       if (!l.offsetWidth) return;

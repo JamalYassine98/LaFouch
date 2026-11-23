@@ -132,9 +132,9 @@ TESTES = [
    const bom=JSON.parse(L.backupDados()); bom.d.items=[]; const e4=L.restaurarDados(JSON.stringify(bom));
    return [!!e1&&!!e2&&!!e3, igual, e4==='', S.items.length===0]""", [True, True, True, True]),
  ("v-b9: 4 botões novos (Mensagens, Analisador, Temática, Atacado) e as 82 combinações têm nome e ícone próprios", """
-   const V=['vendas','estoque','caixa','fx','desp','hist','hoje','din','giro','prec','ajustes','ped','onl','cli','cont','lotes','novo','notif'],N=['msg','anl','tem','ata'];let n=0,ruim=[];
+   const V=['vendas','estoque','caixa','fx','desp','hist','hoje','din','prec','ajustes','ped','onl','cli','cont','lotes','novo','notif'],N=['msg','anl','tem','ata'];let n=0,ruim=[];
    N.forEach((a,i)=>{V.concat(N.slice(i+1)).forEach(b=>{n++;const ic=L.grpIcoPar(a,b,24),nm=L.grpNomeSugerido(a,b);if(!ic||!nm||ic.indexOf('<g')<0&&ic.length<120)ruim.push(a+'+'+b)})});
-   return [n, ruim, L.grpNomeSugerido('tem','ata'), L.grpNomeSugerido('vendas','msg')]""", [78, [], 'Atacado nos eventos', 'Vendas e mensagens']),
+   return [n, ruim, L.grpNomeSugerido('tem','ata'), L.grpNomeSugerido('vendas','msg')]""", [74, [], 'Atacado nos eventos', 'Vendas e mensagens']),
  ("v-b9: faixas dos botões novos usam o resumo do painel (novas, avisos, próximo evento)", """
    const d=Date.now(); S.pnlRes=null; const a=[L.pnlFaixa('msg')[0],L.pnlFaixa('tem')[0]];
    S.pnlRes={msg:2,ata:1,av:3,prox:{nm:'Black Friday CDE',ini:d+7.5*864e5,fim:d+10*864e5}};
@@ -350,12 +350,12 @@ TESTES = [
    L.setView('ajustes'); L.render(); const o = {};
    const card = document.getElementById('temaCard'); o.card = !!card; o.btns = card ? card.querySelectorAll('[data-tm]').length : 0;
    const root = document.documentElement, bg = () => getComputedStyle(root).getPropertyValue('--bg').trim();
-   const clica = k => document.querySelector('.tmseg [data-tm="' + k + '"]').click();
+   const clica = k => document.querySelector('.tmTrk [data-tm="' + k + '"]').click();
    const espera = () => new Promise(r => setTimeout(r, 1000));
    o.auto = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema')];
    
    clica('escuro'); await espera();
-   o.esc = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema'), bg(), document.querySelector('.tmseg .on').getAttribute('data-tm'), document.querySelector('meta[name="theme-color"]').content];
+   o.esc = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema'), bg(), document.querySelector('.tmTrk .on').getAttribute('data-tm'), document.querySelector('meta[name="theme-color"]').content];
    clica('claro'); await espera();
    o.cla = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema'), bg(), document.querySelector('meta[name="theme-color"]').content];
    clica('auto'); await espera();
@@ -437,14 +437,14 @@ async def main():
             await pg.locator('#v-inicio .tl[data-id="g:gp"]').click(); await pg.wait_for_timeout(700)
             # esboço 37a: o grupo abre o índice com as telas dele (Giro e Preços); a tela escolhida abre a partir dali
             m1 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#v-grp .nvL')].map(b => b.getAttribute('data-id'))]")
-            await pg.locator('#v-grp .nvL[data-id=giro]').click(); await pg.wait_for_timeout(500)
+            await pg.locator('#v-grp .nvL[data-id=prec]').click(); await pg.wait_for_timeout(500)  # 66: a tela Giro saiu; o grupo fica só com Preços
             m1.append(await pg.evaluate("() => window.__LF.S.view + '/' + window.__LF.S.dTab"))
             await pg.evaluate("() => { window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
             await pg.locator('#v-inicio .tl[data-id="g:mkt"]').click(); await pg.wait_for_timeout(600)
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['grp', ['giro', 'prec'], 'dash/giro'] and m2 == ['mkt', []] and not pg.erros
+            ok = m1 == ['grp', ['prec'], 'dash/prec'] and m2 == ['mkt', []] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (59/98): Giro e preços com a flecha certa; Marketing abre a tela Marketing')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
@@ -608,8 +608,8 @@ async def main():
             await pg2.locator('#detail button[aria-label="Editar"]').click(); await pg2.wait_for_timeout(400)
             nAntes = await pg2.evaluate("() => window.__LF.S.items.length")
             await pg2.click('#edLixeira'); await pg2.wait_for_timeout(500)
-            dz = [await pg2.locator('#edLixoAviso').count(), await pg2.evaluate("() => window.__LF.S.items.length"), await pg2.locator('[data-act=prodDesfaz]').count()]
-            await pg2.click('[data-act=prodDesfaz]'); await pg2.wait_for_timeout(500)
+            dz = [await pg2.locator('#edLixoAviso').count(), await pg2.evaluate("() => window.__LF.S.items.length"), await pg2.locator('#lfToast.on .lfTA').count()]
+            await pg2.click('#lfToast.on .lfTA'); await pg2.wait_for_timeout(500)
             dz.append(await pg2.evaluate("() => window.__LF.S.items.length"))
             e2 = 1 if (dz[0] == 0 and dz[1] < nAntes and dz[2] == 1 and dz[3] == nAntes and not pg2.erros) else 0
             await pg2.close()
@@ -1591,14 +1591,14 @@ async def main():
             # Início: botões em azulejo levam às telas certas
             pg = await pagina()
             r = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-inicio .tl').length]")
-            await pg.locator('#v-inicio .tl[data-id=giro]').click(); await pg.wait_for_timeout(300)
-            r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            await pg.locator('#v-inicio .tl[data-id=hist]').click(); await pg.wait_for_timeout(300)  # 66: a tela Giro saiu
+            r2 = await pg.evaluate("() => [window.__LF.S.view, 'x']")
             await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 17] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 17 botões (v-b9: + Mensagens, Analisador, Temática, Atacado) + barra levam às telas certas')
+            ok = r == ['inicio', 16] and r2 == ['hist', 'x'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 16 botões (66: sem o Giro) (v-b9: + Mensagens, Analisador, Temática, Atacado) + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
@@ -1989,7 +1989,7 @@ async def main():
             await pg.evaluate("() => document.querySelector('[data-act=updagora]') ? 0 : window.__LF.ACT.updagora()")
             ju1 = await pg.evaluate("() => { const o = document.getElementById('lfUpdSh'); return o ? [o.innerText.indexOf('Novidade B') >= 0, !!o.querySelector('[data-act=updgo]')] : null }")
             await pg.evaluate("() => window.__LF.ACT.updnao()"); await pg.wait_for_timeout(500)
-            ju2 = await pg.evaluate("() => [!document.getElementById('lfUpdSh'), !!document.querySelector('.lfa-toast')]")
+            ju2 = await pg.evaluate("() => [!document.getElementById('lfUpdSh'), !!document.querySelector('#lfToast.on')]")
             idx = open('www/index.html').read()
             ju3 = all(k in idx for k in ('id="lfIntro"', 'lfi1', 'logo-app-claro.png', "lf_ni"))
             total += 1
@@ -2027,7 +2027,7 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(400)
             await pg.evaluate("() => document.querySelector('[data-av=teste]').click()"); await pg.wait_for_timeout(100)
-            sb = await pg.evaluate("() => { const r = document.querySelector('[data-av=teste]'); const s = getComputedStyle(r); return [s.backgroundColor, r.className === 'b75' ? '0px' : 'x', r.className]; }")  # S374 (75): botão de teste em contorno neutro, sem o sino
+            sb = await pg.evaluate("() => { const r = document.querySelector('[data-av=teste]'); const s = getComputedStyle(r); return [s.backgroundColor, /(^| )mini( |$)/.test(r.className) ? '0px' : 'x', r.className]; }")  # 81: botão de teste = pequeno (.mini) da família: botão de teste em contorno neutro, sem o sino
             await pg.evaluate("() => { window.__marca = document.getElementById('avisosCard'); }")
             await pg.evaluate("() => window.__LF.ACT.updbusca()"); await pg.wait_for_timeout(300)
             sb2 = await pg.evaluate("() => [window.__marca === document.getElementById('avisosCard'), !!document.getElementById('updCard')]")
@@ -2051,7 +2051,7 @@ async def main():
             desl = desl and casc
             bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).borderTopWidth + ' ' + getComputedStyle(b).borderTopColor; b.remove(); return v; }")
             total += 1
-            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and '243, 192, 220' in bg and not pg.erros  # v465: botão principal B1
+            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and '191, 139, 169' in bg and not pg.erros  # v465: botão principal B1
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes sem lembretes/nota; botão em gradiente; troca desliza')
             if not ok: falhas.append('familia botoes'); print('        veio', 'Lembretes' in aj, 'Nota fiscal' in aj, desl, bg[:30], pg.erros)
             await pg.close()
@@ -2255,14 +2255,14 @@ async def main():
             await pg.evaluate("() => { const L = window.__LF; L.S._rtudo = true; L.S.avisos = {som: 'campainha'}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
             t1 = await pg.evaluate("() => { const c = document.getElementById('avisosCard'); return [c.querySelectorAll('[data-av=escolher]').length, c.innerText.includes('Peça voltou'), c.innerText.includes('Campainha')]; }")
             await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=n]').click()"); await pg.wait_for_timeout(200)
-            t2 = await pg.evaluate("() => [!!document.querySelector('.pdOv'), document.querySelectorAll('.avopt').length]")
-            await pg.evaluate("() => document.querySelector('[data-av=som][data-t=n][data-v=moeda]').click()"); await pg.wait_for_timeout(200)
-            await pg.evaluate("() => document.querySelector('[data-av=fechar]').click()"); await pg.wait_for_timeout(200)
+            t2 = await pg.evaluate("() => [!!document.querySelector('.ljJn:not(.ljSai) .avSalva'), document.querySelectorAll('.ljJn:not(.ljSai) [data-som]').length]")
+            await pg.evaluate("() => document.querySelector('.ljJn:not(.ljSai) [data-som=moeda]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('.ljJn:not(.ljSai) .avSalva').click()"); await pg.wait_for_timeout(500)
             await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=x]').click()"); await pg.wait_for_timeout(200)
-            await pg.evaluate("() => document.querySelector('[data-av=som][data-t=x][data-v=mudo]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('.ljJn:not(.ljSai) [data-som=mudo]').click()"); await pg.wait_for_timeout(200)
             await pg.evaluate("() => window.__tocou.length = 0")
-            await pg.evaluate("() => document.querySelector('[data-av=fechar]').click()"); await pg.wait_for_timeout(200)
-            t3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.avisos.sn, S.avisos.sc, S.avisos.sx, !!document.querySelector('.pdOv')]; }")
+            await pg.evaluate("() => document.querySelector('.ljJn:not(.ljSai) .avSalva').click()"); await pg.wait_for_timeout(500)
+            t3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.avisos.sn, S.avisos.sc, S.avisos.sx, !!document.querySelector('.ljJn:not(.ljSai)')]; }")
             await pg.evaluate("() => { window.__avTocaTipo('n'); window.__avTocaTipo('c'); window.__avTocaTipo('x'); }")
             t4 = await pg.evaluate("() => window.__tocou")
             total += 1
@@ -2484,15 +2484,15 @@ async def main():
                 e1 = await pg.evaluate(est)
             await arrasta('#mainnav .mn[data-id="caixa"]', [210, 300])
             e2 = await pg.evaluate(est)
-            await arrasta('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="estoque"]')
+            await arrasta('#v-inicio .tl[data-id="hist"]', '#mainnav .mn[data-id="estoque"]')
             e3 = await pg.evaluate(est)
-            await pg.locator('#mainnav .mn[data-id="giro"]').click(); await pg.wait_for_timeout(300)
-            e4 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            await pg.locator('#mainnav .mn[data-id="hist"]').click(); await pg.wait_for_timeout(300)
+            e4 = await pg.evaluate("() => [window.__LF.S.view, 'x']")
             total += 1
             ok = (e0['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
                   and e1['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'prec'] and 'prec' not in e1['tiles']
                   and e2['nav'] == ['inicio', 'vendas', 'estoque', 'prec'] and 'caixa' in e2['tiles']
-                  and e3['nav'] == ['inicio', 'vendas', 'giro', 'estoque', 'prec'] and e4 == ['dash', 'giro'] and not pg.erros)  # v465: entra onde soltou
+                  and e3['nav'] == ['inicio', 'vendas', 'hist', 'estoque', 'prec'] and e4 == ['hist', 'x'] and not pg.erros)  # v465: entra onde soltou
             print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
             if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
             await pg.close()
@@ -2652,14 +2652,14 @@ async def main():
             r3 = await pg.evaluate("() => [window.__LF.S.view, document.getElementById('grpTabs').hidden, document.querySelectorAll('#v-grp .nvL').length + 1, document.querySelectorAll('[data-grpv]').length]")
             await pg.evaluate("() => window.__LF.ACT.dFecha()"); await pg.wait_for_timeout(400)
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(500)
-            await arrasta2('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="%s"]' % gid, 100)
+            await arrasta2('#v-inicio .tl[data-id="hist"]', '#mainnav .mn[data-id="%s"]' % gid, 100)
             r4 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
             await pg.evaluate("g => window.__LF.ACT ? 0 : 0", gid)
             await pg.evaluate("g => { document.querySelector('#mainnav .mn[data-id=\"' + g + '\"]').dispatchEvent(new MouseEvent('contextmenu', {bubbles: true, cancelable: true})); }", gid)
             await pg.wait_for_timeout(200); semGer = await pg.evaluate("() => !document.getElementById('grpM')")  # S374 (61): segurar/botão direito no grupo da barra não abre o gerenciar
             await pg.evaluate("g => window.__LF.ACT.grpGerir(g)", gid)
             await pg.wait_for_timeout(300)
-            await pg.locator('#grpM [data-act="grpTirar"][data-id="giro"]').click(); await pg.wait_for_timeout(400)
+            await pg.locator('#grpM [data-act="grpTirar"][data-id="hist"]').click(); await pg.wait_for_timeout(400)
             r5 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
             await pg.locator('#grpM [data-act="grpTirar"][data-id="ajustes"]').click(); await pg.wait_for_timeout(400)
             r6 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.barra, !!document.getElementById('grpM')]")
@@ -2668,28 +2668,28 @@ async def main():
             ok = (ok and r1[0] and r1[1] == 'Ajustes do caixa'
                   and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4 and r2['ic'] == 1 and r2['gi'] == 0
                   and r3[0] == 'grp' and r3[1] is True and r3[2] == 3 and r3[3] == 0
-                  and r4[0] == [['caixa', 'ajustes', 'giro']]
-                  and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]
+                  and r4[0] == [['caixa', 'ajustes', 'hist']]
+                  and r5[0] == [['caixa', 'ajustes']] and 'hist' in r5[1]
                   and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and semGer and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'grupos: juntar segurando, título com a flecha (esboço 41), adicionar do Início, tirar e dissolver')
             if not ok: falhas.append('grupos barra'); print('        veio', r0, r1, r2, r3, r4, r5, r6, pg.erros)
             # S370 (esboço 44): no Início, segurar um atalho sobre outro até o anel fechar junta os dois; soltar rápido só troca de lugar
             await pg.evaluate("() => { const S = window.__LF.S; S.grupos = []; S.barra = null; S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
-            await arrasta2('#v-inicio .tl[data-id="giro"]', '#v-inicio .tl[data-id="prec"]', 600)
+            await arrasta2('#v-inicio .tl[data-id="hist"]', '#v-inicio .tl[data-id="hoje"]', 600)
             await pg.wait_for_timeout(600)
-            j1 = await pg.evaluate("() => { const S = window.__LF.S; const g = S.grupos[0]; return [g && g.itens, g && g.nome, g && S.inicioT.indexOf(g.id) >= 0, S.inicioT.indexOf('giro'), !!document.querySelector('#v-inicio .tl.tlG'), document.getElementById('lfDesf').className]; }")
+            j1 = await pg.evaluate("() => { const S = window.__LF.S; const g = S.grupos[0]; return [g && g.itens, g && g.nome, g && S.inicioT.indexOf(g.id) >= 0, S.inicioT.indexOf('hist'), !!document.querySelector('#v-inicio .tl.tlG'), document.getElementById('lfDesf').className]; }")
             gi = await pg.evaluate("() => window.__LF.S.grupos[0] && window.__LF.S.grupos[0].id")
             if gi: await pg.locator('#v-inicio .tl[data-id="%s"]' % gi).click(); await pg.wait_for_timeout(600)
             j2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.nvG]")  # esboço 37a: o grupo abre o índice dele
             await pg.evaluate("g => { window.__LF.S._gg = g; window.__LF.ACT.grpDesfazer(); }", gi); await pg.wait_for_timeout(900)
-            j3 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.view, window.__LF.S.inicioT.indexOf('giro') >= 0, window.__LF.S.inicioT.indexOf('prec') >= 0]")
+            j3 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.view, window.__LF.S.inicioT.indexOf('hist') >= 0, window.__LF.S.inicioT.indexOf('hoje') >= 0]")
             total += 1
-            ok = (j1[0] == ['prec', 'giro'] and j1[1] == 'Preço e giro' and j1[2] and j1[3] < 0 and j1[4] and 'on' in j1[5]
+            ok = (j1[0] == ['hoje', 'hist'] and bool(j1[1]) and j1[2] and j1[3] < 0 and j1[4] and 'on' in j1[5]
                   and j2 == ['grp', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S370: juntar dois atalhos do Início (anel), abrir o grupo e desfazer')
             if not ok: falhas.append('grupo no Início'); print('        veio', j1, j2, j3, pg.erros)
             # S374 (esboço 61): arrastar um grupo da barra para o Início leva o grupo inteiro (não desfaz); Desfazer volta
-            await pg.evaluate("() => { const S = window.__LF.S; S.grupos = [{ id: 'g:61', nome: 'Dupla', itens: ['caixa', 'fx'] }]; S.barra = ['vendas', 'estoque', 'g:61', 'ajustes']; S.inicioT = ['giro', 'prec']; window.__LF.setView('inicio'); window.__LF.render(); }"); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => { const S = window.__LF.S; S.grupos = [{ id: 'g:61', nome: 'Dupla', itens: ['caixa', 'fx'] }]; S.barra = ['vendas', 'estoque', 'g:61', 'ajustes']; S.inicioT = ['hist', 'prec']; window.__LF.setView('inicio'); window.__LF.render(); }"); await pg.wait_for_timeout(500)
             await arrasta2('#mainnav .mn[data-id="g:61"]', '#v-inicio .tl[data-id="prec"]', 200)
             await pg.wait_for_timeout(500)
             n1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.inicioT, S.grupos.length && S.grupos[0].itens, !!document.querySelector('#v-inicio .tl[data-id=\"g:61\"]'), document.getElementById('lfDesf').className]; }")
@@ -2697,7 +2697,7 @@ async def main():
             n2 = await pg.evaluate("() => [window.__LF.S.barra, window.__LF.S.inicioT]")
             total += 1
             ok = (n1[0] == ['vendas', 'estoque', 'ajustes'] and 'g:61' in n1[1] and n1[2] == ['caixa', 'fx'] and n1[3] and 'on' in n1[4]
-                  and n2 == [['vendas', 'estoque', 'g:61', 'ajustes'], ['giro', 'prec']] and not pg.erros)
+                  and n2 == [['vendas', 'estoque', 'g:61', 'ajustes'], ['hist', 'prec']] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (61): grupo da barra vai inteiro para o Início; Desfazer volta')
             if not ok: falhas.append('grupo para o Início'); print('        veio', n1, n2, pg.erros)
             # S371 (esboço 51): segurar uma tela na folha da flecha e soltar na barra (cheia = troca); fora da barra nada muda; Desfazer volta tudo
@@ -2716,14 +2716,14 @@ async def main():
             await arrasta2('#dFolha .dOp[data-id="lotes"]', '#mainnav .mn[data-id="ajustes"]', 200)
             k4 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos.length]; }")
             # bug do dono (16/11 10:05): a folha do Dashboard também deixa levar uma tela para a barra
-            await pg.evaluate("() => { const S = window.__LF.S; S.barra = ['vendas', 'estoque', 'caixa', 'ajustes']; S.dTab = 'giro'; window.__LF.setView('dash'); window.__LF.render(); window.__LF.ACT.dVer(); }"); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => { const S = window.__LF.S; S.barra = ['vendas', 'estoque', 'caixa', 'ajustes']; S.dTab = 'hoje'; window.__LF.setView('dash'); window.__LF.render(); window.__LF.ACT.dVer(); }"); await pg.wait_for_timeout(500)
             await arrasta2('#dFolha .dOp[data-act=dVerEsc][data-id="prec"]', '#mainnav .mn[data-id="ajustes"]', 200)
             k5 = await pg.evaluate("() => [window.__LF.S.barra, window.__LF.S.dTab, window.__LF.S.view]")
             total += 1
             ok = (k1[0] == ['vendas', 'g:51', 'caixa', 'lotes'] and k1[1] == ['estoque', 'cont'] and k1[2] and k1[3] and 'on' in k1[4] and k1[5] == 'estoque' and not k1[6]
                   and k2 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont']]
                   and k3 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont'], 'estoque', False]
-                  and k4 == [['vendas', 'estoque', 'caixa', 'lotes'], 0] and k5 == [['vendas', 'estoque', 'caixa', 'prec'], 'giro', 'dash'] and not pg.erros)
+                  and k4 == [['vendas', 'estoque', 'caixa', 'lotes'], 0] and k5 == [['vendas', 'estoque', 'caixa', 'prec'], 'hoje', 'dash'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S371: arrastar uma tela da folha da flecha para a barra (troca, fora não muda, Desfazer, grupo de 2 se desfaz)')
             if not ok: falhas.append('tela do grupo para a barra'); print('        veio', k1, k2, k3, k4, k5, pg.erros)
             await pg.close()
@@ -3076,9 +3076,9 @@ async def main():
             await pg.locator('[data-act="fluxod"][data-id="90"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => window.__LF.S.fluxoD")
             await checa('Dashboard: fluxo muda para 90 dias', got == 90, got)
-            for tab in ['giro', 'prec']:
+            for tab in ['prec']:  # 66: o Giro saiu
                 await pg.evaluate("t => window.__LF.inicioGo(t)", tab); await pg.wait_for_timeout(450)
-            await checa('Dashboard: abas Giro e Preços abrem sem erro', not pg.erros, pg.erros)
+            await checa('Dashboard: Preços abre sem erro', not pg.erros, pg.erros)
             await pg.close()
 
             # venda concluída: marca de ok e barras do resumo
@@ -3892,9 +3892,9 @@ async def main():
               L.setView('inicio'); await w(200); S.famV = 0; S.famMex = {}; L.render(); await w(200);
               return R; }""")
             guarda = "'famV'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read() and "'famMex'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read()
-            ok = (not troca and guarda and got['novo'] == ['giro,prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 2, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est,comp']
-                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 2, False]
-                  and got['v596'] == ['giro,prec', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,g:gp,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'giro,prec', True] and not pg.erros)
+            ok = (not troca and guarda and got['novo'] == ['prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 3, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est,comp']
+                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 3, False]
+                  and got['v596'] == ['prec', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,g:gp,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'prec', True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Item 26 + 4c parte 4 (149r): famílias numa tabela só com versão — Reservas em Dinheiro, aparelho antigo migra uma vez, arranjo do dono e grupo mexido ficam')
             if not ok: falhas.append('item 26 familias tabela unica'); print('        veio', troca, guarda, got, pg.erros)
             await pg.close()
@@ -3905,7 +3905,7 @@ async def main():
             troca = [f for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if re.search(r'^\s*(inicioGo|navOn) = function', open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read(), re.M)]
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              for (const [id, view, aceso] of [['hoje', 'dia', 'hoje'], ['giro', 'dash', 'giro'], ['repo', 'comp', 'repo'], ['cli', 'clientes', 'cli'], ['site', 'site', 'site'], ['cup', 'cup', 'cup'], ['vit', 'onl', 'vit'], ['anl', 'onl', 'g:mkt'], ['caixa', 'caixa', 'caixa'], ['lotes', 'estoque', 'lotes']]) {
+              for (const [id, view, aceso] of [['hoje', 'dia', 'hoje'], ['repo', 'comp', 'repo'], ['cli', 'clientes', 'cli'], ['site', 'site', 'site'], ['cup', 'cup', 'cup'], ['vit', 'onl', 'vit'], ['anl', 'onl', 'g:mkt'], ['caixa', 'caixa', 'caixa'], ['lotes', 'estoque', 'lotes']]) {
                 L.inicioGo(id); await w(250); R.push(S.view === view && L.navOn(aceso) === true ? 1 : id + '→' + S.view); }
               L.inicioGo('vit'); await w(200); const pn = [L.navOn('vendas'), L.navOn('g:site'), L.navOn('prod')];
               return [R.filter(x => x !== 1), pn]; }""")
@@ -4529,7 +4529,7 @@ async def main():
             await pg.close()
 
             # Família Compras 66 parte 2 (Parte A §2 e §7): o FLUXO decide — rende por dia (lucro real ÷ dias na loja) contra a média do tipo.
-            # Estrela: "★ estrela · repor o mesmo X" e o pedido diz "X o parecido"; fracasso: "No lugar de X", alternativas do mesmo tipo
+            # Estrela: "estrela · repor o mesmo X" e o pedido diz "X o parecido"; fracasso: "No lugar de X", alternativas do mesmo tipo
             # (nunca o mesmo modelo nem a mesma combinação), o pedido não cita o modelo e o "Modelo" do Fechei com… não oferece o mesmo.
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
@@ -4542,7 +4542,7 @@ async def main():
               R.alts = fra.alts.every(a => !(a.pub === sai[1] && a.mat === sai[2]) && fra.refs.indexOf(a.ref) < 0);
               L.inicioGo('comp'); await w(500);
               const linha = k => [...document.querySelectorAll('#v-comp .cpL')].find(b => b.getAttribute('data-id') === k);
-              R.linhas = [linha(est.k).innerText.indexOf('★ estrela · repor o mesmo ' + est.mod) >= 0, linha(fra.k).innerText.indexOf('no lugar de ' + fra.mod) >= 0];
+              R.linhas = [linha(est.k).innerText.indexOf('estrela · repor o mesmo ' + est.mod) >= 0, linha(fra.k).innerText.indexOf('no lugar de ' + fra.mod) >= 0];
               linha(fra.k).click(); await w(500);
               const jn = document.querySelector('.cpJn');
               R.janela = [jn.getAttribute('aria-label'), jn.querySelectorAll('.cpAlt').length === fra.alts.length, jn.querySelectorAll('.cpAlt[aria-checked=true]').length, !!jn.querySelector('[data-ok]')];
@@ -4583,6 +4583,65 @@ async def main():
                   and got['real'] and got['fa20'] == 67 and got['apr'].startswith('aprendendo · ') and semChave and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Família Compras 66 parte 3: aprende sozinho — sem meta por dia, dias de loja e volume; começa pela primeira compra; "aprendendo · N dias de vendas" pede pouco')
             if not ok: falhas.append('66 compras aprende'); print('        veio', got, semChave, pg.erros)
+            await pg.close()
+
+            # Conferência ESBOCO 22/11 (v626–v631) + saída da tela Giro: lote de compra não é peça em Parados; o aviso curto não passa para a
+            # janela seguinte; vagas de Compras sem quebra (lfCabe) e graus em ordem crescente (lista e mensagem); sem foto = o quadro de pacote;
+            # Giro saiu (Perdas e sobras na tela Contar o estoque; atalho antigo leva ao Inventário); vitrine da semana saiu.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              R.semLote = L.invParados().every(m => !(m.it && m.it.bulk));
+              L.lfToast('teste', 'ok'); await w(50); L.lfJanela({ titulo: 'X', monta: c => { c.innerHTML = '<p>x</p>'; } }); await w(80);
+              R.toast = !document.getElementById('lfToast').classList.contains('on'); document.querySelector('.ljBk').click(); await w(500);
+              const V = L.cpVagas(), gr = V.filter(v => v.grau).map(v => parseFloat(v.grau));
+              R.ordem = gr.every((g, i) => !i || g >= gr[i - 1]) && gr.length > 2;
+              const msg = L.cpMensagem(V.filter(v => v.grau)).split('\\n').slice(1, -1).map(l => parseFloat(l.split('+')[1].replace(',', '.')));
+              R.msg = msg.every((g, i) => !i || g >= msg[i - 1]);
+              L.inicioGo('comp'); await w(500);
+              R.cabe = [...document.querySelectorAll('#v-comp .cpTx>b,#v-comp .cpTx>small')].every(e => e.scrollWidth <= e.clientWidth + 1 && e.getClientRects().length === 1);
+              R.sf = (() => { const h = L.lcThumb('NAO-EXISTE'); return /<svg/.test(h) && !/sem foto/.test(h); })();
+              R.giro = [!document.querySelector('#v-dash [data-id=giro]'), (() => { L.inicioGo('giro'); return S.view; })()];
+              S.contagens = [{ ts: Date.now() - 864e5, itens: [{ ref: S.items[0].ref, usd: -3 }] }];
+              L.setView('estoque'); await w(300); L.ACT.contTroca(); await w(400);
+              R.pdc = !!document.querySelector('#contCard section.fxF[data-fx=pdc]'); L.ACT.contTroca(); await w(200);
+              R.vit = typeof L.vitSugestao === 'undefined' && !S.vit;
+              return R; }""")
+            total += 1
+            ok = got == {'semLote': True, 'toast': True, 'ordem': True, 'msg': True, 'cabe': True, 'sf': True, 'giro': [True, 'estoque'], 'pdc': True, 'vit': True} and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Conferência v626–v631 + Giro: lote fora de Parados, aviso não passa de janela, vagas sem quebra e graus em ordem, sem foto = pacote, Giro e vitrine saíram')
+            if not ok: falhas.append('conferencia 626 631'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Parte 1 · base visual (80–89a, 104): trilho, botões, campos em linha, ícones 1,6 sem emoji, um rótulo, uma linha, Sons em linhas, sem cartão, 2 avisos
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              const emo = /[\\u{1F300}-\\u{1FAFF}\\u{2600}-\\u{27BF}]/u, cs = (e, p) => getComputedStyle(e)[p];
+              let comEmo = [];
+              for (const v of ['inicio', 'vendas', 'estoque', 'caixa', 'desp', 'hist', 'ajustes', 'ped', 'clientes', 'dash']) { L.setView(v); await w(350); const t = document.getElementById('v-' + v); if (t && emo.test(t.innerText)) comEmo.push(v); }
+              R.semEmoji = comEmo;
+              R.buscaSimples = [...document.querySelectorAll('input[placeholder]')].filter(i => /^Buscar/.test(i.placeholder)).map(i => i.id);  // dono 23/11 15:44: sem a palavra Buscar
+              L.setView('caixa'); S.cxAcao = 'ret'; L.render(); await w(300);
+              const inp = document.querySelector('#v-caixa .cxAcao.on .in');
+              R.campo = !!inp && cs(inp, 'borderTopWidth') === '0px' && cs(inp, 'borderBottomWidth') === '1px' && cs(inp, 'borderTopLeftRadius') === '0px';
+              const card = document.querySelector('.view .card');
+              R.semCartao = !card || (cs(card, 'backgroundColor') === 'rgba(0, 0, 0, 0)' && cs(card, 'borderTopWidth') === '0px');
+              const g = document.querySelector('#v-caixa .go'); R.botao = !!g && cs(g, 'borderTopLeftRadius') === '14px' && cs(g, 'backgroundColor') === 'rgba(0, 0, 0, 0)';
+              const lb = document.querySelector('#v-caixa .cxLb, #v-caixa .lbl'); R.rotulo = !!lb && cs(lb, 'fontSize') === '12px' && cs(lb, 'fontWeight') === '600';
+              const ic = [...document.querySelectorAll('.view:not([hidden]) svg[viewBox="0 0 24 24"], #mainnav svg[viewBox="0 0 24 24"]')].filter(s => s.getBoundingClientRect().width && !s.closest('.lfVazio'));
+              R.traco = ic.length > 0 && ic.every(s => cs(s, 'strokeWidth') === '1.6px');
+              L.setView('ajustes'); await w(300); const r = document.querySelector('.ajS .ajR b'); R.linha = !!r && cs(r, 'fontSize') === '16px' && cs(r, 'fontWeight') === '500';
+              const av = document.getElementById('avisosCard'); R.sons = !!av && !av.querySelector('.avcard,.avchip') && av.querySelectorAll('.avLn [data-av=escolher]').length === 6;
+              L.popErr('erro de prova'); await w(50); const tt = document.getElementById('lfToast');
+              R.erroEmbaixo = !document.getElementById('popErr') && tt.classList.contains('t-erro') && /erro de prova/.test(tt.textContent);
+              let des = 0; L.lfToast('Foto na lixeira', 'neutro', { t: 'Desfazer', fn: () => des++ }); await w(50);
+              const bt = tt.querySelector('.lfTA'); bt && bt.click(); R.desfazer = tt.classList.contains('t-neutro') && !!bt && des === 1 && bt.textContent === 'Desfazer';
+              L.setView('caixa'); await w(300); const n = document.querySelector('#v-caixa .note'); R.nota = !n || (cs(n, 'backgroundColor') === 'rgba(0, 0, 0, 0)' && getComputedStyle(n, '::before').width === '8px');
+              R.trilho = !!document.querySelector('.trk .trkTh');
+              return R; }""")
+            total += 1
+            ok = got == {'semEmoji': [], 'buscaSimples': [], 'campo': True, 'semCartao': True, 'botao': True, 'rotulo': True, 'traco': True, 'linha': True, 'sons': True, 'erroEmbaixo': True, 'desfazer': True, 'nota': True, 'trilho': True} and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Parte 1 base visual: sem emoji, campo em linha, sem cartão, botão de contorno, um rótulo, ícones 1,6, uma linha, Sons em linhas, erro embaixo, Desfazer, aviso em linha, trilho')
+            if not ok: falhas.append('parte 1 base visual'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
@@ -4704,8 +4763,8 @@ async def main():
               const caixa = v.querySelector('.top h1').textContent.trim() === 'Caixa' && !/CONTAS DO MÊS|CÂMBIO/i.test(v.innerText) && /Movimentos/.test(v.innerText);
               const l0 = Math.round(v.getBoundingClientRect().width); v.querySelector('.top button').click(); await w(450);
               const larg = Math.round(v.getBoundingClientRect().width) === l0 && document.documentElement.classList.contains('lfTrava'); if (S.cxMenu) v.querySelector('.top button').click(); await w(300);
-              S.dTab = 'giro'; L.setView('dash'); await w(700); const ks = [...document.getElementById('dtabBody').children].filter(e => e.offsetParent);
-              const vaos = ks.slice(0, -1).map((e, i) => Math.round(ks[i + 1].getBoundingClientRect().top - e.getBoundingClientRect().bottom)); const sep = vaos.length >= 1 && vaos.every(x => x === 18); // S374 (99): os blocos agora ficam juntos num cartão
+              S.dTab = 'din'; L.setView('dash'); await w(700); const ks = [...document.getElementById('dtabBody').children].filter(e => e.offsetParent);
+              const vaos = ks.slice(0, -1).map((e, i) => Math.round(ks[i + 1].getBoundingClientRect().top - e.getBoundingClientRect().bottom)); const sep = vaos.length >= 1 && vaos.every(x => x === vaos[0]);  // 104: sem cartão, o vão entre blocos é um só // S374 (99): os blocos agora ficam juntos num cartão
               L.ACT.dVer(); await w(400); const semX = !document.querySelector('.dFx') && /VER/.test(document.body.innerText); L.ACT.dFecha(); await w(400);
               L.setView('inicio'); S.inicioFant = true; L.render(); await w(300); const r = document.querySelector('[data-act=inicioReset]');
               const link = !!r && r.className === 'lkTx' && getComputedStyle(r).backgroundColor === 'rgba(0, 0, 0, 0)' && r.getBoundingClientRect().height >= 44; S.inicioFant = false; L.render(); await w(1300);
@@ -4894,13 +4953,13 @@ async def main():
             # sem data-act, sem ⌄, sem conserto depois do desenho (o laço do nvDesenha saiu). Nada muda na tela (medidas iguais antes × depois, 10 telas).
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              for (const f of [() => { S.per = 'mes'; S.dTab = 'hoje'; L.setView('dash'); }, () => { S.dTab = 'giro'; L.setView('dash'); }, () => { S.dTab = 'prec'; L.setView('dash'); }, () => { S.dTab = 'din'; L.setView('dash'); }, () => L.inicioGo('hoje')]) {
+              for (const f of [() => { S.per = 'mes'; S.dTab = 'hoje'; L.setView('dash'); }, () => { S.dTab = 'prec'; L.setView('dash'); }, () => { S.dTab = 'din'; L.setView('dash'); }, () => L.inicioGo('hoje')]) {
                 f(); await w(450); const v = document.querySelector('.view:not([hidden])'), t = [...document.querySelectorAll('.dHdT')].filter(e => e.getBoundingClientRect().height);
                 R.push(t.length === 1 && t[0].tagName === 'H1' && !t[0].dataset.act && !t[0].querySelector('i') && !/⌄/.test(t[0].textContent) && document.querySelectorAll('h1').length >= 1 ? 1 : S.view + '/' + S.dTab + ':' + t.map(e => e.tagName).join()); }
               return R; }""")
             laco = sorted(f for f, t in fontes.items() if re.search(r'class="dHdT"[^>]*data-act|<button[^>]*class="dHdT', t) or (f.startswith('99c-') and "querySelectorAll('.dHdT')" in t))
             total += 1
-            ok = got == [1] * 5 and laco == [] and not pg.erros
+            ok = got == [1] * 4 and laco == [] and not pg.erros  # o Giro saiu (v632)
             print(('  ok  ' if ok else ' FALHA ') + '4c parte 1 (149t): o título de Dashboard, Giro, Preços, Reservas e do dia nasce h1, sem ação e sem conserto depois do desenho')
             if not ok: falhas.append('4c parte 1 titulo h1'); print('        veio', got, laco, pg.erros)
             await pg.close()
@@ -4931,15 +4990,15 @@ async def main():
                 return F.length + ':' + F.every((f, i) => { const c = getComputedStyle(f), h = f.querySelector('.fxH'), ant = (() => { let a = f.previousElementSibling; while (a && !a.getBoundingClientRect().height) a = a.previousElementSibling; return a; })(), junto = !ant || !ant.matches('section.fxF') || Math.abs(ant.getBoundingClientRect().bottom - f.getBoundingClientRect().top) < 1;
                   return !f.classList.contains('card') && !f.closest('.g99') && c.backgroundColor === 'rgba(0, 0, 0, 0)' && c.borderTopLeftRadius === '0px' && c.borderLeftWidth === '0px' && c.borderBottomWidth === '1px' && (f.previousElementSibling && f.previousElementSibling.matches('section.fxF') ? c.borderTopWidth === '0px' : c.borderTopWidth === '1px')
                     && junto && h.getBoundingClientRect().height >= 64 && getComputedStyle(h.querySelector('b')).fontSize === '16px' && Math.round(h.getBoundingClientRect().left) === Math.round(f.getBoundingClientRect().left); }); };
-              S.dfold = {}; S.dTab = 'giro'; L.setView('dash'); await w(500); R.giro = olha();
+              S.dfold = {};  // 66: a tela Giro saiu
               S.dTab = 'din'; L.setView('dash'); await w(500); R.din = olha();
               L.setView('desp'); await w(500); R.desp = olha();
               S.ajAberta = 'pa'; L.setView('ajustes'); await w(500); R.aj = olha();
-              S.dTab = 'giro'; L.setView('dash'); await w(400); document.querySelector('#v-dash [data-act=dfold][data-id=ret]').click(); await w(800);
-              R.abre = !!document.querySelector('#v-dash section.fxF[data-fx=ret].on .fxB') && S.dfold.ret === true; return R; }""")
+              S.dTab = 'din'; L.setView('dash'); await w(400); document.querySelector('#v-dash [data-act=dfold][data-id=paraonde]').click(); await w(800);
+              R.abre = !!document.querySelector('#v-dash section.fxF[data-fx=paraonde].on .fxB') && S.dfold.paraonde === true; return R; }""")
             total += 1
-            ok = (all(re.match(r'^[1-9]\d*:true$', got[k]) for k in ('giro', 'din', 'desp', 'aj')) and int(got['giro'].split(':')[0]) >= 4 and got['abre'] and 'fxF' not in fontes['98z-s374d-padrao.js'].split('function pad99')[1].split('function ')[0] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '4c parte 3 (135d): a dobra nasce como linha de dobra (sem cartão, 64 px, linha fina, sem espaço entre as seguidas) em Giro, Reservas, Despesas e Ajustes › Preços')
+            ok = (all(re.match(r'^[1-9]\d*:true$', got[k]) for k in ('din', 'desp', 'aj')) and got['abre'] and 'fxF' not in fontes['98z-s374d-padrao.js'].split('function pad99')[1].split('function ')[0] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '4c parte 3 (135d): a dobra nasce como linha de dobra (sem cartão, 64 px, linha fina, sem espaço entre as seguidas) em Reservas, Despesas e Ajustes › Preços (66: o Giro saiu)')
             if not ok: falhas.append('4c parte 3 linha de dobra'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -5011,7 +5070,7 @@ async def main():
               L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(900);
               const d = document.getElementById('detail'), c = q => getComputedStyle(d.querySelector(q)), T = 'rgba(0, 0, 0, 0)', linha = (x, k) => x['border' + k + 'Width'] === '1px' && x['border' + k + 'Color'] !== T;
               const pc = c('#precoCard'), of = c('#ofAbre'), st = c('#pvSt'), hd = d.querySelector('#pvSt .ofHd'), si = c('#edSite'), lr = c('.lrcard'), cp = c('.cntP');
-              return [pc.backgroundColor === T && pc.borderTopWidth === '0px' && pc.paddingLeft === '0px', c('#precoCard .lbl').fontSize === '11px',
+              return [pc.backgroundColor === T && pc.borderTopWidth === '0px' && pc.paddingLeft === '0px', c('#precoCard .lbl').fontSize === '12px',
                 of.backgroundColor === T && parseFloat(of.borderTopLeftRadius) > 100 && d.querySelector('#ofAbre').getBoundingClientRect().height >= 44,
                 st.borderTopWidth === '0px' && (!hd || (getComputedStyle(hd).textTransform === 'none' && getComputedStyle(hd).fontSize === '14px')),
                 si.backgroundColor === T && linha(si, 'Top') && linha(si, 'Bottom') && si.borderLeftWidth === '0px', [lr, cp].every(x => x.backgroundColor === T && linha(x, 'Bottom') && x.borderLeftWidth === '0px'),
@@ -5201,8 +5260,8 @@ async def main():
                             d -= 1
                         i += 1
                     ch.append((f, t[m.end():i]))
-            TIPO = r"(?:'(?:ok|atencao|erro|andamento)'|[\w.()]+ \? '(?:ok|atencao|erro|andamento)' : '(?:ok|atencao|erro|andamento)')"
-            sem = [(f, a[:70]) for f, a in ch if not re.search(r", " + TIPO + r"$", a)]
+            TIPO = r"(?:'(?:ok|atencao|erro|andamento|neutro)'|[\w.()]+ \? '(?:ok|atencao|erro|andamento|neutro)' : '(?:ok|atencao|erro|andamento|neutro)')"
+            sem = [(f, a[:70]) for f, a in ch if not re.search(r", " + TIPO + r"(, \{[\s\S]*\})?$", a)]  # 85: ação opcional ({ t: 'Desfazer', fn })
             verde = [(f, a[:70]) for f, a in ch if a.endswith(", 'ok'") and re.match(r"'(Não|Sem resposta|Erro)", a)]
             got = []
             for esq in ('dark', 'light'):
@@ -5481,7 +5540,7 @@ async def main():
               document.querySelector('.estOv .estX').click(); await w(100);
               S.estPend = [{ id: 'p1', ts: Date.now(), t: px, t34: px, n: 84 }]; S.adAba = 'novo';
               S.addOpen = true; S.addMode = 'menu'; L.render(); L.renderDeNovo(); await w(100);
-              const b = document.getElementById('addDeNovo'); const abas = [...b.querySelectorAll('.adSeg button')].map(x => x.textContent);
+              const b = document.getElementById('addDeNovo'); const abas = [...b.querySelectorAll('.adTrk .trkB')].map(x => x.textContent);
               b.querySelector('[data-id=pend]').click(); await w(150);
               const lembra = S.adAba === 'pend' && !!document.querySelector('#addDeNovo [data-act=adPend]');
               const it = S.items.find(i => !i.bulk && !/pre/.test(i.tipo)); const k = it.ref + '|' + it.cor;
@@ -5490,7 +5549,7 @@ async def main():
               S.fotoNota[k] = { n: 62, mot: ['fundo cinza (mais luz)'], ts: 1 }; const s1 = L.cfSelos(it.ref, it);
               S.fotoNota[k] = { n: 91, mot: [], ts: 1 }; const s2 = L.cfSelos(it.ref, it);
               S.addOpen = false; L.render(); L.ACT.semfoto(); await w(200); const est = !!document.querySelector('.estOv');
-              return [bot, abas.length === 2 && /Aguardando cadastro · 1/.test(abas[0]), lembra, levou, /refazer · fundo cinza/.test(s1), /foto 91 ✓/.test(s2) && /catálogo/.test(s2), est]; }""")
+              return [bot, abas.length === 2 && /Aguardando cadastro · 1/.test(abas[0]), lembra, levou, /refazer · fundo cinza/.test(s1), /foto 91\\b/.test(s2) && /catálogo/.test(s2), est]; }""")
             total += 1
             ok = got == [True] * 7 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Estúdio × Adicionar: antes de cadastrar + giro, faixa de 2 abas com memória, 3/4 vai junto, selos por cor, Completar fotos abre o Estúdio')
@@ -5589,15 +5648,16 @@ async def main():
             # S374 (98–103): catálogo de peças — blocos que abrem juntos num cartão (abrem e fecham), links no padrão, Marketing como tela, lista não pisca
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              L.inicioGo('giro'); await w(500); const v = () => document.querySelector('.view:not([hidden])');
+              L.setView('desp'); await w(500); const v = () => document.querySelector('.view:not([hidden])');  // 66: o Giro saiu; Despesas tem dobras juntas
               const soltos = [...v().querySelectorAll('section.fxF')].filter(x => x.classList.contains('card') || x.closest('.g99')).length;  // 135d: a dobra é linha, não cartão
               const q = id => document.querySelector('section.fxF[data-fx="' + id + '"]');
-              q('ret').querySelector('.fxH').click(); await w(700); const abre = !!q('ret').querySelector('.fxB') && q('ret').parentElement.classList.contains('fxG');
-              const lc = q('ret').querySelector('.fxB > *'), anim = lc ? getComputedStyle(lc).animationName : 'x';  // 66: a lista saiu do Giro; a dobra Retorno faz o papel
-              q('ret').querySelector('.fxH').click(); await w(700); const fecha = !q('ret').querySelector('.fxB');
+              const dx = q('pagas') ? 'pagas' : 'imp';
+              q(dx).querySelector('.fxH').click(); await w(700); const abre = !!q(dx).querySelector('.fxB') && q(dx).parentElement.classList.contains('fxG');
+              const lc = q(dx).querySelector('.fxB > *'), anim = lc ? getComputedStyle(lc).animationName : 'x';
+              q(dx).querySelector('.fxH').click(); await w(700); const fecha = !q(dx).querySelector('.fxB');
               L.inicioGo('din'); await w(500); const po = !!q('paraonde') && !document.querySelector('[data-act=dfold].chip');
               L.setView('caixa'); await w(400); const cx = [...v().querySelectorAll('.lk100.c101,.slVai.r100')].length >= 2;
-              L.inicioGo('hoje'); await w(400); const vd = [...v().querySelectorAll('.btn-sc.p')].every(b => b.classList.contains('inl'));
+              L.inicioGo('hoje'); await w(400); const vd = [...v().querySelectorAll('.mini.p')].every(b => b.classList.contains('inl'));
               L.inicioGo('mkt'); await w(500); const mk = S.view === 'mkt' && !document.querySelector('.ljJn.mkJn') && document.querySelectorAll('#v-mkt .mkDtG details.mkDt').length === 2;  // 37d: o Kit da marca foi para Ajustes › Loja › Marca
               const d = document.querySelector('#v-mkt details.mkDt'); d.querySelector('summary').click(); await w(600); const mkA = d.open; d.querySelector('summary').click(); await w(600);
               return [soltos, abre, anim, fecha, po, cx, vd, mk, mkA && !d.open]; }""")
@@ -5628,7 +5688,7 @@ async def main():
               const nomes = [...v.querySelectorAll('.ecF .ecNm b')].map(b => b.textContent), unico = nomes.length === new Set(nomes).size;
               const t = v.querySelector('.ecF .ecTog'); t.click(); await w(120);
               const m = getComputedStyle(v.querySelector('.ecF.on .ecCh')).transform.match(/matrix\(([^,]+),\s*([^,]+)/), anti = !!m && +m[2] < -0.3;
-              L.setView('fx'); await w(500); const fx = document.querySelector('#v-fx .fx418P'), troca  /* S418 (117) */ = !!fx && !/›/.test(fx.textContent) && getComputedStyle(fx).borderRadius === '14px';
+              L.setView('fx'); await w(500); const fx = document.querySelector('#v-fx [data-act=fjAbre][data-id=troca]'), troca  /* S418 (117) */ = !!fx && !/›/.test(fx.textContent) && getComputedStyle(fx).borderRadius === '14px';
               L.setView('notif'); await w(500); const dz = document.querySelector('#v-notif .dz105'), limpa = !dz || (getComputedStyle(dz).fontSize === '15px' && dz.dataset.act === 'notifLimpa');
               return [bloco, unico, anti, troca, limpa]; }""")
             total += 1
@@ -5655,11 +5715,11 @@ async def main():
             # S374 (esboço 69): fechar um bloco no fim da página não pula para o topo (o título fica no lugar)
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              S.dTab = 'giro'; S.dfold = { abc: true }; L.setView('dash'); await w(400);
+              S.dfold = { pagas: true }; L.setView('desp'); await w(400);  // 66: o Giro saiu; a última dobra de Despesas
               scrollTo({ top: 99999, behavior: 'instant' }); await w(200);
-              const h = () => document.querySelector('section.fxF[data-fx=abc] .fxH'), t0 = h().getBoundingClientRect().top, y0 = scrollY;
+              const h = () => document.querySelector('section.fxF[data-fx=pagas] .fxH'), t0 = h().getBoundingClientRect().top, y0 = scrollY;
               h().click(); await w(900);
-              const t1 = h().getBoundingClientRect().top, fechou = !S.dfold.abc;
+              const t1 = h().getBoundingClientRect().top, fechou = !S.dfold.pagas;
               for (let i = 0; i < 40; i++) { scrollBy({ top: -40, behavior: 'instant' }); await w(10); }
               await w(100); const solto = scrollY === 0 && !document.body.style.minHeight;
               return [y0 > 0, fechou, Math.abs(t1 - t0) < 3, solto]; }""")
@@ -5688,25 +5748,6 @@ async def main():
             ok = got == [True] * 6 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Lista sem excesso: Sobrando com dinheiro parado em Parados e sobrando, avise-me primeiro, pedido antigo na Entrada')
             if not ok: falhas.append('lista sem excesso'); print('        veio', got, pg.erros)
-            await pg.close()
-
-            # Giro (v428): vitrine da semana (a lista de compras saiu para Peças › Compras em 66)
-            pg = await pagina()
-            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
-              S.dTab = 'giro'; S.dfold.vit = true; L.setView('dash'); await w(300);
-              const semLista = !document.getElementById('lcCard') && !document.querySelector('section.fxF[data-fx="rep"]');
-              const pede = !!document.getElementById('vtLug'); document.getElementById('vtLug').value = '3'; document.querySelector('[data-act=vitLug]').click(); await w(150);
-              const sug = document.querySelectorAll('#vtCard .vtL').length, r0 = document.querySelector('#vtCard [data-act=vitFixa]').dataset.id;
-              document.querySelector('#vtCard [data-act=vitFixa]').click(); await w(100);
-              document.querySelector('[data-act=vitTroquei]').click(); await w(150);
-              const atual = S.vit.atual.slice(), fix = atual.indexOf(r0) >= 0, boa = /Nada para trocar/.test(document.getElementById('vtCard').textContent);
-              const r1 = atual.find(r => r !== r0); S.items.filter(i => i.ref === r1).forEach(i => i.qty = 0); L.render(); await w(150);
-              const saem = /Saem/.test(document.getElementById('vtCard').textContent) && /Entram/.test(document.getElementById('vtCard').textContent);
-              return [semLista, pede, sug, atual.length, fix, boa, saem]; }""")
-            total += 1
-            ok = got == [True, True, 3, 3, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Giro: sem a lista de compras (66) e vitrine da semana (lugares, fixar, trocar)')
-            if not ok: falhas.append('giro lista vitrine'); print('        veio', got, pg.erros)
             await pg.close()
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo

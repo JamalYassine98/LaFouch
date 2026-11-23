@@ -85,7 +85,7 @@
               r = corNova(ref, { cor: E.cor, vr: vr, q: E.q, custo: isFinite(cu) ? cu : null, grau: E.grau });
             if (!r.ok) return lfToast(r.erro, 'atencao');
             api.fecha(true);
-            lfToast(r.somou ? '✓ ' + E.cor + ': +' + E.q + ' no estoque' : '✓ Cor ' + E.cor + ' criada · a foto entra pela fila do Estúdio', 'ok');
+            lfToast(r.somou ? '' + E.cor + ': +' + E.q + ' no estoque' : 'Cor ' + E.cor + ' criada · a foto entra pela fila do Estúdio', 'ok');
             if (depois) depois();
           }
         };

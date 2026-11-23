@@ -254,7 +254,7 @@
   }
   // Abre a câmera do app (não a galeria) para a foto da cor.
   var NV_ICAM =
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
   function nvCamera(titulo) {
     camOpen(
       function (f) {
@@ -323,7 +323,7 @@
     S.nPop = '';
     S.nCorOpen = false;
     closeAdd();
-    lfToast('✓ ' + pubNome(ref) + ' cadastrado.', 'ok');
+    lfToast('' + pubNome(ref) + ' cadastrado.', 'ok');
   }
   function nvAddCor(fin) {
     var ref = S._ref,
@@ -571,7 +571,7 @@
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
-      lfToast('✓ Salvo. Aparece no site em até 1 minuto.', 'ok');
+      lfToast('Salvo. Aparece no site em até 1 minuto.', 'ok');
     };
     lh.appendChild(tg);
     c2.appendChild(lh);
@@ -776,7 +776,7 @@
     var ov = lfaAbre(
       id,
       '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">' + esc(titulo) + '</div>' +
-        '<div class="lsBox"><span class="lsIc">🔍</span><input class="lsIn" id="' + id + 'Q" placeholder="Buscar ' + esc(titulo.toLowerCase()) + '" autocomplete="off" aria-label="Buscar"></div>' +
+        '<div class="lsBox"><span class="lsIc">' + ICO.busca + '</span><input class="lsIn" id="' + id + 'Q" placeholder="' + esc(titulo) + '" autocomplete="off" aria-label="Buscar"></div>' +
         '<div class="lsList comoL"></div>'
     );
     ov.classList.add('lfa-camg');

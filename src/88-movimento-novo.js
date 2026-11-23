@@ -82,7 +82,7 @@
       box.appendChild(b);
     }
     ok.className = 'lfok';
-    ok.textContent = '✓';
+    ok.innerHTML = ICO.chk;
     box.appendChild(ok);
     document.body.appendChild(box);
     var t0 = performance.now(),
@@ -187,7 +187,7 @@
       }
       var multi = SITEFX.n > 1;
       card.innerHTML =
-        (foto && !multi ? '<img alt="" src="' + foto + '">' : '<span class="ph">🌐</span>') +
+        (foto && !multi ? '<img alt="" src="' + foto + '">' : '<span class="ph">' + ICO.globo + '</span>') +
         '<div><b>' + esc(multi ? SITEFX.n + ' produtos liberados' : pubNome(ref)) + '</b><div class="lv"><i></i>No ar no site</div></div>';
       card.classList.remove('on');
       void card.offsetWidth;
@@ -230,8 +230,9 @@
   }
   aposRender(chaoMede);
   window.addEventListener('resize', chaoMede);
-  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
-  function lfToast(t, tipo) {
+  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento', 'neutro'];
+  // 85 (aprovado): o aviso que PASSA é um só — embaixo, cor pelo tipo; acao = { t: 'Desfazer', fn } (botão à direita) ou { fn } (toque no aviso).
+  function lfToast(t, tipo, acao) {
     var e = $('lfToast');
     if (!e) {
       e = document.createElement('div');
@@ -239,8 +240,23 @@
       document.body.appendChild(e);
     }
     chaoMede();
-    e.textContent = t;
+    e.textContent = '';
+    var tx = document.createElement('span');
+    tx.textContent = t;
+    e.appendChild(tx);
+    e.onclick = null;
+    if (acao && acao.t) {
+      var ba = document.createElement('button');
+      ba.type = 'button';
+      ba.className = 'lfTA';
+      ba.textContent = acao.t;
+      ba.onclick = function (ev) { ev.stopPropagation(); e.classList.remove('on'); acao.fn(); };
+      e.appendChild(ba);
+    } else if (acao && acao.fn) {
+      e.onclick = function () { e.classList.remove('on'); acao.fn(); };
+    }
     e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
+    if (acao) e.classList.add('tA'); // só o aviso com ação recebe toque
     e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');
     if (REDUCED) {
       e.classList.add('on');
@@ -251,5 +267,5 @@
     clearTimeout(lfToast.t);
     lfToast.t = setTimeout(function () {
       e.classList.remove('on');
-    }, 2300);
+    }, acao || tipo === 'erro' ? 5000 : 2300);
   }

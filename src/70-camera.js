@@ -318,9 +318,10 @@
     top.style.cssText =
       'display:flex;justify-content:space-between;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px';
     top.appendChild(mk('b', '', title || 'Câmera'));
-    var xb = btn('chip', '✕', function () {
+    var xb = btn('chip', '', function () {
       camClose();
     });
+    xb.innerHTML = ICO.x;
     xb.setAttribute('aria-label', 'Fechar');
     xb.style.cssText = 'min-height:40px;width:44px;padding:0;justify-content:center';
     var tr = document.createElement('div');
@@ -498,10 +499,10 @@
     ov.appendChild(bar);
     document.body.appendChild(ov);
     var IGAL =
-      '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4 18l5.2-5.2a1.5 1.5 0 0 1 2.1 0L14 15.5l2-2a1.5 1.5 0 0 1 2.1 0L21 16.4"/></svg>';
+      '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4 18l5.2-5.2a1.5 1.5 0 0 1 2.1 0L14 15.5l2-2a1.5 1.5 0 0 1 2.1 0L21 16.4"/></svg>';
     var ITOR = function (on) {
       return (
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><g transform="translate(2.2 4.6) scale(.8)"><path d="M6 2h12v5l-2 2v12.5a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 21.5V9L6 7z"/><path d="M12 11v4"/>' +
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><g transform="translate(2.2 4.6) scale(.8)"><path d="M6 2h12v5l-2 2v12.5a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 21.5V9L6 7z"/><path d="M12 11v4"/>' +
         (on ? '' : '<path d="M3.5 3.5l17 17"/>') +
         '</g>' +
         (on ? '<path d="M12 .9v2.6M6.2 2.2l1.6 2M17.8 2.2l-1.6 2"/>' : '') +
@@ -770,7 +771,7 @@
               'display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 10px;padding:12px 22px max(18px,env(safe-area-inset-bottom,0px))';
             wm.style.gridColumn = '1/-1';
             var IREF =
-              '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v4.8h4.8"/></svg>';
+              '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v4.8h4.8"/></svg>';
             var sp0 = document.createElement('div');
             bar.appendChild(sp0);
             var us = btn('mini', '', function () {
@@ -790,7 +791,7 @@
               done(f);
             });
             us.innerHTML =
-              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Confirmar</span>';
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Confirmar</span>';
             us.style.cssText =
               'height:56px;min-height:56px;padding:0 30px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-weight:700;font-size:17px;display:inline-flex;align-items:center;gap:8px;cursor:pointer';
             us.setAttribute('aria-label', 'Confirmar foto');

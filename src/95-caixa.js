@@ -200,7 +200,7 @@
         return a + x.valor;
       }, 0);
     html +=
-      '<section class="col" style="padding:0 16px 14px"><div><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
+      '<section class="col" style="padding:0 16px 14px"><div></div>' +
       (pays.length
         ? pays
             .map(function (x) {
@@ -263,7 +263,7 @@
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
-        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.' + lkLinha('Ver o que falta repor', 'd48Res', '') + '</div>';
+        '<div class="note n-bad">Caixa abaixo do separado <button type="button" class="noteA" data-act="d48Res" data-id="">Ver o que falta ›</button></div>';
     // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
     var acao = S.cxAcao || '';
     if (S.cxMsg !== S._cxMsgVis) {

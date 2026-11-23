@@ -348,11 +348,7 @@
     var dd = S.fluxoD || 30,
       f = fluxoCaixa(dd),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2><div class="hint" style="margin:2px 0 0">Se o ritmo de vendas dos últimos ' +
-        f.base +
-        ' dias continuar (' +
-        gs(f.porDia) +
-        ' por dia).</div></div><div class="tabs" role="group" aria-label="Horizonte">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2></div><div class="tabs" role="group" aria-label="Horizonte">' +
         [30, 60, 90]
           .map(function (n) {
             return (
@@ -429,7 +425,7 @@
   function retiradaHtml() {
     var r = lucroLivreMes(),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2><div class="hint" style="margin:2px 0 0">Dinheiro que você tira da loja para você. Sai do caixa na moeda escolhida.</div></div>';
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2></div>';
     var pct = r.lucroLivre > 0 ? r.retTotal / r.lucroLivre : r.retTotal > 0 ? 9 : 0;
     // S418 (esboço 125c): aviso em frase (vermelho só se passou do lucro), moeda em G$·US$·R$, campos empilhados, "Retirar" principal
     h +=
@@ -437,13 +433,12 @@
       (pct > 1 ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.' : '.') + '</div>';
     var rm = S.rtMoe || 'pyg';
     h +=
-      '<div class="cxLb cx418L">Moeda</div><div class="sg418" role="group" aria-label="Moeda da retirada">' +
-      [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
-        return '<button type="button" class="' + (o[0] === rm ? 'on' : '') + '" aria-pressed="' + (o[0] === rm) + '" data-act="rtMoe" data-id="' + o[0] + '">' + o[1] + '</button>';
-      }).join('') + '</div><input type="hidden" id="rtM" value="' + rm + '">' +
+      '<div class="cxLb cx418L">Moeda</div>' + trilho('', 'Moeda da retirada', [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) {
+        return { on: o[0] === rm, attrs: 'data-act="rtMoe" data-id="' + o[0] + '"', html: o[1] };
+      })) + '<input type="hidden" id="rtM" value="' + rm + '">' +
       '<div class="cxLb cx418L">Valor</div><input class="in" id="rtV" inputmode="decimal" placeholder="0" aria-label="Valor da retirada">' +
       '<div class="cxLb cx418L">Para quê (opcional)</div><input class="in" id="rtN" placeholder="Ex.: mercado" aria-label="Motivo da retirada">' +
-      '<button type="button" class="pd418P" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
+      '<button type="button" class="go" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
     if (S.retiradas.length) h += '<div class="cxLb cx418L">Últimas retiradas</div>';
     S.retiradas.slice(0, 5).forEach(function (x) {
       h +=
@@ -460,8 +455,8 @@
   function ccHtml() {
     var dias = ccDias(),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Conferir o caixa</h2><div class="hint" style="margin:2px 0 0">Conte o dinheiro que você tem e compare com o que o app calcula.' +
-        (dias === Infinity ? ' Ainda não conferiu.' : ' Última conferência há ' + dias + ' dia(s).') +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Conferir o caixa</h2><div class="hint" style="margin:2px 0 0">' +
+        (dias === Infinity ? 'Ainda não conferiu.' : 'Última conferência há ' + dias + ' dia(s).') +
         '</div></div>';
     if (!S.ccOpen) {
       return h + '<button class="mini" data-act="ccabrir">Conferir caixa</button></section>';
@@ -496,7 +491,7 @@
         '" role="status">' +
         esc(S.ccRes.txt) +
         '</div>';
-    h += '<button type="button" class="pd418P" data-act="ccgo" style="margin-top:14px">Conferir</button>';
+    h += '<button type="button" class="go" data-act="ccgo" style="margin-top:14px">Conferir</button>';
     if (S.ccRes && !S.ccRes.ok) h += '<button type="button" class="pd418S" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
     return h + '<button type="button" class="cf418V" data-act="ccfechar">Fechar</button></section>';
   }
@@ -536,7 +531,7 @@
       return 'US$ ' + n.toFixed(2).replace('.', ',');
     };
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no estoque</h2><div class="hint" style="margin:2px 0 0">Quanto do que você investiu está parado e quanto o estoque rende.</div></div><div class="split">' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no estoque</h2></div><div class="split">' +
       dxRow('Investido em estoque', 'a custo, sem estojos e brindes', u(c.total)) +
       dxRow(
         'Parado há 60 dias ou mais',

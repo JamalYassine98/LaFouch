@@ -93,7 +93,7 @@
         '<div class="brTot"><span>Total</span><b id="brTotal">—</b></div>' +
         '</div>' +
         '<div class="brSep" id="brSep"></div>' +
-        '<button type="button" class="btn go" id="brLanca" style="width:100%">Lançar compra</button>';
+        '<button type="button" class="go" id="brLanca" style="width:100%">Lançar compra</button>';
       var pega = function () {
         BR.nome = $('brNome').value;
         BR.qtd = $('brQtd').value;
@@ -196,7 +196,7 @@
     BR.unit = '';
     BR.nome = '';
     vibrar(20);
-    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
+    lfToast('Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
     S.nOutro = false;
     closeAdd();
   }

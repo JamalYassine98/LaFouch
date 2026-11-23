@@ -19,7 +19,7 @@
     APK.msg = '';
     if (APK.avisou !== APK.n) {
       APK.avisou = APK.n;
-      try { lfaToast('<b>Atualização pronta</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
+      try { lfToast('Atualização pronta · instale em Ajustes › Atualização', 'ok'); } catch (e) {}
     }
   }
   function apkBaixa() {

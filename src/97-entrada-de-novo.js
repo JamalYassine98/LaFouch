@@ -39,7 +39,7 @@
     if (!pd.length) aba = 'novo';
     var pill =
       pd.length && us.length
-        ? '<div class="adSeg" role="tablist"><button type="button" role="tab" class="' + (aba === 'pend' ? 'on' : '') + '" data-act="adAba" data-id="pend">Aguardando cadastro · ' + pd.length + '</button><button type="button" role="tab" class="' + (aba === 'novo' ? 'on' : '') + '" data-act="adAba" data-id="novo">Dar entrada de novo</button></div>'
+        ? trilho('adTrk', 'Fotos', [{ on: aba === 'pend', attrs: 'data-act="adAba" data-id="pend"', html: 'Aguardando cadastro · ' + pd.length }, { on: aba === 'novo', attrs: 'data-act="adAba" data-id="novo"', html: 'Dar entrada de novo' }])
         : '<div class="lbl">' + (aba === 'pend' ? 'Aguardando cadastro · ' + pd.length : 'Dar entrada de novo') + '</div>';
     var corpo =
       aba === 'pend'
@@ -55,6 +55,7 @@
           }).join('') +
           '</div>';
     b.innerHTML = pill + corpo;
+    trilhoAcerta(b);
   }
   ACT.adAba = function (id) {
     S.adAba = id === 'pend' ? 'pend' : 'novo';
@@ -143,7 +144,7 @@
       '<div class="cg-puxa" aria-hidden="true"></div>' +
       '<div class="enF-top"><div class="enF-img">' + (f ? '<img alt="" src="' + f + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + ' · ' + it.qty + ' no estoque</div></div></div>' +
       '<div class="enF-q"><div class="lbl" style="margin:0">Quantas chegaram?</div><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="enQ" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="enN">' + _en.n + '</span><span class="vs-b" role="button" tabindex="0" data-act="enQ" data-id="1" aria-label="Mais">+</span></span></div>' +
-      '<button type="button" class="btn go" data-act="enGo" id="enGo" style="width:100%;margin-top:10px">' + enTxt() + '</button>'
+      '<button type="button" class="go" data-act="enGo" id="enGo" style="width:100%;margin-top:10px">' + enTxt() + '</button>'
     );
   }
   function enTxt() {
@@ -193,7 +194,7 @@
       nt = (S.fotoNota || {})[k],
       tem = !!(S.fotos && S.fotos[k]),
       h = '';
-    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + ' ✓</span>';
+    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + '</span>';
     else if (tem || nt) h += '<button type="button" class="selo warn" data-refaz="1">refazer' + (nt && nt.mot && nt.mot.length ? ' · ' + esc(nt.mot[0]) : nt ? ' · nota ' + nt.n : '') + ' ›</button>';
     // sobra (do ideal da lista de compras; a conta é feita 1× a cada poucos segundos)
     if (!CF_LC || Date.now() - CF_LC.t > 4000) {

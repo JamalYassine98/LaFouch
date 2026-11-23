@@ -95,7 +95,7 @@
   function precosMetaHtml() {
     // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
     return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
-      '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div></div>';
+      '</div>';
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
@@ -108,9 +108,6 @@
       ', cerca de US$ ' +
       Math.round(totalMensal() / S.fx.pyg) +
       ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      '<div class="hint" style="margin:0">Peças por mês para dividir as contas: <b>' +
-      volumeEfetivo() +
-      '</b> (automático: vendas reais dos últimos dias; a meta do mês também é automática e aparece no Resumo).</div>' +
       precosMetaHtml() +
       '</section>';
     return h;
@@ -243,7 +240,7 @@
     r.readAsText(f);
   };
   // Janela de importação: carregando, sucesso (com resumo) ou falha (nada é alterado).
-  var IMP_CK = '<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var IMP_CK = '<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
   function impTela(modo, msg) {
     var o = $('impOv');
     if (!o) {
@@ -359,8 +356,8 @@
           '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + esc(pn(it.ref)) + ' · preço de saída <b>' + gs(pp.saida) + '</b> (nunca abaixo do piso)</div>' +
           (ja ? '<div class="hint" style="margin:0;color:var(--ok)">Já está no site' + (ja.ate ? ' até ' + fd(ja.ate) : ' até vender') + ' · ' + saidaVendidas(it.ref, ja.ini) + '/' + (ja.max || 3) + ' vendidas. <button type="button" class="mini ghost" id="sdFim">Encerrar no site</button></div>' : '') +
           '<div class="trk" id="sdOnde"><span class="trkTh"></span><button type="button" class="trkB" data-m="loja">Só na loja</button><button type="button" class="trkB" data-m="site">Loja + site</button></div>' +
-          '<div id="sdPz" hidden><div class="hint" style="margin:0 0 6px">Quanto tempo no site? Termina sozinho no prazo ou quando vender 3.</div><div class="trk" id="sdDias"><span class="trkTh"></span><button type="button" class="trkB" data-m="7">7 dias</button><button type="button" class="trkB" data-m="15">15 dias</button><button type="button" class="trkB" data-m="0">Até vender</button></div></div>' +
-          '<button type="button" class="btn" id="sdOk">Vender agora na loja</button></div>';
+          '<div id="sdPz" hidden><div class="trk" id="sdDias"><span class="trkTh"></span><button type="button" class="trkB" data-m="7">7 dias</button><button type="button" class="trkB" data-m="15">15 dias</button><button type="button" class="trkB" data-m="0">Até vender</button></div></div>' +
+          '<button type="button" class="go" id="sdOk">Vender agora na loja</button></div>';
         var to = $('sdOnde'),
           td = $('sdDias'),
           pz = $('sdPz'),
@@ -399,7 +396,7 @@
           S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
           saveSoon();
           try { vitConfere(); } catch (e) {}
-          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.', 'ok');
+          lfToast('No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.', 'ok');
           render();
         };
       }

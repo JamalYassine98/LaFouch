@@ -67,3 +67,55 @@
       if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk,.lfPillOn')) { e.stopPropagation(); e.preventDefault(); }
     }, true);
   })();
+  // ===== Família BARRAS (80 / 80b, aprovado 22/11 23:18): UMA barra de escolha no app — o trilho 140C =====
+  // trilho(cls, aria, ops): o HTML do trilho; ops = [{ on: true|false, attrs: 'data-…="…"', html: 'rótulo' }].
+  // Quem desenha só diz as opções; a pílula vai para a escolhida sozinha depois de cada desenho (trilhoAcerta).
+  // Saíram as barras de cada tela: .sg418 (Retirada, Câmbio), .catbar3 (Clientes, Loja, Impressora), .tmseg (Tema),
+  // .adSeg (Adicionar) e as fichas de Ordem e Faixa dos filtros.
+  function trilho(cls, aria, ops) {
+    return '<div class="trk' + (cls ? ' ' + cls : '') + '" role="group"' + (aria ? ' aria-label="' + esc(aria) + '"' : '') + '><span class="trkTh"></span>' +
+      ops.map(function (o) {
+        return '<button type="button" class="trkB' + (o.on ? ' on' : '') + '" aria-pressed="' + !!o.on + '" ' + (o.attrs || '') + '>' + o.html + '</button>';
+      }).join('') + '</div>';
+  }
+  // o mesmo trilho montado num elemento que já existe (o index.html do aparelho): ops = [{ on, html, fn }]
+  function trilhoPoe(el, ops) {
+    el.classList.add('trk');
+    el.setAttribute('role', 'group');
+    el.textContent = '';
+    el.appendChild(mk('span', 'trkTh'));
+    ops.forEach(function (o) {
+      var b = btn('trkB' + (o.on ? ' on' : ''), '', o.fn, !!o.on);
+      b.innerHTML = o.html;
+      el.appendChild(b);
+    });
+  }
+  function trilhoAcerta(raiz) {
+    [].forEach.call((raiz || document).querySelectorAll('.trk'), function (t) {
+      var th = t.querySelector('.trkTh'), on = t.querySelector('.trkB.on');
+      if (!th || !on || !on.offsetWidth || t.classList.contains('trkArr')) return;
+      var w = on.offsetWidth + 'px', tr = 'translateX(' + (on.offsetLeft - 3) + 'px)';
+      if (th.style.width !== w) th.style.width = w;
+      if (th.style.transform !== tr) th.style.transform = tr;
+    });
+  }
+  aposRender(function () { trilhoAcerta(document); });
+  // trilho que entra na tela fora do desenho (janela, bloco que abre no lugar, troca no lugar): acerta no próximo quadro
+  (function () {
+    var pend = 0;
+    try {
+      new MutationObserver(function (ms) {
+        if (pend) return;
+        for (var i = 0; i < ms.length; i++) {
+          var a = ms[i].addedNodes;
+          for (var j = 0; j < a.length; j++) {
+            var n = a[j];
+            if (n.nodeType === 1 && (n.classList.contains('trk') || n.querySelector('.trk'))) {
+              pend = requestAnimationFrame(function () { pend = 0; trilhoAcerta(document); });
+              return;
+            }
+          }
+        }
+      }).observe(document.body, { childList: true, subtree: true });
+    } catch (e) {}
+  })();

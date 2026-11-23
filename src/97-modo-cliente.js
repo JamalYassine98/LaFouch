@@ -102,7 +102,7 @@
   function mcBotao() {
     var tp = document.querySelector('#v-vendas > .top');
     if (!tp || tp.querySelector('.mcBtn')) return;
-    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
+    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
   }
   // parado 2 min: volta ao início para o próximo cliente
   function mcInicio() {

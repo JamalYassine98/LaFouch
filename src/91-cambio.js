@@ -24,7 +24,7 @@
     if (!p.passos.length && !(p.needRep > 0.004) && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '';
     if (p.passos.length) {
-      h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
+      h += '';
       p.passos.forEach(function (x, i) {
         var tin = (S.trIn || {})[i] || {},
           v = tin.v != null ? tin.v : String(x.sug),
@@ -42,7 +42,7 @@
     }
     var ult = S.cambios[0];
     if (ult && ult.tipo)
-      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="btn-sc p" data-act="fxdesfaz">Desfazer</button></div>';
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="mini p" data-act="fxdesfaz">Desfazer</button></div>';
     var lv = livre3();
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
@@ -53,7 +53,7 @@
   function trHistHtml() {
     if (!S.cambios.length) return '';
     return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
-      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="btn-sc p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="mini p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
     }).join('');
   }
   // v426: aba Câmbio simples (esboço aprovado 04/11, versão A) — montada em 97-cambio-aba.js

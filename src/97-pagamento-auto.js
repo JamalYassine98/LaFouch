@@ -108,10 +108,10 @@
     return (
       '<section class="card col paCard">' +
       pautoSw('pautoTog', 'PIX pelo Nubank', P ? 'confirma sozinho quando chega a notificação "Pix recebido"' : 'só no app do Android (precisa do APK novo)', !!S.pixAuto, !P) +
-      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">✓ permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="btn go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
+      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
       '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
       (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
-      '<div class="hint" style="margin:0">Transferência (Banco Familiar): por enquanto com comprovante (o app lê o valor).</div>' +
+      '' +
       '</section><section class="card col paCard">' +
       pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
       '</section>'
@@ -170,8 +170,8 @@
   function compLeHtml(p) {
     var r = p.compLe;
     if (!r) return COMP_LENDO[p.id] ? '<div class="pdMt" style="margin-top:4px">Lendo o comprovante…</div>' : '';
-    if (r.ok) return '<div class="pdMt" style="margin-top:4px;color:var(--ok,#5fd38d)"><b>✓ Valor confere: ' + esc(r.esp) + '</b>' + (r.d ? ' · ' + esc(r.d) : '') + '</div>';
-    if (r.v) return '<div class="pdMt" style="margin-top:4px;color:var(--bad,#e88)"><b>⚠ Valor diferente: ' + esc(r.v) + '</b> (esperado ' + esc(r.esp) + ') · confira antes de confirmar</div>';
+    if (r.ok) return '<div class="pdMt" style="margin-top:4px;color:var(--ok,#5fd38d)"><b>Valor confere: ' + esc(r.esp) + '</b>' + (r.d ? ' · ' + esc(r.d) : '') + '</div>';
+    if (r.v) return '<div class="pdMt" style="margin-top:4px;color:var(--bad,#e88)"><b>Valor diferente: ' + esc(r.v) + '</b> (esperado ' + esc(r.esp) + ') · confira antes de confirmar</div>';
     return '<div class="pdMt" style="margin-top:4px">Não consegui ler o valor (esperado ' + esc(r.esp) + '). Confira na imagem.</div>';
   }
   function compLeAgenda(p) {

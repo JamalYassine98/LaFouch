@@ -24,7 +24,7 @@
   function ico(k, px) {
     px = px || 22;
     return (
-      '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       (ICO_D[k] || '') +
       '</svg>'
     );
@@ -64,7 +64,7 @@
   ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
   ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
-  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
+  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
   // Lista do Início e da barra + as migrações antigas (até a união de 2025). As migrações das famílias ficam em iniLista, logo abaixo.
   function iniListaBase() {
@@ -200,7 +200,7 @@
       return (
         '<div class="twrap" data-k="' + id + '">' +
         tileHtml('disabled', id, t[0], t[1], '', false) +
-        '<div class="tedit"><button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button></div></div>'
+        '<div class="tedit"><button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">' + ICO.x + '</button></div></div>'
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
@@ -269,7 +269,9 @@
       // o atalho "Dashboard" abre o dia de hoje; os números do mês ficam a um toque
       S.day = dayKey(Date.now());
       setView('dia');
-    } else if (id === 'din' || id === 'giro' || id === 'prec') {
+    } else if (id === 'giro') {
+      return inicioGo('estoque'); // 66: a tela Giro saiu — o estado do estoque mora no Inventário (atalho antigo)
+    } else if (id === 'din' || id === 'prec') {
       S.dTab = id;
       setView('dash');
     } else if (id === 'repo') {
@@ -348,7 +350,7 @@
     gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
-    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
+    if (id === 'hoje' || id === 'din' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return v === 'vendas' || (noPnl && grpPlana().indexOf('onl') < 0);

@@ -99,7 +99,7 @@
           if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', '), 'erro'); return; }
           var o = Object.assign({}, L, r.x, { id: L.id || ataLoteId(), nome: $('ltNm').value.trim() || 'Lote ' + fd(Date.now()), contas: contas, moeda: mo, ate: Date.now() + dias * DAY, cancelado: false, ts: Date.now() });
           ataPublica(o.tab);
-          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
+          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? 'Lote salvo. Agora dá para enviar o link' : 'Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
         };
       }
     });
@@ -142,9 +142,9 @@
             (L.filtro ? '<div class="sl"><span>Filtro</span><b>' + esc(({ armacao: 'Armações', sol: 'Sol', leitura: 'Leitura' }[L.filtro.tipo] || 'Todos') + (L.filtro.mat ? ' · ' + L.filtro.mat : '')) + '</b></div>' : '') +
             '<div class="sl"><span>Moeda inicial</span><b>' + (ATA_MOEDAS.filter(function (m) { return m[0] === L.moeda; })[0] || ATA_MOEDAS[0])[1] + '</b></div></section>' +
             '<section class="card col" style="gap:0"><div class="lbl">COMO ESTÁ</div>' +
-            '<div class="sl"><span>✅ Confirmados</span><b>' + (si ? si.conf.length : '…') + '</b></div>' +
-            '<div class="sl"><span>🧺 Montando agora (30 min)</span><b>' + (si ? si.mont.length : '…') + '</b></div>' +
-            '<div class="sl"><span>⛔ Esgotaram</span><b>' + Object.keys(refs).filter(function (r) { return !(refs[r].cores || []).some(function (c) { return c[1] > 0; }); }).length + '</b></div></section>' +
+            '<div class="sl"><span>Confirmados</span><b>' + (si ? si.conf.length : '…') + '</b></div>' +
+            '<div class="sl"><span>Montando agora (30 min)</span><b>' + (si ? si.mont.length : '…') + '</b></div>' +
+            '<div class="sl"><span>Esgotaram</span><b>' + Object.keys(refs).filter(function (r) { return !(refs[r].cores || []).some(function (c) { return c[1] > 0; }); }).length + '</b></div></section>' +
             '<section class="card col" style="gap:0"><div class="lbl">ENVIAR O LINK</div>' + (L.contas || []).map(function (cid) { var c = S.ataContas[cid]; return c ? '<div class="sl"><span>' + esc(c.nome) + '</span>' + (ativo ? '<button type="button" class="gBtn" data-act="ataLoteEnvia" data-id="' + esc(L.id + '|' + cid) + '">WhatsApp</button>' : '<b>—</b>') + '</div>' : ''; }).join('') + '</section>' +
             '<div class="ataRw"><button type="button" class="mini ghost" data-act="ataLoteEdita" data-id="' + esc(L.id) + '">Editar</button>' + (ativo ? '<button type="button" class="mini ghost ataRm" data-act="ataLoteCanc" data-id="' + esc(L.id) + '">Encerrar lote</button>' : '') + '</div></div>';
         };

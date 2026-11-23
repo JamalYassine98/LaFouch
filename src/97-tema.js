@@ -25,12 +25,13 @@
   }
   function temaMarca() {
     var v = temaVal();
-    var bs = document.querySelectorAll('.tmseg [data-tm]');
+    var bs = document.querySelectorAll('.tmTrk [data-tm]');
     for (var i = 0; i < bs.length; i++) {
       var on = bs[i].getAttribute('data-tm') === v;
       bs[i].classList.toggle('on', on);
       bs[i].setAttribute('aria-pressed', on ? 'true' : 'false');
     }
+    trilhoAcerta($('temaCard'));
   }
   function temaSet(v, btn) {
     var rr = document.documentElement;
@@ -75,22 +76,19 @@
   function temaCard() {
     var v = temaVal();
     function b(k, conteudo, rot) {
-      return (
-        '<button type="button" data-tm="' + k + '" class="' + (v === k ? 'on' : '') + '" aria-pressed="' + (v === k ? 'true' : 'false') + '"' +
-        (rot ? ' aria-label="' + rot + '" title="' + rot + '"' : '') + '>' + conteudo + '</button>'
-      );
+      return { on: v === k, attrs: 'data-tm="' + k + '"' + (rot ? ' aria-label="' + rot + '" title="' + rot + '"' : ''), html: conteudo };
     }
     var sol =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
     var lua =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
     return (
-      '<section class="card col" id="temaCard"><div><h2 style="margin:0;font-size:16px">Tema</h2><div class="hint" style="margin:2px 0 0">Automático segue o aparelho. Vale só neste aparelho.</div></div>' +
-      '<div class="tmseg" role="group" aria-label="Tema">' + b('auto', 'Auto', '') + b('claro', sol, 'Claro') + b('escuro', lua, 'Escuro') + '</div></section>'
+      '<section class="card col" id="temaCard"><div><h2 style="margin:0;font-size:16px">Tema</h2></div>' +
+      trilho('tmTrk', 'Tema', [b('auto', 'Auto', ''), b('claro', sol, 'Claro'), b('escuro', lua, 'Escuro')]) + '</section>'
     );
   }
   document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('.tmseg [data-tm]');
+    var b = e.target.closest && e.target.closest('.tmTrk [data-tm]');
     if (!b) return;
     e.preventDefault();
     temaSet(b.getAttribute('data-tm'), b);

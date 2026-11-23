@@ -76,7 +76,7 @@
       return !(v.st.nin === 'sem' && !v.esp);
     });
     if (mudou) saveSoon();
-    return V;
+    return cpOrdem(V);
   }
   // estrela (repõe o mesmo), fracasso (no lugar dele, uma alternativa) ou normal — pelo fluxo dos modelos que acabaram
   function cpClasse(v, F) {
@@ -100,6 +100,16 @@
       }
     }
   }
+  // a ordem das vagas (a lista e a mensagem do Pedir): cada tipo junto, na ordem em que aparece; graus em ordem crescente
+  function cpOrdem(V) {
+    var ti = {};
+    V.forEach(function (v, i) { if (ti[v.tipo] == null) ti[v.tipo] = i; v._i = i; });
+    return V.sort(function (a, b) {
+      if (a.tipo !== b.tipo) return ti[a.tipo] - ti[b.tipo];
+      if (a.grau && b.grau) return parseFloat(a.grau) - parseFloat(b.grau);
+      return a._i - b._i;
+    });
+  }
   // peças fechadas que ainda não chegaram: a compra fechada menos o que entrou nesta vaga depois dela
   function cpPend(k) {
     var f = (S.cpV[k] || {}).fech;
@@ -116,7 +126,7 @@
     if (s.fech) return v.resto ? ['', 'fechado ' + s.fech.q + ' com ' + s.fech.dist + ' · faltam ' + v.resto + (s.ped ? ' pedidas' : '')] : ['ok', 'fechado com ' + s.fech.dist + ' · esperando chegar'];
     if (s.nin === 'avisar') return ['', 'esperando aparecer · o Semp avisa no sino'];
     if (s.nin === 'equiv') return ['', 'procurar equivalente · entra no próximo Pedir'];
-    if (!s.ped && v.cls === 'estrela') return ['est', '★ estrela · repor o mesmo ' + v.mod];
+    if (!s.ped && v.cls === 'estrela') return ['est', 'estrela · repor o mesmo ' + v.mod];
     if (!s.ped && v.cls === 'fracasso') return ['fra', 'no lugar de ' + v.mod + (v.soOferta ? ', que só saiu com oferta' : ', que vendeu pouco')];
     if (s.ped) return ['', 'pedida em ' + new Date(s.ped).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' · esperando resposta'];
     return null;
@@ -302,7 +312,7 @@
             if (!E.dist) return lfToast('Diga com qual distribuidora fechou.', 'atencao');
             api.fecha(true);
             cpGuarda(k, { fech: { dist: E.dist, mod: E.mod, q: E.q, cu: isFinite(cu) ? cu : null, ts: Date.now() }, nin: null });
-            lfToast('✓ Fechado com ' + E.dist + ' · ' + E.q + (E.q === 1 ? ' peça' : ' peças'), 'ok');
+            lfToast('Fechado com ' + E.dist + ' · ' + E.q + (E.q === 1 ? ' peça' : ' peças'), 'ok');
           }
         };
       }

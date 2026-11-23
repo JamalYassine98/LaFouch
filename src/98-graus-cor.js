@@ -133,7 +133,7 @@
               h += '<div class="hint">Para qual cor vão estas peças?</div>' + outras.map(function (oc) {
                 var t2 = gcTem(ref, oc)[g0] || 0,
                   ft = S.fotos[ref + '|' + oc];
-                return '<button type="button" class="tab gcCor' + (st.cor === oc ? ' on' : '') + '" data-c="' + esc(oc) + '">' + (ft ? '<img alt="" src="' + ft + '">' : '<i></i>') + '<span><b>' + esc(oc) + '</b><small>' + (t2 ? g0 + ' já tem ' + t2 + ' → fica com ' + (t2 + st.q) : g0 + ' entra nesta cor') + '</small></span>' + (st.cor === oc ? '<em>✓</em>' : '') + '</button>';
+                return '<button type="button" class="tab gcCor' + (st.cor === oc ? ' on' : '') + '" data-c="' + esc(oc) + '">' + (ft ? '<img alt="" src="' + ft + '">' : '<i></i>') + '<span><b>' + esc(oc) + '</b><small>' + (t2 ? g0 + ' já tem ' + t2 + ' → fica com ' + (t2 + st.q) : g0 + ' entra nesta cor') + '</small></span>' + (st.cor === oc ? '<em>' + ICO.chk + '</em>' : '') + '</button>';
               }).join('');
               if (q0 > 1) h += '<div class="gcLinha"><span class="hint">Quantas mudar?</span>' + gcStep(st.q, 'gcQm') + '</div>';
             }
@@ -183,7 +183,7 @@
         var pinta = function () {
           var tem = gcTem(ref, cor),
             tot = st.sel.reduce(function (a, g) { return a + (st.q[g] || 0); }, 0),
-            h = '<div class="hint">Toque em quantos graus quiser. Os que têm número já existem nesta cor.</div>' + gcGradeHtml(tem, st.sel, '');
+            h = '' + gcGradeHtml(tem, st.sel, '');
           if (st.sel.length) {
             h += '<div class="gcLinha"><span class="hint">Mesma quantidade para todos</span>' + gcStep(st.igual, 'gcIg') + '</div>';
             h += st.sel.map(function (g) { return '<div class="gcLinha"><b>' + g + '</b>' + gcStep(st.q[g], 'gcQ" data-g="' + g) + '</div>'; }).join('');

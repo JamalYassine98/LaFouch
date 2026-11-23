@@ -125,8 +125,7 @@
       mt = [hPl(st.n, 'venda', 'vendas') + (st.est ? ' (' + hPl(st.est, 'estornada', 'estornadas') + ')' : '')];
     if (st.extra) mt.push('<span class="w">gastos ' + gs(st.extra) + '</span>');
     else if (st.nd) mt.push('<span class="w">' + hPl(st.nd, 'despesa', 'despesas') + '</span>');
-    if (st.outros) mt.push(hPl(st.outros, 'outro', 'outros'));
-    mt.push('lucro livre ' + gs(st.liv));
+    mt.push('lucro ' + gs(st.liv));
     return (
       '<button class="pcard hDia" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '">' +
       '<span class="d71"><span class="dt">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') + '<small>' + wd + '</small></span>' +
@@ -178,7 +177,7 @@
         });
         html +=
           '<div class="lbl" style="margin:14px 0 6px">' + cap1(MES_NOME[+ym.slice(5) - 1]) + ' de ' + ym.slice(0, 4) +
-          '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro livre ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
+          '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"><div class="g99 h101">'; // 149d: dias e semanas do mês já nascem como linhas de um grupo
       }
       if (k < lim) {
@@ -239,7 +238,7 @@
     el.innerHTML =
       '<div class="top"><div><h1>Histórico</h1><div class="crumb">Todas as vendas, dia por dia.</div></div></div>' +
       // S374 (esboço 71): busca sem a caixa em volta; 📅 e "Filtros" viram ícones de linha (44 px), como no Inventário
-      '<section class="col hBusca" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
+      '<section class="col hBusca" style="gap:10px"><div class="sel">' + buscaCampo('id="hq" data-in="hq" placeholder="Produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico"') +
       '<button type="button" class="ic71" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>' +
       '<button type="button" class="ic71' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-label="Filtros" aria-expanded="' + !!S.hFopen + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +

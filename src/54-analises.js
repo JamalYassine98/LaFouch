@@ -266,167 +266,9 @@
       '</div>'
     );
   }
-  // Nome curto do produto para listas.
-  function dxNome(m) {
-    var f = faixaOf(m.ref),
-      tp = tipoOf(m.tipo);
-    return (
-      esc(pn(m.ref)) +
-      ' <span class="hint" style="display:inline;margin:0">' +
-      esc(tp ? tp.label : '') +
-      (f ? ' · ' + esc(f.nome) : '') +
-      '</span>'
-    );
-  }
-  // Blocos novos do Dashboard (HTML).
-  function dashExtra() {
-    var out = {},
-      html = '',
-      mi = metaInfo(),
-      u0 = function (n) {
-        return 'US$ ' + Math.round(n);
-      };
-    // meta
-    html += '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2>';
-    if (mi.meta > 0) {
-      var p = Math.min(100, (mi.lucro / mi.meta) * 100);
-      html +=
-        '<div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:26px;color:var(--ok)">' +
-        u0(mi.lucro) +
-        '</b><span class="hint" style="margin:0">meta ' +
-        u0(mi.meta) +
-        '</span></div><div class="bar"><i style="width:' +
-        p +
-        '%;background:var(--ok)"></i></div><div class="hint" style="margin:0">' +
-        (mi.lucro >= mi.meta
-          ? 'Meta cumprida.'
-          : 'Faltam ' + u0(mi.meta - mi.lucro) + ' · ' + mi.restam + ' dia(s) restantes.') +
-        '</div>';
-    } else
-      html +=
-        '<div class="hint" style="margin:0">Lucro livre no mês: <b>' +
-        u0(mi.lucro) +
-        '</b>. Defina a meta em <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Ajustes</a>.</div>';
-    html += '<div class="split">';
-    S.faixas.forEach(function (f) {
-      html += dxRow(
-        '<span class="sp" style="background:' + faixaCor(f) + '"></span>' + esc(f.nome),
-        'lucro livre no mês',
-        u0(mi.por[f.id] || 0)
-      );
-    });
-    if (mi.por['']) html += dxRow('Sem faixa', 'lucro livre no mês', u0(mi.por['']));
-    html += '</div></section>';
-    out.meta = html;
-    html = '';
-    // sugestões de margem
-    var sg = sugestoes().filter(function (r) {
-      return r.acao !== 'ignorada';
-    });
-    if (sg.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Sugestão de margem</h2><div class="hint" style="margin:2px 0 0">Cada faixa é avaliada separada, pelo giro, estoque e contas. Você decide.</div></div><div class="split">';
-      sg.forEach(function (r) {
-        var ap =
-          r.acao === 'subir' || r.acao === 'descer'
-            ? '<div style="display:flex;gap:8px;margin-top:6px"><button class="chip on" data-act="sugap" data-id="' +
-              r.faixa.id +
-              '">Aplicar ' +
-              r.para +
-              '%</button><button class="chip" data-act="sugig" data-id="' +
-              r.faixa.id +
-              '">Ignorar</button></div>'
-            : '';
-        html +=
-          '<div class="sl" style="flex-wrap:wrap"><span>' +
-          esc(r.faixa.nome) +
-          ' · margem ' +
-          r.de +
-          '%<small>' +
-          esc(r.motivo) +
-          '</small></span><b>' +
-          (r.acao === 'subir' ? 'subir' : r.acao === 'descer' ? 'descer' : r.acao === 'sem-base' ? '—' : 'manter') +
-          '</b>' +
-          ap +
-          '</div>';
-      });
-      html += '</div></section>';
-    }
-    out.sug = html;
-    html = '';
-    // repor primeiro + lista de compras
-    var rp = reposicao().slice(0, 8);
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Repor primeiro</h2><div class="hint" style="margin:2px 0 0">Ordenado pelo lucro que o produto dá. Dias de estoque pelo ritmo de venda, corrigido pela estação.</div></div>';
-    if (!rp.length) html += '<div class="note n-ok">Nada acabando nos próximos 21 dias.</div>';
-    else {
-      html += '<div class="split">';
-      var totC = 0;
-      rp.forEach(function (m) {
-        totC += m.comprar * m.cu;
-        html += dxRow(
-          dxNome(m),
-          'restam ~' + Math.round(m.dias) + ' dias · ' + m.stock + ' un. · comprar ~' + m.comprar,
-          u0(m.profit30)
-        );
-      });
-      html +=
-        '</div><div class="note n-info">Lista de compras (cobre ~45 dias): custo estimado <b>' +
-        usd0(totC) +
-        '</b>.</div>';
-    }
-    html += '</section>';
-    out.repor = html;
-    html = '';
-    // parados
-    var pa = parados().slice(0, 8);
-    if (pa.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Estoque parado</h2><div class="hint" style="margin:2px 0 0">Sem venda há 60 dias ou mais (fora da baixa estação). Preço de saída = reposição + contas, sem prejuízo e sem meta de lucro.</div></div><div class="split">';
-      pa.forEach(function (m) {
-        html += dxRow(
-          dxNome(m),
-          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd0(m.costUsd) + ' parados',
-          gs(m.pp.saida) + (function () {
-            var sd = saidaSiteAtiva(m.key.split('|').slice(1).join('|'));
-            return sd ? '<small style="display:block;color:var(--ok)">no site' + (sd.ate ? ' até ' + fd(sd.ate) : ' até vender') + '</small>' : '';
-          })(),
-          '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
-        );
-      });
-      html += '</div></section>';
-    }
-    out.parados = html;
-    html = '';
-    // câmbio x piso
-    var ab = abaixoDoPiso().slice(0, 8);
-    if (ab.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço abaixo do piso hoje</h2><div class="hint" style="margin:2px 0 0">Com o câmbio e as contas de hoje, o preço de tabela destes produtos não cobre o piso da faixa.</div></div><div class="split">';
-      ab.forEach(function (m) {
-        html += dxRow(dxNome(m), 'tabela ' + gs(m.pp.lista) + ' · piso ' + gs(m.pp.piso), gs(m.pp.lista - m.pp.piso));
-      });
-      html += '</div></section>';
-    }
-    out.abaixo = html;
-    html = '';
-    // perdas
-    var pr = perdasPropositais();
-    if (pr.n) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Vendas abaixo do piso (30 dias)</h2><div class="hint" style="margin:2px 0 0">' +
-        pr.n +
-        ' venda(s). O resultado de tudo junto é o que importa: lucro livre total do período <b>' +
-        gs(pr.total) +
-        '</b>.</div></div><div class="split">';
-      Object.keys(pr.por).forEach(function (k) {
-        html += dxRow(esc(k), 'lucro livre dessas vendas', sgn(pr.por[k]));
-      });
-      html += '</div></section>';
-    }
-    out.perdasV = html;
-    html = '';
-    // perdas e sobras da contagem de estoque (30 dias)
+  // Perdas e sobras das contagens de estoque (30 dias): mora na tela Contar o estoque (ESBOCO 22/11; antes no Giro)
+  function perdasContagemHtml() {
+    var html = '';
     var ct = S.contagens.filter(function (x) {
       return Date.now() - x.ts <= 30 * DAY;
     });
@@ -443,7 +285,7 @@
         });
       });
       html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2></div><div class="split">' +
         dxRow('Faltaram', ct.length + ' contagem(ns)', usd0(Math.abs(perd))) +
         dxRow('Sobraram', 'peças a mais que o app', usd0(sob));
       Object.keys(porP)
@@ -456,15 +298,5 @@
         });
       html += '</div></section>';
     }
-    out.perdasC = html;
-    html = '';
-    // curva abc (as linhas moram em abcCorpo: Giro e Dashboard › Detalhes)
-    var ab2 = curvaAbc();
-    if (ab2.lista.length || ab2.sem.length)
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div>' +
-        abcCorpo(ab2) +
-        '</section>';
-    out.abc = html;
-    return out;
+    return html;
   }

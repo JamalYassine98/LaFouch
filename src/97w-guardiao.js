@@ -51,7 +51,7 @@
     S.guardTs = ag;
     return L;
   }
-  function guardIco() { return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>'; }
+  function guardIco() { return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>'; }
   // cartão do Início
   function guardInicioHtml() {
     var L = guardChecks(), pr = L.filter(function (c) { return !c.ok && !c.mudo; }).sort(function (a, b) { return (b.urg ? 1 : 0) - (a.urg ? 1 : 0); });
@@ -72,7 +72,7 @@
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">conferido hoje ' + fh(S.guardTs) + ' · ' + L.length + ' conferências · no próprio aparelho, sem internet</div>' +
           Object.keys(G).map(function (g) {
             return '<section class="card col" style="gap:0"><div class="lbl">' + g.toUpperCase() + '</div>' + G[g].map(function (x) {
-              var st = x.ok ? '<b style="color:var(--ok)">✓' + (x.s && /^há /.test(x.s) ? ' ' + esc(x.s) : '') + '</b>' : '<b style="color:' + (x.urg ? 'var(--bad)' : 'var(--warn)') + '">' + (x.n > 1 || x.k === 'neg' ? x.n : '!') + '</b>';
+              var st = x.ok ? '<b style="color:var(--ok)">' + ICO.chk + (x.s && /^há /.test(x.s) ? ' ' + esc(x.s) : '') + '</b>' : '<b style="color:' + (x.urg ? 'var(--bad)' : 'var(--warn)') + '">' + (x.n > 1 || x.k === 'neg' ? x.n : '!') + '</b>';
               return '<div class="sl guardI"><span>' + esc(x.ok ? x.t : x.tp || x.t) + (!x.ok && x.s ? '<small>' + esc(x.s) + '</small>' : '') + '</span><span style="display:flex;gap:6px;align-items:center">' + st +
                 (!x.ok ? '<button type="button" class="gBtn" data-act="' + x.act + '" data-id="' + esc(x.id || '') + '">' + esc(x.b || 'Ver') + '</button>' + (x.mudo ? '<small class="mu">silenciado</small>' : '<button type="button" class="gMudo" data-act="guardMudo" data-id="' + x.k + '" aria-label="Silenciar 7 dias">silenciar</button>') : '') + '</span></div>';
             }).join('') + '</section>';

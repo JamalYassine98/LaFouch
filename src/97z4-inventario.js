@@ -24,7 +24,7 @@
     var now = Date.now();
     return prodStats()
       .filter(function (m) {
-        if (!(m.stock > 0) || isSimple(m.tipo)) return false;
+        if (!(m.stock > 0) || isSimple(m.tipo) || (m.it && m.it.bulk)) return false; // o resto não detalhado de uma compra (lote) não é peça
         m.diasParado = (now - (m.last || S.appStart || now)) / DAY;
         return m.diasParado >= 60;
       })

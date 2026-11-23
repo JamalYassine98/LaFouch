@@ -25,14 +25,14 @@
     ['gota', 'Gota', 2],
     ['mudo', 'Sem som', 3]
   ];
-  // Tipos de aviso: letra, título, explicação, som de fábrica
+  // Tipos de aviso: letra, título, som de fábrica
   var AV_TIPOS = [
-    ['n', 'Pedido novo', 'Cliente fez um pedido no site', 'caixa'],
-    ['c', 'Comprovante enviado', 'Cliente mandou o comprovante para conferir', 'sino'],
-    ['p', 'Pagamento aprovado', 'Quando o Pagopar estiver ligado', 'moeda'],
-    ['x', 'Cliente cancelou', 'Cancelamento feito pelo site', 'suave'],
-    ['v', 'Peça voltou', 'Peça esgotada voltou ao estoque (lista de espera)', 'suave'],
-    ['d', 'Dólar barato', 'Bom momento para trocar dinheiro', 'mudo']
+    ['n', 'Pedido novo', 'caixa'],
+    ['c', 'Comprovante enviado', 'sino'],
+    ['p', 'Pagamento aprovado', 'moeda'],
+    ['x', 'Cliente cancelou', 'suave'],
+    ['v', 'Peça voltou', 'suave'],
+    ['d', 'Dólar barato', 'mudo']
   ];
   function avNome(id) {
     return (AV_SONS.filter(function (x) { return x[0] === id; })[0] || ['', 'Sino'])[1];
@@ -43,7 +43,7 @@
       o = { n: a.n !== false, c: a.c !== false, x: a.x !== false, p: a.p !== false, v: a.v !== false, d: a.d === true, q: !!a.q, qi: a.qi || '18:00', qf: a.qf || '07:00' };
     // quem já tinha escolhido UM som para tudo (a.som) continua com ele até mexer num tipo
     AV_TIPOS.forEach(function (t) {
-      o['s' + t[0]] = a['s' + t[0]] || (a.som && t[0] !== 'd' ? a.som : t[3]);
+      o['s' + t[0]] = a['s' + t[0]] || (a.som && t[0] !== 'd' ? a.som : t[2]);
     });
     o.som = o.sn;
     return o;
@@ -202,7 +202,6 @@
     } catch (e) {}
   }
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
-  var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
   var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
   // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
   function avFaixa(a) {
@@ -212,62 +211,67 @@
       n = 'var(--line)';
     return i > f ? 'linear-gradient(90deg,' + r + ' 0 ' + f + '%,' + n + ' ' + f + '% ' + i + '%,' + r + ' ' + i + '%)' : 'linear-gradient(90deg,' + n + ' 0 ' + i + '%,' + r + ' ' + i + '% ' + f + '%,' + n + ' ' + f + '%)';
   }
-  function avLinha(t, a) {
-    var k = t[0],
-      mudo = a['s' + k] === 'mudo';
+  // 87 (aprovado): cada aviso é UMA linha — título, o som escolhido como frase e o interruptor; tocar na linha abre a janela "Som".
+  var AV_PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>';
+  function avLn(k, tit, frase, on, abre) {
     return (
-      '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
-      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
-      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
-      (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
+      '<div class="avLn' + (on ? '' : ' off') + '">' +
+      (abre ? '<button type="button" class="avLnB" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + tit + '">' : '<span class="avLnB">') +
+      '<b>' + tit + '</b><small>' + frase + '</small>' + (abre ? '</button>' : '</span>') +
+      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (on ? ' checked' : '') + ' aria-label="' + tit + '"><i></i></span></div>'
     );
   }
   function avPedidosHtml() {
     var a = avPref(),
-      nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
       grupos = AV_GRUPOS.map(function (g) {
-        return '<div class="lbl" style="margin:6px 0 0">' + g[0] + '</div>' + g[1].map(function (k) {
-          return avLinha(AV_TIPOS.filter(function (t) { return t[0] === k; })[0], a);
+        return '<div class="lbl avLb">' + g[0] + '</div>' + g[1].map(function (k) {
+          var t = AV_TIPOS.filter(function (x) { return x[0] === k; })[0];
+          return avLn(k, t[1], avNome(a['s' + k]), a[k], true);
         }).join('');
       }).join('');
     return (
-      '<section class="card col" id="avisosCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
-      (nat ? 'Celular (Android)' : 'Este computador') +
-      '</b>. Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.</div></div>' +
+      '<section class="col avCol" id="avisosCard">' +
       grupos +
-      '<div class="lbl" style="margin:6px 0 0">Silêncio</div><div class="avcard' + (a.q ? '' : ' off') + '"><div class="avtop"><span class="avico">🌙</span><span class="avtx"><b>Silêncio fora do horário</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">Sem som nem vibração</span></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></div>' +
+      '<div class="lbl avLb">Silêncio</div>' + avLn('q', 'Silêncio fora do horário', 'Sem som nem vibração', a.q, false) +
       (a.q
         ? '<div class="avhr"><input class="in" type="time" data-av="qi" value="' + a.qi + '" aria-label="Começa às"><span class="hint" style="margin:0">até</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" aria-label="Termina às"></div>' +
-          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>' +
-          '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
-        : '') + '</div>' +
-      '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
-      '<button type="button" class="b75" data-av="teste">Enviar aviso de teste</button><div class="hint" style="margin:-4px 0 0;text-align:center">toca o som de “Pedido novo”</div><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
-      avJanelaHtml()
+          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>'
+        : '') +
+      '<div class="lbl avLb">Testar</div>' +
+      '<button type="button" class="mini avTs" data-av="teste">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>'
     );
   }
-  // Janela para escolher o som de um tipo (toque no ▶ para ouvir antes).
-  function avJanelaHtml() {
-    var k = S._avSheet;
-    if (!k) return '';
+  // Janela de baixo "Som · <aviso>": os sons em linhas de bolinha, cada uma com ▶ para ouvir; "Salvar" guarda (regra 15).
+  function avSomJanela(k) {
     var t = AV_TIPOS.filter(function (x) { return x[0] === k; })[0];
-    if (!t) return '';
+    if (!t) return;
     var cur = avPref()['s' + k],
-      grupo = function (g, nome) {
-        var h = nome ? '<div class="lbl" style="margin:12px 0 4px">' + nome + '</div>' : '';
-        AV_SONS.filter(function (x) { return x[2] === g; }).forEach(function (x) {
-          var on = x[0] === cur;
-          h +=
-            '<div class="avopt' + (on ? ' on' : '') + '"><button type="button" class="avplay' + (x[0] === 'mudo' ? ' mu' : '') + '" data-av="ouvir" data-v="' + x[0] + '" aria-label="Ouvir ' + x[1] + '">' + (x[0] === 'mudo' ? '🔕' : '▶') + '</button>' +
-            '<button type="button" class="avpick" data-av="som" data-t="' + k + '" data-v="' + x[0] + '">' + x[1] + (on ? '<span>✓</span>' : '') + '</button></div>';
-        });
-        return h;
-      };
-    return (
-      '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Escolher o som" data-av="fechar"><div class="pdSh" style="max-height:82vh;overflow:auto"><div class="pdAl"></div>' +
-      '<b style="font-size:19px">Som de “' + t[1] + '”</b>' + grupo(1, 'Clássicos') + grupo(2, 'Novos') + grupo(3, '') +
-      '<button type="button" class="btn" data-av="fechar" style="width:100%;margin-top:14px">Pronto</button></div></div>'
-    );
+      sel = cur;
+    lfJanela({
+      titulo: 'Som · ' + t[1],
+      mudou: function () { return sel !== cur; },
+      monta: function (c, api) {
+        var pinta = function () {
+          c.innerHTML = AV_SONS.map(function (x) {
+            return '<div class="avSom"><button type="button" class="pxL" role="radio" aria-checked="' + (x[0] === sel) + '" data-som="' + x[0] + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>' + x[1] + '</b></span></button>' +
+              (x[0] === 'mudo' ? '' : '<button type="button" class="avPl" data-av="ouvir" data-v="' + x[0] + '" aria-label="Ouvir ' + x[1] + '">' + AV_PLAY + '</button>') + '</div>';
+          }).join('') + '<button type="button" class="go avSalva">Salvar</button>';
+          c.querySelectorAll('[data-som]').forEach(function (b) {
+            b.onclick = function () { sel = b.getAttribute('data-som'); avTocar(sel); pinta(); };
+          });
+          c.querySelector('.avSalva').onclick = function () {
+            S.avisos = S.avisos || {};
+            // ao mexer num tipo, os outros fixam o som que já tinham (assim o "som único" antigo não muda sozinho)
+            var at = avPref();
+            AV_TIPOS.forEach(function (x) { S.avisos['s' + x[0]] = at['s' + x[0]]; });
+            S.avisos['s' + k] = sel;
+            api.fecha(true);
+            avSalvou(true);
+          };
+        };
+        pinta();
+      }
+    });
   }
   function avSalvou(canal) {
     S._ajForce = true;
@@ -277,7 +281,7 @@
     render();
   }
   // Cartão de aviso dentro do app (mesmo desenho do aviso de teste): ícone, título, texto embaixo e hora.
-  var AV_IC = { teste: '🔔', novo: '🛒', comp: '🧾', cancel: '⚠️', pago: '✅' };
+  var AV_IC = { teste: ICO.sino, novo: ICO.sacola, comp: ICO.recibo, cancel: ICO.alerta, pago: ICO.chk };
   function avDentro(titulo, corpo, tipo) {
     var velho = document.getElementById('avDentro');
     if (velho) velho.remove();
@@ -287,7 +291,7 @@
     b.setAttribute('role', 'status');
     var t = String(titulo || '').replace(/^[^\wÀ-ÿ]+/, '');
     var d = new Date();
-    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || '🔔') + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
+    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || ICO.sino) + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
     b.addEventListener('click', function () {
       b.remove();
       if (tipo && tipo !== 'teste') setView('ped');
@@ -340,7 +344,7 @@
   document.addEventListener('change', function (ev) {
     var t = ev.target,
       k = t.getAttribute && t.getAttribute('data-av');
-    if (!k || k === 'som' || k === 'teste' || k === 'escolher' || k === 'ouvir' || k === 'fechar') return;
+    if (!k || k === 'teste' || k === 'escolher' || k === 'ouvir') return;
     S.avisos = S.avisos || {};
     S.avisos[k] = t.type === 'checkbox' ? t.checked : t.value;
     avSalvou(false);
@@ -349,29 +353,11 @@
     var b = ev.target.closest && ev.target.closest('[data-av]');
     if (!b || b.tagName === 'INPUT') return;
     var k = b.getAttribute('data-av');
-    if (k === 'fechar') {
-      if (ev.target !== b && b.classList.contains('pdOv')) return; // toque dentro da folha não fecha
-      S._avSheet = null;
-      render();
-    } else if (k === 'escolher') {
-      S._avSheet = b.getAttribute('data-v');
-      render();
+    if (k === 'escolher') {
+      avSomJanela(b.getAttribute('data-v'));
     } else if (k === 'ouvir') {
       avTocar(b.getAttribute('data-v'));
       if (!b.classList.contains('tocando')) { var o = b.innerHTML; b.classList.add('tocando'); b.innerHTML = '<span class="eq"><b></b><b></b><b></b></span>'; setTimeout(function () { b.classList.remove('tocando'); b.innerHTML = o; }, 1500); }
-    }
-    else if (k === 'som') {
-      S.avisos = S.avisos || {};
-      var tp = b.getAttribute('data-t'),
-        v = b.getAttribute('data-v');
-      // ao mexer num tipo, os outros fixam o som que já tinham (assim o "som único" antigo não muda sozinho)
-      var at = avPref();
-      AV_TIPOS.forEach(function (x) {
-        S.avisos['s' + x[0]] = at['s' + x[0]];
-      });
-      S.avisos['s' + tp] = v;
-      avTocar(v);
-      avSalvou(true);
     } else if (k === 'teste') {
       var rg = b.querySelector('.ring');
       if (rg) { rg.classList.remove('tocando2'); void rg.offsetWidth; rg.classList.add('tocando2'); }

@@ -79,10 +79,10 @@
       var mapa={};it.forEach(function(i){mapa[i.id]=i.ok});mapa.firme_=ex.mexe==null?null:!(it.filter(function(i){return i.id==='firme'})[0]||{}).ok;return {itens:it,mapa:mapa,tudo:!ruim.length&&!nao.length,frase:ruim.length?ruim[0].fazer:(nao.length?(nao[0].id==='peca'?'Coloque a peça no prato, de frente para a câmera':'Conferindo…'):'Tudo certo · pode gravar')}}
   }
   var C149_ICO = {
-    foto: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
-    video: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg>',
-    gal: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9.5" r="1.6"/><path d="M5 18l5-5 3 3 2-2 4 4"/></svg>',
-    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    foto: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    video: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg>',
+    gal: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9.5" r="1.6"/><path d="M5 18l5-5 3 3 2-2 4 4"/></svg>',
+    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
   };
   // a ordem da lista é a do esboço 149cam-F; os nomes curtos também
   var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['preta', 'Peça reta'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],

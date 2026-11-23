@@ -1,10 +1,9 @@
-  // ===== Dashboard em abas (Resumo, Dinheiro, Giro, Preços), com "Atenção agora" e blocos que abrem ao toque. =====
+  // ===== Dashboard em abas (Resumo, Reservas, Preços; o Giro saiu em 66 — cada parte foi para o seu lugar), com "Atenção agora" e blocos que abrem ao toque. =====
   S.dTab = 'hoje';
   S.dfold = {};
   var DTABS = [
     ['hoje', 'Resumo'],
     ['din', 'Reservas'],
-    ['giro', 'Giro'],
     ['prec', 'Preços']
   ];
   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
@@ -130,33 +129,10 @@
         );
       };
     if (t === 'hoje') {
-      var x = dashExtra();
       h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + metaCardHtml();
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    if (t === 'giro') {
-      var ce = capitalEstoque(),
-        x2 = dashExtra(),
-        pa = parados(),
-        ct = S.contagens.filter(function (c) {
-          return Date.now() - c.ts <= 30 * DAY;
-        });
-      h +=
-        '<section class="kpis lux418 lxLk"><div class="cxLb">Estoque</div>' +
-        kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
-        kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
-        '</section>';
-      // a lista de compras saiu para Peças › Compras (66)
-      h += '<div class="fxG">'; // dobras seguidas = um grupo de linhas, sem espaço entre elas
-      h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
-      h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
-      h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());
-      h += dFold('abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', 'var(--sub)', x2.abc);
-      h += dFold('pdc', 'Perdas e sobras (30 dias)', ct.length + ' contagem(ns) no período', 'var(--sub)', x2.perdasC);
-      h += '</div>';
-      return h;
-    }
     // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += precosTelaHtml();
@@ -246,7 +222,7 @@
         : '<div class="lv418S">já descontadas reposição, contas, colchão e melhorias</div>') +
       (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>').replace(/class="sl"/g, 'class="cxL"') +
       '<div class="bar lv418B">' +
-      [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
+      [[r.repGs, '#6cc3e0'], [r.con, '#943d6f'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
@@ -256,7 +232,7 @@
       // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
       dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
         '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a']]
+          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#943d6f'], ['Colchão de segurança', r.colch, '#e9c27a']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })

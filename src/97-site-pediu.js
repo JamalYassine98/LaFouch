@@ -40,7 +40,7 @@
   function sitePediuEl() {
     var j = siteAn(30),
       box = mk('div', 'repSite');
-    box.appendChild(mk('div', 'lbl', '🆕 O que o site pediu (30 dias)'));
+    box.appendChild(mk('div', 'lbl', 'O que o site pediu (30 dias)'));
     if (!j) {
       box.appendChild(mk('div', 'hint', S.nuvem && S.nuvem.rt ? 'Buscando os números do site…' : 'Entre na nuvem (Ajustes › Nuvem) para ver o que o site pediu.'));
       return box;
@@ -74,7 +74,7 @@
         return tot[g] <= 3 && sitePedeGrau(g) >= SITE_PEDE_MIN && !(S.repQ && S.repQ[g] != null);
       })[0];
     if (dica)
-      box.appendChild(mk('div', 'hint', '💡 ' + dica.replace('.', ',') + (tot[dica] <= 0 ? ' acabou' : ' está baixo') + ' e ' + sitePedeGrau(dica) + ' pessoas deram ' + dica.replace('.', ',') + ' no teste → sugerido 2 pacotes.'));
+      box.appendChild(mk('div', 'hint', dica.replace('.', ',') + (tot[dica] <= 0 ? ' acabou' : ' está baixo') + ' e ' + sitePedeGrau(dica) + ' pessoas deram ' + dica.replace('.', ',') + ' no teste → sugerido 2 pacotes.'));
     return box;
   }
   // ---- D: cartão "Semana do site" no Início (aparece na segunda; some quando você toca em ×) ----
@@ -151,11 +151,11 @@
       return d.getDate() + '/' + (d.getMonth() + 1);
     };
     return (
-      '<section class="card semSite"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 Semana do site · ' + f(x.ini) + '–' + f(x.fim) + '</b><button type="button" class="mini ghost" data-act="semsite" data-id="x" aria-label="Fechar">×</button></div>' +
+      '<section class="card semSite"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Semana do site · ' + f(x.ini) + '–' + f(x.fim) + '</b><button type="button" class="mini ghost" data-act="semsite" data-id="x" aria-label="Fechar">×</button></div>' +
       '<div class="semG"><div><b>' + x.vis + '</b><small>visitas' + (x.var != null ? ' (' + (x.var >= 0 ? '+' : '') + x.var + '%)' : '') + '</small></div><div><b>' + x.ped + '</b><small>pedidos</small></div><div><b>' + x.car + '</b><small>carrinhos</small></div><div><b>' + x.mochi + '</b><small>testes do Mochi</small></div></div>' +
-      (x.top ? '<div class="sl"><span>🔥 Mais vista</span><b>' + esc(x.top) + '</b></div>' : '') +
-      '<div class="sl"><span>🛒 Carrinhos parados</span><b>' + x.par + '</b></div>' +
-      '<div class="sl"><span>🎄 Tema ativo</span><b>' + esc(semanaTema()) + '</b></div>' +
+      (x.top ? '<div class="sl"><span>Mais vista</span><b>' + esc(x.top) + '</b></div>' : '') +
+      '<div class="sl"><span>Carrinhos parados</span><b>' + x.par + '</b></div>' +
+      '<div class="sl"><span>Tema ativo</span><b>' + esc(semanaTema()) + '</b></div>' +
       '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini" data-act="semsite" data-id="ver">Ver no Analisador ›</button><button type="button" class="mini ghost" data-act="semsite" data-id="copiar">Copiar relatório</button></div></section>'
     );
   }
@@ -170,7 +170,7 @@
       if (!x) return;
       try {
         navigator.clipboard.writeText(semanaTexto(x)).then(function () {
-          lfToast('✓ Relatório copiado', 'ok');
+          lfToast('Relatório copiado', 'ok');
         });
       } catch (e) {}
     }

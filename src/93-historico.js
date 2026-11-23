@@ -37,7 +37,6 @@
       liv: sumBy(ok, 'livre'),
       extra: extra,
       nd: dl.length,
-      outros: (porDia('c', S.cambios)[k] || []).length + (porDia('e', S.elog)[k] || []).length,
       fx: fx
     };
   }
@@ -221,7 +220,7 @@
     else {
       h =
       (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
-      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
+      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="mini dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
       ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +
       (k >= today ? ' disabled' : '') +
@@ -319,7 +318,7 @@
         : '<div class="vz418">Nenhuma venda neste dia.</div>') +
       '</section>';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2><div class="hint" style="margin:2px 0 0">As contas do mês entram divididas por 30. Os gastos extras entram no dia em que foram feitos.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
       mAt
         .map(function (e) {
           return (

@@ -20,7 +20,7 @@
         b.type = 'button';
         b.className = 'rx';
         b.setAttribute('data-rx', r[0]);
-        b.innerHTML = '<span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + r[2] + '"/></svg></span><span>' + r[1] + '</span>';
+        b.innerHTML = '<span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + r[2] + '"/></svg></span><span>' + r[1] + '</span>';
         b.addEventListener('click', function (e) {
           e.stopPropagation();
           if (S.view !== r[0]) setView(r[0]);

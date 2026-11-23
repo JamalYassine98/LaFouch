@@ -209,12 +209,8 @@
       var w = b.parentNode;
       w.style.position = 'relative';
       b.classList.add('siteWave');
-      var sp = mk('div', 'siteSpk', '✦ ✧ ✦ ✧ ✦');
-      sp.setAttribute('aria-hidden', 'true');
-      w.appendChild(sp);
       setTimeout(function () {
         b.classList.remove('siteWave');
-        sp.remove();
       }, 1100);
     }, 30);
   }

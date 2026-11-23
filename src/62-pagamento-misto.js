@@ -186,7 +186,7 @@
       pmMudou();
     };
     linha.appendChild(v);
-    var rm = btn('trash', '✕', function () {
+    var rm = btn('trash', '', function () {
       lista.splice(i, 1);
       if (lista === S.pagX && !lista.length) {
         S.pagMisto = false;
@@ -195,6 +195,7 @@
       pmRender(true);
       pmMudou();
     });
+    rm.innerHTML = ICO.x;
     rm.setAttribute('aria-label', 'Remover esta linha');
     linha.appendChild(rm);
     box.appendChild(linha);

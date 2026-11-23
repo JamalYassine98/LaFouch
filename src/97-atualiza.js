@@ -75,10 +75,10 @@
     lfaAbre('lfUpdSh',
       '<h2 style="margin:0;font-family:var(--display);font-weight:400;font-size:20px">Atualizar o La Fouch?</h2><div class="hint" style="margin:0">Versão ' + v + '</div>' +
       (nt ? '<div style="display:flex;flex-direction:column;gap:6px;font-size:14px">' + nt + '</div>' : '') +
-      '<div class="hint" style="margin:0">Leva uns 3 segundos. Suas vendas e seus dados continuam salvos.</div>' +
+      '' +
       '<button type="button" class="bsolid c" data-act="updgo">Atualizar agora</button><button type="button" class="pdLink" data-act="updnao" style="align-self:center">Agora não</button>');
   };
-  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfaToast('<b>Fica guardado</b><br>Está em Notificações, no sino.', 3500); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
+  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfToast('Fica guardado em Notificações, no sino', 'neutro'); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
   ACT.updnao = function () { lfaFecha('lfUpdSh'); ACT.updmais(); };
   ACT.updgo = function () {
     var v = UPD.pronta || +updMarca().v || 0;
@@ -98,7 +98,7 @@
     try { localStorage.removeItem('lf_updok'); } catch (e) {}
     if (ok > APP_BUILD) return;
     lfaAbre('lfUpdSh',
-      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px"><span style="width:24px;height:24px;display:block">' + ICO.chk + '</span></div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
@@ -117,14 +117,14 @@
       ico = st === 'b' ? '<i class="rg75" aria-hidden="true"></i>' : st === 'k' ? '<svg class="ck75" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>' : '',
       muda = UP75_ULT && UP75_ULT !== st;
     UP75_ULT = st;
-    return '<button type="button" class="up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
+    return '<button type="button" class="mini up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
       (st === 'k' ? '<div class="s75' + (muda ? ' in75' : '') + '">' + (UPD.ult ? 'agora mesmo' : 'Versão ' + esc(APP_NOME)) + '</div>' : st === 'n' || st === 'b' ? '<div class="s75">' + esc(sub) + '</div>' : '');
   }
   function updCard() {
     var m = updMarca(),
       novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
       est = UPD.busy ? 'busca' : novo ? 'novo' : UPD.ok ? 'ok' : 'parado',
-      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? '✓' : '↻',
+      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? ICO.chk : '↻',
       tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
       sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
       ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
@@ -136,7 +136,7 @@
       sub = { tem: 'Toque para baixar · ' + mb, erro: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar' }[ak];
     }
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
-      '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
+      '' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
       updBotao75(est, ak, tit, sub) +
       (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';

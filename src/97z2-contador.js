@@ -81,7 +81,7 @@
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +
       (f ? lrLinha('Faixa de margem <small>' + esc(f.nome) + ' · ' + f.margem + '%</small>', gs(pp.piso)) : '') +
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
-      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
+      '<div class="cntQ" style="margin-top:8px">"Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
   function fichaPreco(det, ref, opt) {
     if (opt.venda || !ref || !det || det.querySelector('.cntP')) return;
@@ -110,7 +110,7 @@
         ML_CALC = { bal: bal, site: typeof sitePreco === 'function' ? sitePreco(bal) : bal, ata: ata, piso: piso };
         $('ccR').innerHTML = '<section class="card col" style="gap:0"><div class="lbl">O CONTADOR SUGERE</div>' + lrLinha('Balcão', gs(bal)) + lrLinha('Site', gs(ML_CALC.site)) + (ata ? lrLinha('Atacado', 'US$ ' + ata.toFixed(2).replace('.', ',')) : '') + lrLinha('Piso', gs(piso)) +
           lrLinha('Parecidos no estoque <small>' + pr.slice(0, 3).map(function (x) { return esc(x[0]) + ' ' + gs(x[1]); }).join(' · ') + '</small>', pr.length ? (coer ? 'coerente' : 'diferente') : '—', coer ? 'var(--ok)' : 'var(--warn)') + '</section>' +
-          '<div class="cntQ">💬 "' + (q > 1 ? 'Com ' + q + ' peças' + (giro > 0 ? ' e o giro de ' + Math.round(giro) + ' por mês, o lote vende em ~' + Math.max(1, Math.round(meses)) + (Math.round(meses) > 1 ? ' meses' : ' mês') : '') + '. O lucro previsto do lote é ' + gs(lucro) + '.' : 'Lucro previsto por peça: ' + gs(lucro) + '.') + '"</div>' +
+          '<div class="cntQ">"' + (q > 1 ? 'Com ' + q + ' peças' + (giro > 0 ? ' e o giro de ' + Math.round(giro) + ' por mês, o lote vende em ~' + Math.max(1, Math.round(meses)) + (Math.round(meses) > 1 ? ' meses' : ' mês') : '') + '. O lucro previsto do lote é ' + gs(lucro) + '.' : 'Lucro previsto por peça: ' + gs(lucro) + '.') + '"</div>' +
           '<div class="cntB"><button type="button" class="go" data-act="cntCalcUsa">Usar estes preços</button></div>';
       };
       ['ccU', 'ccQ', 'ccT', 'ccF'].forEach(function (id) { $(id).oninput = conta; $(id).onchange = conta; });
@@ -124,7 +124,7 @@
     saveSoon();
     var t = 'Balcão ' + gs(ML_CALC.bal) + ' · Site ' + gs(ML_CALC.site) + (ML_CALC.ata ? ' · Atacado US$ ' + ML_CALC.ata.toFixed(2).replace('.', ',') : '');
     try { navigator.clipboard.writeText(t); } catch (e) {}
-    lfToast('✓ Preços anotados (copiados): ' + t, 'ok');
+    lfToast('Preços anotados (copiados): ' + t, 'ok');
   };
   // ---------- 4 · E se…? ----------
   var ESE = [['dolar', 'Dólar muda'], ['contas', 'Contas subirem 10%'], ['desc', 'Desconto numa categoria'], ['cupom', 'Cupom 15%'], ['parado', 'Vender tudo parado'], ['meta', 'Meta do mês']];
@@ -146,16 +146,16 @@
     if (k === 'parado') {
       var n = 0, cx = 0, lu = 0;
       refs.forEach(function (r) { if (paParado(r) < 60) return; var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), q = paEstoque(r); n += q; cx += pp.piso * q; lu += (pp.piso - pp.rep - pp.contas) * q; });
-      return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais. ✓';
+      return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais.';
     }
-    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + '). ✓' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
+    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
     return '';
   }
   ACT.cntEse = function () {
     lfJanela({ titulo: 'E se…?', monta: function (box) {
       var tipos = tipoAll().filter(function (t) { return !t.simple && !isSimple(t.id) && t.id !== 'pre'; });
       box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">PERGUNTAS PRONTAS</div><div class="ataRw">' + ESE.map(function (q, i) { return '<button type="button" class="mini' + (i ? ' ghost' : '') + '" data-ese="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
-        '<div class="cntRow" id="eseIn"></div><div class="cntQ" id="eseR" aria-live="polite"></div><div class="hint" style="text-align:center">Só conta: nada muda até você aceitar uma decisão.</div></div>';
+        '<div class="cntRow" id="eseIn"></div><div class="cntQ" id="eseR" aria-live="polite"></div></div>';
       var k = 'dolar';
       var campo = function () {
         var fx = cntFx();

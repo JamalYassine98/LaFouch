@@ -141,7 +141,7 @@
             resChama({ acao: 'ligar', pix: x.id, pedido: sel }).then(function (j) {
               if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.', 'erro'); return desenha(); }
               x.ligado = true; // some das Pendências já; a nuvem marcou o pixSemPar e o "pago" chega pela conferência de sempre
-              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
+              lfToast('' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
               api.fecha();
               saveSoon();
               render();

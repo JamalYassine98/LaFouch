@@ -325,7 +325,7 @@
     var agora = Date.now();
     LFE.sum = agora - LFE.t < 4000 ? LFE.sum + n : n;
     LFE.t = agora;
-    lfToast('✓ +' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''), 'ok');
+    lfToast('+' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''), 'ok');
   }
 
   // ----- Modelos parecidos por foto (pré-graduado quase nunca tem código na haste)

@@ -173,9 +173,9 @@
   function backupHtml() {
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2></div><div class="hint" style="margin:0">' +
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="btn-sc" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
+        '</div><div style="display:flex;gap:8px"><button class="mini" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="mini" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
     h += '</section>';
     return h;
@@ -321,7 +321,7 @@
         ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
         : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">Abrir o app com digital ou rosto. O PIN de emergência abre o app se a biometria falhar.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2></div>' +
       '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
       (S.bioOn ? ' checked' : '') +
       (bioDisp ? '' : ' disabled') +
@@ -336,7 +336,7 @@
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
     h +=
-      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2><div class="hint" style="margin:2px 0 0">Define o que o app faz quando você marca um pedido do site como entregue.</div></div>' +
+      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2></div>' +
       '<button type="button" class="swrow" data-act="pedbaixa" role="switch" aria-checked="' + (S.baixaAuto ? 'true' : 'false') + '" style="background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer"><span>Baixa automática<div class="hint" style="margin:2px 0 0;font-weight:400">' +
       (S.baixaAuto ? 'Ligada: ao entregar o pedido, o estoque baixa e a venda é registrada sozinha.' : 'Desligada: ao entregar, você registra a venda e baixa o estoque à mão.') +
       '</div></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true" style="pointer-events:none"' + (S.baixaAuto ? ' checked' : '') + '><i></i></span></button></section>';

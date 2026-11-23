@@ -192,7 +192,7 @@
           })
           .join('') +
         '</div>' +
-        (ps.length > 20 ? '<div class="hint" style="margin:0">Mostrando as 20 mais recentes de ' + ps.length + '. ' : '<div class="hint" style="margin:0">') +
+        '<div class="hint" style="margin:0">' +
         '<a href="#hist" data-act="view" data-id="hist" style="color:var(--accent-fg)">Ver tudo no Histórico</a></div>';
     }
     vendHtml += '</section>';
@@ -200,7 +200,7 @@
     html = '';
     var parts = [
       ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#6cc3e0'],
-      ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
+      ['Contas da loja e de casa', 'Obrigatório', con, '#943d6f'],
       [
         'Colchão de segurança',
         'Reserva contra alta do dólar e do custo (' + pc(c.pct) + ')',
@@ -211,7 +211,7 @@
       ['Lucro livre', 'Seu dinheiro', liv, '#5fd39a']
     ];
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Soma de todas as vendas do período, na ordem em que o dinheiro deve ser separado.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2></div>';
     html +=
       '<div class="bar">' +
       parts
@@ -289,7 +289,7 @@
     var secTwo = html;
     html = '';
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Saúde da margem</h2><div class="hint" style="margin:2px 0 0">Preço atual contra a trava: reposição de hoje mais a parte das contas de cada peça.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Tipo</th><th>Preço</th><th>Reposição hoje</th><th>Contas/peça</th><th>Trava</th><th>Folga</th><th>Situação</th></tr></thead><tbody>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Saúde da margem</h2></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Tipo</th><th>Preço</th><th>Reposição hoje</th><th>Contas/peça</th><th>Trava</th><th>Folga</th><th>Situação</th></tr></thead><tbody>';
     var worst = null;
     TIPOS.forEach(function (t) {
       var rp = Math.round(t.repUSD * S.fx.pyg),

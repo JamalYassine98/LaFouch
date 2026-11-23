@@ -66,37 +66,9 @@
     return d;
   }
   // Mostra um erro em aviso flutuante.
+  // 85 (aprovado): erro é o aviso que passa, tipo 'erro' (o aviso de cima com × saiu)
   function popErr(t) {
-    try {
-      var e = $('popErr');
-      if (!e) {
-        e = document.createElement('div');
-        e.id = 'popErr';
-        e.setAttribute('role', 'alert');
-        e.style.cssText =
-          'position:fixed;left:50%;top:max(16px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:200;width:min(92vw,520px);background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:12px;padding:14px 44px 14px 14px;font-size:14px;line-height:1.4;box-shadow:0 8px 28px rgba(0,0,0,.6)';
-        var x = document.createElement('button');
-        x.type = 'button';
-        x.textContent = '×';
-        x.setAttribute('aria-label', 'Fechar aviso');
-        x.style.cssText =
-          'position:absolute;right:8px;top:6px;width:32px;height:32px;border:0;background:transparent;font-size:22px;color:inherit';
-        x.onclick = function () {
-          e.hidden = true;
-        };
-        var sp = document.createElement('span');
-        sp.id = 'popErrT';
-        e.appendChild(sp);
-        e.appendChild(x);
-        document.body.appendChild(e);
-      }
-      $('popErrT').textContent = t;
-      e.hidden = false;
-      clearTimeout(popErr.t);
-      popErr.t = setTimeout(function () {
-        e.hidden = true;
-      }, 7000);
-    } catch (x) {}
+    lfToast(t, 'erro');
   }
   // Valida o custo informado contra o total do lote.
   function gCostErr(g, add, skip, per, qty) {

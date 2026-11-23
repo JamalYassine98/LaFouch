@@ -761,6 +761,8 @@
     return w ? S.fotos[ref + '|' + w.cor] : '';
   }
   // Quadro de foto (ou vazio).
+  // o quadro de "sem foto": o pacote (cubo) — um desenho só para o cartão do Inventário, do Catálogo e as miniaturas das listas
+  var SEM_FOTO_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>';
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
     if (!src) d.hidden = true;

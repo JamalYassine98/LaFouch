@@ -282,7 +282,7 @@
       !!S.qEdit
     );
     eb.innerHTML =
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
     eb.setAttribute('aria-label', S.qEdit ? 'Sair da edição' : 'Editar');
     eb.title = S.qEdit ? 'Sair da edição' : 'Editar';
     hb.appendChild(eb);
@@ -713,7 +713,7 @@
         bt.id = 'ed_' + key;
         w.appendChild(mk('div', 'lbl', rotulo));
         bt.appendChild(mk('span', '', valor || 'Escolher'));
-        if (valor) bt.appendChild(mk('span', 'nvck', '✓'));
+        if (valor) { var ck = mk('span', 'nvck', ''); ck.innerHTML = ICO.chk; bt.appendChild(ck); }
         bt.onclick = function () {
           S.edPop = open ? '' : key;
           render();
@@ -726,9 +726,9 @@
             q = document.createElement('input'),
             ul = mk('div', 'lsList');
           q.className = 'lsIn';
-          q.placeholder = 'Buscar ' + rotulo.toLowerCase();
+          q.placeholder = rotulo;
           q.autocomplete = 'off';
-          cx.appendChild(mk('span', 'lsIc', '🔍'));
+          { var lu = mk('span', 'lsIc', ''); lu.innerHTML = ICO.busca; cx.appendChild(lu); }
           cx.appendChild(q);
           var sa = mk('span', 'lsSeta', '▲');
           sa.onclick = function () {
@@ -852,12 +852,12 @@
           saveSoon();
           render();
           window.__prodVolta = volta;
-          lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Produto excluído</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="prodDesfaz" style="font-weight:700;min-height:44px;min-width:44px;padding:0 6px;display:inline-flex;align-items:center">Desfazer</button>', 5000, 'b').setAttribute('data-prod-toast', '1');
+          lfToast('Produto excluído', 'neutro', { t: 'Desfazer', fn: ACT.prodDesfaz });
           setTimeout(function () { if (window.__prodVolta === volta) window.__prodVolta = null; }, 5600);
         });
         lx.id = 'edLixeira';
         lx.innerHTML =
-          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="tampa"><path d="M4 7h16"/><path d="M9 7V4h6v3"/></g><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="tampa"><path d="M4 7h16"/><path d="M9 7V4h6v3"/></g><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
         lx.setAttribute('aria-label', 'Excluir o produto');
         lx.title = 'Excluir o produto';
         hbtn.appendChild(lx);

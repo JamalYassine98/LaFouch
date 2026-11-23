@@ -70,7 +70,7 @@
         hd.appendChild(btn('tab', 'Fechar', close));
         corpo.appendChild(hd);
         if (!p) {
-          corpo.appendChild(mk('div', 'hint', tot ? 'Você pulou as que faltam. Feche e abra de novo para recomeçar.' : '✓ Todos os modelos têm foto.'));
+          corpo.appendChild(mk('div', 'hint', tot ? 'Você pulou as que faltam. Feche e abra de novo para recomeçar.' : 'Todos os modelos têm foto.'));
           return;
         }
         corpo.appendChild(mk('div', 'hint', tot + (tot === 1 ? ' cor sem foto' : ' cores sem foto')));

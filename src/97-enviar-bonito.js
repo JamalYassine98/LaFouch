@@ -5,7 +5,7 @@
   // 4) Mensagem editável + enviar no app lembrado. Fica registrado na ficha do cliente.
   S.ebSel = null; // refs selecionadas (null = fora do modo seleção)
   var EB_EST = [
-    { bg: '#f7f1ec', fg: '#2b2420', ac: '#8a2f66', mu: '#7a6f68' },
+    { bg: '#f7f1ec', fg: '#2b2420', ac: '#943d6f', mu: '#7a6f68' },
     { bg: '#2a1622', fg: '#f4e8ef', ac: '#e8b6d2', mu: '#c9a9bb' },
     { bg: '#111111', fg: '#ffffff', ac: '#e8b6d2', mu: '#b0b0b0' }
   ];
@@ -96,7 +96,7 @@
       if (on && !k) {
         k = document.createElement('span');
         k.className = 'ebCk';
-        k.textContent = '✓';
+        k.innerHTML = ICO.chk;
         c.appendChild(k);
       }
     });
@@ -178,7 +178,7 @@
           '<button type="button" class="go ebEnv" id="ebEnv">Enviar no ' + esc(app.nome) + '</button>' +
           '<button type="button" class="ebOutro" id="ebOutro">outro app</button>';
         var paraTxt = function () {
-            $('ebPara').innerHTML = '<span class="ebAv">' + (E.cli ? esc(String(E.cli.nome || '?').slice(0, 2).toUpperCase()) : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>') + '</span><span style="flex:1;text-align:left">Para <b>' + (E.cli ? esc(E.cli.nome) : 'quem?') + '</b>' + (E.cli ? ' <span class="hint" style="display:inline;margin:0">· ' + (cliEstr(E.cli) ? 'estrangeiro' : 'paraguaio') + '</span>' : ' <span class="hint" style="display:inline;margin:0">(opcional)</span>') + '</span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[E.moeda] + ' ›</span>';
+            $('ebPara').innerHTML = '<span class="ebAv">' + (E.cli ? esc(String(E.cli.nome || '?').slice(0, 2).toUpperCase()) : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>') + '</span><span style="flex:1;text-align:left">Para <b>' + (E.cli ? esc(E.cli.nome) : 'quem?') + '</b>' + (E.cli ? ' <span class="hint" style="display:inline;margin:0">· ' + (cliEstr(E.cli) ? 'estrangeiro' : 'paraguaio') + '</span>' : ' <span class="hint" style="display:inline;margin:0">(opcional)</span>') + '</span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[E.moeda] + ' ›</span>';
           },
           cartao = function (p, k) {
             var s = EB_EST[E.est];
@@ -293,7 +293,7 @@
               window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
             });
           }).then(function () {
-            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
+            if (E.cli) lfToast('Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
           });
         };
         $('ebEnv').onclick = function () {

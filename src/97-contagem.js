@@ -113,6 +113,13 @@
     );
     hi.style.margin = '0';
     c.appendChild(hi);
+    // o resultado das contagens dos últimos 30 dias (veio do Giro, ESBOCO 22/11): abre no lugar
+    var pc = perdasContagemHtml(), nct = S.contagens.filter(function (x) { return Date.now() - x.ts <= 30 * DAY; }).length;
+    if (pc) {
+      var pd = mk('div', 'fxG');
+      pd.innerHTML = dFold('pdc', 'Perdas e sobras (30 dias)', nct + (nct === 1 ? ' contagem no período' : ' contagens no período'), 'var(--sub)', pc);
+      c.appendChild(pd);
+    }
     if (S.contSum) return resumoContagem(c, difs);
     if (!gr.length) c.appendChild(mk('div', 'note n-warn', 'Nenhuma peça com esses filtros.'));
     gr.forEach(function (g) {
@@ -174,7 +181,7 @@
       });
       var okb = btn(
         'chip' + (S.contOk[g.key] ? ' on' : ''),
-        S.contOk[g.key] ? 'Conferido ✓' : 'Está tudo certo',
+        S.contOk[g.key] ? 'Conferido' : 'Está tudo certo',
         function () {
           if (S.contOk[g.key]) delete S.contOk[g.key];
           else S.contOk[g.key] = 1;

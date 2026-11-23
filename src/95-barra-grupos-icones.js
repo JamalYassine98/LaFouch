@@ -29,8 +29,8 @@
         sc = c[3];
       inner =
         c[0] +
-        '<g transform="translate(' + (c[1] - 12 * sc).toFixed(2) + ',' + (c[2] - 12 * sc).toFixed(2) + ') scale(' + sc + ')" stroke-width="' + (1.7 / sc).toFixed(2) + '">' + (ICO_D[marca] || '') + '</g>';
+        '<g transform="translate(' + (c[1] - 12 * sc).toFixed(2) + ',' + (c[2] - 12 * sc).toFixed(2) + ') scale(' + sc + ')" style="stroke-width:calc(var(--ico-traco) / ' + sc + ')">' + (ICO_D[marca] || '') + '</g>';
     }
     px = px || 24;
-    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
   }

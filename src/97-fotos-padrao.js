@@ -430,7 +430,7 @@
   function fpAjHtml() {
     var n = fpChaves().length;
     return (
-      '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Só o fundo vira branco (255); a armação não é alterada. Peça no centro, formato 3:2, sem esticar. As fotos novas saem do Estúdio.</div>' +
+      '<div class="col" style="gap:8px">' +
       (n ? '<button type="button" class="go" data-act="fpLote">Padronizar ' + n + (n === 1 ? ' foto' : ' fotos') + '</button>' : '<div class="note n-ok">Todas as fotos já estão no padrão.</div>') +
       '</div>'
     );
@@ -452,7 +452,7 @@
           cls: 'fpJn',
           monta: function (c, J2) {
             // v465 (aprovado 08/11): ✓ verde suave, frase clara, Pronto como botão principal e Desfazer só em texto
-            c.innerHTML = '<div class="fpFim"><span class="fpOkIc" aria-hidden="true">✓</span><span>' + feitos + (feitos === 1 ? ' foto no padrão' : ' fotos no padrão') + ': fundo branco e mesmo tamanho' + (fora ? '<small>' + fora + ' ficaram como estavam (tire de novo pelo Estúdio)</small>' : '') + '</span></div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="fpDesf" id="fpDesf">Desfazer</button>';
+            c.innerHTML = '<div class="fpFim"><span class="fpOkIc" aria-hidden="true">' + ICO.chk + '</span><span>' + feitos + (feitos === 1 ? ' foto no padrão' : ' fotos no padrão') + ': fundo branco e mesmo tamanho' + (fora ? '<small>' + fora + ' ficaram como estavam (tire de novo pelo Estúdio)</small>' : '') + '</span></div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="fpDesf" id="fpDesf">Desfazer</button>';
             $('fpOk').onclick = function () {
               J2.fecha();
             };

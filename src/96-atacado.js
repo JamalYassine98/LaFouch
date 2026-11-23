@@ -32,7 +32,7 @@
   function atacTeclado(it) {
     var o = lfaAbre(
       'lfa-qty',
-      '<h3 style="margin:0 0 8px">Quantidade — ' + esc(pn(it.ref)) + '</h3><input class="in" id="atacN" type="tel" inputmode="numeric" pattern="[0-9]*" value="' + atacQtd(it) + '" style="font-size:28px;text-align:center;min-height:56px;width:100%"><div class="hint">Disponível: ' + gLivre(it) + ' un.</div><div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="btn ghost" id="atacX" style="flex:1">Cancelar</button><button type="button" class="btn" id="atacOk" style="flex:1">Ok</button></div>'
+      '<h3 style="margin:0 0 8px">Quantidade — ' + esc(pn(it.ref)) + '</h3><input class="in" id="atacN" type="tel" inputmode="numeric" pattern="[0-9]*" value="' + atacQtd(it) + '" style="font-size:28px;text-align:center;min-height:56px;width:100%"><div class="hint">Disponível: ' + gLivre(it) + ' un.</div><div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="mini" id="atacX" style="flex:1">Cancelar</button><button type="button" class="go" id="atacOk" style="flex:1">Ok</button></div>'
     );
     var inp = o.querySelector('#atacN');
     inp.focus();

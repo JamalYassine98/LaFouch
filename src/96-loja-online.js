@@ -11,7 +11,7 @@
   function modoBtn(btnEl, aba) {
     var m = modoDe(aba);
     btnEl.innerHTML =
-      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       (m === 'g' ? MODO_ICO.lista : MODO_ICO.grade) + '</svg>';
     btnEl.setAttribute('aria-label', m === 'g' ? 'Mostrar em lista' : 'Mostrar em catálogo');
     btnEl.onclick = function () {
@@ -495,7 +495,7 @@
         var trava = !!(pinAtivo() || (S.bioOn && bioPlugin()));
         var entrega = function (conf) {
           reS({ rt: S.nuvem.rt });
-          if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
+          if (conf) lfToast('Acesso renovado · nuvem e painel conectados', 'ok');
         };
         if (!trava || !LOCK.locked) entrega(false); // S374 (17/11, dono): a biometria/PIN é só a da abertura do app; com o app aberto e destravado, o painel entra direto
         else
@@ -515,7 +515,7 @@
           S.nuvem.email = String(e.data.email || '').slice(0, 120);
           nvTok = { t: '', exp: 0 };
           saveSoon();
-          lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">Mesma conta do painel</div></div>', 3000, 'b');
+          lfToast('Nuvem conectada', 'ok');
           nvToken()
             .then(nvBackup)
             .then(nvCotacao)
@@ -592,9 +592,6 @@
     if (!el.getAttribute('data-sk')) {
       el.setAttribute('data-sk', '1');
       el.textContent = '';
-      var host = mk('div', 'catbar3');
-      host.id = 'uniS';
-      el.appendChild(host);
       var sb = mk('div', 'sbox');
       sb.id = 'siteBox';
       var fr = mk('iframe');

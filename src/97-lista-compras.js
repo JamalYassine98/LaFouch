@@ -213,7 +213,7 @@
   }
   function lcThumb(ref) {
     var f = photoOf(ref);
-    return '<span class="lcTh">' + (f ? '<img src="' + esc(f) + '" alt="">' : '<i>sem foto</i>') + '</span>';
+    return '<span class="lcTh' + (f ? '' : ' lcTh0') + '">' + (f ? '<img src="' + esc(f) + '" alt="">' : SEM_FOTO_SVG) + '</span>';
   }
   function lcNomeL(m, grau) {
     return '<span class="lcN"><span>' + esc(pn(m.ref)) + '</span>' + (grau ? ' <b class="lcG">' + esc(grau) + '</b>' : '') + '</span>';
@@ -274,7 +274,7 @@
       linhas = P.itens.map(function (p) {
         noPed[p.tipo + '|' + p.ref] = 1;
         var ch = Math.max(0, lcEntrou(p)),
-          st = ch >= p.q ? (ch > p.q ? '<b class="lcSo">sobra ' + (ch - p.q) + '</b>' : '<b style="color:var(--ok)">✓</b>') : '<b style="color:var(--bad,#ff8f8f)">faltou ' + (p.q - ch) + '</b>';
+          st = ch >= p.q ? (ch > p.q ? '<b class="lcSo">sobra ' + (ch - p.q) + '</b>' : '<b style="color:var(--ok)">' + ICO.chk + '</b>') : '<b style="color:var(--bad,#ff8f8f)">faltou ' + (p.q - ch) + '</b>';
         return '<div class="sl lcL">' + lcThumb(p.ref) + '<span>' + esc(pn(p.ref)) + (p.grau ? ' <b class="lcG">' + esc(p.grau) + '</b>' : '') + '<small>pedido ' + p.q + ' · chegou ' + ch + '</small></span>' + st + '</div>';
       });
     Object.keys(refsLote).forEach(function (k) {

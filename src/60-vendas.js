@@ -408,7 +408,7 @@
       );
       card.dataset.ref = f.ref;
       var pb88 = photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox');
-      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; } // S374 88: lote sem foto ganha o quadro de pacote
+      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = SEM_FOTO_SVG; } // S374 88: lote sem foto ganha o quadro de pacote
       card.appendChild(pb88);
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
@@ -757,7 +757,7 @@
     if (unico) card.appendChild(vLinhaDir(unico, card));
     else {
       var ch = mk('span', 'vlCh');
-      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
       card.setAttribute('aria-expanded', aberto ? 'true' : 'false');
       card.appendChild(ch);
     }

@@ -637,7 +637,7 @@
           // plano
           var feitos = P.filter(function (x) { return x.feito; }).length;
           h += '<div class="mkSec">Plano da semana · ' + feitos + ' de ' + P.length + '</div><div class="mkPl">' + P.map(function (x) {
-            return '<div class="mkPi' + (x.feito ? ' ok' : '') + '"><button type="button" class="mkCk" data-feito="' + x.id + '" aria-label="Feito">' + (x.feito ? '✓' : '') + '</button><button type="button" class="mkPb" data-cria="' + x.fmt + '" data-refs="' + esc(x.refs.join(',')) + '" data-pid="' + x.id + '"><b>' + MK_DIAS[new Date(x.dia).getDay()] + ' · ' + MK_FMT[x.fmt].t + ' · ' + x.hora + '</b><small>' + esc(x.tema) + (x.refs.length ? ' — ' + x.refs.map(pn).slice(0, 2).join(', ') + (x.refs.length > 2 ? '…' : '') : '') + '</small></button></div>';
+            return '<div class="mkPi' + (x.feito ? ' ok' : '') + '"><button type="button" class="mkCk" data-feito="' + x.id + '" aria-label="Feito">' + (x.feito ? ICO.chk : '') + '</button><button type="button" class="mkPb" data-cria="' + x.fmt + '" data-refs="' + esc(x.refs.join(',')) + '" data-pid="' + x.id + '"><b>' + MK_DIAS[new Date(x.dia).getDay()] + ' · ' + MK_FMT[x.fmt].t + ' · ' + x.hora + '</b><small>' + esc(x.tema) + (x.refs.length ? ' — ' + x.refs.map(pn).slice(0, 2).join(', ') + (x.refs.length > 2 ? '…' : '') : '') + '</small></button></div>';
           }).join('') + '</div>';
           // datas
           if (D.length)
@@ -646,12 +646,12 @@
             }).join('') + '</div>';
           // listas
           var LS = mkListas();
-          h += '<details class="mkDt"><summary class="mkSec">Listas por perfil</summary><div class="hint" style="margin:0 0 6px">Para as listas de transmissão do WhatsApp Business: copie os números e cole na lista.</div><div class="split">' + LS.map(function (l) {
+          h += '<details class="mkDt"><summary class="mkSec">Listas por perfil</summary><div class="split">' + LS.map(function (l) {
             return '<div class="sl"><span>' + esc(l.t) + '<small>' + l.cl.length + ' com telefone' + (l.s ? ' · ' + l.s : '') + '</small></span>' + (l.cl.length ? '<button type="button" class="mini" data-lista="' + l.id + '">Copiar</button>' : '<b>—</b>') + '</div>';
           }).join('') + '</div></details>';
           // resultados
           h += '<details class="mkDt"><summary class="mkSec">Resultados</summary>';
-          if (!R.lista.length) h += '<div class="hint" style="margin:0">Poste pelo app: em 2 dias começo a medir vendas e pedidos do site das peças de cada post.</div>';
+          if (!R.lista.length) h += '';
           else {
             h += '<div class="split">' + Object.keys(R.porFmt).map(function (k) {
               var o = R.porFmt[k];
@@ -913,13 +913,13 @@
             sc = W / vw,
             dh = vh * sc;
           g.drawImage(v, 0, (H - dh) / 2 - 120, W, dh);
-          g.fillStyle = '#2a1a26';
+          g.fillStyle = '#2a1a22';
           g.textAlign = 'center';
           g.font = '600 64px Georgia, serif';
           g.fillText(f.nome, W / 2, H - 420);
           if (f.preco) {
             g.font = '800 92px Inter, system-ui, sans-serif';
-            g.fillStyle = '#a2447c';
+            g.fillStyle = '#943d6f';
             g.fillText(gs(f.preco), W / 2, H - 300);
           }
           g.font = '500 40px Inter, system-ui, sans-serif';

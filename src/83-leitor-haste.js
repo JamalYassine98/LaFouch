@@ -70,7 +70,8 @@
     var hd = document.createElement('div');
     hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
     hd.appendChild(mk('b', '', 'Ler código da haste'));
-    var x = btn('chip', '✕', hasteClose);
+    var x = btn('chip', '', hasteClose);
+    x.innerHTML = ICO.x;
     x.setAttribute('aria-label', 'Fechar');
     x.style.cssText = 'min-height:36px;width:40px;padding:0;justify-content:center';
     hd.appendChild(x);
@@ -248,7 +249,7 @@
   }
   (function () {
     var cam =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
     function mkCam(inp) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -276,10 +277,10 @@
       // barra de busca larga: lupa à esquerda, moldura com óculos (câmera) dentro, à direita
       var bs = document.createElement('div');
       bs.className = 'bs';
-      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
       v.style.cssText = 'flex:1 1 0;min-width:0;width:auto;max-width:none';
       v.className = '';
-      v.placeholder = 'Buscar peça, código, cor…';
+      v.placeholder = 'Peça, código, cor…';
       bs.appendChild(v);
       var cm = mkCam(v);
       cm.className = 'ic cam';
@@ -306,7 +307,7 @@
       fb.setAttribute('aria-label', 'Filtros');
       fb.title = 'Filtros';
       fb.innerHTML =
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
       fb.onclick = function () {
         S.vFilt = !S.vFilt;
         render();

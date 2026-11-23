@@ -128,7 +128,7 @@
       st = 'width:' + px + 'px;height:' + px + 'px;flex:0 0 ' + px + 'px;border-radius:10px;background:#fff;object-fit:contain;border:1px solid var(--line)';
     return src
       ? '<img src="' + src + '" alt="" style="' + st + '">'
-      : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
+      : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
   }
   // S370 (esboço 54b = esboço 51 com o nome "Carrinho", aprovado 16/11/2026): padrão de luxo — sem caixas, linhas finas,
   // quantidade num controle só (− N +), "Tirar"/"Dispensar"/"+ Adicionar outra peça"/"Esvaziar carrinho" como texto, total em destaque e UM botão.

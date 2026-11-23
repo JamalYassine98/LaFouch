@@ -116,7 +116,7 @@
     if (par) c.dup = par.id;
     S.clientes.push(c);
     try {
-      lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Cliente cadastrado</b><div class="hint" style="margin:2px 0 0">' + esc(c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + esc(par.nome) : '') + '</div></div>');
+      lfToast('Cliente cadastrado · ' + (c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + par.nome : ''), 'ok');
     } catch (e) {}
     return { c: c, novo: true };
   }
@@ -322,12 +322,12 @@
   }
   function pedEstado(p) {
     if (p.st === 'canc') return ['Cancelado', 'bad'];
-    if (p.st === 'ent') return ['✓ Entregue', 'ok'];
+    if (p.st === 'ent') return ['Entregue', 'ok'];
     if (p.st === 'pronto') return ['Pronto para retirar', 'ok'];
     if (p.st === 'sep') return ['Separando', 'ac'];
-    if (p.pg === 'pagar') return [p.recus ? 'Pagamento recusado' : '💳 Aguardando pagamento', 'w'];
-    if (p.pg === 'comp') return ['🧾 Conferir comprovante', 'w'];
-    if (p.pg === 'pago') return ['✓ Pago', 'ok'];
+    if (p.pg === 'pagar') return [p.recus ? 'Pagamento recusado' : 'Aguardando pagamento', 'w'];
+    if (p.pg === 'comp') return ['Conferir comprovante', 'w'];
+    if (p.pg === 'pago') return ['Pago', 'ok'];
     return ['Novo', 'ac'];
   }
   // Aguardando o pagamento (ainda não dá para separar).
@@ -342,17 +342,17 @@
       })[0],
       h = '<div class="pd418A">';
     if (S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
-      if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
+      if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
       else if (!p.assumido) h += '<button type="button" class="pd418S" data-act="pedassumir" data-id="' + p.id + '">Assumir este pedido</button>';
-      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
+      else h += '<div class="pdMt" style="margin-bottom:8px">Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
     }
     var dz = '';
     if (pedPagando(p)) {
       if (p.pg === 'comp') {
-        h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button>';
+        h += '<button type="button" class="go" data-act="pedpago" data-id="' + p.id + '">Confirmar pagamento</button>';
         dz += '<button type="button" class="dz105" data-act="pedrecus" data-id="' + p.id + '">Recusar comprovante</button>';
-      } else h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
-    } else if (pr && pr[2]) h += '<button type="button" class="pd418P" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
+      } else h += '<button type="button" class="go" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
+    } else if (pr && pr[2]) h += '<button type="button" class="go" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
     if (z) h += '<a class="pd418S" href="' + z + '" target="_blank" rel="noopener">' + PD_ZAP + ' Falar no WhatsApp</a>';
     if (p.st === 'canc' || p.st === 'ent') dz += '<button type="button" class="dz105" data-act="peddel" data-id="' + p.id + '">Remover pedido</button>';
     else dz += '<button type="button" class="dz105" data-act="pedcanc" data-id="' + p.id + '">' + (p.pg === 'pago' ? 'Cancelar pedido' : 'Cancelar reserva') + '</button>';
@@ -366,11 +366,11 @@
     nomes.forEach(function (n, i) {
       var d = p.st === 'ent' ? true : i < cur,
         c = !d && i === cur;
-      h += '<div class="' + (d ? 'd' : c ? 'c' : '') + '"><i>' + (d ? '✓' : i + 1) + '</i>' + n + '</div>';
+      h += '<div class="' + (d ? 'd' : c ? 'c' : '') + '"><i>' + (d ? ICO.chk : i + 1) + '</i>' + n + '</div>';
     });
     return h + '</div>';
   }
-  var PED_NAC = { py: '🇵🇾 Paraguaio · RUC', br: '🇧🇷 Brasileiro · CPF', ar: '🇦🇷 Argentino · DNI' };
+  var PED_NAC = { py: 'Paraguaio · RUC', br: 'Brasileiro · CPF', ar: 'Argentino · DNI' };
   // S418 (esboço 115b2/b3, aprovado 17/11): o pedido no padrão de luxo — blocos em versalete com linhas finas.
   function pr418(a, b, sub, cls) {
     return '<div class="pr418' + (cls ? ' ' + cls : '') + '"><span>' + a + (sub ? '<small>' + sub + '</small>' : '') + '</span>' + (b != null && b !== '' ? '<b>' + b + '</b>' : '') + '</div>';
@@ -385,7 +385,7 @@
       if (p.pag === 'alias' && p.pagar) h += pr418('Valor exato da transferência', gs(p.pagar), 'final único para achar o pagamento');
       if (p.pag === 'pix' && p.brl) h += pr418('Valor em reais', 'R$ ' + esc(String(p.brl).replace('.', ',')));
     }
-    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {
       h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
       compLeAgenda(p);
@@ -470,7 +470,7 @@
       return !x.av && esperaTem(x.ref);
     });
     if (!l.length) return '';
-    var h = '<section class="pdCard"><b>🔔 Peça voltou — avise quem esperava</b>';
+    var h = '<section class="pdCard"><b>Peça voltou — avise quem esperava</b>';
     l.slice(0, 10).forEach(function (x) {
       var d = String(x.tel).replace(/\D/g, '');
       if (d.charAt(0) === '0') d = '595' + d.slice(1);
@@ -566,7 +566,7 @@
         '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
     });
     h += '</div>';
-    h += '<input class="in" id="pedQ" placeholder="Buscar por nome, código ou telefone" value="' + esc(S.pedQ || '') + '" autocomplete="off" aria-label="Buscar pedido" style="margin-bottom:10px">';
+    h += buscaCampo('id="pedQ" placeholder="Nome, código ou telefone" value="' + esc(S.pedQ || '') + '" aria-label="Buscar pedido"');
     var qb = cliNorm(S.pedQ),
       qd = cliDig(S.pedQ),
       lista = S.pedidos
@@ -589,7 +589,7 @@
         q = pedQtd(p);
       h +=
         '<div class="pd418L"><button type="button" class="pr418 lk' + lkCls(true) + '" data-act="pedab" data-id="' + p.id + '"><span><span class="nm">' + esc(p.cli || 'Sem nome') + '</span><small>Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + ' · ' + q + (q === 1 ? ' peça' : ' peças') + (p.teste ? ' · TESTE' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + (p.tok && p.st !== 'canc' && p.st !== 'ent' ? ' · token ' + esc(p.tok) : '') + '</small></span>' +
-        '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0].replace(/^[^A-Za-zÀ-ú✓]+/, '')) + '</small></span><i aria-hidden="true">›</i></button>' +
+        '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0]) + '</small></span><i aria-hidden="true">›</i></button>' +
         pedEspera(p) + '</div>';
     });
     el.innerHTML = h;

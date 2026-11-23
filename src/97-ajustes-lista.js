@@ -4,7 +4,7 @@
   // (chave → bloco) é o único lugar que diz onde cada configuração mora. Segurar a linha (0,4 s) levanta e arrasta para mudar a ordem
   // DENTRO do bloco; soltar assenta com mola e mostra "Ordem salva · Desfazer" por 4 s. A ordem é de cada aparelho (localStorage), como o Tema.
   var AJ_SVG = function (d) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),

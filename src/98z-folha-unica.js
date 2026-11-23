@@ -107,8 +107,6 @@
   ACT.prodDesfaz = function () {
     var v = window.__prodVolta;
     window.__prodVolta = null;
-    var t = document.querySelector('[data-prod-toast]');
-    if (t) t.remove();
     if (!v) return;
     S.items = v.itens;
     Object.keys(v.fotos).forEach(function (k) {

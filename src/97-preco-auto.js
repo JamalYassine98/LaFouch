@@ -249,9 +249,9 @@
     if (S.paPrev) {
       var pv = paPrevia();
       h +=
-        '<section class="card col paPrev"><b>Ligar o preço automático?</b><div class="hint" style="margin:0">Com os seus dados de hoje, o app faria:</div>' +
+        '<section class="card col paPrev"><b>Ligar o preço automático?</b>' +
         '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
-        '<button type="button" class="btn go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
+        '<button type="button" class="go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
     }
     return h;
   }
@@ -325,7 +325,7 @@
     saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
-    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado', 'ok');
+    lfToast(n ? 'Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Preço automático ligado', 'ok');
     render();
   };
   ACT.paNao = function () {
@@ -334,7 +334,7 @@
   };
   ACT.paAgora = function () {
     var n = paRevisa(true);
-    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
+    lfToast(n ? '' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
     render();
   };
   ACT.paDesf = function (id) {

@@ -70,7 +70,7 @@
       lrLinha('Taxas do pagamento', '− ' + gs(t.taxa)) +
       lrLinha('Frete das entregas', (t.freteV ? '− ' : '') + gs(t.freteV)) +
       lrLinha('Descontos (cupom)', '− ' + gs(t.desc)) +
-      '<div class="hint" style="margin:6px 0 0">O frete das compras já está dentro do custo de cada peça.</div>' +
+      '' +
       (top.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MAIS LUCRO REAL</b>' + top.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un'); }).join('') : '') +
       (low.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MENOS LUCRO REAL</b>' + low.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un', x.un < 20000 ? 'var(--warn)' : ''); }).join('') : '') + '</section>'
     );
@@ -84,7 +84,7 @@
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
   // 136a: a seta das dobras da ficha ("Lucro real", "De onde vem o preço") — o ⌄ do conjunto de ícones, que gira ao abrir; nasce na marcação
-  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
+  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
   function lucroPecaHtml(ref) {
     var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
     if (!it || !(p > 0)) return '';

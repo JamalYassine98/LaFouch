@@ -130,7 +130,7 @@
         '), já dividida nas peças.</div>';
     // S374 (esboço 106/108): sem o cartão "Contas para pagar" — o aviso fica na linha da própria conta
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'],
-      cores = ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'],
+      cores = ['#6cc3e0', '#943d6f', '#e9c27a', 'var(--info)', '#5fd39a'],
       somas = cats.map(function (c) {
         return S.exp
           .filter(function (e) {
@@ -198,11 +198,11 @@
             fd(x.ts) +
             '</small></span><span style="display:flex;align-items:center;gap:6px"><b>' +
             gs(x.valor) +
-            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8">✕</button></span></div>'
+            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8">' + ICO.x + '</button></span></div>'
           );
         })
         .join('') +
-      '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
+      '' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
     var nova73 =
       dFold('nova', 'Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +

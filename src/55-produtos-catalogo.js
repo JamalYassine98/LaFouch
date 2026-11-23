@@ -106,13 +106,13 @@
     if (atual > 0 || typeof invSinal !== 'function') {
     } else card.insertBefore(mk('div', 'zp zpSem', 'sem preço'), card.querySelector('.cell'));
     if (ps && ps.st && typeof invSinal !== 'function') {
-      var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? '✓ ok' : ps.st === 'w' ? '⚠ piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
+      var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? 'ok' : ps.st === 'w' ? 'piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
       card.appendChild(b);
     }
     if (S.selMode) {
       var on = S.selP.indexOf(ref) >= 0;
       card.classList.toggle('zsel', on);
-      if (on) card.appendChild(mk('span', 'zck', '✓'));
+      if (on) { var zk = mk('span', 'zck', ''); zk.innerHTML = ICO.chk; card.appendChild(zk); }
     }
   }
 
@@ -178,7 +178,7 @@
         lk = mk('div', 'paLock');
       lk.innerHTML =
         '<span class="hint" style="margin:0">' + (trv ? 'travado · o app não mexe' : 'automático' + (um ? ' · mudou há ' + Math.max(0, Math.floor((Date.now() - um.ts) / DAY)) + ' dia(s)' : '')) + '</span>' +
-        '<button type="button" class="paLkB' + (trv ? ' on' : '') + '" data-act="paTrava" data-id="' + esc(ref) + '" aria-pressed="' + trv + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="' + (trv ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.7-1.5') + '"/></svg>' + (trv ? 'Travado' : 'Travar') + '</button>';
+        '<button type="button" class="paLkB' + (trv ? ' on' : '') + '" data-act="paTrava" data-id="' + esc(ref) + '" aria-pressed="' + trv + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="' + (trv ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.7-1.5') + '"/></svg>' + (trv ? 'Travado' : 'Travar') + '</button>';
       c1.appendChild(lk);
     }
     var vTxt = ofertaTexto(ref, atual, ps);
@@ -585,7 +585,7 @@
       bx.textContent = '';
       bx.appendChild(mk('b', '', 'Aplicar ' + gs(novo) + ' em ' + refs.length + ' produto(s)'));
       var h = mk('div', 'zcd');
-      h.appendChild(mk('div', 'zalerta', '⚠ ' + ruins.length + ' ficam abaixo do piso'));
+      h.appendChild(mk('div', 'zalerta', ruins.length + ' ficam abaixo do piso'));
       ruins.forEach(function (x) {
         var l = mk('div', 'zl');
         l.appendChild(mk('span', '', (S.pnome && S.pnome[x[0]]) || x[0]));
@@ -630,7 +630,7 @@
 
   // S377: a barra antiga Vendas · WhatsApp · Site saiu; só esconde os lugares dela que ainda existem na página
   function uniAbasFill() {
-    ['uniV', 'uniS'].forEach(function (id) {
+    ['uniV'].forEach(function (id) {
       var h = $(id);
       if (h) h.hidden = true;
     });

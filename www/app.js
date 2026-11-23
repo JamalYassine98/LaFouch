@@ -762,6 +762,8 @@
     return w ? S.fotos[ref + '|' + w.cor] : '';
   }
   // Quadro de foto (ou vazio).
+  // o quadro de "sem foto": o pacote (cubo) — um desenho só para o cartão do Inventário, do Catálogo e as miniaturas das listas
+  var SEM_FOTO_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>';
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
     if (!src) d.hidden = true;
@@ -859,21 +861,28 @@
   }
   // ===== Ícones do sistema de botões (v407); definidos cedo porque telas montadas no carregamento os usam. =====
   var ICO = {
-    chk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-    lixo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
-    wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.9-1-2z" fill="currentColor" stroke="none"/></svg>',
+    x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    busca: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    sino: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>',
+    sacola: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>',
+    recibo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>',
+    alerta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/></svg>',
+    globo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.5 5.7 3.5 9s-1 6.3-3.5 9c-2.5-2.7-3.5-5.7-3.5-9s1-6.3 3.5-9z"/></svg>',
+    chk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    lixo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+    wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.9-1-2z" fill="currentColor" stroke="none"/></svg>',
     // cédula com "+" centralizada (caixa de 2..22 x 4..20 no viewBox 24)
-    caixa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><circle cx="19.5" cy="17.5" r="3.6" fill="var(--panel2,#1e242e)"/><path d="M19.5 15.9v3.2M17.9 17.5h3.2"/></svg>',
-    sobe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
-    ferr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>',
+    caixa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><circle cx="19.5" cy="17.5" r="3.6" fill="var(--panel2,#1e242e)"/><path d="M19.5 15.9v3.2M17.9 17.5h3.2"/></svg>',
+    sobe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    ferr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>',
     haste:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9"/></svg>',
-    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
-    caminhao: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4l3 3.5V16h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>',
-    lapis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
-    seta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9"/></svg>',
+    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    caminhao: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4l3 3.5V16h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>',
+    lapis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
+    seta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
     moldura:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // ===== v465: busca tolerante (aprovada 08/11/2026) — o MESMO código vai no site (index.html, function btol...) =====
   // oculos = Óculos · exagonal = hexagonal · coracao = Coração · armasao = armação · 1 letra errada passa.
@@ -1071,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 631;
+  var APP_BUILD = 632;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.50.56'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.51.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -1092,10 +1101,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   (function () {
     var a = document.getElementById('addPhotoB'),
       b = document.getElementById('addMenuB');
-    if (a) a.innerHTML = "<div id=\"addRasc\" hidden style=\"margin-bottom:10px\"></div>\n      <div class=\"adTiles\"><button class=\"adTile\" id=\"btnLeitor\" type=\"button\" aria-label=\"Ler haste\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9\"/></svg><b>Ler haste</b></button><button class=\"adTile\" id=\"btnFoto\" type=\"button\" aria-label=\"Foto\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 8h3l2-3h6l2 3h3v11H4z\"/><circle cx=\"12\" cy=\"13\" r=\"3.5\"/></svg><b>Foto</b></button></div>\n      <div id=\"addDeNovo\" hidden></div>";
+    if (a) a.innerHTML = "<div id=\"addRasc\" hidden style=\"margin-bottom:10px\"></div>\n      <div class=\"adTiles\"><button class=\"adTile\" id=\"btnLeitor\" type=\"button\" aria-label=\"Ler haste\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9\"/></svg><b>Ler haste</b></button><button class=\"adTile\" id=\"btnFoto\" type=\"button\" aria-label=\"Foto\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 8h3l2-3h6l2 3h3v11H4z\"/><circle cx=\"12\" cy=\"13\" r=\"3.5\"/></svg><b>Foto</b></button></div>\n      <div id=\"addDeNovo\" hidden></div>";
     if (b) {
       b.className = 'adLista';
-      b.innerHTML = "      <button class=\"adRow\" id=\"addToLote\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 6h12v10H2zM14 9h4l3 3.5V16h-7z\"/><circle cx=\"6.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"1.8\"/></svg><span>Chegou mercadoria</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>\n      <button class=\"adRow\" id=\"addToMan\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20h4L19 9l-4-4L4 16z\"/><path d=\"M13.5 6.5l4 4\"/></svg><span>Preencher à mão</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>";
+      b.innerHTML = "      <button class=\"adRow\" id=\"addToLote\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 6h12v10H2zM14 9h4l3 3.5V16h-7z\"/><circle cx=\"6.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"1.8\"/></svg><span>Chegou mercadoria</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>\n      <button class=\"adRow\" id=\"addToMan\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20h4L19 9l-4-4L4 16z\"/><path d=\"M13.5 6.5l4 4\"/></svg><span>Preencher à mão</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>";
     }
   })();
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -1222,7 +1231,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'colchUsd', 'tolUsd', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'cpV', 'vit', 'mkt', 'fotoNota'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'colchUsd', 'tolUsd', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'saidaSite', 'siteFora', 'pTeste', 'pTeste16', 'lcPed', 'cpV', 'mkt', 'fotoNota'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -1721,7 +1730,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       !!S.qEdit
     );
     eb.innerHTML =
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
     eb.setAttribute('aria-label', S.qEdit ? 'Sair da edição' : 'Editar');
     eb.title = S.qEdit ? 'Sair da edição' : 'Editar';
     hb.appendChild(eb);
@@ -2152,7 +2161,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         bt.id = 'ed_' + key;
         w.appendChild(mk('div', 'lbl', rotulo));
         bt.appendChild(mk('span', '', valor || 'Escolher'));
-        if (valor) bt.appendChild(mk('span', 'nvck', '✓'));
+        if (valor) { var ck = mk('span', 'nvck', ''); ck.innerHTML = ICO.chk; bt.appendChild(ck); }
         bt.onclick = function () {
           S.edPop = open ? '' : key;
           render();
@@ -2165,9 +2174,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             q = document.createElement('input'),
             ul = mk('div', 'lsList');
           q.className = 'lsIn';
-          q.placeholder = 'Buscar ' + rotulo.toLowerCase();
+          q.placeholder = rotulo;
           q.autocomplete = 'off';
-          cx.appendChild(mk('span', 'lsIc', '🔍'));
+          { var lu = mk('span', 'lsIc', ''); lu.innerHTML = ICO.busca; cx.appendChild(lu); }
           cx.appendChild(q);
           var sa = mk('span', 'lsSeta', '▲');
           sa.onclick = function () {
@@ -2291,12 +2300,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           saveSoon();
           render();
           window.__prodVolta = volta;
-          lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Produto excluído</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="prodDesfaz" style="font-weight:700;min-height:44px;min-width:44px;padding:0 6px;display:inline-flex;align-items:center">Desfazer</button>', 5000, 'b').setAttribute('data-prod-toast', '1');
+          lfToast('Produto excluído', 'neutro', { t: 'Desfazer', fn: ACT.prodDesfaz });
           setTimeout(function () { if (window.__prodVolta === volta) window.__prodVolta = null; }, 5600);
         });
         lx.id = 'edLixeira';
         lx.innerHTML =
-          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="tampa"><path d="M4 7h16"/><path d="M9 7V4h6v3"/></g><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="tampa"><path d="M4 7h16"/><path d="M9 7V4h6v3"/></g><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
         lx.setAttribute('aria-label', 'Excluir o produto');
         lx.title = 'Excluir o produto';
         hbtn.appendChild(lx);
@@ -3500,41 +3509,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     $('filtPanel').hidden = !S.filtOpen;
     $('btnFilt').setAttribute('aria-pressed', !!S.filtOpen);
     $('btnFilt').classList.toggle('on', !!S.filtOpen || !!S.sortO);
-    var ff = $('fFaixas');
-    ff.textContent = '';
     $('fFaixaB').hidden = !S.faixas.length;
-    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
-      ff.appendChild(
-        btn(
-          'chip' + ((S.faixaF || '') === x.id ? ' on' : ''),
-          x.nome,
-          function () {
-            S.faixaF = x.id;
-            render();
-          },
-          (S.faixaF || '') === x.id
-        )
-      );
-    });
-    var sc = $('sortChips');
-    sc.textContent = '';
-    [
-      ['', 'Padrão'],
-      ['az', 'A a Z'],
-      ['za', 'Z a A']
-    ].forEach(function (o) {
-      sc.appendChild(
-        btn(
-          'chip' + ((S.sortO || '') === o[0] ? ' on' : ''),
-          o[1],
-          function () {
-            S.sortO = o[0];
-            render();
-          },
-          (S.sortO || '') === o[0]
-        )
-      );
-    });
+    trilhoPoe($('fFaixas'), [{ id: '', nome: 'Todas' }].concat(S.faixas).map(function (x) {
+      return { on: (S.faixaF || '') === x.id, html: esc(x.nome), fn: function () { S.faixaF = x.id; render(); } };
+    }));
+    trilhoPoe($('sortChips'), [['', 'Padrão'], ['az', 'A a Z'], ['za', 'Z a A']].map(function (o) {
+      return { on: (S.sortO || '') === o[0], html: o[1], fn: function () { S.sortO = o[0]; render(); } };
+    }));
     var fs = $('fsum');
     fs.textContent = '';
     var act = [];
@@ -3678,7 +3659,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         render();
       });
       bk.innerHTML =
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
       bk.setAttribute('aria-label', 'Voltar');
       bk.title = 'Voltar';
       var f00 = fl.filter(function (i) {
@@ -3796,7 +3777,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         card.appendChild(bg);
       }
       if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
-      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
+      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = SEM_FOTO_SVG; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
@@ -4085,7 +4066,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         known.fmt +
         ' lembrado. Se a cor e a variante forem iguais, a quantidade é somada.'
       : ref && !S._other && !t.simple
-        ? '✓ Código livre'
+        ? 'Código livre'
         : '';
     (function () {
       var qb = $('eQuickBtn');
@@ -7446,7 +7427,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         'Contas da loja e de casa',
         'Parte do mês coberta por esta venda. Obrigatório.',
         sale.contas,
-        '#a2447c'
+        '#943d6f'
       ],
       [
         'Colchão de segurança',
@@ -7969,37 +7950,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return d;
   }
   // Mostra um erro em aviso flutuante.
+  // 85 (aprovado): erro é o aviso que passa, tipo 'erro' (o aviso de cima com × saiu)
   function popErr(t) {
-    try {
-      var e = $('popErr');
-      if (!e) {
-        e = document.createElement('div');
-        e.id = 'popErr';
-        e.setAttribute('role', 'alert');
-        e.style.cssText =
-          'position:fixed;left:50%;top:max(16px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:200;width:min(92vw,520px);background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:12px;padding:14px 44px 14px 14px;font-size:14px;line-height:1.4;box-shadow:0 8px 28px rgba(0,0,0,.6)';
-        var x = document.createElement('button');
-        x.type = 'button';
-        x.textContent = '×';
-        x.setAttribute('aria-label', 'Fechar aviso');
-        x.style.cssText =
-          'position:absolute;right:8px;top:6px;width:32px;height:32px;border:0;background:transparent;font-size:22px;color:inherit';
-        x.onclick = function () {
-          e.hidden = true;
-        };
-        var sp = document.createElement('span');
-        sp.id = 'popErrT';
-        e.appendChild(sp);
-        e.appendChild(x);
-        document.body.appendChild(e);
-      }
-      $('popErrT').textContent = t;
-      e.hidden = false;
-      clearTimeout(popErr.t);
-      popErr.t = setTimeout(function () {
-        e.hidden = true;
-      }, 7000);
-    } catch (x) {}
+    lfToast(t, 'erro');
   }
   // Valida o custo informado contra o total do lote.
   function gCostErr(g, add, skip, per, qty) {
@@ -8279,7 +8232,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     tr.setAttribute('aria-label', 'Remover lote');
     tr.setAttribute('aria-pressed', S.gDel === g.id);
     tr.innerHTML =
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
     tr.onclick = function () {
       S.gDel = S.gDel === g.id ? '' : g.id;
       S.gEdit = '';
@@ -8635,7 +8588,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           tr3.title = 'Remover esta linha';
           tr3.setAttribute('aria-label', 'Remover a linha ' + (ix + 1));
           tr3.innerHTML =
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
           tr3.onclick = function () {
             D.rows.splice(ix, 1);
             render();
@@ -8833,7 +8786,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (recem) {
       fl.className = 'lfallok';
       fl.innerHTML =
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
     }
     r.appendChild(fl);
     c.appendChild(r);
@@ -9043,9 +8996,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var r = mk('div', '');
     r.style.cssText = 'display:flex;gap:8px;align-items:center';
     var ih =
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M7 9v3M11 9v4M15 9v3M19 9v2"/></svg>',
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M7 9v3M11 9v4M15 9v3M19 9v2"/></svg>',
       ic =
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
     var bh = btn('go', '', function () {
       entGo(g, 'haste');
     });
@@ -9189,7 +9142,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             'text-align:left;width:100%;cursor:pointer;' +
             (on2 ? 'border-color:var(--accent);background:var(--panel2);' : '');
           r.setAttribute('aria-pressed', on2);
-          r.appendChild(mk('span', '', on2 ? '☑' : '☐'));
+          { var cq = mk('span', 'lfCq' + (on2 ? ' on' : ''), ''); if (on2) cq.innerHTML = ICO.chk; r.appendChild(cq); }
           var lab = (i.tipo === 'pre' ? i.grau : isSimple(i.tipo) ? '' : i.vr) || '';
           r.appendChild(
             mk(
@@ -9230,7 +9183,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           tb2.title = 'Excluir esta peça';
           tb2.setAttribute('aria-label', 'Excluir ' + i.ref);
           tb2.innerHTML =
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
           tb2.onclick = function () {
             S.pDel = S.pDel === ix ? -1 : ix;
             S.pEdit = -1;
@@ -9612,7 +9565,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         tr.title = 'Remover esta linha';
         tr.setAttribute('aria-label', 'Remover a linha ' + (ix + 1));
         tr.innerHTML =
-          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
         tr.onclick = function () {
           f.rows.splice(ix, 1);
           renderLotForm();
@@ -9931,7 +9884,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (f) readNota(f);
   };
   // ===== Faixas de qualidade, piso de preço, brindes e sazonalidade. =====
-  var FAIXA_CORES = ['#7fd8ff', '#e9c27a', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
+  var FAIXA_CORES = ['#7fd8ff', '#e9c27a', '#bf8ba9', '#8be08f', '#b79cff', '#ff9d7a'];
   // Faixas criadas pelo dono: nome, margem mínima (% de lucro sobre o preço) e preço próprio por tipo (opcional).
   S.faixas = [
     { id: 'f1', nome: 'Econômico', margem: 30, precos: {} },
@@ -10944,167 +10897,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '</div>'
     );
   }
-  // Nome curto do produto para listas.
-  function dxNome(m) {
-    var f = faixaOf(m.ref),
-      tp = tipoOf(m.tipo);
-    return (
-      esc(pn(m.ref)) +
-      ' <span class="hint" style="display:inline;margin:0">' +
-      esc(tp ? tp.label : '') +
-      (f ? ' · ' + esc(f.nome) : '') +
-      '</span>'
-    );
-  }
-  // Blocos novos do Dashboard (HTML).
-  function dashExtra() {
-    var out = {},
-      html = '',
-      mi = metaInfo(),
-      u0 = function (n) {
-        return 'US$ ' + Math.round(n);
-      };
-    // meta
-    html += '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2>';
-    if (mi.meta > 0) {
-      var p = Math.min(100, (mi.lucro / mi.meta) * 100);
-      html +=
-        '<div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:26px;color:var(--ok)">' +
-        u0(mi.lucro) +
-        '</b><span class="hint" style="margin:0">meta ' +
-        u0(mi.meta) +
-        '</span></div><div class="bar"><i style="width:' +
-        p +
-        '%;background:var(--ok)"></i></div><div class="hint" style="margin:0">' +
-        (mi.lucro >= mi.meta
-          ? 'Meta cumprida.'
-          : 'Faltam ' + u0(mi.meta - mi.lucro) + ' · ' + mi.restam + ' dia(s) restantes.') +
-        '</div>';
-    } else
-      html +=
-        '<div class="hint" style="margin:0">Lucro livre no mês: <b>' +
-        u0(mi.lucro) +
-        '</b>. Defina a meta em <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Ajustes</a>.</div>';
-    html += '<div class="split">';
-    S.faixas.forEach(function (f) {
-      html += dxRow(
-        '<span class="sp" style="background:' + faixaCor(f) + '"></span>' + esc(f.nome),
-        'lucro livre no mês',
-        u0(mi.por[f.id] || 0)
-      );
-    });
-    if (mi.por['']) html += dxRow('Sem faixa', 'lucro livre no mês', u0(mi.por['']));
-    html += '</div></section>';
-    out.meta = html;
-    html = '';
-    // sugestões de margem
-    var sg = sugestoes().filter(function (r) {
-      return r.acao !== 'ignorada';
-    });
-    if (sg.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Sugestão de margem</h2><div class="hint" style="margin:2px 0 0">Cada faixa é avaliada separada, pelo giro, estoque e contas. Você decide.</div></div><div class="split">';
-      sg.forEach(function (r) {
-        var ap =
-          r.acao === 'subir' || r.acao === 'descer'
-            ? '<div style="display:flex;gap:8px;margin-top:6px"><button class="chip on" data-act="sugap" data-id="' +
-              r.faixa.id +
-              '">Aplicar ' +
-              r.para +
-              '%</button><button class="chip" data-act="sugig" data-id="' +
-              r.faixa.id +
-              '">Ignorar</button></div>'
-            : '';
-        html +=
-          '<div class="sl" style="flex-wrap:wrap"><span>' +
-          esc(r.faixa.nome) +
-          ' · margem ' +
-          r.de +
-          '%<small>' +
-          esc(r.motivo) +
-          '</small></span><b>' +
-          (r.acao === 'subir' ? 'subir' : r.acao === 'descer' ? 'descer' : r.acao === 'sem-base' ? '—' : 'manter') +
-          '</b>' +
-          ap +
-          '</div>';
-      });
-      html += '</div></section>';
-    }
-    out.sug = html;
-    html = '';
-    // repor primeiro + lista de compras
-    var rp = reposicao().slice(0, 8);
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Repor primeiro</h2><div class="hint" style="margin:2px 0 0">Ordenado pelo lucro que o produto dá. Dias de estoque pelo ritmo de venda, corrigido pela estação.</div></div>';
-    if (!rp.length) html += '<div class="note n-ok">Nada acabando nos próximos 21 dias.</div>';
-    else {
-      html += '<div class="split">';
-      var totC = 0;
-      rp.forEach(function (m) {
-        totC += m.comprar * m.cu;
-        html += dxRow(
-          dxNome(m),
-          'restam ~' + Math.round(m.dias) + ' dias · ' + m.stock + ' un. · comprar ~' + m.comprar,
-          u0(m.profit30)
-        );
-      });
-      html +=
-        '</div><div class="note n-info">Lista de compras (cobre ~45 dias): custo estimado <b>' +
-        usd0(totC) +
-        '</b>.</div>';
-    }
-    html += '</section>';
-    out.repor = html;
-    html = '';
-    // parados
-    var pa = parados().slice(0, 8);
-    if (pa.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Estoque parado</h2><div class="hint" style="margin:2px 0 0">Sem venda há 60 dias ou mais (fora da baixa estação). Preço de saída = reposição + contas, sem prejuízo e sem meta de lucro.</div></div><div class="split">';
-      pa.forEach(function (m) {
-        html += dxRow(
-          dxNome(m),
-          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd0(m.costUsd) + ' parados',
-          gs(m.pp.saida) + (function () {
-            var sd = saidaSiteAtiva(m.key.split('|').slice(1).join('|'));
-            return sd ? '<small style="display:block;color:var(--ok)">no site' + (sd.ate ? ' até ' + fd(sd.ate) : ' até vender') + '</small>' : '';
-          })(),
-          '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
-        );
-      });
-      html += '</div></section>';
-    }
-    out.parados = html;
-    html = '';
-    // câmbio x piso
-    var ab = abaixoDoPiso().slice(0, 8);
-    if (ab.length) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço abaixo do piso hoje</h2><div class="hint" style="margin:2px 0 0">Com o câmbio e as contas de hoje, o preço de tabela destes produtos não cobre o piso da faixa.</div></div><div class="split">';
-      ab.forEach(function (m) {
-        html += dxRow(dxNome(m), 'tabela ' + gs(m.pp.lista) + ' · piso ' + gs(m.pp.piso), gs(m.pp.lista - m.pp.piso));
-      });
-      html += '</div></section>';
-    }
-    out.abaixo = html;
-    html = '';
-    // perdas
-    var pr = perdasPropositais();
-    if (pr.n) {
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Vendas abaixo do piso (30 dias)</h2><div class="hint" style="margin:2px 0 0">' +
-        pr.n +
-        ' venda(s). O resultado de tudo junto é o que importa: lucro livre total do período <b>' +
-        gs(pr.total) +
-        '</b>.</div></div><div class="split">';
-      Object.keys(pr.por).forEach(function (k) {
-        html += dxRow(esc(k), 'lucro livre dessas vendas', sgn(pr.por[k]));
-      });
-      html += '</div></section>';
-    }
-    out.perdasV = html;
-    html = '';
-    // perdas e sobras da contagem de estoque (30 dias)
+  // Perdas e sobras das contagens de estoque (30 dias): mora na tela Contar o estoque (ESBOCO 22/11; antes no Giro)
+  function perdasContagemHtml() {
+    var html = '';
     var ct = S.contagens.filter(function (x) {
       return Date.now() - x.ts <= 30 * DAY;
     });
@@ -11121,7 +10916,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
       });
       html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2></div><div class="split">' +
         dxRow('Faltaram', ct.length + ' contagem(ns)', usd0(Math.abs(perd))) +
         dxRow('Sobraram', 'peças a mais que o app', usd0(sob));
       Object.keys(porP)
@@ -11134,17 +10929,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
       html += '</div></section>';
     }
-    out.perdasC = html;
-    html = '';
-    // curva abc (as linhas moram em abcCorpo: Giro e Dashboard › Detalhes)
-    var ab2 = curvaAbc();
-    if (ab2.lista.length || ab2.sem.length)
-      html +=
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div>' +
-        abcCorpo(ab2) +
-        '</section>';
-    out.abc = html;
-    return out;
+    return html;
   }
   // ===== Produtos: preço (antigo → novo) e canais (site, WhatsApp, loja) em cada produto, avisos de piso e aplicação em grupo. =====
   S.pprice = {}; // código do produto -> { novo, ant } (guaranis, calculados) + { nu, au } (dólares digitados). Vazio = vale o preço do tipo.
@@ -11254,13 +11039,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (atual > 0 || typeof invSinal !== 'function') {
     } else card.insertBefore(mk('div', 'zp zpSem', 'sem preço'), card.querySelector('.cell'));
     if (ps && ps.st && typeof invSinal !== 'function') {
-      var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? '✓ ok' : ps.st === 'w' ? '⚠ piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
+      var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? 'ok' : ps.st === 'w' ? 'piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
       card.appendChild(b);
     }
     if (S.selMode) {
       var on = S.selP.indexOf(ref) >= 0;
       card.classList.toggle('zsel', on);
-      if (on) card.appendChild(mk('span', 'zck', '✓'));
+      if (on) { var zk = mk('span', 'zck', ''); zk.innerHTML = ICO.chk; card.appendChild(zk); }
     }
   }
 
@@ -11326,7 +11111,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         lk = mk('div', 'paLock');
       lk.innerHTML =
         '<span class="hint" style="margin:0">' + (trv ? 'travado · o app não mexe' : 'automático' + (um ? ' · mudou há ' + Math.max(0, Math.floor((Date.now() - um.ts) / DAY)) + ' dia(s)' : '')) + '</span>' +
-        '<button type="button" class="paLkB' + (trv ? ' on' : '') + '" data-act="paTrava" data-id="' + esc(ref) + '" aria-pressed="' + trv + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="' + (trv ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.7-1.5') + '"/></svg>' + (trv ? 'Travado' : 'Travar') + '</button>';
+        '<button type="button" class="paLkB' + (trv ? ' on' : '') + '" data-act="paTrava" data-id="' + esc(ref) + '" aria-pressed="' + trv + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="' + (trv ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.7-1.5') + '"/></svg>' + (trv ? 'Travado' : 'Travar') + '</button>';
       c1.appendChild(lk);
     }
     var vTxt = ofertaTexto(ref, atual, ps);
@@ -11733,7 +11518,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       bx.textContent = '';
       bx.appendChild(mk('b', '', 'Aplicar ' + gs(novo) + ' em ' + refs.length + ' produto(s)'));
       var h = mk('div', 'zcd');
-      h.appendChild(mk('div', 'zalerta', '⚠ ' + ruins.length + ' ficam abaixo do piso'));
+      h.appendChild(mk('div', 'zalerta', ruins.length + ' ficam abaixo do piso'));
       ruins.forEach(function (x) {
         var l = mk('div', 'zl');
         l.appendChild(mk('span', '', (S.pnome && S.pnome[x[0]]) || x[0]));
@@ -11778,7 +11563,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
 
   // S377: a barra antiga Vendas · WhatsApp · Site saiu; só esconde os lugares dela que ainda existem na página
   function uniAbasFill() {
-    ['uniV', 'uniS'].forEach(function (id) {
+    ['uniV'].forEach(function (id) {
       var h = $(id);
       if (h) h.hidden = true;
     });
@@ -12269,11 +12054,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var dd = S.fluxoD || 30,
       f = fluxoCaixa(dd),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2><div class="hint" style="margin:2px 0 0">Se o ritmo de vendas dos últimos ' +
-        f.base +
-        ' dias continuar (' +
-        gs(f.porDia) +
-        ' por dia).</div></div><div class="tabs" role="group" aria-label="Horizonte">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2></div><div class="tabs" role="group" aria-label="Horizonte">' +
         [30, 60, 90]
           .map(function (n) {
             return (
@@ -12350,7 +12131,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function retiradaHtml() {
     var r = lucroLivreMes(),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2><div class="hint" style="margin:2px 0 0">Dinheiro que você tira da loja para você. Sai do caixa na moeda escolhida.</div></div>';
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2></div>';
     var pct = r.lucroLivre > 0 ? r.retTotal / r.lucroLivre : r.retTotal > 0 ? 9 : 0;
     // S418 (esboço 125c): aviso em frase (vermelho só se passou do lucro), moeda em G$·US$·R$, campos empilhados, "Retirar" principal
     h +=
@@ -12358,13 +12139,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (pct > 1 ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.' : '.') + '</div>';
     var rm = S.rtMoe || 'pyg';
     h +=
-      '<div class="cxLb cx418L">Moeda</div><div class="sg418" role="group" aria-label="Moeda da retirada">' +
-      [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
-        return '<button type="button" class="' + (o[0] === rm ? 'on' : '') + '" aria-pressed="' + (o[0] === rm) + '" data-act="rtMoe" data-id="' + o[0] + '">' + o[1] + '</button>';
-      }).join('') + '</div><input type="hidden" id="rtM" value="' + rm + '">' +
+      '<div class="cxLb cx418L">Moeda</div>' + trilho('', 'Moeda da retirada', [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) {
+        return { on: o[0] === rm, attrs: 'data-act="rtMoe" data-id="' + o[0] + '"', html: o[1] };
+      })) + '<input type="hidden" id="rtM" value="' + rm + '">' +
       '<div class="cxLb cx418L">Valor</div><input class="in" id="rtV" inputmode="decimal" placeholder="0" aria-label="Valor da retirada">' +
       '<div class="cxLb cx418L">Para quê (opcional)</div><input class="in" id="rtN" placeholder="Ex.: mercado" aria-label="Motivo da retirada">' +
-      '<button type="button" class="pd418P" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
+      '<button type="button" class="go" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
     if (S.retiradas.length) h += '<div class="cxLb cx418L">Últimas retiradas</div>';
     S.retiradas.slice(0, 5).forEach(function (x) {
       h +=
@@ -12381,8 +12161,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function ccHtml() {
     var dias = ccDias(),
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Conferir o caixa</h2><div class="hint" style="margin:2px 0 0">Conte o dinheiro que você tem e compare com o que o app calcula.' +
-        (dias === Infinity ? ' Ainda não conferiu.' : ' Última conferência há ' + dias + ' dia(s).') +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Conferir o caixa</h2><div class="hint" style="margin:2px 0 0">' +
+        (dias === Infinity ? 'Ainda não conferiu.' : 'Última conferência há ' + dias + ' dia(s).') +
         '</div></div>';
     if (!S.ccOpen) {
       return h + '<button class="mini" data-act="ccabrir">Conferir caixa</button></section>';
@@ -12417,7 +12197,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '" role="status">' +
         esc(S.ccRes.txt) +
         '</div>';
-    h += '<button type="button" class="pd418P" data-act="ccgo" style="margin-top:14px">Conferir</button>';
+    h += '<button type="button" class="go" data-act="ccgo" style="margin-top:14px">Conferir</button>';
     if (S.ccRes && !S.ccRes.ok) h += '<button type="button" class="pd418S" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
     return h + '<button type="button" class="cf418V" data-act="ccfechar">Fechar</button></section>';
   }
@@ -12457,7 +12237,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return 'US$ ' + n.toFixed(2).replace('.', ',');
     };
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no estoque</h2><div class="hint" style="margin:2px 0 0">Quanto do que você investiu está parado e quanto o estoque rende.</div></div><div class="split">' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no estoque</h2></div><div class="split">' +
       dxRow('Investido em estoque', 'a custo, sem estojos e brindes', u(c.total)) +
       dxRow(
         'Parado há 60 dias ou mais',
@@ -12833,7 +12613,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         );
       };
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Cada conta na sua moeda; o dólar vai para a mercadoria e o colchão sai de cada moeda na proporção do que sobrou. Câmbio de hoje.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2></div>' +
       '<div style="' + grade + ';font-size:11px;letter-spacing:.06em;color:var(--mute);text-transform:uppercase"><span></span>' +
       ms.map(function (m) {
         return '<span style="text-align:right">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[m] + '</span>';
@@ -12841,7 +12621,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '</div>' +
       ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
       ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#6cc3e0', false, true) +
-      ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
+      ln('Contas', 'cada uma na sua moeda', sp.con, '#943d6f', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
       ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#e9c27a', false, false) +
       ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
@@ -12893,7 +12673,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       usos = (S.colchUsos || []).slice(0, 3);
     if (!(r.colch > 0) && !emUsd) return '';
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2><div class="hint" style="margin:2px 0 0">Reserva contra a alta do dólar. Em dólar ele não perde valor.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2></div>' +
       '<div class="sl"><span>Já em dólar<small>protegido</small></span><b style="color:var(--ok)">' + usd(emUsd) + '</b></div>' +
       '<div class="sl"><span>Ainda não trocado<small>espera o dólar ficar barato (em guaranis)</small></span><b>' + gs(Math.round(falta)) + '</b></div>' +
       (livre3().colUso > 0.5
@@ -12902,7 +12682,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       usos.map(function (x) {
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
-      '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div>' +
+      '' +
       (falta > 500 ? lkLinha('Trocar ' + gs(Math.round(falta)) + ' por dólar no Câmbio', 'd48Troca', 'pyg|' + Math.round(falta)) : '') + '</section>'
     );
   }
@@ -13325,9 +13105,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function backupHtml() {
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
       h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2></div><div class="hint" style="margin:0">' +
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="btn-sc" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
+        '</div><div style="display:flex;gap:8px"><button class="mini" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="mini" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
     h += '</section>';
     return h;
@@ -13473,7 +13253,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
         : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">Abrir o app com digital ou rosto. O PIN de emergência abre o app se a biometria falhar.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2></div>' +
       '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
       (S.bioOn ? ' checked' : '') +
       (bioDisp ? '' : ' disabled') +
@@ -13488,7 +13268,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
     h +=
-      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2><div class="hint" style="margin:2px 0 0">Define o que o app faz quando você marca um pedido do site como entregue.</div></div>' +
+      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2></div>' +
       '<button type="button" class="swrow" data-act="pedbaixa" role="switch" aria-checked="' + (S.baixaAuto ? 'true' : 'false') + '" style="background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer"><span>Baixa automática<div class="hint" style="margin:2px 0 0;font-weight:400">' +
       (S.baixaAuto ? 'Ligada: ao entregar o pedido, o estoque baixa e a venda é registrada sozinha.' : 'Desligada: ao entregar, você registra a venda e baixa o estoque à mão.') +
       '</div></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true" style="pointer-events:none"' + (S.baixaAuto ? ' checked' : '') + '><i></i></span></button></section>';
@@ -13905,7 +13685,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       );
       card.dataset.ref = f.ref;
       var pb88 = photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox');
-      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; } // S374 88: lote sem foto ganha o quadro de pacote
+      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = SEM_FOTO_SVG; } // S374 88: lote sem foto ganha o quadro de pacote
       card.appendChild(pb88);
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
@@ -14254,7 +14034,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (unico) card.appendChild(vLinhaDir(unico, card));
     else {
       var ch = mk('span', 'vlCh');
-      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
       card.setAttribute('aria-expanded', aberto ? 'true' : 'false');
       card.appendChild(ch);
     }
@@ -14701,7 +14481,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pmMudou();
     };
     linha.appendChild(v);
-    var rm = btn('trash', '✕', function () {
+    var rm = btn('trash', '', function () {
       lista.splice(i, 1);
       if (lista === S.pagX && !lista.length) {
         S.pagMisto = false;
@@ -14710,6 +14490,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pmRender(true);
       pmMudou();
     });
+    rm.innerHTML = ICO.x;
     rm.setAttribute('aria-label', 'Remover esta linha');
     linha.appendChild(rm);
     box.appendChild(linha);
@@ -15066,12 +14847,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var w = b.parentNode;
       w.style.position = 'relative';
       b.classList.add('siteWave');
-      var sp = mk('div', 'siteSpk', '✦ ✧ ✦ ✧ ✦');
-      sp.setAttribute('aria-hidden', 'true');
-      w.appendChild(sp);
       setTimeout(function () {
         b.classList.remove('siteWave');
-        sp.remove();
       }, 1100);
     }, 30);
   }
@@ -15735,9 +15512,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     top.style.cssText =
       'display:flex;justify-content:space-between;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px';
     top.appendChild(mk('b', '', title || 'Câmera'));
-    var xb = btn('chip', '✕', function () {
+    var xb = btn('chip', '', function () {
       camClose();
     });
+    xb.innerHTML = ICO.x;
     xb.setAttribute('aria-label', 'Fechar');
     xb.style.cssText = 'min-height:40px;width:44px;padding:0;justify-content:center';
     var tr = document.createElement('div');
@@ -15915,10 +15693,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ov.appendChild(bar);
     document.body.appendChild(ov);
     var IGAL =
-      '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4 18l5.2-5.2a1.5 1.5 0 0 1 2.1 0L14 15.5l2-2a1.5 1.5 0 0 1 2.1 0L21 16.4"/></svg>';
+      '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4 18l5.2-5.2a1.5 1.5 0 0 1 2.1 0L14 15.5l2-2a1.5 1.5 0 0 1 2.1 0L21 16.4"/></svg>';
     var ITOR = function (on) {
       return (
-        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><g transform="translate(2.2 4.6) scale(.8)"><path d="M6 2h12v5l-2 2v12.5a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 21.5V9L6 7z"/><path d="M12 11v4"/>' +
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><g transform="translate(2.2 4.6) scale(.8)"><path d="M6 2h12v5l-2 2v12.5a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 21.5V9L6 7z"/><path d="M12 11v4"/>' +
         (on ? '' : '<path d="M3.5 3.5l17 17"/>') +
         '</g>' +
         (on ? '<path d="M12 .9v2.6M6.2 2.2l1.6 2M17.8 2.2l-1.6 2"/>' : '') +
@@ -16187,7 +15965,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               'display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 10px;padding:12px 22px max(18px,env(safe-area-inset-bottom,0px))';
             wm.style.gridColumn = '1/-1';
             var IREF =
-              '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v4.8h4.8"/></svg>';
+              '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v4.8h4.8"/></svg>';
             var sp0 = document.createElement('div');
             bar.appendChild(sp0);
             var us = btn('mini', '', function () {
@@ -16207,7 +15985,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               done(f);
             });
             us.innerHTML =
-              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Confirmar</span>';
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Confirmar</span>';
             us.style.cssText =
               'height:56px;min-height:56px;padding:0 30px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-weight:700;font-size:17px;display:inline-flex;align-items:center;gap:8px;cursor:pointer';
             us.setAttribute('aria-label', 'Confirmar foto');
@@ -17972,7 +17750,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var hd = document.createElement('div');
     hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
     hd.appendChild(mk('b', '', 'Ler código da haste'));
-    var x = btn('chip', '✕', hasteClose);
+    var x = btn('chip', '', hasteClose);
+    x.innerHTML = ICO.x;
     x.setAttribute('aria-label', 'Fechar');
     x.style.cssText = 'min-height:36px;width:40px;padding:0;justify-content:center';
     hd.appendChild(x);
@@ -18150,7 +17929,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   (function () {
     var cam =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
     function mkCam(inp) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -18178,10 +17957,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       // barra de busca larga: lupa à esquerda, moldura com óculos (câmera) dentro, à direita
       var bs = document.createElement('div');
       bs.className = 'bs';
-      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
       v.style.cssText = 'flex:1 1 0;min-width:0;width:auto;max-width:none';
       v.className = '';
-      v.placeholder = 'Buscar peça, código, cor…';
+      v.placeholder = 'Peça, código, cor…';
       bs.appendChild(v);
       var cm = mkCam(v);
       cm.className = 'ic cam';
@@ -18208,7 +17987,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       fb.setAttribute('aria-label', 'Filtros');
       fb.title = 'Filtros';
       fb.innerHTML =
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
       fb.onclick = function () {
         S.vFilt = !S.vFilt;
         render();
@@ -18563,7 +18342,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var agora = Date.now();
     LFE.sum = agora - LFE.t < 4000 ? LFE.sum + n : n;
     LFE.t = agora;
-    lfToast('✓ +' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''), 'ok');
+    lfToast('+' + n + ' · ' + nome + (LFE.sum > n ? ' · ' + LFE.sum + ' no total' : ''), 'ok');
   }
 
   // ----- Modelos parecidos por foto (pré-graduado quase nunca tem código na haste)
@@ -19149,7 +18928,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Abre a câmera do app (não a galeria) para a foto da cor.
   var NV_ICAM =
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
   function nvCamera(titulo) {
     camOpen(
       function (f) {
@@ -19218,7 +18997,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.nPop = '';
     S.nCorOpen = false;
     closeAdd();
-    lfToast('✓ ' + pubNome(ref) + ' cadastrado.', 'ok');
+    lfToast('' + pubNome(ref) + ' cadastrado.', 'ok');
   }
   function nvAddCor(fin) {
     var ref = S._ref,
@@ -19466,7 +19245,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
-      lfToast('✓ Salvo. Aparece no site em até 1 minuto.', 'ok');
+      lfToast('Salvo. Aparece no site em até 1 minuto.', 'ok');
     };
     lh.appendChild(tg);
     c2.appendChild(lh);
@@ -19671,7 +19450,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var ov = lfaAbre(
       id,
       '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">' + esc(titulo) + '</div>' +
-        '<div class="lsBox"><span class="lsIc">🔍</span><input class="lsIn" id="' + id + 'Q" placeholder="Buscar ' + esc(titulo.toLowerCase()) + '" autocomplete="off" aria-label="Buscar"></div>' +
+        '<div class="lsBox"><span class="lsIc">' + ICO.busca + '</span><input class="lsIn" id="' + id + 'Q" placeholder="' + esc(titulo) + '" autocomplete="off" aria-label="Buscar"></div>' +
         '<div class="lsList comoL"></div>'
     );
     ov.classList.add('lfa-camg');
@@ -19940,7 +19719,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         hd.appendChild(btn('tab', 'Fechar', close));
         corpo.appendChild(hd);
         if (!p) {
-          corpo.appendChild(mk('div', 'hint', tot ? 'Você pulou as que faltam. Feche e abra de novo para recomeçar.' : '✓ Todos os modelos têm foto.'));
+          corpo.appendChild(mk('div', 'hint', tot ? 'Você pulou as que faltam. Feche e abra de novo para recomeçar.' : 'Todos os modelos têm foto.'));
           return;
         }
         corpo.appendChild(mk('div', 'hint', tot + (tot === 1 ? ' cor sem foto' : ' cores sem foto')));
@@ -20441,7 +20220,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         bq.appendChild(l);
       });
       bx.appendChild(bq);
-      bx.appendChild(mk('div', 'fmDica', '✓ Usar esta foto como foto da cor. Sem código na foto: o app cria o número interno.'));
+      bx.appendChild(mk('div', 'fmDica', 'Usar esta foto como foto da cor. Sem código na foto: o app cria o número interno.'));
       var b = mk('button', 'fmBtn pri', 'Continuar para Novo modelo');
       b.onclick = function () {
         close();
@@ -20876,7 +20655,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             r.usd = parseFloat(String(u.value).replace(',', '.')) || 0;
             tot();
           };
-          var rm = mk('button', 'fmX', '✕');
+          var rm = mk('button', 'fmX', '');
+          rm.innerHTML = ICO.x;
           rm.onclick = function () {
             if (N.rows.length > 1) N.rows.splice(ix, 1);
             pinta();
@@ -21153,7 +20933,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       box.appendChild(b);
     }
     ok.className = 'lfok';
-    ok.textContent = '✓';
+    ok.innerHTML = ICO.chk;
     box.appendChild(ok);
     document.body.appendChild(box);
     var t0 = performance.now(),
@@ -21258,7 +21038,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
       var multi = SITEFX.n > 1;
       card.innerHTML =
-        (foto && !multi ? '<img alt="" src="' + foto + '">' : '<span class="ph">🌐</span>') +
+        (foto && !multi ? '<img alt="" src="' + foto + '">' : '<span class="ph">' + ICO.globo + '</span>') +
         '<div><b>' + esc(multi ? SITEFX.n + ' produtos liberados' : pubNome(ref)) + '</b><div class="lv"><i></i>No ar no site</div></div>';
       card.classList.remove('on');
       void card.offsetWidth;
@@ -21301,8 +21081,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   aposRender(chaoMede);
   window.addEventListener('resize', chaoMede);
-  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento'];
-  function lfToast(t, tipo) {
+  var TOAST_TIPOS = ['ok', 'atencao', 'erro', 'andamento', 'neutro'];
+  // 85 (aprovado): o aviso que PASSA é um só — embaixo, cor pelo tipo; acao = { t: 'Desfazer', fn } (botão à direita) ou { fn } (toque no aviso).
+  function lfToast(t, tipo, acao) {
     var e = $('lfToast');
     if (!e) {
       e = document.createElement('div');
@@ -21310,8 +21091,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       document.body.appendChild(e);
     }
     chaoMede();
-    e.textContent = t;
+    e.textContent = '';
+    var tx = document.createElement('span');
+    tx.textContent = t;
+    e.appendChild(tx);
+    e.onclick = null;
+    if (acao && acao.t) {
+      var ba = document.createElement('button');
+      ba.type = 'button';
+      ba.className = 'lfTA';
+      ba.textContent = acao.t;
+      ba.onclick = function (ev) { ev.stopPropagation(); e.classList.remove('on'); acao.fn(); };
+      e.appendChild(ba);
+    } else if (acao && acao.fn) {
+      e.onclick = function () { e.classList.remove('on'); acao.fn(); };
+    }
     e.className = 't-' + (TOAST_TIPOS.indexOf(tipo) >= 0 ? tipo : 'ok'); // também tira o 'on' (recomeça a entrada)
+    if (acao) e.classList.add('tA'); // só o aviso com ação recebe toque
     e.setAttribute('role', tipo === 'erro' ? 'alert' : 'status');
     if (REDUCED) {
       e.classList.add('on');
@@ -21322,7 +21118,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     clearTimeout(lfToast.t);
     lfToast.t = setTimeout(function () {
       e.classList.remove('on');
-    }, 2300);
+    }, acao || tipo === 'erro' ? 5000 : 2300);
   }
   // ===== Movimento: animações leves (opacidade e escala), desligadas se o aparelho pedir menos movimento. =====
   // Vibração curta (toque de confirmação), se o aparelho permitir.
@@ -21405,13 +21201,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }).observe(el, { childList: true, characterData: true, subtree: true });
     });
   })();
-  // ===== Dashboard em abas (Resumo, Dinheiro, Giro, Preços), com "Atenção agora" e blocos que abrem ao toque. =====
+  // ===== Dashboard em abas (Resumo, Reservas, Preços; o Giro saiu em 66 — cada parte foi para o seu lugar), com "Atenção agora" e blocos que abrem ao toque. =====
   S.dTab = 'hoje';
   S.dfold = {};
   var DTABS = [
     ['hoje', 'Resumo'],
     ['din', 'Reservas'],
-    ['giro', 'Giro'],
     ['prec', 'Preços']
   ];
   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
@@ -21537,33 +21332,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         );
       };
     if (t === 'hoje') {
-      var x = dashExtra();
       h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + metaCardHtml();
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    if (t === 'giro') {
-      var ce = capitalEstoque(),
-        x2 = dashExtra(),
-        pa = parados(),
-        ct = S.contagens.filter(function (c) {
-          return Date.now() - c.ts <= 30 * DAY;
-        });
-      h +=
-        '<section class="kpis lux418 lxLk"><div class="cxLb">Estoque</div>' +
-        kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
-        kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
-        '</section>';
-      // a lista de compras saiu para Peças › Compras (66)
-      h += '<div class="fxG">'; // dobras seguidas = um grupo de linhas, sem espaço entre elas
-      h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
-      h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
-      h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());
-      h += dFold('abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', 'var(--sub)', x2.abc);
-      h += dFold('pdc', 'Perdas e sobras (30 dias)', ct.length + ' contagem(ns) no período', 'var(--sub)', x2.perdasC);
-      h += '</div>';
-      return h;
-    }
     // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += precosTelaHtml();
@@ -21653,7 +21425,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         : '<div class="lv418S">já descontadas reposição, contas, colchão e melhorias</div>') +
       (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>').replace(/class="sl"/g, 'class="cxL"') +
       '<div class="bar lv418B">' +
-      [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
+      [[r.repGs, '#6cc3e0'], [r.con, '#943d6f'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
@@ -21663,7 +21435,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
       dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
         '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a']]
+          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#943d6f'], ['Colchão de segurança', r.colch, '#e9c27a']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
@@ -22030,7 +21802,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function ico(k, px) {
     px = px || 22;
     return (
-      '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       (ICO_D[k] || '') +
       '</svg>'
     );
@@ -22070,7 +21842,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
   ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
-  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
+  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
   // Lista do Início e da barra + as migrações antigas (até a união de 2025). As migrações das famílias ficam em iniLista, logo abaixo.
   function iniListaBase() {
@@ -22206,7 +21978,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return (
         '<div class="twrap" data-k="' + id + '">' +
         tileHtml('disabled', id, t[0], t[1], '', false) +
-        '<div class="tedit"><button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button></div></div>'
+        '<div class="tedit"><button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">' + ICO.x + '</button></div></div>'
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
@@ -22275,7 +22047,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       // o atalho "Dashboard" abre o dia de hoje; os números do mês ficam a um toque
       S.day = dayKey(Date.now());
       setView('dia');
-    } else if (id === 'din' || id === 'giro' || id === 'prec') {
+    } else if (id === 'giro') {
+      return inicioGo('estoque'); // 66: a tela Giro saiu — o estado do estoque mora no Inventário (atalho antigo)
+    } else if (id === 'din' || id === 'prec') {
       S.dTab = id;
       setView('dash');
     } else if (id === 'repo') {
@@ -22354,7 +22128,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     gg = grpGet(id);
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
-    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
+    if (id === 'hoje' || id === 'din' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return v === 'vendas' || (noPnl && grpPlana().indexOf('onl') < 0);
@@ -22521,7 +22295,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
-        '<button type="button" class="btn-sc p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
+        '<button type="button" class="mini p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
       );
     }
     var urg = ag.filter(urgente),
@@ -22741,7 +22515,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           })
           .join('') +
         '</div>' +
-        (ps.length > 20 ? '<div class="hint" style="margin:0">Mostrando as 20 mais recentes de ' + ps.length + '. ' : '<div class="hint" style="margin:0">') +
+        '<div class="hint" style="margin:0">' +
         '<a href="#hist" data-act="view" data-id="hist" style="color:var(--accent-fg)">Ver tudo no Histórico</a></div>';
     }
     vendHtml += '</section>';
@@ -22749,7 +22523,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     html = '';
     var parts = [
       ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#6cc3e0'],
-      ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
+      ['Contas da loja e de casa', 'Obrigatório', con, '#943d6f'],
       [
         'Colchão de segurança',
         'Reserva contra alta do dólar e do custo (' + pc(c.pct) + ')',
@@ -22760,7 +22534,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ['Lucro livre', 'Seu dinheiro', liv, '#5fd39a']
     ];
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Soma de todas as vendas do período, na ordem em que o dinheiro deve ser separado.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2></div>';
     html +=
       '<div class="bar">' +
       parts
@@ -22838,7 +22612,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var secTwo = html;
     html = '';
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Saúde da margem</h2><div class="hint" style="margin:2px 0 0">Preço atual contra a trava: reposição de hoje mais a parte das contas de cada peça.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Tipo</th><th>Preço</th><th>Reposição hoje</th><th>Contas/peça</th><th>Trava</th><th>Folga</th><th>Situação</th></tr></thead><tbody>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Saúde da margem</h2></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Tipo</th><th>Preço</th><th>Reposição hoje</th><th>Contas/peça</th><th>Trava</th><th>Folga</th><th>Situação</th></tr></thead><tbody>';
     var worst = null;
     TIPOS.forEach(function (t) {
       var rp = Math.round(t.repUSD * S.fx.pyg),
@@ -22936,7 +22710,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!p.passos.length && !(p.needRep > 0.004) && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '';
     if (p.passos.length) {
-      h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
+      h += '';
       p.passos.forEach(function (x, i) {
         var tin = (S.trIn || {})[i] || {},
           v = tin.v != null ? tin.v : String(x.sug),
@@ -22954,7 +22728,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     var ult = S.cambios[0];
     if (ult && ult.tipo)
-      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="btn-sc p" data-act="fxdesfaz">Desfazer</button></div>';
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="mini p" data-act="fxdesfaz">Desfazer</button></div>';
     var lv = livre3();
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
@@ -22965,7 +22739,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function trHistHtml() {
     if (!S.cambios.length) return '';
     return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
-      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="btn-sc p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="mini p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
     }).join('');
   }
   // v426: aba Câmbio simples (esboço aprovado 04/11, versão A) — montada em 97-cambio-aba.js
@@ -23247,7 +23021,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '), já dividida nas peças.</div>';
     // S374 (esboço 106/108): sem o cartão "Contas para pagar" — o aviso fica na linha da própria conta
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'],
-      cores = ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'],
+      cores = ['#6cc3e0', '#943d6f', '#e9c27a', 'var(--info)', '#5fd39a'],
       somas = cats.map(function (c) {
         return S.exp
           .filter(function (e) {
@@ -23315,11 +23089,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             fd(x.ts) +
             '</small></span><span style="display:flex;align-items:center;gap:6px"><b>' +
             gs(x.valor) +
-            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8">✕</button></span></div>'
+            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8">' + ICO.x + '</button></span></div>'
           );
         })
         .join('') +
-      '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
+      '' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
     var nova73 =
       dFold('nova', 'Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
@@ -23379,7 +23153,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       liv: sumBy(ok, 'livre'),
       extra: extra,
       nd: dl.length,
-      outros: (porDia('c', S.cambios)[k] || []).length + (porDia('e', S.elog)[k] || []).length,
       fx: fx
     };
   }
@@ -23563,7 +23336,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     else {
       h =
       (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
-      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
+      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="mini dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
       ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +
       (k >= today ? ' disabled' : '') +
@@ -23661,7 +23434,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         : '<div class="vz418">Nenhuma venda neste dia.</div>') +
       '</section>';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2><div class="hint" style="margin:2px 0 0">As contas do mês entram divididas por 30. Os gastos extras entram no dia em que foram feitos.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
       mAt
         .map(function (e) {
           return (
@@ -24637,10 +24410,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         sc = c[3];
       inner =
         c[0] +
-        '<g transform="translate(' + (c[1] - 12 * sc).toFixed(2) + ',' + (c[2] - 12 * sc).toFixed(2) + ') scale(' + sc + ')" stroke-width="' + (1.7 / sc).toFixed(2) + '">' + (ICO_D[marca] || '') + '</g>';
+        '<g transform="translate(' + (c[1] - 12 * sc).toFixed(2) + ',' + (c[2] - 12 * sc).toFixed(2) + ') scale(' + sc + ')" style="stroke-width:calc(var(--ico-traco) / ' + sc + ')">' + (ICO_D[marca] || '') + '</g>';
     }
     px = px || 24;
-    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
   }
   // ===== Grupos no acesso rápido: juntar 2 botões da barra de baixo cria um grupo (as telas viram abas no topo). =====
   S.grupos = [];
@@ -24694,7 +24467,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return grpNomeSugerido(a, b) || BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
   }
   // Nome sugerido para qualquer tamanho de grupo: família (3 ou mais telas da mesma família) ou o nome do par principal.
-  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'giro', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
+  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
   function grpNomeAuto(itens) {
     if (itens.length >= 3) {
       var f = GRP_FAM.filter(function (x) { return itens.every(function (i) { return x[1].indexOf(i) >= 0; }); })[0];
@@ -25136,7 +24909,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return a + x.valor;
       }, 0);
     html +=
-      '<section class="col" style="padding:0 16px 14px"><div><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
+      '<section class="col" style="padding:0 16px 14px"><div></div>' +
       (pays.length
         ? pays
             .map(function (x) {
@@ -25199,7 +24972,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
-        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.' + lkLinha('Ver o que falta repor', 'd48Res', '') + '</div>';
+        '<div class="note n-bad">Caixa abaixo do separado <button type="button" class="noteA" data-act="d48Res" data-id="">Ver o que falta ›</button></div>';
     // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
     var acao = S.cxAcao || '';
     if (S.cxMsg !== S._cxMsgVis) {
@@ -25426,7 +25199,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (par) c.dup = par.id;
     S.clientes.push(c);
     try {
-      lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Cliente cadastrado</b><div class="hint" style="margin:2px 0 0">' + esc(c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + esc(par.nome) : '') + '</div></div>');
+      lfToast('Cliente cadastrado · ' + (c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + par.nome : ''), 'ok');
     } catch (e) {}
     return { c: c, novo: true };
   }
@@ -25632,12 +25405,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function pedEstado(p) {
     if (p.st === 'canc') return ['Cancelado', 'bad'];
-    if (p.st === 'ent') return ['✓ Entregue', 'ok'];
+    if (p.st === 'ent') return ['Entregue', 'ok'];
     if (p.st === 'pronto') return ['Pronto para retirar', 'ok'];
     if (p.st === 'sep') return ['Separando', 'ac'];
-    if (p.pg === 'pagar') return [p.recus ? 'Pagamento recusado' : '💳 Aguardando pagamento', 'w'];
-    if (p.pg === 'comp') return ['🧾 Conferir comprovante', 'w'];
-    if (p.pg === 'pago') return ['✓ Pago', 'ok'];
+    if (p.pg === 'pagar') return [p.recus ? 'Pagamento recusado' : 'Aguardando pagamento', 'w'];
+    if (p.pg === 'comp') return ['Conferir comprovante', 'w'];
+    if (p.pg === 'pago') return ['Pago', 'ok'];
     return ['Novo', 'ac'];
   }
   // Aguardando o pagamento (ainda não dá para separar).
@@ -25652,17 +25425,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       })[0],
       h = '<div class="pd418A">';
     if (S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
-      if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
+      if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
       else if (!p.assumido) h += '<button type="button" class="pd418S" data-act="pedassumir" data-id="' + p.id + '">Assumir este pedido</button>';
-      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
+      else h += '<div class="pdMt" style="margin-bottom:8px">Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
     }
     var dz = '';
     if (pedPagando(p)) {
       if (p.pg === 'comp') {
-        h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button>';
+        h += '<button type="button" class="go" data-act="pedpago" data-id="' + p.id + '">Confirmar pagamento</button>';
         dz += '<button type="button" class="dz105" data-act="pedrecus" data-id="' + p.id + '">Recusar comprovante</button>';
-      } else h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
-    } else if (pr && pr[2]) h += '<button type="button" class="pd418P" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
+      } else h += '<button type="button" class="go" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
+    } else if (pr && pr[2]) h += '<button type="button" class="go" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
     if (z) h += '<a class="pd418S" href="' + z + '" target="_blank" rel="noopener">' + PD_ZAP + ' Falar no WhatsApp</a>';
     if (p.st === 'canc' || p.st === 'ent') dz += '<button type="button" class="dz105" data-act="peddel" data-id="' + p.id + '">Remover pedido</button>';
     else dz += '<button type="button" class="dz105" data-act="pedcanc" data-id="' + p.id + '">' + (p.pg === 'pago' ? 'Cancelar pedido' : 'Cancelar reserva') + '</button>';
@@ -25676,11 +25449,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     nomes.forEach(function (n, i) {
       var d = p.st === 'ent' ? true : i < cur,
         c = !d && i === cur;
-      h += '<div class="' + (d ? 'd' : c ? 'c' : '') + '"><i>' + (d ? '✓' : i + 1) + '</i>' + n + '</div>';
+      h += '<div class="' + (d ? 'd' : c ? 'c' : '') + '"><i>' + (d ? ICO.chk : i + 1) + '</i>' + n + '</div>';
     });
     return h + '</div>';
   }
-  var PED_NAC = { py: '🇵🇾 Paraguaio · RUC', br: '🇧🇷 Brasileiro · CPF', ar: '🇦🇷 Argentino · DNI' };
+  var PED_NAC = { py: 'Paraguaio · RUC', br: 'Brasileiro · CPF', ar: 'Argentino · DNI' };
   // S418 (esboço 115b2/b3, aprovado 17/11): o pedido no padrão de luxo — blocos em versalete com linhas finas.
   function pr418(a, b, sub, cls) {
     return '<div class="pr418' + (cls ? ' ' + cls : '') + '"><span>' + a + (sub ? '<small>' + sub + '</small>' : '') + '</span>' + (b != null && b !== '' ? '<b>' + b + '</b>' : '') + '</div>';
@@ -25695,7 +25468,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (p.pag === 'alias' && p.pagar) h += pr418('Valor exato da transferência', gs(p.pagar), 'final único para achar o pagamento');
       if (p.pag === 'pix' && p.brl) h += pr418('Valor em reais', 'R$ ' + esc(String(p.brl).replace('.', ',')));
     }
-    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {
       h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
       compLeAgenda(p);
@@ -25780,7 +25553,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return !x.av && esperaTem(x.ref);
     });
     if (!l.length) return '';
-    var h = '<section class="pdCard"><b>🔔 Peça voltou — avise quem esperava</b>';
+    var h = '<section class="pdCard"><b>Peça voltou — avise quem esperava</b>';
     l.slice(0, 10).forEach(function (x) {
       var d = String(x.tel).replace(/\D/g, '');
       if (d.charAt(0) === '0') d = '595' + d.slice(1);
@@ -25876,7 +25649,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
     });
     h += '</div>';
-    h += '<input class="in" id="pedQ" placeholder="Buscar por nome, código ou telefone" value="' + esc(S.pedQ || '') + '" autocomplete="off" aria-label="Buscar pedido" style="margin-bottom:10px">';
+    h += buscaCampo('id="pedQ" placeholder="Nome, código ou telefone" value="' + esc(S.pedQ || '') + '" aria-label="Buscar pedido"');
     var qb = cliNorm(S.pedQ),
       qd = cliDig(S.pedQ),
       lista = S.pedidos
@@ -25899,7 +25672,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         q = pedQtd(p);
       h +=
         '<div class="pd418L"><button type="button" class="pr418 lk' + lkCls(true) + '" data-act="pedab" data-id="' + p.id + '"><span><span class="nm">' + esc(p.cli || 'Sem nome') + '</span><small>Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + ' · ' + q + (q === 1 ? ' peça' : ' peças') + (p.teste ? ' · TESTE' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + (p.tok && p.st !== 'canc' && p.st !== 'ent' ? ' · token ' + esc(p.tok) : '') + '</small></span>' +
-        '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0].replace(/^[^A-Za-zÀ-ú✓]+/, '')) + '</small></span><i aria-hidden="true">›</i></button>' +
+        '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0]) + '</small></span><i aria-hidden="true">›</i></button>' +
         pedEspera(p) + '</div>';
     });
     el.innerHTML = h;
@@ -26740,7 +26513,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function precosMetaHtml() {
     // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
     return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
-      '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div></div>';
+      '</div>';
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
@@ -26753,9 +26526,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ', cerca de US$ ' +
       Math.round(totalMensal() / S.fx.pyg) +
       ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      '<div class="hint" style="margin:0">Peças por mês para dividir as contas: <b>' +
-      volumeEfetivo() +
-      '</b> (automático: vendas reais dos últimos dias; a meta do mês também é automática e aparece no Resumo).</div>' +
       precosMetaHtml() +
       '</section>';
     return h;
@@ -26888,7 +26658,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     r.readAsText(f);
   };
   // Janela de importação: carregando, sucesso (com resumo) ou falha (nada é alterado).
-  var IMP_CK = '<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var IMP_CK = '<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
   function impTela(modo, msg) {
     var o = $('impOv');
     if (!o) {
@@ -27004,8 +26774,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + esc(pn(it.ref)) + ' · preço de saída <b>' + gs(pp.saida) + '</b> (nunca abaixo do piso)</div>' +
           (ja ? '<div class="hint" style="margin:0;color:var(--ok)">Já está no site' + (ja.ate ? ' até ' + fd(ja.ate) : ' até vender') + ' · ' + saidaVendidas(it.ref, ja.ini) + '/' + (ja.max || 3) + ' vendidas. <button type="button" class="mini ghost" id="sdFim">Encerrar no site</button></div>' : '') +
           '<div class="trk" id="sdOnde"><span class="trkTh"></span><button type="button" class="trkB" data-m="loja">Só na loja</button><button type="button" class="trkB" data-m="site">Loja + site</button></div>' +
-          '<div id="sdPz" hidden><div class="hint" style="margin:0 0 6px">Quanto tempo no site? Termina sozinho no prazo ou quando vender 3.</div><div class="trk" id="sdDias"><span class="trkTh"></span><button type="button" class="trkB" data-m="7">7 dias</button><button type="button" class="trkB" data-m="15">15 dias</button><button type="button" class="trkB" data-m="0">Até vender</button></div></div>' +
-          '<button type="button" class="btn" id="sdOk">Vender agora na loja</button></div>';
+          '<div id="sdPz" hidden><div class="trk" id="sdDias"><span class="trkTh"></span><button type="button" class="trkB" data-m="7">7 dias</button><button type="button" class="trkB" data-m="15">15 dias</button><button type="button" class="trkB" data-m="0">Até vender</button></div></div>' +
+          '<button type="button" class="go" id="sdOk">Vender agora na loja</button></div>';
         var to = $('sdOnde'),
           td = $('sdDias'),
           pz = $('sdPz'),
@@ -27044,7 +26814,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
           saveSoon();
           try { vitConfere(); } catch (e) {}
-          lfToast('✓ No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.', 'ok');
+          lfToast('No site ' + (dias ? 'por ' + nDias(dias) : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.', 'ok');
           render();
         };
       }
@@ -27110,7 +26880,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function atacTeclado(it) {
     var o = lfaAbre(
       'lfa-qty',
-      '<h3 style="margin:0 0 8px">Quantidade — ' + esc(pn(it.ref)) + '</h3><input class="in" id="atacN" type="tel" inputmode="numeric" pattern="[0-9]*" value="' + atacQtd(it) + '" style="font-size:28px;text-align:center;min-height:56px;width:100%"><div class="hint">Disponível: ' + gLivre(it) + ' un.</div><div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="btn ghost" id="atacX" style="flex:1">Cancelar</button><button type="button" class="btn" id="atacOk" style="flex:1">Ok</button></div>'
+      '<h3 style="margin:0 0 8px">Quantidade — ' + esc(pn(it.ref)) + '</h3><input class="in" id="atacN" type="tel" inputmode="numeric" pattern="[0-9]*" value="' + atacQtd(it) + '" style="font-size:28px;text-align:center;min-height:56px;width:100%"><div class="hint">Disponível: ' + gLivre(it) + ' un.</div><div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="mini" id="atacX" style="flex:1">Cancelar</button><button type="button" class="go" id="atacOk" style="flex:1">Ok</button></div>'
     );
     var inp = o.querySelector('#atacN');
     inp.focus();
@@ -27238,10 +27008,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = cliEstr(c) ? 'ex' : 'py',
       d = CLI_DOC[n],
       b = function (k, t) {
-        return '<button type="button" class="cb3' + (k === n ? ' on' : '') + '" data-act="clinac" data-id="' + pre + '|' + k + '">' + t + '</button>';
+        return { on: k === n, attrs: 'data-act="clinac" data-id="' + pre + '|' + k + '"', html: t };
       };
     return (
-      '<div class="catbar3 cliNac" id="' + pre + 'Nac" data-nac="' + n + '" role="group" aria-label="Nacionalidade">' + b('py', 'Paraguaio') + b('ex', 'Estrangeiro') + '</div>' +
+      trilho('cliNac', 'Nacionalidade', [b('py', 'Paraguaio'), b('ex', 'Estrangeiro')]).replace('<div class="trk cliNac"', '<div class="trk cliNac" id="' + pre + 'Nac" data-nac="' + n + '"') +
       '<div class="docF"><span class="docL" id="' + pre + 'DocL">' + d[0] + '</span><input class="in" id="' + pre + 'Ruc" placeholder="' + d[1] + '" value="' + esc((c && c.ruc) || '') + '" autocomplete="off" aria-labelledby="' + pre + 'DocL"></div>'
     );
   }
@@ -27254,9 +27024,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       d = CLI_DOC[p[1]];
     if (!box || !d || box.dataset.nac === p[1]) return;
     box.dataset.nac = p[1];
-    box.querySelectorAll('.cb3').forEach(function (x) {
+    box.querySelectorAll('.trkB').forEach(function (x) {
       x.classList.toggle('on', x.getAttribute('data-id') === arg);
+      x.setAttribute('aria-pressed', String(x.getAttribute('data-id') === arg));
     });
+    trilhoAcerta(box.parentNode);
     if (l) {
       l.classList.add('swap');
       setTimeout(function () {
@@ -27385,7 +27157,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       })
       .join('');
   }
-  var CLI_WA = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-.9.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.9-1-2z"/></svg>';
+  var CLI_WA = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-.9.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.9-1-2z"/></svg>';
   // Compras feitas no balcão ligadas ao cliente (uma linha por venda/pedido).
   function cliComprasHtml(c) {
     if (!c.id) return '';
@@ -27437,7 +27209,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="hd77"><h2>' + esc(c.id ? c.nome || 'Sem nome' : 'Novo cliente') + '</h2>' + (sub.length ? '<small>' + sub.join(' · ') + '</small>' : '') + '</div>' +
         (c.id && (z || c.email)
           ? '<div class="qa77">' + (z ? '<a href="' + z + '" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"><i class="wa77">' + CLI_WA + '</i>WhatsApp</a>' : '') +
-            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
+            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
           : '') +
         '<div class="lb77">Dados</div><div class="gp77">' +
         rw('Nome', '<input id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">') +
@@ -27469,7 +27241,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)
     if (!c) {
-      h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+      h += buscaCampo('id="cliQ" placeholder="Nome, telefone ou documento" value="' + esc(S.cliQ) + '" aria-label="Buscar cliente"');
       h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
     }
     el.innerHTML = h;
@@ -27549,7 +27321,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.clientes = S.clientes.filter(function (x) { return x.id !== c.id; });
     S.cliSel = o.id;
     delete o.dup;
-    lfaToast('<b>Clientes juntados</b><br>' + esc(o.nome || ''));
+    lfToast('Clientes juntados' + (o.nome ? ' · ' + o.nome : ''), 'ok');
     render();
   };
   ACT.climanter = function () {
@@ -27650,7 +27422,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function modoBtn(btnEl, aba) {
     var m = modoDe(aba);
     btnEl.innerHTML =
-      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       (m === 'g' ? MODO_ICO.lista : MODO_ICO.grade) + '</svg>';
     btnEl.setAttribute('aria-label', m === 'g' ? 'Mostrar em lista' : 'Mostrar em catálogo');
     btnEl.onclick = function () {
@@ -28134,7 +27906,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var trava = !!(pinAtivo() || (S.bioOn && bioPlugin()));
         var entrega = function (conf) {
           reS({ rt: S.nuvem.rt });
-          if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
+          if (conf) lfToast('Acesso renovado · nuvem e painel conectados', 'ok');
         };
         if (!trava || !LOCK.locked) entrega(false); // S374 (17/11, dono): a biometria/PIN é só a da abertura do app; com o app aberto e destravado, o painel entra direto
         else
@@ -28154,7 +27926,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.nuvem.email = String(e.data.email || '').slice(0, 120);
           nvTok = { t: '', exp: 0 };
           saveSoon();
-          lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">Mesma conta do painel</div></div>', 3000, 'b');
+          lfToast('Nuvem conectada', 'ok');
           nvToken()
             .then(nvBackup)
             .then(nvCotacao)
@@ -28231,9 +28003,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el.getAttribute('data-sk')) {
       el.setAttribute('data-sk', '1');
       el.textContent = '';
-      var host = mk('div', 'catbar3');
-      host.id = 'uniS';
-      el.appendChild(host);
       var sb = mk('div', 'sbox');
       sb.id = 'siteBox';
       var fr = mk('iframe');
@@ -28382,7 +28151,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       q = siteQueda();
     return (
       '<div class="fjB"><span class="lbl">US$ 1 no site</span><b class="fjBig">' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint" style="margin:0">' + (L ? 'travada em ' + fd(L.ts) + ' · ' : '') + 'loja hoje ' + gsRaw(vivo) + (folga > 0 ? ' · folga de ' + pc(folga) : '') + '</div></div>' +
-      '<div class="fjB"><div class="hint" style="margin:0">Só muda quando a cotação da loja passar a do site. Se o dólar cair muito (5% por 3 dias), o app faz ofertas em poucas peças, começando pelas mais paradas, no máximo 50% de desconto.</div></div>' +
+      '<div class="fjB"></div>' +
       '<div class="fjB"><span class="lbl">Ofertas do site</span>' +
       (of.length
           ? '<div class="hint" style="margin:0 0 6px">Dólar ' + (q > 0 ? pc(q) + ' abaixo da trava' : '') + ' · ' + of.length + ' peça(s) nesta semana</div>' + of.map(function (o) {
@@ -28570,7 +28339,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // (chave → bloco) é o único lugar que diz onde cada configuração mora. Segurar a linha (0,4 s) levanta e arrasta para mudar a ordem
   // DENTRO do bloco; soltar assenta com mola e mostra "Ordem salva · Desfazer" por 4 s. A ordem é de cada aparelho (localStorage), como o Tema.
   var AJ_SVG = function (d) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
@@ -29000,7 +28769,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!ms.length) return '';
     var nomes = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
     return (
-      '<section class="card col arqCard"><div><b>Vendas arquivadas</b><div class="hint" style="margin:2px 0 0">Mais de 12 meses. Resumo por mês; a venda completa está guardada e pode voltar.</div></div>' +
+      '<section class="card col arqCard"><div><b>Vendas arquivadas</b></div>' +
       ms
         .map(function (m) {
           var r = S.arqRes[m],
@@ -29068,7 +28837,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     APK.msg = '';
     if (APK.avisou !== APK.n) {
       APK.avisou = APK.n;
-      try { lfaToast('<b>Atualização pronta</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
+      try { lfToast('Atualização pronta · instale em Ajustes › Atualização', 'ok'); } catch (e) {}
     }
   }
   function apkBaixa() {
@@ -29354,10 +29123,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaAbre('lfUpdSh',
       '<h2 style="margin:0;font-family:var(--display);font-weight:400;font-size:20px">Atualizar o La Fouch?</h2><div class="hint" style="margin:0">Versão ' + v + '</div>' +
       (nt ? '<div style="display:flex;flex-direction:column;gap:6px;font-size:14px">' + nt + '</div>' : '') +
-      '<div class="hint" style="margin:0">Leva uns 3 segundos. Suas vendas e seus dados continuam salvos.</div>' +
+      '' +
       '<button type="button" class="bsolid c" data-act="updgo">Atualizar agora</button><button type="button" class="pdLink" data-act="updnao" style="align-self:center">Agora não</button>');
   };
-  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfaToast('<b>Fica guardado</b><br>Está em Notificações, no sino.', 3500); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
+  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfToast('Fica guardado em Notificações, no sino', 'neutro'); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
   ACT.updnao = function () { lfaFecha('lfUpdSh'); ACT.updmais(); };
   ACT.updgo = function () {
     var v = UPD.pronta || +updMarca().v || 0;
@@ -29377,7 +29146,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { localStorage.removeItem('lf_updok'); } catch (e) {}
     if (ok > APP_BUILD) return;
     lfaAbre('lfUpdSh',
-      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px"><span style="width:24px;height:24px;display:block">' + ICO.chk + '</span></div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
@@ -29396,14 +29165,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ico = st === 'b' ? '<i class="rg75" aria-hidden="true"></i>' : st === 'k' ? '<svg class="ck75" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>' : '',
       muda = UP75_ULT && UP75_ULT !== st;
     UP75_ULT = st;
-    return '<button type="button" class="up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
+    return '<button type="button" class="mini up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
       (st === 'k' ? '<div class="s75' + (muda ? ' in75' : '') + '">' + (UPD.ult ? 'agora mesmo' : 'Versão ' + esc(APP_NOME)) + '</div>' : st === 'n' || st === 'b' ? '<div class="s75">' + esc(sub) + '</div>' : '');
   }
   function updCard() {
     var m = updMarca(),
       novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
       est = UPD.busy ? 'busca' : novo ? 'novo' : UPD.ok ? 'ok' : 'parado',
-      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? '✓' : '↻',
+      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? ICO.chk : '↻',
       tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
       sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
       ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
@@ -29415,7 +29184,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sub = { tem: 'Toque para baixar · ' + mb, erro: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar' }[ak];
     }
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
-      '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
+      '' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
       updBotao75(est, ak, tit, sub) +
       (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
@@ -29527,7 +29296,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="brTot"><span>Total</span><b id="brTotal">—</b></div>' +
         '</div>' +
         '<div class="brSep" id="brSep"></div>' +
-        '<button type="button" class="btn go" id="brLanca" style="width:100%">Lançar compra</button>';
+        '<button type="button" class="go" id="brLanca" style="width:100%">Lançar compra</button>';
       var pega = function () {
         BR.nome = $('brNome').value;
         BR.qtd = $('brQtd').value;
@@ -29630,7 +29399,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     BR.unit = '';
     BR.nome = '';
     vibrar(20);
-    lfToast('✓ Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
+    lfToast('Compra de brindes lançada · ' + BR_SIMB[c.moeda] + ' ' + nf(tot, c.moeda), 'ok');
     S.nOutro = false;
     closeAdd();
   }
@@ -29644,11 +29413,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Um campo só acha qualquer coisa: peça, cliente, venda, pedido do site ou despesa. Fica no lugar da faixa
   // "N avisos urgentes" (os avisos continuam no sino). Toque num resultado abre a tela certa.
   S._buQ = '';
-  var BU_LUPA = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+  var BU_LUPA = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+  // 82 (aprovado): campo de busca é família própria (lupa + caixa); os campos de formulário são linha fina.
+  function buscaCampo(attrs) {
+    return '<label class="buIn">' + BU_LUPA + '<input type="search" autocomplete="off" enterkeyhint="search" ' + attrs + '></label>';
+  }
   function buscaHtml() {
     return (
       '<div class="buBox"><label class="buIn">' + BU_LUPA +
-      '<input id="buQ" type="search" autocomplete="off" enterkeyhint="search" placeholder="Buscar peça, cliente, venda, pedido…" aria-label="Buscar em todo o app" value="' + esc(S._buQ || '') + '"></label>' +
+      '<input id="buQ" type="search" autocomplete="off" enterkeyhint="search" placeholder="Peça, cliente, venda, pedido…" aria-label="Buscar em todo o app" value="' + esc(S._buQ || '') + '"></label>' +
       '<div id="buRes" role="listbox">' + buResHtml(S._buQ || '') + '</div></div>'
     );
   }
@@ -29719,7 +29492,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['hist', 'Histórico de vendas', 'Início › Histórico', 'vendas antigas dia estorno'],
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
-    ['giro', 'Giro do estoque', 'Números › Giro', 'giro parado vitrine da semana lista de compras'],
     ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
     ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
@@ -29856,7 +29628,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var o = k === 'usd' ? S.lm.usd : k === 'brl' ? S.lm.brl : S.lm.arb;
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
-  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
   ACT.fxSt = function () {
     S.fxStD = !S.fxStD;
     renderFx();
@@ -30091,7 +29863,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R' + lkCls(false) + '" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
-      '<button type="button" class="fx418P" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
+      '<button type="button" class="go" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
@@ -30112,8 +29884,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tit = FX_SELO[vd.k][2];
       sub = 'Dólar na La Moneda Jebai (venda)';
       corpo = fjPerHtml() + fjGraf('usd', true) + '<div class="fjMot">' + vd.mot.map(function (m) {
-          return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? '✓' : '!') + '</i><span>' + m.t + '</span></div>';
-        }).join('') + '</div><div class="hint" style="margin:8px 0 0">Ninguém acerta sempre. O app olha o histórico da casa, a semana e a tendência.</div>';
+          return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? ICO.chk : '!') + '</i><span>' + m.t + '</span></div>';
+        }).join('') + '</div>';
     } else if (id === 'usd' || id === 'brl' || id === 'arb') {
       // v459: a janela segue o botão Venda/Compra; previsão de 7 dias em todas as moedas
       var md = lmOk() ? S.fxModo : '',
@@ -30208,7 +29980,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // v459: frase da previsão de 7 dias (cor pelo interesse da loja: dólar barato é bom; real caro é bom)
   function fjPrevTxt(k, m) {
     var pv = fxPrevisao(k, m);
-    if (!pv.ok) return '<div class="hint" style="margin:8px 0 0">Previsão: ainda sem histórico suficiente.</div>';
+    if (!pv.ok) return '';
     var fim = pv.ult * (1 + pv.pct),
       f = function (v) {
         return k === 'arb' ? 'R$ ' + nf(v, 'brl') : gsRaw(Math.round(v));
@@ -30216,7 +29988,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       bom = pv.dir === 'estavel' || (k === 'brl' ? pv.dir === 'sobe' : pv.dir === 'cai');
     return (
       '<div class="fjMot"><div class="' + (bom ? 'ok' : 'no') + '"><i>' + (pv.dir === 'sobe' ? '▲' : pv.dir === 'cai' ? '▼' : '—') + '</i><span>Próximos 7 dias: <b>' + (pv.dir === 'sobe' ? 'deve subir' : pv.dir === 'cai' ? 'deve cair' : 'estável') + '</b>' + (pv.dir === 'estavel' ? '' : ' (por volta de ' + f(fim) + ')') + ' <span class="hint" style="display:inline;margin:0">· certeza ' + pv.cert + '</span></span></div></div>' +
-      '<div class="hint" style="margin:6px 0 0">Ninguém acerta sempre. É uma estimativa pelo histórico da casa.</div>'
+      ''
     );
   }
   function fjProtHtml() {
@@ -30234,7 +30006,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
     return (
       (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
-      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div><div class="hint" style="margin:0">Seus preços usam a cotação da loja: se a casa subir até 1%, você não perde.</div></div>' +
+      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
       '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
       '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
       (lt.length
@@ -30259,15 +30031,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       // S418 (esboço 126b): De e Para por toque (G$ · US$ · R$), "⇄ Inverter" em rosa, campos em linhas, "Registrar troca" principal
       (ag ? '<div class="cxLb" style="margin:0 0 2px">Sugestão de hoje</div>' + ag + '<div class="cxLb" style="margin:22px 0 8px">Outra troca</div>' : '') +
       ['de', 'para'].map(function (q) {
-        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span><div class="sg418" role="group" aria-label="' + (q === 'de' ? 'Trocar de' : 'Receber em') + '">' +
-          [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
-            return '<button type="button" class="' + (t[q] === o[0] ? 'on' : '') + '" aria-pressed="' + (t[q] === o[0]) + '" data-act="trMoe" data-id="' + q + '|' + o[0] + '">' + o[1] + '</button>';
-          }).join('') + '</div></div>';
+        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span>' + trilho('', q === 'de' ? 'Trocar de' : 'Receber em', [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) { // a ordem das moedas do 142f/142g
+          return { on: t[q] === o[0], attrs: 'data-act="trMoe" data-id="' + q + '|' + o[0] + '"', html: o[1] };
+        })) + '</div>';
       }).join('') +
       '<div style="text-align:center"><button type="button" class="tr418I" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button></div>' +
       '<label class="cxL cc418"><span>Você troca<small>em ' + MN418[t.de] + '</small></span><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></label>' +
       '<label class="cxL cc418" style="border-bottom:0"><span>Você recebe<small>em ' + MN418[t.para] + '</small></span><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></label>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="fx418P" data-act="trocar">Registrar troca</button>'
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="go" data-act="trocar">Registrar troca</button>'
     );
   }
   ACT.fjAbre = function (id) {
@@ -30336,19 +30107,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Bolinha no botão de ajustes quando algo está diferente do normal.
   S.cjF = { tipos: [], pub: [], ate: 0, sit: [] }; // filtros aplicados
   var CJ_ICO = {
-    solar: '<svg viewBox="0 0 20 20"><path class="k" d="M2 8h6.5l-.5 4a2 2 0 0 1-2 1.8H4.5a2 2 0 0 1-2-1.8zM11.5 8H18l-.5 4a2 2 0 0 1-2 1.8h-1.5a2 2 0 0 1-2-1.8z" fill="currentColor" stroke="currentColor" stroke-width="1"/><path d="M8.5 9h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
-    pre: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="5.5" cy="10.5" r="3.6"/><circle class="k" cx="14.5" cy="10.5" r="3.6"/><path d="M9.1 10h1.8"/></svg>',
-    sem: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><rect class="k" x="1.8" y="7.5" width="7" height="6" rx="1.6"/><rect class="k" x="11.2" y="7.5" width="7" height="6" rx="1.6"/><path d="M8.8 9.3h2.4"/></svg>',
-    F: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="10" cy="7" r="4"/><path class="k" d="M10 11v7M7 15h6"/></svg>',
-    M: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="8" cy="12" r="4.2"/><path class="k" d="M11 9l6-6M12.5 3H17v4.5"/></svg>',
-    U: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="7" cy="8" r="2.6"/><circle class="k" cx="13.5" cy="8" r="2.6"/><path class="k" d="M2.5 16c.6-2.6 2.4-4 4.5-4s3.9 1.4 4.5 4M10 16c.6-2.6 2.2-4 3.5-4 2 0 3.8 1.4 4.3 4"/></svg>',
-    moeda: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="k" cx="10" cy="10" r="7"/><path d="M10 6.5v7" stroke-linecap="round"/></svg>',
-    of: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path class="k" d="M3 3h6.5L17 10.5 10.5 17 3 9.5z"/><circle cx="6.8" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
-    nov: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path class="k" d="M10 2.5l1.8 4.7 4.7 1.8-4.7 1.8L10 15.5l-1.8-4.7L3.5 9l4.7-1.8z"/></svg>',
-    enc: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M5 2.5h10M5 17.5h10M6 2.5c0 4 3 5 4 7.5 1-2.5 4-3.5 4-7.5M6 17.5c0-4 3-5 4-7.5 1 2.5 4 3.5 4 7.5"/></svg>',
-    mais: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M3 15l4.5-4.5 3 3L17 7M12.5 7H17v4.5"/></svg>',
-    aj: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>',
-    sh: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>'
+    solar: '<svg viewBox="0 0 20 20"><path class="k" d="M2 8h6.5l-.5 4a2 2 0 0 1-2 1.8H4.5a2 2 0 0 1-2-1.8zM11.5 8H18l-.5 4a2 2 0 0 1-2 1.8h-1.5a2 2 0 0 1-2-1.8z" fill="currentColor" stroke="currentColor"/><path d="M8.5 9h3" stroke="currentColor" stroke-linecap="round"/></svg>',
+    pre: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round"><circle class="k" cx="5.5" cy="10.5" r="3.6"/><circle class="k" cx="14.5" cy="10.5" r="3.6"/><path d="M9.1 10h1.8"/></svg>',
+    sem: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round"><rect class="k" x="1.8" y="7.5" width="7" height="6" rx="1.6"/><rect class="k" x="11.2" y="7.5" width="7" height="6" rx="1.6"/><path d="M8.8 9.3h2.4"/></svg>',
+    F: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round"><circle class="k" cx="10" cy="7" r="4"/><path class="k" d="M10 11v7M7 15h6"/></svg>',
+    M: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round"><circle class="k" cx="8" cy="12" r="4.2"/><path class="k" d="M11 9l6-6M12.5 3H17v4.5"/></svg>',
+    U: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round"><circle class="k" cx="7" cy="8" r="2.6"/><circle class="k" cx="13.5" cy="8" r="2.6"/><path class="k" d="M2.5 16c.6-2.6 2.4-4 4.5-4s3.9 1.4 4.5 4M10 16c.6-2.6 2.2-4 3.5-4 2 0 3.8 1.4 4.3 4"/></svg>',
+    moeda: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><circle class="k" cx="10" cy="10" r="7"/><path d="M10 6.5v7" stroke-linecap="round"/></svg>',
+    of: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linejoin="round"><path class="k" d="M3 3h6.5L17 10.5 10.5 17 3 9.5z"/><circle cx="6.8" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
+    nov: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linejoin="round"><path class="k" d="M10 2.5l1.8 4.7 4.7 1.8-4.7 1.8L10 15.5l-1.8-4.7L3.5 9l4.7-1.8z"/></svg>',
+    enc: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M5 2.5h10M5 17.5h10M6 2.5c0 4 3 5 4 7.5 1-2.5 4-3.5 4-7.5M6 17.5c0-4 3-5 4-7.5 1 2.5 4 3.5 4 7.5"/></svg>',
+    mais: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M3 15l4.5-4.5 3 3L17 7M12.5 7H17v4.5"/></svg>',
+    aj: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>',
+    sh: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>'
   };
   var CJ_ATE = [50000, 100000, 150000, 'mais'];
   function cjPub(ref) {
@@ -30490,7 +30261,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           // S370 (esboço 26, aprovado 15/11/2026): o Catálogo é só varejo — a chave Varejo | Atacado saiu (atacado é pela conta/link do lojista)
           '<div class="cjG1"><div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
           '<div class="hint cjMh" id="cjMh"></div>' +
-          '<div class="cjVc"><div class="lbl" style="margin:0">Ver como</div><div class="cjVd">' + chip('sit', 'mais', 'Mais vendidos', CJ_ICO.mais) + '<div class="trk cjTV" id="cjTV"><span class="trkTh"></span><button type="button" class="trkB" data-m="g" aria-label="Cartões"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button><button type="button" class="trkB" data-m="l" aria-label="Lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></button></div></div></div>' +
+          '<div class="cjVc"><div class="lbl" style="margin:0">Ver como</div><div class="cjVd">' + chip('sit', 'mais', 'Mais vendidos', CJ_ICO.mais) + '<div class="trk cjTV" id="cjTV"><span class="trkTh"></span><button type="button" class="trkB" data-m="g" aria-label="Cartões"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button><button type="button" class="trkB" data-m="l" aria-label="Lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></button></div></div></div>' +
           '<div class="lbl">Tipo</div><div class="cjR cjR' + Math.min(4, tiposL.length) + '">' + tiposL.map(function (t) { return chip('tipos', t[0], t[1], CJ_ICO[t[0]]); }).join('') + '</div>' +
           '<div id="cjGr"></div>' +
           '<div class="lbl">Para quem</div><div class="cjR cjR3">' + chip('pub', 'F', 'Feminino', CJ_ICO.F) + chip('pub', 'M', 'Masculino', CJ_ICO.M) + chip('pub', 'U', 'Unissex', CJ_ICO.U) + '</div>' +
@@ -30747,6 +30518,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     );
     hi.style.margin = '0';
     c.appendChild(hi);
+    // o resultado das contagens dos últimos 30 dias (veio do Giro, ESBOCO 22/11): abre no lugar
+    var pc = perdasContagemHtml(), nct = S.contagens.filter(function (x) { return Date.now() - x.ts <= 30 * DAY; }).length;
+    if (pc) {
+      var pd = mk('div', 'fxG');
+      pd.innerHTML = dFold('pdc', 'Perdas e sobras (30 dias)', nct + (nct === 1 ? ' contagem no período' : ' contagens no período'), 'var(--sub)', pc);
+      c.appendChild(pd);
+    }
     if (S.contSum) return resumoContagem(c, difs);
     if (!gr.length) c.appendChild(mk('div', 'note n-warn', 'Nenhuma peça com esses filtros.'));
     gr.forEach(function (g) {
@@ -30808,7 +30586,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
       var okb = btn(
         'chip' + (S.contOk[g.key] ? ' on' : ''),
-        S.contOk[g.key] ? 'Conferido ✓' : 'Está tudo certo',
+        S.contOk[g.key] ? 'Conferido' : 'Está tudo certo',
         function () {
           if (S.contOk[g.key]) delete S.contOk[g.key];
           else S.contOk[g.key] = 1;
@@ -31039,7 +30817,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               r = corNova(ref, { cor: E.cor, vr: vr, q: E.q, custo: isFinite(cu) ? cu : null, grau: E.grau });
             if (!r.ok) return lfToast(r.erro, 'atencao');
             api.fecha(true);
-            lfToast(r.somou ? '✓ ' + E.cor + ': +' + E.q + ' no estoque' : '✓ Cor ' + E.cor + ' criada · a foto entra pela fila do Estúdio', 'ok');
+            lfToast(r.somou ? '' + E.cor + ': +' + E.q + ' no estoque' : 'Cor ' + E.cor + ' criada · a foto entra pela fila do Estúdio', 'ok');
             if (depois) depois();
           }
         };
@@ -31054,8 +30832,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.cupTipos = {}; // código → tipo (para os relatórios)
   S.cupLista = null; // {ts, j}
   var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', fiel: 'Cliente fiel', ev: 'Cupom do evento' };
-  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', fiel: '💜', ev: '🎄' };
-  function cupApi(b) {
+    function cupApi(b) {
     return nvToken().then(function (t) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/cupom', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(b) }).then(function (r) {
         return r.json();
@@ -31100,8 +30877,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function cupCaixaHtml() {
     if (S.cartCup)
       return (
-        '<div class="sl cupCx"><span>🎟️ ' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
-        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
+        '<div class="sl cupCx"><span>' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
+        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
     return ''; // S367: o código não se digita mais no Pedido; aplica-se em Clientes › Cartões › "Aplicar no pedido"
@@ -31126,7 +30903,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     S.cartCup = { cod: c.cod, pct: c.pct, tipo: c.tipo, desc: tot, lim: lim };
     S.cupTipos[c.cod] = c.tipo;
-    if (lim && primeira) cupAvisoLocal('✂️ Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
+    if (lim && primeira) cupAvisoLocal('Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
     saveSoon();
   }
   ACT.cupCx = function () {
@@ -31177,7 +30954,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var b = { acao: 'caixa', cod: c.cod, pid: 'loja:' + cartId, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', total: total, desc: c.desc };
     cupApi(b)
       .then(function (j) {
-        if (j && !j.ok && j.motivo) cupAvisoLocal('⚠️ Código conferido depois', c.cod + ': ' + cupMotivo(j.motivo, j.cupom));
+        if (j && !j.ok && j.motivo) cupAvisoLocal('Código conferido depois', c.cod + ': ' + cupMotivo(j.motivo, j.cupom));
       })
       .catch(function () {
         cupFilaPoe(b);
@@ -31190,7 +30967,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lfJanela({
         titulo: 'Cartão do cliente',
         monta: function (c, J) {
-          c.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="hint" style="margin:0">10% na próxima compra · vale na loja e em lafouch.com · 1 uso</div><button type="button" class="go" id="cupEnt">🎟️ Entregar cartão "Próxima compra"' + (cli && cli.nome ? ' a ' + esc(cli.nome) : '') + '</button></div>';
+          c.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="hint" style="margin:0">10% na próxima compra · vale na loja e em lafouch.com · 1 uso</div><button type="button" class="go" id="cupEnt">Entregar cartão "Próxima compra"' + (cli && cli.nome ? ' a ' + esc(cli.nome) : '') + '</button></div>';
           $('cupEnt').onclick = function () {
             this.disabled = true;
             cupApi({ acao: 'emitir', tipo: 'px', pct: 10, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', nome: cli ? cli.nome || '' : '' })
@@ -31218,7 +30995,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       txt = '🎟️ ' + (cp.pct || 10) + '% na próxima compra na La Fouch · código ' + cp.cod + ' · ' + cupLink(cp.cod);
     c.innerHTML =
       '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="cupCard"><small>LA FOUCH</small><b>' + cp.pct + '% ' + (cp.tipo === 'vip' ? 'sempre (VIP)' : cp.tipo === 'am' ? 'para a amiga' : 'na próxima compra') + '</b><code>' + esc(cp.cod) + '</code><i>' + (cp.fim ? 'vale até ' + fd(cp.fim) + ' · ' : '') + 'na loja e em lafouch.com</i></div>' +
-      (z ? '<button type="button" class="go" id="cupZap">Enviar pelo WhatsApp</button><div class="hint" style="margin:0">Abre o WhatsApp normal com a mensagem e o link do cartão (' + esc(cupLink(cp.cod).replace('https://', '')) + '). Sem custo.</div>' : '') +
+      (z ? '<button type="button" class="go" id="cupZap">Enviar pelo WhatsApp</button>' : '') +
       '<div class="cupQr" id="cupQr"></div><div class="hint" style="margin:0;text-align:center">' + (z ? 'Ou mostre o QR para ela ler' : 'Sem telefone: mostre o QR para ela ler') + '</div></div>';
     try {
       $('cupQr').innerHTML = window.LFqr ? window.LFqr.svg(cupLink(cp.cod)) : '';
@@ -31259,12 +31036,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pc = 0,
       tp = function (k, d) {
         var x = T[k] || { gerados: 0, usados: 0 };
-        return '<div class="sl"><span>' + CUP_IC[k] + ' <b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
+        return '<div class="sl"><span><b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
       };
     var av = (j.avisos || [])
       .map(function (a) {
-        var ic = a.t === 'trava' ? '🔒' : a.t === 'esgotado' ? '🎄' : a.t === 'pausa' ? '⏸️' : 'ℹ️';
-        return '<div class="sl"><span>' + ic + ' ' + esc(a.cod ? a.cod + ' · ' : '') + esc(a.d || '') + '<small>' + fd(a.ts) + '</small></span>' + (a.t === 'trava' && a.cod ? '<button type="button" class="mini ghost" data-cupdes="' + esc(a.cod) + '">Desfazer</button>' : '') + '</div>';
+        return '<div class="sl"><span>' + esc(a.cod ? a.cod + ' · ' : '') + esc(a.d || '') + '<small>' + fd(a.ts) + '</small></span>' + (a.t === 'trava' && a.cod ? '<button type="button" class="mini ghost" data-cupdes="' + esc(a.cod) + '">Desfazer</button>' : '') + '</div>';
       })
       .concat((S.cupAvL || []).slice().reverse().map(function (a) {
         return '<div class="sl"><span>' + esc(a.t) + '<small>' + esc(a.d) + ' · ' + fd(a.ts) + '</small></span></div>';
@@ -31278,13 +31054,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
-      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
+      (ev ? '<div class="hint" style="margin:0">' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
       '<div class="cupEv"><input class="in" id="cevCod" value="' + esc(ev ? ev.cod : '') + '" placeholder="Código (ex.: NAVIDAD10)" autocapitalize="characters"><input class="in" id="cevPct" inputmode="numeric" value="10" aria-label="Desconto %"><input class="in" id="cevMax" inputmode="numeric" value="50" aria-label="Limite total"></div>' +
       '<div class="hint" style="margin:0" id="cevSim"></div>' +
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
-      '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">✓ Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>✓ Código pessoal fica preso ao telefone do 1º uso<br>✓ Cupom do evento: 1 vez por pessoa e até o limite total<br>✓ Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>✓ Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>✓ Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>✓ Muitas tentativas erradas: o código trava sozinho por 24 h<br>✓ Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
+      '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>Código pessoal fica preso ao telefone do 1º uso<br>Cupom do evento: 1 vez por pessoa e até o limite total<br>Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>Muitas tentativas erradas: o código trava sozinho por 24 h<br>Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
       '<div class="lbl">Códigos ativos</div>' + (j.cupons || []).filter(function (x) { return x.estado === 'ok' && x.tipo !== 'bv'; }).slice(0, 20).map(function (x) {
-        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
+        return '<div class="sl"><span>' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
       }).join('') +
       '</div>';
     var sim = function () {
@@ -31292,7 +31068,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         mx = parseInt($('cevMax').value, 10) || 0,
         r = cupSimula(p),
         ok = r.cabe >= 0.8;
-      $('cevSim').innerHTML = p > 0 ? 'Simulação no estoque de hoje: cabe inteiro em <b>' + Math.round(r.cabe * 100) + '%</b> dos modelos · ' + r.lim + ' limitados pelo piso · ' + r.of + ' em oferta (não vale) · ' + mx + ' usos ≈ ' + gs(Math.round(mx * r.desc)) + ' de desconto' + (mx * r.desc > (t.teto - t.usado) ? ' (passa do teto do mês)' : ' (cabe no teto do mês)') + (ok ? ' ✓' : ' · ⚠️ com ' + p + '% cabe em pouco: use ' + r.sug + '%') : '';
+      $('cevSim').innerHTML = p > 0 ? 'Simulação no estoque de hoje: cabe inteiro em <b>' + Math.round(r.cabe * 100) + '%</b> dos modelos · ' + r.lim + ' limitados pelo piso · ' + r.of + ' em oferta (não vale) · ' + mx + ' usos ≈ ' + gs(Math.round(mx * r.desc)) + ' de desconto' + (mx * r.desc > (t.teto - t.usado) ? ' (passa do teto do mês)' : ' (cabe no teto do mês)') + (ok ? '' : ' · com ' + p + '% cabe em pouco: use ' + r.sug + '%') : '';
       $('cevOk').disabled = !(p > 0 && ok && mx > 0);
     };
     $('cevPct').oninput = sim;
@@ -31307,7 +31083,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         .then(function (r) {
           if (!r || !r.ok) return popErr(r && r.motivo === 'existe' ? 'Esse código já existe. Escolha outro.' : 'Não deu para criar o cupom.');
           S.cupTipos[r.cod] = 'ev';
-          lfToast('✓ Cupom ' + r.cod + ' publicado', 'ok');
+          lfToast('Cupom ' + r.cod + ' publicado', 'ok');
           cupArte(r.cod, p, mx, ev);
           ACT.cupAbre();
         })
@@ -31332,7 +31108,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             S.cartOpen = true;
             S.cartStep = 'ped';
             setView('vendas');
-            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
+            lfToast('Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
           })
           .catch(function () {
             u.disabled = false;
@@ -31347,7 +31123,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       d.disabled = true;
       cupApi({ acao: ac, cod: cod })
         .then(function () {
-          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 'ok');
+          lfToast(ac === 'destrava' ? '' + cod + ' destravado' : '' + cod + ' cancelado', 'ok');
           cupCarrega(function (j2) {
             if (j2) cupDesenha(c, j2);
           });
@@ -31404,11 +31180,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         j1 = new Date(a, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
       // A única Black Friday é a da CDE (dono, 13/11 e 21/11/2026): ano sem data da Câmara = ano sem Black Friday, como no site
-      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
-      L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
-      L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
-      L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
-      L.push({ tema: 'pais', nome: 'Dia dos Pais', ic: '👔', cod: 'PAPA10', ini: d(6, 1), fim: d(6, p2, 1) });
+      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
+      L.push({ tema: 'natal', nome: 'Natal', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
+      L.push({ tema: 'anonovo', nome: 'Ano Novo', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
+      L.push({ tema: 'maes', nome: 'Dia das Mães', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
+      L.push({ tema: 'pais', nome: 'Dia dos Pais', cod: 'PAPA10', ini: d(6, 1), fim: d(6, p2, 1) });
     });
     var x = L.filter(function (e) {
       return e.fim >= ag;
@@ -31421,8 +31197,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Post quadrado (1080×1080) e story (1080×1920) no estilo do tema, com o Mochi temático
   var CUP_ARTE = {
-    natal: ['#f7e9ef', '#1f5a3a', '#b3202f', 'Regalá estilo esta Navidad'], bf: ['#f4f1f3', '#141014', '#a44a7e', 'Black Friday La Fouch'], anonovo: ['#f6efe4', '#2a2140', '#b38a2e', 'Empezá el año con estilo'],
-    maes: ['#f9e8ee', '#7a2e55', '#c2577f', 'Para la mamá más linda'], pais: ['#eef0f4', '#1e2a3a', '#a77b2d', 'Para el papá con estilo'], '': ['#f7e9ef', '#2b1a2a', '#a44a7e', 'Un regalo para vos']
+    natal: ['#f7e9ef', '#1f5a3a', '#b3202f', 'Regalá estilo esta Navidad'], bf: ['#f4f1f3', '#141014', '#943d6f', 'Black Friday La Fouch'], anonovo: ['#f6efe4', '#2a2140', '#b38a2e', 'Empezá el año con estilo'],
+    maes: ['#f9e8ee', '#7a2e55', '#c2577f', 'Para la mamá más linda'], pais: ['#eef0f4', '#1e2a3a', '#a77b2d', 'Para el papá con estilo'], '': ['#f7e9ef', '#2b1a2a', '#943d6f', 'Un regalo para vos']
   };
   function cupArte(cod, pct, mx, ev) {
     var tema = ev ? ev.tema : '',
@@ -31507,10 +31283,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var ks = Object.keys(T);
     if (!ks.length) return '';
     return (
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Cada cartão valeu a pena?</h2><div class="hint" style="margin:0">Lucro das vendas com código − desconto = lucro líquido (' + MESES_L[d.getMonth()] + ').</div>' +
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Cada cartão valeu a pena?</h2>' +
       ks.map(function (k) {
         var t = T[k], liq = t.lucro - t.desc;
-        return '<div class="sl"><span>' + (CUP_IC[k] || '') + ' ' + (CUP_N[k] || k) + '<small>' + t.n + ' venda(s) · lucro ' + gs(t.lucro) + ' · desconto −' + gs(t.desc) + (liq < 0 ? ' · ⚠️ lucro negativo: baixe o %' : '') + '</small></span><b style="color:' + (liq >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(liq) + '</b></div>';
+        return '<div class="sl"><span>' + (CUP_N[k] || k) + '<small>' + t.n + ' venda(s) · lucro ' + gs(t.lucro) + ' · desconto −' + gs(t.desc) + (liq < 0 ? ' · lucro negativo: baixe o %' : '') + '</small></span><b style="color:' + (liq >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(liq) + '</b></div>';
       }).join('') + '</section>'
     );
   }
@@ -31555,7 +31331,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!pd.length) aba = 'novo';
     var pill =
       pd.length && us.length
-        ? '<div class="adSeg" role="tablist"><button type="button" role="tab" class="' + (aba === 'pend' ? 'on' : '') + '" data-act="adAba" data-id="pend">Aguardando cadastro · ' + pd.length + '</button><button type="button" role="tab" class="' + (aba === 'novo' ? 'on' : '') + '" data-act="adAba" data-id="novo">Dar entrada de novo</button></div>'
+        ? trilho('adTrk', 'Fotos', [{ on: aba === 'pend', attrs: 'data-act="adAba" data-id="pend"', html: 'Aguardando cadastro · ' + pd.length }, { on: aba === 'novo', attrs: 'data-act="adAba" data-id="novo"', html: 'Dar entrada de novo' }])
         : '<div class="lbl">' + (aba === 'pend' ? 'Aguardando cadastro · ' + pd.length : 'Dar entrada de novo') + '</div>';
     var corpo =
       aba === 'pend'
@@ -31571,6 +31347,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }).join('') +
           '</div>';
     b.innerHTML = pill + corpo;
+    trilhoAcerta(b);
   }
   ACT.adAba = function (id) {
     S.adAba = id === 'pend' ? 'pend' : 'novo';
@@ -31659,7 +31436,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="cg-puxa" aria-hidden="true"></div>' +
       '<div class="enF-top"><div class="enF-img">' + (f ? '<img alt="" src="' + f + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + ' · ' + it.qty + ' no estoque</div></div></div>' +
       '<div class="enF-q"><div class="lbl" style="margin:0">Quantas chegaram?</div><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="enQ" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="enN">' + _en.n + '</span><span class="vs-b" role="button" tabindex="0" data-act="enQ" data-id="1" aria-label="Mais">+</span></span></div>' +
-      '<button type="button" class="btn go" data-act="enGo" id="enGo" style="width:100%;margin-top:10px">' + enTxt() + '</button>'
+      '<button type="button" class="go" data-act="enGo" id="enGo" style="width:100%;margin-top:10px">' + enTxt() + '</button>'
     );
   }
   function enTxt() {
@@ -31709,7 +31486,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       nt = (S.fotoNota || {})[k],
       tem = !!(S.fotos && S.fotos[k]),
       h = '';
-    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + ' ✓</span>';
+    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + '</span>';
     else if (tem || nt) h += '<button type="button" class="selo warn" data-refaz="1">refazer' + (nt && nt.mot && nt.mot.length ? ' · ' + esc(nt.mot[0]) : nt ? ' · nota ' + nt.n : '') + ' ›</button>';
     // sobra (do ideal da lista de compras; a conta é feita 1× a cada poucos segundos)
     if (!CF_LC || Date.now() - CF_LC.t > 4000) {
@@ -31735,7 +31512,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // 4) Mensagem editável + enviar no app lembrado. Fica registrado na ficha do cliente.
   S.ebSel = null; // refs selecionadas (null = fora do modo seleção)
   var EB_EST = [
-    { bg: '#f7f1ec', fg: '#2b2420', ac: '#8a2f66', mu: '#7a6f68' },
+    { bg: '#f7f1ec', fg: '#2b2420', ac: '#943d6f', mu: '#7a6f68' },
     { bg: '#2a1622', fg: '#f4e8ef', ac: '#e8b6d2', mu: '#c9a9bb' },
     { bg: '#111111', fg: '#ffffff', ac: '#e8b6d2', mu: '#b0b0b0' }
   ];
@@ -31826,7 +31603,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (on && !k) {
         k = document.createElement('span');
         k.className = 'ebCk';
-        k.textContent = '✓';
+        k.innerHTML = ICO.chk;
         c.appendChild(k);
       }
     });
@@ -31908,7 +31685,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<button type="button" class="go ebEnv" id="ebEnv">Enviar no ' + esc(app.nome) + '</button>' +
           '<button type="button" class="ebOutro" id="ebOutro">outro app</button>';
         var paraTxt = function () {
-            $('ebPara').innerHTML = '<span class="ebAv">' + (E.cli ? esc(String(E.cli.nome || '?').slice(0, 2).toUpperCase()) : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>') + '</span><span style="flex:1;text-align:left">Para <b>' + (E.cli ? esc(E.cli.nome) : 'quem?') + '</b>' + (E.cli ? ' <span class="hint" style="display:inline;margin:0">· ' + (cliEstr(E.cli) ? 'estrangeiro' : 'paraguaio') + '</span>' : ' <span class="hint" style="display:inline;margin:0">(opcional)</span>') + '</span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[E.moeda] + ' ›</span>';
+            $('ebPara').innerHTML = '<span class="ebAv">' + (E.cli ? esc(String(E.cli.nome || '?').slice(0, 2).toUpperCase()) : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>') + '</span><span style="flex:1;text-align:left">Para <b>' + (E.cli ? esc(E.cli.nome) : 'quem?') + '</b>' + (E.cli ? ' <span class="hint" style="display:inline;margin:0">· ' + (cliEstr(E.cli) ? 'estrangeiro' : 'paraguaio') + '</span>' : ' <span class="hint" style="display:inline;margin:0">(opcional)</span>') + '</span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[E.moeda] + ' ›</span>';
           },
           cartao = function (p, k) {
             var s = EB_EST[E.est];
@@ -32023,7 +31800,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
             });
           }).then(function () {
-            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
+            if (E.cli) lfToast('Enviado para ' + String(E.cli.nome).split(' ')[0], 'ok');
           });
         };
         $('ebEnv').onclick = function () {
@@ -34622,8 +34399,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + pvm(p) + '</div>' : '') + '</div></div>' +
       (Object.keys(cores).length > 1 ? '<div class="vcores" style="margin:10px 0">' + ch + '</div>' : '') +
       '<div class="folha-q"><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="folhaN">' + o.qty + '</span><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="1" aria-label="Mais">+</span></span><span class="hint" style="margin:0">' + gLivre(it) + ' un. disponíveis</span></div>' +
-      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + pvm(p * o.qty) : '') + '</button>' +
-      '<div class="hint" style="text-align:center;margin:8px 0 0">Deslize para cima para ver a vitrine</div>'
+      '<button type="button" class="go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + pvm(p * o.qty) : '') + '</button>' +
+      ''
     );
   }
   function folhaDesenha() {
@@ -35215,7 +34992,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function fpAjHtml() {
     var n = fpChaves().length;
     return (
-      '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Só o fundo vira branco (255); a armação não é alterada. Peça no centro, formato 3:2, sem esticar. As fotos novas saem do Estúdio.</div>' +
+      '<div class="col" style="gap:8px">' +
       (n ? '<button type="button" class="go" data-act="fpLote">Padronizar ' + n + (n === 1 ? ' foto' : ' fotos') + '</button>' : '<div class="note n-ok">Todas as fotos já estão no padrão.</div>') +
       '</div>'
     );
@@ -35237,7 +35014,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           cls: 'fpJn',
           monta: function (c, J2) {
             // v465 (aprovado 08/11): ✓ verde suave, frase clara, Pronto como botão principal e Desfazer só em texto
-            c.innerHTML = '<div class="fpFim"><span class="fpOkIc" aria-hidden="true">✓</span><span>' + feitos + (feitos === 1 ? ' foto no padrão' : ' fotos no padrão') + ': fundo branco e mesmo tamanho' + (fora ? '<small>' + fora + ' ficaram como estavam (tire de novo pelo Estúdio)</small>' : '') + '</span></div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="fpDesf" id="fpDesf">Desfazer</button>';
+            c.innerHTML = '<div class="fpFim"><span class="fpOkIc" aria-hidden="true">' + ICO.chk + '</span><span>' + feitos + (feitos === 1 ? ' foto no padrão' : ' fotos no padrão') + ': fundo branco e mesmo tamanho' + (fora ? '<small>' + fora + ' ficaram como estavam (tire de novo pelo Estúdio)</small>' : '') + '</span></div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="fpDesf" id="fpDesf">Desfazer</button>';
             $('fpOk').onclick = function () {
               J2.fecha();
             };
@@ -36272,8 +36049,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       mt = [hPl(st.n, 'venda', 'vendas') + (st.est ? ' (' + hPl(st.est, 'estornada', 'estornadas') + ')' : '')];
     if (st.extra) mt.push('<span class="w">gastos ' + gs(st.extra) + '</span>');
     else if (st.nd) mt.push('<span class="w">' + hPl(st.nd, 'despesa', 'despesas') + '</span>');
-    if (st.outros) mt.push(hPl(st.outros, 'outro', 'outros'));
-    mt.push('lucro livre ' + gs(st.liv));
+    mt.push('lucro ' + gs(st.liv));
     return (
       '<button class="pcard hDia" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '">' +
       '<span class="d71"><span class="dt">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') + '<small>' + wd + '</small></span>' +
@@ -36325,7 +36101,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
         html +=
           '<div class="lbl" style="margin:14px 0 6px">' + cap1(MES_NOME[+ym.slice(5) - 1]) + ' de ' + ym.slice(0, 4) +
-          '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro livre ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
+          '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"><div class="g99 h101">'; // 149d: dias e semanas do mês já nascem como linhas de um grupo
       }
       if (k < lim) {
@@ -36386,7 +36162,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     el.innerHTML =
       '<div class="top"><div><h1>Histórico</h1><div class="crumb">Todas as vendas, dia por dia.</div></div></div>' +
       // S374 (esboço 71): busca sem a caixa em volta; 📅 e "Filtros" viram ícones de linha (44 px), como no Inventário
-      '<section class="col hBusca" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
+      '<section class="col hBusca" style="gap:10px"><div class="sel">' + buscaCampo('id="hq" data-in="hq" placeholder="Produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico"') +
       '<button type="button" class="ic71" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>' +
       '<button type="button" class="ic71' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-label="Filtros" aria-expanded="' + !!S.hFopen + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
@@ -36519,7 +36295,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (impScan.aviso) h += '<div class="hint" style="margin:0">' + esc(impScan.aviso) + '</div>';
       if (!impScan.busy && !impScan.itens.length) {
         h += '<div class="hint" style="margin:0">Confira se ela está ligada, no mesmo Wi-Fi do celular ou com o Bluetooth ligado.</div>';
-        h += '<button type="button" class="impBp" data-act="impProcurar">' + IMP_LUPA + 'Procurar de novo</button>';
+        h += '<button type="button" class="mini" data-act="impProcurar">' + IMP_LUPA + 'Procurar de novo</button>';
       }
     } else if (imp) {
       var w = impTemWifi(),
@@ -36528,16 +36304,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (w && b) {
         var m = imp.modo || 'auto',
           sb = function (k, t) {
-            return '<button type="button" class="cb3' + (m === k ? ' on' : '') + '" data-act="impModo" data-id="' + k + '">' + t + '</button>';
+            return { on: m === k, attrs: 'data-act="impModo" data-id="' + k + '"', html: t };
           };
-        h += '<div class="impLb">Conexão</div><div class="catbar3 impSeg" role="group" aria-label="Conexão">' + sb('auto', 'Automático') + sb('wifi', 'Só Wi-Fi') + sb('bt', 'Só Bluetooth') + '</div>';
+        h += '<div class="impLb">Conexão</div>' + trilho('impSeg', 'Conexão', [sb('auto', 'Automático'), sb('wifi', 'Só Wi-Fi'), sb('bt', 'Só Bluetooth')]);
         h += '<div class="hint" id="impModoH" style="margin:0">' + IMP_MODO_H[m] + '</div>';
       }
       h += '<button type="button" class="impBs" data-act="impTeste">' + IMP_REC + 'Imprimir teste</button>';
       h += '<button type="button" class="impBs impDel" data-act="impEsquecer">Esquecer impressora</button>';
     } else {
       h += cab('Impressora', '<span class="impDot"></span>Nenhuma conectada');
-      h += '<button type="button" class="impBp" data-act="impProcurar">' + IMP_LUPA + 'Procurar impressora</button>';
+      h += '<button type="button" class="mini" data-act="impProcurar">' + IMP_LUPA + 'Procurar impressora</button>';
     }
     return h + '</section>';
   }
@@ -36562,7 +36338,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.impProcurar = function () {
     var P = impPlugin();
     if (!P) {
-      lfaToast('<b>Procurar impressora</b><br>Funciona no app do celular com a versão nova. Por enquanto o comprovante usa a impressão do sistema.');
+      lfToast('Procurar impressora funciona no app do celular · por enquanto, a impressão do sistema', 'atencao');
       return;
     }
     impScan = { busy: true, itens: [], aviso: '' };
@@ -36617,15 +36393,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     impScan = null;
     impSalvar();
     impRedesenha();
-    lfaToast('<b>Impressora conectada</b><br>' + esc(imp.nome));
+    lfToast('Impressora conectada · ' + imp.nome, 'ok');
   };
   ACT.impModo = function (k) {
     if (!imp || !IMP_MODO_H[k]) return;
     imp.modo = k;
     impSalvar();
-    document.querySelectorAll('#impCard .impSeg .cb3').forEach(function (b) {
+    document.querySelectorAll('#impCard .impSeg .trkB').forEach(function (b) {
       b.classList.toggle('on', b.getAttribute('data-id') === k);
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-id') === k));
     });
+    trilhoAcerta($('impCard'));
     var h = $('impModoH');
     if (h) h.textContent = IMP_MODO_H[k];
   };
@@ -36639,10 +36417,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (b) b.disabled = true;
     impEnviar(impBytes(impTesteLinhas()))
       .then(function () {
-        lfaToast('<b>Teste enviado</b><br>Confira o papel na impressora.');
+        lfToast('Teste enviado · confira o papel', 'ok');
       })
       .catch(function (e) {
-        lfaToast('<b>A impressora não respondeu</b><br>' + esc((e && e.message) || 'Confira se ela está ligada.'));
+        lfToast('A impressora não respondeu · ' + ((e && e.message) || 'confira se ela está ligada'), 'erro');
       })
       .then(function () {
         if (b) b.disabled = false;
@@ -36743,6 +36521,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     jn.innerHTML = '<div class="ljPuxa" aria-hidden="true"></div>' + (o.titulo ? '<div class="ljHd"><b>' + esc(o.titulo) + '</b>' + (o.extra || '') + '</div>' : '') + '<div class="ljCorpo"></div>';
     document.body.appendChild(bk);
     document.body.appendChild(jn);
+    // o aviso curto de uma janela não passa para a próxima (conferência ESBOCO 22/11)
+    var ta = $('lfToast');
+    if (ta) { clearTimeout(lfToast.t); ta.classList.remove('on'); }
     var corpo = jn.querySelector('.ljCorpo'),
       aberta = true,
       H = function () {
@@ -37329,7 +37110,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function lcThumb(ref) {
     var f = photoOf(ref);
-    return '<span class="lcTh">' + (f ? '<img src="' + esc(f) + '" alt="">' : '<i>sem foto</i>') + '</span>';
+    return '<span class="lcTh' + (f ? '' : ' lcTh0') + '">' + (f ? '<img src="' + esc(f) + '" alt="">' : SEM_FOTO_SVG) + '</span>';
   }
   function lcNomeL(m, grau) {
     return '<span class="lcN"><span>' + esc(pn(m.ref)) + '</span>' + (grau ? ' <b class="lcG">' + esc(grau) + '</b>' : '') + '</span>';
@@ -37390,7 +37171,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       linhas = P.itens.map(function (p) {
         noPed[p.tipo + '|' + p.ref] = 1;
         var ch = Math.max(0, lcEntrou(p)),
-          st = ch >= p.q ? (ch > p.q ? '<b class="lcSo">sobra ' + (ch - p.q) + '</b>' : '<b style="color:var(--ok)">✓</b>') : '<b style="color:var(--bad,#ff8f8f)">faltou ' + (p.q - ch) + '</b>';
+          st = ch >= p.q ? (ch > p.q ? '<b class="lcSo">sobra ' + (ch - p.q) + '</b>' : '<b style="color:var(--ok)">' + ICO.chk + '</b>') : '<b style="color:var(--bad,#ff8f8f)">faltou ' + (p.q - ch) + '</b>';
         return '<div class="sl lcL">' + lcThumb(p.ref) + '<span>' + esc(pn(p.ref)) + (p.grau ? ' <b class="lcG">' + esc(p.grau) + '</b>' : '') + '<small>pedido ' + p.q + ' · chegou ' + ch + '</small></span>' + st + '</div>';
       });
     Object.keys(refsLote).forEach(function (k) {
@@ -38044,7 +37825,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           // plano
           var feitos = P.filter(function (x) { return x.feito; }).length;
           h += '<div class="mkSec">Plano da semana · ' + feitos + ' de ' + P.length + '</div><div class="mkPl">' + P.map(function (x) {
-            return '<div class="mkPi' + (x.feito ? ' ok' : '') + '"><button type="button" class="mkCk" data-feito="' + x.id + '" aria-label="Feito">' + (x.feito ? '✓' : '') + '</button><button type="button" class="mkPb" data-cria="' + x.fmt + '" data-refs="' + esc(x.refs.join(',')) + '" data-pid="' + x.id + '"><b>' + MK_DIAS[new Date(x.dia).getDay()] + ' · ' + MK_FMT[x.fmt].t + ' · ' + x.hora + '</b><small>' + esc(x.tema) + (x.refs.length ? ' — ' + x.refs.map(pn).slice(0, 2).join(', ') + (x.refs.length > 2 ? '…' : '') : '') + '</small></button></div>';
+            return '<div class="mkPi' + (x.feito ? ' ok' : '') + '"><button type="button" class="mkCk" data-feito="' + x.id + '" aria-label="Feito">' + (x.feito ? ICO.chk : '') + '</button><button type="button" class="mkPb" data-cria="' + x.fmt + '" data-refs="' + esc(x.refs.join(',')) + '" data-pid="' + x.id + '"><b>' + MK_DIAS[new Date(x.dia).getDay()] + ' · ' + MK_FMT[x.fmt].t + ' · ' + x.hora + '</b><small>' + esc(x.tema) + (x.refs.length ? ' — ' + x.refs.map(pn).slice(0, 2).join(', ') + (x.refs.length > 2 ? '…' : '') : '') + '</small></button></div>';
           }).join('') + '</div>';
           // datas
           if (D.length)
@@ -38053,12 +37834,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             }).join('') + '</div>';
           // listas
           var LS = mkListas();
-          h += '<details class="mkDt"><summary class="mkSec">Listas por perfil</summary><div class="hint" style="margin:0 0 6px">Para as listas de transmissão do WhatsApp Business: copie os números e cole na lista.</div><div class="split">' + LS.map(function (l) {
+          h += '<details class="mkDt"><summary class="mkSec">Listas por perfil</summary><div class="split">' + LS.map(function (l) {
             return '<div class="sl"><span>' + esc(l.t) + '<small>' + l.cl.length + ' com telefone' + (l.s ? ' · ' + l.s : '') + '</small></span>' + (l.cl.length ? '<button type="button" class="mini" data-lista="' + l.id + '">Copiar</button>' : '<b>—</b>') + '</div>';
           }).join('') + '</div></details>';
           // resultados
           h += '<details class="mkDt"><summary class="mkSec">Resultados</summary>';
-          if (!R.lista.length) h += '<div class="hint" style="margin:0">Poste pelo app: em 2 dias começo a medir vendas e pedidos do site das peças de cada post.</div>';
+          if (!R.lista.length) h += '';
           else {
             h += '<div class="split">' + Object.keys(R.porFmt).map(function (k) {
               var o = R.porFmt[k];
@@ -38320,13 +38101,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             sc = W / vw,
             dh = vh * sc;
           g.drawImage(v, 0, (H - dh) / 2 - 120, W, dh);
-          g.fillStyle = '#2a1a26';
+          g.fillStyle = '#2a1a22';
           g.textAlign = 'center';
           g.font = '600 64px Georgia, serif';
           g.fillText(f.nome, W / 2, H - 420);
           if (f.preco) {
             g.font = '800 92px Inter, system-ui, sans-serif';
-            g.fillStyle = '#a2447c';
+            g.fillStyle = '#943d6f';
             g.fillText(gs(f.preco), W / 2, H - 300);
           }
           g.font = '500 40px Inter, system-ui, sans-serif';
@@ -38458,7 +38239,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function mcBotao() {
     var tp = document.querySelector('#v-vendas > .top');
     if (!tp || tp.querySelector('.mcBtn')) return;
-    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
+    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
   }
   // parado 2 min: volta ao início para o próximo cliente
   function mcInicio() {
@@ -38563,7 +38344,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = mlCarrinho(itens);
     try { if (typeof avTocar === 'function') avTocar('sino'); } catch (e) {}
     try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) {}
-    lfToast('🛎️ Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho', 'atencao');
+    lfToast('Cliente chamando · ' + n + (n === 1 ? ' peça' : ' peças') + ' no carrinho', 'atencao');
     if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) {
       var id = 'c' + Date.now().toString(36);
       nvApi('POST', 'lojaChama?documentId=' + id, JSON.stringify({ fields: { n: { integerValue: String(n) }, ts: { integerValue: String(Date.now()) }, de: { stringValue: (typeof PUSH !== 'undefined' && PUSH.tok) || '' } } })).catch(function () {});
@@ -38922,7 +38703,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ov.classList.remove('vout');
         }, 320);
       }
-      lfToast('✓ Venda registrada', 'ok');
+      lfToast('Venda registrada', 'ok');
     }
   }
   function notaConfirma(titulo, sub, ok, acao) {
@@ -38964,7 +38745,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       feito = function () {
         if (b) {
           b.classList.add('vok');
-          b.textContent = '✓ Enviado';
+          b.textContent = 'Enviado';
         }
         setTimeout(notaFechar, REDUCED ? 0 : 800);
       };
@@ -38978,7 +38759,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         // impressora térmica conectada (Ajustes > Impressora): manda direto pelo Wi-Fi/Bluetooth
         impEnviar(impBytes(impTicketLinhas(n, notaFisOn(n))))
           .catch(function () {
-            lfaToast('<b>A impressora não respondeu</b><br>Abrindo a impressão do sistema.');
+            lfToast('A impressora não respondeu · abrindo a impressão do sistema', 'atencao');
             sistema();
           })
           .then(function () {
@@ -39317,7 +39098,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       L = (S._syncAps || []).filter(function (x) {
         return x.ap;
       });
-    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Aparelhos</h2><div class="hint" style="margin:2px 0 0">Perdeu o celular ou foi roubado? Desconecte aqui. O aparelho desconectado apaga os dados dele ao abrir com internet; a nuvem e o site não perdem nada.</div></div>';
+    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Aparelhos</h2></div>';
     if (S.apMsg) h += '<div class="note n-ok" role="status">' + esc(S.apMsg) + '</div>';
     L.forEach(function (x) {
       var esse = x.ap === eu;
@@ -39331,7 +39112,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!L.length) h += '<div class="hint" style="margin:0">Procurando aparelhos…</div>';
     if (S.apSairT) {
       h +=
-        '<div class="lbl">Sair de todos os aparelhos</div><div class="hint" style="margin:0">Troca a senha da nuvem: todo aparelho perde o acesso na hora (inclusive o roubado). Depois, entre de novo só nos seus aparelhos com a senha nova.</div>' +
+        '<div class="lbl">Sair de todos os aparelhos</div>' +
         '<input class="in" id="apPw1" type="password" autocomplete="new-password" placeholder="Senha nova (6 ou mais letras/números)"><input class="in" id="apPw2" type="password" autocomplete="new-password" placeholder="Repita a senha nova">' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="mini" data-act="apSairTodos">Trocar a senha e sair de todos</button><button type="button" class="chip" data-act="apSairCancela">Cancelar</button></div>';
     } else h += '<button type="button" class="chip apSair" data-act="apSairAbre">Sair de todos os aparelhos</button>';
@@ -39445,7 +39226,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
         if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
           window.__nvVencT = Date.now();
-          lfaToast('<span class="lfa-ic">' + lfaSvg('warn') + '</span><div><b>A sessão da nuvem venceu</b><div class="hint" style="margin:0">Entre de novo em Ajustes → Nuvem (a senha é necessária só desta vez).</div></div>', 7000);
+          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Nuvem', 'erro');
         }
         throw e;
       });
@@ -39520,7 +39301,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         } catch (e) {}
         var lf = $('lojaFrame');
         if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
-        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
+        lfToast('Nuvem conectada', 'ok');
         nvMsg('Conectado. Procurando cópias na nuvem…');
         try {
           apReg(true);
@@ -39627,7 +39408,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } else if (S.nvFeito === chave) {
       st = ' ok';
       ic =
-        '<svg class="nvCk" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        '<svg class="nvCk" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       lb = feito;
     } else if (S.nvConf && chave === 'rest' + S.nvConf) st = ' ask';
     return (
@@ -39914,9 +39695,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ---------- cartão em Ajustes
   function nvCard() {
     var h =
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2><div class="hint" style="margin:2px 0 0">Cópia de segurança automática (até 1 h depois de qualquer mudança; guarda a última de cada dia, as últimas ' +
-      NV_GUARDA +
-      ') e cotação da loja no site. Usa o mesmo e-mail e senha do catálogo.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2></div>';
     if (S.nvMsg) h += '<div class="note n-ok" role="status">' + esc(S.nvMsg) + '</div>';
     if (!S.nuvem.rt) {
       h +=
@@ -40144,7 +39923,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       d = new Date(),
       dia = d.getDate(),
       h = '<section class="card col mtCard"><div class="paMt"><span class="hint" style="margin:0">Meta do mês</span><span class="hint" style="margin:0">' + (meta > 0 ? 'meta ' + gs(Math.ceil(meta / 1000) * 1000) : 'aprendendo') + '</span></div><b class="paBig">' + gs(lucro) + '</b>';
-    if (!(meta > 0)) return h + '<div class="hint" style="margin:0">A meta aparece sozinha com 14 dias de vendas (média dos últimos meses + época do ano + estoque).</div></section>';
+    if (!(meta > 0)) return h + '</section>';
     var p = Math.max(0, Math.min(100, (lucro / meta) * 100)),
       hoje = Math.min(100, (dia / mi.dias) * 100),
       proj = dia > 0 ? Math.round((lucro / dia) * mi.dias) : 0,
@@ -40160,7 +39939,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (lucro >= (meta * dia) / mi.dias ? 'Adiantado' : 'Atrasado') +
         ' · no ritmo de hoje fecha o mês em <b>' + gs(proj) + '</b></div>' +
         (pdia > 0 ? '<div class="hint" style="margin:0">Para chegar lá: <b>~' + String(Math.round(pdia * 10) / 10).replace('.', ',') + ' peças por dia</b> até o fim do mês</div>' : '') +
-        '<div class="hint" style="margin:0">Passou da meta → metade vai para os Objetivos da loja</div>';
+        '';
     }
     return h + '</section>';
   }
@@ -40169,7 +39948,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var pl = objPlano(),
       h = '<section class="card col obCard"><div class="paMt"><h2 style="margin:0;font-size:16px">Objetivos da loja</h2><span class="hint" style="margin:0">guardado <b>' + gs(Math.round(pl.total)) + '</b></span></div>';
     if (!pl.itens.length) {
-      h += '<div class="hint" style="margin:0">Diga o que quer para a loja (reforma, vitrine, ar-condicionado…). Cada venda guarda um pouco e metade do que passar da meta vai para cá.</div>';
+      h += '';
     } else {
       h +=
         '<div class="hint" style="margin:0">Cada venda guarda <b>' + gs(melhPecaAuto()) + '</b> · enche um por vez, na ordem (segure para mudar)</div><div class="obLista" id="obLista">';
@@ -40184,7 +39963,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<div class="obIt" data-id="' + o.id + '"><div class="obL"><b>' + esc(o.nome) + '</b><span>' + gs(Math.round(x.tem)) + ' de ' + gs(o.custo) + '</span></div>' +
           '<div class="mtBar"><i style="width:' + Math.round(x.pct * 100) + '%"></i></div>' +
           '<div class="obS"><small>' + st + '</small>' +
-          (x.pronto ? '<button type="button" class="btn go obUsar" data-act="obUsar" data-id="' + o.id + '">Usar</button>' : '<button type="button" class="obX" data-act="obDel" data-id="' + o.id + '" aria-label="Remover objetivo">×</button>') +
+          (x.pronto ? '<button type="button" class="go obUsar" data-act="obUsar" data-id="' + o.id + '">Usar</button>' : '<button type="button" class="obX" data-act="obDel" data-id="' + o.id + '" aria-label="Remover objetivo">×</button>') +
           '</div></div>';
       });
       h += '</div>';
@@ -40205,7 +39984,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
       '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
       '<div><div class="lbl">Quero até</div><select class="in selAl" id="obAte">' + ops + '</select></div></div>' +
-      '<button type="button" class="pd418P" data-act="obAdd" style="margin-top:16px">Guardar objetivo</button></section>' // S418 (125b)
+      '<button type="button" class="go" data-act="obAdd" style="margin-top:16px">Guardar objetivo</button></section>' // S418 (125b)
     );
   }
   ACT.obAdd = function () {
@@ -40227,7 +40006,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._objPV = null;
     S.cxAcao = '';
     vibrar(20);
-    lfToast('✓ Objetivo guardado', 'ok');
+    lfToast('Objetivo guardado', 'ok');
     saveSoon();
     renderCaixa();
   };
@@ -40511,7 +40290,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'Vender na loja',
       l.length + ' peça(s) encalhada(s) · paradas há 120 dias ou mais',
       'var(--warn)',
-      '<div class="split" style="padding:0 14px 14px"><div class="hint" style="margin:0 0 6px">Na loja o preço já está no piso. No site, o desconto vai até 50%.</div>' +
+      '<div class="split" style="padding:0 14px 14px">' +
         l.map(function (x) {
           return '<div class="sl"><span>' + esc(pn(x.ref)) + '<small>parada ' + x.d + ' dias · ' + x.q + ' em estoque</small></span><b>' + gs(x.p) + '</b></div>';
         }).join('') +
@@ -40646,10 +40425,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return (
       '<section class="card col paCard">' +
       pautoSw('pautoTog', 'PIX pelo Nubank', P ? 'confirma sozinho quando chega a notificação "Pix recebido"' : 'só no app do Android (precisa do APK novo)', !!S.pixAuto, !P) +
-      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">✓ permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="btn go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
+      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
       '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
       (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
-      '<div class="hint" style="margin:0">Transferência (Banco Familiar): por enquanto com comprovante (o app lê o valor).</div>' +
+      '' +
       '</section><section class="card col paCard">' +
       pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
       '</section>'
@@ -40708,8 +40487,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function compLeHtml(p) {
     var r = p.compLe;
     if (!r) return COMP_LENDO[p.id] ? '<div class="pdMt" style="margin-top:4px">Lendo o comprovante…</div>' : '';
-    if (r.ok) return '<div class="pdMt" style="margin-top:4px;color:var(--ok,#5fd38d)"><b>✓ Valor confere: ' + esc(r.esp) + '</b>' + (r.d ? ' · ' + esc(r.d) : '') + '</div>';
-    if (r.v) return '<div class="pdMt" style="margin-top:4px;color:var(--bad,#e88)"><b>⚠ Valor diferente: ' + esc(r.v) + '</b> (esperado ' + esc(r.esp) + ') · confira antes de confirmar</div>';
+    if (r.ok) return '<div class="pdMt" style="margin-top:4px;color:var(--ok,#5fd38d)"><b>Valor confere: ' + esc(r.esp) + '</b>' + (r.d ? ' · ' + esc(r.d) : '') + '</div>';
+    if (r.v) return '<div class="pdMt" style="margin-top:4px;color:var(--bad,#e88)"><b>Valor diferente: ' + esc(r.v) + '</b> (esperado ' + esc(r.esp) + ') · confira antes de confirmar</div>';
     return '<div class="pdMt" style="margin-top:4px">Não consegui ler o valor (esperado ' + esc(r.esp) + '). Confira na imagem.</div>';
   }
   function compLeAgenda(p) {
@@ -41066,9 +40845,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (S.paPrev) {
       var pv = paPrevia();
       h +=
-        '<section class="card col paPrev"><b>Ligar o preço automático?</b><div class="hint" style="margin:0">Com os seus dados de hoje, o app faria:</div>' +
+        '<section class="card col paPrev"><b>Ligar o preço automático?</b>' +
         '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
-        '<button type="button" class="btn go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
+        '<button type="button" class="go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
     }
     return h;
   }
@@ -41142,7 +40921,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
-    lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado', 'ok');
+    lfToast(n ? 'Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Preço automático ligado', 'ok');
     render();
   };
   ACT.paNao = function () {
@@ -41151,7 +40930,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.paAgora = function () {
     var n = paRevisa(true);
-    lfToast(n ? '✓ ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
+    lfToast(n ? '' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Nada para ajustar agora', n ? 'ok' : 'andamento');
     render();
   };
   ACT.paDesf = function (id) {
@@ -41239,14 +41018,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['gota', 'Gota', 2],
     ['mudo', 'Sem som', 3]
   ];
-  // Tipos de aviso: letra, título, explicação, som de fábrica
+  // Tipos de aviso: letra, título, som de fábrica
   var AV_TIPOS = [
-    ['n', 'Pedido novo', 'Cliente fez um pedido no site', 'caixa'],
-    ['c', 'Comprovante enviado', 'Cliente mandou o comprovante para conferir', 'sino'],
-    ['p', 'Pagamento aprovado', 'Quando o Pagopar estiver ligado', 'moeda'],
-    ['x', 'Cliente cancelou', 'Cancelamento feito pelo site', 'suave'],
-    ['v', 'Peça voltou', 'Peça esgotada voltou ao estoque (lista de espera)', 'suave'],
-    ['d', 'Dólar barato', 'Bom momento para trocar dinheiro', 'mudo']
+    ['n', 'Pedido novo', 'caixa'],
+    ['c', 'Comprovante enviado', 'sino'],
+    ['p', 'Pagamento aprovado', 'moeda'],
+    ['x', 'Cliente cancelou', 'suave'],
+    ['v', 'Peça voltou', 'suave'],
+    ['d', 'Dólar barato', 'mudo']
   ];
   function avNome(id) {
     return (AV_SONS.filter(function (x) { return x[0] === id; })[0] || ['', 'Sino'])[1];
@@ -41257,7 +41036,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       o = { n: a.n !== false, c: a.c !== false, x: a.x !== false, p: a.p !== false, v: a.v !== false, d: a.d === true, q: !!a.q, qi: a.qi || '18:00', qf: a.qf || '07:00' };
     // quem já tinha escolhido UM som para tudo (a.som) continua com ele até mexer num tipo
     AV_TIPOS.forEach(function (t) {
-      o['s' + t[0]] = a['s' + t[0]] || (a.som && t[0] !== 'd' ? a.som : t[3]);
+      o['s' + t[0]] = a['s' + t[0]] || (a.som && t[0] !== 'd' ? a.som : t[2]);
     });
     o.som = o.sn;
     return o;
@@ -41416,7 +41195,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } catch (e) {}
   }
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
-  var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
   var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
   // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
   function avFaixa(a) {
@@ -41426,62 +41204,67 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       n = 'var(--line)';
     return i > f ? 'linear-gradient(90deg,' + r + ' 0 ' + f + '%,' + n + ' ' + f + '% ' + i + '%,' + r + ' ' + i + '%)' : 'linear-gradient(90deg,' + n + ' 0 ' + i + '%,' + r + ' ' + i + '% ' + f + '%,' + n + ' ' + f + '%)';
   }
-  function avLinha(t, a) {
-    var k = t[0],
-      mudo = a['s' + k] === 'mudo';
+  // 87 (aprovado): cada aviso é UMA linha — título, o som escolhido como frase e o interruptor; tocar na linha abre a janela "Som".
+  var AV_PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>';
+  function avLn(k, tit, frase, on, abre) {
     return (
-      '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
-      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
-      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
-      (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
+      '<div class="avLn' + (on ? '' : ' off') + '">' +
+      (abre ? '<button type="button" class="avLnB" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + tit + '">' : '<span class="avLnB">') +
+      '<b>' + tit + '</b><small>' + frase + '</small>' + (abre ? '</button>' : '</span>') +
+      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (on ? ' checked' : '') + ' aria-label="' + tit + '"><i></i></span></div>'
     );
   }
   function avPedidosHtml() {
     var a = avPref(),
-      nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
       grupos = AV_GRUPOS.map(function (g) {
-        return '<div class="lbl" style="margin:6px 0 0">' + g[0] + '</div>' + g[1].map(function (k) {
-          return avLinha(AV_TIPOS.filter(function (t) { return t[0] === k; })[0], a);
+        return '<div class="lbl avLb">' + g[0] + '</div>' + g[1].map(function (k) {
+          var t = AV_TIPOS.filter(function (x) { return x[0] === k; })[0];
+          return avLn(k, t[1], avNome(a['s' + k]), a[k], true);
         }).join('');
       }).join('');
     return (
-      '<section class="card col" id="avisosCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
-      (nat ? 'Celular (Android)' : 'Este computador') +
-      '</b>. Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.</div></div>' +
+      '<section class="col avCol" id="avisosCard">' +
       grupos +
-      '<div class="lbl" style="margin:6px 0 0">Silêncio</div><div class="avcard' + (a.q ? '' : ' off') + '"><div class="avtop"><span class="avico">🌙</span><span class="avtx"><b>Silêncio fora do horário</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">Sem som nem vibração</span></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></div>' +
+      '<div class="lbl avLb">Silêncio</div>' + avLn('q', 'Silêncio fora do horário', 'Sem som nem vibração', a.q, false) +
       (a.q
         ? '<div class="avhr"><input class="in" type="time" data-av="qi" value="' + a.qi + '" aria-label="Começa às"><span class="hint" style="margin:0">até</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" aria-label="Termina às"></div>' +
-          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>' +
-          '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
-        : '') + '</div>' +
-      '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
-      '<button type="button" class="b75" data-av="teste">Enviar aviso de teste</button><div class="hint" style="margin:-4px 0 0;text-align:center">toca o som de “Pedido novo”</div><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
-      avJanelaHtml()
+          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>'
+        : '') +
+      '<div class="lbl avLb">Testar</div>' +
+      '<button type="button" class="mini avTs" data-av="teste">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>'
     );
   }
-  // Janela para escolher o som de um tipo (toque no ▶ para ouvir antes).
-  function avJanelaHtml() {
-    var k = S._avSheet;
-    if (!k) return '';
+  // Janela de baixo "Som · <aviso>": os sons em linhas de bolinha, cada uma com ▶ para ouvir; "Salvar" guarda (regra 15).
+  function avSomJanela(k) {
     var t = AV_TIPOS.filter(function (x) { return x[0] === k; })[0];
-    if (!t) return '';
+    if (!t) return;
     var cur = avPref()['s' + k],
-      grupo = function (g, nome) {
-        var h = nome ? '<div class="lbl" style="margin:12px 0 4px">' + nome + '</div>' : '';
-        AV_SONS.filter(function (x) { return x[2] === g; }).forEach(function (x) {
-          var on = x[0] === cur;
-          h +=
-            '<div class="avopt' + (on ? ' on' : '') + '"><button type="button" class="avplay' + (x[0] === 'mudo' ? ' mu' : '') + '" data-av="ouvir" data-v="' + x[0] + '" aria-label="Ouvir ' + x[1] + '">' + (x[0] === 'mudo' ? '🔕' : '▶') + '</button>' +
-            '<button type="button" class="avpick" data-av="som" data-t="' + k + '" data-v="' + x[0] + '">' + x[1] + (on ? '<span>✓</span>' : '') + '</button></div>';
-        });
-        return h;
-      };
-    return (
-      '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Escolher o som" data-av="fechar"><div class="pdSh" style="max-height:82vh;overflow:auto"><div class="pdAl"></div>' +
-      '<b style="font-size:19px">Som de “' + t[1] + '”</b>' + grupo(1, 'Clássicos') + grupo(2, 'Novos') + grupo(3, '') +
-      '<button type="button" class="btn" data-av="fechar" style="width:100%;margin-top:14px">Pronto</button></div></div>'
-    );
+      sel = cur;
+    lfJanela({
+      titulo: 'Som · ' + t[1],
+      mudou: function () { return sel !== cur; },
+      monta: function (c, api) {
+        var pinta = function () {
+          c.innerHTML = AV_SONS.map(function (x) {
+            return '<div class="avSom"><button type="button" class="pxL" role="radio" aria-checked="' + (x[0] === sel) + '" data-som="' + x[0] + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>' + x[1] + '</b></span></button>' +
+              (x[0] === 'mudo' ? '' : '<button type="button" class="avPl" data-av="ouvir" data-v="' + x[0] + '" aria-label="Ouvir ' + x[1] + '">' + AV_PLAY + '</button>') + '</div>';
+          }).join('') + '<button type="button" class="go avSalva">Salvar</button>';
+          c.querySelectorAll('[data-som]').forEach(function (b) {
+            b.onclick = function () { sel = b.getAttribute('data-som'); avTocar(sel); pinta(); };
+          });
+          c.querySelector('.avSalva').onclick = function () {
+            S.avisos = S.avisos || {};
+            // ao mexer num tipo, os outros fixam o som que já tinham (assim o "som único" antigo não muda sozinho)
+            var at = avPref();
+            AV_TIPOS.forEach(function (x) { S.avisos['s' + x[0]] = at['s' + x[0]]; });
+            S.avisos['s' + k] = sel;
+            api.fecha(true);
+            avSalvou(true);
+          };
+        };
+        pinta();
+      }
+    });
   }
   function avSalvou(canal) {
     S._ajForce = true;
@@ -41491,7 +41274,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   }
   // Cartão de aviso dentro do app (mesmo desenho do aviso de teste): ícone, título, texto embaixo e hora.
-  var AV_IC = { teste: '🔔', novo: '🛒', comp: '🧾', cancel: '⚠️', pago: '✅' };
+  var AV_IC = { teste: ICO.sino, novo: ICO.sacola, comp: ICO.recibo, cancel: ICO.alerta, pago: ICO.chk };
   function avDentro(titulo, corpo, tipo) {
     var velho = document.getElementById('avDentro');
     if (velho) velho.remove();
@@ -41501,7 +41284,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     b.setAttribute('role', 'status');
     var t = String(titulo || '').replace(/^[^\wÀ-ÿ]+/, '');
     var d = new Date();
-    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || '🔔') + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
+    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || ICO.sino) + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
     b.addEventListener('click', function () {
       b.remove();
       if (tipo && tipo !== 'teste') setView('ped');
@@ -41554,7 +41337,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   document.addEventListener('change', function (ev) {
     var t = ev.target,
       k = t.getAttribute && t.getAttribute('data-av');
-    if (!k || k === 'som' || k === 'teste' || k === 'escolher' || k === 'ouvir' || k === 'fechar') return;
+    if (!k || k === 'teste' || k === 'escolher' || k === 'ouvir') return;
     S.avisos = S.avisos || {};
     S.avisos[k] = t.type === 'checkbox' ? t.checked : t.value;
     avSalvou(false);
@@ -41563,29 +41346,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var b = ev.target.closest && ev.target.closest('[data-av]');
     if (!b || b.tagName === 'INPUT') return;
     var k = b.getAttribute('data-av');
-    if (k === 'fechar') {
-      if (ev.target !== b && b.classList.contains('pdOv')) return; // toque dentro da folha não fecha
-      S._avSheet = null;
-      render();
-    } else if (k === 'escolher') {
-      S._avSheet = b.getAttribute('data-v');
-      render();
+    if (k === 'escolher') {
+      avSomJanela(b.getAttribute('data-v'));
     } else if (k === 'ouvir') {
       avTocar(b.getAttribute('data-v'));
       if (!b.classList.contains('tocando')) { var o = b.innerHTML; b.classList.add('tocando'); b.innerHTML = '<span class="eq"><b></b><b></b><b></b></span>'; setTimeout(function () { b.classList.remove('tocando'); b.innerHTML = o; }, 1500); }
-    }
-    else if (k === 'som') {
-      S.avisos = S.avisos || {};
-      var tp = b.getAttribute('data-t'),
-        v = b.getAttribute('data-v');
-      // ao mexer num tipo, os outros fixam o som que já tinham (assim o "som único" antigo não muda sozinho)
-      var at = avPref();
-      AV_TIPOS.forEach(function (x) {
-        S.avisos['s' + x[0]] = at['s' + x[0]];
-      });
-      S.avisos['s' + tp] = v;
-      avTocar(v);
-      avSalvou(true);
     } else if (k === 'teste') {
       var rg = b.querySelector('.ring');
       if (rg) { rg.classList.remove('tocando2'); void rg.offsetWidth; rg.classList.add('tocando2'); }
@@ -41782,7 +41547,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function sitePediuEl() {
     var j = siteAn(30),
       box = mk('div', 'repSite');
-    box.appendChild(mk('div', 'lbl', '🆕 O que o site pediu (30 dias)'));
+    box.appendChild(mk('div', 'lbl', 'O que o site pediu (30 dias)'));
     if (!j) {
       box.appendChild(mk('div', 'hint', S.nuvem && S.nuvem.rt ? 'Buscando os números do site…' : 'Entre na nuvem (Ajustes › Nuvem) para ver o que o site pediu.'));
       return box;
@@ -41816,7 +41581,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return tot[g] <= 3 && sitePedeGrau(g) >= SITE_PEDE_MIN && !(S.repQ && S.repQ[g] != null);
       })[0];
     if (dica)
-      box.appendChild(mk('div', 'hint', '💡 ' + dica.replace('.', ',') + (tot[dica] <= 0 ? ' acabou' : ' está baixo') + ' e ' + sitePedeGrau(dica) + ' pessoas deram ' + dica.replace('.', ',') + ' no teste → sugerido 2 pacotes.'));
+      box.appendChild(mk('div', 'hint', dica.replace('.', ',') + (tot[dica] <= 0 ? ' acabou' : ' está baixo') + ' e ' + sitePedeGrau(dica) + ' pessoas deram ' + dica.replace('.', ',') + ' no teste → sugerido 2 pacotes.'));
     return box;
   }
   // ---- D: cartão "Semana do site" no Início (aparece na segunda; some quando você toca em ×) ----
@@ -41893,11 +41658,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return d.getDate() + '/' + (d.getMonth() + 1);
     };
     return (
-      '<section class="card semSite"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 Semana do site · ' + f(x.ini) + '–' + f(x.fim) + '</b><button type="button" class="mini ghost" data-act="semsite" data-id="x" aria-label="Fechar">×</button></div>' +
+      '<section class="card semSite"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Semana do site · ' + f(x.ini) + '–' + f(x.fim) + '</b><button type="button" class="mini ghost" data-act="semsite" data-id="x" aria-label="Fechar">×</button></div>' +
       '<div class="semG"><div><b>' + x.vis + '</b><small>visitas' + (x.var != null ? ' (' + (x.var >= 0 ? '+' : '') + x.var + '%)' : '') + '</small></div><div><b>' + x.ped + '</b><small>pedidos</small></div><div><b>' + x.car + '</b><small>carrinhos</small></div><div><b>' + x.mochi + '</b><small>testes do Mochi</small></div></div>' +
-      (x.top ? '<div class="sl"><span>🔥 Mais vista</span><b>' + esc(x.top) + '</b></div>' : '') +
-      '<div class="sl"><span>🛒 Carrinhos parados</span><b>' + x.par + '</b></div>' +
-      '<div class="sl"><span>🎄 Tema ativo</span><b>' + esc(semanaTema()) + '</b></div>' +
+      (x.top ? '<div class="sl"><span>Mais vista</span><b>' + esc(x.top) + '</b></div>' : '') +
+      '<div class="sl"><span>Carrinhos parados</span><b>' + x.par + '</b></div>' +
+      '<div class="sl"><span>Tema ativo</span><b>' + esc(semanaTema()) + '</b></div>' +
       '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini" data-act="semsite" data-id="ver">Ver no Analisador ›</button><button type="button" class="mini ghost" data-act="semsite" data-id="copiar">Copiar relatório</button></div></section>'
     );
   }
@@ -41912,7 +41677,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!x) return;
       try {
         navigator.clipboard.writeText(semanaTexto(x)).then(function () {
-          lfToast('✓ Relatório copiado', 'ok');
+          lfToast('Relatório copiado', 'ok');
         });
       } catch (e) {}
     }
@@ -42009,7 +41774,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var h = ' · <span style="color:var(--accent-fg);font-weight:700">' + esc(apNome(s.ap)) + '</span>';
     if (s.off) {
       var st = vendaRevStatus(s);
-      h += ' · <span style="color:var(' + (st === 'conferir' ? '--warn' : '--ok') + ');font-weight:700">🕓 sem internet' + (st === 'conferir' ? ' · conferir' : ' · conferida ✓') + '</span>';
+      h += ' · <span style="color:var(' + (st === 'conferir' ? '--warn' : '--ok') + ');font-weight:700">sem internet' + (st === 'conferir' ? ' · conferir' : ' · conferida') + '</span>';
     }
     return h;
   }
@@ -42028,20 +41793,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function revBannerHtml() {
     var n = vendasRevisar().length;
-    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>⚠️ ' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink' + lkCls(true) + '" data-act="revabrir">Revisar ›</button></div>' : '';
+    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink' + lkCls(true) + '" data-act="revabrir">Revisar ›</button></div>' : '';
   }
   function revJanelaHtml() {
     if (!S._revAberta) return '';
     var l = vendasRevisar();
-    var h = '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Revisar vendas" data-act="revfechar"><div class="pdSh" style="max-height:84vh;overflow:auto"><div class="pdAl"></div><b style="font-size:19px">Revisar vendas</b><div class="hint" style="margin:2px 0 10px">Vendas feitas sem internet que o estoque não confirmou.</div>';
-    if (!l.length) h += '<div class="hint">Nada para revisar. 👍</div>';
+    var h = '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Revisar vendas" data-act="revfechar"><div class="pdSh" style="max-height:84vh;overflow:auto"><div class="pdAl"></div><b style="font-size:19px">Revisar vendas</b>';
+    if (!l.length) h += '<div class="hint">Nada para revisar.</div>';
     l.slice(0, 20).forEach(function (s) {
       h += '<div class="card col" style="padding:12px;margin-bottom:10px"><b>' + esc(descOf(s)) + '</b><div class="hint" style="margin:2px 0">' + esc(apNome(s.ap)) + ' · ' + fh(s.ts) + ' · ' + gs(s.price) + '</div>' +
         '<div class="note n-warn" style="margin:6px 0">O estoque dessa peça ficou negativo: outra venda da mesma peça foi feita em outro aparelho.</div>' +
-        '<button type="button" class="btn" data-act="revok" data-id="' + esc(s.id) + '" style="width:100%;margin-bottom:6px">Está certo (a peça existe)</button>' +
-        '<button type="button" class="btn" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Faltou a peça (tratar com a cliente)</button></div>';
+        '<button type="button" class="go" data-act="revok" data-id="' + esc(s.id) + '" style="width:100%;margin-bottom:6px">Está certo (a peça existe)</button>' +
+        '<button type="button" class="mini" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%">Faltou a peça (tratar com a cliente)</button></div>';
     });
-    return h + '<button type="button" class="btn" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
+    return h + '<button type="button" class="mini" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
   }
   ACT.syncver = function (ap) {
     atvAbre(ap);
@@ -42468,7 +42233,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + 'Desligar neste aparelho' + '</button>';
     } else {
       h +=
-        '<div class="hint" style="margin:0">Ambiente de teste. Os aparelhos trocam estoque, caixa e vendas. Comece pelo aparelho principal (o que tem os dados certos); depois entre com os outros.</div>' +
+        '' +
         '<button type="button" class="mini" data-act="syncbase">' + (S._syncC === 'base' ? 'Confirmar: este é o principal' : 'Este é o aparelho principal') + '</button>' +
         '<button type="button" class="mini" data-act="syncentra" style="background:var(--card2,#2a303b)">' + (S._syncC === 'entra' ? 'Confirmar: trocar os dados deste aparelho' : 'Entrar na sincronização (outro aparelho)') + '</button>';
     }
@@ -42553,21 +42318,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   function lfaSvg(n, extra) {
     return '<svg class="lfa-svg" viewBox="0 0 24 24"' + (extra || '') + '>' + (LFA_IC[n] || '') + '</svg>';
-  }
-  // Aviso que sobe/desce sozinho. pos 'b' = embaixo. Devolve o elemento.
-  function lfaToast(html, ms, pos) {
-    var b = document.createElement('div');
-    b.className = 'lfa-toast' + (pos === 'b' ? ' b' : '');
-    b.setAttribute('role', 'status');
-    b.innerHTML = html;
-    document.body.appendChild(b);
-    setTimeout(function () {
-      b.classList.add('sai');
-      setTimeout(function () {
-        if (b.parentNode) b.remove();
-      }, 350);
-    }, ms || 3500);
-    return b;
   }
   // Janela (folha) por cima de tudo, independente do desenho das abas.
   function lfaAbre(id, html, cheia) {
@@ -42704,9 +42454,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<b style="font:700 22px var(--display)' + (ok ? ';color:var(--ok)' : '') + '">' + (ok ? 'Aprovado!' : 'Aguardando aprovação') + '</b>' +
       '<span class="hint" style="margin:0">' + (ok ? 'Baixando os dados da loja…' : 'O dono precisa aprovar este aparelho. Até lá, nada é enviado nem recebido.') + '</span>' +
       (ok
-        ? '<div class="card"><div class="lfa-cnt"><i class="lfa-fill" style="width:100%"></i></div><span class="hint" style="margin:6px 0 0">Sincronizando estoque, vendas e clientes…</span></div>'
+        ? '<div class="card"><div class="lfa-cnt"><i class="lfa-fill" style="width:100%"></i></div></div>'
         : '<div class="card col" style="align-items:center"><span class="hint" style="margin:0">Mostre este código ao dono</span><div class="lfa-big">' + String(cod || '').split('').join(' ') + '</div></div>' +
-          '<button type="button" class="btn" data-act="apcancela" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar pedido</button>') +
+          '<button type="button" class="mini" data-act="apcancela" style="width:100%">Cancelar pedido</button>') +
       '</div>'
     );
   }
@@ -42768,7 +42518,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return syncListaAp();
       })
       .then(function () {
-        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Aparelho aprovado</b><div class="hint" style="margin:0">Já está sincronizando.</div></div>', 3000);
+        lfToast('Aparelho aprovado · já está sincronizando', 'ok');
       })
       .catch(function () {
         syncMsg('Não consegui aprovar agora (sem internet?). Tente de novo.', 'bad');
@@ -42792,16 +42542,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         apPendentes().forEach(function (x) {
           if (S._apAvisados[x.ap]) return;
           S._apAvisados[x.ap] = 1;
-          var t = lfaToast('<span class="lfa-ic">' + lfaSvg('phone') + '</span><div style="flex:1"><b>' + esc(x.nome || x.ap) + ' quer entrar</b><div class="hint" style="margin:0">Toque para conferir o código.</div></div>', 9000);
-          t.addEventListener('click', function () {
-            t.remove();
+          lfToast((x.nome || x.ap) + ' quer entrar', 'atencao', { t: 'Conferir', fn: function () {
             S.view = 'ajustes';
             render();
             setTimeout(function () {
               var c = document.getElementById('syncCard');
               if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
-          });
+          } });
         });
       })
       .catch(function () {});
@@ -42819,7 +42567,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h +=
         '<div class="card col' + (novo ? ' lfa-exp' : '') + '" style="background:var(--panel2)"><div style="display:flex;gap:10px;align-items:center"><span class="lfa-ic">' + lfaSvg('phone') + '</span><div><b>' + esc(x.nome || x.ap) + '</b><div class="hint" style="margin:0">pediu ' + fh(x.ts) + '</div></div></div>' +
         '<div class="lfa-big">' + String(x.cod || '').split('').join(' ') + '</div>' +
-        '<div style="display:flex;gap:8px"><button type="button" class="btn lfa-pr" data-act="apaprova" data-id="' + esc(x.ap) + '" style="flex:1">Aprovar</button><button type="button" class="btn lfa-pr" data-act="aprecusa" data-id="' + esc(x.ap) + '" style="flex:1;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Recusar</button></div></div>';
+        '<div style="display:flex;gap:8px"><button type="button" class="go" data-act="apaprova" data-id="' + esc(x.ap) + '" style="flex:1">Aprovar</button><button type="button" class="mini" data-act="aprecusa" data-id="' + esc(x.ap) + '" style="flex:1">Recusar</button></div></div>';
     });
     return h;
   }
@@ -43199,7 +42947,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
                 S.fotosH[k] = fotoHashSync(v);
                 S.fotosV[k] = e.v || 0;
                 feitas++;
-                if (tinha && e.by && e.by !== S.aparelho) avisos.push('<span class="lfa-ic">' + lfaSvg('glass') + '</span><div><b>Foto de ' + esc(fotoNomeK(k)) + ' atualizada</b><div class="hint" style="margin:0">por ' + esc(apNome(e.by)) + '</div></div>');
+                if (tinha && e.by && e.by !== S.aparelho) avisos.push('Foto de ' + fotoNomeK(k) + ' atualizada por ' + apNome(e.by));
               }
             });
           });
@@ -43214,9 +42962,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           saveSoon();
           if (S.view === 'estoque' || S.view === 'vendas') render();
         }
-        avisos.slice(0, 2).forEach(function (a) {
-          lfaToast(a, 3500);
-        });
+        if (avisos.length) lfToast(avisos[0] + (avisos.length > 1 ? ' · +' + (avisos.length - 1) : ''), 'neutro');
         return feitas;
       })
       .catch(function () {
@@ -43239,18 +42985,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   setInterval(fotoCiclo, 180000);
   setTimeout(fotoCiclo, 20000);
-  // Apagar a foto de uma peça (chamado pelo botão "Excluir foto" quando a sincronização está ligada)
+  // Apagar a foto de uma peça (chamado pelo botão "Excluir foto" quando a sincronização está ligada).
+  // 81 (aprovado 22/11 23:40): apaga na hora e mostra o aviso "Foto na lixeira · Desfazer" — sem janela de confirmação.
+  // Só a lixeira cheia ainda abre a janela, porque aí não dá para apagar.
   window.__fotoApagaPede = function (k) {
     if (!S.syncOn) return false;
-    var cheia = fotoLixeira().length >= FOTO_MAX;
-    var h = cheia
-      ? '<b style="font:700 18px var(--display)">Lixeira cheia</b><div class="lfa-cnt f"><i class="lfa-amb" style="width:100%"></i></div><span class="hint" style="margin:0">Já são ' + fotoLixeira().length + ' fotos apagadas. Para proteger contra engano, esvazie a lixeira antes de apagar mais.</span><div class="lfa-shk" style="display:none"></div>' +
-        '<button type="button" class="btn lfa-pr" data-act="fotolixabre" style="width:100%">Ir para a lixeira</button><button type="button" class="btn lfa-pr" data-act="fotosheetfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>'
-      : '<b style="font:700 18px var(--display)">Apagar esta foto?</b><span class="hint" style="margin:0">Ela some de <b>todos os aparelhos</b> e fica ' + FOTO_DIAS + ' dias na lixeira. Dá para restaurar em Ajustes → Fotos apagadas.</span>' +
-        '<div class="note n-info"><span class="lfa-ic" style="width:22px;height:22px">' + lfaSvg('trash') + '</span>Lixeira: ' + fotoLixeira().length + ' de ' + FOTO_MAX + ' fotos</div>' +
-        '<button type="button" class="btn lfa-pr" data-act="fotoapaga" data-id="' + esc(encodeURIComponent(k)) + '" style="width:100%;background:#c0392b;border:1.5px solid #c0392b;color:#fff">Apagar em todos</button><button type="button" class="btn lfa-pr" data-act="fotosheetfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>';
-    var o = lfaAbre('fotoSheet', h);
-    if (cheia) o.firstChild.classList.add('lfa-shk');
+    if (fotoLixeira().length < FOTO_MAX) {
+      ACT.fotoapaga(encodeURIComponent(k));
+      return true;
+    }
+    var o = lfaAbre('fotoSheet', '<b style="font:700 18px var(--display)">Lixeira cheia</b><div class="lfa-cnt f"><i class="lfa-amb" style="width:100%"></i></div><span class="hint" style="margin:0">Já são ' + fotoLixeira().length + ' fotos apagadas. Para proteger contra engano, esvazie a lixeira antes de apagar mais.</span><div class="lfa-shk" style="display:none"></div>' +
+        '<button type="button" class="go" data-act="fotolixabre">Ir para a lixeira</button><button type="button" class="cf418V" data-act="fotosheetfecha">Voltar</button>');
+    o.firstChild.classList.add('lfa-shk');
     return true;
   };
   ACT.fotosheetfecha = function () {
@@ -43266,8 +43012,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaFecha('fotoSheet');
     render();
     setTimeout(fotoCiclo, 6000);
-    var t = lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Foto na lixeira</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="fotodesfaz" style="font-weight:700">Desfazer</button>', 5000, 'b');
-    t.setAttribute('data-foto-toast', '1');
+    lfToast('Foto na lixeira', 'neutro', { t: 'Desfazer', fn: ACT.fotodesfaz });
   };
   ACT.fotodesfaz = function () {
     if (!fotoUndo) return;
@@ -43276,10 +43021,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.fotosRest[fotoUndo.k] = 1;
     fotoUndo = null;
     saveSoon();
-    [].forEach.call(document.querySelectorAll('[data-foto-toast]'), function (x) {
-      x.remove();
-    });
-    lfaToast('<span class="lfa-ic">' + lfaSvg('undo') + '</span><div><b>Foto restaurada</b></div>', 2500, 'b');
+    lfToast('Foto restaurada', 'ok');
     render();
     fotoCiclo();
   };
@@ -43288,7 +43030,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function fotoLixHtml() {
     var L = fotoLixeira(),
       h = '<div style="display:flex;align-items:center;gap:10px"><b style="font:700 19px var(--display);flex:1">Fotos apagadas</b><button type="button" class="pdLink" data-act="fotolixfecha">Fechar</button></div>';
-    h += '<div class="card col"><div style="display:flex;justify-content:space-between"><b>Lixeira</b><span class="hint" style="margin:0" id="lixCnt">' + L.length + ' de ' + FOTO_MAX + '</span></div><div class="lfa-cnt' + (L.length >= FOTO_MAX ? ' f' : '') + '"><i style="width:' + (L.length * 100) / FOTO_MAX + '%"></i></div><span class="hint" style="margin:0">Cada foto some sozinha depois de ' + FOTO_DIAS + ' dias.</span></div>';
+    h += '<div class="card col"><div style="display:flex;justify-content:space-between"><b>Lixeira</b><span class="hint" style="margin:0" id="lixCnt">' + L.length + ' de ' + FOTO_MAX + '</span></div><div class="lfa-cnt' + (L.length >= FOTO_MAX ? ' f' : '') + '"><i style="width:' + (L.length * 100) / FOTO_MAX + '%"></i></div></div>';
     if (!L.length) h += '<div class="card" style="text-align:center"><span class="lfa-ic" style="width:40px;height:40px;color:var(--ok)">' + lfaSvg('check') + '</span><div><b>Lixeira vazia</b></div></div>';
     else {
       h += '<div class="card" style="padding:4px 12px">';
@@ -43301,7 +43043,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<div style="flex:1;min-width:0"><b>' + esc(fotoNomeK(x.k)) + '</b><div class="hint" style="margin:0">apagada por ' + esc(apNome(x.e.by)) + ' · ' + fh(x.e.del) + '</div></div>' +
           '<div style="text-align:right;white-space:nowrap"><button type="button" class="pdLink lfa-pr" data-act="fotorest" data-id="' + esc(encodeURIComponent(x.k)) + '" style="font-weight:700">Restaurar</button><div class="hint" style="margin:0">' + dias + (dias === 1 ? ' dia' : ' dias') + '</div></div></div>';
       });
-      h += '</div><button type="button" class="btn lfa-pr" data-act="fotolixvaz" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Esvaziar lixeira</button>';
+      h += '</div><button type="button" class="mini" data-act="fotolixvaz" style="width:100%">Esvaziar lixeira</button>';
     }
     return h;
   }
@@ -43366,7 +43108,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         S.fotosV[k] = n.v;
         delete S.fotosRest[k];
         if (lfaSlot('fotoLix')) fotoLixDesenha(true);
-        lfaToast('<span class="lfa-ic" style="color:var(--ok)">' + lfaSvg('undo') + '</span><div><b>Foto restaurada</b><div class="hint" style="margin:0">Voltou para todos os aparelhos</div></div>', 3000, 'b');
+        lfToast('Foto restaurada em todos os aparelhos', 'ok');
         render();
       }, 450);
     };
@@ -43375,10 +43117,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .then(function (d) {
         var v = ((d.fields || {}).d || {}).stringValue;
         if (v && v.indexOf('data:image/') === 0) pronta(v);
-        else lfaToast('<div><b>Não achei esta foto na nuvem.</b></div>', 3000, 'b');
+        else lfToast('Não achei esta foto na nuvem', 'erro');
       })
       .catch(function () {
-        lfaToast('<div><b>Sem internet para restaurar agora.</b></div>', 3000, 'b');
+        lfToast('Sem internet para restaurar agora', 'erro');
       });
   };
   // esvaziar: confirmação reforçada (digitar ESVAZIAR)
@@ -43389,7 +43131,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'fotoVaz',
       '<b style="font:700 18px var(--display)">Esvaziar a lixeira?</b><div class="note n-bad"><span class="lfa-ic" style="width:22px;height:22px">' + lfaSvg('warn') + '</span><div><b>Não tem volta.</b> ' + (L.length === 1 ? 'A foto some' : 'As ' + L.length + ' fotos somem') + ' de vez em todos os aparelhos.</div></div>' +
         '<span class="hint" style="margin:0">Para confirmar, digite <b>ESVAZIAR</b>:</span><input class="in" id="vazIn" autocomplete="off" autocapitalize="characters" style="text-align:center;letter-spacing:3px;font-weight:700">' +
-        '<button type="button" class="btn lfa-pr" id="vazBt" data-act="fotovazok" style="width:100%;background:#c0392b;border:1.5px solid #c0392b;color:#fff;opacity:.4;transition:opacity .3s" disabled>Esvaziar agora</button><button type="button" class="btn lfa-pr" data-act="fotovazfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>'
+        '<button type="button" class="cf418B" id="vazBt" data-act="fotovazok" disabled>Esvaziar agora</button><button type="button" class="cf418V" data-act="fotovazfecha">Voltar</button>'
     );
     var inp = document.getElementById('vazIn');
     if (inp)
@@ -43398,7 +43140,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           b = document.getElementById('vazBt');
         if (b) {
           b.disabled = !ok;
-          b.style.opacity = ok ? '1' : '.4';
         }
         inp.style.borderColor = ok ? 'var(--accent)' : '';
       });
@@ -43438,7 +43179,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }, 300 + L.length * 150);
       })
       .catch(function () {
-        lfaToast('<div><b>Não consegui esvaziar agora.</b> Tente de novo.</div>', 3500, 'b');
+        lfToast('Não consegui esvaziar agora · tente de novo', 'erro');
       });
   };
   if (/#test/.test(location.hash))
@@ -43470,12 +43211,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function temaMarca() {
     var v = temaVal();
-    var bs = document.querySelectorAll('.tmseg [data-tm]');
+    var bs = document.querySelectorAll('.tmTrk [data-tm]');
     for (var i = 0; i < bs.length; i++) {
       var on = bs[i].getAttribute('data-tm') === v;
       bs[i].classList.toggle('on', on);
       bs[i].setAttribute('aria-pressed', on ? 'true' : 'false');
     }
+    trilhoAcerta($('temaCard'));
   }
   function temaSet(v, btn) {
     var rr = document.documentElement;
@@ -43520,22 +43262,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function temaCard() {
     var v = temaVal();
     function b(k, conteudo, rot) {
-      return (
-        '<button type="button" data-tm="' + k + '" class="' + (v === k ? 'on' : '') + '" aria-pressed="' + (v === k ? 'true' : 'false') + '"' +
-        (rot ? ' aria-label="' + rot + '" title="' + rot + '"' : '') + '>' + conteudo + '</button>'
-      );
+      return { on: v === k, attrs: 'data-tm="' + k + '"' + (rot ? ' aria-label="' + rot + '" title="' + rot + '"' : ''), html: conteudo };
     }
     var sol =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
     var lua =
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
     return (
-      '<section class="card col" id="temaCard"><div><h2 style="margin:0;font-size:16px">Tema</h2><div class="hint" style="margin:2px 0 0">Automático segue o aparelho. Vale só neste aparelho.</div></div>' +
-      '<div class="tmseg" role="group" aria-label="Tema">' + b('auto', 'Auto', '') + b('claro', sol, 'Claro') + b('escuro', lua, 'Escuro') + '</div></section>'
+      '<section class="card col" id="temaCard"><div><h2 style="margin:0;font-size:16px">Tema</h2></div>' +
+      trilho('tmTrk', 'Tema', [b('auto', 'Auto', ''), b('claro', sol, 'Claro'), b('escuro', lua, 'Escuro')]) + '</section>'
     );
   }
   document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('.tmseg [data-tm]');
+    var b = e.target.closest && e.target.closest('.tmTrk [data-tm]');
     if (!b) return;
     e.preventDefault();
     temaSet(b.getAttribute('data-tm'), b);
@@ -43803,224 +43542,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     setTimeout(vistasBusca, 40000);
     setInterval(vistasBusca, 30 * 60000);
   }
-  // ===== Vitrine da semana (v428, aprovado 04/11/2026) =====
-  // A vitrine física da loja: o app sugere o que ENTRA, o que SAI e o que FICA. O dono informa quantos lugares
-  // tem (perguntado no próprio cartão), pode FIXAR peças (📌 nunca saem) e toca "Troquei a vitrine".
-  // Aprende comparando a venda de cada peça quando estava exposta e quando não estava. Aviso no sino na segunda.
-  S.vit = { lug: 0, fix: {}, atual: [], ts: 0, hist: [], avSeg: '' };
-  function vitPecas() {
-    var vis = {},
-      out = [];
-    S.items.forEach(function (i) {
-      if (vis[i.ref] || i.bulk || isSimple(i.tipo) || i.tipo === 'pre') return;
-      vis[i.ref] = 1;
-      var st = S.items.reduce(function (a, x) {
-        return a + (x.ref === i.ref && x.qty > 0 ? x.qty : 0);
-      }, 0);
-      if (st > 0) out.push({ ref: i.ref, tipo: i.tipo, stock: st });
-    });
-    return out;
-  }
-  // Vendas por dia exposta × não exposta (pelo histórico das trocas de vitrine).
-  function vitAprende(ref) {
-    var H = (S.vit.hist || []).slice().sort(function (a, b) {
-      return a.ts - b.ts;
-    });
-    if (!H.length) return null;
-    var exp = { d: 0, v: 0 },
-      nao = { d: 0, v: 0 },
-      ini = H[0].ts,
-      now = Date.now();
-    for (var k = 0; k < H.length; k++) {
-      var a = H[k].ts,
-        b = k + 1 < H.length ? H[k + 1].ts : now,
-        on = H[k].refs.indexOf(ref) >= 0,
-        alvo = on ? exp : nao;
-      alvo.d += (b - a) / DAY;
-      S.sales.forEach(function (s) {
-        if (!s.estorno && s.ref === ref && s.ts >= a && s.ts < b) alvo.v += s.qty;
-      });
-    }
-    S.sales.forEach(function (s) {
-      if (!s.estorno && s.ref === ref && s.ts < ini && now - s.ts <= 90 * DAY) nao.v += s.qty;
-    });
-    nao.d += Math.max(0, Math.min(90, (ini - (now - 90 * DAY)) / DAY));
-    if (exp.d < 7 || nao.d < 7) return null;
-    return { exp: exp.v / exp.d, nao: nao.v / nao.d };
-  }
-  function vitNota(p) {
-    var now = Date.now(),
-      dPar = paParado(p.ref),
-      ent = (now - paPrimEntrada(p.ref)) / DAY,
-      of = S.pprice && S.pprice[p.ref] && S.pprice[p.ref].ant > S.pprice[p.ref].novo,
-      fE = sazonFator(p.tipo, new Date(now + 10 * DAY).getMonth()),
-      n = 0,
-      mot = [];
-    if (ent <= 30) {
-      n += 3;
-      mot.push('novidade');
-    }
-    if (of) {
-      n += 2;
-      mot.push('oferta');
-    }
-    if (dPar >= 45) {
-      n += Math.min(3, dPar / 30);
-      mot.push(Math.round(dPar) + ' dias parada');
-    }
-    if (fE >= 1.15) {
-      n += 1.5;
-      mot.push('época');
-    }
-    if (p.stock >= 3) n += 0.5;
-    var ap = vitAprende(p.ref);
-    if (ap && ap.exp > ap.nao * 1.2) {
-      n += 1.5;
-      mot.push('vende mais exposta');
-    } else if (ap && ap.exp < ap.nao * 0.8) n -= 1;
-    return { n: n, mot: mot };
-  }
-  function vitSugestao() {
-    var L = S.vit.lug || 0,
-      ps = vitPecas(),
-      ex = {},
-      fix = Object.keys(S.vit.fix || {}).filter(function (r) {
-        return ps.some(function (p) {
-          return p.ref === r;
-        });
-      });
-    ps.forEach(function (p) {
-      ex[p.ref] = p;
-      p.nt = vitNota(p);
-    });
-    var resto = ps
-      .filter(function (p) {
-        return fix.indexOf(p.ref) < 0;
-      })
-      .sort(function (a, b) {
-        return b.nt.n - a.nt.n;
-      });
-    var sug = fix.slice(0, L);
-    resto.forEach(function (p) {
-      if (sug.length < L) sug.push(p.ref);
-    });
-    var atual = (S.vit.atual || []).filter(function (r) {
-      return ex[r];
-    });
-    return {
-      sug: sug,
-      ex: ex,
-      entram: sug.filter(function (r) {
-        return atual.indexOf(r) < 0;
-      }),
-      saem: atual.filter(function (r) {
-        return sug.indexOf(r) < 0;
-      }),
-      ficam: sug.filter(function (r) {
-        return atual.indexOf(r) >= 0;
-      }),
-      semEst: (S.vit.atual || []).filter(function (r) {
-        return !ex[r];
-      })
-    };
-  }
-  function vitChip(r, V, extra) {
-    var p = V.ex[r],
-      f = S.vit.fix && S.vit.fix[r];
-    return (
-      '<div class="sl vtL"><span class="vtI">' + (photoOf(r) ? '<img src="' + esc(photoOf(r)) + '" alt="">' : '') + '</span><span style="flex:1;min-width:0">' + esc(pn(r)) + '<small>' + esc(extra || (p && p.nt.mot.join(' · ')) || '') + '</small></span>' +
-      '<button type="button" class="mini vtFx' + (f ? ' on' : '') + '" data-act="vitFixa" data-id="' + esc(r) + '" aria-label="' + (f ? 'Desafixar' : 'Fixar') + '">📌</button></div>'
-    );
-  }
-  function vitHtml() {
-    var h = '<section class="card col vtCard" id="vtCard"><div>';
-    if (!(S.vit.lug > 0))
-      return (
-        h +
-        '<div class="hint" style="margin:0">Para sugerir o que entra e o que sai, preciso saber o tamanho da vitrine.</div></div>' +
-        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1 1 auto;min-width:0;width:auto"><button type="button" class="go" data-act="vitLug" style="flex:none;width:auto;padding:0 26px">Salvar</button></div></section>'
-      );
-    var V = vitSugestao(),
-      quando = S.vit.ts ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'ainda não registrada';
-    h += '<div class="hint" style="margin:0">' + S.vit.lug + ' lugares · ' + quando + ' · <button type="button" class="lnk" data-act="vitLugMuda">mudar lugares</button></div></div>';
-    if (!S.vit.atual.length) {
-      h += '<div class="lcSec" style="color:var(--accent-fg)">Sugestão · ' + V.sug.length + '</div><div class="split">' + V.sug.map(function (r) { return vitChip(r, V); }).join('') + '</div>';
-    } else {
-      if (!V.entram.length && !V.saem.length) h += '<div class="note n-ok">A vitrine está boa. Nada para trocar.</div>';
-      if (V.entram.length) h += '<div class="lcSec" style="color:var(--ok)">Entram · ' + V.entram.length + '</div><div class="split">' + V.entram.map(function (r) { return vitChip(r, V); }).join('') + '</div>';
-      if (V.saem.length || V.semEst.length)
-        h += '<div class="lcSec" style="color:var(--warn)">Saem · ' + (V.saem.length + V.semEst.length) + '</div><div class="split">' + V.saem.map(function (r) { return vitChip(r, V, 'abre lugar para outra'); }).concat(V.semEst.map(function (r) { return '<div class="sl vtL"><span style="flex:1">' + esc(pn(r)) + '<small>sem estoque</small></span></div>'; })).join('') + '</div>';
-      if (V.ficam.length) h += '<details class="vtFi"><summary class="lcSec" style="color:var(--sub)">Ficam · ' + V.ficam.length + '</summary><div class="split">' + V.ficam.map(function (r) { return vitChip(r, V); }).join('') + '</div></details>';
-    }
-    var apr = V.sug
-      .map(function (r) {
-        var a = vitAprende(r);
-        return a && a.nao > 0 ? { r: r, x: a.exp / a.nao } : null;
-      })
-      .filter(Boolean)
-      .sort(function (a, b) {
-        return b.x - a.x;
-      })[0];
-    if (apr && apr.x >= 1.2) h += '<div class="hint" style="margin:0">Aprendi: ' + esc(pn(apr.r)) + ' vende ' + String(Math.round(apr.x * 10) / 10).replace('.', ',') + '× mais quando está na vitrine.</div>';
-    if (!S.vit.atual.length || V.entram.length || V.saem.length || V.semEst.length) h += '<button type="button" class="go" data-act="vitTroquei">Troquei a vitrine</button>';
-    return h + '</section>';
-  }
-  ACT.vitLug = function () {
-    var n = parseInt(($('vtLug') || {}).value, 10);
-    if (!(n > 0)) return lfToast('Digite quantos lugares', 'atencao');
-    S.vit.lug = Math.min(200, n);
-    saveSoon();
-    render();
-  };
-  ACT.vitLugMuda = function () {
-    S.vit.lug = 0;
-    render();
-  };
-  ACT.vitFixa = function (r) {
-    if (!S.vit.fix) S.vit.fix = {};
-    if (S.vit.fix[r]) delete S.vit.fix[r];
-    else S.vit.fix[r] = Date.now();
-    saveSoon();
-    render();
-  };
-  ACT.vitTroquei = function () {
-    var V = vitSugestao();
-    S.vit.atual = V.sug.slice();
-    S.vit.ts = Date.now();
-    (S.vit.hist = S.vit.hist || []).push({ ts: S.vit.ts, refs: V.sug.slice() });
-    if (S.vit.hist.length > 60) S.vit.hist = S.vit.hist.slice(-60);
-    saveSoon();
-    lfToast('Vitrine registrada', 'ok');
-    render();
-  };
-  // Aviso na segunda-feira (uma vez), só se houver troca a fazer.
-  function vitAvisa() {
-    if (!(S.vit.lug > 0)) return;
-    var d = new Date(),
-      dia = d.toISOString().slice(0, 10);
-    if (d.getDay() !== 1 || S.vit.avSeg === dia) return;
-    var V = vitSugestao();
-    if (S.vit.atual.length && !V.entram.length && !V.saem.length) return;
-    S.vit.avSeg = dia;
-    (S.notifs = S.notifs || []).unshift({
-      ts: Date.now(),
-      lida: false,
-      t: 'Vitrine da semana',
-      s: S.vit.atual.length ? V.entram.length + ' entram · ' + V.saem.length + ' saem' : 'sugestão pronta para montar',
-      acts: [{ act: 'vitVer', id: '', b: 'Ver' }]
-    });
-    saveSoon();
-  }
-  ACT.vitVer = function () {
-    S.dTab = 'giro';
-    S.dfold = S.dfold || {};
-    S.dfold.vit = true;
-    setView('dash');
-  };
-  if (!/#test/.test(location.hash)) {
-    setTimeout(vitAvisa, 20000);
-    setInterval(vitAvisa, 60 * 60000);
-  }
   // ===== S182 (aprovado 12/11/2026, jeito 1): tela de PIN com o teclado da La Fouch =====
   // O teclado numérico fica sempre na tela (sem o teclado do celular); bolinhas mostram quantos números já foram;
   // ao completar o PIN entra sozinho (sem botão Entrar). O botão roxo da digital abre a janela da biometria SÓ quando tocado.
@@ -44028,7 +43549,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   (function () {
     var scr = $('lockScr'), inp = $('lockPin');
     if (!scr || !inp || $('pinKb')) return;
-    var BIO = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/></svg>';
+    var BIO = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/></svg>';
     var w = document.createElement('div');
     w.id = 'pinKb';
     w.innerHTML = '<div class="pkDots" id="pkDots" aria-hidden="true"></div><div class="pkGrid">' +
@@ -44144,12 +43665,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = temaAtual();
     if (!t || t.tema === 'halloween') return '';
     var on = S.temaOf && S.temaOf.tema === t.tema && S.temaOf.fim >= Date.now();
-    if (on) return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + ' · desconto aplicado</b><small>' + Object.keys(S.temaOf.refs).length + ' peças · termina sozinho em ' + fd(S.temaOf.fim) + '</small></div><button type="button" class="gMudo" data-act="temaDesfaz">Desfazer</button></section>';
+    if (on) return '<section class="card temaC noconta"><div><b>' + esc(t.nome) + ' · desconto aplicado</b><small>' + Object.keys(S.temaOf.refs).length + ' peças · termina sozinho em ' + fd(S.temaOf.fim) + '</small></div><button type="button" class="gMudo" data-act="temaDesfaz">Desfazer</button></section>';
     if (t.dias > 20 || S.temaNao[temaAno(t)]) return '';
     // só avisa quando há o que sugerir (conta guardada por 1 min)
     if (!temaCardHtml._c || Date.now() - temaCardHtml._c.ts > 60000 || temaCardHtml._c.t !== t.tema) temaCardHtml._c = { ts: Date.now(), t: t.tema, n: temaSugestao(t).n };
     if (!temaCardHtml._c.n) return '';
-    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
+    return '<section class="card temaC noconta"><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
   function temaForaHtml(sg) {
     var f = sg.fora || {}, L = [];
@@ -44166,11 +43687,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!t) return;
     var sg = temaSugestao(t), ant = S.temaRes[t.tema + '-' + (new Date(t.ini).getFullYear() - 1)];
     lfJanela({
-      titulo: t.ic + ' ' + t.nome,
+      titulo: t.nome,
       monta: function (c) {
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + fd(t.ini) + ' a ' + fd(t.fim) + ' · termina sozinho</div>' +
           '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça entra no desconto pela regra de hoje' + (t.tema === 'bf' ? ' (Black Friday: só peças paradas há 30 dias ou mais)' : '') + '.</div>' + temaForaHtml(sg) + '<div class="hint" style="display:none">') +
-          (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '<div class="hint" style="margin:6px 0 0">Novidades e as 3 mais vendidas ficam sem desconto. O cupom do evento não soma.</div></section>' +
+          (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '</section>' +
           (sg.n ? '<section class="card col"><div class="lbl">SIMULAÇÃO</div><div class="sl"><span>Lucro médio por peça</span><b>' + gs(sg.lucroAntes) + ' → ' + gs(sg.lucroDepois) + '</b></div><div class="sl"><span>Para empatar</span><b>vender ' + sg.empata + '% a mais</b></div>' +
             '<div class="sl"><span>Orçamento do tema</span><span style="display:flex;gap:6px;align-items:center">US$ <input class="in" id="temaOrc" inputmode="decimal" style="width:90px" value="' + (S.temaOrc || '') + '"></span></div><div class="hint" id="temaOrcH" style="margin:0"></div>' +
             (ant ? '<div class="hint" style="margin:6px 0 0">Ano passado: ' + ant.pecas + ' peças, ' + gs(ant.vendas) + ' em vendas.</div>' : '') + '</section>' : '') +
@@ -44183,7 +43704,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           S.temaOf = { tema: t.tema, ini: Math.max(t.ini, Date.now() - DAY), fim: t.fim, refs: sg.refs, ts: Date.now(), orc: S.temaOrc };
           saveSoon();
           if (typeof vitFila === 'function') Object.keys(sg.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); });
-          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
+          lfToast('Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
           S.temaMail = { chave: temaAno(t), ini: S.temaOf.ini, nome: t.nome };
           temaMailTenta();
           render();
@@ -44208,7 +43729,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!tx) { m.feito = 1; saveSoon(); return; }
     nvToken().then(function (tk) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/novidades', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tk }, body: JSON.stringify({ acao: 'tema', chave: m.chave, titulo: tx[0], texto: tx[1], tituloEs: tx[2], textoEs: tx[3] }) }).then(function (r) { return r.json(); });
-    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
+    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
   }
   setTimeout(temaMailTenta, 15000);
   // ===== S191 v2 (aprovado 12/11/2026): Conta Atacadista/Mayorista (Clientes) =====
@@ -44360,7 +43881,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
       var tab = (tabLista().filter(function (t) { return !t.pub && /^a/.test(t.id); })[0] || {}).id || 'opt';
       c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, cliId: String(cli.id), ts: Date.now() };
-      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
+      ataGrava(c).then(function (ok) { lfToast(ok ? 'Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
       ataPublica(c.tab);
     }
     ataJanela(c.id);
@@ -44384,7 +43905,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             else {
               var qn = cliNorm(st.q), qd = cliDig(st.q),
                 ms = st.q.trim().length >= 2 ? (S.clientes || []).filter(function (c) { return cliNorm(c.nome).indexOf(qn) >= 0 || (qd.length >= 3 && cliDig(c.tel).indexOf(qd) >= 0) || (c.email && String(c.email).toLowerCase().indexOf(st.q.trim().toLowerCase()) >= 0); }).slice(0, 4) : [];
-              h += '<input class="in" id="ataQ" placeholder="Buscar cliente: nome, telefone ou e-mail" value="' + esc(st.q) + '" autocomplete="off">';
+              h += buscaCampo('id="ataQ" placeholder="Nome, telefone ou e-mail" value="' + esc(st.q) + '" aria-label="Buscar cliente"');
               if (st.q.trim().length >= 2)
                 h += '<div class="ata418M">' + ms.map(function (c) { return '<button type="button" data-c="' + c.id + '"><b>' + esc(c.nome || 'Cliente') + '</b><small>' + esc([c.tel, c.email].filter(Boolean).join(' · ')) + '</small></button>'; }).join('') +
                   '<button type="button" data-n="1"><b>+ Novo cliente “' + esc(st.q.trim().slice(0, 18)) + (st.q.trim().length > 18 ? '…' : '') + '”</b></button></div>';
@@ -44482,7 +44003,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var novos = 0;
       S.ataPeds = S.ataPeds || {};
       (j.documents || []).forEach(function (d) { var id = d.name.split('/').pop(); if (!S.ataPeds[id]) { S.ataPeds[id] = ataFv(d.fields); novos++; } });
-      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado', 'ok'); }
+      if (novos) { saveSoon(); lfToast('' + novos + ' pedido(s) de atacado', 'ok'); }
       return novos;
     }, function () { return 0; });
   }
@@ -44588,7 +44109,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', '), 'erro'); return; }
           var o = Object.assign({}, L, r.x, { id: L.id || ataLoteId(), nome: $('ltNm').value.trim() || 'Lote ' + fd(Date.now()), contas: contas, moeda: mo, ate: Date.now() + dias * DAY, cancelado: false, ts: Date.now() });
           ataPublica(o.tab);
-          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
+          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? 'Lote salvo. Agora dá para enviar o link' : 'Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); ataLoteJanela(o.id); });
         };
       }
     });
@@ -44631,9 +44152,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             (L.filtro ? '<div class="sl"><span>Filtro</span><b>' + esc(({ armacao: 'Armações', sol: 'Sol', leitura: 'Leitura' }[L.filtro.tipo] || 'Todos') + (L.filtro.mat ? ' · ' + L.filtro.mat : '')) + '</b></div>' : '') +
             '<div class="sl"><span>Moeda inicial</span><b>' + (ATA_MOEDAS.filter(function (m) { return m[0] === L.moeda; })[0] || ATA_MOEDAS[0])[1] + '</b></div></section>' +
             '<section class="card col" style="gap:0"><div class="lbl">COMO ESTÁ</div>' +
-            '<div class="sl"><span>✅ Confirmados</span><b>' + (si ? si.conf.length : '…') + '</b></div>' +
-            '<div class="sl"><span>🧺 Montando agora (30 min)</span><b>' + (si ? si.mont.length : '…') + '</b></div>' +
-            '<div class="sl"><span>⛔ Esgotaram</span><b>' + Object.keys(refs).filter(function (r) { return !(refs[r].cores || []).some(function (c) { return c[1] > 0; }); }).length + '</b></div></section>' +
+            '<div class="sl"><span>Confirmados</span><b>' + (si ? si.conf.length : '…') + '</b></div>' +
+            '<div class="sl"><span>Montando agora (30 min)</span><b>' + (si ? si.mont.length : '…') + '</b></div>' +
+            '<div class="sl"><span>Esgotaram</span><b>' + Object.keys(refs).filter(function (r) { return !(refs[r].cores || []).some(function (c) { return c[1] > 0; }); }).length + '</b></div></section>' +
             '<section class="card col" style="gap:0"><div class="lbl">ENVIAR O LINK</div>' + (L.contas || []).map(function (cid) { var c = S.ataContas[cid]; return c ? '<div class="sl"><span>' + esc(c.nome) + '</span>' + (ativo ? '<button type="button" class="gBtn" data-act="ataLoteEnvia" data-id="' + esc(L.id + '|' + cid) + '">WhatsApp</button>' : '<b>—</b>') + '</div>' : ''; }).join('') + '</section>' +
             '<div class="ataRw"><button type="button" class="mini ghost" data-act="ataLoteEdita" data-id="' + esc(L.id) + '">Editar</button>' + (ativo ? '<button type="button" class="mini ghost ataRm" data-act="ataLoteCanc" data-id="' + esc(L.id) + '">Encerrar lote</button>' : '') + '</div></div>';
         };
@@ -44726,7 +44247,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             h += '<section class="card col fiTopo"><div class="fiId">' + (foto ? '<img alt="" src="' + foto + '">' : '<span></span>') + '<div><b>' + esc(ref) + ' · ' + esc(pn(ref)) + '</b><small>' + esc([((typeof attrOf === 'function' && attrOf(ref)) || {}).publico, it && tFor(it).nome].filter(Boolean).join(' · ')) + '</small></div></div>' +
               '<div class="sl"><span>Ficha completa</span><b style="color:' + (feitas === 6 ? 'var(--ok)' : 'var(--warn)') + '">' + feitas + ' de 6</b></div><div class="fiBar"><i style="width:' + Math.round((feitas / 6) * 100) + '%"></i></div></section>' +
               '<section class="card col" style="gap:0">' + E.map(function (e) {
-                return '<button type="button" class="fiEt" data-et="' + e.n + '"><span class="fiN">' + e.n + '</span><span class="fiT"><b>' + e.t + '</b><small>' + esc(e.s) + '</small></span><span class="' + (e.ok ? 'fiOk' : 'fiFal') + '">' + (e.ok ? '✓' : '!') + '</span></button>';
+                return '<button type="button" class="fiEt" data-et="' + e.n + '"><span class="fiN">' + e.n + '</span><span class="fiT"><b>' + e.t + '</b><small>' + esc(e.s) + '</small></span><span class="' + (e.ok ? 'fiOk' : 'fiFal') + '">' + (e.ok ? ICO.chk : '!') + '</span></button>';
               }).join('') + '</section>';
             var fal = E.filter(function (e) { return !e.ok; })[0];
             if (fal) h += '<section class="card fiAv"><b>Falta: ' + esc(fal.t) + '</b><small>' + esc(fal.s) + '. O texto se atualiza sozinho depois.</small></section>';
@@ -44738,17 +44259,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             }).join('') + '</div></section>';
             var ruim = C.filter(function (x) { var k = ref + '|' + x.cor; return x.foto && S.fotoRev[k] && !S.fotoOk[k]; })[0];
             if (ruim) h += '<section class="card col fiAv"><b>Revisão do designer</b><small>"' + esc(ruim.cor) + '": ' + (S.fotoRev[ref + '|' + ruim.cor] === 'escura' ? 'escura. Use mais luz e o fundo branco.' : 'fundo que não é branco. Use o fundo branco e centralize.') + '</small><div class="fiPe"><button type="button" class="fiG" data-fi="refaz">Refazer agora</button><button type="button" class="fiH" data-fi="mant" data-cor="' + esc(ruim.cor) + '">Manter assim</button></div></section>';
-            h += '<section class="card col"><div class="lbl">UMA FOTO POR COR</div><small class="hint" style="margin:0">Cada cor tem a sua foto. É ela que aparece quando o cliente escolhe a cor no site e no WhatsApp.</small></section>';
+            h += '<section class="card col"><div class="lbl">UMA FOTO POR COR</div></section>';
           } else if (etapa === 4 || etapa === 5) {
             var cu = it ? +it.custo || +it.usd || (typeof tFor === 'function' ? +tFor(it).repUSD || 0 : 0) : 0, p = it ? precoTab(it) : 0, fx = (S.fx && S.fx.pyg) || 0, pub = !!(S.site && S.site[ref]);
             h += '<section class="card col"><div class="lbl">ETAPA 4 · PREÇO (CONTADOR)</div><div class="sl"><span>Custo</span><b>' + (cu ? 'US$ ' + cu.toFixed(2).replace('.', ',') : '—') + '</b></div>' +
               '<div class="sl"><span>Venda</span><b style="font-size:18px">' + (fx ? 'US$ ' + (p / fx).toFixed(2).replace('.', ',') : '') + '</b></div><div class="sl"><span>No site</span><b>' + gs(p) + (S.fx && S.fx.brl && fx ? ' · R$ ' + Math.max(5, Math.round(p / (fx / S.fx.brl) / 5) * 5) : '') + '</b></div></section>' +
-              '<section class="card col"><div class="lbl">ETAPA 5 · CANAIS</div><div class="fiCh"><span class="on">Loja</span><span class="' + (pub ? 'on' : '') + '">Site</span><span class="' + (S.ataPub && S.ataPub[ref] === false ? '' : 'on') + '" data-fi="ata">Atacado</span></div><small class="hint" style="margin:6px 0 0">Toque em Atacado para tirar ou pôr esta peça na lista do lojista.</small></section>';
+              '<section class="card col"><div class="lbl">ETAPA 5 · CANAIS</div><div class="fiCh"><span class="on">Loja</span><span class="' + (pub ? 'on' : '') + '">Site</span><span class="' + (S.ataPub && S.ataPub[ref] === false ? '' : 'on') + '" data-fi="ata">Atacado</span></div></section>';
           } else if (etapa === 6 || etapa === 1 || etapa === 2) {
             var md = fiMed(ref), a = (typeof attrOf === 'function' && attrOf(ref)) || {};
             h += '<section class="card col fiAuto"><div class="lbl">ETAPA 6 · TEXTO DE VENDA · AUTOMÁTICO</div><div class="sl"><span>Formato (das fotos)</span><b>' + esc(a.formato || '—') + '</b></div><div class="sl"><span>Tamanho (medida)</span><b>' + esc(md ? fiTamanho(md) : '—') + '</b></div>' +
               '<div class="sl"><span>Material</span><b>' + esc(a.material || '—') + '</b></div><div class="sl"><span>Cores</span><b>' + C.length + '</b></div>' +
-              '<textarea class="in" id="fiTx" rows="3">' + esc(S.desc && S.desc[ref] ? S.desc[ref] : fiTexto(ref)) + '</textarea><small class="hint" style="margin:0">Não cita cor: a cor aparece à parte, a que o cliente escolher.</small>' +
+              '<textarea class="in" id="fiTx" rows="3">' + esc(S.desc && S.desc[ref] ? S.desc[ref] : fiTexto(ref)) + '</textarea>' +
               '<div class="fiPe"><button type="button" class="fiH" data-fi="auto">Usar o automático</button><button type="button" class="fiG" data-fi="salva">Corrigir (opcional)</button></div></section>';
           }
           if (etapa) h += '<div class="fiPe"><button type="button" class="fiH" data-fi="prev">‹ Etapas</button>' + (etapa < 6 ? '<button type="button" class="fiG" data-fi="next">Etapa ' + (etapa === 3 ? 4 : etapa === 4 || etapa === 5 ? 6 : etapa + 1) + ' ›</button>' : '') + '</div>';
@@ -44767,7 +44288,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           else if (f === 'zap') { if (typeof ebAbre === 'function') ebAbre([ref]); return; }
           else if (f === 'ata') { S.ataPub = S.ataPub || {}; S.ataPub[ref] = S.ataPub[ref] === false ? true : false; saveSoon(); }
           else if (f === 'auto') { if (S.desc) delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto automático', 'ok'); }
-          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('✓ Texto salvo · vai para o site', 'ok'); }
+          else if (f === 'salva') { var t = String(($('fiTx') || {}).value || '').trim(); S.desc = S.desc || {}; if (t && t !== fiTexto(ref)) S.desc[ref] = t.slice(0, 600); else delete S.desc[ref]; saveSoon(); if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd'); lfToast('Texto salvo · vai para o site', 'ok'); }
           pinta();
         });
         pinta();
@@ -44983,7 +44504,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return _cliabNav.apply(this, arguments);
   };
   // 3 número do painel abre o que está por trás (toque no cartão do número)
-  var FN_KPI = [[/vendid|vendas|faturad/i, function () { setView('hist'); }], [/parad|giro/i, function () { S.dTab = 'giro'; render(); }], [/estoque|invent/i, function () { setView('estoque'); }],
+  var FN_KPI = [[/vendid|vendas|faturad/i, function () { setView('hist'); }], [/parad/i, function () { setView('parsob'); }], [/estoque|invent/i, function () { setView('estoque'); }],
     [/carrinho|site|online|visit/i, function () { S.dTab = 'onl'; render(); }], [/caixa|carteira|dinheiro|reserva/i, function () { S.dTab = 'din'; render(); }], [/conta|despes/i, function () { setView('desp'); }]];
   document.addEventListener('click', function (e) {
     var k = e.target.closest && e.target.closest('#v-dash .kpi');
@@ -45192,7 +44713,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.guardTs = ag;
     return L;
   }
-  function guardIco() { return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>'; }
+  function guardIco() { return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>'; }
   // cartão do Início
   function guardInicioHtml() {
     var L = guardChecks(), pr = L.filter(function (c) { return !c.ok && !c.mudo; }).sort(function (a, b) { return (b.urg ? 1 : 0) - (a.urg ? 1 : 0); });
@@ -45213,7 +44734,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">conferido hoje ' + fh(S.guardTs) + ' · ' + L.length + ' conferências · no próprio aparelho, sem internet</div>' +
           Object.keys(G).map(function (g) {
             return '<section class="card col" style="gap:0"><div class="lbl">' + g.toUpperCase() + '</div>' + G[g].map(function (x) {
-              var st = x.ok ? '<b style="color:var(--ok)">✓' + (x.s && /^há /.test(x.s) ? ' ' + esc(x.s) : '') + '</b>' : '<b style="color:' + (x.urg ? 'var(--bad)' : 'var(--warn)') + '">' + (x.n > 1 || x.k === 'neg' ? x.n : '!') + '</b>';
+              var st = x.ok ? '<b style="color:var(--ok)">' + ICO.chk + (x.s && /^há /.test(x.s) ? ' ' + esc(x.s) : '') + '</b>' : '<b style="color:' + (x.urg ? 'var(--bad)' : 'var(--warn)') + '">' + (x.n > 1 || x.k === 'neg' ? x.n : '!') + '</b>';
               return '<div class="sl guardI"><span>' + esc(x.ok ? x.t : x.tp || x.t) + (!x.ok && x.s ? '<small>' + esc(x.s) + '</small>' : '') + '</span><span style="display:flex;gap:6px;align-items:center">' + st +
                 (!x.ok ? '<button type="button" class="gBtn" data-act="' + x.act + '" data-id="' + esc(x.id || '') + '">' + esc(x.b || 'Ver') + '</button>' + (x.mudo ? '<small class="mu">silenciado</small>' : '<button type="button" class="gMudo" data-act="guardMudo" data-id="' + x.k + '" aria-label="Silenciar 7 dias">silenciar</button>') : '') + '</span></div>';
             }).join('') + '</section>';
@@ -45261,7 +44782,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         b.type = 'button';
         b.className = 'rx';
         b.setAttribute('data-rx', r[0]);
-        b.innerHTML = '<span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + r[2] + '"/></svg></span><span>' + r[1] + '</span>';
+        b.innerHTML = '<span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + r[2] + '"/></svg></span><span>' + r[1] + '</span>';
         b.addEventListener('click', function (e) {
           e.stopPropagation();
           if (S.view !== r[0]) setView(r[0]);
@@ -45285,7 +44806,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.fretes = S.fretes || {};
   function fretesCard() {
     return (
-      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b><div class="hint" style="margin:2px 0 0">Preço que o cliente vê no site (vazio = pago na entrega). Desligue a que não está atendendo.</div></div>' +
+      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b></div>' +
       FRT.map(function (t) {
         var f = S.fretes[t[0]] || {};
         return (
@@ -45314,7 +44835,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     FRT.forEach(function (t) { var f = S.fretes[t[0]] || {}; o[t[0]] = { p: f.p || 0, off: !!f.off }; });
     if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho', 'ok'); return; }
     vitApi('PATCH', 'config/site?updateMask.fieldPaths=fretes', vBody({ fretes: o }))
-      .then(function () { lfToast('✓ Fretes no site', 'ok'); })
+      .then(function () { lfToast('Fretes no site', 'ok'); })
       .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet', 'atencao'); S.fretesPend = 1; saveSoon(); });
   };
   // ===== S265 (aprovado 14/11/2026): FAMÍLIAS — telas irmãs juntas numa tela só, que rola =====
@@ -45502,7 +45023,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lrLinha('Taxas do pagamento', '− ' + gs(t.taxa)) +
       lrLinha('Frete das entregas', (t.freteV ? '− ' : '') + gs(t.freteV)) +
       lrLinha('Descontos (cupom)', '− ' + gs(t.desc)) +
-      '<div class="hint" style="margin:6px 0 0">O frete das compras já está dentro do custo de cada peça.</div>' +
+      '' +
       (top.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MAIS LUCRO REAL</b>' + top.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un'); }).join('') : '') +
       (low.length ? '<b style="display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.08em;color:var(--mu)">MENOS LUCRO REAL</b>' + low.map(function (x) { return lrLinha('<a href="#" style="color:inherit" data-act="lrpeca" data-id="' + esc(x.ref) + '">' + nm(x.ref) + '</a>', gs(x.un) + ' / un', x.un < 20000 ? 'var(--warn)' : ''); }).join('') : '') + '</section>'
     );
@@ -45516,7 +45037,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
   // 136a: a seta das dobras da ficha ("Lucro real", "De onde vem o preço") — o ⌄ do conjunto de ícones, que gira ao abrir; nasce na marcação
-  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
+  function dobraSeta() { return '<span class="dbSt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>'; }
   function lucroPecaHtml(ref) {
     var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
     if (!it || !(p > 0)) return '';
@@ -45684,7 +45205,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             resChama({ acao: 'ligar', pix: x.id, pedido: sel }).then(function (j) {
               if (!j || !j.ok) { lfToast('Não consegui ligar agora. Confira a internet e tente de novo.', 'erro'); return desenha(); }
               x.ligado = true; // some das Pendências já; a nuvem marcou o pixSemPar e o "pago" chega pela conferência de sempre
-              lfToast('✓ ' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
+              lfToast('' + pixNome(x) + ' ligado ao pedido ' + pixPedNum(sel), 'ok');
               api.fecha();
               saveSoon();
               render();
@@ -45966,7 +45487,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +
       (f ? lrLinha('Faixa de margem <small>' + esc(f.nome) + ' · ' + f.margem + '%</small>', gs(pp.piso)) : '') +
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
-      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
+      '<div class="cntQ" style="margin-top:8px">"Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
   function fichaPreco(det, ref, opt) {
     if (opt.venda || !ref || !det || det.querySelector('.cntP')) return;
@@ -45995,7 +45516,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ML_CALC = { bal: bal, site: typeof sitePreco === 'function' ? sitePreco(bal) : bal, ata: ata, piso: piso };
         $('ccR').innerHTML = '<section class="card col" style="gap:0"><div class="lbl">O CONTADOR SUGERE</div>' + lrLinha('Balcão', gs(bal)) + lrLinha('Site', gs(ML_CALC.site)) + (ata ? lrLinha('Atacado', 'US$ ' + ata.toFixed(2).replace('.', ',')) : '') + lrLinha('Piso', gs(piso)) +
           lrLinha('Parecidos no estoque <small>' + pr.slice(0, 3).map(function (x) { return esc(x[0]) + ' ' + gs(x[1]); }).join(' · ') + '</small>', pr.length ? (coer ? 'coerente' : 'diferente') : '—', coer ? 'var(--ok)' : 'var(--warn)') + '</section>' +
-          '<div class="cntQ">💬 "' + (q > 1 ? 'Com ' + q + ' peças' + (giro > 0 ? ' e o giro de ' + Math.round(giro) + ' por mês, o lote vende em ~' + Math.max(1, Math.round(meses)) + (Math.round(meses) > 1 ? ' meses' : ' mês') : '') + '. O lucro previsto do lote é ' + gs(lucro) + '.' : 'Lucro previsto por peça: ' + gs(lucro) + '.') + '"</div>' +
+          '<div class="cntQ">"' + (q > 1 ? 'Com ' + q + ' peças' + (giro > 0 ? ' e o giro de ' + Math.round(giro) + ' por mês, o lote vende em ~' + Math.max(1, Math.round(meses)) + (Math.round(meses) > 1 ? ' meses' : ' mês') : '') + '. O lucro previsto do lote é ' + gs(lucro) + '.' : 'Lucro previsto por peça: ' + gs(lucro) + '.') + '"</div>' +
           '<div class="cntB"><button type="button" class="go" data-act="cntCalcUsa">Usar estes preços</button></div>';
       };
       ['ccU', 'ccQ', 'ccT', 'ccF'].forEach(function (id) { $(id).oninput = conta; $(id).onchange = conta; });
@@ -46009,7 +45530,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     var t = 'Balcão ' + gs(ML_CALC.bal) + ' · Site ' + gs(ML_CALC.site) + (ML_CALC.ata ? ' · Atacado US$ ' + ML_CALC.ata.toFixed(2).replace('.', ',') : '');
     try { navigator.clipboard.writeText(t); } catch (e) {}
-    lfToast('✓ Preços anotados (copiados): ' + t, 'ok');
+    lfToast('Preços anotados (copiados): ' + t, 'ok');
   };
   // ---------- 4 · E se…? ----------
   var ESE = [['dolar', 'Dólar muda'], ['contas', 'Contas subirem 10%'], ['desc', 'Desconto numa categoria'], ['cupom', 'Cupom 15%'], ['parado', 'Vender tudo parado'], ['meta', 'Meta do mês']];
@@ -46031,16 +45552,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (k === 'parado') {
       var n = 0, cx = 0, lu = 0;
       refs.forEach(function (r) { if (paParado(r) < 60) return; var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), q = paEstoque(r); n += q; cx += pp.piso * q; lu += (pp.piso - pp.rep - pp.contas) * q; });
-      return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais. ✓';
+      return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais.';
     }
-    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + '). ✓' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
+    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
     return '';
   }
   ACT.cntEse = function () {
     lfJanela({ titulo: 'E se…?', monta: function (box) {
       var tipos = tipoAll().filter(function (t) { return !t.simple && !isSimple(t.id) && t.id !== 'pre'; });
       box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">PERGUNTAS PRONTAS</div><div class="ataRw">' + ESE.map(function (q, i) { return '<button type="button" class="mini' + (i ? ' ghost' : '') + '" data-ese="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
-        '<div class="cntRow" id="eseIn"></div><div class="cntQ" id="eseR" aria-live="polite"></div><div class="hint" style="text-align:center">Só conta: nada muda até você aceitar uma decisão.</div></div>';
+        '<div class="cntRow" id="eseIn"></div><div class="cntQ" id="eseR" aria-live="polite"></div></div>';
       var k = 'dolar';
       var campo = function () {
         var fx = cntFx();
@@ -46101,7 +45622,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + cntPl(s.falta, 'peça', 'peças') : '') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
       '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + n + '</div>' +
       (n ? pc + D.map(cntDecisaoHtml).join('') + (nAc ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div>' : '')
-        : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
+        : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora.</div>') + '</section>' +
       (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') + cntFerramentasHtml() + '</div>';
   }
   function cntItem(id) {
@@ -46109,14 +45630,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;
   }
   ACT.cntVer = function (k) { CNT_VER[k] = !CNT_VER[k]; lfRedesenha(); };
-  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('✓ ' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para), 'ok'); render(); };
+  ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para), 'ok'); render(); };
   ACT.cntIgnora = function (id) { var m = cntItem(id); if (!m) return; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[m.ref + '|oferta'] = Date.now(); saveSoon(); render(); };
   // "Aceitar os N preços" aceita exatamente o que a tela mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
   ACT.cntTudo = function () {
     var n = 0;
     cntDecisoes().forEach(function (x) { if (x.t === 'pa') x.itens.forEach(function (m) { paAplica(m); n++; }); });
     if (S.pAuto) S.pAuto.ult = Date.now();
-    saveSoon(); lfToast('✓ ' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
+    saveSoon(); lfToast('' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
   };
   // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
   ACT.cntAuto = function () {
@@ -46162,7 +45683,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var now = Date.now();
     return prodStats()
       .filter(function (m) {
-        if (!(m.stock > 0) || isSimple(m.tipo)) return false;
+        if (!(m.stock > 0) || isSimple(m.tipo) || (m.it && m.it.bulk)) return false; // o resto não detalhado de uma compra (lote) não é peça
         m.diasParado = (now - (m.last || S.appStart || now)) / DAY;
         return m.diasParado >= 60;
       })
@@ -46318,7 +45839,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return !(v.st.nin === 'sem' && !v.esp);
     });
     if (mudou) saveSoon();
-    return V;
+    return cpOrdem(V);
   }
   // estrela (repõe o mesmo), fracasso (no lugar dele, uma alternativa) ou normal — pelo fluxo dos modelos que acabaram
   function cpClasse(v, F) {
@@ -46342,6 +45863,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
     }
   }
+  // a ordem das vagas (a lista e a mensagem do Pedir): cada tipo junto, na ordem em que aparece; graus em ordem crescente
+  function cpOrdem(V) {
+    var ti = {};
+    V.forEach(function (v, i) { if (ti[v.tipo] == null) ti[v.tipo] = i; v._i = i; });
+    return V.sort(function (a, b) {
+      if (a.tipo !== b.tipo) return ti[a.tipo] - ti[b.tipo];
+      if (a.grau && b.grau) return parseFloat(a.grau) - parseFloat(b.grau);
+      return a._i - b._i;
+    });
+  }
   // peças fechadas que ainda não chegaram: a compra fechada menos o que entrou nesta vaga depois dela
   function cpPend(k) {
     var f = (S.cpV[k] || {}).fech;
@@ -46358,7 +45889,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (s.fech) return v.resto ? ['', 'fechado ' + s.fech.q + ' com ' + s.fech.dist + ' · faltam ' + v.resto + (s.ped ? ' pedidas' : '')] : ['ok', 'fechado com ' + s.fech.dist + ' · esperando chegar'];
     if (s.nin === 'avisar') return ['', 'esperando aparecer · o Semp avisa no sino'];
     if (s.nin === 'equiv') return ['', 'procurar equivalente · entra no próximo Pedir'];
-    if (!s.ped && v.cls === 'estrela') return ['est', '★ estrela · repor o mesmo ' + v.mod];
+    if (!s.ped && v.cls === 'estrela') return ['est', 'estrela · repor o mesmo ' + v.mod];
     if (!s.ped && v.cls === 'fracasso') return ['fra', 'no lugar de ' + v.mod + (v.soOferta ? ', que só saiu com oferta' : ', que vendeu pouco')];
     if (s.ped) return ['', 'pedida em ' + new Date(s.ped).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' · esperando resposta'];
     return null;
@@ -46544,7 +46075,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             if (!E.dist) return lfToast('Diga com qual distribuidora fechou.', 'atencao');
             api.fecha(true);
             cpGuarda(k, { fech: { dist: E.dist, mod: E.mod, q: E.q, cu: isFinite(cu) ? cu : null, ts: Date.now() }, nin: null });
-            lfToast('✓ Fechado com ' + E.dist + ' · ' + E.q + (E.q === 1 ? ' peça' : ' peças'), 'ok');
+            lfToast('Fechado com ' + E.dist + ' · ' + E.q + (E.q === 1 ? ' peça' : ' peças'), 'ok');
           }
         };
       }
@@ -46768,7 +46299,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // BALÃO B (esboço 58f, aprovado 22/11 06:26): o ícone de "nenhuma mensagem" — Atacado › Mensagens e Site › Mensagens
     window.LF_ICO_MSG = '<path d="M4 4.5h16v11.5H9.5L6 19.5V16H4z"/><path d="M8 8.5h8"/><path d="M8 12h5"/>';
     window.lfVazioHtml = function (ico, titulo, texto) {
-      return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
+      return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
     };
 
     // ---------- e. tirar peça do pedido ----------
@@ -47228,7 +46759,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cv.className = 'lfConf';
       document.body.appendChild(cv);
       var x = cv.getContext('2d'),
-        cs = ['#f3c0dc', '#a44a7e', '#5fd39a', '#e9c27a'],
+        cs = ['#bf8ba9', '#943d6f', '#5fd39a', '#e9c27a'],
         ps = [];
       for (var i = 0; i < 80; i++) ps.push({ x: W / 2, y: H * 0.35, vx: (Math.random() - 0.5) * 10, vy: -Math.random() * 10 - 3, c: cs[i % 4], r: Math.random() * 3 + 2 });
       var t0 = performance.now();
@@ -47489,7 +47020,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (!n) return;
           var tx = n.textContent;
           n.classList.add('okflash');
-          n.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Registrado';
+          n.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Registrado';
           vibrar(15);
           setTimeout(function () {
             n.classList.remove('okflash');
@@ -48748,7 +48279,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       st = 'width:' + px + 'px;height:' + px + 'px;flex:0 0 ' + px + 'px;border-radius:10px;background:#fff;object-fit:contain;border:1px solid var(--line)';
     return src
       ? '<img src="' + src + '" alt="" style="' + st + '">'
-      : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
+      : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
   }
   // S370 (esboço 54b = esboço 51 com o nome "Carrinho", aprovado 16/11/2026): padrão de luxo — sem caixas, linhas finas,
   // quantidade num controle só (− N +), "Tirar"/"Dispensar"/"+ Adicionar outra peça"/"Esvaziar carrinho" como texto, total em destaque e UM botão.
@@ -49258,7 +48789,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return h;
   }
   function dOpHtml(act, id, nome, sub, on, seta) {
-    return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
+    return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? ICO.chk : seta ? '›' : '') + '</i></button>';
   }
   // A folha "VER" do título do Dashboard (uma ação só): família → as telas dela; senão as abas do Dashboard + Histórico
   // e, num grupo comum, as outras telas do grupo e "Gerenciar grupo".
@@ -49272,7 +48803,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var o = $('dFolha'),
       sh = o && o.querySelector('.lfa-sh');
     if (!g || !sh) return;
-    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
+    var DASH = ['hoje', 'din', 'prec', 'hist'],
       fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
       h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
     sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
@@ -49356,7 +48887,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       fh = fechoDia(hoje),
       h = '<section class="card col" style="gap:8px"><b>Fechamento do caixa</b>';
     if (fh) h += '<div class="hint">Hoje fechado' + (fh.auto ? ' automaticamente' : '') + ' · ' + fh.n + (fh.n === 1 ? ' venda' : ' vendas') + (fh.cash ? ' · Caixa ' + fmtM(fh.cash.pyg, 'pyg') + ' · ' + fmtM(fh.cash.brl, 'brl') + ' · ' + fmtM(fh.cash.usd, 'usd') : '') + '</div>';
-    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="mini" data-act="fechar">Fechar o dia agora</button>';
+    else h += '<button type="button" class="mini" data-act="fechar">Fechar o dia agora</button>';
     var pc0 = S.fechos.filter(function (f) {
       return !f.cc && f.cash;
     })[0];
@@ -49896,7 +49427,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               h += '<div class="hint">Para qual cor vão estas peças?</div>' + outras.map(function (oc) {
                 var t2 = gcTem(ref, oc)[g0] || 0,
                   ft = S.fotos[ref + '|' + oc];
-                return '<button type="button" class="tab gcCor' + (st.cor === oc ? ' on' : '') + '" data-c="' + esc(oc) + '">' + (ft ? '<img alt="" src="' + ft + '">' : '<i></i>') + '<span><b>' + esc(oc) + '</b><small>' + (t2 ? g0 + ' já tem ' + t2 + ' → fica com ' + (t2 + st.q) : g0 + ' entra nesta cor') + '</small></span>' + (st.cor === oc ? '<em>✓</em>' : '') + '</button>';
+                return '<button type="button" class="tab gcCor' + (st.cor === oc ? ' on' : '') + '" data-c="' + esc(oc) + '">' + (ft ? '<img alt="" src="' + ft + '">' : '<i></i>') + '<span><b>' + esc(oc) + '</b><small>' + (t2 ? g0 + ' já tem ' + t2 + ' → fica com ' + (t2 + st.q) : g0 + ' entra nesta cor') + '</small></span>' + (st.cor === oc ? '<em>' + ICO.chk + '</em>' : '') + '</button>';
               }).join('');
               if (q0 > 1) h += '<div class="gcLinha"><span class="hint">Quantas mudar?</span>' + gcStep(st.q, 'gcQm') + '</div>';
             }
@@ -49946,7 +49477,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var pinta = function () {
           var tem = gcTem(ref, cor),
             tot = st.sel.reduce(function (a, g) { return a + (st.q[g] || 0); }, 0),
-            h = '<div class="hint">Toque em quantos graus quiser. Os que têm número já existem nesta cor.</div>' + gcGradeHtml(tem, st.sel, '');
+            h = '' + gcGradeHtml(tem, st.sel, '');
           if (st.sel.length) {
             h += '<div class="gcLinha"><span class="hint">Mesma quantidade para todos</span>' + gcStep(st.igual, 'gcIg') + '</div>';
             h += st.sel.map(function (g) { return '<div class="gcLinha"><b>' + g + '</b>' + gcStep(st.q[g], 'gcQ" data-g="' + g) + '</div>'; }).join('');
@@ -50070,7 +49601,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== v469 (aprovado 08/11, opção C): mapa de graus numa folha, aberto por um botão redondo discreto =====
   // O mapa saiu da lista de produtos. Botão de barras ao lado do leitor/filtro (só com Pré-graduados filtrado)
   // e atalho "Graus de leitura" na aba Reposição. Grade sóbria 4×4: "—" = acabou, ponto âmbar = pouco.
-  var GR_IC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>';
+  var GR_IC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>';
   function grauResumo() {
     var tot = grauTotais(),
       r = { tot: tot, n: 0, falta: [], pouco: [], bem: 0 };
@@ -50160,7 +49691,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var e = document.createElement('div');
     e.className = 'encP';
     e.innerHTML =
-      '<svg viewBox="0 0 48 40" width="48" height="40" aria-hidden="true"><path d="' + (lado === 'L' ? ENC_PL : ENC_PR) + '" fill="var(--tbg,#2a1a26)" stroke="var(--accent,#a2447c)" stroke-width="1.6" stroke-linejoin="round"/></svg>' +
+      '<svg viewBox="0 0 48 40" width="48" height="40" aria-hidden="true"><path d="' + (lado === 'L' ? ENC_PL : ENC_PR) + '" fill="var(--tbg,#2a1a22)" stroke="var(--accent,#943d6f)" stroke-width="1.6" stroke-linejoin="round"/></svg>' +
       '<span class="encI" style="left:' + (lado === 'L' ? 10 : 13) + 'px">' + ico(id, 22) + '</span>';
     return e;
   }
@@ -50349,7 +49880,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function invSinal(ref, tipo, ps) {
     var pb = invPrecoProb(ref, tipo, ps);
     if (pb) return '<i class="pSin ex" title="' + esc(pb.txt) + '" aria-label="Preço: ' + esc(pb.txt) + '">!</i>';
-    return ps && ps.st === 'o' ? '<i class="pSin ok" title="Preço certo" aria-label="Preço certo">✓</i>' : '';
+    return ps && ps.st === 'o' ? '<i class="pSin ok" title="Preço certo" aria-label="Preço certo">' + ICO.chk + '</i>' : '';
   }
   // todas as peças com preço a corrigir (uma por código)
   function invPrecosAcorrigir() {
@@ -50405,7 +49936,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }, 0);
   }
   // ---------- busca igual ao Catálogo (montada uma vez; o index.html do APK não muda) ----------
-  var ICO_AJ = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
+  var ICO_AJ = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
   function invBuscaMonta() {
     var q = $('q'),
       bf = $('btnFilt');
@@ -50417,10 +49948,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var bs = document.createElement('div');
     bs.className = 'bs';
     bs.id = 'invBs';
-    bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+    bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
     q.className = '';
     q.style.cssText = '';
-    q.placeholder = 'Buscar peça, código, cor…';
+    q.placeholder = 'Peça, código, cor…';
     bs.appendChild(q);
     if (cam) {
       cam.className = 'ic cam';
@@ -51283,7 +50814,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     foco: 'Segure firme: a peça ainda não está nítida',
     reto: 'Deixe o celular reto'
   };
-  var C262_ICO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
+  var C262_ICO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
   function c262Monta(ov) {
     if (!ov || ov._c262) return;
     ov._c262 = 1;
@@ -51517,10 +51048,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var mapa={};it.forEach(function(i){mapa[i.id]=i.ok});mapa.firme_=ex.mexe==null?null:!(it.filter(function(i){return i.id==='firme'})[0]||{}).ok;return {itens:it,mapa:mapa,tudo:!ruim.length&&!nao.length,frase:ruim.length?ruim[0].fazer:(nao.length?(nao[0].id==='peca'?'Coloque a peça no prato, de frente para a câmera':'Conferindo…'):'Tudo certo · pode gravar')}}
   }
   var C149_ICO = {
-    foto: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
-    video: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg>',
-    gal: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9.5" r="1.6"/><path d="M5 18l5-5 3 3 2-2 4 4"/></svg>',
-    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    foto: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    video: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg>',
+    gal: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9.5" r="1.6"/><path d="M5 18l5-5 3 3 2-2 4 4"/></svg>',
+    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
   };
   // a ordem da lista é a do esboço 149cam-F; os nomes curtos também
   var C149_IT = [['reto', 'Câmera reta'], ['firme', 'Celular parado'], ['luz', 'Luz do fundo'], ['peca', 'Peça no prato'], ['preta', 'Peça reta'], ['dist', 'Distância'], ['meio', 'Peça no meio'], ['altura', 'Altura da câmera'], ['costura', 'Fundo sem costura'], ['foco', 'Foco na peça'], ['folga', 'Folga nas bordas']],
@@ -52226,8 +51757,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.prodDesfaz = function () {
     var v = window.__prodVolta;
     window.__prodVolta = null;
-    var t = document.querySelector('[data-prod-toast]');
-    if (t) t.remove();
     if (!v) return;
     S.items = v.itens;
     Object.keys(v.fotos).forEach(function (k) {
@@ -52614,12 +52143,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 2, // 2: Peças ganha Compras (66, 22/11)
+  var FAM_V = 3, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai (Giro e preços fica só com Preços até o Titan)
     FAMILIAS = [
       { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
-      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['giro', 'prec'] },
+      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['prec'] },
       { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, vitrine e modelos', itens: ['site', 'ped', 'msg', 'vit', 'prod'] },
       { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática, cartões e visitas', itens: ['mkt', 'tem', 'cup', 'anl'] }
     ],
@@ -52940,7 +52469,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       stNum95(peds.length, 'Pedidos', novos ? novos + (novos === 1 ? ' novo para separar' : ' novos para separar') : 'nenhum novo', 'stAbre', 'ped') +
       stNum95(r ? r.msg : null, 'Mensagens', r ? (r.ata ? r.ata + ' de atacado' : 'nenhuma de atacado') : 'abra para atualizar', 'stAbre', 'msg') +
       stNum95(x ? x.mod : null, 'Modelos', x ? 'no ar' + (x.oc ? ' · ' + x.oc + (x.oc === 1 ? ' oculto' : ' ocultos') : '') : 'abra para atualizar', 'stAbre', 'prod') +
-      stNum95(x ? (x.dm === 'nada' ? null : '✓') : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
+      stNum95(x ? (x.dm === 'nada' ? null : ICO.chk) : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
       '</div>';
   };
   // ===== S374 · catálogo de peças (aprovado 17/11/2026; "implementar tudo" 14:40) =====
@@ -52983,20 +52512,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (!naoCabe()) return;
     }
   }
-  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) — a lista inteira é um grupo
+  // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) e as vagas de Compras (.cpLs)
+  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small']]; // listas de linhas: a lista inteira é um grupo
   function nvListaCabe(v) {
-    [].forEach.call(v.querySelectorAll('.nvLista'), function (l) {
-      var tx = l.querySelectorAll('.nvTx>b,.nvTx>small');
+    LISTAS_CABE.forEach(function (lc) { [].forEach.call(v.querySelectorAll(lc[0]), function (l) {
+      var tx = l.querySelectorAll(lc[1]);
       if (!tx.length || !l.offsetWidth) return;
       lfCabe(l, function () {
         for (var i = 0; i < tx.length; i++) if (tx[i].scrollWidth > tx[i].clientWidth + 1) return true;
         return false;
       });
-    });
+    }); });
   }
   // L4 nas ESCOLHAS DE LADOS (achado do dono 22/11 06:26, "Intermediário" maior que o botão): a lista das escolhas mora AQUI.
   // Se uma opção não cabe no lado dela, a letra da escolha inteira desce (3 degraus: 14 · 13 · 12 px, no CSS .ladosC).
-  var LADOS = '#sortChips,#fFaixas,.trk,.tmseg,.adSeg,.catbar3,.pdSeg,.impSeg';
+  var LADOS = '.trk,.pdSeg'; // 80: toda barra de escolha é o trilho (.trk); .pdSeg são as abas de Pedidos
   function ladosCabe(raiz) {
     [].forEach.call(raiz.querySelectorAll(LADOS), function (l) {
       if (!l.offsetWidth) return;
@@ -53199,6 +52729,58 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     document.addEventListener('click', function (e) {
       if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk,.lfPillOn')) { e.stopPropagation(); e.preventDefault(); }
     }, true);
+  })();
+  // ===== Família BARRAS (80 / 80b, aprovado 22/11 23:18): UMA barra de escolha no app — o trilho 140C =====
+  // trilho(cls, aria, ops): o HTML do trilho; ops = [{ on: true|false, attrs: 'data-…="…"', html: 'rótulo' }].
+  // Quem desenha só diz as opções; a pílula vai para a escolhida sozinha depois de cada desenho (trilhoAcerta).
+  // Saíram as barras de cada tela: .sg418 (Retirada, Câmbio), .catbar3 (Clientes, Loja, Impressora), .tmseg (Tema),
+  // .adSeg (Adicionar) e as fichas de Ordem e Faixa dos filtros.
+  function trilho(cls, aria, ops) {
+    return '<div class="trk' + (cls ? ' ' + cls : '') + '" role="group"' + (aria ? ' aria-label="' + esc(aria) + '"' : '') + '><span class="trkTh"></span>' +
+      ops.map(function (o) {
+        return '<button type="button" class="trkB' + (o.on ? ' on' : '') + '" aria-pressed="' + !!o.on + '" ' + (o.attrs || '') + '>' + o.html + '</button>';
+      }).join('') + '</div>';
+  }
+  // o mesmo trilho montado num elemento que já existe (o index.html do aparelho): ops = [{ on, html, fn }]
+  function trilhoPoe(el, ops) {
+    el.classList.add('trk');
+    el.setAttribute('role', 'group');
+    el.textContent = '';
+    el.appendChild(mk('span', 'trkTh'));
+    ops.forEach(function (o) {
+      var b = btn('trkB' + (o.on ? ' on' : ''), '', o.fn, !!o.on);
+      b.innerHTML = o.html;
+      el.appendChild(b);
+    });
+  }
+  function trilhoAcerta(raiz) {
+    [].forEach.call((raiz || document).querySelectorAll('.trk'), function (t) {
+      var th = t.querySelector('.trkTh'), on = t.querySelector('.trkB.on');
+      if (!th || !on || !on.offsetWidth || t.classList.contains('trkArr')) return;
+      var w = on.offsetWidth + 'px', tr = 'translateX(' + (on.offsetLeft - 3) + 'px)';
+      if (th.style.width !== w) th.style.width = w;
+      if (th.style.transform !== tr) th.style.transform = tr;
+    });
+  }
+  aposRender(function () { trilhoAcerta(document); });
+  // trilho que entra na tela fora do desenho (janela, bloco que abre no lugar, troca no lugar): acerta no próximo quadro
+  (function () {
+    var pend = 0;
+    try {
+      new MutationObserver(function (ms) {
+        if (pend) return;
+        for (var i = 0; i < ms.length; i++) {
+          var a = ms[i].addedNodes;
+          for (var j = 0; j < a.length; j++) {
+            var n = a[j];
+            if (n.nodeType === 1 && (n.classList.contains('trk') || n.querySelector('.trk'))) {
+              pend = requestAnimationFrame(function () { pend = 0; trilhoAcerta(document); });
+              return;
+            }
+          }
+        }
+      }).observe(document.body, { childList: true, subtree: true });
+    } catch (e) {}
   })();
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
@@ -53509,7 +53091,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'pTeste16',
       'lcPed',
       'cpV',
-      'vit',
       'fpOk',
       'siteAutoLote',
       'superEv',
@@ -53797,7 +53378,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo, navOn: navOn,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
-      loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
@@ -53808,7 +53389,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, invParados: invParados, contVelhos: contVelhos, paginas: paginas, cpVagas: cpVagas, cpFluxo: cpFluxo, cpMensagem: cpMensagem, aprendeFator: aprendeFator, primeiraCompraTipos: primeiraCompraTipos, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, pixEmailCheca: pixEmailCheca, c149Trava: c149Trava, appLib: appLib, estFotoServe: estFotoServe, cntDecisoes: cntDecisoes, pixSemParItens: pixSemParItens, rowLabel: rowLabel, renderDetail: function (ref, opt) { return renderDetail(ref, opt); }, nDias: nDias, precosTelaHtml: precosTelaHtml, lkSolto: lkSolto, lkLinha: lkLinha, camNivelDe: camNivelDe, confereGiro: confereGiro, estTem: estTem, pn: pn, invPrecosAcorrigir: invPrecosAcorrigir, notifAgora: notifAgora, invResumo: invResumo, invParados: invParados, lfJanela: lfJanela, popErr: popErr, lcThumb: lcThumb, contVelhos: contVelhos, paginas: paginas, cpVagas: cpVagas, cpFluxo: cpFluxo, cpMensagem: cpMensagem, aprendeFator: aprendeFator, primeiraCompraTipos: primeiraCompraTipos, estGaleria: estGaleria, corNova: corNova, coresDaLoja: coresDaLoja, corProximaClasse: corProximaClasse, estGiroGuarda: estGiroGuarda, galQuadro: galQuadro, galGrausPorPx: galGrausPorPx, estCamTag: estCamTag, c149Cabe: c149Cabe, medeQuadro: medeQuadro, cupTemaProx: cupTemaProx, semanaTema: semanaTema, giroGrava: giroGrava, estGiroEscolhe: estGiroEscolhe, vistasBusca: vistasBusca, vitNuvemTira: vitNuvemTira, siteFaltaDados: siteFaltaDados, pTesteMigra: pTesteMigra, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
   }
   var lfBootT = setTimeout(lfBoot, 1500);

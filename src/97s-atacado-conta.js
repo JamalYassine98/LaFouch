@@ -147,7 +147,7 @@
       if (!cli.email) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)', 'atencao'); return; }
       var tab = (tabLista().filter(function (t) { return !t.pub && /^a/.test(t.id); })[0] || {}).id || 'opt';
       c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, cliId: String(cli.id), ts: Date.now() };
-      ataGrava(c).then(function (ok) { lfToast(ok ? '✓ Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
+      ataGrava(c).then(function (ok) { lfToast(ok ? 'Conta atacadista criada' : 'Criada aqui; vai para a nuvem quando conectar', ok ? 'ok' : 'atencao'); });
       ataPublica(c.tab);
     }
     ataJanela(c.id);
@@ -171,7 +171,7 @@
             else {
               var qn = cliNorm(st.q), qd = cliDig(st.q),
                 ms = st.q.trim().length >= 2 ? (S.clientes || []).filter(function (c) { return cliNorm(c.nome).indexOf(qn) >= 0 || (qd.length >= 3 && cliDig(c.tel).indexOf(qd) >= 0) || (c.email && String(c.email).toLowerCase().indexOf(st.q.trim().toLowerCase()) >= 0); }).slice(0, 4) : [];
-              h += '<input class="in" id="ataQ" placeholder="Buscar cliente: nome, telefone ou e-mail" value="' + esc(st.q) + '" autocomplete="off">';
+              h += buscaCampo('id="ataQ" placeholder="Nome, telefone ou e-mail" value="' + esc(st.q) + '" aria-label="Buscar cliente"');
               if (st.q.trim().length >= 2)
                 h += '<div class="ata418M">' + ms.map(function (c) { return '<button type="button" data-c="' + c.id + '"><b>' + esc(c.nome || 'Cliente') + '</b><small>' + esc([c.tel, c.email].filter(Boolean).join(' · ')) + '</small></button>'; }).join('') +
                   '<button type="button" data-n="1"><b>+ Novo cliente “' + esc(st.q.trim().slice(0, 18)) + (st.q.trim().length > 18 ? '…' : '') + '”</b></button></div>';
@@ -269,7 +269,7 @@
       var novos = 0;
       S.ataPeds = S.ataPeds || {};
       (j.documents || []).forEach(function (d) { var id = d.name.split('/').pop(); if (!S.ataPeds[id]) { S.ataPeds[id] = ataFv(d.fields); novos++; } });
-      if (novos) { saveSoon(); lfToast('🧾 ' + novos + ' pedido(s) de atacado', 'ok'); }
+      if (novos) { saveSoon(); lfToast('' + novos + ' pedido(s) de atacado', 'ok'); }
       return novos;
     }, function () { return 0; });
   }

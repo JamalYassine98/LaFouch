@@ -17,21 +17,6 @@
   function lfaSvg(n, extra) {
     return '<svg class="lfa-svg" viewBox="0 0 24 24"' + (extra || '') + '>' + (LFA_IC[n] || '') + '</svg>';
   }
-  // Aviso que sobe/desce sozinho. pos 'b' = embaixo. Devolve o elemento.
-  function lfaToast(html, ms, pos) {
-    var b = document.createElement('div');
-    b.className = 'lfa-toast' + (pos === 'b' ? ' b' : '');
-    b.setAttribute('role', 'status');
-    b.innerHTML = html;
-    document.body.appendChild(b);
-    setTimeout(function () {
-      b.classList.add('sai');
-      setTimeout(function () {
-        if (b.parentNode) b.remove();
-      }, 350);
-    }, ms || 3500);
-    return b;
-  }
   // Janela (folha) por cima de tudo, independente do desenho das abas.
   function lfaAbre(id, html, cheia) {
     var o = document.getElementById(id),
@@ -167,9 +152,9 @@
       '<b style="font:700 22px var(--display)' + (ok ? ';color:var(--ok)' : '') + '">' + (ok ? 'Aprovado!' : 'Aguardando aprovação') + '</b>' +
       '<span class="hint" style="margin:0">' + (ok ? 'Baixando os dados da loja…' : 'O dono precisa aprovar este aparelho. Até lá, nada é enviado nem recebido.') + '</span>' +
       (ok
-        ? '<div class="card"><div class="lfa-cnt"><i class="lfa-fill" style="width:100%"></i></div><span class="hint" style="margin:6px 0 0">Sincronizando estoque, vendas e clientes…</span></div>'
+        ? '<div class="card"><div class="lfa-cnt"><i class="lfa-fill" style="width:100%"></i></div></div>'
         : '<div class="card col" style="align-items:center"><span class="hint" style="margin:0">Mostre este código ao dono</span><div class="lfa-big">' + String(cod || '').split('').join(' ') + '</div></div>' +
-          '<button type="button" class="btn" data-act="apcancela" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar pedido</button>') +
+          '<button type="button" class="mini" data-act="apcancela" style="width:100%">Cancelar pedido</button>') +
       '</div>'
     );
   }
@@ -231,7 +216,7 @@
         return syncListaAp();
       })
       .then(function () {
-        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Aparelho aprovado</b><div class="hint" style="margin:0">Já está sincronizando.</div></div>', 3000);
+        lfToast('Aparelho aprovado · já está sincronizando', 'ok');
       })
       .catch(function () {
         syncMsg('Não consegui aprovar agora (sem internet?). Tente de novo.', 'bad');
@@ -255,16 +240,14 @@
         apPendentes().forEach(function (x) {
           if (S._apAvisados[x.ap]) return;
           S._apAvisados[x.ap] = 1;
-          var t = lfaToast('<span class="lfa-ic">' + lfaSvg('phone') + '</span><div style="flex:1"><b>' + esc(x.nome || x.ap) + ' quer entrar</b><div class="hint" style="margin:0">Toque para conferir o código.</div></div>', 9000);
-          t.addEventListener('click', function () {
-            t.remove();
+          lfToast((x.nome || x.ap) + ' quer entrar', 'atencao', { t: 'Conferir', fn: function () {
             S.view = 'ajustes';
             render();
             setTimeout(function () {
               var c = document.getElementById('syncCard');
               if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
-          });
+          } });
         });
       })
       .catch(function () {});
@@ -282,7 +265,7 @@
       h +=
         '<div class="card col' + (novo ? ' lfa-exp' : '') + '" style="background:var(--panel2)"><div style="display:flex;gap:10px;align-items:center"><span class="lfa-ic">' + lfaSvg('phone') + '</span><div><b>' + esc(x.nome || x.ap) + '</b><div class="hint" style="margin:0">pediu ' + fh(x.ts) + '</div></div></div>' +
         '<div class="lfa-big">' + String(x.cod || '').split('').join(' ') + '</div>' +
-        '<div style="display:flex;gap:8px"><button type="button" class="btn lfa-pr" data-act="apaprova" data-id="' + esc(x.ap) + '" style="flex:1">Aprovar</button><button type="button" class="btn lfa-pr" data-act="aprecusa" data-id="' + esc(x.ap) + '" style="flex:1;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Recusar</button></div></div>';
+        '<div style="display:flex;gap:8px"><button type="button" class="go" data-act="apaprova" data-id="' + esc(x.ap) + '" style="flex:1">Aprovar</button><button type="button" class="mini" data-act="aprecusa" data-id="' + esc(x.ap) + '" style="flex:1">Recusar</button></div></div>';
     });
     return h;
   }
@@ -662,7 +645,7 @@
                 S.fotosH[k] = fotoHashSync(v);
                 S.fotosV[k] = e.v || 0;
                 feitas++;
-                if (tinha && e.by && e.by !== S.aparelho) avisos.push('<span class="lfa-ic">' + lfaSvg('glass') + '</span><div><b>Foto de ' + esc(fotoNomeK(k)) + ' atualizada</b><div class="hint" style="margin:0">por ' + esc(apNome(e.by)) + '</div></div>');
+                if (tinha && e.by && e.by !== S.aparelho) avisos.push('Foto de ' + fotoNomeK(k) + ' atualizada por ' + apNome(e.by));
               }
             });
           });
@@ -677,9 +660,7 @@
           saveSoon();
           if (S.view === 'estoque' || S.view === 'vendas') render();
         }
-        avisos.slice(0, 2).forEach(function (a) {
-          lfaToast(a, 3500);
-        });
+        if (avisos.length) lfToast(avisos[0] + (avisos.length > 1 ? ' · +' + (avisos.length - 1) : ''), 'neutro');
         return feitas;
       })
       .catch(function () {
@@ -702,18 +683,18 @@
   };
   setInterval(fotoCiclo, 180000);
   setTimeout(fotoCiclo, 20000);
-  // Apagar a foto de uma peça (chamado pelo botão "Excluir foto" quando a sincronização está ligada)
+  // Apagar a foto de uma peça (chamado pelo botão "Excluir foto" quando a sincronização está ligada).
+  // 81 (aprovado 22/11 23:40): apaga na hora e mostra o aviso "Foto na lixeira · Desfazer" — sem janela de confirmação.
+  // Só a lixeira cheia ainda abre a janela, porque aí não dá para apagar.
   window.__fotoApagaPede = function (k) {
     if (!S.syncOn) return false;
-    var cheia = fotoLixeira().length >= FOTO_MAX;
-    var h = cheia
-      ? '<b style="font:700 18px var(--display)">Lixeira cheia</b><div class="lfa-cnt f"><i class="lfa-amb" style="width:100%"></i></div><span class="hint" style="margin:0">Já são ' + fotoLixeira().length + ' fotos apagadas. Para proteger contra engano, esvazie a lixeira antes de apagar mais.</span><div class="lfa-shk" style="display:none"></div>' +
-        '<button type="button" class="btn lfa-pr" data-act="fotolixabre" style="width:100%">Ir para a lixeira</button><button type="button" class="btn lfa-pr" data-act="fotosheetfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>'
-      : '<b style="font:700 18px var(--display)">Apagar esta foto?</b><span class="hint" style="margin:0">Ela some de <b>todos os aparelhos</b> e fica ' + FOTO_DIAS + ' dias na lixeira. Dá para restaurar em Ajustes → Fotos apagadas.</span>' +
-        '<div class="note n-info"><span class="lfa-ic" style="width:22px;height:22px">' + lfaSvg('trash') + '</span>Lixeira: ' + fotoLixeira().length + ' de ' + FOTO_MAX + ' fotos</div>' +
-        '<button type="button" class="btn lfa-pr" data-act="fotoapaga" data-id="' + esc(encodeURIComponent(k)) + '" style="width:100%;background:#c0392b;border:1.5px solid #c0392b;color:#fff">Apagar em todos</button><button type="button" class="btn lfa-pr" data-act="fotosheetfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>';
-    var o = lfaAbre('fotoSheet', h);
-    if (cheia) o.firstChild.classList.add('lfa-shk');
+    if (fotoLixeira().length < FOTO_MAX) {
+      ACT.fotoapaga(encodeURIComponent(k));
+      return true;
+    }
+    var o = lfaAbre('fotoSheet', '<b style="font:700 18px var(--display)">Lixeira cheia</b><div class="lfa-cnt f"><i class="lfa-amb" style="width:100%"></i></div><span class="hint" style="margin:0">Já são ' + fotoLixeira().length + ' fotos apagadas. Para proteger contra engano, esvazie a lixeira antes de apagar mais.</span><div class="lfa-shk" style="display:none"></div>' +
+        '<button type="button" class="go" data-act="fotolixabre">Ir para a lixeira</button><button type="button" class="cf418V" data-act="fotosheetfecha">Voltar</button>');
+    o.firstChild.classList.add('lfa-shk');
     return true;
   };
   ACT.fotosheetfecha = function () {
@@ -729,8 +710,7 @@
     lfaFecha('fotoSheet');
     render();
     setTimeout(fotoCiclo, 6000);
-    var t = lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Foto na lixeira</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="fotodesfaz" style="font-weight:700">Desfazer</button>', 5000, 'b');
-    t.setAttribute('data-foto-toast', '1');
+    lfToast('Foto na lixeira', 'neutro', { t: 'Desfazer', fn: ACT.fotodesfaz });
   };
   ACT.fotodesfaz = function () {
     if (!fotoUndo) return;
@@ -739,10 +719,7 @@
     S.fotosRest[fotoUndo.k] = 1;
     fotoUndo = null;
     saveSoon();
-    [].forEach.call(document.querySelectorAll('[data-foto-toast]'), function (x) {
-      x.remove();
-    });
-    lfaToast('<span class="lfa-ic">' + lfaSvg('undo') + '</span><div><b>Foto restaurada</b></div>', 2500, 'b');
+    lfToast('Foto restaurada', 'ok');
     render();
     fotoCiclo();
   };
@@ -751,7 +728,7 @@
   function fotoLixHtml() {
     var L = fotoLixeira(),
       h = '<div style="display:flex;align-items:center;gap:10px"><b style="font:700 19px var(--display);flex:1">Fotos apagadas</b><button type="button" class="pdLink" data-act="fotolixfecha">Fechar</button></div>';
-    h += '<div class="card col"><div style="display:flex;justify-content:space-between"><b>Lixeira</b><span class="hint" style="margin:0" id="lixCnt">' + L.length + ' de ' + FOTO_MAX + '</span></div><div class="lfa-cnt' + (L.length >= FOTO_MAX ? ' f' : '') + '"><i style="width:' + (L.length * 100) / FOTO_MAX + '%"></i></div><span class="hint" style="margin:0">Cada foto some sozinha depois de ' + FOTO_DIAS + ' dias.</span></div>';
+    h += '<div class="card col"><div style="display:flex;justify-content:space-between"><b>Lixeira</b><span class="hint" style="margin:0" id="lixCnt">' + L.length + ' de ' + FOTO_MAX + '</span></div><div class="lfa-cnt' + (L.length >= FOTO_MAX ? ' f' : '') + '"><i style="width:' + (L.length * 100) / FOTO_MAX + '%"></i></div></div>';
     if (!L.length) h += '<div class="card" style="text-align:center"><span class="lfa-ic" style="width:40px;height:40px;color:var(--ok)">' + lfaSvg('check') + '</span><div><b>Lixeira vazia</b></div></div>';
     else {
       h += '<div class="card" style="padding:4px 12px">';
@@ -764,7 +741,7 @@
           '<div style="flex:1;min-width:0"><b>' + esc(fotoNomeK(x.k)) + '</b><div class="hint" style="margin:0">apagada por ' + esc(apNome(x.e.by)) + ' · ' + fh(x.e.del) + '</div></div>' +
           '<div style="text-align:right;white-space:nowrap"><button type="button" class="pdLink lfa-pr" data-act="fotorest" data-id="' + esc(encodeURIComponent(x.k)) + '" style="font-weight:700">Restaurar</button><div class="hint" style="margin:0">' + dias + (dias === 1 ? ' dia' : ' dias') + '</div></div></div>';
       });
-      h += '</div><button type="button" class="btn lfa-pr" data-act="fotolixvaz" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Esvaziar lixeira</button>';
+      h += '</div><button type="button" class="mini" data-act="fotolixvaz" style="width:100%">Esvaziar lixeira</button>';
     }
     return h;
   }
@@ -829,7 +806,7 @@
         S.fotosV[k] = n.v;
         delete S.fotosRest[k];
         if (lfaSlot('fotoLix')) fotoLixDesenha(true);
-        lfaToast('<span class="lfa-ic" style="color:var(--ok)">' + lfaSvg('undo') + '</span><div><b>Foto restaurada</b><div class="hint" style="margin:0">Voltou para todos os aparelhos</div></div>', 3000, 'b');
+        lfToast('Foto restaurada em todos os aparelhos', 'ok');
         render();
       }, 450);
     };
@@ -838,10 +815,10 @@
       .then(function (d) {
         var v = ((d.fields || {}).d || {}).stringValue;
         if (v && v.indexOf('data:image/') === 0) pronta(v);
-        else lfaToast('<div><b>Não achei esta foto na nuvem.</b></div>', 3000, 'b');
+        else lfToast('Não achei esta foto na nuvem', 'erro');
       })
       .catch(function () {
-        lfaToast('<div><b>Sem internet para restaurar agora.</b></div>', 3000, 'b');
+        lfToast('Sem internet para restaurar agora', 'erro');
       });
   };
   // esvaziar: confirmação reforçada (digitar ESVAZIAR)
@@ -852,7 +829,7 @@
       'fotoVaz',
       '<b style="font:700 18px var(--display)">Esvaziar a lixeira?</b><div class="note n-bad"><span class="lfa-ic" style="width:22px;height:22px">' + lfaSvg('warn') + '</span><div><b>Não tem volta.</b> ' + (L.length === 1 ? 'A foto some' : 'As ' + L.length + ' fotos somem') + ' de vez em todos os aparelhos.</div></div>' +
         '<span class="hint" style="margin:0">Para confirmar, digite <b>ESVAZIAR</b>:</span><input class="in" id="vazIn" autocomplete="off" autocapitalize="characters" style="text-align:center;letter-spacing:3px;font-weight:700">' +
-        '<button type="button" class="btn lfa-pr" id="vazBt" data-act="fotovazok" style="width:100%;background:#c0392b;border:1.5px solid #c0392b;color:#fff;opacity:.4;transition:opacity .3s" disabled>Esvaziar agora</button><button type="button" class="btn lfa-pr" data-act="fotovazfecha" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Cancelar</button>'
+        '<button type="button" class="cf418B" id="vazBt" data-act="fotovazok" disabled>Esvaziar agora</button><button type="button" class="cf418V" data-act="fotovazfecha">Voltar</button>'
     );
     var inp = document.getElementById('vazIn');
     if (inp)
@@ -861,7 +838,6 @@
           b = document.getElementById('vazBt');
         if (b) {
           b.disabled = !ok;
-          b.style.opacity = ok ? '1' : '.4';
         }
         inp.style.borderColor = ok ? 'var(--accent)' : '';
       });
@@ -901,7 +877,7 @@
         }, 300 + L.length * 150);
       })
       .catch(function () {
-        lfaToast('<div><b>Não consegui esvaziar agora.</b> Tente de novo.</div>', 3500, 'b');
+        lfToast('Não consegui esvaziar agora · tente de novo', 'erro');
       });
   };
   if (/#test/.test(location.hash))

@@ -18,7 +18,7 @@
     var o = k === 'usd' ? S.lm.usd : k === 'brl' ? S.lm.brl : S.lm.arb;
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
-  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
   ACT.fxSt = function () {
     S.fxStD = !S.fxStD;
     renderFx();
@@ -253,7 +253,7 @@
       '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R' + lkCls(false) + '" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
-      '<button type="button" class="fx418P" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
+      '<button type="button" class="go" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
@@ -274,8 +274,8 @@
       tit = FX_SELO[vd.k][2];
       sub = 'Dólar na La Moneda Jebai (venda)';
       corpo = fjPerHtml() + fjGraf('usd', true) + '<div class="fjMot">' + vd.mot.map(function (m) {
-          return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? '✓' : '!') + '</i><span>' + m.t + '</span></div>';
-        }).join('') + '</div><div class="hint" style="margin:8px 0 0">Ninguém acerta sempre. O app olha o histórico da casa, a semana e a tendência.</div>';
+          return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? ICO.chk : '!') + '</i><span>' + m.t + '</span></div>';
+        }).join('') + '</div>';
     } else if (id === 'usd' || id === 'brl' || id === 'arb') {
       // v459: a janela segue o botão Venda/Compra; previsão de 7 dias em todas as moedas
       var md = lmOk() ? S.fxModo : '',
@@ -370,7 +370,7 @@
   // v459: frase da previsão de 7 dias (cor pelo interesse da loja: dólar barato é bom; real caro é bom)
   function fjPrevTxt(k, m) {
     var pv = fxPrevisao(k, m);
-    if (!pv.ok) return '<div class="hint" style="margin:8px 0 0">Previsão: ainda sem histórico suficiente.</div>';
+    if (!pv.ok) return '';
     var fim = pv.ult * (1 + pv.pct),
       f = function (v) {
         return k === 'arb' ? 'R$ ' + nf(v, 'brl') : gsRaw(Math.round(v));
@@ -378,7 +378,7 @@
       bom = pv.dir === 'estavel' || (k === 'brl' ? pv.dir === 'sobe' : pv.dir === 'cai');
     return (
       '<div class="fjMot"><div class="' + (bom ? 'ok' : 'no') + '"><i>' + (pv.dir === 'sobe' ? '▲' : pv.dir === 'cai' ? '▼' : '—') + '</i><span>Próximos 7 dias: <b>' + (pv.dir === 'sobe' ? 'deve subir' : pv.dir === 'cai' ? 'deve cair' : 'estável') + '</b>' + (pv.dir === 'estavel' ? '' : ' (por volta de ' + f(fim) + ')') + ' <span class="hint" style="display:inline;margin:0">· certeza ' + pv.cert + '</span></span></div></div>' +
-      '<div class="hint" style="margin:6px 0 0">Ninguém acerta sempre. É uma estimativa pelo histórico da casa.</div>'
+      ''
     );
   }
   function fjProtHtml() {
@@ -396,7 +396,7 @@
       ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
     return (
       (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
-      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div><div class="hint" style="margin:0">Seus preços usam a cotação da loja: se a casa subir até 1%, você não perde.</div></div>' +
+      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
       '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
       '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
       (lt.length
@@ -421,15 +421,14 @@
       // S418 (esboço 126b): De e Para por toque (G$ · US$ · R$), "⇄ Inverter" em rosa, campos em linhas, "Registrar troca" principal
       (ag ? '<div class="cxLb" style="margin:0 0 2px">Sugestão de hoje</div>' + ag + '<div class="cxLb" style="margin:22px 0 8px">Outra troca</div>' : '') +
       ['de', 'para'].map(function (q) {
-        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span><div class="sg418" role="group" aria-label="' + (q === 'de' ? 'Trocar de' : 'Receber em') + '">' +
-          [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
-            return '<button type="button" class="' + (t[q] === o[0] ? 'on' : '') + '" aria-pressed="' + (t[q] === o[0]) + '" data-act="trMoe" data-id="' + q + '|' + o[0] + '">' + o[1] + '</button>';
-          }).join('') + '</div></div>';
+        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span>' + trilho('', q === 'de' ? 'Trocar de' : 'Receber em', [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) { // a ordem das moedas do 142f/142g
+          return { on: t[q] === o[0], attrs: 'data-act="trMoe" data-id="' + q + '|' + o[0] + '"', html: o[1] };
+        })) + '</div>';
       }).join('') +
       '<div style="text-align:center"><button type="button" class="tr418I" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button></div>' +
       '<label class="cxL cc418"><span>Você troca<small>em ' + MN418[t.de] + '</small></span><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></label>' +
       '<label class="cxL cc418" style="border-bottom:0"><span>Você recebe<small>em ' + MN418[t.para] + '</small></span><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></label>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="fx418P" data-act="trocar">Registrar troca</button>'
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="go" data-act="trocar">Registrar troca</button>'
     );
   }
   ACT.fjAbre = function (id) {

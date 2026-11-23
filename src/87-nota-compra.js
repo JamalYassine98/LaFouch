@@ -142,7 +142,8 @@
             r.usd = parseFloat(String(u.value).replace(',', '.')) || 0;
             tot();
           };
-          var rm = mk('button', 'fmX', '✕');
+          var rm = mk('button', 'fmX', '');
+          rm.innerHTML = ICO.x;
           rm.onclick = function () {
             if (N.rows.length > 1) N.rows.splice(ix, 1);
             pinta();

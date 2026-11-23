@@ -79,12 +79,12 @@
     var t = temaAtual();
     if (!t || t.tema === 'halloween') return '';
     var on = S.temaOf && S.temaOf.tema === t.tema && S.temaOf.fim >= Date.now();
-    if (on) return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + ' · desconto aplicado</b><small>' + Object.keys(S.temaOf.refs).length + ' peças · termina sozinho em ' + fd(S.temaOf.fim) + '</small></div><button type="button" class="gMudo" data-act="temaDesfaz">Desfazer</button></section>';
+    if (on) return '<section class="card temaC noconta"><div><b>' + esc(t.nome) + ' · desconto aplicado</b><small>' + Object.keys(S.temaOf.refs).length + ' peças · termina sozinho em ' + fd(S.temaOf.fim) + '</small></div><button type="button" class="gMudo" data-act="temaDesfaz">Desfazer</button></section>';
     if (t.dias > 20 || S.temaNao[temaAno(t)]) return '';
     // só avisa quando há o que sugerir (conta guardada por 1 min)
     if (!temaCardHtml._c || Date.now() - temaCardHtml._c.ts > 60000 || temaCardHtml._c.t !== t.tema) temaCardHtml._c = { ts: Date.now(), t: t.tema, n: temaSugestao(t).n };
     if (!temaCardHtml._c.n) return '';
-    return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
+    return '<section class="card temaC noconta"><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + nDias(t.dias) : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
   function temaForaHtml(sg) {
     var f = sg.fora || {}, L = [];
@@ -101,11 +101,11 @@
     if (!t) return;
     var sg = temaSugestao(t), ant = S.temaRes[t.tema + '-' + (new Date(t.ini).getFullYear() - 1)];
     lfJanela({
-      titulo: t.ic + ' ' + t.nome,
+      titulo: t.nome,
       monta: function (c) {
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + fd(t.ini) + ' a ' + fd(t.fim) + ' · termina sozinho</div>' +
           '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça entra no desconto pela regra de hoje' + (t.tema === 'bf' ? ' (Black Friday: só peças paradas há 30 dias ou mais)' : '') + '.</div>' + temaForaHtml(sg) + '<div class="hint" style="display:none">') +
-          (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '<div class="hint" style="margin:6px 0 0">Novidades e as 3 mais vendidas ficam sem desconto. O cupom do evento não soma.</div></section>' +
+          (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '</section>' +
           (sg.n ? '<section class="card col"><div class="lbl">SIMULAÇÃO</div><div class="sl"><span>Lucro médio por peça</span><b>' + gs(sg.lucroAntes) + ' → ' + gs(sg.lucroDepois) + '</b></div><div class="sl"><span>Para empatar</span><b>vender ' + sg.empata + '% a mais</b></div>' +
             '<div class="sl"><span>Orçamento do tema</span><span style="display:flex;gap:6px;align-items:center">US$ <input class="in" id="temaOrc" inputmode="decimal" style="width:90px" value="' + (S.temaOrc || '') + '"></span></div><div class="hint" id="temaOrcH" style="margin:0"></div>' +
             (ant ? '<div class="hint" style="margin:6px 0 0">Ano passado: ' + ant.pecas + ' peças, ' + gs(ant.vendas) + ' em vendas.</div>' : '') + '</section>' : '') +
@@ -118,7 +118,7 @@
           S.temaOf = { tema: t.tema, ini: Math.max(t.ini, Date.now() - DAY), fim: t.fim, refs: sg.refs, ts: Date.now(), orc: S.temaOrc };
           saveSoon();
           if (typeof vitFila === 'function') Object.keys(sg.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); });
-          lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
+          lfToast('Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini), 'ok');
           S.temaMail = { chave: temaAno(t), ini: S.temaOf.ini, nome: t.nome };
           temaMailTenta();
           render();
@@ -143,6 +143,6 @@
     if (!tx) { m.feito = 1; saveSoon(); return; }
     nvToken().then(function (tk) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/novidades', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tk }, body: JSON.stringify({ acao: 'tema', chave: m.chave, titulo: tx[0], texto: tx[1], tituloEs: tx[2], textoEs: tx[3] }) }).then(function (r) { return r.json(); });
-    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
+    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('E-mail do tema enviado a ' + j.n + ' inscritos', 'ok'); } }, function () {});
   }
   setTimeout(temaMailTenta, 15000);

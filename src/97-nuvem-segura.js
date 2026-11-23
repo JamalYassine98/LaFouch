@@ -321,7 +321,7 @@
       L = (S._syncAps || []).filter(function (x) {
         return x.ap;
       });
-    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Aparelhos</h2><div class="hint" style="margin:2px 0 0">Perdeu o celular ou foi roubado? Desconecte aqui. O aparelho desconectado apaga os dados dele ao abrir com internet; a nuvem e o site não perdem nada.</div></div>';
+    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Aparelhos</h2></div>';
     if (S.apMsg) h += '<div class="note n-ok" role="status">' + esc(S.apMsg) + '</div>';
     L.forEach(function (x) {
       var esse = x.ap === eu;
@@ -335,7 +335,7 @@
     if (!L.length) h += '<div class="hint" style="margin:0">Procurando aparelhos…</div>';
     if (S.apSairT) {
       h +=
-        '<div class="lbl">Sair de todos os aparelhos</div><div class="hint" style="margin:0">Troca a senha da nuvem: todo aparelho perde o acesso na hora (inclusive o roubado). Depois, entre de novo só nos seus aparelhos com a senha nova.</div>' +
+        '<div class="lbl">Sair de todos os aparelhos</div>' +
         '<input class="in" id="apPw1" type="password" autocomplete="new-password" placeholder="Senha nova (6 ou mais letras/números)"><input class="in" id="apPw2" type="password" autocomplete="new-password" placeholder="Repita a senha nova">' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="mini" data-act="apSairTodos">Trocar a senha e sair de todos</button><button type="button" class="chip" data-act="apSairCancela">Cancelar</button></div>';
     } else h += '<button type="button" class="chip apSair" data-act="apSairAbre">Sair de todos os aparelhos</button>';

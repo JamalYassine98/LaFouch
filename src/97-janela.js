@@ -14,6 +14,9 @@
     jn.innerHTML = '<div class="ljPuxa" aria-hidden="true"></div>' + (o.titulo ? '<div class="ljHd"><b>' + esc(o.titulo) + '</b>' + (o.extra || '') + '</div>' : '') + '<div class="ljCorpo"></div>';
     document.body.appendChild(bk);
     document.body.appendChild(jn);
+    // o aviso curto de uma janela não passa para a próxima (conferência ESBOCO 22/11)
+    var ta = $('lfToast');
+    if (ta) { clearTimeout(lfToast.t); ta.classList.remove('on'); }
     var corpo = jn.querySelector('.ljCorpo'),
       aberta = true,
       H = function () {

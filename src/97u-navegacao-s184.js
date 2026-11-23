@@ -193,7 +193,7 @@
     return _cliabNav.apply(this, arguments);
   };
   // 3 número do painel abre o que está por trás (toque no cartão do número)
-  var FN_KPI = [[/vendid|vendas|faturad/i, function () { setView('hist'); }], [/parad|giro/i, function () { S.dTab = 'giro'; render(); }], [/estoque|invent/i, function () { setView('estoque'); }],
+  var FN_KPI = [[/vendid|vendas|faturad/i, function () { setView('hist'); }], [/parad/i, function () { setView('parsob'); }], [/estoque|invent/i, function () { setView('estoque'); }],
     [/carrinho|site|online|visit/i, function () { S.dTab = 'onl'; render(); }], [/caixa|carteira|dinheiro|reserva/i, function () { S.dTab = 'din'; render(); }], [/conta|despes/i, function () { setView('desp'); }]];
   document.addEventListener('click', function (e) {
     var k = e.target.closest && e.target.closest('#v-dash .kpi');

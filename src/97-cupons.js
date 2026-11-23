@@ -6,8 +6,7 @@
   S.cupTipos = {}; // código → tipo (para os relatórios)
   S.cupLista = null; // {ts, j}
   var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', fiel: 'Cliente fiel', ev: 'Cupom do evento' };
-  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', fiel: '💜', ev: '🎄' };
-  function cupApi(b) {
+    function cupApi(b) {
     return nvToken().then(function (t) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/cupom', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(b) }).then(function (r) {
         return r.json();
@@ -52,8 +51,8 @@
   function cupCaixaHtml() {
     if (S.cartCup)
       return (
-        '<div class="sl cupCx"><span>🎟️ ' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
-        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
+        '<div class="sl cupCx"><span>' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
+        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
     return ''; // S367: o código não se digita mais no Pedido; aplica-se em Clientes › Cartões › "Aplicar no pedido"
@@ -78,7 +77,7 @@
     });
     S.cartCup = { cod: c.cod, pct: c.pct, tipo: c.tipo, desc: tot, lim: lim };
     S.cupTipos[c.cod] = c.tipo;
-    if (lim && primeira) cupAvisoLocal('✂️ Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
+    if (lim && primeira) cupAvisoLocal('Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
     saveSoon();
   }
   ACT.cupCx = function () {
@@ -129,7 +128,7 @@
     var b = { acao: 'caixa', cod: c.cod, pid: 'loja:' + cartId, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', total: total, desc: c.desc };
     cupApi(b)
       .then(function (j) {
-        if (j && !j.ok && j.motivo) cupAvisoLocal('⚠️ Código conferido depois', c.cod + ': ' + cupMotivo(j.motivo, j.cupom));
+        if (j && !j.ok && j.motivo) cupAvisoLocal('Código conferido depois', c.cod + ': ' + cupMotivo(j.motivo, j.cupom));
       })
       .catch(function () {
         cupFilaPoe(b);
@@ -142,7 +141,7 @@
       lfJanela({
         titulo: 'Cartão do cliente',
         monta: function (c, J) {
-          c.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="hint" style="margin:0">10% na próxima compra · vale na loja e em lafouch.com · 1 uso</div><button type="button" class="go" id="cupEnt">🎟️ Entregar cartão "Próxima compra"' + (cli && cli.nome ? ' a ' + esc(cli.nome) : '') + '</button></div>';
+          c.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="hint" style="margin:0">10% na próxima compra · vale na loja e em lafouch.com · 1 uso</div><button type="button" class="go" id="cupEnt">Entregar cartão "Próxima compra"' + (cli && cli.nome ? ' a ' + esc(cli.nome) : '') + '</button></div>';
           $('cupEnt').onclick = function () {
             this.disabled = true;
             cupApi({ acao: 'emitir', tipo: 'px', pct: 10, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', nome: cli ? cli.nome || '' : '' })
@@ -170,7 +169,7 @@
       txt = '🎟️ ' + (cp.pct || 10) + '% na próxima compra na La Fouch · código ' + cp.cod + ' · ' + cupLink(cp.cod);
     c.innerHTML =
       '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="cupCard"><small>LA FOUCH</small><b>' + cp.pct + '% ' + (cp.tipo === 'vip' ? 'sempre (VIP)' : cp.tipo === 'am' ? 'para a amiga' : 'na próxima compra') + '</b><code>' + esc(cp.cod) + '</code><i>' + (cp.fim ? 'vale até ' + fd(cp.fim) + ' · ' : '') + 'na loja e em lafouch.com</i></div>' +
-      (z ? '<button type="button" class="go" id="cupZap">Enviar pelo WhatsApp</button><div class="hint" style="margin:0">Abre o WhatsApp normal com a mensagem e o link do cartão (' + esc(cupLink(cp.cod).replace('https://', '')) + '). Sem custo.</div>' : '') +
+      (z ? '<button type="button" class="go" id="cupZap">Enviar pelo WhatsApp</button>' : '') +
       '<div class="cupQr" id="cupQr"></div><div class="hint" style="margin:0;text-align:center">' + (z ? 'Ou mostre o QR para ela ler' : 'Sem telefone: mostre o QR para ela ler') + '</div></div>';
     try {
       $('cupQr').innerHTML = window.LFqr ? window.LFqr.svg(cupLink(cp.cod)) : '';
@@ -211,12 +210,11 @@
       pc = 0,
       tp = function (k, d) {
         var x = T[k] || { gerados: 0, usados: 0 };
-        return '<div class="sl"><span>' + CUP_IC[k] + ' <b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
+        return '<div class="sl"><span><b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
       };
     var av = (j.avisos || [])
       .map(function (a) {
-        var ic = a.t === 'trava' ? '🔒' : a.t === 'esgotado' ? '🎄' : a.t === 'pausa' ? '⏸️' : 'ℹ️';
-        return '<div class="sl"><span>' + ic + ' ' + esc(a.cod ? a.cod + ' · ' : '') + esc(a.d || '') + '<small>' + fd(a.ts) + '</small></span>' + (a.t === 'trava' && a.cod ? '<button type="button" class="mini ghost" data-cupdes="' + esc(a.cod) + '">Desfazer</button>' : '') + '</div>';
+        return '<div class="sl"><span>' + esc(a.cod ? a.cod + ' · ' : '') + esc(a.d || '') + '<small>' + fd(a.ts) + '</small></span>' + (a.t === 'trava' && a.cod ? '<button type="button" class="mini ghost" data-cupdes="' + esc(a.cod) + '">Desfazer</button>' : '') + '</div>';
       })
       .concat((S.cupAvL || []).slice().reverse().map(function (a) {
         return '<div class="sl"><span>' + esc(a.t) + '<small>' + esc(a.d) + ' · ' + fd(a.ts) + '</small></span></div>';
@@ -230,13 +228,13 @@
       /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
-      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
+      (ev ? '<div class="hint" style="margin:0">' + ev.nome + (ev.dias > 0 ? ' começa em ' + nDias(ev.dias) : ' está acontecendo') + ' · sugerido:</div>' : '') +
       '<div class="cupEv"><input class="in" id="cevCod" value="' + esc(ev ? ev.cod : '') + '" placeholder="Código (ex.: NAVIDAD10)" autocapitalize="characters"><input class="in" id="cevPct" inputmode="numeric" value="10" aria-label="Desconto %"><input class="in" id="cevMax" inputmode="numeric" value="50" aria-label="Limite total"></div>' +
       '<div class="hint" style="margin:0" id="cevSim"></div>' +
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
-      '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">✓ Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>✓ Código pessoal fica preso ao telefone do 1º uso<br>✓ Cupom do evento: 1 vez por pessoa e até o limite total<br>✓ Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>✓ Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>✓ Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>✓ Muitas tentativas erradas: o código trava sozinho por 24 h<br>✓ Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
+      '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>Código pessoal fica preso ao telefone do 1º uso<br>Cupom do evento: 1 vez por pessoa e até o limite total<br>Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>Muitas tentativas erradas: o código trava sozinho por 24 h<br>Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
       '<div class="lbl">Códigos ativos</div>' + (j.cupons || []).filter(function (x) { return x.estado === 'ok' && x.tipo !== 'bv'; }).slice(0, 20).map(function (x) {
-        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
+        return '<div class="sl"><span>' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
       }).join('') +
       '</div>';
     var sim = function () {
@@ -244,7 +242,7 @@
         mx = parseInt($('cevMax').value, 10) || 0,
         r = cupSimula(p),
         ok = r.cabe >= 0.8;
-      $('cevSim').innerHTML = p > 0 ? 'Simulação no estoque de hoje: cabe inteiro em <b>' + Math.round(r.cabe * 100) + '%</b> dos modelos · ' + r.lim + ' limitados pelo piso · ' + r.of + ' em oferta (não vale) · ' + mx + ' usos ≈ ' + gs(Math.round(mx * r.desc)) + ' de desconto' + (mx * r.desc > (t.teto - t.usado) ? ' (passa do teto do mês)' : ' (cabe no teto do mês)') + (ok ? ' ✓' : ' · ⚠️ com ' + p + '% cabe em pouco: use ' + r.sug + '%') : '';
+      $('cevSim').innerHTML = p > 0 ? 'Simulação no estoque de hoje: cabe inteiro em <b>' + Math.round(r.cabe * 100) + '%</b> dos modelos · ' + r.lim + ' limitados pelo piso · ' + r.of + ' em oferta (não vale) · ' + mx + ' usos ≈ ' + gs(Math.round(mx * r.desc)) + ' de desconto' + (mx * r.desc > (t.teto - t.usado) ? ' (passa do teto do mês)' : ' (cabe no teto do mês)') + (ok ? '' : ' · com ' + p + '% cabe em pouco: use ' + r.sug + '%') : '';
       $('cevOk').disabled = !(p > 0 && ok && mx > 0);
     };
     $('cevPct').oninput = sim;
@@ -259,7 +257,7 @@
         .then(function (r) {
           if (!r || !r.ok) return popErr(r && r.motivo === 'existe' ? 'Esse código já existe. Escolha outro.' : 'Não deu para criar o cupom.');
           S.cupTipos[r.cod] = 'ev';
-          lfToast('✓ Cupom ' + r.cod + ' publicado', 'ok');
+          lfToast('Cupom ' + r.cod + ' publicado', 'ok');
           cupArte(r.cod, p, mx, ev);
           ACT.cupAbre();
         })
@@ -284,7 +282,7 @@
             S.cartOpen = true;
             S.cartStep = 'ped';
             setView('vendas');
-            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
+            lfToast('Cupom ' + j.cupom.cod + ' aplicado no pedido', 'ok');
           })
           .catch(function () {
             u.disabled = false;
@@ -299,7 +297,7 @@
       d.disabled = true;
       cupApi({ acao: ac, cod: cod })
         .then(function () {
-          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 'ok');
+          lfToast(ac === 'destrava' ? '' + cod + ' destravado' : '' + cod + ' cancelado', 'ok');
           cupCarrega(function (j2) {
             if (j2) cupDesenha(c, j2);
           });
@@ -356,11 +354,11 @@
         j1 = new Date(a, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
       // A única Black Friday é a da CDE (dono, 13/11 e 21/11/2026): ano sem data da Câmara = ano sem Black Friday, como no site
-      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
-      L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
-      L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
-      L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
-      L.push({ tema: 'pais', nome: 'Dia dos Pais', ic: '👔', cod: 'PAPA10', ini: d(6, 1), fim: d(6, p2, 1) });
+      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
+      L.push({ tema: 'natal', nome: 'Natal', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
+      L.push({ tema: 'anonovo', nome: 'Ano Novo', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
+      L.push({ tema: 'maes', nome: 'Dia das Mães', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
+      L.push({ tema: 'pais', nome: 'Dia dos Pais', cod: 'PAPA10', ini: d(6, 1), fim: d(6, p2, 1) });
     });
     var x = L.filter(function (e) {
       return e.fim >= ag;
@@ -373,8 +371,8 @@
   }
   // Post quadrado (1080×1080) e story (1080×1920) no estilo do tema, com o Mochi temático
   var CUP_ARTE = {
-    natal: ['#f7e9ef', '#1f5a3a', '#b3202f', 'Regalá estilo esta Navidad'], bf: ['#f4f1f3', '#141014', '#a44a7e', 'Black Friday La Fouch'], anonovo: ['#f6efe4', '#2a2140', '#b38a2e', 'Empezá el año con estilo'],
-    maes: ['#f9e8ee', '#7a2e55', '#c2577f', 'Para la mamá más linda'], pais: ['#eef0f4', '#1e2a3a', '#a77b2d', 'Para el papá con estilo'], '': ['#f7e9ef', '#2b1a2a', '#a44a7e', 'Un regalo para vos']
+    natal: ['#f7e9ef', '#1f5a3a', '#b3202f', 'Regalá estilo esta Navidad'], bf: ['#f4f1f3', '#141014', '#943d6f', 'Black Friday La Fouch'], anonovo: ['#f6efe4', '#2a2140', '#b38a2e', 'Empezá el año con estilo'],
+    maes: ['#f9e8ee', '#7a2e55', '#c2577f', 'Para la mamá más linda'], pais: ['#eef0f4', '#1e2a3a', '#a77b2d', 'Para el papá con estilo'], '': ['#f7e9ef', '#2b1a2a', '#943d6f', 'Un regalo para vos']
   };
   function cupArte(cod, pct, mx, ev) {
     var tema = ev ? ev.tema : '',
@@ -459,10 +457,10 @@
     var ks = Object.keys(T);
     if (!ks.length) return '';
     return (
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Cada cartão valeu a pena?</h2><div class="hint" style="margin:0">Lucro das vendas com código − desconto = lucro líquido (' + MESES_L[d.getMonth()] + ').</div>' +
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Cada cartão valeu a pena?</h2>' +
       ks.map(function (k) {
         var t = T[k], liq = t.lucro - t.desc;
-        return '<div class="sl"><span>' + (CUP_IC[k] || '') + ' ' + (CUP_N[k] || k) + '<small>' + t.n + ' venda(s) · lucro ' + gs(t.lucro) + ' · desconto −' + gs(t.desc) + (liq < 0 ? ' · ⚠️ lucro negativo: baixe o %' : '') + '</small></span><b style="color:' + (liq >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(liq) + '</b></div>';
+        return '<div class="sl"><span>' + (CUP_N[k] || k) + '<small>' + t.n + ' venda(s) · lucro ' + gs(t.lucro) + ' · desconto −' + gs(t.desc) + (liq < 0 ? ' · lucro negativo: baixe o %' : '') + '</small></span><b style="color:' + (liq >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(liq) + '</b></div>';
       }).join('') + '</section>'
     );
   }

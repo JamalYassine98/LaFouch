@@ -72,7 +72,7 @@
     // BALÃO B (esboço 58f, aprovado 22/11 06:26): o ícone de "nenhuma mensagem" — Atacado › Mensagens e Site › Mensagens
     window.LF_ICO_MSG = '<path d="M4 4.5h16v11.5H9.5L6 19.5V16H4z"/><path d="M8 8.5h8"/><path d="M8 12h5"/>';
     window.lfVazioHtml = function (ico, titulo, texto) {
-      return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
+      return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
     };
 
     // ---------- e. tirar peça do pedido ----------
@@ -532,7 +532,7 @@
       cv.className = 'lfConf';
       document.body.appendChild(cv);
       var x = cv.getContext('2d'),
-        cs = ['#f3c0dc', '#a44a7e', '#5fd39a', '#e9c27a'],
+        cs = ['#bf8ba9', '#943d6f', '#5fd39a', '#e9c27a'],
         ps = [];
       for (var i = 0; i < 80; i++) ps.push({ x: W / 2, y: H * 0.35, vx: (Math.random() - 0.5) * 10, vy: -Math.random() * 10 - 3, c: cs[i % 4], r: Math.random() * 3 + 2 });
       var t0 = performance.now();

@@ -97,6 +97,6 @@
       stNum95(peds.length, 'Pedidos', novos ? novos + (novos === 1 ? ' novo para separar' : ' novos para separar') : 'nenhum novo', 'stAbre', 'ped') +
       stNum95(r ? r.msg : null, 'Mensagens', r ? (r.ata ? r.ata + ' de atacado' : 'nenhuma de atacado') : 'abra para atualizar', 'stAbre', 'msg') +
       stNum95(x ? x.mod : null, 'Modelos', x ? 'no ar' + (x.oc ? ' · ' + x.oc + (x.oc === 1 ? ' oculto' : ' ocultos') : '') : 'abra para atualizar', 'stAbre', 'prod') +
-      stNum95(x ? (x.dm === 'nada' ? null : '✓') : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
+      stNum95(x ? (x.dm === 'nada' ? null : ICO.chk) : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
       '</div>';
   };

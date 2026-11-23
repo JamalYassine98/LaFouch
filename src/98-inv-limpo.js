@@ -25,7 +25,7 @@
   function invSinal(ref, tipo, ps) {
     var pb = invPrecoProb(ref, tipo, ps);
     if (pb) return '<i class="pSin ex" title="' + esc(pb.txt) + '" aria-label="Preço: ' + esc(pb.txt) + '">!</i>';
-    return ps && ps.st === 'o' ? '<i class="pSin ok" title="Preço certo" aria-label="Preço certo">✓</i>' : '';
+    return ps && ps.st === 'o' ? '<i class="pSin ok" title="Preço certo" aria-label="Preço certo">' + ICO.chk + '</i>' : '';
   }
   // todas as peças com preço a corrigir (uma por código)
   function invPrecosAcorrigir() {
@@ -81,7 +81,7 @@
     }, 0);
   }
   // ---------- busca igual ao Catálogo (montada uma vez; o index.html do APK não muda) ----------
-  var ICO_AJ = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
+  var ICO_AJ = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
   function invBuscaMonta() {
     var q = $('q'),
       bf = $('btnFilt');
@@ -93,10 +93,10 @@
     var bs = document.createElement('div');
     bs.className = 'bs';
     bs.id = 'invBs';
-    bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+    bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
     q.className = '';
     q.style.cssText = '';
-    q.placeholder = 'Buscar peça, código, cor…';
+    q.placeholder = 'Peça, código, cor…';
     bs.appendChild(q);
     if (cam) {
       cam.className = 'ic cam';
