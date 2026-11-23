@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09: família de botões APROVADA (P1 suave acetinado) | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md, work/ideias/09-botoes/ |
 
 ## Fila
 

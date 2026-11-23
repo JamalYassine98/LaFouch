@@ -1,7 +1,11 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "09: família de botões APROVADA (P1 suave acetinado)",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md",
+  "work/ideias/09-botoes/"
+ ],
  "ultimas": [
   {
    "t": 1795439858.8259954,
@@ -44,5 +48,5 @@
    "r": "09i: Comprar rosé/seda na cor do logo (K–O) enviado"
   }
  ],
- "leu": 1795432245.6583207
+ "leu": 1795440197.407328
 }
