@@ -3796,3 +3796,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 23/11 13:52 · DONO: 'Perfeito, aprovado' → 104 APROVADO: o cartão SAI também do Caixa ('Objetivos da loja', 'Movimentos') e do Vender/Catálogo (busca e lista; o catálogo fica em 2 colunas) — a regra mora na classe (.view .card plano), junto das 9 telas do 149. Entra na Parte 1 do plano (base visual).
 
 - 23/11 13:55 · DONO: 'já avise para implementar tudo de acordo com nossos planos' → IMPLEMENTAR do plano do app (PLANO-IMPLEMENTAR-APP-23-11.md, 7 partes, uma por vez, consultando o dono a cada parte; Estúdio fora). Recados à APP (ordem e regras) e à NUVEM (regras do cupom, cupom sai da conta, reserva suspeita). Fila 105. Depois de cada publicação: ESBOCO confere as telas; depois da Parte 1: varredura de TODAS as telas com o medidor (claro e escuro).
+
+- 23/11 14:05 · DONO perguntou se a APP recebeu todas as instruções e só os últimos aprovados → conferido e completado: ÍNDICE no fim do PLANO-IMPLEMENTAR-APP-23-11.md (arquivo final de cada item por parte, regras gerais, o que NÃO implementar); movidos para obsoletos 99a, 100 e uma cópia do 65d errado. Recado à APP.
