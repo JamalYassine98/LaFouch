@@ -14,9 +14,12 @@ ALIN=r"""()=>{document.querySelectorAll('.ajS .trk').forEach(t=>{const s=t.close
 PTW=':root{--ptw:var(--warn)}html[data-tema="claro"]{--ptw:#e0ac00}@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){--ptw:#e0ac00}}'
 FICA=FICA.replace("w?'var(--warn)'","w?'var(--ptw)'")
 
+# 84 (aprovado 23/11 00:15): nenhum emoji na tela (no app) — tira o emoji dos textos, um lugar só.
+SEMEMOJI=r"""()=>{const re=/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}]\uFE0F?\s*/gu;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,'')}}}"""
+
 def aplica(pg):
   pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW)
-  pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO)
+  pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO);pg.evaluate(SEMEMOJI)
   pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');pg.wait_for_timeout(300);pg.evaluate(ALIN);pg.wait_for_timeout(200)
 
 # AJUSTES no estado APROVADO (22/11 01:28 'cada ajuste mora na tela do assunto' + 21:56 Marca só no Marketing + 46 sem Preços/Pagamento
