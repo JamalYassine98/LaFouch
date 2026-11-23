@@ -121,7 +121,7 @@
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
-- **79-pode-tirar-e-imprevistos** — esboço pronto — esperando o dono (Dinheiro › Pode tirar com as gavetas + janela Novo imprevisto; work/s435/gavetas/)
+- **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
 
 ## Recados esperando
 

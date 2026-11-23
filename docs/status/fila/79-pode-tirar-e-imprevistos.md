@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (Dinheiro › Pode tirar com as gavetas + janela Novo imprevisto; work/s435/gavetas/)
+aprovado 22/11 22:57 — espera o 'implementar'
 
