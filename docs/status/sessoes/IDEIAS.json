@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12c: temática bonita e luxuosa (vitrine da data)",
- "arquivos": [
-  "work/ideias/12-tematica-base/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795458073.0232043,
+   "r": "12c: vitrine da data nas 6 datas enviada"
+  },
   {
    "t": 1795456001.0604959,
    "r": "13 Mochi recusado e guardado em obsoletos"
@@ -40,10 +42,6 @@
   {
    "t": 1795445362.289966,
    "r": "08k2: destaque subia ao abrir camada — causa regra v452 (topo fixo); conserto apagando a regra; vídeo novo"
-  },
-  {
-   "t": 1795444981.769148,
-   "r": "bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento"
   }
  ],
  "leu": 1795457540.126982
