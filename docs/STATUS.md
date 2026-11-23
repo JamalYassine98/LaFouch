@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09 v3: botões pretos, vinho só no caminho do dinheiro | work/ideias/09-botoes/ |
 
 ## Fila
 
