@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 12: fundo branco também nas datas | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md, work/ideias/12-tematica-base/ |
 
 ## Fila
 

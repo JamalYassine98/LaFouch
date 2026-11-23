@@ -1,7 +1,11 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "12: fundo branco também nas datas",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md",
+  "work/ideias/12-tematica-base/"
+ ],
  "ultimas": [
   {
    "t": 1795453201.9001305,
