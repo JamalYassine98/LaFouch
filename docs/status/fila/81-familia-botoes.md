@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (3 tipos pelo papel: principal .go · pequeno .mini · perigo vermelho + Voltar; work/s435/botoes/)
+aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
 
