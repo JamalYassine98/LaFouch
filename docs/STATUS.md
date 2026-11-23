@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09j: estudo de luxo com cor própria + N refinado | work/ideias/09-botoes/ |
 
 ## Fila
 
