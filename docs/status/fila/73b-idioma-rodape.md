@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-Idioma no rodapé = A (escolha do dono) + animação igual à Madë em 2 tempos: o rodapé aparece clareando (450 ms) e o conteúdo aparece por dentro logo depois (250 ms); sem subir; uma vez; respeita reduzir movimento. Vídeos esboco-08i-rodape-{celular,pc}.mp4
+Idioma no rodapé: faixa de baixo CENTRADA em todos os aparelhos (Português › · Termos/Privacidade/© · reCAPTCHA, um embaixo do outro — dono 23:17) + animação do rodapé em 2 tempos como a Madë. work/ideias/08-menu-luxo/esboco-08h2-rodape-alinhado.jpg e esboco-08i-*.mp4
