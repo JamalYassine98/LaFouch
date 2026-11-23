@@ -139,6 +139,7 @@
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
 - **93-tudo-arredondado** — esboço pronto — esperando o dono (lote 56)
+- **94-de-por-honesto** — esboço pronto — esperando o dono (lote 56)
 
 ## Recados esperando
 
