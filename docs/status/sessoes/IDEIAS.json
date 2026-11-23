@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09q: família P1 suave aplicada nas telas reais",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795438485.3520858,
+   "r": "09q: família P1 suave aplicada em 12 telas enviada"
+  },
   {
    "t": 1795436854.6580741,
    "r": "09p: Comprar com detalhes + família dos outros botões enviados"
@@ -40,10 +42,6 @@
   {
    "t": 1795433677.0659432,
    "r": "09h: Comprar em 5 cores suaves enviado"
-  },
-  {
-   "t": 1795433565.1506839,
-   "r": "09g: 5 propostas de luxo para o botão Comprar enviadas"
   }
  ],
  "leu": 1795432245.6583207
