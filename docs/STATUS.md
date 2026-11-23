@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 10: padronizar as cores (cor oficial CMYK) + esboço acetinado | work/ideias/10-cores/, work/ideias/09-botoes/ |
 
 ## Fila
 
@@ -182,6 +181,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 10:43 — IDEIAS: 10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões
 - 23/11 10:25 — IDEIAS: Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)
 - 23/11 10:23 — IDEIAS: Família de botões do site APROVADA (Fila 75): P1 suave acetinado
 - 23/11 10:17 — IDEIAS: 09r: Comprar fosco × acetinado enviado
@@ -191,7 +191,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 09:20 — IDEIAS: 09n: Comprar menos é mais (P1 × P2) enviado
 - 23/11 08:58 — IDEIAS: 09m: Comprar com a cor do logo suavizada enviado
 - 23/11 08:56 — IDEIAS: 09l: Comprar N3 (N2 na cor do logo) enviado
-- 23/11 08:53 — IDEIAS: 09k: botões de 6 marcas de luxo (redesenhados das medidas publicadas) × Hoje × N2 enviados
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

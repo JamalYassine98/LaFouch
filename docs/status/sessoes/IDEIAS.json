@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "10: padronizar as cores (cor oficial CMYK) + esboço acetinado",
- "arquivos": [
-  "work/ideias/10-cores/",
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795441426.343266,
+   "r": "10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões"
+  },
   {
    "t": 1795440358.5948489,
    "r": "Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)"
@@ -41,10 +42,6 @@
   {
    "t": 1795434999.3755229,
    "r": "09l: Comprar N3 (N2 na cor do logo) enviado"
-  },
-  {
-   "t": 1795434814.412557,
-   "r": "09k: botões de 6 marcas de luxo (redesenhados das medidas publicadas) × Hoje × N2 enviados"
   }
  ],
  "leu": 1795441071.7498705
