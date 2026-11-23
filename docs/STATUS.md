@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| ESBOCO | lote 90-92: abas com linha, pílulas Formato/Material/Gênero, cor sugerida pela foto | work/s435/lote |
 | IDEIAS | 09f: estudo de botões de luxo + proposta com a identidade | work/ideias/09-botoes/ |
 
 ## Fila
@@ -170,6 +169,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 23/11 08:07 — IDEIAS: 09e: 3 propostas de identidade dos botões enviadas (Sair/Excluir voltaram ao original)
 - 23/11 02:26 — IDEIAS: 09 parte 2: telas finais com a família de botões v3 (esboco-09d) enviadas — Fila 75
 - 23/11 00:47 — IDEIAS: 09 v3 família de botões (preto + vinho só no dinheiro) enviada ao dono — Fila 75
@@ -194,4 +194,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
 - 22/11 01:46 — APP: Lista final guardada para depois da fase 'famílias' (dono 22/11 01:46). APP parada, esperando o esboço aprovado + 'implementar'.
 - 22/11 01:23 — APP: Lista final entregue (work/s436/LISTA-FINAL-DONO.md). Folha VER morta NÃO apagada: está ligada ao arrastar tela → barra, que ficou sem caminho — decisão do dono (item 14 da lista).
-- 22/11 01:17 — APP: v624 publicada: 42b — Nova cor. Porteiro 375/375. Próximo: conferir o que ainda dá para fazer sem o dono; senão, a lista final.
