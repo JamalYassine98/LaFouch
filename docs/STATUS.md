@@ -120,7 +120,7 @@
 - **73b-idioma-rodape** — esboço pronto — esperando o dono
 - **74-busca-e-padrao-camadas** — aprovado 23/11 00:17 (busca) e 00:30 (conta e carrinho) — espera o 'implementar' (SITE)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
-- **74r-reserva-suspeita** — v3: em Pedidos (não em Preços) — esperando o dono
+- **74r-reserva-suspeita** — aprovado 23/11 08:05 (v3, em Pedidos) — espera o 'implementar' · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **75-erros-site** — passado à SITE (recado 23/11 08:00) — não é da ESBOCO
 - **75-familia-de-botoes** — esboço pronto — esperando o dono (v3 + telas finais 09d)
