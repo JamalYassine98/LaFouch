@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08: vídeo abrindo busca, conta e carrinho (pacote final, branco)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795401127.6507204,
+   "r": "08j: vídeos abrindo busca/conta/carrinho (pacote final, branco) + achado do desfoque preso no PC (conserto = saída no lugar do 05d)"
+  },
   {
    "t": 1795400852.9837773,
    "r": "08: topo do PC em branco (esboco-08g-topo-pc.jpg); o de creme foi para obsoletos"
@@ -40,10 +42,6 @@
   {
    "t": 1795398365.14949,
    "r": "08g: menu F em Fraunces 400 (identidade) + achado da fonte 600 no simulador"
-  },
-  {
-   "t": 1795398090.4293475,
-   "r": "08f em branco (padrão sem evento) + correção do dono no 06: creme só nos eventos"
   }
  ],
  "leu": 1795388650.001632
