@@ -137,7 +137,7 @@
 - **80-barras** — publicado v632
 - **80-familia-barras** — publicado v632 (APP)
 - **81-familia-botoes** — publicado v632 (APP)
-- **82-varredura-campos** — aprovado 22/11 23:49 — espera o 'implementar' · anotado: seta do Voltar no tempo (Títulos e linhas) e a família das pílulas ▾
+- **82-varredura-campos** — publicado v632 (APP)
 - **83-varredura-textos** — aprovado 23/11 00:00 (v2 com o trilho 80) — espera o 'implementar'
 - **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
