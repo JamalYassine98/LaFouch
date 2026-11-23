@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 12: temática em 3 camadas (Natal, BF, Mães) | work/ideias/12-tematica-base/ |
 
 ## Fila
 
@@ -212,6 +211,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 14:00 — IDEIAS: 12: temática em 3 camadas (Natal, BF, Mães) enviada
 - 23/11 12:18 — IDEIAS: Conserto do topo (08k2) aprovado e guardado
 - 23/11 11:49 — IDEIAS: 08k2: destaque subia ao abrir camada — causa regra v452 (topo fixo); conserto apagando a regra; vídeo novo
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
@@ -222,7 +222,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 11:05 — IDEIAS: Formato Lente (14 px) aprovado e guardado; recado a APP e SITE
 - 23/11 10:54 — IDEIAS: Cores do 10 aprovadas e guardadas (recado às sessões) + 11: 6 formatos de botão enviados
 - 23/11 10:43 — IDEIAS: 10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões
-- 23/11 10:25 — IDEIAS: Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

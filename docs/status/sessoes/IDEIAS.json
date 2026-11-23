@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12: temática em 3 camadas (Natal, BF, Mães)",
- "arquivos": [
-  "work/ideias/12-tematica-base/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795453201.9001305,
+   "r": "12: temática em 3 camadas (Natal, BF, Mães) enviada"
+  },
   {
    "t": 1795447123.8129168,
    "r": "Conserto do topo (08k2) aprovado e guardado"
@@ -40,10 +42,6 @@
   {
    "t": 1795441426.343266,
    "r": "10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões"
-  },
-  {
-   "t": 1795440358.5948489,
-   "r": "Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)"
   }
  ],
  "leu": 1795450922.0743623
