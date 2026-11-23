@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-08f: menu do celular com 5 itens como a Madë (Solar · Leitura · Armações · Ofertas · Descubra ›; Descubra abre por dentro; Atacado preso no pé; gênero sai). PC: links no topo, só 'Descubra' com janelinha. Rodapé: coluna Descubra + 'Idioma: Português ›'. Visto com e sem evento. Comparador: 0 falha nova. work/ideias/08-menu-luxo/
+08g: estrutura da F (5 itens, Descubra por dentro, Atacado no pé, fundo branco) com a letra da marca: Fraunces 400, 20 px, todos iguais (precisa do peso 400 no pedido de fontes). Rodapé com coluna Descubra + idioma. Achado: o simulador mostrava a Fraunces sempre no peso 600 — corrigido nas fotos do 08g. work/ideias/08-menu-luxo/
