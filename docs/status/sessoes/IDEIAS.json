@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08l: vistos por último na linha de peça",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795402779.934328,
+   "r": "08l v3: em alta abre o catálogo; vistos na linha de peça"
+  },
   {
    "t": 1795402525.267972,
    "r": "08l v2: busca vazia C (vistos OU em alta)"
@@ -40,10 +42,6 @@
   {
    "t": 1795398894.7816076,
    "r": "08i: animação do rodapé subindo (vídeos)"
-  },
-  {
-   "t": 1795398675.4372313,
-   "r": "08h: 3 propostas do idioma no rodapé"
   }
  ],
  "leu": 1795388650.001632
