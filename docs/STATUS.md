@@ -125,6 +125,7 @@
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **75-erros-site** — passado à SITE (recado 23/11 08:00) — não é da ESBOCO
 - **75-familia-de-botoes** — aprovado 23/11 10:23; cor trocada pela oficial no 87 (10:52) — espera o 'implementar' (SITE)
+- **76-post-semp** — 76d (o 76c limpo nas cores oficiais) — esperando o dono
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — SUPERADO pelo 98 v4 (23/11 10:14) — obsoletos
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
