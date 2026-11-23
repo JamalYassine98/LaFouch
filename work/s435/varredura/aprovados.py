@@ -17,8 +17,15 @@ FICA=FICA.replace("w?'var(--warn)'","w?'var(--ptw)'")
 # 84 (aprovado 23/11 00:15): nenhum emoji na tela (no app) — tira o emoji dos textos, um lugar só.
 SEMEMOJI=r"""()=>{const re=/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}]\uFE0F?\s*/gu;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,'')}}}"""
 
+# CORES PADRONIZADAS (IDEIAS 10, dono aprovou 23/11 10:52; bolinha 11:06): tudo sai da cor oficial #943d6f (CMYK C47 M91 Y29 K8).
+# Por enquanto SÓ o tema CLARO (a família não define o escuro — perguntar). Saem #a2447c, #8a2f66, os degradês (cupCard) e o vinho solto.
+_CL=('--accent:#943d6f;--bar:#943d6f;--accent-fg:#943d6f;--accent-soft:#f6eff3;--fg:#141414;--mute:#6b6763;--line2:#ece7e9;'
+     '--ok:#1f8f4e;--bad:#b3261e;--warn:#b7791f;--ptw:#e0ac00')
+CORES=('html[data-tema="claro"]{'+_CL+'}@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){'+_CL+'}}'
+       'html[data-tema="claro"] .cupCard{background:#943d6f!important}')
+
 def aplica(pg):
-  pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW)
+  pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW);pg.add_style_tag(content=CORES)
   pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO);pg.evaluate(SEMEMOJI)
   pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');pg.wait_for_timeout(300);pg.evaluate(ALIN);pg.wait_for_timeout(200)
 
