@@ -7,7 +7,9 @@ from PIL import Image,ImageDraw,ImageFont,ImageChops
 import numpy as np
 FR=lambda s,w='300':ImageFont.truetype('/tmp/fnt/fr-%s.ttf'%w,s)
 JO=lambda s,w='300':ImageFont.truetype('/tmp/fnt/jost-%s.ttf'%w,s)
-W,H=1080,1350;BG=(247,243,238);TX=(40,34,36);MU=(132,124,122);VI=(141,58,105);LN=(214,206,200)
+# 76d (23/11 11:25): cores da família oficial (IDEIAS 10, aprovadas 10:52): marca #943d6f, texto #141414, suave #6b6763, linha #ece7e9,
+# fundo #fff (o creme fica só nos eventos). Antes: off-white quente (247,243,238) e vinho #8d3a69.
+W,H=1080,1350;BG=(255,255,255);TX=(20,20,20);MU=(107,103,99);VI=(148,61,111);LN=(236,231,233)
 LOGO=Image.open('/home/claude/lafouch/www/logo-app.png').convert('RGBA')
 def escudo(cor,alt):
   s=LOGO.crop((0,0,720,233));a=s.split()[3];bb=a.getbbox();s=s.crop(bb);c=Image.new('RGBA',s.size,cor+(255,));c.putalpha(s.split()[3])

@@ -1,4 +1,4 @@
-# Esboço 76c (S435, 22/11 18:05) — LIMPO E ELEGANTE (dono 17:48: 'estamos exagerando nos detalhes'). Estudo de 8 posts da @made.glasses:
+# Esboço 76d (23/11 11:25) = o 76c com as cores oficiais (identidade.py). Esboço 76c (S435, 22/11 18:05) — LIMPO E ELEGANTE (dono 17:48: 'estamos exagerando nos detalhes'). Estudo de 8 posts da @made.glasses:
 # quase todo post é UMA imagem com UMA ideia — foto da peça (na mão, num prato, no rosto) SEM texto ou com uma linha só; a informação
 # (material, medidas, UV, cores, site) fica na LEGENDA do post, não na imagem. A ficha com detalhes era a exceção.
 # LaFouch: off-white quente, a peça grande, o nome pequeno, o escudo LF bem pequeno. Carrossel: 1 a peça · 2 um detalhe sem texto.
@@ -19,7 +19,7 @@ Aviador LaFouch. Metal y acetato, negro y dorado.
 lafouch.com'''
 if __name__=='__main__':
   a=peca();b2=detalhe()
-  a.save('post76c_peca.jpg',quality=93);b2.save('post76c_detalhe.jpg',quality=93)
+  a.save('post76d_peca.jpg',quality=93);b2.save('post76d_detalhe.jpg',quality=93)
   g=40;S=Image.new('RGB',(g+3*(540+g),675+150),(17,20,26));dd=ImageDraw.Draw(S)
   for k,(t,im) in enumerate([('1 · a peça',a),('2 · um detalhe, sem texto',b2)]):
     x=g+k*(540+g);dd.text((x,30),t,font=JO(30,'400'),fill=(235,235,240));S.paste(im.resize((540,675)),(x,100))
@@ -27,4 +27,4 @@ if __name__=='__main__':
   y=110
   for ln in LEGENDA.split('\n'):dd.text((x,y),ln,font=JO(24,'300'),fill=(215,215,222));y+=40
   dd.text((x,y+20),'material, medidas, UV e site\nficam aqui, não na imagem',font=JO(22,'300'),fill=(140,150,165),spacing=8)
-  S.save('../esboco_76c_post_limpo.jpg',quality=90);print('ok')
+  S.save('../esboco_76d_post_limpo_cores.jpg',quality=90);print('ok')
