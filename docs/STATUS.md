@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09i: Comprar rosé mais luxuoso na cor do logo | work/ideias/09-botoes/ |
 
 ## Fila
 
