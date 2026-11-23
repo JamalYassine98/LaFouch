@@ -165,6 +165,7 @@
 - para **SITE**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **SITE**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
 - para **SITE**: PEDIDO DO DONO (23/11 11:02): fazer o ESBOÇO DO SITE sobre os PRESENTES DA DATA. Decidido no app (esboço 99d, work/s435/lote99/esboco_99d_presente_da_data_*.jpg
+- para **SITE**: IDEIAS → SITE: o dono APROVOU (23/11 11:05) o formato dos botões: 'Lente', canto 14 px (compacto 10 px), em toda a família e na caixa de quantidade — Fila 88, w
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
