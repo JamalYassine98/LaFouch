@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "13: Mochi luxuoso nas datas",
- "arquivos": [
-  "work/ideias/13-mochi/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795455944.8828375,
+   "r": "13: Mochi luxuoso (com braços) enviado; causa dos braços anotada"
+  },
   {
    "t": 1795455239.9392061,
    "r": "12b: faixas com frase de efeito do olhar, sem promessa de entrega"
@@ -40,10 +42,6 @@
   {
    "t": 1795444169.5474238,
    "r": "Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE"
-  },
-  {
-   "t": 1795443773.564259,
-   "r": "08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)"
   }
  ],
  "leu": 1795455635.1393123
