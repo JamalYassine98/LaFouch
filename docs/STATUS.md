@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08l: busca vazia C (vistos por último OU em alta) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
