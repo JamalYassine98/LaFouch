@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09 v2: família de botões estruturada (papel × tamanho + marca)",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795405200.3192716,
+   "r": "09 v2: família de botões estruturada (papel × tamanho + marca)"
+  },
   {
    "t": 1795405027.0379999,
    "r": "09: inventário dos botões (29 desenhos → 4 tipos)"
@@ -40,10 +42,6 @@
   {
    "t": 1795402099.523516,
    "r": "08l parte 1: busca só busca + padrão da linha de peça"
-  },
-  {
-   "t": 1795401760.4490964,
-   "r": "08k: camadas do lado do botão com fio vinho + dois tempos (vídeos)"
   }
  ],
  "leu": 1795388650.001632
