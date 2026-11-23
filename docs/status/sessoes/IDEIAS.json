@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09n: Comprar 'menos é mais' (profundo × rosé)",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795436457.8240924,
+   "r": "09n: Comprar menos é mais (P1 × P2) enviado"
+  },
   {
    "t": 1795435104.508693,
    "r": "09m: Comprar com a cor do logo suavizada enviado"
@@ -40,10 +42,6 @@
   {
    "t": 1795411607.565912,
    "r": "09 parte 2: telas finais com a família de botões v3 (esboco-09d) enviadas — Fila 75"
-  },
-  {
-   "t": 1795405643.4803107,
-   "r": "09 v3 família de botões (preto + vinho só no dinheiro) enviada ao dono — Fila 75"
   }
  ],
  "leu": 1795432245.6583207
