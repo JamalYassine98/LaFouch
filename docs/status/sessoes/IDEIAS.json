@@ -1,12 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "11: formato Lente aprovado",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md",
-  "work/ideias/11-formato/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795442731.0826373,
+   "r": "Formato Lente (14 px) aprovado e guardado; recado a APP e SITE"
+  },
   {
    "t": 1795442068.1607265,
    "r": "Cores do 10 aprovadas e guardadas (recado às sessões) + 11: 6 formatos de botão enviados"
@@ -42,10 +42,6 @@
   {
    "t": 1795436457.8240924,
    "r": "09n: Comprar menos é mais (P1 × P2) enviado"
-  },
-  {
-   "t": 1795435104.508693,
-   "r": "09m: Comprar com a cor do logo suavizada enviado"
   }
  ],
  "leu": 1795442719.4808514
