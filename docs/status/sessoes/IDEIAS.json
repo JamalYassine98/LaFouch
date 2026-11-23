@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09 parte 2: telas finais com os botões novos",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795411607.565912,
+   "r": "09 parte 2: telas finais com a família de botões v3 (esboco-09d) enviadas — Fila 75"
+  },
   {
    "t": 1795405643.4803107,
    "r": "09 v3 família de botões (preto + vinho só no dinheiro) enviada ao dono — Fila 75"
@@ -40,10 +42,6 @@
   {
    "t": 1795402779.934328,
    "r": "08l v3: em alta abre o catálogo; vistos na linha de peça"
-  },
-  {
-   "t": 1795402525.267972,
-   "r": "08l v2: busca vazia C (vistos OU em alta)"
   }
  ],
  "leu": 1795406080.0480707
