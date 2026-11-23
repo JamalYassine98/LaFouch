@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08f: menu celular com 5 itens (como a Madë) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
