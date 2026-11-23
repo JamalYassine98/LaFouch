@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08k: Minha conta com a mesma animação (entrada e saída) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
