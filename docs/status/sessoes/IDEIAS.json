@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08g: F com Fraunces normal 20px",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795398365.14949,
+   "r": "08g: menu F em Fraunces 400 (identidade) + achado da fonte 600 no simulador"
+  },
   {
    "t": 1795398090.4293475,
    "r": "08f em branco (padrão sem evento) + correção do dono no 06: creme só nos eventos"
@@ -40,10 +42,6 @@
   {
    "t": 1795388740.7764194,
    "r": "08: estudo menu/abertura (Madë, Gentle Monster, JMM, Oliver Peoples) — propostas ao dono"
-  },
-  {
-   "t": 1795380905.3912997,
-   "r": "07: esboço PC estilo Madë (topo cartão + produto) na Fila 72"
   }
  ],
  "leu": 1795388650.001632
