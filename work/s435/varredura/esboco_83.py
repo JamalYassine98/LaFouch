@@ -2,6 +2,7 @@
 # 65 EXPLICAM como funciona, 17 são de tela VAZIA, 8 são AVISO (lista: TEXTOS-EXPLICATIVOS.md). Regra proposta (a mesma do dono para
 # Marketing/Preços, 22/11 14:46 "tira essas descrições inúteis"): o que EXPLICA sai da tela; VAZIO fica no padrão lfVazioHtml; AVISO fica curto.
 # v2 (dono 00:00): a barra do Tema na proposta estava errada → a proposta inclui o aprovado 80 (todas as barras no trilho 140C).
+# v3 (dono 00:02): o trilho do Tema não estava alinhado → aberto dentro de uma linha, ele ocupa as MESMAS margens da linha (do ícone à seta), L1.
 # Inclui o achado do 82: "Voltar no tempo ›" com a seta quebrando → vira linha de lugar (título · frase curta · › na mesma linha).
 import sys,re;sys.path.insert(0,'/home/claude/lafouch/work/s349');import ap
 from playwright.sync_api import sync_playwright
@@ -19,6 +20,7 @@ def cena(pw,esc,prop,k):
   if v=='ajustes': pg.locator('.ajS[data-k="%s"] .ajR'%k).click();w(900)
   if prop:
     pg.add_style_tag(content=LINHA);pg.evaluate(TIRA,EXPL);w(200);pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');w(300)
+    pg.evaluate("()=>{document.querySelectorAll('.ajS .trk').forEach(t=>{const s=t.closest('.ajS'),r=s.querySelector('.ajR').getBoundingClientRect(),q=t.getBoundingClientRect();t.style.setProperty('margin-left',(r.left-q.left)+'px','important');t.style.setProperty('width',r.width+'px','important');const o=t.querySelector('.trkB.on'),th=t.querySelector('.trkTh');th.style.cssText='width:'+o.offsetWidth+'px!important;transform:none!important;left:'+o.offsetLeft+'px!important'})}");w(300)
     if k=='bk': pg.evaluate(VNT);w(200)
     if k=='cli': pg.evaluate("()=>{const v=document.getElementById('v-clientes');const h=[...v.querySelectorAll('*')].find(e=>/^Nenhum cliente ainda/.test(e.textContent.trim())&&e.children.length<4);if(h){const ic='<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8\"/>';h.outerHTML='<div style=\"margin-top:32px\">'+window.lfVazioHtml(ic,'Nenhum cliente ainda','Entram sozinhos com os pedidos do site, ou pelo + do título.')+'</div>'}}");w(2500)
   if v=='ajustes': pg.evaluate("k=>document.querySelector('.ajS[data-k=\"'+k+'\"]').scrollIntoView({block:'start'})",k);w(400)
