@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08: vídeo abrindo busca, conta e carrinho (pacote final, branco) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
