@@ -124,7 +124,7 @@
 - **73-setores-semp** — aprovado 22/11 21:56 — vai no item 70 (COMO-FAZER-MARKETING-70.md)
 - **73b-idioma-rodape** — aprovado 23/11 11:28 — espera o 'implementar' (SITE)
 - **74-busca-e-padrao-camadas** — aprovado 23/11 00:17 (busca) e 00:30 (conta e carrinho) — espera o 'implementar' (SITE)
-- **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
+- **74-reserva-suspeita-titan** — SUPERADO pelo 74r v3 (aprovado 23/11 08:05)
 - **74r-reserva-suspeita** — aprovado 23/11 08:05 (v3, em Pedidos) — espera o 'implementar' · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **75-erros-site** — passado à SITE (recado 23/11 08:00) — não é da ESBOCO

@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
+SUPERADO pelo 74r v3 (aprovado 23/11 08:05)
 
