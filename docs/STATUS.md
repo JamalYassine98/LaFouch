@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09 v2: família de botões estruturada (papel × tamanho + marca) | work/ideias/09-botoes/ |
 
 ## Fila
 

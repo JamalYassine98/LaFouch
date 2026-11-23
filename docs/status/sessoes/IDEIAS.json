@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "09 v2: família de botões estruturada (papel × tamanho + marca)",
+ "arquivos": [
+  "work/ideias/09-botoes/"
+ ],
  "ultimas": [
   {
    "t": 1795405027.0379999,
