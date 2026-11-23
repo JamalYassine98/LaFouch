@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795400302.8685896,
+   "r": "08h2: faixa de baixo centrada (pedido do dono)"
+  },
+  {
    "t": 1795400203.2231596,
    "r": "08h2: faixa de baixo do rodapé alinhada (idioma à esquerda; termos + reCAPTCHA à direita)"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795396860.8759604,
    "r": "08f: menu sem evento + rodapé com coluna Descubra e idioma"
-  },
-  {
-   "t": 1795396402.1924157,
-   "r": "08f: conta no pé do menu recusada pelo dono; voltou à F de 5 itens"
   }
  ],
  "leu": 1795388650.001632
