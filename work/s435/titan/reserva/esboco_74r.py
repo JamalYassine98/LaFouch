@@ -1,4 +1,4 @@
-# Esboço 74r (S435, 22/11 20:10) — aviso de RESERVA SUSPEITA no Titan (recado NUVEM 15:20, decidido com o dono):
+# Esboço 74r v2 (23/11 08:00: sobre o app de hoje + aprovados 80–87 via aprovados.py) — v1 22/11 20:10 — aviso de RESERVA SUSPEITA no Titan (recado NUVEM 15:20, decidido com o dono):
 # o site NÃO limita peças por pedido; a nuvem avisa quando uma reserva parece abuso (5+ peças iguais sem pagar, ou 3+ reservas abertas
 # sem pagar da mesma rede na mesma hora); o dono cancela e solta pelo app (mesma família do PIX sem pedido, 97z-pix-email.js);
 # sem olhar, a peça fica presa até os 30 min e solta sozinha.
@@ -10,23 +10,24 @@ O='/home/claude/lafouch/work/s435/titan/reserva/'
 def confere(pg,n):
   a,_=compara.M.percorre(pg,None);REL.append((n,[(k[0],a[k].get('d','')) for k in a]))
 def fecha(pg,b,n,full=False):
+  import sys;sys.path.insert(0,'/home/claude/lafouch/work/s435/varredura');import aprovados as A;A.aplica(pg);pg.wait_for_timeout(300)
   pg.add_style_tag(content='#mainnav .mn,#mainnav .mn *{color:var(--mute)!important}#mainnav .mn svg,#mainnav .mn svg *{stroke:var(--mute)!important}#mainnav .mn::after,#mainnav .mn i{display:none!important}')
   confere(pg,n);pg.evaluate("()=>{document.querySelectorAll('*').forEach(e=>{if(e.scrollTop)e.scrollTop=0});scrollTo(0,0)}");pg.wait_for_timeout(300);pg.screenshot(path='/tmp/r.png');b.close();im=Image.open('/tmp/r.png');im.load();return im.copy()
 def pend(pw,esc):
-  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);w(600);pg.evaluate("()=>window.__LF.inicioGo('notif')");w(1200)
+  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);w(600);pg.evaluate("()=>window.__LF.inicioGo('notif')");w(1200)
   pg.evaluate("""()=>{const v=document.getElementById('v-notif');const l=v.querySelector('.lbl');l.textContent='Titan · precisa de você agora · 8';
    const s=v.querySelector('section.card');const n=s.cloneNode(true);n.querySelector('b').textContent='Reserva suspeita · pedido 1043';
    n.querySelector('b').style.color='var(--bad)';n.querySelector('.hint').textContent='5 peças iguais sem pagar · solta sozinha em 18 min';
    n.querySelector('button').textContent='Ver ›';s.parentNode.insertBefore(n,s);scrollTo(0,0);document.scrollingElement.scrollTop=0;}""");w(300)
   return fecha(pg,b,'Pendências')
 def precos(pw,esc):
-  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
+  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);w(500);pg.click('#mainnav .mn[data-id="g:pecas"]');w(900)
   pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}')
   html=pg.evaluate("()=>{"+H+JS+r"""const L=(t,s,c)=>'<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500'+(c?';color:'+c:'')+'">'+t+'</b><small style="display:block;font-size:13px;color:var(--mute);white-space:nowrap">'+s+'</small></span><span style="color:var(--mute);font-size:18px">›</span></div>';
    return '<div class="e49">'+TOP('Início','Preços','',0)+T('O Titan decide hoje · 3',1)+L('Reserva suspeita · pedido 1043','5 peças iguais sem pagar · solta em 18 min','var(--bad)')+L('15 preços para corrigir','10 com sugestão · 5 sem custo')+L('Black Friday CDE','acaba hoje · nenhuma peça entra pela regra')+T('Setores')+L('Regras','contas, taxas, meta e cotação da loja')+L('Ofertas','cupons e ofertas no ar')+L('Atacado','tabelas do lojista')+'</div>'}""")
   pagina(pg,html);w(500);return fecha(pg,b,'Preços')
 def janela(pw,esc):
-  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=True);w(600);pg.evaluate("()=>window.__LF.inicioGo('notif')");w(900)
+  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);w(600);pg.evaluate("()=>window.__LF.inicioGo('notif')");w(900)
   pg.evaluate("""()=>{const R=(a,v,c)=>'<div style="display:flex;align-items:center;gap:16px;min-height:56px;border-bottom:1px solid var(--line2)"><span style="flex:1;color:var(--mute);font-size:15px">'+a+'</span><span style="font-size:15px;text-align:right;font-variant-numeric:tabular-nums'+(c?';color:'+c:'')+'">'+v+'</span></div>';
    window.__LF.ACT.__r=1;
    const lfJ=window.lfJanela||null;
