@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (Criar · Resultados · Temática · Cartões · Marca; work/s435/semp/esboco_73s_*)
+aprovado 22/11 21:56 — vai no item 70 (COMO-FAZER-MARKETING-70.md)
 

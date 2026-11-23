@@ -115,7 +115,7 @@
 - **70-marketing-do-semp** — 'implementar' do dono 22/11 15:49 · setores aprovados 21:56 · COMO FAZER pronto: work/s435/implementar/COMO-FAZER-MARKETING-70.md (6 partes, a 6ª é o 68) · APP
 - **72-pc-estilo-made** — esboço pronto — esperando o dono
 - **73-menu-enxuto-luxo** — esboço pronto — esperando o dono
-- **73-setores-semp** — esboço pronto — esperando o dono (Criar · Resultados · Temática · Cartões · Marca; work/s435/semp/esboco_73s_*)
+- **73-setores-semp** — aprovado 22/11 21:56 — vai no item 70 (COMO-FAZER-MARKETING-70.md)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
