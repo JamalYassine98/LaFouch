@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08i v2: animação do rodapé igual à Madë (2 tempos)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795399792.8735225,
+   "r": "08i v2: rodapé em 2 tempos como a Madë"
+  },
   {
    "t": 1795398894.7816076,
    "r": "08i: animação do rodapé subindo (vídeos)"
@@ -40,10 +42,6 @@
   {
    "t": 1795396179.1692412,
    "r": "08f: menu celular 5 itens (como a Madë)"
-  },
-  {
-   "t": 1795395847.927815,
-   "r": "08e: menu celular uma letra/um tamanho (como a Madë)"
   }
  ],
  "leu": 1795388650.001632
