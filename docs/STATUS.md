@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09k: botões das marcas de luxo (reconstruídos das medidas publicadas) | work/ideias/09-botoes/ |
 
 ## Fila
 
