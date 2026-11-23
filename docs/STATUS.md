@@ -148,7 +148,7 @@
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
-- **94-tematica-tres-camadas** — esboço pronto — esperando o dono (12e: teste no Natal, cartão de hoje na cor oficial profunda)
+- **94-tematica-tres-camadas** — Natal aprovado 23/11 15:48 · 6 datas (12e) prontas — esperando o dono
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
