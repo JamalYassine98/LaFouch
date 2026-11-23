@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08h: 3 propostas do idioma no rodapé | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
