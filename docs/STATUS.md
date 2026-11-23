@@ -147,7 +147,7 @@
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 - **98-carrinho-simples** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
-- **99-lucro-kit-realista** — 99b v2 e 99d aprovados 23/11 11:50 — esperam o 'implementar'; 99a espera o design dos cartões (NUVEM)
+- **99-lucro-kit-realista** — 99d v2 (cupom + kit; sacola/caixa) esperando o dono · 99b v2 aprovado · 99a espera o design dos cartões
 
 ## Recados esperando
 

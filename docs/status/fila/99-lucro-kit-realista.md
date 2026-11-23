@@ -1,2 +1,2 @@
-99b v2 e 99d aprovados 23/11 11:50 — esperam o 'implementar'; 99a espera o design dos cartões (NUVEM)
+99d v2 (cupom + kit; sacola/caixa) esperando o dono · 99b v2 aprovado · 99a espera o design dos cartões
 
