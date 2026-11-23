@@ -3764,3 +3764,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 23/11 11:42 · DONO: pedir à NUVEM os cupons reais para esboços realistas → recado à NUVEM: lista da coleção cupons (tipo, %, estado, datas, usos, valor que gerou, loja/site) + totais do mês, SEM dados pessoais (Cliente 1, 2… e código LF-xxxx), sem segredo, em work/nuvem/cupons-reais-23-11.json.
 
 - 23/11 11:45 · DONO corrigiu: 'por isso eu te falei para solicitar à nuvem o DESIGN dos cupons' (não os dados) → recado à NUVEM corrigido: HTML/CSS + imagem de cada tipo de cartão como o cliente vê (pessoal vinho logo branco, VIP preto e ouro, evento na temática, cartão do e-mail), na cor oficial, para a janela Desconto do caixa usar os mesmos cartões.
+
+- 23/11 11:50 · DONO: 'Aprovado' → 99b v2 (Lucro real: uma linha 'Descontos') e 99d (um presente por data: Cupom na conta OU Kit na compra, com custo estimado) APROVADOS; esperam o 'implementar'. Perguntou a recomendação kit × desconto (resposta em conversa).
