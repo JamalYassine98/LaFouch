@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08k2 conserto do topo aprovado",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795447123.8129168,
+   "r": "Conserto do topo (08k2) aprovado e guardado"
+  },
   {
    "t": 1795445362.289966,
    "r": "08k2: destaque subia ao abrir camada — causa regra v452 (topo fixo); conserto apagando a regra; vídeo novo"
@@ -41,10 +42,6 @@
   {
    "t": 1795440358.5948489,
    "r": "Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)"
-  },
-  {
-   "t": 1795440203.6782131,
-   "r": "Família de botões do site APROVADA (Fila 75): P1 suave acetinado"
   }
  ],
  "leu": 1795447116.1767964
