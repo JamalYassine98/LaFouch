@@ -1,12 +1,12 @@
 # 96d (S435, 23/11 09:10) — Pagamento: o cliente escolhido no Carrinho (96 v2) não é pedido de novo. Hoje: campo 'Cliente (opcional)'.
-# Proposta: o campo vira a linha 'Cliente · Ana Benítez ›' (toque troca). Sem cliente no Carrinho, a linha diz 'escolher ›'. Um lugar só
+# v2 (dono 09:01, sem repetir o cliente): o campo SAI — o cliente é escolhido uma vez, no Carrinho; o Pagamento não o mostra. Um lugar só
 # para o cliente da venda: o mesmo S.vCli que o Carrinho usa. Base: app + aprovados (aprovados.py) + 93 (tudo arredondado).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s435/preco56');from hoje93 import *
 from PIL import Image,ImageDraw,ImageFont
 O='/home/claude/lafouch/work/s435/oferta96/'
 PROP=r"""()=>{const q=document.getElementById('vCliQ');if(!q)return 'sem';const box=q.parentElement;const lb=[...document.querySelectorAll('.lbl')].find(l=>/^cliente/i.test(l.textContent.trim())&&l.offsetParent);
  const L='<div style="display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line2)"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500">Cliente</b><small style="display:block;margin-top:2px;font-size:13px;color:var(--mute)">Ana Benítez · escolhida no carrinho</small></span><i style="font-style:normal;color:var(--mute);font-size:20px">›</i></div>';
- if(lb)lb.remove();q.outerHTML=L;return 'ok'}"""
+ if(lb)lb.remove();q.remove();return 'ok'}"""
 def tela(pw,esc,prop):
   b,pg,w=abre(pw,esc);A.aplica(pg);w(300)
   if prop:print(pg.evaluate(PROP));w(300)
@@ -21,4 +21,4 @@ def quadro(arq,q):
 with sync_playwright() as pw:
   for esc in (True,False):
     tm='escuro' if esc else 'claro'
-    quadro('esboco_96d_pagamento_cliente_%s.jpg'%tm,[('HOJE · Pagamento','pede o cliente de novo',tela(pw,esc,0)),('PROPOSTA · Pagamento','o cliente do carrinho, numa linha',tela(pw,esc,1))])
+    quadro('esboco_96d_pagamento_cliente_v2_%s.jpg'%tm,[('HOJE · Pagamento','pede o cliente de novo',tela(pw,esc,0)),('PROPOSTA · Pagamento','sem cliente: ele já foi escolhido no carrinho',tela(pw,esc,1))])
