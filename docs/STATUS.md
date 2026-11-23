@@ -120,7 +120,7 @@
 - **72-pc-estilo-made** — esboço pronto — esperando o dono
 - **73-menu-enxuto-luxo** — aprovado 22/11 22:47 (08g) — espera o 'implementar' (SITE)
 - **73-setores-semp** — aprovado 22/11 21:56 — vai no item 70 (COMO-FAZER-MARKETING-70.md)
-- **73b-idioma-rodape** — esboço pronto — esperando o dono
+- **73b-idioma-rodape** — aprovado 23/11 11:28 — espera o 'implementar' (SITE)
 - **74-busca-e-padrao-camadas** — aprovado 23/11 00:17 (busca) e 00:30 (conta e carrinho) — espera o 'implementar' (SITE)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **74r-reserva-suspeita** — aprovado 23/11 08:05 (v3, em Pedidos) — espera o 'implementar' · depois APP + NUVEM
