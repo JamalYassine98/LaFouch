@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09h: Comprar em cores suaves",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795433677.0659432,
+   "r": "09h: Comprar em 5 cores suaves enviado"
+  },
   {
    "t": 1795433565.1506839,
    "r": "09g: 5 propostas de luxo para o botão Comprar enviadas"
@@ -40,10 +42,6 @@
   {
    "t": 1795403864.922351,
    "r": "08l parte 1 (busca) APROVADA — guardada na lista viva e na memória"
-  },
-  {
-   "t": 1795403823.0095549,
-   "r": "08l v5: 'Ver todos' vira link discreto no fim da lista; lista sem limite fixo"
   }
  ],
  "leu": 1795432245.6583207
