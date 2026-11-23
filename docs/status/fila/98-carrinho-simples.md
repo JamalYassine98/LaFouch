@@ -1,2 +1,2 @@
-v2 (oferta + cupom + última peça; sem Leve 2) — esperando o dono
+v3 (uma linha Desconto; tudo com cadastro) — esperando o dono
 
