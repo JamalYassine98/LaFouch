@@ -1,12 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12: fundo branco também nas datas",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md",
-  "work/ideias/12-tematica-base/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795453429.955614,
+   "r": "Fundo branco nas datas anotado"
+  },
   {
    "t": 1795453201.9001305,
    "r": "12: temática em 3 camadas (Natal, BF, Mães) enviada"
@@ -42,10 +42,6 @@
   {
    "t": 1795442068.1607265,
    "r": "Cores do 10 aprovadas e guardadas (recado às sessões) + 11: 6 formatos de botão enviados"
-  },
-  {
-   "t": 1795441426.343266,
-   "r": "10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões"
   }
  ],
  "leu": 1795450922.0743623
