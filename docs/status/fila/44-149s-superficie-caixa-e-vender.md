@@ -1,2 +1,2 @@
-refeito no estado aprovado (104) — esperando o dono: Caixa e Vender sem cartão?
+aprovado 23/11 13:52 (104: Caixa e Vender também sem cartão) — Parte 1 do plano
 

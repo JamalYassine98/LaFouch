@@ -88,7 +88,7 @@
 - **43-esbocos-37** — ✅ 37a v608 · 37b v609 · 37c v610 · 37d v611+v612 (Ajustes em 3 blocos + Marca) — falta só a linha Instagram: espera o dono/nuvem (work/s436/37d/PENDENTE-DONO.md)
 - **43-estudio-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **43-implementar-tudo-em-partes** — ✅ feito (v589–v624) · lista final GUARDADA (dono 22/11 01:46): reentregar atualizada depois da fase do esboço 'famílias'; nada da lista se aplica antes
-- **44-149s-superficie-caixa-e-vender** — refeito no estado aprovado (104) — esperando o dono: Caixa e Vender sem cartão?
+- **44-149s-superficie-caixa-e-vender** — aprovado 23/11 13:52 (104: Caixa e Vender também sem cartão) — Parte 1 do plano
 - **44-cadastro-inventario-no-padrao** — aprovado 21/11 11:07 — espera o 'implementar'
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
 - **45-ideias-formato-preciso-e-elegante** — aprovado 21/11 17:25 — implementar DEPOIS que a SITE terminar tudo o que está na fila dela (dono 17:27)
