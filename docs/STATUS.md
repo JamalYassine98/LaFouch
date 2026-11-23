@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 09r: Comprar fosco × acetinado | work/ideias/09-botoes/ |
 
 ## Fila
 
@@ -174,6 +173,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 10:17 — IDEIAS: 09r: Comprar fosco × acetinado enviado
 - 23/11 09:54 — IDEIAS: 09q: família P1 suave aplicada em 12 telas enviada
 - 23/11 09:27 — IDEIAS: 09p: Comprar com detalhes + família dos outros botões enviados
 - 23/11 09:23 — IDEIAS: 09o: P1 em tons mais suaves enviado
@@ -183,7 +183,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 08:53 — IDEIAS: 09k: botões de 6 marcas de luxo (redesenhados das medidas publicadas) × Hoje × N2 enviados
 - 23/11 08:48 — IDEIAS: 09j: estudo de luxo com cor própria + Comprar N2 enviado
 - 23/11 08:45 — IDEIAS: 09i: Comprar rosé/seda na cor do logo (K–O) enviado
-- 23/11 08:34 — IDEIAS: 09h: Comprar em 5 cores suaves enviado
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

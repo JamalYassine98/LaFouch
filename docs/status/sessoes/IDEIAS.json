@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09r: Comprar fosco × acetinado",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795439858.8259954,
+   "r": "09r: Comprar fosco × acetinado enviado"
+  },
   {
    "t": 1795438485.3520858,
    "r": "09q: família P1 suave aplicada em 12 telas enviada"
@@ -40,10 +42,6 @@
   {
    "t": 1795434351.0634067,
    "r": "09i: Comprar rosé/seda na cor do logo (K–O) enviado"
-  },
-  {
-   "t": 1795433677.0659432,
-   "r": "09h: Comprar em 5 cores suaves enviado"
   }
  ],
  "leu": 1795432245.6583207
