@@ -1,2 +1,2 @@
-aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
+SUPERADO pelo 98 v4 (23/11 10:14) — obsoletos
 

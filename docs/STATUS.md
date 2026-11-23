@@ -125,7 +125,7 @@
 - **75-erros-site** — passado à SITE (recado 23/11 08:00) — não é da ESBOCO
 - **75-familia-de-botoes** — esboço pronto — esperando o dono (09q: família P1 suave nas telas)
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
-- **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
+- **78-cupons-no-caixa** — SUPERADO pelo 98 v4 (23/11 10:14) — obsoletos
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
 - **80-familia-barras** — aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 - **81-familia-botoes** — aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
