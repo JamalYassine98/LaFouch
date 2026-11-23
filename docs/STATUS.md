@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 12: temática em 3 camadas (Natal, BF, Mães) | work/ideias/12-tematica-base/ |
 
 ## Fila
 

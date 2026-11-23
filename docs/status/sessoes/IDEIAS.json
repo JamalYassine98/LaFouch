@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "12: temática em 3 camadas (Natal, BF, Mães)",
+ "arquivos": [
+  "work/ideias/12-tematica-base/"
+ ],
  "ultimas": [
   {
    "t": 1795447123.8129168,
@@ -44,5 +46,5 @@
    "r": "Cor oficial CMYK anotada na memória do projeto (≈ #943d6f na tela)"
   }
  ],
- "leu": 1795447116.1767964
+ "leu": 1795450922.0743623
 }
