@@ -131,6 +131,7 @@
 - **83-varredura-textos** — aprovado 23/11 00:00 (v2 com o trilho 80) — espera o 'implementar'
 - **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
+- **86-varredura-titulos-linhas** — esboço pronto — esperando o dono (um rótulo de seção · uma linha 56/64 · frase nunca quebra; leva os aprovados 79–85; work/s435/varredura/titulos/)
 
 ## Recados esperando
 
