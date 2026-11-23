@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09l: N2 delicado na cor do logo (assinatura como o azul Tiffany) | work/ideias/09-botoes/ |
 
 ## Fila
 
