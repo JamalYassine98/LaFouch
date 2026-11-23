@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09q: família P1 suave aplicada nas telas reais | work/ideias/09-botoes/ |
 
 ## Fila
 
