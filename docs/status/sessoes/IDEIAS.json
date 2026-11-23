@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "09f: estudo de botões de luxo + proposta com a identidade",
+ "arquivos": [
+  "work/ideias/09-botoes/"
+ ],
  "ultimas": [
   {
    "t": 1795432054.624685,
@@ -44,5 +46,5 @@
    "r": "08l v4: busca com uma margem só + sai o 'Você estava vendo' do Início"
   }
  ],
- "leu": 1795430856.2241073
+ "leu": 1795432245.6583207
 }

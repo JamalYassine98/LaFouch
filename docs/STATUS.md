@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09f: estudo de botões de luxo + proposta com a identidade | work/ideias/09-botoes/ |
 
 ## Fila
 
