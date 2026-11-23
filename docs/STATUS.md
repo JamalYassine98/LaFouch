@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08m parte 2: Minha conta e carrinho no padrão | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
