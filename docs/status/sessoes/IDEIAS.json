@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12b: botão VER A COLEÇÃO + faixas curtas",
- "arquivos": [
-  "work/ideias/12-tematica-base/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795454654.7717612,
+   "r": "12b: VER A COLEÇÃO + faixas curtas, esboços refeitos"
+  },
   {
    "t": 1795454215.5572577,
    "r": "12b: campanha forte nas 6 datas enviada"
@@ -40,10 +42,6 @@
   {
    "t": 1795442875.6776931,
    "r": "Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados"
-  },
-  {
-   "t": 1795442731.0826373,
-   "r": "Formato Lente (14 px) aprovado e guardado; recado a APP e SITE"
   }
  ],
  "leu": 1795450922.0743623
