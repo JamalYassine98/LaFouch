@@ -1,7 +1,15 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "Parte 2 · Ajustes aprovado, ⏻ nas telas (Pedidos, Preços), Fornecedores 89b",
+ "arquivos": [
+  "src/96-ajustes.js",
+  "src/97-ajustes-lista.js",
+  "src/97-pagamento-auto.js",
+  "src/95-pedidos.js",
+  "src/97z3-precos.js",
+  "src/52-lotes.js",
+  "www/style.css"
+ ],
  "ultimas": [
   {
    "t": 1795460798.3433197,
