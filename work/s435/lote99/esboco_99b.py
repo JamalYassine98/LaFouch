@@ -1,4 +1,5 @@
-# 99b (S435, 23/11 10:40) — LUCRO REAL DO MÊS separando o que é desconto do que é arredondamento (aprovado 21/11 23:36 + 93 + 98 v4).
+# 99b v2 (dono 10:56: 'fica apenas Descontos, não precisa complicar'): 'Descontos (cupom)' vira só 'Descontos' (cupom e 3ª peça juntos);
+# o arredondamento do câmbio não ganha linha. v1: 99b (S435, 23/11 10:40) — LUCRO REAL DO MÊS separando o que é desconto do que é arredondamento (aprovado 21/11 23:36 + 93 + 98 v4).
 # Hoje: uma linha 'Descontos (cupom)'. Proposta: 'Cupons' · '3ª peça' (os dois descontos que existem, 98 v4) · 'Arredondamento do câmbio'
 # (93: moeda de fora em nota inteira; até G$ 1.000 por venda, + ou −). Sai a frase 'O frete das compras já está dentro…' (83).
 # Base: app de hoje (Início › Hoje › Lucro real do mês ⌄) + aprovados.py. Dados REAIS do teste (nenhum cupom usado ainda → G$ 0).
@@ -9,7 +10,7 @@ O='/home/claude/lafouch/work/s435/lote99/'
 PROP=r"""()=>{const e=[...document.querySelectorAll('*')].find(x=>x.children.length==0&&/^Descontos \(cupom\)$/.test(x.textContent.trim()));if(!e)return 'sem';
  let row=e;while(row.parentElement&&!/G\$/.test(row.textContent.replace(e.textContent,'')))row=row.parentElement;
  const mk=(t,v)=>{const n=row.cloneNode(true);const lb=[...n.querySelectorAll('*')].find(x=>x.children.length==0&&/^Descontos/.test(x.textContent.trim()));lb.textContent=t;const vv=[...n.querySelectorAll('*')].filter(x=>x.children.length==0&&/G\$/.test(x.textContent)).pop();if(vv)vv.textContent=v;return n};
- row.after(mk('Arredondamento do câmbio','G$ 0'));row.after(mk('3ª peça','− G$ 0'));row.after(mk('Cupons','− G$ 0'));row.remove();
+ e.textContent='Descontos';
  [...document.querySelectorAll('.hint')].filter(h=>/frete das compras/.test(h.textContent)).forEach(h=>h.remove());return 'ok'}"""
 def tela(pw,esc,prop):
   b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);w(600)
@@ -19,7 +20,7 @@ def tela(pw,esc,prop):
   A.aplica(pg);w(300)
   if prop:print(pg.evaluate(PROP));w(300)
   pg.add_style_tag(content='#mainnav{display:none!important}')
-  pg.evaluate("()=>{const e=[...document.querySelectorAll('*')].find(x=>x.children.length==0&&/^(Descontos \\(cupom\\)|Cupons)$/.test(x.textContent.trim()));if(e)window.scrollTo(0,e.getBoundingClientRect().top+scrollY-420)}");w(500)
+  pg.evaluate("()=>{const e=[...document.querySelectorAll('*')].find(x=>x.children.length==0&&/^Descontos( \\(cupom\\))?$/.test(x.textContent.trim()));if(e)window.scrollTo(0,e.getBoundingClientRect().top+scrollY-420)}");w(500)
   pg.screenshot(path='/tmp/lr.png');b.close();x=Image.open('/tmp/lr.png');x.load();return x.copy()
 F=ImageFont.truetype('/tmp/fnt/jost-400.ttf',30);F2=ImageFont.truetype('/tmp/fnt/jost-300.ttf',22)
 def quadro(arq,q):
@@ -30,4 +31,4 @@ def quadro(arq,q):
 with sync_playwright() as pw:
   for esc in (True,False):
     tm='escuro' if esc else 'claro'
-    quadro('esboco_99b_lucro_real_%s.jpg'%tm,[('HOJE · Lucro real do mês','uma linha "Descontos (cupom)"',tela(pw,esc,0)),('PROPOSTA · Lucro real do mês','Cupons · 3ª peça · Arredondamento do câmbio',tela(pw,esc,1))])
+    quadro('esboco_99b_lucro_real_v2_%s.jpg'%tm,[('HOJE · Lucro real do mês','uma linha "Descontos (cupom)"',tela(pw,esc,0)),('PROPOSTA · Lucro real do mês','uma linha só: Descontos (cupom e 3ª peça)',tela(pw,esc,1))])
