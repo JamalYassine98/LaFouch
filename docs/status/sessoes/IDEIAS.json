@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08k: Minha conta com a mesma animação (entrada e saída)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795443773.564259,
+   "r": "08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)"
+  },
   {
    "t": 1795442875.6776931,
    "r": "Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados"
@@ -40,10 +42,6 @@
   {
    "t": 1795436854.6580741,
    "r": "09p: Comprar com detalhes + família dos outros botões enviados"
-  },
-  {
-   "t": 1795436588.8433902,
-   "r": "09o: P1 em tons mais suaves enviado"
   }
  ],
  "leu": 1795443464.23552
