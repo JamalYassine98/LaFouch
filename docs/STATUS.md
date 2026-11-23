@@ -139,7 +139,7 @@
 - **81-familia-botoes** — publicado v632 (APP)
 - **82-varredura-campos** — publicado v632 (APP)
 - **83-varredura-textos** — publicado v632 (APP)
-- **84-varredura-icones** — aprovado 23/11 00:15 — com prova de alinhamento (centro do ícone × texto, 1 px) — espera o 'implementar'
+- **84-varredura-icones** — publicado v632 (APP)
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
 - **87-cores-padronizadas** — aprovado 23/11 10:52 — espera o 'implementar' (SITE e APP)
