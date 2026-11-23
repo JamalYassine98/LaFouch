@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08l parte 1: busca só busca (Mais procurados) + padrão das camadas | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
