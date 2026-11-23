@@ -125,6 +125,7 @@
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
 - **80-familia-barras** — aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 - **81-familia-botoes** — aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
+- **82-varredura-campos** — esboço pronto — esperando o dono (todo campo em linha fina, uma regra só; a busca fica; work/s435/varredura/)
 
 ## Recados esperando
 
