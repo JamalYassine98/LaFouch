@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795403864.922351,
+   "r": "08l parte 1 (busca) APROVADA — guardada na lista viva e na memória"
+  },
+  {
    "t": 1795403823.0095549,
    "r": "08l v5: 'Ver todos' vira link discreto no fim da lista; lista sem limite fixo"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795400302.8685896,
    "r": "08h2: faixa de baixo centrada (pedido do dono)"
-  },
-  {
-   "t": 1795400203.2231596,
-   "r": "08h2: faixa de baixo do rodapé alinhada (idioma à esquerda; termos + reCAPTCHA à direita)"
   }
  ],
  "leu": 1795388650.001632
