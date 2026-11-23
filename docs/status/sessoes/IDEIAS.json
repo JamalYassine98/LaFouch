@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09p: P1 suave com estados + família dos outros botões",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795436854.6580741,
+   "r": "09p: Comprar com detalhes + família dos outros botões enviados"
+  },
   {
    "t": 1795436588.8433902,
    "r": "09o: P1 em tons mais suaves enviado"
@@ -40,10 +42,6 @@
   {
    "t": 1795433565.1506839,
    "r": "09g: 5 propostas de luxo para o botão Comprar enviadas"
-  },
-  {
-   "t": 1795432054.624685,
-   "r": "09e: 3 propostas de identidade dos botões enviadas (Sair/Excluir voltaram ao original)"
   }
  ],
  "leu": 1795432245.6583207
