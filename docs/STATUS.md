@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09o: P1 em tons mais suaves | work/ideias/09-botoes/ |
 
 ## Fila
 
