@@ -134,7 +134,7 @@
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — SUPERADO pelo 98 v4 (23/11 10:14) — obsoletos
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
-- **80-barras** — publicado v632
+- **80-barras** — duplicado de 80-familia-barras (engano da APP) — ignorar
 - **80-familia-barras** — publicado v632 (APP)
 - **81-familia-botoes** — publicado v632 (APP)
 - **82-varredura-campos** — publicado v632 (APP)
