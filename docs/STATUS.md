@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08g: F com Fraunces normal 20px | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
