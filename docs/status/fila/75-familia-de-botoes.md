@@ -1,2 +1,2 @@
-inventário pronto — esperando o dono (parte 1)
-Inventário das 22 telas: 29 desenhos de botão (Principal 10, Secundário 7, Link 10, Perigo 2) → 4 tipos: Principal vinho pílula 48 · Secundário contorno vinho pílula · Link texto vinho com › · Perigo vermelho + Voltar. Decidir: Google fica no padrão do Google? WhatsApp verdes viram vinho? work/ideias/09-botoes/
+esboço pronto — esperando o dono (v2 estruturada)
+Família = papel (Principal · Secundário · Link · Perigo) × tamanho (Grande fim de caminho · Médio meio da tela · Compacto dentro de linha/cartão, ex.: Sincronizar, Copiar) + Marca que não muda (Google). Cada botão de hoje já tem sua casa. Estados iguais. work/ideias/09-botoes/esboco-09b-familia-botoes.jpg

@@ -122,7 +122,7 @@
 - **74-busca-e-padrao-camadas** — aprovado 23/11 00:17 (busca) e 00:30 (conta e carrinho) — espera o 'implementar' (SITE)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
-- **75-familia-de-botoes** — inventário pronto — esperando o dono (parte 1)
+- **75-familia-de-botoes** — esboço pronto — esperando o dono (v2 estruturada)
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
