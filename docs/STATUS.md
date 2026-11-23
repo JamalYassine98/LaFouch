@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08l: vistos por último na linha de peça | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
