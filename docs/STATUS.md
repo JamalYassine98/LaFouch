@@ -134,6 +134,7 @@
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — SUPERADO pelo 98 v4 (23/11 10:14) — obsoletos
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
+- **80-barras** — publicado v632
 - **80-familia-barras** — aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 - **81-familia-botoes** — aprovado 22/11 23:40 (81 + 81b; 81c superado: apagar foto vira aviso com Desfazer, na varredura) — espera o 'implementar'
 - **82-varredura-campos** — aprovado 22/11 23:49 — espera o 'implementar' · anotado: seta do Voltar no tempo (Títulos e linhas) e a família das pílulas ▾
