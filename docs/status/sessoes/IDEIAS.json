@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12e temática: cartão de hoje na cor oficial profunda (teste Natal)",
- "arquivos": [
-  "work/ideias/12-tematica-base"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795459663.8729148,
+   "r": "12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)"
+  },
   {
    "t": 1795458618.8147047,
    "r": "12d: todas as datas na cor oficial enviadas"
@@ -40,10 +42,6 @@
   {
    "t": 1795453201.9001305,
    "r": "12: temática em 3 camadas (Natal, BF, Mães) enviada"
-  },
-  {
-   "t": 1795447123.8129168,
-   "r": "Conserto do topo (08k2) aprovado e guardado"
   }
  ],
  "leu": 1795459404.2413714
