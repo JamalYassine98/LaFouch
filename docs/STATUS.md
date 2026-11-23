@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 1 base visual (cor oficial, barras, botões, campos, ícones, títulos, sem cartão, avisos) — sem publicar até o dono ver | www/style.css, src/ |
-| IDEIAS | 12d: todas as datas na cor oficial da loja | work/ideias/12-tematica-base/ |
 
 ## Fila
 
@@ -203,6 +202,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 15:30 — IDEIAS: 12d: todas as datas na cor oficial enviadas
 - 23/11 15:21 — IDEIAS: 12c: vitrine da data nas 6 datas enviada
 - 23/11 14:46 — IDEIAS: 13 Mochi recusado e guardado em obsoletos
 - 23/11 14:45 — IDEIAS: 13: Mochi luxuoso (com braços) enviado; causa dos braços anotada
@@ -212,7 +212,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 14:03 — IDEIAS: Fundo branco nas datas anotado
 - 23/11 14:00 — IDEIAS: 12: temática em 3 camadas (Natal, BF, Mães) enviada
 - 23/11 12:18 — IDEIAS: Conserto do topo (08k2) aprovado e guardado
-- 23/11 11:49 — IDEIAS: 08k2: destaque subia ao abrir camada — causa regra v452 (topo fixo); conserto apagando a regra; vídeo novo
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
