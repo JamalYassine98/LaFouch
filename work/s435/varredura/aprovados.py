@@ -21,11 +21,13 @@ SEMEMOJI=r"""()=>{const re=/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F
 # Por enquanto SÓ o tema CLARO (a família não define o escuro — perguntar). Saem #a2447c, #8a2f66, os degradês (cupCard) e o vinho solto.
 # CORES (dono 23/11 11:25: 'mantém o design que construímos; a ÚNICA coisa que muda é a cor pela cor oficial do logo'):
 # só a COR DA MARCA troca (#a2447c / #8a2f66 / #8d3a69 / degradês → #943d6f). Fundos, cinzas e avisos ficam como no design aprovado.
+# O cartão de cupom é o MESMO do site (.pxc em loja.html = .cupCard no app): degradê escuro 135° — fica o desenho, só o tom vira
+# a cor oficial (#2b1a2a→#5a2f4f vira #2c1221→#592543 = #943d6f com 70% e 40% de preto). Corrigido 23/11 12:30 (eu tinha deixado liso).
 # No escuro, letra/link da marca = a mesma cor oficial clareada (marca + 40% branco #bf8ba9), porque o #943d6f puro não se lê no fundo escuro.
 _CL='--accent:#943d6f;--bar:#943d6f;--accent-fg:#943d6f;--accent-soft:#f6eff3'
 _ES='--accent:#943d6f;--bar:#943d6f;--accent-fg:#bf8ba9;--accent-soft:#2a1a22'
 CORES=('html:not([data-tema="claro"]){'+_ES+'}html[data-tema="claro"]{'+_CL+'}'
-       '@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){'+_CL+'}}.cupCard{background:#943d6f!important}')
+       '@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){'+_CL+'}}.cupCard{background:linear-gradient(135deg,#2c1221,#592543)!important}')
 
 # a cor da marca escrita solta no CSS do app (32× #8d3a69, 9× #8a2f66, 8× #a2447c…) também troca — um passo só, regra por regra.
 CORLIT=r"""()=>{const M=[[/#8d3a69|#a2447c|#8a2f66|#b4528a|rgb\(141, 58, 105\)|rgb\(162, 68, 124\)|rgb\(138, 47, 102\)/gi,'#943d6f'],[/#e08bc0|#f3c0dc/gi,'#bf8ba9'],[/#f3e1ec/gi,'#f6eff3']];
