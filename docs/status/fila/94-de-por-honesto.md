@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (lote 56)
+aprovado 23/11 08:36 — espera o 'implementar'
 
