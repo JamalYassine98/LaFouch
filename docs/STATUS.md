@@ -122,6 +122,7 @@
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **74r-reserva-suspeita** — v2 sobre os aprovados 80–87 — esperando o dono
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
+- **75-erros-site** — passado à SITE (recado 23/11 08:00) — não é da ESBOCO
 - **75-familia-de-botoes** — esboço pronto — esperando o dono (v3 + telas finais 09d)
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
