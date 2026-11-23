@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09h: Comprar em cores suaves | work/ideias/09-botoes/ |
 
 ## Fila
 
