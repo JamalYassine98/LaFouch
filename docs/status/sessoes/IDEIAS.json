@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08k: camadas entram pelo lado do botão, com identidade La Fouch",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795401760.4490964,
+   "r": "08k: camadas do lado do botão com fio vinho + dois tempos (vídeos)"
+  },
   {
    "t": 1795401127.6507204,
    "r": "08j: vídeos abrindo busca/conta/carrinho (pacote final, branco) + achado do desfoque preso no PC (conserto = saída no lugar do 05d)"
@@ -40,10 +42,6 @@
   {
    "t": 1795398447.4377234,
    "r": "08g APROVADO (Fila 73) — guardado na lista viva e na memória"
-  },
-  {
-   "t": 1795398365.14949,
-   "r": "08g: menu F em Fraunces 400 (identidade) + achado da fonte 600 no simulador"
   }
  ],
  "leu": 1795388650.001632
