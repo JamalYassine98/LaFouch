@@ -134,6 +134,7 @@
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
+- **89-aviso-amarelo-e-fornecedores** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
