@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (um rótulo de seção · uma linha 56/64 · frase nunca quebra; leva os aprovados 79–85; work/s435/varredura/titulos/)
+aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
 
