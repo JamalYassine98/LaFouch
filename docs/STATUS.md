@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08b: menu celular A (palavras grandes) e B (fotos) + PC só Descubra com janelinha + idioma no rodapé | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
