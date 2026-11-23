@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (substitui o Carrinho do 96 v5)
+v2 (oferta + cupom + última peça; sem Leve 2) — esperando o dono
 
