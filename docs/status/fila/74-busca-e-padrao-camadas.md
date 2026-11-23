@@ -1,2 +1,2 @@
-parte 1 aprovada (busca) · parte 2 esboço pronto — esperando o dono
-Parte 2: Minha conta e carrinho no padrão — sem caixa por fora, margem 16, título Fraunces 400, abas como as da vitrine (sublinhado vinho), campos em linhas finas, pedidos e peças em linhas (sem cartões), situação em texto pequeno, botão principal vinho (não verde), secundário link discreto. Comparador: 0 falha nova. work/ideias/08-menu-luxo/esboco-08m-*.jpg
+aprovado 23/11 00:17 (busca) e 00:30 (conta e carrinho) — espera o 'implementar' (SITE)
+Busca só busca + conta e carrinho no padrão (linha de peça, margem 16, abas da vitrine, campos em linhas finas, botão principal vinho). work/ideias/08-menu-luxo/COMO-FAZER.md (08l, 08m)
