@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09p: P1 suave com estados + família dos outros botões | work/ideias/09-botoes/ |
 
 ## Fila
 
