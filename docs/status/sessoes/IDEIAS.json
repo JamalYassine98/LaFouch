@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "09j: estudo de luxo com cor própria + N refinado",
- "arquivos": [
-  "work/ideias/09-botoes/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795434538.605935,
+   "r": "09j: estudo de luxo com cor própria + Comprar N2 enviado"
+  },
   {
    "t": 1795434351.0634067,
    "r": "09i: Comprar rosé/seda na cor do logo (K–O) enviado"
@@ -40,10 +42,6 @@
   {
    "t": 1795404629.871454,
    "r": "08m parte 2 (conta e carrinho) APROVADA — guardada"
-  },
-  {
-   "t": 1795404566.1981716,
-   "r": "08m parte 2: conta e carrinho no padrão"
   }
  ],
  "leu": 1795432245.6583207

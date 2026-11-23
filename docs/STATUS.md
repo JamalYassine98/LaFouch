@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 09j: estudo de luxo com cor própria + N refinado | work/ideias/09-botoes/ |
 
 ## Fila
 
@@ -173,6 +172,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 08:48 — IDEIAS: 09j: estudo de luxo com cor própria + Comprar N2 enviado
 - 23/11 08:45 — IDEIAS: 09i: Comprar rosé/seda na cor do logo (K–O) enviado
 - 23/11 08:34 — IDEIAS: 09h: Comprar em 5 cores suaves enviado
 - 23/11 08:32 — IDEIAS: 09g: 5 propostas de luxo para o botão Comprar enviadas
@@ -183,7 +183,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 00:40 — IDEIAS: 09 v2: família de botões estruturada (papel × tamanho + marca)
 - 23/11 00:37 — IDEIAS: 09: inventário dos botões (29 desenhos → 4 tipos)
 - 23/11 00:30 — IDEIAS: 08m parte 2 (conta e carrinho) APROVADA — guardada
-- 23/11 00:29 — IDEIAS: 08m parte 2: conta e carrinho no padrão
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
