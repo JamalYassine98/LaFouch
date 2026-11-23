@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "bug: destaque mexe ao fechar o menu (08k2)",
+ "arquivos": [
+  "work/ideias/08-menu-luxo/"
+ ],
  "ultimas": [
   {
    "t": 1795444169.5474238,

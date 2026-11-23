@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | bug: destaque mexe ao fechar o menu (08k2) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
