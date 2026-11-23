@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-Camadas (menu, conta, busca, carrinho) entram pelo LADO DO BOTÃO (celular: ☰/conta pela esquerda, lupa/sacola pela direita; PC: tudo pela direita), 0,7 s com a mesma curva na entrada e na saída; assinatura La Fouch: o FIO vinho na borda que vem na frente + DOIS TEMPOS (camada, depois conteúdo). Substitui o 'cresce do botão' (05) e o 05d se aprovado. work/ideias/08-menu-luxo/esboco-08k-lado-*.mp4
+esboço pronto — esperando o dono (08k2: Minha conta pela mesma camada)
+Camadas pelo lado do botão; 08k2 corrige a conta (entrada e saída iguais ao carrinho). work/ideias/08-menu-luxo/esboco-08k2-lado-celular.mp4
