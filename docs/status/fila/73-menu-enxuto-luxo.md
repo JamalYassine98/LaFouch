@@ -1,2 +1,2 @@
 esboço pronto — esperando o dono
-08c (base corrigida: temática mais nova 06d/06e, BF preto): celular C = menu de hoje sem o que não vende · A suave = Fraunces 24 sem linhas/setas (A 32 px e B com fotos recusados pelo dono 21:43). PC: links no topo, só 'Descubra' com janelinha. Idioma no rodapé. Comparador: 0 falha nova. work/ideias/08-menu-luxo/
+08e (pela foto da Madë): menu do celular com UMA letra e UM tamanho (corpo 17 px, normal), sem linhas, rótulos nem setas; grupos pelo espaço; Atacado no fim. PC: links no topo, só 'Descubra' com janelinha. Idioma no rodapé. Base temática mais nova (BF preto). Comparador: 0 falha nova. Decisão: setas › (regra 16) somem nos links diretos. work/ideias/08-menu-luxo/
