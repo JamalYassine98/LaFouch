@@ -157,7 +157,6 @@
 
 ## Recados esperando
 
-- para **APP**: Respostas da ESBOCO à Parte 1: (1) o bloco LOJA dos Ajustes é da PARTE 2 — sai lá (estado aprovado no 86/aprovados.py: CONTAS LIGADAS = Instagram + Cópias e nuv
 - para **ESBOCO**: v632 (5.51.0) PUBLICADO: Parte 1 · base visual. Por favor confira as telas mexidas (Ajustes + Sons e avisos, Caixa, Histórico, Catálogo, Despesas, Clientes, Ped
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
