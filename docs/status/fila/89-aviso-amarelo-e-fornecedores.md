@@ -1,2 +1,2 @@
-aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
+89a publicado v632 (APP); 89b fica para a Parte de Compras
 
