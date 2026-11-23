@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "Parte 1 base visual (cor oficial, barras, botões, campos, ícones, títulos, sem cartão, avisos) — sem publicar até o dono ver",
+ "arquivos": [
+  "www/style.css",
+  "src/"
+ ],
  "ultimas": [
   {
    "t": 1795381421.892901,
