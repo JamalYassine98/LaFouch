@@ -5,6 +5,8 @@
 # 22/11 06:52 a MOLA: a folga de desconto é a diferença entre o preço parado e o mínimo do dia (hoje 0%: preço abaixo do mínimo).
 # Base: Carrinho REAL (src/98-carrinho.js: SL2201 C1 Preto ×3 a G$ 60.000; 'Sugestão para oferecer ao cliente · Leve 2' de hoje) +
 # código de desconto de hoje (src/97-cupons.js cupCx, hoje só no Pagamento) — vem para o Carrinho, um lugar só.
+# Dono 22:04: o Cartão Próxima compra exige o cliente CADASTRADO na loja → sem cliente no carrinho, a linha pede 'Cadastrar' (abre o
+# cadastro de cliente de hoje e já liga ao carrinho); com cliente, vira 'para ‹nome› · 10% na volta · Usar'. Dados de teste: 0 clientes.
 # A = dados reais de hoje (folga 0: o desconto da 3ª não sai; o resto sai). B = ILUSTRAÇÃO com o preço no degrau (G$ 120.000, esboço 77).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');sys.path.insert(0,'/home/claude/lafouch/work/kit');import ap,mede as M
 from playwright.sync_api import sync_playwright
@@ -15,8 +17,8 @@ BLOCO=r"""(o)=>{const R=(t,s,a,mut)=>'<div style="display:flex;align-items:cente
  sg.outerHTML='<div class="c54Sg" style="display:block"><div class="lbl">O Semp sugere · o Titan conferiu</div>'+o.linhas.map(l=>R(l[0],l[1],l[2],l[3])).join('')+
   '<div style="display:flex;align-items:center;gap:16px;min-height:56px"><span style="flex:1;color:var(--mute);font-size:15px">Código do cliente</span><span style="color:var(--mute);font-size:15px">digitar</span><button type="button" class="lkTx on">Usar</button></div></div>';
  const t=document.querySelector('.c54Tt');const s=document.createElement('div');s.style.cssText='text-align:center;font-size:13px;color:var(--mute);margin-top:4px';s.textContent=o.costuma;t.after(s);}"""
-A={'linhas':[['Leve 2: + Leitura de acetato unissex','por G$ 17.000 · de G$ 25.000','Usar',0],['Cartão Próxima compra','10% na volta · entregue no fim da venda','Usar',0],['3ª peça com desconto','não hoje · o preço já está abaixo do mínimo','',1]],'costuma':'o Titan ainda aprende quanto desconto fecha a venda'}
-B={'linhas':[['3ª peça com 30%','− G$ 36.000 · cabe na folga do Titan','Usar',0],['Leve 2: + Leitura de acetato unissex','por G$ 17.000 · de G$ 25.000','Usar',0],['Cartão Próxima compra','10% na volta · entregue no fim da venda','Usar',0]],'costuma':'Solares costumam fechar com 10%'}
+A={'linhas':[['Leve 2: + Leitura de acetato unissex','por G$ 17.000 · de G$ 25.000','Usar',0],['Cartão Próxima compra','10% na volta · só com o cliente cadastrado','Cadastrar',0],['3ª peça com desconto','não hoje · o preço já está abaixo do mínimo','',1]],'costuma':'o Titan ainda aprende quanto desconto fecha a venda'}
+B={'linhas':[['3ª peça com 30%','− G$ 36.000 · cabe na folga do Titan','Usar',0],['Leve 2: + Leitura de acetato unissex','por G$ 17.000 · de G$ 25.000','Usar',0],['Cartão Próxima compra','10% na volta · só com o cliente cadastrado','Cadastrar',0]],'costuma':'Solares costumam fechar com 10%'}
 def tela(pw,esc,o,preco=None,n=''):
   b,pg,w=ap.abre(pw,'vendas',esc,'celular',base=True);w(700)
   pg.evaluate("""p=>{const S=window.__LF.S;const it=S.items.filter(i=>i.tipo=='solar'&&i.qty>=3)[0];S.cart=[{it:it,qty:3,id:'c1'}];if(p)S.cart[0].preco=p;S.cartOpen=true;S.cartStep='ped';window.__LF.render()}""",preco);w(1000)
