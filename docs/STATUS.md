@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 09: inventário dos botões do site (família de botões) | work/ideias/09-botoes/ |
 
 ## Fila
 
