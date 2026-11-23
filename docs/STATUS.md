@@ -122,7 +122,7 @@
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
 - **78-cupons-no-caixa** — aprovado 22/11 22:19 — espera o 'implementar' (vai com o Titan)
 - **79-pode-tirar-e-imprevistos** — aprovado 22/11 22:57 — espera o 'implementar'
-- **80-familia-barras** — esboço pronto — esperando o dono (todas as barras viram o trilho 140C: .sg418 .catbar3 .tmseg .adSeg chips saem; work/s435/barras/)
+- **80-familia-barras** — aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 
 ## Recados esperando
 

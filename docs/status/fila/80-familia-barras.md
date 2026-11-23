@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (todas as barras viram o trilho 140C: .sg418 .catbar3 .tmseg .adSeg chips saem; work/s435/barras/)
+aprovado 22/11 23:18 (80 + 80b) — espera o 'implementar' (junto com o 140C)
 
