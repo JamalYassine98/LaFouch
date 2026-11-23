@@ -1,2 +1,2 @@
-v2 sobre os aprovados 80–87 — esperando o dono
+v3: em Pedidos (não em Preços) — esperando o dono
 
