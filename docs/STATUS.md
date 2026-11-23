@@ -119,6 +119,7 @@
 - **73-menu-enxuto-luxo** — aprovado 22/11 22:47 (08g) — espera o 'implementar' (SITE)
 - **73-setores-semp** — aprovado 22/11 21:56 — vai no item 70 (COMO-FAZER-MARKETING-70.md)
 - **73b-idioma-rodape** — esboço pronto — esperando o dono
+- **74-busca-e-padrao-camadas** — esboço pronto — esperando o dono (parte 1 de 2)
 - **74-reserva-suspeita-titan** — esboço pronto — esperando o dono (work/s435/titan/reserva/esboco_74r_*) · depois APP + NUVEM
 - **75-erros-do-site** — esboço pronto — esperando o dono (75a cartão Atacado no iPad · 75b camadas na peça deitada · 75d 'Ver modelo'; work/s435/siteerros/) · depois SITE
 - **77-escada-de-precos** — aprovado 22/11 21:52 — espera o 'implementar' (vai com o Titan e o Completar do 45)
