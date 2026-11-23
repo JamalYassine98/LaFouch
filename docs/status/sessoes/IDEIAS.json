@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "13: Mochi luxuoso nas datas",
+ "arquivos": [
+  "work/ideias/13-mochi/"
+ ],
  "ultimas": [
   {
    "t": 1795455239.9392061,
@@ -44,5 +46,5 @@
    "r": "08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)"
   }
  ],
- "leu": 1795450922.0743623
+ "leu": 1795455635.1393123
 }
