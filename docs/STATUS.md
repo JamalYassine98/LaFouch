@@ -134,6 +134,7 @@
 - **85-varredura-avisos** — aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
 - **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
+- **88-duas-portas** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
