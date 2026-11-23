@@ -1,0 +1,471 @@
+[
+{
+"t": "Guardião · 7 coisas para olhar ›",
+"cls": "card guardC guard1 noconta",
+"fs": "15px",
+"v": "inicio",
+"dado": false
+},
+{
+"t": "Guardião · 7 coisas para olhar",
+"cls": "",
+"fs": "15px",
+"v": "inicio",
+"dado": false
+},
+{
+"t": "Vendido hoje · 3 venda(s) G$ 195.000 ›",
+"cls": "hero",
+"fs": "15px",
+"v": "inicio",
+"dado": true
+},
+{
+"t": "Inventário 16 referências · US$ 113 a custo",
+"cls": "top grpTop",
+"fs": "15px",
+"v": "estoque",
+"dado": true
+},
+{
+"t": "16 referências · US$ 113 a custo",
+"cls": "crumb",
+"fs": "13.5px",
+"v": "estoque",
+"dado": true
+},
+{
+"t": "470 peças · Todos Lote Kazwini Pré-graduados G$ 25.000✓ 343 em estoque Óculos de leitura de acetato unissex 2 modelos 26 em estoque Óculos de leitura Kazwini de",
+"cls": "main",
+"fs": "15px",
+"v": "estoque",
+"dado": true
+},
+{
+"t": "Esgotado some do catálogo · 2 baixo, repor",
+"cls": "hint",
+"fs": "12px",
+"v": "estoque",
+"dado": false
+},
+{
+"t": "Parados e sobrando 41% do investido sem vender há 60+ dias US$ 172 › Contar o estoque 3 dos mais valiosos sem conferir há 10+ dias ›",
+"cls": "nvLista",
+"fs": "15px",
+"v": "estoque",
+"dado": true
+},
+{
+"t": "Dólar ≈ G$ 2.075.840 US$ 320,00",
+"cls": "cxL",
+"fs": "15px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Real ≈ G$ 1.674.065 R$ 1.400,00",
+"cls": "cxL",
+"fs": "15px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Objetivos da loja guardado G$ 2.396.000 Diga o que quer para a loja (reforma, vitrine, ar-condicionado…). Cada venda guarda um pouco e metade do que passar da m",
+"cls": "card col obCard",
+"fs": "15px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor. Ver o que falta repor ›",
+"cls": "note n-bad",
+"fs": "14px",
+"v": "caixa",
+"dado": false
+},
+{
+"t": "Mercado 19/11 às 17:06 · Desfazer G$ 420.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Tinta da fachada (objetivo) 14/11 às 16:45 G$ 15.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Escola 20/10 às 17:05 · Desfazer G$ 610.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Retirada do mês 20/09 às 17:03 · Desfazer G$ 310.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Mercado 21/08 às 17:49 · Desfazer G$ 630.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Compras de casa 22/07 às 17:26 · Desfazer G$ 430.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Mercado 22/06 às 17:26 · Desfazer G$ 640.000",
+"cls": "sl",
+"fs": "14px",
+"v": "caixa",
+"dado": true
+},
+{
+"t": "Clientes Quem compra na loja e no atacado.",
+"cls": "top",
+"fs": "15px",
+"v": "clientes",
+"dado": false
+},
+{
+"t": "Quem compra na loja e no atacado.",
+"cls": "crumb",
+"fs": "13.5px",
+"v": "clientes",
+"dado": false
+},
+{
+"t": "Nenhum cliente ainda Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.",
+"cls": "col",
+"fs": "15px",
+"v": "clientes",
+"dado": false
+},
+{
+"t": "Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.",
+"cls": "",
+"fs": "14px",
+"v": "clientes",
+"dado": false
+},
+{
+"t": "Nenhum pedido ainda Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.",
+"cls": "lfVazio",
+"fs": "15px",
+"v": "ped",
+"dado": false
+},
+{
+"t": "125 vendas · lucro livre G$ 2.400.793 G$ 6.569.000",
+"cls": "m71",
+"fs": "13px",
+"v": "hist",
+"dado": true
+},
+{
+"t": "22/11 · hojedom G$ 195.000 › 3 vendas · lucro livre G$ 66.261 21/11sáb G$ 440.000 › 10 vendas · lucro livre G$ 151.829 20/11sex G$ 279.500 › 7 vendas · 1 despes",
+"cls": "list",
+"fs": "15px",
+"v": "hist",
+"dado": true
+},
+{
+"t": "139 vendas · lucro livre G$ 2.471.645 G$ 6.742.000",
+"cls": "m71",
+"fs": "13px",
+"v": "hist",
+"dado": true
+},
+{
+"t": "Semana 26/10 a 31/10 G$ 1.791.000 · 39 vendas · 6 dias ⌄ Semana 19/10 a 25/10 G$ 676.500 · 13 vendas · 3 dias ⌄",
+"cls": "list",
+"fs": "15px",
+"v": "hist",
+"dado": true
+},
+{
+"t": "Carregar mais 30 dias › 390 dias com movimento",
+"cls": "mais71",
+"fs": "15px",
+"v": "hist",
+"dado": false
+},
+{
+"t": "DÓLAR G$ 6.487 — estável REAL G$ 1.196 ▼ 0,7% 7 dias DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"cls": "card fxTop",
+"fs": "15px",
+"v": "fx",
+"dado": true
+},
+{
+"t": "Cada peça vendida separa 184 peças por mês (automático) G$ 22.826",
+"cls": "cxL p108",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "LOJA Aluguel da loja fixa · vence dia 5 G$ 900.000 ⌄ Luz venceu há 7 dias · informe o valor G$ 180.000 ⌄ Internet fixa · vence dia 10 G$ 120.000 ⌄",
+"cls": "col",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Aluguel da loja fixa · vence dia 5 G$ 900.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Luz venceu há 7 dias · informe o valor G$ 180.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Internet fixa · vence dia 10 G$ 120.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "CASA Contas de casa venceu há 10 dias · informe o valor G$ 1.000.000 ⌄",
+"cls": "col",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Contas de casa venceu há 10 dias · informe o valor G$ 1.000.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "SALÁRIO Salário (retirada) fixa · vence dia 5 G$ 1.500.000 ⌄",
+"cls": "col",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Salário (retirada) fixa · vence dia 5 G$ 1.500.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "CONTADOR Contador fixa · vence dia 20 G$ 300.000 ⌄",
+"cls": "col",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Contador fixa · vence dia 20 G$ 300.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "IMPREVISTOS Provisão de imprevistos fixa · vence dia 1 G$ 200.000 ⌄",
+"cls": "col",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Provisão de imprevistos fixa · vence dia 1 G$ 200.000 ⌄",
+"cls": "card cdel ecF",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$ 200.000 · 1 registrado(s) ⌄ Contas pagas neste mês 5 conta(s) paga(s) ⌄",
+"cls": "fxG",
+"fs": "15px",
+"v": "desp",
+"dado": true
+},
+{
+"t": "Lucro livre G$ 2.414.500 36,8% do vendido",
+"cls": "kpi",
+"fs": "15px",
+"v": "dash",
+"dado": true
+},
+{
+"t": "Reposição coberta. Depois de repor, sobram G$ 4.658.400 para as contas, o colchão e o seu lucro.",
+"cls": "note n-ok",
+"fs": "14.5px",
+"v": "dash",
+"dado": true
+},
+{
+"t": "Lucro livre G$ 66.261 depois de separar tudo",
+"cls": "kpi",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "Contas do dia G$ 140.000 1/30 de G$ 4.200.000 por mês",
+"cls": "kpi kpiLk",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "Gastos extras G$ 0 imprevistos e melhorias",
+"cls": "kpi",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "1× SL2201 C1 · Preto V-1996 · 22/11 às 01:34 · Solares US$ 9,01 ≈ G$ 60.000 ⌄",
+"cls": "sl418",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "2× YM7735 C3 · Azul V-1994 · 22/11 às 01:28 · Armações G$ 85.000 ⌄",
+"cls": "sl418",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "2× SP57765 +1.75 · Preto V-1995 · 22/11 às 01:16 · Pré-graduados R$ 41,70 ≈ G$ 50.000 ⌄",
+"cls": "sl418",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "FECHAMENTO DO DIA Vendido G$ 195.000 Reposição separada G$ 59.141 Contas separadas G$ 57.500 Colchão separado G$ 7.098 Caixa de melhorias G$ 5.000 Lucro livre G",
+"cls": "card col fc418",
+"fs": "15px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "Gastos extras (imprevistos e melhorias) −G$ 0",
+"cls": "sl",
+"fs": "14.5px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "Lucro livre depois dos gastos extras G$ 66.261",
+"cls": "sl",
+"fs": "14.5px",
+"v": "dia",
+"dado": true
+},
+{
+"t": "preço em R$, endereço e “compre aqui e economize” · sugerido pelos seus números",
+"cls": "hint",
+"fs": "12px",
+"v": "mkt",
+"dado": true
+},
+{
+"t": "PLANO DA SEMANA · 0 DE 6",
+"cls": "mkSec",
+"fs": "12px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Seg · Post · 20h Peça do objetivo — Óculos de leitura Kazwini de acetato masculino",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Ter · Status · 12h Status do dia — Óculos de leitura de acetato unissex",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Qua · Carrossel · 20h Carrossel com 4 peças — Óculos solar Ray-Ban de metal masculino, Óculos solar Kazwini de tr90 feminino…",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Qui · Story · 20h Bastidores / chegada — Óculos de leitura de plástico feminino",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos solar #14, Óculos de leitura de acetato unissex…",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Sáb · Post · 20h Oferta ou mais vendido — Armação #11",
+"cls": "mkPi",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Natal BR/PY presente: embalagem e combo em 33 d Ano Novo BR/PY solar para o verão em 40 d",
+"cls": "split",
+"fs": "15px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Natal BR/PY presente: embalagem e combo",
+"cls": "",
+"fs": "14px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Ano Novo BR/PY solar para o verão",
+"cls": "",
+"fs": "14px",
+"v": "mkt",
+"dado": false
+},
+{
+"t": "Entre na nuvem (Ajustes › Cópias e nuvem) e conecte à internet para ver os cartões.",
+"cls": "",
+"fs": "15px",
+"v": "cup",
+"dado": false
+}
+]
