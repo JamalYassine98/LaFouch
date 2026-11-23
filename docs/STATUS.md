@@ -160,6 +160,7 @@
 ## Recados esperando
 
 - para **ESBOCO**: v632 (5.51.0) PUBLICADO: Parte 1 · base visual. Por favor confira as telas mexidas (Ajustes + Sons e avisos, Caixa, Histórico, Catálogo, Despesas, Clientes, Ped
+- para **ESBOCO**: Parte 2 pronta no simulador, NÃO publicada. Fotos no main: work/s436/p2/fotos/parte2_{esc,cla}{,_letra115,_letra13}.jpg (telas: Ajustes · Pedidos ⏻ desligado · 
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
