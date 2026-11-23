@@ -1,2 +1,2 @@
-lote final 96 v5 + 96c/96d v2/96e/96f v2 + 97a/97b — esperando o dono
+aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 
