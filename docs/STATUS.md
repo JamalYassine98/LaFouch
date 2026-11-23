@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 1 base visual (cor oficial, barras, botões, campos, ícones, títulos, sem cartão, avisos) — sem publicar até o dono ver | www/style.css, src/ |
-| IDEIAS | 12b: faixas com frase de efeito | work/ideias/12-tematica-base/ |
 
 ## Fila
 
@@ -202,6 +201,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 14:33 — IDEIAS: 12b: faixas com frase de efeito do olhar, sem promessa de entrega
 - 23/11 14:24 — IDEIAS: 12b: VER A COLEÇÃO + faixas curtas, esboços refeitos
 - 23/11 14:16 — IDEIAS: 12b: campanha forte nas 6 datas enviada
 - 23/11 14:03 — IDEIAS: Fundo branco nas datas anotado
@@ -212,7 +212,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 11:43 — IDEIAS: bug do destaque ao fechar o menu: conferido quadro a quadro no 08k2, não reproduzido; perguntei ao dono o momento
 - 23/11 11:29 — IDEIAS: Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE
 - 23/11 11:22 — IDEIAS: 08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)
-- 23/11 11:07 — IDEIAS: Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12b: faixas com frase de efeito",
- "arquivos": [
-  "work/ideias/12-tematica-base/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795455239.9392061,
+   "r": "12b: faixas com frase de efeito do olhar, sem promessa de entrega"
+  },
   {
    "t": 1795454654.7717612,
    "r": "12b: VER A COLEÇÃO + faixas curtas, esboços refeitos"
@@ -40,10 +42,6 @@
   {
    "t": 1795443773.564259,
    "r": "08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)"
-  },
-  {
-   "t": 1795442875.6776931,
-   "r": "Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados"
   }
  ],
  "leu": 1795450922.0743623
