@@ -141,7 +141,7 @@
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — lote final 96 v5 + 96c/96d v2/96e/96f v2 + 97a/97b — esperando o dono
-- **98-carrinho-simples** — v3 (uma linha Desconto; tudo com cadastro) — esperando o dono
+- **98-carrinho-simples** — v4 (recomendado honesto) — esperando o dono
 
 ## Recados esperando
 
