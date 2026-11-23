@@ -1,7 +1,10 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "08k2 conserto do topo aprovado",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795445362.289966,
@@ -44,5 +47,5 @@
    "r": "Família de botões do site APROVADA (Fila 75): P1 suave acetinado"
   }
  ],
- "leu": 1795444148.6389084
+ "leu": 1795447116.1767964
 }
