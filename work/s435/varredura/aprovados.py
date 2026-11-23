@@ -19,19 +19,23 @@ SEMEMOJI=r"""()=>{const re=/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F
 
 # CORES PADRONIZADAS (IDEIAS 10, dono aprovou 23/11 10:52; bolinha 11:06): tudo sai da cor oficial #943d6f (CMYK C47 M91 Y29 K8).
 # Por enquanto SÓ o tema CLARO (a família não define o escuro — perguntar). Saem #a2447c, #8a2f66, os degradês (cupCard) e o vinho solto.
-_CL=('--bg:#f4f1f4;--panel:#ffffff;--panel2:#f0ebf0;--line:#d9d0d8;--sub:#475569;--accent:#943d6f;--bar:#943d6f;--accent-fg:#943d6f;--accent-soft:#f6eff3;--fg:#141414;--mute:#6b6763;--line2:#ece7e9;'
-     '--ok:#1f8f4e;--bad:#b3261e;--warn:#b7791f;--ptw:#e0ac00')
-# ESCURO (dono 23/11 11:10 'Sim' à recomendação): botão = marca #943d6f com letra branca (6,6); texto/link da marca = marca + 40% branco
-# #bf8ba9 (6,6); fundo #141414; painel #1c1619; painel 2 #241c20; linha #23191f; texto #ece7e9; suave #9b9496; avisos com branco:
-# certo #6db68c, perigo #d17d78, atenção #cda162; bolinha #e0ac00.
-_ES=('--bg:#141414;--panel:#1c1619;--panel2:#241c20;--line:#2e2428;--line2:#23191f;--fg:#ece7e9;--mute:#9b9496;--sub:#ece7e9;'
-     '--accent:#943d6f;--bar:#943d6f;--accent-fg:#bf8ba9;--accent-soft:#2a1a22;--ok:#6db68c;--bad:#d17d78;--warn:#cda162;--ptw:#e0ac00')
+# CORES (dono 23/11 11:25: 'mantém o design que construímos; a ÚNICA coisa que muda é a cor pela cor oficial do logo'):
+# só a COR DA MARCA troca (#a2447c / #8a2f66 / #8d3a69 / degradês → #943d6f). Fundos, cinzas e avisos ficam como no design aprovado.
+# No escuro, letra/link da marca = a mesma cor oficial clareada (marca + 40% branco #bf8ba9), porque o #943d6f puro não se lê no fundo escuro.
+_CL='--accent:#943d6f;--bar:#943d6f;--accent-fg:#943d6f;--accent-soft:#f6eff3'
+_ES='--accent:#943d6f;--bar:#943d6f;--accent-fg:#bf8ba9;--accent-soft:#2a1a22'
 CORES=('html:not([data-tema="claro"]){'+_ES+'}html[data-tema="claro"]{'+_CL+'}'
        '@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){'+_CL+'}}.cupCard{background:#943d6f!important}')
 
+# a cor da marca escrita solta no CSS do app (32× #8d3a69, 9× #8a2f66, 8× #a2447c…) também troca — um passo só, regra por regra.
+CORLIT=r"""()=>{const M=[[/#8d3a69|#a2447c|#8a2f66|#b4528a|rgb\(141, 58, 105\)|rgb\(162, 68, 124\)|rgb\(138, 47, 102\)/gi,'#943d6f'],[/#e08bc0|#f3c0dc/gi,'#bf8ba9'],[/#f3e1ec/gi,'#f6eff3']];
+ const tr=t=>M.reduce((a,[r,v])=>a.replace(r,v),t);
+ for(const sh of document.styleSheets){let R;try{R=sh.cssRules}catch(e){continue}
+  for(let i=0;i<R.length;i++){const t=R[i].cssText,n=tr(t);if(n!==t){try{sh.deleteRule(i);sh.insertRule(n,i)}catch(e){}}}}
+ document.querySelectorAll('[style]').forEach(e=>{const t=e.getAttribute('style'),n=tr(t);if(n!==t)e.setAttribute('style',n)})}"""
 
 def aplica(pg):
-  pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW);pg.add_style_tag(content=CORES)
+  pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW);pg.add_style_tag(content=CORES);pg.evaluate(CORLIT)
   pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO);pg.evaluate(SEMEMOJI)
   pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');pg.wait_for_timeout(300);pg.evaluate(ALIN);pg.wait_for_timeout(200)
 
