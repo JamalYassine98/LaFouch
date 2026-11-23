@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08l: 'Ver todos os resultados' discreto, sem cobrir peça",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795403823.0095549,
+   "r": "08l v5: 'Ver todos' vira link discreto no fim da lista; lista sem limite fixo"
+  },
   {
    "t": 1795403055.8924546,
    "r": "08l v4: busca com uma margem só + sai o 'Você estava vendo' do Início"
@@ -40,10 +42,6 @@
   {
    "t": 1795400203.2231596,
    "r": "08h2: faixa de baixo do rodapé alinhada (idioma à esquerda; termos + reCAPTCHA à direita)"
-  },
-  {
-   "t": 1795399792.8735225,
-   "r": "08i v2: rodapé em 2 tempos como a Madë"
   }
  ],
  "leu": 1795388650.001632
