@@ -1,2 +1,2 @@
-Natal aprovado 23/11 15:48 · 6 datas (12e) prontas — esperando o dono
-cartão de hoje na cor oficial profunda; enfeites depois
+Natal aprovado 15:48 · 6 datas com os 3 ajustes (12e) — esperando o dono
+pontinhos só Natal/Ano Novo; profundidade por data; comparador 0 falha nova
