@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (v3)
-Botões: preto no dia a dia, vinho só em Comprar/Prosseguir/Finalizar (cor do evento nos eventos), secundário contorno preto, link preto, perigo vermelho; Google intacto. work/ideias/09-botoes/esboco-09c + COMO-FAZER
+esboço pronto — esperando o dono (v3 + telas finais 09d)
+Família v3 aplicada nas telas reais: preto, vinho só em Comprar/Prosseguir/Finalizar; sem verde, degradê nem ícone dentro; comparador 0 falha (celular e PC). work/ideias/09-botoes/esboco-09d-* + COMO-FAZER
