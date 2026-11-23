@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
+v2 alinhado — esperando o dono
 
