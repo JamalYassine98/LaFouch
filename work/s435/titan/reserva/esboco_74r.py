@@ -1,4 +1,4 @@
-# Esboço 74r v2 (23/11 08:00: sobre o app de hoje + aprovados 80–87 via aprovados.py) — v1 22/11 20:10 — aviso de RESERVA SUSPEITA no Titan (recado NUVEM 15:20, decidido com o dono):
+# Esboço 74r v3 (23/11 08:05: dono 07:53 — mora em Pedidos, não em Preços) · v2 (23/11 08:00: sobre o app de hoje + aprovados 80–87 via aprovados.py) — v1 22/11 20:10 — aviso de RESERVA SUSPEITA no Titan (recado NUVEM 15:20, decidido com o dono):
 # o site NÃO limita peças por pedido; a nuvem avisa quando uma reserva parece abuso (5+ peças iguais sem pagar, ou 3+ reservas abertas
 # sem pagar da mesma rede na mesma hora); o dono cancela e solta pelo app (mesma família do PIX sem pedido, 97z-pix-email.js);
 # sem olhar, a peça fica presa até os 30 min e solta sozinha.
@@ -49,9 +49,17 @@ def janela(pw,esc):
     const h=j.querySelector('.ljHd b,h2,h3,b');if(h)h.textContent='Reserva suspeita';
     const c=j.querySelector('.ljCorpo')||j;c.innerHTML=window.__esb;const l=document.querySelector('#v-notif .lbl');if(l)l.textContent='Titan · precisa de você agora · 8';}""");w(600)
   return fecha(pg,b,'Janela')
+def pedidos(pw,esc):
+  b,pg,w=ap.abre(pw,'inicio',esc,'celular',base=False);w(600);pg.evaluate("()=>window.__LF.inicioGo('ped')");w(1500)
+  pg.evaluate(r"""()=>{const v=document.getElementById('v-ped');const vz=v.querySelector('.lfVazio');
+   const L=(t,s,c)=>'<button type="button" class="nvL" style="display:flex;align-items:center;gap:16px;width:100%;min-height:64px;background:none;border:0;border-bottom:1px solid var(--line2);padding:0;color:var(--fg);font:inherit;text-align:left"><span style="flex:1;min-width:0"><b style="display:block;font-size:16px;font-weight:500;color:'+(c||'var(--fg)')+'">'+t+'</b><small style="display:block;margin-top:2px;font-size:13px;color:var(--mute)">'+s+'</small></span><i style="font-style:normal;color:var(--mute);font-size:20px">›</i></button>';
+   const h=L('Pedido 1043 · reserva suspeita','5 peças iguais sem pagar · solta em 18 min','var(--bad)')+L('Pedido 1042 · Ana Benítez','comprovante chegou · conferir');
+   const d=document.createElement('section');d.className='nvLista';d.innerHTML=h;vz?vz.replaceWith(d):v.appendChild(d);
+   const c=v.querySelector('.crumb');if(c)c.innerHTML='2 para agir agora'}""");w(400)
+  return fecha(pg,b,'Pedidos')
 if __name__=='__main__':
  with sync_playwright() as pw:
   for esc in (True,False):
    n='escuro' if esc else 'claro'
-   quadro('esboco_74r_reserva_suspeita_%s.jpg'%n,[('PROPOSTA · Pendências (sino)',n+' · 1ª linha, vermelha',pend(pw,esc)),('PROPOSTA · Preços (Titan)',n+' · O Titan decide hoje',precos(pw,esc)),('PROPOSTA · janela Reserva suspeita',n+' · Ver › abre a janela',janela(pw,esc))])
+   quadro('esboco_74r_reserva_suspeita_%s.jpg'%n,[('PROPOSTA · Pendências (sino)',n+' · 1ª linha, vermelha',pend(pw,esc)),('PROPOSTA · Pedidos',n+' · o pedido no topo, em vermelho',pedidos(pw,esc)),('PROPOSTA · janela Reserva suspeita',n+' · Ver › abre a janela',janela(pw,esc))])
  for n,f in REL: print(n,len(f),f[:4])

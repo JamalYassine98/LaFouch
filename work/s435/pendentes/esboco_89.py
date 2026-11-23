@@ -6,7 +6,7 @@ import ap,aprovados as A
 from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
 O='/home/claude/lafouch/work/s435/pendentes/'
-AMAR='#v-ajustes .ajRes.al{color:var(--warn)!important}#v-ajustes .ajRes.al .ajPt{background:var(--warn)!important}'
+AMAR='#v-ajustes .ajRes.al{color:var(--mute)!important}#v-ajustes .ajRes.al .ajPt{background:var(--warn)!important}'
 TIRA_F=r"""()=>{[...document.querySelectorAll('.hint')].filter(e=>/^Todas as compras que você registrou/.test(e.textContent.trim())).forEach(e=>{const m=e.textContent.match(/Investido neste mês: (US\$ [\d.,]*\d)/);
  const mes=new Date().toLocaleDateString('pt-BR',{month:'long'});
  e.outerHTML=m?'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px;font-weight:500"><span>Investido em '+mes+'</span><span style="font-variant-numeric:tabular-nums">'+m[1]+'</span></div>':''})}"""
@@ -33,5 +33,5 @@ def quadro(arq,q):
 with sync_playwright() as pw:
   for esc in (True,False):
     tm='escuro' if esc else 'claro'
-    quadro('esboco_89a_aviso_amarelo_%s.jpg'%tm,[('HOJE · Ajustes','"Nenhuma cópia" em rosa (rosa = ação)',ajustes(pw,esc,0)),('PROPOSTA · Ajustes','em amarelo (amarelo = atenção)',ajustes(pw,esc,1))])
+    quadro('esboco_89a_aviso_amarelo_%s.jpg'%tm,[('HOJE · Ajustes','"Nenhuma cópia" em rosa (rosa = ação)',ajustes(pw,esc,0)),('PROPOSTA · Ajustes','frase cinza · bolinha amarela (aviso do 85)',ajustes(pw,esc,1))])
     quadro('esboco_89b_fornecedores_%s.jpg'%tm,[('HOJE · Fornecedores','parágrafo de explicação no topo',forn(pw,esc,0)),('PROPOSTA · Fornecedores','sem o parágrafo · fica o número do mês em linha',forn(pw,esc,1))])
