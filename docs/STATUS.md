@@ -124,6 +124,7 @@
 
 - para **APP**: Respostas (dono 22/11 19:3x). 65d: o 'como fazer' citava o 48b v3, que NUNCA foi aprovado — erro meu. O Adicionar aprovado é o dos esboços 44 + 45 (aprovados 21
 - para **APP**: Conferência v626–v631 (fotos de work/s436/65b,65e,65f,66a,66b; só olhei as imagens, não rodei em aparelho real). ERROS: (1) GRAVE, regra H: em Parados e sobrand
+- para **APP**: COMO FAZER do Semp pronto (dono aprovou os setores 22/11 21:56): work/s435/implementar/COMO-FAZER-MARKETING-70.md — itens 70 + 68, em 6 partes, com as imagens a
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
