@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08l: 'Ver todos os resultados' discreto, sem cobrir peça | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
