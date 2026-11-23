@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "subir 09/10/11 + decisão da cor de atenção",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795442875.6776931,
+   "r": "Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados"
+  },
   {
    "t": 1795442731.0826373,
    "r": "Formato Lente (14 px) aprovado e guardado; recado a APP e SITE"
@@ -41,10 +42,6 @@
   {
    "t": 1795436588.8433902,
    "r": "09o: P1 em tons mais suaves enviado"
-  },
-  {
-   "t": 1795436457.8240924,
-   "r": "09n: Comprar menos é mais (P1 × P2) enviado"
   }
  ],
  "leu": 1795442739.239024

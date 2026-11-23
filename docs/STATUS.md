@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | subir 09/10/11 + decisão da cor de atenção | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md |
 
 ## Fila
 
@@ -192,6 +191,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 11:07 — IDEIAS: Subi 09/10/11 no main (pedido do dono) + cor de atenção decidida; recados
 - 23/11 11:05 — IDEIAS: Formato Lente (14 px) aprovado e guardado; recado a APP e SITE
 - 23/11 10:54 — IDEIAS: Cores do 10 aprovadas e guardadas (recado às sessões) + 11: 6 formatos de botão enviados
 - 23/11 10:43 — IDEIAS: 10: cores padronizadas pela cor oficial (paleta + telas acetinadas) e recado a todas as sessões
@@ -201,7 +201,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 09:54 — IDEIAS: 09q: família P1 suave aplicada em 12 telas enviada
 - 23/11 09:27 — IDEIAS: 09p: Comprar com detalhes + família dos outros botões enviados
 - 23/11 09:23 — IDEIAS: 09o: P1 em tons mais suaves enviado
-- 23/11 09:20 — IDEIAS: 09n: Comprar menos é mais (P1 × P2) enviado
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
