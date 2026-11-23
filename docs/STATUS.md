@@ -142,6 +142,7 @@
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 - **98-carrinho-simples** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
+- **99-lucro-kit-realista** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
