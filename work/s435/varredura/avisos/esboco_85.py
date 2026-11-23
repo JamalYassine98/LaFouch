@@ -5,6 +5,8 @@
 #  A · AVISO QUE PASSA = o lfToast de sempre (acima da barra, cor pelo tipo), agora com ação opcional à direita ("Desfazer"); o popErr de cima SAI
 #      (o erro também passa por aqui, tipo 'erro'). Ex. do 81: "Foto na lixeira · Desfazer".
 #  B · AVISO QUE FICA (até resolver) = uma LINHA fina com o ponto da cor do tipo à esquerda, frase curta e a ação › — sem caixa colorida.
+# v2 (dono 00:19 'a mensagem da lixeira é verde mesmo?'): não — verde é 'certo/salvo'; 'Foto na lixeira' é NEUTRO (cor da janela) e a
+# ação 'Desfazer' vai na cor de AÇÃO (rosa/vinho), regra 17.
 # Base: app real (Caixa: .note n-bad "O dinheiro em caixa está abaixo…"; popErr real; lfToast real) + aprovados (80 trilho, 81 botões, 82 campos, 83 textos, 84 ícones).
 import sys;sys.path.insert(0,'/home/claude/lafouch/work/s349');import ap
 from playwright.sync_api import sync_playwright
@@ -25,7 +27,7 @@ def caixa(pw,esc,prop):
 def passa(pw,esc,prop):
   b,pg,w=ap.abre(pw,'estoque',esc,'celular',base=prop);w(900)
   if prop:
-    pg.evaluate("()=>{window.__LF.lfToast('Foto na lixeira','ok');const e=document.getElementById('lfToast');e.innerHTML='<span>Foto na lixeira</span><button type=\"button\" style=\"margin-left:16px;background:none;border:0;color:inherit;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px\">Desfazer</button>';e.style.setProperty('display','flex','important');e.style.setProperty('align-items','center','important');e.style.setProperty('justify-content','space-between','important');e.style.setProperty('gap','16px','important')}");w(700)
+    pg.evaluate("()=>{window.__LF.lfToast('Foto na lixeira','ok');const e=document.getElementById('lfToast');e.innerHTML='<span>Foto na lixeira</span><button type=\"button\" style=\"margin-left:16px;background:none;border:0;color:inherit;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px\">Desfazer</button>';e.style.setProperty('display','flex','important');e.style.setProperty('align-items','center','important');e.style.setProperty('justify-content','space-between','important');e.style.setProperty('gap','16px','important');e.style.setProperty('background','var(--panel2)','important');e.style.setProperty('color','var(--fg)','important');e.style.setProperty('border-color','var(--line)','important');e.querySelector('button').style.setProperty('color','var(--accent-fg)','important')}");w(700)
   else:
     pg.evaluate("""()=>{const e=document.createElement('div');e.id='popErr';e.setAttribute('role','alert');e.style.cssText='position:fixed;left:50%;top:max(16px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:200;width:min(92vw,520px);background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:12px;padding:12px 44px 12px 14px;font-size:14px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.25)';e.innerHTML='<span>Sem internet para conferir o código. Confira de novo quando a internet voltar.</span><button style=\"position:absolute;right:8px;top:6px;width:32px;height:32px;border:0;background:transparent;font-size:22px;color:inherit\">×</button>';document.body.appendChild(e)}""");w(300)
   pg.add_style_tag(content='#mainnav .mn,#mainnav .mn *{color:var(--mute)!important}');pg.screenshot(path='/tmp/b.png');b.close();return Image.open('/tmp/b.png').convert('RGB')
