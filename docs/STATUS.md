@@ -139,7 +139,7 @@
 - **89-aviso-amarelo-e-fornecedores** — aprovado 23/11 08:14 (89a v3 + 89b) — espera o 'implementar'
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
-- **95-preco-de-mercado** — esboço pronto — esperando o dono (lote 56)
+- **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 
 ## Recados esperando
 
