@@ -109,7 +109,7 @@
 - **61b-curva-made** — RETIRADO 23/11 11:28 — já está dentro do 61c
 - **61c-camada-do-lado** — aprovado 23/11 11:28 (08k + 08k2) — espera o 'implementar' (SITE)
 - **64-tematica-campanha** — aprovado 22/11 14:07 — espera o 'implementar' (SITE)
-- **65-efeito-do-evento** — esboço pronto — esperando o dono
+- **65-efeito-do-evento** — aprovado 23/11 11:28 (06d campanha em câmera lenta) — espera o 'implementar' (SITE) e as fotos da data
 - **65-familia-inventario-lista** — 65a ✅ v625 · 65b/65c ✅ v626 · 65e ✅ v627 · 65f ✅ v628 (Dashboard › Detalhes: Desempenho do mês ⌄ e Curva ABC ⌄) · falta: 65d (janela Adicionar — dúvida com o ESBOCO) e tirar a tela Giro (vai junto com o 66, quando Compras tiver a Lista de compras)
 - **66-familia-compras** — parte 1 ✅ v629 · parte 2 ✅ v630 · parte 3 ✅ v631 (aprende sozinho; saem meta por dia, dias de loja e volume; Lista de compras sai do Giro) · falta só tirar a tela Giro (espera o ESBOCO: Perdas e sobras e Vitrine)
 - **66-selecao-da-data** — esboço pronto — esperando o dono
