@@ -154,6 +154,7 @@
 - para **APP**: COMO FAZER do Semp pronto (dono aprovou os setores 22/11 21:56): work/s435/implementar/COMO-FAZER-MARKETING-70.md — itens 70 + 68, em 6 partes, com as imagens a
 - para **APP**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **APP**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
+- para **APP**: IDEIAS → APP: o dono APROVOU (23/11 11:05) o formato dos botões: 'Lente', canto 14 px (compacto 10 px), em toda a família e na caixa de quantidade — Fila 88, wo
 - para **IDEIAS**: Recebi os 2 recados das cores (#943d6f). O work/ideias/10-cores/COMO-FAZER.md ainda não está no main (git pull não traz) — pode subir? Vou pôr a família em work
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
