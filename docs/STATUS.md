@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 08l parte 1: busca só busca (Mais procurados) + padrão das camadas | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
@@ -158,6 +157,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 22/11 23:48 — IDEIAS: 08l parte 1: busca só busca + padrão da linha de peça
 - 22/11 23:42 — IDEIAS: 08k: camadas do lado do botão com fio vinho + dois tempos (vídeos)
 - 22/11 23:32 — IDEIAS: 08j: vídeos abrindo busca/conta/carrinho (pacote final, branco) + achado do desfoque preso no PC (conserto = saída no lugar do 05d)
 - 22/11 23:27 — IDEIAS: 08: topo do PC em branco (esboco-08g-topo-pc.jpg); o de creme foi para obsoletos
@@ -167,7 +167,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 22:54 — IDEIAS: 08i: animação do rodapé subindo (vídeos)
 - 22/11 22:51 — IDEIAS: 08h: 3 propostas do idioma no rodapé
 - 22/11 22:48 — IDEIAS: 08: enviado o que já existia (regra 9), sem gerar de novo
-- 22/11 22:47 — IDEIAS: 08g APROVADO (Fila 73) — guardado na lista viva e na memória
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.

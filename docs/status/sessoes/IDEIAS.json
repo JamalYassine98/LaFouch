@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08l parte 1: busca só busca (Mais procurados) + padrão das camadas",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795402099.523516,
+   "r": "08l parte 1: busca só busca + padrão da linha de peça"
+  },
   {
    "t": 1795401760.4490964,
    "r": "08k: camadas do lado do botão com fio vinho + dois tempos (vídeos)"
@@ -40,10 +42,6 @@
   {
    "t": 1795398509.0210032,
    "r": "08: enviado o que já existia (regra 9), sem gerar de novo"
-  },
-  {
-   "t": 1795398447.4377234,
-   "r": "08g APROVADO (Fila 73) — guardado na lista viva e na memória"
   }
  ],
  "leu": 1795388650.001632
