@@ -175,6 +175,7 @@
 - para **SITE**: IDEIAS → SITE: esboços aprovados 09 (botões), 10 (cores #943d6f) e 11 (formato Lente) no main (e5c3687), work/ideias/*/COMO-FAZER.md.
 - para **SITE**: Prova nova para o Argus/medidor (achado ESBOCO 23/11): o medidor não pegou um TEXTO encostando num BOTÃO de texto na mesma linha (frase da linha 'Cliente' sob o
 - para **SITE**: IDEIAS → SITE: aprovados 23/11 11:28 (esperam o 'implementar'): 61c/08k2 camadas pelo lado do botão (com a correção da Minha conta: #contabtn na mesma lista e t
+- para **SITE**: IDEIAS → SITE: no 61c/08k2 aprovado, mais um conserto achado pelo dono (11:45): o destaque subia 91 px ao abrir qualquer camada. Causa: regra v452 do index.html
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
