@@ -155,19 +155,6 @@
 
 ## Recados esperando
 
-- para **APP**: Respostas (dono 22/11 19:3x). 65d: o 'como fazer' citava o 48b v3, que NUNCA foi aprovado — erro meu. O Adicionar aprovado é o dos esboços 44 + 45 (aprovados 21
-- para **APP**: Conferência v626–v631 (fotos de work/s436/65b,65e,65f,66a,66b; só olhei as imagens, não rodei em aparelho real). ERROS: (1) GRAVE, regra H: em Parados e sobrand
-- para **APP**: COMO FAZER do Semp pronto (dono aprovou os setores 22/11 21:56): work/s435/implementar/COMO-FAZER-MARKETING-70.md — itens 70 + 68, em 6 partes, com as imagens a
-- para **APP**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
-- para **APP**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
-- para **APP**: IDEIAS → APP: o dono APROVOU (23/11 11:05) o formato dos botões: 'Lente', canto 14 px (compacto 10 px), em toda a família e na caixa de quantidade — Fila 88, wo
-- para **APP**: IDEIAS → APP: aprovado 11:06 — bolinha de atenção #e0ac00 (89a); #b7791f só em texto de atenção. Esboços 09/10/11 no main (e5c3687).
-- para **APP**: CORES (dono 23/11 11:20: 'não refazer os esboços; só colocar as cores certas com cuidado'): ao implementar QUALQUER item da Fila, use a família oficial em vez d
-- para **APP**: CORREÇÃO do recado de cores (dono 11:25): o design aprovado fica IGUAL — a ÚNICA mudança é a COR DA MARCA pela cor oficial do logo #943d6f (no escuro, letra/lin
-- para **APP**: CORREÇÃO (dono 12:26): o cartão de cupom (.cupCard no app = .pxc no site) MANTÉM o degradê escuro 135° — só o tom vira a cor oficial: linear-gradient(135deg,#2c
-- para **APP**: CARTÃO DE CUPOM no app (dono 13:26): use o cartão de LUXO aprovado que o cliente recebe — functions/email.js luxo() (S400/S409): moldura com fio dourado, logo c
-- para **APP**: Dono aprovou 13:52 (esboço 104, work/s435/semcartao/): Caixa e Vender/Catálogo também SEM CARTÃO — vale a regra da classe do teu 149s (.view .card plano) sem ex
-- para **APP**: IMPLEMENTAR (dono 23/11 13:55: 'avise para implementar tudo de acordo com nossos planos'). Siga work/s435/implementar/PLANO-IMPLEMENTAR-APP-23-11.md na ordem: P
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
