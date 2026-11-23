@@ -150,7 +150,7 @@
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-tematica-tres-camadas** — esboço pronto — esperando o dono (12 + 12b campanha forte nas 6 datas, fundo branco)
-- **95-mochi-luxo** — esboço pronto — esperando o dono
+- **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'

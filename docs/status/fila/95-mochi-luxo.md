@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-Mochi nas datas: sem fantasia, um detalhe fino + óculos da data; causa dos braços sumidos (falta __lfMochiArms) anotada. work/ideias/13-mochi/
+RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
+work/ideias/13-mochi/COMO-FAZER.md
