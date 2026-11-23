@@ -1,10 +1,12 @@
 # Esboço 83 (S435, 23/11 00:00) — VARREDURA DE LUXO · parte 2 · TEXTOS EXPLICATIVOS. Levantamento: 90 textos fixos (.hint) no app —
 # 65 EXPLICAM como funciona, 17 são de tela VAZIA, 8 são AVISO (lista: TEXTOS-EXPLICATIVOS.md). Regra proposta (a mesma do dono para
 # Marketing/Preços, 22/11 14:46 "tira essas descrições inúteis"): o que EXPLICA sai da tela; VAZIO fica no padrão lfVazioHtml; AVISO fica curto.
+# v2 (dono 00:00): a barra do Tema na proposta estava errada → a proposta inclui o aprovado 80 (todas as barras no trilho 140C).
 # Inclui o achado do 82: "Voltar no tempo ›" com a seta quebrando → vira linha de lugar (título · frase curta · › na mesma linha).
 import sys,re;sys.path.insert(0,'/home/claude/lafouch/work/s349');import ap
 from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
+_v=open('/home/claude/lafouch/work/s435/barras/esboco_80.py').read();VIRA=_v[_v.index('VIRA=r"""')+9:_v.index('"""',_v.index('VIRA=r"""')+9)]
 LINHA=open('esboco_82.py').read().split("LINHA='")[1].split("'\n")[0].replace('.in{','.in:not([placeholder^=Buscar]){').replace('.in,','.in:not([placeholder^=Buscar]),')
 EXPL=[l.split(' | ')[1] for l in open('TEXTOS-EXPLICATIVOS.md') if l.startswith('| EXPLICA')]
 TIRA=r"""L=>{const nrm=s=>s.replace(/\s+/g,' ').trim();document.querySelectorAll('.hint,.crumb,.mu').forEach(h=>{const t=nrm(h.textContent);if(L.some(x=>t.startsWith(nrm(x).slice(0,40))))h.remove()});
@@ -16,7 +18,7 @@ def cena(pw,esc,prop,k):
   b,pg,w=ap.abre(pw,v,esc,'celular',base=prop);w(900)
   if v=='ajustes': pg.locator('.ajS[data-k="%s"] .ajR'%k).click();w(900)
   if prop:
-    pg.add_style_tag(content=LINHA);pg.evaluate(TIRA,EXPL);w(200)
+    pg.add_style_tag(content=LINHA);pg.evaluate(TIRA,EXPL);w(200);pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');w(300)
     if k=='bk': pg.evaluate(VNT);w(200)
     if k=='cli': pg.evaluate("()=>{const v=document.getElementById('v-clientes');const h=[...v.querySelectorAll('*')].find(e=>/^Nenhum cliente ainda/.test(e.textContent.trim())&&e.children.length<4);if(h){const ic='<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8\"/>';h.outerHTML='<div style=\"margin-top:32px\">'+window.lfVazioHtml(ic,'Nenhum cliente ainda','Entram sozinhos com os pedidos do site, ou pelo + do título.')+'</div>'}}");w(2500)
   if v=='ajustes': pg.evaluate("k=>document.querySelector('.ajS[data-k=\"'+k+'\"]').scrollIntoView({block:'start'})",k);w(400)
