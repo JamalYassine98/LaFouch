@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-Temática em 3 camadas: identidade fixa (botões na cor da marca também na data), detalhes da data (faixa, título pequeno, fio, creme), só na data (campanha, seleção, presente). work/ideias/12-tematica-base/
+esboço pronto — esperando o dono (12 + 12b campanha forte nas 6 datas, fundo branco)
+Identidade fixa (botões na cor da marca, fundo branco); a data no conteúdo: faixa, campanha, seleção, gesto, Mochi. work/ideias/12-tematica-base/
