@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (09e: A vinho liso · B degradê só no dinheiro · C degradê em todo principal)
-3 propostas de identidade com ícones de volta; Sair/Excluir/Cédula originais; Cancelar pedido aprovado. work/ideias/09-botoes/esboco-09e-propostas-identidade.jpg + COMO-FAZER
+esboço pronto — esperando o dono (09g: 5 propostas só do Comprar)
+Princípio: vinho do logo = cor dos botões (como o app, 81). Primeiro o Comprar: A liso · B etiqueta · C degradê refinado · D Fraunces · E estojo. work/ideias/09-botoes/comprar/
