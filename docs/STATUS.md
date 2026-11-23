@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | aprovados 61c(08k2) 73b 65; 61b retirado | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md |
 
 ## Fila
 

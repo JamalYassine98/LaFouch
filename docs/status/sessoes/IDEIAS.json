@@ -1,7 +1,10 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "aprovados 61c(08k2) 73b 65; 61b retirado",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795443773.564259,
@@ -44,5 +47,5 @@
    "r": "09p: Comprar com detalhes + família dos outros botões enviados"
   }
  ],
- "leu": 1795443464.23552
+ "leu": 1795444148.6389084
 }
