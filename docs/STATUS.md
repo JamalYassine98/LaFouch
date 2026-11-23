@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08k: camadas entram pelo lado do botão, com identidade La Fouch | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
