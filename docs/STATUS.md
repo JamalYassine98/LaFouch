@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08: prancha final (tudo junto, com e sem evento, celular e PC) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
