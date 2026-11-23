@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (v2 estruturada)
-Família = papel (Principal · Secundário · Link · Perigo) × tamanho (Grande fim de caminho · Médio meio da tela · Compacto dentro de linha/cartão, ex.: Sincronizar, Copiar) + Marca que não muda (Google). Cada botão de hoje já tem sua casa. Estados iguais. work/ideias/09-botoes/esboco-09b-familia-botoes.jpg
+esboço pronto — esperando o dono (v3)
+Botões: preto no dia a dia, vinho só em Comprar/Prosseguir/Finalizar (cor do evento nos eventos), secundário contorno preto, link preto, perigo vermelho; Google intacto. work/ideias/09-botoes/esboco-09c + COMO-FAZER
