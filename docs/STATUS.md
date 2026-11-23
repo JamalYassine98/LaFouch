@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08i: animação do rodapé (colunas subindo) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
