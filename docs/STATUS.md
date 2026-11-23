@@ -141,7 +141,7 @@
 - **83-varredura-textos** — publicado v632 (APP)
 - **84-varredura-icones** — publicado v632 (APP)
 - **85-varredura-avisos** — publicado v632 (APP)
-- **86-varredura-titulos-linhas** — aprovado 23/11 00:57 (v2, Ajustes no estado aprovado) — espera o 'implementar'
+- **86-varredura-titulos-linhas** — publicado v632 (APP)
 - **87-cores-padronizadas** — aprovado 23/11 10:52 — espera o 'implementar' (SITE e APP)
 - **87-varredura-pilulas** — aprovado 23/11 01:03 — espera o 'implementar'
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
