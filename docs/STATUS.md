@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08d: menu celular em letra pequena (padrão de luxo) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
