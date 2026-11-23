@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08l: alinhar vistos + tirar vistos do Início | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
