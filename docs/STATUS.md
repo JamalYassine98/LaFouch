@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08f: menu sem evento + rodapé atualizado | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
