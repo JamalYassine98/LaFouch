@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "aprovados 61c(08k2) 73b 65; 61b retirado",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795444169.5474238,
+   "r": "Aprovados 61c(08k2), 73b, 65; 61b retirado; recado ao SITE"
+  },
   {
    "t": 1795443773.564259,
    "r": "08k2: Minha conta abre e fecha pela mesma camada (causa: botão fora da lista + caminho próprio de entrada)"
@@ -41,10 +42,6 @@
   {
    "t": 1795438485.3520858,
    "r": "09q: família P1 suave aplicada em 12 telas enviada"
-  },
-  {
-   "t": 1795436854.6580741,
-   "r": "09p: Comprar com detalhes + família dos outros botões enviados"
   }
  ],
  "leu": 1795444148.6389084
