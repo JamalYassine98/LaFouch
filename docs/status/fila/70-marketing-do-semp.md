@@ -1,2 +1,2 @@
-'implementar' do dono 22/11 15:49 ('Sim') · ESPERA os esboços dos setores (Agenda · Criar · Resultados · Temática · Cartões · Marca) na base nova, para o APP não inventar telas; depois o como fazer e vai à fila do APP junto com o 68
+'implementar' do dono 22/11 15:49 · setores aprovados 21:56 · COMO FAZER pronto: work/s435/implementar/COMO-FAZER-MARKETING-70.md (6 partes, a 6ª é o 68) · APP
 
