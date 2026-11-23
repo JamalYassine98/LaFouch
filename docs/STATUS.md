@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08i v2: animação do rodapé igual à Madë (2 tempos) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
