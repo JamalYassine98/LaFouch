@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08l: busca vazia C (vistos por último OU em alta)",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795402525.267972,
+   "r": "08l v2: busca vazia C (vistos OU em alta)"
+  },
   {
    "t": 1795402099.523516,
    "r": "08l parte 1: busca só busca + padrão da linha de peça"
@@ -40,10 +42,6 @@
   {
    "t": 1795398675.4372313,
    "r": "08h: 3 propostas do idioma no rodapé"
-  },
-  {
-   "t": 1795398509.0210032,
-   "r": "08: enviado o que já existia (regra 9), sem gerar de novo"
   }
  ],
  "leu": 1795388650.001632
