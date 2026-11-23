@@ -140,6 +140,7 @@
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
+- **96-oferta-na-loja** — esboço pronto — esperando o dono
 
 ## Recados esperando
 
