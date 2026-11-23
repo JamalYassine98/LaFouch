@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 12b: campanha forte nas 6 datas | work/ideias/12-tematica-base/ |
 
 ## Fila
 
