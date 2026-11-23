@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "08m parte 2: Minha conta e carrinho no padrão",
- "arquivos": [
-  "work/ideias/08-menu-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795404566.1981716,
+   "r": "08m parte 2: conta e carrinho no padrão"
+  },
   {
    "t": 1795403864.922351,
    "r": "08l parte 1 (busca) APROVADA — guardada na lista viva e na memória"
@@ -40,10 +42,6 @@
   {
    "t": 1795400852.9837773,
    "r": "08: topo do PC em branco (esboco-08g-topo-pc.jpg); o de creme foi para obsoletos"
-  },
-  {
-   "t": 1795400302.8685896,
-   "r": "08h2: faixa de baixo centrada (pedido do dono)"
   }
  ],
  "leu": 1795388650.001632
