@@ -2,6 +2,8 @@
 # Dono: imprevistos são da loja E pessoais (imposto novo, manutenção, compressor do carro G$ 3.300.000) numa caixinha só, marcada loja/pessoal;
 # o 'salário' (G$ 1.500.000: comida, combustível, estacionamento) é conta fixa de estar na loja → 'Dia a dia do dono'; o ganho dele é o
 # 'Pode tirar'. Proposta (aceita 'acho que sim', pediu esboço): meta da caixinha = 1 mês de contas; enche com metade do que sobra.
+# v2 (dono 22:50): 'Loja/Pessoal' desalinhado e ele não gosta da barra deslizante → duas linhas com a bolinha de escolha (a mesma
+# da janela 'Ligar a um pedido', .pxL/.pxR), alinhadas às outras linhas.
 # Sai a conta fixa 'Provisão de imprevistos' (G$ 200.000) — a caixinha a substitui.
 # Base: app real — Caixa › 'Retirada do dono' (src/57-financas.js retiradaHtml, src/95-caixa.js:277) e resultadoMes(nov/2026) REAL:
 # vendas 6.569.000 · custo das peças 1.888.004 · taxas 36.270 · contas da loja 1.320.000 · salário 1.500.000 · imprevisto 60.000
@@ -29,8 +31,7 @@ def janela(pw,esc):
   pg.add_style_tag(content='#nvBar{display:none!important}#grTog,#iniTog2{visibility:hidden!important}#mainnav{display:none!important}')
   pagina(pg,PAG[0]);w(500)
   html=pg.evaluate("()=>{"+RR+r"""const F=(a,v,c)=>'<div style="display:flex;align-items:center;gap:16px;min-height:52px;border-bottom:1px solid var(--line2)"><span style="flex:1;color:var(--mute);font-size:15px">'+a+'</span><span style="font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums'+(c?';color:'+c:'')+'">'+v+'</span></div>';
-   return F('O que foi','Compressor do carro')+F('Valor','G$ 3.300.000')+'<div style="display:flex;align-items:center;gap:16px;min-height:56px;border-bottom:1px solid var(--line2)"><span style="flex:1;color:var(--mute);font-size:15px">De quem</span><div class="adSeg" style="flex:none;width:200px"><button type="button">Loja</button><button type="button" class="on">Pessoal</button></div></div>'+
-   '<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:16px 0 0">O Titan cobre assim · preços não mudam</div>'+
+   return F('O que foi','Compressor do carro')+F('Valor','G$ 3.300.000')+'<button type="button" class="pxL" role="radio" aria-checked="false" style="min-height:52px"><i class="pxR" aria-hidden="true"></i><span style="flex:1;font-size:15px">Da loja</span></button>'+'<button type="button" class="pxL" role="radio" aria-checked="true" style="min-height:52px"><i class="pxR" aria-hidden="true"></i><span style="flex:1;font-size:15px">Pessoal</span></button>'+'<div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:16px 0 0">O Titan cobre assim · preços não mudam</div>'+
    L('Da caixinha · fica vazia','','G$ 730.000')+L('Do Pode tirar','G$ 370.000 agora e o resto em uns 3 meses','G$ 2.570.000','var(--warn,#e0b44c)')+
    '<button type="button" class="go" style="width:100%;margin-top:8px">Salvar</button>'}""")
   pg.evaluate("""()=>{const S=window.__LF.S;S.pixSemPar=[{id:'x',moeda:'brl',valor:1,ts:Date.now(),motivo:'sem-pedido'}];window.__LF.ACT.pixLigar('x')}""");w(900)
