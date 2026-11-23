@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 09f: estudo de botões de luxo + proposta com a identidade | work/ideias/09-botoes/ |
+| IDEIAS | 09g: propostas de luxo só para o botão Comprar | work/ideias/09-botoes/ |
 
 ## Fila
 
