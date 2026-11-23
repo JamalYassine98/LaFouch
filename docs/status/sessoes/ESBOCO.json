@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "lote 90-92: abas com linha, pílulas Formato/Material/Gênero, cor sugerida pela foto",
+ "arquivos": [
+  "work/s435/lote"
+ ],
  "ultimas": [
   {
    "t": 1795389701.7245986,
@@ -28,5 +30,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795431121.2365437
+ "leu": 1795432349.6489146
 }

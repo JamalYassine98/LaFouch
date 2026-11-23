@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| ESBOCO | lote 90-92: abas com linha, pílulas Formato/Material/Gênero, cor sugerida pela foto | work/s435/lote |
 | IDEIAS | 09f: estudo de botões de luxo + proposta com a identidade | work/ideias/09-botoes/ |
 
 ## Fila
