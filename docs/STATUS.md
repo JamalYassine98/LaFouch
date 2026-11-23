@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| IDEIAS | 09o: P1 em tons mais suaves | work/ideias/09-botoes/ |
 
 ## Fila
 
@@ -173,6 +172,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 09:23 — IDEIAS: 09o: P1 em tons mais suaves enviado
 - 23/11 09:20 — IDEIAS: 09n: Comprar menos é mais (P1 × P2) enviado
 - 23/11 08:58 — IDEIAS: 09m: Comprar com a cor do logo suavizada enviado
 - 23/11 08:56 — IDEIAS: 09l: Comprar N3 (N2 na cor do logo) enviado
@@ -183,7 +183,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 08:32 — IDEIAS: 09g: 5 propostas de luxo para o botão Comprar enviadas
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 23/11 08:07 — IDEIAS: 09e: 3 propostas de identidade dos botões enviadas (Sair/Excluir voltaram ao original)
-- 23/11 02:26 — IDEIAS: 09 parte 2: telas finais com a família de botões v3 (esboco-09d) enviadas — Fila 75
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
 - 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.
 - 22/11 17:45 — SITE: Ferramentas parte 2 (2a+2b): medidor único work/kit/mede.js; comparador/fiscal/Argus usam; 5 de 5 erros de referência; 4 erros existentes achados (recado à ESBOCO). Próximo: 2c com a ESBOCO, depois parte 3.
