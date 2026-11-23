@@ -111,7 +111,7 @@
 - **66-selecao-da-data** — esboço pronto — esperando o dono
 - **67-familia-site-no-app** — na fila — 'implementar' do dono 22/11 12:51 · APP · 3º (SITE/IDEIAS: Campanha e ordem pelo Semp; painel web sai depois)
 - **67-para-presente** — esboço pronto — esperando o dono
-- **68-destaque-da-semana-semp** — PARADO — base nova aprovada 15:48 (70 Marketing + 71 Destaque); falta o 'implementar' do 70
+- **68-destaque-da-semana-semp** — liberado com o 70 — é a parte 6 do COMO-FAZER-MARKETING-70.md (esboço 71)
 - **70-marketing-do-semp** — 'implementar' do dono 22/11 15:49 · setores aprovados 21:56 · COMO FAZER pronto: work/s435/implementar/COMO-FAZER-MARKETING-70.md (6 partes, a 6ª é o 68) · APP
 - **72-pc-estilo-made** — esboço pronto — esperando o dono
 - **73-menu-enxuto-luxo** — esboço pronto — esperando o dono
