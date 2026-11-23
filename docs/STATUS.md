@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| IDEIAS | 08h: alinhar a faixa de baixo do rodapé (termos × reCAPTCHA) | work/ideias/08-menu-luxo/ |
 
 ## Fila
 
