@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono (dois tipos: aviso que passa = lfToast com ação; aviso que fica = linha com ponto da cor; saem .note em caixa e popErr; work/s435/varredura/avisos/)
+aprovado 23/11 00:19 (v2: aviso com Desfazer é neutro) — espera o 'implementar'
 
