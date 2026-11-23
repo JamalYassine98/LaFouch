@@ -6,7 +6,7 @@ import ap,aprovados as A
 from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
 O='/home/claude/lafouch/work/s435/pendentes/'
-AMAR='#v-ajustes .ajRes.al{color:var(--mute)!important}#v-ajustes .ajRes.al .ajPt{background:var(--warn)!important}'
+AMAR='#v-ajustes .ajRes.al{color:var(--mute)!important}#v-ajustes .ajRes.al .ajPt{background:var(--ptw)!important}'
 TIRA_F=r"""()=>{[...document.querySelectorAll('.hint')].filter(e=>/^Todas as compras que você registrou/.test(e.textContent.trim())).forEach(e=>{const m=e.textContent.match(/Investido neste mês: (US\$ [\d.,]*\d)/);
  const mes=new Date().toLocaleDateString('pt-BR',{month:'long'});
  e.outerHTML=m?'<div style="display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line2);font-size:16px;font-weight:500"><span>Investido em '+mes+'</span><span style="font-variant-numeric:tabular-nums">'+m[1]+'</span></div>':''})}"""

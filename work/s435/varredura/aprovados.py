@@ -9,8 +9,13 @@ EXPL=[l.split(' | ')[1] for l in open('/home/claude/lafouch/work/s435/varredura/
 BOT=r"""()=>{document.querySelectorAll('.fx418P,.pd418P').forEach(b=>{b.className='go'});document.querySelectorAll('.btn-sc,.b75,.up75,.impBp').forEach(b=>{b.className='mini';b.style.setProperty('gap','8px');b.style.setProperty('display','inline-flex');b.style.setProperty('align-items','center');b.style.setProperty('justify-content','center');b.style.setProperty('white-space','nowrap');b.style.setProperty('flex','0 0 auto')})}"""
 ICO=r"""()=>{document.querySelectorAll('.view svg[stroke], .view svg [stroke-width], .view svg').forEach(s=>{if(s.getAttribute('stroke-width'))s.setAttribute('stroke-width','1.6')})}"""
 ALIN=r"""()=>{document.querySelectorAll('.ajS .trk').forEach(t=>{const s=t.closest('.ajS'),r=s.querySelector('.ajR').getBoundingClientRect(),q=t.getBoundingClientRect();t.style.setProperty('margin-left',(r.left-q.left)+'px','important');t.style.setProperty('width',r.width+'px','important');const o=t.querySelector('.trkB.on'),th=t.querySelector('.trkTh');if(o&&th)th.style.cssText='width:'+o.offsetWidth+'px!important;transform:none!important;left:'+o.offsetLeft+'px!important'})}"""
+# 89a (dono 23/11 08:05: "no claro a bolinha está muito laranja"): bolinha de atenção tem cor própria (--ptw). No escuro = --warn;
+# no claro, --warn é escurecido para TEXTO ler bem (#8a5a00, fica laranja-marrom); a bolinha não é texto e vem sempre com a frase, então usa amarelo-ouro.
+PTW=':root{--ptw:var(--warn)}html[data-tema="claro"]{--ptw:#e0ac00}@media (prefers-color-scheme:light){html:not([data-tema="escuro"]){--ptw:#e0ac00}}'
+FICA=FICA.replace("w?'var(--warn)'","w?'var(--ptw)'")
+
 def aplica(pg):
-  pg.add_style_tag(content=LINHA)
+  pg.add_style_tag(content=LINHA);pg.add_style_tag(content=PTW)
   pg.evaluate(TIRA,EXPL);pg.evaluate(FICA);pg.evaluate(BOT);pg.evaluate(ICO)
   pg.evaluate(VIRA,'.tmseg,.sg418,.catbar3,.adSeg,#sortChips,#fFaixas');pg.wait_for_timeout(300);pg.evaluate(ALIN);pg.wait_for_timeout(200)
 
