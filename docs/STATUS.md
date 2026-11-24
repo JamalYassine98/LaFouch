@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | Parte 4 · Titan (54, 62–67, 94, 95, 74r) | src/97z3-precos.js, src/97-preco-auto.js |
 | ESBOCO | conferência: voltar e botões × esboços aprovados (v632–v640) | work/s435/conf640 |
+| NUVEM | reserva suspeita parte 2: notificação no celular (por dentro) | functions/suspeita.js, functions/index.js, functions/teste-suspeita.js, functions/teste-portas.js, docs/NUVEM-COMO-FUNCIONA.md |
 
 ## Fila
 

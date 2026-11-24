@@ -1,7 +1,13 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "reserva suspeita parte 2: notificação no celular (por dentro)",
+ "arquivos": [
+  "functions/suspeita.js",
+  "functions/index.js",
+  "functions/teste-suspeita.js",
+  "functions/teste-portas.js",
+  "docs/NUVEM-COMO-FUNCIONA.md"
+ ],
  "ultimas": [
   {
    "t": 1795502431.922189,
@@ -44,5 +50,5 @@
    "r": "Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono."
   }
  ],
- "leu": 1795502354.0470405
+ "leu": 1795502766.4960222
 }
