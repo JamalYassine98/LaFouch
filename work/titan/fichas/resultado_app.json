@@ -1,0 +1,108 @@
+{
+ "Preços": [
+  [
+   "Início",
+   "NÃO ACHOU (ou o texto da linha não é só \"Início\")"
+  ]
+ ],
+ "Regras": [
+  [
+   "Contas do mês",
+   "valor ^G\\$ [\\d.]+$ não está na linha"
+  ],
+  [
+   "Taxas da maquininha",
+   "sem ícone à esquerda"
+  ],
+  [
+   "IVA",
+   "NÃO ACHOU (ou o texto da linha não é só \"IVA\")"
+  ],
+  [
+   "Colchão",
+   "NÃO ACHOU (ou o texto da linha não é só \"Colchão\")"
+  ],
+  [
+   "Cotação nos preços",
+   "NÃO ACHOU (ou o texto da linha não é só \"Cotação nos preços\")"
+  ],
+  [
+   "Vendas por mês",
+   "NÃO ACHOU (ou o texto da linha não é só \"Vendas por mês\")"
+  ],
+  [
+   "Seu jeito de cobrar",
+   "NÃO ACHOU (ou o texto da linha não é só \"Seu jeito de cobrar\")"
+  ],
+  [
+   "Meta de lucro do mês",
+   "sem ícone à esquerda"
+  ]
+ ],
+ "Ofertas": [
+  [
+   "Folga de hoje",
+   "NÃO ACHOU (ou o texto da linha não é só \"Folga de hoje\")"
+  ],
+  [
+   "Última peça",
+   "NÃO ACHOU (ou o texto da linha não é só \"Última peça\")"
+  ],
+  [
+   "Peça parada",
+   "sem ícone à esquerda"
+  ],
+  [
+   "De/por honesto",
+   "sem ícone à esquerda"
+  ]
+ ],
+ "Atacado": [],
+ "Histórico": [
+  [
+   "Ver o dia inteiro",
+   "SEM DADOS no simulador (mudança de preço no dia) — não deu para conferir"
+  ]
+ ],
+ "Pedidos online": [],
+ "Inventário": [
+  [
+   "preços para corrigir",
+   "NÃO ACHOU (ou o texto da linha não é só \"preços para corrigir\")"
+  ]
+ ],
+ "Fornecedores": [],
+ "Caixa": [],
+ "Catálogo": [
+  [
+   "Escolha a peça e venda.",
+   "devia ter saído e está na tela"
+  ]
+ ],
+ "Início": [
+  [
+   "Vendido hoje",
+   "dentro de cartão (hero)"
+  ],
+  [
+   "Resultados",
+   "sem ícone à esquerda"
+  ],
+  [
+   "Preços",
+   "sem ícone à esquerda"
+  ],
+  [
+   "Site",
+   "sem ícone à esquerda"
+  ],
+  [
+   "Clientes",
+   "sem ícone à esquerda"
+  ],
+  [
+   "Atacado",
+   "sem ícone à esquerda"
+  ]
+ ]
+}
