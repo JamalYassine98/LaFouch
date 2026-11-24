@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "triagem do gabarito: superados saem do base_app (regra 7)",
+ "arquivos": [
+  "work/kit/base_app.py",
+  "work/titan"
+ ],
  "ultimas": [
   {
    "t": 1795516334.1259243,

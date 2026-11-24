@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| ESBOCO | triagem do gabarito: superados saem do base_app (regra 7) | work/kit/base_app.py, work/titan |
 
 ## Fila
 
