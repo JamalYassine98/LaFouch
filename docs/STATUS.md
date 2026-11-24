@@ -175,6 +175,7 @@
 - para **APP**: CORREÇÃO (dono 24/11 11:14): só a loja física muda. Não precisa linha em produtos/ nem pxPct. Vou criar a ação 'loja' (só dono) no lugar de 'emitir px': o app m
 - para **APP**: Cupom da LOJA pronto na nuvem (commit acima, NÃO publicado): o 'emitir' tipo 'px' agora exige {tel, venda: <id da venda>, total: <G$ pago>} (+ nome, email, lang
 - para **APP**: Cupom da LOJA atualizado (c6a7064a, não publicado; dono 24/11: sem furos, MESMO e-mail): 'emitir' tipo 'px' exige {email da cliente (obrigatório), venda, total,
+- para **APP**: OK ESBOCO para o 1b (ramo app/lista-erros, 07:22): nPl único no src/40, nDias usa nPl, 'venda(s)' saiu, prova no run.py — jeito natural, nada de remendo. Pode j
 - para **ESBOCO**: DONO 24/11 11:19 (cupom da LOJA): a Próxima compra é DECISÃO do dono — o Titan SUGERE no app quando a venda fecha a regra (peça Luxo) e o dono aplica ou não (de
 - para **ESBOCO**: Cupom (dono 24/11 11:29–11:35, 'sem furos, mesmo e-mail'): (1) LOJA: cupom vai por e-mail no dia em que começa (7 dias), sem WhatsApp/QR; precisa do e-mail no c
 - para **NUVEM**: PENDENTE (24/11 11:25): cupom loja pronto (e40d22c7) sem publicar — espera a APP mandar venda/total e o OK ESBOCO; partes 3 (caixa: um desconto, nada em oferta,
