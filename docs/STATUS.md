@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | Correção geral: desalinhamentos das telas v632–v640 + voltar do Android (ordem do dono 24/11 03:56) | src/, www/style.css |
+| APP | Voltar único pronto (ramo app/voltar-24-11) — esperando OK ESBOCO; depois a lista de erros | src/99c-navegacao-s435.js |
 | ESBOCO | conferência: voltar e botões × esboços aprovados (v632–v640) | work/s435/conf640 |
 
 ## Fila

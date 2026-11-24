@@ -1,9 +1,8 @@
 {
  "nome": "APP",
- "agora": "Correção geral: desalinhamentos das telas v632–v640 + voltar do Android (ordem do dono 24/11 03:56)",
+ "agora": "Voltar único pronto (ramo app/voltar-24-11) — esperando OK ESBOCO; depois a lista de erros",
  "arquivos": [
-  "src/",
-  "www/style.css"
+  "src/99c-navegacao-s435.js"
  ],
  "ultimas": [
   {
