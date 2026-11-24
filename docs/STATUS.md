@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| NUVEM | cupom da loja: Próxima compra só dentro da regra (≥150 mil, 10%, 7+90 dias, um por vez) | functions/cupom.js, functions/teste-cupom.js, docs/NUVEM-COMO-FUNCIONA.md |
 
 ## Fila
 
@@ -215,6 +214,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 24/11 11:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
 - 24/11 11:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
 - 24/11 10:41 — ESBOCO: Titan 3b: calendário, sem internet e emulador Android rodando; achados 25a (em 0 dias) e 25b (sem internet não avisa)
 - 24/11 10:40 — NUVEM: Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue.
@@ -239,4 +239,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 16:44 — IDEIAS: 12e: 3 ajustes nas 6 datas + comparador (0 falha nova)
 - 23/11 16:06 — APP: v632 (5.51.0) publicada: Parte 1 · base visual + conferência v626–v631; próximo: Parte 2 (Ajustes)
 - 23/11 15:50 — IDEIAS: 12e aprovado no Natal; feitas as 6 datas (esboco-12e-datas-1/2)
-- 23/11 15:47 — IDEIAS: 12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)
