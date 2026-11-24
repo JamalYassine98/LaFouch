@@ -1,0 +1,917 @@
+[
+ {
+  "caminho": "Preços › Regras",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "regras",
+    "titulo": "Regras",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:regras",
+    "hash": "#dash",
+    "toque": "Regras"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/seta"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Preços › Regras",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "regras",
+    "titulo": "Regras",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:regras",
+    "hash": "#dash",
+    "toque": "Regras"
+   },
+   {
+    "view": "inicio",
+    "tab": "prec",
+    "set": "regras",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   },
+   {
+    "view": "SAIU DO APP",
+    "tab": "",
+    "set": "",
+    "titulo": "about:blank",
+    "seta": "",
+    "pilha": "",
+    "hash": "",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Preços › Regras",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "regras",
+    "titulo": "Regras",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:regras",
+    "hash": "#dash",
+    "toque": "Regras"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/android"
+   },
+   {
+    "view": "inicio",
+    "tab": "prec",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Preços › Ofertas",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "ofertas",
+    "titulo": "Ofertas",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:ofertas",
+    "hash": "#dash",
+    "toque": "Ofertas"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/seta"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Preços › Ofertas",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "ofertas",
+    "titulo": "Ofertas",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:ofertas",
+    "hash": "#dash",
+    "toque": "Ofertas"
+   },
+   {
+    "view": "inicio",
+    "tab": "prec",
+    "set": "ofertas",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   },
+   {
+    "view": "SAIU DO APP",
+    "tab": "",
+    "set": "",
+    "titulo": "about:blank",
+    "seta": "",
+    "pilha": "",
+    "hash": "",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Preços › Ofertas",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "Preços"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "ofertas",
+    "titulo": "Ofertas",
+    "seta": "‹Preços",
+    "pilha": "prec>ti:ofertas",
+    "hash": "#dash",
+    "toque": "Ofertas"
+   },
+   {
+    "view": "dash",
+    "tab": "prec",
+    "set": "",
+    "titulo": "Preços",
+    "seta": "",
+    "pilha": "prec",
+    "hash": "#dash",
+    "toque": "voltar/android"
+   },
+   {
+    "view": "inicio",
+    "tab": "prec",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Site › Pedidos",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "Site"
+   },
+   {
+    "view": "ped",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Pedidos online",
+    "seta": "‹Site",
+    "pilha": "grp:g:site>ped",
+    "hash": "#ped",
+    "toque": "Pedidos"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "voltar/seta"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Site › Pedidos",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "Site"
+   },
+   {
+    "view": "ped",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Pedidos online",
+    "seta": "‹Site",
+    "pilha": "grp:g:site>ped",
+    "hash": "#ped",
+    "toque": "Pedidos"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "voltar/navegador (ok (historico 4))"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 4))"
+   }
+  ]
+ },
+ {
+  "caminho": "Site › Pedidos",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "Site"
+   },
+   {
+    "view": "ped",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Pedidos online",
+    "seta": "‹Site",
+    "pilha": "grp:g:site>ped",
+    "hash": "#ped",
+    "toque": "Pedidos"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Site",
+    "seta": "",
+    "pilha": "grp:g:site",
+    "hash": "#grp",
+    "toque": "voltar/android"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Resultados",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Resultados",
+    "seta": "",
+    "pilha": "grp:g:res",
+    "hash": "#grp",
+    "toque": "Resultados"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Resultados",
+    "seta": "",
+    "pilha": "grp:g:res",
+    "hash": "#grp",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Resultados",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Resultados",
+    "seta": "",
+    "pilha": "grp:g:res",
+    "hash": "#grp",
+    "toque": "Resultados"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Resultados",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Resultados",
+    "seta": "",
+    "pilha": "grp:g:res",
+    "hash": "#grp",
+    "toque": "Resultados"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Clientes",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "clientes",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Clientes",
+    "seta": "",
+    "pilha": "cli",
+    "hash": "#clientes",
+    "toque": "Clientes"
+   },
+   {
+    "view": "clientes",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Clientes",
+    "seta": "",
+    "pilha": "cli",
+    "hash": "#clientes",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Clientes",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "clientes",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Clientes",
+    "seta": "",
+    "pilha": "cli",
+    "hash": "#clientes",
+    "toque": "Clientes"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Clientes",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "clientes",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Clientes",
+    "seta": "",
+    "pilha": "cli",
+    "hash": "#clientes",
+    "toque": "Clientes"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Marketing",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "mkt",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Marketing",
+    "seta": "‹Marketing",
+    "pilha": "grp:g:mkt>mkt",
+    "hash": "#mkt",
+    "toque": "Marketing"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Marketing",
+    "seta": "",
+    "pilha": "grp:g:mkt",
+    "hash": "#grp",
+    "toque": "voltar/seta"
+   }
+  ]
+ },
+ {
+  "caminho": "Marketing",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "mkt",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Marketing",
+    "seta": "‹Marketing",
+    "pilha": "grp:g:mkt>mkt",
+    "hash": "#mkt",
+    "toque": "Marketing"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Marketing",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "mkt",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Marketing",
+    "seta": "‹Marketing",
+    "pilha": "grp:g:mkt>mkt",
+    "hash": "#mkt",
+    "toque": "Marketing"
+   },
+   {
+    "view": "grp",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Marketing",
+    "seta": "",
+    "pilha": "grp:g:mkt",
+    "hash": "#grp",
+    "toque": "voltar/android"
+   }
+  ]
+ },
+ {
+  "caminho": "Atacado",
+  "modo": "seta",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "ata",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Atacado",
+    "seta": "",
+    "pilha": "ata",
+    "hash": "#ata",
+    "toque": "Atacado"
+   },
+   {
+    "view": "ata",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Atacado",
+    "seta": "",
+    "pilha": "ata",
+    "hash": "#ata",
+    "toque": "voltar/seta (sem seta)"
+   }
+  ]
+ },
+ {
+  "caminho": "Atacado",
+  "modo": "navegador",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "ata",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Atacado",
+    "seta": "",
+    "pilha": "ata",
+    "hash": "#ata",
+    "toque": "Atacado"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/navegador (ok (historico 3))"
+   }
+  ]
+ },
+ {
+  "caminho": "Atacado",
+  "modo": "android",
+  "trilha": [
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#test"
+   },
+   {
+    "view": "ata",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "Atacado",
+    "seta": "",
+    "pilha": "ata",
+    "hash": "#ata",
+    "toque": "Atacado"
+   },
+   {
+    "view": "inicio",
+    "tab": "hoje",
+    "set": "",
+    "titulo": "",
+    "seta": "",
+    "pilha": "",
+    "hash": "#inicio",
+    "toque": "voltar/android"
+   }
+  ]
+ }
+]
