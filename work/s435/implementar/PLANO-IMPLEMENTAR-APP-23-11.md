@@ -130,6 +130,10 @@ O que aparece num esboço e contradiz uma linha abaixo perde para a linha abaixo
 - 97a Cartões › Próxima compra, com as regras: `s435/oferta96/esboco_97a_*`.
 - **103 v3 Natal sem interruptores, Marketing › Kits e Novo kit:** `s435/lote99/esboco_103_natal_e_kits_v3_*`.
   - Na Temática, TODA data é uma linha com ›.
+- **106 ofertas da data (aprovado 24/11 00:45):** `s435/ofertasdata/esboco_106_ofertas_da_data_*`.
+  - Seção 'Ofertas da data · N' na tela da data: sempre de 3 a 6 ofertas, escolhidas pelo tema e com o porquê de cada uma.
+  - 'O Titan conferiu as N · margem segura · valem na loja e no site'.
+  - O cartão do evento usa o tema da data (Mães rosa, Pais azul, Natal verde), como no `cartao_luxo.js`.
 
 ## Não implementar (superados, reprovados ou de outra sessão)
 - Superados: 55, 65d, 78, 97b, 99a, 99c, 99d (janela), 100, 102, 96 v1 a v4, 98 v1 a v5.
