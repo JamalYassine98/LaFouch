@@ -1,8 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "Argus novo · Parte 1 (planta)",
+ "agora": "Argus novo · Parte 2 (comparador)",
  "arquivos": [
-  "work/argus"
+  "work/argus",
+  "work/titan"
  ],
  "ultimas": [
   {
