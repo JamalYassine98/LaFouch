@@ -4,6 +4,9 @@ Atualizado em 20/11/2026 pela sessão NUVEM · implementa (estado e pendências:
 Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow; o dono pode rodar no PC).
 
 ## Estado em 24/11/2026 (estudo da NUVEM)
+- **Telefone completo (24/11, não publicado):** `fone.js` é a regra única — o número inteiro com o país (595…/55…/54…); cupons,
+  compradores, VIP, limite de pedido por telefone e o token de entrega usam ela (antes: 9 ou 6 últimos dígitos, BR e PY podiam coincidir).
+  Prova: `teste-fone.js` (trava: nenhuma parte compara pelos últimos dígitos).
 - Última publicação: 22/11 15:22 (03ff0f79, reserva suspeita parte 1). Vigia diário ok (23/11: portas ok, 0 erros em 24 h).
 - Testes: 25 arquivos `functions/teste-*.js`, todos ok aqui; o `teste-portas` só roda com `npm install` (precisa do `@simplewebauthn/server`), o GitHub roda antes de publicar.
 - **Pendências da NUVEM, em ordem:**

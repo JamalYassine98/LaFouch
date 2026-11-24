@@ -45,7 +45,7 @@ function escada(n) {
 }
 const { EMAIL_OK } = require('./texto');
 const limpa = require('./texto').linha;
-const telN = (t) => String(t || '').replace(/\D/g, '').slice(-9); // compara pelos 9 últimos dígitos (com ou sem +595/0)
+const telN = require('./fone').fone; // 24/11: o número inteiro, com o país (a regra mora em fone.js)
 const emN = (e) => limpa(e, 200).toLowerCase();
 const codN = (c) => limpa(c, 24).toUpperCase().replace(/\s/g, '');
 function novoCod(rnd) {

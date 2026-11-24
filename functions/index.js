@@ -25,7 +25,7 @@ const FUSO = 'America/Asuncion';
 const CORS_SITE = ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8766', 'http://localhost:8772'];
 const urlFn = (nome) => 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/' + nome;
 const hash = (t, n) => crypto.createHash('sha256').update(String(t)).digest('hex').slice(0, n);
-const telDe = Cupom.telN; // os 9 últimos números do telefone (a regra mora no cupom.js)
+const telDe = Cupom.telN; // o telefone inteiro, com o país (a regra mora em fone.js)
 // corpo do pedido: JSON já lido, ou texto (o sendBeacon do site manda texto) → objeto; qualquer outra coisa → {}
 function corpo(req) {
   let b = req.body;

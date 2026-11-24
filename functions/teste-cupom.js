@@ -30,7 +30,7 @@ function dbFake(compras) {
 (async () => {
   const T0 = Date.UTC(2026, 10, 12, 12), D = 864e5, env = [], envia = async (x) => { env.push(x); };
   const ult = () => env[env.length - 1];
-  const db = dbFake(['981999888']);
+  const db = dbFake(['595981999888']);
   // S409: não existe mais cupom de boas-vindas
   let r = await C.boasVindas(db, envia, { email: 'Ana@Gmail.com', tel: '+595 981 123 456', lang: 'es' }, T0);
   ok(!r.ok && r.motivo === 'fim' && env.length === 0 && !Object.values(db.m).length, 'boas-vindas: acabou (nenhum cupom, nenhum e-mail)');
@@ -62,7 +62,7 @@ function dbFake(compras) {
 
   // ---- ESCADA (S409): 1ª indicação = cartão NOVO de 10% (o de 10% da compra não cresce) ----
   const indica = async (i, t) => { const tel = '09830000' + String(i).padStart(2, '0'); await C.usar(db, { cod: am, tel, email: 'i' + i + '@x.com', total: 150000, desc: 15000, pid: 'I' + i }, 'ipI' + i, t); return C.confirma(db, envia, { pid: 'I' + i }, t + 10); };
-  const meusPx = () => Object.values(db.m).filter((c) => c.tel === '981123456' && (c.tipo === 'px' || c.tipo === 'pe'));
+  const meusPx = () => Object.values(db.m).filter((c) => c.tel === '595981123456' && (c.tipo === 'px' || c.tipo === 'pe'));
   r = await indica(1, T0 + 17 * D);
   let L = meusPx(), c1 = L.find((c) => c.de === 'ind:1');
   ok(db.m[px].pct === 10 && c1 && c1.pct === 10 && c1.st === 'fila', '1ª indicação: cartão de 10% SEPARADO, guardado (um presente por vez); o cartão que ela tinha NÃO cresce');
@@ -106,11 +106,11 @@ function dbFake(compras) {
   r = await C.ver(db, { cod: am, tel: '0985000222' }, 'ipY', T0 + 1); ok(!r.ok && r.motivo === 'nao', 'robô (30+ erros na hora) recebe só "não encontrado"');
 
   // ---- VIP (S409): 20%, status para sempre, e-mail 68b na primeira vez, aniversário ----
-  r = await C.emitir(db, { tipo: 'vip', tel: '0986', nome: 'Carlos Benítez', email: 'vip@x.com', fim: T0 + 180 * D, nasc: '5/3' }, T0, envia);
+  r = await C.emitir(db, { tipo: 'vip', tel: '0986111222', nome: 'Carlos Benítez', email: 'vip@x.com', fim: T0 + 180 * D, nasc: '5/3' }, T0, envia);
   let v = db.m[r.cod];
-  ok(r.ok && v.pct === 20 && v.max === 1 && db.cliM['0986'].vip === T0 && db.cliM['0986'].nasc === '05/03' && /Você agora é Cliente VIP/.test(ult().subject) && /Reserva de 3 horas/.test(ult().html) && !/24 horas/.test(ult().html), '68b: VIP padrão 20%, status, e-mail "Você agora é Cliente VIP" com a reserva de 3 horas');
-  r = await C.emitir(db, { tipo: 'vip', tel: '0986', nome: 'Carlos', email: 'vip@x.com', max: 3 }, T0 + D, envia);
-  ok(db.cliM['0986'].vip === T0 && /Um cartão VIP para você/.test(ult().subject) && /em 3 compras/.test(ult().html), 'segundo cartão VIP: o status continua desde a 1ª vez; e-mail simples');
+  ok(r.ok && v.pct === 20 && v.max === 1 && db.cliM['595986111222'].vip === T0 && db.cliM['595986111222'].nasc === '05/03' && /Você agora é Cliente VIP/.test(ult().subject) && /Reserva de 3 horas/.test(ult().html) && !/24 horas/.test(ult().html), '68b: VIP padrão 20%, status, e-mail "Você agora é Cliente VIP" com a reserva de 3 horas');
+  r = await C.emitir(db, { tipo: 'vip', tel: '0986111222', nome: 'Carlos', email: 'vip@x.com', max: 3 }, T0 + D, envia);
+  ok(db.cliM['595986111222'].vip === T0 && /Um cartão VIP para você/.test(ult().subject) && /em 3 compras/.test(ult().html), 'segundo cartão VIP: o status continua desde a 1ª vez; e-mail simples');
   const na = env.length;
   r = await C.diario(db, envia, Date.UTC(2027, 2, 5, 15)); ok(r.aniversarios === 1 && /Feliz aniversário/.test(ult().subject) && /FELIZ ANIVERSÁRIO/.test(ult().html) && /34px 34px/.test(ult().html), '67b: no aniversário o VIP recebe 10% por 30 dias (cartão preto com confete)');
   const ca = Object.values(db.m).find((c) => c.tipo === 'ani'); ok(ca && ca.pct === 10 && ca.fim - ca.ts === 30 * D && ca.st === 'ativo', 'cartão de aniversário: 10%, 30 dias, fora da fila');
