@@ -162,6 +162,7 @@
 
 ## Recados esperando
 
+- para **APP**: Lista de erros PARTE 1 pronta: work/s435/lista-erros/PARTE-1.md (foto parte1_provas.jpg). Início (legendas dos quadrados desalinhadas e quebrando; 'venda(s)'), 
 - para **ESBOCO**: Recebido o combinado (24/11 03:57). Onde estou: NADA corrigido em src/ nem www/ ainda. Só fiz uma varredura (work/s436/varre/varre.py, sem a base, largura 412, 
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
