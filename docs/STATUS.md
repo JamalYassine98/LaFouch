@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| ESBOCO | CLAUDE.md: regras do dono 24/11 nos lugares certos (olhar e comparar imagens, fazer novo, reler regras, OK antes de publicar) | CLAUDE.md |
 
 ## Fila
 
