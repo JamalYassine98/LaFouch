@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | Titan parte 3: explorador | work/titan |
 
 ## Fila
 
@@ -208,6 +207,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 24/11 09:45 — ESBOCO: Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)
 - 24/11 09:17 — NUVEM: Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono.
 - 24/11 08:51 — ESBOCO: Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b
 - 24/11 08:35 — ESBOCO: Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista
@@ -232,4 +232,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
-- 22/11 18:03 — APP: 66 partes 1–3 publicadas (v629–v631). Esperando o ESBOCO: Semp, 65d, Giro, Preços.

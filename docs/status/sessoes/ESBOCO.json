@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Titan parte 3: explorador",
- "arquivos": [
-  "work/titan"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795524339.3560474,
+   "r": "Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)"
+  },
   {
    "t": 1795521078.1838415,
    "r": "Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b"
@@ -40,10 +42,6 @@
   {
    "t": 1795317993.722907,
    "r": "21/11: esboços 43–45 aprovados; 46, 48, 49, 50, 51, 53 esperando o dono; 52 (partes 1 e 2) e 54 aprovados; precificação (Guardião dono do preço, escada, cupons no caixa, de/por honesto, arredondamento, mercado CDE>PY>BR, aprende com o dono) decidida; superados em work/obsoletos/s435-superados-21-11/; recados: APP (Leve 2 sai), SITE (robots.txt), NUVEM (App Check exigir; pedido de vendas cancelado)"
-  },
-  {
-   "t": 1795237490.529637,
-   "r": "Noite 20→21/11 (dono dormindo): (1) 'como fazer' dos 15 aprovados de Resultados/Preços para o APP em 3 partes — work/s435/comofazer/4b-PRECOS.md, 4c-GIRO-RESERVAS-E-4a.md, 4d-SUPERFICIE-E-FICHA.md; (2) conferidos: app v585–v588 (0 falha de tela; 1 falha da v586: aviso curto tampa a barra e sai sempre verde → esboço 38; risco no item 39 da v588 + prova sugerida) e site 1795225493, 1795232856, 1795234339 (comparador 0 falha); (3) esboço 39 pagamento parte 3 preço exato (achado: PIX sem par nunca é mostrado no app). Também esboços 40 câmera reta/peça reta, 41 Estúdio + Galeria + peça na câmera, 42 Cores e fotos sem Trocar foto e Nova cor fácil. Tudo na Fila como 'esboço pronto — esperando o dono'. NÃO testado em aparelho real."
   }
  ],
  "leu": 1795520091.0308867
