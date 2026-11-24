@@ -14,7 +14,7 @@
   var TI_SET = {
     regras: ['Regras', 'O que cada preço precisa cobrir', 'regras'],
     ofertas: ['Ofertas', 'Descontos que o ' + LF_TITAN + ' confere', 'oferta', 'ofNova'], // 4o campo: a ação do + redondo na linha do título
-    atacado: ['Atacado', '', 'ata'],
+    atacado: ['Atacado', 'Margens calculadas pelo ' + LF_TITAN + ' · sempre com lucro', 'ata'],
     ferr: ['Ferramentas', '', 'calc'],
     hist: ['Histórico', 'O que mudou de preço, quando e por quê', 'hist'],
     corr: ['Preços para corrigir', '', 'tag']
@@ -52,8 +52,6 @@
     }
     return R;
   }
-  // as linhas das tabelas de atacado com margem baixa (o mesmo cálculo de cntDecisoes)
-  function tiTabBaixas() { return cntDecisoes().filter(function (x) { return x.t === 'tab'; }); }
   function tiOfertasNoAr() {
     var vis = {};
     return (S.items || []).filter(function (it) {
@@ -66,12 +64,11 @@
   function precosTelaHtml() {
     var k = tiSetor();
     if (k) return '<div class="cnt lx tiS" data-ti="' + k + '">' + TI_TELA[k]() + '</div>';
-    var D = titanDecide(), T = tabLista().filter(function (x) { return !x.pub; }), tb = tiTabBaixas(), no = tiOfertasNoAr().length,
-      nb = tb.reduce(function (a, x) { return Math.max(a, x.n); }, 0),
+    var D = titanDecide(), T = tabLista().filter(function (x) { return !x.pub; }), no = tiOfertasNoAr().length,
       SET = [
         ['regras', 'contas, taxas, meta e cotação da loja'],
         ['ofertas', (no ? no + ' no ar' : 'nenhuma no ar') + ' · automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado')],
-        ['atacado', cntPl(T.length, 'tabela', 'tabelas') + (nb ? ' · ' + cntPl(nb, 'peça', 'peças') + ' abaixo de 10%' : '')],
+        ['atacado', cntPl(T.length, 'tabela', 'tabelas') + ' · margens do ' + LF_TITAN],
         ['ferr', 'calculadora de preço · e se…?'],
         ['hist', 'o que mudou, quando e por quê']
       ];
@@ -96,14 +93,7 @@
     corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
     regras: regrasHtml,
     ofertas: ofertasHtml,
-    atacado: function () {
-      var B = {};
-      tiTabBaixas().forEach(function (x) { B[x.tab.id] = x; });
-      return '<section class="nvLista">' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) {
-        var b = B[T.id];
-        return tiLinha('tabsheet', T.id, 'ata', T.nome + ' · ' + Math.round(+T.m || 0) + '%', b ? cntPl(b.n, 'peça', 'peças') + ' abaixo de 10% · a menor está em ' + b.min + '%' : 'todas as peças com margem boa', b ? 'var(--warn)' : '');
-      }).join('') + '</section>';
-    },
+    atacado: atacadoHtml,
     ferr: function () {
       return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote') +
         tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda') + '</section>';
@@ -184,6 +174,36 @@
   ACT.ofAbre = function (ref) { ofertaJanela(ref); }; // a janela Oferta (src/55-produtos-catalogo.js): ficha, Ofertas no ar e o "+"
   var OF_ESC = null;
   ACT.ofNovaPeca = function (ref) { if (OF_ESC) OF_ESC.fecha(true); OF_ESC = null; ofertaJanela(ref); };
+  // ---------- setor Atacado (65b): as margens das tabelas, calculadas pelo Titan (ataMargem), com o lucro por peça ----------
+  var ATA_EX = 5; // o exemplo: armação de acetato que custa US$ 5
+  function usd2(v) { return 'US$ ' + (Math.round(v * 100) / 100).toFixed(2).replace('.', ','); }
+  function atacadoHtml() {
+    if (!S.ataCalc.ts) { S.ataCalc.ts = Date.now(); saveSoon(); }
+    var d = new Date(), prox = new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime();
+    return '<div class="cxL tiCalc"><span>Calculadas em ' + fd(S.ataCalc.ts) + '<small>próxima revisão ' + fd(prox) + ' ou num lote novo</small></span></div>' +
+      '<div class="lbl tiLb">TABELAS · MARGEM E LUCRO POR PEÇA</div><section class="nvLista">' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) {
+        var k = ataConta(T, ATA_EX);
+        return '<button type="button" class="nvL" data-act="ataTabAbre" data-id="' + esc(T.id) + '"><span class="nvIc">' + ico('ata', 22) + '</span><span class="nvTx"><b>' + esc(T.nome) + '</b><small>lucro <i class="ok">' + usd2(k.lu) + ' (' + Math.round(ataAlvo(T) * 100) + '%)</i> por peça</small></span><em class="tiV">' + Math.round(ataMargem(T) * 100) + '%</em></button>';
+      }).join('') + '</section>' +
+      '<p class="hint tiVz">Exemplo: armação de acetato que custa US$ ' + ATA_EX + '. Lucro = preço − IVA − custo − colchão do atacado (' + Math.round(S.ataCalc.c * 100) + '%, só a alta do fornecedor). O atacado não paga as contas do mês: é um reforço. Quem escolhe a tabela de cada lojista é você, na conta dele no Atacado.</p>';
+  }
+  ACT.ataTabAbre = function (id) {
+    var T = tabDe(id);
+    if (!T || T.pub) return;
+    var k = ataConta(T, ATA_EX);
+    lfJanela({ titulo: T.nome, cls: 'tiAtJn', monta: function (c) {
+      c.innerHTML = '<p class="ofNm">o ' + esc(LF_TITAN) + ' calcula · você só escolhe o lojista</p>' +
+        '<div class="cxL"><span>Compra mínima</span><b>' + (T.min > 0 ? 'US$ ' + T.min.toLocaleString('pt-BR') : 'sem mínimo') + '</b></div>' +
+        '<div class="cxL"><span>Margem<small>calculada pelo ' + esc(LF_TITAN) + ' · lucro de ' + Math.round(ataAlvo(T) * 100) + '%</small></span><b>' + Math.round(ataMargem(T) * 100) + '%</b></div>' +
+        '<div class="lbl tiLb">ACETATO DE US$ ' + ATA_EX + '</div>' +
+        '<div class="cxL"><span>Preço para o lojista</span><b>' + usd2(k.p) + '</b></div>' +
+        '<div class="cxL"><span>− IVA</span><b class="mu">' + usd2(k.iva) + '</b></div>' +
+        '<div class="cxL"><span>− Custo e colchão (' + Math.round(k.c * 100) + '%)</span><b class="mu">' + usd2(k.cc) + '</b></div>' +
+        (k.fr ? '<div class="cxL"><span>− Frete embutido</span><b class="mu">' + usd2(k.fr) + '</b></div>' : '') +
+        '<div class="cxL"><span>Lucro</span><b class="ok">' + usd2(k.lu) + '</b></div>' +
+        '<section class="nvLista"><button type="button" class="nvL" data-act="ataVerTab" data-id="' + esc(T.id) + '"><span class="nvTx"><b>Ver os preços como o lojista vê</b></span><i aria-hidden="true">›</i></button></section>';
+    } });
+  };
   // o colchão (era a janela "Como o app te protege" do Câmbio): agora a dobra Colchão das Regras
   function colchaoHtml() {
     var c = colchao(),

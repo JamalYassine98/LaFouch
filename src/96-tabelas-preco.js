@@ -9,6 +9,17 @@
     { id: 'fg', nome: 'Óptica com frete grátis', m: 0.7, min: 0, frete: 0.6, on: true }
   ];
   S.tabAtiva = 'pub';
+  // 65b · margens do atacado calculadas pelo Titan (nunca digitadas): margem = (1 + colchão do atacado) ÷ (10/11 − lucro alvo) − 1.
+  // O atacado não paga as contas do mês (ficam com o varejo): só precisa dar lucro bom. Colchão do atacado = só a alta do fornecedor (começa em 3%).
+  var TAB_ALVO = { opt: 0.25, ven: 0.2, a1: 0.15, a2: 0.13, a5: 0.11, a10: 0.1, fg: 0.25 };
+  S.ataCalc = { c: 0.03, ts: 0 }; // colchão do atacado e quando o Titan calculou
+  function ataAlvo(T) { return TAB_ALVO[T.id] != null ? TAB_ALVO[T.id] : 0.15; }
+  function ataMargem(T) { var c = S.ataCalc && S.ataCalc.c >= 0 ? S.ataCalc.c : 0.03; return (1 + c) / (10 / 11 - ataAlvo(T)) - 1; }
+  // a conta de uma peça de custo u (US$) numa tabela: preço, IVA, custo + colchão, frete, lucro (a mesma da janela e da lista)
+  function ataConta(T, u) {
+    var c = S.ataCalc && S.ataCalc.c >= 0 ? S.ataCalc.c : 0.03, fr = +T.frete || 0, p = u * (1 + ataMargem(T)) + fr, iva = p / 11;
+    return { p: p, iva: iva, cc: u * (1 + c), fr: fr, lu: p - iva - u * (1 + c) - fr, c: c };
+  }
   function tabLista() {
     return [{ id: 'pub', nome: 'Público', m: 0, min: 0, frete: 0, on: true, pub: true }].concat(
       (S.tabelas || []).filter(function (t) {
@@ -31,15 +42,8 @@
     var t = tFor(it);
     if (!(t.repUSD > 0)) return { p: base, lim: false };
     var fx = S.fx.pyg,
-      pp = pisoPeca(it),
-      v = t.repUSD * fx * (1 + T.m) + (T.frete || 0) * fx,
-      chao = pp.trava + pp.colch,
-      lim = false;
-    if (v < chao) {
-      v = chao;
-      lim = true;
-    }
-    return { p: Math.min(up500(v), base), lim: lim };
+      v = t.repUSD * fx * (1 + ataMargem(T)) + (T.frete || 0) * fx; // 65b: a margem do Titan já dá lucro (sem o "chão" do varejo)
+    return { p: Math.min(up500(v), base), lim: false };
   }
   function precoTab(it, id) {
     return precoTabInfo(it, id).p;
@@ -82,37 +86,16 @@
     });
   }
   // alvo (149dup): id da tabela que pediu a folha — ela vem destacada e a folha rola até ela
-  function tabSheet(edita, alvo) {
-    var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Cada tabela é custo da peça + margem. Nunca fica abaixo do piso da loja nem acima do preço Público.</div>';
-    if (!edita) {
-      tabLista().forEach(function (T) {
-        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
-      });
-      h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini ghost" data-act="tabedit">Editar tabelas</button><button type="button" class="mini ghost" data-act="tabfecha">Fechar</button></div></div>';
-    } else {
-      S.tabelas.forEach(function (T, i) {
-        h += '<div class="sl" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px"><b style="flex:1 1 100%">' + esc(T.nome) + '</b>' +
-          '<label style="flex:1 1 90px;font-size:12px">Margem %<input class="in" inputmode="decimal" data-in="tabm" data-id="' + i + '" value="' + Math.round(T.m * 100) + '"></label>' +
-          '<label style="flex:1 1 90px;font-size:12px">Mínimo US$<input class="in" inputmode="decimal" data-in="tabmin" data-id="' + i + '" value="' + (T.min || 0) + '"></label>' +
-          '<label style="flex:1 1 90px;font-size:12px">Frete US$/peça<input class="in" inputmode="decimal" data-in="tabfr" data-id="' + i + '" value="' + (T.frete || 0) + '"></label>' +
-          '<button type="button" class="chip' + (T.on !== false ? ' on' : '') + '" data-act="tabon" data-id="' + i + '">' + (T.on !== false ? 'Ativa' : 'Oculta') + '</button></div>';
-      });
-      h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="go" data-act="tabok">Salvar</button></div></div>';
-    }
-    lfaAbre('tabSh', h);
+  // A folha de escolher a tabela (o caixa, 60-vendas): margens do Titan; editar saiu (65b — margem calculada, Preços › Atacado mostra a conta)
+  function tabSheet(alvo) {
+    var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Margens calculadas pelo ' + LF_TITAN + ', sempre com lucro. Nunca acima do preço Público.</div>';
+    tabLista().forEach(function (T) {
+      h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(ataMargem(T) * 100) + '%') + '</span></button>';
+    });
+    lfaAbre('tabSh', h + '</div>');
     if (alvo) setTimeout(function () { var e = document.querySelector('.tabAlvo'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 60);
   }
-  ACT.tabsheet = function (id) { tabSheet(false, id); };
   ACT.tabfecha = function () { lfaFecha('tabSh'); };
-  ACT.tabedit = function () { tabSheet(true); };
-  ACT.tabok = function () { saveSoon(); tabSheet(false); render(); };
-  ACT.tabon = function (i) {
-    var T = S.tabelas[+i];
-    if (!T) return;
-    T.on = T.on === false;
-    if (T.on === false && S.tabAtiva === T.id) S.tabAtiva = 'pub';
-    tabSheet(true);
-  };
   ACT.tabpick = function (id) {
     S.tabAtiva = id;
     if (S.cart.length) tabAplicaCarrinho(id);
@@ -120,17 +103,6 @@
     lfaFecha('tabSh');
     render();
   };
-  document.addEventListener('input', function (ev) {
-    var t = ev.target,
-      k = t && t.getAttribute && t.getAttribute('data-in');
-    if (k !== 'tabm' && k !== 'tabmin' && k !== 'tabfr') return;
-    var T = S.tabelas[+t.getAttribute('data-id')],
-      v = parseFloat(String(t.value).replace(',', '.'));
-    if (!T || !(v >= 0)) return;
-    if (k === 'tabm') T.m = Math.min(5, v / 100);
-    else if (k === 'tabmin') T.min = v;
-    else T.frete = v;
-  });
   // Mensagem de WhatsApp com a tabela escolhida e as peças marcadas.
   function tabMensagem(refs) {
     var T = tabDe(S.tabAtiva),

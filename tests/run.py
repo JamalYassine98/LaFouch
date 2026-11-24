@@ -1599,11 +1599,11 @@ async def main():
             await pg.evaluate("() => { window.__LF.S.view = 'inicio'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
             await pg.locator('#v-inicio .tl[data-id="ata"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => [window.__LF.S.view, (document.querySelector('#v-ata h1') || {}).textContent, document.querySelectorAll('#ataTabs button').length]")
-            await pg.locator('#ataTabs button[data-id="tab"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#ataTabs button[data-id="loj"]').click(); await pg.wait_for_timeout(300)
             r3.append(await pg.evaluate("() => [...document.querySelectorAll('#ataCorpo .ataL b')].map(b => b.textContent)"))
             total += 1
-            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'ata' and r3[1] == 'Atacado' and r3[2] == 4 and r3[3][:2] == ['Enviar catálogo a um lojista', 'Ver a tabela de atacado'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'v-b9 + S370: voltar do celular volta para a tela anterior; atalho Atacado abre a tela Atacado do app (4 abas)')
+            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'ata' and r3[1] == 'Atacado' and r3[2] == 3 and r3[3][:1] == ['Enviar catálogo a um lojista'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v-b9 + S370 + 65: voltar do celular volta para a tela anterior; atalho Atacado abre a tela Atacado do app (3 abas; Enviar catálogo em Lojistas)')
             if not ok: falhas.append('v-b9 voltar'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
@@ -4902,7 +4902,7 @@ async def main():
 
             # 54 (Preços = escritório do Titan): UMA função desenha Preços e os setores (precosTelaHtml); ninguém a troca nem relê o HTML dela.
             # Sem os 4 números, "O TITAN DECIDE HOJE · N" conta as linhas, os setores Regras · Ofertas · Atacado · Ferramentas · Histórico em linhas ›
-            # (≥ 64 px, ícone cinza como a frase), no Atacado cada tabela abre a SUA, nas Ofertas o "ver um por um" aceita e ignora uma por vez,
+            # (≥ 64 px, ícone cinza como a frase), no Atacado cada tabela abre a janela dela, nas Ofertas o "ver um por um" aceita e ignora uma por vez,
             # nenhum "1 peças"/"1 preços"; o nome sai da constante LF_TITAN e nenhum "Guardião" aparece.
             fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
             troca = sorted(f for f, t in fontes.items() if re.search(r'^\s*(precosTelaHtml|contadorHtml|cntDecisoes|titanDecide) = function|_cnt\d+ = |function contadorHtml|pgrPrecos|pgrAjusta|prePe|cntKpi|x66ab', t, re.M))
@@ -4919,9 +4919,9 @@ async def main():
               R.set = q('.tiSe .nvL').map(b => b.querySelector('b').textContent).join('|') + '|' + q('.tiSe .nvL').every(b => b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('.nvIc')).color === getComputedStyle(b.querySelector('small')).color && b.querySelector('i').textContent === '›');
               // Atacado: cada tabela abre a folha com a tabela dela destacada
               L.ACT.tiAbre('atacado'); await w(400);
-              const D = L.cntDecisoes(), tabs = L.S.tabelas.filter(t => t.on !== false), ids = q('[data-act=tabsheet]').map(b => b.dataset.id);
+              const D = L.cntDecisoes(), tabs = L.S.tabelas.filter(t => t.on !== false), ids = q('[data-act=ataTabAbre]').map(b => b.dataset.id);
               R.tab = tabs.length > 1 && ids.length === tabs.length && new Set(ids).size === ids.length;
-              const al = []; for (const b of q('[data-act=tabsheet]').slice(0, 3)) { b.click(); await w(350); const a = document.querySelectorAll('.tabAlvo'); al.push(a.length === 1 && a[0].dataset.id === b.dataset.id); L.ACT.tabfecha(); await w(350); }
+              const al = []; for (const b of q('[data-act=ataTabAbre]').slice(0, 3)) { b.click(); await w(500); const j = document.querySelector('.tiAtJn:not(.ljSai)'); al.push(!!j && j.querySelector('.ljHd b').textContent === L.S.tabelas.find(t => t.id === b.dataset.id).nome); document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await w(500); }
               R.alvo = al.join();
               // Ofertas: o assunto do preço automático é uma linha, "ver um por um" abre as peças, aceitar e ignorar tiram uma por vez
               L.ACT.tiAbre('ofertas'); await w(400);
@@ -4991,6 +4991,34 @@ async def main():
                   and got['velho'] == [3000000, True] and got['semVenda'] == 0 and velho == [] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + '63/94: Ofertas com o "+" na linha do título (abre a mesma janela Oferta), no ar · cupons · como decide; "de" só com 30 dias e venda')
             if not ok: falhas.append('63 ofertas de por'); print('        veio', got, velho, pg.erros)
+            await pg.close()
+
+            # 65 + 65b (Atacado do Titan): margem = (1 + colchão 3%) ÷ (10/11 − lucro alvo) − 1 → 56/45/36/32/29/27%; o preço de atacado usa essa margem
+            # (sem o chão do varejo) e a conta do exemplo de US$ 5 fecha; a tela Atacado tem 3 abas (sem Tabela) com "Enviar catálogo" em Lojistas;
+            # a conta do lojista tem "Tabela de preço ›" e o dono escolhe; editar margens saiu.
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            velho = sorted(f for f, t in fontes.items() if re.search(r"ACT\.tabedit|data-in=\"tabm|\(1 \+ T\.m\)|'tab', 'Tabela'\]", t))
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              S.ataCalc = { c: 0.03, ts: Date.now() };
+              R.m = S.tabelas.filter(t => t.id !== 'fg').map(t => Math.round(L.ataMargem(t) * 100)).join();
+              const k = L.ataConta(S.tabelas.find(t => t.id === 'a10'), 5); R.k = [k.p.toFixed(2), k.iva.toFixed(2), k.cc.toFixed(2), k.lu.toFixed(2)].join();
+              const it = S.items.find(i => i.qty > 0 && !i.bulk && L.tFor(i).repUSD > 0 && L.tFor(i).price > 100000) || S.items.find(i => i.qty > 0 && L.tFor(i).repUSD > 0), t = L.tFor(it), T = S.tabelas.find(x => x.id === 'a10');
+              R.preco = L.precoTab(it, 'a10') === Math.min(Math.ceil((t.repUSD * S.fx.pyg * (1 + L.ataMargem(T))) / 500) * 500, t.price) || L.precoTab(it, 'a10') <= t.price;
+              S.ataAba = 'tab'; L.setView('ata'); await w(500);
+              R.abas = [...document.querySelectorAll('#ataTabs [role=tab]')].map(b => b.textContent.trim()).join('|');
+              S.ataAba = 'loj'; L.ACT.ataAba('msg'); L.ACT.ataAba('loj'); await w(400); R.env = !!document.querySelector('#ataCorpo [data-act=ataEnvLoj]');
+              S.ataContas = S.ataContas || {}; S.ataContas.tz = { id: 'tz', nome: 'Lojista de teste', tipo: 'assoc', tab: 'a1', dispMax: 3, trocaOk: true, aparelhos: [] };
+              L.ACT.ataLojAbre('tz'); await w(600); const b = document.querySelector('.ljJn:not(.ljSai) [data-act=ataTabEsc]'); R.row = !!b && /Atacado 1K/.test(b.textContent);
+              b.click(); await w(600); const e = document.querySelector('.escJn:not(.ljSai)'); R.semOutro = !!e && !/Outro…/.test(e.innerText);
+              [...e.querySelectorAll('.pxL')].find(x => x.dataset.v === 'Vendedor').click(); await w(100); e.querySelector('.escSalva').click(); await w(600);
+              R.tabNova = S.ataContas.tz.tab; delete S.ataContas.tz;
+              return R; }""")
+            total += 1
+            ok = (got['m'] == '56,45,36,32,29,27' and got['k'] == '6.37,0.58,5.15,0.64' and got['preco'] and got['abas'] == 'Mensagens|Lojistas|Lotes' and got['env']
+                  and got['row'] and got['semOutro'] and got['tabNova'] == 'ven' and velho == [] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '65/65b: margens do atacado calculadas pelo Titan (56/45/36/32/29/27), conta do exemplo, Atacado com 3 abas e "Tabela de preço ›" na conta do lojista')
+            if not ok: falhas.append('65 atacado do Titan'); print('        veio', got, velho, pg.erros)
             await pg.close()
 
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".

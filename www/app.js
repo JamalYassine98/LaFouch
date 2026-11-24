@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 637;
+  var APP_BUILD = 638;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.56.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.57.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -13395,7 +13395,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         inf.textContent = '';
         if (atac) {
           // só no Atacado: a tabela em texto tocável (B2+)
-          var tbtn = btn('tabtx tabchip', Ta.nome + ' ▾', function () { tabSheet(false); });
+          var tbtn = btn('tabtx tabchip', Ta.nome + ' ▾', function () { tabSheet(); });
           inf.appendChild(tbtn);
         } else {
           inf.appendChild(mk('span', 'vpcs', all.reduce(function (a, i) { return a + (i.qty > 0 ? i.qty : 0); }, 0) + ' peças'));
@@ -19014,7 +19014,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // 44 (aprovado 21/11): ESCOLHER é uma tarefa — a janela de baixo com a lista em linhas de bolinha (a primeira marcada quando
   // ainda não há escolha), "+ Outro…" para escrever um valor novo e um "Salvar". Uma função para Formato, Material, Gênero e Cor
   // (cadastro e Editar produto). topo = nó opcional que entra acima da lista (ex.: a Classe da cor).
-  function escolhaJanela(titulo, lista, atual, onPick, topo) {
+  function escolhaJanela(titulo, lista, atual, onPick, topo, semOutro) { // semOutro: só as opções da lista (ex.: a tabela do lojista)
     var sel = atual || lista[0] || '', outra = false, txt = '';
     return lfJanela({
       titulo: titulo,
@@ -19025,7 +19025,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           c.innerHTML = '<div class="escTopo"></div>' + lista.map(function (v) {
             return '<button type="button" class="pxL" role="radio" aria-checked="' + (!outra && sel === v) + '" data-v="' + esc(v) + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>' + esc(v) + '</b></span></button>';
           }).join('') +
-            '<button type="button" class="pxL" role="radio" aria-checked="' + outra + '" data-outra="1"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Outro…</b></span></button>' +
+            (semOutro ? '' : '<button type="button" class="pxL" role="radio" aria-checked="' + outra + '" data-outra="1"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Outro…</b></span></button>') +
             (outra ? '<input class="in escOutra" maxlength="30" placeholder="Escreva" aria-label="' + esc(titulo) + '" value="' + esc(txt) + '">' : '') +
             '<button type="button" class="go escSalva">Salvar</button>';
           if (topo) c.querySelector('.escTopo').appendChild(topo);
@@ -27719,6 +27719,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     { id: 'fg', nome: 'Óptica com frete grátis', m: 0.7, min: 0, frete: 0.6, on: true }
   ];
   S.tabAtiva = 'pub';
+  // 65b · margens do atacado calculadas pelo Titan (nunca digitadas): margem = (1 + colchão do atacado) ÷ (10/11 − lucro alvo) − 1.
+  // O atacado não paga as contas do mês (ficam com o varejo): só precisa dar lucro bom. Colchão do atacado = só a alta do fornecedor (começa em 3%).
+  var TAB_ALVO = { opt: 0.25, ven: 0.2, a1: 0.15, a2: 0.13, a5: 0.11, a10: 0.1, fg: 0.25 };
+  S.ataCalc = { c: 0.03, ts: 0 }; // colchão do atacado e quando o Titan calculou
+  function ataAlvo(T) { return TAB_ALVO[T.id] != null ? TAB_ALVO[T.id] : 0.15; }
+  function ataMargem(T) { var c = S.ataCalc && S.ataCalc.c >= 0 ? S.ataCalc.c : 0.03; return (1 + c) / (10 / 11 - ataAlvo(T)) - 1; }
+  // a conta de uma peça de custo u (US$) numa tabela: preço, IVA, custo + colchão, frete, lucro (a mesma da janela e da lista)
+  function ataConta(T, u) {
+    var c = S.ataCalc && S.ataCalc.c >= 0 ? S.ataCalc.c : 0.03, fr = +T.frete || 0, p = u * (1 + ataMargem(T)) + fr, iva = p / 11;
+    return { p: p, iva: iva, cc: u * (1 + c), fr: fr, lu: p - iva - u * (1 + c) - fr, c: c };
+  }
   function tabLista() {
     return [{ id: 'pub', nome: 'Público', m: 0, min: 0, frete: 0, on: true, pub: true }].concat(
       (S.tabelas || []).filter(function (t) {
@@ -27741,15 +27752,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = tFor(it);
     if (!(t.repUSD > 0)) return { p: base, lim: false };
     var fx = S.fx.pyg,
-      pp = pisoPeca(it),
-      v = t.repUSD * fx * (1 + T.m) + (T.frete || 0) * fx,
-      chao = pp.trava + pp.colch,
-      lim = false;
-    if (v < chao) {
-      v = chao;
-      lim = true;
-    }
-    return { p: Math.min(up500(v), base), lim: lim };
+      v = t.repUSD * fx * (1 + ataMargem(T)) + (T.frete || 0) * fx; // 65b: a margem do Titan já dá lucro (sem o "chão" do varejo)
+    return { p: Math.min(up500(v), base), lim: false };
   }
   function precoTab(it, id) {
     return precoTabInfo(it, id).p;
@@ -27792,37 +27796,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   }
   // alvo (149dup): id da tabela que pediu a folha — ela vem destacada e a folha rola até ela
-  function tabSheet(edita, alvo) {
-    var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Cada tabela é custo da peça + margem. Nunca fica abaixo do piso da loja nem acima do preço Público.</div>';
-    if (!edita) {
-      tabLista().forEach(function (T) {
-        h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(T.m * 100) + '%') + '</span></button>';
-      });
-      h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini ghost" data-act="tabedit">Editar tabelas</button><button type="button" class="mini ghost" data-act="tabfecha">Fechar</button></div></div>';
-    } else {
-      S.tabelas.forEach(function (T, i) {
-        h += '<div class="sl" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px"><b style="flex:1 1 100%">' + esc(T.nome) + '</b>' +
-          '<label style="flex:1 1 90px;font-size:12px">Margem %<input class="in" inputmode="decimal" data-in="tabm" data-id="' + i + '" value="' + Math.round(T.m * 100) + '"></label>' +
-          '<label style="flex:1 1 90px;font-size:12px">Mínimo US$<input class="in" inputmode="decimal" data-in="tabmin" data-id="' + i + '" value="' + (T.min || 0) + '"></label>' +
-          '<label style="flex:1 1 90px;font-size:12px">Frete US$/peça<input class="in" inputmode="decimal" data-in="tabfr" data-id="' + i + '" value="' + (T.frete || 0) + '"></label>' +
-          '<button type="button" class="chip' + (T.on !== false ? ' on' : '') + '" data-act="tabon" data-id="' + i + '">' + (T.on !== false ? 'Ativa' : 'Oculta') + '</button></div>';
-      });
-      h += '<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="go" data-act="tabok">Salvar</button></div></div>';
-    }
-    lfaAbre('tabSh', h);
+  // A folha de escolher a tabela (o caixa, 60-vendas): margens do Titan; editar saiu (65b — margem calculada, Preços › Atacado mostra a conta)
+  function tabSheet(alvo) {
+    var h = '<div style="padding:4px 2px"><h2 style="margin:0 0 4px;font-size:18px">Tabela de preço</h2><div class="hint" style="margin:0 0 8px">Margens calculadas pelo ' + LF_TITAN + ', sempre com lucro. Nunca acima do preço Público.</div>';
+    tabLista().forEach(function (T) {
+      h += '<button type="button" class="chip' + (T.id === (S.tabAtiva || 'pub') ? ' on' : '') + (T.id === alvo ? ' tabAlvo' : '') + '" data-act="tabpick" data-id="' + T.id + '" style="display:flex;width:100%;justify-content:space-between;margin-bottom:6px;min-height:46px"><span style="text-align:left">' + esc(T.nome) + '<small style="display:block;font-weight:400">' + esc(tabTxt(T)) + '</small></span><span>' + (T.pub ? '' : '+' + Math.round(ataMargem(T) * 100) + '%') + '</span></button>';
+    });
+    lfaAbre('tabSh', h + '</div>');
     if (alvo) setTimeout(function () { var e = document.querySelector('.tabAlvo'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 60);
   }
-  ACT.tabsheet = function (id) { tabSheet(false, id); };
   ACT.tabfecha = function () { lfaFecha('tabSh'); };
-  ACT.tabedit = function () { tabSheet(true); };
-  ACT.tabok = function () { saveSoon(); tabSheet(false); render(); };
-  ACT.tabon = function (i) {
-    var T = S.tabelas[+i];
-    if (!T) return;
-    T.on = T.on === false;
-    if (T.on === false && S.tabAtiva === T.id) S.tabAtiva = 'pub';
-    tabSheet(true);
-  };
   ACT.tabpick = function (id) {
     S.tabAtiva = id;
     if (S.cart.length) tabAplicaCarrinho(id);
@@ -27830,17 +27813,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfaFecha('tabSh');
     render();
   };
-  document.addEventListener('input', function (ev) {
-    var t = ev.target,
-      k = t && t.getAttribute && t.getAttribute('data-in');
-    if (k !== 'tabm' && k !== 'tabmin' && k !== 'tabfr') return;
-    var T = S.tabelas[+t.getAttribute('data-id')],
-      v = parseFloat(String(t.value).replace(',', '.'));
-    if (!T || !(v >= 0)) return;
-    if (k === 'tabm') T.m = Math.min(5, v / 100);
-    else if (k === 'tabmin') T.min = v;
-    else T.frete = v;
-  });
   // Mensagem de WhatsApp com a tabela escolhida e as peças marcadas.
   function tabMensagem(refs) {
     var T = tabDe(S.tabAtiva),
@@ -43041,7 +43013,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<button type="button" class="go77" data-act="ataRecria" data-id="' + esc(c.id) + '">Criar novo acesso</button><div class="ata418N">manda um convite novo pelo WhatsApp</div>' +
         '<div class="dz77"><button type="button" class="r" data-act="ataApaga" data-id="' + esc(c.id) + '">Apagar a conta</button><small>some da lista; os pedidos dele continuam no histórico</small></div></div>';
     return '<div class="ata77">' +
-      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + '</small></div>' +
+      // 65: o dono escolhe a tabela de cada lojista (antes o app punha sozinho a 1ª "Atacado")
+      '<div class="lb77">Tabela de preço</div><div class="gp77"><button type="button" class="rw77 tb77" data-act="ataTabEsc" data-id="' + esc(c.id) + '"><span class="tx"><b>' + esc(tabDe(c.tab).nome) + '</b><small>' + Math.round(ataMargem(tabDe(c.tab)) * 100) + '% · ' + (tabDe(c.tab).min > 0 ? 'mín. US$ ' + tabDe(c.tab).min.toLocaleString('pt-BR') : 'sem mínimo') + (tabDe(c.tab).frete > 0 ? ' · frete grátis' : '') + '</small></span><i aria-hidden="true">›</i></button></div>' +
       '<div class="lb77">Aparelhos</div><div class="gp77">' +
       (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
       '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
@@ -43057,6 +43031,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
       '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
+  ACT.ataTabEsc = function (id) {
+    var c = S.ataContas[id];
+    if (!c) return;
+    var T = tabLista().filter(function (t) { return !t.pub; }), nomes = T.map(function (t) { return t.nome; });
+    escolhaJanela('Tabela de preço', nomes, tabDe(c.tab).nome, function (v) {
+      var t = T.filter(function (x) { return x.nome === v; })[0];
+      if (!t || t.id === c.tab) return;
+      c.tab = t.id;
+      ataGrava(c);
+      ataPublica(c.tab);
+      if (ataJ && ataJ.id === id) ataJ.box.innerHTML = ataContaHtml(c);
+      if (S.view === 'ata') render();
+      lfToast(c.nome + ' · tabela ' + t.nome, 'ok');
+    }, null, true);
+  };
   // S418 (113d): uma janela só — cada ação atualiza a janela aberta no lugar, sem abrir outra por cima.
   var ataJ = null;
   function ataJanela(id) {
@@ -44684,20 +44673,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } catch (e) {}
     try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
     ['oferta', 'fim'].forEach(function (k) { if (pa[k]) L.push(pa[k]); });
-    try {
-      tabLista().filter(function (T) { return !T.pub; }).forEach(function (T) {
-        var vis = {}, g = { t: 'tab', tab: T, n: 0, min: 999 };
-        (S.items || []).forEach(function (it) {
-          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[it.ref]) return;
-          vis[it.ref] = 1;
-          var p = precoTab(it, T.id), pp = pisoPeca(it);
-          if (!(p > 0) || !(pp.trava > 0)) return;
-          var mg = (p - pp.trava) / p;
-          if (mg < 0.1) { g.n++; g.min = Math.min(g.min, Math.round(mg * 100)); }
-        });
-        if (g.n) L.push(g);
-      });
-    } catch (e) {}
+    // 65b: as tabelas de atacado saíram daqui — as margens do Titan já dão lucro (Preços › Atacado mostra a conta)
     return L;
   }
   function cntDescontosTxt(m) {
@@ -44837,7 +44813,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var TI_SET = {
     regras: ['Regras', 'O que cada preço precisa cobrir', 'regras'],
     ofertas: ['Ofertas', 'Descontos que o ' + LF_TITAN + ' confere', 'oferta', 'ofNova'], // 4o campo: a ação do + redondo na linha do título
-    atacado: ['Atacado', '', 'ata'],
+    atacado: ['Atacado', 'Margens calculadas pelo ' + LF_TITAN + ' · sempre com lucro', 'ata'],
     ferr: ['Ferramentas', '', 'calc'],
     hist: ['Histórico', 'O que mudou de preço, quando e por quê', 'hist'],
     corr: ['Preços para corrigir', '', 'tag']
@@ -44875,8 +44851,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return R;
   }
-  // as linhas das tabelas de atacado com margem baixa (o mesmo cálculo de cntDecisoes)
-  function tiTabBaixas() { return cntDecisoes().filter(function (x) { return x.t === 'tab'; }); }
   function tiOfertasNoAr() {
     var vis = {};
     return (S.items || []).filter(function (it) {
@@ -44889,12 +44863,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function precosTelaHtml() {
     var k = tiSetor();
     if (k) return '<div class="cnt lx tiS" data-ti="' + k + '">' + TI_TELA[k]() + '</div>';
-    var D = titanDecide(), T = tabLista().filter(function (x) { return !x.pub; }), tb = tiTabBaixas(), no = tiOfertasNoAr().length,
-      nb = tb.reduce(function (a, x) { return Math.max(a, x.n); }, 0),
+    var D = titanDecide(), T = tabLista().filter(function (x) { return !x.pub; }), no = tiOfertasNoAr().length,
       SET = [
         ['regras', 'contas, taxas, meta e cotação da loja'],
         ['ofertas', (no ? no + ' no ar' : 'nenhuma no ar') + ' · automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado')],
-        ['atacado', cntPl(T.length, 'tabela', 'tabelas') + (nb ? ' · ' + cntPl(nb, 'peça', 'peças') + ' abaixo de 10%' : '')],
+        ['atacado', cntPl(T.length, 'tabela', 'tabelas') + ' · margens do ' + LF_TITAN],
         ['ferr', 'calculadora de preço · e se…?'],
         ['hist', 'o que mudou, quando e por quê']
       ];
@@ -44919,14 +44892,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
     regras: regrasHtml,
     ofertas: ofertasHtml,
-    atacado: function () {
-      var B = {};
-      tiTabBaixas().forEach(function (x) { B[x.tab.id] = x; });
-      return '<section class="nvLista">' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) {
-        var b = B[T.id];
-        return tiLinha('tabsheet', T.id, 'ata', T.nome + ' · ' + Math.round(+T.m || 0) + '%', b ? cntPl(b.n, 'peça', 'peças') + ' abaixo de 10% · a menor está em ' + b.min + '%' : 'todas as peças com margem boa', b ? 'var(--warn)' : '');
-      }).join('') + '</section>';
-    },
+    atacado: atacadoHtml,
     ferr: function () {
       return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote') +
         tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda') + '</section>';
@@ -45007,6 +44973,36 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.ofAbre = function (ref) { ofertaJanela(ref); }; // a janela Oferta (src/55-produtos-catalogo.js): ficha, Ofertas no ar e o "+"
   var OF_ESC = null;
   ACT.ofNovaPeca = function (ref) { if (OF_ESC) OF_ESC.fecha(true); OF_ESC = null; ofertaJanela(ref); };
+  // ---------- setor Atacado (65b): as margens das tabelas, calculadas pelo Titan (ataMargem), com o lucro por peça ----------
+  var ATA_EX = 5; // o exemplo: armação de acetato que custa US$ 5
+  function usd2(v) { return 'US$ ' + (Math.round(v * 100) / 100).toFixed(2).replace('.', ','); }
+  function atacadoHtml() {
+    if (!S.ataCalc.ts) { S.ataCalc.ts = Date.now(); saveSoon(); }
+    var d = new Date(), prox = new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime();
+    return '<div class="cxL tiCalc"><span>Calculadas em ' + fd(S.ataCalc.ts) + '<small>próxima revisão ' + fd(prox) + ' ou num lote novo</small></span></div>' +
+      '<div class="lbl tiLb">TABELAS · MARGEM E LUCRO POR PEÇA</div><section class="nvLista">' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) {
+        var k = ataConta(T, ATA_EX);
+        return '<button type="button" class="nvL" data-act="ataTabAbre" data-id="' + esc(T.id) + '"><span class="nvIc">' + ico('ata', 22) + '</span><span class="nvTx"><b>' + esc(T.nome) + '</b><small>lucro <i class="ok">' + usd2(k.lu) + ' (' + Math.round(ataAlvo(T) * 100) + '%)</i> por peça</small></span><em class="tiV">' + Math.round(ataMargem(T) * 100) + '%</em></button>';
+      }).join('') + '</section>' +
+      '<p class="hint tiVz">Exemplo: armação de acetato que custa US$ ' + ATA_EX + '. Lucro = preço − IVA − custo − colchão do atacado (' + Math.round(S.ataCalc.c * 100) + '%, só a alta do fornecedor). O atacado não paga as contas do mês: é um reforço. Quem escolhe a tabela de cada lojista é você, na conta dele no Atacado.</p>';
+  }
+  ACT.ataTabAbre = function (id) {
+    var T = tabDe(id);
+    if (!T || T.pub) return;
+    var k = ataConta(T, ATA_EX);
+    lfJanela({ titulo: T.nome, cls: 'tiAtJn', monta: function (c) {
+      c.innerHTML = '<p class="ofNm">o ' + esc(LF_TITAN) + ' calcula · você só escolhe o lojista</p>' +
+        '<div class="cxL"><span>Compra mínima</span><b>' + (T.min > 0 ? 'US$ ' + T.min.toLocaleString('pt-BR') : 'sem mínimo') + '</b></div>' +
+        '<div class="cxL"><span>Margem<small>calculada pelo ' + esc(LF_TITAN) + ' · lucro de ' + Math.round(ataAlvo(T) * 100) + '%</small></span><b>' + Math.round(ataMargem(T) * 100) + '%</b></div>' +
+        '<div class="lbl tiLb">ACETATO DE US$ ' + ATA_EX + '</div>' +
+        '<div class="cxL"><span>Preço para o lojista</span><b>' + usd2(k.p) + '</b></div>' +
+        '<div class="cxL"><span>− IVA</span><b class="mu">' + usd2(k.iva) + '</b></div>' +
+        '<div class="cxL"><span>− Custo e colchão (' + Math.round(k.c * 100) + '%)</span><b class="mu">' + usd2(k.cc) + '</b></div>' +
+        (k.fr ? '<div class="cxL"><span>− Frete embutido</span><b class="mu">' + usd2(k.fr) + '</b></div>' : '') +
+        '<div class="cxL"><span>Lucro</span><b class="ok">' + usd2(k.lu) + '</b></div>' +
+        '<section class="nvLista"><button type="button" class="nvL" data-act="ataVerTab" data-id="' + esc(T.id) + '"><span class="nvTx"><b>Ver os preços como o lojista vê</b></span><i aria-hidden="true">›</i></button></section>';
+    } });
+  };
   // o colchão (era a janela "Como o app te protege" do Câmbio): agora a dobra Colchão das Regras
   function colchaoHtml() {
     var c = colchao(),
@@ -50074,7 +50070,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   if (!VIEWS.some(function (v) { return v[0] === 'ata'; })) VIEWS.push(['ata', 'Atacado']);
   S.ataAba = S.ataAba || 'msg';
-  var ATA_ABAS = [['msg', 'Mensagens'], ['loj', 'Lojistas'], ['lot', 'Lotes'], ['tab', 'Tabela']];
+  var ATA_ABAS = [['msg', 'Mensagens'], ['loj', 'Lojistas'], ['lot', 'Lotes']]; // 65: a aba Tabela saiu (as margens são do Titan, Preços › Atacado)
   // mensagens de atacado que chegaram pelo site (a mesma lista do painel › Mensagens, só as de atacado)
   function ataMsgBusca() {
     if (ataMsgBusca.on || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvToken !== 'function') return;
@@ -50127,6 +50123,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (L.length) h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>'; // vazio: a explicação já está na tela vazia
       if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel, true) + '</div></div>';
     } else if (a === 'loj') {
+      var env = '<section class="card ataLs">' + ataLinha('ataEnvLoj', '', 'Enviar catálogo a um lojista', 'catálogo PDF ou planilha, com a tabela dele', 0) + '</section>';
       var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });
       h = C.length
         ? '<section class="card ataLs">' + C.map(function (c) {
@@ -50134,6 +50131,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', (c.pausada ? 'Pausada · ' : '') + 'Tabela ' + tabDe(c.tab).nome + ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos'), 0);
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lojista com acesso ainda. Toque em “+ Novo acesso” para criar o primeiro.</div>';
+      h = env + h;
       // S418 (113c): as contas canceladas ficam num bloco que abre no lugar
       var X = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && c.cancelada; });
       if (X.length)
@@ -50149,12 +50147,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lote ainda.</div>';
       h += '<button type="button" class="lkTx ataMais" data-act="ataLoteNovo">+ Criar lote</button>';
-    } else {
-      h = '<section class="card ataLs">' +
-        ataLinha('ataEnvLoj', '', 'Enviar catálogo a um lojista', 'Abre o Compartilhar já em Lojista (catálogo PDF ou planilha)', 0) +
-        ataLinha('ataVerTab', '', 'Ver a tabela de atacado', 'Os preços como o lojista vê', 0) +
-        ataLinha('tabedit', '', 'Editar tabelas', 'Margem, mínimo e frete de cada tabela', 0) +
-        '</section><p class="ataNt">O lojista compra pelo link da conta dele, com o mínimo do atacado.</p>';
     }
     return h;
   }
@@ -50219,10 +50211,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._s185Para = 'loj';
     ebAbre(r);
   };
-  ACT.ataVerTab = function () {
+  ACT.ataVerTab = function (id) {
     var tabs = tabLista().filter(function (t) { return !t.pub && t.on !== false; });
     if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.', 'atencao');
-    var E = { tab: tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
+    var E = { tab: tabs.some(function (t) { return t.id === id; }) ? id : tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
     lfJanela({
       titulo: 'Tabela de atacado',
       monta: function (box) {
@@ -52560,6 +52552,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'fxAvisos',
       'siteFx',
       'tabelas',
+      'ataCalc', // 65b: colchão do atacado e quando o Titan calculou as margens
       'tabAtiva',
       'fxReal',
       'fxc',
@@ -52826,7 +52819,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, deHonesto: deHonesto, deInfo: deInfo, ofertaJanela: ofertaJanela, titanEstado: titanEstado, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, ataMargem: ataMargem, ataConta: ataConta, deHonesto: deHonesto, deInfo: deInfo, ofertaJanela: ofertaJanela, titanEstado: titanEstado, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

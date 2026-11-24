@@ -311,7 +311,7 @@
         inf.textContent = '';
         if (atac) {
           // só no Atacado: a tabela em texto tocável (B2+)
-          var tbtn = btn('tabtx tabchip', Ta.nome + ' ▾', function () { tabSheet(false); });
+          var tbtn = btn('tabtx tabchip', Ta.nome + ' ▾', function () { tabSheet(); });
           inf.appendChild(tbtn);
         } else {
           inf.appendChild(mk('span', 'vpcs', all.reduce(function (a, i) { return a + (i.qty > 0 ? i.qty : 0); }, 0) + ' peças'));

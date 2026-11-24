@@ -586,7 +586,7 @@
   // 44 (aprovado 21/11): ESCOLHER é uma tarefa — a janela de baixo com a lista em linhas de bolinha (a primeira marcada quando
   // ainda não há escolha), "+ Outro…" para escrever um valor novo e um "Salvar". Uma função para Formato, Material, Gênero e Cor
   // (cadastro e Editar produto). topo = nó opcional que entra acima da lista (ex.: a Classe da cor).
-  function escolhaJanela(titulo, lista, atual, onPick, topo) {
+  function escolhaJanela(titulo, lista, atual, onPick, topo, semOutro) { // semOutro: só as opções da lista (ex.: a tabela do lojista)
     var sel = atual || lista[0] || '', outra = false, txt = '';
     return lfJanela({
       titulo: titulo,
@@ -597,7 +597,7 @@
           c.innerHTML = '<div class="escTopo"></div>' + lista.map(function (v) {
             return '<button type="button" class="pxL" role="radio" aria-checked="' + (!outra && sel === v) + '" data-v="' + esc(v) + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>' + esc(v) + '</b></span></button>';
           }).join('') +
-            '<button type="button" class="pxL" role="radio" aria-checked="' + outra + '" data-outra="1"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Outro…</b></span></button>' +
+            (semOutro ? '' : '<button type="button" class="pxL" role="radio" aria-checked="' + outra + '" data-outra="1"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Outro…</b></span></button>') +
             (outra ? '<input class="in escOutra" maxlength="30" placeholder="Escreva" aria-label="' + esc(titulo) + '" value="' + esc(txt) + '">' : '') +
             '<button type="button" class="go escSalva">Salvar</button>';
           if (topo) c.querySelector('.escTopo').appendChild(topo);

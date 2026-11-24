@@ -64,7 +64,9 @@
         '<button type="button" class="go77" data-act="ataRecria" data-id="' + esc(c.id) + '">Criar novo acesso</button><div class="ata418N">manda um convite novo pelo WhatsApp</div>' +
         '<div class="dz77"><button type="button" class="r" data-act="ataApaga" data-id="' + esc(c.id) + '">Apagar a conta</button><small>some da lista; os pedidos dele continuam no histórico</small></div></div>';
     return '<div class="ata77">' +
-      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + '</small></div>' +
+      // 65: o dono escolhe a tabela de cada lojista (antes o app punha sozinho a 1ª "Atacado")
+      '<div class="lb77">Tabela de preço</div><div class="gp77"><button type="button" class="rw77 tb77" data-act="ataTabEsc" data-id="' + esc(c.id) + '"><span class="tx"><b>' + esc(tabDe(c.tab).nome) + '</b><small>' + Math.round(ataMargem(tabDe(c.tab)) * 100) + '% · ' + (tabDe(c.tab).min > 0 ? 'mín. US$ ' + tabDe(c.tab).min.toLocaleString('pt-BR') : 'sem mínimo') + (tabDe(c.tab).frete > 0 ? ' · frete grátis' : '') + '</small></span><i aria-hidden="true">›</i></button></div>' +
       '<div class="lb77">Aparelhos</div><div class="gp77">' +
       (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
       '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
@@ -80,6 +82,21 @@
       '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
       '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
+  ACT.ataTabEsc = function (id) {
+    var c = S.ataContas[id];
+    if (!c) return;
+    var T = tabLista().filter(function (t) { return !t.pub; }), nomes = T.map(function (t) { return t.nome; });
+    escolhaJanela('Tabela de preço', nomes, tabDe(c.tab).nome, function (v) {
+      var t = T.filter(function (x) { return x.nome === v; })[0];
+      if (!t || t.id === c.tab) return;
+      c.tab = t.id;
+      ataGrava(c);
+      ataPublica(c.tab);
+      if (ataJ && ataJ.id === id) ataJ.box.innerHTML = ataContaHtml(c);
+      if (S.view === 'ata') render();
+      lfToast(c.nome + ' · tabela ' + t.nome, 'ok');
+    }, null, true);
+  };
   // S418 (113d): uma janela só — cada ação atualiza a janela aberta no lugar, sem abrir outra por cima.
   var ataJ = null;
   function ataJanela(id) {

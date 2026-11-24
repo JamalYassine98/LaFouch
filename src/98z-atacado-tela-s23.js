@@ -14,7 +14,7 @@
   }
   if (!VIEWS.some(function (v) { return v[0] === 'ata'; })) VIEWS.push(['ata', 'Atacado']);
   S.ataAba = S.ataAba || 'msg';
-  var ATA_ABAS = [['msg', 'Mensagens'], ['loj', 'Lojistas'], ['lot', 'Lotes'], ['tab', 'Tabela']];
+  var ATA_ABAS = [['msg', 'Mensagens'], ['loj', 'Lojistas'], ['lot', 'Lotes']]; // 65: a aba Tabela saiu (as margens são do Titan, Preços › Atacado)
   // mensagens de atacado que chegaram pelo site (a mesma lista do painel › Mensagens, só as de atacado)
   function ataMsgBusca() {
     if (ataMsgBusca.on || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvToken !== 'function') return;
@@ -67,6 +67,7 @@
       if (L.length) h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>'; // vazio: a explicação já está na tela vazia
       if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel, true) + '</div></div>';
     } else if (a === 'loj') {
+      var env = '<section class="card ataLs">' + ataLinha('ataEnvLoj', '', 'Enviar catálogo a um lojista', 'catálogo PDF ou planilha, com a tabela dele', 0) + '</section>';
       var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });
       h = C.length
         ? '<section class="card ataLs">' + C.map(function (c) {
@@ -74,6 +75,7 @@
             return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', (c.pausada ? 'Pausada · ' : '') + 'Tabela ' + tabDe(c.tab).nome + ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos'), 0);
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lojista com acesso ainda. Toque em “+ Novo acesso” para criar o primeiro.</div>';
+      h = env + h;
       // S418 (113c): as contas canceladas ficam num bloco que abre no lugar
       var X = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && c.cancelada; });
       if (X.length)
@@ -89,12 +91,6 @@
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lote ainda.</div>';
       h += '<button type="button" class="lkTx ataMais" data-act="ataLoteNovo">+ Criar lote</button>';
-    } else {
-      h = '<section class="card ataLs">' +
-        ataLinha('ataEnvLoj', '', 'Enviar catálogo a um lojista', 'Abre o Compartilhar já em Lojista (catálogo PDF ou planilha)', 0) +
-        ataLinha('ataVerTab', '', 'Ver a tabela de atacado', 'Os preços como o lojista vê', 0) +
-        ataLinha('tabedit', '', 'Editar tabelas', 'Margem, mínimo e frete de cada tabela', 0) +
-        '</section><p class="ataNt">O lojista compra pelo link da conta dele, com o mínimo do atacado.</p>';
     }
     return h;
   }
@@ -159,10 +155,10 @@
     S._s185Para = 'loj';
     ebAbre(r);
   };
-  ACT.ataVerTab = function () {
+  ACT.ataVerTab = function (id) {
     var tabs = tabLista().filter(function (t) { return !t.pub && t.on !== false; });
     if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.', 'atencao');
-    var E = { tab: tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
+    var E = { tab: tabs.some(function (t) { return t.id === id; }) ? id : tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
     lfJanela({
       titulo: 'Tabela de atacado',
       monta: function (box) {

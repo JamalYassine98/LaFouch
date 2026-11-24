@@ -33,20 +33,7 @@
     } catch (e) {}
     try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
     ['oferta', 'fim'].forEach(function (k) { if (pa[k]) L.push(pa[k]); });
-    try {
-      tabLista().filter(function (T) { return !T.pub; }).forEach(function (T) {
-        var vis = {}, g = { t: 'tab', tab: T, n: 0, min: 999 };
-        (S.items || []).forEach(function (it) {
-          if (!(it.qty > 0) || it.bulk || isSimple(it.tipo) || vis[it.ref]) return;
-          vis[it.ref] = 1;
-          var p = precoTab(it, T.id), pp = pisoPeca(it);
-          if (!(p > 0) || !(pp.trava > 0)) return;
-          var mg = (p - pp.trava) / p;
-          if (mg < 0.1) { g.n++; g.min = Math.min(g.min, Math.round(mg * 100)); }
-        });
-        if (g.n) L.push(g);
-      });
-    } catch (e) {}
+    // 65b: as tabelas de atacado saíram daqui — as margens do Titan já dão lucro (Preços › Atacado mostra a conta)
     return L;
   }
   function cntDescontosTxt(m) {

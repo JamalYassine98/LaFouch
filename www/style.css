@@ -3130,3 +3130,8 @@ p.cpE{margin:0 0 8px;font-size:14px}
 .ofJn #ofSalva{width:100%;margin-top:16px}.ofJn .ofFim{display:block;margin:8px auto 0}
 .ofJn .cxL b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}.ofJn .ofDt{position:relative}.ofJn .ofDt input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
 .dHd .pl78{margin:-6px 0}/* ⏻ e + do título: centro com centro (L2, 63) */
+/* 65b · Preços › Atacado: margem à direita, lucro em verde; a janela da tabela com a conta do exemplo */
+#v-dash .tiCalc span small,.tiAtJn .cxL span small{display:block;color:var(--mute);font-size:13px;margin-top:2px}#v-dash .tiCalc{border-bottom:1px solid var(--line)}
+#v-dash .nvL .tiV{font-style:normal;color:var(--fg);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;margin-left:8px}.nvTx small i.ok,.tiAtJn b.ok{color:var(--ok);font-style:normal}
+.tiAtJn .cxL{min-height:52px}.tiAtJn .cxL b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}.tiAtJn .cxL b.mu{color:var(--mute);font-weight:500}.tiAtJn .tiLb{margin:20px 0 4px}
+.ata77 .tb77{width:100%;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}.ata77 .tb77 i{font-style:normal;color:var(--mute);font-size:20px}
