@@ -1,11 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "triagem do gabarito: superados saem do base_app (regra 7)",
- "arquivos": [
-  "work/kit/base_app.py",
-  "work/titan"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795520100.1471057,
+   "r": "Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista"
+  },
   {
    "t": 1795516334.1259243,
    "r": "CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)"
@@ -41,10 +42,6 @@
   {
    "t": 1795214679.2723482,
    "r": "Conferidos 09/20 (site) e 21 (app) no comparador + prova funcional: login por usuário e token do pedido pago batem; 0 falha nova na página da peça; recados para SITE e APP. Semp completo como ideia (todas as partes aprovadas). A seguir: conferir v579/v581/v582; esboço 'pagamento parte 3' pedido pela NUVEM; 'como fazer' dos 15 aprovados de Resultados/Preços pedido pela APP."
-  },
-  {
-   "t": 1795143053.220285,
-   "r": "conferência"
   }
  ],
  "leu": 1795520091.0308867
