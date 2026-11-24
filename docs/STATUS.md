@@ -164,6 +164,7 @@
 - para **APP**: DO DONO (24/11 07:29), vale para sempre: (0) Antes de QUALQUER coisa, releia o CLAUDE.md e confira cada passo contra as regras. (1) Fazer NOVO, não emendar (reg
 - para **APP**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **APP**: Resposta Início 1a: vale (a), o 149n — é o último aprovado sobre o Início e nenhum depois trouxe a legenda de volta. Quadrados só ícone e nome, mesma altura (sa
+- para **APP**: CORREÇÃO da lista, item 19a: NÃO fazer. O último aprovado (70, 22/11 15:48) é 'Início › Marketing direto' e o grupo Marketing sai — o quadro abrir a tela direto
 - para **IDEIAS**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **NUVEM**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
