@@ -102,6 +102,10 @@ function t(n, c) { if (c) { ok++; console.log('  ok  ' + n); } else { falhas.pus
   enviados.length = 0; apagados.length = 0;
   await idx.avisarChama({ data: { data: () => ({ n: 2, de: 'a1' }) }, params: { id: 'C1' } });
   t('chamar vendedor: não avisa o próprio aparelho que chamou', enviados.length === 3 - 1 && enviados.every((m) => m.token !== 'a1'));
+  // 24/11: reserva suspeita = aviso urgente: todos os aparelhos (até quem desligou "pedido novo"), tocar abre Pedidos (tipo 'suspeita')
+  enviados.length = 0;
+  await idx.avisarSuspeita({ data: { data: () => ({ motivos: ['iguais'], iguais: 5, abertas: ['S1'] }) }, params: { id: 'S1' } });
+  t('reserva suspeita: um aviso por aparelho, mesmo o que desligou pedido novo', enviados.length === 3 && enviados.every((m) => m.data.tipo === 'suspeita' && m.data.id === 'S1' && /5 unidades/.test(m.notification.body)));
   console.log(falhas.length ? `portas: ${falhas.length} falha(s)` : `portas: ${ok} testes ok`);
   process.exit(falhas.length ? 1 : 0);
 })();

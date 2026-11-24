@@ -3,7 +3,8 @@
 // e o TITAN avisa o dono, que cancela e solta as peças pelo app (como no comprovante falso). Gatilhos aprovados:
 //   · iguais: o pedido segura GATILHO.iguais ou mais unidades da mesma peça (ref + cor) sem pagar;
 //   · rede:   a mesma rede tem GATILHO.rede ou mais pedidos com reserva aberta (não paga, não cancelada) na mesma hora.
-// Parte 1: só grava em suspeitas/<pedido> (o app lê); a notificação entra quando o app já souber mostrar o aviso.
+// Parte 1 (22/11): grava em suspeitas/<pedido> (o app lê desde a v640). Parte 2 (24/11, aprovado pelo dono): quando o documento NASCE,
+// o celular do dono recebe UM aviso (avisarSuspeita no index.js; o texto mora aqui, em aviso()). Renovar a reserva não avisa de novo.
 // Regra pura: db = { anota(redeId, pid, refs, agora) -> [{pid, refs}] da rede na última hora, aberta({pid, refs}) -> bool
 //   (reserva válida e não paga/cancelada), grava(pid, o) }
 'use strict';
@@ -37,4 +38,12 @@ async function confere(db, pid, itens, redeId, agora, exp) {
   return o;
 }
 
-module.exports = { HORA, GATILHO, maiorIgual, confere };
+// texto do aviso no celular (parte 2): uma linha por motivo, na ordem em que foram achados
+function aviso(o) {
+  const m = (o && o.motivos) || [], partes = [];
+  if (m.includes('iguais')) partes.push((+o.iguais || 0) + ' unidades da mesma peça sem pagar');
+  if (m.includes('rede')) partes.push(((o.abertas || []).length || 0) + ' reservas abertas da mesma rede na última hora');
+  return { titulo: '⚠️ Reserva suspeita no site', corpo: (partes.join(' · ') || 'Reserva fora do comum') + '. Confira em Pedidos.' };
+}
+
+module.exports = { HORA, GATILHO, maiorIgual, confere, aviso };

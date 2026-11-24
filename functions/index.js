@@ -85,6 +85,10 @@ async function avisaAparelhos(filtra, msg) {
   }));
   await Promise.all(mortos.map((tk) => fsx().collection('dispositivos').doc(tk).delete()));
 }
+// aviso URGENTE (algo pode ser abuso: pedido fora da regra, reserva suspeita): vai para todos os aparelhos, mesmo no horário de silêncio.
+// tipo e id vão no "data"; tocar no aviso abre Pedidos no app.
+const avisaUrgente = (titulo, corpo, tipo, id) => avisaAparelhos(() => true, (dd) => ({ notification: { title: titulo, body: corpo },
+  data: { tipo, id: String(id) }, android: { priority: 'high', notification: { channelId: 'pedidos_' + somDe(dd, 'sn'), tag: tipo + '-' + id } } }));
 // cria o documento só se ainda não existe (atômico): true = criou, false = já existia
 const criaUmaVez = (ref, o) => ref.create(o).then(() => true, (e) => { if (e && (e.code === 6 || /already exists/i.test(e.message || ''))) return false; throw e; });
 
@@ -194,6 +198,11 @@ const susDb = {
   },
   grava: (pid, o) => fsx().doc('suspeitas/' + pid).set(o, { merge: true }),
 };
+// 24/11 (parte 2): o documento nasceu = UM aviso no celular do dono (renovar a reserva só atualiza o documento, não nasce de novo)
+exports.avisarSuspeita = onDocumentCreated({ document: 'suspeitas/{id}', region: REGIAO }, async (ev) => {
+  const a = Suspeita.aviso((ev.data && ev.data.data()) || {});
+  await avisaUrgente(a.titulo, a.corpo, 'suspeita', ev.params.id);
+});
 const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH', 'ligar']; // P1b: orfas e liberarH só o dono · 39: ligar (PIX sem par → pedido)
 
 async function ehDono(req) {
@@ -719,9 +728,7 @@ exports.conferePedido = onDocumentCreated({ document: 'pedidos/{id}', region: RE
     console.error('conferePedido SUSPEITO', ev.params.id, JSON.stringify(r));
     await db.doc('reservas/' + ev.params.id).set({ suspeito: r.motivos.slice(0, 5).join(' · ').slice(0, 300), minimo: r.minimo }, { merge: true });
     await db.collection('cupomAvisos').add({ ts: Date.now(), t: 'pedido', d: 'Pedido ' + String(f.cod || ev.params.id).slice(0, 8) + ' fora da regra: ' + r.motivos[0], cod: cod || '' });
-    // aviso de pedido suspeito vai para todos os aparelhos, mesmo no horário de silêncio
-    await avisaAparelhos(() => true, (dd) => ({ notification: { title: '⚠️ Pedido ' + String(f.cod || '') + ' com valor fora da regra', body: 'Confira antes de aceitar o pagamento: ' + r.motivos[0] },
-      data: { tipo: 'suspeito', id: String(ev.params.id) }, android: { priority: 'high', notification: { channelId: 'pedidos_' + somDe(dd, 'sn'), tag: 'susp-' + ev.params.id } } }));
+    await avisaUrgente('⚠️ Pedido ' + String(f.cod || '') + ' com valor fora da regra', 'Confira antes de aceitar o pagamento: ' + r.motivos[0], 'suspeito', ev.params.id);
   } catch (e) { console.error('conferePedido', ev.params.id, e && e.message); }
 });
 exports.cupom = post('cupom', { cors: true, maxInstances: 10, secrets: [RESEND_KEY] }, async (req, res, b) => {

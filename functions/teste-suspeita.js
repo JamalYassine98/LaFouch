@@ -54,6 +54,17 @@ const it = (q, ref, cor) => ({ ref: ref || 'KIT3C', cor: cor || 'preto', q });
   await teste('gatilhos aprovados (22/11 15:20): 5 iguais, 3 reservas abertas da rede', async () => {
     assert.deepStrictEqual(S.GATILHO, { iguais: 5, rede: 3 });
   });
+  await teste('aviso no celular (parte 2): diz o motivo e manda conferir em Pedidos', async () => {
+    assert.deepStrictEqual(S.aviso({ motivos: ['iguais'], iguais: 6, abertas: ['p'] }), { titulo: '⚠️ Reserva suspeita no site', corpo: '6 unidades da mesma peça sem pagar. Confira em Pedidos.' });
+    assert.strictEqual(S.aviso({ motivos: ['iguais', 'rede'], iguais: 5, abertas: ['a', 'b', 'c'] }).corpo, '5 unidades da mesma peça sem pagar · 3 reservas abertas da mesma rede na última hora. Confira em Pedidos.');
+    assert.strictEqual(S.aviso({}).corpo, 'Reserva fora do comum. Confira em Pedidos.');
+  });
+  await teste('TRAVA: o aviso nasce só quando o documento nasce (onDocumentCreated em suspeitas/), pelo aviso urgente único', async () => {
+    const src = require('fs').readFileSync(__dirname + '/index.js', 'utf8');
+    assert.ok(/onDocumentCreated\(\{ document: 'suspeitas\/\{id\}'/.test(src));
+    assert.ok(/avisaUrgente\(a\.titulo, a\.corpo, 'suspeita', ev\.params\.id\)/.test(src));
+    assert.strictEqual((src.match(/avisaAparelhos\(\(\) => true/g) || []).length, 1); // um só aviso que ignora o silêncio
+  });
   await teste('TRAVA: a reserva chama a suspeita depois de reservar, sem derrubar a reserva', async () => {
     const fs = require('fs'), src = fs.readdirSync(__dirname).filter((f) => /^ind.*\.js$/.test(f)).map((f) => fs.readFileSync(__dirname + '/' + f, 'utf8')).join('');
     assert.ok(/Suspeita\.confere\(susDb, String\(b\.pedido \|\| ''\), b\.itens, ipkDe\(req\), agora, r\.exp\)\.catch\(/.test(src));
