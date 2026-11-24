@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795527646.120042,
+   "r": "Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue."
+  },
+  {
    "t": 1795522630.1460133,
    "r": "Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795271213.0963643,
    "r": "Teste de compra de ponta a ponta (14/14, com limpeza) e vigia diário (1º recado: portas ok, 0 erros) no ar."
-  },
-  {
-   "t": 1795267764.6706243,
-   "r": "App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch."
   }
  ],
  "leu": 1795522598.826717
