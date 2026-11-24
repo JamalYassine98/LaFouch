@@ -158,7 +158,6 @@
   function vitProduto(ref) {
     var v = vitInfo(ref),
       a = attrOf(ref),
-      pp = S.pprice && S.pprice[ref],
       solar = v.tipo === 'solar',
       cs = vitCores(ref);
     return {
@@ -168,10 +167,10 @@
       mr: a.marca || '',
       // estojo/flanela (13/11, aprovado): tipo simples do estoque vai ao site como acessório ('Combina com') e é vendido no caixa como qualquer peça
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : (typeof tipoOf === 'function' && (tipoOf(v.tipo) || {}).simple) ? 'acessorio' : 'armacao',
-      n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
-      de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
+      n: sitePrecoOferta(ref, v.preco || 0, deHonesto(ref), v.tipo).n,
+      de: sitePrecoOferta(ref, v.preco || 0, deHonesto(ref), v.tipo).de,
       est: v.est,
-      cmx: siteCupMax(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
+      cmx: siteCupMax(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, deHonesto(ref), v.tipo).n),
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
       mat: a.material || '',

@@ -82,8 +82,8 @@
       nov: dEnt <= 30,
       dEnt: Math.round(dEnt),
       par: dPar >= 60 ? Math.round(dPar) : 0,
-      of: pr.ant > pr.novo ? Math.round((1 - pr.novo / pr.ant) * 100) : 0,
-      de: pr.ant > pr.novo ? pr.ant : 0,
+      of: deHonesto(ref) ? Math.round((1 - pr.novo / pr.ant) * 100) : 0, // 94: sem "de" honesto, sem "−N%"
+      de: deHonesto(ref),
       ate: pr.ant > pr.novo && pr.ate > now ? pr.ate : 0,
       ult: st > 0 && st <= 2,
       preco: preco,

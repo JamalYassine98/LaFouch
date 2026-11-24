@@ -69,7 +69,7 @@
         vivo = false;
         if (S.view !== 'estoque' || !S.det || e.touches.length !== 1) return;
         var t = e.target;
-        if (t.closest && t.closest('input,textarea,select,.modal,#editModal,#ofModal,button.fseta')) return;
+        if (t.closest && t.closest('input,textarea,select,.modal,#editModal,button.fseta')) return;
         if (rolavel(t)) return;
         X0 = e.touches[0].clientX;
         Y0 = e.touches[0].clientY;

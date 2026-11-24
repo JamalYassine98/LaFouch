@@ -319,9 +319,8 @@
     refs.forEach(function (ref) {
       var v = vitInfo(ref);
       if (!v || !(v.preco > 0)) return;
-      var pp = S.pprice && S.pprice[ref],
-        it = { tipo: v.tipo },
-        o = sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo);
+      var it = { tipo: v.tipo },
+        o = sitePrecoOferta(ref, v.preco || 0, deHonesto(ref), v.tipo);
       n++;
       if (o.de > o.n) {
         of++;

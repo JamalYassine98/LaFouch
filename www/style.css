@@ -182,9 +182,6 @@ select.in{appearance:auto}
 /* 134 (2d): na ficha do Inventário o preço, "% Oferta", o aviso, "No site" e as dobras ficam sem caixa — linhas finas no lugar */
 #detail .zcd{background:none;border:0;border-radius:0;padding:0}
 
-#detail .ofAbreBtn{background:none;border:1px solid var(--line);border-radius:999px;color:var(--fg);min-height:44px;font-weight:600}
-#detail .ofSt{border:0;padding:4px 0 0}
-#detail .ofSt.r .ofHd{font-size:14px;font-weight:600;letter-spacing:0;text-transform:none}
 #detail .siteChave{border-top:1px solid var(--line2,var(--line));border-bottom:1px solid var(--line2,var(--line));padding:12px 0}
 #detail .siteChave .scLin{min-height:44px}
 #detail .lrcard,#detail .cntP{border-bottom:1px solid var(--line2,var(--line));padding:13px 0}
@@ -569,19 +566,6 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .rascX{display:block;width:100%;margin:6px 0 0;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--mute)!important;font-size:13px;font-weight:500;min-height:32px;text-align:center;text-decoration:underline;text-underline-offset:3px}
 .go svg{flex:none;vertical-align:middle}
 
-#ofCard{display:flex;flex-direction:column;gap:10px}
-.ofBox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
-.ofRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.ofLb{font-size:12px;color:var(--mute)}
-.ofIn{font-size:20px;font-weight:700}
-.ofDsc{font-size:12px;color:var(--mute)}
-.ofSt{border:1px solid var(--ok);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
-.ofSt.w{border-color:var(--warn)}.ofSt.r{border-color:var(--bad)}
-.ofHd{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.ofSt.w .ofHd{color:var(--warn)}.ofSt.r .ofHd{color:var(--bad)}
-.ofTx{font-size:12px;color:var(--mute)}
-.ofTag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--okbg);color:var(--ok)}
-.ofOk{width:100%}
 
 .splitHd{display:flex;align-items:center;gap:8px}
 .okMini{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ok);color:var(--ok);display:inline-grid;place-items:center;flex:none}
@@ -593,19 +577,6 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 
 .fmTx b svg{flex:none}
 /* ficha: Preço digitável + botão Oferta + janela com % de desconto (27/10) */
-#precoCard .in{width:100%;font-size:20px;font-weight:700}
-.ofAbreBtn{display:flex;align-items:center;justify-content:center;width:100%;margin-top:10px;min-height:46px;border-radius:14px;border:1.5px solid var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--text);font:inherit;font-weight:600}
-.ofAbreBtn.on{background:color-mix(in srgb,var(--accent) 28%,transparent)}
-.ofAbreBtn:disabled{opacity:.5}
-#precoCard .ofSt{margin-top:10px}
-.ofModal{display:flex;flex-direction:column;gap:10px}
-.ofChips{display:flex;flex-wrap:wrap;gap:8px}
-.ofChips .chip{margin:0;transition:transform .18s,background .2s,border-color .2s}
-.ofChips .chip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 25%,transparent);animation:ofPulso .45s}
-@keyframes ofPulso{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
-.ofModal .ofCancel{width:100%;justify-content:center}
-.ofSt{transition:border-color .3s,color .3s}
-@media (prefers-reduced-motion:reduce){.ofChips .chip.on{animation:none}}
 .eRefRow{display:flex;align-items:center;gap:10px}.eRefRow #eRefH{flex:1 1 auto;min-width:0;margin:0}.eRefRow #eQuickBtn{flex:0 0 auto;margin:0;white-space:normal;max-width:48%;text-align:center}.eRefRow:not(:has(#eRefH:not(:empty))):not(:has(#eQuickBtn:not([hidden]))){display:none}
 .eRefRow{flex-wrap:wrap}.eRefRow #eSim{order:3;flex:1 1 100%}.eRefRow #eSim:empty{display:none}
 /* Editar produto: etapas livres e rodapé fixo (27/10) */
@@ -625,8 +596,6 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 #detail.fichaIn .detgrid>.col:last-child>*:nth-child(4){animation-delay:.46s}
 #detail.fichaIn .detgrid>.col:last-child>*:nth-child(n+5){animation-delay:.53s}
 @keyframes ofMola{0%{transform:translateY(110%)}70%{transform:translateY(-6px)}100%{transform:none}}
-#ofModal{align-items:flex-end}
-#ofModal .ofModal{animation:ofMola .8s cubic-bezier(.2,.9,.3,1) both;border-radius:26px 26px 0 0;width:100%;max-width:520px!important}
 @keyframes siteOnda{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}100%{box-shadow:0 0 0 22px transparent}}
 .siteWave{animation:siteOnda .8s ease-out}
 @keyframes siteLuz{0%{opacity:0;transform:translateY(0) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translateY(-62px) scale(1)}}
@@ -636,7 +605,7 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 #edLixeira.on svg{transform-origin:25% 30%;animation:lixoTampa 1.3s ease both}
 #edLixoAviso{animation:ofMola .7s cubic-bezier(.2,.9,.3,1) both}
 @keyframes telaSobe{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#detail.fichaIn .pbox,#detail.fichaIn .detgrid>.col:last-child>*,#ofModal .ofModal,.siteWave,#edLixoAviso{animation:none}}
+@media (prefers-reduced-motion:reduce){#detail.fichaIn .pbox,#detail.fichaIn .detgrid>.col:last-child>*,.siteWave,#edLixoAviso{animation:none}}
 
 /*NVBTN*/
 .nvBtn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:7px;transition:background .25s,box-shadow .25s,transform .12s}
@@ -3145,3 +3114,19 @@ p.cpE{margin:0 0 8px;font-size:14px}
 #v-dash .tiLb{margin:24px 0 4px}#v-dash .cnt.lx>.tiLb:first-child{margin-top:8px}
 #v-dash .tiVz{margin:8px 0 0;color:var(--mute)}
 #v-dash .rgMeta span small{display:block;color:var(--mute);font-size:13px;margin-top:2px}#v-dash .rgTx .hint{margin:8px 0 0}
+/* 64 · Preço e Oferta na ficha: linhas que só mostram (tocar abre a janela Oferta) */
+.ofFicha{gap:0}.ofL{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);text-align:left;font:inherit;cursor:pointer}
+.ofL>span{flex:1;min-width:0}.ofL b{display:block;font-size:16px;font-weight:600}.ofL small{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+.ofL small i{font-style:normal}.ofL small i.r{color:var(--bad)}.ofL small i.w{color:var(--warn)}.ofL em{font-style:normal;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ofL:disabled{opacity:.6}.ofL b,.ofL small,.ofL em,.ofJn .cxL>span,.ofJn .cxL>b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ofJn .cxL>span{min-width:0}
+.ofFicha[data-cabe='1'] .ofL b,.ofFicha[data-cabe='1'] .ofL em{font-size:15px}.ofFicha[data-cabe='1'] .ofL small{font-size:12.5px}.ofFicha[data-cabe='2'] .ofL b,.ofFicha[data-cabe='2'] .ofL em{font-size:14.5px}.ofFicha[data-cabe='2'] .ofL small{font-size:12px}.ofFicha[data-cabe='3'] .ofL b,.ofFicha[data-cabe='3'] .ofL em{font-size:14px}.ofFicha[data-cabe='3'] .ofL small{font-size:11.5px}
+.ofJn .ljCorpo[data-cabe='1'] .cxL>*{font-size:15px}.ofJn .ljCorpo[data-cabe='2'] .cxL>*{font-size:14.5px}.ofJn .ljCorpo[data-cabe='3'] .cxL>*{font-size:14px}
+/* 64 + 94 + 96c · a janela Oferta: campos em linhas finas, o aviso do Titan e o "de" honesto */
+.ofJn .ofNm{margin:0 0 4px;color:var(--mute);font-size:14px}
+.ofJn .cxL{min-height:56px}.ofJn .cxL[hidden]{display:none}.ofJn .ofCp{background:none;border:0;color:var(--fg);font:inherit;font-weight:600;text-align:right;width:9em;max-width:55%;padding:8px 0}
+.ofJn .ofPct{display:flex;align-items:center;gap:4px}.ofJn .ofPct .ofCp{width:3.5em}.ofJn .ofPct i{font-style:normal;color:var(--mute)}
+.ofJn .ofTi p{margin:12px 0 0;font-size:14px;line-height:1.45;color:var(--mute)}.ofJn .ofTi p.r{color:var(--bad)}.ofJn .ofTi p.w{color:var(--warn)}.ofJn .ofTi p.o{color:var(--ok)}
+.ofJn .ofDe{display:flex;align-items:center;gap:12px;min-height:56px;border-bottom:1px solid var(--line);font-size:15px}.ofJn .ofDe i{width:10px;height:10px;border-radius:50%;flex:none;background:var(--warn)}.ofJn .ofDe i.ok{background:var(--ok)}
+.ofJn #ofSalva{width:100%;margin-top:16px}.ofJn .ofFim{display:block;margin:8px auto 0}
+.ofJn .cxL b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}.ofJn .ofDt{position:relative}.ofJn .ofDt input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.dHd .pl78{margin:-6px 0}/* ⏻ e + do título: centro com centro (L2, 63) */

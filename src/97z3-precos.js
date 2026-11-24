@@ -13,7 +13,7 @@
   // ---------- os setores: UMA tabela (chave, título, frase de baixo do título, ícone) ----------
   var TI_SET = {
     regras: ['Regras', 'O que cada preço precisa cobrir', 'regras'],
-    ofertas: ['Ofertas', '', 'oferta'],
+    ofertas: ['Ofertas', 'Descontos que o ' + LF_TITAN + ' confere', 'oferta', 'ofNova'], // 4o campo: a ação do + redondo na linha do título
     atacado: ['Atacado', '', 'ata'],
     ferr: ['Ferramentas', '', 'calc'],
     hist: ['Histórico', 'O que mudou de preço, quando e por quê', 'hist'],
@@ -95,17 +95,7 @@
   var TI_TELA = {
     corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
     regras: regrasHtml,
-    ofertas: function () {
-      var D = cntDecisoes().filter(function (x) { return x.t === 'pa'; }), nAc = D.reduce(function (a, x) { return a + x.n; }, 0), O = tiOfertasNoAr(), dsc = cntDescontosTxt(new Date().getMonth());
-      return (D.length ? '<section class="card col cntD"><div class="lbl">O ' + esc(LF_TITAN).toUpperCase() + ' SUGERE · ' + nAc + '</div>' + D.map(cntDecisaoHtml).join('') +
-          '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div></section>' : '') +
-        '<div class="lbl tiLb">OFERTAS NO AR · ' + O.length + '</div>' +
-        (O.length ? '<section class="nvLista">' + O.map(function (it) {
-          var o = S.pprice[it.ref], p = tFor(it).price;
-          return tiLinha('tiPeca', it.ref, 'oferta', pn(it.ref), (o.ate ? 'até ' + fData(o.ate) + ' · ' : '') + gs(p));
-        }).join('') + '</section>' : '<div class="hint tiVz">Nenhuma peça em oferta agora.</div>') +
-        (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '');
-    },
+    ofertas: ofertasHtml,
     atacado: function () {
       var B = {};
       tiTabBaixas().forEach(function (x) { B[x.tab.id] = x; });
@@ -146,6 +136,54 @@
       dFold('rgJei', 'Seu jeito de cobrar · ' + (apr ? 'aprendido' : 'aprendendo'), 'aprende com cada correção', '', '<p class="hint">Cada preço que você corrige ou cobra ensina o ' + esc(LF_TITAN) + ' a pôr o preço do seu jeito' + (apr ? '.' : ': ainda está juntando ' + nDias(Math.max(0, 30 - aprendeDias())) + ' de vendas.') + '</p>') +
       '<div class="lbl tiLb">SEU OBJETIVO</div><div class="cxL rgMeta"><span>Meta de lucro do mês<small>não muda os preços</small></span><b>' + (lm.metaG > 0 ? gs(lm.metaG) : '—') + '</b></div>';
   }
+  // ---------- setor Ofertas (63): o que está no ar, os cupons (só mostram) e como o Titan decide ----------
+  // O "+" do título abre a janela Oferta (ofertaJanela, a mesma da ficha) com "escolher a peça" antes.
+  function ofertasHtml() {
+    var D = cntDecisoes().filter(function (x) { return x.t === 'pa'; }), nAc = D.reduce(function (a, x) { return a + x.n; }, 0), O = tiOfertasNoAr(), dsc = cntDescontosTxt(),
+      vis = {}, fol = [], sem = 0, t = null;
+    (S.items || []).forEach(function (it) {
+      if (vis[it.ref] || !(it.qty > 0) || it.bulk || isSimple(it.tipo)) return;
+      vis[it.ref] = 1;
+      var n = ppNormal(S.pprice[it.ref]) || tFor(it).price;
+      if (!titanEstado(it.ref, n).piso) return;
+      var f = titanFolga(it.ref, n);
+      fol.push(f);
+      if (!f) sem++;
+    });
+    try { t = typeof temaAtual === 'function' ? temaAtual() : null; } catch (e) {}
+    var fMin = fol.length ? Math.min.apply(null, fol) : 0, nT = t && typeof temaSugestao === 'function' ? temaSugestao(t).n : 0;
+    return (D.length ? '<section class="card col cntD"><div class="lbl">O ' + esc(LF_TITAN).toUpperCase() + ' SUGERE · ' + nAc + '</div>' + D.map(cntDecisaoHtml).join('') +
+        '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div></section>' : '') +
+      '<div class="lbl tiLb">OFERTAS NO AR · ' + O.length + '</div>' +
+      (O.length ? '<section class="nvLista">' + O.map(function (it) {
+        var o = S.pprice[it.ref], de = deHonesto(it.ref);
+        return tiLinha('ofAbre', it.ref, 'oferta', pn(it.ref), gs(tFor(it).price) + ' · ' + (de ? 'de ' + gs(o.ant) : 'sem "de"') + (o.ate ? ' · até ' + fd(o.ate) : ''));
+      }).join('') + '</section>' : lfVazioHtml(ICO_D.cup, 'Nenhuma oferta no ar', 'Quando uma peça parar de girar, o ' + LF_TITAN + ' sugere a oferta aqui e você aceita.')) +
+      '<div class="lbl tiLb">CUPONS</div>' +
+      dFold('ofFol', 'Folga de hoje · até ' + fMin + '%', sem ? cntPl(sem, 'preço sem folga', 'preços sem folga') : 'todos os preços com folga', sem ? 'var(--warn)' : '',
+        '<p class="hint">É o maior desconto que deixa todas as peças na sua margem hoje. A janela Oferta mostra a folga de cada peça e avisa quando o desconto passa dela.</p>') +
+      '<section class="nvLista">' + (t ? tiLinha('temaVer', '', 'dia', t.nome, 'evento · ' + (nT ? cntPl(nT, 'peça entra', 'peças entram') : 'nenhuma peça entra ainda')) : '') +
+      tiLinha('cupAbre', '', 'cup', 'Cartões dos clientes', 'os cupons moram em Clientes › Cartões') + '</section>' +
+      '<div class="lbl tiLb">COMO O ' + esc(LF_TITAN).toUpperCase() + ' DECIDE</div>' +
+      dFold('ofPar', 'Peça parada', 'a partir de 60 dias sem vender', '', '<p class="hint">Com o preço automático ligado, a peça parada ganha oferta em degraus (60 dias −5%, 75 −10%, 90 −15%, 120 = a margem mínima) e volta ao preço quando vende de novo. Nunca abaixo do mínimo.</p>') +
+      dFold('ofDe', 'De/por honesto', 'o "de" é um preço que já vendeu', '', '<p class="hint">O preço riscado ("de") só aparece se foi o preço da peça por 30 dias ou mais e vendeu nesse preço. Fora disso a oferta mostra só o preço dela, no app, no site e nos posts.</p>') +
+      (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '');
+  }
+  // "+" de Ofertas: escolher a peça e abrir a MESMA janela Oferta
+  ACT.ofNova = function () {
+    var vis = {}, L = (S.items || []).filter(function (it) {
+      if (vis[it.ref] || !(it.qty > 0) || it.bulk || isSimple(it.tipo) || !(tFor(it).price > 0)) return false;
+      vis[it.ref] = 1;
+      return !(S.pprice[it.ref] && S.pprice[it.ref].ant > S.pprice[it.ref].novo);
+    });
+    if (!L.length) return lfToast('Nenhuma peça com preço para pôr em oferta', 'atencao');
+    OF_ESC = lfJanela({ titulo: 'Escolher a peça', cls: 'escJn', monta: function (c) {
+      c.innerHTML = '<section class="nvLista">' + L.map(function (it) { return tiLinha('ofNovaPeca', it.ref, 'oferta', pn(it.ref), it.ref + ' · ' + gs(tFor(it).price)); }).join('') + '</section>';
+    } });
+  };
+  ACT.ofAbre = function (ref) { ofertaJanela(ref); }; // a janela Oferta (src/55-produtos-catalogo.js): ficha, Ofertas no ar e o "+"
+  var OF_ESC = null;
+  ACT.ofNovaPeca = function (ref) { if (OF_ESC) OF_ESC.fecha(true); OF_ESC = null; ofertaJanela(ref); };
   // o colchão (era a janela "Como o app te protege" do Câmbio): agora a dobra Colchão das Regras
   function colchaoHtml() {
     var c = colchao(),
@@ -172,8 +210,7 @@
         : '') +
       '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
     );
-  }  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
-  ACT.tiPeca = function (ref) { if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref); };
+  }
   function cntItem(id) {
     var p = String(id).split('|'), g = cntDecisoes().filter(function (x) { return x.t === 'pa' && x.kind === p[1]; })[0];
     return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;

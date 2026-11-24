@@ -550,27 +550,28 @@ async def main():
             fechou = await pg.locator('#editModal').count() == 0
             await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
 
-            # Oferta no Inventário: descontos prontos, aviso de piso e encerrar
+            # 64 + 94 + 96c: a ficha só MOSTRA Preço e Oferta (linhas); tocar abre a janela Oferta — Preço normal, Preço da oferta (G$),
+            # Desconto, Até (DD/MM), o aviso do Titan, o "de" honesto, "Na loja e no site" e Salvar; sem US$, sem −5%…−30%, sem Cancelar; Encerrar volta ao preço.
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.pprice = {}; window.__LF.render(); }"); await pg.wait_for_timeout(300)
-            tem = await pg.evaluate("() => [!!document.getElementById('pvPreco'), !!document.getElementById('ofAbre'), !!document.getElementById('pvSt'), !document.getElementById('ofCard')]")
-            await pg.fill('#pvPreco', '25'); await pg.locator('#pvPreco').press('Tab'); await pg.wait_for_timeout(200)
-            tipado = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.novo, o.nu, Math.round(25 * window.__LF.fxLoja('usd') / 500) * 500] : null }")
-            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
-            jan = await pg.evaluate("() => [!!document.getElementById('ofCard'), document.querySelectorAll('#ofCard .ofPc').length]")
-            await pg.locator('#ofCancel').click(); await pg.wait_for_timeout(200)
-            fechou = await pg.evaluate("() => !document.getElementById('ofCard')")
-            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
-            base = await pg.evaluate("() => { const m = document.querySelector('#ofCard .ofRow b'); return parseInt(m.textContent.replace(/\\D/g, ''), 10) }")
-            await pg.locator('#ofCard .ofPc[data-pc="20"]').click(); await pg.wait_for_timeout(750)
-            pcv = await pg.evaluate("() => parseFloat(document.getElementById('ofPreco').value.replace(',', '.')) * window.__LF.fxLoja('usd')")
-            await pg.locator('#ofOk').click(); await pg.wait_for_timeout(300)
-            of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100)] : null }")
-            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
-            tem2 = await pg.evaluate("() => [!!document.getElementById('ofAte'), !!document.getElementById('ofFim')]")
-            await pg.locator('#ofFim').click(); await pg.wait_for_timeout(300)
-            of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? o.ant === undefined : true }")
-            await checa('oferta: Preço digitável + botão Oferta + status; janela com % de desconto, cancelar, data opcional e encerrar', tem == [True, True, True, True] and tipado and tipado[0] == tipado[2] and tipado[1] == 25 and jan == [True, 6] and fechou and abs(pcv - base * 0.8) <= 1000 and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, tipado, jan, fechou, base, pcv, of1, tem2, of2])
+            tem = await pg.evaluate("() => [!document.getElementById('pvPreco'), !document.getElementById('ofAbre'), [...document.querySelectorAll('#detail .ofL b')].map(b => b.textContent).join(), /Titan/.test(document.querySelector('#detail .ofLP small').textContent)]")
+            await pg.locator('#detail .ofLO').click(); await pg.wait_for_timeout(600)
+            jan = await pg.evaluate("() => { const j = document.querySelector('.ofJn:not(.ljSai)'), t = j ? j.innerText : ''; return [!!j, [...j.querySelectorAll('.cxL:not([hidden])>span:first-child')].map(x => x.textContent).join('|'), !/US\\$|Cancelar|−5%|mm\\/dd/.test(t), !!j.querySelector('#ofSalva'), !!j.querySelector('#ofTi p'), !!j.querySelector('#ofDe')]; }")
+            base = await pg.evaluate("() => parseInt(document.querySelector('.ofJn .cxL b').textContent.replace(/\\D/g, ''), 10)")
+            await pg.fill('.ofJn #ofDsc', '20'); await pg.wait_for_timeout(200)
+            por = await pg.evaluate("() => parseInt(document.querySelector('.ofJn #ofPor').value.replace(/\\D/g, ''), 10)")
+            await pg.evaluate("() => { const i = document.querySelector('.ofJn #ofAte'); i.value = '2026-11-30'; i.dispatchEvent(new Event('change')); }")
+            ate = await pg.evaluate("() => document.querySelector('.ofJn #ofAteTx').textContent")
+            await pg.locator('.ofJn #ofSalva').click(); await pg.wait_for_timeout(700)
+            of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100), new Date(o.ate).getDate(), !document.querySelector('.ofJn:not(.ljSai)'), document.querySelector('#detail .ofLO b').textContent] : null }")
+            await pg.locator('#detail .ofLP').click(); await pg.wait_for_timeout(600)
+            tem2 = await pg.evaluate("() => [!!document.querySelector('.ofJn:not(.ljSai) #ofFim'), document.querySelector('.ofJn:not(.ljSai) #ofAteTx').textContent]")
+            await pg.locator('.ofJn:not(.ljSai) #ofFim').click(); await pg.wait_for_timeout(600)
+            of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return [o ? o.ant === undefined : true, document.querySelector('#detail .ofLO b').textContent] }")
+            await checa('64/94/96c: ficha com Preço e Oferta (só mostram) e UMA janela Oferta em G$ — desconto ↔ preço, Até DD/MM, aviso do Titan, "de" honesto, Salvar e Encerrar',
+                        tem == [True, True, 'Preço,Oferta', True] and jan[0] and jan[1] in ('Preço normal|Preço da oferta|Desconto|Até|Na loja e no site', 'Preço normal|Preço da oferta|Desconto|Até|Na loja|No site')
+                        and all(jan[2:]) and abs(por - base * 0.8) <= 1000 and ate == '30/11' and of1 and of1[0] and 18 <= of1[1] <= 22 and of1[2] == 30 and of1[3] and of1[4] == 'Em oferta' and tem2 == [True, '30/11'] and of2 == [True, 'Oferta'],
+                        [tem, jan, base, por, ate, of1, tem2, of2])
 
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')
@@ -2761,7 +2762,10 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.todos = false; window.__LF.setView('estoque'); }"); await pg.wait_for_timeout(500)
             ref0 = await pg.evaluate("() => document.querySelector('#rows .pcard[data-ref]').getAttribute('data-ref')")
+            # 94: sem venda no preço de antes, o cartão mostra só o preço da oferta; com venda nele (e 30 dias), mostra o "de"
             await pg.evaluate("r => { const S = window.__LF.S; S.pprice[r] = {novo: 123500, ant: 200000}; window.__LF.render(); }", ref0); await pg.wait_for_timeout(300)
+            semDe = await pg.evaluate("r => document.querySelector('#rows .pcard[data-ref=\"' + r + '\"] .zp').innerText", ref0)
+            await pg.evaluate("r => { const S = window.__LF.S; S.sales.push({ id: 'tde2', ref: r, ts: Date.now() - 864e5, lista: 200000, qty: 1 }); window.__LF.render(); }", ref0); await pg.wait_for_timeout(300)
             txt = await pg.evaluate("r => document.querySelector('#rows .pcard[data-ref=\"' + r + '\"] .zp').innerText", ref0)
             site = await pg.evaluate("r => document.querySelectorAll('#rows .zch').length === 0", ref0)
             await pg.evaluate("() => document.getElementById('btnSelP').click()"); await pg.wait_for_timeout(300)
@@ -2774,7 +2778,7 @@ async def main():
             await pg.locator('.modal-box button:has-text("Reajustar")').click(); await pg.wait_for_timeout(400)
             apos = await pg.evaluate("() => Object.values(window.__LF.S.pprice).map(p => p.novo)")
             total += 1
-            ok = '200.000' in txt and '123.500' in txt and site is True and nsel == 2 and tem3[-3:] == ['Reajustar', 'Aplicar mesmo assim', 'Cancelar'] and all(v >= 1000 for v in apos) and len([v for v in apos if v > 1000]) >= 1 and not pg.erros
+            ok = '200.000' not in semDe and '123.500' in semDe and txt.startswith('G$ 200.000') and site is True and nsel == 2 and tem3[-3:] == ['Reajustar', 'Aplicar mesmo assim', 'Cancelar'] and all(v >= 1000 for v in apos) and len([v for v in apos if v > 1000]) >= 1 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'produtos: preço antigo/novo, canais, aviso de piso e aplicar em grupo com Reajustar')
             if not ok: falhas.append('produtos'); print('        veio', txt, site, nsel, tem3, apos, pg.erros)
             await pg.close()
@@ -4410,7 +4414,7 @@ async def main():
               R.tela = [S.view, v.querySelector('.top h1').textContent, !!document.querySelector('#v-parsob > .nvVs'), (document.querySelector('#v-parsob > .nvVs') || {}).textContent,
                 v.querySelectorAll('.psPar .lcL [data-act=lcOferta]').length === Math.min(24, L.invParados().length), /Sobrando · \\d+/i.test(v.innerText)];
               const of = v.querySelector('[data-act=lcOferta]'), ref = of.getAttribute('data-id').split('|').slice(1).join('|'); of.click(); await w(500);
-              R.oferta = [S.view, S.ofOpen === ref, !!document.getElementById('ofModal')]; 
+              R.oferta = [S.view, !!document.querySelector('.ofJn:not(.ljSai)'), (document.querySelector('.ofJn .ofNm') || {}).textContent.indexOf(ref) >= 0];  // 64: a MESMA janela Oferta da ficha
               return R; }""")
             total += 1
             ok = (got['p1'][0] == 24 and got['p1'][1] == 'Anterior 1 de 3 Próxima' and got['p1'][2] and got['p1'][3] and got['p2'] == [24, '2 de 3']
@@ -4961,6 +4965,34 @@ async def main():
             if not ok: falhas.append('62 regras'); print('        veio', got, velho, pg.erros)
             await pg.close()
 
+            # 63 + 94 (setor Ofertas e de/por honesto): "+" redondo na linha do título (centro com centro) abre "Escolher a peça" e depois a MESMA janela Oferta;
+            # OFERTAS NO AR · N → CUPONS → COMO O TITAN DECIDE; o "de" só aparece (Catálogo, site, Marketing) se o preço normal valeu 30 dias e vendeu nele.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              L.inicioGo('prec'); await w(400); L.ACT.tiAbre('ofertas'); await w(500); const d = document.getElementById('v-dash');
+              const h = d.querySelector('.dHdT').getBoundingClientRect(), m = d.querySelector('.dHd .tiMais'), mb = m && m.getBoundingClientRect();
+              R.mais = !!m && Math.abs((h.top + h.height / 2) - (mb.top + mb.height / 2)) <= 3 && mb.height >= 44; R.maisM = [h.top, h.height, mb && mb.top, mb && mb.height];
+              R.lb = [...d.querySelectorAll('.tiLb')].map(x => x.textContent.replace(/ · \\d+$/, '')).join('|');
+              m.click(); await w(600); const esc = document.querySelector('.escJn:not(.ljSai)'), b = esc && esc.querySelector('[data-act=ofNovaPeca]'), ref = b && b.dataset.id;
+              b.click(); await w(700); const jn = document.querySelector('.ofJn:not(.ljSai)');
+              R.jan = !!jn && !document.querySelector('.escJn:not(.ljSai)') && jn.querySelector('.ofNm').textContent.indexOf(ref) >= 0;
+              // de/por: oferta com o preço normal novo (há 5 dias) → sem "de"; o mesmo preço antigo e vendido → com "de"
+              const o = S.pprice[ref] = { novo: 2000000, ant: 3000000, desde: Date.now() - 5 * 864e5 };
+              R.novo = [L.deHonesto(ref), L.deInfo(ref, 3000000).mot];
+              o.desde = Date.now() - 40 * 864e5; S.sales.push({ id: 'tde', ref, ts: Date.now() - 20 * 864e5, lista: 3000000, qty: 1, tipo: 'sem', preco: 3000000 });
+              R.velho = [L.deHonesto(ref), L.deInfo(ref, 3000000).ok];
+              S.sales = S.sales.filter(x => x.id !== 'tde');
+              R.semVenda = L.deHonesto(ref);
+              return R; }""")
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            velho = sorted(f for f, t in fontes.items() if re.search(r'function ofertaModal|S\.ofOpen|pp && pp\.ant > v\.preco \? pp\.ant', t))
+            total += 1
+            ok = (got['mais'] and got['lb'] == 'OFERTAS NO AR|CUPONS|COMO O TITAN DECIDE' and got['jan'] and got['novo'][0] == 0 and 'há 5 dias' in got['novo'][1]
+                  and got['velho'] == [3000000, True] and got['semVenda'] == 0 and velho == [] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '63/94: Ofertas com o "+" na linha do título (abre a mesma janela Oferta), no ar · cupons · como decide; "de" só com 30 dias e venda')
+            if not ok: falhas.append('63 ofertas de por'); print('        veio', got, velho, pg.erros)
+            await pg.close()
+
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, D = Date, w = ms => new Promise(r => setTimeout(r, ms));
@@ -5088,21 +5120,20 @@ async def main():
             if not ok: falhas.append('134 ficha linhas'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # 134 (2d): na ficha do Inventário o preço, "% Oferta", o aviso, "No site" e as dobras não têm caixa — "% Oferta" é pílula neutra,
-            # o aviso de prejuízo é frase vermelha (14 px, sem caixa-alta), "No site" e as dobras são linhas com linha fina e nascem sem a classe de cartão.
+            # 134 (2d) + 64: na ficha do Inventário Preço, Oferta, "No site" e as dobras não têm caixa — Preço e Oferta são linhas (≥ 64 px, linha fina),
+            # o estado do Titan vai na frase da linha Preço; "No site" e as dobras são linhas com linha fina e nascem sem a classe de cartão.
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
               L.setView('estoque'); await w(500); document.querySelector('#v-estoque .pcard').click(); await w(900);
               const d = document.getElementById('detail'), c = q => getComputedStyle(d.querySelector(q)), T = 'rgba(0, 0, 0, 0)', linha = (x, k) => x['border' + k + 'Width'] === '1px' && x['border' + k + 'Color'] !== T;
-              const pc = c('#precoCard'), of = c('#ofAbre'), st = c('#pvSt'), hd = d.querySelector('#pvSt .ofHd'), si = c('#edSite'), lr = c('.lrcard'), cp = c('.cntP');
-              return [pc.backgroundColor === T && pc.borderTopWidth === '0px' && pc.paddingLeft === '0px', c('#precoCard .lbl').fontSize === '12px',
-                of.backgroundColor === T && parseFloat(of.borderTopLeftRadius) > 100 && d.querySelector('#ofAbre').getBoundingClientRect().height >= 44,
-                st.borderTopWidth === '0px' && (!hd || (getComputedStyle(hd).textTransform === 'none' && getComputedStyle(hd).fontSize === '14px')),
+              const pl = [...d.querySelectorAll('.ofL')], si = c('#edSite'), lr = c('.lrcard'), cp = c('.cntP');
+              return [pl.length === 2 && pl.every(b => getComputedStyle(b).backgroundColor === T && linha(getComputedStyle(b), 'Bottom') && b.getBoundingClientRect().height >= 64), !d.querySelector('#precoCard,#ofAbre,#pvSt'),
+                pl.every(b => getComputedStyle(b.querySelector('b')).fontSize === '16px'), /^Titan · /.test(pl[0].querySelector('small').textContent),
                 si.backgroundColor === T && linha(si, 'Top') && linha(si, 'Bottom') && si.borderLeftWidth === '0px', [lr, cp].every(x => x.backgroundColor === T && linha(x, 'Bottom') && x.borderLeftWidth === '0px'),
                 !d.querySelector('.siteChave.card, .lrcard.card, .cntP.card')]; }""")
             total += 1
             ok = got == [True] * 7 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + '134 (2d): ficha sem caixas — preço, "% Oferta" pílula neutra, aviso como frase, "No site" e dobras em linhas finas')
+            print(('  ok  ' if ok else ' FALHA ') + '134 (2d) + 64: ficha sem caixas — Preço e Oferta em linhas (só mostram), o Titan na frase, "No site" e dobras em linhas finas')
             if not ok: falhas.append('134 ficha sem caixas'); print('        veio', got, pg.erros)
             await pg.close()
 

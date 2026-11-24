@@ -27,10 +27,28 @@
   // Grava um preço digitado em dólar (k = 'novo' ou 'ant') e já calcula os guaranis.
   function ppPutUsd(o, k, u) {
     var nk = k === 'novo' ? 'nu' : 'au',
-      gk = k === 'novo' ? 'gn' : 'ga';
+      gk = k === 'novo' ? 'gn' : 'ga',
+      n0 = ppNormal(o);
     o[nk] = u;
     o[k] = gsDeUsd(u);
     o[gk] = o[k];
+    if (ppNormal(o) !== n0) o.desde = Date.now(); // 94: desde quando vale o preço normal (o "de" honesto precisa de 30 dias)
+  }
+  // o preço normal da peça (em oferta, o de antes da oferta)
+  function ppNormal(o) { return o ? (o.ant > o.novo ? o.ant : o.novo || 0) : 0; }
+  // 94 · de/por honesto (um lugar só): o "de" só aparece se foi o preço praticado por 30 dias ou mais E vendeu nesse preço.
+  // Vale para o Catálogo, o site, os cartões e o Marketing; a janela Oferta mostra o porquê.
+  function deInfo(ref, normal) {
+    var o = S.pprice[ref] || {}, dias = o.desde ? Math.floor((Date.now() - o.desde) / DAY) : 999,
+      vend = normal > 0 && (S.sales || []).some(function (s) { return !s.estorno && s.ref === ref && (+s.lista || 0) >= normal * 0.99 && (!o.desde || s.ts >= o.desde); });
+    if (!(normal > 0)) return { ok: false, mot: '' };
+    if (dias < 30) return { ok: false, mot: 'Sem "de": ' + gs(normal) + ' é o preço há ' + nDias(dias) };
+    if (!vend) return { ok: false, mot: 'Sem "de": ' + gs(normal) + ' ainda não vendeu' };
+    return { ok: true, mot: 'Com "de": ' + gs(normal) + ' é o preço há mais de 30 dias e já vendeu' };
+  }
+  function deHonesto(ref) {
+    var o = S.pprice[ref];
+    return o && o.ant > o.novo && deInfo(ref, o.ant).ok ? o.ant : 0;
   }
   S.pcanal = {}; // código do produto -> { site, wpp, loja } (true/false). Sem registro: só a loja.
   S.selMode = false; // selecionando produtos para aplicar preço em grupo
@@ -99,7 +117,7 @@
     if (atual > 0) {
       var p = mk('div', 'zp');
       p.innerHTML =
-        (pr.ant > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>' + (typeof invSinal === 'function' ? invSinal(ref, tipo, ps) : '');
+        (deHonesto(ref) > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>' + (typeof invSinal === 'function' ? invSinal(ref, tipo, ps) : '');
       var anchor = card.querySelector('.cell');
       card.insertBefore(p, anchor || null);
     }
@@ -116,59 +134,29 @@
     }
   }
 
-  // Cartões “Preço” e “Onde aparece” na ficha do produto.
+  // 64 · Preço e Oferta na ficha: linhas que só MOSTRAM o que o Titan cuida; tocar abre a janela Oferta (uma só, ofertaJanela).
+  // Saíram no mesmo passo o campo "Preço (US$)", o botão "% Oferta" e a frase de piso/trava (o estado vai na linha Preço).
   function fichaExtra(ref, tipo) {
-    var wrap = mk('div', 'col');
-    wrap.style.gap = '10px';
-    var pr = S.pprice[ref] || {},
+    var wrap = mk('div', 'col ofFicha'),
+      pr = S.pprice[ref] || {},
       atual = precoAtual(ref, tipo),
-      ps = pisoDoRef(ref, tipo),
-      cn = canalDe(ref),
-      est = estoqueDoRef(ref, tipo);
-    // Cartão Preço: um campo digitável, o botão Oferta e o texto de situação (piso/trava)
-    var emOf0 = pr.ant > atual && atual > 0,
-      normal = emOf0 ? pr.ant : atual;
-    var c1 = mk('div', 'zcd');
-    c1.id = 'precoCard';
-    c1.appendChild(mk('div', 'lbl', 'Preço (US$)'));
-    var pin = mk('input', 'in zfoco');
-    pin.id = 'pvPreco';
-    pin.setAttribute('inputmode', 'decimal');
-    pin.setAttribute('aria-label', 'Preço do produto em dólares');
-    pin.value = normal > 0 ? usdTxtDeGs(normal) : '';
-    pin.placeholder = 'Preço em US$';
-    var pgs = mk('div', 'hint', normal > 0 ? precoRG(normal) : '');
-    pgs.id = 'pvGs';
-    pgs.style.margin = '4px 0 0';
-    pin.oninput = function () {
-      var u = campoParaUsd(pin.value);
-      pgs.textContent = u > 0 ? precoRG(gsDeUsd(u)) : '';
+      emOf = pr.ant > atual && atual > 0,
+      normal = emOf ? pr.ant : atual,
+      st = titanEstado(ref, normal),
+      de = deHonesto(ref);
+    var linha = function (cls, tit, sub, subCls, val) {
+      var b = mk('button', 'ofL ' + cls);
+      b.type = 'button';
+      b.setAttribute('data-act', 'ofAbre');
+      b.setAttribute('data-id', ref);
+      b.innerHTML = '<span><b>' + tit + '</b><small' + (subCls ? ' class="' + subCls + '"' : '') + '>' + sub + '</small></span>' + (val ? '<em>' + val + '</em>' : '');
+      if (!(atual > 0)) b.disabled = true;
+      return b;
     };
-    pin.onchange = function () {
-      var v = campoParaUsd(pin.value),
-        o = S.pprice[ref] || {};
-      if (emOf0) {
-        if (v > 0 && gsDeUsd(v) > o.novo) ppPutUsd(o, 'ant', v);
-      } else if (v > 0) ppPutUsd(o, 'novo', v);
-      else {
-        delete o.novo;
-        delete o.nu;
-        delete o.gn;
-      }
-      if (o.novo || o.ant) S.pprice[ref] = o;
-      else delete S.pprice[ref];
-      saveSoon();
-      render();
-    };
-    c1.appendChild(pin);
-    c1.appendChild(pgs);
-    var ob = btn('ofAbreBtn' + (emOf0 ? ' on' : ''), emOf0 ? '% Em oferta · ' + gs(atual) + ' (−' + Math.round((1 - atual / pr.ant) * 100) + '%)' : '% Oferta', function () {
-      S.ofOpen = ref;
-      render();
-    });
-    ob.id = 'ofAbre';
-    ob.disabled = !(atual > 0);
-    c1.appendChild(ob);
+    wrap.appendChild(linha('ofLP', 'Preço', esc(LF_TITAN) + ' · <i class="' + st.cl + '">' + esc(st.t) + '</i>', '', atual > 0 ? gs(normal) : 'sem preço'));
+    wrap.appendChild(emOf
+      ? linha('ofLO on', 'Em oferta', (de ? 'de ' + gs(pr.ant) : 'sem "de"') + (pr.ate > 0 ? ' · até ' + fd(pr.ate) : ''), '', gs(atual))
+      : linha('ofLO', 'Oferta', 'nenhuma', '', ''));
     // v422: preço automático ligado — cadeado para o app não mexer neste produto
     if (S.pAuto && S.pAuto.on) {
       var trv = !!(S.pTrava && S.pTrava[ref]),
@@ -177,39 +165,100 @@
         }).pop(),
         lk = mk('div', 'paLock');
       lk.innerHTML =
-        '<span class="hint" style="margin:0">' + (trv ? 'travado · o app não mexe' : 'automático' + (um ? ' · mudou há ' + Math.max(0, Math.floor((Date.now() - um.ts) / DAY)) + ' dia(s)' : '')) + '</span>' +
+        '<span class="hint" style="margin:0">' + (trv ? 'travado · o app não mexe' : 'automático' + (um ? ' · mudou há ' + nDias(Math.max(0, Math.floor((Date.now() - um.ts) / DAY))) : '')) + '</span>' +
         '<button type="button" class="paLkB' + (trv ? ' on' : '') + '" data-act="paTrava" data-id="' + esc(ref) + '" aria-pressed="' + trv + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="' + (trv ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.7-1.5') + '"/></svg>' + (trv ? 'Travado' : 'Travar') + '</button>';
-      c1.appendChild(lk);
+      wrap.appendChild(lk);
     }
-    var vTxt = ofertaTexto(ref, atual, ps);
-    if (vTxt) {
-      var sl = mk('div', 'ofSt ' + vTxt.cl, '');
-      sl.id = 'pvSt';
-      sl.innerHTML = vTxt.html;
-      c1.appendChild(sl);
-    }
-    wrap.appendChild(c1);
-    if (S.ofOpen === ref) wrap.appendChild(ofertaModal(ref, atual, pr, ps));
-    // "Liberar para o site" fica logo abaixo, alinhado com os outros cartões
     var sz = mk('div', 'zcd');
     sz.appendChild(siteChave(ref)); // v427: chave No site
     wrap.appendChild(sz);
     return wrap;
   }
-  // Texto curto da situação do preço frente ao piso e à trava (usado no cartão Preço e na janela Oferta)
-  function ofertaTexto(ref, v, ps) {
-    var pp = ps && ps.pp ? ps.pp : {},
-      piso = pp.piso > 0 ? Math.ceil(pp.piso / 1000) * 1000 : 0,
-      trava = pp.trava > 0 ? pp.trava : 0;
-    if (!(v > 0)) return null;
-    if (!trava || !piso) return { cl: 'o', html: '<div class="ofTx">Sem custo cadastrado: não dá para avisar piso e trava.</div>' };
-    var r = pisoDoRef(ref, null, v),
-      s2 = r ? r.st : '';
-    if (s2 === 'r') return { cl: 'r', html: '<div class="ofHd">Prejuízo · abaixo da trava (' + gs(trava) + ')</div>' };
-    if (s2 === 'w') return { cl: 'w', html: '<div class="ofHd">Atenção · abaixo do piso (' + gs(piso) + ')</div>' };
-    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>' };
+  // O que o Titan diz do preço v da peça (linha Preço da ficha e aviso da janela Oferta): mínimo = não perde dinheiro (trava),
+  // margem = o piso das suas regras. Um lugar só para as palavras e as cores.
+  function titanEstado(ref, v) {
+    var ps = pisoDoRef(ref, null, v), pp = ps && ps.pp ? ps.pp : {}, trava = pp.trava > 0 ? pp.trava : 0, piso = pp.piso > 0 ? Math.ceil(pp.piso / 1000) * 1000 : 0, s2 = ps ? ps.st : '';
+    if (!(v > 0)) return { cl: '', t: 'sem preço', s: '', trava: 0, piso: 0 };
+    if (!trava || !piso) return { cl: '', t: 'sem custo', s: '', trava: 0, piso: 0 };
+    if (s2 === 'r') return { cl: 'r', t: 'abaixo do mínimo', s: 'r', trava: trava, piso: piso };
+    if (s2 === 'w') return { cl: 'w', t: 'abaixo da margem', s: 'w', trava: trava, piso: piso };
+    return { cl: 'o', t: 'lucro ' + gs(lucroUnico(ref, v)), s: 'o', trava: trava, piso: piso };
   }
-
+  // Folga de hoje: o maior desconto que deixa a peça na sua margem (o motor do Titan, Parte 2, passa a usar a mola)
+  function titanFolga(ref, normal) {
+    var e = titanEstado(ref, normal);
+    return e.piso > 0 && normal > e.piso ? Math.floor((1 - e.piso / normal) * 100) : 0;
+  }
+  // ---------- 64 + 94 + 96c · a janela Oferta: UMA só, com duas entradas (a ficha e o "+" de Preços › Ofertas) ----------
+  // Preço normal · Preço da oferta · Desconto · Até · o aviso do Titan (mínimo, prejuízo, folga) · o "de" honesto · Na loja e no site · Salvar.
+  // Saíram no mesmo passo a janela antiga (ofertaModal: preço em US$, atalhos −5%…−30%, Cancelar e as datas mm/dd/yyyy) e o estado da janela aberta guardado no S.
+  function ofertaJanela(ref) {
+    var pr = S.pprice[ref] || {}, atual = precoAtual(ref), emOf = pr.ant > atual && atual > 0, base = emOf ? pr.ant : atual;
+    if (!(base > 0)) return lfToast('Defina o preço da peça antes da oferta', 'atencao');
+    var ini = emOf ? atual : Math.round((base * 0.9) / 1000) * 1000, ate0 = pr.ate > 0 ? pr.ate : 0,
+      dIso = function (ts) { var d = new Date(ts); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); },
+      num = function (t) { return +String(t || '').replace(/\D/g, '') || 0; }, api;
+    api = lfJanela({
+      titulo: 'Oferta', cls: 'ofJn',
+      mudou: function () { var c = api && api.corpo; return !!c && (num(c.querySelector('#ofPor').value) !== ini || (c.querySelector('#ofAte').value || '') !== (ate0 ? dIso(ate0) : '')); },
+      monta: function (c) {
+        c.innerHTML = '<p class="ofNm">' + esc(pn(ref)) + ' · ' + esc(ref) + '</p>' +
+          '<div class="cxL"><span>Preço normal</span><b>' + gs(base) + '</b></div>' +
+          '<label class="cxL"><span>Preço da oferta</span><input id="ofPor" class="ofCp" inputmode="numeric" aria-label="Preço da oferta em guaranis"></label>' +
+          '<label class="cxL"><span>Desconto</span><span class="ofPct"><input id="ofDsc" class="ofCp" inputmode="numeric" aria-label="Desconto em porcentagem"><i aria-hidden="true">%</i></span></label>' +
+          '<label class="cxL ofDt"><span>Até</span><b id="ofAteTx"></b><input id="ofAte" type="date" aria-label="Até quando vale a oferta"></label>' +
+          '<div id="ofTi" class="ofTi" aria-live="polite"></div><div id="ofDe" class="ofDe"></div><div class="cxL"><span id="ofOnde">Na loja e no site</span><b id="ofLoja"></b></div><div class="cxL" id="ofSiteL" hidden><span>No site</span><b id="ofSite"></b></div>' +
+          '<button type="button" class="go" id="ofSalva">Salvar</button>' + (emOf ? '<button type="button" class="lxT ofFim" id="ofFim">Encerrar a oferta (volta a ' + gs(base) + ')</button>' : '');
+        var por = c.querySelector('#ofPor'), dsc = c.querySelector('#ofDsc'), ate = c.querySelector('#ofAte'), sv = c.querySelector('#ofSalva');
+        var ateTx = function () { var p3 = ate.value ? ate.value.split('-') : null; c.querySelector('#ofAteTx').textContent = p3 ? p3[2] + '/' + p3[1] : 'sem data'; };
+        if (ate0) ate.value = dIso(ate0);
+        ate.onchange = ateTx; // a data aparece como 30/11 (o seletor do aparelho abre por baixo)
+        ateTx();
+        var pinta = function (v) {
+          var e = titanEstado(ref, v), f = titanFolga(ref, base), di = deInfo(ref, base), sp = typeof sitePreco === 'function' ? sitePreco(v) : v, h = '';
+          if (v >= base) h = '<p class="w">A oferta precisa ficar abaixo do preço normal.</p>';
+          else if (e.s === 'r') h = '<p class="r">' + esc(LF_TITAN) + ': abaixo do mínimo (' + gs(e.trava) + '). Cada peça vendida assim dá ' + gs(e.trava - v) + ' de prejuízo.</p>';
+          else if (e.s === 'w') h = '<p class="w">' + esc(LF_TITAN) + ': abaixo da sua margem (' + gs(e.piso) + '). Ainda cobre a reposição e as contas.</p>';
+          else if (e.s === 'o') h = '<p class="o">' + esc(LF_TITAN) + ': ' + e.t + ' por peça.</p>';
+          h += '<p>Folga de hoje: ' + f + '%' + (f ? ' · até ' + gs(Math.ceil((base * (1 - f / 100)) / 1000) * 1000) + ' sem sair da margem.' : ' · o preço normal já está no limite da margem.') + '</p>';
+          c.querySelector('#ofTi').innerHTML = h;
+          c.querySelector('#ofDe').innerHTML = '<i class="' + (di.ok ? 'ok' : 'w') + '" aria-hidden="true"></i><span>' + esc(di.mot) + '</span>';
+          // 96c: a mesma oferta na loja e no site; enquanto o site tiver a cotação própria (Parte 2 do Titan), mostra as duas linhas
+          c.querySelector('#ofOnde').textContent = sp === v ? 'Na loja e no site' : 'Na loja';
+          c.querySelector('#ofLoja').textContent = gs(v);
+          c.querySelector('#ofSiteL').hidden = sp === v;
+          c.querySelector('#ofSite').textContent = gs(sp);
+          sv.disabled = !(v > 0) || v >= base;
+        };
+        var poe = function (v, de) {
+          if (de !== 'por') por.value = v > 0 ? gsRaw(v) : '';
+          if (de !== 'dsc') dsc.value = v > 0 && v < base ? String(Math.round((1 - v / base) * 100)) : '';
+          pinta(v);
+        };
+        por.oninput = function () { var v = num(por.value); por.value = v ? gsRaw(v) : ''; poe(v, 'por'); };
+        dsc.oninput = function () { var p = Math.min(90, num(dsc.value)); poe(p ? Math.round((base * (1 - p / 100)) / 1000) * 1000 : 0, 'dsc'); };
+        [por, dsc].forEach(function (i) { i.onfocus = function () { try { i.select(); } catch (e) {} }; });
+        poe(ini);
+        sv.onclick = function () {
+          var v = num(por.value), r = fxUsdLoja();
+          if (!(v > 0) || v >= base || !(r > 0)) return;
+          var o = S.pprice[ref] || {}, p2 = ate.value ? ate.value.split('-') : null, fim = p2 ? new Date(+p2[0], +p2[1] - 1, +p2[2], 23, 59, 59).getTime() : 0;
+          o.ant = base;
+          delete o.au;
+          delete o.ga;
+          ppPutUsd(o, 'novo', v / r);
+          if (fim) o.ate = fim; else delete o.ate;
+          S.pprice[ref] = o;
+          saveSoon();
+          api.fecha(true);
+          lfToast('Oferta salva · ' + gs(o.novo) + (fim ? ' até ' + fd(fim) : ''), 'ok');
+          render();
+        };
+        var fb = c.querySelector('#ofFim');
+        if (fb) fb.onclick = function () { ofertaFim(ref); saveSoon(); api.fecha(true); lfToast('Oferta encerrada · volta a ' + gs(base), 'ok'); render(); };
+      }
+    });
+  }
   // ---------- oferta: o Inventário manda; o app avisa piso/trava e publica no catálogo e no site
   function ofertaFim(ref) {
     var o = S.pprice[ref];
@@ -242,204 +291,6 @@
     });
     return ch;
   }
-  function ofertaModal(ref, atual, pr, ps) {
-    var ov = mk('div', 'modal'),
-      c = mk('div', 'modal-box ofModal');
-    ov.id = 'ofModal';
-    ov.setAttribute('role', 'dialog');
-    ov.setAttribute('aria-modal', 'true');
-    ov.setAttribute('aria-label', 'Oferta');
-    ov.appendChild(c);
-    c.id = 'ofCard';
-    c.style.maxWidth = '460px';
-    var fecha = function () {
-      S.ofOpen = null;
-      render();
-    };
-    ov.onclick = function (e) {
-      if (e.target === ov) fecha();
-    };
-    var emOf = pr.ant > atual && atual > 0;
-    c.appendChild(mk('div', 'lbl', 'Oferta'));
-    if (!(atual > 0)) {
-      c.appendChild(mk('div', 'hint', 'Defina o preço do produto para poder fazer uma oferta.'));
-      return ov;
-    }
-    var base = emOf ? pr.ant : atual,
-      pp = ps && ps.pp ? ps.pp : {},
-      piso = pp.piso > 0 ? Math.ceil(pp.piso / 1000) * 1000 : 0,
-      trava = pp.trava > 0 ? pp.trava : 0,
-      cur = emOf ? atual : Math.round((base * 0.9) / 1000) * 1000;
-    var box = mk('div', 'ofBox');
-    var l1 = mk('div', 'ofRow');
-    l1.appendChild(mk('span', '', 'Preço normal'));
-    l1.appendChild(mk('b', '', gs(base)));
-    box.appendChild(l1);
-    box.appendChild(mk('div', 'ofLb', 'Preço da oferta (US$)'));
-    var inp = mk('input', 'in ofIn');
-    inp.id = 'ofPreco';
-    inp.type = 'text';
-    inp.inputMode = 'decimal';
-    inp.setAttribute('aria-label', 'Preço da oferta em dólares');
-    inp.value = usdTxtDeGs(cur);
-    box.appendChild(inp);
-    var dsc = mk('div', 'ofDsc', '');
-    box.appendChild(dsc);
-    c.appendChild(box);
-    var chs = mk('div', 'ofChips');
-    [5, 10, 15, 20, 25, 30].forEach(function (pc) {
-      var cb = btn('chip ofPc', '−' + pc + '%', function () {
-        var de = lerV(),
-          para = pcGs(pc),
-          t0 = performance.now();
-        // o preço da oferta "conta" do valor de antes até o novo
-        if (!de || (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) {
-          inp.value = usdTxtDeGs(para);
-          pinta();
-          return;
-        }
-        (function passo(t) {
-          var k = Math.min(1, (t - t0) / 520),
-            e = 1 - Math.pow(1 - k, 3);
-          inp.value = usdTxtDeGs(Math.round(de + (para - de) * e));
-          if (k < 1) requestAnimationFrame(passo);
-          else pinta();
-        })(t0);
-        pinta();
-      });
-      cb.setAttribute('data-pc', pc);
-      chs.appendChild(cb);
-    });
-    c.appendChild(chs);
-    var st = mk('div', 'ofSt');
-    st.id = 'ofSt';
-    c.appendChild(st);
-    var ok = btn('go', 'Confirmar oferta', function () {
-      var v = lerV();
-      if (ok.getAttribute('data-ajusta')) {
-        inp.value = usdTxtDeGs(piso);
-        pinta();
-        return;
-      }
-      if (!(v > 0) || v >= base) return;
-      var o = S.pprice[ref] || {},
-        nu = campoParaUsd(inp.value);
-      // v451: oferta nova com data de fim por cima de outra oferta: guarda a de antes para voltar no fim
-      if (emOf && ateNovo && o.nu > 0 && o.nu !== nu && (!o.ate || o.ate > ateNovo)) o.prev = { nu: o.nu, ate: o.ate || 0 };
-      o.ant = base;
-      delete o.au;
-      delete o.ga;
-      ppPutUsd(o, 'novo', nu);
-      if (ateNovo) o.ate = ateNovo;
-      S.pprice[ref] = o;
-      S.ofOpen = null;
-      saveSoon();
-      render();
-    });
-    ok.id = 'ofOk';
-    ok.className = 'go ofOk';
-    // Preço com desconto de pc%, em dólar com 2 casas (e guaranis da cotação da loja).
-    function pcGs(pc) {
-      var r = fxUsdLoja();
-      return gsDeUsd(Math.round((base / r) * (1 - pc / 100) * 100) / 100);
-    }
-    function lerV() {
-      return gsDeUsd(campoParaUsd(inp.value));
-    }
-    function pinta() {
-      var v = lerV(),
-        r = v > 0 ? pisoDoRef(ref, null, v) : null,
-        s2 = r ? r.st : '',
-        pct = v > 0 ? Math.round((1 - v / base) * 100) : 0;
-      dsc.textContent = v >= base ? 'A oferta precisa ficar abaixo do preço normal.' : 'Desconto de ' + pct + '%.';
-      st.className = 'ofSt ' + (s2 === 'r' ? 'r' : s2 === 'w' ? 'w' : 'o');
-      var h = '';
-      if (!trava || !piso) h = '<div class="ofTx">Sem custo cadastrado: não dá para avisar piso e trava.</div>';
-      else if (s2 === 'r')
-        h =
-          '<div class="ofHd">Prejuízo · abaixo da trava</div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Esta oferta não cobre a reposição nem as contas. Perda de ' + gs(trava - v) + ' por peça.</div>';
-      else if (s2 === 'w')
-        h =
-          '<div class="ofHd">Atenção · abaixo do piso</div><div class="ofRow"><span>Piso (sua margem)</span><b>' + gs(piso) + '</b></div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Cobre a reposição e as contas, mas fica ' + gs(piso - v) + ' abaixo da margem. Lucro: ' + gs(v - trava) + '.</div>';
-      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>';
-      st.innerHTML = h;
-      if (s2 === 'r' && piso && piso < base) {
-        ok.textContent = 'Ajustar para preço seguro (' + gs(piso) + ')';
-        ok.setAttribute('data-ajusta', '1');
-      } else {
-        ok.textContent = emOf ? 'Atualizar oferta' : 'Confirmar oferta';
-        ok.removeAttribute('data-ajusta');
-      }
-      ok.disabled = !(v > 0) || v >= base;
-      Array.prototype.forEach.call(chs.children, function (x) {
-        var pc2 = +x.getAttribute('data-pc');
-        x.classList.toggle('on', v > 0 && pcGs(pc2) === v);
-      });
-    }
-    inp.addEventListener('input', function () {
-      inp.value = inp.value.replace(/[^0-9.,]/g, '');
-      pinta();
-    });
-    inp.addEventListener('focus', function () {
-      try {
-        inp.select();
-      } catch (e) {}
-    });
-    pinta();
-    // v451: "Termina em" já na hora de criar (ou trocar) a oferta — acaba sozinha às 23:59 desse dia (horário do Paraguai)
-    var ateNovo = 0,
-      lbN = mk('div', 'zlb', emOf ? 'NOVA OFERTA TERMINA EM (OPCIONAL)' : 'TERMINA EM (OPCIONAL)');
-    lbN.style.marginTop = '4px';
-    var diN = mk('input', 'in');
-    diN.type = 'date';
-    diN.id = 'ofAteNovo';
-    diN.setAttribute('aria-label', 'Data em que a nova oferta termina');
-    diN.onchange = function () {
-      var p2 = diN.value ? diN.value.split('-') : null;
-      ateNovo = p2 ? new Date(+p2[0], +p2[1] - 1, +p2[2], 23, 59, 59).getTime() : 0;
-    };
-    c.appendChild(lbN);
-    c.appendChild(diN);
-    c.appendChild(ok);
-    var cn2 = btn('chip ofCancel', 'Cancelar', fecha);
-    cn2.id = 'ofCancel';
-    if (emOf) {
-      c.appendChild(mk('div', 'note n-ok', 'Em oferta no app e no site.'));
-      var lb = mk('div', 'zlb', 'TERMINA EM (OPCIONAL · SÓ VOCÊ VÊ)');
-      lb.style.marginTop = '10px';
-      c.appendChild(lb);
-      var di = mk('input', 'in');
-      di.type = 'date';
-      di.id = 'ofAte';
-      di.setAttribute('aria-label', 'Data em que a oferta termina');
-      if (pr.ate > 0) {
-        var d0 = new Date(pr.ate);
-        di.value = d0.getFullYear() + '-' + ('0' + (d0.getMonth() + 1)).slice(-2) + '-' + ('0' + d0.getDate()).slice(-2);
-      }
-      di.onchange = function () {
-        var o = S.pprice[ref] || {};
-        if (di.value) {
-          var p = di.value.split('-');
-          o.ate = new Date(+p[0], +p[1] - 1, +p[2], 23, 59, 59).getTime();
-        } else delete o.ate;
-        S.pprice[ref] = o;
-        saveSoon();
-        render();
-      };
-      c.appendChild(di);
-      var fim = btn('chip', 'Encerrar oferta (voltar a ' + gs(pr.ant) + ')', function () {
-        ofertaFim(ref);
-        S.ofOpen = null;
-        render();
-      });
-      fim.id = 'ofFim';
-      fim.style.marginTop = '10px';
-      c.appendChild(fim);
-    }
-    c.appendChild(cn2);
-    return ov;
-  }
-
   // ---------- seleção em grupo
   function selAlterna(ref) {
     var i = S.selP.indexOf(ref);

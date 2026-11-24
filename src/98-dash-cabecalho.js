@@ -47,7 +47,8 @@
       h =
         '<div class="dHd"><h1 class="dHdT">' + (ti ? esc(TI_SET[ti][0]) : t[1]) + '</h1>' + // 149t: título de verdade, não botão
         (resumo ? '<button type="button" class="dHdP' + lkCls(true) + '" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
-        (t[0] === 'prec' && !ti ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
+        (t[0] === 'prec' && !ti ? botaoEstado('prec') : '') + (ti && TI_SET[ti][3] ? '<button type="button" class="pl78 tiMais" data-act="' + TI_SET[ti][3] + '" aria-label="Nova oferta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>' : '') + // 63: o + na linha do título
+        // 46b: o preço automático liga e desliga aqui
         '</div>' + (fr ? '<div class="dHdS">' + esc(fr) + '</div>' : ''); // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=

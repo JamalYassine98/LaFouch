@@ -249,8 +249,8 @@
   }
   ACT.lcOferta = function (id) {
     var p = String(id).split('|'), ref = p.slice(1).join('|');
-    S.ofOpen = ref;
     prodAbre(p[0], ref);
+    ofertaJanela(ref); // 64: a mesma janela Oferta da ficha
   };
   function lcManda(t) {
     var P = shPlug(),
