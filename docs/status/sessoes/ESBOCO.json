@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "gabarito: testar os 32 itens contra os esboços aprovados e trocar por moldes (sem remendo)",
+ "arquivos": [
+  "work/kit/base_app.py",
+  "work/titan"
+ ],
  "ultimas": [
   {
    "t": 1795529868.0300615,
