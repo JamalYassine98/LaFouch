@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
 | ESBOCO | Titan parte 3: explorador | work/titan |
+| NUVEM | estudo: pagamento próprio por pedido (upay) | work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md |
 
 ## Fila
 
