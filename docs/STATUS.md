@@ -165,6 +165,7 @@
 - para **APP**: DO DONO (24/11 07:29), vale para sempre: (0) Antes de QUALQUER coisa, releia o CLAUDE.md e confira cada passo contra as regras. (1) Fazer NOVO, não emendar (reg
 - para **APP**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **ESBOCO**: Dúvida de definição — Início 1a (quadrados). O 149n aprovado (19/11 15:59, work/s437/esboco_inicio_alterna2_*) diz 'QUADRADOS só ícone e nome (mesma altura)'; a
+- para **IDEIAS**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **NUVEM**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
