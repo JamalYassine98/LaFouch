@@ -1,7 +1,9 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "estudo do departamento (doc da nuvem)",
+ "arquivos": [
+  "docs/NUVEM-COMO-FUNCIONA.md"
+ ],
  "ultimas": [
   {
    "t": 1795371928.9013982,
@@ -44,5 +46,5 @@
    "r": "Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'."
   }
  ],
- "leu": 1795500947.627266
+ "leu": 1795502354.0470405
 }
