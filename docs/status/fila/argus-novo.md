@@ -1,2 +1,2 @@
-Parte 1 feita (13/13) — esperando o dono para a Parte 2
+Parte 1 feita (15/15) — esperando o dono para a Parte 2
 Argus novo: work/argus/ (LEIA.md)
