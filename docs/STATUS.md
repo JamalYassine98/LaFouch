@@ -39,6 +39,7 @@
 - **103-natal-e-kits** — aprovado 23/11 13:24 · v3 com o cartão de luxo do Natal
 - **105-plano-implementar-app** — IMPLEMENTAR — dono 23/11 13:55 ('implementar tudo de acordo com nossos planos'): APP segue work/s435/implementar/PLANO-IMPLEMENTAR-APP-23-11.md, uma parte por vez (1 base visual → 7 Marketing), consultando o dono a cada parte (regra 3); Estúdio fora
 - **106-ofertas-da-data** — aprovado 24/11 00:45 — Parte 7 do plano
+- **107-sem-internet** — esboço pronto — esperando o dono
 - **11-s1-s2-parte-3-nuvem-depois-dos-itens-9-e** — ✅ publicado 20/11 13:58 (run 44777476972: funções + regras; limpeza do token rodada na hora; sonda 0 falhas) — usuarios/ fechada, token só em reservasTok
 - **12-p1b-orfas-nuvem-dono-implementar-16-12-e** — ✅ publicado pelo dono 19/11 16:21; conferido: `orfas` sem login = sem-permissao · NUVEM · pedido 19/11 16:12
 - **13-p1b-orfas-app-depois-do-item-12-publicad** — ✅ v567 (19/11) · APP · pedido 19/11 16:12
