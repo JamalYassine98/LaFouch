@@ -180,6 +180,7 @@ function dbFake(compras) {
   await C.usar(dbE, { cod: r.cod, total: 200000, desc: 20000, pid: 'caixa:2' }, 'ipE', L0 + 10 * D, true);
   const r3 = await C.lojaDesfaz(dbE, { venda: 'E3' }, L0 + 11 * D); ok(r3.usado && dbE.m[r.cod].st !== 'canc' && dbE.av.some((a) => a.t === 'desfeita'), 'venda desfeita com cartão já usado: não mexe e avisa o dono');
   r = await C.emitir(dbL, { tipo: 'px', email: EM, venda: 'L3', total: 200000 }, L0 + 98 * D); ok(r.ok && r.cod !== cl.cod, 'loja: o anterior foi usado/venceu, pode ganhar de novo');
+  r = await C.emitir(dbL, { tipo: 'vip', tel: '0985777', nome: 'Sem Email' }, L0); ok(!r.ok && r.motivo === 'email' && !Object.values(dbL.m).some((c) => c.tipo === 'vip'), 'VIP (24/11): só com o e-mail da cliente');
   ok(C.PADRAO.px.dias === 120, 'site intocado: a Próxima compra do site continua com 120 dias');
   const idxSrc = require('fs').readFileSync(__dirname + '/index.js', 'utf8');
   ok(/email: t && t\.email && t\.email_verified === true \? t\.email : ''/.test(idxSrc) && !/Cupom\.ver\(cupDb, b,/.test(idxSrc) && !/Cupom\.usar\(cupDb, b, ipk, agora, false\)/.test(idxSrc), 'TRAVA: no site o e-mail do cupom vem só do login confirmado, nunca do que foi digitado');

@@ -325,6 +325,7 @@ async function emitir(db, b, agora, envia) {
   const tipo = ['vip', 'px', 'am', 'ev'].indexOf(b.tipo) >= 0 ? b.tipo : '';
   if (!tipo) throw new Falha('tipo');
   if (tipo === 'px') return emitirLoja(db, b, agora);
+  if (tipo === 'vip' && !EMAIL_OK.test(emN(b.email))) return { ok: false, motivo: 'email' }; // 24/11 (dono): cartão VIP só com o e-mail da cliente
   const pct = Math.round(+b.pct || (PADRAO[tipo] || {}).pct || 0);
   if (!(pct >= 1 && pct <= 30)) throw new Falha('pct');
   const o = { tipo, pct, email: emN(b.email), tel: telN(b.tel), nome: limpa(b.nome, 60), min: Math.max(0, Math.round(+b.min || 0)) };
