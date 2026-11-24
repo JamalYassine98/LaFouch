@@ -15,7 +15,7 @@
     regras: ['Regras', 'O que cada preço precisa cobrir', 'regras'],
     ofertas: ['Ofertas', 'Descontos que o ' + LF_TITAN + ' confere', 'oferta', 'ofNova'], // 4o campo: a ação do + redondo na linha do título
     atacado: ['Atacado', 'Margens calculadas pelo ' + LF_TITAN + ' · sempre com lucro', 'ata'],
-    ferr: ['Ferramentas', '', 'calc'],
+    ferr: ['Ferramentas', 'Contas rápidas do ' + LF_TITAN, 'calc'],
     hist: ['Histórico', 'O que mudou de preço, quando e por quê', 'hist'],
     corr: ['Preços para corrigir', '', 'tag']
   };
@@ -95,8 +95,8 @@
     ofertas: ofertasHtml,
     atacado: atacadoHtml,
     ferr: function () {
-      return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote') +
-        tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda') + '</section>';
+      return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'antes de comprar: quanto cobrar') +
+        tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, fornecedor, cupom e mais') + '</section><p class="hint tiVz">Só conta: nada muda até você aceitar.</p>';
     },
     hist: function () { var h = precosAutoHtml(); return h ? '<div class="cntAuto">' + h + '</div>' : '<div class="hint tiVz">Nenhuma mudança de preço guardada ainda.</div>'; }
   };

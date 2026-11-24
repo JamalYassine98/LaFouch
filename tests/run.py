@@ -5021,6 +5021,32 @@ async def main():
             if not ok: falhas.append('65 atacado do Titan'); print('        veio', got, velho, pg.erros)
             await pg.close()
 
+            # 66 (Ferramentas do Titan): Calculadora em linhas finas (Custo · Tipo › · Peças) com Loja e site, Mínimo, Atacado das tabelas do 65b (ataConta)
+            # e o lucro, sem faixa fixa nem "Usar estes preços"; E se…? em linhas ⌄ (Dólar da casa, Fornecedor sobe, Cupom, Contas sobem, Meta do mês).
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            velho = sorted(f for f, t in fontes.items() if re.search(r"cntCalcUsa|ML_CALC|Faixa ' \+ esc|Vender tudo parado|data-ese=", t))
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              L.inicioGo('prec'); await w(300); L.ACT.tiAbre('ferr'); await w(400); L.ACT.cntCalc(); await w(600);
+              const j = document.querySelector('.calcJn:not(.ljSai)'), lb = () => [...j.querySelectorAll('.cxL>span:first-child')].map(x => x.firstChild.textContent.trim());
+              R.campos = lb().slice(0, 3).join('|'); R.calc = lb().slice(3).join('|');
+              const ata = [...j.querySelectorAll('#ccR .cxL')].find(x => /Atacado/.test(x.textContent)).querySelector('b').textContent;
+              const T = S.tabelas.filter(t => t.on !== false).map(t => L.ataConta(t, 5).p).sort((a, b) => a - b);
+              R.ata = ata === 'US$ ' + T[0].toFixed(2).replace('.', ',') + ' a US$ ' + T[T.length - 1].toFixed(2).replace('.', ',');
+              const lu = +[...j.querySelectorAll('#ccR .cxL')].find(x => /Lucro por peça/.test(x.textContent)).querySelector('b').textContent.replace(/[^\\d-]/g, '');
+              R.lucro = lu >= 0; R.sem = !/Faixa|Usar estes preços|Parecidos/.test(j.innerText);
+              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await w(500);
+              L.ACT.cntEse(); await w(600); const e = document.querySelector('.eseJn:not(.ljSai)');
+              R.ese = [...e.querySelectorAll('.fxH b')].map(b => b.textContent).join('|'); R.r1 = /venda da casa/.test(e.querySelector('#eseR').textContent);
+              e.querySelector('.fxH[data-k=forn]').click(); await w(300); R.r2 = /colchão/.test(document.querySelector('.eseJn:not(.ljSai) #eseR').textContent);
+              return R; }""")
+            total += 1
+            ok = (got['campos'] == 'Custo da peça|Tipo|Peças' and got['calc'] in ('Loja e site|Mínimo da loja|Atacado|Lucro por peça', 'Loja|Site|Mínimo da loja|Atacado|Lucro por peça') and got['ata'] and got['lucro'] and got['sem']
+                  and got['ese'] == 'Dólar da casa|Fornecedor sobe|Cupom|Contas sobem|Meta do mês' and got['r1'] and got['r2'] and velho == [] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '66: Ferramentas do Titan — Calculadora em linhas com o mesmo motor (atacado das tabelas, lucro nunca negativo no mínimo) e E se…? em linhas ⌄')
+            if not ok: falhas.append('66 ferramentas'); print('        veio', got, velho, pg.erros)
+            await pg.close()
+
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, D = Date, w = ms => new Promise(r => setTimeout(r, ms));

@@ -75,83 +75,112 @@
     var h = cntPrecoHtml(ref);
     if (h) { var w = document.createElement('div'); w.innerHTML = h; det.appendChild(w.firstChild); }
   }
-  // ---------- 3 · calculadora ----------
+  // ---------- 3 · Calculadora de preço (66): campos em linhas finas e o MESMO motor do Titan ----------
+  // Custo · Tipo › · Peças → Loja e site (como você costuma cobrar: o preço ÷ custo das suas peças do tipo), Mínimo da loja,
+  // Atacado (as tabelas do 65b, ataConta), Lucro por peça e do lote. Saíram a faixa de margem fixa (Econômico/Intermediário/Luxo),
+  // a fórmula antiga do atacado, "Parecidos no estoque", a frase do contador e "Usar estes preços" (S.cntCalc).
+  function calcJeito(tp, fx) {
+    var r = [], vis = {};
+    (S.items || []).forEach(function (it) {
+      if (it.tipo !== tp || vis[it.ref] || !(effCusto(it) > 0) || !(tFor(it).price > 0)) return;
+      vis[it.ref] = 1;
+      r.push(tFor(it).price / (effCusto(it) * fx));
+    });
+    r.sort(function (a, b) { return a - b; });
+    return r.length ? r[r.length >> 1] : 0;
+  }
+  function calcConta(u, tp, q) {
+    var fx = cntFx(), rep = Math.round(u * fx), ct = contasPeca(null, u), col = Math.round(rep * colchao().pct), min = up500(1.1 * (rep * (1 + lrIvaCompra()) + ct + col)), j = calcJeito(tp, fx), // mínimo = não perde: IVA, reposição, contas e colchão
+      loja = Math.max(min, Math.ceil((j > 0 ? u * fx * j : min * 1.6) / 5000) * 5000), site = typeof sitePreco === 'function' ? sitePreco(loja) : loja,
+      T = tabLista().filter(function (x) { return !x.pub; }), ata = T.map(function (x) { return { T: x, p: ataConta(x, u).p }; }).sort(function (a, b) { return a.p - b.p; }),
+      lu = Math.round(loja / 1.1 - rep * (1 + lrIvaCompra()) - ct);
+    return { loja: loja, site: site, min: min, ata: ata, lu: lu, q: q, jeito: j > 0 };
+  }
   ACT.cntCalc = function () {
-    lfJanela({ titulo: 'Calculadora de preço', monta: function (box) {
-      var tipos = tipoAll().filter(function (t) { return !t.simple && !isSimple(t.id) && t.id !== 'pre'; });
-      box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">CUSTO</div>' +
-        '<div class="cntRow"><span>US$</span><input class="in" id="ccU" inputmode="decimal" placeholder="6,20"><span>lote de</span><input class="in" id="ccQ" inputmode="numeric" value="1" style="max-width:80px"></div>' +
-        '<select class="in" id="ccT">' + tipos.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.label || t.full || t.id) + '</option>'; }).join('') + '</select>' +
-        '<select class="in" id="ccF">' + S.faixas.map(function (f) { return '<option value="' + f.id + '">Faixa ' + esc(f.nome) + ' · ' + f.margem + '%</option>'; }).join('') + '</select><div id="ccR"></div></div>';
+    var tipos = tipoAll().filter(function (t) { return !t.simple && !isSimple(t.id) && t.id !== 'pre'; }), E = { u: 5, tp: (tipos[0] || {}).id, q: 1, ab: false };
+    var nome = function (id) { var t = tipos.filter(function (x) { return x.id === id; })[0]; return t ? t.label || t.full || t.id : ''; };
+    lfJanela({ titulo: 'Calculadora de preço', cls: 'calcJn', monta: function (box) {
+      box.innerHTML = '<p class="ofNm">antes de comprar · o ' + esc(LF_TITAN) + ' calcula</p>' +
+        '<label class="cxL"><span>Custo da peça</span><span class="ofPct"><i aria-hidden="true">US$</i><input id="ccU" class="ofCp" inputmode="decimal" value="5,00" aria-label="Custo da peça em dólar"></span></label>' +
+        '<button type="button" class="cxL calcTp" id="ccT"><span>Tipo</span><b></b></button>' +
+        '<label class="cxL"><span>Peças</span><input id="ccQ" class="ofCp" inputmode="numeric" value="1" aria-label="Quantas peças"></label>' +
+        '<div class="lbl tiLb">O ' + esc(LF_TITAN).toUpperCase() + ' CALCULA</div><div id="ccR" aria-live="polite"></div>';
       var conta = function () {
-        var u = parseFloat(String($('ccU').value).replace(',', '.')) || 0, q = Math.max(1, +$('ccQ').value || 1), tp = $('ccT').value, f = S.faixas.filter(function (x) { return x.id === $('ccF').value; })[0] || S.faixas[0], fx = cntFx();
-        if (!(u > 0) || !fx) { $('ccR').innerHTML = '<div class="hint">Digite o custo em dólar.</div>'; return; }
-        var rep = Math.round(u * fx), ct = contasPeca(null, u), col = Math.round(rep * colchao().pct), m = Math.min(0.9, f.margem / 100), piso = up500((rep + ct + col) / (1 - m));
-        var par = (S.items || []).filter(function (it) { return it.tipo === tp && it.qty > 0 && effCusto(it) > 0 && Math.abs(effCusto(it) - u) <= u * 0.25; }), vis = {}, pr = [];
-        par.forEach(function (it) { if (vis[it.ref]) return; vis[it.ref] = 1; pr.push([it.ref, tFor(it).price]); });
-        var med = pr.length ? pr.map(function (x) { return x[1]; }).sort(function (a, b) { return a - b; })[pr.length >> 1] : 0,
-          bal = Math.max(piso, Math.ceil(Math.max(piso * 1.6, med) / 5000) * 5000), tab = tabLista().filter(function (T) { return !T.pub; })[0],
-          ata = tab ? Math.max((rep + ct + col), u * fx * (1 + tab.m) + (tab.frete || 0) * fx) / fx : 0,
-          giro = cntVendas(90).filter(function (s) { return s.tipo === tp; }).reduce(function (a, s) { return a + (+s.qty || 1); }, 0) / 3,
-          meses = giro > 0 ? q / giro : 0, lucro = Math.round((bal / 1.1 - rep * (1 + lrIvaCompra()) - ct) * q), coer = !pr.length || (bal >= med * 0.8 && bal <= med * 1.25);
-        ML_CALC = { bal: bal, site: typeof sitePreco === 'function' ? sitePreco(bal) : bal, ata: ata, piso: piso };
-        $('ccR').innerHTML = '<section class="card col" style="gap:0"><div class="lbl">O CONTADOR SUGERE</div>' + lrLinha('Balcão', gs(bal)) + lrLinha('Site', gs(ML_CALC.site)) + (ata ? lrLinha('Atacado', 'US$ ' + ata.toFixed(2).replace('.', ',')) : '') + lrLinha('Piso', gs(piso)) +
-          lrLinha('Parecidos no estoque <small>' + pr.slice(0, 3).map(function (x) { return esc(x[0]) + ' ' + gs(x[1]); }).join(' · ') + '</small>', pr.length ? (coer ? 'coerente' : 'diferente') : '—', coer ? 'var(--ok)' : 'var(--warn)') + '</section>' +
-          '<div class="cntQ">"' + (q > 1 ? 'Com ' + q + ' peças' + (giro > 0 ? ' e o giro de ' + Math.round(giro) + ' por mês, o lote vende em ~' + Math.max(1, Math.round(meses)) + (Math.round(meses) > 1 ? ' meses' : ' mês') : '') + '. O lucro previsto do lote é ' + gs(lucro) + '.' : 'Lucro previsto por peça: ' + gs(lucro) + '.') + '"</div>' +
-          '<div class="cntB"><button type="button" class="go" data-act="cntCalcUsa">Usar estes preços</button></div>';
+        E.u = parseFloat(String($('ccU').value).replace(',', '.')) || 0;
+        E.q = Math.max(1, parseInt($('ccQ').value, 10) || 1);
+        box.querySelector('#ccT b').textContent = nome(E.tp) + ' ›';
+        if (!(E.u > 0) || !cntFx()) { $('ccR').innerHTML = '<p class="hint">Digite o custo em dólar.</p>'; return; }
+        var k = calcConta(E.u, E.tp, E.q), a = k.ata, us = function (v) { return 'US$ ' + v.toFixed(2).replace('.', ','); };
+        $('ccR').innerHTML = (k.site === k.loja ? '<div class="cxL"><span>Loja e site<small>' + (k.jeito ? 'como você costuma cobrar' : 'sem peças desse tipo para copiar o seu jeito') + '</small></span><b>' + gs(k.loja) + '</b></div>'
+            : '<div class="cxL"><span>Loja<small>' + (k.jeito ? 'como você costuma cobrar' : 'sem peças desse tipo para copiar o seu jeito') + '</small></span><b>' + gs(k.loja) + '</b></div><div class="cxL"><span>Site</span><b>' + gs(k.site) + '</b></div>') +
+          '<div class="cxL"><span>Mínimo da loja</span><b class="mu">' + gs(k.min) + '</b></div>' +
+          (a.length ? '<button type="button" class="cxL calcAt" aria-expanded="' + E.ab + '"><span>Atacado<small>as ' + a.length + ' tabelas ' + (E.ab ? '⌃' : '⌄') + '</small></span><b>' + us(a[0].p) + ' a ' + us(a[a.length - 1].p) + '</b></button>' +
+            (E.ab ? a.map(function (x) { return '<div class="cxL calcAtL"><span>' + esc(x.T.nome) + '</span><b class="mu">' + us(x.p) + '</b></div>'; }).join('') : '') : '') +
+          '<div class="cxL"><span>Lucro por peça</span><b class="ok">' + gs(k.lu) + '</b></div>' +
+          (k.q > 1 ? '<div class="cxL"><span>Lucro das ' + k.q + '</span><b class="ok">' + gs(k.lu * k.q) + '</b></div>' : '');
+        var at = $('ccR').querySelector('.calcAt');
+        if (at) at.onclick = function () { E.ab = !E.ab; conta(); };
       };
-      ['ccU', 'ccQ', 'ccT', 'ccF'].forEach(function (id) { $(id).oninput = conta; $(id).onchange = conta; });
+      ['ccU', 'ccQ'].forEach(function (id) { $(id).oninput = conta; $(id).onfocus = function () { try { $(id).select(); } catch (e) {} }; });
+      box.querySelector('#ccT').onclick = function () {
+        escolhaJanela('Tipo', tipos.map(function (t) { return t.label || t.full || t.id; }), nome(E.tp), function (v) {
+          var t = tipos.filter(function (x) { return (x.label || x.full || x.id) === v; })[0];
+          if (t) E.tp = t.id;
+          conta();
+        }, null, true);
+      };
       conta();
     } });
   };
-  var ML_CALC = null;
-  ACT.cntCalcUsa = function () {
-    if (!ML_CALC) return;
-    S.cntCalc = { ts: Date.now(), bal: ML_CALC.bal, site: ML_CALC.site, ata: ML_CALC.ata };
-    saveSoon();
-    var t = 'Balcão ' + gs(ML_CALC.bal) + ' · Site ' + gs(ML_CALC.site) + (ML_CALC.ata ? ' · Atacado US$ ' + ML_CALC.ata.toFixed(2).replace('.', ',') : '');
-    try { navigator.clipboard.writeText(t); } catch (e) {}
-    lfToast('Preços anotados (copiados): ' + t, 'ok');
-  };
-  // ---------- 4 · E se…? ----------
-  var ESE = [['dolar', 'Dólar muda'], ['contas', 'Contas subirem 10%'], ['desc', 'Desconto numa categoria'], ['cupom', 'Cupom 15%'], ['parado', 'Vender tudo parado'], ['meta', 'Meta do mês']];
+  // ---------- 4 · E se…? (66): perguntas em linhas ⌄, cada uma com o campo e a resposta ali mesmo; só conta, nada muda ----------
+  // Saíram "Desconto numa categoria" e a de vender as paradas pelo piso (os degraus fixos saem com a mola); entrou "Fornecedor sobe".
+  var ESE = [['dolar', 'Dólar da casa', 'o que acontece com os preços'], ['forn', 'Fornecedor sobe', 'e o colchão aguenta?'], ['cupom', 'Cupom', 'quanto lucro fica por peça'],
+    ['contas', 'Contas sobem', 'quanto a mais precisa vender'], ['meta', 'Meta do mês', 'quanto falta e em quantos dias']];
   function eseConta(k, v) {
     var fx = cntFx(), vs = cntVendas(30), t = lrSoma(vs), porPeca = t.qty ? t.lucro / t.qty : 0, refs = paRefs().filter(function (r) { return paEstoque(r) > 0; });
     if (k === 'dolar') {
       var nfx = +v || fx, k2 = fx ? nfx / fx : 1, abx = 0, sobe = 0;
       refs.forEach(function (r) { var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), np = up500(((pp.rep + pp.colch) * k2 + pp.contas) / (1 - pp.margem)); if (tFor(it).price < np) abx++; });
       vs.forEach(function (s) { sobe += (+s.rep || 0) * (k2 - 1); });
-      return 'Com o dólar a ' + gs(nfx) + ': o custo de repor sobe ' + Math.round((k2 - 1) * 100) + '%. ' + abx + (abx === 1 ? ' peça fica' : ' peças ficam') + ' abaixo do piso. O lucro do mês ' + (sobe > 0 ? 'cai ' + gs(Math.round(sobe)) : 'sobe ' + gs(Math.round(-sobe))) + ' se você não mexer. Sugestão: subir só as que vendem bem e segurar as paradas.';
+      return 'Com a venda da casa a ' + gs(nfx) + ', o custo de repor ' + (k2 >= 1 ? 'sobe ' : 'cai ') + Math.abs(Math.round((k2 - 1) * 100)) + '%. ' + cntPl(abx, 'preço fica', 'preços ficam') + ' abaixo da sua margem. O lucro do mês ' + (sobe > 0 ? 'cai ' + gs(Math.round(sobe)) : 'sobe ' + gs(Math.round(-sobe))) + ' se nada mudar. O atacado não muda: ele é em dólar.';
     }
-    if (k === 'contas') { var tm = typeof totalMensal === 'function' ? totalMensal() : 0, mais = Math.round(tm * ((+v || 10) / 100)); return 'Contas +' + (+v || 10) + '%: mais ' + gs(mais) + ' por mês. Precisa vender ' + (porPeca > 0 ? Math.ceil(mais / porPeca) : '?') + ' peças a mais por mês para empatar, ou subir os preços em média ' + gs(t.qty ? Math.round(mais / t.qty) : 0) + ' por peça.'; }
-    if (k === 'desc' || k === 'cupom') {
-      var pct = (+v || (k === 'cupom' ? 15 : 10)) / 100, tp = k === 'desc' ? ($('eseT') || {}).value : '', L = cntVendas(90).filter(function (s) { return !tp || s.tipo === tp; }), x = lrSoma(L);
+    if (k === 'forn') {
+      var p = (+v || 10) / 100, c = colchao().pct, ca = (S.ataCalc && S.ataCalc.c) || 0.03;
+      return 'Fornecedor ' + Math.round(p * 100) + '% mais caro: ' + (p <= c ? 'o colchão do varejo (' + Math.round(c * 100) + '%) cobre a reposição.' : 'passa do colchão do varejo (' + Math.round(c * 100) + '%): as peças dessa compra precisam de preço novo.') + ' No atacado o colchão é ' + Math.round(ca * 100) + '%' + (p <= ca ? ' e cobre.' : ': o ' + LF_TITAN + ' recalcula as margens na próxima revisão.') + ' As peças que você já tem ficam com o preço de hoje.';
+    }
+    if (k === 'cupom') {
+      var pct = (+v || 15) / 100, L = cntVendas(90), x = lrSoma(L);
       if (!x.qty) return 'Sem vendas suficientes nos últimos 90 dias para calcular.';
       var antes = x.lucro / x.qty, preco = x.vendido / x.qty, depois = antes - (preco * pct) / 1.1, emp = depois > 0 ? Math.round((antes / depois - 1) * 100) : null;
-      return 'Lucro por peça' + (tp ? ' de ' + esc((tipoOf(tp) || {}).label || tp) : '') + ': ' + gs(Math.round(antes)) + ' → ' + gs(Math.round(depois)) + '. ' + (emp == null ? 'Com esse desconto você perde dinheiro em cada venda.' : 'Precisa vender +' + emp + '% para empatar.') + (pct > 0.1 && depois > 0 ? ' Com 10% precisaria de +' + Math.round((antes / (antes - (preco * 0.1) / 1.1) - 1) * 100) + '%.' : '');
+      return 'Lucro por peça: ' + gs(Math.round(antes)) + ' → ' + gs(Math.round(depois)) + '. ' + (emp == null ? 'Com esse cupom você perde dinheiro em cada venda.' : 'Precisa vender ' + emp + '% a mais para empatar.');
     }
-    if (k === 'parado') {
-      var n = 0, cx = 0, lu = 0;
-      refs.forEach(function (r) { if (paParado(r) < 60) return; var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), q = paEstoque(r); n += q; cx += pp.piso * q; lu += (pp.piso - pp.rep - pp.contas) * q; });
-      return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais.';
+    if (k === 'contas') { var tm = typeof totalMensal === 'function' ? totalMensal() : 0, mais = Math.round(tm * ((+v || 10) / 100)); return 'Contas +' + (+v || 10) + '%: mais ' + gs(mais) + ' por mês. Precisa vender ' + (porPeca > 0 ? cntPl(Math.ceil(mais / porPeca), 'peça', 'peças') : '?') + ' a mais por mês para empatar.'; }
+    if (k === 'meta') {
+      var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx, dias = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate() - d.getDate();
+      if (!(meta > 0)) return 'Escreva a meta em dólar.';
+      var f = meta - m.lucro;
+      return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro em ' + nDias(dias) + ': cerca de ' + (porPeca > 0 ? cntPl(Math.ceil(f / porPeca), 'peça', 'peças') : '? peças') + ' no ritmo de hoje.';
     }
-    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Preços › Regras).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
     return '';
   }
+  function eseCampo(k) {
+    var fx = cntFx();
+    return k === 'dolar' ? ['Venda da casa a', 'G$', Math.round(fx * 1.04 / 10) * 10] : k === 'forn' ? ['Fornecedor sobe', '%', 10] : k === 'cupom' ? ['Cupom de', '%', 15] : k === 'contas' ? ['Contas sobem', '%', 10] : ['Meta do mês', 'US$', S.metaUsd || ''];
+  }
   ACT.cntEse = function () {
-    lfJanela({ titulo: 'E se…?', monta: function (box) {
-      var tipos = tipoAll().filter(function (t) { return !t.simple && !isSimple(t.id) && t.id !== 'pre'; });
-      box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">PERGUNTAS PRONTAS</div><div class="ataRw">' + ESE.map(function (q, i) { return '<button type="button" class="mini' + (i ? ' ghost' : '') + '" data-ese="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
-        '<div class="cntRow" id="eseIn"></div><div class="cntQ" id="eseR" aria-live="polite"></div></div>';
-      var k = 'dolar';
-      var campo = function () {
-        var fx = cntFx();
-        $('eseIn').innerHTML = k === 'dolar' ? '<span>Dólar a</span><input class="in" id="eseV" inputmode="numeric" value="' + Math.round(fx * 1.04 / 10) * 10 + '">' : k === 'contas' ? '<span>Contas +</span><input class="in" id="eseV" inputmode="numeric" value="10"><span>%</span>' : k === 'desc' ? '<select class="in" id="eseT">' + tipos.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.label || t.full || t.id) + '</option>'; }).join('') + '</select><input class="in" id="eseV" inputmode="numeric" value="15" style="max-width:70px"><span>%</span>' : k === 'cupom' ? '<span>Cupom de</span><input class="in" id="eseV" inputmode="numeric" value="15"><span>%</span>' : k === 'meta' ? '<span>Meta US$</span><input class="in" id="eseV" inputmode="numeric" value="' + (S.metaUsd || '') + '">' : '';
-        var vv = $('eseV'), tt = $('eseT'), go = function () { $('eseR').textContent = eseConta(k, vv ? vv.value : ''); };
-        if (vv) vv.oninput = go; if (tt) tt.onchange = go; go();
+    var ab = 'dolar';
+    lfJanela({ titulo: 'E se…?', cls: 'eseJn', monta: function (box) {
+      var pinta = function () {
+        box.innerHTML = '<p class="ofNm">só conta: nada muda até você aceitar</p>' + ESE.map(function (q) {
+          var on = ab === q[0], c = eseCampo(q[0]);
+          return '<section class="fxF' + (on ? ' on' : '') + '"><button type="button" class="fxH" data-k="' + q[0] + '" aria-expanded="' + on + '"><span style="min-width:0"><b>' + q[1] + '</b><span class="hint" style="display:block;margin:2px 0 0">' + q[2] + '</span></span><i class="fxC" aria-hidden="true">⌄</i></button>' +
+            (on ? '<div class="fxB"><div class="fxI"><label class="cxL"><span>' + c[0] + '</span><span class="ofPct">' + (c[1] !== '%' ? '<i aria-hidden="true">' + c[1] + '</i>' : '') + '<input class="ofCp" id="eseV" inputmode="numeric" value="' + c[2] + '" aria-label="' + c[0] + '">' + (c[1] === '%' ? '<i aria-hidden="true">%</i>' : '') + '</span></label><p class="eseR" id="eseR" aria-live="polite"></p></div></div>' : '') + '</section>';
+        }).join('');
+        box.querySelectorAll('.fxH').forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-k'); ab = ab === k ? '' : k; pinta(); }; });
+        var vv = $('eseV'), go = function () { $('eseR').textContent = eseConta(ab, vv.value.replace(/\D/g, '')); };
+        if (vv) { vv.oninput = go; go(); }
       };
-      box.querySelectorAll('[data-ese]').forEach(function (b) { b.onclick = function () { k = b.getAttribute('data-ese'); box.querySelectorAll('[data-ese]').forEach(function (x) { x.classList.toggle('ghost', x !== b); }); campo(); }; });
-      campo();
+      pinta();
     } });
   };
   // ---------- 5 · fechamento do mês (guardião) ----------

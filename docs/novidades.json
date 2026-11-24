@@ -1,9 +1,9 @@
 {
- "nome": "5.57.0",
+ "nome": "5.58.0",
  "notas": [
-  "Preços › Atacado: as margens das tabelas agora são calculadas pelo Titan, sempre com lucro, e cada tabela mostra a conta.",
-  "A tela Atacado ficou com 3 abas; 'Enviar catálogo' mora em Lojistas.",
-  "Na conta do lojista você escolhe a tabela de preço dele."
+  "Preços › Ferramentas: a Calculadora em linhas finas, com o mesmo cálculo do Titan para loja, site e atacado.",
+  "E se…?: perguntas que abrem no lugar — dólar da casa, fornecedor, cupom, contas e meta do mês.",
+  "Saíram a faixa de margem fixa e o 'Usar estes preços'."
  ],
- "build": 638
+ "build": 639
 }

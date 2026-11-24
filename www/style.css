@@ -3135,3 +3135,9 @@ p.cpE{margin:0 0 8px;font-size:14px}
 #v-dash .nvL .tiV{font-style:normal;color:var(--fg);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;margin-left:8px}.nvTx small i.ok,.tiAtJn b.ok{color:var(--ok);font-style:normal}
 .tiAtJn .cxL{min-height:52px}.tiAtJn .cxL b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}.tiAtJn .cxL b.mu{color:var(--mute);font-weight:500}.tiAtJn .tiLb{margin:20px 0 4px}
 .ata77 .tb77{width:100%;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}.ata77 .tb77 i{font-style:normal;color:var(--mute);font-size:20px}
+/* 66 · Calculadora e E se…?: campos em linhas finas, a conta do Titan e as perguntas em linhas ⌄ */
+.calcJn .cxL,.eseJn .cxL{min-height:52px}.calcJn .cxL b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}.calcJn .cxL b.mu{color:var(--mute);font-weight:500}.calcJn .cxL b.ok{color:var(--ok)}
+.calcJn .cxL span small{display:block;color:var(--mute);font-size:13px;margin-top:2px}.calcJn .ofCp,.eseJn .ofCp{background:none;border:0;color:var(--fg);font:inherit;font-weight:600;text-align:right;width:6em;padding:8px 0}
+.calcJn .ofPct,.eseJn .ofPct{display:flex;align-items:center;gap:4px}.calcJn .ofPct i,.eseJn .ofPct i{font-style:normal;color:var(--mute)}.calcJn .ofNm,.eseJn .ofNm{margin:0 0 4px;color:var(--mute);font-size:14px}
+.calcJn button.cxL{width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);font:inherit;text-align:left;cursor:pointer}.calcJn .calcAtL{padding-left:16px}.calcJn .tiLb{margin:20px 0 4px}
+.eseJn .eseR{margin:8px 0 12px;font-size:14px;line-height:1.5}
