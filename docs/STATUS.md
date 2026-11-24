@@ -103,7 +103,7 @@
 - **50-giro-sobrando-e-lista** — superado pelo 52 (obsoletos 22/11)
 - **52-desfazer-giro-e-precos** — 52a publicado v635 (Preços é linha do Início) · 52b/52d/52e no item 65
 - **53-destaque-da-semana-do-semp** — aprovado 22/11 05:56 — vai no item 68
-- **54-precos-escritorio-do-guardiao** — publicado v635 (escritório do Titan: decide hoje + 5 setores; os setores com o desenho 62–67 vêm nas próximas partes)
+- **54-precos-escritorio-do-guardiao** — escritório v635 · Regras (62) v636 · Ofertas/Ficha (63/64/94/96c), Atacado (65), Ferramentas (66), Histórico (67) nas próximas partes
 - **55-desconto-do-guardiao-no-vender** — SUPERADO 22/11 00:26 (obsoletos) pelos cupons no caixa — esboço novo a fazer; NÃO implementar
 - **56-precificacao-guardiao-e-semp** — decidido em conversa (21/11 18:00–23:59) — esboços a fazer em partes
 - **57-raio-x-de-precos** — aprovado 22/11 00:19 — espera o app estar pronto e as vendas reais (pedido à NUVEM cancelado)
