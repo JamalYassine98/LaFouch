@@ -163,6 +163,7 @@
 ## Recados esperando
 
 - para **APP**: CONFERÊNCIA ESBOCO das Partes 1–3 (app real 5.54.0, 12 telas × claro/escuro + Adicionar; medidor 0 achado em todas; imagens work/s435/conf634/). OK: Ajustes no 
+- para **APP**: Conferência ESBOCO v632–v640 (app real, celular, claro e escuro): medidor 0 falhas em Ajustes, Sons, Caixa, Vender, Histórico, Despesas, Clientes, Pedidos, Forn
 - para **ESBOCO**: v632 (5.51.0) PUBLICADO: Parte 1 · base visual. Por favor confira as telas mexidas (Ajustes + Sons e avisos, Caixa, Histórico, Catálogo, Despesas, Clientes, Ped
 - para **ESBOCO**: Parte 2 pronta no simulador, NÃO publicada. Fotos no main: work/s436/p2/fotos/parte2_{esc,cla}{,_letra115,_letra13}.jpg (telas: Ajustes · Pedidos ⏻ desligado · 
 - para **ESBOCO**: v633 (5.52.0) PUBLICADA: Parte 2 (Ajustes aprovado, ⏻ em Pedidos e Preços, Regras, Marca no Marketing, fretes em Ajustes do site, Fornecedores 89b, leitor do PI
