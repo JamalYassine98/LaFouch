@@ -12,6 +12,7 @@ FAIXA = {
     'PC 1280': (1280, 800, 1, False), 'PC 1440': (1440, 900, 1, False), 'PC 1920': (1920, 1080, 1, False), 'PC 2560': (2560, 1440, 1, False),
 }
 DONO = 'Xiaomi 13T (dono)'
+FUSO = _dono['fuso']   # o relógio do teste anda no fuso da loja (Paraguai), como no celular do dono
 # Modos de cada setor (dono 24/11 15:34–15:40): nenhuma regra de um lado roda no outro.
 MODOS = {
     'app': {'tema': ['claro', 'escuro'], 'letra': [1.0, 1.15, 1.3]},          # as 3 letras do app (aplicadas na Parte 5)

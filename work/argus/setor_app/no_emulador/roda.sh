@@ -5,6 +5,7 @@ T=$1; APK=android/app/build/outputs/apk/debug/app-debug.apk; OUT=argus_android; 
 A(){ timeout 90 adb "$@"; }
 sleep 45; A wait-for-device; for i in $(seq 1 40); do [ "$(A shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done; sleep 15
 A shell wm size 1221x2712; A shell wm density 480
+A shell setprop persist.sys.timezone America/Asuncion; A shell cmd alarm set-timezone America/Asuncion 2>/dev/null   # o fuso da loja, como no celular do dono
 for i in $(seq 1 12); do sleep 8; A shell pm list packages >/dev/null 2>&1 && A install -r $APK && break; done
 A shell pm grant com.lafouch.app android.permission.POST_NOTIFICATIONS
 if [ "$T" = escuro ]; then A shell cmd uimode night yes; else A shell cmd uimode night no; fi

@@ -13,7 +13,7 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
     W, H, dpr, toque = aparelhos.FAIXA[aparelho]
     if porta is None: kit.serve(os.path.join(R, 'www'), kit.PA); porta = kit.PA
     b = navegador or sim.navegador(pw)
-    c = sim.contexto(b, W, H, toque=toque, dpr=dpr, lingua='pt-BR', escuro=(tema == 'escuro'), sem_trabalhador=True,
+    c = sim.contexto(b, W, H, toque=toque, dpr=dpr, lingua='pt-BR', escuro=(tema == 'escuro'), sem_trabalhador=True, fuso=aparelhos.FUSO,
                      movimento=None if reduzir_movimento is None else (not reduzir_movimento))
     c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else r.abort())
     c.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}")

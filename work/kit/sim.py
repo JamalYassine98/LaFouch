@@ -14,7 +14,7 @@ def navegador(pw):
     return pw.chromium.launch(executable_path=EXE, args=ARGS)
 
 def contexto(b, W=390, H=844, *, toque=False, celular=None, dpr=1, lingua=None, escuro=None, movimento=None, camera=False, lugar=None,
-             csp_livre=True, sem_trabalhador=False):
+             csp_livre=True, sem_trabalhador=False, fuso=None):
     """W×H = tela; toque = dedo; celular = página de celular (padrão: igual a toque); dpr = pontos por pixel; lingua = 'pt-BR'/'es-PY';
     escuro = True/False/None (None = não diz); movimento = True (com animação) / False (reduzido) / None (não diz);
     camera = dá a permissão; lugar = (lat, lng) dá a permissão de localização; csp_livre = o teste pode rodar código na página;
@@ -28,4 +28,5 @@ def contexto(b, W=390, H=844, *, toque=False, celular=None, dpr=1, lingua=None, 
     if perm: k['permissions'] = perm
     if lugar: k['geolocation'] = {'latitude': lugar[0], 'longitude': lugar[1]}
     if sem_trabalhador: k['service_workers'] = 'block'
+    if fuso: k['timezone_id'] = fuso   # o fuso horário do aparelho (ex.: America/Asuncion)
     return b.new_context(**k)
