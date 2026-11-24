@@ -101,7 +101,7 @@
 - **48-pecas-compras-parte-1** — aprovado (48a) 22/11 05:44 — vai no item 66 · 48b/48c superados (obsoletos)
 - **49-selo-no-botao-que-resolve** — 49a REPROVADO · 49b superado pelo 58 (Modelos vira filtro) · 49c superado — fechado
 - **50-giro-sobrando-e-lista** — superado pelo 52 (obsoletos 22/11)
-- **52-desfazer-giro-e-precos** — 52b/52d/52e no item 65 · 52a vai com o Titan
+- **52-desfazer-giro-e-precos** — 52a publicado v635 (Preços é linha do Início) · 52b/52d/52e no item 65
 - **53-destaque-da-semana-do-semp** — aprovado 22/11 05:56 — vai no item 68
 - **54-precos-escritorio-do-guardiao** — publicado v635 (escritório do Titan: decide hoje + 5 setores; os setores com o desenho 62–67 vêm nas próximas partes)
 - **55-desconto-do-guardiao-no-vender** — SUPERADO 22/11 00:26 (obsoletos) pelos cupons no caixa — esboço novo a fazer; NÃO implementar
