@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas)",
+ "arquivos": [
+  "src/",
+  "www/style.css"
+ ],
  "ultimas": [
   {
    "t": 1795512385.0007734,
@@ -44,5 +47,5 @@
    "r": "v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor)."
   }
  ],
- "leu": 1795503742.0538452
+ "leu": 1795515420.0250583
 }
