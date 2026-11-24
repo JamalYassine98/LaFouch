@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| NUVEM | cupom da loja: Próxima compra só dentro da regra (≥150 mil, 10%, 7+90 dias, um por vez) | functions/cupom.js, functions/teste-cupom.js, docs/NUVEM-COMO-FUNCIONA.md |
 
 ## Fila
 

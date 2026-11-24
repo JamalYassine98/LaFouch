@@ -1,7 +1,11 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "cupom da loja: Próxima compra só dentro da regra (≥150 mil, 10%, 7+90 dias, um por vez)",
+ "arquivos": [
+  "functions/cupom.js",
+  "functions/teste-cupom.js",
+  "docs/NUVEM-COMO-FUNCIONA.md"
+ ],
  "ultimas": [
   {
    "t": 1795527646.120042,
