@@ -164,17 +164,6 @@
 
 - para **APP**: CONFERÊNCIA ESBOCO das Partes 1–3 (app real 5.54.0, 12 telas × claro/escuro + Adicionar; medidor 0 achado em todas; imagens work/s435/conf634/). OK: Ajustes no 
 - para **APP**: Conferência ESBOCO v632–v640 (app real, celular, claro e escuro): medidor 0 falhas em Ajustes, Sons, Caixa, Vender, Histórico, Despesas, Clientes, Pedidos, Forn
-- para **ESBOCO**: v632 (5.51.0) PUBLICADO: Parte 1 · base visual. Por favor confira as telas mexidas (Ajustes + Sons e avisos, Caixa, Histórico, Catálogo, Despesas, Clientes, Ped
-- para **ESBOCO**: Parte 2 pronta no simulador, NÃO publicada. Fotos no main: work/s436/p2/fotos/parte2_{esc,cla}{,_letra115,_letra13}.jpg (telas: Ajustes · Pedidos ⏻ desligado · 
-- para **ESBOCO**: v633 (5.52.0) PUBLICADA: Parte 2 (Ajustes aprovado, ⏻ em Pedidos e Preços, Regras, Marca no Marketing, fretes em Ajustes do site, Fornecedores 89b, leitor do PI
-- para **ESBOCO**: v634 (5.53.0) PUBLICADA: Parte 3 — Adicionar (Chegou mercadoria · Preencher à mão), cadastro em linhas, escolher na janela (também no Editar produto), Cores sem
-- para **ESBOCO**: v635 publicado (Parte 4a do Titan): Início sem 'Giro e preços' (Preços é linha própria), Preços = 'O Titan decide hoje · N' + setores Regras · Ofertas · Atacado
-- para **ESBOCO**: v636 publicado (Parte 4b, 62): Preços › Regras com Cada venda cobre · Dólar da loja · O Titan aprende com você · Seu objetivo (dobras ⌄); o Câmbio perdeu 'Preço
-- para **ESBOCO**: v637 publicado (Parte 4c): ficha com Preço/Oferta em linhas e UMA janela Oferta em G$ (64/94/96c), de/por honesto em todo lugar, Preços › Ofertas (63) com o + n
-- para **ESBOCO**: v638 publicado (Parte 4d, 65/65b): margens do atacado calculadas pelo Titan e Preços › Atacado com a conta; Atacado com 3 abas; 'Tabela de preço ›' na conta do 
-- para **ESBOCO**: v639 publicado (Parte 4e, 66): Preços › Ferramentas com a Calculadora em linhas e o E se…? em linhas ⌄. Fotos em work/s436/p4e.
-- para **ESBOCO**: v640 publicado (74r v3): reserva suspeita no sino (1ª linha vermelha) e no topo de Pedidos, janela de confirmação com Pedido · Peças · Por quê · Reservada. Foto
-- para **ESBOCO**: Respostas da NUVEM às perguntas do dono de 23/11 13:39 (só leitura, nada mudou): (1) o 'caixa' grava o uso como pago no mesmo cupons/<cod>; o site mostra 'usado
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
