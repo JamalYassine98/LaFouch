@@ -1,2 +1,2 @@
-aprovado 23/11 16:56 (12e, 6 datas) — espera o 'implementar' (SITE)
-cartão de hoje na cor oficial profunda; enfeites a decidir
+IMPLEMENTAR (dono 24/11 00:38) — com o SITE, na ordem da Fila
+12e: cartão de hoje na cor oficial profunda, 6 datas, sem enfeite

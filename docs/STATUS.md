@@ -149,7 +149,7 @@
 - **89-aviso-amarelo-e-fornecedores** — publicado: 89a v632 · 89b v633 (APP)
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
-- **94-tematica-tres-camadas** — aprovado 23/11 16:56 (12e, 6 datas) — espera o 'implementar' (SITE)
+- **94-tematica-tres-camadas** — IMPLEMENTAR (dono 24/11 00:38) — com o SITE, na ordem da Fila
 - **95-enfeites-traco** — aprovado 24/11 00:35: SEM enfeite em todas as datas — espera o 'implementar' (SITE, junto do 94)
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
