@@ -651,6 +651,13 @@ const cupDb = {
     const r = fsx().doc('cupons/' + k), d = await tx.get(r);
     return fn(d.exists ? d.data() : null, (o) => tx.update(r, o));
   }),
+  // 24/11: "um por vez" do cartão da loja — decidido numa transação por cliente (cupomVez/<hash>); fn(atual) devolve { grava?, r }
+  vez: (k, fn) => fsx().runTransaction(async (tx) => {
+    const r = fsx().doc('cupomVez/' + hash(k, 40)), d = await tx.get(r), o = await fn(d.exists ? d.data() : null);
+    if (o && o.grava) tx.set(r, o.grava);
+    return (o && o.r) || {};
+  }),
+  lojaAviso: async () => (await fsx().collection('cupons').where('aviso', '==', 'pend').limit(500).get()).docs.map((d) => d.data()),
   getMes: async (k) => { const d = await fsx().doc('cupomMes/' + k).get(); return d.exists ? d.data() : null; },
   somaMes: (k, v) => fsx().doc('cupomMes/' + k).set({ desc: admin.firestore.FieldValue.increment(v) }, { merge: true }),
   getTent: async (k) => { const d = await fsx().doc('cupomTent/' + k).get(); return d.exists ? d.data() : null; },
@@ -737,8 +744,11 @@ exports.cupom = post('cupom', { cors: true, maxInstances: 10, secrets: [RESEND_K
   const agora = Date.now();
   // público (site)
   if (['ver', 'usar', 'bv', 'proxima', 'presentes', 'meus'].indexOf(b.acao) >= 0 && !(await seloOk(req, res, 'cupom'))) return;
-  if (b.acao === 'ver') return res.json(await Cupom.ver(cupDb, b, ipk, agora));
-  if (b.acao === 'usar') return res.json(await Cupom.usar(cupDb, b, ipk, agora, false));
+  // 24/11: no site o e-mail que vale é SÓ o do login confirmado (nunca o digitado) — é ele que diz de quem é o cartão pessoal
+  if (b.acao === 'ver' || b.acao === 'usar') {
+    const t = await tokenDe(req), siteB = Object.assign({}, b, { email: t && t.email && t.email_verified === true ? t.email : '' });
+    return res.json(b.acao === 'ver' ? await Cupom.ver(cupDb, siteB, ipk, agora) : await Cupom.usar(cupDb, siteB, ipk, agora, false));
+  }
   if (b.acao === 'bv') return res.json(await Cupom.boasVindas(cupDb, envia, b, agora));
   if (b.acao === 'proxima') return res.json(await Cupom.proxima(cupDb, b, agora));
   // S409: quais peças podem ser o presente especial para as peças pagas do carrinho (o piso fica só no servidor; o site recebe só as refs)
@@ -758,6 +768,7 @@ exports.cupom = post('cupom', { cors: true, maxInstances: 10, secrets: [RESEND_K
   if (b.acao === 'confirma') return res.json(await Cupom.confirma(cupDb, envia, b, agora));
   if (b.acao === 'libera') return res.json(await Cupom.libera(cupDb, b, agora));
   if (b.acao === 'emitir') return res.json(await Cupom.emitir(cupDb, b, agora, envia));
+  if (b.acao === 'lojaDesfaz') return res.json(await Cupom.lojaDesfaz(cupDb, b, agora));
   if (b.acao === 'entregue') { await Cupom.confirma(cupDb, envia, b, agora); return res.json(await Cupom.entregue(cupDb, envia, b, agora)); }
   if (b.acao === 'cancelar') return res.json(await Cupom.cancelar(cupDb, b));
   if (b.acao === 'destrava') return res.json(await Cupom.destrava(cupDb, b));

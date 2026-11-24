@@ -108,7 +108,10 @@ async function bloqueado(db, ipk, agora) {
   return !!t && agora - t.ts <= 3600000 && t.n >= ERRADOS_HORA;
 }
 // confere tudo antes de usar (sem gravar o uso)
-async function confere(db, b, ipk, agora) {
+// 24/11 (dono): cartão PESSOAL no site só vale para a conta do MESMO e-mail (o login confirmado; a nuvem nunca usa e-mail digitado).
+// Cartão pessoal sem e-mail só vale no balcão. No caixa (dono presente) continua valendo o telefone.
+const PESSOAIS = ['px', 'fiel', 'pe', 'vip', 'ani'];
+async function confere(db, b, ipk, agora, caixa) {
   const bloq = await bloqueado(db, ipk, agora);
   const cod = codN(b.cod), c = !bloq && cod.length >= 4 ? await db.get(cod) : null;
   if (!c) { await errou(db, ipk, agora); return { ok: false, motivo: 'nao' }; }
@@ -119,16 +122,20 @@ async function confere(db, b, ipk, agora) {
     const ja = (c.usos || []).some((u) => (u.st === 'ok' || (u.st === 'res' && agora - u.ts < 3 * DIA)) && ((tel && u.tel === tel) || (em && u.email === em)));
     if (ja) return { ok: false, motivo: 'ja', c: publico(c, agora) };
   }
-  if (c.tel && tel && c.tel !== tel && c.tipo !== 'ev' && c.tipo !== 'am') {
-    // código pessoal usado por outro telefone: conta e trava com 4+ telefones diferentes no dia
-    const dia = await mudaT(db, cod, (f) => { const d = (f.outros || []).filter((x) => agora - x.ts < DIA); if (!d.some((x) => x.tel === tel)) d.push({ tel, ts: agora }); return { muda: { outros: d }, r: d }; }) || [];
-    const muitos = dia.length >= TEL_DIF;
-    if (muitos && dia.length === TEL_DIF) await aviso(db, agora, 'trava', dia.length + ' telefones diferentes tentaram este código pessoal hoje', cod);
-    return { ok: false, motivo: 'outro' };
-  }
+  if (!caixa && PESSOAIS.indexOf(c.tipo) >= 0) {
+    if (!c.email) return { ok: false, motivo: 'loja', c: publico(c, agora) };
+    if (!em) return { ok: false, motivo: 'conta', c: publico(c, agora) };
+    if (em !== c.email) return outroDono(db, cod, 'e:' + em, agora);
+  } else if (c.tel && tel && c.tel !== tel && c.tipo !== 'ev' && c.tipo !== 'am') return outroDono(db, cod, tel, agora);
   if (c.tipo === 'am' && c.por && ((tel && c.por.tel === tel) || (em && c.por.email === em))) return { ok: false, motivo: 'proprio' };
   if ((c.tipo === 'bv' || c.tipo === 'am') && (await db.jaComprou(tel, em))) return { ok: false, motivo: 'cliente' };
   return { ok: true, c: publico(c, agora), raw: c };
+}
+// código pessoal tentado por outra pessoa (outro telefone no caixa, outro e-mail no site): conta e avisa o dono com 4+ diferentes no dia
+async function outroDono(db, cod, quem, agora) {
+  const dia = await mudaT(db, cod, (f) => { const d = (f.outros || []).filter((x) => agora - x.ts < DIA); if (!d.some((x) => x.tel === quem)) d.push({ tel: quem, ts: agora }); return { muda: { outros: d }, r: d }; }) || [];
+  if (dia.length === TEL_DIF) await aviso(db, agora, 'trava', dia.length + ' pessoas diferentes tentaram este código pessoal hoje', cod);
+  return { ok: false, motivo: 'outro' };
 }
 // site: "¿Tenés un código?" (ver) — só confere
 async function ver(db, b, ipk, agora) {
@@ -137,7 +144,7 @@ async function ver(db, b, ipk, agora) {
 }
 // site ou caixa: grava o uso (site = reservado até o app confirmar o pagamento; caixa = já confirmado)
 async function usar(db, b, ipk, agora, caixa) {
-  const r = await confere(db, b, ipk, agora);
+  const r = await confere(db, b, ipk, agora, !!caixa);
   if (!r.ok) return { ok: false, motivo: r.motivo, cupom: r.c || null };
   const c = r.raw, total = Math.max(0, Math.round(+b.total || 0)), desc = Math.max(0, Math.round(+b.desc || 0));
   if (c.min && total < c.min) return { ok: false, motivo: 'min', cupom: r.c };
@@ -295,6 +302,7 @@ async function diario(db, envia, agora) {
     out.aniversarios++;
     if (envia && c.email) try { await envia(mailAni(c, c.lang === 'es')); } catch (e) {}
   }
+  out.loja = await avisaLoja(db, envia, agora);
   return out;
 }
 // app (dono): pedido cancelado → solta o código reservado e cancela o cartão pendente
@@ -316,7 +324,7 @@ async function libera(db, b, agora) {
 async function emitir(db, b, agora, envia) {
   const tipo = ['vip', 'px', 'am', 'ev'].indexOf(b.tipo) >= 0 ? b.tipo : '';
   if (!tipo) throw new Falha('tipo');
-  if (tipo === 'px') return emitirLoja(db, b, agora, envia);
+  if (tipo === 'px') return emitirLoja(db, b, agora);
   const pct = Math.round(+b.pct || (PADRAO[tipo] || {}).pct || 0);
   if (!(pct >= 1 && pct <= 30)) throw new Falha('pct');
   const o = { tipo, pct, email: emN(b.email), tel: telN(b.tel), nome: limpa(b.nome, 60), min: Math.max(0, Math.round(+b.min || 0)) };
@@ -340,21 +348,66 @@ async function emitir(db, b, agora, envia) {
   if (envia && c.email && tipo === 'vip') try { await envia(mailVip(c, c.lang === 'es', novoVip)); enviou = true; } catch (e) {}
   return { ok: true, cupom: publico(c, agora), cod: c.cod, enviou };
 }
-// a Próxima compra da loja (caixa do app, só o dono): a venda vem junto (id e total) e a regra LOJA decide se pode nascer
-async function emitirLoja(db, b, agora, envia) {
-  const tel = telN(b.tel), venda = limpa(b.venda, 40), total = Math.round(+b.total || 0);
-  if (!tel) return { ok: false, motivo: 'cadastro' };
+// a Próxima compra da loja (caixa do app, só o dono): a venda vem junto (id e total) e a regra LOJA decide se pode nascer.
+// Dono do cartão = o e-mail do cadastro (dono 24/11: mesmo e-mail para receber, sem exceção). Um por vez por e-mail, decidido numa
+// transação (db.vez), então dois toques, dois aparelhos ou internet repetindo nunca criam dois cartões. O e-mail sai no dia em que
+// o cartão começa a valer (diario → avisaLoja), nunca antes.
+async function emitirLoja(db, b, agora) {
+  const em = emN(b.email), venda = limpa(b.venda, 40), total = Math.round(+b.total || 0);
+  if (!EMAIL_OK.test(em)) return { ok: false, motivo: 'email' };
   if (!venda) throw new Falha('venda');
   if (!(total >= LOJA.min)) return { ok: false, motivo: 'min', min: LOJA.min };
-  const de = 'loja:' + venda, ja = await db.porPid(de, 'px');
-  if (ja) return { ok: true, cupom: publico(ja, agora), cod: ja.cod, enviou: false };
-  const vivoPx = (await db.doTel(tel)).find((c) => c.tipo === 'px' && c.st !== 'fila' && c.st !== 'pend' && ['', 'cedo', 'trava'].indexOf(vivo(c, agora)) >= 0);
-  if (vivoPx) return { ok: false, motivo: 'tem', fim: vivoPx.fim || 0 };
-  const ini = agora + LOJA.inicio * DIA;
-  const c = await cria(db, { tipo: 'px', pct: LOJA.pct, ini, fim: ini + LOJA.dias * DIA, max: 1, min: 0, email: emN(b.email), tel, nome: limpa(b.nome, 60), pid: de, de, lang: b.lang === 'es' ? 'es' : 'pt' }, agora);
-  let enviou = false;
-  if (envia && c.email) try { await envia(mailLoja(c, c.lang === 'es')); enviou = true; } catch (e) {}
-  return { ok: true, cupom: publico(c, agora), cod: c.cod, enviou };
+  let cod = '';
+  for (let i = 0; i < 6 && !cod; i++) { const k = novoCod(); if (!(await db.get(k))) cod = k; }
+  if (!cod) throw new Falha('erro', 500);
+  const r = await db.vez('loja:' + em, async (atual) => {
+    if (atual && atual.venda === venda) return { r: { mesmo: atual.cod } };
+    if (atual && atual.cod) {
+      const c0 = await db.get(atual.cod);
+      if (c0 && ['', 'cedo', 'trava'].indexOf(vivo(c0, agora)) >= 0) return { r: { tem: c0.fim || 0 } };
+      if (!c0 && agora - (+atual.ts || 0) < 60000) return { r: { tente: true } };
+    }
+    return { grava: { cod, venda, ts: agora }, r: { novo: true } };
+  });
+  if (r.tem != null) return { ok: false, motivo: 'tem', fim: r.tem };
+  if (r.tente) return { ok: false, motivo: 'tente' };
+  if (r.mesmo) { const c1 = await db.get(r.mesmo); if (c1) return { ok: true, cupom: publico(c1, agora), cod: c1.cod }; return { ok: false, motivo: 'tente' }; }
+  const ini = agora + LOJA.inicio * DIA, de = 'loja:' + venda;
+  try {
+    const c = await cria(db, { cod, tipo: 'px', pct: LOJA.pct, ini, fim: ini + LOJA.dias * DIA, max: 1, min: 0, email: em, tel: telN(b.tel), nome: limpa(b.nome, 60), pid: de, de, aviso: 'pend', lang: b.lang === 'es' ? 'es' : 'pt' }, agora);
+    return { ok: true, cupom: publico(c, agora), cod: c.cod };
+  } catch (e) {
+    await db.vez('loja:' + em, async (atual) => (atual && atual.cod === cod ? { grava: { cod: '', venda: '', ts: 0 }, r: {} } : { r: {} }));
+    throw e;
+  }
+}
+// venda da loja desfeita (app, só o dono): o cartão que ela gerou é cancelado; se já foi usado, não se mexe e o dono é avisado
+async function lojaDesfaz(db, b, agora) {
+  const venda = limpa(b.venda, 40);
+  if (!venda) throw new Falha('venda');
+  const c = await db.porPid('loja:' + venda, 'px');
+  if (!c) return { ok: true, fora: true };
+  const r = await mudaT(db, c.cod, (f) => {
+    if ((f.usos || []).some((u) => u.st === 'ok' || (u.st === 'res' && agora - u.ts < 3 * DIA))) return { r: 'usado' };
+    return f.st === 'canc' ? { r: 'ja' } : { muda: { st: 'canc', canc: agora }, r: 'canc' };
+  });
+  if (r === 'usado') { await aviso(db, agora, 'desfeita', 'venda ' + venda + ' desfeita, mas o cartão Próxima compra dela já foi usado', c.cod); return { ok: true, usado: true }; }
+  return { ok: true, cancelado: r === 'canc' || r === 'ja' };
+}
+// diário: o e-mail do cartão da loja sai no dia em que ele começa a valer. Marca antes de enviar (uma vez só); se o envio falhar,
+// volta a marcar como pendente e avisa o dono — o próximo diário tenta de novo.
+async function avisaLoja(db, envia, agora) {
+  const out = { enviados: 0, falhas: 0 };
+  for (const c0 of ((db.lojaAviso ? await db.lojaAviso() : []) || [])) {
+    if (c0.aviso !== 'pend' || !(c0.ini <= agora) || vivo(c0, agora)) continue;
+    if (!(await mudaT(db, c0.cod, (f) => (f.aviso === 'pend' ? { muda: { aviso: 'env', avisoTs: agora }, r: true } : null)))) continue;
+    try { if (!envia) throw new Error('sem envio'); await envia(mailLoja(c0, c0.lang === 'es')); out.enviados++; } catch (e) {
+      out.falhas++;
+      await mudaT(db, c0.cod, (f) => (f.aviso === 'env' && f.avisoTs === agora ? { muda: { aviso: 'pend' }, r: true } : null));
+      await aviso(db, agora, 'email', 'o e-mail do cartão Próxima compra não saiu hoje; o diário tenta de novo amanhã', c0.cod);
+    }
+  }
+  return out;
 }
 async function cancelar(db, b) {
   const c = await db.get(codN(b.cod));
@@ -499,4 +552,4 @@ function mail(c, es, am) {
     html: E.molde(h1, E.P(intro) + E.cartao(rot, n + (bv ? (es ? ' en tu primera compra' : ' na primeira compra') : (es ? ' en tu próxima compra' : ' na próxima compra')), c.cod, val(c, true), true) + E.B(es ? 'Usar ahora' : 'Usar agora', l) + amiga + regra),
   };
 }
-module.exports = { Falha, PADRAO, LOJA, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailIndicou, mailEspecial, mailVip, mailAni, mailLoja, blocoEvento, escada, CICLO, PREMIO };
+module.exports = { Falha, PADRAO, LOJA, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, lojaDesfaz, avisaLoja, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailIndicou, mailEspecial, mailVip, mailAni, mailLoja, blocoEvento, escada, CICLO, PREMIO };
