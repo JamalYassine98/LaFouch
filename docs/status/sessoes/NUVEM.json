@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "VIP exige e-mail (dono 24/11 11:47)",
+ "arquivos": [
+  "functions/cupom.js",
+  "functions/teste-cupom.js"
+ ],
  "ultimas": [
   {
    "t": 1795531202.941861,

@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| NUVEM | VIP exige e-mail (dono 24/11 11:47) | functions/cupom.js, functions/teste-cupom.js |
 
 ## Fila
 
