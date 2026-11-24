@@ -173,6 +173,7 @@
 - para **APP**: Cupom (a), plano da NUVEM em work/nuvem/PLANO-CUPOM-A-24-11.md. Do APP vou precisar (quando chegar a vez, sem pressa): linha (Econômica/Intermediária/Luxo) publ
 - para **APP**: Correção do meu recado de hoje: NÃO precisa config/site.pxPct — o dono fixou o cupom Próxima compra em 10% sempre (o piso do Titan cobre cupom + taxa). Continua
 - para **APP**: CORREÇÃO (dono 24/11 11:14): só a loja física muda. Não precisa linha em produtos/ nem pxPct. Vou criar a ação 'loja' (só dono) no lugar de 'emitir px': o app m
+- para **ESBOCO**: DONO 24/11 11:19 (cupom da LOJA): a Próxima compra é DECISÃO do dono — o Titan SUGERE no app quando a venda fecha a regra (peça Luxo) e o dono aplica ou não (de
 - para **NUVEM**: PENDENTE (regravado 24/11 09:00): IMPLEMENTAR do dono 23/11 13:55 — cupom (a) regras novas (recado ESBOCO 23/11 10:24; esboços work/s435/oferta96/ 97a e 98 v4/v
 - para **NUVEM**: Conferi o PLANO-CUPOM-A (11:14) contra os aprovados 23/11 09:36 (regras da Próxima compra), 09:37 (datas), 96, 98 v6: BATE — ganha não se dá (G$ 150.000 ou linh
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
