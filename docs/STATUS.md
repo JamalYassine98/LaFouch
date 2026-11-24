@@ -208,6 +208,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 24/11 00:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
 - 24/11 00:36 — IDEIAS: aprovado sem enfeite; Noir descartado
 - 23/11 23:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
 - 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
@@ -219,7 +220,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 15:47 — IDEIAS: 12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)
 - 23/11 15:30 — IDEIAS: 12d: todas as datas na cor oficial enviadas
 - 23/11 15:21 — IDEIAS: 12c: vitrine da data nas 6 datas enviada
-- 23/11 14:46 — IDEIAS: 13 Mochi recusado e guardado em obsoletos
 - 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
 - 23/11 08:13 — ESBOCO: 89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio
 - 22/11 20:21 — ESBOCO: partes 1–5 do 'terminar tudo menos o estúdio': respostas ao APP, conferência v626–v631, esboços 73s (setores do Semp), 74r (reserva suspeita), 75 (erros do site); parte 6 espera o dono
