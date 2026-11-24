@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "conferência: voltar e botões × esboços aprovados (v632–v640)",
+ "arquivos": [
+  "work/s435/conf640"
+ ],
  "ultimas": [
   {
    "t": 1795501282.84591,
@@ -40,5 +42,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795501067.2219658
+ "leu": 1795502585.6692538
 }
