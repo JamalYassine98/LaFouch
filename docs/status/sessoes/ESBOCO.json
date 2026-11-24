@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "CLAUDE.md: regras do dono 24/11 nos lugares certos (olhar e comparar imagens, fazer novo, reler regras, OK antes de publicar)",
- "arquivos": [
-  "CLAUDE.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795516334.1259243,
+   "r": "CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)"
+  },
   {
    "t": 1795515507.1325092,
    "r": "OK do voltar único (v641); lista de erros completa × esboços aprovados: 23 itens em work/s435/lista-erros/PARTE-1..5.md, com ordem para a APP"
@@ -40,10 +42,6 @@
   {
    "t": 1795143053.220285,
    "r": "conferência"
-  },
-  {
-   "t": 1795143044.773449,
-   "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
  "leu": 1795516309.1194916
