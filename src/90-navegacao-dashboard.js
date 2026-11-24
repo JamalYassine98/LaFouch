@@ -9,16 +9,13 @@
     // v444: no modo cliente (iPad da loja) só existe o catálogo
     if (S.modoCli && v !== 'vendas') v = 'vendas';
     if (v !== 'fx') S._fxVisto = 0; // ao voltar para a aba Câmbio, lê a casa na hora
-    // v-b9: o voltar do celular volta para a tela anterior (cada troca de tela entra no histórico)
     var mudou = S.view !== v;
     S.onlAba = v === 'onl' ? window.__onlAba || '' : '';
     window.__onlAba = '';
     S.view = v;
     S.msg = '';
-    try {
-      if (mudou && !window.__navVolta && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
-      else history.replaceState(null, '', '#' + v);
-    } catch (e) {}
+    // o endereço só mostra a tela (o voltar mora na pilha, src/99c-navegacao-s435.js): troca no lugar e mantém a guarda do voltar
+    try { history.replaceState(history.state, '', '#' + v); } catch (e) {}
     render();
     window.scrollTo(0, 0);
     var dir = window.__slide || 0,

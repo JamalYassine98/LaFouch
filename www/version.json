@@ -1,1 +1,1 @@
-{"v":640,"nat":1,"nome":"5.59.0","notas":["Reserva suspeita: quando a nuvem marca uma reserva estranha (5 peças iguais sem pagar), ela é a 1ª linha do sino.","O pedido aparece no topo de Pedidos, em vermelho; 'Ver' mostra o porquê e o 'Cancelar e soltar as peças'."]}
+{"v":641,"nat":1,"nome":"5.60.0","notas":["Voltar consertado: a seta da tela, o voltar do Android e o do navegador agora fazem o mesmo passo — fecham a janela ou o Estúdio, depois a peça aberta, depois voltam uma tela. No Início, o Android pergunta \"Sair do app?\"."]}

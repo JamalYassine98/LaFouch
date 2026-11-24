@@ -1,0 +1,548 @@
+[
+ {
+  "aba": "Peças",
+  "linha": "InventárioCadastro, estoque e preço de c",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "estoque",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Inventário",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>estoque",
+   "hash": "#estoque"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "InventárioCadastro, estoque e preço de c",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "estoque",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Inventário",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>estoque",
+   "hash": "#estoque"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "InventárioCadastro, estoque e preço de c",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "estoque",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Inventário",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>estoque",
+   "hash": "#estoque"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "EstúdioFotos das peças›",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 1
+ },
+ {
+  "aba": "Peças",
+  "linha": "EstúdioFotos das peças›",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "EstúdioFotos das peças›",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "ComprasLista de compras e fornecedores›",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "comp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Compras",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>comp",
+   "hash": "#comp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "ComprasLista de compras e fornecedores›",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "comp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Compras",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>comp",
+   "hash": "#comp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Peças",
+  "linha": "ComprasLista de compras e fornecedores›",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "comp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Compras",
+   "seta": "‹Peças",
+   "pilha": "grp:g:pecas>comp",
+   "hash": "#comp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Peças",
+   "seta": "",
+   "pilha": "grp:g:pecas",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "CaixaO dinheiro da loja, por moeda›",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "caixa",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Caixa",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>caixa",
+   "hash": "#caixa"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "CaixaO dinheiro da loja, por moeda›",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "caixa",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Caixa",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>caixa",
+   "hash": "#caixa"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "CaixaO dinheiro da loja, por moeda›",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "caixa",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Caixa",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>caixa",
+   "hash": "#caixa"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "ReservasLivre e separado›",
+  "modo": "seta",
+  "ok": 0,
+  "abriu": {
+   "view": "dash",
+   "tab": "din",
+   "set": "",
+   "titulo": "Reservas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>din",
+   "hash": "#dash"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "din",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "ReservasLivre e separado›",
+  "modo": "navegador",
+  "ok": 0,
+  "abriu": {
+   "view": "dash",
+   "tab": "din",
+   "set": "",
+   "titulo": "Reservas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>din",
+   "hash": "#dash"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "din",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "ReservasLivre e separado›",
+  "modo": "android",
+  "ok": 0,
+  "abriu": {
+   "view": "dash",
+   "tab": "din",
+   "set": "",
+   "titulo": "Reservas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>din",
+   "hash": "#dash"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "din",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "DespesasContas do mês e imprevistos›",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "desp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Despesas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>desp",
+   "hash": "#desp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "DespesasContas do mês e imprevistos›",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "desp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Despesas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>desp",
+   "hash": "#desp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Dinheiro",
+  "linha": "DespesasContas do mês e imprevistos›",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "desp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Despesas",
+   "seta": "‹Dinheiro",
+   "pilha": "grp:g:din>desp",
+   "hash": "#desp"
+  },
+  "janela": 0,
+  "voltou": {
+   "view": "grp",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Dinheiro",
+   "seta": "",
+   "pilha": "grp:g:din",
+   "hash": "#grp"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Ajustes",
+  "linha": "Voltar no tempomudanças de produto guard",
+  "modo": "seta",
+  "ok": true,
+  "abriu": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela_depois": 1
+ },
+ {
+  "aba": "Ajustes",
+  "linha": "Voltar no tempomudanças de produto guard",
+  "modo": "navegador",
+  "ok": true,
+  "abriu": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela_depois": 0
+ },
+ {
+  "aba": "Ajustes",
+  "linha": "Voltar no tempomudanças de produto guard",
+  "modo": "android",
+  "ok": true,
+  "abriu": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela": 1,
+  "voltou": {
+   "view": "ajustes",
+   "tab": "hoje",
+   "set": "",
+   "titulo": "Ajustes",
+   "seta": "",
+   "pilha": "ajustes",
+   "hash": "#ajustes"
+  },
+  "janela_depois": 0
+ }
+]

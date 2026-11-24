@@ -1592,18 +1592,18 @@ async def main():
             pg = await pagina()
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#mainnav .mn[data-id=caixa]').click(); await pg.wait_for_timeout(300)
+            # 24/11 (um voltar só, 147-2b): a aba da barra é a raiz da pilha dela — o voltar dali vai ao Início (não à aba anterior)
             await pg.go_back(); await pg.wait_for_timeout(400)
             r = await pg.evaluate("() => window.__LF.S.view")
-            await pg.go_back(); await pg.wait_for_timeout(400)
-            r2 = await pg.evaluate("() => window.__LF.S.view")
+            r2 = r
             await pg.evaluate("() => { window.__LF.S.view = 'inicio'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
             await pg.locator('#v-inicio .tl[data-id="ata"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => [window.__LF.S.view, (document.querySelector('#v-ata h1') || {}).textContent, document.querySelectorAll('#ataTabs button').length]")
             await pg.locator('#ataTabs button[data-id="loj"]').click(); await pg.wait_for_timeout(300)
             r3.append(await pg.evaluate("() => [...document.querySelectorAll('#ataCorpo .ataL b')].map(b => b.textContent)"))
             total += 1
-            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'ata' and r3[1] == 'Atacado' and r3[2] == 3 and r3[3][:1] == ['Enviar catálogo a um lojista'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'v-b9 + S370 + 65: voltar do celular volta para a tela anterior; atalho Atacado abre a tela Atacado do app (3 abas; Enviar catálogo em Lojistas)')
+            ok = r == 'inicio' and r2 == 'inicio' and r3[0] == 'ata' and r3[1] == 'Atacado' and r3[2] == 3 and r3[3][:1] == ['Enviar catálogo a um lojista'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v-b9 + S370 + 65: voltar do celular da raiz da aba vai ao Início; atalho Atacado abre a tela Atacado do app (3 abas; Enviar catálogo em Lojistas)')
             if not ok: falhas.append('v-b9 voltar'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
@@ -5887,6 +5887,61 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'Lista sem excesso: Sobrando com dinheiro parado em Parados e sobrando, avise-me primeiro, pedido antigo na Entrada')
             if not ok: falhas.append('lista sem excesso'); print('        veio', got, pg.erros)
             await pg.close()
+
+            # 24/11 · UM VOLTAR SÓ (work/s435/voltar/COMO-FAZER-VOLTAR.md; prova = voltar.py/voltar2.py da ESBOCO):
+            # os 3 jeitos (seta da tela, voltar do navegador/PWA, voltar do Android) dão a MESMA tela em cada passo;
+            # o navegador não sai do app antes do Início; janela, Estúdio e peça aberta fecham no voltar (a tela de baixo fica).
+            ONDE = "() => { const S = window.__LF.S; const v = document.querySelector('.view:not([hidden])'); const h = v && [...v.querySelectorAll('h1,h2')].find(e => e.getBoundingClientRect().height); const jan = [...document.querySelectorAll('.ljJn:not(.ljSai),.estOv,.lfa-ov:not(.sai)')].filter(e => e.getBoundingClientRect().height > 60).length; return [S.view, h ? h.textContent.trim().slice(0, 24) : '', (S.nvP || []).join('>'), jan, !!(S.vRef || (S.det && S.open))].join(' | '); }"
+            TOCA = "(t) => { const e = [...document.querySelectorAll('.view:not([hidden]) button,.view:not([hidden]) [data-act],#mainnav .mn')].filter(e => e.getBoundingClientRect().height > 0).find(e => e.textContent.trim().replace(/\\s+/g, ' ').startsWith(t)); if (!e) return 'sem ' + t; e.click(); return 'ok'; }"
+            SETA = "() => { const v = document.querySelector('.view:not([hidden])'); const b = v && [...v.querySelectorAll('[data-act=nvVolta]')].find(e => e.getBoundingClientRect().height); if (b) { b.click(); return 1; } window.__nvVoltarAndroid(); return 0; }"
+            CAMS = [('Preços › Regras', ['Preços', 'Regras'], 2), ('Site › Pedidos', ['Site', 'Pedidos'], 2), ('Marketing', ['Marketing'], 1),
+                    ('Peças › Inventário', ['@estoque', 'Inventário'], 2), ('Dinheiro › Reservas', ['@caixa', 'Reservas'], 2)]
+            async def vt_onde(pg):
+                try: return await pg.evaluate(ONDE) if pg.url.startswith('http') else 'SAIU DO APP'
+                except Exception: return 'SAIU DO APP'
+            vt_ruim = []
+            for nome, toques, n in CAMS:
+                trilhas = {}
+                for modo in ('seta', 'navegador', 'android'):
+                    pg = await pagina(fam=True); await pg.wait_for_timeout(300)
+                    for t in toques:
+                        if t[0] == '@': await pg.evaluate("(id) => { const b = [...document.querySelectorAll('#mainnav .mn')].find(e => e.getAttribute('data-id') === id || (e.textContent || '').trim() === {estoque: 'Peças', caixa: 'Dinheiro'}[id]); b && b.click(); }", t[1:])
+                        else: await pg.evaluate(TOCA, t)
+                        await pg.wait_for_timeout(450)
+                    tr = [await vt_onde(pg)]
+                    for i in range(n):
+                        if modo == 'seta': await pg.evaluate(SETA)
+                        elif modo == 'navegador': await pg.evaluate("() => { setTimeout(() => history.back(), 0); }")
+                        else: await pg.evaluate("() => window.__nvVoltarAndroid()")
+                        await pg.wait_for_timeout(500)
+                        tr.append(await vt_onde(pg))
+                    trilhas[modo] = tr; await pg.close()
+                if not (trilhas['seta'] == trilhas['navegador'] == trilhas['android']) or not trilhas['seta'][-1].startswith('inicio') and n > 1 and nome.startswith('Preços'):
+                    vt_ruim.append((nome, trilhas))
+            # janela (Voltar no tempo), Estúdio e peça aberta: o voltar fecha só o que está por cima
+            for nome, abre, modo in (('Voltar no tempo', "() => { window.__LF.setView('ajustes'); window.__LF.ACT.vtAbre(); }", 'navegador'), ('Voltar no tempo', "() => { window.__LF.setView('ajustes'); window.__LF.ACT.vtAbre(); }", 'android'),
+                                     ('Estúdio', "() => window.__LF.inicioGo('est')", 'navegador'), ('Estúdio', "() => window.__LF.inicioGo('est')", 'android')):
+                pg = await pagina(fam=True); await pg.evaluate(abre); await pg.wait_for_timeout(600)
+                a = await vt_onde(pg)
+                if modo == 'navegador': await pg.evaluate("() => { setTimeout(() => history.back(), 0); }")
+                else: await pg.evaluate("() => window.__nvVoltarAndroid()")
+                await pg.wait_for_timeout(700); d = await vt_onde(pg)
+                if 'SAIU' in a + d or a.split(' | ')[3] == '0' or d.split(' | ')[3] != '0' or a.split(' | ')[0] != d.split(' | ')[0]: vt_ruim.append((nome + ' · ' + modo, [a, d]))
+                await pg.close()
+            pg = await pagina(fam=True)
+            try: r = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = t => new Promise(r => setTimeout(r, t)); L.setView('vendas'); await w(400);
+              const c = [...document.querySelectorAll('#v-vendas .pcard')]; if (c.length < 2) return 'sem peças';
+              window.scrollTo(0, 300); await w(200); const y0 = Math.round(scrollY); c[c.length - 1].click(); await w(700); const ab = !!S.vRef;
+              setTimeout(() => history.back(), 0); await w(800); return [ab, !S.vRef, S.view, Math.abs(Math.round(scrollY) - y0) < 4]; }""")
+            except Exception: r = 'SAIU DO APP'
+            if r != [True, True, 'vendas', True]: vt_ruim.append(('peça do Catálogo · navegador', r))
+            await pg.close()
+            total += 1
+            ok = not vt_ruim and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'um voltar só: seta, navegador e Android dão a mesma tela; janela, Estúdio e peça fecham no voltar; o navegador não sai antes do Início')
+            if not ok:
+                falhas.append('um voltar só')
+                for x in vt_ruim: print('        ', x)
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}

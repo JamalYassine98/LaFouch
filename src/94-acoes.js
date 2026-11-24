@@ -634,27 +634,6 @@
   function tm2(e, v) {
     return totalMensal() - e.valor + v;
   }
-  // v-b9 (11/11/2026): o voltar do celular (ou do navegador) volta para a tela anterior
-  function navVolta() {
-    var v = location.hash.slice(1);
-    // a primeira entrada (sem tela no endereço) é o Início
-    if (
-      !VIEWS.some(function (x) {
-        return x[0] === v;
-      })
-    )
-      v = 'inicio';
-    if (v !== S.view) {
-      window.__navVolta = true;
-      try {
-        setView(v);
-      } finally {
-        window.__navVolta = false;
-      }
-    }
-  }
-  window.addEventListener('hashchange', navVolta);
-  window.addEventListener('popstate', navVolta);
   // v-b9: o app abre SEMPRE no Início (antes reabria a última tela guardada no endereço)
   setTimeout(fetchFx, 1200);
 

@@ -93,15 +93,6 @@
     a.innerHTML = '<button type="button" class="fnLk' + lkCls(false) + '" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk' + lkCls(false) + '" data-act="fnEstudio">Fotografar no Estúdio ›</button>';
     det.appendChild(a);
   }
-  window.addEventListener('popstate', function () {
-    setTimeout(function () {
-      var d = S._fnDe;
-      if (!d) return;
-      S._fnDe = null;
-      var v = $('v-' + S.view), bar = v && v.querySelector('.fnBar[data-ref]');
-      if (S.view === d.para && !(bar && bar.getBoundingClientRect().width)) { try { history.back(); } catch (e) {} }
-    }, 0);
-  });
   ACT.fnEstudio = function () {
     var det = fnBarAtiva(), ref = det && det.getAttribute('data-ref');
     if (ref && typeof estFotografaRef === 'function') estFotografaRef(ref);
