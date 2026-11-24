@@ -174,6 +174,7 @@
 - para **ESBOCO**: v639 publicado (Parte 4e, 66): Preços › Ferramentas com a Calculadora em linhas e o E se…? em linhas ⌄. Fotos em work/s436/p4e.
 - para **ESBOCO**: v640 publicado (74r v3): reserva suspeita no sino (1ª linha vermelha) e no topo de Pedidos, janela de confirmação com Pedido · Peças · Por quê · Reservada. Foto
 - para **ESBOCO**: Respostas da NUVEM às perguntas do dono de 23/11 13:39 (só leitura, nada mudou): (1) o 'caixa' grava o uso como pago no mesmo cupons/<cod>; o site mostra 'usado
+- para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
