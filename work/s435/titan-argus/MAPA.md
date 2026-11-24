@@ -21,7 +21,8 @@ Sai quando o comparador cobrir os mesmos aparelhos: o fiscal visual e a linha de
 3. **Comparar com o esboço** — cada tela mexida (roteiro das 60 telas do telas.py + dobras abertas + nomes compridos; claro/escuro; 3 letras) fotografada e posta lado a lado com o esboço do índice; diferença sem motivo trava. Junto, a foto vai para a ESBOCO olhar (regra 18) e dar o OK (1b).
 4. **Medidor** — o mede.js com as regras novas.
 5. **Código morto** — tools/deadcode.py com o app rodando.
-6. **Aparelho real** — Test Lab, só na cota grátis.
+6. **Android de verdade (emulado), sem cota** — o Titan roda as mesmas telas no emulador Android do GitHub (.github/workflows/teste-android.yml, já pedido pelo dono; grátis no repositório público) a cada conferência; as fotos passam pelo mesmo comparador.
+7. **Celular físico** — Test Lab só na conferência final, dentro dos 30 min grátis (pago só com autorização, regra 23).
 
 **Saem** (para work/obsoletos, cada um só depois de o Titan pegar tudo o que ele pegava): work/s436/compara_app.py · work/verif/* (alin2, botoes, estilos, familias2) · medidores velhos do kit (alin, centro, abas_dist, sobre, olho) · os scripts soltos de conferência (work/s435/conf634, conf640, lista-erros, voltar — viram roteiro do Titan) · inventários feitos à mão.
 
@@ -31,6 +32,8 @@ Plantando de volta os erros reais de hoje, o Titan reprova sozinho cada um: Adic
 ## É remendo? (regra 12)
 Não: nenhuma ferramenta nova fica ao lado da velha — cada uma entra e a velha sai no mesmo passo; o motor é um só para os dois lados.
 
-## O que o dono decide
-1. Ordem: (a) Titan B primeiro (é onde os erros estão passando agora) → depois partes 2/3a/3b do Argus; ou (b) outra.
-2. Quem constrói o Titan B: a ESBOCO (é ferramenta de conferir, fica em work/, não mexe em src/) com a APP usando antes de publicar; ou a APP.
+## Decidido pelo dono (24/11 07:40–07:43)
+- Titan primeiro; a ESBOCO constrói a conferência do Titan (work/, sem mexer em src/).
+- Ferramentas de "ferro" no lugar das velhas (cada uma entra e a velha sai no mesmo passo): comparador peça por peça (tela real × tela "como foi aprovado", ao vivo) · medidor de família · explorador que toca em tudo (voltar, dados difíceis, 3 letras, claro/escuro) · relatório em imagem com a diferença marcada · prova do próprio Titan (erros plantados).
+- Gabarito APROVADO: antes de usar, conferir que a base aprovada (work/kit/base_app.py) está igual aos esboços aprovados.
+- Emulador Android do GitHub entra no Titan (item 6).

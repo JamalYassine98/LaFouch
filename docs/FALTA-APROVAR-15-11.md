@@ -1264,3 +1264,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 24/11 00:35 · APROVADO: cartão das datas SEM enfeite (sai o emoji do .hdeco em todas as 6 datas; nenhum desenho no lugar). 'Noir' fica fora das datas (o dono reserva para nome de armação). Título do Halloween: segue 'Olhar misterioso' até o dono decidir (proposta: 'A noite pede lentes escuras').
 - 24/11 00:38 · IMPLEMENTAR (dono): temáticas 12e (6 datas na cor oficial profunda) + sem enfeite → Fila do SITE.
 - 23/11 14:46 — DONO: propostas do Mochi nas datas (IDEIAS 13) RECUSADAS — 'deixa quieto'. O Mochi das datas fica como está. Fica a trava técnica: o Mochi só pelo caminho do site (window.__lfMochiArms), senão sai sem braços.
+- 24/11 07:40 · DONO: TITAN primeiro (uma entidade no app, ARGUS no site); a ESBOCO constrói a conferência do Titan; ferramentas novas de "ferro" no lugar das velhas (comparador peça por peça, medidor de família, explorador, relatório em imagem, prova do próprio Titan). Mapa: work/s435/titan-argus/MAPA.md.
+- 24/11 07:43 · APROVADO: gabarito (conferir a base aprovada × esboços antes de comparar) e o emulador Android do GitHub dentro do Titan.
