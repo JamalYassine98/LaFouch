@@ -213,6 +213,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 24/11 11:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
 - 24/11 10:41 — ESBOCO: Titan 3b: calendário, sem internet e emulador Android rodando; achados 25a (em 0 dias) e 25b (sem internet não avisa)
 - 24/11 10:40 — NUVEM: Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue.
 - 24/11 09:45 — ESBOCO: Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)
@@ -237,4 +238,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 16:06 — APP: v632 (5.51.0) publicada: Parte 1 · base visual + conferência v626–v631; próximo: Parte 2 (Ajustes)
 - 23/11 15:50 — IDEIAS: 12e aprovado no Natal; feitas as 6 datas (esboco-12e-datas-1/2)
 - 23/11 15:47 — IDEIAS: 12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)
-- 23/11 11:48 — ESBOCO: 23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS
