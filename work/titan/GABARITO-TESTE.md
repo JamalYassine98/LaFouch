@@ -28,3 +28,9 @@ Método: app REAL publicado (escuro, celular) ao lado do último esboço aprovad
 2. **Os gabaritos de código (base_app.py, aprovados.py) são remendo:** reconstroem por cima do app e já divergem dos esboços.
 3. **Jeito natural:** o gabarito de cada tela é um **molde consolidado** — a tela inteira (todas as dobras, claro/escuro, 3 letras) com TODOS os aprovados que tocam nela. Ele nasce do app real quando a ESBOCO confere a tela peça por peça contra cada esboço aprovado da lista dela e dá "OK ESBOCO"; aí o Titan grava a foto + medidas (compara.PECAS) e passa a comparar com ela. Tela com diferença fica sem molde até ser corrigida. Mudança aprovada nova → o molde daquela tela cai e é refeito no próximo "OK ESBOCO".
 4. Assim base_app.py e aprovados.py vão para o lixo (work/obsoletos) no mesmo passo em que o Titan troca para os moldes.
+
+## Teste do gabarito final (base aprovada limpa, base=True) × último esboço aprovado — 24/11 14:35
+Fotos: gabarito/gab_*.jpg. Certo: Adicionar, Pedidos, Caixa, Catálogo, Compras, Fornecedores, Ferramentas, Dashboard, Início (149n + Preços).
+ERRADO (o gabarito não tem o aprovado, então aceitaria o erro do app): Preços sem "‹ INÍCIO" (54) · Regras sem valor à direita e ícones (62) · Ofertas com ícone, linhas e seções diferentes do 63 · Histórico sem o 67 · Inventário sem o 52b · Atacado com ícone diferente do 65b.
+Erro do roteiro: Peças abriu o Inventário (não o grupo).
+Causa: o gabarito é "app + itens antigos"; aprovado novo ainda não implementado nunca entra nele.

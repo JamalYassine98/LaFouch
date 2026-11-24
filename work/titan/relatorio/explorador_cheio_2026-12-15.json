@@ -1,0 +1,916 @@
+{
+ "cenario": "cheio",
+ "estados": {
+  "Início": {
+   "estado": "inicio||||||0",
+   "familia": {
+    "titulos": [],
+    "frases_titulo": [],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "Titan · 5 coisas para olhar",
+      "r": {
+       "x": 50,
+       "y": 215,
+       "w": 188,
+       "h": 22,
+       "b": 237
+      },
+      "lin": {
+       "x": 24,
+       "y": 198,
+       "w": 342,
+       "h": 56,
+       "b": 254
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "op0r49"
+     },
+     {
+      "t": "Vendido hoje · 6 venda(s)",
+      "r": {
+       "x": 95,
+       "y": 431,
+       "w": 145,
+       "h": 17,
+       "b": 449
+      },
+      "lin": {
+       "x": 24,
+       "y": 414,
+       "w": 342,
+       "h": 83,
+       "b": 498
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "x8atmc"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 523.500",
+      "r": {
+       "x": 95,
+       "y": 451,
+       "w": 126,
+       "h": 26,
+       "b": 477
+      },
+      "fs": 22,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 31.9,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [
+     {
+      "t": "240 peças novas para fotografar",
+      "r": {
+       "x": 76,
+       "y": 288,
+       "w": 207,
+       "h": 44,
+       "b": 332
+      },
+      "linhas": 2
+     },
+     {
+      "t": "da compra · já estão na fila do Estúdio",
+      "r": {
+       "x": 76,
+       "y": 334,
+       "w": 207,
+       "h": 35,
+       "b": 368
+      },
+      "linhas": 2
+     },
+     {
+      "t": "Dia, mês e histórico",
+      "r": {
+       "x": 25,
+       "y": 623,
+       "w": 105,
+       "h": 44,
+       "b": 667
+      },
+      "linhas": 2
+     },
+     {
+      "t": "Pedidos, mensagens, vitrine e modelos",
+      "r": {
+       "x": 260,
+       "y": 605,
+       "w": 105,
+       "h": 61,
+       "b": 667
+      },
+      "linhas": 3
+     },
+     {
+      "t": "Posts, vídeos, temática, cartões e visit",
+      "r": {
+       "x": 25,
+       "y": 767,
+       "w": 105,
+       "h": 61,
+       "b": 829
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [
+     {
+      "y": 516,
+      "n": 3,
+      "dif": [
+       {
+        "j": 1,
+        "ys": [
+         107,
+         124,
+         89
+        ],
+        "ex": [
+         "Dia, mês e histó",
+         "2 a decidir",
+         "Pedidos, mensage"
+        ]
+       }
+      ],
+      "contagem": [
+       2,
+       2,
+       2
+      ]
+     },
+     {
+      "y": 678,
+      "n": 3,
+      "dif": [
+       {
+        "j": 1,
+        "ys": [
+         89,
+         124,
+         124
+        ],
+        "ex": [
+         "Posts, vídeos, t",
+         "0 cadastrados",
+         "Orçamentos"
+        ]
+       }
+      ],
+      "contagem": [
+       2,
+       2,
+       2
+      ]
+     }
+    ],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Vender": {
+   "estado": "vendas|||vendas|Catálogo||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Catálogo",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 282,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Escolha a peça e venda.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "4141",
+      "r": {
+       "x": 24,
+       "y": 278,
+       "w": 27,
+       "h": 19,
+       "b": 297
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "dn966e"
+     },
+     {
+      "t": "4484",
+      "r": {
+       "x": 24,
+       "y": 297,
+       "w": 33,
+       "h": 19,
+       "b": 316
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "dn966e"
+     },
+     {
+      "t": "peças",
+      "r": {
+       "x": 24,
+       "y": 298,
+       "w": 74,
+       "h": 16,
+       "b": 314
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "dn966e"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Catálogo",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": [
+     {
+      "t": "44844141 peças",
+      "linhas": 2
+     },
+     {
+      "t": "44844141 peças",
+      "linhas": 2
+     }
+    ]
+   },
+   "ms": 0
+  },
+  "Peças": {
+   "estado": "grp|||grp:g:pecas|Peças||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Peças",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Inventário, estúdio e compras",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Peças",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro": {
+   "estado": "grp|||grp:g:din|Dinheiro||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Caixa, reservas, despesas e câmbio",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Dinheiro",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Ajustes": {
+   "estado": "ajustes|||ajustes|Ajustes||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Ajustes",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Contas ligadas",
+      "r": {
+       "x": 24,
+       "y": 184,
+       "w": 342,
+       "h": 17,
+       "b": 202
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Este aparelho",
+      "r": {
+       "x": 24,
+       "y": 356,
+       "w": 342,
+       "h": 17,
+       "b": 373
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Instagram",
+      "r": {
+       "x": 68,
+       "y": 226,
+       "w": 192,
+       "h": 23,
+       "b": 249
+      },
+      "lin": {
+       "x": 24,
+       "y": 210,
+       "w": 342,
+       "h": 56,
+       "b": 266
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "5cmptx"
+     },
+     {
+      "t": "Cópias e nuvem",
+      "r": {
+       "x": 68,
+       "y": 283,
+       "w": 147,
+       "h": 23,
+       "b": 306
+      },
+      "lin": {
+       "x": 24,
+       "y": 267,
+       "w": 342,
+       "h": 56,
+       "b": 323
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "sd8xg1"
+     },
+     {
+      "t": "Impressora",
+      "r": {
+       "x": 68,
+       "y": 397,
+       "w": 197,
+       "h": 23,
+       "b": 421
+      },
+      "lin": {
+       "x": 24,
+       "y": 381,
+       "w": 342,
+       "h": 56,
+       "b": 437
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "xghhzt"
+     },
+     {
+      "t": "Tema",
+      "r": {
+       "x": 68,
+       "y": 454,
+       "w": 227,
+       "h": 23,
+       "b": 478
+      },
+      "lin": {
+       "x": 24,
+       "y": 438,
+       "w": 342,
+       "h": 56,
+       "b": 494
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "yf5a56"
+     },
+     {
+      "t": "Segurança",
+      "r": {
+       "x": 68,
+       "y": 511,
+       "w": 195,
+       "h": 23,
+       "b": 535
+      },
+      "lin": {
+       "x": 24,
+       "y": 495,
+       "w": 342,
+       "h": 56,
+       "b": 551
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "caibd5"
+     },
+     {
+      "t": "Sons e avisos",
+      "r": {
+       "x": 68,
+       "y": 568,
+       "w": 208,
+       "h": 23,
+       "b": 592
+      },
+      "lin": {
+       "x": 24,
+       "y": 552,
+       "w": 342,
+       "h": 56,
+       "b": 608
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "c0c00q"
+     },
+     {
+      "t": "Atualização",
+      "r": {
+       "x": 68,
+       "y": 625,
+       "w": 218,
+       "h": 23,
+       "b": 649
+      },
+      "lin": {
+       "x": 24,
+       "y": 609,
+       "w": 342,
+       "h": 56,
+       "b": 665
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "f763ub"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Ajustes",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Vender › Ajustes do catálogo": {
+   "estado": "vendas|||vendas|Catálogo|Ajustes do catálogo|0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Catálogo",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 282,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Escolha a peça e venda.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "4141",
+      "r": {
+       "x": 24,
+       "y": 278,
+       "w": 27,
+       "h": 19,
+       "b": 297
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "i5xa29"
+     },
+     {
+      "t": "peças",
+      "r": {
+       "x": 24,
+       "y": 298,
+       "w": 68,
+       "h": 16,
+       "b": 314
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "i5xa29"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Catálogo",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": [
+     {
+      "t": "4141 peças",
+      "linhas": 2
+     },
+     {
+      "t": "4141 peças",
+      "linhas": 2
+     }
+    ]
+   },
+   "ms": 0
+  }
+ },
+ "voltar": [],
+ "erros": [],
+ "achados": {
+  "Início": [
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "240 peças novas para fotografar",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "da compra · já estão na fila do Estúdio",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Dia, mês e histórico",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Pedidos, mensagens, vitrine e modelos",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Posts, vídeos, temática, cartões e visit",
+    ""
+   ],
+   [
+    "fileira desalinhada (L2)",
+    "3 quadros em y=516; alturas de dentro: ['Dia, mês e histó', '2 a decidir', 'Pedidos, mensage']→[107, 124, 89]",
+    ""
+   ],
+   [
+    "fileira desalinhada (L2)",
+    "3 quadros em y=678; alturas de dentro: ['Posts, vídeos, t', '0 cadastrados', 'Orçamentos']→[89, 124, 124]",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Titan · 5 coisas para olhar"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "12/400 (aprovado 16/500)",
+    "Vendido hoje · 6 venda(s)"
+   ]
+  ],
+  "Vender": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Escolha a peça e venda.",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "44844141 peças",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "44844141 peças",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "4141"
+   ]
+  ],
+  "Peças": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Inventário, estúdio e compras",
+    ""
+   ]
+  ],
+  "Dinheiro": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Caixa, reservas, despesas e câmbio",
+    ""
+   ]
+  ],
+  "Vender › Ajustes do catálogo": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Escolha a peça e venda.",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "4141 peças",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "4141 peças",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "4141"
+   ]
+  ]
+ },
+ "data": "2026-12-15"
+}
