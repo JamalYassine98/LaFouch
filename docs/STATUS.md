@@ -150,7 +150,7 @@
 - **88-formato-do-botao** — aprovado 23/11 11:05 (D · Lente 14 px) — espera o 'implementar' (SITE e APP)
 - **89-aviso-amarelo-e-fornecedores** — publicado: 89a v632 · 89b v633 (APP)
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
-- **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
+- **94-de-por-honesto** — publicado v637 (de/por honesto: Catálogo, site, cartões, Marketing e a janela Oferta)
 - **94-tematica-tres-camadas** — IMPLEMENTAR (dono 24/11 00:38) — com o SITE, na ordem da Fila
 - **95-enfeites-traco** — IMPLEMENTAR (dono 24/11 00:38) junto do 94 — sem enfeite
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços

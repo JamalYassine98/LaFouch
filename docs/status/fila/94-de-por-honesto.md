@@ -1,2 +1,2 @@
-aprovado 23/11 08:36 — espera o 'implementar'
+publicado v637 (de/por honesto: Catálogo, site, cartões, Marketing e a janela Oferta)
 
