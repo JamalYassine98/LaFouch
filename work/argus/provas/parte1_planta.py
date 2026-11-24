@@ -5,6 +5,9 @@
 import os, sys, json, copy
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
 import planta, esboco
+import shutil
+planta.P_APP = '/tmp/argus_plantas_teste'; planta.OBS = '/tmp/argus_obsoletos_teste'   # a prova não suja as plantas de verdade
+shutil.rmtree(planta.P_APP, ignore_errors=True); shutil.rmtree(planta.OBS, ignore_errors=True)
 from playwright.sync_api import sync_playwright
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
@@ -20,8 +23,9 @@ with sync_playwright() as pw:
         G[id_] = a
         npc = {k: len(v['pecas']) for k, v in a['temas'].items()}
         ok('planta gravada · ' + t['nome'], all(npc.values()) and a['titulo'], 'peças %s · título "%s" · %d ligações' % (npc, a['titulo'], len(a['ligacoes'])))
-        ok('gravada 2× sai igual · ' + t['nome'], a['temas'] == b['temas'] and a['ligacoes'] == b['ligacoes'],
-           '' if a['temas'] == b['temas'] else 'peças diferentes' if a['ligacoes'] == b['ligacoes'] else 'ligações diferentes')
+        tira = lambda pl: {k: {kk: vv for kk, vv in v.items() if kk != '_foto'} for k, v in pl['temas'].items()}
+        ok('gravada 2× sai igual · ' + t['nome'], tira(a) == tira(b) and a['ligacoes'] == b['ligacoes'],
+           '' if tira(a) == tira(b) else 'peças diferentes' if a['ligacoes'] == b['ligacoes'] else 'ligações diferentes')
         planta.salva(a)
     # 3 esboço numa cópia do app
     www = esboco.prepara('demo-iva'); porta = esboco.serve(www, 8831)
@@ -38,7 +42,10 @@ with sync_playwright() as pw:
     x = dict(G['inicio'], aprovacao='APROVADO esboço que não existe 99zz'); ok('aprovação fora da lista viva = inválida', planta.valida(x).startswith('INVÁLIDA'))
     y = dict(G['inicio'], aprovacao='APROVADOS: **89b**'); ok('aprovação achada na lista viva = aprovada', planta.valida(y) == 'aprovada')
     # 5 ajuste: a anterior vai para obsoletos
-    planta.salva(G['inicio']); obs = os.path.join(os.path.dirname(os.path.dirname(A)), 'work', 'obsoletos', 'argus-plantas')
-    ok('ajuste: a planta anterior vai para work/obsoletos', any(n.startswith('hoje-inicio_') for n in os.listdir(obs)) and os.path.exists(planta.caminho('hoje-inicio')))
+    planta.salva(G['inicio']); obs = planta.OBS
+    ok('ajuste: a planta anterior vai para obsoletos', any(n.startswith('hoje-inicio_') for n in os.listdir(obs)) and os.path.exists(planta.caminho('hoje-inicio')))
+    fotos = [f for f in os.listdir(planta.P_APP) if f.startswith('hoje-inicio_') and f.endswith('.jpg')]
+    ok('depois do ajuste, a planta nova tem as duas fotos no lugar', sorted(fotos) == ['hoje-inicio_claro.jpg', 'hoje-inicio_escuro.jpg'], str(fotos))
+    planta.salva(e); ok('planta do esboço guardada com as fotos', all(os.path.exists(os.path.join(planta.P_APP, 'demo-iva_%s.jpg' % t)) for t in ('claro', 'escuro')))
 json.dump(R, open('/tmp/argus_p1.json', 'w'), ensure_ascii=False, indent=1)
 print('\n%d de %d ok' % (sum(1 for x in R if x[1]), len(R)))

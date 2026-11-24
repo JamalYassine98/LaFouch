@@ -7,7 +7,7 @@
 import os, sys, json, re, time, shutil
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A)); sys.path.insert(0, os.path.join(A, 'motor'))
 import abrir, loja, aparelhos
-P_APP = os.path.join(A, 'plantas', 'app'); LISTA = os.path.join(R, 'docs', 'FALTA-APROVAR-15-11.md')
+P_APP = os.path.join(A, 'plantas', 'app'); OBS = os.path.join(R, 'work', 'obsoletos', 'argus-plantas'); LISTA = os.path.join(R, 'docs', 'FALTA-APROVAR-15-11.md')
 COLETA = r"""()=>{
  const IH=innerHeight,sx=scrollX,sy=scrollY,out=[];
  const tr=c=>!c||c=='transparent'||/rgba\(.*,\s*0\)$/.test(c);
@@ -73,17 +73,24 @@ def grava(pw, id_, tela, porta=None, aprovacao=None, com_ligacoes=True):
     for tema in aparelhos.MODOS['app']['tema']:
         b, pg = _abre_tela(pw, tela, tema, porta)
         pl['temas'][tema] = {'titulo': pg.evaluate(TITULO), 'pecas': pg.evaluate(COLETA)}
-        f = os.path.join(P_APP, '%s_%s.jpg' % (id_, tema)); pg.screenshot(path='/tmp/_pl.png', full_page=True); b.close()
+        f = '/tmp/argus_foto_%s_%s.jpg' % (id_, tema); pg.screenshot(path='/tmp/_pl.png', full_page=True); b.close()
         from PIL import Image; Image.open('/tmp/_pl.png').convert('RGB').save(f, quality=82)
+        pl['temas'][tema]['_foto'] = f   # a foto fica de lado até salva(): só entra no lugar depois que a planta anterior saiu
     if com_ligacoes: pl['titulo'], pl['ligacoes'] = ligacoes(pw, tela, porta)
     return pl
 def caminho(id_): return os.path.join(P_APP, id_ + '.json')
 def salva(pl):
     """Guarda a planta; se já existe uma com o mesmo id, a anterior vai para work/obsoletos (só a última vale)."""
+    os.makedirs(P_APP, exist_ok=True)
     if os.path.exists(caminho(pl['id'])): substitui(pl['id'])
+    pl = json.loads(json.dumps(pl))
+    for tema, t in pl['temas'].items():
+        f = t.pop('_foto', None)
+        if f and os.path.exists(f): shutil.copy(f, os.path.join(P_APP, '%s_%s.jpg' % (pl['id'], tema)))
+        t['foto'] = '%s_%s.jpg' % (pl['id'], tema)
     json.dump(pl, open(caminho(pl['id']), 'w'), ensure_ascii=False, indent=1)
 def substitui(id_):
-    d = os.path.join(R, 'work', 'obsoletos', 'argus-plantas', '%s_%s' % (id_, time.strftime('%Y%m%d-%H%M%S'))); os.makedirs(d, exist_ok=True)
+    d = os.path.join(OBS, '%s_%s' % (id_, time.strftime('%Y%m%d-%H%M%S'))); os.makedirs(d, exist_ok=True)
     for f in os.listdir(P_APP):
         if f == id_ + '.json' or f.startswith(id_ + '_'): shutil.move(os.path.join(P_APP, f), os.path.join(d, f))
     return d
