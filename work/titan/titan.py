@@ -2,10 +2,11 @@
 # Parte 1: comparador peça por peça (real × aprovado). Parte 2: medidor de família (familia.py) + a prova dele (prova_medidor.py).
 # uso: python3 work/titan/titan.py [Tela,Tela…]
 import sys,json,os
+ARGV=sys.argv[:]
 from playwright.sync_api import sync_playwright
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));import compara,roteiro
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'relatorio');os.makedirs(OUT,exist_ok=True)
-so=sys.argv[1].split(',') if len(sys.argv)>1 else None
+so=ARGV[1].split(',') if len(ARGV)>1 else None
 T={}
 with sync_playwright() as pw:
   for nome,v,p in roteiro.TELAS:
