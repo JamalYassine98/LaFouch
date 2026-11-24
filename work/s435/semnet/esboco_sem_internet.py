@@ -15,7 +15,7 @@ VAZIO=r"""(a)=>{const [txt,exp,ico]=a;const v=document.querySelector('.view:not(
  // sobe até o bloco inteiro da tela vazia (todos os ícones dela), sem pegar as abas
  while(alvo.parentElement&&alvo.parentElement!==v&&!alvo.parentElement.querySelector('[role=tablist],.tabs,button')&&alvo.parentElement.getBoundingClientRect().height<520)alvo=alvo.parentElement;alvo.innerHTML='<div id="esbVazio" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px 24px;gap:8px"><span style="color:var(--brand,#943d6f)">'+ico+'</span><b style="font:500 16px/1.3 inherit;color:var(--fg);margin-top:8px">'+txt+'</b><span style="font:400 13px/1.45 inherit;color:var(--mute);max-width:280px">'+exp+'</span></div>';
  // o que vem antes do bloco e não tem texto (ícone solto de outra tela vazia) sai: um ícone só por tela vazia
- const st=document.createElement('style');st.textContent='.view [data-ic]{display:none!important}';document.head.appendChild(st);
+
  v.querySelectorAll('[data-ic]').forEach(e=>{if(!alvo.contains(e))e.style.display='none'});
  for(let n=alvo;n&&n!==v;n=n.parentElement){let p=n.previousElementSibling;while(p){if(!(p.textContent||'').trim()&&p.getBoundingClientRect().height>20)p.style.display='none';p=p.previousElementSibling}}
  return 1}"""

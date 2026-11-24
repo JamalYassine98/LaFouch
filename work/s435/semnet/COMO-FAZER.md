@@ -10,7 +10,7 @@ Base: app real + gabarito aprovado (149n Início, 46c Pedidos, 135c Atacado) —
 ## Diferenças Hoje × Proposta (comparador)
 - Todas as telas: a faixa de 40 px empurra o conteúdo para baixo enquanto está sem internet (só nesse estado).
 - Pedidos online e Atacado › Mensagens: ícone, frase e explicação da tela vazia trocados.
-- Achado à parte (não é desta proposta): hoje o Atacado › Mensagens vazio mostra DOIS ícones (pessoa + balão); a tela vazia tem um ícone só (regra 15).
+- (Corrigido 24/11 11:00, pergunta do dono) A 1ª versão mostrava o ícone de pessoa (de Lojistas) junto com o balão em Mensagens: era defeito do GABARITO, não do app — o item 135c do work/kit/base_app.py punha o ícone de Lojistas em qualquer aba. Agora ele só entra na aba Lojistas vazia; os esboços foram refeitos.
 
 ## Como fazer (jeito natural, um lugar só — regra 12)
 - Um só dono do estado da internet: um módulo `rede` (src) que escuta online/offline e a falha de chamada à nuvem, e guarda `S.rede = 'on'|'off'`.
