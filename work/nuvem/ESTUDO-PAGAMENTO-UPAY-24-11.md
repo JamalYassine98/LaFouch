@@ -57,3 +57,12 @@ Disse "Sim" para estudar a upay a fundo. Nada implementado; é estudo.
 - Site: "Pagar" leva à página da upay (ou QR na própria página, se a upay aprovar a ida direta) e volta com o resultado.
   Esboço = ESBOCO/SITE, depois do "sim" do dono e das respostas da upay.
 - App: o TITAN deixa de ter "PIX sem par" do site (só da loja); pagamento revertido vira linha nova.
+
+## 8. ATUALIZAÇÃO 24/11 09:27 — upay DESCARTADA
+- O cadastro online da upay/Pagopar só leva ao formulário de contato ou ao login com conta do ueno bank, e eles não respondem.
+- A Pagopar passou a ser a upay, a solução de cobros do ueno bank. O Banco Central do Paraguai interveio no ueno bank em 3/11/2026
+  (insolvência; clientes sem acesso às contas; Grupo M/Pagopar citado nos pedidos de informe do Senado).
+- Conclusão da NUVEM: não pôr o dinheiro das vendas numa plataforma ligada a um banco em resolução. A ideia (cobrança própria
+  por pedido + aviso assinado) continua valendo; muda o fornecedor.
+- Plano B: Bancard (aceita Pix de brasileiros e QR local; pede comércio aderido e, para Pix, conta em dólares, segundo notícia de 2024),
+  pelo gerente do Banco Familiar. Conferir se a Bancard dá o aviso de pagamento assinado ao servidor.
