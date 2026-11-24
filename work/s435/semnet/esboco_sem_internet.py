@@ -10,15 +10,11 @@ FAIXA=r"""(ok)=>{document.getElementById('esbNet')&&document.getElementById('esb
  :'<i style="width:8px;height:8px;border-radius:50%;background:var(--atencao-pt,#e0ac00);flex:none"></i><b style="font-weight:600;color:var(--fg)">Sem internet</b><span>· tudo fica salvo</span>';
  t.after(d)}"""
 VAZIO=r"""(a)=>{const [txt,exp,ico]=a;const v=document.querySelector('.view:not([hidden])');
- let alvo=[...v.querySelectorAll('*')].find(e=>e.children.length<=4&&/(Nenhum pedido ainda|Sem conexão com a nuvem|Nenhuma mensagem)/.test(e.textContent)&&e.getBoundingClientRect().height>40&&e.getBoundingClientRect().height<260);
- if(!alvo)return 0;
- // sobe até o bloco inteiro da tela vazia (todos os ícones dela), sem pegar as abas
- while(alvo.parentElement&&alvo.parentElement!==v&&!alvo.parentElement.querySelector('[role=tablist],.tabs,button')&&alvo.parentElement.getBoundingClientRect().height<520)alvo=alvo.parentElement;alvo.innerHTML='<div id="esbVazio" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px 24px;gap:8px"><span style="color:var(--brand,#943d6f)">'+ico+'</span><b style="font:500 16px/1.3 inherit;color:var(--fg);margin-top:8px">'+txt+'</b><span style="font:400 13px/1.45 inherit;color:var(--mute);max-width:280px">'+exp+'</span></div>';
- // o que vem antes do bloco e não tem texto (ícone solto de outra tela vazia) sai: um ícone só por tela vazia
-
- v.querySelectorAll('[data-ic]').forEach(e=>{if(!alvo.contains(e))e.style.display='none'});
- for(let n=alvo;n&&n!==v;n=n.parentElement){let p=n.previousElementSibling;while(p){if(!(p.textContent||'').trim()&&p.getBoundingClientRect().height>20)p.style.display='none';p=p.previousElementSibling}}
- return 1}"""
+ // usa a TELA VAZIA DA FAMÍLIA que já está na tela (mesma cor, letra e espaço): troca só o desenho e os textos
+ const tit=[...v.querySelectorAll('b,strong,h3,div,span')].find(e=>e.children.length==0&&/^(Nenhum pedido ainda|Nenhuma mensagem|Sem conexão com a nuvem agora\.?)$/.test(e.textContent.trim())&&e.getBoundingClientRect().height);
+ if(!tit)return 0;let bloco=tit.parentElement;while(bloco&&!bloco.querySelector('svg')&&bloco!==v)bloco=bloco.parentElement;
+ const sv=bloco&&bloco.querySelector('svg');if(sv){const n=document.createElement('div');n.innerHTML=ico;const s2=n.firstChild;s2.setAttribute('width',sv.getAttribute('width')||56);s2.setAttribute('height',sv.getAttribute('height')||56);s2.setAttribute('stroke-width',sv.getAttribute('stroke-width')||'1.6');s2.setAttribute('class',sv.getAttribute('class')||'');const op=sv.querySelector('path,line,polyline,rect,circle');s2.querySelectorAll('path').forEach(p=>{if(op&&op.getAttribute('pathLength'))p.setAttribute('pathLength',op.getAttribute('pathLength'));if(op&&op.getAttribute('class'))p.setAttribute('class',op.getAttribute('class'));p.style.fill='none';p.style.stroke='currentColor';p.style.strokeWidth=op?getComputedStyle(op).strokeWidth:'1.2px'});s2.style.color=getComputedStyle(sv).color;sv.replaceWith(s2)}
+ tit.textContent=txt;const ex=[...bloco.querySelectorAll('*')].find(e=>e!==tit&&e.children.length==0&&e.textContent.trim().length>20);if(ex)ex.textContent=exp;return 1}"""
 TELAS=[('inicio',None,None,'Início'),('ped',"()=>__LF.inicioGo('ped')",('Sem internet agora','Os pedidos do site aparecem aqui quando a internet voltar.'),'Pedidos online'),
        ('ata',"()=>__LF.inicioGo('ata')",('Sem internet agora','As mensagens dos lojistas aparecem aqui quando a internet voltar.'),'Atacado')]
 F=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',30);f2=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',22)
@@ -29,7 +25,7 @@ def foto(pw,esc,js,prop,vazio,ok=False):
   if prop:
     pg.evaluate(FAIXA,ok)
     if vazio:pg.evaluate(VAZIO,[vazio[0],vazio[1],ICO])
-  w(400);f='/tmp/sn.png';pg.screenshot(path=f);b.close();return Image.open(f).convert('RGB')
+  w(2600);f='/tmp/sn.png';pg.screenshot(path=f);b.close();return Image.open(f).convert('RGB')
 with sync_playwright() as pw:
   for esc in (True,False):
     for k,js,vz,nome in TELAS:

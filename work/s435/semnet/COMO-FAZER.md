@@ -5,7 +5,7 @@ Base: app real + gabarito aprovado (149n Início, 46c Pedidos, 135c Atacado) —
 ## Proposta (regra 17: um estado igual em todo lugar)
 1. **Faixa única** logo abaixo do logo, em todas as telas, só enquanto não houver internet: bolinha amarela (atenção) · "Sem internet" (13/600) · "· tudo fica salvo" (13/400 cinza), linha fina embaixo, 40 px, margens de 24, numa linha só.
 2. **Internet de volta:** a mesma faixa com bolinha verde · "Internet de volta · tudo salvo", e some sozinha em 3 s.
-3. **Telas que dependem da internet** (Pedidos online, Mensagens, Atacado › Mensagens): em vez de "Nenhum pedido ainda" (que mente sem internet), a tela vazia da família — ícone da nuvem riscada (conjunto 84, traço 1,6, 56 px) + "Sem internet agora" + "Os pedidos do site aparecem aqui quando a internet voltar."
+3. **Telas que dependem da internet** (Pedidos online, Mensagens, Atacado › Mensagens): em vez de "Nenhum pedido ainda" (que mente sem internet), a tela vazia da família — ícone da nuvem riscada no MESMO desenho das outras telas vazias (mesmo tamanho, mesmo traço, mesma cor e o mesmo desenho que se desenha ao abrir) — ajuste do dono 24/11 11:00: "na mesma cor dos outros" + "Sem internet agora" + "Os pedidos do site aparecem aqui quando a internet voltar."
 
 ## Diferenças Hoje × Proposta (comparador)
 - Todas as telas: a faixa de 40 px empurra o conteúdo para baixo enquanto está sem internet (só nesse estado).
