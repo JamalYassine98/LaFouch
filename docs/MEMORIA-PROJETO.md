@@ -3821,3 +3821,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 24/11 00:35 · APROVADO: cartão das datas SEM enfeite (sai o emoji do .hdeco em todas as 6 datas; nenhum desenho no lugar). 'Noir' fica fora das datas (o dono reserva para nome de armação). Título do Halloween: segue 'Olhar misterioso' até o dono decidir (proposta: 'A noite pede lentes escuras').
 - 24/11 00:38 · IMPLEMENTAR (dono): temáticas 12e (6 datas na cor oficial profunda) + sem enfeite → Fila do SITE.
 - 23/11 14:46 — DONO: propostas do Mochi nas datas (IDEIAS 13) RECUSADAS — 'deixa quieto'. O Mochi das datas fica como está. Fica a trava técnica: o Mochi só pelo caminho do site (window.__lfMochiArms), senão sai sem braços.
+- 24/11 11:15 · DONO aprovou o 107 (estado sem internet) e decidiu: nada de remendo — aprovado novo vira MOLDE do Titan (work/titan/moldes/), nunca item novo no work/kit/base_app.py; os remendos que restam no base_app viram moldes e saem.
