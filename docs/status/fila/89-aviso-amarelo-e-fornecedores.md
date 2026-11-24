@@ -1,2 +1,2 @@
-89a publicado v632 (APP); 89b fica para a Parte de Compras
+publicado: 89a v632 · 89b v633 (APP)
 

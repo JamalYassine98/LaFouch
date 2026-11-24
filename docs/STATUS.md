@@ -146,7 +146,7 @@
 - **87-varredura-pilulas** — publicado v632 (APP)
 - **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
 - **88-formato-do-botao** — aprovado 23/11 11:05 (D · Lente 14 px) — espera o 'implementar' (SITE e APP)
-- **89-aviso-amarelo-e-fornecedores** — 89a publicado v632 (APP); 89b fica para a Parte de Compras
+- **89-aviso-amarelo-e-fornecedores** — publicado: 89a v632 · 89b v633 (APP)
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-tematica-tres-camadas** — aprovado 23/11 16:56 (12e, 6 datas) — espera o 'implementar' (SITE)
