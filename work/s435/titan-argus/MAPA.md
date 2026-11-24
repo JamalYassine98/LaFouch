@@ -22,7 +22,9 @@ Sai quando o comparador cobrir os mesmos aparelhos: o fiscal visual e a linha de
 4. **Medidor** — o mede.js com as regras novas.
 5. **Código morto** — tools/deadcode.py com o app rodando.
 6. **Android de verdade (emulado), sem cota** — o Titan roda as mesmas telas no emulador Android do GitHub (.github/workflows/teste-android.yml, já pedido pelo dono; grátis no repositório público) a cada conferência; as fotos passam pelo mesmo comparador.
-7. **Celular físico** — Test Lab só na conferência final, dentro dos 30 min grátis (pago só com autorização, regra 23).
+7. **Cenários da loja (dono 24/11 07:46)** — o Titan roda o app em cada cenário, não só na Black Friday: **dia normal**, **cada temática/data do calendário** (Natal, Black Friday de CDE etc., lidas da lista real de datas do app, não escritas à mão) e **loja cheia** (milhares de peças, centenas de pedidos). Em cada um entram as variáveis da data: embrulho de presente, mimo extra (spray + cartão), kits, ofertas da data, retirada × delivery. Mede: telas certas (comparador + medidor), contas certas (preço, IVA 10% em G$, oferta, embrulho) e **tempo de abrir cada tela** — acima do limite trava.
+8. **Internet ruim** — o explorador roda também sem internet e com internet fraca: cada tela mostra o mesmo estado padrão (regra 17) e nada se perde.
+9. **Celular físico** — Test Lab só na conferência final, dentro dos 30 min grátis (pago só com autorização, regra 23).
 
 **Saem** (para work/obsoletos, cada um só depois de o Titan pegar tudo o que ele pegava): work/s436/compara_app.py · work/verif/* (alin2, botoes, estilos, familias2) · medidores velhos do kit (alin, centro, abas_dist, sobre, olho) · os scripts soltos de conferência (work/s435/conf634, conf640, lista-erros, voltar — viram roteiro do Titan) · inventários feitos à mão.
 
