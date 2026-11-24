@@ -71,7 +71,8 @@ def roda(modo='rapida', so_telas=None):
                 l = (pl.get('ligacoes') or [{}] * n)[i] if i < len(pl.get('ligacoes') or []) else {}
                 if l.get('faz', '').startswith('não tocado'): continue
                 b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav); ms = pg.evaluate(tempo.MEDE, i); b.close()
-                if ms > tempo.TOQUE_MS: it.append('%s: toque em "%s" levou %d ms (limite %d)' % (pl['tela'], (l.get('nome') or str(i))[:30], ms, tempo.TOQUE_MS))
+                if ms >= 15000: it.append('%s: toque em "%s": a tela não parou de mudar em 15 s (limite %d ms)' % (pl['tela'], (l.get('nome') or str(i))[:30], tempo.TOQUE_MS))
+                elif ms > tempo.TOQUE_MS: it.append('%s: toque em "%s" levou %d ms (limite %d)' % (pl['tela'], (l.get('nome') or str(i))[:30], ms, tempo.TOQUE_MS))
         _etapa(E, 'tempo com a loja cheia', 'FALHA' if it else 'ok', it)
         # 7 mapa e código morto (completa)
         if completa:

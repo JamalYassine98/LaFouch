@@ -52,7 +52,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           emulator-options: -no-window -gpu guest -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
-          script: ARGUS_PLANTAS=${{ inputs.pasta }} bash work/argus/setor_app/android/roda.sh ${{ matrix.tema }}
+          script: ARGUS_PLANTAS=${{ inputs.pasta }} bash work/argus/setor_app/no_emulador/roda.sh ${{ matrix.tema }}
       - name: Resultado num ramo git (o download de artefato é bloqueado para a IA)
         if: always()
         run: |
