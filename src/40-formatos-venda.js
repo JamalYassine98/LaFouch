@@ -5,6 +5,10 @@
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
+  // Número com a palavra no singular ou no plural (regra 17: "1 venda", "5 vendas" — nunca "venda(s)"). Um lugar só para todas as telas.
+  function nPl(n, um, varios) {
+    return n + ' ' + (n === 1 ? um : varios || um + 's');
+  }
   // Mostra um valor guardado em guaranis.
   var gs = function (n) {
     return 'G$ ' + dots(n);

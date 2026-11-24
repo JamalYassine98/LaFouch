@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 640;
+  var APP_BUILD = 641;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.59.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.60.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -7028,6 +7028,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Timestamp de d dias e h horas atrás.
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
+  }
+  // Número com a palavra no singular ou no plural (regra 17: "1 venda", "5 vendas" — nunca "venda(s)"). Um lugar só para todas as telas.
+  function nPl(n, um, varios) {
+    return n + ' ' + (n === 1 ? um : varios || um + 's');
   }
   // Mostra um valor guardado em guaranis.
   var gs = function (n) {
@@ -21586,7 +21590,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ? '<section class="card inFotos" data-act="semfoto" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('est', 20) + '</span><span class="inFotTx"><b>' + (novas ? novas + (novas === 1 ? ' peça nova para fotografar' : ' peças novas para fotografar') : nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto')) + '</b><small>' + (novas ? 'da compra · já estão na fila do Estúdio' : 'todo produto precisa de foto · já estão na fila do Estúdio') + '</small></span><button type="button" class="inFotB" data-act="semfoto" id="btnSemFoto">Fotografar</button></section>'
       : '';
     el.innerHTML = (typeof nvBemVindoHtml === 'function' ? nvBemVindoHtml() : '') + faixa + /* S324 (dono, 15/11/2026): faixa "Recentes" removida do Início */ '' + (typeof temaCardHtml === 'function' ? temaCardHtml() : '') + (typeof guardInicioHtml === 'function' ? guardInicioHtml() : '') + pend + semFoto + (typeof semanaSiteHtml === 'function' ? semanaSiteHtml() : '') +
-      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
+      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + nPl(h.n, 'venda') + '</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
   // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
@@ -42799,7 +42803,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     halloween: { g: function () { return false; }, rot: '—', p: 0, pp: 0 }
   };
   // 135h: o plural dos dias num lugar só ("1 dia", "N dias"), para o cartão do tema, o Guardião e Preços
-  function nDias(n) { return n + (n === 1 ? ' dia' : ' dias'); }
+  function nDias(n) { return nPl(n, 'dia'); }
   function temaAtual() {
     var t = typeof cupTemaProx === 'function' ? cupTemaProx() : null;
     return t && TEMA_REG[t.tema] ? t : null;

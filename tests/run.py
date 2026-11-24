@@ -5943,6 +5943,15 @@ async def main():
                 falhas.append('um voltar só')
                 for x in vt_ruim: print('        ', x)
 
+            # 24/11 · lista PARTE 1 · 1b: plural de verdade (regra 17) — "1 venda" / "5 vendas", nunca "venda(s)"; função única nPl (src/40)
+            pg = await pagina(fam=True); await pg.wait_for_timeout(300)
+            r = await pg.evaluate("() => { const t = document.querySelector('#v-inicio').innerText; const L = window.__LF; return [/\\(s\\)/.test(t), typeof L.nPl === 'function' ? [L.nPl(1, 'venda'), L.nPl(5, 'venda'), L.nPl(2, 'dia')] : null]; }")
+            total += 1
+            ok = r[0] is False and (r[1] is None or r[1] == ['1 venda', '5 vendas', '2 dias'])
+            print(('  ok  ' if ok else ' FALHA ') + 'Início sem "(s)": plural de verdade (1 venda / 5 vendas)')
+            if not ok: falhas.append('Início sem (s)'); print('        ', r)
+            await pg.close()
+
             # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}
             for scheme in ['dark', 'light']:
