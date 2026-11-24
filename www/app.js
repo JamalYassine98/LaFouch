@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 635;
+  var APP_BUILD = 636;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.54.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.55.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -13202,27 +13202,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   });
 
   // ---------- partes da aba Ajustes: pagamento e segurança
-  // Formas de pagamento e taxas (Dashboard › Preços).
-  function pagamentoHtml() {
-    var h = '';
-    // formas de pagamento
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';
-    S.formas.forEach(function (f) {
-      h +=
-        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
-        esc(f.nome) +
-        '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
-        f.id +
-        '" value="' +
-        String(f.taxa).replace('.', ',') +
-        '" aria-label="Taxa de ' +
-        esc(f.nome) +
-        ' em porcentagem"><i aria-hidden="true">%</i></span></div>';
-    });
-    h += '</section>';
-    return h;
-  }
   function ajustesFinHtml() {
     var h = '';
     // lembrete semanal do caixa: sempre ligado (sem opção em Ajustes)
@@ -26243,26 +26222,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return isNaN(n) ? 0 : n;
   }
   // Divisão das contas (66 parte 3: os dias de loja saíram — o app aprende sozinho).
-  function precosMetaHtml() {
-    // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
-    return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
-      '</div>';
-  }
-  // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
-  function precosCfgHtml() {
-    var h = '';
-    // v421: as faixas manuais saíram — Econômica/Intermediária/Luxo são automáticas (linha do produto)
-    // rateio das contas e tolerância da contagem
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
-      gs(totalMensal()) +
-      ', cerca de US$ ' +
-      Math.round(totalMensal() / S.fx.pyg) +
-      ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      precosMetaHtml() +
-      '</section>';
-    return h;
-  }
   // Monta a aba Ajustes.
   function renderAjustes() {
     var el = $('v-ajustes');
@@ -27869,7 +27828,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!(vivo > 0)) return gs;
     return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
-  // Conteúdo da janela "Preços no site" (aba Câmbio).
+  // A cotação dos preços (loja e site): a dobra "Cotação nos preços" de Preços › Regras (62).
   function siteFxHtml() {
     siteFxConfere();
     var L = S.siteFx,
@@ -29293,9 +29252,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Topo: Dólar G$ · Real G$ · Dólar em reais R$ (La Moneda Jebai), cada um com a variação de 7 dias; tocar abre a janela com o gráfico.
   // Cartão Reposição: selo (Bom momento / Normal / Pode esperar / Troque hoje), "Faltam US$ X", barra, "US$ a de US$ b"
   // e a linha discreta "Registrar troca ›". Tocar no cartão abre a janela "Por que…" (gráfico + motivos).
-  // Linhas: Últimas trocas · Preços no site · Como o app te protege — cada uma abre a sua janela.
+  // Linhas: Últimas trocas (a cotação dos preços e o colchão moram em Preços › Regras, 62).
   // A previsão do dólar só alimenta o selo (não tem cartão próprio); o plano de troca saiu.
-  S.fxJan = ''; // janela aberta: repo, usd, brl, arb, trocas, site, prot, troca
+  S.fxJan = ''; // janela aberta: repo, usd, brl, arb, trocas, troca
   S.fxPer = 90;
   S.fxAvisos = {};
   var FX_NOME = { usd: 'Dólar', brl: 'Real', arb: 'Dólar em reais' };
@@ -29545,13 +29504,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
       '<button type="button" class="go" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
-    var n = (S.cambios || []).length,
-      L = S.siteFx;
+    var n = (S.cambios || []).length;
     h +=
       '<section class="cxSaldo fx418"><div class="cxLb">Mais</div>' +
       '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
       '</section>';
     if (S.fxJan) h += fjHtml(S.fxJan, vd);
     return h;
@@ -29577,12 +29533,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } else if (id === 'trocas') {
       tit = 'Últimas trocas';
       corpo = (S.cambios || []).length ? trHistHtml().replace('<div class="lbl" style="margin-top:6px">Trocas feitas</div>', '') : '<div class="hint" style="margin:0">Nenhuma troca registrada.</div>';
-    } else if (id === 'site') {
-      tit = 'Preços no site';
-      corpo = siteFxHtml();
-    } else if (id === 'prot') {
-      tit = 'Como o app te protege';
-      corpo = fjProtHtml();
     } else if (id === 'troca') {
       tit = 'Registrar troca';
       corpo = trGavetaHtml();
@@ -29672,32 +29622,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ''
     );
   }
-  function fjProtHtml() {
-    var c = colchao(),
-      casa = lmOk() ? S.lm.usd.v : fxHoje('usd'),
-      loja = fxUsdLoja(),
-      L = S.siteFx,
-      lt = lotesHist().slice(-6),
-      mxl = Math.max.apply(
-        null,
-        lt.map(function (l) {
-          return l.usd;
-        }).concat([0.01])
-      ),
-      ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
-    return (
-      (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
-      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
-      '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
-      '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
-      (lt.length
-        ? '<div class="fjB"><span class="lbl">Custo por lote</span><div class="fjLotes">' + lt.map(function (l, i) {
-            return '<i title="' + esc(l.txt || '') + '" style="height:' + Math.max(12, Math.round((l.usd / mxl) * 100)) + '%' + (i === lt.length - 1 ? ';background:var(--accent)' : '') + '"></i>';
-          }).join('') + '</div><div class="hint" style="margin:0">' + (lt.length > 1 ? 'Último lote saiu ' + pc(Math.abs(ul)) + (ul >= 0 ? ' mais caro' : ' mais barato') + ' em dólar que o anterior.' : 'Um lote registrado até agora.') + '</div></div>'
-        : '') +
-      '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
-    );
-  }
+
   var MN418 = { pyg: 'guaranis', usd: 'dólares', brl: 'reais' };
   ACT.trMoe = function (v) {
     var p = String(v).split('|');
@@ -40337,19 +40262,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return h + '<div class="cxL"><span>Revisa</span><b>toda segunda</b></div><p class="lgFr">Contas, taxas e meta ficam em Preços › Regras.</p>';
   }
-  // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
-  function paMetaHtml() {
-    var lm = paLucroMes();
-    if (!(lm.metaG > 0)) return '';
-    var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
-    return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
-      '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
-  }
+
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
       h = '';
-    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta foi para "Contas, taxas e meta" (paMetaHtml)
+    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta mora em Preços › Regras (62)
     if (on && ((S.pAuto.mudas || []).some(function (m) { return Date.now() - m.ts <= 7 * DAY; }) || S.paTodas)) {
       var semana = (S.pAuto.mudas || []).filter(function (m) {
         return Date.now() - m.ts <= 7 * DAY;
@@ -45150,7 +45068,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   var TI_TELA = {
     corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
-    regras: function () { return paMetaHtml() + precosCfgHtml() + pagamentoHtml(); },
+    regras: regrasHtml,
     ofertas: function () {
       var D = cntDecisoes().filter(function (x) { return x.t === 'pa'; }), nAc = D.reduce(function (a, x) { return a + x.n; }, 0), O = tiOfertasNoAr(), dsc = cntDescontosTxt(new Date().getMonth());
       return (D.length ? '<section class="card col cntD"><div class="lbl">O ' + esc(LF_TITAN).toUpperCase() + ' SUGERE · ' + nAc + '</div>' + D.map(cntDecisaoHtml).join('') +
@@ -45176,7 +45094,59 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     },
     hist: function () { var h = precosAutoHtml(); return h ? '<div class="cntAuto">' + h + '</div>' : '<div class="hint tiVz">Nenhuma mudança de preço guardada ainda.</div>'; }
   };
-  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
+  // ---------- setor Regras (62): tudo o que o preço cobre, num lugar só ----------
+  // Cada venda cobre (contas, taxas, IVA, colchão) · Dólar da loja · O Titan aprende com você · Seu objetivo. As linhas ⌄ só
+  // mostram (dFold); "Contas do mês ›" leva a Despesas. Saíram no mesmo passo: "Contas e contagem" + "Divisão das contas"
+  // (precosCfgHtml), a barra da meta (paMetaHtml), o cartão "Formas de pagamento e taxas" (pagamentoHtml) e, do Câmbio,
+  // "Preços no site" e "Como o app te protege" (as janelas viraram as dobras da cotação e do colchão).
+  function regrasTaxas() {
+    var F = (S.formas || []).filter(function (f) { return +f.taxa > 0; });
+    return F.length ? F.map(function (f) { return f.nome.replace(/^Maquininha\s+/i, '') + ' ' + String(f.taxa).replace('.', ',') + '%'; }).join(' · ') : 'sem taxa';
+  }
+  function regrasHtml() {
+    var nC = (S.exp || []).length, c = colchao(), L = S.siteFx, loja = fxUsdLoja(), casa = lmOk() ? S.lm.usd.v : 0, lm = paLucroMes(), vol = volumeEfetivo(), apr = aprendeFator() >= 1,
+      taxas = '<div class="col rgTx">' + (S.formas || []).map(function (f) {
+        return '<label class="cxL"><span>' + esc(f.nome) + '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' + f.id + '" value="' + String(f.taxa).replace('.', ',') +
+          '" aria-label="Taxa de ' + esc(f.nome) + ' em porcentagem"><i aria-hidden="true">%</i></span></label>';
+      }).join('') + '<p class="hint">A taxa sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%.</p></div>';
+    return '<div class="lbl tiLb">CADA VENDA COBRE</div><section class="nvLista">' + tiLinha('view', 'desp', 'desp', 'Contas do mês', gs(totalMensal()) + ' · ' + cntPl(nC, 'conta', 'contas') + ' · em Dinheiro') + '</section>' +
+      dFold('rgTx', 'Taxas da maquininha', regrasTaxas(), '', taxas) +
+      dFold('rgIva', 'IVA · 10%', 'incluído no preço · em guaranis', '', '<p class="hint">O IVA já está dentro do preço: de G$ 110.000, G$ 10.000 são do imposto (preço ÷ 11). A conta é sempre em guaranis.</p>') +
+      dFold('rgCo', 'Colchão · ' + pc(c.pct), 'reserva da mercadoria · amortece', '', colchaoHtml()) +
+      '<div class="lbl tiLb">DÓLAR DA LOJA</div>' +
+      dFold('rgFx', 'Cotação nos preços · ' + gsRaw(L && L.usd ? L.usd : loja), 'travada' + (casa ? ' · venda da casa ' + gsRaw(Math.round(casa)) : ''), '', siteFxHtml()) +
+      '<div class="lbl tiLb">O ' + esc(LF_TITAN).toUpperCase() + ' APRENDE COM VOCÊ</div>' +
+      dFold('rgVol', 'Vendas por mês · ' + vol, 'pelas vendas reais, sem digitar', '', '<p class="hint">O ' + esc(LF_TITAN) + ' conta as vendas reais dos últimos dias; você não digita nada. As contas do mês se dividem por essas vendas, e peça mais cara carrega mais.</p>') +
+      dFold('rgJei', 'Seu jeito de cobrar · ' + (apr ? 'aprendido' : 'aprendendo'), 'aprende com cada correção', '', '<p class="hint">Cada preço que você corrige ou cobra ensina o ' + esc(LF_TITAN) + ' a pôr o preço do seu jeito' + (apr ? '.' : ': ainda está juntando ' + nDias(Math.max(0, 30 - aprendeDias())) + ' de vendas.') + '</p>') +
+      '<div class="lbl tiLb">SEU OBJETIVO</div><div class="cxL rgMeta"><span>Meta de lucro do mês<small>não muda os preços</small></span><b>' + (lm.metaG > 0 ? gs(lm.metaG) : '—') + '</b></div>';
+  }
+  // o colchão (era a janela "Como o app te protege" do Câmbio): agora a dobra Colchão das Regras
+  function colchaoHtml() {
+    var c = colchao(),
+      casa = lmOk() ? S.lm.usd.v : fxHoje('usd'),
+      loja = fxUsdLoja(),
+      L = S.siteFx,
+      lt = lotesHist().slice(-6),
+      mxl = Math.max.apply(
+        null,
+        lt.map(function (l) {
+          return l.usd;
+        }).concat([0.01])
+      ),
+      ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
+    return (
+      (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
+      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
+      '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
+      '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
+      (lt.length
+        ? '<div class="fjB"><span class="lbl">Custo por lote</span><div class="fjLotes">' + lt.map(function (l, i) {
+            return '<i title="' + esc(l.txt || '') + '" style="height:' + Math.max(12, Math.round((l.usd / mxl) * 100)) + '%' + (i === lt.length - 1 ? ';background:var(--accent)' : '') + '"></i>';
+          }).join('') + '</div><div class="hint" style="margin:0">' + (lt.length > 1 ? 'Último lote saiu ' + pc(Math.abs(ul)) + (ul >= 0 ? ' mais caro' : ' mais barato') + ' em dólar que o anterior.' : 'Um lote registrado até agora.') + '</div></div>'
+        : '') +
+      '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
+    );
+  }  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
   ACT.tiPeca = function (ref) { if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref); };
   function cntItem(id) {
     var p = String(id).split('|'), g = cntDecisoes().filter(function (x) { return x.t === 'pa' && x.kind === p[1]; })[0];

@@ -1274,7 +1274,7 @@ async def main():
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
               const esp = (need / L.rateDe('brl', 0)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
-              return [g, u, b, man, custo, sh === esp, fx.indexOf('Como o app te protege') >= 0, fx.indexOf('G$ 8.000') >= 0]; }""")
+              return [g, u, b, man, custo, sh === esp, fx.indexOf('Como o app te protege') < 0, fx.indexOf('G$ 8.000') >= 0]; }""")  # 62: o colchão mora em Preços › Regras
             ok = r[0] == 'US$ 74' and r[1] == 8100 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
@@ -4866,7 +4866,8 @@ async def main():
             await pg.locator('#v-dash .tiD .nvL[data-id=corr]').click(); await pg.wait_for_timeout(600)
             q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .pcNaTela .pcLi').length, document.querySelectorAll('#v-dash .pcNaTela [data-act=pcUsaTodos]').length, document.querySelector('#v-dash .dHdT').textContent, (document.querySelector('.view:not([hidden]) .nvVs') || { textContent: '' }).textContent.replace('‹', '')]")
             await pg.evaluate("() => window.__LF.ACT.tiAbre('regras')"); await pg.wait_for_timeout(600)
-            q3 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelector('#v-dash .dHdT').textContent === 'Regras', /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-dash .pc66').length > 0, !document.querySelector('.ljJn:not(.ljSai)')]; }")
+            await pg.evaluate("() => window.__LF.ACT.dfold('rgTx')"); await pg.wait_for_timeout(500)
+            q3 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelector('#v-dash .dHdT').textContent === 'Regras', /Taxas da maquininha/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-dash .pc66').length > 0, !document.querySelector('.ljJn:not(.ljSai)')]; }")
             total += 1
             ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and q2[2:] == ['Preços para corrigir', 'Preços'] and all(q3) and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66) + 54: Preços sem repetição, lista a corrigir numa tela com "‹ Preços", meta e taxas no setor Regras, contas pelo custo')
@@ -4937,6 +4938,27 @@ async def main():
                   and not os.path.exists(os.path.join(RAIZ, 'src', '98z-precos-s52.js')) and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + '54: Preços = escritório do Titan — sem os 4 números, "O Titan decide hoje · N", 5 setores em linhas ›, cada tabela abre a sua, ofertas uma por vez, nenhum "Guardião"')
             if not ok: falhas.append('54 escritorio do Titan'); print('        veio', got, troca, nomeSolto, pg.erros)
+            await pg.close()
+
+            # 62 (setor Regras do Titan): tudo o que o preço cobre num lugar só — CADA VENDA COBRE (Contas do mês › Despesas, Taxas ⌄, IVA ⌄, Colchão ⌄),
+            # DÓLAR DA LOJA (Cotação nos preços ⌄), O TITAN APRENDE COM VOCÊ (Vendas por mês ⌄, Seu jeito de cobrar ⌄), SEU OBJETIVO (Meta, só mostra).
+            # Saíram: "Contas e contagem", "Divisão das contas", a barra da meta e o cartão de taxas; do Câmbio, "Preços no site" e "Como o app te protege".
+            fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
+            velho = sorted(f for f, t in fontes.items() if re.search(r'function (precosCfgHtml|precosMetaHtml|paMetaHtml|pagamentoHtml|fjProtHtml)\b|data-id="(site|prot)"><span>(Preços no site|Como o app)', t))
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              L.inicioGo('prec'); await w(400); L.ACT.tiAbre('regras'); await w(500); const d = document.getElementById('v-dash');
+              R.lb = [...d.querySelectorAll('.tiLb')].map(x => x.textContent).join('|');
+              R.lin = [...d.querySelectorAll('.tiS .nvL b, .tiS .fxH b, .tiS .rgMeta>span')].map(x => x.firstChild.textContent.split(' · ')[0]).join('|');
+              R.sem = !/Contas e contagem|Divisão das contas|Formas de pagamento|Dias de loja/.test(d.innerText) && !d.querySelector('.paBar');
+              d.querySelector('.tiS .nvL[data-id=desp]').click(); await w(500); R.desp = S.view;
+              L.setView('fx'); await w(400); R.fx = !/Preços no site|Como o app te protege/.test(document.getElementById('v-fx').innerText);
+              return R; }""")
+            total += 1
+            ok = (got['lb'] == 'CADA VENDA COBRE|DÓLAR DA LOJA|O TITAN APRENDE COM VOCÊ|SEU OBJETIVO' and got['lin'] == 'Contas do mês|Taxas da maquininha|IVA|Colchão|Cotação nos preços|Vendas por mês|Seu jeito de cobrar|Meta de lucro do mês'
+                  and got['sem'] and got['desp'] == 'desp' and got['fx'] and velho == [] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '62: Preços › Regras do Titan — o que cada venda cobre, o dólar da loja, o que o Titan aprende e a meta; o Câmbio fica só com o dólar e as trocas')
+            if not ok: falhas.append('62 regras'); print('        veio', got, velho, pg.erros)
             await pg.close()
 
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".

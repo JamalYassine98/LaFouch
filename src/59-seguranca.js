@@ -287,27 +287,6 @@
   });
 
   // ---------- partes da aba Ajustes: pagamento e segurança
-  // Formas de pagamento e taxas (Dashboard › Preços).
-  function pagamentoHtml() {
-    var h = '';
-    // formas de pagamento
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';
-    S.formas.forEach(function (f) {
-      h +=
-        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
-        esc(f.nome) +
-        '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
-        f.id +
-        '" value="' +
-        String(f.taxa).replace('.', ',') +
-        '" aria-label="Taxa de ' +
-        esc(f.nome) +
-        ' em porcentagem"><i aria-hidden="true">%</i></span></div>';
-    });
-    h += '</section>';
-    return h;
-  }
   function ajustesFinHtml() {
     var h = '';
     // lembrete semanal do caixa: sempre ligado (sem opção em Ajustes)

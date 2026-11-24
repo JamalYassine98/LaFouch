@@ -94,7 +94,7 @@
   }
   var TI_TELA = {
     corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
-    regras: function () { return paMetaHtml() + precosCfgHtml() + pagamentoHtml(); },
+    regras: regrasHtml,
     ofertas: function () {
       var D = cntDecisoes().filter(function (x) { return x.t === 'pa'; }), nAc = D.reduce(function (a, x) { return a + x.n; }, 0), O = tiOfertasNoAr(), dsc = cntDescontosTxt(new Date().getMonth());
       return (D.length ? '<section class="card col cntD"><div class="lbl">O ' + esc(LF_TITAN).toUpperCase() + ' SUGERE · ' + nAc + '</div>' + D.map(cntDecisaoHtml).join('') +
@@ -120,7 +120,59 @@
     },
     hist: function () { var h = precosAutoHtml(); return h ? '<div class="cntAuto">' + h + '</div>' : '<div class="hint tiVz">Nenhuma mudança de preço guardada ainda.</div>'; }
   };
-  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
+  // ---------- setor Regras (62): tudo o que o preço cobre, num lugar só ----------
+  // Cada venda cobre (contas, taxas, IVA, colchão) · Dólar da loja · O Titan aprende com você · Seu objetivo. As linhas ⌄ só
+  // mostram (dFold); "Contas do mês ›" leva a Despesas. Saíram no mesmo passo: "Contas e contagem" + "Divisão das contas"
+  // (precosCfgHtml), a barra da meta (paMetaHtml), o cartão "Formas de pagamento e taxas" (pagamentoHtml) e, do Câmbio,
+  // "Preços no site" e "Como o app te protege" (as janelas viraram as dobras da cotação e do colchão).
+  function regrasTaxas() {
+    var F = (S.formas || []).filter(function (f) { return +f.taxa > 0; });
+    return F.length ? F.map(function (f) { return f.nome.replace(/^Maquininha\s+/i, '') + ' ' + String(f.taxa).replace('.', ',') + '%'; }).join(' · ') : 'sem taxa';
+  }
+  function regrasHtml() {
+    var nC = (S.exp || []).length, c = colchao(), L = S.siteFx, loja = fxUsdLoja(), casa = lmOk() ? S.lm.usd.v : 0, lm = paLucroMes(), vol = volumeEfetivo(), apr = aprendeFator() >= 1,
+      taxas = '<div class="col rgTx">' + (S.formas || []).map(function (f) {
+        return '<label class="cxL"><span>' + esc(f.nome) + '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' + f.id + '" value="' + String(f.taxa).replace('.', ',') +
+          '" aria-label="Taxa de ' + esc(f.nome) + ' em porcentagem"><i aria-hidden="true">%</i></span></label>';
+      }).join('') + '<p class="hint">A taxa sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%.</p></div>';
+    return '<div class="lbl tiLb">CADA VENDA COBRE</div><section class="nvLista">' + tiLinha('view', 'desp', 'desp', 'Contas do mês', gs(totalMensal()) + ' · ' + cntPl(nC, 'conta', 'contas') + ' · em Dinheiro') + '</section>' +
+      dFold('rgTx', 'Taxas da maquininha', regrasTaxas(), '', taxas) +
+      dFold('rgIva', 'IVA · 10%', 'incluído no preço · em guaranis', '', '<p class="hint">O IVA já está dentro do preço: de G$ 110.000, G$ 10.000 são do imposto (preço ÷ 11). A conta é sempre em guaranis.</p>') +
+      dFold('rgCo', 'Colchão · ' + pc(c.pct), 'reserva da mercadoria · amortece', '', colchaoHtml()) +
+      '<div class="lbl tiLb">DÓLAR DA LOJA</div>' +
+      dFold('rgFx', 'Cotação nos preços · ' + gsRaw(L && L.usd ? L.usd : loja), 'travada' + (casa ? ' · venda da casa ' + gsRaw(Math.round(casa)) : ''), '', siteFxHtml()) +
+      '<div class="lbl tiLb">O ' + esc(LF_TITAN).toUpperCase() + ' APRENDE COM VOCÊ</div>' +
+      dFold('rgVol', 'Vendas por mês · ' + vol, 'pelas vendas reais, sem digitar', '', '<p class="hint">O ' + esc(LF_TITAN) + ' conta as vendas reais dos últimos dias; você não digita nada. As contas do mês se dividem por essas vendas, e peça mais cara carrega mais.</p>') +
+      dFold('rgJei', 'Seu jeito de cobrar · ' + (apr ? 'aprendido' : 'aprendendo'), 'aprende com cada correção', '', '<p class="hint">Cada preço que você corrige ou cobra ensina o ' + esc(LF_TITAN) + ' a pôr o preço do seu jeito' + (apr ? '.' : ': ainda está juntando ' + nDias(Math.max(0, 30 - aprendeDias())) + ' de vendas.') + '</p>') +
+      '<div class="lbl tiLb">SEU OBJETIVO</div><div class="cxL rgMeta"><span>Meta de lucro do mês<small>não muda os preços</small></span><b>' + (lm.metaG > 0 ? gs(lm.metaG) : '—') + '</b></div>';
+  }
+  // o colchão (era a janela "Como o app te protege" do Câmbio): agora a dobra Colchão das Regras
+  function colchaoHtml() {
+    var c = colchao(),
+      casa = lmOk() ? S.lm.usd.v : fxHoje('usd'),
+      loja = fxUsdLoja(),
+      L = S.siteFx,
+      lt = lotesHist().slice(-6),
+      mxl = Math.max.apply(
+        null,
+        lt.map(function (l) {
+          return l.usd;
+        }).concat([0.01])
+      ),
+      ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
+    return (
+      (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
+      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
+      '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
+      '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
+      (lt.length
+        ? '<div class="fjB"><span class="lbl">Custo por lote</span><div class="fjLotes">' + lt.map(function (l, i) {
+            return '<i title="' + esc(l.txt || '') + '" style="height:' + Math.max(12, Math.round((l.usd / mxl) * 100)) + '%' + (i === lt.length - 1 ? ';background:var(--accent)' : '') + '"></i>';
+          }).join('') + '</div><div class="hint" style="margin:0">' + (lt.length > 1 ? 'Último lote saiu ' + pc(Math.abs(ul)) + (ul >= 0 ? ' mais caro' : ' mais barato') + ' em dólar que o anterior.' : 'Um lote registrado até agora.') + '</div></div>'
+        : '') +
+      '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
+    );
+  }  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
   ACT.tiPeca = function (ref) { if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref); };
   function cntItem(id) {
     var p = String(id).split('|'), g = cntDecisoes().filter(function (x) { return x.t === 'pa' && x.kind === p[1]; })[0];

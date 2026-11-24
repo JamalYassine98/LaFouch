@@ -252,19 +252,12 @@
     }
     return h + '<div class="cxL"><span>Revisa</span><b>toda segunda</b></div><p class="lgFr">Contas, taxas e meta ficam em Preços › Regras.</p>';
   }
-  // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
-  function paMetaHtml() {
-    var lm = paLucroMes();
-    if (!(lm.metaG > 0)) return '';
-    var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
-    return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
-      '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
-  }
+
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
       h = '';
-    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta foi para "Contas, taxas e meta" (paMetaHtml)
+    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta mora em Preços › Regras (62)
     if (on && ((S.pAuto.mudas || []).some(function (m) { return Date.now() - m.ts <= 7 * DAY; }) || S.paTodas)) {
       var semana = (S.pAuto.mudas || []).filter(function (m) {
         return Date.now() - m.ts <= 7 * DAY;

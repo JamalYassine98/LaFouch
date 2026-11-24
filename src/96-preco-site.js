@@ -39,7 +39,7 @@
     if (!(vivo > 0)) return gs;
     return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
-  // Conteúdo da janela "Preços no site" (aba Câmbio).
+  // A cotação dos preços (loja e site): a dobra "Cotação nos preços" de Preços › Regras (62).
   function siteFxHtml() {
     siteFxConfere();
     var L = S.siteFx,

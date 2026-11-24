@@ -2,9 +2,9 @@
   // Topo: Dólar G$ · Real G$ · Dólar em reais R$ (La Moneda Jebai), cada um com a variação de 7 dias; tocar abre a janela com o gráfico.
   // Cartão Reposição: selo (Bom momento / Normal / Pode esperar / Troque hoje), "Faltam US$ X", barra, "US$ a de US$ b"
   // e a linha discreta "Registrar troca ›". Tocar no cartão abre a janela "Por que…" (gráfico + motivos).
-  // Linhas: Últimas trocas · Preços no site · Como o app te protege — cada uma abre a sua janela.
+  // Linhas: Últimas trocas (a cotação dos preços e o colchão moram em Preços › Regras, 62).
   // A previsão do dólar só alimenta o selo (não tem cartão próprio); o plano de troca saiu.
-  S.fxJan = ''; // janela aberta: repo, usd, brl, arb, trocas, site, prot, troca
+  S.fxJan = ''; // janela aberta: repo, usd, brl, arb, trocas, troca
   S.fxPer = 90;
   S.fxAvisos = {};
   var FX_NOME = { usd: 'Dólar', brl: 'Real', arb: 'Dólar em reais' };
@@ -254,13 +254,10 @@
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
       '<button type="button" class="go" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
-    var n = (S.cambios || []).length,
-      L = S.siteFx;
+    var n = (S.cambios || []).length;
     h +=
       '<section class="cxSaldo fx418"><div class="cxLb">Mais</div>' +
       '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
-      '<button type="button" class="pr418 lk' + lkCls(false) + '" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
       '</section>';
     if (S.fxJan) h += fjHtml(S.fxJan, vd);
     return h;
@@ -286,12 +283,6 @@
     } else if (id === 'trocas') {
       tit = 'Últimas trocas';
       corpo = (S.cambios || []).length ? trHistHtml().replace('<div class="lbl" style="margin-top:6px">Trocas feitas</div>', '') : '<div class="hint" style="margin:0">Nenhuma troca registrada.</div>';
-    } else if (id === 'site') {
-      tit = 'Preços no site';
-      corpo = siteFxHtml();
-    } else if (id === 'prot') {
-      tit = 'Como o app te protege';
-      corpo = fjProtHtml();
     } else if (id === 'troca') {
       tit = 'Registrar troca';
       corpo = trGavetaHtml();
@@ -381,32 +372,7 @@
       ''
     );
   }
-  function fjProtHtml() {
-    var c = colchao(),
-      casa = lmOk() ? S.lm.usd.v : fxHoje('usd'),
-      loja = fxUsdLoja(),
-      L = S.siteFx,
-      lt = lotesHist().slice(-6),
-      mxl = Math.max.apply(
-        null,
-        lt.map(function (l) {
-          return l.usd;
-        }).concat([0.01])
-      ),
-      ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
-    return (
-      (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
-      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div></div>' +
-      '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
-      '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
-      (lt.length
-        ? '<div class="fjB"><span class="lbl">Custo por lote</span><div class="fjLotes">' + lt.map(function (l, i) {
-            return '<i title="' + esc(l.txt || '') + '" style="height:' + Math.max(12, Math.round((l.usd / mxl) * 100)) + '%' + (i === lt.length - 1 ? ';background:var(--accent)' : '') + '"></i>';
-          }).join('') + '</div><div class="hint" style="margin:0">' + (lt.length > 1 ? 'Último lote saiu ' + pc(Math.abs(ul)) + (ul >= 0 ? ' mais caro' : ' mais barato') + ' em dólar que o anterior.' : 'Um lote registrado até agora.') + '</div></div>'
-        : '') +
-      '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
-    );
-  }
+
   var MN418 = { pyg: 'guaranis', usd: 'dólares', brl: 'reais' };
   ACT.trMoe = function (v) {
     var p = String(v).split('|');

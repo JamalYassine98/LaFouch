@@ -92,26 +92,6 @@
     return isNaN(n) ? 0 : n;
   }
   // Divisão das contas (66 parte 3: os dias de loja saíram — o app aprende sozinho).
-  function precosMetaHtml() {
-    // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
-    return '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>' +
-      '</div>';
-  }
-  // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
-  function precosCfgHtml() {
-    var h = '';
-    // v421: as faixas manuais saíram — Econômica/Intermediária/Luxo são automáticas (linha do produto)
-    // rateio das contas e tolerância da contagem
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
-      gs(totalMensal()) +
-      ', cerca de US$ ' +
-      Math.round(totalMensal() / S.fx.pyg) +
-      ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      precosMetaHtml() +
-      '</section>';
-    return h;
-  }
   // Monta a aba Ajustes.
   function renderAjustes() {
     var el = $('v-ajustes');
