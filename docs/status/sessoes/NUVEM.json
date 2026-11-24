@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "estudo: pagamento próprio por pedido (upay)",
- "arquivos": [
-  "work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795522630.1460133,
+   "r": "Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono."
+  },
   {
    "t": 1795502859.114919,
    "r": "Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions)."
@@ -40,10 +42,6 @@
   {
    "t": 1795267764.6706243,
    "r": "App Check: contagens lidas (workflow info). Funções do site chegam quase sempre sem selo → 'exigir' ainda NÃO pode ser ligado; pergunta ao SITE sobre o acFetch."
-  },
-  {
-   "t": 1795267175.2697825,
-   "r": "39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO."
   }
  ],
  "leu": 1795522598.826717
