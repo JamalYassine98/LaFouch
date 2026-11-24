@@ -89,3 +89,20 @@ Respostas: 2) site = letra do Android 1×, 1,1× e 1,2× (as três, sempre; máx
 2. O teste-site-analise mede letra de 1× a 2×; a regra 18 diz até 1,2×. Qual vale?
 3. O Argus conferir também o espanhol do site (PT e ES)?
 4. tests/run.py (lógica do app) entra como etapa da porta do Argus · setor App?
+
+## 9. O que ainda falta para o Argus ficar completo (elaboração 24/11 15:47 — só estudo)
+1. **Mapa de cobertura:** toda tela, dobra, janela e estado tem de ter planta; o explorador lista o que existe e "tela sem planta" nunca passa.
+2. **Loja de teste fixa:** dados sempre iguais (peças, vendas, clientes) e relógio parado; cenários: normal, vazio, cheio (dia de evento), sem internet, datas da loja, logado/deslogado, atacadista, com/sem biometria (app), cada temática (site).
+3. **Ruído:** o que muda sozinho (relógio, sorteio, animação) é reconhecido abrindo a tela duas vezes (ideia do comparador s430), sem lista de exceções.
+4. **Medida exata por família:** quanto é "diferente" (posição ±1 px, cor pelo token oficial, letra exata) — escrito uma vez, no motor.
+5. **Gestos:** arrastar a janela para fechar, rolar com o dedo, teclado subindo (hoje só no site, parte 1) → motor.
+6. **Aparelho real:** a cada publicação, o emulador Android do GitHub fotografa as telas mexidas e o Argus compara com a planta (fontes do Android); Test Lab só na cota grátis.
+7. **Não dá para pular:** o Argus grava um selo com o número do commit; o publicar do app e do site recusa sem selo do mesmo commit.
+8. **Plantas protegidas:** planta só muda por esboço aprovado (linha na lista viva); commit da APP/SITE que mexe em planta trava.
+9. **Prova do próprio Argus com o app antigo:** uma versão antiga com erros conhecidos (ex.: v641) tem de falhar nos mesmos erros, toda rodada (além do estrago planejado).
+10. **Textos:** mesmo verbo para a mesma ação, termos aprovados, nenhum PT no ES (site parte 4) → motor + setor Site.
+11. **Ponte app × site:** o mesmo produto com o mesmo preço, estoque e foto nos dois.
+12. **Segurança (provas da NUVEM, testadas de verdade no emulador da nuvem):** tentativas proibidas têm de ser barradas; na dúvida trava.
+13. **Tempo do Argus:** rodada rápida (só o mexido + autoprova) a cada passo da implementadora; rodada completa antes de publicar, com limite de tempo.
+14. **Resultado no status:** o resultado entra sozinho no docs/STATUS.md (tools/status.py) e a ESBOCO recebe as fotos para o "OK ESBOCO".
+15. **Fora do alcance (dito no relatório, nunca "passou"):** câmera do Estúdio, APK/Windows, e-mails — o que o simulador não abre aparece como "não conferido".
