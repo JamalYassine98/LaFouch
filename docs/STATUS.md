@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
 | ESBOCO | gabarito: testar os 32 itens contra os esboços aprovados e trocar por moldes (sem remendo) | work/kit/base_app.py, work/titan |
+| NUVEM | telefone completo (com país) no lugar dos 9/6 últimos dígitos | functions/fone.js, functions/teste-fone.js, functions/cupom.js, functions/index.js, functions/pedido.js, functions/token.js |
 
 ## Fila
 

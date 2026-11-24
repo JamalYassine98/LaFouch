@@ -1,7 +1,14 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "telefone completo (com país) no lugar dos 9/6 últimos dígitos",
+ "arquivos": [
+  "functions/fone.js",
+  "functions/teste-fone.js",
+  "functions/cupom.js",
+  "functions/index.js",
+  "functions/pedido.js",
+  "functions/token.js"
+ ],
  "ultimas": [
   {
    "t": 1795531684.3195813,
