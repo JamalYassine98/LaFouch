@@ -32,7 +32,7 @@ Ordem: primeiro o App (prioridade do dono), depois o Site.
 ## Parte 4 · O medidor de família (um só)
 - Regras 13–17 numa medida só: L1–L4, espaços 8/16/24/32/48, linha ≥ 44 px, mesma função = mesmo botão, telas e links, verbos, números, cores de sentido, uma curva e um tempo (movimento e "reduzir movimento"), estados (carregando, erro, sem internet, salvo, vazio), textos; família inteira (inventário 1 = inventário 2).
 - Prova permanente: cada erro pego vira prova fixa.
-- Sai: mede.js, mede.py, mede_prova.py, familia.py, medir.py, prova_medidor.py, alin.js, centro.js, olho.js, sobre.js, o "revisa" do kit.
+- Sai: titan/familia.py, medir.py, prova_medidor.py, roteiro.py. (Ajuste 24/11: mede.js, mede.py, mede_prova.py, alin.js, centro.js, olho.js, sobre.js e o "revisa" do kit ainda são usados pelo Argus atual do SITE e pelo kit de esboço — saem na Parte 7, quando o setor Site do Argus novo assumir; tirar antes deixaria o site sem porteiro.)
 
 ## Parte 5 · Setor App (a porta do app)
 - Modos do app: claro E escuro · as 3 letras do app (1×, 1,15×, 1,3×) · com e sem biometria · a faixa de aparelhos + o Xiaomi 13T.
