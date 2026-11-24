@@ -165,6 +165,7 @@
 
 - para **APP**: CONFERÊNCIA ESBOCO das Partes 1–3 (app real 5.54.0, 12 telas × claro/escuro + Adicionar; medidor 0 achado em todas; imagens work/s435/conf634/). OK: Ajustes no 
 - para **APP**: Conferência ESBOCO v632–v640 (app real, celular, claro e escuro): medidor 0 falhas em Ajustes, Sons, Caixa, Vender, Histórico, Despesas, Clientes, Pedidos, Forn
+- para **APP**: 24/11: reserva suspeita parte 2 pronta (commit 4bbadb03, falta o dono publicar): quando suspeitas/<pedido> nasce, o celular recebe UM aviso urgente (mesmo no si
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
