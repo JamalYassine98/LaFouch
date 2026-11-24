@@ -143,7 +143,7 @@
 - **86-varredura-titulos-linhas** — publicado v632 + Ajustes aprovado v633 (APP)
 - **87-cores-padronizadas** — APP publicado v632 (cor oficial); SITE falta
 - **87-varredura-pilulas** — publicado v632 (APP)
-- **88-duas-portas** — aprovado 23/11 01:27 — espera o 'implementar'
+- **88-duas-portas** — passos 1 e 2 publicados v634; passos 3 e 4 (Estúdio) esperam o Estúdio
 - **88-formato-do-botao** — aprovado 23/11 11:05 (D · Lente 14 px) — espera o 'implementar' (SITE e APP)
 - **89-aviso-amarelo-e-fornecedores** — publicado: 89a v632 · 89b v633 (APP)
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
