@@ -1,7 +1,11 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "12: refazer a pasta perdida (não subiu ao GitHub)",
+ "arquivos": [
+  "work/ideias/12-tematica-base/",
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795491526.0155098,
@@ -44,5 +48,5 @@
    "r": "12d: todas as datas na cor oficial enviadas"
   }
  ],
- "leu": 1795491401.7204468
+ "leu": 1795501002.1453896
 }
