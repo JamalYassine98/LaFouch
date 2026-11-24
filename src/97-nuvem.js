@@ -50,7 +50,7 @@
         // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
         if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
           window.__nvVencT = Date.now();
-          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Nuvem', 'erro');
+          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Cópias e nuvem', 'erro');
         }
         throw e;
       });

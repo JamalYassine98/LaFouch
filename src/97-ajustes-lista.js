@@ -8,13 +8,9 @@
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
-    pa: AJ_SVG('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
+    ig: AJ_SVG('<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.8" cy="7.2" r=".6"/>'),
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
-    site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
-    ped: AJ_SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>'), // sacola: o globo fica só no Site
-    pauto: AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
-    marca: AJ_SVG('<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
     upd: AJ_SVG('<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/>'),
@@ -22,10 +18,10 @@
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
+    // 86 + 46 (aprovados 22–23/11): Ajustes = só o aparelho e as contas. O que liga ou desliga uma parte da loja mora na tela do assunto
+    // (⏻ ao lado do título: Pedidos, Preços); Marca foi para o Marketing; Site, Pedidos do site e Preços saíram daqui.
     AJ_BLOCOS = [
-      ['Loja', ['marca', 'site', 'ped', 'pa', 'pauto']],
-      ['Contas ligadas', ['bk', 'sync']],
+      ['Contas ligadas', ['ig', 'bk', 'sync']],
       ['Este aparelho', ['imp', 'tema', 'seg', 'av', 'upd']]
     ],
     AJ_PADRAO = AJ_BLOCOS.reduce(function (a, b) { return a.concat(b[1]); }, []);
@@ -54,20 +50,20 @@
     return (
       '<div class="ajGrp" id="ajGrp">' +
       AJ_BLOCOS.map(function (bl) {
-        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai); });
+        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai || secs[k].fixa); });
         if (!ls.length) return '';
         return '<div class="ajBl"><div class="ajBt">' + bl[0] + '</div>' + ls.map(function (k) {
           var s = secs[k],
             on = ab === k || !!S._rtudo; // testes antigos: tudo aberto
           return (
-            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa ? ' ajT' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
+            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa || s.fixa ? ' ajT' : '') + (s.fixa ? ' ajF' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
             '<button type="button" class="ajR"' + (s.h ? ' aria-expanded="' + (on ? 'true' : 'false') + '"' : '') + '><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
             '<span class="ajRes' + (s.al ? ' al' : '') + '">' + (s.al ? '<i class="ajPt"></i>' : '') + esc(s.r || '') + '</span><span class="ajCh">' + AJ_SETA + '</span><span class="ajAl">' + AJ_ALCA + '</span></button>' +
             (s.h ? '<div class="ajB"><div class="ajBi">' + s.h + '</div></div>' : '') + '</div>'
           );
         }).join('') + '</div>';
       }).join('') +
-      '</div><div class="ajVer">Versão ' + esc(APP_NOME) + '</div>'
+      '</div>'
     );
   }
   // L4: nenhuma linha de Ajustes quebra em 2 — nome, resumo e as linhas de dentro (.nvxL) ficam numa linha só; se não cabem, a letra do grupo diminui
@@ -80,6 +76,7 @@
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
+    if (s.classList.contains('ajF')) return; // linha só de estado (Instagram até a nuvem ligar a conta)
     if (s.dataset.vai) return ACT[s.dataset.vai](); // outra tela (Site) ou janela de baixo (Marca): não abre no lugar
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');

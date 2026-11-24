@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 632;
+  var APP_BUILD = 633;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.51.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.52.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -9044,15 +9044,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })[0];
       if (!g) {
         S.lotSel = '';
-        var t = mk('div', ''); // o título "Fornecedores" é o da tela (66: um título por tela)
-        var hh = mk(
-          'div',
-          'hint',
-          'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
-        );
-        hh.style.margin = '0';
-        t.appendChild(hh);
-        h.appendChild(t);
         if (!S.grp.length) {
           var nl = mk(
             'div',
@@ -9067,7 +9058,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           var d = new Date(x.ts || 0);
           if (d.getFullYear() === dm.getFullYear() && d.getMonth() === dm.getMonth()) inv += gTot(x);
         });
-        if (S.grp.length) hh.textContent += ' Investido neste mês: ' + usd(inv) + '.';
+        // 89b (aprovado 23/11): sem o parágrafo; o número do mês é uma linha
+        if (S.grp.length) {
+          var lv = mk('div', 'cxL lt89');
+          lv.innerHTML = '<span>Investido em ' + MESES_L[dm.getMonth()] + '</span><b>' + usd(inv) + '</b>';
+          h.appendChild(lv);
+        }
         var shown = {};
         S.grp
           .slice()
@@ -13266,12 +13262,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '</div>';
     }
     h += '</section>';
-    // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
-    h +=
-      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2></div>' +
-      '<button type="button" class="swrow" data-act="pedbaixa" role="switch" aria-checked="' + (S.baixaAuto ? 'true' : 'false') + '" style="background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer"><span>Baixa automática<div class="hint" style="margin:2px 0 0;font-weight:400">' +
-      (S.baixaAuto ? 'Ligada: ao entregar o pedido, o estoque baixa e a venda é registrada sozinha.' : 'Desligada: ao entregar, você registra a venda e baixa o estoque à mão.') +
-      '</div></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true" style="pointer-events:none"' + (S.baixaAuto ? ' checked' : '') + '><i></i></span></button></section>';
     h += avPedidosHtml();
     return h;
   }
@@ -21210,7 +21200,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['prec', 'Preços']
   ];
   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
-  // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ajustes › Preços, Ofertas do site).
+  // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ofertas do site).
   function dFold(id, titulo, resumo, cor, corpo) {
     if (!corpo) return '';
     var ab = !!S.dfold[id];
@@ -21336,7 +21326,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
+    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o preço automático liga no ⏻ do título e "Contas, taxas e meta" moram em Preços › Regras (46b).
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += precosTelaHtml();
     h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';
@@ -21836,7 +21826,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Ferramentas de Preços (149fe)
   ICO_D.calc = '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18h.01M12 18h4"/>';
   ICO_D.ese = '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>';
-  ICO_D.pauto = '<path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/><path d="M12 8v4l3 2"/>';
+  ICO_D.regras = '<path d="M5 7h14M5 12h14M5 17h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
   ICO_D.msg = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
   ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
@@ -25468,7 +25458,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (p.pag === 'alias' && p.pagar) h += pr418('Valor exato da transferência', gs(p.pagar), 'final único para achar o pagamento');
       if (p.pag === 'pix' && p.brl) h += pr418('Valor em reais', 'R$ ' + esc(String(p.brl).replace('.', ',')));
     }
-    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">Confirmado sozinho às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {
       h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
       compLeAgenda(p);
@@ -25641,7 +25631,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedverAgora">Verificar agora</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
-        '</div></div></div>';
+        '</div></div>' + botaoEstado('ped') + '</div>'; // 46c: impressão e baixa automáticas ligam aqui
     h += pedEsperaHtml();
     h += '<div class="pdSeg lfAbas" id="pdTabs" role="group" aria-label="Situação dos pedidos">'; // S324: abas padrão do app (linha que desliza)
     fl.forEach(function (f) {
@@ -26419,7 +26409,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest', 'nvHash'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest', 'nvHash'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -26538,10 +26528,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     // v419: Ajustes minimalista (esboço aprovado 04/11): um grupo, linhas que abrem no lugar e ordem livre
-    var h = '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Aparelho, loja, site e segurança.</div></div></div>';
+    var h = '<div class="top"><div><h1>Ajustes</h1></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
-    // Segurança, Pedidos do site e Sons e avisos vêm juntos: separa cada seção
+    // Segurança e Sons e avisos vêm juntos: separa cada seção
     var fin = ajustesFinHtml(),
       partes = fin.match(/<section[\s\S]*?<\/section>/g) || [],
       resto = fin.replace(/<section[\s\S]*?<\/section>/g, ''),
@@ -26553,7 +26543,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         );
       },
       segH = partes.filter(function (x) {
-        return x.indexOf('id="baixaCard"') < 0 && x.indexOf('id="avisosCard"') < 0;
+        return x.indexOf('id="avisosCard"') < 0;
       })[0] || '';
     var emDiv = function (x) {
       return x.replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">').replace(/<\/section>$/, '</div>');
@@ -26567,18 +26557,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       bkd = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
+      ig: { t: 'Instagram', r: 'não ligado', fixa: true }, // a linha fica pronta; liga quando a nuvem ligar a conta
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
-      marca: { t: 'Marca', r: marcaResumo(), vai: 'ajMarca', tarefa: true },
-      site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', vai: 'ajSite' }, // S374 (95d)
-      // 149p: o interruptor do preço automático (com a prévia ao ligar) e "Contas, taxas e meta" moram aqui; Preços só mostra e decide
-      pa: { t: 'Preços', r: 'automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado'), h: paSwitchHtml() + dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml()) },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
-      ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
-      pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       bk: S.nuvem && S.nuvem.rt && typeof nuvemEnxutaHtml === 'function' ? nuvemEnxutaHtml() : { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
@@ -28343,13 +28328,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
-    pa: AJ_SVG('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
+    ig: AJ_SVG('<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.8" cy="7.2" r=".6"/>'),
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
-    site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
-    ped: AJ_SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>'), // sacola: o globo fica só no Site
-    pauto: AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
-    marca: AJ_SVG('<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
     upd: AJ_SVG('<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/>'),
@@ -28357,10 +28338,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    // 149p (aprovado 19/11 16:30): a linha Preços vem depois de Site e abre no lugar, com o interruptor do preço automático e "Contas, taxas e meta"
+    // 86 + 46 (aprovados 22–23/11): Ajustes = só o aparelho e as contas. O que liga ou desliga uma parte da loja mora na tela do assunto
+    // (⏻ ao lado do título: Pedidos, Preços); Marca foi para o Marketing; Site, Pedidos do site e Preços saíram daqui.
     AJ_BLOCOS = [
-      ['Loja', ['marca', 'site', 'ped', 'pa', 'pauto']],
-      ['Contas ligadas', ['bk', 'sync']],
+      ['Contas ligadas', ['ig', 'bk', 'sync']],
       ['Este aparelho', ['imp', 'tema', 'seg', 'av', 'upd']]
     ],
     AJ_PADRAO = AJ_BLOCOS.reduce(function (a, b) { return a.concat(b[1]); }, []);
@@ -28389,20 +28370,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return (
       '<div class="ajGrp" id="ajGrp">' +
       AJ_BLOCOS.map(function (bl) {
-        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai); });
+        var ls = ord.filter(function (k) { return bl[1].indexOf(k) >= 0 && secs[k] && (secs[k].h || secs[k].vai || secs[k].fixa); });
         if (!ls.length) return '';
         return '<div class="ajBl"><div class="ajBt">' + bl[0] + '</div>' + ls.map(function (k) {
           var s = secs[k],
             on = ab === k || !!S._rtudo; // testes antigos: tudo aberto
           return (
-            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa ? ' ajT' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
+            '<div class="ajS' + (on && s.h ? ' on' : '') + (s.tarefa || s.fixa ? ' ajT' : '') + (s.fixa ? ' ajF' : '') + '" data-k="' + k + '"' + (s.vai ? ' data-vai="' + s.vai + '"' : '') + '>' +
             '<button type="button" class="ajR"' + (s.h ? ' aria-expanded="' + (on ? 'true' : 'false') + '"' : '') + '><span class="ajIc">' + AJ_ICO[k] + '</span><b>' + esc(s.t) + '</b>' +
             '<span class="ajRes' + (s.al ? ' al' : '') + '">' + (s.al ? '<i class="ajPt"></i>' : '') + esc(s.r || '') + '</span><span class="ajCh">' + AJ_SETA + '</span><span class="ajAl">' + AJ_ALCA + '</span></button>' +
             (s.h ? '<div class="ajB"><div class="ajBi">' + s.h + '</div></div>' : '') + '</div>'
           );
         }).join('') + '</div>';
       }).join('') +
-      '</div><div class="ajVer">Versão ' + esc(APP_NOME) + '</div>'
+      '</div>'
     );
   }
   // L4: nenhuma linha de Ajustes quebra em 2 — nome, resumo e as linhas de dentro (.nvxL) ficam numa linha só; se não cabem, a letra do grupo diminui
@@ -28415,6 +28396,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
+    if (s.classList.contains('ajF')) return; // linha só de estado (Instagram até a nuvem ligar a conta)
     if (s.dataset.vai) return ACT[s.dataset.vai](); // outra tela (Site) ou janela de baixo (Marca): não abre no lugar
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
@@ -28595,50 +28577,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         4000
       );
   }
-  // ===== Marca (Ajustes › Loja) — Ajustes organizado, aprovado 20/11/2026 15:53 =====
-  // O "Kit da marca" saiu do Marketing e mora só aqui: a linha Marca mostra "nome · idiomas" e abre a janela de baixo (tarefa, sem seta).
-  // Os dados continuam em S.mkt.kit (mkKit) — é dali que posts, cartões e vídeos leem. Regra 15: um "Salvar", sem "Fechar";
-  // sair com mudança pergunta "Sair sem salvar?".
-  var MARCA_CAMPOS = [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']],
-    MARCA_IDI = [['ambos', 'Português e Español', 'PT e ES'], ['pt', 'Português', 'PT'], ['es', 'Español', 'ES']];
-  function marcaResumo() {
-    var K = mkKit(),
-      i = MARCA_IDI.filter(function (x) { return x[0] === K.idioma; })[0] || MARCA_IDI[0];
-    return (K.nome || 'Sem nome') + ' · ' + i[2];
-  }
-  ACT.ajMarca = function () {
-    var K = mkKit(), api,
-      le = function () {
-        var o = {};
-        [].forEach.call(api.corpo.querySelectorAll('[data-kit]'), function (e) { o[e.getAttribute('data-kit')] = e.value; });
-        return o;
-      },
-      mudou = function () {
-        var o = le();
-        return Object.keys(o).some(function (k) { return o[k] !== (K[k] || ''); });
-      };
-    api = lfJanela({
-      titulo: 'Marca',
-      mudou: mudou,
-      monta: function (box) {
-        box.innerHTML = '<div class="mkKit">' + MARCA_CAMPOS.map(function (k) {
-          return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
-        }).join('') +
-          '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma">' + MARCA_IDI.map(function (x) { return '<option value="' + x[0] + '"' + ((K.idioma || 'ambos') === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select></label>' +
-          '<div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div>' +
-          '<button type="button" class="go" data-marca="salva">Salvar</button></div>';
-        box.onclick = function (e) {
-          if (!e.target.closest('[data-marca=salva]')) return;
-          var o = le();
-          Object.keys(o).forEach(function (k) { K[k] = o[k]; });
-          saveSoon();
-          api.fecha(true);
-          S._ajForce = true;
-          render();
-        };
-      }
-    });
-  };
   // ===== Arquivo das vendas antigas (v438, aprovado 05/11/2026) =====
   // Vendas de mais de 12 meses saem da lista do dia a dia (o app fica leve para sempre) e viram um RESUMO POR MÊS.
   // A venda completa fica guardada no aparelho (IndexedDB 'estado'/'arquivo') e entra na cópia da nuvem;
@@ -37186,6 +37124,54 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     return '<div class="fmBox lcPedBox"><div class="lbl">Do pedido da lista (' + new Date(P.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ')</div>' + linhas.join('') + '</div>';
   }
+  // ===== Marca (Marketing) — 86 + regra 'cada ajuste mora na tela do assunto' (dono 22/11 01:28 e 23/11) =====
+  // A linha Marca fica no topo do Marketing, mostra "nome · idiomas" e abre a janela de baixo (tarefa, sem seta).
+  // Os dados continuam em S.mkt.kit (mkKit) — é dali que posts, cartões e vídeos leem. Regra 15: um "Salvar", sem "Fechar";
+  // sair com mudança pergunta "Sair sem salvar?".
+  var MARCA_CAMPOS = [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']],
+    MARCA_IDI = [['ambos', 'Português e Español', 'PT e ES'], ['pt', 'Português', 'PT'], ['es', 'Español', 'ES']];
+  function marcaResumo() {
+    var K = mkKit(),
+      i = MARCA_IDI.filter(function (x) { return x[0] === K.idioma; })[0] || MARCA_IDI[0];
+    return (K.nome || 'Sem nome') + ' · ' + i[2];
+  }
+  ACT.mkMarca = function () {
+    var K = mkKit(), api,
+      le = function () {
+        var o = {};
+        [].forEach.call(api.corpo.querySelectorAll('[data-kit]'), function (e) { o[e.getAttribute('data-kit')] = e.value; });
+        return o;
+      },
+      mudou = function () {
+        var o = le();
+        return Object.keys(o).some(function (k) { return o[k] !== (K[k] || ''); });
+      };
+    api = lfJanela({
+      titulo: 'Marca',
+      mudou: mudou,
+      monta: function (box) {
+        box.innerHTML = '<div class="mkKit">' + MARCA_CAMPOS.map(function (k) {
+          return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
+        }).join('') +
+          '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma">' + MARCA_IDI.map(function (x) { return '<option value="' + x[0] + '"' + ((K.idioma || 'ambos') === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select></label>' +
+          '<div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div>' +
+          '<button type="button" class="go" data-marca="salva">Salvar</button></div>';
+        box.onclick = function (e) {
+          if (!e.target.closest('[data-marca=salva]')) return;
+          var o = le();
+          Object.keys(o).forEach(function (k) { K[k] = o[k]; });
+          saveSoon();
+          api.fecha(true);
+          S._ajForce = true;
+          render();
+        };
+      }
+    });
+  };
+  // a linha do Marketing (redesenhada a cada desenho: o resumo muda depois do Salvar)
+  function mkMarcaHtml() {
+    return '<button type="button" class="nvL mkMarca" data-act="mkMarca"><span class="nvTx"><b>Marca</b><small>' + esc(marcaResumo()) + '</small></span></button>';
+  }
   // ===== Marketing (v430, aprovado 04–05/11/2026) =====
   // Botão Marketing no Início → central: Objetivo do mês (muda o plano), Plano da semana (marcar feito),
   // Criar com um toque (Post, Story, Status, Carrossel, Vídeo, Roteiro): o app escolhe as peças pelo objetivo e
@@ -39226,7 +39212,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
         if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
           window.__nvVencT = Date.now();
-          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Nuvem', 'erro');
+          lfToast('A sessão da nuvem venceu · entre de novo em Ajustes › Cópias e nuvem', 'erro');
         }
         throw e;
       });
@@ -40315,143 +40301,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     setTimeout(encAvisa, 12000);
     setInterval(encAvisa, 6 * 3600000);
   }
-  // ===== Pagamento automático e ficha de separação (v450, aprovado 07/11/2026) =====
-  // 1) PIX automático: o app lê a notificação "Pix recebido" do Nubank (plugin LfNotif, só no APK) e confirma o pedido
-  //    cujo valor (com os centavos únicos) bate. Mais de um pedido com o mesmo valor: não confirma sozinho, avisa.
-  // 2) Leitura do comprovante (Banco Familiar e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
-  // 3) Ficha de separação: quando um pedido fica pago, o aparelho com a impressora (e a opção ligada) imprime uma vez.
-  S.pixAuto = false; // ler as notificações do Nubank (só neste aparelho)
-  S.pixLog = []; // últimas notificações lidas [{ts, txt, v, ped}]
-  var NU_PKG = /^com\.nu\.production$/;
-  function notifPl() {
-    var C = window.Capacitor;
-    if (!C) return null;
-    if (C.Plugins && C.Plugins.LfNotif) return C.Plugins.LfNotif;
-    try {
-      if (C.isPluginAvailable && C.isPluginAvailable('LfNotif') && C.registerPlugin) return C.registerPlugin('LfNotif');
-    } catch (e) {}
-    return null;
-  }
-  // "R$ 1.234,56" → 123456 (centavos)
-  function pixCentavos(txt) {
-    var m = /R\$\s*([\d.]+,\d{2})/.exec(String(txt || ''));
-    return m ? Math.round(parseFloat(m[1].replace(/\./g, '').replace(',', '.')) * 100) : 0;
-  }
+  // ===== Leitura do comprovante e ficha de separação (v450, aprovado 07/11/2026) =====
+  // 1) Leitura do comprovante (Banco Familiar e PIX): o leitor de texto do app acha o valor e a data e mostra "Valor confere".
+  // 2) Ficha de separação: quando um pedido fica pago, o aparelho com a impressora (e a Impressão automática ligada) imprime uma vez.
+  // O "Confirmar o PIX sozinho" (leitor da notificação do Nubank) saiu (dono 22/11 e 23/11); o PIX confirmado pela nuvem continua (pixEmailCheca).
   function pedPixCent(p) {
     return Math.round((parseFloat(String(p.brl || '0').replace(',', '.')) || 0) * 100);
   }
-  // Notificação do banco → pedido. Devolve o que fez (para o registro e os testes).
-  function pixRecebido(n) {
-    n = n || {};
-    var txt = String((n.title || '') + ' ' + (n.text || '')).trim();
-    if (!NU_PKG.test(n.pkg || '') || !/receb/i.test(txt)) return 'ignorada';
-    var v = pixCentavos(txt);
-    if (!v) return 'sem-valor';
-    var cands = (S.pedidos || []).filter(function (p) {
-      return p.orig === 'site' && p.pag === 'pix' && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && pedPixCent(p) === v;
-    });
-    var reg = { ts: n.ts || Date.now(), txt: txt.slice(0, 90), v: v, ped: '' };
-    S.pixLog = [reg].concat(S.pixLog || []).slice(0, 20);
-    if (cands.length === 1) {
-      var p = cands[0];
-      reg.ped = p.cod || String(p.id);
-      p.pgAuto = { ts: reg.ts, txt: 'Pix recebido R$ ' + (v / 100).toFixed(2).replace('.', ',') };
-      var sel = S.pedSel,
-        y = window.scrollY;
-      ACT.pedpago(p.id); // confirmado sem o dono tocar: não muda a tela em que ele está
-      S.pedSel = sel;
-      window.scrollTo(0, y);
-      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho', 'ok');
-      saveSoon();
-      return 'confirmado';
-    }
-    if (cands.length > 1) {
-      reg.ped = 'vários';
-      cands.forEach(function (p) {
-        p.pixAmb = reg.ts;
-      });
-      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você', 'atencao');
-      saveSoon();
-      return 'ambiguo';
-    }
-    saveSoon();
-    return 'sem-pedido';
-  }
-  var NOTIF_OUVE = false;
-  function notifLiga() {
-    var P = notifPl();
-    if (!P || !S.pixAuto) return;
-    if (!NOTIF_OUVE) {
-      NOTIF_OUVE = true;
-      try {
-        P.addListener('notificacao', function (n) {
-          pixRecebido(n);
-          if (S.view === 'ped' || S.view === 'ajustes') render();
-        });
-      } catch (e) {}
-    }
-    // as que chegaram com o app fechado
-    P.pendentes()
-      .then(function (r) {
-        (r && r.itens ? r.itens : []).forEach(pixRecebido);
-      })
-      .catch(function () {});
-  }
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) notifLiga();
-  });
-  setTimeout(notifLiga, 4000);
-  var NOTIF_OK = null;
-  function notifStatus() {
-    var P = notifPl();
-    if (!P) return;
-    P.status()
-      .then(function (r) {
-        var a = !!(r && r.acesso);
-        if (a !== NOTIF_OK) {
-          NOTIF_OK = a;
-          if (S.view === 'ajustes') render();
-        }
-      })
-      .catch(function () {});
-  }
-  function pautoSw(act, tit, sub, on, dis) {
-    return '<button type="button" class="paSw" data-act="' + act + '" role="switch" aria-checked="' + on + '"' + (dis ? ' disabled style="opacity:.5"' : '') + '><span><b>' + tit + '</b><small>' + sub + '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button>';
-  }
-  function pautoCard() {
-    var P = notifPl(),
-      u = (S.pixLog || [])[0];
-    if (P && NOTIF_OK === null) notifStatus();
-    return (
-      '<section class="card col paCard">' +
-      pautoSw('pautoTog', 'PIX pelo Nubank', P ? 'confirma sozinho quando chega a notificação "Pix recebido"' : 'só no app do Android (precisa do APK novo)', !!S.pixAuto, !P) +
-      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
-      '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
-      (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
-      '' +
-      '</section><section class="card col paCard">' +
-      pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
-      '</section>'
-    );
-  }
-  ACT.pautoTog = function () {
-    S.pixAuto = !S.pixAuto;
-    saveSoon();
-    if (S.pixAuto) {
-      var P = notifPl();
-      if (P)
-        P.status().then(function (r) {
-          if (!r || !r.acesso) P.pedirAcesso().catch(function () {});
-        });
-      notifLiga();
-    }
-    render();
-  };
-  ACT.pautoAcesso = function () {
-    var P = notifPl();
-    if (P) P.pedirAcesso().catch(function () {});
-    NOTIF_OK = null;
-  };
 
   // ---- Leitura do comprovante ----
   var COMP_LENDO = {};
@@ -40832,24 +40688,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return { lucroG: Math.round(mi.lucro * fx), metaG: Math.round((mi.meta || 0) * fx), proj: dia > 0 ? Math.round(((mi.lucro * fx) / dia) * mi.dias) : 0 };
   }
   // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
+  // 46b (aprovado 22/11): o conteúdo da janela do ⏻ de Preços — o interruptor vale na hora; desligado, mostra o que o app faria ao ligar
   function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = on ? paFraca() : null,
       ns = on ? (S.pAuto.mudas || []).filter(function (m) { return Date.now() - m.ts <= 7 * DAY && !m.desf; }).length : 0,
-      h =
-        '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on
-          ? 'ligado · revisa toda segunda · ' + (fr ? 'semana fraca: preços seguros, só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
-          : 'desligado · você define os preços à mão') +
-        '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
-    if (S.paPrev) {
+      h = ligaSw('paTog', 'Preço automático', on
+        ? 'ligado · ' + (fr ? 'semana fraca: só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
+        : 'desligado · você define os preços à mão', on);
+    if (!on) {
       var pv = paPrevia();
-      h +=
-        '<section class="card col paPrev"><b>Ligar o preço automático?</b>' +
-        '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
-        '<button type="button" class="go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
+      h += '<p class="lgFr">Ao ligar, com os seus dados de hoje, o app faria:</p>' +
+        '<div class="cxL"><span>Sobem</span><b>' + pv.sob + (pv.sob === 1 ? ' peça' : ' peças') + '</b></div>' +
+        '<div class="cxL"><span>Baixam (ofertas)</span><b>' + pv.bai + (pv.bai === 1 ? ' peça' : ' peças') + '</b></div>';
     }
-    return h;
+    return h + '<div class="cxL"><span>Revisa</span><b>toda segunda</b></div><p class="lgFr">Contas, taxas e meta ficam em Preços › Regras.</p>';
   }
   // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
   function paMetaHtml() {
@@ -40905,13 +40758,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   ACT.paTog = function () {
     paNorm();
-    if (!S.pAuto.on) {
-      S.paPrev = !S.paPrev;
-      render();
-      return;
-    }
+    if (!S.pAuto.on) return ACT.paLiga();
     S.pAuto.on = false;
-    S.paPrev = false;
     saveSoon();
     render();
   };
@@ -40919,13 +40767,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     paNorm();
     S.pAuto.on = true;
     saveSoon();
-    S.paPrev = false;
     var n = paRevisa(true);
     lfToast(n ? 'Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Preço automático ligado', 'ok');
-    render();
-  };
-  ACT.paNao = function () {
-    S.paPrev = false;
     render();
   };
   ACT.paAgora = function () {
@@ -44806,7 +44649,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.fretes = S.fretes || {};
   function fretesCard() {
     return (
-      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b></div>' +
+      '<div class="col" id="fretesCard" style="gap:8px">' +
       FRT.map(function (t) {
         var f = S.fretes[t[0]] || {};
         return (
@@ -44815,7 +44658,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<button type="button" class="nfTg' + (f.off ? '' : ' on') + '" data-act="frtTg" data-id="' + t[0] + '" role="switch" aria-checked="' + !f.off + '" aria-label="' + t[1] + ' ligada"><i></i></button></span></div>'
         );
       }).join('') +
-      '<button type="button" class="go" data-act="frtSalva">Salvar no site</button></section>'
+      '<button type="button" class="go" data-act="frtSalva">Salvar no site</button></div>'
     );
   }
   ACT.frtTg = function (id) {
@@ -45407,7 +45250,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== S188 (aprovado 12/11/2026): CONTADOR VIRTUAL — tudo de preço num lugar só =====
   // Números › Preços vira o Contador: 1 saúde dos preços, 2 decisões da semana (Aceitar tudo / um por um),
   // 3 calculadora de preço por custo/lote, 4 "E se…?" com perguntas prontas (só contas do app, sem internet nem IA),
-  // 5 no começo do mês, o fechamento do mês anterior. (149p: o interruptor e "Contas, taxas e meta" foram para Ajustes › Preços.)
+  // 5 no começo do mês, o fechamento do mês anterior. (46b: o interruptor liga no ⏻ do título de Preços; "Contas, taxas e meta" em Preços › Regras.)
   // Na ficha (aba Preço): "De onde vem o preço" com a barra repor/contas/colchão/taxa/lucro e até onde dá para descer.
   // Regras de preço continuam as mesmas (nunca abaixo do piso, no máximo 10% por semana, cadeado vence sempre).
   S.cntFech = S.cntFech || {}; // 'AAAA-MM' → visto
@@ -45554,7 +45397,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       refs.forEach(function (r) { if (paParado(r) < 60) return; var it = itemDoRef(r); if (!it) return; var pp = pisoPeca(it), q = paEstoque(r); n += q; cx += pp.piso * q; lu += (pp.piso - pp.rep - pp.contas) * q; });
       return n ? 'Vendendo as ' + n + ' peças paradas há 60+ dias pelo piso: entram ' + gs(cx) + ' no caixa e o lucro fica em ' + gs(lu) + '. Os degraus automáticos já fazem isso aos poucos.' : 'Nenhuma peça parada há 60 dias ou mais.';
     }
-    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Ajustes › Preços › Contas, taxas e meta).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
+    if (k === 'meta') { var d = new Date(), m = lrMes(d.getFullYear(), d.getMonth()), meta = (+v || S.metaUsd || 0) * fx; if (!(meta > 0)) return 'Defina a meta em dólar (campo acima ou em Preços › Regras).'; var f = meta - m.lucro; return f <= 0 ? 'Meta do mês batida: lucro de ' + gs(m.lucro) + ' (meta ' + gs(Math.round(meta)) + ').' : 'Faltam ' + gs(Math.round(f)) + ' de lucro para a meta. São cerca de ' + (porPeca > 0 ? Math.ceil(f / porPeca) : '?') + ' peças no ritmo de hoje.'; }
     return '';
   }
   ACT.cntEse = function () {
@@ -45579,7 +45422,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== Preços (4b · aprovados 135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup; dono 21/11/2026 "implementar tudo") =====
   // UMA função desenha a tela de Preços, de cima para baixo: os 4 números (só mostram), "Para decidir esta semana"
   // (preços para corrigir que abrem ali, tema, uma linha por assunto do preço automático, uma linha por tabela de atacado)
-  // e FERRAMENTAS (Calculadora, E se…?, Preço automático → Ajustes › Preços). Os dados já chegam agrupados de cntDecisoes().
+  // e FERRAMENTAS (Calculadora, E se…?, Regras); o preço automático liga no ⏻ do título (46b). Os dados já chegam agrupados de cntDecisoes().
   // Antes eram três camadas: contadorHtml + src/98z-precos-s52.js (relia o HTML com regex) + o embrulho do 98z-s374.js.
   var CNT_VER = {}; // assunto do preço automático aberto no "ver um por um" (oferta | fim)
   function cntPl(n, um, muitos) { return n + ' ' + (n === 1 ? um : muitos); }
@@ -45606,11 +45449,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<span class="cntUm"><button type="button" class="mini" data-act="cntAceita" data-id="' + id + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + id + '">Agora não</button></span></div>';
       }).join('') : '');
   }
-  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['pauto', 'Preço automático', '', 'cntAuto']];
+  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['regras', 'Regras', 'contas, taxas, meta e cotação da loja', 'cntRegras']];
   function cntFerramentasHtml() {
-    var on = !!(S.pAuto && S.pAuto.on), rv = S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora';
     return '<div class="lbl cntFeT">FERRAMENTAS</div><section class="nvLista cntFe" aria-label="Ferramentas de preço">' + CNT_FERR.map(function (x) {
-      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2] || (on ? 'ligado' : 'desligado') + ' · revisado ' + rv + ' · em Ajustes') + '</small></span><i aria-hidden="true">›</i></button>';
+      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2]) + '</small></span><i aria-hidden="true">›</i></button>';
     }).join('') + '</section>';
   }
   function precosTelaHtml() {
@@ -45639,11 +45481,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (S.pAuto) S.pAuto.ult = Date.now();
     saveSoon(); lfToast('' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
   };
-  // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
-  ACT.cntAuto = function () {
-    S.ajAberta = 'pa';
-    setView('ajustes');
-    setTimeout(function () { var l = document.querySelector('#ajGrp .ajS[data-k="pa"]'); if (l) try { l.scrollIntoView({ block: 'start', behavior: REDUCED ? 'auto' : 'smooth' }); } catch (e) {} }, 300);
+  // Regras › (46b): contas, taxas, meta e cotação da loja saíram de Ajustes › Preços e moram aqui, numa janela de baixo
+  // (vira a tela Regras do escritório do Guardião na Parte 4)
+  ACT.cntRegras = function () {
+    lfJanela({ titulo: 'Regras', cls: 'rgJn', monta: function (c) { c.innerHTML = paMetaHtml() + precosCfgHtml() + pagamentoHtml(); } });
   };
   ACT.x66 = function () {
     var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
@@ -46225,6 +46066,52 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return c;
     });
   }
+  // ===== 46 (aprovado 22/11/2026): o liga e desliga de cada parte da loja mora na tela do assunto =====
+  // Um botão redondo ⏻ ao lado do título (mesma família do "+" redondo, .pl78) abre a janela de baixo com o(s) interruptor(es).
+  // O interruptor vale na hora (é um estado, não um formulário): sem "Salvar" e sem confirmação.
+  // Ligado = ícone verde · desligado = ícone cinza (sem luz). A tabela LIGA é o único lugar que diz o que cada botão liga.
+  var LIGA_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M12 3.5v8"/><path d="M6.6 6.8a7.5 7.5 0 1 0 10.8 0"/></svg>';
+  // uma linha de interruptor (título + frase · chave), a mesma em todas as janelas de liga e desliga
+  function ligaSw(act, tit, sub, on, dis) {
+    return '<button type="button" class="paSw" data-act="' + act + '" role="switch" aria-checked="' + on + '"' + (dis ? ' disabled' : '') + '><span><b>' + tit + '</b><small>' + sub + '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button>';
+  }
+  var LIGA = {
+    // Pedidos online: imprimir sozinho o pedido pago e dar baixa sozinho ao entregar (o "Confirmar o PIX sozinho" saiu, dono 22/11)
+    ped: {
+      titulo: 'Impressão automática',
+      on: function () { return fichaAutoOn() || !!S.baixaAuto; },
+      corpo: function () {
+        return ligaSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora' : 'conecte uma impressora em Ajustes', fichaAutoOn(), !imp) +
+          ligaSw('pedbaixa', 'Baixa automática', S.baixaAuto ? 'ao entregar, o estoque baixa e a venda entra sozinha' : 'ao entregar, você registra a venda à mão', !!S.baixaAuto) +
+          '<p class="lgFr">Ligado, todo pedido pago sai na impressora sem você tocar em nada.</p>';
+      }
+    },
+    // Preços: o preço automático; ao ligar, a janela já mostra o que o app faria com os dados de hoje
+    prec: {
+      titulo: 'Preço automático',
+      on: function () { return !!(S.pAuto && S.pAuto.on); },
+      corpo: function () { return paSwitchHtml(); }
+    }
+  };
+  function botaoEstado(k) {
+    var L = LIGA[k], on = L.on();
+    return '<button type="button" class="pl78 lgB' + (on ? ' on' : '') + '" data-act="ligaAbre" data-id="' + k + '" aria-pressed="' + on + '" aria-label="' + L.titulo + (on ? ' · ligado' : ' · desligado') + '">' + LIGA_ICO + '</button>';
+  }
+  var LIGA_ABERTA = null;
+  ACT.ligaAbre = function (k) {
+    var L = LIGA[k];
+    if (!L) return;
+    lfJanela({
+      titulo: L.titulo,
+      cls: 'lgJn',
+      monta: function (c) { LIGA_ABERTA = { k: k, c: c }; c.innerHTML = L.corpo(); setTimeout(function () { nvListaCabe(c.parentNode); }, 0); },
+      aoFechar: function () { LIGA_ABERTA = null; }
+    });
+  };
+  // o interruptor muda o estado e o app redesenha: a janela aberta acompanha (e o ⏻ da tela já sai com a cor nova)
+  aposRender(function () {
+    if (LIGA_ABERTA && LIGA_ABERTA.c.isConnected) { LIGA_ABERTA.c.innerHTML = LIGA[LIGA_ABERTA.k].corpo(); nvListaCabe(LIGA_ABERTA.c.parentNode); }
+  });
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -48782,6 +48669,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h =
         '<div class="dHd"><h1 class="dHdT">' + t[1] + '</h1>' + // 149t: título de verdade, não botão
         (resumo ? '<button type="button" class="dHdP' + lkCls(true) + '" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
+        (t[0] === 'prec' ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
         '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
@@ -52428,6 +52316,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           tp.innerHTML = '<div><h1>' + esc(tit) + '</h1></div>';
         }
       } else if (tp) tp.remove();
+      // Pedidos do site saiu de Ajustes (dono 23/11): os fretes moram em Site › Ajustes do site, numa linha que abre no lugar
+      var fr = el.querySelector('.onl95Fr');
+      if (S.onlAba === 'cfg') {
+        if (!fr) { fr = mk('div', 'onl95Fr'); el.insertBefore(fr, $('siteBox')); }
+        fr.innerHTML = dFold('frt', 'Frete e transportadoras', 'PedidosYa, Bolt, Tiemsa e MCGroup', '', fretesCard());
+      } else if (fr) fr.remove();
       requestAnimationFrame(sbAjusta);
       pnlTema();
     }
@@ -52448,10 +52342,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.stPrev = function () { onlPainel('pre'); };
   ACT.stEstado = function () { ACT.ajSite(); };
   ACT.ajSite = function () { S._gAt = ''; onlPainel('cfg'); };
-  window.__siteEstado = function () {
-    var x = S.siteRes;
-    return x ? (x.on ? 'No ar' : 'Desligado') : '';
-  };
   // tela Site (esboços 96/97): estado + prévia no mesmo cartão; 4 números (Pedidos, Mensagens, Modelos, Vitrine)
   function stNum95(n, tit, sub, act, id) {
     return '<button type="button" class="stN" data-act="' + act + '" data-id="' + id + '"><small>' + tit + '</small><b>' + (n == null ? '—' : n) + '</b><span>' + esc(sub) + '</span></button>';
@@ -52513,7 +52403,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) e as vagas de Compras (.cpLs)
-  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small']]; // listas de linhas: a lista inteira é um grupo
+  // 46 e 89b: as linhas de interruptor das janelas de liga e desliga (.lgJn) e a linha "Investido em <mês>" (.lt89)
+  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small'], ['.lgJn .ljCorpo', '.paSw b,.paSw small'], ['.lt89', '.lt89>span,.lt89>b']]; // listas de linhas: a lista inteira é um grupo
   function nvListaCabe(v) {
     LISTAS_CABE.forEach(function (lc) { [].forEach.call(v.querySelectorAll(lc[0]), function (l) {
       var tx = l.querySelectorAll(lc[1]);
@@ -52546,6 +52437,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { pad99(v); } catch (e) {}
     try { nvListaCabe(v); } catch (e) {}
     try { ladosCabe(document); } catch (e) {}
+    try { [].forEach.call(document.querySelectorAll('.ljJn'), nvListaCabe); } catch (e) {} // janelas de baixo abertas (fora das telas)
   }
   aposRender(padTela);
 
@@ -52580,7 +52472,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el || S.view !== 'mkt') return;
     if (!el.getAttribute('data-ok')) {
       el.setAttribute('data-ok', '1');
-      el.innerHTML = '<div class="top"><div><h1>Marketing</h1></div></div><div class="mk98" id="mkCorpo"></div>';
+      el.innerHTML = '<div class="top"><div><h1>Marketing</h1></div></div><section class="nvLista" id="mkMarcaL"></section><div class="mk98" id="mkCorpo"></div>';
       var c = $('mkCorpo');
       mkKit();
       mkMonta(c, { fecha: function () {} });
@@ -52605,6 +52497,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }
       });
     }
+    var ml = $('mkMarcaL');
+    if (ml) ml.innerHTML = mkMarcaHtml();
   }
   aposRender(renderMkt);
   // ===== S418 (18/11/2026, esboços 110c e 111 aprovados 17/11): regras de confirmação pela consequência =====
@@ -53149,8 +53043,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'resOrfH',
       'resPendH',
       'resOrf',
-      'pixAuto',
-      'pixLog',
       'syncOn',
       'syncPend',
       'atv',
@@ -53268,7 +53160,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     b.id = 'lfSalvoErr';
     b.className = 'lfSalvoErr';
     b.setAttribute('role', 'alert');
-    b.innerHTML = '<b>Não consegui salvar os últimos dados neste aparelho</b><span>Não feche o app. Faça uma cópia em Ajustes › Nuvem e me avise.</span><button type="button" class="mini" id="lfSalvoTenta">Tentar de novo</button>';
+    b.innerHTML = '<b>Não consegui salvar os últimos dados neste aparelho</b><span>Não feche o app. Faça uma cópia em Ajustes › Cópias e nuvem e me avise.</span><button type="button" class="mini" id="lfSalvoTenta">Tentar de novo</button>';
     document.body.appendChild(b);
     b.querySelector('#lfSalvoTenta').onclick = function () {
       salvarAgora();
@@ -53377,7 +53269,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     window.__LF = {
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo, navOn: navOn,
-      pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
+      ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,

@@ -236,24 +236,21 @@
     return { lucroG: Math.round(mi.lucro * fx), metaG: Math.round((mi.meta || 0) * fx), proj: dia > 0 ? Math.round(((mi.lucro * fx) / dia) * mi.dias) : 0 };
   }
   // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
+  // 46b (aprovado 22/11): o conteúdo da janela do ⏻ de Preços — o interruptor vale na hora; desligado, mostra o que o app faria ao ligar
   function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = on ? paFraca() : null,
       ns = on ? (S.pAuto.mudas || []).filter(function (m) { return Date.now() - m.ts <= 7 * DAY && !m.desf; }).length : 0,
-      h =
-        '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on
-          ? 'ligado · revisa toda segunda · ' + (fr ? 'semana fraca: preços seguros, só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
-          : 'desligado · você define os preços à mão') +
-        '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
-    if (S.paPrev) {
+      h = ligaSw('paTog', 'Preço automático', on
+        ? 'ligado · ' + (fr ? 'semana fraca: só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
+        : 'desligado · você define os preços à mão', on);
+    if (!on) {
       var pv = paPrevia();
-      h +=
-        '<section class="card col paPrev"><b>Ligar o preço automático?</b>' +
-        '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
-        '<button type="button" class="go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
+      h += '<p class="lgFr">Ao ligar, com os seus dados de hoje, o app faria:</p>' +
+        '<div class="cxL"><span>Sobem</span><b>' + pv.sob + (pv.sob === 1 ? ' peça' : ' peças') + '</b></div>' +
+        '<div class="cxL"><span>Baixam (ofertas)</span><b>' + pv.bai + (pv.bai === 1 ? ' peça' : ' peças') + '</b></div>';
     }
-    return h;
+    return h + '<div class="cxL"><span>Revisa</span><b>toda segunda</b></div><p class="lgFr">Contas, taxas e meta ficam em Preços › Regras.</p>';
   }
   // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
   function paMetaHtml() {
@@ -309,13 +306,8 @@
   }
   ACT.paTog = function () {
     paNorm();
-    if (!S.pAuto.on) {
-      S.paPrev = !S.paPrev;
-      render();
-      return;
-    }
+    if (!S.pAuto.on) return ACT.paLiga();
     S.pAuto.on = false;
-    S.paPrev = false;
     saveSoon();
     render();
   };
@@ -323,13 +315,8 @@
     paNorm();
     S.pAuto.on = true;
     saveSoon();
-    S.paPrev = false;
     var n = paRevisa(true);
     lfToast(n ? 'Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : 'Preço automático ligado', 'ok');
-    render();
-  };
-  ACT.paNao = function () {
-    S.paPrev = false;
     render();
   };
   ACT.paAgora = function () {

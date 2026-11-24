@@ -859,15 +859,6 @@
         })[0];
       if (!g) {
         S.lotSel = '';
-        var t = mk('div', ''); // o título "Fornecedores" é o da tela (66: um título por tela)
-        var hh = mk(
-          'div',
-          'hint',
-          'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
-        );
-        hh.style.margin = '0';
-        t.appendChild(hh);
-        h.appendChild(t);
         if (!S.grp.length) {
           var nl = mk(
             'div',
@@ -882,7 +873,12 @@
           var d = new Date(x.ts || 0);
           if (d.getFullYear() === dm.getFullYear() && d.getMonth() === dm.getMonth()) inv += gTot(x);
         });
-        if (S.grp.length) hh.textContent += ' Investido neste mês: ' + usd(inv) + '.';
+        // 89b (aprovado 23/11): sem o parágrafo; o número do mês é uma linha
+        if (S.grp.length) {
+          var lv = mk('div', 'cxL lt89');
+          lv.innerHTML = '<span>Investido em ' + MESES_L[dm.getMonth()] + '</span><b>' + usd(inv) + '</b>';
+          h.appendChild(lv);
+        }
         var shown = {};
         S.grp
           .slice()

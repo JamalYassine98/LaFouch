@@ -1,5 +1,5 @@
-  // ===== Marca (Ajustes › Loja) — Ajustes organizado, aprovado 20/11/2026 15:53 =====
-  // O "Kit da marca" saiu do Marketing e mora só aqui: a linha Marca mostra "nome · idiomas" e abre a janela de baixo (tarefa, sem seta).
+  // ===== Marca (Marketing) — 86 + regra 'cada ajuste mora na tela do assunto' (dono 22/11 01:28 e 23/11) =====
+  // A linha Marca fica no topo do Marketing, mostra "nome · idiomas" e abre a janela de baixo (tarefa, sem seta).
   // Os dados continuam em S.mkt.kit (mkKit) — é dali que posts, cartões e vídeos leem. Regra 15: um "Salvar", sem "Fechar";
   // sair com mudança pergunta "Sair sem salvar?".
   var MARCA_CAMPOS = [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']],
@@ -9,7 +9,7 @@
       i = MARCA_IDI.filter(function (x) { return x[0] === K.idioma; })[0] || MARCA_IDI[0];
     return (K.nome || 'Sem nome') + ' · ' + i[2];
   }
-  ACT.ajMarca = function () {
+  ACT.mkMarca = function () {
     var K = mkKit(), api,
       le = function () {
         var o = {};
@@ -42,3 +42,7 @@
       }
     });
   };
+  // a linha do Marketing (redesenhada a cada desenho: o resumo muda depois do Salvar)
+  function mkMarcaHtml() {
+    return '<button type="button" class="nvL mkMarca" data-act="mkMarca"><span class="nvTx"><b>Marca</b><small>' + esc(marcaResumo()) + '</small></span></button>';
+  }

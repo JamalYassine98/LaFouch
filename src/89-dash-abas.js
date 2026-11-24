@@ -7,7 +7,7 @@
     ['prec', 'Preços']
   ];
   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
-  // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ajustes › Preços, Ofertas do site).
+  // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ofertas do site).
   function dFold(id, titulo, resumo, cor, corpo) {
     if (!corpo) return '';
     var ab = !!S.dfold[id];
@@ -133,7 +133,7 @@
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o interruptor do preço automático e "Contas, taxas e meta" moram em Ajustes › Preços.
+    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o preço automático liga no ⏻ do título e "Contas, taxas e meta" moram em Preços › Regras (46b).
     // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
     h += precosTelaHtml();
     h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';

@@ -6,7 +6,7 @@
   S.fretes = S.fretes || {};
   function fretesCard() {
     return (
-      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b></div>' +
+      '<div class="col" id="fretesCard" style="gap:8px">' +
       FRT.map(function (t) {
         var f = S.fretes[t[0]] || {};
         return (
@@ -15,7 +15,7 @@
           '<button type="button" class="nfTg' + (f.off ? '' : ' on') + '" data-act="frtTg" data-id="' + t[0] + '" role="switch" aria-checked="' + !f.off + '" aria-label="' + t[1] + ' ligada"><i></i></button></span></div>'
         );
       }).join('') +
-      '<button type="button" class="go" data-act="frtSalva">Salvar no site</button></section>'
+      '<button type="button" class="go" data-act="frtSalva">Salvar no site</button></div>'
     );
   }
   ACT.frtTg = function (id) {

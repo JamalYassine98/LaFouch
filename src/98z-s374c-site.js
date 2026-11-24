@@ -56,6 +56,12 @@
           tp.innerHTML = '<div><h1>' + esc(tit) + '</h1></div>';
         }
       } else if (tp) tp.remove();
+      // Pedidos do site saiu de Ajustes (dono 23/11): os fretes moram em Site › Ajustes do site, numa linha que abre no lugar
+      var fr = el.querySelector('.onl95Fr');
+      if (S.onlAba === 'cfg') {
+        if (!fr) { fr = mk('div', 'onl95Fr'); el.insertBefore(fr, $('siteBox')); }
+        fr.innerHTML = dFold('frt', 'Frete e transportadoras', 'PedidosYa, Bolt, Tiemsa e MCGroup', '', fretesCard());
+      } else if (fr) fr.remove();
       requestAnimationFrame(sbAjusta);
       pnlTema();
     }
@@ -76,10 +82,6 @@
   ACT.stPrev = function () { onlPainel('pre'); };
   ACT.stEstado = function () { ACT.ajSite(); };
   ACT.ajSite = function () { S._gAt = ''; onlPainel('cfg'); };
-  window.__siteEstado = function () {
-    var x = S.siteRes;
-    return x ? (x.on ? 'No ar' : 'Desligado') : '';
-  };
   // tela Site (esboços 96/97): estado + prévia no mesmo cartão; 4 números (Pedidos, Mensagens, Modelos, Vitrine)
   function stNum95(n, tit, sub, act, id) {
     return '<button type="button" class="stN" data-act="' + act + '" data-id="' + id + '"><small>' + tit + '</small><b>' + (n == null ? '—' : n) + '</b><span>' + esc(sub) + '</span></button>';

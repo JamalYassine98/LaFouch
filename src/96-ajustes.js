@@ -1,7 +1,7 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest', 'nvHash'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest', 'nvHash'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -120,10 +120,10 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     // v419: Ajustes minimalista (esboço aprovado 04/11): um grupo, linhas que abrem no lugar e ordem livre
-    var h = '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Aparelho, loja, site e segurança.</div></div></div>';
+    var h = '<div class="top"><div><h1>Ajustes</h1></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
-    // Segurança, Pedidos do site e Sons e avisos vêm juntos: separa cada seção
+    // Segurança e Sons e avisos vêm juntos: separa cada seção
     var fin = ajustesFinHtml(),
       partes = fin.match(/<section[\s\S]*?<\/section>/g) || [],
       resto = fin.replace(/<section[\s\S]*?<\/section>/g, ''),
@@ -135,7 +135,7 @@
         );
       },
       segH = partes.filter(function (x) {
-        return x.indexOf('id="baixaCard"') < 0 && x.indexOf('id="avisosCard"') < 0;
+        return x.indexOf('id="avisosCard"') < 0;
       })[0] || '';
     var emDiv = function (x) {
       return x.replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">').replace(/<\/section>$/, '</div>');
@@ -149,18 +149,13 @@
       bkd = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
+      ig: { t: 'Instagram', r: 'não ligado', fixa: true }, // a linha fica pronta; liga quando a nuvem ligar a conta
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
-      marca: { t: 'Marca', r: marcaResumo(), vai: 'ajMarca', tarefa: true },
-      site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', vai: 'ajSite' }, // S374 (95d)
-      // 149p: o interruptor do preço automático (com a prévia ao ligar) e "Contas, taxas e meta" moram aqui; Preços só mostra e decide
-      pa: { t: 'Preços', r: 'automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado'), h: paSwitchHtml() + dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml()) },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
-      ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
-      pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       bk: S.nuvem && S.nuvem.rt && typeof nuvemEnxutaHtml === 'function' ? nuvemEnxutaHtml() : { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);

@@ -1073,7 +1073,7 @@ async def main():
               await new Promise(r => setTimeout(r, 400)); const g = document.getElementById('ajGrp');
               const lin = [...g.querySelectorAll('.ajS[data-k="bk"] .nvxL span')].map(x => x.textContent);
               L.ACT.nvxAps(); await new Promise(r => setTimeout(r, 400));
-              return [[...document.querySelectorAll('.ajS')].every(x => g.contains(x)), !!document.querySelector('.ljJn .apLn') && lin.join('|') === 'Voltar no tempo|Lixeira|Aparelhos|Arquivo de backup', !!g.querySelector('.ajS[data-k="pauto"]')]; }""")
+              return [[...document.querySelectorAll('.ajS')].every(x => g.contains(x)), !!document.querySelector('.ljJn .apLn') && lin.join('|') === 'Voltar no tempo|Lixeira|Aparelhos|Arquivo de backup', !g.querySelector('.ajS[data-k="pauto"]')]; }""")  # 46: Pagamento automático saiu de Ajustes
             total += 1
             ok = aj == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'v470 + S370: Ajustes com a nuvem conectada — Cópias e nuvem enxuta (estado + 4 linhas; Aparelhos abre), Pagamento automático no mesmo grupo')
@@ -1380,7 +1380,7 @@ async def main():
             # Ajustes minimalista: grupo único, uma seção aberta por vez, segurar e arrastar muda a ordem (só neste aparelho) com Desfazer
             pg = await pagina(tudo=False)
             await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); L.render(); }"); await pg.wait_for_timeout(400)
-            a0 = await pg.evaluate("() => [document.querySelectorAll('#ajGrp .ajS').length, document.querySelectorAll('#ajGrp .ajS.on').length, document.querySelector('.ajS[data-k=tema] .ajRes').textContent, !!document.querySelector('.ajVer')]")
+            a0 = await pg.evaluate("() => [document.querySelectorAll('#ajGrp .ajS').length, document.querySelectorAll('#ajGrp .ajS.on').length, document.querySelector('.ajS[data-k=tema] .ajRes').textContent, !document.querySelector('.ajVer')]")  # 86: o rodapé Versão saiu
             await pg.click('.ajS[data-k=seg] .ajR'); await pg.wait_for_timeout(300)
             await pg.click('.ajS[data-k=tema] .ajR'); await pg.wait_for_timeout(400)
             a1 = await pg.evaluate("() => [...document.querySelectorAll('#ajGrp .ajS.on')].map(x => x.dataset.k)")
@@ -1391,10 +1391,10 @@ async def main():
             for k in range(1, 31):
                 await pg.mouse.move(x, y - k * 25); await pg.wait_for_timeout(15)
             await pg.wait_for_timeout(150); await pg.mouse.up(); await pg.wait_for_timeout(500)
-            a2 = await pg.evaluate("() => { const o = JSON.parse(localStorage.getItem('lf_ajOrd')); return [document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k, o.indexOf('upd') < o.indexOf('imp') && o.indexOf('site') < o.indexOf('bk'), document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on'), document.querySelector('#ajGrp .ajBl .ajS').dataset.k]; }")
+            a2 = await pg.evaluate("() => { const o = JSON.parse(localStorage.getItem('lf_ajOrd')); return [document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k, o.indexOf('upd') < o.indexOf('imp') && o.indexOf('ig') < o.indexOf('bk'), document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on'), document.querySelector('#ajGrp .ajBl .ajS').dataset.k]; }")
             await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
             a3 = await pg.evaluate("() => document.querySelector('#ajGrp .ajBl:last-child .ajS').dataset.k")
-            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['upd', True, True, 'marca'] and a3 == 'imp' and not pg.erros
+            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['upd', True, True, 'ig'] and a3 == 'imp' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: uma aberta por vez, segurar e arrastar dentro do bloco com Desfazer')
             if not ok: falhas.append('ajustes ordem'); print('        veio', a0, a1, a2, a3, pg.erros)
             total += 1
@@ -1998,18 +1998,22 @@ async def main():
             if not ok: falhas.append('updjanela'); print('        veio', ju1, ju2, ju3, pg.erros)
             await pg.close()
 
-            # Baixa automática fica em Ajustes (com explicação) e não mais na tela de Pedidos
+            # 46c (aprovado 22/11): a Baixa automática e a impressão automática ligam no ⏻ de Pedidos online (não mais em Ajustes);
+            # o botão fica verde quando algo está ligado; a chave vale na hora e a janela acompanha
             pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF; L.S.baixaAuto = true; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
-            ba1 = await pg.evaluate("() => { const c = document.getElementById('baixaCard'); return c ? [c.innerText.indexOf('estoque baixa') >= 0, c.querySelector('input').checked] : null }")
-            await pg.evaluate("() => document.querySelector('#baixaCard [data-act=pedbaixa]').click()"); await pg.wait_for_timeout(300)
-            ba2 = await pg.evaluate("() => [window.__LF.S.baixaAuto, document.getElementById('baixaCard').innerText.indexOf('à mão') >= 0]")
+            await pg.evaluate("() => { const L = window.__LF; try { localStorage.setItem('lf_fichaAuto', ''); } catch (e) {} L.S.baixaAuto = true; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
+            ba1 = await pg.evaluate("() => [!document.getElementById('baixaCard'), !document.querySelector('.ajS[data-k=ped]')]")
             await pg.evaluate("() => window.__LF.setView('ped')"); await pg.wait_for_timeout(300)
-            ba3 = await pg.evaluate("() => document.getElementById('v-ped') ? document.getElementById('v-ped').innerText.indexOf('Baixa automática') < 0 : null")
+            ba2 = await pg.evaluate("() => { const b = document.querySelector('#v-ped .top .lgB'); return b ? [b.classList.contains('on'), getComputedStyle(b).color] : null }")
+            await pg.evaluate("() => document.querySelector('#v-ped .top .lgB').click()"); await pg.wait_for_timeout(600)
+            ba3 = await pg.evaluate("() => { const j = document.querySelector('.ljJn:not(.ljSai)'); return j ? [j.querySelector('.ljHd b').textContent, j.querySelector('[data-act=pedbaixa]').getAttribute('aria-checked'), !!j.querySelector('[data-act=fichaTog]'), !/PIX/.test(j.innerText)] : null }")
+            await pg.evaluate("() => document.querySelector('.ljJn:not(.ljSai) [data-act=pedbaixa]').click()"); await pg.wait_for_timeout(400)
+            ba4 = await pg.evaluate("() => [window.__LF.S.baixaAuto, document.querySelector('.ljJn:not(.ljSai) [data-act=pedbaixa]').getAttribute('aria-checked'), document.querySelector('#v-ped .top .lgB').classList.contains('on')]")
+            verde = await pg.evaluate("() => { const d = document.createElement('i'); d.style.color = 'var(--ok)'; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; }")
             total += 1
-            ok = ba1 == [True, True] and ba2 == [False, True] and ba3 is True and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'baixa automática em Ajustes')
-            if not ok: falhas.append('baixa ajustes'); print('        veio', ba1, ba2, ba3, pg.erros)
+            ok = ba1 == [True, True] and ba2 == [True, verde] and ba3 == ['Impressão automática', 'true', True, True] and ba4 == [False, 'false', False] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '46c: Pedidos online com o ⏻ — baixa e impressão automáticas ligam na janela, na hora; verde ligado, cinza desligado; saiu de Ajustes')
+            if not ok: falhas.append('46c pedidos liga'); print('        veio', ba1, ba2, ba3, ba4, pg.erros)
             await pg.close()
 
             # Contagem animada dos números mantém as casas decimais (US$ 0,00 não vira 0,0)
@@ -4644,29 +4648,44 @@ async def main():
             if not ok: falhas.append('parte 1 base visual'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
+            # Parte 2 (86 + 89b): Ajustes sem a frase do título, sem rodapé Versão e só Contas ligadas · Este aparelho; Fornecedores sem o
+            # parágrafo e com a linha "Investido em <mês>"; o leitor do PIX pelo Nubank e o painel "Pagamento automático" não existem mais
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
+              L.setView('ajustes'); S._ajForce = true; L.render(); await w(400); const v = document.getElementById('v-ajustes');
+              R.aj = [!v.querySelector('.top .crumb'), !v.querySelector('.ajVer'), [...v.querySelectorAll('.ajBt')].map(b => b.textContent).join('|'), !/Marca|Pedidos do site|Pagamento automático|Preços/.test(v.innerText)];
+              S.grp = S.grp && S.grp.length ? S.grp : [{ id: 'G1', forn: 'Kaz', tipo: 'pre', qty: 5, usd: 0.5, totalUsd: 2.5, moeda: 'usd', sold: 0, ts: Date.now() }];
+              S.lotesView = true; S.lotSel = ''; L.setView('estoque'); await w(500); const e = document.getElementById('v-estoque');
+              const ln = e.querySelector('.cxL.lt89'), mes = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][new Date().getMonth()];
+              R.forn = [!/Todas as compras que você registrou/.test(e.innerText), !!ln && ln.querySelector('span').textContent === 'Investido em ' + mes && /^US\\$ /.test(ln.querySelector('b').textContent)];
+              S.lotesView = false; L.render();
+              return R; }""")
+            total += 1
+            ok = got == {'aj': [True, True, 'Contas ligadas|Este aparelho', True], 'forn': [True, True]} and not pg.erros and 'LfNotif' not in ''.join(fontes.values()) and not os.path.exists(os.path.join(RAIZ, 'android-extra', 'LfNotifPlugin.java'))
+            print(('  ok  ' if ok else ' FALHA ') + 'Parte 2 (86 + 89b): Ajustes só com Contas ligadas e Este aparelho (sem frase e sem Versão); Fornecedores com "Investido em <mês>"; leitor do PIX pelo Nubank fora')
+            if not ok: falhas.append('parte 2 ajustes fornecedores'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # v450 → v633: o leitor do PIX pelo Nubank saiu (dono 23/11); o comprovante continua conferindo e a ficha de separação continua
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               const n0 = S.pedidos.length;
               S.pedidos.push({ id: 'pA1', sid: 'SIDPA1', cod: 'A1', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '85.73', total: 100000, cli: 'Ana', tel: '+55 11 99999-0000', ts: Date.now(), itens: [{ ref: 'AAA1', t: 'Óculos', cor: 'Preto', q: 1, p: 100000 }], ent: 'delivery', endE: 'Av. Monseñor Rodríguez 123, Ciudad del Este · Alto Paraná', refE: 'portão azul', tok: 'K7Q2' });
               S.pedidos.push({ id: 'pA2', sid: 'SIDPA2', cod: 'A2', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '50.11', total: 60000, itens: [{ ref: 'B', q: 1, p: 60000 }] });
               S.pedidos.push({ id: 'pA3', sid: 'SIDPA3', cod: 'A3', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '50.11', total: 60000, itens: [{ ref: 'C', q: 1, p: 60000 }] });
-              const r0 = L.pixRecebido({ pkg: 'com.whatsapp', title: 'Pix recebido', text: 'R$ 85,73' });
-              const r1 = L.pixRecebido({ pkg: 'com.nu.production', title: 'Pix recebido', text: 'Você recebeu R$ 85,73 de ANA' });
+              const semLeitor = typeof L.pixRecebido === 'undefined' && !('pixAuto' in S);
               const p1 = S.pedidos.find(p => p.id === 'pA1');
-              const r2 = L.pixRecebido({ pkg: 'com.nu.production', title: 'Transferência recebida', text: 'Você recebeu uma transferência de R$ 50,11' });
-              const amb = S.pedidos.find(p => p.id === 'pA2').pg === 'pagar';
               const c1 = L.compLeTexto({ pag: 'alias', pagar: 250037 }, 'Transferencia exitosa  Monto Gs. 250.037  07/11/2026 14:32');
               const c2 = L.compLeTexto({ pag: 'alias', pagar: 250037 }, 'Monto Gs. 250.000');
               const c3 = L.compLeTexto({ pag: 'pix', brl: '85.73' }, 'Valor R$ 85,73');
               const fl = L.fichaLinhas(p1), txt = fl.map(l => l.t || l.qr || '').join('|');
               const b = L.impBytes(fl); let qr = false; for (let i = 0; i < b.length - 3; i++) if (b[i] === 0x1d && b[i+1] === 0x28 && b[i+2] === 0x6b) { qr = true; break; }
-              L.setView('ajustes'); await w(200); const aj = /Pagamento automático/.test(document.body.innerText);
-              S.pedidos.length = n0; S.pixLog = [];
-              return [r0, r1, p1.pg, !!p1.pgAuto, r2, amb, c1.ok, c2.ok, c2.v, c3.ok, /SEPARAR PEDIDO DO SITE/.test(txt) && /PAGO · PIX R\$ 85,73/.test(txt) && /RETIRAR|DELIVERY/.test(txt) && txt.indexOf(p1.tok) > 0, /separado|embalado/i.test(txt), qr, aj]; }""")
+              L.setView('ajustes'); await w(200); const aj = !/Pagamento automático/.test(document.body.innerText);
+              S.pedidos.length = n0;
+              return [semLeitor, c1.ok, c2.ok, c2.v, c3.ok, /SEPARAR PEDIDO DO SITE/.test(txt) && /PAGO · PIX R\$ 85,73/.test(txt) && /RETIRAR|DELIVERY/.test(txt) && txt.indexOf(p1.tok) > 0, /separado|embalado/i.test(txt), qr, aj]; }""")
             total += 1
-            ok = got == ['ignorada', 'confirmado', 'pago', True, 'ambiguo', True, True, False, 'G$ 250.000', True, True, False, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Pagamento automático: PIX do Nubank confirma pelo valor único; valor repetido não confirma; comprovante confere; ficha com QR e sem "separado/embalado"')
+            ok = got == [True, True, False, 'G$ 250.000', True, True, False, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v633: sem o leitor do PIX pelo Nubank; comprovante confere; ficha com QR e sem "separado/embalado"; Ajustes sem Pagamento automático')
             if not ok: falhas.append('pagamento auto'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -4845,12 +4864,12 @@ async def main():
               const reservas = !/Seu mês|Detalhes do mês|Lucro real do mês/.test(tr);
               L.setView('hist'); await sl(500); const hist = !/Fechamento do caixa/.test(document.getElementById('v-hist').textContent);
               L.inicioGo('hoje'); await sl(600); const vd = document.getElementById('v-dia'); const hoje = !/Fechamento do caixa|Despesas do dia/.test(vd.textContent) && !vd.querySelector('[data-act=fechar]') && !!vd.querySelector('.kpiLk[data-act=view][data-id=desp]');  // S374 (esboço 70): sem fechar manual e sem a janela Despesas do dia
-              L.setView('ajustes'); await sl(500); const lp = document.querySelector('.ajS[data-k=pa]'), rot = !!lp && lp.querySelector('b').textContent === 'Preços' && !!lp.querySelector('#paCard');  // 149p: a linha Preços de Ajustes tem o interruptor (não é mais um atalho para outra tela)
+              L.setView('ajustes'); await sl(500); const rot = !document.querySelector('.ajS[data-k=pa]');  // 46b: o preço automático saiu de Ajustes (liga no ⏻ de Preços)
               return [tem && abre, reservas, hist, hoje, rot]; }""")
             got.append('dash,prec')
             total += 1
             ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Ajustes › Preços com o interruptor')
+            print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Ajustes sem Preços (46b)')
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -4860,39 +4879,34 @@ async def main():
             q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
             await pg.locator('#v-dash .x66L').click(); await pg.wait_for_timeout(600)
             q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .x66 .pcLi').length, document.querySelectorAll('#v-dash .x66 [data-act=pcUsaTodos]').length]")
-            # 149p: "Contas, taxas e meta" abre e fecha dentro de Ajustes › Preços
-            await pg.evaluate("() => { const L = window.__LF; L.S.ajAberta = 'pa'; L.setView('ajustes'); }"); await pg.wait_for_timeout(500)
-            await pg.locator('#v-ajustes [data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
-            q3 = await pg.evaluate("() => { const s = document.querySelector('#v-ajustes section.fxF[data-fx=cfg]'); const t = s ? s.innerText : ''; return [!!s && !!s.querySelector('.fxB'), /Lucro do mês/.test(t), /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-ajustes .pc66').length > 0]; }")
-            await pg.locator('#v-ajustes [data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
-            q4 = await pg.evaluate("() => [!!window.__LF.S.dfold.cfg, !document.querySelector('section.fxF[data-fx=cfg] .fxB')]")
+            # 46b: "Contas, taxas e meta" mora em Preços › Regras (janela de baixo até a tela Regras da Parte 4)
+            await pg.evaluate("() => window.__LF.ACT.cntRegras()"); await pg.wait_for_timeout(600)
+            q3 = await pg.evaluate("() => { const j = document.querySelector('.ljJn:not(.ljSai)'); const t = j ? j.innerText : ''; return [!!j && j.querySelector('.ljHd b').textContent === 'Regras', /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), !!j && j.querySelectorAll('.pc66').length > 0]; }")
+            q4 = [False, True]
             total += 1
-            ok = (q1[0] == 0 and q1[1] == 1 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
+            ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66): Preços sem repetição, lista no Contador, meta e taxas no bloco, contas pelo custo, bloco abre e fecha no cartão')
             if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, q4, pg.erros)
             await pg.close()
 
-            # 4b parte 1 · 149p (aprovado 19/11 16:30; dono 21/11 08:03 "implementar tudo"): o preço automático mora em Ajustes › Preços.
-            # A linha vem depois de Site, diz "automático ligado|desligado" e, aberta, tem o interruptor (com a prévia ao ligar) e a dobra
-            # "Contas, taxas e meta"; ligar não sai de Ajustes nem fecha a linha. Preços não tem "REGRAS DO CONTADOR", interruptor nem a dobra.
+            # 46b (aprovado 22/11; dono 23/11 "fazer o 46b agora"): o preço automático liga no ⏻ ao lado do título de Preços. A janela tem o
+            # interruptor (vale na hora, sem "Ligar?"), o que o app faria ao ligar e "Revisa toda segunda"; Ajustes não tem mais Preços;
+            # Ferramentas tem Regras (contas, taxas, meta) no lugar de "Preço automático".
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
-              S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.paPrev = false; S.ajAberta = ''; L.setView('ajustes'); await w(400);
-              const ks = [...document.querySelectorAll('#ajGrp .ajS')].map(x => x.dataset.k), l = () => document.querySelector('#ajGrp .ajS[data-k=pa]');
-              R.push(ks.join().indexOf('site,ped,pa,pauto') >= 0, l().querySelector('b').textContent + '·' + l().querySelector('.ajRes').textContent, !l().classList.contains('on'));
-              l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); l().querySelector('.ajR').click(); await w(500);
-              R.push(l().classList.contains('on') && S.view === 'ajustes', !!l().querySelector('#paCard [data-act=paTog]'), !!l().querySelector('[data-act=dfold][data-id=cfg]'));
-              l().querySelector('[data-act=paTog]').click(); await w(300); R.push(!!l().querySelector('.paPrev [data-act=paLiga]'));
-              l().querySelector('[data-act=paLiga]').click(); await w(500);
-              R.push(S.view + '·' + S.ajAberta + '·' + S.pAuto.on + '·' + l().querySelector('.ajRes').textContent, l().classList.contains('on'));
-              S.dTab = 'prec'; L.setView('dash'); await w(500); const d = document.getElementById('v-dash'), t = d.innerText;
-              R.push(!/REGRAS DO CONTADOR/i.test(t), !d.querySelector('#paCard,[data-act=paTog],[data-act=dfold][data-id=cfg]'), /Esta semana/.test(t));
+              S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.dTab = 'prec'; L.setView('dash'); await w(500);
+              const b = () => document.querySelector('#v-dash .dHd .lgB'), jn = () => document.querySelector('.ljJn:not(.ljSai)');
+              R.push(!!b() && !b().classList.contains('on'), [...document.querySelectorAll('#v-dash .cntFe [data-act]')].map(x => x.dataset.act).join());
+              b().click(); await w(600);
+              R.push(jn().querySelector('.ljHd b').textContent, jn().querySelector('[data-act=paTog]').getAttribute('aria-checked'), /Ao ligar/.test(jn().innerText) && /Sobem/.test(jn().innerText) && /toda segunda/.test(jn().innerText));
+              jn().querySelector('[data-act=paTog]').click(); await w(500);
+              R.push(S.pAuto.on, jn().querySelector('[data-act=paTog]').getAttribute('aria-checked'), !/Ao ligar/.test(jn().innerText), b().classList.contains('on'), !document.querySelector('.paPrev,[data-act=paLiga]'));
+              L.setView('ajustes'); await w(400); R.push(!document.querySelector('#ajGrp .ajS[data-k=pa]'));
               return R; }""")
             total += 1
-            ok = got == [True, 'Preços·automático desligado', True, True, True, True, True, 'ajustes·pa·true·automático ligado', True, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + '4b parte 1 (149p): o preço automático mora em Ajustes › Preços (depois de Site; interruptor, prévia e Contas, taxas e meta); Preços sem "Regras do contador"')
-            if not ok: falhas.append('4b parte 1 preco automatico em Ajustes'); print('        veio', got, pg.erros)
+            ok = got == [True, 'cntCalc,cntEse,cntRegras', 'Preço automático', 'false', True, True, 'true', True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '46b: Preços com o ⏻ — interruptor na janela, vale na hora (sem "Ligar?"), mostra o que faria; Regras nas Ferramentas; Ajustes sem Preços')
+            if not ok: falhas.append('46b precos liga'); print('        veio', got, pg.erros)
             await pg.close()
 
             # 4b parte 2 (135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup): UMA função desenha Preços (precosTelaHtml); ninguém a troca nem relê o HTML dela.
@@ -4913,7 +4927,7 @@ async def main():
               R.lk = q('.cntD .lk100').length === ids.length + D.filter(x => x.t === 'tema').length && q('.cntD .lk100').every(b => /^[A-ZÀ-Ú].* ›$/.test(b.textContent) && b.classList.contains('inl') && getComputedStyle(b).fontSize === '15px' && getComputedStyle(b).textDecorationLine === 'none');
               R.n = +/· (\\d+)$/.exec(d.querySelector('.cntD .lbl').textContent)[1] === q('.cntD>.cntL').length;
               R.ferr = q('.cntFe .nvL').map(b => b.querySelector('b').textContent + '→' + b.dataset.act).join('|') + '|' + (q('.cntFe .nvL').every(b => !b.classList.contains('lk100') && b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('.nvIc')).color === getComputedStyle(b.querySelector('small')).color));
-              R.sub = /^(ligado|desligado) · revisado .+ · em Ajustes$/.test(q('.cntFe .nvL small')[2].textContent);
+              R.sub = q('.cntFe .nvL small')[2].textContent === 'contas, taxas, meta e cotação da loja';  // 46b: a 3ª é Regras
               // cada "Ajustar tabela ›" abre a folha com a tabela dela destacada
               const al = []; for (const b of q('[data-act=tabsheet]').slice(0, 3)) { b.click(); await w(350); const a = document.querySelectorAll('.tabAlvo'); al.push(a.length === 1 && a[0].dataset.id === b.dataset.id); L.ACT.tabfecha(); await w(350); }
               R.alvo = al.join();
@@ -4923,15 +4937,14 @@ async def main():
                 d.querySelector('[data-act=cntVer]').click(); await w(300); R.pa.push(q('.cntPc').length === n0);
                 d.querySelector('[data-act=cntAceita]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 1, L.cntDecisoes().filter(x => x.t === 'pa')[0].n === n0 - 1);
                 d.querySelector('[data-act=cntIgnora]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 2); } else R.pa = 'sem ofertas no cenário';
-              // preços para corrigir abre ali; o "Preço automático ›" chega em Ajustes › Preços aberta
+              // preços para corrigir abre ali; o preço automático liga no ⏻ do título (46b)
               d.querySelector('.x66L').click(); await w(700); R.x66 = q('.x66 .pcLi').length > 0;
-              d.querySelector('[data-act=cntAuto]').click(); await w(700); const l = document.querySelector('#ajGrp .ajS[data-k=pa]');
-              R.aj = S.view === 'ajustes' && !!l && l.classList.contains('on') && !!l.querySelector('#paCard');
+              R.aj = !!document.querySelector('#v-dash .dHd .lgB[data-id=prec]');
               return R; }""")
             total += 1
-            ok = (got['sem'] == [True] * 5 and got['num'] and got['tab'] and got['lk'] and got['n'] and got['ferr'] == 'Calculadora de preço→cntCalc|E se…?→cntEse|Preço automático→cntAuto|true' and got['sub']
+            ok = (got['sem'] == [True] * 5 and got['num'] and got['tab'] and got['lk'] and got['n'] and got['ferr'] == 'Calculadora de preço→cntCalc|E se…?→cntEse|Regras→cntRegras|true' and got['sub']
                   and got['alvo'] == 'true,true,true' and got['pa'] == [True] * 6 and got['x66'] and got['aj'] and troca == [] and not os.path.exists(os.path.join(RAIZ, 'src', '98z-precos-s52.js')) and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '4b parte 2: Preços por uma função só — sem Contador/pré-graduados, números só mostram, cada tabela abre a sua, Ferramentas (3 linhas) e o preço automático chega em Ajustes › Preços')
+            print(('  ok  ' if ok else ' FALHA ') + '4b parte 2: Preços por uma função só — sem Contador/pré-graduados, números só mostram, cada tabela abre a sua, Ferramentas (3 linhas: Calculadora, E se…?, Regras) e o ⏻ do preço automático no título')
             if not ok: falhas.append('4b parte 2 tela de Precos'); print('        veio', got, troca, pg.erros)
             await pg.close()
 
@@ -4993,12 +5006,11 @@ async def main():
               S.dfold = {};  // 66: a tela Giro saiu
               S.dTab = 'din'; L.setView('dash'); await w(500); R.din = olha();
               L.setView('desp'); await w(500); R.desp = olha();
-              S.ajAberta = 'pa'; L.setView('ajustes'); await w(500); R.aj = olha();
               S.dTab = 'din'; L.setView('dash'); await w(400); document.querySelector('#v-dash [data-act=dfold][data-id=paraonde]').click(); await w(800);
               R.abre = !!document.querySelector('#v-dash section.fxF[data-fx=paraonde].on .fxB') && S.dfold.paraonde === true; return R; }""")
             total += 1
-            ok = (all(re.match(r'^[1-9]\d*:true$', got[k]) for k in ('din', 'desp', 'aj')) and got['abre'] and 'fxF' not in fontes['98z-s374d-padrao.js'].split('function pad99')[1].split('function ')[0] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '4c parte 3 (135d): a dobra nasce como linha de dobra (sem cartão, 64 px, linha fina, sem espaço entre as seguidas) em Reservas, Despesas e Ajustes › Preços (66: o Giro saiu)')
+            ok = (all(re.match(r'^[1-9]\d*:true$', got[k]) for k in ('din', 'desp')) and got['abre'] and 'fxF' not in fontes['98z-s374d-padrao.js'].split('function pad99')[1].split('function ')[0] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '4c parte 3 (135d): a dobra nasce como linha de dobra (sem cartão, 64 px, linha fina, sem espaço entre as seguidas) em Reservas e Despesas (66: o Giro saiu; 46b: Ajustes › Preços saiu)')
             if not ok: falhas.append('4c parte 3 linha de dobra'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -5169,7 +5181,7 @@ async def main():
                   const g = document.getElementById('ajGrp'), cs = getComputedStyle(g);
                   R.blocos = [...g.querySelectorAll('.ajBl')].map(b => b.querySelector('.ajBt').textContent + ':' + [...b.querySelectorAll('.ajS')].map(x => x.dataset.k).join(','));
                   R.plano = [cs.backgroundColor, cs.borderTopWidth, cs.borderRadius, getComputedStyle(g.querySelector('.ajS')).backgroundColor, getComputedStyle(g.querySelector('.ajR')).paddingLeft].join('|');
-                  R.ico = g.querySelector('.ajS[data-k=ped] .ajIc').innerHTML !== g.querySelector('.ajS[data-k=site] .ajIc').innerHTML;
+                  R.ico = !!g.querySelector('.ajS[data-k=ig].ajF') && /não ligado/.test(g.querySelector('.ajS[data-k=ig] .ajRes').textContent);  // 86: Instagram pronta, liga quando a nuvem ligar a conta
                   R.fora0 = fora();
                   S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}]; S.ajAberta = 'bk'; S._ajForce = true; L.render(); await w(600);
                   R.nuvem = document.querySelectorAll('#ajGrp .ajS[data-k=bk].on .nvxL').length; R.fora1 = fora(); R.cabe = document.getElementById('ajGrp').getAttribute('data-cabe');
@@ -5177,10 +5189,10 @@ async def main():
                 erros37d = list(pg.erros); await pg.close(); await ctx37.close()
                 if erros37d: break
             total += 1
-            B37 = ['Loja:marca,site,ped,pa,pauto', 'Contas ligadas:bk', 'Este aparelho:imp,tema,seg,av,upd']
+            B37 = ['Contas ligadas:ig,bk', 'Este aparelho:imp,tema,seg,av,upd']  # 86 + 46: só o aparelho e as contas
             ok = (len(got) == 3 and all(r['blocos'] == B37 and r['plano'] == 'rgba(0, 0, 0, 0)|0px|0px|rgba(0, 0, 0, 0)|0px' and r['ico'] and r['fora0'] == [] and r['fora1'] == [] and r['nuvem'] == 4 for r in got)
                   and got[0]['cabe'] == '0' and not any(re.search(r"AJ_PADRAO\.push|AJ_PADRAO = \[", t) for t in fontes.values()) and not erros37d)
-            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (1): Ajustes em 3 blocos de uma tabela só, linhas sem cartão, sacola em Pedidos do site, nenhuma linha quebra (letra 1× e 1,3×)')
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (1) + 86: Ajustes em 2 blocos de uma tabela só (Contas ligadas com Instagram · Este aparelho), linhas sem cartão, nenhuma linha quebra (letra 1× e 1,3×)')
             if not ok: falhas.append('37d ajustes em blocos'); print('        veio', got, erros37d)
 
             # Esboço 37d parte 2 (Ajustes organizado, aprovado 20/11 15:53): a Marca mora só em Ajustes › Loja — linha "nome · idiomas" sem seta que abre
@@ -5189,26 +5201,26 @@ async def main():
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
               const esc = () => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
-              const toca = k => { const r = document.querySelector('#ajGrp .ajS[data-k=' + k + '] .ajR'); r.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); r.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1, clientX: 100, clientY: 100 })); };
-              try { localStorage.removeItem('lf_ajOrd'); } catch (e) {}
-              S.ajAberta = ''; L.setView('ajustes'); S._ajForce = true; L.render(); await w(400);
-              const m = () => document.querySelector('#ajGrp .ajS[data-k=marca]');
-              R.linha = [m().querySelector('b').textContent, m().querySelector('.ajRes').textContent, getComputedStyle(m().querySelector('.ajCh')).visibility, !m().querySelector('.ajB'), document.querySelector('#ajGrp .ajS').dataset.k];
-              toca('marca'); await w(600); let j = document.querySelector('.ljJn');
-              R.janela = [!!j, j ? j.querySelectorAll('[data-kit]').length : 0, j ? [...j.querySelectorAll('button')].map(b => b.textContent.trim()).join('|') : '', !m().classList.contains('on')];
+              const toca = () => document.querySelector('#mkMarcaL .mkMarca').click();
+              L.setView('ajustes'); S._ajForce = true; L.render(); await w(300); const semAj = !document.querySelector('#ajGrp .ajS[data-k=marca]');
+              L.inicioGo('mkt'); await w(500);
+              const m = () => document.querySelector('#mkMarcaL .mkMarca');
+              R.linha = [m().querySelector('b').textContent, m().querySelector('small').textContent, !m().querySelector('i'), semAj, document.querySelector('#v-mkt .top + #mkMarcaL') !== null];
+              toca(); await w(600); let j = document.querySelector('.ljJn');
+              R.janela = [!!j, j ? j.querySelectorAll('[data-kit]').length : 0, j ? [...j.querySelectorAll('button')].map(b => b.textContent.trim()).join('|') : '', true];
               esc(); await w(500); R.semMudar = !document.querySelector('.ljJn');
-              toca('marca'); await w(600); j = document.querySelector('.ljJn'); j.querySelector('[data-kit=nome]').value = 'Loja Teste'; j.querySelector('[data-kit=idioma]').value = 'es';
+              toca(); await w(600); j = document.querySelector('.ljJn'); j.querySelector('[data-kit=nome]').value = 'Loja Teste'; j.querySelector('[data-kit=idioma]').value = 'es';
               esc(); await w(500); R.pergunta = document.body.innerText.includes('Sair sem salvar?') && !!document.querySelector('.ljJn');
               const volta = [...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Voltar' && b.getClientRects().length); if (volta) volta.click(); await w(400);
               R.voltou = !!document.querySelector('.ljJn') && S.mkt.kit.nome !== 'Loja Teste';
               document.querySelector('.ljJn [data-marca=salva]').click(); await w(700);
-              R.salvou = [!document.querySelector('.ljJn'), S.mkt.kit.nome, S.mkt.kit.idioma, m().querySelector('.ajRes').textContent];
-              L.inicioGo('mkt'); await w(500); R.mkt = [S.view, document.querySelectorAll('#v-mkt [data-kit]').length, /Kit da marca/.test(document.getElementById('v-mkt').textContent)];
+              R.salvou = [!document.querySelector('.ljJn'), S.mkt.kit.nome, S.mkt.kit.idioma, m().querySelector('small').textContent];
+              R.mkt = [S.view, document.querySelectorAll('#v-mkt [data-kit]').length, /Kit da marca/.test(document.getElementById('v-mkt').textContent)];
               return R; }""")
             total += 1
-            ok = (got['linha'] == ['Marca', 'La Fouch · PT e ES', 'hidden', True, 'marca'] and got['janela'] == [True, 8, 'Salvar', True] and got['semMudar'] and got['pergunta'] and got['voltou']
+            ok = (got['linha'] == ['Marca', 'La Fouch · PT e ES', True, True, True] and got['janela'] == [True, 8, 'Salvar', True] and got['semMudar'] and got['pergunta'] and got['voltou']
                   and got['salvou'] == [True, 'Loja Teste', 'es', 'Loja Teste · ES'] and got['mkt'] == ['mkt', 0, False] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (2): Marca em Ajustes › Loja — linha sem seta abre a janela com um Salvar, "Sair sem salvar?", grava no kit; saiu do Marketing')
+            print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37d (2) + 86: Marca no topo do Marketing (saiu de Ajustes) — linha sem seta abre a janela com um Salvar, "Sair sem salvar?", grava no kit')
             if not ok: falhas.append('37d marca em ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -5225,7 +5237,7 @@ async def main():
                   const embaixo = nav().width > nav().height;   // barra no pé (celular) ou ao lado (tablet/PC)
                   L.setView('desp'); await w(400); L.lfToast('Despesa guardada', 'ok'); await w(700);
                   R.barra = !cruza(t(), nav()) && (embaixo ? Math.round(nav().top - t().bottom) === 8 : pe() === 16);
-                  L.setView('ajustes'); await w(400); L.ACT.ajMarca(); await w(700); L.lfToast('Preencha o nome', 'atencao'); await w(700);
+                  L.setView('mkt'); await w(400); L.ACT.mkMarca(); await w(700); L.lfToast('Preencha o nome', 'atencao'); await w(700);
                   const bt = document.querySelector('.ljJn [data-marca=salva]').getBoundingClientRect();
                   R.janela = !cruza(t(), bt) && Math.round(bt.top - t().bottom) === 8;
                   document.querySelector('.ljJn [data-marca=salva]').click(); await w(60); L.lfToast('Salvo', 'ok'); await w(900);
@@ -5283,7 +5295,7 @@ async def main():
             pg = await pagina(fam=True, tudo=False)
             await pg.context.route(re.compile(r'googleapis'), lambda r: r.fulfill(json={}))
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
-              const cls = v => [...document.querySelectorAll('#v-' + v + ' button, #v-' + v + ' a')].map(e => e.className).join('|');
+              const cls = v => [...document.querySelectorAll('#v-' + v + ' button, #v-' + v + ' a')].map(e => e.className.split(' ').filter(c => !(c === 'on' && e.classList.contains('lgB'))).join(' ')).join('|');  // o ⏻ muda de cor com o estado (a nuvem pode trazer a Baixa automática no meio)
               S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}]; S.ajAberta = 'bk'; L.setView('ajustes'); S._ajForce = true; L.render(); await w(500);
               const nv = [...document.querySelectorAll('#v-ajustes .nvxL')]; R.nuvem = [nv.length, nv.filter(e => e.classList.contains('lk100')).length, nv.every(e => getComputedStyle(e).textAlign !== 'center' && getComputedStyle(e).display === 'flex')];
               R.iguais = [];
@@ -5636,12 +5648,12 @@ async def main():
               L.render(); await w(200); const gs = (L.grpGet ? L.grpGet('g:site') : S.grupos.find(g => g.id === 'g:site')).itens.join(','), gm = (L.grpGet ? L.grpGet('g:mkt') : S.grupos.find(g => g.id === 'g:mkt')).itens.join(',');
               L.inicioGo('prod'); await w(400); const fr = document.getElementById('lojaFrame'), url = fr ? fr.getAttribute('src') || '' : '', sb = document.getElementById('siteBox');
               const dentro = S.view === 'onl' && /app=2/.test(url) && !sb.classList.contains('full') && S.onlAba === 'prod';
-              L.setView('ajustes'); await w(300); const aj = !!document.querySelector('.ajS[data-k=site]');
-              L.ACT.ajSite(); await w(300); const cfg = S.view === 'onl' && S.onlAba === 'cfg' && /Ajustes do site/.test((document.querySelector('#v-onl .onl95 h1') || {}).textContent || '');
+              L.setView('ajustes'); await w(300); const aj = !document.querySelector('.ajS[data-k=site]');  // 86: a linha Site saiu de Ajustes (fica Site › Ajustes do site)
+              L.ACT.ajSite(); await w(300); const cfg = S.view === 'onl' && S.onlAba === 'cfg' && /Ajustes do site/.test((document.querySelector('#v-onl .onl95 h1') || {}).textContent || '') && !!document.querySelector('#v-onl .onl95Fr [data-act=dfold][data-id=frt]');  // os fretes moram aqui
               return [gs, gm, dentro, aj, cfg]; }""")
             total += 1
             ok = got == ['site,ped,msg,vit,prod', 'mkt,tem,cup,anl', True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (94–97): Site com Vitrine e Modelos, Analisador no Marketing, painel dentro da tela (?app=2), linha Site em Ajustes')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (94–97): Site com Vitrine e Modelos, Analisador no Marketing, painel dentro da tela (?app=2), Ajustes do site com os fretes (saiu de Ajustes)')
             if not ok: falhas.append('site 94 97'); print('        veio', got, pg.erros)
             await pg.close()
 

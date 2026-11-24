@@ -1,7 +1,7 @@
   // ===== Preços (4b · aprovados 135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup; dono 21/11/2026 "implementar tudo") =====
   // UMA função desenha a tela de Preços, de cima para baixo: os 4 números (só mostram), "Para decidir esta semana"
   // (preços para corrigir que abrem ali, tema, uma linha por assunto do preço automático, uma linha por tabela de atacado)
-  // e FERRAMENTAS (Calculadora, E se…?, Preço automático → Ajustes › Preços). Os dados já chegam agrupados de cntDecisoes().
+  // e FERRAMENTAS (Calculadora, E se…?, Regras); o preço automático liga no ⏻ do título (46b). Os dados já chegam agrupados de cntDecisoes().
   // Antes eram três camadas: contadorHtml + src/98z-precos-s52.js (relia o HTML com regex) + o embrulho do 98z-s374.js.
   var CNT_VER = {}; // assunto do preço automático aberto no "ver um por um" (oferta | fim)
   function cntPl(n, um, muitos) { return n + ' ' + (n === 1 ? um : muitos); }
@@ -28,11 +28,10 @@
           '<span class="cntUm"><button type="button" class="mini" data-act="cntAceita" data-id="' + id + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + id + '">Agora não</button></span></div>';
       }).join('') : '');
   }
-  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['pauto', 'Preço automático', '', 'cntAuto']];
+  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['regras', 'Regras', 'contas, taxas, meta e cotação da loja', 'cntRegras']];
   function cntFerramentasHtml() {
-    var on = !!(S.pAuto && S.pAuto.on), rv = S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora';
     return '<div class="lbl cntFeT">FERRAMENTAS</div><section class="nvLista cntFe" aria-label="Ferramentas de preço">' + CNT_FERR.map(function (x) {
-      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2] || (on ? 'ligado' : 'desligado') + ' · revisado ' + rv + ' · em Ajustes') + '</small></span><i aria-hidden="true">›</i></button>';
+      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2]) + '</small></span><i aria-hidden="true">›</i></button>';
     }).join('') + '</section>';
   }
   function precosTelaHtml() {
@@ -61,11 +60,10 @@
     if (S.pAuto) S.pAuto.ult = Date.now();
     saveSoon(); lfToast('' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
   };
-  // Preço automático › : Ajustes com a linha Preços aberta, rolada até ela
-  ACT.cntAuto = function () {
-    S.ajAberta = 'pa';
-    setView('ajustes');
-    setTimeout(function () { var l = document.querySelector('#ajGrp .ajS[data-k="pa"]'); if (l) try { l.scrollIntoView({ block: 'start', behavior: REDUCED ? 'auto' : 'smooth' }); } catch (e) {} }, 300);
+  // Regras › (46b): contas, taxas, meta e cotação da loja saíram de Ajustes › Preços e moram aqui, numa janela de baixo
+  // (vira a tela Regras do escritório do Guardião na Parte 4)
+  ACT.cntRegras = function () {
+    lfJanela({ titulo: 'Regras', cls: 'rgJn', monta: function (c) { c.innerHTML = paMetaHtml() + precosCfgHtml() + pagamentoHtml(); } });
   };
   ACT.x66 = function () {
     var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');

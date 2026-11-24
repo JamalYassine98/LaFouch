@@ -39,7 +39,8 @@
     }
   }
   // as linhas "lugar" (.nvLista: índice do grupo, Dashboard, fim do Inventário) e as vagas de Compras (.cpLs)
-  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small']]; // listas de linhas: a lista inteira é um grupo
+  // 46 e 89b: as linhas de interruptor das janelas de liga e desliga (.lgJn) e a linha "Investido em <mês>" (.lt89)
+  var LISTAS_CABE = [['.nvLista', '.nvTx>b,.nvTx>small'], ['.cpLs', '.cpTx>b,.cpTx>small'], ['.lgJn .ljCorpo', '.paSw b,.paSw small'], ['.lt89', '.lt89>span,.lt89>b']]; // listas de linhas: a lista inteira é um grupo
   function nvListaCabe(v) {
     LISTAS_CABE.forEach(function (lc) { [].forEach.call(v.querySelectorAll(lc[0]), function (l) {
       var tx = l.querySelectorAll(lc[1]);
@@ -72,6 +73,7 @@
     try { pad99(v); } catch (e) {}
     try { nvListaCabe(v); } catch (e) {}
     try { ladosCabe(document); } catch (e) {}
+    try { [].forEach.call(document.querySelectorAll('.ljJn'), nvListaCabe); } catch (e) {} // janelas de baixo abertas (fora das telas)
   }
   aposRender(padTela);
 
@@ -106,7 +108,7 @@
     if (!el || S.view !== 'mkt') return;
     if (!el.getAttribute('data-ok')) {
       el.setAttribute('data-ok', '1');
-      el.innerHTML = '<div class="top"><div><h1>Marketing</h1></div></div><div class="mk98" id="mkCorpo"></div>';
+      el.innerHTML = '<div class="top"><div><h1>Marketing</h1></div></div><section class="nvLista" id="mkMarcaL"></section><div class="mk98" id="mkCorpo"></div>';
       var c = $('mkCorpo');
       mkKit();
       mkMonta(c, { fecha: function () {} });
@@ -131,5 +133,7 @@
         }
       });
     }
+    var ml = $('mkMarcaL');
+    if (ml) ml.innerHTML = mkMarcaHtml();
   }
   aposRender(renderMkt);
