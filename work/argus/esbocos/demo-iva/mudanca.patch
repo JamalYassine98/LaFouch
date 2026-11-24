@@ -1,0 +1,44 @@
+diff -ruN a/src/89-dash-abas.js b/src/89-dash-abas.js
+--- a/src/89-dash-abas.js	2026-11-24 17:03:16.442698136 -0300
++++ b/src/89-dash-abas.js	2026-11-24 17:03:16.461886560 -0300
+@@ -8,7 +8,7 @@
+   ];
+   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
+   // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ofertas do site).
+-  function dFold(id, titulo, resumo, cor, corpo) {
++  function dFold(id, titulo, resumo, cor, corpo, valor) {
+     if (!corpo) return '';
+     var ab = !!S.dfold[id];
+     return (
+@@ -22,7 +22,7 @@
+       (cor || 'var(--sub)') +
+       '">' +
+       resumo +
+-      '</span></span><i class="fxC" aria-hidden="true">⌄</i></button>' +
++      '</span></span>' + (valor ? '<b class="fxV">' + valor + '</b>' : '') + '<i class="fxC" aria-hidden="true">⌄</i></button>' +
+       (ab ? '<div class="fxB"><div class="fxI">' + corpo + '</div></div>' : '') +
+       '</section>'
+     );
+diff -ruN a/src/97z3-precos.js b/src/97z3-precos.js
+--- a/src/97z3-precos.js	2026-11-24 17:03:16.445597238 -0300
++++ b/src/97z3-precos.js	2026-11-24 17:03:16.462494879 -0300
+@@ -117,7 +117,7 @@
+       }).join('') + '<p class="hint">A taxa sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%.</p></div>';
+     return '<div class="lbl tiLb">CADA VENDA COBRE</div><section class="nvLista">' + tiLinha('view', 'desp', 'desp', 'Contas do mês', gs(totalMensal()) + ' · ' + cntPl(nC, 'conta', 'contas') + ' · em Dinheiro') + '</section>' +
+       dFold('rgTx', 'Taxas da maquininha', regrasTaxas(), '', taxas) +
+-      dFold('rgIva', 'IVA · 10%', 'incluído no preço · em guaranis', '', '<p class="hint">O IVA já está dentro do preço: de G$ 110.000, G$ 10.000 são do imposto (preço ÷ 11). A conta é sempre em guaranis.</p>') +
++      dFold('rgIva', 'IVA', 'incluído no preço · em guaranis', '', '<p class="hint">O IVA já está dentro do preço: de G$ 110.000, G$ 10.000 são do imposto (preço ÷ 11). A conta é sempre em guaranis.</p>', '10%') +
+       dFold('rgCo', 'Colchão · ' + pc(c.pct), 'reserva da mercadoria · amortece', '', colchaoHtml()) +
+       '<div class="lbl tiLb">DÓLAR DA LOJA</div>' +
+       dFold('rgFx', 'Cotação nos preços · ' + gsRaw(L && L.usd ? L.usd : loja), 'travada' + (casa ? ' · venda da casa ' + gsRaw(Math.round(casa)) : ''), '', siteFxHtml()) +
+diff -ruN a/www/style.css b/www/style.css
+--- a/www/style.css	2026-11-24 17:03:16.448202473 -0300
++++ b/www/style.css	2026-11-24 17:03:16.463731224 -0300
+@@ -2496,6 +2496,7 @@
+ section.fxF>.fxH{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 0;text-align:left;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer}
+ section.fxF>.fxH b{font-size:16px;font-weight:500}
+ section.fxF>.fxH .hint{font-size:13px}
++section.fxF>.fxH .fxV{margin-left:auto;font-size:14px;font-weight:400;color:var(--mute);white-space:nowrap}
+ section.fxF .fxC,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
+ section.fxF .fxC{transition:transform .25s}
+ section.fxF>.fxB>.fxI{padding:0 0 16px}

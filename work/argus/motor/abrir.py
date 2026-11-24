@@ -6,10 +6,11 @@ sys.path.insert(0, os.path.join(R, 'work', 'kit')); sys.path.insert(0, os.path.j
 _argv = sys.argv[:]; import kit; sys.argv[:] = _argv      # kit lê sys.argv ao importar
 import sim, aparelhos, loja
 import datetime
-def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA):
+def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None):
+    """porta=None → o app de hoje (www/ do repositório); porta=N → uma cópia servida em N (ex.: a cópia de um esboço)."""
     assert tema in aparelhos.MODOS['app']['tema'], 'tema %s não existe no app' % tema
     W, H, dpr, toque = aparelhos.FAIXA[aparelho]
-    kit.serve(os.path.join(R, 'www'), kit.PA)
+    if porta is None: kit.serve(os.path.join(R, 'www'), kit.PA); porta = kit.PA
     b = sim.navegador(pw)
     c = sim.contexto(b, W, H, toque=toque, dpr=dpr, lingua='pt-BR', escuro=(tema == 'escuro'), sem_trabalhador=True)
     c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else r.abort())
@@ -18,8 +19,8 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
     pg.clock.install(time=datetime.datetime.fromisoformat(data))
     if cenario is not None:   # a loja do Argus entra pelo caminho de verdade (o armazenamento do app), numa página vazia da mesma origem
         d = loja.cenario(cenario)
-        pg.goto('http://localhost:%d/version.json' % kit.PA); pg.evaluate(loja.POE, [loja.CHAVE, d['ls'], d['big']])
-    pg.goto('http://localhost:%d/index.html#test' % kit.PA)
+        pg.goto('http://localhost:%d/version.json' % porta); pg.evaluate(loja.POE, [loja.CHAVE, d['ls'], d['big']])
+    pg.goto('http://localhost:%d/index.html#test' % porta)
     pg.wait_for_function('window.__LF', timeout=15000); pg.wait_for_timeout(1200)
     if sem_internet:
         c.set_offline(True); pg.evaluate("()=>window.dispatchEvent(new Event('offline'))"); pg.wait_for_timeout(400)
