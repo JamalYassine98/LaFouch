@@ -22,7 +22,13 @@ Regra 12 em todos: corrigir na regra da família (um lugar só), apagar o que su
 
 ## 5. Já mandados antes (24/11 03:47), continuam
 5a. Despesas: "+ Nova" vira o "+" redondo ao lado do título (86 aprovado).
-5b. Fornecedores: sai "Editar" e a lixeira da linha do título do lote.
+5b. ~~Fornecedores: sai "Editar" e a lixeira~~ — RETIRADO 24/11: erro da ESBOCO; o 89b aprovado (23/11 08:05) MANTÉM "Editar" e a lixeira. Não mexer.
+
+## 6. Achados no teste do gabarito (24/11, app real × esboço aprovado — fotos em work/titan/gabarito/)
+6a. Preços › Regras (62): o valor fica à DIREITA da linha (não colado no título) e cada linha tem o ícone do aprovado.
+6b. Preços › Ofertas (63): ícones das linhas; tela vazia = ícone + frase + explicação do 63 (família de tela vazia).
+6c. Preços › Atacado (65b): falta o ícone da linha.
+6d. Inventário (52b): falta "Parados e sobrando" e "N preços para corrigir ›".
 
 ## Por que o medidor dava 0
 Ele mede cada elemento sozinho (tamanho, 1 px, linha ≥ 44); não compara a mesma fileira entre si, não compara com o esboço aprovado e não abre as dobras. A ESBOCO passa a conferir com o esboço ao lado e com as dobras abertas.
