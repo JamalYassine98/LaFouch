@@ -150,7 +150,7 @@
 - **93-tudo-arredondado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-de-por-honesto** — aprovado 23/11 08:36 — espera o 'implementar'
 - **94-tematica-tres-camadas** — IMPLEMENTAR (dono 24/11 00:38) — com o SITE, na ordem da Fila
-- **95-enfeites-traco** — aprovado 24/11 00:35: SEM enfeite em todas as datas — espera o 'implementar' (SITE, junto do 94)
+- **95-enfeites-traco** — IMPLEMENTAR (dono 24/11 00:38) junto do 94 — sem enfeite
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
