@@ -20,3 +20,8 @@ Fotos: parte5_provas.jpg (Site · Pedidos · Marketing · índice Marketing · A
 
 ## Fim da lista (partes 1–5): 23 itens. Ordem sugerida para a APP, uma tela por vez, foto antes de publicar:
 1 janelas (6a–6c, a família inteira de uma vez) → 2 um título/um voltar (2a, 7a, 15a, 19a) → 3 frases que saem (3a, 10a, 13a, 20a) → 4 "+" redondo (5a, 11a, 21a) → 5 linhas que quebram e plural (1a, 1b, 14b, 14c, 17a) → 6 o resto (4a–4f, 5b, 8a, 9a, 12a, 13b, 16a, 20b, 21b, 22a).
+
+## 24. Achados novos do medidor de família do Titan (24/11, work/titan/relatorio/familia.json)
+24a. Linha de lista fora do 86 (título 16/500 · frase 13/400) em: Caixa (Guarani/Dólar/Real 15/400 + frase 12), Despesas (Total por mês, Cada peça vendida separa, Aluguel da loja 15/600), janela do ⏻ de Preços (Sobem/Baixam/Revisa 15/400), Câmbio (Últimas trocas 15/400), Início (Titan · 7 coisas 15/700). Uma linha só, a do 86, em todas (regra 13).
+24b. Inventário/Catálogo: nome de peça em 3 linhas no quadro (o 52b deixa até 2) — o grupo diminui a letra (L4).
+Os dois entram no passo 5 da ordem (linhas que quebram) e no passo 6.

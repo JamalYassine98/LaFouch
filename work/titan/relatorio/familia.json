@@ -1,0 +1,314 @@
+{
+ "Início": [
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "Dia, mês e histórico",
+   ""
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Pedidos, mensagens, vitrine e modelos",
+   ""
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Posts, vídeos, temática, cartões e visit",
+   ""
+  ],
+  [
+   "fileira desalinhada (L2)",
+   "3 quadros em y=373; alturas de dentro: ['Dia, mês e histó', '2 a decidir', 'Pedidos, mensage']→[108, 125, 90]",
+   ""
+  ],
+  [
+   "fileira desalinhada (L2)",
+   "3 quadros em y=535; alturas de dentro: ['Posts, vídeos, t', '0 cadastrados', 'Orçamentos']→[90, 125, 125]",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/700 (aprovado 16/500)",
+   "Titan · 7 coisas para olhar"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "12/400 (aprovado 16/500)",
+   "Vendido hoje · 5 venda(s)"
+  ]
+ ],
+ "Preços": [],
+ "Regras": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "O que cada preço precisa cobrir",
+   ""
+  ]
+ ],
+ "Ofertas": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "Descontos que o Titan confere",
+   ""
+  ]
+ ],
+ "Pedidos": [],
+ "Ajustes": [],
+ "Inventário": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "16 referências · US$ 113 a custo",
+   ""
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Óculos de leitura Kazwini de acetato mas",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "13/400 (aprovado 16/500)",
+   "470 peças · Todos"
+  ]
+ ],
+ "Adicionar": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "16 referências · US$ 113 a custo",
+   ""
+  ],
+  [
+   "janela não é a de baixo (regra 15)",
+   "janela \"‹AdicionarAdicionar Chegou mer\" de 20 a 244 px (tela 844)",
+   ""
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Óculos de leitura Kazwini de acetato mas",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "13/400 (aprovado 16/500)",
+   "470 peças · Todos"
+  ]
+ ],
+ "Caixa": [
+  [
+   "\"+\" em botão largo — adicionar é o \"+\" redondo (regra 15)",
+   "\"+ Novo objetivo\" 342x44",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Guarani"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Dólar"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Real"
+  ]
+ ],
+ "Despesas": [
+  [
+   "\"+\" de adicionar não é o redondo (regra 15)",
+   "\"+ Nova\" 89x44",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/600 (aprovado 16/500)",
+   "Total por mês"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Cada peça vendida separa"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/600 (aprovado 16/500)",
+   "Aluguel da loja"
+  ]
+ ],
+ "Catálogo": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "Escolha a peça e venda.",
+   ""
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Óculos de leitura Kazwini de acetato mas",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "13/400 (aprovado 16/500)",
+   "· Varejo · G$"
+  ]
+ ],
+ "Clientes": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "Quem compra na loja e no atacado.",
+   ""
+  ]
+ ],
+ "Compras": [],
+ "Marketing": [
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "Óculos solar Ray-Ban de metal masculino",
+   ""
+  ],
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "33 vendidas em 30 dias · R$ 51 na moeda ",
+   ""
+  ],
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "Peça do objetivo — Óculos solar Ray-Ban ",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "14/700 (aprovado 16/500)",
+   "Seg · Post · 20h"
+  ]
+ ],
+ "Atacado": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "Lojistas, lotes e pedidos em quantidade.",
+   ""
+  ],
+  [
+   "\"+\" de adicionar não é o redondo (regra 15)",
+   "\"+ Novo acesso\" 141x44",
+   ""
+  ]
+ ],
+ "Chegou mercadoria": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "16 referências · US$ 113 a custo",
+   ""
+  ],
+  [
+   "janela não é a de baixo (regra 15)",
+   "janela \"‹AdicionarAdicionar Chegou mer\" de 20 a 244 px (tela 844)",
+   ""
+  ],
+  [
+   "janela não é a de baixo (regra 15)",
+   "janela \"Chegou mercadoriaFecharCompra \" de 292 a 552 px (tela 844)",
+   ""
+  ],
+  [
+   "janela com Fechar/× (regra 15)",
+   "Fechar",
+   "Chegou mercadoriaFecharCompra "
+  ],
+  [
+   "texto quebrou em 3 linhas (L4)",
+   "Óculos de leitura Kazwini de acetato mas",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "13/400 (aprovado 16/500)",
+   "470 peças · Todos"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "20/800 (aprovado 16/500)",
+   "Chegou mercadoria"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "12/700 (aprovado 16/500)",
+   "Foto da nota"
+  ]
+ ],
+ "Peça do Catálogo": [
+  [
+   "frase de baixo do título (dono 24/11: sai)",
+   "Escolha a peça e venda.",
+   ""
+  ],
+  [
+   "trilha de caminho além do \"‹ voltar\" (regra 16)",
+   "Catálogo›Lote Kazwini1 de 16",
+   ""
+  ],
+  [
+   "mais de um título grande (regra 16)",
+   "Catálogo (28px) · Lote Kazwini (24px)",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "14/400 (aprovado 16/500)",
+   "· Sem detalhe"
+  ]
+ ],
+ "Preços ⏻": [
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Sobem"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Baixam (ofertas)"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Revisa"
+  ]
+ ],
+ "Histórico": [
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "10 vendas · 1 despesa · lucro G$ 151.833",
+   ""
+  ],
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "7 vendas · 1 despesa · lucro G$ 89.203",
+   ""
+  ],
+  [
+   "texto quebrou em 2 linhas (L4)",
+   "10 vendas · gastos G$ 60.000 · lucro G$ 179.",
+   ""
+  ]
+ ],
+ "Reservas": [],
+ "Câmbio": [
+  [
+   "fora da mesma linha de base (L2)",
+   "5 px · Faltam US$ 2.875Normal›",
+   ""
+  ],
+  [
+   "titulo de linha fora do 86",
+   "24/600 (aprovado 16/500)",
+   "Faltam US$ 2.875"
+  ],
+  [
+   "titulo de linha fora do 86",
+   "15/400 (aprovado 16/500)",
+   "Últimas trocas"
+  ]
+ ]
+}

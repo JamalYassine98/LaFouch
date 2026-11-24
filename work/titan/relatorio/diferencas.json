@@ -332,13 +332,13 @@
   },
   {
    "tipo": "muda",
-   "peca": "span|Preencher à mão#1",
-   "dif": "x 69→57; w 256→280"
+   "peca": "svg|svg ~Preencher à mão#1",
+   "dif": "x 31→19"
   },
   {
    "tipo": "muda",
-   "peca": "svg|svg ~Preencher à mão#1",
-   "dif": "x 31→19"
+   "peca": "span|Preencher à mão#1",
+   "dif": "x 69→57; w 256→280"
   },
   {
    "tipo": "muda",
@@ -354,13 +354,18 @@
  "Caixa": [
   {
    "tipo": "falta",
+   "peca": "□section|section ~‹DinheiroCaixaO dinheiro#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
    "peca": "□button|Novo objetivo#1",
    "dif": ""
   },
   {
    "tipo": "muda",
    "peca": "h2|Objetivos da loja#1",
-   "dif": "w 128→136; y 597→605 (desloca +8); fs 16px→17px"
+   "dif": "w 128→136; y 597→606 (desloca +9); fs 16px→17px"
   },
   {
    "tipo": "falta",
@@ -370,7 +375,7 @@
   {
    "tipo": "muda",
    "peca": "span|guardado#1",
-   "dif": "x 226→24; w 140→342; y 601→655 (desloca +46)"
+   "dif": "x 226→24; w 140→342; y 601→656 (desloca +46)"
   },
   {
    "tipo": "muda",
@@ -380,7 +385,7 @@
   {
    "tipo": "muda",
    "peca": "div|Caixa abaixo do separado#1",
-   "dif": "h 55→39; y 712→723 (desloca -43); cor rgb(231, 237, 245)→rgb(255, 154, 154); borda 0px rgb(231, 237, 245)→1px rgb(34, 42, 53)"
+   "dif": "h 55→39; y 712→724 (desloca -43); cor rgb(231, 237, 245)→rgb(255, 154, 154); borda 0px rgb(231, 237, 245)→1px rgb(34, 42, 53)"
   },
   {
    "tipo": "muda",
@@ -390,17 +395,22 @@
   {
    "tipo": "muda",
    "peca": "□nav|Seções#1",
-   "dif": "y 777→777 (desloca -12)"
+   "dif": "y 777→777 (desloca -13)"
+  },
+  {
+   "tipo": "falta",
+   "peca": "□section|section ~‹DinheiroCaixaO dinheiro#2",
+   "dif": ""
   },
   {
    "tipo": "muda",
    "peca": "h2|Movimentos#1",
-   "dif": "h 23→16; y 801→811 (desloca +10); fs 16px→11px; cor rgb(231, 237, 245)→rgb(139, 155, 176); borda 0px rgb(231, 237, 245)→0px rgb(139, 155, 176)"
+   "dif": "h 23→16; y 801→813 (desloca +12); fs 16px→11px; cor rgb(231, 237, 245)→rgb(139, 155, 176); borda 0px rgb(231, 237, 245)→0px rgb(139, 155, 176)"
   },
   {
    "tipo": "muda",
    "peca": "span|Início#1",
-   "dif": "y 816→816 (desloca -10)"
+   "dif": "y 816→816 (desloca -12)"
   },
   {
    "tipo": "sobra",
