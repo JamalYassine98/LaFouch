@@ -1,7 +1,16 @@
 # Nuvem (functions/) — como funciona
 
-Atualizado em 20/11/2026 pela sessão NUVEM · implementa. Quem mexe aqui é só a NUVEM (CLAUDE.md 1b).
-Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md.
+Atualizado em 20/11/2026 pela sessão NUVEM · implementa (estado e pendências: 24/11). Quem mexe aqui é só a NUVEM (CLAUDE.md 1b).
+Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow; o dono pode rodar no PC).
+
+## Estado em 24/11/2026 (estudo da NUVEM)
+- Última publicação: 22/11 15:22 (03ff0f79, reserva suspeita parte 1). Vigia diário ok (23/11: portas ok, 0 erros em 24 h).
+- Testes: 25 arquivos `functions/teste-*.js`, todos ok aqui; o `teste-portas` só roda com `npm install` (precisa do `@simplewebauthn/server`), o GitHub roda antes de publicar.
+- **Pendências da NUVEM, em ordem:**
+  1. Reserva suspeita parte 2: ligar a NOTIFICAÇÃO no celular (o APP já mostra desde a v640, recado 24/11 02:42) — por dentro, sem tela nova.
+  2. Cupom (IMPLEMENTAR do dono 23/11 13:55): (a) regras novas — Próxima compra ≥ G$ 150.000 ou peça Luxo, um ativo por conta, começa em 7 dias e vale 30, % do Titan (5/10); todo desconto só com cliente cadastrado; um por venda; nada em OFERTA; ev entra na conta de todos durante a data; valores em milhares exatos. (b) cupom do caixa sai da conta + sincronização — espera o dono decidir: chave = telefone (9 últimos), ação `devolve` (venda desfeita devolve o uso 'ok' de `loja:<id>`), cliente do balcão (convite ou junta pelo e-mail).
+  3. App Check "exigir": seloDia de 22/11 mostra os clientes do site com selo (cupom 2, análise 1, 0 `_sem_site`); amostra pequena — decidir com mais dias.
+- **Cupom hoje (cupom.js):** um documento `cupons/<cod>` com `usos[]` ({pid, tel, email, st 'res'|'ok', canal 'site'|'loja'}); `caixa` grava 'ok' na hora; `libera` só solta 'res' (site); `meus` (site) busca só por e-mail do login; o app guarda o 'caixa' sem internet em `S.cupFila` e manda a cada 1 min. O par e-mail ↔ telefone só nasce de pagamento confirmado (`compradores/e…`).
 
 ## Peças comuns (regra 12c: cada uma num lugar só, no começo do index.js)
 | Peça | Para que serve |
