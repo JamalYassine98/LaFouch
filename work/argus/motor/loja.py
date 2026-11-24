@@ -5,7 +5,8 @@
 import json, os, copy
 D = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dados')
 CHAVE = 'lafouch_demo_v1'
-DATA = '2026-11-24T15:00:00-03:00'   # relógio parado: o dia em que a loja de teste foi gravada
+DATA = '2026-11-24T15:00:00-03:00'
+PIN = '2468'   # PIN da loja de teste (só existe aqui)   # relógio parado: o dia em que a loja de teste foi gravada
 LE = r"""async (k)=>{if(window.__LF&&__LF.salvarAgora)__LF.salvarAgora();await new Promise(r=>setTimeout(r,800));
  const big=await new Promise((ok,no)=>{const r=indexedDB.open('lafouch-fotos',2);r.onsuccess=()=>{const d=r.result;const g=d.transaction('estado','readonly').objectStore('estado').get('big');g.onsuccess=()=>{d.close();ok(g.result||null)};g.onerror=()=>no(g.error)};r.onerror=()=>no(r.error)});
  return {ls:JSON.parse(localStorage.getItem(k)||'null'),big}}"""
@@ -32,6 +33,11 @@ def cenario(cen):
         # as cópias são peças de outras compras (sem lote): senão o app desconta do lote aberto, que é a regra dele
         ls['items'] = [x if n == 0 else dict(copy.deepcopy(x), ref=x['ref'] + '-%d' % n, lote='') for n in range(10) for x in ls['items'] if not x.get('bulk') or n == 0]
         big['sales'] = [copy.deepcopy(x) for n in range(3) for x in big['sales']]
+    elif cen == 'bloqueio':   # o app com PIN (o mesmo jeito de guardar do app: PBKDF2-SHA-256, 150 mil voltas, prefixo p2)
+        import hashlib; sal = 'argusTeste'; ls['pinSalt'] = sal; ls['pinHash'] = 'p2' + hashlib.pbkdf2_hmac('sha256', PIN.encode(), ('lafouch|' + sal).encode(), 150000, 32).hex()
+        ls['bioOn'] = False
+    elif cen == 'biometria':
+        d = cenario('bloqueio'); d['ls']['bioOn'] = True; return d
     elif cen == 'nomes_longos':
         for c in ls.get('clientes') or []:
             if isinstance(c, dict): c['nome'] = 'Maria Fernanda de los Ángeles González Benítez'

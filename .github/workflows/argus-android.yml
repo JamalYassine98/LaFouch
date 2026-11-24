@@ -1,0 +1,59 @@
+name: Argus - setor App no Android emulado (tamanho do celular do dono, 3 letras, claro e escuro)
+
+on:
+  workflow_dispatch:
+    inputs:
+      pasta:
+        description: pasta das plantas (padrão work/argus/plantas/app)
+        default: work/argus/plantas/app
+
+permissions:
+  contents: write
+
+jobs:
+  argus:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        tema: [claro, escuro]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - name: Montar o app
+        run: |
+          npm install --legacy-peer-deps
+          node build.js
+          npx cap add android
+          npx cap sync android
+      - name: Firebase (igual ao APK de verdade)
+        env:
+          GSJ: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GSJ" ]; then if printf '%s' "$GSJ" | grep -q '"project_info"'; then printf '%s' "$GSJ" > android/app/google-services.json; else echo "$GSJ" | base64 -d > android/app/google-services.json; fi; fi
+          npx cap sync android
+      - name: Compilar APK de teste
+        working-directory: android
+        run: chmod +x gradlew && for i in 1 2 3; do ./gradlew assembleDebug && break; sleep 60; done && test -s app/build/outputs/apk/debug/app-debug.apk
+      - name: Ligar KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - run: pip install websocket-client
+      - name: Android emulado (Argus)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          emulator-options: -no-window -gpu guest -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
+          script: ARGUS_PLANTAS=${{ inputs.pasta }} bash work/argus/setor_app/android/roda.sh ${{ matrix.tema }}
+      - name: Resultado num ramo git (o download de artefato é bloqueado para a IA)
+        if: always()
+        run: |
+          mkdir -p argus_android && cd argus_android && git init -q -b argus-android-${{ matrix.tema }} && git add -A && git -c user.name=argus -c user.email=argus@users.noreply.github.com commit -qm "argus android ${{ matrix.tema }} $(date -u +%F_%H%M)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" argus-android-${{ matrix.tema }}

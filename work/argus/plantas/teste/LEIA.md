@@ -1,0 +1,1 @@
+Plantas de TESTE (as de Preços › Regras e Fornecedores de hoje, marcadas como aprovadas só para provar o setor App no Android emulado). Não são plantas de verdade: saem quando a Parte 6 trouxer as aprovadas.
