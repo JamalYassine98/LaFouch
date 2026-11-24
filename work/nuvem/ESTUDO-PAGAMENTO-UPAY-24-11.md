@@ -66,3 +66,9 @@ Disse "Sim" para estudar a upay a fundo. Nada implementado; é estudo.
   por pedido + aviso assinado) continua valendo; muda o fornecedor.
 - Plano B: Bancard (aceita Pix de brasileiros e QR local; pede comércio aderido e, para Pix, conta em dólares, segundo notícia de 2024),
   pelo gerente do Banco Familiar. Conferir se a Bancard dá o aviso de pagamento assinado ao servidor.
+
+## 9. 24/11 10:40 — Bancard vPOS 2.0 solicitado pelo dono
+- Pedido feito no portal comercios.bancard.com.py (unipersonal, rubro ÓPTICAS, Microcentro/Jebai Center, venda ~G$ 4 milhões/mês, URL lafouch.com, contato técnico = dono, e-mail da loja).
+- Documentos: cédula, constância de RUC, contrato único (assinado), autorização e liquidação + nota de asignación (conta Eko/Familiar, caja de ahorro em guaranis).
+- Contrato (lido pela NUVEM): 1 ano com renovação automática; cancelar antes = 60 dias de aviso + 2 mensalidades; contracargos até 12 meses por conta do comércio; retenção possível em volume fora do normal; taxas fora do contrato.
+- Falta: aprovação da Bancard; taxas de Pix/QR por escrito; confirmar o aviso de pagamento ao servidor e o ambiente de teste. Depois: passos 2–7 do plano (chaves no cofre → nuvem → esboço → implementar → compra teste → tirar a confirmação por valor do site).
