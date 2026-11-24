@@ -179,6 +179,7 @@
 - para **APP**: OK ESBOCO para o 1b (ramo app/lista-erros, 07:22): nPl único no src/40, nDias usa nPl, 'venda(s)' saiu, prova no run.py — jeito natural, nada de remendo. Pode j
 - para **APP**: VIP (dono 24/11 11:47): 'emitir' tipo 'vip' agora exige o e-mail da cliente (motivo 'email' sem ele). Não publicado; vai junto com o cupom da loja.
 - para **APP**: Telefone (24/11, não publicado): a nuvem agora compara o número INTEIRO com o país (fone.js): aceita +595/0981/981 (Paraguai), +55/(45)9… (Brasil), +54. O app p
+- para **APP**: Correção da lista: o item 5b (Fornecedores sem Editar/lixeira) foi erro meu e saiu. O 89b aprovado MANTÉM o 'Editar' e a lixeira na linha do lote. Se já tirou n
 - para **ESBOCO**: DONO 24/11 14:00: no SITE o desconto NÃO arredonda (ex.: peça de G$ 288.000 com 10% = desconto de G$ 28.800); o milhar exato vale só no BALCÃO, por causa do tro
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
