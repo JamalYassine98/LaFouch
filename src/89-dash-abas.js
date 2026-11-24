@@ -133,11 +133,8 @@
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o preço automático liga no ⏻ do título e "Contas, taxas e meta" moram em Preços › Regras (46b).
-    // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
-    h += precosTelaHtml();
-    h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';
-    return h;
+    // Preços = o escritório do Titan (54): a tela e os setores moram em precosTelaHtml (src/97z3-precos.js)
+    return precosTelaHtml();
   }
 
   // ---------- período das vendas (Hoje, Semana, Mês, 30 dias, Outro)

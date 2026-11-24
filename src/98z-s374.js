@@ -8,28 +8,35 @@
   };
 
   // ===== AS FAMÍLIAS — UMA tabela só (4c · 149r, aprovado 19/11; dono 21/11/2026 "implementar tudo") =====
-  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Resultados · Giro e preços · Site · Marketing · Clientes · Atacado.
+  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Resultados · Preços · Site · Marketing · Clientes · Atacado.
   // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"). Mudou a tabela → sobe o FAM_V:
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 3, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai (Giro e preços fica só com Preços até o Titan)
+  var FAM_V = 4, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai · 4: "Giro e preços" sai e Preços vira linha do Início (52a, Titan)
     FAMILIAS = [
       { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
-      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['prec'] },
       { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, vitrine e modelos', itens: ['site', 'ped', 'msg', 'vit', 'prod'] },
       { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática, cartões e visitas', itens: ['mkt', 'tem', 'cup', 'anl'] }
     ],
     FAM_BARRA = ['vendas', 'g:pecas', 'g:din', 'ajustes'],
-    FAM_INICIO = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
+    FAM_INICIO = ['g:res', 'prec', 'g:site', 'g:mkt', 'cli', 'ata'],
+    FAM_SAI = ['g:gp']; // famílias que saíram da tabela: o grupo some (se o dono não mexeu) e as telas dele ficam soltas no lugar
   function famAplica() {
     if ((S.famV || 0) >= FAM_V) return false;
     S.famV = FAM_V;
     S.famMex = S.famMex || {};
     ['fam7', 'fam7b', 'fam6', 'fam63', 'fam80', 'fam95'].forEach(function (k) { delete S[k]; }); // as marcas das tabelas antigas
-    var nova = FAMILIAS.filter(function (f) { return !S.famMex[f.id]; }), tudo = [];
+    var nova = FAMILIAS.filter(function (f) { return !S.famMex[f.id]; }), tudo = [], solta = {};
+    S.grupos = (S.grupos || []).filter(function (g) {
+      if (FAM_SAI.indexOf(g.id) < 0 || S.famMex[g.id]) return true;
+      solta[g.id] = g.itens.slice();
+      return false;
+    });
+    var abre = function (L) { var r = []; (Array.isArray(L) ? L : []).forEach(function (x) { r = r.concat(solta[x] || [x]); }); return r; };
+    S.barra = abre(S.barra); S.inicioT = abre(S.inicioT);
     nova.forEach(function (f) { tudo = tudo.concat(f.itens); });
     // sai a versão antiga de cada família e todo grupo (não mexido pelo dono) que guardava uma tela que agora é de família
     S.grupos = (S.grupos || []).filter(function (g) {

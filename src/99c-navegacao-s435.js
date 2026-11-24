@@ -20,7 +20,7 @@
     function nvRail() { return !!(window.matchMedia && matchMedia('(min-width:760px)').matches); }
     function nvChave() {
       var v = S.view;
-      if (v === 'dash') return S.dTab || 'hoje';
+      if (v === 'dash') return S.dTab === 'prec' && tiSetor() ? 'ti:' + S.tiSet : S.dTab || 'hoje';
       if (v === 'clientes') return 'cli';
       if (v === 'grp') return 'grp:' + S.nvG;
       if (v === 'estoque' && S.lotesView) return 'lotes';

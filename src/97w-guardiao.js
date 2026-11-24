@@ -3,6 +3,8 @@
   // depois de sincronizar = sempre que o Início é desenhado). No Início: 1 cartão só com o que precisa do dono + botão;
   // tudo certo = 1 linha verde. Tocar abre todas as conferências por assunto; cada aviso explica a conta e leva à tela
   // que resolve. "Silenciar 7 dias" por aviso. Separado do porteiro (que testa o app antes de cada versão).
+  // O nome do guardião (Titan, dono 22/11) sai DESTA constante, em toda tela: Pendências, sino, Início e Preços.
+  var LF_TITAN = 'Titan';
   S.guardMudo = S.guardMudo || {};
   var GUARD_H = 36e5;
   function guardPedidos() { return (S.pedidos || []).filter(function (p) { return p && !p.teste && p.st !== 'canc'; }); }
@@ -60,12 +62,12 @@
     // S265 (14/11/2026): no Início o Guardião é UMA linha que abre as Pendências; a lista mora lá (uma lista só)
     var nG = pr.length; // o número é o mesmo que as Pendências mostram em "precisa de você agora"
     try { if (typeof notifAgora === 'function' && typeof urgente === 'function') nG = Math.max(nG, notifAgora().filter(urgente).length); } catch (e) {}
-    return '<section class="card guardC guard1 noconta" data-act="view" data-id="notif" role="button" tabindex="0"><div class="guardT">' + guardIco() + '<b>Guardião · ' + nG + (nG === 1 ? ' coisa' : ' coisas') + ' para olhar</b><i class="guardCh" aria-hidden="true">›</i></div></section>';
+    return '<section class="card guardC guard1 noconta" data-act="view" data-id="notif" role="button" tabindex="0"><div class="guardT">' + guardIco() + '<b>' + LF_TITAN + ' · ' + nG + (nG === 1 ? ' coisa' : ' coisas') + ' para olhar</b><i class="guardCh" aria-hidden="true">›</i></div></section>';
   }
   // todas as conferências por assunto
   ACT.guardAbre = function () {
     lfJanela({
-      titulo: 'Guardião',
+      titulo: LF_TITAN,
       monta: function (c) {
         var L = guardChecks(), G = {};
         L.forEach(function (x) { (G[x.g] = G[x.g] || []).push(x); });
@@ -92,7 +94,7 @@
     guardChecks().forEach(function (c) {
       if (c.ok || c.mudo) return;
       var tt = c.tp || c.t;
-      if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
+      if (it.some(function (x) { return x.t === tt || x.t === c.t; })) return;
       if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
       if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
       it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });

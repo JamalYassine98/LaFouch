@@ -149,7 +149,11 @@
         return a + (i.qty > 0 ? i.qty : 0);
       }, 0),
       rep = 0,
-      ct = S.cart ? S.cart.length : 0;
+      ct = S.cart ? S.cart.length : 0,
+      nTi = 0;
+    try {
+      nTi = titanDecide().length;
+    } catch (e) {}
     try {
       rep = reposicao().length;
     } catch (e) {}
@@ -163,7 +167,7 @@
       hoje: ['Dashboard', ['Dia, mês, reservas, giro e preços', '']], // S374 (49a)
       din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
-      prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
+      prec: ['Preços', nTi ? [nTi + ' a decidir', 'w'] : ['Regras, ofertas e atacado', '']], // 54: o escritório do Titan
       cat: ['Catálogo', ['WhatsApp', '']],
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
@@ -271,9 +275,11 @@
       setView('dia');
     } else if (id === 'giro') {
       return inicioGo('estoque'); // 66: a tela Giro saiu — o estado do estoque mora no Inventário (atalho antigo)
-    } else if (id === 'din' || id === 'prec') {
+    } else if (id === 'din') {
       S.dTab = id;
       setView('dash');
+    } else if (id === 'prec' || id.indexOf('ti:') === 0) {
+      return tiAbre(id.slice(3)); // Preços e os setores do escritório do Titan (54)
     } else if (id === 'repo') {
       return inicioGo('comp'); // a lista de compras mora em Compras (66)
     } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {

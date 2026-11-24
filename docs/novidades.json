@@ -1,9 +1,9 @@
 {
- "nome": "5.53.0",
+ "nome": "5.54.0",
  "notas": [
-  "Adicionar ficou só com 'Chegou mercadoria' e 'Preencher à mão'.",
-  "Preencher à mão em linhas: Formato, Material e Gênero abrem uma lista para escolher; 'Mais detalhes' abre no lugar.",
-  "Cores sem foto: cada cor entra 'sem foto' e a foto vem pelo Estúdio; 'No site' só mostra as cores com foto."
+  "Preços virou o escritório do Titan: 'O Titan decide hoje' em cima e os setores Regras, Ofertas, Atacado, Ferramentas e Histórico.",
+  "Preços é uma linha do Início ('Giro e preços' saiu) e cada setor abre com '‹ Preços'.",
+  "O Guardião agora se chama Titan."
  ],
- "build": 634
+ "build": 635
 }

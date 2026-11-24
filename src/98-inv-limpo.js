@@ -287,12 +287,7 @@
     S.pprice[ref] = o;
     return true;
   }
-  ACT.pcAbre = function () {
-    S.dTab = 'prec';
-    S.x66ab = true; // S374 (esboço 66): a lista mora no Contador
-    setView('dash');
-    setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
-  };
+  ACT.pcAbre = function () { tiAbre('corr'); }; // a lista mora em Preços › Preços para corrigir (54)
   ACT.pcFecha = function () {
     lfaFecha('pcFolha');
   };

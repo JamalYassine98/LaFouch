@@ -82,7 +82,7 @@
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
     ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
-    ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
+    ['prec', 'Preços', 'Início › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
     ['ped', 'Pedidos do site', 'Início › Pedidos', 'pedido site reserva pix'],
     ['onl', 'Loja online (painel do site)', 'Início › Loja', 'site painel lafouch.com vitrine destaque'],

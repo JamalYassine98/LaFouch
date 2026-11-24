@@ -2068,10 +2068,6 @@ html.mlOn #lockScr{z-index:2147483600}
 @keyframes mlAnel{to{stroke-dashoffset:0}}
 /* S188 Contador */
 .cnt{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
-.cntG{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.cntK{background:var(--panel);border:1px solid var(--line2);color:var(--fg);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
-.cntK small{font-size:12px;color:var(--mute)}.cntK b{font-size:22px;font-weight:700}.cntK i{font-style:normal;font-size:12px;color:var(--warn,#b4590a)}
-@media (min-width:900px){.cntG{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .cntL{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line2);flex-wrap:wrap}.cntD .lbl+.cntL{border-top:0}
 .cntL>div{flex:1;min-width:0}.cntL b{display:block;font-size:14px}.cntL small{display:block;font-size:12px;color:var(--mute)}.cntL em{font-style:normal;font-weight:700;font-size:14px}
 .cntUm{display:flex;gap:6px;width:100%;justify-content:center}.cntUm[hidden]{display:none}
@@ -2442,11 +2438,6 @@ html{overscroll-behavior-y:none}
 .c54Esv{display:block;margin:12px auto 0;color:var(--mute)}
 #pagHead .pagHd54{display:flex;align-items:baseline;justify-content:space-between}#pagHead .pagHd54 h2{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:24px;margin:0}
 /* S370 (esboço 52): Preços no padrão de luxo */
-#v-dash .cnt.lx .cntG{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-#v-dash .cnt.lx .cntK{background:none!important;border:0!important;border-radius:0!important;padding:16px 4px!important;gap:4px}
-#v-dash .cnt.lx .cntK:nth-child(odd){border-right:1px solid var(--line)!important;padding-right:14px!important}#v-dash .cnt.lx .cntK:nth-child(even){padding-left:16px!important}
-#v-dash .cnt.lx .cntK:nth-child(n+3){border-top:1px solid var(--line)!important}
-#v-dash .cnt.lx .cntK small{font-size:13px}#v-dash .cnt.lx .cntK b{font-size:28px;font-weight:400;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 #v-dash .cnt.lx .cntD{background:none!important;border:0!important;box-shadow:none!important;padding:8px 0 0!important;border-radius:0!important}
 #v-dash .cnt.lx .cntD .lbl{margin:10px 0 2px}
 #v-dash .cnt.lx .cntL{padding:16px 0;gap:14px;flex-wrap:nowrap;border-top:1px solid var(--line)}#v-dash .cnt.lx .cntD .lbl+.cntL{border-top:0}
@@ -2456,7 +2447,6 @@ html{overscroll-behavior-y:none}
 #v-dash .cnt.lx .cntD .cntB{flex-direction:column;align-items:stretch;margin-top:16px}
 /* 4b: peça aberta no "ver um por um" (Aceitar / Agora não embaixo), título das Ferramentas, e a letra do texto nos cartões de Preços (135h: Fraunces só no h1) */
 #v-dash .cnt.lx .cntL.cntPc{flex-wrap:wrap;padding-left:16px}
-.cntFeT{margin:24px 0 8px}
 #v-dash .cntAuto .card>b:first-child{font-family:inherit;font-weight:600}
 .chip.tabAlvo{outline:2px solid var(--accent-fg);outline-offset:1px}
 /* S370 (lote 8): pílula permanente — o botão escolhido não tem fundo próprio */
@@ -2537,12 +2527,11 @@ section.fxF:first-child,:not(section.fxF)+section.fxF{border-top:1px solid var(-
 section.fxF>.fxH{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 0;text-align:left;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer}
 section.fxF>.fxH b{font-size:16px;font-weight:500}
 section.fxF>.fxH .hint{font-size:13px}
-section.fxF .fxC,.ch66,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
+section.fxF .fxC,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
 section.fxF .fxC{transition:transform .25s}
 section.fxF>.fxB>.fxI{padding:0 0 16px}
 section.fxF>.fxB .card{background:none!important;box-shadow:none!important;border:0!important;border-top:1px solid var(--line2,var(--line))!important;border-radius:0!important;padding:14px 0 0!important;margin:0!important}
 section.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!important}
-#v-dash .x66L{cursor:pointer}#v-dash .x66{overflow:hidden}#v-dash .x66i{padding:4px 0 14px}
 /* S374 (esboço 65): botões de Preços no padrão — 1 principal (contorno rosa), secundária neutra, ação de linha rosa com "›" */
 #v-dash .lxT{text-decoration:none!important;color:var(--accent-fg)!important;font-weight:600}
 #v-dash .lxT::after{content:' ›'}
@@ -2774,7 +2763,7 @@ button.rw77{cursor:pointer}
 .cx108 .t108 span{font-weight:600}
 .cx108 .p108{border-bottom:0}
 /* S374 · 109 (aprovado 17/11 18:21): a seta ⌄ gira no sentido anti-horário ao abrir */
-section.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh{transform:rotate(-180deg)}
+section.fxF.on .fxC,.hSem[aria-expanded=true] .ecCh{transform:rotate(-180deg)}
 #v-mkt .mk98 .mkDt[open]:not(.fecha)>summary.mkSec::after{transform:rotate(-180deg)!important}
 .ecF.on .ecTog .ecCh{transform:rotate(-180deg)} /* 109: Despesas usa a mesma seta girada */
 /* ===== S418 (18/11/2026): janela de confirmação única (110c/111) e linha de venda com ⌄ (116a2/123b/124c) ===== */
@@ -3152,3 +3141,6 @@ p.cpE{margin:0 0 8px;font-size:14px}
 #nvS2 .cfMais{flex-basis:100%;display:flex;gap:8px;padding-bottom:8px}
 #nvS2 .cfNova{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--accent-fg);font:inherit;font-size:16px;font-weight:600;cursor:pointer;padding:0}
 #nvS2 .cfNova .pl78{margin:0;color:var(--fg)}
+/* 54 · Preços = o escritório do Titan: "O Titan decide hoje" e os setores em linhas › (o cinza dos ícones é o do .nvIc, 37b) */
+#v-dash .tiLb{margin:24px 0 4px}#v-dash .cnt.lx>.tiLb:first-child{margin-top:8px}
+#v-dash .tiVz{margin:8px 0 0;color:var(--mute)}

@@ -1,6 +1,6 @@
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', onl: 'Como o site está indo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', onl: 'Como o site está indo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],
@@ -41,12 +41,14 @@
         return x[0] === S.dTab;
       })[0] || DTABS[0],
       resumo = S.dTab === 'hoje',
+      ti = t[0] === 'prec' ? tiSetor() : '', // setor do escritório do Titan: título e frase do setor, sem o ⏻
+      fr = ti ? TI_SET[ti][1] : resumo ? perDatas(S.per) : DT_FRASE[t[0]] || '',
       cam = 'US$ 1 = ' + gsRaw(Math.round(S.fx.pyg)) + (lmOk() ? ' na casa' : ''),
       h =
-        '<div class="dHd"><h1 class="dHdT">' + t[1] + '</h1>' + // 149t: título de verdade, não botão
+        '<div class="dHd"><h1 class="dHdT">' + (ti ? esc(TI_SET[ti][0]) : t[1]) + '</h1>' + // 149t: título de verdade, não botão
         (resumo ? '<button type="button" class="dHdP' + lkCls(true) + '" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
-        (t[0] === 'prec' ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
-        '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
+        (t[0] === 'prec' && !ti ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
+        '</div>' + (fr ? '<div class="dHdS">' + esc(fr) + '</div>' : ''); // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
         '<section class="cxSaldo dHdD"><div class="cxLb">Período</div><label class="cxL dD418"><span>De</span><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial"></label><label class="cxL dD418"><span>Até</span><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final"></label></section>';

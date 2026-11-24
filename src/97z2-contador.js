@@ -28,7 +28,7 @@
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
       if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) {
         var sem = typeof temaSugestao === 'function' && !temaSugestao(t).n;
-        L.push({ t: 'tema', tit: t.nome + ' em ' + nDias(t.dias), sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
+        L.push({ t: 'tema', tit: t.nome + ' em ' + nDias(t.dias), sub: sem ? 'nenhuma peça entra pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
       }
     } catch (e) {}
     try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}

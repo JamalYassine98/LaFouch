@@ -427,25 +427,22 @@ async def main():
             await pg.evaluate("() => { window.__LF.render(); window.__LF.render(); }")
             f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
             total += 1
-            ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
-                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'est', 'comp']] and f3 == ['estoque', True]
-                  and f4 == [6, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
+            ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['g:res', 'prec', 'g:site', 'g:mkt', 'cli', 'ata'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
+                  and f1[3] == ['g:res', 'prec', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'est', 'comp']] and f3 == ['estoque', True]
+                  and f4 == [5, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Peças com Inventário, Estúdio e Compras — 63 e 66)')
             if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
-            # S374 (esboço 59): Giro e preços abre o Giro e a flecha mostra Giro, Preços e Reservas; Marketing abre a lista
+            # 52a + 54 (Titan): "Giro e preços" saiu; Preços é linha do Início e abre em 1 toque; Marketing abre a lista
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
-            await pg.locator('#v-inicio .tl[data-id="g:gp"]').click(); await pg.wait_for_timeout(700)
-            # esboço 37a: o grupo abre o índice com as telas dele (Giro e Preços); a tela escolhida abre a partir dali
-            m1 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#v-grp .nvL')].map(b => b.getAttribute('data-id'))]")
-            await pg.locator('#v-grp .nvL[data-id=prec]').click(); await pg.wait_for_timeout(500)  # 66: a tela Giro saiu; o grupo fica só com Preços
-            m1.append(await pg.evaluate("() => window.__LF.S.view + '/' + window.__LF.S.dTab"))
+            await pg.locator('#v-inicio .tl[data-id="prec"]').click(); await pg.wait_for_timeout(700)
+            m1 = await pg.evaluate("() => [window.__LF.S.view + '/' + window.__LF.S.dTab, !document.querySelector('#v-inicio [data-id=\"g:gp\"]'), !(window.__LF.S.grupos || []).some(g => g.id === 'g:gp'), document.querySelector('#v-dash .dHdT').textContent]")
             await pg.evaluate("() => { window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
             await pg.locator('#v-inicio .tl[data-id="g:mkt"]').click(); await pg.wait_for_timeout(600)
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['grp', ['prec'], 'dash/prec'] and m2 == ['mkt', []] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59/98): Giro e preços com a flecha certa; Marketing abre a tela Marketing')
+            ok = m1 == ['dash/prec', True, True, 'Preços'] and m2 == ['mkt', []] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '52a/54: Preços abre pelo Início em 1 toque (sem "Giro e preços"); Marketing abre a tela Marketing')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
@@ -3869,24 +3866,24 @@ async def main():
             pg = await pagina(fam=True)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
               const it = id => (S.grupos.find(g => g.id === id) || { itens: [] }).itens.join(), fr = id => (S.grupos.find(g => g.id === id) || {}).frase;
-              R.novo = [it('g:gp'), it('g:din'), fr('g:gp'), fr('g:din'), S.barra.join(), S.inicioT.join(), S.famV, it('g:site'), it('g:mkt'), it('g:pecas')];
+              R.novo = [it('g:gp'), it('g:din'), fr('g:din'), S.barra.join(), S.inicioT.join(), S.famV, it('g:site'), it('g:mkt'), it('g:pecas')];
               // aparelho antigo, sem famílias: um grupo dele com telas que viram família sai; chega ao arranjo padrão; não repete
               S.famV = undefined; S.famMex = undefined; S.fam7 = S.fam6 = true; S.grupos = [{ id: 'g1', nome: 'Meu', ico: 'caixa', itens: ['caixa', 'desp'] }]; S.inicioT = ['hoje', 'giro', 'ped', 'cli', 'mkt', 'g1']; S.barra = ['vendas', 'g1', 'hoje', 'ajustes'];
               L.render(); const a = JSON.stringify([S.grupos, S.inicioT, S.barra]); L.render();
               R.antigo = [S.grupos.map(g => g.id).sort().join(), S.barra.join(), S.inicioT.join(), a === JSON.stringify([S.grupos, S.inicioT, S.barra]), S.famV, 'fam7' in S || 'fam6' in S];
-              // aparelho da v596 (Reservas em Giro e preços) com o Início arrumado pelo dono: só a tabela muda
-              S.famV = undefined; S.grupos.find(g => g.id === 'g:gp').itens = ['giro', 'prec', 'din']; S.grupos.find(g => g.id === 'g:din').itens = ['caixa', 'desp', 'fx']; S.inicioT = ['g:site', 'g:res', 'ata', 'g:gp', 'g:mkt', 'cli']; S.barra = ['vendas', 'g:din', 'g:pecas', 'ajustes'];
+              // aparelho da v633 (Giro e preços só com Preços) com o Início arrumado pelo dono: o grupo sai e Preços fica no lugar dele (54)
+              S.famV = 3; S.grupos.push({ id: 'g:gp', nome: 'Giro e preços', ico: 'giro', fam: 1, itens: ['prec'] }); S.grupos.find(g => g.id === 'g:din').itens = ['caixa', 'desp', 'fx']; S.inicioT = ['g:site', 'g:res', 'ata', 'g:gp', 'g:mkt', 'cli']; S.barra = ['vendas', 'g:din', 'g:pecas', 'ajustes'];
               L.render(); R.v596 = [it('g:gp'), it('g:din'), S.barra.join(), S.inicioT.join()];
               // o dono tira Câmbio de Dinheiro; a tabela sobe de versão e não toca nesse grupo
-              S._gg = 'g:din'; L.ACT.grpTirar('fx'); await w(200); L.ACT.grpFecha(); S.famV = 0; S.grupos.find(g => g.id === 'g:gp').itens = ['giro']; L.render();
-              R.mexido = [!!S.famMex['g:din'], it('g:din'), it('g:gp'), S.inicioT.indexOf('fx') >= 0];
+              S._gg = 'g:din'; L.ACT.grpTirar('fx'); await w(200); L.ACT.grpFecha(); S.famV = 0; S.famMex['g:gp'] = 1; S.grupos.push({ id: 'g:gp', nome: 'Giro e preços', ico: 'giro', fam: 1, itens: ['prec'] }); L.render();
+              R.mexido = [!!S.famMex['g:din'], it('g:din'), it('g:gp'), S.inicioT.indexOf('fx') >= 0];  // o "Giro e preços" que o dono mexeu fica
               // Dinheiro abre o índice com Reservas; Giro e preços sem Reservas
               L.setView('inicio'); await w(200); S.famV = 0; S.famMex = {}; L.render(); await w(200);
               return R; }""")
             guarda = "'famV'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read() and "'famMex'" in open(os.path.join(RAIZ, 'src', '99-render-persistencia.js'), encoding='utf-8').read()
-            ok = (not troca and guarda and got['novo'] == ['prec', 'caixa,din,desp,fx', 'Giro e preços', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', 3, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est,comp']
-                  and got['antigo'] == ['g:din,g:gp,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,g:gp,g:site,g:mkt,cli,ata', True, 3, False]
-                  and got['v596'] == ['prec', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,g:gp,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'prec', True] and not pg.erros)
+            ok = (not troca and guarda and got['novo'] == ['', 'caixa,din,desp,fx', 'Caixa, reservas, despesas e câmbio', 'vendas,g:pecas,g:din,ajustes', 'g:res,prec,g:site,g:mkt,cli,ata', 4, 'site,ped,msg,vit,prod', 'mkt,tem,cup,anl', 'estoque,est,comp']
+                  and got['antigo'] == ['g:din,g:mkt,g:pecas,g:res,g:site', 'vendas,g:pecas,g:din,ajustes', 'g:res,prec,g:site,g:mkt,cli,ata', True, 4, False]
+                  and got['v596'] == ['', 'caixa,din,desp,fx', 'vendas,g:din,g:pecas,ajustes', 'g:site,g:res,ata,prec,g:mkt,cli'] and got['mexido'] == [True, 'caixa,din,desp', 'prec', True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'Item 26 + 4c parte 4 (149r): famílias numa tabela só com versão — Reservas em Dinheiro, aparelho antigo migra uma vez, arranjo do dono e grupo mexido ficam')
             if not ok: falhas.append('item 26 familias tabela unica'); print('        veio', troca, guarda, got, pg.erros)
             await pg.close()
@@ -4861,79 +4858,85 @@ async def main():
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # S374 (esboços 64–66): Preços — "Preço automático" uma vez, preços a corrigir só no Contador (abre ali), meta e taxas dentro de "Contas, taxas e meta", contas sempre pelo custo
+            # S374 (esboços 64–66) + 54: Preços — sem "Preço automático" solto, os preços a corrigir numa tela própria (Preços › Preços para corrigir),
+            # meta e taxas no setor Regras, contas sempre pelo custo
             pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.pAuto = S.pAuto || {}; S.pAuto.on = true; S.rateio = 'peca'; S.rat66 = false; S.dfold = {}; S.x66ab = false; S.dTab = 'prec'; L.setView('dash'); L.render(); }"); await pg.wait_for_timeout(600)
-            q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
-            await pg.locator('#v-dash .x66L').click(); await pg.wait_for_timeout(600)
-            q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .x66 .pcLi').length, document.querySelectorAll('#v-dash .x66 [data-act=pcUsaTodos]').length]")
-            # 46b: "Contas, taxas e meta" mora em Preços › Regras (janela de baixo até a tela Regras da Parte 4)
-            await pg.evaluate("() => window.__LF.ACT.cntRegras()"); await pg.wait_for_timeout(600)
-            q3 = await pg.evaluate("() => { const j = document.querySelector('.ljJn:not(.ljSai)'); const t = j ? j.innerText : ''; return [!!j && j.querySelector('.ljHd b').textContent === 'Regras', /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), !!j && j.querySelectorAll('.pc66').length > 0]; }")
-            q4 = [False, True]
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.pAuto = S.pAuto || {}; S.pAuto.on = true; S.rateio = 'peca'; S.rat66 = false; S.dfold = {}; L.inicioGo('prec'); L.render(); }"); await pg.wait_for_timeout(600)
+            q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .tiD .nvL[data-id=corr]'), !/Subir \\d+ preços/.test(t), !document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
+            await pg.locator('#v-dash .tiD .nvL[data-id=corr]').click(); await pg.wait_for_timeout(600)
+            q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .pcNaTela .pcLi').length, document.querySelectorAll('#v-dash .pcNaTela [data-act=pcUsaTodos]').length, document.querySelector('#v-dash .dHdT').textContent, (document.querySelector('.view:not([hidden]) .nvVs') || { textContent: '' }).textContent.replace('‹', '')]")
+            await pg.evaluate("() => window.__LF.ACT.tiAbre('regras')"); await pg.wait_for_timeout(600)
+            q3 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelector('#v-dash .dHdT').textContent === 'Regras', /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-dash .pc66').length > 0, !document.querySelector('.ljJn:not(.ljSai)')]; }")
             total += 1
-            ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66): Preços sem repetição, lista no Contador, meta e taxas no bloco, contas pelo custo, bloco abre e fecha no cartão')
-            if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, q4, pg.erros)
+            ok = (q1[0] == 0 and q1[1] == 0 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and q2[2:] == ['Preços para corrigir', 'Preços'] and all(q3) and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66) + 54: Preços sem repetição, lista a corrigir numa tela com "‹ Preços", meta e taxas no setor Regras, contas pelo custo')
+            if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, pg.erros)
             await pg.close()
 
             # 46b (aprovado 22/11; dono 23/11 "fazer o 46b agora"): o preço automático liga no ⏻ ao lado do título de Preços. A janela tem o
             # interruptor (vale na hora, sem "Ligar?"), o que o app faria ao ligar e "Revisa toda segunda"; Ajustes não tem mais Preços;
-            # Ferramentas tem Regras (contas, taxas, meta) no lugar de "Preço automático".
+            # o ⏻ fica só no escritório (os setores não têm).
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              S.pAuto = Object.assign(S.pAuto || {}, { on: false }); S.dTab = 'prec'; L.setView('dash'); await w(500);
+              S.pAuto = Object.assign(S.pAuto || {}, { on: false }); L.inicioGo('prec'); await w(500);
               const b = () => document.querySelector('#v-dash .dHd .lgB'), jn = () => document.querySelector('.ljJn:not(.ljSai)');
-              R.push(!!b() && !b().classList.contains('on'), [...document.querySelectorAll('#v-dash .cntFe [data-act]')].map(x => x.dataset.act).join());
+              R.push(!!b() && !b().classList.contains('on'), [...document.querySelectorAll('#v-dash .tiSe [data-act]')].map(x => x.dataset.id).join());
               b().click(); await w(600);
               R.push(jn().querySelector('.ljHd b').textContent, jn().querySelector('[data-act=paTog]').getAttribute('aria-checked'), /Ao ligar/.test(jn().innerText) && /Sobem/.test(jn().innerText) && /toda segunda/.test(jn().innerText));
               jn().querySelector('[data-act=paTog]').click(); await w(500);
               R.push(S.pAuto.on, jn().querySelector('[data-act=paTog]').getAttribute('aria-checked'), !/Ao ligar/.test(jn().innerText), b().classList.contains('on'), !document.querySelector('.paPrev,[data-act=paLiga]'));
+              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await w(500);
+              L.ACT.tiAbre('ofertas'); await w(400); R.push(!b());
               L.setView('ajustes'); await w(400); R.push(!document.querySelector('#ajGrp .ajS[data-k=pa]'));
               return R; }""")
             total += 1
-            ok = got == [True, 'cntCalc,cntEse,cntRegras', 'Preço automático', 'false', True, True, 'true', True, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + '46b: Preços com o ⏻ — interruptor na janela, vale na hora (sem "Ligar?"), mostra o que faria; Regras nas Ferramentas; Ajustes sem Preços')
+            ok = got == [True, 'regras,ofertas,atacado,ferr,hist', 'Preço automático', 'false', True, True, 'true', True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '46b: Preços com o ⏻ — interruptor na janela, vale na hora (sem "Ligar?"), mostra o que faria; os 5 setores; o ⏻ só no escritório; Ajustes sem Preços')
             if not ok: falhas.append('46b precos liga'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # 4b parte 2 (135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup): UMA função desenha Preços (precosTelaHtml); ninguém a troca nem relê o HTML dela.
-            # Sem cabeçalho "Contador", sem "Pré-graduados · preço por linha", os 4 números só mostram, cada "Ajustar tabela ›" abre a SUA tabela,
-            # FERRAMENTAS com 3 linhas de lista (a 3ª chega em Ajustes › Preços aberta), links nascem de lkSolto, nenhum "1 peças"/"1 preços".
+            # 54 (Preços = escritório do Titan): UMA função desenha Preços e os setores (precosTelaHtml); ninguém a troca nem relê o HTML dela.
+            # Sem os 4 números, "O TITAN DECIDE HOJE · N" conta as linhas, os setores Regras · Ofertas · Atacado · Ferramentas · Histórico em linhas ›
+            # (≥ 64 px, ícone cinza como a frase), no Atacado cada tabela abre a SUA, nas Ofertas o "ver um por um" aceita e ignora uma por vez,
+            # nenhum "1 peças"/"1 preços"; o nome sai da constante LF_TITAN e nenhum "Guardião" aparece.
             fontes = {f: open(os.path.join(RAIZ, 'src', f), encoding='utf-8').read() for f in sorted(os.listdir(os.path.join(RAIZ, 'src'))) if f.endswith('.js')}
-            troca = sorted(f for f, t in fontes.items() if re.search(r'^\s*(precosTelaHtml|contadorHtml|cntDecisoes) = function|_cnt\d+ = |function contadorHtml|pgrPrecos|pgrAjusta|prePe', t, re.M))
+            troca = sorted(f for f, t in fontes.items() if re.search(r'^\s*(precosTelaHtml|contadorHtml|cntDecisoes|titanDecide) = function|_cnt\d+ = |function contadorHtml|pgrPrecos|pgrAjusta|prePe|cntKpi|x66ab', t, re.M))
+            nomeSolto = sorted(f for f, t in fontes.items() if re.search(r"'[^'\n]*Guardião[^'\n]*'", t))
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {};
-              S.sales.forEach(s => { s.ts -= 200 * 864e5; }); S.pTrava = {}; S.x66ab = false;
-              S.dTab = 'prec'; L.setView('dash'); await w(500); const d = document.getElementById('v-dash'), q = s => [...d.querySelectorAll(s)];
+              S.sales.forEach(s => { s.ts -= 200 * 864e5; }); S.pTrava = {};
               // aceita as correções sugeridas (os que sobem), para o plano chegar às ofertas das peças paradas
-              S.x66ab = true; L.render(); await w(300); const us = d.querySelector('[data-act=pcUsaTodos]'); if (us) { us.click(); await w(500); } S.x66ab = false; L.render(); await w(300);
-              R.sem = [!d.querySelector('.cntHd'), !/Pré-graduados · preço por linha/.test(d.innerText), !/REGRAS DO CONTADOR/i.test(d.innerText), !/\\b1 (peças|preços|dias)\\b/.test(d.innerText), q('.cntK').length === 4 && !q('.cntK').some(k => k.dataset.act || k.getAttribute('role') || k.style.cursor)];
-              R.num = !/Fraunces|Georgia/.test(getComputedStyle(d.querySelector('.cntK b')).fontFamily) && !/Fraunces|Georgia/.test(getComputedStyle(d.querySelector('.cntAuto .card>b') || d.querySelector('.cntK b')).fontFamily);
-              const D = L.cntDecisoes(), tabs = D.filter(x => x.t === 'tab'), ids = q('[data-act=tabsheet]').map(b => b.dataset.id);
-              R.tab = tabs.length > 1 && ids.length === tabs.length && new Set(ids).size === ids.length && ids.join() === tabs.map(x => x.tab.id).join();
-              R.lk = q('.cntD .lk100').length === ids.length + D.filter(x => x.t === 'tema').length && q('.cntD .lk100').every(b => /^[A-ZÀ-Ú].* ›$/.test(b.textContent) && b.classList.contains('inl') && getComputedStyle(b).fontSize === '15px' && getComputedStyle(b).textDecorationLine === 'none');
-              R.n = +/· (\\d+)$/.exec(d.querySelector('.cntD .lbl').textContent)[1] === q('.cntD>.cntL').length;
-              R.ferr = q('.cntFe .nvL').map(b => b.querySelector('b').textContent + '→' + b.dataset.act).join('|') + '|' + (q('.cntFe .nvL').every(b => !b.classList.contains('lk100') && b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('.nvIc')).color === getComputedStyle(b.querySelector('small')).color));
-              R.sub = q('.cntFe .nvL small')[2].textContent === 'contas, taxas, meta e cotação da loja';  // 46b: a 3ª é Regras
-              // cada "Ajustar tabela ›" abre a folha com a tabela dela destacada
+              L.ACT.tiAbre('corr'); await w(400); const us = document.querySelector('#v-dash [data-act=pcUsaTodos]'); if (us) { us.click(); await w(500); }
+              L.inicioGo('prec'); await w(500); const d = document.getElementById('v-dash'), q = s => [...d.querySelectorAll(s)];
+              R.sem = [!q('.cntK,.cntG').length, !/Margem média real|Lucro por peça|PARA DECIDIR/.test(d.innerText), !/REGRAS DO CONTADOR/i.test(d.innerText), !/\\b1 (peças|preços|dias)\\b/.test(d.innerText), !d.querySelector('.dHdS')];
+              const lb = q('.tiLb').map(x => x.textContent);
+              R.n = q('.tiD .nvL').length ? lb[0] === 'O TITAN DECIDE HOJE · ' + q('.tiD .nvL').length : !/DECIDE HOJE/.test(lb.join());
+              R.set = q('.tiSe .nvL').map(b => b.querySelector('b').textContent).join('|') + '|' + q('.tiSe .nvL').every(b => b.getBoundingClientRect().height >= 64 && getComputedStyle(b.querySelector('.nvIc')).color === getComputedStyle(b.querySelector('small')).color && b.querySelector('i').textContent === '›');
+              // Atacado: cada tabela abre a folha com a tabela dela destacada
+              L.ACT.tiAbre('atacado'); await w(400);
+              const D = L.cntDecisoes(), tabs = L.S.tabelas.filter(t => t.on !== false), ids = q('[data-act=tabsheet]').map(b => b.dataset.id);
+              R.tab = tabs.length > 1 && ids.length === tabs.length && new Set(ids).size === ids.length;
               const al = []; for (const b of q('[data-act=tabsheet]').slice(0, 3)) { b.click(); await w(350); const a = document.querySelectorAll('.tabAlvo'); al.push(a.length === 1 && a[0].dataset.id === b.dataset.id); L.ACT.tabfecha(); await w(350); }
               R.alvo = al.join();
-              // assunto do preço automático: uma linha, "ver um por um" abre as peças, aceitar e ignorar tiram uma por vez
+              // Ofertas: o assunto do preço automático é uma linha, "ver um por um" abre as peças, aceitar e ignorar tiram uma por vez
+              L.ACT.tiAbre('ofertas'); await w(400);
               const g = D.filter(x => x.t === 'pa')[0], bt = () => d.querySelector('[data-act=cntTudo]');
               if (g && g.n >= 2) { const n0 = g.n; R.pa = [bt().textContent === 'Aceitar os ' + n0 + ' preços', !d.querySelector('.cntPc')];
                 d.querySelector('[data-act=cntVer]').click(); await w(300); R.pa.push(q('.cntPc').length === n0);
                 d.querySelector('[data-act=cntAceita]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 1, L.cntDecisoes().filter(x => x.t === 'pa')[0].n === n0 - 1);
                 d.querySelector('[data-act=cntIgnora]').click(); await w(400); R.pa.push(q('.cntPc').length === n0 - 2); } else R.pa = 'sem ofertas no cenário';
-              // preços para corrigir abre ali; o preço automático liga no ⏻ do título (46b)
-              d.querySelector('.x66L').click(); await w(700); R.x66 = q('.x66 .pcLi').length > 0;
-              R.aj = !!document.querySelector('#v-dash .dHd .lgB[data-id=prec]');
+              L.ACT.tiAbre('ferr'); await w(400); R.ferr = q('.tiS .nvL').map(b => b.dataset.act).join();
+              L.ACT.tiAbre('hist'); await w(400); R.hist = document.querySelector('#v-dash .dHdT').textContent === 'Histórico' && !!d.querySelector('.tiS[data-ti=hist]');
+              // nenhum "Guardião" visível (Início, Pendências, sino)
+              const vis = []; for (const v of ['inicio', 'notif']) { L.setView(v); await w(400); vis.push(!/Guardião/.test(document.getElementById('v-' + v).innerText)); }
+              R.nome = vis.join();
               return R; }""")
             total += 1
-            ok = (got['sem'] == [True] * 5 and got['num'] and got['tab'] and got['lk'] and got['n'] and got['ferr'] == 'Calculadora de preço→cntCalc|E se…?→cntEse|Regras→cntRegras|true' and got['sub']
-                  and got['alvo'] == 'true,true,true' and got['pa'] == [True] * 6 and got['x66'] and got['aj'] and troca == [] and not os.path.exists(os.path.join(RAIZ, 'src', '98z-precos-s52.js')) and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + '4b parte 2: Preços por uma função só — sem Contador/pré-graduados, números só mostram, cada tabela abre a sua, Ferramentas (3 linhas: Calculadora, E se…?, Regras) e o ⏻ do preço automático no título')
-            if not ok: falhas.append('4b parte 2 tela de Precos'); print('        veio', got, troca, pg.erros)
+            ok = (got['sem'] == [True] * 5 and got['n'] and got['set'] == 'Regras|Ofertas|Atacado|Ferramentas|Histórico|true' and got['tab'] and got['alvo'] == 'true,true,true'
+                  and got['pa'] == [True] * 6 and got['ferr'] == 'cntCalc,cntEse' and got['hist'] and got['nome'] == 'true,true' and troca == [] and nomeSolto == []
+                  and not os.path.exists(os.path.join(RAIZ, 'src', '98z-precos-s52.js')) and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '54: Preços = escritório do Titan — sem os 4 números, "O Titan decide hoje · N", 5 setores em linhas ›, cada tabela abre a sua, ofertas uma por vez, nenhum "Guardião"')
+            if not ok: falhas.append('54 escritorio do Titan'); print('        veio', got, troca, nomeSolto, pg.erros)
             await pg.close()
 
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".
@@ -5140,16 +5143,18 @@ async def main():
             # (o mesmo da barra de baixo), não pula para a última tela usada; a tela escolhida abre e "‹ GRUPO" volta ao índice; Marketing abre a tela dele.
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = [];
-              for (const id of ['g:gp', 'g:res', 'g:site']) { L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="' + id + '"]').click(); await w(500);
+              for (const id of ['g:res', 'g:site']) { L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="' + id + '"]').click(); await w(500);
                 R.push(S.view === 'grp' && S.nvG === id && document.querySelectorAll('#v-grp .nvL').length === S.grupos.find(g => g.id === id).itens.length); }
               document.querySelector('#v-grp .nvL').click(); await w(500); const tela = S.view; L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:site"]').click(); await w(500);
               R.push(tela !== 'grp' && S.view === 'grp');                                       // usar uma tela do grupo não muda como ele abre
-              L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:gp"]').click(); await w(500); document.querySelector('#v-grp .nvL[data-id=prec]').click(); await w(500);
-              R.push(S.view === 'dash' && S.dTab === 'prec'); document.querySelector('.view:not([hidden]) .nvVs').click(); await w(500); R.push(S.view === 'grp' && S.nvG === 'g:gp');
+              // 54: os setores de Preços abrem pela mesma pilha — Preços › Regras tem "‹ Preços", que volta ao escritório
+              L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="prec"]').click(); await w(500); document.querySelector('#v-dash .tiSe .nvL[data-id=regras]').click(); await w(500);
+              R.push(S.view === 'dash' && S.tiSet === 'regras' && document.querySelector('#v-dash .dHdT').textContent === 'Regras' && document.querySelector('.view:not([hidden]) .nvVs').textContent.replace('‹', '') === 'Preços');
+              document.querySelector('.view:not([hidden]) .nvVs').click(); await w(500); R.push(S.view === 'dash' && !S.tiSet && document.querySelector('#v-dash .dHdT').textContent === 'Preços');
               L.setView('inicio'); await w(350); document.querySelector('#v-inicio .tl[data-id="g:mkt"]').click(); await w(500); R.push(S.view === 'mkt');
               return R; }""")
             total += 1
-            ok = got == [True] * 7 and not any(re.search(r'\bg\.ult\b', t) for t in fontes.values()) and not pg.erros
+            ok = got == [True] * 6 and not any(re.search(r'\bg\.ult\b', t) for t in fontes.values()) and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Esboço 37a: grupo pelo Início abre o índice das telas (um jeito só, igual à barra); a tela abre, "‹ grupo" volta; Marketing abre a tela dele')
             if not ok: falhas.append('37a grupo abre o indice'); print('        veio', got, pg.erros)
             await pg.close()
@@ -5395,10 +5400,10 @@ async def main():
               const avs = () => document.querySelectorAll('#v-desp .ecF .ecNm small span').length;
               let contas = ![...document.querySelectorAll('#v-desp section')].some(x => /^Contas para pagar/.test(x.innerText.trim())); const n = avs();
               if (n) { const r = [...document.querySelectorAll('#v-desp .ecF')].find(x => x.querySelector('.ecNm small span')); r.querySelector('.chk').click(); await sl(400); contas = contas && avs() === n - 1; }
-              S.dTab = 'prec'; L.setView('dash'); await sl(500);
-              const ks = [...document.querySelectorAll('#v-dash .cntK')]; const kp = ks.find(k => /Preços para corrigir/.test(k.innerText));
-              const n1 = +(kp.querySelector('b').innerText), precos = !kp.dataset.act && (!n1 || !!document.querySelector('#v-dash .x66L'));  // 149dup: o número só mostra; quem abre a lista é a linha "N preços para corrigir ⌄"
-              if (n1) { document.querySelector('#v-dash .x66L').click(); await sl(500); }
+              L.inicioGo('prec'); await sl(500);
+              // 54: a linha "N preços para corrigir ›" do "O Titan decide hoje" leva à tela da lista, com a mesma contagem
+              const kp = document.querySelector('#v-dash .tiD .nvL[data-id=corr]'), n1 = kp ? +/^(\\d+)/.exec(kp.querySelector('b').textContent)[1] : 0, precos = n1 === L.invPrecosAcorrigir().length;
+              if (n1) { kp.click(); await sl(500); }
               const lista = !n1 || document.querySelectorAll('#v-dash .pcNaTela .pcLi').length === n1;
               return [contas, precos, lista, typeof L.ACT.d48Res === 'function' && typeof L.ACT.prodDesfaz === 'function']; }""")
             total += 1

@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 634;
+  var APP_BUILD = 635;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.53.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.54.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -21066,11 +21066,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
-    // 149p (aprovado 19/11 16:30): Preços mostra e decide; o preço automático liga no ⏻ do título e "Contas, taxas e meta" moram em Preços › Regras (46b).
-    // Aqui fica só o que o preço automático já mudou ("Esta semana", com desfazer) e os preços travados.
-    h += precosTelaHtml();
-    h += '<div class="cntAuto">' + precosAutoHtml() + '</div>';
-    return h;
+    // Preços = o escritório do Titan (54): a tela e os setores moram em precosTelaHtml (src/97z3-precos.js)
+    return precosTelaHtml();
   }
 
   // ---------- período das vendas (Hoje, Semana, Mês, 30 dias, Outro)
@@ -21657,7 +21654,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return a + (i.qty > 0 ? i.qty : 0);
       }, 0),
       rep = 0,
-      ct = S.cart ? S.cart.length : 0;
+      ct = S.cart ? S.cart.length : 0,
+      nTi = 0;
+    try {
+      nTi = titanDecide().length;
+    } catch (e) {}
     try {
       rep = reposicao().length;
     } catch (e) {}
@@ -21671,7 +21672,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       hoje: ['Dashboard', ['Dia, mês, reservas, giro e preços', '']], // S374 (49a)
       din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
-      prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
+      prec: ['Preços', nTi ? [nTi + ' a decidir', 'w'] : ['Regras, ofertas e atacado', '']], // 54: o escritório do Titan
       cat: ['Catálogo', ['WhatsApp', '']],
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
@@ -21779,9 +21780,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       setView('dia');
     } else if (id === 'giro') {
       return inicioGo('estoque'); // 66: a tela Giro saiu — o estado do estoque mora no Inventário (atalho antigo)
-    } else if (id === 'din' || id === 'prec') {
+    } else if (id === 'din') {
       S.dTab = id;
       setView('dash');
+    } else if (id === 'prec' || id.indexOf('ti:') === 0) {
+      return tiAbre(id.slice(3)); // Preços e os setores do escritório do Titan (54)
     } else if (id === 'repo') {
       return inicioGo('comp'); // a lista de compras mora em Compras (66)
     } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'vit' || id === 'prod' || id === 'pre' || id === 'cfg') {
@@ -22032,10 +22035,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       acomp = ag.filter(function (i) {
         return !urgente(i);
       });
-    h += '<div class="lbl" style="color:' + (urg.length ? 'var(--bad)' : 'var(--mute)') + '">Guardião · precisa de você agora · ' + urg.length + '</div>';
+    h += '<div class="lbl" style="color:' + (urg.length ? 'var(--bad)' : 'var(--mute)') + '">' + LF_TITAN + ' · precisa de você agora · ' + urg.length + '</div>';
     h += urg.length ? urg.map(cartao).join('') : '<section class="card"><b>Tudo em ordem.</b><div class="hint" style="margin:2px 0 0">Nada urgente agora.</div></section>';
     if (acomp.length) h += '<div class="lbl">Para acompanhar · ' + acomp.length + '</div>' + acomp.map(cartao).join('');
-    if (typeof ACT.guardAbre === 'function') h += '<button type="button" class="gBtn ntGd' + lkCls(true) + '" data-act="guardAbre">Ver todas as conferências do Guardião ›</button>';
+    if (typeof ACT.guardAbre === 'function') h += '<button type="button" class="gBtn ntGd' + lkCls(true) + '" data-act="guardAbre">Ver todas as conferências do ' + LF_TITAN + ' ›</button>';
     h += '<div class="lbl">Histórico</div>';
     h += S.notifs.length
       ? S.notifs
@@ -29171,7 +29174,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
     ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
     ['parado', 'Parados e sobrando', 'Peças › Inventário › Parados e sobrando', 'parado encalhado liquidacao saida sobrando sobra vender com saida oferta'],
-    ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
+    ['prec', 'Preços', 'Início › Preços', 'preco faixa piso margem tabela'],
     ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
     ['ped', 'Pedidos do site', 'Início › Pedidos', 'pedido site reserva pix'],
     ['onl', 'Loja online (painel do site)', 'Início › Loja', 'site painel lafouch.com vitrine destaque'],
@@ -44138,6 +44141,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // depois de sincronizar = sempre que o Início é desenhado). No Início: 1 cartão só com o que precisa do dono + botão;
   // tudo certo = 1 linha verde. Tocar abre todas as conferências por assunto; cada aviso explica a conta e leva à tela
   // que resolve. "Silenciar 7 dias" por aviso. Separado do porteiro (que testa o app antes de cada versão).
+  // O nome do guardião (Titan, dono 22/11) sai DESTA constante, em toda tela: Pendências, sino, Início e Preços.
+  var LF_TITAN = 'Titan';
   S.guardMudo = S.guardMudo || {};
   var GUARD_H = 36e5;
   function guardPedidos() { return (S.pedidos || []).filter(function (p) { return p && !p.teste && p.st !== 'canc'; }); }
@@ -44195,12 +44200,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // S265 (14/11/2026): no Início o Guardião é UMA linha que abre as Pendências; a lista mora lá (uma lista só)
     var nG = pr.length; // o número é o mesmo que as Pendências mostram em "precisa de você agora"
     try { if (typeof notifAgora === 'function' && typeof urgente === 'function') nG = Math.max(nG, notifAgora().filter(urgente).length); } catch (e) {}
-    return '<section class="card guardC guard1 noconta" data-act="view" data-id="notif" role="button" tabindex="0"><div class="guardT">' + guardIco() + '<b>Guardião · ' + nG + (nG === 1 ? ' coisa' : ' coisas') + ' para olhar</b><i class="guardCh" aria-hidden="true">›</i></div></section>';
+    return '<section class="card guardC guard1 noconta" data-act="view" data-id="notif" role="button" tabindex="0"><div class="guardT">' + guardIco() + '<b>' + LF_TITAN + ' · ' + nG + (nG === 1 ? ' coisa' : ' coisas') + ' para olhar</b><i class="guardCh" aria-hidden="true">›</i></div></section>';
   }
   // todas as conferências por assunto
   ACT.guardAbre = function () {
     lfJanela({
-      titulo: 'Guardião',
+      titulo: LF_TITAN,
       monta: function (c) {
         var L = guardChecks(), G = {};
         L.forEach(function (x) { (G[x.g] = G[x.g] || []).push(x); });
@@ -44227,7 +44232,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     guardChecks().forEach(function (c) {
       if (c.ok || c.mudo) return;
       var tt = c.tp || c.t;
-      if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
+      if (it.some(function (x) { return x.t === tt || x.t === c.t; })) return;
       if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
       if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
       it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
@@ -44907,7 +44912,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
       if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) {
         var sem = typeof temaSugestao === 'function' && !temaSugestao(t).n;
-        L.push({ t: 'tema', tit: t.nome + ' em ' + nDias(t.dias), sub: sem ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
+        L.push({ t: 'tema', tit: t.nome + ' em ' + nDias(t.dias), sub: sem ? 'nenhuma peça entra pela regra' : 'sugestão do tema pronta', v: sem ? 'Por quê' : 'Ver' });
       }
     } catch (e) {}
     try { paPlano().forEach(function (m) { if (m.kind !== 'oferta' && m.kind !== 'fim') return; (pa[m.kind] = pa[m.kind] || { t: 'pa', kind: m.kind, n: 0, itens: [] }).itens.push(m); pa[m.kind].n++; }); } catch (e) {}
@@ -45049,28 +45054,92 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ---------- 5 · fechamento do mês (guardião) ----------
   ACT.cntFech = function () { var d = new Date(), pm = new Date(d.getFullYear(), d.getMonth() - 1, 1), k = pm.getFullYear() + '-' + (pm.getMonth() + 1); S.cntFech[k] = 1; saveSoon(); lfJanela({ titulo: 'Fechamento do mês', monta: function (box) { box.innerHTML = '<div class="col" style="padding:0 16px 16px">' + (cntFechHtml(pm.getFullYear(), pm.getMonth()) || '<div class="hint">Sem vendas no mês passado.</div>') + '</div>'; } }); };
   function cntFechPend() { var d = new Date(); if (d.getDate() > 5) return 0; var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); return S.cntFech[pm.getFullYear() + '-' + (pm.getMonth() + 1)] ? 0 : 1; }
-  // ===== Preços (4b · aprovados 135h, 149l, 149pl, 149fe, 149pg, 149sc, 149dup; dono 21/11/2026 "implementar tudo") =====
-  // UMA função desenha a tela de Preços, de cima para baixo: os 4 números (só mostram), "Para decidir esta semana"
-  // (preços para corrigir que abrem ali, tema, uma linha por assunto do preço automático, uma linha por tabela de atacado)
-  // e FERRAMENTAS (Calculadora, E se…?, Regras); o preço automático liga no ⏻ do título (46b). Os dados já chegam agrupados de cntDecisoes().
-  // Antes eram três camadas: contadorHtml + src/98z-precos-s52.js (relia o HTML com regex) + o embrulho do 98z-s374.js.
-  var CNT_VER = {}; // assunto do preço automático aberto no "ver um por um" (oferta | fim)
+  // ===== Preços = o escritório do Titan (54 + 46b · COMO-FAZER-TITAN passo 3; dono 23/11 "faça tudo em partes") =====
+  // UMA função desenha a tela, de cima para baixo: "O Titan decide hoje · N" (uma linha por assunto; some com 0) e os
+  // SETORES em linhas ›: Regras · Ofertas · Atacado · Ferramentas · Histórico. Cada setor é uma tela própria com "‹ Preços"
+  // (a pilha da navegação: chave 'ti:<setor>', src/99c-navegacao-s435.js); o preço automático liga no ⏻ do título (46b).
+  // Saíram no mesmo passo: os 4 números (moram em Resultados › Dashboard do mês, 52e), a dobra "N preços para corrigir"
+  // (virou tela própria), as linhas das tabelas de atacado (vão para o setor Atacado) e a janela Regras (virou o setor).
+  var CNT_VER = {}; // assunto do preço automático aberto no "ver um por um" (oferta | fim), no setor Ofertas
   function cntPl(n, um, muitos) { return n + ' ' + (n === 1 ? um : muitos); }
-  function cntKpi(rot, v, sub, cor) { return '<div class="cntK"><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
   function cntLinha(tit, sub, fim, cls) { return '<div class="cntL' + (cls ? ' ' + cls : '') + '"><div><b>' + esc(tit) + '</b><small>' + esc(sub || '') + '</small></div>' + (fim || '') + '</div>'; }
-  // "N preços para corrigir ⌄": abre a lista ali mesmo (a mesma pcCorpo do Inventário)
-  function cntCorrigirHtml() {
-    var L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [];
-    if (!L.length) return '';
-    var nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length, semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length, ab = !!S.x66ab;
-    return '<div class="cntL x66L' + (ab ? ' on66' : '') + '" role="button" tabindex="0" data-act="x66" aria-expanded="' + ab + '"><div><b>' + cntPl(L.length, 'preço para corrigir', 'preços para corrigir') + '</b><small>' +
-      [nS ? nS + ' com sugestão do contador' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · ') + '</small></div><i class="ch66" aria-hidden="true">⌄</i></div>' +
-      (ab ? '<div class="x66"><div class="x66i"><div class="pcNaTela">' + pcCorpo(true) + '</div></div></div>' : '');
+  if (!ICO_D.oferta) ICO_D.oferta = '<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>';
+  if (!ICO_D.tag) ICO_D.tag = '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/>';
+  if (!ICO_D.dia) ICO_D.dia = '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>';
+  // ---------- os setores: UMA tabela (chave, título, frase de baixo do título, ícone) ----------
+  var TI_SET = {
+    regras: ['Regras', 'O que cada preço precisa cobrir', 'regras'],
+    ofertas: ['Ofertas', '', 'oferta'],
+    atacado: ['Atacado', '', 'ata'],
+    ferr: ['Ferramentas', '', 'calc'],
+    hist: ['Histórico', 'O que mudou de preço, quando e por quê', 'hist'],
+    corr: ['Preços para corrigir', '', 'tag']
+  };
+  Object.keys(TI_SET).forEach(function (k) { BARRA_NOME['ti:' + k] = TI_SET[k][0]; });
+  S.tiSet = '';
+  function tiSetor() { return S.view === 'dash' && S.dTab === 'prec' && TI_SET[S.tiSet] ? S.tiSet : ''; }
+  // abre um setor (ou a própria Preços, com k vazio): a pilha da navegação põe o "‹ Preços"
+  function tiAbre(k) {
+    S.tiSet = TI_SET[k] ? k : '';
+    S.dTab = 'prec';
+    if (S.view === 'dash') { render(); window.scrollTo(0, 0); } else setView('dash');
   }
+  ACT.tiAbre = function (k) { tiAbre(k); };
+  function tiLinha(act, id, icoK, tit, sub, subCor) {
+    return '<button type="button" class="nvL" data-act="' + act + '" data-id="' + esc(id || '') + '"><span class="nvIc">' + ico(icoK, 22) + '</span><span class="nvTx"><b>' + esc(tit) + '</b>' +
+      (sub ? '<small' + (subCor ? ' style="color:' + subCor + '"' : '') + '>' + esc(sub) + '</small>' : '') + '</span><i aria-hidden="true">›</i></button>';
+  }
+  // ---------- "O Titan decide hoje": uma linha por assunto (o mesmo cálculo serve a tela e a linha do Início) ----------
+  function titanDecide() {
+    var R = [], L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [];
+    if (L.length) {
+      var nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length, semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length;
+      R.push(['tiAbre', 'corr', 'tag', cntPl(L.length, 'preço para corrigir', 'preços para corrigir'),
+        [nS ? nS + ' com sugestão' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · '), 'var(--warn)']);
+    }
+    cntDecisoes().forEach(function (x) {
+      if (x.t === 'tema') R.push(['temaVer', '', 'dia', x.tit, x.sub]);
+      if (x.t === 'pa') R.push(['tiAbre', 'ofertas', 'oferta', x.kind === 'oferta' ? 'Pôr ' + cntPl(x.n, 'peça em oferta', 'peças em oferta') : cntPl(x.n, 'peça volta ao preço', 'peças voltam ao preço'), x.itens[0].mot.split(' · ')[0]]);
+    });
+    var d = new Date();
+    if (d.getDate() <= 5) {
+      var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1), t = lrMes(pm.getFullYear(), pm.getMonth());
+      if (t.qty) R.push(['cntFech', '', 'hoje', 'Fechamento de ' + pm.toLocaleDateString('pt-BR', { month: 'long' }), 'lucro real ' + gs(t.lucro) + ' · ' + cntPl(t.qty, 'peça', 'peças')]);
+    }
+    return R;
+  }
+  // as linhas das tabelas de atacado com margem baixa (o mesmo cálculo de cntDecisoes)
+  function tiTabBaixas() { return cntDecisoes().filter(function (x) { return x.t === 'tab'; }); }
+  function tiOfertasNoAr() {
+    var vis = {};
+    return (S.items || []).filter(function (it) {
+      var o = S.pprice[it.ref];
+      if (vis[it.ref] || !(it.qty > 0) || !o || !(o.ant > 0)) return false;
+      vis[it.ref] = 1;
+      return true;
+    });
+  }
+  function precosTelaHtml() {
+    var k = tiSetor();
+    if (k) return '<div class="cnt lx tiS" data-ti="' + k + '">' + TI_TELA[k]() + '</div>';
+    var D = titanDecide(), T = tabLista().filter(function (x) { return !x.pub; }), tb = tiTabBaixas(), no = tiOfertasNoAr().length,
+      nb = tb.reduce(function (a, x) { return Math.max(a, x.n); }, 0),
+      SET = [
+        ['regras', 'contas, taxas, meta e cotação da loja'],
+        ['ofertas', (no ? no + ' no ar' : 'nenhuma no ar') + ' · automático ' + (S.pAuto && S.pAuto.on ? 'ligado' : 'desligado')],
+        ['atacado', cntPl(T.length, 'tabela', 'tabelas') + (nb ? ' · ' + cntPl(nb, 'peça', 'peças') + ' abaixo de 10%' : '')],
+        ['ferr', 'calculadora de preço · e se…?'],
+        ['hist', 'o que mudou, quando e por quê']
+      ];
+    return '<div class="cnt lx">' +
+      (D.length ? '<div class="lbl tiLb">O ' + esc(LF_TITAN).toUpperCase() + ' DECIDE HOJE · ' + D.length + '</div><section class="nvLista tiD" aria-label="O ' + esc(LF_TITAN) + ' decide hoje">' +
+        D.map(function (x) { return tiLinha(x[0], x[1], x[2], x[3], x[4], x[5]); }).join('') + '</section>' : '') +
+      '<div class="lbl tiLb">SETORES</div><section class="nvLista tiSe" aria-label="Setores de Preços">' +
+      SET.map(function (s) { return tiLinha('tiAbre', s[0], TI_SET[s[0]][2], TI_SET[s[0]][0], s[1]); }).join('') + '</section></div>';
+  }
+  // ---------- as telas dos setores (cada uma mostra o que já existia; o desenho de cada uma vem nos passos 62–67) ----------
   var CNT_PA = { oferta: ['Pôr ', 'peça em oferta', 'peças em oferta', 'Oferta '], fim: ['', 'peça volta ao preço', 'peças voltam ao preço', 'Volta ao preço '] };
   function cntDecisaoHtml(x) {
-    if (x.t === 'tema') return cntLinha(x.tit, x.sub, lkSolto(x.v, 'temaVer'));
-    if (x.t === 'tab') return cntLinha('Tabela ' + x.tab.nome + ': ' + cntPl(x.n, 'peça', 'peças') + ' com margem baixa', 'abaixo de 10% · a menor está em ' + x.min + '%', lkSolto('Ajustar tabela', 'tabsheet', x.tab.id));
     var P = CNT_PA[x.kind], ab = !!CNT_VER[x.kind];
     return cntLinha(P[0] + cntPl(x.n, P[1], P[2]), x.itens[0].mot.split(' · ')[0], '<button type="button" class="lxT" data-act="cntVer" data-id="' + x.kind + '" aria-expanded="' + ab + '">ver um por um</button>') +
       (ab ? x.itens.map(function (m) {
@@ -45079,24 +45148,36 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<span class="cntUm"><button type="button" class="mini" data-act="cntAceita" data-id="' + id + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + id + '">Agora não</button></span></div>';
       }).join('') : '');
   }
-  var CNT_FERR = [['calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote', 'cntCalc'], ['ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda', 'cntEse'], ['regras', 'Regras', 'contas, taxas, meta e cotação da loja', 'cntRegras']];
-  function cntFerramentasHtml() {
-    return '<div class="lbl cntFeT">FERRAMENTAS</div><section class="nvLista cntFe" aria-label="Ferramentas de preço">' + CNT_FERR.map(function (x) {
-      return '<button type="button" class="nvL" data-act="' + x[3] + '"><span class="nvIc">' + ico(x[0], 22) + '</span><span class="nvTx"><b>' + x[1] + '</b><small>' + esc(x[2]) + '</small></span><i aria-hidden="true">›</i></button>';
-    }).join('') + '</section>';
-  }
-  function precosTelaHtml() {
-    var s = cntSaude(), D = cntDecisoes(), d = new Date(), dsc = cntDescontosTxt(s.mes), fech = '', pc = cntCorrigirHtml(),
-      nAc = D.reduce(function (a, x) { return a + (x.t === 'pa' ? x.n : 0); }, 0), n = D.length + (pc ? 1 : 0);
-    if (d.getDate() <= 5) { var pm = new Date(d.getFullYear(), d.getMonth() - 1, 1); fech = cntFechHtml(pm.getFullYear(), pm.getMonth()); }
-    return '<div class="cnt lx">' + fech +
-      '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
-      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + cntPl(s.falta, 'peça', 'peças') : '') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
-      '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + n + '</div>' +
-      (n ? pc + D.map(cntDecisaoHtml).join('') + (nAc ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div>' : '')
-        : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora.</div>') + '</section>' +
-      (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') + cntFerramentasHtml() + '</div>';
-  }
+  var TI_TELA = {
+    corr: function () { return '<div class="pcNaTela">' + pcCorpo(true) + '</div>'; },
+    regras: function () { return paMetaHtml() + precosCfgHtml() + pagamentoHtml(); },
+    ofertas: function () {
+      var D = cntDecisoes().filter(function (x) { return x.t === 'pa'; }), nAc = D.reduce(function (a, x) { return a + x.n; }, 0), O = tiOfertasNoAr(), dsc = cntDescontosTxt(new Date().getMonth());
+      return (D.length ? '<section class="card col cntD"><div class="lbl">O ' + esc(LF_TITAN).toUpperCase() + ' SUGERE · ' + nAc + '</div>' + D.map(cntDecisaoHtml).join('') +
+          '<div class="cntB"><button type="button" class="go" data-act="cntTudo">' + (nAc === 1 ? 'Aceitar o preço' : 'Aceitar os ' + nAc + ' preços') + '</button></div></section>' : '') +
+        '<div class="lbl tiLb">OFERTAS NO AR · ' + O.length + '</div>' +
+        (O.length ? '<section class="nvLista">' + O.map(function (it) {
+          var o = S.pprice[it.ref], p = tFor(it).price;
+          return tiLinha('tiPeca', it.ref, 'oferta', pn(it.ref), (o.ate ? 'até ' + fData(o.ate) + ' · ' : '') + gs(p));
+        }).join('') + '</section>' : '<div class="hint tiVz">Nenhuma peça em oferta agora.</div>') +
+        (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '');
+    },
+    atacado: function () {
+      var B = {};
+      tiTabBaixas().forEach(function (x) { B[x.tab.id] = x; });
+      return '<section class="nvLista">' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) {
+        var b = B[T.id];
+        return tiLinha('tabsheet', T.id, 'ata', T.nome + ' · ' + Math.round(+T.m || 0) + '%', b ? cntPl(b.n, 'peça', 'peças') + ' abaixo de 10% · a menor está em ' + b.min + '%' : 'todas as peças com margem boa', b ? 'var(--warn)' : '');
+      }).join('') + '</section>';
+    },
+    ferr: function () {
+      return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'quanto cobrar pelo custo e pelo lote') +
+        tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, contas, desconto ou meta: o que muda') + '</section>';
+    },
+    hist: function () { var h = precosAutoHtml(); return h ? '<div class="cntAuto">' + h + '</div>' : '<div class="hint tiVz">Nenhuma mudança de preço guardada ainda.</div>'; }
+  };
+  function fData(ts) { var d = new Date(ts); return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }
+  ACT.tiPeca = function (ref) { if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref); };
   function cntItem(id) {
     var p = String(id).split('|'), g = cntDecisoes().filter(function (x) { return x.t === 'pa' && x.kind === p[1]; })[0];
     return g ? g.itens.filter(function (m) { return m.ref === p[0]; })[0] : null;
@@ -45104,29 +45185,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.cntVer = function (k) { CNT_VER[k] = !CNT_VER[k]; lfRedesenha(); };
   ACT.cntAceita = function (id) { var m = cntItem(id); if (!m) return; paAplica(m); saveSoon(); lfToast('' + CNT_PA[m.kind][3] + m.ref + ' → ' + gs(m.para), 'ok'); render(); };
   ACT.cntIgnora = function (id) { var m = cntItem(id); if (!m) return; S.pAuto.ign = S.pAuto.ign || {}; S.pAuto.ign[m.ref + '|oferta'] = Date.now(); saveSoon(); render(); };
-  // "Aceitar os N preços" aceita exatamente o que a tela mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
+  // "Aceitar os N preços" aceita exatamente o que o setor mostra (ofertas e voltas); os que sobem moram nos "preços para corrigir"
   ACT.cntTudo = function () {
     var n = 0;
     cntDecisoes().forEach(function (x) { if (x.t === 'pa') x.itens.forEach(function (m) { paAplica(m); n++; }); });
     if (S.pAuto) S.pAuto.ult = Date.now();
-    saveSoon(); lfToast('' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Esta semana', 'ok'); render();
-  };
-  // Regras › (46b): contas, taxas, meta e cotação da loja saíram de Ajustes › Preços e moram aqui, numa janela de baixo
-  // (vira a tela Regras do escritório do Guardião na Parte 4)
-  ACT.cntRegras = function () {
-    lfJanela({ titulo: 'Regras', cls: 'rgJn', monta: function (c) { c.innerHTML = paMetaHtml() + precosCfgHtml() + pagamentoHtml(); } });
-  };
-  ACT.x66 = function () {
-    var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
-    if (S.x66ab && x) {
-      if (l) l.classList.remove('on66');
-      return lfFoldAnim(x, x.firstElementChild, l && l.querySelector('.ch66'), false, function () { S.x66ab = false; lfRedesenha(); });
-    }
-    S.x66ab = true;
-    if (S.view !== 'dash' || S.dTab !== 'prec') { S.dTab = 'prec'; return setView('dash'); }
-    lfRedesenha();
-    var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
-    if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
+    saveSoon(); lfToast('' + cntPl(n, 'preço ajustado', 'preços ajustados') + ' · dá para desfazer em Preços › Histórico', 'ok'); render();
   };
   // ===== Família INVENTÁRIO (a lista) — "implementar" do dono 22/11/2026 12:51 (esboços 52d, 52b, 52e e 58h) =====
   // Retrato do aprovado: work/s435/titan/inventario_aprovado.jpg · como fazer: work/s435/implementar/COMO-FAZER-INVENTARIO-52.md
@@ -48254,7 +48318,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
   // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
-  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', onl: 'Como o site está indo' };
+  var DT_FRASE = { hoje: 'Vendido, lucro livre e meta', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', onl: 'Como o site está indo' };
   var PER_OP = [
     ['hoje', 'Hoje'],
     ['semana', 'Esta semana'],
@@ -48295,12 +48359,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return x[0] === S.dTab;
       })[0] || DTABS[0],
       resumo = S.dTab === 'hoje',
+      ti = t[0] === 'prec' ? tiSetor() : '', // setor do escritório do Titan: título e frase do setor, sem o ⏻
+      fr = ti ? TI_SET[ti][1] : resumo ? perDatas(S.per) : DT_FRASE[t[0]] || '',
       cam = 'US$ 1 = ' + gsRaw(Math.round(S.fx.pyg)) + (lmOk() ? ' na casa' : ''),
       h =
-        '<div class="dHd"><h1 class="dHdT">' + t[1] + '</h1>' + // 149t: título de verdade, não botão
+        '<div class="dHd"><h1 class="dHdT">' + (ti ? esc(TI_SET[ti][0]) : t[1]) + '</h1>' + // 149t: título de verdade, não botão
         (resumo ? '<button type="button" class="dHdP' + lkCls(true) + '" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
-        (t[0] === 'prec' ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
-        '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
+        (t[0] === 'prec' && !ti ? botaoEstado('prec') : '') + // 46b: o preço automático liga e desliga aqui
+        '</div>' + (fr ? '<div class="dHdS">' + esc(fr) + '</div>' : ''); // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
         '<section class="cxSaldo dHdD"><div class="cxLb">Período</div><label class="cxL dD418"><span>De</span><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial"></label><label class="cxL dD418"><span>Até</span><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final"></label></section>';
@@ -49660,12 +49726,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.pprice[ref] = o;
     return true;
   }
-  ACT.pcAbre = function () {
-    S.dTab = 'prec';
-    S.x66ab = true; // S374 (esboço 66): a lista mora no Contador
-    setView('dash');
-    setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
-  };
+  ACT.pcAbre = function () { tiAbre('corr'); }; // a lista mora em Preços › Preços para corrigir (54)
   ACT.pcFecha = function () {
     lfaFecha('pcFolha');
   };
@@ -51656,28 +51717,35 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
 
   // ===== AS FAMÍLIAS — UMA tabela só (4c · 149r, aprovado 19/11; dono 21/11/2026 "implementar tudo") =====
-  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Resultados · Giro e preços · Site · Marketing · Clientes · Atacado.
+  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Resultados · Preços · Site · Marketing · Clientes · Atacado.
   // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"). Mudou a tabela → sobe o FAM_V:
   // o aparelho com S.famV menor recebe a tabela UMA vez (a mesma função na 1ª vez e em cada mudança). Família em que o dono
   // mexeu à mão (S.famMex[id], marcado por grpAdd/grpTira/grpDesfaz/renomear) não é tocada. As frases dos grupos moram só aqui.
   // Antes eram duas tabelas e cinco acertos em fila no iniLista, com marcas que não eram guardadas: docs/APP-COMO-FUNCIONA.md.
-  var FAM_V = 3, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai (Giro e preços fica só com Preços até o Titan)
+  var FAM_V = 4, // 2: Peças ganha Compras (66, 22/11) · 3: a tela Giro sai · 4: "Giro e preços" sai e Preços vira linha do Início (52a, Titan)
     FAMILIAS = [
       { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, estúdio e compras', itens: ['estoque', 'est', 'comp'] },
       { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, reservas, despesas e câmbio', itens: ['caixa', 'din', 'desp', 'fx'] }, // 149r: Reservas mora em Dinheiro
       { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
-      { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro e preços', itens: ['prec'] },
       { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, vitrine e modelos', itens: ['site', 'ped', 'msg', 'vit', 'prod'] },
       { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática, cartões e visitas', itens: ['mkt', 'tem', 'cup', 'anl'] }
     ],
     FAM_BARRA = ['vendas', 'g:pecas', 'g:din', 'ajustes'],
-    FAM_INICIO = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
+    FAM_INICIO = ['g:res', 'prec', 'g:site', 'g:mkt', 'cli', 'ata'],
+    FAM_SAI = ['g:gp']; // famílias que saíram da tabela: o grupo some (se o dono não mexeu) e as telas dele ficam soltas no lugar
   function famAplica() {
     if ((S.famV || 0) >= FAM_V) return false;
     S.famV = FAM_V;
     S.famMex = S.famMex || {};
     ['fam7', 'fam7b', 'fam6', 'fam63', 'fam80', 'fam95'].forEach(function (k) { delete S[k]; }); // as marcas das tabelas antigas
-    var nova = FAMILIAS.filter(function (f) { return !S.famMex[f.id]; }), tudo = [];
+    var nova = FAMILIAS.filter(function (f) { return !S.famMex[f.id]; }), tudo = [], solta = {};
+    S.grupos = (S.grupos || []).filter(function (g) {
+      if (FAM_SAI.indexOf(g.id) < 0 || S.famMex[g.id]) return true;
+      solta[g.id] = g.itens.slice();
+      return false;
+    });
+    var abre = function (L) { var r = []; (Array.isArray(L) ? L : []).forEach(function (x) { r = r.concat(solta[x] || [x]); }); return r; };
+    S.barra = abre(S.barra); S.inicioT = abre(S.inicioT);
     nova.forEach(function (f) { tudo = tudo.concat(f.itens); });
     // sai a versão antiga de cada família e todo grupo (não mexido pelo dono) que guardava uma tela que agora é de família
     S.grupos = (S.grupos || []).filter(function (g) {
@@ -53001,7 +53069,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     function nvRail() { return !!(window.matchMedia && matchMedia('(min-width:760px)').matches); }
     function nvChave() {
       var v = S.view;
-      if (v === 'dash') return S.dTab || 'hoje';
+      if (v === 'dash') return S.dTab === 'prec' && tiSetor() ? 'ti:' + S.tiSet : S.dTab || 'hoje';
       if (v === 'clientes') return 'cli';
       if (v === 'grp') return 'grp:' + S.nvG;
       if (v === 'estoque' && S.lotesView) return 'lotes';
