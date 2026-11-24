@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795531202.941861,
+   "r": "Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado."
+  },
+  {
    "t": 1795530157.566391,
    "r": "Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total."
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795369800.1692832,
    "r": "App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'."
-  },
-  {
-   "t": 1795276981.3124948,
-   "r": "39: site sem final único conferido (código + teste de compra 14/14). Falta só a parte do APP."
   }
  ],
  "leu": 1795531197.8164535
