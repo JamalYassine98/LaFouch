@@ -1,14 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "reserva suspeita parte 2: notificação no celular (por dentro)",
- "arquivos": [
-  "functions/suspeita.js",
-  "functions/index.js",
-  "functions/teste-suspeita.js",
-  "functions/teste-portas.js",
-  "docs/NUVEM-COMO-FUNCIONA.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795502859.114919,
+   "r": "Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions)."
+  },
   {
    "t": 1795502431.922189,
    "r": "Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado."
@@ -44,10 +42,6 @@
   {
    "t": 1795267175.2697825,
    "r": "39 preço exato: parte da nuvem publicada e conferida (valor exato, motivos no sem par, ação ligar); recados ao SITE e ao APP com as partes deles. Estudo do giro respondido ao ESBOCO."
-  },
-  {
-   "t": 1795259043.8031511,
-   "r": "Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono."
   }
  ],
  "leu": 1795502766.4960222
