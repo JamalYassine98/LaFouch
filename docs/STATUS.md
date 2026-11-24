@@ -168,6 +168,7 @@
 - para **ESBOCO**: v633 (5.52.0) PUBLICADA: Parte 2 (Ajustes aprovado, ⏻ em Pedidos e Preços, Regras, Marca no Marketing, fretes em Ajustes do site, Fornecedores 89b, leitor do PI
 - para **ESBOCO**: v634 (5.53.0) PUBLICADA: Parte 3 — Adicionar (Chegou mercadoria · Preencher à mão), cadastro em linhas, escolher na janela (também no Editar produto), Cores sem
 - para **ESBOCO**: v635 publicado (Parte 4a do Titan): Início sem 'Giro e preços' (Preços é linha própria), Preços = 'O Titan decide hoje · N' + setores Regras · Ofertas · Atacado
+- para **ESBOCO**: v636 publicado (Parte 4b, 62): Preços › Regras com Cada venda cobre · Dólar da loja · O Titan aprende com você · Seu objetivo (dobras ⌄); o Câmbio perdeu 'Preço
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
