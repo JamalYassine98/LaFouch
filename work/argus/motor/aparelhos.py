@@ -6,7 +6,7 @@ _dono = json.load(open(os.path.join(D, 'aparelho_dono.json')))
 # nome: (largura, altura, pontos por pixel, toque)
 FAIXA = {
     'celular 320': (320, 640, 2, True), 'celular 360': (360, 760, 3, True), 'celular 390': (390, 844, 3, True),
-    'Xiaomi 13T (dono)': (_dono['tela_css'][0], _dono['tela_css'][1], _dono['pontos_por_pixel'], True),
+    'Xiaomi 13T (dono)': (_dono['tela_util_apk'][0], _dono['tela_util_apk'][1], _dono['pontos_por_pixel'], True),   # a área útil dentro do APK (sem as barras do Android)
     'celular 430': (430, 932, 3, True), 'celular deitado': (915, 412, 3, True),
     'tablet 768': (768, 1024, 2, True), 'tablet deitado': (1180, 820, 2, True),
     'PC 1280': (1280, 800, 1, False), 'PC 1440': (1440, 900, 1, False), 'PC 1920': (1920, 1080, 1, False), 'PC 2560': (2560, 1440, 1, False),

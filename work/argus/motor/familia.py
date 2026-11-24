@@ -10,7 +10,10 @@ COLETA = r"""()=>{
  const vis=e=>{const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
  const own=e=>[...e.childNodes].filter(n=>n.nodeType==3).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
  const cv=document.createElement('i');document.body.appendChild(cv);const rgb=v=>{cv.style.color='';cv.style.color=v;return getComputedStyle(cv).color};
- const rs=getComputedStyle(document.documentElement);for(let i=0;i<rs.length;i++){const k=rs[i];if(k.startsWith('--')){const v=rs.getPropertyValue(k).trim();if(/^#|^rgb|^hsl/.test(v))out.paleta.push(rgb(v))}}cv.remove();
+ // paleta oficial = as variáveis de cor do próprio CSS do app (nomes lidos das folhas de estilo; valor resolvido no tema de agora)
+ const rs=getComputedStyle(document.documentElement),nomes=new Set();for(let i=0;i<rs.length;i++)if(rs[i].startsWith('--'))nomes.add(rs[i]);
+ for(const sh of document.styleSheets){let rr;try{rr=sh.cssRules}catch(e){continue}for(const r of rr||[]){const t=r.cssText||'';for(const m of t.matchAll(/(--[\w-]+)\s*:/g))nomes.add(m[1])}}
+ for(const k of nomes){const v=rs.getPropertyValue(k).trim();if(/^#|^rgb|^hsl/.test(v))out.paleta.push(rgb(v))}cv.remove();
  const sy=scrollY;
  for(const e of document.querySelectorAll('body *')){
   if(e.closest('svg')&&e.tagName.toLowerCase()!='svg')continue;if(!vis(e))continue;

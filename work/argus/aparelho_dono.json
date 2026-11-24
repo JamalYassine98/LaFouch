@@ -3,14 +3,24 @@
  "modelo": "Xiaomi 13T (2306EPN60G)",
  "sistema": "HyperOS 3.0.4.0 · Android 16 (BP2A.250605.031.A3)",
  "motor": "Android WebView · Chrome 157.0.8103.50 (o mesmo do APK)",
- "tela_css": [407, 904],
+ "tela_css": [
+  407,
+  904
+ ],
  "pontos_por_pixel": 3.0,
- "pixels_reais": [1221, 2712],
+ "pixels_reais": [
+  1221,
+  2712
+ ],
  "tamanho_da_exibicao": "padrão (meio)",
  "fonte": "padrão do sistema · 100%",
  "tema": "escuro",
  "reduzir_movimento": false,
  "toque": "dedo · 5 pontos",
- "bordas_seguras": "0 / 0 no WebView do Claude; no APK medir com o emulador (barra de cima e de baixo)",
- "app": "APK instalado"
+ "bordas_seguras": "no APK: barra de cima + botões de baixo do Android = 72 pontos (medido no emulador do Argus, 24/11 20:30, com o tamanho do Xiaomi); a área útil do app é 407 × 832",
+ "app": "APK instalado",
+ "tela_util_apk": [
+  407,
+  832
+ ]
 }

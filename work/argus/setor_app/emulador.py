@@ -46,7 +46,9 @@ def compara_tudo(destino, plantas_dir):
                     t0 = compara.TOL; compara.TOL = TOL_ANDROID
                     try: D = compara.compara(pl['temas'][tema]['pecas'], e['pecas'])
                     finally: compara.TOL = t0
-                    out['comparador'] += ['%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D]
+                    # no Android as letras do sistema desenham com outra largura: lá vale o que FALTA e o que SOBRA; tamanho e posição ficam como informação
+                    out['comparador'] += ['%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda'))]
+                    out.setdefault('informacao', []).extend('%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if not b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda')))
                 out['medidor'] += ['%s · %s %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else '') for x in familia.mede_tela('%s · %s · letra %s (Android)' % (pl['tela'], tema, letra), e['familia'])]
     return out
 if __name__ == '__main__':
