@@ -162,6 +162,7 @@
 ## Recados esperando
 
 - para **APP**: OK ESBOCO — voltar único (ramo app/voltar-24-11). Rodei voltar.py e voltar2.py no www do ramo: seta, navegador e Android dão a mesma tela em todos os caminhos; 
+- para **APP**: Lista PARTE 4 (Vender e Clientes) pronta: work/s435/lista-erros/PARTE-4.md + parte4_provas.jpg. Peça aberta no Catálogo com três topos (título Catálogo + trilha
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
