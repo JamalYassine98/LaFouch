@@ -34,7 +34,7 @@ function dbFake(compras) {
   ok(!r.ok && r.motivo === 'fim' && env.length === 0 && !Object.values(db.m).length, 'boas-vindas: acabou (nenhum cupom, nenhum e-mail)');
   r = await C.boasVindas(db, envia, { email: 'x@y.com', antigo: true }, T0); ok(!r.ok, 'boas-vindas: nenhum jeito de pedir o cupom antigo');
   // usar no site (cartão avulso do dono, 1 uso)
-  const av0 = (await C.emitir(db, { tipo: 'px', pct: 10, tel: '0981123456' }, T0)).cod;
+  const av0 = (await C.emitir(db, { tipo: 'px', tel: '0981123456', venda: 'V0', total: 150000 }, T0 - 8 * D)).cod;
   r = await C.ver(db, { cod: av0.toLowerCase(), tel: '0981123456' }, 'ip1', T0); ok(r.ok && r.cupom.pct === 10, 'confere o código (minúscula também vale)');
   let e = ''; try { await C.usar(db, { cod: av0, tel: '0981123456', total: 200000, desc: 50000, pid: 'P1' }, 'ip1', T0); } catch (x) { e = x.motivo; } ok(e === 'desc', 'desconto maior que o % é recusado');
   r = await C.usar(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com', total: 245000, desc: 24000, pid: 'P1' }, 'ip1', T0);
@@ -115,7 +115,8 @@ function dbFake(compras) {
   r = await C.diario(db, envia, Date.UTC(2027, 2, 5, 20)); ok(r.aniversarios === 0, 'aniversário: uma vez por ano');
   db.cliM['555'] = { nasc: '05/03', nome: 'Sem VIP', email: 'n@x.com' }; r = await C.diario(db, envia, Date.UTC(2028, 2, 5, 15)); ok(!Object.values(db.m).some((c) => c.tipo === 'ani' && c.tel === '555'), 'quem não é VIP não recebe presente de aniversário');
   mm = await C.meus(db, 'vip@x.com', T0 + 2 * D); ok(mm.vip === T0, 'Minha conta recebe o status VIP');
-  r = await C.emitir(db, { tipo: 'px', pct: 20, tel: '0986222', nome: 'Maria González', email: 'agrado@x.com' }, T0, envia);
+  r = await C.emitir(db, { tipo: 'px', pct: 20, tel: '0986222', nome: 'Maria González', email: 'agrado@x.com', venda: 'V61g', total: 180000 }, T0, envia);
+  ok(r.ok && r.cupom.pct === 10, 'loja (24/11): a Próxima compra é sempre 10%, mesmo pedindo outro %');
   ok(r.enviou && /Um presente da La Fouch/.test(ult().subject) && ult().html.indexOf('>' + r.cod + '<') < 0, '61g: cartão avulso do dono vai por e-mail, sem o código à vista');
   ok(/Tu compra llegó/.test(C.mailPresente(Object.assign({}, db.m[px], { tipo: 'px', de: '' }), true).subject) && /alguien especial/.test(C.mailConvite(db.m[am], true).html) && /sorpresa/.test(C.mailIndicou(c1, true, 1).html), 'e-mails em espanhol');
 
@@ -127,7 +128,7 @@ function dbFake(compras) {
   // dois pedidos no mesmo segundo com um cupom de 1 uso → só um leva (transação)
   let fila = Promise.resolve();
   db.trans = (k, fn) => { const p = fila.then(async () => { const c = JSON.parse(JSON.stringify(db.m[k] || null)); let w = null; const r2 = await fn(c, (o) => { w = o; }); if (w) Object.assign(db.m[k], w); return r2; }); fila = p.catch(() => {}); return p; };
-  const u1 = await C.emitir(db, { tipo: 'px', tel: '0983444555', email: '' }, T0), cu = u1.cupom.cod;
+  const u1 = await C.emitir(db, { tipo: 'px', tel: '0983444555', email: '', venda: 'VQ', total: 200000 }, T0 - 8 * D), cu = u1.cupom.cod;
   const [ra, rb] = await Promise.all([C.usar(db, { cod: cu, tel: '0983444555', total: 200000, desc: 20000, pid: 'Q1' }, 'ipQ', T0 + 1), C.usar(db, { cod: cu, tel: '0983444555', total: 200000, desc: 20000, pid: 'Q2' }, 'ipQ', T0 + 1)]);
   ok([ra, rb].filter((x) => x.ok).length === 1 && db.m[cu].usos.length === 1, 'BURLA (duas abas): cupom de 1 uso vale só para um pedido');
   const tv = {}; db.trava = async (k) => { if (tv[k]) return false; tv[k] = 1; return true; }; db.criaSe = async (k, o) => { if (db.m[k]) return false; db.m[k] = JSON.parse(JSON.stringify(o)); return true; }; db.espera = 5;
@@ -137,6 +138,19 @@ function dbFake(compras) {
   const nz = env.length;
   const [e1, e2] = await Promise.all([C.entregue(db, envia, { pid: 'Z1' }, T0 + D), C.entregue(db, envia, { pid: 'Z1' }, T0 + D)]);
   ok([e1, e2].filter((x) => !x.fora).length === 1 && env.length === nz + 1, 'marcar entregue em 2 aparelhos juntos = 1 presente e 1 e-mail');
+  // ---- 24/11: Próxima compra da LOJA (o dono escolhe dar, só dentro da regra) ----
+  const dbL = dbFake([]), L0 = T0 + 400 * D;
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', venda: 'L1', total: 149999 }, L0); ok(!r.ok && r.motivo === 'min' && r.min === 150000, 'loja: venda abaixo de G$ 150.000 não ganha');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '', venda: 'L1', total: 300000 }, L0); ok(!r.ok && r.motivo === 'cadastro', 'loja: só com cliente cadastrado (telefone)');
+  e = ''; try { await C.emitir(dbL, { tipo: 'px', tel: '0985000111', total: 300000 }, L0); } catch (x) { e = x.motivo; } ok(e === 'venda', 'loja: sem a venda não nasce (nada à mão fora da regra)');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', venda: 'L1', total: 150000 }, L0);
+  const cl = dbL.m[r.cod]; ok(r.ok && cl.pct === 10 && cl.ini === L0 + 7 * D && cl.fim === L0 + 97 * D && cl.max === 1, 'loja: 10%, começa em 7 dias e vale 90');
+  r = await C.ver(dbL, { cod: cl.cod, tel: '0985000111' }, 'ipL', L0 + 6 * D); ok(!r.ok && r.motivo === 'cedo', 'loja: antes de 7 dias não vale');
+  r = await C.ver(dbL, { cod: cl.cod, tel: '0985000111' }, 'ipL', L0 + 8 * D); ok(r.ok, 'loja: depois de 7 dias vale');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', venda: 'L1', total: 150000 }, L0 + 1); ok(r.ok && r.cod === cl.cod && Object.keys(dbL.m).length === 1, 'loja: a mesma venda duas vezes = um cartão só');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', venda: 'L2', total: 500000 }, L0 + 2 * D); ok(!r.ok && r.motivo === 'tem' && r.fim === cl.fim, 'loja: um por vez — com um sem usar, não nasce outro');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', venda: 'L3', total: 200000 }, L0 + 98 * D); ok(r.ok && r.cod !== cl.cod, 'loja: o anterior venceu, pode ganhar de novo');
+  ok(C.PADRAO.px.dias === 120, 'site intocado: a Próxima compra do site continua com 120 dias');
   console.log(falhas ? falhas + ' FALHA(S)' : 'cupom: tudo ok');
   process.exit(falhas ? 1 : 0);
 })();

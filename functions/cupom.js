@@ -28,6 +28,9 @@ const { Falha } = require('./falha');
 const DIA = 864e5;
 const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem O/0 e I/1
 const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 20, dias: 120, min: 0 }, fiel: { pct: 10, dias: 120, min: 0, cada: 3 }, pe: { pct: 0, dias: 120, min: 0 }, ani: { pct: 10, dias: 30, min: 0 } };
+// 24/11 (dono): Próxima compra DA LOJA FÍSICA — o dono escolhe dar (o Titan sugere), mas só dentro da regra: venda de G$ 150.000 ou mais,
+// cliente cadastrado (telefone), um por vez, 10% sempre (o piso do Titan cobre), começa 7 dias depois e vale 90. O site não muda.
+const LOJA = { min: 150000, pct: 10, inicio: 7, dias: 90 };
 const TETO_MES = 500000, AMIGA_MES = 5, TEL_DIF = 4, ERRADOS_HORA = 30;
 const CONVITE_DIAS = 14, ENTRE_PRESENTES = 30;
 // escada (S409): posição dentro do ciclo de 9 indicações → prêmio. 1 = 10% · 4 (1+3) = 15% · 9 (1+3+5) = presente especial
@@ -313,6 +316,7 @@ async function libera(db, b, agora) {
 async function emitir(db, b, agora, envia) {
   const tipo = ['vip', 'px', 'am', 'ev'].indexOf(b.tipo) >= 0 ? b.tipo : '';
   if (!tipo) throw new Falha('tipo');
+  if (tipo === 'px') return emitirLoja(db, b, agora, envia);
   const pct = Math.round(+b.pct || (PADRAO[tipo] || {}).pct || 0);
   if (!(pct >= 1 && pct <= 30)) throw new Falha('pct');
   const o = { tipo, pct, email: emN(b.email), tel: telN(b.tel), nome: limpa(b.nome, 60), min: Math.max(0, Math.round(+b.min || 0)) };
@@ -322,7 +326,6 @@ async function emitir(db, b, agora, envia) {
     Object.assign(o, { cod, ini: +b.ini || agora, fim: +b.fim || agora + 30 * DIA, max: Math.max(1, Math.min(1000, Math.round(+b.max || 50))), tel: '', email: '', tema: limpa(b.tema, 20) });
   } else if (tipo === 'vip') Object.assign(o, { fim: +b.fim > agora ? +b.fim : agora + PADRAO.vip.dias * DIA, max: Math.max(1, Math.min(50, Math.round(+b.max || 1))) }); // validade e nº de compras: o dono escolhe; padrão 1 compra · 20%
   else if (tipo === 'am') Object.assign(o, { fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: o.tel, email: o.email }, tel: '' });
-  else Object.assign(o, { fim: agora + PADRAO.px.dias * DIA, max: 1 });
   if (tipo !== 'ev') o.lang = b.lang === 'es' ? 'es' : 'pt';
   const c = await cria(db, o, agora);
   // S409: o VIP ganha o STATUS para sempre ("Cliente VIP desde …") e, se o dono informar, a data de aniversário (dd/mm) para o cartão de 10%
@@ -334,7 +337,23 @@ async function emitir(db, b, agora, envia) {
   }
   // S400: o cartão que o dono gera vai por e-mail quando ele informa o e-mail do cliente (esboços 61f e 61g; S409: 68b)
   let enviou = false;
-  if (envia && c.email && (tipo === 'vip' || tipo === 'px')) try { await envia(tipo === 'vip' ? mailVip(c, c.lang === 'es', novoVip) : mailLoja(c, c.lang === 'es')); enviou = true; } catch (e) {}
+  if (envia && c.email && tipo === 'vip') try { await envia(mailVip(c, c.lang === 'es', novoVip)); enviou = true; } catch (e) {}
+  return { ok: true, cupom: publico(c, agora), cod: c.cod, enviou };
+}
+// a Próxima compra da loja (caixa do app, só o dono): a venda vem junto (id e total) e a regra LOJA decide se pode nascer
+async function emitirLoja(db, b, agora, envia) {
+  const tel = telN(b.tel), venda = limpa(b.venda, 40), total = Math.round(+b.total || 0);
+  if (!tel) return { ok: false, motivo: 'cadastro' };
+  if (!venda) throw new Falha('venda');
+  if (!(total >= LOJA.min)) return { ok: false, motivo: 'min', min: LOJA.min };
+  const de = 'loja:' + venda, ja = await db.porPid(de, 'px');
+  if (ja) return { ok: true, cupom: publico(ja, agora), cod: ja.cod, enviou: false };
+  const vivoPx = (await db.doTel(tel)).find((c) => c.tipo === 'px' && c.st !== 'fila' && c.st !== 'pend' && ['', 'cedo', 'trava'].indexOf(vivo(c, agora)) >= 0);
+  if (vivoPx) return { ok: false, motivo: 'tem', fim: vivoPx.fim || 0 };
+  const ini = agora + LOJA.inicio * DIA;
+  const c = await cria(db, { tipo: 'px', pct: LOJA.pct, ini, fim: ini + LOJA.dias * DIA, max: 1, min: 0, email: emN(b.email), tel, nome: limpa(b.nome, 60), pid: de, de, lang: b.lang === 'es' ? 'es' : 'pt' }, agora);
+  let enviou = false;
+  if (envia && c.email) try { await envia(mailLoja(c, c.lang === 'es')); enviou = true; } catch (e) {}
   return { ok: true, cupom: publico(c, agora), cod: c.cod, enviou };
 }
 async function cancelar(db, b) {
@@ -480,4 +499,4 @@ function mail(c, es, am) {
     html: E.molde(h1, E.P(intro) + E.cartao(rot, n + (bv ? (es ? ' en tu primera compra' : ' na primeira compra') : (es ? ' en tu próxima compra' : ' na próxima compra')), c.cod, val(c, true), true) + E.B(es ? 'Usar ahora' : 'Usar agora', l) + amiga + regra),
   };
 }
-module.exports = { Falha, PADRAO, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailIndicou, mailEspecial, mailVip, mailAni, mailLoja, blocoEvento, escada, CICLO, PREMIO };
+module.exports = { Falha, PADRAO, LOJA, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailIndicou, mailEspecial, mailVip, mailAni, mailLoja, blocoEvento, escada, CICLO, PREMIO };
