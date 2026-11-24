@@ -160,7 +160,7 @@
 - **97-frases-dos-cartoes** — pendente — estudar depois (dono 24/11 00:37)
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'
 - **99-lucro-kit-realista** — 99b v2 aprovado · do 99d v2 só a contagem e 'Kit de Natal na caixa' (aprovado 13:47); janela superada pelo 103 · 99a cancelado (cartão de luxo no 98 v6)
-- **argus-novo** — Parte 0 feita (23/23) — esperando o dono para a Parte 1
+- **argus-novo** — Parte 1 feita (13/13) — esperando o dono para a Parte 2
 
 ## Recados esperando
 
@@ -224,28 +224,28 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
-- 24/11 14:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
-- 24/11 14:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
-- 24/11 14:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
-- 24/11 14:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
-- 24/11 14:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
-- 24/11 13:41 — ESBOCO: Titan 3b: calendário, sem internet e emulador Android rodando; achados 25a (em 0 dias) e 25b (sem internet não avisa)
-- 24/11 13:40 — NUVEM: Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue.
-- 24/11 12:45 — ESBOCO: Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)
-- 24/11 12:17 — NUVEM: Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono.
-- 24/11 11:51 — ESBOCO: Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b
-- 24/11 11:35 — ESBOCO: Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista
-- 24/11 10:32 — ESBOCO: CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)
-- 24/11 10:18 — ESBOCO: OK do voltar único (v641); lista de erros completa × esboços aprovados: 23 itens em work/s435/lista-erros/PARTE-1..5.md, com ordem para a APP
-- 24/11 09:26 — APP: v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez.
-- 24/11 06:47 — NUVEM: Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions).
-- 24/11 06:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada
-- 24/11 06:40 — NUVEM: Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado.
-- 24/11 06:21 — ESBOCO: conferidos v632–v640 (Partes 1–4 do plano): medidor 0 falhas em 20 telas claro/escuro; desvios da v637 aceitos; recados lidos; resposta à APP; estado do esboço famílias ao dono
-- 24/11 03:38 — IDEIAS: temáticas 94+95 enviadas ao SITE para implementar
-- 24/11 03:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
-- 24/11 03:36 — IDEIAS: aprovado sem enfeite; Noir descartado
-- 24/11 02:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
-- 23/11 20:00 — IDEIAS: 12f enfeites + Edição Noir
-- 23/11 19:56 — IDEIAS: 12e aprovado nas 6 datas
-- 23/11 19:54 — IDEIAS: 12e: BF e Halloween levemente clareados
+- 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
+- 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
+- 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
+- 24/11 11:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
+- 24/11 11:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
+- 24/11 10:41 — ESBOCO: Titan 3b: calendário, sem internet e emulador Android rodando; achados 25a (em 0 dias) e 25b (sem internet não avisa)
+- 24/11 10:40 — NUVEM: Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue.
+- 24/11 09:45 — ESBOCO: Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)
+- 24/11 09:17 — NUVEM: Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono.
+- 24/11 08:51 — ESBOCO: Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b
+- 24/11 08:35 — ESBOCO: Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista
+- 24/11 07:32 — ESBOCO: CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)
+- 24/11 07:18 — ESBOCO: OK do voltar único (v641); lista de erros completa × esboços aprovados: 23 itens em work/s435/lista-erros/PARTE-1..5.md, com ordem para a APP
+- 24/11 06:26 — APP: v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez.
+- 24/11 03:47 — NUVEM: Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions).
+- 24/11 03:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada
+- 24/11 03:40 — NUVEM: Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado.
+- 24/11 03:21 — ESBOCO: conferidos v632–v640 (Partes 1–4 do plano): medidor 0 falhas em 20 telas claro/escuro; desvios da v637 aceitos; recados lidos; resposta à APP; estado do esboço famílias ao dono
+- 24/11 00:38 — IDEIAS: temáticas 94+95 enviadas ao SITE para implementar
+- 24/11 00:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
+- 24/11 00:36 — IDEIAS: aprovado sem enfeite; Noir descartado
+- 23/11 23:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
+- 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
+- 23/11 16:56 — IDEIAS: 12e aprovado nas 6 datas
+- 23/11 16:54 — IDEIAS: 12e: BF e Halloween levemente clareados
