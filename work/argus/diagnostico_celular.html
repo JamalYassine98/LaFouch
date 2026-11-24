@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Medidas do celular</title>
+<style>
+/* VOICE: ficha técnica calma · IDEA: a etiqueta de medidas de um aparelho · PICTURE: a moldura do celular com as medidas
+   COLOUR and TYPE: branco/noite, vinho da marca como acento; Inter · LAYOUT: uma coluna, moldura no topo, ficha embaixo */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#101216);--ink:light-dark(#14161a,#eceef2);--mute:light-dark(#5d6470,#9aa2ae);--line:light-dark(#e3e6eb,#262a32);--ac:light-dark(#8c2f5a,#e58ab0)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
+main{max-width:560px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:32px;line-height:1.05;margin:0 0 8px;font-weight:600;text-wrap:balance}
+p.s{color:var(--mute);margin:0 0 24px}
+.cel{margin:0 auto 24px;width:min(240px,60vw);aspect-ratio:9/19;border:3px solid var(--ink);border-radius:32px;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.cel b{font-size:clamp(28px,9vw,40px);color:var(--ac);font-variant-numeric:tabular-nums}
+.cel small{color:var(--mute);font-size:13px}
+.lin{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);min-height:48px;align-items:baseline}
+.lin span{color:var(--mute)}.lin b{text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;font-weight:600}
+button{margin-top:24px;width:100%;min-height:48px;border-radius:24px;border:1px solid var(--ac);background:transparent;color:var(--ac);font:600 16px Inter,system-ui,sans-serif}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+#sa{position:fixed;left:0;top:0;width:0;height:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);visibility:hidden}
+#pr{position:absolute;visibility:hidden;font-size:16px;white-space:nowrap;font-family:sans-serif}
+</style></head><body>
+<main>
+<h1>Medidas do seu celular</h1>
+<p class="s">Para o simulador copiar o seu aparelho. Tire um print desta tela inteira e mande na conversa.</p>
+<div class="cel"><b id="tam">—</b><small>largura × altura da tela</small></div>
+<div id="lista"></div>
+<button id="cp" type="button">Copiar as medidas</button>
+<p class="s" id="ok" style="margin-top:12px"></p>
+</main>
+<div id="sa"></div><span id="pr">MMMMMMMMMMMMMMMMMMMM</span>
+<script>
+{
+const $=id=>document.getElementById(id);
+const q=m=>matchMedia(m).matches;
+function medir(){
+  const sa=getComputedStyle($('sa')),dpr=devicePixelRatio,vv=window.visualViewport;
+  const pr=$('pr').getBoundingClientRect().width/20/16;
+  const L=[
+   ['Tela do app (CSS)',innerWidth+' × '+innerHeight+' px'],
+   ['Tela do aparelho (CSS)',screen.width+' × '+screen.height+' px'],
+   ['Pontos por pixel',dpr.toFixed(3)],
+   ['Pixels reais',Math.round(screen.width*dpr)+' × '+Math.round(screen.height*dpr)],
+   ['Zoom da página',vv?vv.scale.toFixed(2):'—'],
+   ['Letra (16 px vira)',(16*pr).toFixed(1)+' px de largura média · fator '+pr.toFixed(3)],
+   ['Tema do sistema',q('(prefers-color-scheme: dark)')?'escuro':'claro'],
+   ['Reduzir movimento',q('(prefers-reduced-motion: reduce)')?'sim':'não'],
+   ['Toque',(navigator.maxTouchPoints||0)+' dedos · '+(q('(pointer: coarse)')?'dedo':'mouse')],
+   ['Bordas seguras (cima/baixo)',sa.paddingTop+' / '+sa.paddingBottom],
+   ['Navegador',navigator.userAgent]
+  ];
+  $('tam').textContent=innerWidth+' × '+innerHeight;
+  $('lista').innerHTML=L.map(x=>'<div class="lin"><span>'+x[0]+'</span><b></b></div>').join('');
+  [...document.querySelectorAll('.lin b')].forEach((b,i)=>b.textContent=L[i][1]);
+  return L.map(x=>x[0]+': '+x[1]).join('\n');
+}
+let txt=medir();
+addEventListener('resize',()=>{txt=medir()});
+$('cp').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(txt);$('ok').textContent='Copiado. Cole na conversa.'}catch(e){$('ok').textContent='Não deu para copiar aqui; mande o print.'}});
+}
+</script>
+</body></html>
