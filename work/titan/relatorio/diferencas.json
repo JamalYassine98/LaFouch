@@ -1,0 +1,516 @@
+{
+ "Início": [
+  {
+   "tipo": "falta",
+   "peca": "□button|Ver em quadrados#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~11#2",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "small|Vendido hoje · 5 venda(s)#1",
+   "dif": "x 95→68; y 289→214 (desloca -75)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|›#1",
+   "dif": "x 338→355"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Vendido hoje · 5 venda(s#1",
+   "dif": "x 49→24; cor rgb(139, 155, 176)→rgb(148, 61, 111); borda 0px rgb(139, 155, 176)→0px rgb(148, 61, 111)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "b|G$ 360.000#1",
+   "dif": "x 95→68"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Resultados#1",
+   "dif": "x 42→64; w 71→278; h 19→23; y 436→332 (desloca -29); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~ResultadosDashboard · Hi#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#2",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|Dashboard · Histórico#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Preços#1",
+   "dif": "x 173→64; w 44→278; h 19→23; y 436→396 (desloca +64); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~Preços2 a decidir›#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#3",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|2 a decidir#1",
+   "dif": "x 142→64; w 105→286; h 26→19; y 498→421 (desloca -37); fs 12px→13px; borda 1px rgb(34, 42, 53)→0px rgb(139, 155, 176)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Site#1",
+   "dif": "x 300→64; w 24→278; h 19→23; y 436→460 (desloca +101); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~SiteResumo · Pedidos · M#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#4",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|Resumo · Pedidos · Mensagens · Vitrine · Modelos#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Marketing#1",
+   "dif": "x 45→64; w 65→278; h 19→23; y 598→524 (desloca -98); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~MarketingTemática · Cart#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#5",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|Temática · Cartões · Analisador#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Clientes#1",
+   "dif": "x 169→64; w 52→278; h 19→23; y 598→588 (desloca +64); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~Clientes0 cadastrados›#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#6",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|0 cadastrados#1",
+   "dif": "x 142→64; w 105→286; h 26→19; y 660→613 (desloca -37); fs 12px→13px; borda 1px rgb(34, 42, 53)→0px rgb(139, 155, 176)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Atacado#1",
+   "dif": "x 286→64; w 53→278; h 19→23; y 598→652 (desloca +101); fs 13px→16px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~AtacadoOrçamentos›#1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "span|›#7",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Orçamentos#1",
+   "dif": "x 260→64; w 105→286; h 26→19; y 660→677 (desloca -37); fs 12px→13px; borda 1px rgb(34, 42, 53)→0px rgb(139, 155, 176)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -17)"
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~Titan · 7 coisas para ol#2",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "b|Titan · 7 coisas para olhar#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "i|›#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□div|div ~Titan · 7 coisas para ol#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□span|span ~Vendido hoje · 5 venda(s#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|Grupo Resultados: Dashboard · Histórico#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~ResultadosDia, mês e his#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "span|Dia, mês e histórico#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|button ~ResultadosDia, mês e his#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~Preços2 a decidir#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|Grupo Site: Resumo · Pedidos · Mensagens · Vitri#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~SitePedidos, mensagens, #1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "span|Pedidos, mensagens, vitrine e modelos#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|Grupo Marketing: Marketing · Temática · Cartões #1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~MarketingPosts, vídeos, #1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "span|Posts, vídeos, temática, cartões e visitas#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|button ~ResultadosDia, mês e his#2",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~Clientes0 cadastrados#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "□button|button ~ResultadosDia, mês e his#3",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "svg|svg ~AtacadoOrçamentos#1",
+   "dif": ""
+  }
+ ],
+ "Preços": [
+  {
+   "tipo": "muda",
+   "peca": "div|O TITAN DECIDE HOJE · 2#1",
+   "dif": "y 176→182 (desloca +6)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -6)"
+  }
+ ],
+ "Regras": [],
+ "Ofertas": [
+  {
+   "tipo": "muda",
+   "peca": "div|Descontos que o Titan confere#1",
+   "dif": "y 182→188 (desloca +6)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -6)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "div|COMO O TITAN DECIDE#1",
+   "dif": "y 835→841 (desloca +6)"
+  }
+ ],
+ "Pedidos": [],
+ "Ajustes": [],
+ "Inventário": [],
+ "Adicionar": [
+  {
+   "tipo": "muda",
+   "peca": "□div|div ~‹AdicionarAdicionar Cheg#1",
+   "dif": "x 12→0; w 366→390; h 224→255; y 20→589 (desloca +569); raio 16px→22px"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|2 modelos#1",
+   "dif": "y 591→591 (desloca -569)"
+  },
+  {
+   "tipo": "falta",
+   "peca": "□div|div ~‹AdicionarAdicionar Cheg#2",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "h2|Adicionar#1",
+   "dif": "x 31→19; y 39→639 (desloca +600)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□button|button ~Lote KazwiniPré-graduado#3",
+   "dif": "y 661→661 (desloca -600)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Chegou mercadoria#1",
+   "dif": "x 69→57; w 256→280; y 113→713 (desloca +600)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Chegou mercadoria#1",
+   "dif": "x 31→19"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Chegou mercadoria#2",
+   "dif": "x 341→353"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Preencher à mão#1",
+   "dif": "x 69→57; w 256→280"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Preencher à mão#1",
+   "dif": "x 31→19"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Preencher à mão#2",
+   "dif": "x 341→353"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -600)"
+  }
+ ],
+ "Caixa": [
+  {
+   "tipo": "falta",
+   "peca": "□button|Novo objetivo#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "h2|Objetivos da loja#1",
+   "dif": "w 128→136; y 597→605 (desloca +8); fs 16px→17px"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~Objetivos da loja#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|guardado#1",
+   "dif": "x 226→24; w 140→342; y 601→655 (desloca +46)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "b|G$ 2.409.000#1",
+   "dif": "x 283→82"
+  },
+  {
+   "tipo": "muda",
+   "peca": "div|Caixa abaixo do separado#1",
+   "dif": "h 55→39; y 712→723 (desloca -43); cor rgb(231, 237, 245)→rgb(255, 154, 154); borda 0px rgb(231, 237, 245)→1px rgb(34, 42, 53)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "button|Ver o que falta ›#1",
+   "dif": "x 232→212"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -12)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "h2|Movimentos#1",
+   "dif": "h 23→16; y 801→811 (desloca +10); fs 16px→11px; cor rgb(231, 237, 245)→rgb(139, 155, 176); borda 0px rgb(231, 237, 245)→0px rgb(139, 155, 176)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Início#1",
+   "dif": "y 816→816 (desloca -10)"
+  },
+  {
+   "tipo": "sobra",
+   "peca": "button|+ Novo objetivo#1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "span|Escola#1",
+   "dif": ""
+  }
+ ],
+ "Despesas": [
+  {
+   "tipo": "falta",
+   "peca": "□button|Nova despesa#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "h1|Despesas#1",
+   "dif": "w 237→282"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~DespesasContas do mês e #1",
+   "dif": ""
+  },
+  {
+   "tipo": "falta",
+   "peca": "□div|div ~LojaAluguel da lojafixa #1",
+   "dif": ""
+  },
+  {
+   "tipo": "sobra",
+   "peca": "button|+ Nova#1",
+   "dif": ""
+  }
+ ],
+ "Catálogo": [],
+ "Clientes": [
+  {
+   "tipo": "muda",
+   "peca": "□button|Novo cliente#1",
+   "dif": "cor rgb(191, 139, 169)→rgb(231, 237, 245); borda 1px rgba(191, 139, 169, 0.38)→1px rgb(34, 42, 53)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~ClientesQuem compra na l#1",
+   "dif": "cor rgb(191, 139, 169)→rgb(231, 237, 245); borda 0px rgb(191, 139, 169)→0px rgb(231, 237, 245)"
+  }
+ ],
+ "Compras": [],
+ "Marketing": [
+  {
+   "tipo": "muda",
+   "peca": "b|Seg · Post · 20h#1",
+   "dif": "w 106→120; h 17→20; y 792→798 (desloca +6); fs 14px→16px; fw 700→500"
+  },
+  {
+   "tipo": "muda",
+   "peca": "span|Início#1",
+   "dif": "y 816→816 (desloca -6)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "small|Peça do objetivo — Óculos solar Ray-Ban de metal#1",
+   "dif": "h 35→19; y 811→821 (desloca +10); fs 12px→13px; cor rgb(231, 237, 245)→rgb(139, 155, 176); borda 0px rgb(231, 237, 245)→0px rgb(139, 155, 176)"
+  }
+ ],
+ "Atacado": [
+  {
+   "tipo": "falta",
+   "peca": "□button|Novo acesso#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "h1|Atacado#1",
+   "dif": "w 185→282"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~AtacadoLojistas, lotes e#1",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "svg|svg ~Nenhuma mensagemQuando u#1",
+   "dif": "x 153→167; w 84→56; h 84→56; y 345→313 (desloca -32)"
+  },
+  {
+   "tipo": "falta",
+   "peca": "svg|svg ~Nenhuma mensagemQuando u#2",
+   "dif": ""
+  },
+  {
+   "tipo": "muda",
+   "peca": "b|Nenhuma mensagem#1",
+   "dif": "y 443→515 (desloca +104)"
+  },
+  {
+   "tipo": "muda",
+   "peca": "□nav|Seções#1",
+   "dif": "y 777→777 (desloca -72)"
+  },
+  {
+   "tipo": "sobra",
+   "peca": "button|+ Novo acesso#1",
+   "dif": ""
+  }
+ ]
+}
