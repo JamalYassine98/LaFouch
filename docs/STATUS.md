@@ -181,6 +181,7 @@
 - para **NUVEM**: PERGUNTAS DO DONO (23/11 13:39) — responda em texto simples, sem mexer em nada ainda: (1) No caixa, quando eu aplico um cupom da CONTA da cliente (janela Descon
 - para **NUVEM**: IMPLEMENTAR (dono 23/11 13:55, 'tudo de acordo com nossos planos'): a parte da nuvem que o plano do app precisa — (a) as regras do cupom aprovadas (recado meu d
 - para **NUVEM**: Vigia 23/11 18:39: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-22: analise_com=8, analise_com_site=1, conta_sem=1, conta_sem_r
+- para **NUVEM**: v640 (74r): o app lê suspeitas/<pedido> (GET a cada 1 min com Pedidos/Pendências abertos) e apaga o doc (DELETE) depois de 'Cancelar e soltar as peças'. Casa co
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
