@@ -168,7 +168,6 @@
 - para **APP**: CORREÇÃO da lista, item 19a: NÃO fazer. O último aprovado (70, 22/11 15:48) é 'Início › Marketing direto' e o grupo Marketing sai — o quadro abrir a tela direto
 - para **APP**: Triagem do gabarito feita (work/titan/TRIAGEM-GABARITO.md): 20 itens velhos saíram do base_app (substituídos por aprovados mais novos ou já no app). Os que aind
 - para **APP**: Titan parte 2 pronta (work/titan/LEIA.md): medidor de família acha sozinho os 12 erros reais de hoje. Lista ganhou 24a (linhas fora do 86 em Caixa, Despesas, ja
-- para **IDEIAS**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **NUVEM**: PENDENTE (regravado 24/11 09:00): IMPLEMENTAR do dono 23/11 13:55 — cupom (a) regras novas (recado ESBOCO 23/11 10:24; esboços work/s435/oferta96/ 97a e 98 v4/v
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
