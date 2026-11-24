@@ -1,16 +1,12 @@
 {
  "nome": "APP",
- "agora": "Parte 2 · Ajustes aprovado, ⏻ nas telas (Pedidos, Preços), Fornecedores 89b",
- "arquivos": [
-  "src/96-ajustes.js",
-  "src/97-ajustes-lista.js",
-  "src/97-pagamento-auto.js",
-  "src/95-pedidos.js",
-  "src/97z3-precos.js",
-  "src/52-lotes.js",
-  "www/style.css"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795488251.5675607,
+   "r": "v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)"
+  },
   {
    "t": 1795460798.3433197,
    "r": "v632 (5.51.0) publicada: Parte 1 · base visual + conferência v626–v631; próximo: Parte 2 (Ajustes)"
@@ -46,10 +42,6 @@
   {
    "t": 1795318403.0299108,
    "r": "v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos)."
-  },
-  {
-   "t": 1795317019.5588572,
-   "r": "v621 publicada: 41 parte 2 — a câmera diz para qual peça vai. Porteiro 372/372. Próximo: 41 parte 3 (Galeria da peça)."
   }
  ],
  "leu": 1795488235.7624967

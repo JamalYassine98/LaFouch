@@ -19,7 +19,6 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | Parte 2 · Ajustes aprovado, ⏻ nas telas (Pedidos, Preços), Fornecedores 89b | src/96-ajustes.js, src/97-ajustes-lista.js, src/97-pagamento-auto.js, src/95-pedidos.js, src/97z3-precos.js, src/52-lotes.js, www/style.css |
 
 ## Fila
 
@@ -206,6 +205,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 23/11 23:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
 - 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
 - 23/11 16:56 — IDEIAS: 12e aprovado nas 6 datas
 - 23/11 16:54 — IDEIAS: 12e: BF e Halloween levemente clareados
@@ -230,4 +230,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 22/11 14:57 — SITE: Ferramentas parte 1: comparador/Argus olha as 22 telas do site (roteiro único, nuvem simulada, logada); 50 combinações em 26 min, 0 diferenças; defeito plantado achado. Próximo: parte 2 (uma biblioteca de medidas).
 - 22/11 14:50 — NUVEM: App Check parte 1 (por dentro, publicado c63201f1): a contagem seloDia agora separa a origem — porta_estado_site (clientes do lafouch.com), _local (testes no PC) e _robo (sondas, teste de compra, robôs). 7/7 testes do selo + 23 arquivos de teste ok; sonda ok. Próximo: 2–3 dias de contagem real do site; se o _sem_site for alto, esboço para o SITE (selo pedido ao abrir a página, não só na hora da chamada) antes de ligar o 'exigir'.
 - 22/11 06:54 — SITE: Site 1795341195: voz da Mochi padronizada (390 falas, só ganho) + aviso do QR regravado (opção 1, 816 créditos); Destaque não pisca mais com o efeito do evento (lfMorph ignora camada viva). Argus 254 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45; depois do 58, tirar o painel web.
-- 22/11 04:42 — SITE: Site 1795333368: URGENTE Mochi no cartão do Início (PC, PT/ES) consertado; antes, 1795331899: Destaque sem piscar + robots.txt. Argus 252 provas, 0 falhas. PRÓXIMO: ferramentas 1 (Argus com todas as telas) → 2 → 3; esboços Mochi/animação; item 45.
