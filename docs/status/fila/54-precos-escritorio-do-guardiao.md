@@ -1,2 +1,2 @@
-aprovado 21/11 18:06 — espera o 'implementar' · setores e desconto no Vender a fazer
+publicado v635 (escritório do Titan: decide hoje + 5 setores; os setores com o desenho 62–67 vêm nas próximas partes)
 work/s435/guardiao/esboco_54_*
