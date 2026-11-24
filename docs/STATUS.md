@@ -154,6 +154,7 @@
 - **95-mochi-luxo** — RECUSADO 23/11 14:46 (obsoletos) — fica só a trava dos braços
 - **95-preco-de-mercado** — aprovado 23/11 08:36 — espera o 'implementar'
 - **96-oferta-na-loja** — aprovado 23/11 10:14 — espera o 'implementar' (APP; regras do cupom → NUVEM)
+- **97-frases-dos-cartoes** — pendente — estudar depois (dono 24/11 00:37)
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'
 - **99-lucro-kit-realista** — 99b v2 aprovado · do 99d v2 só a contagem e 'Kit de Natal na caixa' (aprovado 13:47); janela superada pelo 103 · 99a cancelado (cartão de luxo no 98 v6)
 
