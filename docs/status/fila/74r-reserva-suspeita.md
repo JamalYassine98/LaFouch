@@ -1,2 +1,2 @@
-aprovado 23/11 08:05 (v3, em Pedidos) — espera o 'implementar' · depois APP + NUVEM
+APP publicado v640 (sino + Pedidos + janela; lê suspeitas/ da nuvem e apaga ao resolver)
 
