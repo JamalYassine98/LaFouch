@@ -132,7 +132,6 @@
   }
   // Plano B quando a câmera do app não abre.
   function camFallback(done, gal, lbl) {
-    armNative();
     var ov = document.createElement('div');
     ov.style.cssText =
       'position:fixed;inset:0;z-index:330;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:16px';
@@ -189,36 +188,7 @@
     ov.appendChild(bx);
     document.body.appendChild(ov);
   }
-  var NATIVE = false,
-    HCAM = '';
-  // Liga a captura nativa no botão do leitor.
-  function armNative() {
-    if (NATIVE) return;
-    NATIVE = true;
-    [
-      [
-        'btnLeitor',
-        function (f) {
-          leitorFromPhoto(f);
-        }
-      ]
-    ].forEach(function (d) {
-      var b = $(d[0]);
-      if (!b || !b.parentNode) return;
-      var w = document.createElement('div');
-      w.style.cssText =
-        'position:relative;display:flex;flex:' +
-        (b.style.flex || '1 1 auto') +
-        ';' +
-        (b.style.width && b.style.flex ? 'width:' + b.style.width + ';' : 'width:100%;');
-      b.parentNode.insertBefore(w, b);
-      w.appendChild(b);
-      b.style.flex = '1 1 auto';
-      b.style.width = '100%';
-      b.onclick = function () {};
-      w.appendChild(nativeInput(d[1], false, d[0] === 'btnLeitor' ? 'Analisando código' : ''));
-    });
-  }
+  var HCAM = '';
   // Abre a câmera do app (com plano B se falhar).
   // Endireita o papel: puxa o quadrilátero (cantos TL, TR, BR, BL em 0..1) para um retângulo.
   function warpDoc(c, P) {

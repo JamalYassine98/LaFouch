@@ -981,7 +981,7 @@
       }
       if (!smp && !f.bulk) {
         var idc = Object.assign({}, attrOf(ref)),
-          cm = mk('div', 'nvChips');
+          cm = mk('div', 'escLs');
         cm.id = 'edIdent';
         [
           ['formato', 'Formato', FORMATOS.concat(S.formats || [])],
@@ -992,12 +992,8 @@
             lista = d[2].filter(function (x, k) {
               return d[2].indexOf(x) === k;
             }),
-            c = mk('button', 'nvChip' + (v ? ' ok' : ''));
-          c.type = 'button';
-          c.id = 'ed_' + d[0];
-          c.innerHTML = '<span>' + esc(v || d[1]) + '</span><i aria-hidden="true">▾</i>';
-          c.onclick = function () {
-            comoSheet('lfa-como', d[1], lista, v, function (nv) {
+            c = escLinha('ed_' + d[0], d[1], v, function () {
+            escolhaJanela(d[1], lista, v, function (nv) {
               if (d[0] === 'material' && MATERIAIS.indexOf(nv) < 0) {
                 S.matX = S.matX || [];
                 if (S.matX.indexOf(nv) < 0) S.matX.push(nv);
@@ -1007,7 +1003,7 @@
               setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '', polarizado: '' }, idc));
               render();
             });
-          };
+          });
           cm.appendChild(c);
         });
         g[1].appendChild(fld('Como é', cm));

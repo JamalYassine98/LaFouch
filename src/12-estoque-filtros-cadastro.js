@@ -130,7 +130,7 @@
     // os campos preenchidos acendem em verde, de cima para baixo
     setTimeout(function () {
       if (REDUCED) return;
-      ['#eRef', '#nvEss .nvChip.ok', '#eMed', '#eNome', '#eDescP'].forEach(function (sel, gi) {
+      ['#eRef', '#nvEss .escL.ok', '#eMed', '#eNome', '#eDescP'].forEach(function (sel, gi) {
         [].slice.call(document.querySelectorAll(sel)).forEach(function (e, j) {
           if (e.value === '' && e.tagName !== 'BUTTON') return;
           setTimeout(function () {
@@ -508,7 +508,6 @@
     S.photoFor = null;
     render();
   }
-  $('addClose').onclick = closeAdd;
   $('addModal').addEventListener('mousedown', function (e) {
     if (e.target === $('addModal')) closeAdd();
   });

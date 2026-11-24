@@ -228,15 +228,6 @@
         }
         var a = btn('mini', 'Tentar de novo', function () {
           close();
-          var wi =
-            NATIVE &&
-            $('btnLeitor') &&
-            $('btnLeitor').parentNode &&
-            $('btnLeitor').parentNode.querySelector('input[type=file]');
-          if (wi) {
-            wi.click();
-            return;
-          }
           leitorOpen();
         });
         a.style.width = '100%';
@@ -490,20 +481,6 @@
       tip: 'Aponte para o código da haste e deixe o texto dentro da faixa. A leitura é automática, sem tirar foto.'
     });
   }
-  // Abre o leitor como o botão "Ler haste" do cadastro (câmera própria ou nativa).
-  function leitorGo() {
-    var wi =
-      NATIVE &&
-      $('btnLeitor') &&
-      $('btnLeitor').parentNode &&
-      $('btnLeitor').parentNode.querySelector('input[type=file]');
-    if (wi) wi.click();
-    else leitorOpen();
-  }
-  $('btnLeitor').onclick = leitorOpen;
-  try {
-    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) armNative();
-  } catch (e) {}
   // Aplica a leitura prévia ao cartão da foto.
   function applyPre(x, tok) {
     if (!P || P.tok !== tok || !x) return;

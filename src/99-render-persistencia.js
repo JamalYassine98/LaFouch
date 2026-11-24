@@ -407,7 +407,6 @@
       'arqAte',
       'arqVolta',
       'arqDia',
-      'adAba',
       'giros',
       'giroPend',
       'giroSite',

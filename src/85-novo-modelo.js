@@ -79,8 +79,8 @@
     s1.id = 'nvS1';
     s1.style.gap = '14px';
     box.appendChild(s1);
-    var ess = mk('div', 'card col');
-    ess.style.gap = '12px';
+    var ess = mk('div', 'col');
+    ess.style.gap = '16px';
     ess.id = 'nvEss';
     s1.appendChild(ess);
     // Cadastro B (v417): código da haste com leitor · Tipo em trilho · "Como é" em chips · custo · Mais detalhes
@@ -124,7 +124,7 @@
     var cm = mk('div', '');
     cm.id = 'nvComo';
     cm.appendChild(mk('div', 'lbl', 'Como é'));
-    var r2 = mk('div', 'nvChips');
+    var r2 = mk('div', 'escLs');
     r2.id = 'nvR2';
     r2.appendChild(fFmt);
     r2.appendChild(fMat);
@@ -159,9 +159,16 @@
     au.id = 'nvAuto';
     au.hidden = true;
     s1.appendChild(au);
-    var mais = document.createElement('details');
+    // 44: "Mais detalhes" é a linha de dobra do app (⌄, abre no lugar), não o <details> do navegador
+    var mais = mk('section', 'fxF');
     mais.id = 'nvMais';
-    mais.innerHTML = '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes (opcional)</summary><div class="col" id="nvMaisBox" style="gap:12px;margin-top:10px"></div>';
+    mais.innerHTML = '<button type="button" class="fxH" aria-expanded="false"><span><b>Mais detalhes (opcional)</b></span><i class="fxC" aria-hidden="true">⌄</i></button><div class="col fxB" id="nvMaisBox" style="gap:16px" hidden></div>';
+    mais.firstChild.onclick = function () {
+      var ab = !mais.classList.contains('on');
+      mais.classList.toggle('on', ab);
+      mais.firstChild.setAttribute('aria-expanded', String(ab));
+      $('nvMaisBox').hidden = !ab;
+    };
     s1.appendChild(mais);
     var mb = $('nvMaisBox');
     mb.appendChild($('eFaixaB'));
@@ -174,27 +181,18 @@
     bo.id = 'nvBrinde';
     bo.hidden = true;
     s1.appendChild(bo);
-    var nx = btn('go', 'Continuar · cores e fotos', function () {
+    var nx = btn('go', 'Continuar · cores', function () {
       nvContinuar();
     });
     nx.id = 'nvNext';
-    s1.appendChild(nx);
+    var fx1 = mk('div', 'nvFixo'); // 44: o botão de seguir fica fixo embaixo da janela
+    fx1.appendChild(nx);
+    s1.appendChild(fx1);
     // ---- tela 2
     var s2 = mk('div', 'col');
     s2.id = 'nvS2';
     s2.style.gap = '14px';
     box.appendChild(s2);
-    // ---- foto de uma cor
-    var fi = document.createElement('input');
-    fi.type = 'file';
-    fi.accept = 'image/*';
-    fi.hidden = true;
-    fi.id = 'nvFile';
-    fi.onchange = function () {
-      nvFoto(fi.files && fi.files[0]);
-      fi.value = '';
-    };
-    box.appendChild(fi);
   }
   // Passos da tela 1: [rótulo, id do campo, feito].
   function nvPassos() {
@@ -252,69 +250,9 @@
     });
     return out;
   }
-  // Abre a câmera do app (não a galeria) para a foto da cor.
+  // ícone de câmera (outras telas usam)
   var NV_ICAM =
     '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
-  function nvCamera(titulo) {
-    camOpen(
-      function (f) {
-        nvFoto(f);
-      },
-      titulo,
-      { gallery: true, peca: S._ref && NVC.fotoCor ? S._ref + '|' + NVC.fotoCor : true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
-    );
-  }
-  function nvFoto(f) {
-    if (!f || !S._ref || !NVC.fotoCor) return;
-    loadMsg(true, 'Carregando foto');
-    var ref = S._ref,
-      cor = NVC.fotoCor,
-      url = URL.createObjectURL(f),
-      img = new Image();
-    img.onload = function () {
-      try {
-        var cv = fitCanvas(img, 1800);
-        if (cor === '__nova__') {
-          // v417: a foto cria a linha da cor nova na lista (cor sugerida e quantidade 1)
-          NVR.push({ id: ++NVR_SEQ, vr: nvProxClasse(), cor: '', q: 1, grau: '', fotoT: thumbOf(cv), fotoH: cv.toDataURL('image/jpeg', 0.92), nova: 1 });
-          NVR_ABRE = 0;
-        } else if (String(cor).indexOf('__row__') === 0) {
-          var rw0 = nvRow(+String(cor).slice(7));
-          if (rw0) {
-            rw0.fotoT = thumbOf(cv);
-            rw0.fotoH = cv.toDataURL('image/jpeg', 0.92);
-          }
-        } else {
-          setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
-          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
-          saveSoon();
-        }
-      } catch (e) {
-        S.msg = 'Não consegui processar essa foto. Tente outra.';
-      }
-      URL.revokeObjectURL(url);
-      var corV = NVC.fotoCor;
-      NVC.fotoCor = '';
-      render();
-      loadMsg(false);
-      try {
-        if (OBT) {
-          var alvo =
-            $('nvPrev') ||
-            document.querySelector('[aria-label="Foto da cor ' + String(corV).replace(/"/g, '') + '"] img');
-          if (alvo) obturadorVoa(OBT, null, alvo);
-          OBT = null;
-        }
-      } catch (eV) {}
-    };
-    img.onerror = function () {
-      loadMsg(false);
-      S.msg = 'Não consegui abrir essa imagem. Tente outra foto.';
-      NVC.fotoCor = '';
-      render();
-    };
-    img.src = url;
-  }
   // Adiciona uma cor: usa o mesmo motor de "Registrar entrada".
   function nvConcluir(ref) {
     NVR = [];
@@ -324,63 +262,6 @@
     S.nCorOpen = false;
     closeAdd();
     lfToast('' + pubNome(ref) + ' cadastrado.', 'ok');
-  }
-  function nvAddCor(fin) {
-    var ref = S._ref,
-      t = tipoOf(S.tipo) || {},
-      pre = S.tipo === 'pre';
-    if (!NVC.cor) {
-      popErr('Escolha a cor.');
-      guiaMarca('nvCorIn');
-      return;
-    }
-    if (!NVC.fotoT) {
-      popErr('Tire a foto da cor ' + NVC.cor + '.');
-      guiaMarca('nvFotoCor');
-      return;
-    }
-    if (pre && !normGrau($('nvGrau').value || '')) {
-      popErr('Informe o grau da peça (ex.: +1.75 ou 175).');
-      guiaMarca('nvGrau');
-      return;
-    }
-    var custo = $('eCusto').value;
-    $('eCor').value = NVC.cor;
-    if (pre) {
-      $('eGrau').value = $('nvGrau').value;
-      if (NVC.vr) S.eVarP = NVC.vr;
-    } else if (NVC.vr) S.eVar = NVC.vr;
-    S.qty = Math.max(1, NVC.q);
-    render();
-    var antes = S.items.reduce(function (n, i) {
-      return n + (i.ref === ref ? i.qty : 0);
-    }, 0);
-    S.msg = '';
-    $('go').onclick();
-    var depois = S.items.reduce(function (n, i) {
-      return n + (i.ref === ref ? i.qty : 0);
-    }, 0);
-    $('eCusto').value = custo;
-    if (depois <= antes) {
-      var m = S.msg || 'Não consegui registrar a cor. Confira os dados.';
-      popErr(m);
-      render();
-      return;
-    }
-    var qOk = NVC.q;
-    setFoto(ref + '|' + NVC.cor, NVC.fotoT, NVC.fotoH);
-    if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
-    saveSoon();
-    NVC.fotoT = '';
-    NVC.fotoH = '';
-    S.nCorOpen = false;
-    NVC.cor = '';
-    NVC.q = 1;
-    NVC.grau = '';
-    S.msg = '';
-    render();
-    lfEntrada(qOk, pubNome(ref));
-    if (fin === true) nvConcluir(ref);
   }
   function nvTela2() {
     var s2 = $('nvS2'),
@@ -430,39 +311,18 @@
       s2.appendChild(rg);
       return;
     }
-    var cs = nvCores(ref),
-      sc = siteCheck(ref);
-    // v417: Cores e fotos em LISTA. Cada cor é uma linha (foto, classe · cor, custo, quantidade);
-    // "Cor nova" abre a câmera e a foto vira uma linha nova com a cor sugerida.
-    var c1 = mk('div', 'card col cfList');
+    var cs = nvCores(ref);
+    // 88 (aprovado 23/11): passo 2 "Cores" — cada cor entra SEM foto (a foto vem pelo Estúdio); linha por cor com a classe · cor,
+    // "fotografar no Estúdio" e −/+; "+ Nova cor ›" abre a janela de escolher a cor; "No site" em linha; "Concluir" fixo embaixo.
+    s2.appendChild(mk('div', 'lbl', 'Cores desta peça · ' + (cs.length + NVR.length)));
+    var c1 = mk('div', 'col cfList');
     c1.id = 'nvCoresL';
-    var cuTxt = String($('eCusto').value || '').trim();
+    var foto = function (src) { return '<span class="cfFt">' + (src ? '<img alt="" src="' + src + '">' : '<small>sem foto</small>') + '</span>'; };
     cs.forEach(function (c) {
       var ft = S.fotos[ref + '|' + c.cor],
-        it0 = S.items.filter(function (i) {
-          return i.ref === ref && i.cor === c.cor && !i.bulk;
-        })[0] || {},
-        k = 'c:' + c.cor,
-        ab = NVR_ABRE === k,
-        r = mk('div', 'cfRow' + (ab ? ' ab' : ''));
-      r.innerHTML =
-        '<button type="button" class="cfFt" aria-label="Foto da cor ' + esc(c.cor) + '">' + (ft ? '<img alt="" src="' + ft + '">' : NV_ICAM) + '</button>' +
-        '<button type="button" class="cfTx" data-k="' + esc(k) + '"><b>' + esc((it0.vr ? it0.vr + ' · ' : '') + c.cor) + '</b><small>' + (it0.custo != null ? 'US$ ' + String(it0.custo).replace('.', ',') + ' · ' : '') + (ft ? 'foto ok' : 'falta foto') + '</small></button>' +
-        '<span class="cfQ">' + c.qty + ' un.</span>' +
-        (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button></div>' : '');
-      r.querySelector('.cfFt').onclick = function () {
-        NVC.fotoCor = c.cor;
-        nvCamera('Foto da cor ' + c.cor);
-      };
-      r.querySelector('.cfTx').onclick = function () {
-        NVR_ABRE = ab ? 0 : k;
-        render();
-      };
-      if (ab)
-        r.querySelector('[data-f]').onclick = function () {
-          NVC.fotoCor = c.cor;
-          nvCamera('Foto da cor ' + c.cor);
-        };
+        it0 = S.items.filter(function (i) { return i.ref === ref && i.cor === c.cor && !i.bulk; })[0] || {},
+        r = mk('div', 'cfRow');
+      r.innerHTML = foto(ft) + '<span class="cfTx"><b>' + esc((it0.vr ? it0.vr + ' · ' : '') + c.cor) + '</b><small>' + (ft ? 'com foto' : 'fotografar no Estúdio') + '</small></span><span class="cfQ">' + c.qty + ' un.</span>';
       c1.appendChild(r);
     });
     NVR.forEach(function (w) {
@@ -470,29 +330,16 @@
         r = mk('div', 'cfRow nova' + (ab ? ' ab' : '') + (w.id === NVR_SEQ && w.nova ? ' entra' : ''));
       w.nova = 0;
       r.dataset.id = w.id;
-      r.innerHTML =
-        '<button type="button" class="cfFt" aria-label="Trocar a foto">' + (w.fotoT ? '<img alt="" src="' + w.fotoT + '">' : NV_ICAM) + '</button>' +
-        '<div class="cfTx"><button type="button" class="nvChip cfCor' + (w.cor ? ' ok' : '') + '" aria-label="Escolher a cor"><span>' + esc((w.vr ? w.vr + ' · ' : '') + (w.cor || 'Cor')) + '</span><i aria-hidden="true">▾</i></button>' +
+      r.innerHTML = foto(w.fotoT) +
+        '<span class="cfTx"><button type="button" class="cfCor" aria-label="Escolher a cor"><b>' + esc((w.vr ? w.vr + ' · ' : '') + (w.cor || 'escolher a cor')) + '</b></button>' +
         (pre ? '<input class="in cfGrau" inputmode="decimal" placeholder="Grau (ex.: +1,75)" value="' + esc(w.grau || '') + '" aria-label="Grau da peça">' : '') +
-        '<small class="cfMaisB">' + (cuTxt ? 'US$ ' + esc(cuTxt) + ' · ' : '') + 'mais opções</small></div>' +
+        '<button type="button" class="cfMaisB"><small>fotografar no Estúdio · mais opções</small></button></span>' +
         '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Menos">−</span><span class="vs-n">' + w.q + '</span><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Mais">+</span></span>' +
-        (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button><button type="button" class="mini cfDel" data-x="1">Excluir cor</button></div>' : '');
-      r.querySelector('.cfFt').onclick = function () {
-        NVC.fotoCor = '__row__' + w.id;
-        nvCamera('Foto da cor');
-      };
-      r.querySelector('.cfCor').onclick = function () {
-        nvCorSheet(w);
-      };
-      r.querySelector('.cfMaisB').onclick = function () {
-        NVR_ABRE = ab ? 0 : w.id;
-        render();
-      };
+        (ab ? '<div class="cfMais"><button type="button" class="mini cfDel" data-x="1">Excluir cor</button></div>' : '');
+      r.querySelector('.cfCor').onclick = function () { nvCorSheet(w); };
+      r.querySelector('.cfMaisB').onclick = function () { NVR_ABRE = ab ? 0 : w.id; render(); };
       var gi = r.querySelector('.cfGrau');
-      if (gi)
-        gi.oninput = function () {
-          w.grau = gi.value;
-        };
+      if (gi) gi.oninput = function () { w.grau = gi.value; };
       [].forEach.call(r.querySelectorAll('.cfStep .vs-b'), function (b) {
         b.onclick = function () {
           var antes = w.q;
@@ -504,28 +351,24 @@
           nvTotalConta();
         };
       });
-      if (ab) {
-        r.querySelector('[data-f]').onclick = function () {
-          NVC.fotoCor = '__row__' + w.id;
-          nvCamera('Foto da cor');
-        };
+      if (ab)
         r.querySelector('[data-x]').onclick = function () {
-          NVR = NVR.filter(function (x) {
-            return x !== w;
-          });
+          NVR = NVR.filter(function (x) { return x !== w; });
           NVR_ABRE = 0;
           render();
         };
-      }
       c1.appendChild(r);
     });
     var cn = mk('button', 'cfNova');
     cn.type = 'button';
     cn.id = 'nvAddCor';
-    cn.innerHTML = NV_ICAM + '<span>Cor nova <small>(tire a foto)</small></span>';
+    cn.innerHTML = '<span class="pl78" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>Nova cor ›</span>';
     cn.onclick = function () {
-      NVC.fotoCor = '__nova__';
-      nvCamera('Foto da cor nova');
+      var w = { id: ++NVR_SEQ, vr: nvProxClasse(), cor: '', q: 1, grau: '', nova: 1 };
+      NVR.push(w);
+      NVR_ABRE = 0;
+      render();
+      nvCorSheet(w);
     };
     c1.appendChild(cn);
     var tot = mk('div', 'cfTot');
@@ -533,78 +376,41 @@
     tot.hidden = !NVR.length;
     c1.appendChild(tot);
     s2.appendChild(c1);
-    // v427: chave "No site" (o produto completo entra sozinho; desligar = fora e o app não recoloca)
-    var c2 = mk('div', 'card col');
-    c2.style.gap = '10px';
-    var lh = mk('div', '');
-    lh.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
-    lh.appendChild(mk('b', '', 'No site'));
-    var on = siteOn(ref),
-      tg = mk('button', 'nvtg' + (on ? ' on' : ''));
-    tg.type = 'button';
-    tg.id = 'nvTg';
-    tg.setAttribute('role', 'switch');
-    tg.setAttribute('aria-checked', on ? 'true' : 'false');
-    tg.setAttribute('aria-label', 'No site');
-    tg.appendChild(document.createElement('i'));
-    tg.onclick = function () {
-      var ck = siteCheck(ref);
+    // "No site": ligado = a peça vai para o site e cada cor entra quando tiver foto (a entrada automática de sempre, 97-site-auto);
+    // desligado = fora do site e o app não recoloca (siteFora)
+    var on = siteOn(ref) || !(S.siteFora && S.siteFora[ref]),
+      ns = mk('button', 'paSw nvSite');
+    ns.type = 'button';
+    ns.id = 'nvTg';
+    ns.setAttribute('role', 'switch');
+    ns.setAttribute('aria-checked', on ? 'true' : 'false');
+    ns.innerHTML = '<span><b>No site</b><small>só as cores com foto</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span>';
+    ns.onclick = function () {
+      S.siteFora = S.siteFora || {};
       if (on) {
-        siteSet(ref, false);
+        if (siteOn(ref)) siteSet(ref, false);
         S.siteFora[ref] = Date.now();
-        saveSoon();
-        render();
-        return;
+      } else {
+        delete S.siteFora[ref];
+        if (siteCheck(ref).ok) siteSet(ref, true);
       }
-      if (!ck.ok) {
-        S.nTgFalha = true;
-        render();
-        var t2 = $('nvTg');
-        if (t2 && !REDUCED) {
-          t2.classList.remove('lfshake');
-          void t2.offsetWidth;
-          t2.classList.add('lfshake');
-        }
-        return;
-      }
-      delete S.siteFora[ref];
-      siteSet(ref, true);
-      S.nTgFalha = false;
+      saveSoon();
       render();
-      lfToast('Salvo. Aparece no site em até 1 minuto.', 'ok');
     };
-    lh.appendChild(tg);
-    c2.appendChild(lh);
-    var falta = sc.falta.map(function (c) {
-        return c.cor;
-      }),
-      msg;
-    if (!on && !sc.cores.length) msg = 'Adicione uma cor com foto para liberar.';
-    else if (falta.length)
-      msg = 'Falta a foto da cor ' + falta.join(', ') + '. Adicione a foto ou remova a cor para liberar.';
-    else if (sc.sem) msg = 'Sem peças em estoque: não dá para publicar o que você não tem.';
-    var h = mk('div', msg && (falta.length || S.nTgFalha) ? 'nvwarn' : 'hint', msg || (on ? 'No ar. O site acompanha preço e estoque sozinho.' : 'Pronto para liberar.'));
-    if (!(msg && (falta.length || S.nTgFalha))) h.style.margin = '0';
-    c2.appendChild(h);
-    s2.appendChild(c2);
-    // aviso automático no cartão
-    var rec = S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 7 * 86400000;
-    if (cs.length) {
-      var c3 = mk('div', 'nvauto');
-      c3.innerHTML =
-        '<h3>Aviso no cartão do site (automático)</h3><div style="color:var(--info)">' +
-        (rec ? 'Chegou esta semana' : 'Sem aviso agora') +
-        '</div>';
-      s2.appendChild(c3);
-    }
-    var fim = btn('go', cs.length || NVR.length ? 'Concluir' : 'Adicione uma cor para concluir', function () {
+    s2.appendChild(ns);
+    var fim = btn('go', 'Concluir', function () {
       if (NVR.length) return nvSalvaLinhas();
-      if (!cs.length) return;
+      if (!cs.length) return nvCorSheetNova();
       nvConcluir(ref);
     });
     fim.id = 'nvFim';
-    fim.disabled = !cs.length && !NVR.length;
-    s2.appendChild(fim);
+    var fx2 = mk('div', 'nvFixo');
+    fx2.appendChild(fim);
+    s2.appendChild(fx2);
+  }
+  // Concluir sem nenhuma cor: abre a primeira cor (a peça precisa de ao menos uma)
+  function nvCorSheetNova() {
+    $('nvAddCor').click();
   }
   function renderGuia() {
     var rest = $('addProdRest'),
@@ -613,7 +419,7 @@
       NVR = [];
       NVR_ABRE = 0;
       if (rest) rest.removeAttribute('data-nv');
-      if (/^(Novo modelo|Cores e fotos)$/.test($('addTitle').textContent)) $('addTitle').textContent = 'Adicionar';
+      if (/^(Nova peça|Cores)$/.test($('addTitle').textContent)) $('addTitle').textContent = 'Adicionar';
       S.nStep = 1;
       S.nCorOpen = false;
       return;
@@ -628,15 +434,15 @@
     if (S.nStep === 2 && !S._ref) S.nStep = 1;
     $('nvS1').hidden = st !== 1;
     $('nvS2').hidden = st !== 2;
-    $('addTitle').textContent = st === 2 ? 'Cores e fotos' : 'Novo modelo';
+    $('addTitle').textContent = st === 2 ? 'Cores' : 'Nova peça';
     $('nvSub').textContent =
       st === 2
-        ? 'Toda cor liberada precisa de foto. ' + (S._ref || '')
+        ? 'Passo 2 de 2 · ' + (S._ref || '') + ' · ' + ((tipoOf(S.tipo) || {}).label || '')
         : S.nDeRef
           ? 'Copiado de ' + S.nDeRef + ' · confira'
           : S.nLido
           ? 'Lido da haste · confira e complete'
-          : 'À mão · o app guia e confere';
+          : 'Passo 1 de 2 · o modelo';
     $('addBack').hidden = st !== 2;
     if ($('nvDeRef')) {
       var dr = !!(S.nDeRef && !$('eRef').value.trim());
@@ -703,7 +509,7 @@
     });
     var nx = $('nvNext');
     nx.style.opacity = falta.length ? '.45' : '1';
-    nx.textContent = simple ? 'Continuar' : 'Continuar · cores e fotos';
+    nx.textContent = simple ? 'Continuar' : 'Continuar · cores';
     if (known) nx.dataset.k = '1';
   }
   // ----- Cadastro B: trilho do Tipo e chips do "Como é"
@@ -737,22 +543,27 @@
     if (b) b.click();
     else render();
   }
-  function nvChip(key, rotulo) {
-    var b = mk('button', 'nvChip');
+  // 44: a linha de escolher — "Formato · escolher ›" (o valor escolhido aparece à direita, em cinza). A mesma no cadastro e no Editar produto.
+  function escLinha(id, rotulo, v, onTap) {
+    var b = mk('button', 'escL');
     b.type = 'button';
-    b.id = 'nv_' + key;
+    b.id = id;
     b.dataset.rot = rotulo;
-    b.onclick = function () {
-      nvComoAbre(key);
-    };
+    b.onclick = onTap;
+    escLinhaPoe(b, v);
     return b;
   }
-  function nvChipPoe(key, v) {
-    var b = $('nv_' + key);
+  function escLinhaPoe(b, v) {
     if (!b) return;
     b.classList.toggle('ok', !!v);
-    b.innerHTML = '<span>' + esc(v || b.dataset.rot) + '</span><i aria-hidden="true">▾</i>';
-    b.setAttribute('aria-label', b.dataset.rot + (v ? ': ' + v : ''));
+    b.innerHTML = '<span>' + esc(b.dataset.rot) + '</span><em>' + esc(v || 'escolher') + '</em><i aria-hidden="true">›</i>';
+    b.setAttribute('aria-label', b.dataset.rot + (v ? ': ' + v : ': escolher'));
+  }
+  function nvChip(key, rotulo) {
+    return escLinha('nv_' + key, rotulo, '', function () { nvComoAbre(key); });
+  }
+  function nvChipPoe(key, v) {
+    escLinhaPoe($('nv_' + key), v);
   }
   // Gaveta do "Como é": busca, lista e "Criar novo".
   var NV_COMO = { fmt: 'Formato', mat: 'Material', pub: 'Gênero' };
@@ -772,52 +583,49 @@
     } else if (key === 'mat') S.eMat = v;
     else S.ePub = v;
   }
-  function comoSheet(id, titulo, lista, atual, onPick) {
-    var ov = lfaAbre(
-      id,
-      '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">' + esc(titulo) + '</div>' +
-        '<div class="lsBox"><span class="lsIc">' + ICO.busca + '</span><input class="lsIn" id="' + id + 'Q" placeholder="' + esc(titulo) + '" autocomplete="off" aria-label="Buscar"></div>' +
-        '<div class="lsList comoL"></div>'
-    );
-    ov.classList.add('lfa-camg');
-    var q = ov.querySelector('.lsIn'),
-      ul = ov.querySelector('.comoL'),
-      fecha = function () {
-        lfaFecha(id);
-      };
-    ov.addEventListener('click', function (e) {
-      if (e.target === ov) fecha();
-    });
-    var pinta = function () {
-      var t = q.value.trim(),
-        tl = t.toLowerCase(),
-        h = '';
-      lista.forEach(function (v) {
-        if (tl && String(v).toLowerCase().indexOf(tl) < 0) return;
-        h += '<button type="button" class="lsOpt' + (atual === v ? ' on' : '') + '" data-v="' + esc(v) + '">' + esc(v) + '</button>';
-      });
-      var igual = lista.some(function (v) { return String(v).toLowerCase() === tl; });
-      h += '<button type="button" class="lsOpt comoNovo" data-novo="1">+ Criar novo' + (t && !igual ? ': ' + esc(t) : '') + '</button>';
-      ul.innerHTML = h;
-    };
-    ul.onclick = function (e) {
-      var b = e.target.closest('.lsOpt');
-      if (!b) return;
-      var v = b.dataset.novo ? q.value.trim() : b.dataset.v;
-      if (!v) {
-        q.focus();
-        return;
+  // 44 (aprovado 21/11): ESCOLHER é uma tarefa — a janela de baixo com a lista em linhas de bolinha (a primeira marcada quando
+  // ainda não há escolha), "+ Outro…" para escrever um valor novo e um "Salvar". Uma função para Formato, Material, Gênero e Cor
+  // (cadastro e Editar produto). topo = nó opcional que entra acima da lista (ex.: a Classe da cor).
+  function escolhaJanela(titulo, lista, atual, onPick, topo) {
+    var sel = atual || lista[0] || '', outra = false, txt = '';
+    return lfJanela({
+      titulo: titulo,
+      cls: 'escJn',
+      mudou: function () { return outra ? !!txt.trim() : sel !== (atual || lista[0] || ''); },
+      monta: function (c, api) {
+        var pinta = function () {
+          c.innerHTML = '<div class="escTopo"></div>' + lista.map(function (v) {
+            return '<button type="button" class="pxL" role="radio" aria-checked="' + (!outra && sel === v) + '" data-v="' + esc(v) + '"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>' + esc(v) + '</b></span></button>';
+          }).join('') +
+            '<button type="button" class="pxL" role="radio" aria-checked="' + outra + '" data-outra="1"><i class="pxR" aria-hidden="true"></i><span class="pxT"><b>Outro…</b></span></button>' +
+            (outra ? '<input class="in escOutra" maxlength="30" placeholder="Escreva" aria-label="' + esc(titulo) + '" value="' + esc(txt) + '">' : '') +
+            '<button type="button" class="go escSalva">Salvar</button>';
+          if (topo) c.querySelector('.escTopo').appendChild(topo);
+          c.querySelectorAll('.pxL').forEach(function (b) {
+            b.onclick = function () {
+              outra = !!b.dataset.outra;
+              if (!outra) sel = b.dataset.v;
+              pinta();
+              var oi = c.querySelector('.escOutra');
+              if (oi) oi.focus();
+            };
+          });
+          var oi = c.querySelector('.escOutra');
+          if (oi) oi.oninput = function () { txt = oi.value; };
+          c.querySelector('.escSalva').onclick = function () {
+            var v = outra ? txt.trim() : sel;
+            if (!v) { var o2 = c.querySelector('.escOutra'); if (o2) o2.focus(); return; }
+            v = v[0].toUpperCase() + v.slice(1);
+            api.fecha(true);
+            onPick(v);
+          };
+        };
+        pinta();
       }
-      v = v[0].toUpperCase() + v.slice(1);
-      fecha();
-      onPick(v);
-    };
-    q.oninput = pinta;
-    pinta();
-    return ov;
+    });
   }
   function nvComoAbre(key) {
-    comoSheet('lfa-como', NV_COMO[key], nvComoLista(key), nvComoAtual(key), function (v) {
+    escolhaJanela(NV_COMO[key], nvComoLista(key), nvComoAtual(key), function (v) {
       if (key === 'mat' && NV_MAT.indexOf(v) < 0) {
         S.matX = S.matX || [];
         if (S.matX.indexOf(v) < 0) S.matX.push(v);
@@ -875,12 +683,7 @@
     var cores = Object.keys(S.palette).filter(function (k) {
         return k !== 'Sem detalhe' && k !== 'Sem cor';
       }),
-      ov = comoSheet('lfa-cor', 'Cor', cores, w.cor, function (v) {
-        if (!S.palette[v] && typeof ensureCor === 'function') ensureCor(v);
-        w.cor = v;
-        render();
-      });
-    var cl = mk('div', 'cfCls');
+      cl = mk('div', 'cfCls');
     cl.innerHTML =
       '<div class="lbl" style="margin:0">Classe</div><div class="nav">' +
       varChips(w.vr || 'C1')
@@ -896,10 +699,12 @@
       [].forEach.call(cl.querySelectorAll('.chip'), function (c) {
         c.classList.toggle('on', c === b);
       });
-      render();
     };
-    var tt = ov.querySelector('.cg-tt');
-    tt.insertAdjacentElement('afterend', cl);
+    escolhaJanela('Cor', cores, w.cor, function (v) {
+      if (!S.palette[v] && typeof ensureCor === 'function') ensureCor(v);
+      w.cor = v;
+      render();
+    }, cl);
   }
   // Grava uma linha nova com o mesmo motor de "Registrar entrada"; devolve as peças gravadas.
   function nvGravaLinha(w) {

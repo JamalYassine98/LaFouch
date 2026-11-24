@@ -369,6 +369,9 @@
     $('addPhotoB').hidden = S.addMode !== 'menu';
     $('addMenuB').hidden = S.addMode !== 'menu';
     $('addBack').hidden = S.addMode === 'menu';
+    // 44: o voltar da janela do cadastro é o "‹ etapa anterior" da família Voltar (versalete), não o botão quadrado
+    var ab = $('addBack'), abT = S.addMode === 'prod' && S.nStep === 2 ? 'O modelo' : 'Adicionar';
+    if (ab.dataset.t !== abT) { ab.dataset.t = abT; ab.className = 'nvVs adVolta'; ab.innerHTML = '<i aria-hidden="true">‹</i>' + abT; ab.setAttribute('aria-label', 'Voltar: ' + abT); ab.removeAttribute('title'); }
     $('addProdRest').hidden = S.addMode !== 'prod';
     $('addLoteB').hidden = S.addMode !== 'lote';
     $('addQuickB').hidden = S.addMode !== 'quick';

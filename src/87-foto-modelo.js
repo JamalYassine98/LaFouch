@@ -287,7 +287,7 @@
       });
       var b1 = mk('button', 'fmBtn pri', 'É este · dar entrada'),
         b2 = mk('button', 'fmBtn', 'É parecido, mas outro código · copiar dados'),
-        b3 = mk('button', 'fmBtn mut', 'Nenhum destes · Novo modelo');
+        b3 = mk('button', 'fmBtn mut', 'Nenhum destes · Nova peça');
       b1.onclick = function () {
         close();
         fmEntrada(pick, cv);
@@ -328,7 +328,7 @@
       });
       bx.appendChild(bq);
       bx.appendChild(mk('div', 'fmDica', 'Usar esta foto como foto da cor. Sem código na foto: o app cria o número interno.'));
-      var b = mk('button', 'fmBtn pri', 'Continuar para Novo modelo');
+      var b = mk('button', 'fmBtn pri', 'Continuar para Nova peça');
       b.onclick = function () {
         close();
         fmNovo(cv, null, '', cor);
@@ -604,7 +604,8 @@
       });
     });
   }
-  $('btnFoto').onclick = function () {
+  // a foto do cadastro (etiqueta, caixa ou pacote) — chamada pela entrada de um lote e por "Salvar e próxima cor"
+  function fotoCadastro() {
     S.photoFor = null;
     camOpen(
       function (f) {
@@ -617,4 +618,4 @@
         tip: 'Ponha a peça, a etiqueta ou o pacote dentro do retângulo. Toque na tela para focar.'
       }
     );
-  };
+  }

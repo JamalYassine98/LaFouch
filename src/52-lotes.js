@@ -796,12 +796,12 @@
     S.gSel = g.id;
     if (!MIX(g.tipo)) S.tipo = g.tipo;
     render();
-    if (how === 'haste') leitorGo();
+    if (how === 'haste') leitorOpen();
     else if (how === 'mao') {
       if (typeof nvLimpaMed === 'function') nvLimpaMed();
       S.nStep = 1;
       render();
-    } else $('btnFoto').onclick();
+    } else fotoCadastro();
   }
   function entradaCompraRow(g, fl) {
     var w = mk('section', 'card');

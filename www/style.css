@@ -498,8 +498,6 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .nvauto .r{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-top:1px solid #1f4457;font-size:13px;color:var(--mute)}
 .nvauto .r b{color:var(--info);text-align:right}
 .nvthm{width:60px;height:56px;border-radius:10px;background:#fff;overflow:hidden;flex:none;display:grid;place-items:center;font-size:20px}.nvthm img{width:100%;height:100%;object-fit:cover}
-.nvtg{width:50px;height:28px;border-radius:99px;background:var(--line);position:relative;transition:background .3s;flex:none;border:0;padding:0}.nvtg i{position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:99px;background:#cbd5e1;transition:left .3s}.nvtg.on{background:var(--accent)}.nvtg.on i{left:25px;background:#fff}
-.nvwarn{background:var(--warnbg);border:1px solid #5a4416;border-radius:12px;padding:12px;color:var(--warn);font-size:13px;line-height:1.4}
 .nvstp{display:flex;align-items:center;gap:12px}.nvstp b{flex:1;min-height:52px;display:grid;place-items:center;font-size:26px;background:var(--bg);border:2px solid var(--line);border-radius:10px}
 
 #nvBox #eSim,#nvBox #eCustoH{display:none!important}
@@ -1093,36 +1091,21 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cg-big .cg-ic{width:58px;height:58px;border-radius:18px}.cg-big .cg-ic svg{width:32px;height:32px}
 .cg-big small{margin-top:0}
 /* v417 Etapa 2: Adicionar A+1 */
-.adTiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.adTile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;min-height:92px;margin:0;padding:12px 8px;border-radius:16px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font:inherit}
-.adTile svg{width:30px;height:30px;color:var(--accent)}.adTile b{font-size:15px}
-.adTile:active{background:var(--tbg);border-color:var(--tbd)}
 #addDeNovo{margin-top:16px}
 .adNv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
 .adNvI{display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font:inherit;text-align:left;min-width:0}
 .adNvI:active{background:var(--tbg);border-color:var(--tbd)}
 .adNvF{height:56px;border-radius:8px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}.adNvF img{width:100%;height:100%;object-fit:contain}
 .adNvI b{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adNvI small{font-size:11.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.adLista{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel2)}
-.adRow{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:0 14px;border:0;border-radius:0;background:transparent;color:var(--fg);font:inherit;font-size:15.5px;text-align:left;margin:0}
-.adRow+.adRow{border-top:1px solid var(--line)}
+.adLista{display:flex;flex-direction:column} /* 104: sem cartão */
+.adRow{display:flex;align-items:center;gap:16px;width:100%;min-height:56px;padding:0;border:0;border-bottom:1px solid var(--line2);border-radius:0;background:transparent;color:var(--fg);font:inherit;font-size:16px;text-align:left;margin:0}
 .adRow>svg{width:22px;height:22px;flex:none;color:var(--mute)}.adRow span{flex:1}.adRow .adSeta{width:18px;height:18px}
 .adRow:active{background:var(--tbg)}
-.enF-top{display:flex;gap:12px;align-items:center}
-.enF-img{width:84px;height:64px;border-radius:12px;background:#fff;overflow:hidden;flex:none}.enF-img img{width:100%;height:100%;object-fit:contain}
-.enF-q{display:flex;flex-direction:column;align-items:center;gap:10px;margin:16px 0 4px}
 /* v417 Etapa 3: Cadastro B (código com leitor, Tipo em trilho, "Como é" em chips) */
 .nvCodW{position:relative}.nvCodW #eRef{padding-right:52px}
 .nvLer{position:absolute;right:4px;top:26px;width:44px;height:42px;border:0;border-radius:10px;background:transparent;color:var(--accent);display:flex;align-items:center;justify-content:center;padding:0;margin:0}
 .nvLer svg{width:24px;height:24px}.nvLer:active{background:var(--tbg)}
 .trk.vazio .trkTh{opacity:0}
-.nvChips{display:flex;flex-wrap:wrap;gap:8px}
-.nvChip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--mute);font:inherit;font-size:14.5px;margin:0;max-width:100%}
-.nvChip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nvChip i{font-style:normal;font-size:11px;opacity:.7}
-.nvChip.ok{color:var(--fg);border-color:var(--tbd,var(--line))}
-.nvChip:active{background:var(--tbg)}
-.lfa-camg .lsBox{margin-top:10px}.comoL{max-height:46vh;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:12px}
-.comoL .lsOpt.on{color:var(--fg);font-weight:700}.comoNovo{color:var(--accent)!important}
 .cfCls{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 /* Cores e fotos em lista */
 .cfList{gap:0!important;padding:4px 12px!important}
@@ -1133,7 +1116,6 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cfFt img{width:100%;height:100%;object-fit:contain}
 .cfTx{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;text-align:left;padding:0;margin:0}
 .cfTx b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.cfTx small,.cfMaisB{font-size:12px;color:var(--mute)}
-.cfTx .nvChip{min-height:34px;padding:0 12px;font-size:14px}
 .cfGrau{min-height:36px!important;height:36px;font-size:14px;padding:0 10px;width:100%}
 .cfQ{font-weight:700;color:var(--sub,var(--mute));font-size:14px}
 .cfStep{transform:scale(.86);transform-origin:right center}
@@ -1158,9 +1140,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .brTot{display:flex;justify-content:space-between;align-items:baseline;padding-top:4px}.brTot span{color:var(--mute)}.brTot b{font-size:20px}
 .brSep{font-size:13.5px;color:var(--mute);text-align:center}
 @media (prefers-reduced-motion:reduce){.cfRow.entra{animation:none}}
-.nvChip.ok{border-color:var(--mute)}
 #nvTipoTrk .trkB,#brMoeda .trkB,#eFaixas .trkB{padding:0 4px}
-.cfTx .nvChip span{white-space:normal;line-height:1.2;text-align:left}.cfTx .nvChip{padding:6px 12px;height:auto}
 .cfCls .chip.on{background:var(--selbg,#2c323b);color:var(--fg);border-color:var(--mute)}
 @media (prefers-color-scheme:light){:root:not([data-tema=escuro]) .cfCls .chip.on{--selbg:#e3dfe4}}
 .cfMais .mini{background:transparent!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important}
@@ -3155,3 +3135,20 @@ p.cpE{margin:0 0 8px;font-size:14px}
 .lt89[data-cabe='1']>span{font-size:14px}.lt89[data-cabe='1']>b{font-size:19px}
 .lt89[data-cabe='2']>span{font-size:13px}.lt89[data-cabe='2']>b{font-size:17px}
 .lt89[data-cabe='3']>span{font-size:12px}.lt89[data-cabe='3']>b{font-size:16px}
+/* 44 + 88 (aprovados 21–23/11): o cadastro "Preencher à mão" em linhas */
+.adVolta{margin:0 0 4px}
+.escLs{display:flex;flex-direction:column}
+.escL{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 0;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--fg);font:inherit;font-size:16px;text-align:left;cursor:pointer}
+.escL>span{flex:1;min-width:0}.escL em{font-style:normal;color:var(--mute);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}.escL i{font-style:normal;color:var(--mute);font-size:18px}
+.escL.ok em{color:var(--sub)}
+.escJn .escOutra{margin:8px 0}.escJn .escSalva{margin-top:16px}.escJn .escTopo:empty{display:none}.escJn .escTopo{margin-bottom:8px}
+.nvFixo{position:sticky;bottom:0;z-index:2;background:var(--panel);padding:12px 0 calc(8px + env(safe-area-inset-bottom,0px));margin-top:8px}
+#nvS2 .cfRow{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 0;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+#nvS2 .cfFt{flex:none;width:56px;height:44px;border-radius:10px;background:var(--panel2);display:grid;place-items:center;overflow:hidden}
+#nvS2 .cfFt img{width:100%;height:100%;object-fit:cover}#nvS2 .cfFt small{font-size:11px;color:var(--mute)}
+#nvS2 .cfTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#nvS2 .cfTx b{font-size:16px;font-weight:500}#nvS2 .cfTx small{font-size:13px;color:var(--mute)}
+#nvS2 .cfCor,#nvS2 .cfMaisB{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+#nvS2 .cfMais{flex-basis:100%;display:flex;gap:8px;padding-bottom:8px}
+#nvS2 .cfNova{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;background:none;border:0;border-bottom:1px solid var(--line2);color:var(--accent-fg);font:inherit;font-size:16px;font-weight:600;cursor:pointer;padding:0}
+#nvS2 .cfNova .pl78{margin:0;color:var(--fg)}

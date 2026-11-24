@@ -436,19 +436,4 @@
     });
     return best;
   }
-  $('btnFoto').onclick = function () {
-    S.photoFor = null;
-    camOpen(
-      function (f, g) {
-        S.photoFor = null;
-        window.__GAL = !!(g && g.gallery);
-        $('file').onchange({ target: { files: [f] } });
-      },
-      'Foto da peça',
-      {
-        gallery: true,
-        tip: 'Ponha a peça inteira dentro do retângulo, de preferência sobre uma folha branca. Toque na tela para focar.'
-      }
-    );
-  };
   // ---- foto

@@ -644,7 +644,7 @@
       S.msg = 'Salvo: ' + f.ref + ' ' + f.cor + '. Tire a foto da próxima cor.';
       P = null;
       render();
-      $('btnFoto').onclick();
+      fotoCadastro();
       return;
     }
     if (S.fromLot) {
