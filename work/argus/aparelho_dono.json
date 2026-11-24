@@ -1,0 +1,16 @@
+{
+ "_": "Celular do dono (medido 24/11/2026 15:56 pela página de diagnóstico, aberta no WebView do Android). É UM aparelho de teste entre muitos — o app encaixa por lógica, nunca por este tamanho.",
+ "modelo": "Xiaomi 13T (2306EPN60G)",
+ "sistema": "HyperOS 3.0.4.0 · Android 16 (BP2A.250605.031.A3)",
+ "motor": "Android WebView · Chrome 157.0.8103.50 (o mesmo do APK)",
+ "tela_css": [407, 904],
+ "pontos_por_pixel": 3.0,
+ "pixels_reais": [1221, 2712],
+ "tamanho_da_exibicao": "padrão (meio)",
+ "fonte": "padrão do sistema · 100%",
+ "tema": "escuro",
+ "reduzir_movimento": false,
+ "toque": "dedo · 5 pontos",
+ "bordas_seguras": "0 / 0 no WebView do Claude; no APK medir com o emulador (barra de cima e de baixo)",
+ "app": "APK instalado"
+}
