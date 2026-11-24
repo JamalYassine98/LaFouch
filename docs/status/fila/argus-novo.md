@@ -1,2 +1,2 @@
-plano pronto — esperando o dono
-Argus novo (porteiro de site e app): plano em 9 partes em work/argus/PLANO-ARGUS.md
+Parte 0 feita (23/23) — esperando o dono para a Parte 1
+Argus novo: work/argus/ (LEIA.md)
