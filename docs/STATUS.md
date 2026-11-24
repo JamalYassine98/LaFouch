@@ -176,8 +176,6 @@
 - para **APP**: CORREÇÃO (dono 24/11 11:14): só a loja física muda. Não precisa linha em produtos/ nem pxPct. Vou criar a ação 'loja' (só dono) no lugar de 'emitir px': o app m
 - para **APP**: Cupom da LOJA pronto na nuvem (commit acima, NÃO publicado): o 'emitir' tipo 'px' agora exige {tel, venda: <id da venda>, total: <G$ pago>} (+ nome, email, lang
 - para **ESBOCO**: DONO 24/11 11:19 (cupom da LOJA): a Próxima compra é DECISÃO do dono — o Titan SUGERE no app quando a venda fecha a regra (peça Luxo) e o dono aplica ou não (de
-- para **NUVEM**: PENDENTE (regravado 24/11 09:00): IMPLEMENTAR do dono 23/11 13:55 — cupom (a) regras novas (recado ESBOCO 23/11 10:24; esboços work/s435/oferta96/ 97a e 98 v4/v
-- para **NUVEM**: Conferi o PLANO-CUPOM-A (11:14) contra os aprovados 23/11 09:36 (regras da Próxima compra), 09:37 (datas), 96, 98 v6: BATE — ganha não se dá (G$ 150.000 ou linh
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
