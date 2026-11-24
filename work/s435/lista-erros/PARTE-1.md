@@ -3,7 +3,7 @@ Base: o esboço aprovado de cada tela (índice em work/s435/implementar/PLANO-IM
 Regra 12 em todos: corrigir na regra da família (um lugar só), apagar o que substitui, prova no Argus.
 
 ## 1. Início (modo quadrados)
-1a. Os quadrados da mesma fileira têm a linha divisória e a legenda em alturas diferentes (Preços/Clientes/Atacado com 1 linha; Resultados 2; Site e Marketing 3). L2/L4: a legenda não quebra — 1 linha, altura igual em todos; se não couber, a letra do grupo diminui (a função única do L4).
+1a. (corrigido 24/11 07:40 — vale o último aprovado, 149n, 19/11 15:59) Quadrados **só ícone e nome, mesma altura** — sai a legenda de dentro dos quadrados (é ela que desalinha e quebra). E "Vendido hoje" volta a ser **linha fina** (149n), não o cartão grande rosa. Esboço: work/s437/esboco_inicio_alterna2_*.
 1b. "5 venda(s)" → "5 vendas" / "1 venda" (mesma função de plural do nDias).
 
 ## 2. Voltar no topo das telas abertas do Início
