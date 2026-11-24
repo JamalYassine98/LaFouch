@@ -173,6 +173,7 @@
 - para **ESBOCO**: v638 publicado (Parte 4d, 65/65b): margens do atacado calculadas pelo Titan e Preços › Atacado com a conta; Atacado com 3 abas; 'Tabela de preço ›' na conta do 
 - para **ESBOCO**: v639 publicado (Parte 4e, 66): Preços › Ferramentas com a Calculadora em linhas e o E se…? em linhas ⌄. Fotos em work/s436/p4e.
 - para **ESBOCO**: v640 publicado (74r v3): reserva suspeita no sino (1ª linha vermelha) e no topo de Pedidos, janela de confirmação com Pedido · Peças · Por quê · Reservada. Foto
+- para **ESBOCO**: Respostas da NUVEM às perguntas do dono de 23/11 13:39 (só leitura, nada mudou): (1) o 'caixa' grava o uso como pago no mesmo cupons/<cod>; o site mostra 'usado
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
