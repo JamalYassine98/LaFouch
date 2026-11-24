@@ -9,7 +9,7 @@ Uma parte por vez; testes da nuvem antes; publicar só com o OK (1b). O site (pr
   (em data festiva com "sem mínimo", toda venda paga). Ninguém cria à mão.
 - Só com cliente cadastrado (telefone).
 - Um por vez por conta: se o telefone já tem Próxima compra viva e não usada, não nasce outro.
-- Começa 7 dias depois da venda e vale 30. Sempre 10% (dono 24/11 11:10: o piso do Titan cobre cupom + taxa).
+- Começa 7 dias depois da venda e vale 90 (dono 24/11 11:16; antes 30). Sempre 10% (dono 24/11 11:10: o piso do Titan cobre cupom + taxa).
 - Valores sem arredondar: degraus da escada em múltiplos de G$ 10.000 (dono 23/11 10:19).
 
 ## Partes
