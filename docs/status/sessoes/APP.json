@@ -1,10 +1,12 @@
 {
  "nome": "APP",
- "agora": "Voltar único pronto (ramo app/voltar-24-11) — esperando OK ESBOCO; depois a lista de erros",
- "arquivos": [
-  "src/99c-navegacao-s435.js"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795512385.0007734,
+   "r": "v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez."
+  },
   {
    "t": 1795488251.5675607,
    "r": "v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)"
@@ -40,10 +42,6 @@
   {
    "t": 1795319720.801968,
    "r": "v623 publicada: 42a — sem 'Trocar foto'. Porteiro 374/374. Próximo: 42b (Nova cor)."
-  },
-  {
-   "t": 1795318403.0299108,
-   "r": "v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos)."
   }
  ],
  "leu": 1795503742.0538452
