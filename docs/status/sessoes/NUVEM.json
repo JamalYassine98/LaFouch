@@ -1,10 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "estudo do departamento (doc da nuvem)",
- "arquivos": [
-  "docs/NUVEM-COMO-FUNCIONA.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795502431.922189,
+   "r": "Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado."
+  },
   {
    "t": 1795371928.9013982,
    "r": "Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan."
@@ -40,10 +42,6 @@
   {
    "t": 1795259043.8031511,
    "r": "Hospedagem parte 1 no ar (app também em lafouch-2f6bd.web.app, sonda ok); S5S7 completo com o site; esboço do preço exato (Fila 39) visto — espera o dono."
-  },
-  {
-   "t": 1795229740.362719,
-   "r": "Plano da hospedagem pronto (docs/PLANO-HOSPEDAGEM-20-11.md): o site já está na Cloudflare desde 16/11; falta tirar o APP do GitHub Pages — recomendação Firebase Hosting; espera 'Aprovado A/B'."
   }
  ],
  "leu": 1795502354.0470405
