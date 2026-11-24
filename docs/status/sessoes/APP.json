@@ -1,7 +1,10 @@
 {
  "nome": "APP",
- "agora": "",
- "arquivos": [],
+ "agora": "Parte 4 · Titan (54, 62–67, 94, 95, 74r)",
+ "arquivos": [
+  "src/97z3-precos.js",
+  "src/97-preco-auto.js"
+ ],
  "ultimas": [
   {
    "t": 1795488251.5675607,

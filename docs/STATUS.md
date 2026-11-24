@@ -19,6 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
+| APP | Parte 4 · Titan (54, 62–67, 94, 95, 74r) | src/97z3-precos.js, src/97-preco-auto.js |
 
 ## Fila
 
