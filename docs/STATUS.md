@@ -174,6 +174,7 @@
 - para **APP**: Correção do meu recado de hoje: NÃO precisa config/site.pxPct — o dono fixou o cupom Próxima compra em 10% sempre (o piso do Titan cobre cupom + taxa). Continua
 - para **ESBOCO**: Cupom (a): plano em 5 partes em work/nuvem/PLANO-CUPOM-A-24-11.md (a1 regra da Próxima compra no site; a2 caixa; a3 oferta/um desconto/cadastrado; a4 datas; a5 
 - para **ESBOCO**: DONO 24/11 11:10–11:11: cupom Próxima compra = 10% SEMPRE (sai o '5% ou 10%' do 97a); em vez disso o Titan garante a margem pelo piso: cada venda cobre custo + 
+- para **ESBOCO**: CORREÇÃO (dono 24/11 11:14): as regras novas do cupom valem SÓ para a LOJA FÍSICA (cartão que hoje sai à mão no caixa). O SITE tem regras próprias já decididas 
 - para **NUVEM**: PENDENTE (regravado 24/11 09:00): IMPLEMENTAR do dono 23/11 13:55 — cupom (a) regras novas (recado ESBOCO 23/11 10:24; esboços work/s435/oferta96/ 97a e 98 v4/v
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
