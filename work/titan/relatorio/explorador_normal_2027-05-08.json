@@ -1,0 +1,4318 @@
+{
+ "cenario": "normal",
+ "estados": {
+  "Início": {
+   "estado": "inicio||||||0",
+   "familia": {
+    "titulos": [],
+    "frases_titulo": [],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "Titan · 5 coisas para olhar",
+      "r": {
+       "x": 50,
+       "y": 215,
+       "w": 188,
+       "h": 22,
+       "b": 237
+      },
+      "lin": {
+       "x": 24,
+       "y": 198,
+       "w": 342,
+       "h": 56,
+       "b": 254
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "5hr1ho"
+     },
+     {
+      "t": "Vendido hoje · 10 venda(s)",
+      "r": {
+       "x": 95,
+       "y": 289,
+       "w": 150,
+       "h": 17,
+       "b": 306
+      },
+      "lin": {
+       "x": 24,
+       "y": 272,
+       "w": 342,
+       "h": 83,
+       "b": 355
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "lc3w00"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 510.000",
+      "r": {
+       "x": 95,
+       "y": 308,
+       "w": 126,
+       "h": 26,
+       "b": 334
+      },
+      "fs": 22,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 31.9,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [
+     {
+      "t": "Dia, mês e histórico",
+      "r": {
+       "x": 25,
+       "y": 481,
+       "w": 105,
+       "h": 44,
+       "b": 524
+      },
+      "linhas": 2
+     },
+     {
+      "t": "Pedidos, mensagens, vitrine e modelos",
+      "r": {
+       "x": 260,
+       "y": 463,
+       "w": 105,
+       "h": 61,
+       "b": 524
+      },
+      "linhas": 3
+     },
+     {
+      "t": "Posts, vídeos, temática, cartões e visit",
+      "r": {
+       "x": 25,
+       "y": 625,
+       "w": 105,
+       "h": 61,
+       "b": 686
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [
+     {
+      "y": 373,
+      "n": 3,
+      "dif": [
+       {
+        "j": 1,
+        "ys": [
+         108,
+         125,
+         90
+        ],
+        "ex": [
+         "Dia, mês e histó",
+         "2 a decidir",
+         "Pedidos, mensage"
+        ]
+       }
+      ],
+      "contagem": [
+       2,
+       2,
+       2
+      ]
+     },
+     {
+      "y": 535,
+      "n": 3,
+      "dif": [
+       {
+        "j": 1,
+        "ys": [
+         90,
+         125,
+         125
+        ],
+        "ex": [
+         "Posts, vídeos, t",
+         "0 cadastrados",
+         "Orçamentos"
+        ]
+       }
+      ],
+      "contagem": [
+       2,
+       2,
+       2
+      ]
+     }
+    ],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Vender": {
+   "estado": "vendas|||vendas|Catálogo||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Catálogo",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 282,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Escolha a peça e venda.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "· Varejo · G$",
+      "r": {
+       "x": 97,
+       "y": 296,
+       "w": 157,
+       "h": 19,
+       "b": 315
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "w3fwiv"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Óculos de leitura Kazwini de acetato mas",
+      "r": {
+       "x": 33,
+       "y": 764,
+       "w": 147,
+       "h": 65,
+       "b": 829
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Catálogo",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Peças": {
+   "estado": "grp|||grp:g:pecas|Peças||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Peças",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Inventário, estúdio e compras",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Peças",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro": {
+   "estado": "grp|||grp:g:din|Dinheiro||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Caixa, reservas, despesas e câmbio",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Dinheiro",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Ajustes": {
+   "estado": "ajustes|||ajustes|Ajustes||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Ajustes",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Contas ligadas",
+      "r": {
+       "x": 24,
+       "y": 184,
+       "w": 342,
+       "h": 17,
+       "b": 202
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Este aparelho",
+      "r": {
+       "x": 24,
+       "y": 356,
+       "w": 342,
+       "h": 17,
+       "b": 373
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Instagram",
+      "r": {
+       "x": 68,
+       "y": 226,
+       "w": 192,
+       "h": 23,
+       "b": 249
+      },
+      "lin": {
+       "x": 24,
+       "y": 210,
+       "w": 342,
+       "h": 56,
+       "b": 266
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "luup0r"
+     },
+     {
+      "t": "Cópias e nuvem",
+      "r": {
+       "x": 68,
+       "y": 283,
+       "w": 147,
+       "h": 23,
+       "b": 306
+      },
+      "lin": {
+       "x": 24,
+       "y": 267,
+       "w": 342,
+       "h": 56,
+       "b": 323
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "h8iqn4"
+     },
+     {
+      "t": "Impressora",
+      "r": {
+       "x": 68,
+       "y": 397,
+       "w": 197,
+       "h": 23,
+       "b": 421
+      },
+      "lin": {
+       "x": 24,
+       "y": 381,
+       "w": 342,
+       "h": 56,
+       "b": 437
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "njo8ce"
+     },
+     {
+      "t": "Tema",
+      "r": {
+       "x": 68,
+       "y": 454,
+       "w": 227,
+       "h": 23,
+       "b": 478
+      },
+      "lin": {
+       "x": 24,
+       "y": 438,
+       "w": 342,
+       "h": 56,
+       "b": 494
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "4ot1fy"
+     },
+     {
+      "t": "Segurança",
+      "r": {
+       "x": 68,
+       "y": 511,
+       "w": 195,
+       "h": 23,
+       "b": 535
+      },
+      "lin": {
+       "x": 24,
+       "y": 495,
+       "w": 342,
+       "h": 56,
+       "b": 551
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "bpu6cs"
+     },
+     {
+      "t": "Sons e avisos",
+      "r": {
+       "x": 68,
+       "y": 568,
+       "w": 208,
+       "h": 23,
+       "b": 592
+      },
+      "lin": {
+       "x": 24,
+       "y": 552,
+       "w": 342,
+       "h": 56,
+       "b": 608
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "q338ha"
+     },
+     {
+      "t": "Atualização",
+      "r": {
+       "x": 68,
+       "y": 625,
+       "w": 218,
+       "h": 23,
+       "b": 649
+      },
+      "lin": {
+       "x": 24,
+       "y": 609,
+       "w": 342,
+       "h": 56,
+       "b": 665
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "42wc6k"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Ajustes",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › Titan · 5 coisas para olhar›": {
+   "estado": "notif||||Pendências||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Pendências",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "O que precisa de você agora.",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Titan · precisa de você agora · 5",
+      "r": {
+       "x": 24,
+       "y": 192,
+       "w": 342,
+       "h": 17,
+       "b": 209
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Para acompanhar · 7",
+      "r": {
+       "x": 24,
+       "y": 723,
+       "w": 342,
+       "h": 17,
+       "b": 740
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "10 preços para corrigir",
+      "r": {
+       "x": 28,
+       "y": 378,
+       "w": 165,
+       "h": 19,
+       "b": 397
+      },
+      "lin": {
+       "x": 24,
+       "y": 361,
+       "w": 342,
+       "h": 73,
+       "b": 434
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "rxalhz"
+     },
+     {
+      "t": "5 não cobrem o custo e as cont",
+      "r": {
+       "x": 28,
+       "y": 401,
+       "w": 192,
+       "h": 17,
+       "b": 418
+      },
+      "lin": {
+       "x": 24,
+       "y": 361,
+       "w": 342,
+       "h": 73,
+       "b": 434
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "rxalhz"
+     },
+     {
+      "t": "Caixa de hoje não bate",
+      "r": {
+       "x": 28,
+       "y": 469,
+       "w": 165,
+       "h": 19,
+       "b": 488
+      },
+      "lin": {
+       "x": 24,
+       "y": 452,
+       "w": 342,
+       "h": 73,
+       "b": 525
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "yqefa2"
+     },
+     {
+      "t": "Sem vendas há mais de 1 hora",
+      "r": {
+       "x": 28,
+       "y": 492,
+       "w": 172,
+       "h": 17,
+       "b": 509
+      },
+      "lin": {
+       "x": 24,
+       "y": 452,
+       "w": 342,
+       "h": 73,
+       "b": 525
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "yqefa2"
+     },
+     {
+      "t": "Peça sem custo (lucro errado) ",
+      "r": {
+       "x": 28,
+       "y": 560,
+       "w": 245,
+       "h": 19,
+       "b": 579
+      },
+      "lin": {
+       "x": 24,
+       "y": 543,
+       "w": 342,
+       "h": 75,
+       "b": 619
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "dvmxtl"
+     },
+     {
+      "t": ", ,",
+      "r": {
+       "x": 28,
+       "y": 583,
+       "w": 245,
+       "h": 20,
+       "b": 603
+      },
+      "lin": {
+       "x": 24,
+       "y": 543,
+       "w": 342,
+       "h": 75,
+       "b": 619
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "dvmxtl"
+     },
+     {
+      "t": "Lote sem detalhe · 343",
+      "r": {
+       "x": 28,
+       "y": 660,
+       "w": 167,
+       "h": 19,
+       "b": 679
+      },
+      "lin": {
+       "x": 24,
+       "y": 637,
+       "w": 342,
+       "h": 68,
+       "b": 705
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "7oyxqe"
+     },
+     {
+      "t": "Internet",
+      "r": {
+       "x": 28,
+       "y": 783,
+       "w": 58,
+       "h": 19,
+       "b": 802
+      },
+      "lin": {
+       "x": 24,
+       "y": 766,
+       "w": 342,
+       "h": 73,
+       "b": 839
+      },
+      "fs": 15,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "e2v16n"
+     },
+     {
+      "t": "vence em 2 dias",
+      "r": {
+       "x": 28,
+       "y": 806,
+       "w": 93,
+       "h": 17,
+       "b": 823
+      },
+      "lin": {
+       "x": 24,
+       "y": 766,
+       "w": 342,
+       "h": 73,
+       "b": 839
+      },
+      "fs": 12,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "e2v16n"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Ver margem",
+      "r": {
+       "x": 282,
+       "y": 271,
+       "w": 84,
+       "h": 36,
+       "b": 307
+      },
+      "linhas": 2
+     }
+    ],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Pendências",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › Vendido hoje · 10 venda(s)G$ 510.000›": {
+   "estado": "dia|||dia|Dashboard||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Dashboard",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 119,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Sábado, 8 de maio",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Hoje",
+      "r": {
+       "x": 24,
+       "y": 224,
+       "w": 342,
+       "h": 17,
+       "b": 241
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Vendas do dia",
+      "r": {
+       "x": 24,
+       "y": 564,
+       "w": 342,
+       "h": 17,
+       "b": 581
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Vendido",
+      "r": {
+       "x": 24,
+       "y": 256,
+       "w": 190,
+       "h": 22,
+       "b": 278
+      },
+      "lin": {
+       "x": 24,
+       "y": 243,
+       "w": 342,
+       "h": 69,
+       "b": 312
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "cvfq4c"
+     },
+     {
+      "t": "13 peça(s) em 10 venda(s)",
+      "r": {
+       "x": 24,
+       "y": 280,
+       "w": 190,
+       "h": 18,
+       "b": 298
+      },
+      "lin": {
+       "x": 24,
+       "y": 243,
+       "w": 342,
+       "h": 69,
+       "b": 312
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "cvfq4c"
+     },
+     {
+      "t": "Lucro livre",
+      "r": {
+       "x": 24,
+       "y": 325,
+       "w": 190,
+       "h": 22,
+       "b": 347
+      },
+      "lin": {
+       "x": 24,
+       "y": 312,
+       "w": 342,
+       "h": 69,
+       "b": 381
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "ley7g8"
+     },
+     {
+      "t": "depois de separar tudo",
+      "r": {
+       "x": 24,
+       "y": 349,
+       "w": 190,
+       "h": 18,
+       "b": 367
+      },
+      "lin": {
+       "x": 24,
+       "y": 312,
+       "w": 342,
+       "h": 69,
+       "b": 381
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "ley7g8"
+     },
+     {
+      "t": "Contas do dia",
+      "r": {
+       "x": 24,
+       "y": 394,
+       "w": 190,
+       "h": 22,
+       "b": 416
+      },
+      "lin": {
+       "x": 24,
+       "y": 381,
+       "w": 342,
+       "h": 69,
+       "b": 450
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "q7dt15"
+     },
+     {
+      "t": "1/30 de G$ 4.200.000 por mês",
+      "r": {
+       "x": 24,
+       "y": 418,
+       "w": 190,
+       "h": 18,
+       "b": 436
+      },
+      "lin": {
+       "x": 24,
+       "y": 381,
+       "w": 342,
+       "h": 69,
+       "b": 450
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "q7dt15"
+     },
+     {
+      "t": "Gastos extras",
+      "r": {
+       "x": 24,
+       "y": 463,
+       "w": 262,
+       "h": 22,
+       "b": 485
+      },
+      "lin": {
+       "x": 24,
+       "y": 450,
+       "w": 342,
+       "h": 68,
+       "b": 518
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "jhiz86"
+     },
+     {
+      "t": "imprevistos e melhorias",
+      "r": {
+       "x": 24,
+       "y": 487,
+       "w": 262,
+       "h": 18,
+       "b": 505
+      },
+      "lin": {
+       "x": 24,
+       "y": 450,
+       "w": 342,
+       "h": 68,
+       "b": 518
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "jhiz86"
+     },
+     {
+      "t": "2× YS8815 C2 · Verde",
+      "r": {
+       "x": 24,
+       "y": 608,
+       "w": 218,
+       "h": 22,
+       "b": 630
+      },
+      "lin": {
+       "x": 24,
+       "y": 595,
+       "w": 342,
+       "h": 68,
+       "b": 663
+      },
+      "fs": 15,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "i5jmom"
+     },
+     {
+      "t": "V-1916 · 08/05 às 01:45 · Sola",
+      "r": {
+       "x": 24,
+       "y": 632,
+       "w": 218,
+       "h": 18,
+       "b": 650
+      },
+      "lin": {
+       "x": 24,
+       "y": 595,
+       "w": 342,
+       "h": 68,
+       "b": 663
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "i5jmom"
+     },
+     {
+      "t": "2× BR44118 C1 · Preto",
+      "r": {
+       "x": 24,
+       "y": 793,
+       "w": 229,
+       "h": 22,
+       "b": 814
+      },
+      "lin": {
+       "x": 24,
+       "y": 779,
+       "w": 342,
+       "h": 69,
+       "b": 848
+      },
+      "fs": 15,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "124c88"
+     },
+     {
+      "t": "V-1920 · 08/05 às 01:37 · Arma",
+      "r": {
+       "x": 24,
+       "y": 816,
+       "w": 229,
+       "h": 18,
+       "b": 835
+      },
+      "lin": {
+       "x": 24,
+       "y": 779,
+       "w": 342,
+       "h": 69,
+       "b": 848
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "124c88"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 506.315",
+      "r": {
+       "x": 224,
+       "y": 264,
+       "w": 120,
+       "h": 25,
+       "b": 290
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 25.2,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "G$ 181.470",
+      "r": {
+       "x": 224,
+       "y": 333,
+       "w": 120,
+       "h": 25,
+       "b": 359
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 25.2,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "G$ 139.040",
+      "r": {
+       "x": 224,
+       "y": 402,
+       "w": 120,
+       "h": 25,
+       "b": 427
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 25.2,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "G$ 0",
+      "r": {
+       "x": 296,
+       "y": 471,
+       "w": 48,
+       "h": 25,
+       "b": 496
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 25.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [
+     {
+      "t": "V-1917 · 08/05 às 01:42 · Pré-graduados",
+      "r": {
+       "x": 24,
+       "y": 715,
+       "w": 236,
+       "h": 36,
+       "b": 751
+      },
+      "linhas": 2
+     }
+    ],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Dashboard",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › ResultadosDia, mês e histórico": {
+   "estado": "grp|||grp:g:res|Resultados||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Resultados",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Dia, mês e histórico",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Resultados",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › Preços2 a decidir": {
+   "estado": "dash|prec||prec|Preços||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Preços",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 73,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "O TITAN DECIDE HOJE · 2",
+      "r": {
+       "x": 24,
+       "y": 176,
+       "w": 342,
+       "h": 17,
+       "b": 194
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "SETORES",
+      "r": {
+       "x": 24,
+       "y": 387,
+       "w": 342,
+       "h": 17,
+       "b": 404
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Preços",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › SitePedidos, mensagens, vitrine e modelo": {
+   "estado": "grp|||grp:g:site|Site||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Site",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Pedidos, mensagens, vitrine e modelos",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Site",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › MarketingPosts, vídeos, temática, cartõe": {
+   "estado": "mkt|||grp:g:mkt>mkt|Marketing||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Marketing",
+      "r": {
+       "x": 24,
+       "y": 146,
+       "w": 326,
+       "h": 32,
+       "b": 178
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Objetivo do mês",
+      "r": {
+       "x": 24,
+       "y": 302,
+       "w": 342,
+       "h": 17,
+       "b": 320
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Status de hoje",
+      "r": {
+       "x": 24,
+       "y": 488,
+       "w": 342,
+       "h": 17,
+       "b": 506
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Criar com um toque",
+      "r": {
+       "x": 24,
+       "y": 626,
+       "w": 342,
+       "h": 17,
+       "b": 643
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Plano da semana · 0 de 6",
+      "r": {
+       "x": 24,
+       "y": 761,
+       "w": 342,
+       "h": 17,
+       "b": 779
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Seg · Post · 20h",
+      "r": {
+       "x": 58,
+       "y": 792,
+       "w": 106,
+       "h": 17,
+       "b": 809
+      },
+      "lin": {
+       "x": 58,
+       "y": 787,
+       "w": 308,
+       "h": 63,
+       "b": 850
+      },
+      "fs": 14,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 20.3,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "i1j0vj"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Óculos de leitura de plástico feminino",
+      "r": {
+       "x": 89,
+       "y": 524,
+       "w": 207,
+       "h": 41,
+       "b": 565
+      },
+      "linhas": 2
+     },
+     {
+      "t": "27 vendidas em 30 dias · R$ 21 na moeda ",
+      "r": {
+       "x": 89,
+       "y": 566,
+       "w": 250,
+       "h": 35,
+       "b": 601
+      },
+      "linhas": 2
+     },
+     {
+      "t": "Peça do objetivo — Óculos de leitura de ",
+      "r": {
+       "x": 58,
+       "y": 811,
+       "w": 308,
+       "h": 35,
+       "b": 846
+      },
+      "linhas": 2
+     }
+    ],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Marketing",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 100,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Marketing",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › Clientes0 cadastrados": {
+   "estado": "clientes|||cli|Clientes||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Clientes",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 282,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Quem compra na loja e no atacado.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [
+     {
+      "t": "",
+      "r": {
+       "x": 322,
+       "y": 118,
+       "w": 44,
+       "h": 44,
+       "b": 162
+      },
+      "raio": "50%"
+     }
+    ],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Clientes",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Início › AtacadoOrçamentos": {
+   "estado": "ata|||ata|Atacado||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Atacado",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 185,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Lojistas, lotes e pedidos em quantidade.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [],
+    "add": [
+     {
+      "t": "+ Novo acesso",
+      "r": {
+       "x": 225,
+       "y": 118,
+       "w": 141,
+       "h": 44,
+       "b": 162
+      },
+      "raio": "999px"
+     }
+    ],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Atacado",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [
+     {
+      "t": "+ Novo acesso",
+      "r": {
+       "x": 225,
+       "y": 118,
+       "w": 141,
+       "h": 44,
+       "b": 162
+      }
+     }
+    ],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Vender › Modo cliente (iPad da loja)": {
+   "estado": "vendas|||vendas||janela|0",
+   "familia": {
+    "titulos": [],
+    "frases_titulo": [],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "470",
+      "r": {
+       "x": 24,
+       "y": 211,
+       "w": 24,
+       "h": 19,
+       "b": 230
+      },
+      "lin": {
+       "x": 24,
+       "y": 198,
+       "w": 342,
+       "h": 44,
+       "b": 242
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "x8mydn"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Óculos de leitura Kazwini de acetato mas",
+      "r": {
+       "x": 33,
+       "y": 678,
+       "w": 147,
+       "h": 65,
+       "b": 744
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Vender › Ajustes do catálogo": {
+   "estado": "vendas|||vendas|Catálogo|Ajustes do catálogo|0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Catálogo",
+      "r": {
+       "x": 24,
+       "y": 124,
+       "w": 282,
+       "h": 32,
+       "b": 156
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Escolha a peça e venda.",
+      "r": {
+       "x": 24,
+       "y": 166,
+       "w": 342,
+       "h": 20,
+       "b": 186
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Moeda",
+      "r": {
+       "x": 16,
+       "y": 360,
+       "w": 358,
+       "h": 17,
+       "b": 377
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Ver como",
+      "r": {
+       "x": 16,
+       "y": 458,
+       "w": 79,
+       "h": 17,
+       "b": 476
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Tipo",
+      "r": {
+       "x": 16,
+       "y": 503,
+       "w": 358,
+       "h": 17,
+       "b": 520
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Para quem",
+      "r": {
+       "x": 16,
+       "y": 578,
+       "w": 358,
+       "h": 17,
+       "b": 596
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Preço até",
+      "r": {
+       "x": 16,
+       "y": 654,
+       "w": 358,
+       "h": 17,
+       "b": 671
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Situação",
+      "r": {
+       "x": 16,
+       "y": 729,
+       "w": 358,
+       "h": 17,
+       "b": 747
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "· Varejo · G$",
+      "r": {
+       "x": 97,
+       "y": 296,
+       "w": 157,
+       "h": 19,
+       "b": 315
+      },
+      "lin": {
+       "x": 24,
+       "y": 284,
+       "w": 342,
+       "h": 44,
+       "b": 328
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "556fa4"
+     },
+     {
+      "t": "Mais vendidos",
+      "r": {
+       "x": 160,
+       "y": 458,
+       "w": 85,
+       "h": 18,
+       "b": 476
+      },
+      "lin": {
+       "x": 16,
+       "y": 443,
+       "w": 358,
+       "h": 48,
+       "b": 491
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "hpyfg3"
+     }
+    ],
+    "add": [],
+    "janelas": [
+     {
+      "r": {
+       "x": 0,
+       "y": 294,
+       "w": 390,
+       "h": 550,
+       "b": 844
+      },
+      "ih": 844,
+      "fechar": [],
+      "texto": "Ajustes do catálogoLimparMoeda"
+     }
+    ],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Óculos de leitura Kazwini de acetato mas",
+      "r": {
+       "x": 33,
+       "y": 764,
+       "w": 147,
+       "h": 65,
+       "b": 829
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Catálogo",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Peças › InventárioCadastro, estoque e preço de c": {
+   "estado": "estoque|||grp:g:pecas>estoque|Inventário||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Inventário",
+      "r": {
+       "x": 24,
+       "y": 152,
+       "w": 282,
+       "h": 32,
+       "b": 184
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "16 referências · US$ 113 a custo",
+      "r": {
+       "x": 24,
+       "y": 194,
+       "w": 342,
+       "h": 20,
+       "b": 214
+      }
+     }
+    ],
+    "rotulos": [],
+    "linhas": [
+     {
+      "t": "470 peças · Todos",
+      "r": {
+       "x": 24,
+       "y": 340,
+       "w": 114,
+       "h": 19,
+       "b": 359
+      },
+      "lin": {
+       "x": 24,
+       "y": 328,
+       "w": 342,
+       "h": 44,
+       "b": 372
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "upxnze"
+     }
+    ],
+    "add": [
+     {
+      "t": "",
+      "r": {
+       "x": 322,
+       "y": 146,
+       "w": 44,
+       "h": 44,
+       "b": 190
+      },
+      "raio": "999px"
+     }
+    ],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [
+     {
+      "t": "Óculos de leitura Kazwini de acetato mas",
+      "r": {
+       "x": 33,
+       "y": 821,
+       "w": 147,
+       "h": 65,
+       "b": 886
+      },
+      "linhas": 3
+     }
+    ],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Peças",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 61,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Inventário",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Peças › ComprasLista de compras e fornecedores›": {
+   "estado": "comp|||grp:g:pecas>comp|Compras||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Compras",
+      "r": {
+       "x": 24,
+       "y": 146,
+       "w": 326,
+       "h": 32,
+       "b": 178
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Para comprar · 18 vagas",
+      "r": {
+       "x": 24,
+       "y": 220,
+       "w": 342,
+       "h": 17,
+       "b": 238
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Peças",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 61,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Compras",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Peças › Gerenciar grupo ›": {
+   "estado": "grp|||grp:g:pecas|Peças|Grupo|0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Peças",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Inventário, estúdio e compras",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Telas do grupo",
+      "r": {
+       "x": 18,
+       "y": 471,
+       "w": 354,
+       "h": 17,
+       "b": 488
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Inventário",
+      "r": {
+       "x": 18,
+       "y": 519,
+       "w": 70,
+       "h": 22,
+       "b": 540
+      },
+      "lin": {
+       "x": 18,
+       "y": 504,
+       "w": 354,
+       "h": 52,
+       "b": 556
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "wczqzl"
+     },
+     {
+      "t": "Estúdio",
+      "r": {
+       "x": 18,
+       "y": 587,
+       "w": 53,
+       "h": 22,
+       "b": 608
+      },
+      "lin": {
+       "x": 18,
+       "y": 572,
+       "w": 354,
+       "h": 52,
+       "b": 624
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "z7olqj"
+     },
+     {
+      "t": "Compras",
+      "r": {
+       "x": 18,
+       "y": 655,
+       "w": 64,
+       "h": 22,
+       "b": 676
+      },
+      "lin": {
+       "x": 18,
+       "y": 640,
+       "w": 354,
+       "h": 52,
+       "b": 692
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "lnbm2y"
+     }
+    ],
+    "add": [],
+    "janelas": [
+     {
+      "r": {
+       "x": 0,
+       "y": 338,
+       "w": 390,
+       "h": 506,
+       "b": 844
+      },
+      "ih": 844,
+      "fechar": [],
+      "texto": "GrupoTelas do grupoInventárioT"
+     }
+    ],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Peças",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro › CaixaO dinheiro da loja, por moeda›": {
+   "estado": "caixa|||grp:g:din>caixa|Caixa||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Caixa",
+      "r": {
+       "x": 24,
+       "y": 152,
+       "w": 282,
+       "h": 32,
+       "b": 184
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "No caixa agora",
+      "r": {
+       "x": 24,
+       "y": 212,
+       "w": 342,
+       "h": 17,
+       "b": 229
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Guarani",
+      "r": {
+       "x": 24,
+       "y": 251,
+       "w": 70,
+       "h": 41,
+       "b": 293
+      },
+      "lin": {
+       "x": 24,
+       "y": 231,
+       "w": 342,
+       "h": 76,
+       "b": 308
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "uosx54"
+     },
+     {
+      "t": "Dólar",
+      "r": {
+       "x": 24,
+       "y": 328,
+       "w": 89,
+       "h": 41,
+       "b": 369
+      },
+      "lin": {
+       "x": 24,
+       "y": 308,
+       "w": 342,
+       "h": 76,
+       "b": 384
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "0qt5bg"
+     },
+     {
+      "t": "Real",
+      "r": {
+       "x": 24,
+       "y": 404,
+       "w": 86,
+       "h": 41,
+       "b": 445
+      },
+      "lin": {
+       "x": 24,
+       "y": 384,
+       "w": 342,
+       "h": 76,
+       "b": 460
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "0mx05j"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 1.850.000",
+      "r": {
+       "x": 227,
+       "y": 245,
+       "w": 139,
+       "h": 30,
+       "b": 276
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 30.45,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "US$ 320,00",
+      "r": {
+       "x": 246,
+       "y": 322,
+       "w": 120,
+       "h": 30,
+       "b": 352
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 30.45,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "R$ 1.400,00",
+      "r": {
+       "x": 242,
+       "y": 398,
+       "w": 124,
+       "h": 30,
+       "b": 428
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 30.45,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 83,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Caixa",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [
+     {
+      "t": "+ Novo objetivo",
+      "r": {
+       "x": 24,
+       "y": 637,
+       "w": 342,
+       "h": 44,
+       "b": 681
+      }
+     }
+    ],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro › ReservasLivre e separado›": {
+   "estado": "dash|din||grp:g:din>din|Reservas||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Reservas",
+      "r": {
+       "x": 24,
+       "y": 146,
+       "w": 99,
+       "h": 32,
+       "b": 178
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Caixa, contas e reserva",
+      "r": {
+       "x": 24,
+       "y": 182,
+       "w": 342,
+       "h": 20,
+       "b": 202
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Livre para você",
+      "r": {
+       "x": 24,
+       "y": 239,
+       "w": 131,
+       "h": 17,
+       "b": 256
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Guaranis",
+      "r": {
+       "x": 24,
+       "y": 376,
+       "w": 63,
+       "h": 22,
+       "b": 398
+      },
+      "lin": {
+       "x": 24,
+       "y": 360,
+       "w": 342,
+       "h": 54,
+       "b": 413
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "rtzk34"
+     },
+     {
+      "t": "Ver para onde vai",
+      "r": {
+       "x": 24,
+       "y": 570,
+       "w": 134,
+       "h": 20,
+       "b": 590
+      },
+      "lin": {
+       "x": 24,
+       "y": 559,
+       "w": 342,
+       "h": 64,
+       "b": 623
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "o6h48e"
+     },
+     {
+      "t": "o que já tem dono: reposição, ",
+      "r": {
+       "x": 24,
+       "y": 595,
+       "w": 283,
+       "h": 19,
+       "b": 613
+      },
+      "lin": {
+       "x": 24,
+       "y": 559,
+       "w": 342,
+       "h": 64,
+       "b": 623
+      },
+      "fs": 13,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.85,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "o6h48e"
+     },
+     {
+      "t": "Próximos 30 dias",
+      "r": {
+       "x": 24,
+       "y": 635,
+       "w": 131,
+       "h": 20,
+       "b": 655
+      },
+      "lin": {
+       "x": 24,
+       "y": 634,
+       "w": 305,
+       "h": 44,
+       "b": 678
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "5y8s9j"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 0",
+      "r": {
+       "x": 24,
+       "y": 282,
+       "w": 342,
+       "h": 47,
+       "b": 329
+      },
+      "fs": 40,
+      "fw": "600",
+      "ff": "Georgia",
+      "lh": 50,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [
+     {
+      "t": "De G$ 5.599.905 na carteira, G$ 5.599.90",
+      "r": {
+       "x": 24,
+       "y": 443,
+       "w": 342,
+       "h": 75,
+       "b": 518
+      },
+      "linhas": 2
+     }
+    ],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 83,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Reservas",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro › DespesasContas do mês e imprevistos›": {
+   "estado": "desp|||grp:g:din>desp|Despesas||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Despesas",
+      "r": {
+       "x": 24,
+       "y": 152,
+       "w": 237,
+       "h": 32,
+       "b": 184
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Contas do mês",
+      "r": {
+       "x": 24,
+       "y": 212,
+       "w": 342,
+       "h": 17,
+       "b": 229
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Loja",
+      "r": {
+       "x": 24,
+       "y": 716,
+       "w": 342,
+       "h": 17,
+       "b": 733
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Loja",
+      "r": {
+       "x": 24,
+       "y": 275,
+       "w": 51,
+       "h": 23,
+       "b": 298
+      },
+      "lin": {
+       "x": 24,
+       "y": 259,
+       "w": 342,
+       "h": 56,
+       "b": 315
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "q6gg5n"
+     },
+     {
+      "t": "Casa",
+      "r": {
+       "x": 24,
+       "y": 331,
+       "w": 58,
+       "h": 23,
+       "b": 354
+      },
+      "lin": {
+       "x": 24,
+       "y": 315,
+       "w": 342,
+       "h": 56,
+       "b": 371
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "20c75h"
+     },
+     {
+      "t": "Salário",
+      "r": {
+       "x": 24,
+       "y": 387,
+       "w": 72,
+       "h": 23,
+       "b": 410
+      },
+      "lin": {
+       "x": 24,
+       "y": 371,
+       "w": 342,
+       "h": 56,
+       "b": 427
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "npr1v3"
+     },
+     {
+      "t": "Contador",
+      "r": {
+       "x": 24,
+       "y": 443,
+       "w": 90,
+       "h": 23,
+       "b": 466
+      },
+      "lin": {
+       "x": 24,
+       "y": 427,
+       "w": 342,
+       "h": 56,
+       "b": 483
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "ae7e6z"
+     },
+     {
+      "t": "Imprevistos",
+      "r": {
+       "x": 24,
+       "y": 499,
+       "w": 108,
+       "h": 23,
+       "b": 522
+      },
+      "lin": {
+       "x": 24,
+       "y": 483,
+       "w": 342,
+       "h": 56,
+       "b": 539
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "g2nvwn"
+     },
+     {
+      "t": "Total por mês",
+      "r": {
+       "x": 24,
+       "y": 559,
+       "w": 98,
+       "h": 22,
+       "b": 581
+      },
+      "lin": {
+       "x": 24,
+       "y": 539,
+       "w": 342,
+       "h": 59,
+       "b": 599
+      },
+      "fs": 15,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "2m34ln"
+     },
+     {
+      "t": "Cada peça vendida separa",
+      "r": {
+       "x": 24,
+       "y": 619,
+       "w": 189,
+       "h": 41,
+       "b": 660
+      },
+      "lin": {
+       "x": 24,
+       "y": 599,
+       "w": 342,
+       "h": 75,
+       "b": 674
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "1j254m"
+     },
+     {
+      "t": "Aluguel da loja",
+      "r": {
+       "x": 74,
+       "y": 769,
+       "w": 173,
+       "h": 22,
+       "b": 791
+      },
+      "lin": {
+       "x": 24,
+       "y": 763,
+       "w": 342,
+       "h": 54,
+       "b": 817
+      },
+      "fs": 15,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "krcdji"
+     },
+     {
+      "t": "fixa · vence dia 5",
+      "r": {
+       "x": 74,
+       "y": 793,
+       "w": 173,
+       "h": 18,
+       "b": 811
+      },
+      "lin": {
+       "x": 24,
+       "y": 763,
+       "w": 342,
+       "h": 54,
+       "b": 817
+      },
+      "fs": 12.5,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 18.125,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "frase",
+      "lid": "krcdji"
+     }
+    ],
+    "add": [
+     {
+      "t": "+ Nova",
+      "r": {
+       "x": 277,
+       "y": 146,
+       "w": 89,
+       "h": 44,
+       "b": 190
+      },
+      "raio": "999px"
+     }
+    ],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 4.200.000",
+      "r": {
+       "x": 227,
+       "y": 553,
+       "w": 139,
+       "h": 30,
+       "b": 584
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 30.45,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "G$ 23.864",
+      "r": {
+       "x": 259,
+       "y": 613,
+       "w": 107,
+       "h": 30,
+       "b": 643
+      },
+      "fs": 21,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 30.45,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 83,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Despesas",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [
+     {
+      "t": "+ Nova",
+      "r": {
+       "x": 277,
+       "y": 146,
+       "w": 89,
+       "h": 44,
+       "b": 190
+      }
+     }
+    ],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Dinheiro › CâmbioCotações e trocas›": {
+   "estado": "fx|||grp:g:din>fx|Câmbio||0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Câmbio",
+      "r": {
+       "x": 24,
+       "y": 146,
+       "w": 326,
+       "h": 32,
+       "b": 178
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Reposição",
+      "r": {
+       "x": 24,
+       "y": 525,
+       "w": 342,
+       "h": 17,
+       "b": 543
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Mais",
+      "r": {
+       "x": 24,
+       "y": 720,
+       "w": 342,
+       "h": 17,
+       "b": 737
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Faltam US$ 2.613",
+      "r": {
+       "x": 24,
+       "y": 555,
+       "w": 225,
+       "h": 29,
+       "b": 584
+      },
+      "lin": {
+       "x": 24,
+       "y": 545,
+       "w": 342,
+       "h": 45,
+       "b": 590
+      },
+      "fs": 24,
+      "fw": "600",
+      "ff": "Georgia",
+      "lh": 28.8,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "4kxyee"
+     },
+     {
+      "t": "Últimas trocas",
+      "r": {
+       "x": 24,
+       "y": 756,
+       "w": 290,
+       "h": 22,
+       "b": 778
+      },
+      "lin": {
+       "x": 24,
+       "y": 739,
+       "w": 342,
+       "h": 55,
+       "b": 794
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "ev0n6w"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [
+     {
+      "t": "G$ 6.487",
+      "r": {
+       "x": 24,
+       "y": 246,
+       "w": 118,
+       "h": 38,
+       "b": 283
+      },
+      "fs": 26,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 37.7,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "G$ 1.196",
+      "r": {
+       "x": 24,
+       "y": 332,
+       "w": 118,
+       "h": 38,
+       "b": 369
+      },
+      "fs": 26,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 37.7,
+      "tt": "none",
+      "raio": "0px"
+     },
+     {
+      "t": "R$ 5,43",
+      "r": {
+       "x": 24,
+       "y": 418,
+       "w": 124,
+       "h": 38,
+       "b": 455
+      },
+      "fs": 26,
+      "fw": "700",
+      "ff": "Segoe UI",
+      "lh": 37.7,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [
+     {
+      "t": "‹Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 106,
+       "w": 83,
+       "h": 44,
+       "b": 150
+      }
+     }
+    ],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Câmbio",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": [
+     {
+      "t": "Faltam US$ 2.613Normal›",
+      "base": 5
+     }
+    ]
+   },
+   "ms": 0
+  },
+  "Dinheiro › Gerenciar grupo ›": {
+   "estado": "grp|||grp:g:din|Dinheiro|Grupo|0",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Dinheiro",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [
+     {
+      "t": "Caixa, reservas, despesas e câmbio",
+      "r": {
+       "x": 24,
+       "y": 154,
+       "w": 342,
+       "h": 20,
+       "b": 174
+      }
+     }
+    ],
+    "rotulos": [
+     {
+      "t": "Telas do grupo",
+      "r": {
+       "x": 18,
+       "y": 403,
+       "w": 354,
+       "h": 17,
+       "b": 420
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Caixa",
+      "r": {
+       "x": 18,
+       "y": 451,
+       "w": 40,
+       "h": 22,
+       "b": 472
+      },
+      "lin": {
+       "x": 18,
+       "y": 436,
+       "w": 354,
+       "h": 52,
+       "b": 488
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "z61o39"
+     },
+     {
+      "t": "Reservas",
+      "r": {
+       "x": 18,
+       "y": 519,
+       "w": 65,
+       "h": 22,
+       "b": 540
+      },
+      "lin": {
+       "x": 18,
+       "y": 504,
+       "w": 354,
+       "h": 52,
+       "b": 556
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "b9cnhc"
+     },
+     {
+      "t": "Despesas",
+      "r": {
+       "x": 18,
+       "y": 587,
+       "w": 70,
+       "h": 22,
+       "b": 608
+      },
+      "lin": {
+       "x": 18,
+       "y": 572,
+       "w": 354,
+       "h": 52,
+       "b": 624
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "glxcj6"
+     },
+     {
+      "t": "Câmbio",
+      "r": {
+       "x": 18,
+       "y": 655,
+       "w": 54,
+       "h": 22,
+       "b": 676
+      },
+      "lin": {
+       "x": 18,
+       "y": 640,
+       "w": 354,
+       "h": 52,
+       "b": 692
+      },
+      "fs": 15,
+      "fw": "400",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "g76179"
+     }
+    ],
+    "add": [],
+    "janelas": [
+     {
+      "r": {
+       "x": 0,
+       "y": 270,
+       "w": 390,
+       "h": 574,
+       "b": 844
+      },
+      "ih": 844,
+      "fechar": [],
+      "texto": "GrupoTelas do grupoCaixaTirarR"
+     }
+    ],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Dinheiro",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": []
+   },
+   "ms": 0
+  },
+  "Ajustes › Cópias e nuvemNenhuma cópia": {
+   "estado": "ajustes|||ajustes|Ajustes||1",
+   "familia": {
+    "titulos": [
+     {
+      "t": "Ajustes",
+      "r": {
+       "x": 24,
+       "y": 118,
+       "w": 326,
+       "h": 32,
+       "b": 150
+      },
+      "fs": 28,
+      "fw": "500",
+      "ff": "Fraunces",
+      "lh": 32.2,
+      "tt": "none",
+      "raio": "0px"
+     }
+    ],
+    "frases_titulo": [],
+    "rotulos": [
+     {
+      "t": "Contas ligadas",
+      "r": {
+       "x": 24,
+       "y": 184,
+       "w": 342,
+       "h": 17,
+       "b": 202
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     },
+     {
+      "t": "Este aparelho",
+      "r": {
+       "x": 24,
+       "y": 801,
+       "w": 342,
+       "h": 17,
+       "b": 819
+      },
+      "fs": 12,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 17.4,
+      "tt": "uppercase",
+      "raio": "0px"
+     }
+    ],
+    "linhas": [
+     {
+      "t": "Instagram",
+      "r": {
+       "x": 68,
+       "y": 226,
+       "w": 192,
+       "h": 23,
+       "b": 249
+      },
+      "lin": {
+       "x": 24,
+       "y": 210,
+       "w": 342,
+       "h": 56,
+       "b": 266
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "zfrm6k"
+     },
+     {
+      "t": "Cópias e nuvem",
+      "r": {
+       "x": 68,
+       "y": 283,
+       "w": 147,
+       "h": 23,
+       "b": 306
+      },
+      "lin": {
+       "x": 24,
+       "y": 267,
+       "w": 342,
+       "h": 56,
+       "b": 323
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "p0lz73"
+     },
+     {
+      "t": "Exportar",
+      "r": {
+       "x": 24,
+       "y": 484,
+       "w": 167,
+       "h": 44,
+       "b": 528
+      },
+      "lin": {
+       "x": 24,
+       "y": 484,
+       "w": 342,
+       "h": 44,
+       "b": 528
+      },
+      "fs": 15,
+      "fw": "600",
+      "ff": "Segoe UI",
+      "lh": 21.75,
+      "tt": "none",
+      "raio": "14px",
+      "papel": "titulo",
+      "lid": "i1ruu7"
+     },
+     {
+      "t": "Impressora",
+      "r": {
+       "x": 68,
+       "y": 843,
+       "w": 197,
+       "h": 23,
+       "b": 866
+      },
+      "lin": {
+       "x": 24,
+       "y": 827,
+       "w": 342,
+       "h": 56,
+       "b": 883
+      },
+      "fs": 16,
+      "fw": "500",
+      "ff": "Segoe UI",
+      "lh": 23.2,
+      "tt": "none",
+      "raio": "0px",
+      "papel": "titulo",
+      "lid": "27ynla"
+     }
+    ],
+    "add": [],
+    "janelas": [],
+    "numeros": [],
+    "quebrados": [],
+    "fileiras": [],
+    "voltas": [],
+    "trilhas": [],
+    "grandes": [
+     {
+      "t": "Ajustes",
+      "fs": 28
+     }
+    ],
+    "mais_largo": [],
+    "blocos": [
+     {
+      "t": "Voltar no tempomudanças de produto guardadas",
+      "linhas": 2
+     }
+    ]
+   },
+   "ms": 0
+  }
+ },
+ "voltar": [
+  {
+   "onde": "Início › MarketingPosts, vídeos, temática, cartõe",
+   "antes": "inicio||||||0",
+   "depois": "grp|||grp:g:mkt|Marketing||0"
+  },
+  {
+   "onde": "Vender › Modo cliente (iPad da loja)",
+   "antes": "vendas|||vendas|Catálogo||0",
+   "depois": "vendas|||vendas||janela|0"
+  },
+  {
+   "onde": "Ajustes › Cópias e nuvemNenhuma cópia",
+   "antes": "ajustes|||ajustes|Ajustes||0",
+   "depois": "inicio||||||0"
+  }
+ ],
+ "erros": [],
+ "achados": {
+  "Início": [
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Dia, mês e histórico",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Pedidos, mensagens, vitrine e modelos",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Posts, vídeos, temática, cartões e visit",
+    ""
+   ],
+   [
+    "fileira desalinhada (L2)",
+    "3 quadros em y=373; alturas de dentro: ['Dia, mês e histó', '2 a decidir', 'Pedidos, mensage']→[108, 125, 90]",
+    ""
+   ],
+   [
+    "fileira desalinhada (L2)",
+    "3 quadros em y=535; alturas de dentro: ['Posts, vídeos, t', '0 cadastrados', 'Orçamentos']→[90, 125, 125]",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Titan · 5 coisas para olhar"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "12/400 (aprovado 16/500)",
+    "Vendido hoje · 10 venda(s)"
+   ]
+  ],
+  "Vender": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Escolha a peça e venda.",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Óculos de leitura Kazwini de acetato mas",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "· Varejo · G$"
+   ]
+  ],
+  "Peças": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Inventário, estúdio e compras",
+    ""
+   ]
+  ],
+  "Dinheiro": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Caixa, reservas, despesas e câmbio",
+    ""
+   ]
+  ],
+  "Início › Titan · 5 coisas para olhar›": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "O que precisa de você agora.",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Ver margem",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "10 preços para corrigir"
+   ],
+   [
+    "frase de linha fora do 86",
+    "12/400 (aprovado 13/400)",
+    "5 não cobrem o custo e as cont"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Caixa de hoje não bate"
+   ],
+   [
+    "frase de linha fora do 86",
+    "12/400 (aprovado 13/400)",
+    "Sem vendas há mais de 1 hora"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Peça sem custo (lucro errado) "
+   ],
+   [
+    "frase de linha fora do 86",
+    "12/400 (aprovado 13/400)",
+    ", ,"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Lote sem detalhe · 343"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/700 (aprovado 16/500)",
+    "Internet"
+   ],
+   [
+    "frase de linha fora do 86",
+    "12/400 (aprovado 13/400)",
+    "vence em 2 dias"
+   ]
+  ],
+  "Início › Vendido hoje · 10 venda(s)G$ 510.000›": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Sábado, 8 de maio",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "V-1917 · 08/05 às 01:42 · Pré-graduados",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Vendido"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Lucro livre"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Contas do dia"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Gastos extras"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/500 (aprovado 16/500)",
+    "2× YS8815 C2 · Verde"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/500 (aprovado 16/500)",
+    "2× BR44118 C1 · Preto"
+   ]
+  ],
+  "Início › ResultadosDia, mês e histórico": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Dia, mês e histórico",
+    ""
+   ]
+  ],
+  "Início › SitePedidos, mensagens, vitrine e modelo": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Pedidos, mensagens, vitrine e modelos",
+    ""
+   ]
+  ],
+  "Início › MarketingPosts, vídeos, temática, cartõe": [
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Óculos de leitura de plástico feminino",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "27 vendidas em 30 dias · R$ 21 na moeda ",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Peça do objetivo — Óculos de leitura de ",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "14/700 (aprovado 16/500)",
+    "Seg · Post · 20h"
+   ]
+  ],
+  "Início › Clientes0 cadastrados": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Quem compra na loja e no atacado.",
+    ""
+   ]
+  ],
+  "Início › AtacadoOrçamentos": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Lojistas, lotes e pedidos em quantidade.",
+    ""
+   ],
+   [
+    "\"+\" de adicionar não é o redondo (regra 15)",
+    "\"+ Novo acesso\" 141x44",
+    ""
+   ]
+  ],
+  "Vender › Modo cliente (iPad da loja)": [
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Óculos de leitura Kazwini de acetato mas",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "470"
+   ]
+  ],
+  "Vender › Ajustes do catálogo": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Escolha a peça e venda.",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Óculos de leitura Kazwini de acetato mas",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "· Varejo · G$"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "12.5/400 (aprovado 16/500)",
+    "Mais vendidos"
+   ]
+  ],
+  "Peças › InventárioCadastro, estoque e preço de c": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "16 referências · US$ 113 a custo",
+    ""
+   ],
+   [
+    "texto quebrou em 3 linhas (L4)",
+    "Óculos de leitura Kazwini de acetato mas",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "13/400 (aprovado 16/500)",
+    "470 peças · Todos"
+   ]
+  ],
+  "Peças › Gerenciar grupo ›": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Inventário, estúdio e compras",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Inventário"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Estúdio"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Compras"
+   ]
+  ],
+  "Dinheiro › CaixaO dinheiro da loja, por moeda›": [
+   [
+    "\"+\" em botão largo — adicionar é o \"+\" redondo (regra 15)",
+    "\"+ Novo objetivo\" 342x44",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Guarani"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Dólar"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Real"
+   ]
+  ],
+  "Dinheiro › ReservasLivre e separado›": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Caixa, contas e reserva",
+    ""
+   ],
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "De G$ 5.599.905 na carteira, G$ 5.599.90",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Guaranis"
+   ],
+   [
+    "número grande em outra letra (regra 17)",
+    "Georgia (família: Segoe UI)",
+    "G$ 0"
+   ]
+  ],
+  "Dinheiro › DespesasContas do mês e imprevistos›": [
+   [
+    "\"+\" de adicionar não é o redondo (regra 15)",
+    "\"+ Nova\" 89x44",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/600 (aprovado 16/500)",
+    "Total por mês"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Cada peça vendida separa"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/600 (aprovado 16/500)",
+    "Aluguel da loja"
+   ]
+  ],
+  "Dinheiro › CâmbioCotações e trocas›": [
+   [
+    "fora da mesma linha de base (L2)",
+    "5 px · Faltam US$ 2.613Normal›",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "24/600 (aprovado 16/500)",
+    "Faltam US$ 2.613"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Últimas trocas"
+   ]
+  ],
+  "Dinheiro › Gerenciar grupo ›": [
+   [
+    "frase de baixo do título (dono 24/11: sai)",
+    "Caixa, reservas, despesas e câmbio",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Caixa"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Reservas"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Despesas"
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/400 (aprovado 16/500)",
+    "Câmbio"
+   ]
+  ],
+  "Ajustes › Cópias e nuvemNenhuma cópia": [
+   [
+    "texto quebrou em 2 linhas (L4)",
+    "Voltar no tempomudanças de produto guardadas",
+    ""
+   ],
+   [
+    "titulo de linha fora do 86",
+    "15/600 (aprovado 16/500)",
+    "Exportar"
+   ]
+  ]
+ },
+ "data": "2027-05-08"
+}

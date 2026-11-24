@@ -39,7 +39,10 @@ def novo(b,cen,sem_net=False):
   W,H,TQ,dpr=ap.TAM['celular'];c=kit.sim.contexto(b,W,H,toque=TQ,dpr=1,lingua='pt-BR',escuro=True,sem_trabalhador=True)
   c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
   c.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
-  pg=c.new_page();pg.goto('http://localhost:%d/index.html#test'%kit.PA);pg.wait_for_function('window.__LF',timeout=10000);pg.wait_for_timeout(600)
+  pg=c.new_page()
+  if os.environ.get('TITAN_DATA'):
+    import datetime;pg.clock.install(time=datetime.datetime.fromisoformat(os.environ['TITAN_DATA']+'T15:00:00-03:00'))
+  pg.goto('http://localhost:%d/index.html#test'%kit.PA);pg.wait_for_function('window.__LF',timeout=10000);pg.wait_for_timeout(600)
   if CENARIOS.get(cen):
     try:pg.evaluate(CENARIOS[cen]);pg.wait_for_timeout(300)
     except Exception as e:print('cenário',cen,'falhou:',str(e)[:80])
@@ -89,9 +92,10 @@ def explora(prof=2,cen='normal'):
         except Exception:pass
   A=familia.regras({k:v['familia'] for k,v in R['estados'].items()})
   R['achados']={k:v for k,v in A.items() if v}
-  json.dump(R,open(os.path.join(OUT,'explorador_%s.json'%cen),'w'),ensure_ascii=False,indent=1)
+  rot=cen+('_'+os.environ['TITAN_DATA'] if os.environ.get('TITAN_DATA') else '');R['data']=os.environ.get('TITAN_DATA','hoje')
+  json.dump(R,open(os.path.join(OUT,'explorador_%s.json'%rot),'w'),ensure_ascii=False,indent=1)
   lentos=sorted(((v['ms'],k) for k,v in R['estados'].items() if v['ms']>=150),reverse=True);R['lentos']=lentos[:15]
-  print('cenário %s: %d lugares achados · %d com achados de família · %d voltar errado · %d erros de toque · %d telas lentas (≥150 ms) · %.0fs'%(cen,len(R['estados']),len(R['achados']),len(R['voltar']),len(R['erros']),len(lentos),time.time()-t0))
+  print('[%s] cenário %s:'%(os.environ.get('TITAN_DATA','hoje'),'%s'%'') if 0 else '',end='');print('cenário %s: %d lugares achados · %d com achados de família · %d voltar errado · %d erros de toque · %d telas lentas (≥150 ms) · %.0fs'%(cen,len(R['estados']),len(R['achados']),len(R['voltar']),len(R['erros']),len(lentos),time.time()-t0))
   return R
 if __name__=='__main__':
   explora(int(ARGV[1]) if len(ARGV)>1 else 2,ARGV[2] if len(ARGV)>2 else 'normal')

@@ -15,3 +15,10 @@ Primeira rodada (profundidade 1, normal): 56 lugares, 0 toques falhados. Achados
 - **Voltar** ainda erra quando se entra pelo sino/Pendências ("Ver preços", "Completar") e pelo Dashboard (uma venda do dia): o voltar vai ao Início em vez da tela de onde veio. Causa provável: essas portas abrem a tela sem passar pela pilha do 99c.
 - **Lentidão com a loja cheia**: de 0,4–1,3 s para 8–23 s (work/s435/lista-erros/COMO-FAZER-LENTIDAO.md).
 Falta (parte 3b): rodar todas as temáticas/datas com as variáveis (embrulho, mimo, kits, ofertas, retirada × delivery), sem internet, profundidade 2, e o emulador Android.
+
+## Parte 3b · calendário, sem internet e Android (24/11)
+- `bash work/titan/datas.sh` — o explorador roda em cada data da loja com o relógio do app na data (dia normal 10/03, Black Friday CDE 20/11, Natal 15/12, Ano Novo 28/12, Mães 08/05, Pais 10/06), sem internet, e a loja cheia no Natal. Datas lidas do app (cupTemaProx/BF_CDE): data nova entra sozinha quando o app a tiver.
+- Achado das datas: durante o evento o app diz "Black Friday em 0 dias" / "Natal em 0 dias" / "Dia das Mães em 0 dias" (Preços › Titan decide hoje).
+- Achado sem internet: nenhuma tela avisa que está sem internet (regra 17 pede um estado igual em todo lugar) — precisa de esboço.
+- Embrulho, mimo, kits e ofertas da data ainda não existem no app (Partes 5–6); o Titan passa a testá-los quando entrarem.
+- Emulador Android: o Titan dispara `.github/workflows/teste-android.yml` (grátis, repositório público) e lê as fotos nos ramos `prints-android-*`; rodada de 24/11 10:25: 8 de 8 partes ok. Falta (parte 3c): pôr as fotos do emulador lado a lado com as do simulador no relatório.

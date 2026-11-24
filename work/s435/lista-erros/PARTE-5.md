@@ -25,3 +25,7 @@ Fotos: parte5_provas.jpg (Site · Pedidos · Marketing · índice Marketing · A
 24a. Linha de lista fora do 86 (título 16/500 · frase 13/400) em: Caixa (Guarani/Dólar/Real 15/400 + frase 12), Despesas (Total por mês, Cada peça vendida separa, Aluguel da loja 15/600), janela do ⏻ de Preços (Sobem/Baixam/Revisa 15/400), Câmbio (Últimas trocas 15/400), Início (Titan · 7 coisas 15/700). Uma linha só, a do 86, em todas (regra 13).
 24b. Inventário/Catálogo: nome de peça em 3 linhas no quadro (o 52b deixa até 2) — o grupo diminui a letra (L4).
 Os dois entram no passo 5 da ordem (linhas que quebram) e no passo 6.
+
+## 25. Achados do calendário e da internet (Titan 3b, 24/11)
+25a. Durante a data, Preços › "O Titan decide hoje" mostra "Black Friday em 0 dias", "Natal em 0 dias", "Dia das Mães em 0 dias". No dia, o texto é o do evento no ar (ex.: "Natal · até 25/12"), não "em 0 dias" — mesma função de data em todo lugar (regra 17).
+25b. Sem internet: nenhuma tela avisa. Precisa de esboço do estado "sem internet" (regra 17) — vai ao dono antes de a APP mexer.
