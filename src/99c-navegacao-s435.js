@@ -82,7 +82,7 @@
     }
     window.__nvVolta = nvVolta;
     window.__nvIndice = nvIndice; // grpAbre (src/95-barra-grupos.js) abre o grupo por aqui
-    ACT.nvVolta = function () { nvVolta(); };
+    ACT.nvVolta = function () { voltar(); };
     ACT.nvIr = function (t) {
       S.nvP = ['grp:' + S.nvG];
       S._nvModo = 1;
@@ -333,17 +333,85 @@
       if (s.bg) { s.bg.style.transition = 'transform .25s cubic-bezier(.16,1,.3,1)'; s.bg.style.transform = vai ? 'translateX(0)' : 'translateX(-30%)'; }
       setTimeout(function () {
         swLimpa(s);
-        if (vai) {
-          var r0 = REDUCED;
-          REDUCED = true; // a tela já chegou arrastando: sem animação de novo
-          try { nvVolta(); } finally { REDUCED = r0; }
-        }
+        if (vai) voltar(true); // a tela já chegou arrastando: sem animação de novo
       }, 260);
     }
     document.addEventListener('touchend', swFim, true);
     document.addEventListener('touchcancel', function () { if (sw) sw.dx = 0; swFim(); }, true);
-    // ---------- voltar do Android / navegador (147-2b): janela → tela → índice → Início → "Sair do app?" ----------
-    // No app (Android) o botão voltar chega aqui e segue a pilha; no navegador o voltar continua pelo endereço (navVolta).
+    // ---------- O VOLTAR, UM SÓ (147-2b + conserto 24/11, work/s435/voltar/COMO-FAZER-VOLTAR.md) ----------
+    // Os 3 jeitos (seta/versalete/arrastar da tela, voltar do navegador/PWA, voltar do Android) dão UM passo pelo MESMO caminho, voltaUm():
+    //   janela ou folha por cima → fecha a de cima · peça aberta → fecha (a lista volta na mesma rolagem) · senão → a pilha (nvVolta).
+    // O histórico do endereço só serve de gatilho: enquanto há para onde voltar, existe UMA entrada "guarda" ({lf:'g'}) por cima da base;
+    // o voltar do navegador tira a guarda (popstate) → voltaUm() → a guarda volta se ainda houver para onde voltar.
+    // A seta e o Android chamam history.back() quando a guarda existe (o mesmo popstate); no Início, o Android pergunta "Sair do app?".
+    // Antes eram 4 voltares separados (setView com pushState, popstate/hashchange do 94, do 97u e do 99b): saíram no mesmo passo.
+    var vlY = 0, vlSemAnim = false,
+      IS_APP = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+    function vlPeca() { // a peça aberta (Catálogo e Inventário)
+      if (S.view === 'vendas' && S.vRef) return 'v:' + S.vRef;
+      if (S.view === 'estoque' && S.det && S.open) return 'e:' + S.open;
+      return '';
+    }
+    function vlPecaFecha() {
+      if (S.view === 'vendas') { S.vRef = ''; S.vSel = null; S.qty = 1; S.msg = ''; }
+      else if (S.view === 'estoque') { S.det = false; S.open = null; S.selItem = null; S.msg = ''; }
+    }
+    // a lista guarda a rolagem enquanto nenhuma peça está aberta (o voltar devolve a lista no mesmo ponto)
+    window.addEventListener('scroll', function () { if (!vlPeca()) vlY = window.scrollY || 0; }, { passive: true });
+    // a camada por cima (a última posta no documento é a de cima): o Estúdio e as telas dele, a câmera e as folhas cheias
+    function vlCamada() {
+      var L = [].slice.call(document.querySelectorAll('.estOv,#estCam,.lfa-ov.lfa-full:not(.sai)')).filter(function (e) { return e.isConnected && e.getBoundingClientRect().height > 60; });
+      return L.length ? L[L.length - 1] : null;
+    }
+    function vlCamadaFecha(c) {
+      if (c.id === 'estCam') return estFechaCam();
+      if (c.classList.contains('lfa-ov')) return lfaFecha(c.id);
+      var x = c.querySelector('[data-e="fecha"],[data-g="volta"],[data-g="x"],.estX,[aria-label="Fechar"]');
+      if (x) x.click(); else { c.remove(); render(); }
+    }
+    function podeVoltar() { return !!(window.__fuAcha() || vlCamada() || vlPeca() || S.view !== 'inicio'); }
+    function voltaUm() {
+      if (window.__fuAcha()) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return true; } // janela/folha: a folha única fecha a de cima
+      var c = vlCamada();
+      if (c) { vlCamadaFecha(c); return true; }
+      if (vlPeca()) {
+        var y = vlY, d = S._fnDe;
+        S._fnDe = null;
+        window.__navVolta = true;
+        try {
+          vlPecaFecha();
+          // S267: a peça veio do atalho Inventário ↔ Catálogo → um toque devolve à tela de onde veio
+          if (d && d.para === S.view) nvVolta(); else render();
+        } finally { window.__navVolta = false; }
+        if (!d || d.para !== S.view) requestAnimationFrame(function () { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); });
+        return true;
+      }
+      if (S.view === 'inicio') return false;
+      var r0 = REDUCED;
+      if (vlSemAnim) REDUCED = true; // arrastou da borda: a tela já chegou, sem animar de novo
+      try { nvVolta(); } finally { REDUCED = r0; vlSemAnim = false; }
+      return true;
+    }
+    function temGuarda() { return !!(history.state && history.state.lf === 'g'); }
+    function vlGuarda() {
+      if (podeVoltar() && !temGuarda()) { try { history.pushState({ lf: 'g' }, '', location.href); } catch (e) {} }
+    }
+    // seta "‹", versalete "‹ GRUPO", título pequeno e arrastar da borda: o mesmo passo do navegador
+    function voltar(semAnim) {
+      vlSemAnim = !!semAnim;
+      if (temGuarda()) { try { history.back(); return; } catch (e) {} }
+      voltaUm();
+      vlGuarda();
+    }
+    window.addEventListener('popstate', function (e) {
+      if (e.state && e.state.lf === 'g') return; // andou para a frente no navegador: nada a fazer
+      if (voltaUm()) vlGuarda();
+      else if (!IS_APP) { try { history.back(); } catch (x) {} } // no Início, sem nada aberto: o voltar do navegador sai do app
+    });
+    // tudo o que abre confere a guarda: a tela e a peça (redesenho), as janelas e o Estúdio (entram direto no <body>) e o resto (um toque)
+    aposRender(vlGuarda);
+    try { new MutationObserver(function () { vlGuarda(); }).observe(document.body, { childList: true }); } catch (e) {}
+    document.addEventListener('click', function () { setTimeout(vlGuarda, 60); });
     function nvSair() {
       lfConfirma({
         k: 'nvSair435',
@@ -357,10 +425,8 @@
       });
     }
     function nvVoltarAndroid() {
-      if (window.__fuAcha && window.__fuAcha()) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return; }
-      if (history.state && history.state.lfp) { try { history.back(); } catch (e) {} return; } // peça aberta: o passo dela fecha
-      if (S.view === 'inicio') return nvSair();
-      nvVolta();
+      if (!podeVoltar()) return nvSair();
+      voltar();
     }
     window.__nvVoltarAndroid = nvVoltarAndroid;
     try {
