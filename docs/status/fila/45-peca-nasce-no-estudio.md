@@ -1,2 +1,2 @@
-aprovado 21/11 11:07 — espera o 'implementar'
+só o Adicionar publicado v634; o resto é Estúdio (fora)
 Rumo aprovado 10:43. Estúdio: 'Gravar uma peça' → haste (ler/digitar/sem código) → rascunho ou peça existente → cores ('Gravar outra cor'/'Terminei') → tratamento por trás; EM ANDAMENTO / FALTAM FOTOS. Inventário: 'A COMPLETAR' (só tratados) → janela Completar (tipo, como é, custo, preço, oferta, cores, publicar). Supera 41c e o Adicionar do 44. work/s435/fluxo/COMO-FAZER-45.md

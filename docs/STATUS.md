@@ -92,7 +92,7 @@
 - **44-cadastro-inventario-no-padrao** — publicado v634 (APP)
 - **44-teste-compra-e-vigia** — ✅ 21/11 11:30 — teste de compra de ponta a ponta 14/14 na nuvem de verdade (com limpeza) · vigia diário 06:37 (sonda + erros 24 h + selo) com recado no status
 - **45-ideias-formato-preciso-e-elegante** — aprovado 21/11 17:25 — implementar DEPOIS que a SITE terminar tudo o que está na fila dela (dono 17:27)
-- **45-peca-nasce-no-estudio** — aprovado 21/11 11:07 — espera o 'implementar'
+- **45-peca-nasce-no-estudio** — só o Adicionar publicado v634; o resto é Estúdio (fora)
 - **46-liga-desliga-na-tela-do-assunto** — publicado v633 (46 + 46b + 46c; Site ⏻ fica para o painel do Site 58a)
 - **47-painel-do-site-redesenho** — estudo feito — fica para depois (dono 21/11 12:12)
 - **48-pecas-compras-parte-1** — aprovado (48a) 22/11 05:44 — vai no item 66 · 48b/48c superados (obsoletos)
