@@ -8,7 +8,7 @@ Regra 3: uma parte por vez, testes da nuvem antes; publicar só com o OK (1b). N
   ou alguma peça da linha Luxo (campo `linha` em produtos/ — ver a2).
 - Um ativo por conta: se o telefone/e-mail já tem Próxima compra viva e não usada, não nasce outra (responde o que já existe).
 - Começa 7 dias depois da confirmação do pagamento e vale 30 (`ini` = pago + 7 d; `fim` = ini + 30 d). Hoje: vale 120 dias desde já.
-- % = config/site.pxPct (5 ou 10, gravado pelo Titan do app; sem o campo, 10). Nunca abaixo do mínimo: o piso continua conferido
+- % = 10 sempre (dono 24/11 11:10: o piso do Titan cobre custo + margem + 10% + taxa do pagamento). Nunca abaixo do mínimo: o piso
   na hora do uso (conferePedido / Presente.confere).
 - Provas novas no teste-cupom.js (150 mil −1, Luxo, segundo cartão, 7+30 dias, pct inválido).
 
@@ -32,5 +32,5 @@ Regra 3: uma parte por vez, testes da nuvem antes; publicar só com o OK (1b). N
 - Desconto = pct × total, ARREDONDADO PARA BAIXO ao milhar (decisão pendente do dono, abaixo).
 
 ## Perguntas ao dono (antes da a1)
-1. 5% de G$ 150.000 = G$ 7.500. Arredondar o desconto para baixo ao milhar (G$ 7.000) ou outra regra?
+1. ~~5% e arredondamento~~ — resolvido: 10% sempre (dono 24/11 11:10).
 2. Compra na loja (balcão) de G$ 150.000 ou mais também ganha a Próxima compra? (proposta: sim, mesma regra)
