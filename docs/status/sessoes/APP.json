@@ -1,9 +1,9 @@
 {
  "nome": "APP",
- "agora": "Parte 4 · Titan (54, 62–67, 94, 95, 74r)",
+ "agora": "Correção geral: desalinhamentos das telas v632–v640 + voltar do Android (ordem do dono 24/11 03:56)",
  "arquivos": [
-  "src/97z3-precos.js",
-  "src/97-preco-auto.js"
+  "src/",
+  "www/style.css"
  ],
  "ultimas": [
   {
@@ -47,5 +47,5 @@
    "r": "v622 publicada: 41 parte 3 — Galeria da peça. Porteiro 372/373 (1 instável, 3× ok sozinha). Próximo: esboço 42 (Cores e fotos)."
   }
  ],
- "leu": 1795491836.8707232
+ "leu": 1795503031.635549
 }

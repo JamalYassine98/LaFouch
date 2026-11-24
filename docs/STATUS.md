@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | Parte 4 · Titan (54, 62–67, 94, 95, 74r) | src/97z3-precos.js, src/97-preco-auto.js |
+| APP | Correção geral: desalinhamentos das telas v632–v640 + voltar do Android (ordem do dono 24/11 03:56) | src/, www/style.css |
 | ESBOCO | conferência: voltar e botões × esboços aprovados (v632–v640) | work/s435/conf640 |
 
 ## Fila
