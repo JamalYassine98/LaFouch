@@ -1,12 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "12: refazer a pasta perdida (não subiu ao GitHub)",
- "arquivos": [
-  "work/ideias/12-tematica-base/",
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795502528.8110096,
+   "r": "12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada"
+  },
   {
    "t": 1795491526.0155098,
    "r": "temáticas 94+95 enviadas ao SITE para implementar"
@@ -42,10 +42,6 @@
   {
    "t": 1795459663.8729148,
    "r": "12e Natal: cartão de hoje na cor oficial profunda (esperando o dono)"
-  },
-  {
-   "t": 1795458618.8147047,
-   "r": "12d: todas as datas na cor oficial enviadas"
   }
  ],
  "leu": 1795501002.1453896
