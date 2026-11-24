@@ -59,8 +59,33 @@ Base aprovada 15:30: ARGUS = Agente de Revisão e Garantia Unificada de Sistemas
 ## 7. Forma do Argus novo (pasta nova work/argus/, feito do zero)
 motor/ (abrir, planta, comparador, medidor de família, explorador e toques, cenários e dados, tempo, cobertura, autoprova, relatório) · setor_app/ (modos do app, janelas de baixo, biometria, emulador) · setor_site/ (claro + temáticas, PT/ES, letra 1,2×, carrinho, cupons, selos, rede fraca) · plantas/app, plantas/site · provas/app, provas/site · um comando: `argus app` / `argus site`. Cada setor tem a sua trava.
 
+## 7b. Respostas do dono (24/11 15:40) e separação por setor
+Respostas: 2) site = letra do Android 1×, 1,1× e 1,2× (as três, sempre; máximo 1,2×) · 3) sim, conferir PT e ES · 4) sim, tests/run.py vira etapa da porta do setor App.
+**Regra de ouro da separação:** o motor só tem o que vale para os dois (regras 12–17 do CLAUDE.md). O que é de um lado mora só no setor dele — nunca uma regra do app rodando no site, nem o contrário.
+| Onde | Regras |
+|---|---|
+| MOTOR (os dois) | planta e comparador; toques (⌄ abre ali, › sai, janela de baixo com Salvar, fecha arrastando/tocando fora/Esc, "Sair sem salvar?", voltar ao mesmo ponto, vários toques); L1–L4 e espaços 8/16/24/32/48; linha ≥ 44 px; mesma função = mesmo botão; mesmo verbo, números (G$ 25.000 · US$ 3,79 · 18/11), cores de sentido, uma curva e um tempo; estados iguais em todo lugar; família inteira; mudança sem planta trava; prova permanente; código morto; tempo; celular, tablet e PC até 2560; autoprova; relatório |
+| SETOR APP | claro E escuro · as 3 letras do app (1×, 1,15×, 1,3×) · com e sem biometria · emulador Android · etapas da porta: tests/run.py, lafouch-vNNN no sw.js com novidades.json, "OK ESBOCO" |
+| SETOR SITE | só claro · TODAS as temáticas · letra do Android 1×, 1,1×, 1,2× · PT e ES · logado e deslogado · cupons (tentando burlar) · carrinho · selos · internet fraca · etapas da porta: segurança (regras e CSP, se o dono mantiver), version.json, build |
+
+## 7c. Cada poder novo é a MELHORIA de uma ferramenta antiga (a antiga sai no mesmo passo)
+| Poder | Melhora qual ferramenta | O que a antiga fazia mal | O que passa a fazer | Sai |
+|---|---|---|---|---|
+| Planta + comparador | os 3 comparadores | comparava com o gabarito ou com o publicado (aceitava erro) | compara com o aprovado | s430 (no papel de porteiro), titan/compara, fichas |
+| Toques | explorador | tocava só para achar telas e testar o voltar | confere se cada toque faz o que a planta liga | roteiro, índice |
+| 1 Mudança sem aprovação | diferencas-aprovadas.txt | aprovava por trecho de texto | tela mudada sem planta nova trava | o .txt |
+| 2 Modos | fiscal.py + teste-site-analise | site medido com letra até 2× e sem temáticas inteiras; app sem as 3 letras em tudo | cada setor roda os modos dele | as listas de aparelhos repetidas |
+| 3 Estados | provas parte 5 (site) | só no site, só alguns estados | carregando/erro/sem internet/salvo/vazio nos dois, pela planta | parte 5 vira do motor |
+| 4 Movimento | medidor de família | não media movimento (regra 17 sem prova) | mede curva e tempo, e o "reduzir movimento" | — (o medidor ganha a regra) |
+| 5 Lentidão | parte T + teste-site-rede + explorador cheio | três medidas soltas | uma medida por toque, com loja cheia e internet fraca | as três |
+| 6 Código morto | explorador | tocava em tudo sem anotar o que rodava | anota o que nunca roda e o que roda sem planta | — (o explorador ganha a regra) |
+| 7 Família inteira | medidor de família | 7 medidores diferentes | um só, com inventário 1 = inventário 2 | mede.js, alin, centro, olho, sobre, revisa |
+| 8 Prova permanente | provas parte 6 (site) | só no site | todo erro pego vira prova, nos dois | — (a parte 6 vira do motor) |
+| 9 Relatório | relatorio.py + lado.py | só lista ou foto solta | foto com o erro marcado + vídeo do toque | os dois |
+| Autoprova | mede_prova, prova_medidor, fichas --prova | três provas soltas, só do medidor | estraga cópia da planta, de cada família, toda rodada | as três |
+
 ## 8. Perguntas para o dono
-1. Segurança (regras do Firestore e CSP): continua como etapa da porta do Argus ou vai inteira para a NUVEM?
+1. Segurança (regras do Firestore e CSP): continua como etapa da porta do Argus ou vai inteira para a NUVEM? (explicado ao dono 24/11 15:4x; espera resposta)
 2. O teste-site-analise mede letra de 1× a 2×; a regra 18 diz até 1,2×. Qual vale?
 3. O Argus conferir também o espanhol do site (PT e ES)?
 4. tests/run.py (lógica do app) entra como etapa da porta do Argus · setor App?
