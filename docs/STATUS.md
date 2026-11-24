@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| NUVEM | VIP exige e-mail (dono 24/11 11:47) | functions/cupom.js, functions/teste-cupom.js |
 
 ## Fila
 
@@ -217,6 +216,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
 - 24/11 11:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
 - 24/11 11:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
@@ -241,4 +241,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 16:56 — IDEIAS: 12e aprovado nas 6 datas
 - 23/11 16:54 — IDEIAS: 12e: BF e Halloween levemente clareados
 - 23/11 16:44 — IDEIAS: 12e: 3 ajustes nas 6 datas + comparador (0 falha nova)
-- 23/11 16:06 — APP: v632 (5.51.0) publicada: Parte 1 · base visual + conferência v626–v631; próximo: Parte 2 (Ajustes)
