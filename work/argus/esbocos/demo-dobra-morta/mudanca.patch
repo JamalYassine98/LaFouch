@@ -1,0 +1,12 @@
+diff -ruN a/src/89-dash-abas.js b/src/89-dash-abas.js
+--- a/src/89-dash-abas.js	2026-11-24 17:35:09.692894072 -0300
++++ b/src/89-dash-abas.js	2026-11-24 17:35:09.710202131 -0300
+@@ -12,7 +12,7 @@
+     if (!corpo) return '';
+     var ab = !!S.dfold[id];
+     return (
+-      '<section class="fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfold" data-id="' +
++      '<section class="fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfoldQuebrado" data-id="' +
+       id +
+       '" aria-expanded="' +
+       ab +

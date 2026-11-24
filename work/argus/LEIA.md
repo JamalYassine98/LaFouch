@@ -16,3 +16,9 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - motor/compara.py — app × planta, peça por peça, pelo que aparece: posição e tamanho ±1 px; cor, fundo, borda, raio, letra iguais; ícone com o mesmo desenho e traço. Ruído (abre o app 2×): vira "não conferido", nunca some. Deslocamento em cascata vira UMA diferença.
 - provas/parte2_compara.py — 19 de 19: app × a própria planta = igual (3 telas × 2 temas), autoprova com 10 estragos (todos vistos), cascata, ruído e o esboço demo-iva × app de hoje mostrando o que falta implementar.
 - Saíram para work/obsoletos/titan-trocado-pelo-argus-parte2-24-11/: titan/compara.py, fichas/, indice.py, lado.py, triagem.py, molde_de_esboco.py, titan.py, moldes/, gabarito/, novo/.
+
+## Parte 3 · toques, explorador e cobertura (24/11, feita)
+- motor/toques.py — as ligações do app × as da planta (botão reconhecido pelo nome que aparece e pela ordem, nunca pelo nome do código) e as regras de toque: › sai e o voltar volta ao mesmo ponto · ⌄ abre ali, fecha no 2º toque, toques rápidos não deixam pela metade · janela de baixo sem "×"/"Fechar", fecha com Esc, tocando fora e arrastando, e pergunta "Sair sem salvar?".
+- motor/explorador.py — parte das 5 abas e toca em tudo (menos perigo): lugares (tela + janela) com o caminho, erros do app a cada toque, cobertura do app.js (código morto) e o mapa (lugar sem planta = trava).
+- provas/parte3_toques.py — 12 de 12 (a 1ª rodada deu 11/12: o botão quebrado na cópia demo-dobra-morta não era visto, porque o botão era reconhecido pelo nome do código; corrigido e as partes 1–2 rodadas de novo, 6/6; explorador, cobertura e mapa: 6/6 na 1ª rodada — 88 lugares, 235 toques, 4.213 funções medidas, função plantada vista como morta).
+- Saíram para work/obsoletos/titan-trocado-pelo-argus-parte3-24-11/: titan/explorador.py, datas.sh.

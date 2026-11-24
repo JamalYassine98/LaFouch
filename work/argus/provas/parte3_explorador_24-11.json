@@ -1,0 +1,1784 @@
+{
+ "lugares": {
+  " [inicio]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ]
+   ],
+   "nivel": 1
+  },
+  "Catálogo [vendas]": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ]
+   ],
+   "nivel": 1
+  },
+  "Peças [grp]": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ]
+   ],
+   "nivel": 1
+  },
+  "Dinheiro [grp]": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ]
+   ],
+   "nivel": 1
+  },
+  "Ajustes [ajustes]": {
+   "caminho": [
+    [
+     "aba",
+     4
+    ]
+   ],
+   "nivel": 1
+  },
+  "Pendências [notif]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     0
+    ]
+   ],
+   "nivel": 2
+  },
+  "Dashboard [dia]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 2
+  },
+  "Resultados [grp]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 2
+  },
+  "Preços [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 2
+  },
+  "Site [grp]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 2
+  },
+  "Marketing [mkt]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ]
+   ],
+   "nivel": 2
+  },
+  "Clientes [clientes]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     7
+    ]
+   ],
+   "nivel": 2
+  },
+  "Atacado [ata]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     8
+    ]
+   ],
+   "nivel": 2
+  },
+  " [vendas]": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 2
+  },
+  "Catálogo [vendas] | janela: Ler haste": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 2
+  },
+  "Catálogo [vendas] | janela: Ajustes do catálogo": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 2
+  },
+  "Inventário [estoque]": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 2
+  },
+  "Peças [grp] | janela: Estúdio": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 2
+  },
+  "Compras [comp]": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 2
+  },
+  "Peças [grp] | janela: Grupo": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 2
+  },
+  "Caixa [caixa]": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 2
+  },
+  "Reservas [dash]": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 2
+  },
+  "Despesas [desp]": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 2
+  },
+  "Câmbio [fx]": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 2
+  },
+  "Dinheiro [grp] | janela: Grupo": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 2
+  },
+  "Preços para corrigir [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     0
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Fornecedores [estoque]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     0
+    ],
+    [
+     "toque",
+     10
+    ]
+   ],
+   "nivel": 3
+  },
+  "Pendências [notif] | janela: Natal": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     0
+    ],
+    [
+     "toque",
+     14
+    ]
+   ],
+   "nivel": 3
+  },
+  "Pendências [notif] | janela: Titan": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     0
+    ],
+    [
+     "toque",
+     15
+    ]
+   ],
+   "nivel": 3
+  },
+  "Dashboard [dia] | janela: Hoje": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     2
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  "Histórico [hist]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     2
+    ],
+    [
+     "toque",
+     8
+    ]
+   ],
+   "nivel": 3
+  },
+  "Resultados [grp] | janela: Grupo": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Preços [dash] | janela: Preço automático": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  "Preços [dash] | janela: Natal": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Regras [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Ofertas [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 3
+  },
+  "Atacado [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     6
+    ]
+   ],
+   "nivel": 3
+  },
+  "Ferramentas [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     7
+    ]
+   ],
+   "nivel": 3
+  },
+  "Histórico [dash]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     8
+    ]
+   ],
+   "nivel": 3
+  },
+  "Resumo [site]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  "Pedidos online [ped]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 3
+  },
+  "Mensagens [onl]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Vitrine [onl]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Modelos [onl]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 3
+  },
+  "Site [grp] | janela: Grupo": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     5
+    ],
+    [
+     "toque",
+     6
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [grp]": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Marca": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Status": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     7
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Post": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     8
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Story": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     9
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Carrossel": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     11
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Vídeo": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     12
+    ]
+   ],
+   "nivel": 3
+  },
+  "Marketing [mkt] | janela: Roteiro de vídeo": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     6
+    ],
+    [
+     "toque",
+     13
+    ]
+   ],
+   "nivel": 3
+  },
+  "Atacado [ata] | janela: Novo acesso ao atacado": {
+   "caminho": [
+    [
+     "aba",
+     0
+    ],
+    [
+     "toque",
+     8
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  " [vendas] | janela: Ler haste": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     0
+    ]
+   ],
+   "nivel": 3
+  },
+  " [vendas] | janela: Ajustes do catálogo": {
+   "caminho": [
+    [
+     "aba",
+     1
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     1
+    ]
+   ],
+   "nivel": 3
+  },
+  "Inventário [estoque] | janela: Adicionar": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 3
+  },
+  "Inventário [estoque] | janela: Ler haste": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Inventário [estoque] | janela: Filtros do inventário": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Solares · Masculino · Metal": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Solares": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Solares · Feminino · TR90": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +0,25": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +0,50": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     6
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +0,75": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     7
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +1,00": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     8
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +1,25": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     9
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +1,50": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     10
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +1,75": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     11
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +2,00": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     12
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +2,25": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     13
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +2,50": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     14
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +2,75": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     15
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +3,00": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     16
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +3,25": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     17
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +3,50": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     18
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +3,75": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     19
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pré-graduados · +4,00": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     20
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Armações · Feminino · Metal": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     21
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: No lugar de YM7790": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     22
+    ]
+   ],
+   "nivel": 3
+  },
+  "Compras [comp] | janela: Pedir": {
+   "caminho": [
+    [
+     "aba",
+     2
+    ],
+    [
+     "toque",
+     3
+    ],
+    [
+     "toque",
+     23
+    ]
+   ],
+   "nivel": 3
+  },
+  "Caixa [caixa] | janela: Novo objetivo": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     1
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Dólar · G$ 6.487": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     2
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Real · G$ 1.196": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     3
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Dólar em reais · R$ 5,43": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     4
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Por que está normal": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     5
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Registrar troca": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     6
+    ]
+   ],
+   "nivel": 3
+  },
+  "Câmbio [fx] | janela: Últimas trocas": {
+   "caminho": [
+    [
+     "aba",
+     3
+    ],
+    [
+     "toque",
+     4
+    ],
+    [
+     "toque",
+     7
+    ]
+   ],
+   "nivel": 3
+  }
+ },
+ "erros": [],
+ "morto": [
+  "$.onchange",
+  "$.onchange",
+  "$.onchange",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.onclick",
+  "$.oninput",
+  "$.oninput",
+  "$.oninput",
+  "$.oninput",
+  "$.oninput",
+  "$.oninput",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)",
+  "(anônima)"
+ ],
+ "n_funcoes": 4213
+}

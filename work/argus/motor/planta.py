@@ -47,16 +47,17 @@ DEPOIS = r"""(k)=>{const vis=e=>{const r=e.getBoundingClientRect();if(r.width<2|
  return {h:document.documentElement.scrollHeight,dh:document.documentElement.scrollHeight-(a.h||0),janela:fx.length>(a.fixos||0)&&j?tj:null}}"""
 PERIGO_NOME = re.compile(r'\b(apagar|excluir|remover|vender|salvar|publicar|enviar|confirmar|pagar|sair|desfazer|limpar|zerar|baixar|importar|restaurar|cancelar|lixeira)\b', re.I)  # verbo inteiro no nome do botão
 PERIGO_ACAO = re.compile(r'^(del|apag|exclu|remov|vend|salv|pub|envi|pag|sair|limp|zer|restaur|cancel|import)', re.I)  # começo da ação (data-act)
-def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO):
-    b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta)
+def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO, navegador=None):
+    b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta, navegador=navegador)
     for js in tela['passos']: pg.evaluate(js); pg.wait_for_timeout(1000)
     pg.wait_for_timeout(500); return b, pg
 def ligacoes(pw, tela, porta):
     """Toca de verdade em cada botão da tela (reabrindo a tela antes de cada toque) e anota o que acontece."""
-    b, pg = _abre_tela(pw, tela, 'escuro', porta); tit0 = pg.evaluate(TITULO); L = pg.evaluate(TOCAVEIS); b.close(); out = []
+    import sim; nav = sim.navegador(pw)
+    b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav); tit0 = pg.evaluate(TITULO); L = pg.evaluate(TOCAVEIS); b.close(); out = []
     for t in L:
         if PERIGO_NOME.search(t['nome']) or PERIGO_ACAO.search(t['act']): out.append(dict(t, faz='não tocado (perigo)')); continue
-        b, pg = _abre_tela(pw, tela, 'escuro', porta)
+        b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav)
         if not pg.evaluate(TOCA, t['i']): b.close(); out.append(dict(t, faz='não achado')); continue
         pg.wait_for_timeout(1000); d = pg.evaluate(DEPOIS, t['i']); tit = pg.evaluate(TITULO); b.close()
         if tit and tit != tit0: faz = 'sai para: ' + tit
@@ -64,7 +65,7 @@ def ligacoes(pw, tela, porta):
         elif d['dh'] > 8: faz = 'abre ali'
         else: faz = 'nada'
         out.append(dict(t, faz=faz))
-    return tit0, out
+    nav.close(); return tit0, out
 def grava(pw, id_, tela, porta=None, aprovacao=None, com_ligacoes=True):
     """tela = {'nome', 'passos', 'cenario'} · porta = cópia de esboço (None = app de hoje) · aprovacao = trecho da linha na lista viva."""
     os.makedirs(P_APP, exist_ok=True)

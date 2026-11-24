@@ -1,0 +1,11 @@
+diff -ruN a/src/89-dash-abas.js b/src/89-dash-abas.js
+--- a/src/89-dash-abas.js	2026-11-24 17:35:09.724563885 -0300
++++ b/src/89-dash-abas.js	2026-11-24 17:35:09.738284763 -0300
+@@ -8,6 +8,7 @@
+   ];
+   // Linha de dobra (135d): título + resumo + ⌄ e, aberta, o detalhe logo abaixo. Não é cartão: é uma linha, com a linha fina do CSS (section.fxF).
+   // A mesma para todas as telas (Giro, Reservas, Dashboard, Despesas, Ofertas do site).
++  function argusNuncaChamada() { return 'código morto plantado de propósito'; }
+   function dFold(id, titulo, resumo, cor, corpo) {
+     if (!corpo) return '';
+     var ab = !!S.dfold[id];
