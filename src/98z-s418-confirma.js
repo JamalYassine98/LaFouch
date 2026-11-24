@@ -22,7 +22,9 @@
         c.innerHTML =
           '<div class="cf418">' +
           (o.q ? '<div class="cf418Q"><span>' + esc(o.q) + (o.d ? '<small>' + esc(o.d) + '</small>' : '') + '</span>' + (o.v ? '<b>' + esc(o.v) + '</b>' : '') + '</div>' : '') +
-          '<p class="cf418F">' + (o.nv ? '<b>Não tem volta.</b> ' : '') + esc(o.f || '') + '</p>' +
+          // o.linhas = [[rótulo, valor, 'r'?]]: o que está sendo confirmado, em linhas finas (74r)
+          (o.linhas ? o.linhas.map(function (l) { return '<div class="cxL cf418L"><span>' + esc(l[0]) + '</span><b' + (l[2] ? ' class="' + l[2] + '"' : '') + '>' + esc(l[1]) + '</b></div>'; }).join('') : '') +
+          (o.f || o.nv ? '<p class="cf418F">' + (o.nv ? '<b>Não tem volta.</b> ' : '') + esc(o.f || '') + '</p>' : '') +
           '<button type="button" class="cf418B">' + esc(o.b) + '</button>' +
           '<button type="button" class="cf418V">Voltar</button></div>';
         c.querySelector('.cf418B').onclick = function () {

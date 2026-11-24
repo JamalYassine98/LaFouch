@@ -28,6 +28,7 @@
   }
   function notifAgora0() {
     var l = pixSemParItens(), // 39: dinheiro que entrou e a nuvem não soube ligar a um pedido vem primeiro (97z-pix-email.js)
+      n0 = l.length,
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
@@ -76,7 +77,8 @@
         l.push(i);
       });
     } catch (e) {}
-    return l;
+    // o que o Titan marca como 1ª linha (74r: reserva suspeita) sobe para logo depois do dinheiro sem par (39)
+    return l.slice(0, n0).concat(l.filter(function (x) { return x.prim; }), l.slice(n0).filter(function (x) { return !x.prim; }));
   }
   // Moedas (guarani e real) com o dólar perto do mínimo e algo para trocar: base das duas notificações.
   function barMoedas(tp) {
@@ -141,7 +143,7 @@
       h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">O que precisa de você agora.</div></div></div>';
     function cartao(i) {
       return (
-        '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
+        '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px' + (i.prim ? ';color:var(--bad)' : '') + '">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
         '<button type="button" class="mini p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
       );
     }

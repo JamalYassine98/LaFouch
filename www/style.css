@@ -3141,3 +3141,6 @@ p.cpE{margin:0 0 8px;font-size:14px}
 .calcJn .ofPct,.eseJn .ofPct{display:flex;align-items:center;gap:4px}.calcJn .ofPct i,.eseJn .ofPct i{font-style:normal;color:var(--mute)}.calcJn .ofNm,.eseJn .ofNm{margin:0 0 4px;color:var(--mute);font-size:14px}
 .calcJn button.cxL{width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);font:inherit;text-align:left;cursor:pointer}.calcJn .calcAtL{padding-left:16px}.calcJn .tiLb{margin:20px 0 4px}
 .eseJn .eseR{margin:8px 0 12px;font-size:14px;line-height:1.5}
+/* 74r · reserva suspeita: o pedido no topo de Pedidos em vermelho; a janela com as linhas do que é cancelado */
+.susL .nvTx b{color:var(--bad)}.susL{margin:8px 0 4px}
+.cf418L{min-height:52px}.cf418L b{font-weight:500;font-size:16px;text-align:right;line-height:1.35}.cf418L b.r{color:var(--bad)}

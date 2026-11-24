@@ -581,6 +581,7 @@
           return b.ts - a.ts;
         });
     if (!lista.length) h += S.pedidos.length ? '<div class="hint">Nenhum pedido nesta situação.</div>' : lfVazioHtml('<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>', 'Nenhum pedido ainda', 'Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.');
+    h += typeof susPedidosHtml === 'function' ? susPedidosHtml() : ''; // 74r: a reserva suspeita no topo, em vermelho
     // S418 (115a2): uma linha fina por pedido; as ações ficam dentro do pedido.
     if (lista.length) h += '<div class="cxLb" style="margin:14px 0 2px">' + fl.filter(function (f) { return f[0] === gAtual; })[0][1] + ' · ' + lista.length + '</div>';
     lista.forEach(function (p) {
@@ -890,22 +891,24 @@
         ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
         : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
       b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
-      fn: function () {
-        pedAssumeAuto(p);
-        p.st = 'canc';
-        p.cancTs = Date.now();
-        S.pedTok = null;
-        S.pedF = 'canc';
-        render();
-        if (p.orig === 'site') {
-          resSolta(p);
-          // o site do cliente para o relógio e mostra "Cancelado pela loja"
-          if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
-          if (typeof cupPedido === 'function') cupPedido(p, 'libera');
-        }
-      }
+      fn: function () { pedCancela(p); }
     });
   };
+  // cancelar um pedido (um lugar só: o "Cancelar" do pedido e o "Cancelar e soltar as peças" da reserva suspeita, 74r)
+  function pedCancela(p) {
+    pedAssumeAuto(p);
+    p.st = 'canc';
+    p.cancTs = Date.now();
+    S.pedTok = null;
+    S.pedF = 'canc';
+    render();
+    if (p.orig === 'site') {
+      resSolta(p);
+      // o site do cliente para o relógio e mostra "Cancelado pela loja"
+      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
+    }
+  }
   ACT.peddel = function (id) {
     var p = pedAch(id);
     if (!p) return;

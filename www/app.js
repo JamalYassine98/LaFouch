@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 639;
+  var APP_BUILD = 640;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.58.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.59.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -21744,6 +21744,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function notifAgora0() {
     var l = pixSemParItens(), // 39: dinheiro que entrou e a nuvem não soube ligar a um pedido vem primeiro (97z-pix-email.js)
+      n0 = l.length,
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
@@ -21792,7 +21793,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         l.push(i);
       });
     } catch (e) {}
-    return l;
+    // o que o Titan marca como 1ª linha (74r: reserva suspeita) sobe para logo depois do dinheiro sem par (39)
+    return l.slice(0, n0).concat(l.filter(function (x) { return x.prim; }), l.slice(n0).filter(function (x) { return !x.prim; }));
   }
   // Moedas (guarani e real) com o dólar perto do mínimo e algo para trocar: base das duas notificações.
   function barMoedas(tp) {
@@ -21857,7 +21859,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">O que precisa de você agora.</div></div></div>';
     function cartao(i) {
       return (
-        '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
+        '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px' + (i.prim ? ';color:var(--bad)' : '') + '">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
         '<button type="button" class="mini p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
       );
     }
@@ -25227,6 +25229,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return b.ts - a.ts;
         });
     if (!lista.length) h += S.pedidos.length ? '<div class="hint">Nenhum pedido nesta situação.</div>' : lfVazioHtml('<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>', 'Nenhum pedido ainda', 'Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.');
+    h += typeof susPedidosHtml === 'function' ? susPedidosHtml() : ''; // 74r: a reserva suspeita no topo, em vermelho
     // S418 (115a2): uma linha fina por pedido; as ações ficam dentro do pedido.
     if (lista.length) h += '<div class="cxLb" style="margin:14px 0 2px">' + fl.filter(function (f) { return f[0] === gAtual; })[0][1] + ' · ' + lista.length + '</div>';
     lista.forEach(function (p) {
@@ -25536,22 +25539,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
         : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
       b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
-      fn: function () {
-        pedAssumeAuto(p);
-        p.st = 'canc';
-        p.cancTs = Date.now();
-        S.pedTok = null;
-        S.pedF = 'canc';
-        render();
-        if (p.orig === 'site') {
-          resSolta(p);
-          // o site do cliente para o relógio e mostra "Cancelado pela loja"
-          if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
-          if (typeof cupPedido === 'function') cupPedido(p, 'libera');
-        }
-      }
+      fn: function () { pedCancela(p); }
     });
   };
+  // cancelar um pedido (um lugar só: o "Cancelar" do pedido e o "Cancelar e soltar as peças" da reserva suspeita, 74r)
+  function pedCancela(p) {
+    pedAssumeAuto(p);
+    p.st = 'canc';
+    p.cancTs = Date.now();
+    S.pedTok = null;
+    S.pedF = 'canc';
+    render();
+    if (p.orig === 'site') {
+      resSolta(p);
+      // o site do cliente para o relógio e mostra "Cancelado pela loja"
+      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
+    }
+  }
   ACT.peddel = function (id) {
     var p = pedAch(id);
     if (!p) return;
@@ -43924,7 +43929,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var sf = typeof fotoPendModelos === 'function' ? fotoPendModelos() : 0;
     add('Estoque e preço', 'foto', 'Peça publicada sem foto', sf, { b: 'Fotografar', act: 'semfoto' });
     // Site e pedidos
-    var P = guardPedidos();
+    var P = guardPedidos(), su = typeof susAbertas === 'function' ? susAbertas() : [];
+    add('Site e pedidos', 'susp', 'Reserva suspeita', su.length, { tp: su.length ? 'Reserva suspeita · pedido ' + su[0].p.num : '', s: su.length ? susSub(su[0]) : '', b: 'Ver', act: 'susAbre', id: su.length ? su[0].pid : '', urg: su.length > 0, prim: true });
     var pns = P.filter(function (p) { return p.pg === 'pago' && p.st === 'novo' && ag - (p.tokTs || p.ts || ag) > 2 * GUARD_H; });
     add('Site e pedidos', 'sep', 'Pedido pago não separado (+2 h)', pns.length, { s: pns.slice(0, 2).map(function (p) { return '#' + (p.num || p.id); }).join(', '), b: 'Separar', act: 'view', id: 'ped', urg: pns.length > 0 });
     var pix = P.filter(function (p) { return p.pg !== 'pago' && p.pag === 'pix' && !p.comp && ag - (p.ts || ag) > 15 * 60000 && ag - (p.ts || ag) < 48 * GUARD_H; });
@@ -43991,7 +43997,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (it.some(function (x) { return x.t === tt || x.t === c.t; })) return;
       if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
       if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
-      it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
+      var x = { t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k, prim: !!c.prim };
+      if (c.prim) it.unshift(x); else it.push(x); // 74r: a reserva suspeita é a 1ª linha
     });
   }
   // ===== S234 (14/11/2026, esboço S226 aprovado): no computador o menu ao lado mostra também os destinos que não estão na barra =====
@@ -45687,6 +45694,70 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   aposRender(function () {
     if (LIGA_ABERTA && LIGA_ABERTA.c.isConnected) { LIGA_ABERTA.c.innerHTML = LIGA[LIGA_ABERTA.k].corpo(); nvListaCabe(LIGA_ABERTA.c.parentNode); }
   });
+  // ===== 74r v3 (aprovado 23/11 08:05): Reserva suspeita em PEDIDOS e no sino (Titan) =====
+  // A nuvem (functions/suspeita.js) grava suspeitas/<pedido> quando uma reserva parece abuso (5+ peças iguais sem pagar, ou
+  // 3+ reservas abertas da mesma rede na mesma hora). O app lê (susBusca), mostra a 1ª linha vermelha nas Pendências (guardChecks,
+  // src/97w-guardiao.js) e o pedido no topo de Pedidos; "Ver" abre a janela de confirmação (lfConfirma com linhas) com
+  // "Cancelar e soltar as peças" — o MESMO cancelamento do pedido (pedCancela) — e apaga o aviso da nuvem depois de resolver.
+  S.suspeitas = {}; // pedido (sid da reserva) → o que a nuvem gravou
+  function susBusca() {
+    if (typeof nvApi !== 'function' || !S.nuvem || !S.nuvem.rt || susBusca.on || Date.now() - (susBusca.ts || 0) < 60000) return;
+    susBusca.on = 1;
+    susBusca.ts = Date.now();
+    nvApi('GET', 'suspeitas?pageSize=100').then(function (j) {
+      var o = {};
+      (j.documents || []).forEach(function (d) {
+        var f = {};
+        Object.keys(d.fields || {}).forEach(function (k) { f[k] = pedFv(d.fields[k]); });
+        o[d.name.split('/').pop()] = f;
+      });
+      var mudou = JSON.stringify(o) !== JSON.stringify(S.suspeitas);
+      S.suspeitas = o;
+      if (mudou) render();
+    }, function () {}).then(function () { susBusca.on = 0; });
+  }
+  // as que ainda valem: o pedido está no app, não foi pago nem cancelado e a reserva não soltou
+  function susAbertas() {
+    var ag = Date.now();
+    return Object.keys(S.suspeitas || {}).map(function (pid) {
+      var o = S.suspeitas[pid], p = (S.pedidos || []).filter(function (x) { return x.sid === pid; })[0];
+      if (!o || !p || p.pg === 'pago' || p.st === 'canc' || (o.exp > 0 && o.exp <= ag)) return null;
+      return { pid: pid, o: o, p: p };
+    }).filter(Boolean).sort(function (a, b) { return (b.o.ts || 0) - (a.o.ts || 0); });
+  }
+  function susMin(ms) { var m = Math.max(1, Math.round(ms / 60000)); return m < 60 ? m + ' min' : Math.round(m / 60) + ' h'; }
+  function susMotivo(o) {
+    var M = o.motivos || [];
+    return M.indexOf('iguais') >= 0 ? o.iguais + ' peças iguais sem pagar' : cntPl((o.abertas || []).length, 'reserva aberta', 'reservas abertas') + ' da mesma rede';
+  }
+  function susSub(x) { return susMotivo(x.o) + (x.o.exp > 0 ? ' · solta sozinha em ' + susMin(x.o.exp - Date.now()) : ''); }
+  // Pedidos: o pedido suspeito no topo, em vermelho
+  function susPedidosHtml() {
+    var L = susAbertas();
+    return L.length ? '<section class="nvLista susL">' + L.map(function (x) {
+      return '<button type="button" class="nvL" data-act="susAbre" data-id="' + esc(x.pid) + '"><span class="nvTx"><b>Pedido ' + esc(x.p.num) + ' · reserva suspeita</b><small>' + esc(susSub(x)) + '</small></span><i aria-hidden="true">›</i></button>';
+    }).join('') + '</section>' : '';
+  }
+  ACT.susAbre = function (pid) {
+    var x = susAbertas().filter(function (y) { return y.pid === pid; })[0];
+    if (!x) return lfToast('Essa reserva já foi resolvida', 'ok');
+    var it = (x.o.itens || []).slice().sort(function (a, b) { return (b.q || 0) - (a.q || 0); })[0], ag = Date.now();
+    lfConfirma({
+      k: 'sus' + pid, t: 'Reserva suspeita',
+      linhas: [['Pedido', x.p.num + ' · site'], ['Peças', it ? it.q + ' × ' + pn(it.ref) : cntPl(pedQtd(x.p), 'peça', 'peças')],
+        ['Por quê', (x.o.motivos || []).indexOf('iguais') >= 0 ? x.o.iguais + ' iguais, sem pagar' : cntPl((x.o.abertas || []).length, 'reserva', 'reservas') + ' da mesma rede', 'r'],
+        ['Reservada', 'há ' + susMin(ag - (x.o.ts || x.p.ts || ag)) + (x.o.exp > 0 ? ' · solta em ' + susMin(x.o.exp - ag) : '')]],
+      b: 'Cancelar e soltar as peças',
+      fn: function () { pedCancela(x.p); susResolve(pid); }
+    });
+  };
+  // resolvido: apaga o aviso na nuvem (as regras deixam o dono apagar) e aqui
+  function susResolve(pid) {
+    delete S.suspeitas[pid];
+    if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) nvApi('DELETE', 'suspeitas/' + encodeURIComponent(pid)).catch(function () {});
+    render();
+  }
+  aposRender(function () { if (S.view === 'ped' || S.view === 'notif' || S.view === 'inicio') susBusca(); });
   // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
   // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
   // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
@@ -52101,7 +52172,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         c.innerHTML =
           '<div class="cf418">' +
           (o.q ? '<div class="cf418Q"><span>' + esc(o.q) + (o.d ? '<small>' + esc(o.d) + '</small>' : '') + '</span>' + (o.v ? '<b>' + esc(o.v) + '</b>' : '') + '</div>' : '') +
-          '<p class="cf418F">' + (o.nv ? '<b>Não tem volta.</b> ' : '') + esc(o.f || '') + '</p>' +
+          // o.linhas = [[rótulo, valor, 'r'?]]: o que está sendo confirmado, em linhas finas (74r)
+          (o.linhas ? o.linhas.map(function (l) { return '<div class="cxL cf418L"><span>' + esc(l[0]) + '</span><b' + (l[2] ? ' class="' + l[2] + '"' : '') + '>' + esc(l[1]) + '</b></div>'; }).join('') : '') +
+          (o.f || o.nv ? '<p class="cf418F">' + (o.nv ? '<b>Não tem volta.</b> ' : '') + esc(o.f || '') + '</p>' : '') +
           '<button type="button" class="cf418B">' + esc(o.b) + '</button>' +
           '<button type="button" class="cf418V">Voltar</button></div>';
         c.querySelector('.cf418B').onclick = function () {

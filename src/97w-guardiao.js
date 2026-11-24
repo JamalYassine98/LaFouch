@@ -30,7 +30,8 @@
     var sf = typeof fotoPendModelos === 'function' ? fotoPendModelos() : 0;
     add('Estoque e preço', 'foto', 'Peça publicada sem foto', sf, { b: 'Fotografar', act: 'semfoto' });
     // Site e pedidos
-    var P = guardPedidos();
+    var P = guardPedidos(), su = typeof susAbertas === 'function' ? susAbertas() : [];
+    add('Site e pedidos', 'susp', 'Reserva suspeita', su.length, { tp: su.length ? 'Reserva suspeita · pedido ' + su[0].p.num : '', s: su.length ? susSub(su[0]) : '', b: 'Ver', act: 'susAbre', id: su.length ? su[0].pid : '', urg: su.length > 0, prim: true });
     var pns = P.filter(function (p) { return p.pg === 'pago' && p.st === 'novo' && ag - (p.tokTs || p.ts || ag) > 2 * GUARD_H; });
     add('Site e pedidos', 'sep', 'Pedido pago não separado (+2 h)', pns.length, { s: pns.slice(0, 2).map(function (p) { return '#' + (p.num || p.id); }).join(', '), b: 'Separar', act: 'view', id: 'ped', urg: pns.length > 0 });
     var pix = P.filter(function (p) { return p.pg !== 'pago' && p.pag === 'pix' && !p.comp && ag - (p.ts || ag) > 15 * 60000 && ag - (p.ts || ag) < 48 * GUARD_H; });
@@ -97,6 +98,7 @@
       if (it.some(function (x) { return x.t === tt || x.t === c.t; })) return;
       if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
       if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
-      it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
+      var x = { t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k, prim: !!c.prim };
+      if (c.prim) it.unshift(x); else it.push(x); // 74r: a reserva suspeita é a 1ª linha
     });
   }

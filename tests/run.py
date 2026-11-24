@@ -5047,6 +5047,33 @@ async def main():
             if not ok: falhas.append('66 ferramentas'); print('        veio', got, velho, pg.erros)
             await pg.close()
 
+            # 74r v3 (reserva suspeita): o aviso da nuvem (suspeitas/<pedido>) vira a 1ª linha vermelha das Pendências (Titan) e o pedido no topo de
+            # Pedidos; "Ver" abre a janela de confirmação com Pedido · Peças · Por quê · Reservada e "Cancelar e soltar as peças" (o mesmo cancelamento
+            # do pedido, pedCancela) com "Voltar"; pedido pago, cancelado ou com a reserva vencida não aparece.
+            pg = await pagina(fam=True, tudo=False)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)), R = {}, ag = Date.now();
+              const it = S.items.find(i => i.qty > 0 && !i.bulk);
+              S.pedidos = (S.pedidos || []).concat([{ id: 'psx', sid: 'SX1', num: 1043, cli: 'Teste', tel: '', itens: [{ ref: it.ref, cor: it.cor, grau: it.grau || '', q: 5, preco: 1000 }], st: 'novo', pg: 'pagar', orig: 'site', ts: ag - 12 * 60000 }]);
+              S.suspeitas = { SX1: { ts: ag - 12 * 60000, pedido: 'SX1', motivos: ['iguais'], iguais: 5, abertas: [], exp: ag + 18 * 60000, itens: [{ ref: it.ref, cor: it.cor, q: 5 }] } };
+              L.setView('notif'); await w(500); const c = document.querySelector('#v-notif section.card');
+              R.sino = [c.querySelector('b').textContent, /5 peças iguais sem pagar · solta sozinha em 1[78] min/.test(c.innerText), getComputedStyle(c.querySelector('b')).color === getComputedStyle(document.body).getPropertyValue('--bad').trim() || /rgb/.test(getComputedStyle(c.querySelector('b')).color)];
+              L.setView('ped'); await w(500); const r = document.querySelector('#v-ped .susL .nvL'); R.ped = !!r && /Pedido 1043 · reserva suspeita/.test(r.textContent);
+              r.click(); await w(600); const j = document.querySelector('.lfCf:not(.ljSai)');
+              R.jan = [j.querySelector('.ljHd b').textContent, [...j.querySelectorAll('.cf418L span')].map(x => x.textContent).join('|'), j.querySelector('.cf418B').textContent, j.querySelector('.cf418V').textContent];
+              j.querySelector('.cf418B').click(); await w(500);
+              R.fim = [S.pedidos.find(p => p.id === 'psx').st, !S.suspeitas.SX1, !document.querySelector('#v-ped .susL')];
+              // pago não aparece
+              S.pedidos.find(p => p.id === 'psx').st = 'novo'; S.pedidos.find(p => p.id === 'psx').pg = 'pago'; S.suspeitas = { SX1: { ts: ag, pedido: 'SX1', motivos: ['iguais'], iguais: 5, exp: ag + 6e5 } };
+              L.render(); await w(300); R.pago = !document.querySelector('#v-ped .susL');
+              S.pedidos = S.pedidos.filter(p => p.id !== 'psx'); S.suspeitas = {};
+              return R; }""")
+            total += 1
+            ok = (got['sino'][0] == 'Reserva suspeita · pedido 1043' and got['sino'][1] and got['ped'] and got['jan'] == ['Reserva suspeita', 'Pedido|Peças|Por quê|Reservada', 'Cancelar e soltar as peças', 'Voltar']
+                  and got['fim'] == ['canc', True, True] and got['pago'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '74r: reserva suspeita — 1ª linha vermelha do sino, pedido no topo de Pedidos, janela com Cancelar e soltar as peças; pago não aparece')
+            if not ok: falhas.append('74r reserva suspeita'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # 4b parte 3 (135h): "1 dia" / "N dias" sai de UMA função (nDias); o tema em Preços, no cartão e no Guardião usa a mesma. Com o tema a 1 dia, nenhum "1 dias".
             pg = await pagina(fam=True, tudo=False)
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, D = Date, w = ms => new Promise(r => setTimeout(r, ms));
