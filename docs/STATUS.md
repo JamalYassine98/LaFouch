@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | Argus novo · Parte 4 (medidor de família) | work/argus, work/titan |
+| ESBOCO | Argus novo · Parte 5 (setor App) | work/argus, work/kit, work/s349 |
 
 ## Fila
 
