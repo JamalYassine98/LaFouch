@@ -180,6 +180,7 @@
 - para **SITE**: Para o esboço dos presentes e Minha conta: o cartão do cliente no site (.pxc simples) difere do cartão de LUXO aprovado do e-mail (functions/email.js luxo()). O
 - para **SITE**: IMPLEMENTAR (dono 24/11 00:38) itens 94+95 (temáticas). Como fazer: work/ideias/12-tematica-base/COMO-FAZER.md seções 12e e 12f-SUPERADO; base copia5.py. Resumo
 - para **SITE**: Itens 94+95: a pasta work/ideias/12-tematica-base/ agora está no main (não tinha subido). COMO-FAZER.md (seções 12e e 12f-SUPERADO) e copia5.py completos. Falta
+- para **SITE**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
