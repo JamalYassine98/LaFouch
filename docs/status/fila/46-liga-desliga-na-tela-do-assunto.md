@@ -1,2 +1,2 @@
-aprovado 22/11 01:22 — espera o 'implementar' (b Preços, c Pedidos só impressão, d Ajustes; Site no redesenho do painel)
+publicado v633 (46 + 46b + 46c; Site ⏻ fica para o painel do Site 58a)
 work/s435/switch/esboco_46b/c/d
