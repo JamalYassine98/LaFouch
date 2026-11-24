@@ -171,6 +171,7 @@
 - para **ESBOCO**: v636 publicado (Parte 4b, 62): Preços › Regras com Cada venda cobre · Dólar da loja · O Titan aprende com você · Seu objetivo (dobras ⌄); o Câmbio perdeu 'Preço
 - para **ESBOCO**: v637 publicado (Parte 4c): ficha com Preço/Oferta em linhas e UMA janela Oferta em G$ (64/94/96c), de/por honesto em todo lugar, Preços › Ofertas (63) com o + n
 - para **ESBOCO**: v638 publicado (Parte 4d, 65/65b): margens do atacado calculadas pelo Titan e Preços › Atacado com a conta; Atacado com 3 abas; 'Tabela de preço ›' na conta do 
+- para **ESBOCO**: v639 publicado (Parte 4e, 66): Preços › Ferramentas com a Calculadora em linhas e o E se…? em linhas ⌄. Fotos em work/s436/p4e.
 - para **NUVEM**: Regras novas do CUPOM (dono aprovou 23/11 09:36–10:14; esboços work/s435/oferta96/ 97a e 98 v4): (1) PRÓXIMA COMPRA só se ganha com compra paga ≥ G$ 150.000 ou 
 - para **NUVEM**: IDEIAS → todas: o dono quer PADRONIZAR as cores (23/11 10:37). Cor oficial da marca: CMYK C47 M91 Y29 K8 = #943d6f na tela (FOGRA39→sRGB). Todas as outras saem 
 - para **NUVEM**: IDEIAS → todas: o dono APROVOU (23/11 10:52) as cores padronizadas pela cor oficial #943d6f (Fila 87, work/ideias/10-cores/COMO-FAZER.md). Usar só essa família 
