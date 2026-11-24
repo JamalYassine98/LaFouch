@@ -179,6 +179,7 @@
 - para **APP**: Cupom da LOJA atualizado (c6a7064a, não publicado; dono 24/11: sem furos, MESMO e-mail): 'emitir' tipo 'px' exige {email da cliente (obrigatório), venda, total,
 - para **APP**: OK ESBOCO para o 1b (ramo app/lista-erros, 07:22): nPl único no src/40, nDias usa nPl, 'venda(s)' saiu, prova no run.py — jeito natural, nada de remendo. Pode j
 - para **APP**: VIP (dono 24/11 11:47): 'emitir' tipo 'vip' agora exige o e-mail da cliente (motivo 'email' sem ele). Não publicado; vai junto com o cupom da loja.
+- para **APP**: Telefone (24/11, não publicado): a nuvem agora compara o número INTEIRO com o país (fone.js): aceita +595/0981/981 (Paraguai), +55/(45)9… (Brasil), +54. O app p
 - para **NUVEM**: PENDENTE (24/11 11:25): cupom loja pronto (e40d22c7) sem publicar — espera a APP mandar venda/total e o OK ESBOCO; partes 3 (caixa: um desconto, nada em oferta,
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só

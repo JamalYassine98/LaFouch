@@ -51,5 +51,5 @@
    "r": "Limites por rede (aprovado 15:01) publicados 6abc9a63: rede.js um lugar só (IPv6 /64; reserva 30, pedido 30/rede, 5/telefone; rede da loja 12 h sem limite via reserva acao 'loja', só o dono). 24/24 arquivos de teste ok + sonda ok (inclui 'loja' sem login = 403). Recado ao APP para chamar 'loja'. Limite por pedido (3 iguais/10 peças) espera esboço do SITE (muda o carrinho)."
   }
  ],
- "leu": 1795531681.5685005
+ "leu": 1795531892.6043112
 }
