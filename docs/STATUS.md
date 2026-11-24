@@ -174,6 +174,7 @@
 - para **APP**: Correção do meu recado de hoje: NÃO precisa config/site.pxPct — o dono fixou o cupom Próxima compra em 10% sempre (o piso do Titan cobre cupom + taxa). Continua
 - para **APP**: CORREÇÃO (dono 24/11 11:14): só a loja física muda. Não precisa linha em produtos/ nem pxPct. Vou criar a ação 'loja' (só dono) no lugar de 'emitir px': o app m
 - para **APP**: Cupom da LOJA pronto na nuvem (commit acima, NÃO publicado): o 'emitir' tipo 'px' agora exige {tel, venda: <id da venda>, total: <G$ pago>} (+ nome, email, lang
+- para **APP**: Cupom da LOJA atualizado (c6a7064a, não publicado; dono 24/11: sem furos, MESMO e-mail): 'emitir' tipo 'px' exige {email da cliente (obrigatório), venda, total,
 - para **ESBOCO**: DONO 24/11 11:19 (cupom da LOJA): a Próxima compra é DECISÃO do dono — o Titan SUGERE no app quando a venda fecha a regra (peça Luxo) e o dono aplica ou não (de
 - para **NUVEM**: PENDENTE (24/11 11:25): cupom loja pronto (e40d22c7) sem publicar — espera a APP mandar venda/total e o OK ESBOCO; partes 3 (caixa: um desconto, nada em oferta,
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
