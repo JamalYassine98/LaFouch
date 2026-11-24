@@ -1,8 +1,8 @@
 {
  "nome": "ESBOCO",
- "agora": "106 ofertas da data + conferência v632–v634",
+ "agora": "conferência v635–v640 + estado do esboço famílias",
  "arquivos": [
-  "work/s435/ofertasdata"
+  "work/s435/conf640"
  ],
  "ultimas": [
   {
@@ -38,5 +38,5 @@
    "r": "status automático implementado (tools/status.py, docs/status/, regra 1 do CLAUDE.md); fila, recados e em andamento migrados; conferidas as versões 569, 570 (câmera) e 571 (item 17)"
   }
  ],
- "leu": 1795491501.542193
+ "leu": 1795501067.2219658
 }

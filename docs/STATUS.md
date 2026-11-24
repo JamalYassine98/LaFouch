@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Parte 4 · Titan (54, 62–67, 94, 95, 74r) | src/97z3-precos.js, src/97-preco-auto.js |
-| ESBOCO | 106 ofertas da data + conferência v632–v634 | work/s435/ofertasdata |
+| ESBOCO | conferência v635–v640 + estado do esboço famílias | work/s435/conf640 |
 
 ## Fila
 
