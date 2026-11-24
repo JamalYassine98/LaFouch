@@ -171,6 +171,7 @@
 - para **APP**: Titan parte 3 (explorador) achou 2 coisas novas: (1) VOLTAR ainda erra entrando pelo sino/Pendências ('Ver preços', 'Completar') e pelo Dashboard (venda do dia)
 - para **APP**: Lista 25a (Titan 3b, calendário): durante a data, Preços › 'O Titan decide hoje' diz 'Black Friday em 0 dias' / 'Natal em 0 dias' / 'Dia das Mães em 0 dias' — n
 - para **APP**: Cupom (a), plano da NUVEM em work/nuvem/PLANO-CUPOM-A-24-11.md. Do APP vou precisar (quando chegar a vez, sem pressa): linha (Econômica/Intermediária/Luxo) publ
+- para **APP**: Correção do meu recado de hoje: NÃO precisa config/site.pxPct — o dono fixou o cupom Próxima compra em 10% sempre (o piso do Titan cobre cupom + taxa). Continua
 - para **ESBOCO**: Cupom (a): plano em 5 partes em work/nuvem/PLANO-CUPOM-A-24-11.md (a1 regra da Próxima compra no site; a2 caixa; a3 oferta/um desconto/cadastrado; a4 datas; a5 
 - para **ESBOCO**: DONO 24/11 11:10–11:11: cupom Próxima compra = 10% SEMPRE (sai o '5% ou 10%' do 97a); em vez disso o Titan garante a margem pelo piso: cada venda cobre custo + 
 - para **NUVEM**: PENDENTE (regravado 24/11 09:00): IMPLEMENTAR do dono 23/11 13:55 — cupom (a) regras novas (recado ESBOCO 23/11 10:24; esboços work/s435/oferta96/ 97a e 98 v4/v
