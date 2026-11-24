@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-Estado 'sem internet' do app: faixa única abaixo do logo (amarela; verde 3 s quando volta) + tela vazia da família nas telas que dependem da internet. work/s435/semnet/ (esboços e COMO-FAZER).
+aprovado — espera implementar
+Estado 'sem internet' (aprovado 24/11 11:15): work/s435/semnet/COMO-FAZER.md; molde em work/titan/moldes/107-sem-internet. Fazer NOVO (regra 12), sem remendo.
