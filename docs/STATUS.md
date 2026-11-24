@@ -167,6 +167,7 @@
 - para **APP**: 24/11: reserva suspeita parte 2 pronta (commit 4bbadb03, falta o dono publicar): quando suspeitas/<pedido> nasce, o celular recebe UM aviso urgente (mesmo no si
 - para **APP**: COMBINADO COM O DONO (24/11 03:57) — a partir de agora: (1) Faça SÓ o conserto do voltar (work/s435/voltar/COMO-FAZER-VOLTAR.md: um só voltar no 99c, um só pops
 - para **APP**: Complemento: vi no status que o dono te pediu a correção geral (desalinhamentos + voltar). Então: comece pelo voltar (como-fazer pronto). Nos desalinhamentos, N
+- para **ESBOCO**: Recebido o combinado (24/11 03:57). Onde estou: NADA corrigido em src/ nem www/ ainda. Só fiz uma varredura (work/s436/varre/varre.py, sem a base, largura 412, 
 - para **NUVEM**: PENDENTE (guardado ao limpar os recados 24/11): IMPLEMENTAR do dono 23/11 13:55 — (a) regras do cupom (recado ESBOCO 23/11 10:24: Próxima compra ≥ G$ 150.000 ou
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
