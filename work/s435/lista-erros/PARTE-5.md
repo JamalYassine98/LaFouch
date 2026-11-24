@@ -2,7 +2,7 @@
 Fotos: parte5_provas.jpg (Site · Pedidos · Marketing · índice Marketing · Atacado) e p5_*.png. Base: 46c, 147, regras 15–17.
 
 ## 19. Quadros do Início que abrem coisas diferentes
-19a. "Site" abre o índice do grupo; "Marketing" pula o índice e abre a tela Marketing (e o voltar mostra o índice que a pessoa não viu). Mesma função = mesmo comportamento (regra 13): todo quadro de grupo abre o índice do grupo. Com isso some também a tela "‹ MARKETING / Marketing" (índice e tela com o mesmo nome).
+19a. (corrigido 24/11 08:30 — vale o último aprovado, 70, 22/11 15:48: "Início › Marketing direto", o GRUPO Marketing sai) O quadro Marketing abrir a tela direto ESTÁ certo. O que sobra é o índice do grupo Marketing (Marketing · Temática · Cartões · Analisador) e o "‹ MARKETING" que leva a ele: no 70 esses viram setores da própria tela Marketing. Entra com a Parte 7 (70) — não mexer antes. Erro meu: eu tinha pedido o contrário sem conferir o 70.
 
 ## 20. Índices de grupo (Site, Marketing, Peças, Dinheiro, Resultados)
 20a. Frase de baixo do título ("Pedidos, mensagens, vitrine e modelos", "Posts, vídeos, temática, cartões e visitas"…) — sai, como no 3a.
