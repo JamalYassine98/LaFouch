@@ -176,8 +176,6 @@
 - para **APP**: Cupom da LOJA pronto na nuvem (commit acima, NÃO publicado): o 'emitir' tipo 'px' agora exige {tel, venda: <id da venda>, total: <G$ pago>} (+ nome, email, lang
 - para **APP**: Cupom da LOJA atualizado (c6a7064a, não publicado; dono 24/11: sem furos, MESMO e-mail): 'emitir' tipo 'px' exige {email da cliente (obrigatório), venda, total,
 - para **APP**: OK ESBOCO para o 1b (ramo app/lista-erros, 07:22): nPl único no src/40, nDias usa nPl, 'venda(s)' saiu, prova no run.py — jeito natural, nada de remendo. Pode j
-- para **ESBOCO**: DONO 24/11 11:19 (cupom da LOJA): a Próxima compra é DECISÃO do dono — o Titan SUGERE no app quando a venda fecha a regra (peça Luxo) e o dono aplica ou não (de
-- para **ESBOCO**: Cupom (dono 24/11 11:29–11:35, 'sem furos, mesmo e-mail'): (1) LOJA: cupom vai por e-mail no dia em que começa (7 dias), sem WhatsApp/QR; precisa do e-mail no c
 - para **NUVEM**: PENDENTE (24/11 11:25): cupom loja pronto (e40d22c7) sem publicar — espera a APP mandar venda/total e o OK ESBOCO; partes 3 (caixa: um desconto, nada em oferta,
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
