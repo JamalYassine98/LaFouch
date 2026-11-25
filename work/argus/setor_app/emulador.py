@@ -37,7 +37,7 @@ def busca(destino='/tmp/argus_android'):
         subprocess.run(['git', '-C', R, 'worktree', 'add', '-f', '--detach', d, 'FETCH_HEAD'], capture_output=True)
     return destino
 def compara_tudo(destino, plantas_dir):
-    out = {'barras': [], 'comparador': [], 'medidor': [], 'tempo': [], 'faltou': []}
+    out = {'barras': [], 'comparador': [], 'medidor': [], 'regra_x_aprovado': [], 'tempo': [], 'faltou': []}
     for f in glob.glob(os.path.join(destino, '*', 'info-*.json')):
         i = json.load(open(f)); out['barras'].append('%s letra %s: tela útil %s × %s (aparelho %s × %s, %s pontos/pixel)' % (i['tema'], i['letra'], *i['tela_css']))
     for pf in sorted(glob.glob(os.path.join(plantas_dir, '*.json'))):
@@ -48,14 +48,21 @@ def compara_tudo(destino, plantas_dir):
                 if not os.path.exists(f): out['faltou'].append('%s · %s · letra %s' % (pl['tela'], tema, letra)); continue
                 e = json.load(open(f))
                 if not isinstance(e.get('pecas'), list): out['faltou'].append('%s · %s · letra %s (erro: %s)' % (pl['tela'], tema, letra, str(e.get('pecas'))[:80])); continue
+                if letra == '1.0': base = set(); igual = False
                 if letra == '1.0' and tema in pl['temas']:
                     t0 = compara.TOL; compara.TOL = TOL_ANDROID
                     try: D = compara.compara(pl['temas'][tema]['pecas'], e['pecas'])
                     finally: compara.TOL = t0
                     # no Android as letras do sistema desenham com outra largura: lá vale o que FALTA e o que SOBRA; tamanho e posição ficam como informação
-                    out['comparador'] += ['%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda'))]
+                    ruins = [(a, b) for a, b, *_ in D if b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda'))]; igual = not ruins
+                    out['comparador'] += ['%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b in ruins]
                     out.setdefault('informacao', []).extend('%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if not b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda')))
-                out['medidor'] += ['%s · %s %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else '') for x in familia.mede_tela('%s · %s · letra %s (Android)' % (pl['tela'], tema, letra), e['familia'])]
+                # a mesma regra do simulador (setor_app/porta.py): app igual à planta → o achado é do APROVADO; na letra maior, só o NOVO é falha
+                for x in familia.mede_tela('%s · %s · letra %s (Android)' % (pl['tela'], tema, letra), e['familia']):
+                    k = (x[0], x[2], x[3] if len(x) > 3 else ''); txt = '%s · %s %s %s' % (x[1], x[0], x[2], k[2])
+                    if igual and letra == '1.0': base.add(k); out['regra_x_aprovado'].append(txt)
+                    elif k in base: out['regra_x_aprovado'].append(txt)
+                    else: out['medidor'].append(txt)
                 T = e.get('tempo')   # os mesmos limites do simulador (motor/tempo.py), medidos no Android com a loja cheia
                 if T:
                     if T['abrir_ms'] > tempo.ABRIR_MS: out['tempo'].append('%s (Android, loja cheia): abrir levou %d ms (limite %d)' % (pl['tela'], T['abrir_ms'], tempo.ABRIR_MS))
