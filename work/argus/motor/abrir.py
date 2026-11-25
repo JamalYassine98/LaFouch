@@ -12,9 +12,8 @@ _NAVS = {}; _HOJE = {}
 def porta_hoje():
     """porta=None = o app de hoje: montado do código do commit atual (motor/esboco.py: hoje), servido uma vez por rodada."""
     import esboco
-    www = esboco.hoje()
-    if www not in _HOJE: _HOJE.clear(); _HOJE[www] = esboco.serve(www, kit.PA)
-    return _HOJE[www]
+    if not _HOJE: _HOJE['porta'] = esboco.serve(esboco.hoje(), kit.PA)   # o commit de quando a rodada começou: um commit novo no meio não muda o que se confere
+    return _HOJE['porta']
 def navegador_de(pw, letras):
     """Um navegador aberto por tipo de letras (o do PC e o do Android), reaproveitado enquanto o Playwright estiver aberto."""
     k = (id(pw), letras)

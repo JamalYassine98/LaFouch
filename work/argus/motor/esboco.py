@@ -35,5 +35,9 @@ def serve(www, porta):
     s = socket.socket()
     if s.connect_ex(('127.0.0.1', porta)) == 0:
         s.close(); subprocess.run(['fuser', '-k', '%d/tcp' % porta], capture_output=True); time.sleep(0.5)
-    subprocess.Popen(['python3', '-m', 'http.server', str(porta)], cwd=www, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True); time.sleep(1)
-    return porta
+    subprocess.Popen(['python3', '-m', 'http.server', str(porta)], cwd=www, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    for _ in range(100):   # espera o servidor atender (não um tempo fixo)
+        s = socket.socket()
+        if s.connect_ex(('127.0.0.1', porta)) == 0: s.close(); return porta
+        s.close(); time.sleep(0.1)
+    raise SystemExit('o servidor da cópia não subiu na porta %d' % porta)
