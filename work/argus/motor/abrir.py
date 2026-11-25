@@ -43,6 +43,11 @@ def pagina(pw, aparelho, navegador=None, escuro=None, lingua='pt-BR', reduzir_mo
     pg = c.new_page()
     if letras == 'android': c.new_cdp_session(pg).send('Page.setFontFamilies', {'fontFamilies': {'standard': 'Roboto'}})   # a letra-padrão do Android
     return (c if navegador else b), c, pg
+def mundo_parado(pg):
+    """Confere que o que o Argus põe antes da página entrou (a base, o relógio e o sorteio): se um deles quebrar, a rodada para aqui
+    — nunca segue conferindo num mundo que anda."""
+    f = pg.evaluate("()=>[!!window.__argus,!!window.__argusRelogio,!!window.__argusSorte]")
+    if not all(f): raise SystemExit('o mundo parado do Argus não entrou na página (base, relógio, sorteio = %s)' % f)
 def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None, navegador=None, antes=None, reduzir_movimento=None, scripts=(), letra=1.0):
     """O APP. porta=None → o app de hoje (montado do código do commit atual); porta=N → uma cópia servida em N (ex.: a cópia de um esboço).
     navegador = um navegador já aberto (para abrir muitas vezes depressa); aí o que volta para fechar é só a aba (contexto).
@@ -55,7 +60,7 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
         d = cenario if isinstance(cenario, dict) else loja.cenario(cenario)   # um cenário pelo nome, ou uma loja já pronta ({'ls','big'})
         pg.goto('http://localhost:%d/version.json' % porta); pg.evaluate(loja.POE, [loja.CHAVE, d['ls'], d['big']])
     pg.goto('http://localhost:%d/index.html#test' % porta)
-    pg.wait_for_function('window.__LF', timeout=20000); pg.wait_for_timeout(1200)
+    pg.wait_for_function('window.__LF', timeout=20000); pg.wait_for_timeout(1200); mundo_parado(pg)
     if sem_internet:
         c.set_offline(True); pg.evaluate("()=>window.dispatchEvent(new Event('offline'))"); pg.wait_for_timeout(400)
     return f, pg

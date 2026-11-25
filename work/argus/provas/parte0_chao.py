@@ -18,6 +18,8 @@ with sync_playwright() as pw:
     b, pg = abrir.abre(pw)
     agora = pg.evaluate('()=>new Date().toISOString()')
     ok('relógio parado em 24/11/2026 15:00', agora.startswith('2026-11-24T18:00'), agora)
+    sorte = pg.evaluate('()=>[Math.random(),Math.random()]'); b.close(); b, pg = abrir.abre(pw)
+    ok('sorteio parado (a mesma sequência em toda abertura)', sorte == pg.evaluate('()=>[Math.random(),Math.random()]') and len(set(sorte)) == 2, '%.4f · %.4f' % tuple(sorte))
     n = pg.evaluate('()=>({i:__LF.S.items.length,s:(__LF.S.sales||[]).length})'); ni, ns = loja.conta(loja.cenario('normal'))
     ok('o app abriu com a loja do Argus', n['i'] == ni and n['s'] == ns, '%d peças · %d vendas (loja: %d · %d)' % (n['i'], n['s'], ni, ns))
     b.close()

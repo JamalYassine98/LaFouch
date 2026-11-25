@@ -84,5 +84,5 @@ def abre(pw, aparelho=aparelhos.DONO, tematica='sem', lingua='pt', cenario_='nor
     c.route('**firestore.googleapis.com/**', nuvem)
     c.route('**fonts.googleapis.com/css2*', lambda r: r.fulfill(status=200, content_type='text/css', body=LETRAS_CSS))   # as letras que o site baixa,
     c.route('https://argus.letras/**', lambda r: r.fulfill(status=200, path=LETRAS[r.request.url.rsplit('/', 1)[1]]))     # servidas daqui (sem internet)
-    pg.goto('http://localhost:%d/%s' % (porta, rota)); pg.wait_for_load_state('load'); pg.wait_for_timeout(1500)
+    pg.goto('http://localhost:%d/%s' % (porta, rota)); pg.wait_for_load_state('load'); pg.wait_for_timeout(1500); abrir.mundo_parado(pg)
     return f, pg
