@@ -19,9 +19,15 @@ A.bloco=e=>e.closest('section,details,li')||e.parentElement;
 A.titulo=()=>{const h=[...document.querySelectorAll('h1')].find(e=>A.vis(e));const v=(window.__LF&&__LF.S&&__LF.S.view)||'';return (h?A.txt(h):'')+' ['+v+']'};
 A.fixos=()=>[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(x).position==='fixed'&&A.vis(x)&&!A.nav(x)&&!x.closest('[data-argus]'));
 // a janela de baixo aberta (presa embaixo, larga e alta), ou null
-A.janela=()=>{const j=A.fixos().filter(x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r.width>=innerWidth*0.6&&r.height>=innerHeight*0.2}).pop();if(!j)return null;
+// a janela de baixo é o PAINEL preso embaixo; se o que está preso é a tela inteira (o fundo escurecido), o painel é o de dentro dele
+A.painel=x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r.width>=innerWidth*0.6&&r.height>=innerHeight*0.2};
+A.janela=()=>{let j=A.fixos().filter(A.painel).pop();if(!j)return null;
+ let tipo='baixo';
+ if(j.getBoundingClientRect().top<5){const d=[...j.querySelectorAll('*')].filter(x=>A.vis(x)&&A.painel(x)&&x.getBoundingClientRect().top>=5);
+  if(d.length)j=d.sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top)[0];
+  else{const c=[...j.children].filter(x=>A.vis(x)&&x.getBoundingClientRect().width>=innerWidth*0.6).sort((a,b)=>b.getBoundingClientRect().height-a.getBoundingClientRect().height)[0];if(c){j=c;tipo='meio'}}}   // caixa solta no meio da tela: não é a janela de baixo
  const r=j.getBoundingClientRect(),bts=[...j.querySelectorAll('button,[role=button],a')].filter(A.vis).map(A.nome);
- return {el:j,top:r.top,titulo:A.txt(j.querySelector('h1,h2,h3,b')||j).slice(0,60),fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}};
+ return {el:j,tipo,top:r.top,titulo:A.txt(j.querySelector('h1,h2,h3,b')||j).slice(0,60),fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}};
 A.tocar=i=>{const e=A.tocaveis()[i];if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});window.__argusAntes={h:document.documentElement.scrollHeight,fixos:A.fixos().length,y:scrollY};e.click();return 1};
 A.depois=()=>{const a=window.__argusAntes||{};const j=A.janela();return {dh:document.documentElement.scrollHeight-(a.h||0),janela:(A.fixos().length>(a.fixos||0)&&j)?j.titulo:null}};
 A.altura=i=>{const e=A.tocaveis()[i];if(!e)return -1;return Math.round(A.bloco(e).getBoundingClientRect().height)};

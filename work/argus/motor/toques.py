@@ -65,6 +65,7 @@ def regras(pw, nav, tela, porta, l, tit0):
     elif faz.startswith('abre a janela de baixo'):
         b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if not j: b.close(); P.append((nome, 'a janela não ficou aberta para conferir')); return P
+        if j.get('tipo') == 'meio': P.append((nome, 'abre uma caixa no meio da tela, não a janela de baixo (regra 15)'))
         if j['fechar']: P.append((nome, 'a janela tem %s (a regra é fechar arrastando, tocando fora ou com Esc)' % ', '.join('"%s"' % x for x in j['fechar'])))
         pg.keyboard.press('Escape'); pg.wait_for_timeout(700)
         if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha com Esc'))
@@ -73,7 +74,7 @@ def regras(pw, nav, tela, porta, l, tit0):
             pg.touchscreen.tap(pg.viewport_size['width'] / 2, max(8, j['top'] / 2)); pg.wait_for_timeout(700)   # o dedo tocando fora
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha tocando fora'))
         b.close(); b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
-        if j:
+        if j and j.get('tipo') == 'baixo':
             arrasta(pg, pg.viewport_size['width'] / 2, j['top'] + 10, j['top'] + 330); pg.wait_for_timeout(800)
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha arrastando para baixo'))
         b.close()

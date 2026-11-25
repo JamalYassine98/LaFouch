@@ -48,7 +48,7 @@ def mede_tela(nome, d, reduzido=False):
         k = contraste(p['cor'], p.get('atras'), p.get('opac'))
         if k is not None:
             grande = float(p['fs'][:-2]) >= 24 or (float(p['fs'][:-2]) >= 18.66 and int(p['fw']) >= 700)
-            if k < (CONTRASTE_GRANDE if grande else CONTRASTE): ad('texto pouco legível sobre o fundo (contraste)', p['t'], '%.1f:1 (mínimo %.1f:1)' % (k, CONTRASTE_GRANDE if grande else CONTRASTE))
+            if k < (CONTRASTE_GRANDE if grande else CONTRASTE): ad('texto pouco legível sobre o fundo (contraste)', p['t'], '%.2f:1 (mínimo %.1f:1)' % (k, CONTRASTE_GRANDE if grande else CONTRASTE))
     for l in d['linhas']:
         if l['h'] < 43.5: ad('toque menor que 44 px', l['t'], '%.0f px' % l['h'])
         if l['ic'] and l['tx']:
