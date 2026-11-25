@@ -25,6 +25,8 @@ def confere(pw, pl, porta=None):
         for l in L:
             n = l['nome']; vistos[n] = vistos.get(n, 0) + 1; out[('', '', n if vistos[n] == 1 else '%s (%dª)' % (n, vistos[n]))] = l['faz']
         return out
+    def chave_de(L, i):
+        n = L[i]['nome']; k = sum(1 for x in L[:i + 1] if x['nome'] == n); return ('', '', n if k == 1 else '%s (%dª)' % (n, k))
     app = chaves(lig); pla = chaves(pl.get('ligacoes') or [])
     for k, faz in pla.items():
         if k not in app: P.append(('botão "%s"' % k[2][:40], 'falta no app (a planta tem: %s)' % faz))
@@ -33,15 +35,15 @@ def confere(pw, pl, porta=None):
         if k not in pla: P.append(('botão "%s"' % k[2][:40], 'sobra no app (faz: %s)' % faz))
     nav = sim.navegador(pw)
     try:
-        for l in lig: P += regras(pw, nav, tela, porta, l, tit0)
+        for i, l in enumerate(lig): P += regras(pw, nav, tela, porta, l, tit0, nada_aprovado=pla.get(chave_de(lig, i)) == 'nada')   # a planta aprovada diz que ele não faz nada (ex.: Instagram até a loja ter a conta)
         P += gestos(pw, nav, tela, porta, lig)
     finally: nav.close()
     return P
-def regras(pw, nav, tela, porta, l, tit0):
+def regras(pw, nav, tela, porta, l, tit0, nada_aprovado=False):
     """As regras de toque do motor para UM botão, pelo que ele faz."""
     P = []; nome = 'botão "%s"' % l['nome'][:40]; faz = l['faz']
     if faz.startswith('coberto por'): P.append((nome, 'outra coisa está por cima: o dedo pega "%s"' % faz.split(' · ')[0][13:]))
-    if faz == 'nada': P.append((nome, 'não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)'))
+    if faz == 'nada' and not nada_aprovado: P.append((nome, 'não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)'))
     if faz.startswith('sai para') and not __import__('re').match(r'^(‹|voltar)', l['nome'].strip(), __import__('re').I):   # o próprio botão de voltar não se confere voltando de novo
         b, pg = _abre(pw, nav, tela, porta); dedo.toque(pg, l['i']); y0 = pg.evaluate('()=>scrollY')   # o toque rola até o botão: é o ponto de onde se saiu
         pg.wait_for_timeout(1000); como = pg.evaluate(VOLTA); pg.wait_for_timeout(1100)
