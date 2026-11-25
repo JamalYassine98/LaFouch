@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | guardar aprovados 25/11 (traço, E se, Argus toque de dedo, lote 1) | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md |
 
 ## Fila
 
@@ -227,6 +226,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 25/11 08:14 — ESBOCO: guardados os aprovados de 25/11 08:13
 - 25/11 08:04 — ESBOCO: esboço Argus toque de dedo + traço da última linha + texto do E se
 - 25/11 07:50 — ESBOCO: esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
@@ -246,7 +246,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 03:47 — NUVEM: Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions).
 - 24/11 03:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada
 - 24/11 03:40 — NUVEM: Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado.
-- 24/11 03:21 — ESBOCO: conferidos v632–v640 (Partes 1–4 do plano): medidor 0 falhas em 20 telas claro/escuro; desvios da v637 aceitos; recados lidos; resposta à APP; estado do esboço famílias ao dono
 - 24/11 00:38 — IDEIAS: temáticas 94+95 enviadas ao SITE para implementar
 - 24/11 00:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
 - 24/11 00:36 — IDEIAS: aprovado sem enfeite; Noir descartado

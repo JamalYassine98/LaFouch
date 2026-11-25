@@ -1,11 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "guardar aprovados 25/11 (traço, E se, Argus toque de dedo, lote 1)",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795605245.7403862,
+   "r": "guardados os aprovados de 25/11 08:13"
+  },
   {
    "t": 1795604683.790069,
    "r": "esboço Argus toque de dedo + traço da última linha + texto do E se"
@@ -41,10 +42,6 @@
   {
    "t": 1795515507.1325092,
    "r": "OK do voltar único (v641); lista de erros completa × esboços aprovados: 23 itens em work/s435/lista-erros/PARTE-1..5.md, com ordem para a APP"
-  },
-  {
-   "t": 1795501282.84591,
-   "r": "conferidos v632–v640 (Partes 1–4 do plano): medidor 0 falhas em 20 telas claro/escuro; desvios da v637 aceitos; recados lidos; resposta à APP; estado do esboço famílias ao dono"
   }
  ],
  "leu": 1795605222.9346142
