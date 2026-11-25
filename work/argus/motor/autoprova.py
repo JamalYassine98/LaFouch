@@ -15,10 +15,13 @@ PLANTA_DEF = r"""()=>{const V=document.querySelector('.view:not([hidden])')||doc
  const L=[...V.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().width>=innerWidth*0.6);
  L[0].style.setProperty('min-height','40px','important');L[0].style.setProperty('height','40px','important');L[0].style.overflow='hidden';
  const add=h=>{const d=document.createElement('div');d.innerHTML=h;col.appendChild(d.firstElementChild)};
- add('<p class="hint">Total: G$ 25000</p>');add('<button type="button" class="btn" style="width:100%;min-height:48px">+ Nova conta</button>');return 1}"""
+ add('<p class="hint">Total: G$ 25000</p>');add('<button type="button" class="btn" style="width:100%;min-height:48px">+ Nova conta</button>');
+ add('<p class="argusCt">Texto quase invisível</p>');const ct=col.lastElementChild;ct.style.setProperty('color',getComputedStyle(document.body).backgroundColor,'important');ct.style.setProperty('opacity','0.9','important');return 1}"""
+LARGA = "()=>{for(const e of [document.documentElement,document.body])e.style.setProperty('overflow-x','visible','important');const d=document.createElement('div');d.style.cssText='width:'+(innerWidth+300)+'px;height:10px';document.body.appendChild(d);return 1}"
 def roda(pw, nav=None, antiga=True):
     """Devolve (ok, [(o que foi provado, visto?)])."""
-    R = []
+    R = []; proprio = nav is None
+    if proprio: nav = __import__('sim').navegador(pw)
     # 1 comparador
     b, pg = abrir.abre(pw, navegador=nav)
     for js in REG: pg.evaluate(js); pg.wait_for_timeout(1000)
@@ -32,8 +35,11 @@ def roda(pw, nav=None, antiga=True):
         pl = copy.deepcopy(app); f(pl); R.append(('comparador vê: ' + nome, any(esp in x[1] for x in compara.compara(pl, app))))
     # 2 medidor
     a1 = [x for x in familia.mede_tela('t', d1) if (x[0], x[2]) not in a0]
-    for esp in ('toque menor que 44 px', 'número fora do padrão', '"+" de adicionar não é o redondo'):
+    for esp in ('toque menor que 44 px', 'número fora do padrão', '"+" de adicionar não é o redondo', 'texto pouco legível'):
         R.append(('medidor vê: ' + esp, any(esp in x[0] for x in a1)))
+    # gestos: uma peça larga demais faz a tela rolar de lado — tem de ser visto
+    tela = {'nome': 'Regras', 'passos': REG + [LARGA], 'cenario': 'normal'}
+    R.append(('gestos vê: tela que rola de lado', any('rola de lado' in p[1] for p in toques.gestos(pw, nav, tela, None, []))))
     # 3 versão antiga
     if antiga:
         www = esboco.prepara('_versao_antiga', base=VERSAO_ANTIGA); porta = esboco.serve(www, 8839)
@@ -42,4 +48,5 @@ def roda(pw, nav=None, antiga=True):
             for js in passos: pg.evaluate(js); pg.wait_for_timeout(1000)
             d = pg.evaluate(familia.COLETA); b.close()
             R.append(('versão antiga (v641) reprovada em %s: %s' % (tela, regra), any(regra in x[0] for x in familia.mede_tela(tela, d))))
+    if proprio: nav.close()
     return all(v for _, v in R), R

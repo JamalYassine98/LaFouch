@@ -5,45 +5,24 @@
 #  · movimento: uma curva e um tempo, e nada se mexe com "reduzir movimento" · mesmo verbo para a mesma ação · tela vazia = ícone + frase + explicação
 # Mede o que APARECE (o desenho visível, 1 px). Cada achado diz a regra, a tela e a peça.
 import re, collections
-COLETA = r"""()=>{
- const vw=innerWidth,out={pecas:[],linhas:[],botoes:[],trans:[],vazios:[],paleta:[],secoes:[],zoom:parseFloat(getComputedStyle(document.documentElement).zoom)||1};
- const vis=e=>{const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const own=e=>[...e.childNodes].filter(n=>n.nodeType==3).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
- const cv=document.createElement('i');document.body.appendChild(cv);const rgb=v=>{cv.style.color='';cv.style.color=v;return getComputedStyle(cv).color};
- // paleta oficial = as variáveis de cor do próprio CSS do app (nomes lidos das folhas de estilo; valor resolvido no tema de agora)
- const rs=getComputedStyle(document.documentElement),nomes=new Set();for(let i=0;i<rs.length;i++)if(rs[i].startsWith('--'))nomes.add(rs[i]);
- for(const sh of document.styleSheets){let rr;try{rr=sh.cssRules}catch(e){continue}for(const r of rr||[]){const t=r.cssText||'';for(const m of t.matchAll(/(--[\w-]+)\s*:/g))nomes.add(m[1])}}
- for(const k of nomes){const v=rs.getPropertyValue(k).trim();if(/^#|^rgb|^hsl/.test(v))out.paleta.push(rgb(v))}cv.remove();
- const sy=scrollY;
- for(const e of document.querySelectorAll('body *')){
-  if(e.closest('svg')&&e.tagName.toLowerCase()!='svg')continue;if(!vis(e))continue;
-  const c=getComputedStyle(e),r=e.getBoundingClientRect(),t=own(e),tag=e.tagName.toLowerCase();
-  if(c.transitionDuration&&c.transitionDuration.split(',').some(d=>parseFloat(d)>0.01))out.trans.push([c.transitionDuration,c.transitionTimingFunction,(e.className&&e.className.baseVal===undefined?String(e.className):'').slice(0,30)]);
-  if(t){const rg=document.createRange();const tops=new Set();for(const n of e.childNodes)if(n.nodeType==3&&n.textContent.trim()){rg.selectNodeContents(n);for(const q of rg.getClientRects())if(q.width>0.5)tops.add(Math.round(q.top))}
-   out.pecas.push({t:t.slice(0,80),x:r.left,y:r.top+sy,w:r.width,h:r.height,fs:c.fontSize,fw:c.fontWeight,ff:c.fontFamily.split(',')[0].replace(/["']/g,''),cor:c.color,ls:c.letterSpacing,tt:c.textTransform,
-    linhas:Math.max(1,tops.size),corta:(e.scrollWidth>e.clientWidth+1&&/(hidden|clip)/.test(c.overflow+c.overflowX))||c.textOverflow=='ellipsis'&&e.scrollWidth>e.clientWidth+1,fora:r.right>vw+1||r.left<-1,
-    nowrap:c.whiteSpace=='nowrap',tag,umalinha:tag=='h1'||!!e.closest('button,[role=button],a[href]')&&(()=>{const b=e.closest('button,[role=button],a[href]');return b.getBoundingClientRect().width>=vw*0.6||b.getBoundingClientRect().height<56})(),secao:tag!='button'&&parseFloat(c.fontSize)<=13&&c.textTransform=='uppercase'&&parseFloat(c.letterSpacing)>0.5,titulo:tag=='h1'})}
-  const toc=e.matches('button,a[href],[data-act],[role=button],input:not([type=hidden]),select')&&!(e.parentElement&&e.parentElement.closest('button,a[href],[role=button]'));
-  if(toc&&!e.closest('#mainnav,nav')){const tx=(e.getAttribute('aria-label')||e.innerText||'').replace(/\s+/g,' ').trim();
-   const larga=r.width>=vw*0.6;const svg=e.querySelector('svg');const sr=svg&&vis(svg)?svg.getBoundingClientRect():null;
-   const tit=[...e.querySelectorAll('b,strong,span,div')].find(x=>own(x)&&vis(x));const tr=tit?tit.getBoundingClientRect():null;
-   (larga?out.linhas:out.botoes).push({t:tx.slice(0,60),x:r.left,y:r.top+sy,w:r.width,h:r.height,raio:parseFloat(c.borderTopLeftRadius)||0,borda:parseFloat(c.borderTopWidth)||0,fundo:c.backgroundColor,
-    ic:sr?[sr.left,sr.top+sy,sr.width,sr.height,getComputedStyle(svg).strokeWidth]:null,tx:tr?[tr.left,tr.top+sy,tr.width,tr.height,getComputedStyle(tit).fontSize,getComputedStyle(tit).fontWeight]:null,
-    pai:(()=>{for(let q=e.parentElement;q&&q!=document.body;q=q.parentElement){const n=[...q.querySelectorAll('button,a[href],[data-act],[role=button]')].filter(x=>vis(x)&&x.getBoundingClientRect().width>=vw*0.6).length;if(n>=2){q.__argusId=q.__argusId||('b'+Math.random().toString(36).slice(2,8));return q.__argusId}}return ''})(),txt:tx})}
-  if(tag=='svg'&&r.width>=16&&!e.closest('#mainnav,nav'))out.pecas.push({t:'',icone:1,x:r.left,y:r.top+sy,w:r.width,h:r.height,traco:c.strokeWidth});
- }
- for(const v of document.querySelectorAll('.lfVazio'))if(vis(v))out.vazios.push({ic:!!v.querySelector('svg'),b:!!v.querySelector('b'),s:!!v.querySelector('span')});
- for(const e of document.querySelectorAll('body *')){if(!vis(e)||e.closest('.lfVazio,#mainnav,nav,button,a,[data-act],[role=button],label'))continue;const t=own(e);if(!/^(Nenhum|Nenhuma|Nada)\b/.test(t)||t.length>=90||t.includes(' · '))continue;   // tela vazia é a FRASE solta, não o resumo de uma linha ("nenhuma no ar · …")
-  const sec=e.parentElement&&e.parentElement.closest('section,.view,.cnt');const lista=sec&&[...sec.querySelectorAll('button,[data-act]')].some(x=>vis(x)&&x.getBoundingClientRect().width>=vw*0.6);if(!lista)out.vazios.push({solto:t.slice(0,60)})}
- // L3: em todo bloco cujos filhos vêm um embaixo do outro (mesma margem esquerda), o espaço entre um e o próximo
- const vis2=e=>{const r=e.getBoundingClientRect();return r.width>1&&r.height>1&&getComputedStyle(e).display!='none'};
- const V=document.querySelector('.view:not([hidden])')||document.body;
- const BLOCO='section,div,ul,ol,li,p,h1,h2,h3,form,fieldset,details,table,button,a';
- for(const q of [V,...V.querySelectorAll('*')]){if(q.closest('svg,#mainnav,nav,button,a,[data-act],[role=button]'))continue;if(q.getBoundingClientRect().width<vw*0.6)continue;
-  const k=[...q.children].filter(e=>vis2(e)&&e.matches(BLOCO)&&e.getBoundingClientRect().height>=24);if(k.length<2)continue;
-  const R=k.map(e=>e.getBoundingClientRect());let pilha=true;for(let i=1;i<R.length;i++)if(R[i].top<R[i-1].bottom-1||Math.abs(R[i].left-R[0].left)>2){pilha=false;break}
-  if(!pilha)continue;for(let i=1;i<R.length;i++)out.secoes.push([R[i-1].bottom+sy,R[i].top+sy,(k[i].className&&k[i].className.baseVal===undefined?String(k[i].className):k[i].tagName).slice(0,24)||k[i].tagName])}
- return out}"""
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from js import js
+COLETA = js('familia')   # motor/js/familia.js (o mesmo no Android emulado)
+CONTRASTE = 4.5; CONTRASTE_GRANDE = 3.0   # texto legível sobre o fundo (aprovado pelo dono 24/11 21:24; limites do padrão WCAG AA)
+def _rgba(c):
+    m = re.match(r'rgba?\(([\d.]+), ([\d.]+), ([\d.]+)(?:, ([\d.]+))?\)', c or '')
+    return (float(m.group(1)), float(m.group(2)), float(m.group(3)), float(m.group(4)) if m.group(4) else 1.0) if m else None
+def _lum(r, g, b):
+    f = lambda v: (v / 255) / 12.92 if v / 255 <= 0.03928 else (((v / 255) + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+def contraste(cor, atras, opac=1.0):
+    a, f = _rgba(cor), _rgba(atras)
+    if not a or not f: return None
+    al = a[3] * (opac if opac is not None else 1)
+    r, g, b = [a[k] * al + f[k] * (1 - al) for k in range(3)]   # a cor do texto misturada com o fundo, como o olho vê
+    l1, l2 = sorted((_lum(r, g, b), _lum(*f[:3])), reverse=True)
+    return (l1 + 0.05) / (l2 + 0.05)
 VERBOS = [('Salvar', 'Guardar', 'Gravar'), ('Apagar', 'Excluir', 'Remover', 'Deletar'), ('Adicionar', 'Novo', 'Nova', 'Criar', 'Cadastrar'), ('Voltar', 'Retornar'), ('Editar', 'Alterar', 'Mudar')]
 ESP = (0, 8, 16, 24, 32, 48)
 def _cor_ok(c, pal):
@@ -66,6 +45,10 @@ def mede_tela(nome, d, reduzido=False):
             if re.search(r'\.\d{2}$', m.group(2)): ad('número fora do padrão (US$ 3,79)', p['t'], m.group(0))
         if re.search(r'\b\d{4}-\d{2}-\d{2}\b', p['t']): ad('data fora do padrão (18/11)', p['t'])
         if not _cor_ok(p['cor'], pal): ad('cor fora da paleta oficial', p['t'], p['cor'])
+        k = contraste(p['cor'], p.get('atras'), p.get('opac'))
+        if k is not None:
+            grande = float(p['fs'][:-2]) >= 24 or (float(p['fs'][:-2]) >= 18.66 and int(p['fw']) >= 700)
+            if k < (CONTRASTE_GRANDE if grande else CONTRASTE): ad('texto pouco legível sobre o fundo (contraste)', p['t'], '%.1f:1 (mínimo %.1f:1)' % (k, CONTRASTE_GRANDE if grande else CONTRASTE))
     for l in d['linhas']:
         if l['h'] < 43.5: ad('toque menor que 44 px', l['t'], '%.0f px' % l['h'])
         if l['ic'] and l['tx']:
@@ -108,6 +91,9 @@ def familia_inteira(telas):
         for b in d['botoes']:
             if b['txt'] == '+' or re.match(r'^\+', b['txt']): s = (round(b['w']), round(b['h']), round(b['raio'])); fam['botão +'][s] += 1; onde['botão +'].setdefault(s, '%s · %s' % (nome, b['txt']))
         for t, f in [(x[0], x[1]) for x in d['trans']]: fam['movimento (tempo e curva)'][(t, f)] += 1; onde['movimento (tempo e curva)'].setdefault((t, f), nome)
+        for e in d.get('estados', []):   # regra 17: o mesmo estado (aviso de baixo, erro, sem internet, carregando) igual em todo lugar
+            k = 'estado: ' + ('aviso de baixo' if 'lfToast' in e['tipo'] or e['embaixo'] else e['tipo'])
+            s = (e['fs'], e['fundo'], e['raio'], e['pos']); fam[k][s] += 1; onde[k].setdefault(s, '%s · %s' % (nome, e['t']))
     for k, c in fam.items():
         if len(c) > 1:
             base = c.most_common(1)[0][0]

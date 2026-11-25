@@ -5,7 +5,7 @@
 import os, sys, json, shutil
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app'))
 import planta, selo, abrir, loja, modos, porta
-planta.P_APP = '/tmp/argus_plantas_teste5'; planta.OBS = '/tmp/argus_obsoletos_teste5'; selo.D = '/tmp/argus_selos_teste5'
+planta.P_APP = os.path.join(A, 'plantas', 'teste'); planta.OBS = '/tmp/argus_obsoletos_teste5'; selo.D = '/tmp/argus_selos_teste5'   # as 2 plantas de TESTE do repositório (o emulador do GitHub lê as mesmas)
 from playwright.sync_api import sync_playwright
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
@@ -21,11 +21,7 @@ with sync_playwright() as pw:
     b, pg = abrir.abre(pw, cenario='biometria', antes=lambda p: p.add_init_script(modos.BIO)); pg.click('#pinKb .pkBio'); pg.wait_for_timeout(1500)
     ab = pg.evaluate("()=>document.getElementById('lockScr').hidden"); b.close()
     ok('com biometria: a tecla da digital destrava', ab)
-    # plantas de teste
-    shutil.rmtree(planta.P_APP, ignore_errors=True)
-    for id_, t in (('fornecedores', {'nome': 'Fornecedores', 'passos': ["()=>__LF.inicioGo('lotes')"], 'cenario': 'normal'}),
-                   ('precos-regras', {'nome': 'Preços › Regras', 'passos': ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"], 'cenario': 'normal'})):
-        pl = planta.grava(pw, 'teste-' + id_, t, aprovacao='APROVADOS: **89b**'); planta.salva(pl)
+    ok('plantas de teste no repositório (2)', len([f for f in os.listdir(planta.P_APP) if f.endswith('.json')]) == 2)
 # 2 selo
 falso = {'falhas': 0, 'autoprova_ok': True, 'completa': True, 'resumo': 'teste'}
 selo.grava('app', falso); c1 = selo.confere('app')

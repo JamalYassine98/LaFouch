@@ -6,7 +6,7 @@
 import os, sys, json, subprocess, time
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A))
 sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app'))
-import planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim
+import planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim, migracao, origem, loja, emulador
 APARELHOS = [aparelhos.DONO, 'celular 320', 'celular 430', 'tablet 768', 'PC 1440']
 def _etapa(E, nome, estado, itens=()):
     E.append({'etapa': nome, 'estado': estado, 'itens': list(itens)}); print(('%-14s' % estado) + nome + ('  (%d)' % len(itens) if itens else ''), flush=True)
@@ -15,6 +15,10 @@ def plantas_validas():
     for f in sorted(os.listdir(planta.P_APP)) if os.path.isdir(planta.P_APP) else []:
         if f.endswith('.json'): x = json.load(open(os.path.join(planta.P_APP, f))); P.append((x, planta.valida(x)))
     return P
+def modos_quer(completa):
+    """Os modos do app que a rodada TEM de passar (o que não rodou vira "não conferido")."""
+    return {(a, t, f) for a in (APARELHOS if completa else [aparelhos.DONO]) for t in modos.TEMAS for f in (modos.LETRAS if completa else [1.0])} | {'reduzir movimento', 'sem internet', 'bloqueio', 'biometria', 'erro ao salvar'}
+def modos_faltando(quer, rodou): return sorted(str(m) for m in quer - rodou)
 def roda(modo='rapida', so_telas=None):
     completa = modo == 'completa'; E = []; t0 = time.time()
     from playwright.sync_api import sync_playwright
@@ -47,7 +51,7 @@ def roda(modo='rapida', so_telas=None):
         for pl in apr: it += ['%s: %s %s' % (pl['tela'], a, b) for a, b in toques.confere(pw, pl)]
         _etapa(E, 'toques (ligações e regras)', 'FALHA' if it else 'ok', it)
         # 5 medidor nos modos do app: aparelhos × claro/escuro × 3 letras; onde o app é igual à planta, o achado é do APROVADO
-        fal, conf = [], []
+        fal, conf = [], []; rodou = set()
         # o que aparece igual no modo da planta (celular do dono, letra 1×) e o app é igual à planta = está no APROVADO; nos outros
         # modos, o MESMO achado (mesma regra, mesma peça) também é do aprovado — só o que é novo naquele modo é falha
         base = set()
@@ -58,13 +62,42 @@ def roda(modo='rapida', so_telas=None):
                     for f in (modos.LETRAS if completa else [1.0]):
                         b, pg = planta._abre_tela(pw, tela, tema, None, aparelho=apar, navegador=nav)
                         if f != 1.0: pg.evaluate(modos.LETRA, f); pg.wait_for_timeout(300)
+                        rodou.add((apar, tema, f))
                         for x in familia.mede_tela('%s · %s · %s · letra %s' % (pl['tela'], apar, tema, f), pg.evaluate(familia.COLETA)):
                             txt = '%s · %s · %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else ''); k = (pl['id'], tema, x[0], x[2], x[3] if len(x) > 3 else '')
                             if (pl['id'], tema) in iguais and apar == aparelhos.DONO and f == 1.0: base.add(k); conf.append(txt)
                             elif k in base: conf.append(txt)
                             else: fal.append(txt)
                         b.close()
+        # outros modos do app: reduzir movimento, sem internet, com PIN e com biometria
+        for pl in apr:
+            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, reduzir_movimento=True)
+            fal += ['%s · %s · %s' % (x[1], x[0], x[2]) for x in familia.mede_tela('%s · reduzir movimento' % pl['tela'], pg.evaluate(familia.COLETA), True) if x[0].startswith('mexe')]; b.close(); rodou.add('reduzir movimento')
+            b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, sem_internet=True)
+            fal += ['%s · %s · %s' % (x[1], x[0], x[2]) for x in familia.mede_tela('%s · sem internet' % pl['tela'], pg.evaluate(familia.COLETA)) if (pl['id'], x[0], x[2]) not in {(pl['id'], k[2], k[3]) for k in base}]; b.close(); rodou.add('sem internet')
+        for cen, scripts in (('bloqueio', ()), ('biometria', (modos.BIO,))):
+            b, pg = abrir.abre(pw, navegador=nav, cenario=cen, scripts=scripts)
+            trav = pg.evaluate("()=>!document.getElementById('lockScr').hidden")
+            if cen == 'bloqueio':
+                for k in loja.PIN: pg.click('#pinKb [data-k="%s"]' % k)
+            else: pg.click('#pinKb .pkBio')
+            pg.wait_for_timeout(2500); ab = pg.evaluate("()=>document.getElementById('lockScr').hidden"); b.close(); rodou.add(cen)
+            if not (trav and ab): fal.append('%s: o app %s' % ('com PIN' if cen == 'bloqueio' else 'com biometria', 'não abriu travado' if not trav else 'não destravou'))
+        # estados (regra 17): o aparelho recusa guardar → o app TEM de avisar, e o aviso é igual em todas as telas
+        est = {}
+        for pl in apr:
+            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, scripts=(modos.ERRO_SALVAR,))
+            pg.evaluate("()=>{try{__LF.salvarAgora()}catch(e){}}"); pg.wait_for_timeout(1500); d = pg.evaluate(familia.COLETA); b.close(); rodou.add('erro ao salvar')
+            if not d['estados']: fal.append('%s · erro ao salvar: o app não avisa nada' % pl['tela'])
+            est[pl['tela'] + ' (erro ao salvar)'] = d
+        fal += ['%s · %s · %s %s' % (x[1], x[0], x[2], x[3]) for x in familia.familia_inteira(est) if x[0].startswith('família: estado')]
         _etapa(E, 'medidor de família nos modos do app', 'FALHA' if fal else 'ok', fal)
+        # modo da lista que não rodou = não conferido (trava)
+        quer = modos_quer(completa)
+        falta = modos_faltando(quer, rodou)
+        _etapa(E, 'todos os modos da lista rodaram', 'FALHA' if (falta and apr) else 'ok', ['não conferido: ' + m for m in falta] if apr else ['sem plantas aprovadas'])
         if conf: _etapa(E, 'regra × aprovado (o dono decide; não trava)', 'aviso', conf)
         # 6 tempo com a loja cheia
         it = []
@@ -89,6 +122,17 @@ def roda(modo='rapida', so_telas=None):
             mor = explorador.morto(X['cobertura'])
             _etapa(E, 'código morto (para o dono ver; não trava)', 'aviso' if mor else 'ok', ['%d de %d funções nunca rodaram no passeio' % (len(mor), len(X['cobertura']))] + mor[:50])
         else: _etapa(E, 'mapa, erros do passeio e código morto', 'não rodou', ['só na rodada completa'])
+        if completa:
+            # onde cada diferença com a planta NASCEU (a primeira versão que já tinha a diferença)
+            it = []
+            for pl in apr:
+                if (pl['id'], 'escuro') in iguais: continue
+                v, ant = origem.nasceu(pw, pl)
+                it.append('%s: %s' % (pl['tela'], ('nasceu em %s (antes: %s)' % (v, ant)) if v else ant))
+            _etapa(E, 'onde a diferença nasceu', 'aviso' if it else 'ok', it)
+            # os dados guardados pela versão publicada abrem iguais na versão nova
+            D, velha = migracao.confere(pw)
+            _etapa(E, 'dados de hoje abrem na versão nova (desde %s)' % velha[:9], 'FALHA' if D else 'ok', ['%s: %s na publicada → %s na nova' % x for x in D])
         # 8 segurança: as provas da NUVEM (o Argus só roda)
         try:
             out = json.loads(subprocess.run(['python3', os.path.join(R, 'work', 'fiscal', 'regras.py')], capture_output=True, text=True, timeout=120).stdout)
@@ -96,6 +140,15 @@ def roda(modo='rapida', so_telas=None):
             _etapa(E, 'segurança (provas da NUVEM: regras da nuvem)', 'FALHA' if ruins else 'ok', ruins or ['%d provas' % len(out)])
         except Exception as e: _etapa(E, 'segurança (provas da NUVEM)', 'FALHA', ['a prova não rodou: %s' % str(e)[:80]])
         nav.close()
+    pasta = os.path.relpath(planta.P_APP, R) if os.path.abspath(planta.P_APP).startswith(R + os.sep) else None
+    if completa and apr and not pasta: _etapa(E, 'Android emulado', 'FALHA', ['não conferido: as plantas não estão no repositório'])
+    elif completa and apr:   # 9 o Android emulado (GitHub): a MESMA versão, no tamanho do celular do dono, letras de verdade, claro e escuro
+        try:
+            ref, c = emulador.sobe_versao(); rid = emulador.dispara(pasta, ref); fim = emulador.espera(rid)
+            r = emulador.compara_tudo(emulador.busca(), planta.P_APP)
+            ruim = r['comparador'] + r['medidor'] + r['tempo'] + ['não conferido: ' + x for x in r['faltou']]
+            _etapa(E, 'Android emulado (%s)' % fim, 'FALHA' if ruim or fim != 'success' else 'ok', ruim + r['barras'][:1])
+        except SystemExit as e: _etapa(E, 'Android emulado', 'FALHA', ['não rodou: %s' % e])
     falhas = [e for e in E if e['estado'] == 'FALHA']
     res = {'setor': 'app', 'modo': modo, 'completa': completa, 'commit': selo.commit(), 'falhas': len(falhas), 'autoprova_ok': ok,
            'etapas': E, 'minutos': round((time.time() - t0) / 60, 1), 'resumo': '%d etapas, %d com falha' % (len(E), len(falhas))}

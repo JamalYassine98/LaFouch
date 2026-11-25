@@ -8,58 +8,24 @@ import os, sys, json, re, time, shutil
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A)); sys.path.insert(0, os.path.join(A, 'motor'))
 import abrir, loja, aparelhos
 P_APP = os.path.join(A, 'plantas', 'app'); OBS = os.path.join(R, 'work', 'obsoletos', 'argus-plantas'); LISTA = os.path.join(R, 'docs', 'FALTA-APROVAR-15-11.md')
-COLETA = r"""()=>{
- const IH=innerHeight,sx=scrollX,sy=scrollY,out=[];
- const tr=c=>!c||c=='transparent'||/rgba\(.*,\s*0\)$/.test(c);
- const vis=e=>{const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const own=e=>[...e.childNodes].filter(n=>n.nodeType==3).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
- const n1=v=>Math.round(v*10)/10;
- const geo=s=>[...s.querySelectorAll('path,circle,rect,line,polyline,polygon,ellipse')].map(x=>x.tagName.toLowerCase()+':'+['d','cx','cy','r','rx','ry','x','y','x1','y1','x2','y2','width','height','points'].filter(a=>x.hasAttribute(a)).map(a=>a+'='+x.getAttribute(a).replace(/-?\d*\.?\d+/g,m=>String(n1(+m)))).join(',')).join('|');
- for(const e of document.querySelectorAll('body *')){
-  if(e.closest('#tt,.bx,[data-argus]'))continue;
-  const tag=e.tagName.toLowerCase();if(tag=='script'||tag=='style')continue;
-  if(e.closest('svg')&&tag!='svg')continue;
-  if(!vis(e))continue;
-  const c=getComputedStyle(e),r=e.getBoundingClientRect(),t=tag=='svg'?'':own(e);
-  const fundo=!tr(c.backgroundColor)?c.backgroundColor:'',borda=parseFloat(c.borderTopWidth)||parseFloat(c.borderBottomWidth)?c.borderTopWidth+' '+c.borderTopColor+' / '+c.borderBottomWidth+' '+c.borderBottomColor:'';
-  if(!t&&tag!='svg'&&!fundo&&!borda&&!(tag=='input'||tag=='textarea'||tag=='img'))continue;
-  const p={tipo:tag=='svg'?'icone':t?'texto':(tag=='input'||tag=='textarea')?'campo':tag=='img'?'imagem':'caixa',
-   texto:t||(tag=='input'||tag=='textarea'?(e.placeholder||e.value||''):''),caixa:[n1(r.left+sx),n1(r.top+sy),n1(r.width),n1(r.height)],
-   cor:c.color,fundo,borda,raio:c.borderRadius!='0px'?c.borderRadius:'',
-   letra:t||tag=='input'?[c.fontSize,c.fontWeight,c.fontFamily.split(',')[0].replace(/["']/g,'').trim(),c.letterSpacing,c.textTransform]:null,
-   fixo:/fixed|sticky/.test(c.position)||!!e.closest('nav')};
-  if(tag=='svg')p.icone={geo:geo(e),traco:c.strokeWidth,cor:c.stroke!='none'?c.stroke:c.color};
-  out.push(p)}
- return out}"""
-TITULO = "()=>{const h=[...document.querySelectorAll('h1')].find(e=>{const r=e.getBoundingClientRect();return r.width>2&&r.height>2&&getComputedStyle(e).visibility!='hidden'});const v=(window.__LF&&__LF.S&&__LF.S.view)||'';return (h?h.textContent.replace(/\\s+/g,' ').trim():'')+' ['+v+']'}"  # nome da tela = título + a tela em que o app diz estar (o Início não tem título)
-TOCAVEIS = r"""()=>{const vis=e=>{const r=e.getBoundingClientRect();if(r.width<2||r.height<2)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const L=[...document.querySelectorAll('button,a[href],[data-act],[role=button],summary,input[type=checkbox],select')].filter(e=>vis(e)&&!e.closest('nav,#mainnav,#nvBar,aside')&&!(e.parentElement&&e.parentElement.closest('button,a[href],[data-act],[role=button]')));
- return L.map((e,i)=>({i,nome:(e.getAttribute('aria-label')||e.textContent||e.value||'').replace(/\s+/g,' ').trim().slice(0,60),act:e.getAttribute('data-act')||'',id:e.getAttribute('data-id')||'',tag:e.tagName.toLowerCase()}))}"""
-TOCA = r"""(k)=>{const vis=e=>{const r=e.getBoundingClientRect();if(r.width<2||r.height<2)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const L=[...document.querySelectorAll('button,a[href],[data-act],[role=button],summary,input[type=checkbox],select')].filter(e=>vis(e)&&!e.closest('nav,#mainnav,#nvBar,aside')&&!(e.parentElement&&e.parentElement.closest('button,a[href],[data-act],[role=button]')));
- const e=L[k];if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});
- window.__ant={h:document.documentElement.scrollHeight,fixos:[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(x).position=='fixed'&&vis(x)).length,exp:e.getAttribute('aria-expanded'),sec:(e.closest('section')||{}).className||''};
- e.click();return 1}"""
-DEPOIS = r"""(k)=>{const vis=e=>{const r=e.getBoundingClientRect();if(r.width<2||r.height<2)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const a=window.__ant||{};const fx=[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(x).position=='fixed'&&vis(x));
- const jan=fx.filter(x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r.width>=innerWidth*0.6&&r.height>=innerHeight*0.2&&!x.closest('nav,#mainnav,#nvBar')});
- const j=jan[jan.length-1];const tj=j?((j.querySelector('h1,h2,h3,b')||{}).textContent||'').replace(/\s+/g,' ').trim().slice(0,60):'';
- return {h:document.documentElement.scrollHeight,dh:document.documentElement.scrollHeight-(a.h||0),janela:fx.length>(a.fixos||0)&&j?tj:null}}"""
-PERIGO_NOME = re.compile(r'\b(apagar|excluir|remover|vender|salvar|publicar|enviar|confirmar|pagar|sair|desfazer|limpar|zerar|baixar|importar|restaurar|cancelar|lixeira)\b', re.I)  # verbo inteiro no nome do botão
-PERIGO_ACAO = re.compile(r'^(del|apag|exclu|remov|vend|salv|pub|envi|pag|sair|limp|zer|restaur|cancel|import)', re.I)  # começo da ação (data-act)
-def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO, navegador=None):
-    b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta, navegador=navegador)
-    for js in tela['passos']: pg.evaluate(js); pg.wait_for_timeout(1000)
+from js import js
+COLETA = js('planta')                                   # as peças que aparecem (motor/js/planta.js)
+TITULO = "()=>window.__argus.titulo()"                  # nome da tela = título + a tela em que o app diz estar (o Início não tem título)
+TOCAVEIS = js('tocaveis'); TOCA = "(i)=>window.__argus.tocar(i)"; DEPOIS = "()=>window.__argus.depois()"
+import perigo
+def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO, navegador=None, **kw):
+    b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta, navegador=navegador, **kw)
+    for p in tela['passos']: pg.evaluate(p); pg.wait_for_timeout(1000)
     pg.wait_for_timeout(500); return b, pg
 def ligacoes(pw, tela, porta):
     """Toca de verdade em cada botão da tela (reabrindo a tela antes de cada toque) e anota o que acontece."""
     import sim; nav = sim.navegador(pw)
     b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav); tit0 = pg.evaluate(TITULO); L = pg.evaluate(TOCAVEIS); b.close(); out = []
     for t in L:
-        if PERIGO_NOME.search(t['nome']) or PERIGO_ACAO.search(t['act']): out.append(dict(t, faz='não tocado (perigo)')); continue
+        if perigo.perigoso(t): out.append(dict(t, faz='não tocado (perigo)')); continue
         b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav)
         if not pg.evaluate(TOCA, t['i']): b.close(); out.append(dict(t, faz='não achado')); continue
-        pg.wait_for_timeout(1000); d = pg.evaluate(DEPOIS, t['i']); tit = pg.evaluate(TITULO); b.close()
+        pg.wait_for_timeout(1000); d = pg.evaluate(DEPOIS); tit = pg.evaluate(TITULO); b.close()
         if tit and tit != tit0: faz = 'sai para: ' + tit
         elif d['janela'] is not None: faz = 'abre a janela de baixo: ' + d['janela']
         elif d['dh'] > 8: faz = 'abre ali'

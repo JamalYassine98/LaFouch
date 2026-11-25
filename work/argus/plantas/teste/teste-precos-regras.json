@@ -2329,7 +2329,7 @@
   },
   {
    "i": 2,
-   "nome": "Contas do mêsG$ 4.200.000 · 7 contas · em Dinheiro›",
+   "nome": "Contas do mês G$ 4.200.000 · 7 contas · em Dinheiro ›",
    "act": "view",
    "id": "desp",
    "tag": "button",
@@ -2337,7 +2337,7 @@
   },
   {
    "i": 3,
-   "nome": "Taxas da maquininhadébito 2% · crédito 4%⌄",
+   "nome": "Taxas da maquininha débito 2% · crédito 4% ⌄",
    "act": "dfold",
    "id": "rgTx",
    "tag": "button",
@@ -2345,7 +2345,7 @@
   },
   {
    "i": 4,
-   "nome": "IVA · 10%incluído no preço · em guaranis⌄",
+   "nome": "IVA · 10% incluído no preço · em guaranis ⌄",
    "act": "dfold",
    "id": "rgIva",
    "tag": "button",
@@ -2353,7 +2353,7 @@
   },
   {
    "i": 5,
-   "nome": "Colchão · 13,0%reserva da mercadoria · amortece⌄",
+   "nome": "Colchão · 13,0% reserva da mercadoria · amortece ⌄",
    "act": "dfold",
    "id": "rgCo",
    "tag": "button",
@@ -2361,7 +2361,7 @@
   },
   {
    "i": 6,
-   "nome": "Cotação nos preços · G$ 6.800travada⌄",
+   "nome": "Cotação nos preços · G$ 6.800 travada ⌄",
    "act": "dfold",
    "id": "rgFx",
    "tag": "button",
@@ -2369,7 +2369,7 @@
   },
   {
    "i": 7,
-   "nome": "Vendas por mês · 184pelas vendas reais, sem digitar⌄",
+   "nome": "Vendas por mês · 184 pelas vendas reais, sem digitar ⌄",
    "act": "dfold",
    "id": "rgVol",
    "tag": "button",
@@ -2377,7 +2377,7 @@
   },
   {
    "i": 8,
-   "nome": "Seu jeito de cobrar · aprendidoaprende com cada correção⌄",
+   "nome": "Seu jeito de cobrar · aprendido aprende com cada correção ⌄",
    "act": "dfold",
    "id": "rgJei",
    "tag": "button",

@@ -1,21 +1,20 @@
 # ARGUS · os toques (Parte 3). Confere se cada botão faz o que a planta aprovada diz (as LIGAÇÕES) e as regras de toque do motor
 # (CLAUDE.md 15–16, valem para app e site): › sai para outra tela e o voltar traz de volta ao MESMO ponto · ⌄ abre ali e fecha no
 # 2º toque, e toques rápidos não deixam pela metade · a janela de baixo não tem × nem "Fechar", fecha com Esc, tocando fora e
-# arrastando para baixo, e pergunta "Sair sem salvar?" se algo mudou. Nunca toca em botão de perigo (planta.PERIGO_*).
+# arrastando para baixo, e pergunta "Sair sem salvar?" se algo mudou. Nunca toca em botão de perigo (motor/perigo.py).
 import os, sys
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
-import planta, sim
-ALT = r"""(i)=>{const vis=e=>{const r=e.getBoundingClientRect();if(r.width<2||r.height<2)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
- const L=[...document.querySelectorAll('button,a[href],[data-act],[role=button],summary,input[type=checkbox],select')].filter(e=>vis(e)&&!e.closest('nav,#mainnav,#nvBar,aside')&&!(e.parentElement&&e.parentElement.closest('button,a[href],[data-act],[role=button]')));
- const e=L[i];if(!e)return -1;const B=e.closest('section,details,li')||e.parentElement;return Math.round(B.getBoundingClientRect().height)}"""
-VOLTA = r"""()=>{const b=[...document.querySelectorAll('button,a,[data-act]')].find(e=>{const r=e.getBoundingClientRect();return r.width>2&&r.top<280&&/^‹|^voltar/i.test((e.getAttribute('aria-label')||e.textContent||'').trim())});if(b){b.click();return 'botão ‹'}history.back();return 'voltar do aparelho'}"""
-JANELA = r"""()=>{const vis=e=>{const r=e.getBoundingClientRect();return r.width>2&&r.height>2&&getComputedStyle(e).visibility!='hidden'&&getComputedStyle(e).display!='none'};
- const fx=[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(x).position=='fixed'&&vis(x)&&!x.closest('nav,#mainnav,#nvBar'));
- const j=fx.filter(x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r.width>=innerWidth*0.6&&r.height>=innerHeight*0.2}).pop();
- if(!j)return null;const r=j.getBoundingClientRect();
- const bts=[...j.querySelectorAll('button,[role=button],a')].filter(vis).map(b=>(b.getAttribute('aria-label')||b.textContent||'').replace(/\s+/g,' ').trim());
- return {top:r.top,fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}}"""
-SAIR_SEM = r"""()=>/sair sem salvar/i.test(document.body.innerText)"""
+import planta, sim, aparelhos
+ALT = "(i)=>window.__argus.altura(i)"; JANELA = "()=>window.__argus.janelaInfo()"; SAIR_SEM = "()=>window.__argus.sairSemSalvar()"
+from js import js
+VOLTA = js('voltar')
+def arrasta(pg, x, y0, y1, passos=12):
+    """O DEDO na tela (eventos de toque de verdade): encosta em (x, y0), arrasta até y1 e solta. Um jeito só para rolar e para fechar a janela."""
+    c = pg.context.new_cdp_session(pg)
+    c.send('Input.dispatchTouchEvent', {'type': 'touchStart', 'touchPoints': [{'x': x, 'y': y0}]})
+    for k in range(1, passos + 1):
+        c.send('Input.dispatchTouchEvent', {'type': 'touchMove', 'touchPoints': [{'x': x, 'y': y0 + (y1 - y0) * k / passos}]}); pg.wait_for_timeout(16)
+    c.send('Input.dispatchTouchEvent', {'type': 'touchEnd', 'touchPoints': []}); c.detach()
 def _passa(pg, passos):
     for js in passos: pg.evaluate(js); pg.wait_for_timeout(1000)
 def _abre(pw, nav, tela, porta, extra=()):
@@ -42,6 +41,7 @@ def confere(pw, pl, porta=None):
     nav = sim.navegador(pw)
     try:
         for l in lig: P += regras(pw, nav, tela, porta, l, tit0)
+        P += gestos(pw, nav, tela, porta, lig)
     finally: nav.close()
     return P
 def regras(pw, nav, tela, porta, l, tit0):
@@ -70,12 +70,11 @@ def regras(pw, nav, tela, porta, l, tit0):
         if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha com Esc'))
         b.close(); b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if j:
-            pg.mouse.click(pg.viewport_size['width'] / 2, max(8, j['top'] / 2)); pg.wait_for_timeout(700)
+            pg.touchscreen.tap(pg.viewport_size['width'] / 2, max(8, j['top'] / 2)); pg.wait_for_timeout(700)   # o dedo tocando fora
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha tocando fora'))
         b.close(); b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if j:
-            x = pg.viewport_size['width'] / 2; y = j['top'] + 10
-            pg.mouse.move(x, y); pg.mouse.down(); pg.mouse.move(x, y + 150, steps=6); pg.mouse.move(x, y + 320, steps=6); pg.mouse.up(); pg.wait_for_timeout(800)
+            arrasta(pg, pg.viewport_size['width'] / 2, j['top'] + 10, j['top'] + 330); pg.wait_for_timeout(800)
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha arrastando para baixo'))
         b.close()
         if j and j['campo']:
@@ -85,4 +84,33 @@ def regras(pw, nav, tela, porta, l, tit0):
                 campo.click(); campo.type('x'); pg.keyboard.press('Escape'); pg.wait_for_timeout(700)
                 if not pg.evaluate(SAIR_SEM) and not pg.evaluate(JANELA): P.append((nome, 'mudou um campo e a janela fechou sem perguntar "Sair sem salvar?"'))
             b.close()
+    return P
+
+# ---- gestos (regra 18: tocar com o dedo, como no celular) ----
+ROLA = r"""()=>{const n=document.querySelector('#mainnav')||document.querySelector('nav'),r0=n?n.getBoundingClientRect().top:null,y0=scrollY,alto=document.documentElement.scrollHeight>innerHeight+40;
+ return {alto,y0,r0}}"""
+DEPOIS_ROLA = r"""()=>{const n=document.querySelector('#mainnav')||document.querySelector('nav');return {y:scrollY,x:scrollX,r:n?n.getBoundingClientRect().top:null,largura:document.documentElement.scrollWidth}}"""   # largura comparada com a TELA do aparelho (no celular a página se alarga sozinha)
+CAMPO = r"""()=>{const j=window.__argus.janela();const c=j&&[...j.el.querySelectorAll('input:not([type=checkbox]):not([type=hidden]):not([readonly]),textarea')].find(window.__argus.vis);if(!c)return null;c.focus();c.scrollIntoView({block:'nearest'});return 1}"""
+VE_CAMPO = r"""()=>{const c=document.activeElement;if(!c||!c.matches('input,textarea'))return {foco:false};const r=c.getBoundingClientRect(),vh=(window.visualViewport?visualViewport.height:innerHeight);
+ const j=window.__argus.janela();const s=j&&[...j.el.querySelectorAll('button,[role=button]')].find(b=>/^salvar$/i.test(window.__argus.nome(b)));let sv=null;if(s){const q=s.getBoundingClientRect();sv=q.top>=0&&q.bottom<=vh+1}
+ return {foco:true,visivel:r.top>=0&&r.bottom<=vh+1,salvar:sv}}"""
+def gestos(pw, nav, tela, porta, lig):
+    """Rolar com o dedo (a página rola, a barra de baixo fica no lugar, nada rola de lado) e o teclado subindo (o campo e o "Salvar" continuam à vista)."""
+    P = []
+    b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav)
+    a = pg.evaluate(ROLA); W, H = pg.viewport_size['width'], pg.viewport_size['height']
+    arrasta(pg, W // 2, int(H * 0.7), int(H * 0.2))   # o dedo arrastando para cima
+    pg.wait_for_timeout(700); d = pg.evaluate(DEPOIS_ROLA); b.close()
+    if a['alto'] and d['y'] <= a['y0']: P.append(('a tela', 'não rola com o dedo'))
+    if a['r0'] is not None and d['r'] is not None and abs(d['r'] - a['r0']) > 1: P.append(('a barra de abas', 'sai do lugar quando a tela rola (%+.0f px)' % (d['r'] - a['r0'])))
+    if d['x'] or d['largura'] > W + 1: P.append(('a tela', 'rola de lado (passa da largura: %d de %d px)' % (d['largura'], W)))
+    for l in lig:
+        if not l['faz'].startswith('abre a janela de baixo'): continue
+        b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav); pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(1000)
+        if pg.evaluate(CAMPO):
+            pg.set_viewport_size({'width': W, 'height': int(H * 0.55)}); pg.wait_for_timeout(600)   # o teclado do Android ocupa ~45% da tela
+            v = pg.evaluate(VE_CAMPO)
+            if v['foco'] and not v['visivel']: P.append(('janela "%s"' % l['nome'][:30], 'com o teclado aberto, o campo fica escondido'))
+            if v['foco'] and v['salvar'] is False: P.append(('janela "%s"' % l['nome'][:30], 'com o teclado aberto, o "Salvar" fica escondido'))
+        b.close()
     return P

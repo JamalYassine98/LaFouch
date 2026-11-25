@@ -4,9 +4,8 @@
 # Mapa de cobertura: lugar sem planta aprovada nunca passa.
 import os, sys, json, collections
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
-import abrir, planta, sim
-NAV = "(k)=>{const b=[...document.querySelectorAll('#mainnav .mn')][k];if(!b)return 0;b.click();return 1}"
-NNAV = "()=>document.querySelectorAll('#mainnav .mn').length"
+import abrir, planta, sim, perigo
+NAV = "(k)=>window.__argus.aba(k)"; NNAV = "()=>window.__argus.nAbas()"   # motor/js/base.js
 def _abre(pw, nav, caminho, porta, cobertura):
     cdp = []; erros = []
     def antes(pg):
@@ -29,7 +28,7 @@ def _junta(cobertura, cdp):
             k = (f['functionName'] or '(anônima)', f['ranges'][0]['startOffset'])
             cobertura[k] = cobertura.get(k, 0) + f['ranges'][0]['count']
 def _lugar(pg):
-    t = pg.evaluate(planta.TITULO); j = pg.evaluate(planta.DEPOIS, 0)
+    t = pg.evaluate(planta.TITULO); j = pg.evaluate(planta.DEPOIS)
     return t + (' | janela: ' + j['janela'] if j.get('janela') else '')
 def explora(pw, profundidade=2, porta=None, max_toques=400, cobertura=True):
     """Devolve {'lugares': {nome: {'caminho', 'nivel'}}, 'erros': [...], 'cobertura': {(função, início): vezes}, 'toques': n}."""
@@ -46,7 +45,7 @@ def explora(pw, profundidade=2, porta=None, max_toques=400, cobertura=True):
         toc = pg.evaluate(planta.TOCAVEIS) if nivel < profundidade + 1 and ' | janela: ' not in nome else []
         _junta(cov, cdp); b.close()
         for t in toc:
-            if planta.PERIGO_NOME.search(t['nome']) or planta.PERIGO_ACAO.search(t['act']): continue
+            if perigo.perigoso(t): continue
             fila.append((cam + [('toque', t['i'])], nivel + 1))
     nav.close()
     return {'lugares': lug, 'erros': erros, 'cobertura': cov, 'toques': n, 'fila_restante': len(fila)}

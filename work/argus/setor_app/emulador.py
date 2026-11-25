@@ -5,12 +5,18 @@
 #   e as barras do APK: a altura útil da tela no Android.
 import os, sys, json, time, subprocess, glob
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A)); sys.path.insert(0, os.path.join(A, 'motor'))
-import compara, familia, planta
+import compara, familia, planta, tempo
 REPO = 'JamalYassine98/LaFouch'; TOL_ANDROID = 2.0
 def gh(*a): return subprocess.run(['gh', 'api'] + list(a), capture_output=True, text=True)
-def dispara(pasta='work/argus/plantas/app'):
+def sobe_versao():
+    """O emulador testa a MESMA versão que o Argus está conferindo: sobe o commit de agora num ramo só do Argus."""
+    c = subprocess.run(['git', '-C', R, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
+    r = subprocess.run(['git', '-C', R, 'push', '-qf', 'origin', 'HEAD:refs/heads/argus-confere'], capture_output=True, text=True)
+    if r.returncode: raise SystemExit('não consegui subir a versão para o emulador: ' + r.stderr[:200])
+    return 'argus-confere', c
+def dispara(pasta='work/argus/plantas/app', ref='main'):
     antes = time.time()
-    r = gh('-X', 'POST', 'repos/%s/actions/workflows/argus-android.yml/dispatches' % REPO, '-f', 'ref=main', '-f', 'inputs[pasta]=%s' % pasta)
+    r = gh('-X', 'POST', 'repos/%s/actions/workflows/argus-android.yml/dispatches' % REPO, '-f', 'ref=%s' % ref, '-f', 'inputs[pasta]=%s' % pasta)
     if r.returncode: raise SystemExit('não consegui disparar: ' + r.stderr[:200])
     for i in range(30):
         time.sleep(10); j = json.loads(gh('repos/%s/actions/workflows/argus-android.yml/runs?per_page=1' % REPO).stdout or '{}')
@@ -31,7 +37,7 @@ def busca(destino='/tmp/argus_android'):
         subprocess.run(['git', '-C', R, 'worktree', 'add', '-f', '--detach', d, 'FETCH_HEAD'], capture_output=True)
     return destino
 def compara_tudo(destino, plantas_dir):
-    out = {'barras': [], 'comparador': [], 'medidor': [], 'faltou': []}
+    out = {'barras': [], 'comparador': [], 'medidor': [], 'tempo': [], 'faltou': []}
     for f in glob.glob(os.path.join(destino, '*', 'info-*.json')):
         i = json.load(open(f)); out['barras'].append('%s letra %s: tela útil %s × %s (aparelho %s × %s, %s pontos/pixel)' % (i['tema'], i['letra'], *i['tela_css']))
     for pf in sorted(glob.glob(os.path.join(plantas_dir, '*.json'))):
@@ -50,9 +56,15 @@ def compara_tudo(destino, plantas_dir):
                     out['comparador'] += ['%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda'))]
                     out.setdefault('informacao', []).extend('%s (%s, Android): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D if not b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda')))
                 out['medidor'] += ['%s · %s %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else '') for x in familia.mede_tela('%s · %s · letra %s (Android)' % (pl['tela'], tema, letra), e['familia'])]
+                T = e.get('tempo')   # os mesmos limites do simulador (motor/tempo.py), medidos no Android com a loja cheia
+                if T:
+                    if T['abrir_ms'] > tempo.ABRIR_MS: out['tempo'].append('%s (Android, loja cheia): abrir levou %d ms (limite %d)' % (pl['tela'], T['abrir_ms'], tempo.ABRIR_MS))
+                    for n, ms in T['toques']:
+                        if ms >= 15000: out['tempo'].append('%s (Android, loja cheia): toque em "%s": a tela não parou de mudar em 15 s' % (pl['tela'], n[:30]))
+                        elif ms > tempo.TOQUE_MS: out['tempo'].append('%s (Android, loja cheia): toque em "%s" levou %d ms (limite %d)' % (pl['tela'], n[:30], ms, tempo.TOQUE_MS))
     return out
 if __name__ == '__main__':
     pasta = sys.argv[1] if len(sys.argv) > 1 else 'work/argus/plantas/app'
-    rid = dispara(pasta); print('workflow', rid, flush=True); print('terminou:', espera(rid), flush=True)
+    ref, c = sobe_versao(); rid = dispara(pasta, ref); print('workflow', rid, 'versão', c[:9], flush=True); print('terminou:', espera(rid), flush=True)
     res = compara_tudo(busca(), os.path.join(R, pasta)); json.dump(res, open('/tmp/argus_android.json', 'w'), ensure_ascii=False, indent=1)
     for k, v in res.items(): print('%s: %d' % (k, len(v))); [print('   ', x) for x in v[:12]]

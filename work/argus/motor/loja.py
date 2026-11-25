@@ -7,12 +7,8 @@ D = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'd
 CHAVE = 'lafouch_demo_v1'
 DATA = '2026-11-24T15:00:00-03:00'
 PIN = '2468'   # PIN da loja de teste (só existe aqui)   # relógio parado: o dia em que a loja de teste foi gravada
-LE = r"""async (k)=>{if(window.__LF&&__LF.salvarAgora)__LF.salvarAgora();await new Promise(r=>setTimeout(r,800));
- const big=await new Promise((ok,no)=>{const r=indexedDB.open('lafouch-fotos',2);r.onsuccess=()=>{const d=r.result;const g=d.transaction('estado','readonly').objectStore('estado').get('big');g.onsuccess=()=>{d.close();ok(g.result||null)};g.onerror=()=>no(g.error)};r.onerror=()=>no(r.error)});
- return {ls:JSON.parse(localStorage.getItem(k)||'null'),big}}"""
-POE = r"""async ([k,ls,big])=>{localStorage.clear();localStorage.setItem(k,JSON.stringify(ls));
- await new Promise((ok,no)=>{const r=indexedDB.open('lafouch-fotos',2);r.onupgradeneeded=()=>{const d=r.result;['fotos','hq','estado'].forEach(n=>{if(!d.objectStoreNames.contains(n))d.createObjectStore(n)})};
-  r.onsuccess=()=>{const d=r.result;const t=d.transaction('estado','readwrite');const o=t.objectStore('estado');if(big)o.put(big,'big');else o.delete('big');t.oncomplete=()=>{d.close();ok()};t.onerror=()=>no(t.error)};r.onerror=()=>no(r.error)});return 1}"""
+from js import js
+LE = js('loja_le'); POE = js('loja_poe')   # ler e pôr a loja no armazenamento do app (motor/js/)
 def arquivo(cen): return os.path.join(D, 'loja_%s.json' % cen)
 def grava_normal(pg):
     """Uma vez só: guarda, no formato do app, a loja que ele monta com o relógio parado."""

@@ -1,0 +1,2 @@
+// ARGUS · relógio parado (o MESMO no simulador e no Android): o app vê sempre o mesmo dia e hora da loja de teste. __T0__ = a hora em ms.
+(()=>{if(window.__argusRelogio)return;window.__argusRelogio=1;const R=Date,O=__T0__-R.now();class D extends R{constructor(...a){a.length?super(...a):super(R.now()+O)}static now(){return R.now()+O}};window.Date=D;try{sessionStorage.setItem('lf_ni','1')}catch(e){}})()
