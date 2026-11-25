@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "guardar aprovados 10:07 (Roboto no simulador, regras sinal × destino)",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795611520.7655206,
@@ -44,5 +47,5 @@
    "r": "Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b"
   }
  ],
- "leu": 1795611344.2595701
+ "leu": 1795612089.3006544
 }
