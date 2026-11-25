@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Argus Parte 7a: chão do setor Site",
- "arquivos": [
-  "work/argus"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795643644.148568,
+   "r": "Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura"
+  },
   {
    "t": 1795629283.4535942,
    "r": "Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado"
@@ -40,10 +42,6 @@
   {
    "t": 1795603813.640164,
    "r": "esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)"
-  },
-  {
-   "t": 1795529868.0300615,
-   "r": "107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)"
   }
  ],
  "leu": 1795643640.7426622

@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | Argus Parte 7a: chão do setor Site | work/argus |
 
 ## Fila
 
@@ -230,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 25/11 18:54 — ESBOCO: Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura
 - 25/11 14:54 — ESBOCO: Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado
 - 25/11 10:29 — ESBOCO: regra da base das plantas guardada
 - 25/11 10:08 — ESBOCO: guardados aprovados 10:07
@@ -243,7 +243,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
 - 24/11 11:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
-- 24/11 11:17 — ESBOCO: 107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)
 - 24/11 10:40 — NUVEM: Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue.
 - 24/11 09:17 — NUVEM: Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono.
 - 24/11 06:26 — APP: v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez.
