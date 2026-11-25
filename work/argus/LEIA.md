@@ -58,3 +58,10 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 
 ## Base de cada planta (dono 25/11 10:29)
 - A planta de cada coisa = o último APROVADO dela, mesmo que ainda não implementado; onde não há esboço aprovado, a planta é o app real. O que o app não tem e o aprovado tem aparece como "falta implementar".
+
+## Letras do Android e sinal × destino (aprovado 25/11 10:07)
+- As telas de celular abrem num navegador que só enxerga as letras de um Android (motor/letras/android.conf: Roboto; serifa Liberation Serif; máquina DejaVu Sans Mono) — como no celular, "Segoe UI", "Inter", system-ui e sans-serif viram Roboto. O PC fica como está. Um navegador por tipo de letra (abrir.navegador_de). A Noto Serif do Android não está instalada aqui (a serifa ainda difere).
+- O sinal bate com o destino (toques.regras, regras 15–16): "›" leva a outra tela, e ela tem "‹ voltar" · "⌄" abre ali · não existe "tela por cima" (camada opaca que cobre a tela: base.js porCima) · aba troca a vista ali e cada grupo tem 2–3 abas · "+" redondo abre a janela de baixo com "Salvar". O sinal é lido pelo texto ou pelo desenho da setinha na tela (base.js sinal).
+- Quando a planta APROVADA faz o mesmo que o app, a regra vira aviso "regra × aprovado (o dono decide)" e não trava (ex.: "Gerenciar grupo ›" do 48a; Instagram que não faz nada).
+- O voltar também é tocado com o dedo (voltar.js só acha o botão "‹"). Só o caminho até a tela (A.aba, planta.precos) usa clique por comando: é preparação, não conferência.
+- Trava: 21 de 21 na autoprova (o sinal, a tela por cima, 4 abas, o "+" e a Roboto incluídos).

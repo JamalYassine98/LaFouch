@@ -15,7 +15,8 @@ ok('um lugar só: nenhum arquivo Python repete o código de página (visível, t
 dup = [n for n in ('PERIGO_NOME', 'PERIGO =') if any(n in open(f).read() for f in py if not f.endswith('perigo.py'))]
 ok('um lugar só: a lista de botões de perigo existe só em motor/perigo.py', not dup, ', '.join(dup))
 tod = py + glob.glob(os.path.join(A, 'provas', '*.py')) + glob.glob(os.path.join(A, 'motor', 'js', '*.js'))
-dedo2 = [os.path.basename(f) for f in tod if not f.endswith(('dedo.py', 'parte6_ferramentas_novas.py')) and re.search(r"dispatchTouchEvent|dispatchMouseEvent|touchscreen\.|pg\.click\(|\.tap\(|e\.click\(\)", open(f).read())]
+# o caminho até a tela (passos: A.aba e planta.precos) é preparação, não conferência — é o único lugar que pode usar .click()
+dedo2 = [os.path.basename(f) for f in tod if not f.endswith(('dedo.py', 'parte6_ferramentas_novas.py')) and any(re.search(r"dispatchTouchEvent|dispatchMouseEvent|touchscreen\.|pg\.click\(|\.tap\(|\.click\(\)", ln) and 'A.aba=' not in ln and "data-id=%s]').click()" not in ln and "data-id=regras]').click()" not in ln for ln in open(f))]
 ok('um lugar só: todo toque passa pelo dedo (motor/dedo.py); nenhum clique por comando', not dedo2, ', '.join(dedo2))
 cam = [os.path.basename(f) for f in tod if not f.endswith(('planta.py', 'parte6_ferramentas_novas.py')) and "data-id=regras]').click()" in open(f).read()]
 ok('um lugar só: o caminho até os setores de Preços só em planta.precos', not cam, ', '.join(cam))

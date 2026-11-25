@@ -8,6 +8,12 @@ _argv = sys.argv[:]; import kit; sys.argv[:] = _argv      # kit lê sys.argv ao 
 import sim, aparelhos, loja
 from js import js
 def relogio(data=loja.DATA): return js('relogio').replace('__T0__', str(int(datetime.datetime.fromisoformat(data).timestamp() * 1000)))
+_NAVS = {}
+def navegador_de(pw, letras):
+    """Um navegador aberto por tipo de letras (o do PC e o do Android), reaproveitado enquanto o Playwright estiver aberto."""
+    k = (id(pw), letras)
+    if k not in _NAVS or not _NAVS[k].is_connected(): _NAVS[k] = sim.navegador(pw, letras=letras)
+    return _NAVS[k]
 def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None, navegador=None, antes=None, reduzir_movimento=None, scripts=(), letra=1.0):
     """porta=None → o app de hoje (www/ do repositório); porta=N → uma cópia servida em N (ex.: a cópia de um esboço).
     navegador = um navegador já aberto (para abrir muitas vezes depressa); aí o que volta para fechar é só a aba (contexto).
@@ -16,7 +22,9 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
     assert tema in aparelhos.MODOS['app']['tema'], 'tema %s não existe no app' % tema
     W, H, dpr, toque = aparelhos.FAIXA[aparelho]
     if porta is None: kit.serve(os.path.join(R, 'www'), kit.PA); porta = kit.PA
-    b = navegador or sim.navegador(pw)
+    letras = 'android' if toque else None   # tela de celular = as letras do Android (aprovado 25/11 10:07)
+    if navegador is not None and getattr(navegador, '_letras', None) != letras: navegador = navegador_de(pw, letras)
+    b = navegador or sim.navegador(pw, letras=letras)
     c = sim.contexto(b, W, H, toque=toque, dpr=dpr, lingua='pt-BR', escuro=(tema == 'escuro'), sem_trabalhador=True, fuso=aparelhos.FUSO,
                      movimento=None if reduzir_movimento is None else (not reduzir_movimento))
     c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else r.abort())
@@ -27,6 +35,7 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
             r.fulfill(response=resp, body=h[:k] + '<script>(' + js('letra') + ')(' + repr(float(letra)) + ')</script>' + h[k:])
         c.route('**/index.html*', com_letra)
     pg = c.new_page()
+    if letras == 'android': c.new_cdp_session(pg).send('Page.setFontFamilies', {'fontFamilies': {'standard': 'Roboto'}})   # a letra-padrão do Android
     if antes: antes(pg)   # ex.: ligar a cobertura do código ANTES de o app carregar
     if cenario is not None:
         d = cenario if isinstance(cenario, dict) else loja.cenario(cenario)   # um cenário pelo nome, ou uma loja já pronta ({'ls','big'})

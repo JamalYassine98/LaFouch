@@ -28,6 +28,15 @@ PLANTA_TOQUE = r"""()=>{const V=document.querySelector('.view:not([hidden])')||d
  const b=d.querySelector('#agDedo');b.addEventListener('pointerup',()=>{const c=d.querySelector('#agDedoC');c.hidden=!c.hidden;b.setAttribute('aria-expanded',String(!c.hidden))});   // só o dedo (sem clique)
  d.querySelectorAll('.agAba').forEach(a=>a.addEventListener('click',()=>d.querySelectorAll('.agAba').forEach(x=>{x.classList.toggle('on',x===a);x.setAttribute('aria-pressed',String(x===a))})));
  d.querySelector('#agMenu').addEventListener('click',()=>{d.querySelector('#agMenuC').hidden=false});return 1}"""
+PLANTA_SINAL = r"""()=>{const V=document.querySelector('.view:not([hidden])')||document.body;const col=V.querySelector('.cnt')||V;const d=document.createElement('div');d.id='agSinal';
+ const jan=()=>{const j=document.createElement('div');j.style.cssText='position:fixed;left:0;right:0;bottom:0;height:45vh;background:#222;z-index:50';j.innerHTML='<h2>Janela de teste</h2><button type="button" style="min-height:48px">Salvar</button>';document.body.appendChild(j)};
+ d.innerHTML='<button type="button" id="agSeta" style="min-height:48px">Argus seta ›</button><button type="button" id="agDobra" style="min-height:48px">Argus dobra ⌄</button>'+
+  '<button type="button" id="agCima" style="min-height:48px">Argus por cima</button><button type="button" id="agMais" style="min-height:48px;min-width:48px">+</button>'+
+  '<div class="lfAbas">'+[1,2,3,4].map(k=>'<button type="button" class="agA'+(k==1?' on':'')+'" aria-pressed="'+(k==1)+'" style="min-height:48px">Argus vista '+k+'</button>').join('')+'</div>';col.appendChild(d);
+ d.querySelector('#agSeta').addEventListener('click',jan);d.querySelector('#agDobra').addEventListener('click',jan);
+ d.querySelector('#agCima').addEventListener('click',()=>{const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;background:#111;z-index:60';c.innerHTML='<h2>Tela por cima</h2><button type="button">×</button>';document.body.appendChild(c)});
+ d.querySelectorAll('.agA').forEach(a=>a.addEventListener('click',()=>d.querySelectorAll('.agA').forEach(x=>{x.classList.toggle('on',x===a);x.setAttribute('aria-pressed',String(x===a))})));return 1}"""
+ESPERA_SINAL = [('Argus seta ›', 'promete outra tela'), ('Argus dobra ⌄', 'abre ali, mas'), ('Argus por cima', 'não existe tela por cima'), ('+', '"+" redondo')]
 ESPERA_TOQUE = [('Argus abre com o dedo', 'abre ali'), ('Argus aba 2', 'troca a escolha'), ('Argus menu', 'abre o menu')]
 LETRA_CABE = "()=>{const l=document.querySelector('.nvLista'),b=l&&l.querySelector('.nvTx b');if(!b)return null;const f0=parseFloat(getComputedStyle(b).fontSize);l.setAttribute('data-cabe','2');return [f0,parseFloat(getComputedStyle(b).fontSize)]}"
 def roda(pw, nav=None, antiga=True):
@@ -57,6 +66,19 @@ def roda(pw, nav=None, antiga=True):
     for nome, esp in ESPERA_TOQUE: R.append(('o dedo vê: "%s" → %s' % (nome, esp), faz.get(nome, '').startswith(esp)))
     nada = [l for l in lig if l['nome'] == 'Argus não faz nada']
     R.append(('toques vê: botão que não faz nada', bool(nada) and any('não faz nada' in p[1] for p in toques.regras(pw, nav, tela, None, nada[0], ''))))
+    # 4b o sinal bate com o destino (regras 15 e 16) e as abas
+    tela = {'nome': 'Regras', 'passos': REG + [PLANTA_SINAL], 'cenario': 'normal'}; _, lig = planta.ligacoes(pw, tela, None)
+    for nome, esp in ESPERA_SINAL:
+        l = [x for x in lig if x['nome'] == nome]
+        R.append(('regras veem: "%s" → %s' % (nome, esp), bool(l) and any(esp in p[1] for p in toques.regras(pw, nav, tela, None, l[0], ''))))
+    R.append(('regras veem: 4 abas (a regra é 2–3)', any('4 abas' in p[1] for p in toques.abas(lig, {}))))
+    # 4c as letras do Android nas telas de celular (Roboto); o PC fica com as de sempre
+    fontes = []
+    for ap in (abrir.aparelhos.DONO, 'PC 1440'):
+        b, pg = abrir.abre(pw, navegador=nav, aparelho=ap); pg.evaluate("()=>window.__argus.aba(2)"); pg.wait_for_timeout(700); c = pg.context.new_cdp_session(pg); c.send('DOM.enable'); c.send('CSS.enable')
+        n = c.send('DOM.querySelectorAll', {'nodeId': c.send('DOM.getDocument', {'depth': -1})['root']['nodeId'], 'selector': '.nvTx small'})['nodeIds']
+        fontes.append(c.send('CSS.getPlatformFontsForNode', {'nodeId': n[0]})['fonts'][0]['familyName'] if n else ''); b.close()
+    R.append(('letras: celular desenha com a Roboto, o PC não · %s / %s' % tuple(fontes), fontes[0] == 'Roboto' and fontes[1] != 'Roboto'))
     # 5 a letra grande deixa o app descer a letra (o 2º degrau de "não cabe" das listas: 14,5 px × 1,3)
     b, pg = abrir.abre(pw, navegador=nav, letra=1.3); pg.evaluate("()=>window.__argus.aba(2)"); pg.wait_for_timeout(900); fs = pg.evaluate(LETRA_CABE); b.close()
     R.append(('letra 1,3×: o app ainda desce a letra quando não cabe', bool(fs) and abs(fs[0] - 16 * 1.3) < 0.3 and abs(fs[1] - 14.5 * 1.3) < 0.3))

@@ -49,7 +49,9 @@ def roda(modo='rapida', so_telas=None):
         # 4 toques
         it = []
         for pl in apr: it += ['%s: %s %s' % (pl['tela'], a, b) for a, b in toques.confere(pw, pl)]
+        av = [x for x in it if toques.APROVADO in x]; it = [x for x in it if toques.APROVADO not in x]
         _etapa(E, 'toques (ligações e regras)', 'FALHA' if it else 'ok', it)
+        if av: _etapa(E, 'toques: regra × aprovado (o dono decide; não trava)', 'aviso', av)
         # 5 medidor nos modos do app: aparelhos × claro/escuro × 3 letras; onde o app é igual à planta, o achado é do APROVADO
         fal, conf = [], []; rodou = set()
         # o que aparece igual no modo da planta (celular do dono, letra 1×) e o app é igual à planta = está no APROVADO; nos outros

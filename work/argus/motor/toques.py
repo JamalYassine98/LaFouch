@@ -35,18 +35,41 @@ def confere(pw, pl, porta=None):
         if k not in pla: P.append(('botão "%s"' % k[2][:40], 'sobra no app (faz: %s)' % faz))
     nav = sim.navegador(pw)
     try:
-        for i, l in enumerate(lig): P += regras(pw, nav, tela, porta, l, tit0, nada_aprovado=pla.get(chave_de(lig, i)) == 'nada')   # a planta aprovada diz que ele não faz nada (ex.: Instagram até a loja ter a conta)
+        for i, l in enumerate(lig): P += regras(pw, nav, tela, porta, l, tit0, aprovado=pla.get(chave_de(lig, i)) == l['faz'])   # o aprovado faz o mesmo: a regra vira aviso ao dono
+        P += abas(lig, pla)
         P += gestos(pw, nav, tela, porta, lig)
     finally: nav.close()
     return P
-def regras(pw, nav, tela, porta, l, tit0, nada_aprovado=False):
+APROVADO = 'regra × aprovado (o dono decide): '
+def abas(lig, pla):
+    """Abas (regra das abas, 21/11): só 2–3 vistas da mesma coisa. Grupo com mais de 3 abas é falha, a não ser que o aprovado tenha o mesmo (ex.: Atacado)."""
+    P = []; G = {}
+    for l in lig:
+        if l.get('aba', -1) >= 0: G.setdefault(l['aba'], []).append(l['nome'])
+    for g, nomes in G.items():
+        if len(nomes) > 3:
+            P.append(((APROVADO if all(any(k[2] == n for k in pla) for n in nomes) else '') + 'abas "%s…"' % nomes[0][:20], '%d abas (a regra é 2–3 vistas da mesma coisa)' % len(nomes)))
+    return P
+def regras(pw, nav, tela, porta, l, tit0, aprovado=False):
     """As regras de toque do motor para UM botão, pelo que ele faz."""
-    P = []; nome = 'botão "%s"' % l['nome'][:40]; faz = l['faz']
+    P = []; nome = 'botão "%s"' % l['nome'][:40]; faz = l['faz']; sinal = l.get('sinal', ''); R = []   # R: regras de sinal × destino (viram aviso se o aprovado é igual)
     if faz.startswith('coberto por'): P.append((nome, 'outra coisa está por cima: o dedo pega "%s"' % faz.split(' · ')[0][13:]))
-    if faz == 'nada' and not nada_aprovado: P.append((nome, 'não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)'))
+    if faz == 'nada': R.append('não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)')
+    # regra 16: o sinal tem de bater com o destino
+    if sinal == '›' and not faz.startswith(('sai para', 'não tocado', 'coberto')): R.append('o "›" promete outra tela, mas %s' % faz)
+    if sinal in ('⌄', '⌃') and faz != 'abre ali' and not faz.startswith(('não tocado', 'coberto')): R.append('o "⌄" abre ali, mas %s' % faz)
+    if faz.startswith('abre tela por cima'): R.append('%s — não existe tela por cima: ou é tela com "‹", ou janela de baixo (regra 16)' % faz)
+    if l.get('aba', -1) >= 0 and faz not in ('troca a escolha', 'já é a escolha'): R.append('a aba não troca a vista ali (%s)' % faz)
+    if l['nome'].strip() == '+' and not faz.startswith('abre a janela de baixo'): R.append('o "+" redondo abre a janela de baixo (regra 15), mas %s' % faz)
+    P += [((APROVADO if aprovado else '') + nome, r) for r in R]
     if faz.startswith('sai para') and not __import__('re').match(r'^(‹|voltar)', l['nome'].strip(), __import__('re').I):   # o próprio botão de voltar não se confere voltando de novo
         b, pg = _abre(pw, nav, tela, porta); dedo.toque(pg, l['i']); y0 = pg.evaluate('()=>scrollY')   # o toque rola até o botão: é o ponto de onde se saiu
-        pg.wait_for_timeout(1000); como = pg.evaluate(VOLTA); pg.wait_for_timeout(1100)
+        pg.wait_for_timeout(1000); v = pg.evaluate(VOLTA)
+        if v: dedo.toca_xy(pg, v['x'], v['y'], v['toque']); como = 'botão ‹'
+        else:
+            pg.evaluate('()=>history.back()'); como = 'voltar do aparelho'
+            if sinal == '›': P.append(((APROVADO if aprovado else '') + nome, 'a tela de destino não tem "‹ voltar" em cima (regra 16)'))
+        pg.wait_for_timeout(1100)
         t = pg.evaluate(planta.TITULO); y1 = pg.evaluate('()=>scrollY'); b.close()
         if t != tit0: P.append((nome, 'o voltar (%s) foi para "%s", não para "%s"' % (como, t, tit0)))
         elif abs(y1 - y0) > 60: P.append((nome, 'o voltar não volta ao mesmo ponto (rolagem %d → %d)' % (y0, y1)))
@@ -63,6 +86,7 @@ def regras(pw, nav, tela, porta, l, tit0, nada_aprovado=False):
         b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if not j: b.close(); P.append((nome, 'a janela não ficou aberta para conferir')); return P
         if j.get('tipo') == 'meio': P.append((nome, 'abre uma caixa no meio da tela, não a janela de baixo (regra 15)'))
+        if l['nome'].strip() == '+' and not j['salvar']: P.append((nome, 'a janela do "+" não tem "Salvar" (regra 15)'))
         if j['fechar']: P.append((nome, 'a janela tem %s (a regra é fechar arrastando, tocando fora ou com Esc)' % ', '.join('"%s"' % x for x in j['fechar'])))
         pg.keyboard.press('Escape'); pg.wait_for_timeout(700)
         if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha com Esc'))

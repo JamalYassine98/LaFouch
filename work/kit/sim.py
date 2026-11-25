@@ -10,8 +10,12 @@ EXE = '/opt/pw-browsers/chromium'
 # câmera e microfone de mentira e som sem toque: não atrapalham quem não usa e evitam um segundo jeito de abrir para a consulta/rosto
 ARGS = ['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream']
 
-def navegador(pw):
-    return pw.chromium.launch(executable_path=EXE, args=ARGS)
+LETRAS = {'android': '/home/claude/lafouch/work/argus/motor/letras/android.conf'}   # as letras que um Android tem (Roboto…)
+def navegador(pw, letras=None):
+    """letras = None (as do PC) ou 'android' (o navegador só enxerga as letras de um Android: telas de celular)."""
+    import os
+    b = pw.chromium.launch(executable_path=EXE, args=ARGS, env=dict(os.environ, FONTCONFIG_FILE=LETRAS[letras]) if letras else None)
+    b._letras = letras; return b
 
 def contexto(b, W=390, H=844, *, toque=False, celular=None, dpr=1, lingua=None, escuro=None, movimento=None, camera=False, lugar=None,
              csp_livre=True, sem_trabalhador=False, fuso=None):
