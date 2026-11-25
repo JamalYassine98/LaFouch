@@ -161,7 +161,7 @@
 - **97-frases-dos-cartoes** — pendente — estudar depois (dono 24/11 00:37)
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'
 - **99-lucro-kit-realista** — 99b v2 aprovado · do 99d v2 só a contagem e 'Kit de Natal na caixa' (aprovado 13:47); janela superada pelo 103 · 99a cancelado (cartão de luxo no 98 v6)
-- **argus-novo** — Parte 6 parada: esboço 'toque de dedo' (falha do Argus) — esperando o dono; lote 1 será regravado
+- **argus-novo** — toque de dedo APROVADO 25/11 08:13 — espera o 'implementar'; depois regravar o lote 1
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
 
 ## Recados esperando
