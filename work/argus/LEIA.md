@@ -38,10 +38,18 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 
 ## Limpeza e ferramentas novas (24–25/11, pedido do dono 21:26: "perfeito, limpo, sem redundância")
 - Um lugar só: todo código que roda dentro da página mora em motor/js/ (base.js com o que é visível, o que se toca, a linha, o nome da tela e a janela; planta, família, tempo, voltar, relógio, loja) e setor_app/js/ (letra, biometria, erro ao salvar). Python e o emulador leem os MESMOS arquivos (motor/js.py). Os botões de perigo moram só em motor/perigo.py. Relógio parado igual no simulador e no Android (js/relogio.js).
-- Gestos com o dedo de verdade (toques.arrasta): rolar (a tela rola, a barra de abas fica, nada rola de lado), arrastar a janela para fechar, tocar fora, e teclado subindo (o campo e o "Salvar" continuam à vista). Janela de baixo × caixa no meio da tela (regra 15).
+- Gestos com o dedo de verdade (motor/dedo.py: arrasta): rolar (a tela rola, a barra de abas fica, nada rola de lado), arrastar a janela para fechar, tocar fora, e teclado subindo (o campo e o "Salvar" continuam à vista). Janela de baixo × caixa no meio da tela (regra 15).
 - Estados: "erro ao salvar" (o app tem de avisar, e o aviso é igual em todas as telas), sem internet, reduzir movimento, PIN e biometria — todos na lista de modos; modo que não rodou = "não conferido" (trava).
 - Contraste: texto legível sobre o fundo (padrão WCAG AA: 4,5:1; texto grande 3:1) no medidor único.
 - Dados antigos na versão nova (motor/migracao.py): a loja guardada pela versão publicada e pela v641 abre igual na versão nova.
 - Onde a diferença nasceu (motor/origem.py): busca binária nas versões; provado apontando a v635 como a que refez Preços.
 - Tempo no Android (loja cheia, os mesmos limites de motor/tempo.py). O Android roda sem internet de fora, como o simulador (a cotação de verdade mudava números).
 - Provas de novo, depois da limpeza: Parte 0 23/23 · 1 15/15 · 2 19/19 · 3 12/12 · 4 15/15 · 5 rápida 11/11 e completa 11/11 (16 etapas) · ferramentas novas (provas/parte6_ferramentas_novas.py) 12/12. Android: comparador 0 diferenças com as plantas de teste.
+
+## O dedo de verdade (aprovado 25/11 08:13; o Argus gravava as linhas ⌄ do Ajustes como "não faz nada")
+- motor/dedo.py — UM jeito de tocar para tudo (planta, toques, explorador, tempo, PIN, Android emulado): o dedo encosta no meio do botão e solta (no PC, o botão do mouse); se outra coisa está por cima, o dedo pega ela ("coberto por"). Saiu o clique por comando (A.tocar) e o motor/js/tempo.js (agora base.js: vigia/parou).
+- O que o toque fez = RETRATO antes × depois (base.js: alvo/retrato/depois): sai para · abre a janela de baixo · abre o menu · abre ali · troca a escolha · mostra aviso · já é a escolha · nada. Saiu a regra "a página cresceu 8 px".
+- Botão que não faz nada é falha (toques.regras); linha só de estado não pode ser botão.
+- Letra grande do jeito do Android (motor/js/letra.js, abrir.abre(letra=…)): os tamanhos do CSS crescem antes de o app desenhar; o app continua descendo a letra quando não cabe. Serve ao app e ao site.
+- O caminho até um setor de Preços mora num lugar só (planta.precos); as 7 cópias do caminho de Regras saíram.
+- Trava (autoprova): linha que só abre com o dedo, aba que troca, menu solto, botão que não faz nada, letra 1,3× que ainda desce — 5 de 5 vistos.

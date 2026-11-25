@@ -6,7 +6,7 @@
 import os, sys, json, subprocess, time
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A))
 sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app'))
-import planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim, migracao, origem, loja, emulador
+import planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim, migracao, origem, loja, emulador, dedo
 APARELHOS = [aparelhos.DONO, 'celular 320', 'celular 430', 'tablet 768', 'PC 1440']
 def _etapa(E, nome, estado, itens=()):
     E.append({'etapa': nome, 'estado': estado, 'itens': list(itens)}); print(('%-14s' % estado) + nome + ('  (%d)' % len(itens) if itens else ''), flush=True)
@@ -60,8 +60,7 @@ def roda(modo='rapida', so_telas=None):
             for apar in (APARELHOS if completa else [aparelhos.DONO]):
                 for tema in modos.TEMAS:
                     for f in (modos.LETRAS if completa else [1.0]):
-                        b, pg = planta._abre_tela(pw, tela, tema, None, aparelho=apar, navegador=nav)
-                        if f != 1.0: pg.evaluate(modos.LETRA, f); pg.wait_for_timeout(300)
+                        b, pg = planta._abre_tela(pw, tela, tema, None, aparelho=apar, navegador=nav, letra=f)
                         rodou.add((apar, tema, f))
                         for x in familia.mede_tela('%s · %s · %s · letra %s' % (pl['tela'], apar, tema, f), pg.evaluate(familia.COLETA)):
                             txt = '%s · %s · %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else ''); k = (pl['id'], tema, x[0], x[2], x[3] if len(x) > 3 else '')
@@ -80,8 +79,8 @@ def roda(modo='rapida', so_telas=None):
             b, pg = abrir.abre(pw, navegador=nav, cenario=cen, scripts=scripts)
             trav = pg.evaluate("()=>!document.getElementById('lockScr').hidden")
             if cen == 'bloqueio':
-                for k in loja.PIN: pg.click('#pinKb [data-k="%s"]' % k)
-            else: pg.click('#pinKb .pkBio')
+                for k in loja.PIN: dedo.toca_sel(pg, '#pinKb [data-k="%s"]' % k); pg.wait_for_timeout(120)
+            else: dedo.toca_sel(pg, '#pinKb .pkBio')
             pg.wait_for_timeout(2500); ab = pg.evaluate("()=>document.getElementById('lockScr').hidden"); b.close(); rodou.add(cen)
             if not (trav and ab): fal.append('%s: o app %s' % ('com PIN' if cen == 'bloqueio' else 'com biometria', 'não abriu travado' if not trav else 'não destravou'))
         # estados (regra 17): o aparelho recusa guardar → o app TEM de avisar, e o aviso é igual em todas as telas
@@ -109,7 +108,7 @@ def roda(modo='rapida', so_telas=None):
             for i in range(n):
                 l = (pl.get('ligacoes') or [{}] * n)[i] if i < len(pl.get('ligacoes') or []) else {}
                 if l.get('faz', '').startswith('não tocado'): continue
-                b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav); ms = pg.evaluate(tempo.MEDE, i); b.close()
+                b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav); ms = tempo.toque_ms(pg, i); b.close()
                 if ms >= 15000: it.append('%s: toque em "%s": a tela não parou de mudar em 15 s (limite %d ms)' % (pl['tela'], (l.get('nome') or str(i))[:30], tempo.TOQUE_MS))
                 elif ms > tempo.TOQUE_MS: it.append('%s: toque em "%s" levou %d ms (limite %d)' % (pl['tela'], (l.get('nome') or str(i))[:30], ms, tempo.TOQUE_MS))
         _etapa(E, 'tempo com a loja cheia', 'FALHA' if it else 'ok', it)

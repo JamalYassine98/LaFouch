@@ -14,7 +14,7 @@ rep = [os.path.basename(f) for f in py if re.search(r"getBoundingClientRect\(\);
 ok('um lugar só: nenhum arquivo Python repete o código de página (visível, tocáveis)', not rep, ', '.join(rep))
 dup = [n for n in ('PERIGO_NOME', 'PERIGO =') if any(n in open(f).read() for f in py if not f.endswith('perigo.py'))]
 ok('um lugar só: a lista de botões de perigo existe só em motor/perigo.py', not dup, ', '.join(dup))
-REG = ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"]
+REG = __import__('planta').precos('regras')
 with sync_playwright() as pw:
     nav = sim.navegador(pw)
     # 2 gestos (real + estrago)

@@ -4,23 +4,16 @@
 # arrastando para baixo, e pergunta "Sair sem salvar?" se algo mudou. Nunca toca em botão de perigo (motor/perigo.py).
 import os, sys
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
-import planta, sim, aparelhos
+import planta, sim, aparelhos, dedo
 ALT = "(i)=>window.__argus.altura(i)"; JANELA = "()=>window.__argus.janelaInfo()"; SAIR_SEM = "()=>window.__argus.sairSemSalvar()"
 from js import js
 VOLTA = js('voltar')
-def arrasta(pg, x, y0, y1, passos=12):
-    """O DEDO na tela (eventos de toque de verdade): encosta em (x, y0), arrasta até y1 e solta. Um jeito só para rolar e para fechar a janela."""
-    c = pg.context.new_cdp_session(pg)
-    c.send('Input.dispatchTouchEvent', {'type': 'touchStart', 'touchPoints': [{'x': x, 'y': y0}]})
-    for k in range(1, passos + 1):
-        c.send('Input.dispatchTouchEvent', {'type': 'touchMove', 'touchPoints': [{'x': x, 'y': y0 + (y1 - y0) * k / passos}]}); pg.wait_for_timeout(16)
-    c.send('Input.dispatchTouchEvent', {'type': 'touchEnd', 'touchPoints': []}); c.detach()
 def _passa(pg, passos):
     for js in passos: pg.evaluate(js); pg.wait_for_timeout(1000)
 def _abre(pw, nav, tela, porta, extra=()):
     b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav)
     for i in extra:
-        pg.evaluate(planta.TOCA, i); pg.wait_for_timeout(1000)
+        dedo.toque(pg, i); pg.wait_for_timeout(1000)
     return b, pg
 def confere(pw, pl, porta=None):
     """Grava as ligações do app e compara com as da planta; depois roda as regras de toque. Devolve a lista de problemas."""
@@ -47,19 +40,21 @@ def confere(pw, pl, porta=None):
 def regras(pw, nav, tela, porta, l, tit0):
     """As regras de toque do motor para UM botão, pelo que ele faz."""
     P = []; nome = 'botão "%s"' % l['nome'][:40]; faz = l['faz']
+    if faz.startswith('coberto por'): P.append((nome, 'outra coisa está por cima: o dedo pega "%s"' % faz.split(' · ')[0][13:]))
+    if faz == 'nada': P.append((nome, 'não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)'))
     if faz.startswith('sai para') and not __import__('re').match(r'^(‹|voltar)', l['nome'].strip(), __import__('re').I):   # o próprio botão de voltar não se confere voltando de novo
-        b, pg = _abre(pw, nav, tela, porta); pg.evaluate(planta.TOCA, l['i']); y0 = pg.evaluate('()=>scrollY')   # TOCA rola até o botão: é o ponto de onde se saiu
+        b, pg = _abre(pw, nav, tela, porta); dedo.toque(pg, l['i']); y0 = pg.evaluate('()=>scrollY')   # o toque rola até o botão: é o ponto de onde se saiu
         pg.wait_for_timeout(1000); como = pg.evaluate(VOLTA); pg.wait_for_timeout(1100)
         t = pg.evaluate(planta.TITULO); y1 = pg.evaluate('()=>scrollY'); b.close()
         if t != tit0: P.append((nome, 'o voltar (%s) foi para "%s", não para "%s"' % (como, t, tit0)))
         elif abs(y1 - y0) > 60: P.append((nome, 'o voltar não volta ao mesmo ponto (rolagem %d → %d)' % (y0, y1)))
     elif faz == 'abre ali':
         b, pg = _abre(pw, nav, tela, porta); h0 = pg.evaluate(ALT, l['i'])
-        pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(900); h1 = pg.evaluate(ALT, l['i'])
-        pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(900); h2 = pg.evaluate(ALT, l['i'])
+        dedo.toque(pg, l['i']); pg.wait_for_timeout(900); h1 = pg.evaluate(ALT, l['i'])
+        dedo.toque(pg, l['i']); pg.wait_for_timeout(900); h2 = pg.evaluate(ALT, l['i'])
         if abs(h2 - h0) > 4: P.append((nome, 'abre ali mas não fecha no 2º toque (%d → %d → %d px)' % (h0, h1, h2)))
-        for _ in range(3): pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(120)
-        pg.wait_for_timeout(900); h3 = pg.evaluate(ALT, l['i']); pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(900); h4 = pg.evaluate(ALT, l['i']); b.close()
+        for _ in range(3): dedo.toque(pg, l['i']); pg.wait_for_timeout(120)
+        pg.wait_for_timeout(900); h3 = pg.evaluate(ALT, l['i']); dedo.toque(pg, l['i']); pg.wait_for_timeout(900); h4 = pg.evaluate(ALT, l['i']); b.close()
         if min(abs(h3 - h0), abs(h3 - h1)) > 4: P.append((nome, 'toques rápidos deixam pela metade (%d px)' % h3))
         elif abs(h4 - h3) < 4: P.append((nome, 'depois de toques rápidos o botão para de responder'))
     elif faz.startswith('abre a janela de baixo'):
@@ -71,18 +66,18 @@ def regras(pw, nav, tela, porta, l, tit0):
         if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha com Esc'))
         b.close(); b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if j:
-            pg.touchscreen.tap(pg.viewport_size['width'] / 2, max(8, j['top'] / 2)); pg.wait_for_timeout(700)   # o dedo tocando fora
+            dedo.toca_xy(pg, pg.viewport_size['width'] / 2, max(8, j['top'] / 2)); pg.wait_for_timeout(700)   # o dedo tocando fora
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha tocando fora'))
         b.close(); b, pg = _abre(pw, nav, tela, porta, [l['i']]); j = pg.evaluate(JANELA)
         if j and j.get('tipo') == 'baixo':
-            arrasta(pg, pg.viewport_size['width'] / 2, j['top'] + 10, j['top'] + 330); pg.wait_for_timeout(800)
+            dedo.arrasta(pg, pg.viewport_size['width'] / 2, j['top'] + 10, j['top'] + 330); pg.wait_for_timeout(800)
             if pg.evaluate(JANELA): P.append((nome, 'a janela não fecha arrastando para baixo'))
         b.close()
         if j and j['campo']:
             b, pg = _abre(pw, nav, tela, porta, [l['i']])
             campo = pg.query_selector('input:not([type=checkbox]):not([type=hidden]):not([readonly]),textarea')
             if campo and campo.is_visible():
-                campo.click(); campo.type('x'); pg.keyboard.press('Escape'); pg.wait_for_timeout(700)
+                q = campo.bounding_box(); dedo.toca_xy(pg, q['x'] + q['width'] / 2, q['y'] + q['height'] / 2); pg.keyboard.type('x'); pg.keyboard.press('Escape'); pg.wait_for_timeout(700)
                 if not pg.evaluate(SAIR_SEM) and not pg.evaluate(JANELA): P.append((nome, 'mudou um campo e a janela fechou sem perguntar "Sair sem salvar?"'))
             b.close()
     return P
@@ -100,14 +95,14 @@ def gestos(pw, nav, tela, porta, lig):
     P = []
     b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav)
     a = pg.evaluate(ROLA); W, H = pg.viewport_size['width'], pg.viewport_size['height']
-    arrasta(pg, W // 2, int(H * 0.7), int(H * 0.2))   # o dedo arrastando para cima
+    dedo.arrasta(pg, W // 2, int(H * 0.7), int(H * 0.2))   # o dedo arrastando para cima
     pg.wait_for_timeout(700); d = pg.evaluate(DEPOIS_ROLA); b.close()
     if a['alto'] and d['y'] <= a['y0']: P.append(('a tela', 'não rola com o dedo'))
     if a['r0'] is not None and d['r'] is not None and abs(d['r'] - a['r0']) > 1: P.append(('a barra de abas', 'sai do lugar quando a tela rola (%+.0f px)' % (d['r'] - a['r0'])))
     if d['x'] or d['largura'] > W + 1: P.append(('a tela', 'rola de lado (passa da largura: %d de %d px)' % (d['largura'], W)))
     for l in lig:
         if not l['faz'].startswith('abre a janela de baixo'): continue
-        b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav); pg.evaluate(planta.TOCA, l['i']); pg.wait_for_timeout(1000)
+        b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav); dedo.toque(pg, l['i']); pg.wait_for_timeout(1000)
         if pg.evaluate(CAMPO):
             pg.set_viewport_size({'width': W, 'height': int(H * 0.55)}); pg.wait_for_timeout(600)   # o teclado do Android ocupa ~45% da tela
             v = pg.evaluate(VE_CAMPO)

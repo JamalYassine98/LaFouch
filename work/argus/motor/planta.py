@@ -1,7 +1,8 @@
 # ARGUS · a PLANTA de uma tela (Parte 1). A planta é o que o dono aprovou, guardado por dentro:
 #  · as peças que APARECEM (texto, caixa, letra, cor, fundo, borda, desenho do ícone) — pelo que se vê, não pelo nome do código;
 #  · nos dois temas do app; os dados (cenário), o relógio, o caminho até a tela e o nome dela;
-#  · as LIGAÇÕES: o que cada toque faz (sai para outra tela, abre ali, abre a janela de baixo, nada) — gravado tocando de verdade.
+#  · as LIGAÇÕES: o que cada toque faz (sai para · abre a janela de baixo · abre o menu · abre ali · troca a escolha · mostra aviso ·
+#    nada) — gravado com o DEDO de verdade (motor/dedo.py).
 # Planta só vale com a linha de aprovação na lista viva (docs/FALTA-APROVAR-15-11.md). Ajuste aprovado → a anterior vai para
 # work/obsoletos/argus-plantas/ (só a última aprovada vale).
 import os, sys, json, re, time, shutil
@@ -11,26 +12,23 @@ P_APP = os.path.join(A, 'plantas', 'app'); OBS = os.path.join(R, 'work', 'obsole
 from js import js
 COLETA = js('planta')                                   # as peças que aparecem (motor/js/planta.js)
 TITULO = "()=>window.__argus.titulo()"                  # nome da tela = título + a tela em que o app diz estar (o Início não tem título)
-TOCAVEIS = js('tocaveis'); TOCA = "(i)=>window.__argus.tocar(i)"; DEPOIS = "()=>window.__argus.depois()"
-import perigo
+TOCAVEIS = js('tocaveis')
+import perigo, dedo
+def precos(k):
+    """O caminho até um setor de Preços (regras, ofertas, atacado, ferr, hist): um lugar só para todas as provas e plantas."""
+    return ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=%s]').click()" % k]
 def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO, navegador=None, **kw):
     b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta, navegador=navegador, **kw)
     for p in tela['passos']: pg.evaluate(p); pg.wait_for_timeout(1000)
     pg.wait_for_timeout(500); return b, pg
 def ligacoes(pw, tela, porta):
-    """Toca de verdade em cada botão da tela (reabrindo a tela antes de cada toque) e anota o que acontece."""
+    """Toca com o dedo em cada botão da tela (reabrindo a tela antes de cada toque) e anota o que acontece."""
     import sim; nav = sim.navegador(pw)
     b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav); tit0 = pg.evaluate(TITULO); L = pg.evaluate(TOCAVEIS); b.close(); out = []
     for t in L:
         if perigo.perigoso(t): out.append(dict(t, faz='não tocado (perigo)')); continue
         b, pg = _abre_tela(pw, tela, 'escuro', porta, navegador=nav)
-        if not pg.evaluate(TOCA, t['i']): b.close(); out.append(dict(t, faz='não achado')); continue
-        pg.wait_for_timeout(1000); d = pg.evaluate(DEPOIS); tit = pg.evaluate(TITULO); b.close()
-        if tit and tit != tit0: faz = 'sai para: ' + tit
-        elif d['janela'] is not None: faz = 'abre a janela de baixo: ' + d['janela']
-        elif d['dh'] > 8: faz = 'abre ali'
-        else: faz = 'nada'
-        out.append(dict(t, faz=faz))
+        out.append(dict(t, faz=dedo.faz(pg, t['i']))); b.close()
     nav.close(); return tit0, out
 def grava(pw, id_, tela, porta=None, aprovacao=None, com_ligacoes=True):
     """tela = {'nome', 'passos', 'cenario'} · porta = cópia de esboço (None = app de hoje) · aprovacao = trecho da linha na lista viva."""

@@ -11,7 +11,7 @@ shutil.rmtree(planta.P_APP, ignore_errors=True); shutil.rmtree(planta.OBS, ignor
 from playwright.sync_api import sync_playwright
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
-REG = ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"]
+REG = __import__('planta').precos('regras')
 TELAS = {'precos-regras': {'nome': 'Preços › Regras', 'passos': REG, 'cenario': 'normal'},
          'fornecedores': {'nome': 'Fornecedores', 'passos': ["()=>__LF.inicioGo('lotes')"], 'cenario': 'normal'},
          'inicio': {'nome': 'Início', 'passos': [], 'cenario': 'normal'}}

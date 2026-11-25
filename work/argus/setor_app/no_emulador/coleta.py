@@ -4,7 +4,7 @@
 # o tempo com a loja cheia (abrir e cada toque), porque no celular o app é mais lento que no simulador de PC.
 import os, sys, json, re, time, subprocess, urllib.request, glob, datetime
 B = os.path.dirname(os.path.abspath(__file__)); ARG = os.path.dirname(os.path.dirname(B)); sys.path.insert(0, os.path.join(ARG, 'motor'))
-import websocket, loja, perigo
+import websocket, loja, perigo, dedo, tempo
 from js import js
 OUT, TEMA, LETRA = sys.argv[1], sys.argv[2], sys.argv[3]; os.makedirs(OUT, exist_ok=True)
 def adb(*a): return subprocess.run(['adb'] + list(a), capture_output=True, text=True).stdout
@@ -40,6 +40,7 @@ def espera(code, t=40):
         except Exception: pass
         time.sleep(.25)
     return False
+MAO = dedo.Mao(ev, lambda m, p: cdp(m, **p))   # o dedo de verdade no WebView do APK (motor/dedo.py)
 T0 = int(datetime.datetime.fromisoformat(loja.DATA).timestamp() * 1000)
 cdp('Page.enable')
 # sem internet de fora, como no simulador (o simulador recusa tudo que não é o próprio app): senão o app busca a cotação de verdade e os números mudam
@@ -64,7 +65,7 @@ for pl in plantas:
         toc = ev(js('tocaveis')) or []
         for t in toc:
             if perigo.perigoso(t): continue
-            abre('cheio', pl['passos']); r['tempo']['toques'].append((t['nome'], ev(js('tempo'), t['i'])))
+            abre('cheio', pl['passos']); r['tempo']['toques'].append((t['nome'], tempo.toque_ms(MAO, t['i'])))
     nome = '%s-%s-%s' % (pl['id'], TEMA, LETRA)
     json.dump(r, open(os.path.join(OUT, nome + '.json'), 'w'), ensure_ascii=False)
     open(os.path.join(OUT, nome + '.png'), 'wb').write(subprocess.run(['adb', 'exec-out', 'screencap', '-p'], capture_output=True).stdout)

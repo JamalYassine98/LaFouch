@@ -8,10 +8,11 @@ _argv = sys.argv[:]; import kit; sys.argv[:] = _argv      # kit lê sys.argv ao 
 import sim, aparelhos, loja
 from js import js
 def relogio(data=loja.DATA): return js('relogio').replace('__T0__', str(int(datetime.datetime.fromisoformat(data).timestamp() * 1000)))
-def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None, navegador=None, antes=None, reduzir_movimento=None, scripts=()):
+def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None, navegador=None, antes=None, reduzir_movimento=None, scripts=(), letra=1.0):
     """porta=None → o app de hoje (www/ do repositório); porta=N → uma cópia servida em N (ex.: a cópia de um esboço).
     navegador = um navegador já aberto (para abrir muitas vezes depressa); aí o que volta para fechar é só a aba (contexto).
-    scripts = códigos que entram antes do app (ex.: a biometria do setor App)."""
+    scripts = códigos que entram antes do app (ex.: a biometria do setor App).
+    letra = a letra do celular (1,15 · 1,3 no app; 1,1 · 1,2 no site): entra logo depois do style.css, antes de o app desenhar."""
     assert tema in aparelhos.MODOS['app']['tema'], 'tema %s não existe no app' % tema
     W, H, dpr, toque = aparelhos.FAIXA[aparelho]
     if porta is None: kit.serve(os.path.join(R, 'www'), kit.PA); porta = kit.PA
@@ -20,6 +21,11 @@ def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_inter
                      movimento=None if reduzir_movimento is None else (not reduzir_movimento))
     c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else r.abort())
     for s in (js('base'), relogio(data)) + tuple(scripts): c.add_init_script(s)
+    if letra != 1.0:
+        def com_letra(r):   # o index.html do app, com a letra grande logo depois do style.css (o resto do app não muda)
+            resp = r.fetch(); h = resp.text(); k = h.find('>', h.find('rel="stylesheet"')) + 1
+            r.fulfill(response=resp, body=h[:k] + '<script>(' + js('letra') + ')(' + repr(float(letra)) + ')</script>' + h[k:])
+        c.route('**/index.html*', com_letra)
     pg = c.new_page()
     if antes: antes(pg)   # ex.: ligar a cobertura do código ANTES de o app carregar
     if cenario is not None:

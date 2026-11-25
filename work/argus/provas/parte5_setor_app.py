@@ -4,21 +4,21 @@
 #  3 a porta (rodada indicada) com 2 plantas de TESTE marcadas como aprovadas: roda todas as etapas e decide (selo ou trava)
 import os, sys, json, shutil
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app'))
-import planta, selo, abrir, loja, modos, porta
+import planta, selo, abrir, loja, modos, porta, dedo
 planta.P_APP = os.path.join(A, 'plantas', 'teste'); planta.OBS = '/tmp/argus_obsoletos_teste5'; selo.D = '/tmp/argus_selos_teste5'   # as 2 plantas de TESTE do repositório (o emulador do GitHub lê as mesmas)
 from playwright.sync_api import sync_playwright
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
 MODO = sys.argv[1] if len(sys.argv) > 1 else 'rapida'
 with sync_playwright() as pw:
-    b, pg = abrir.abre(pw); f0 = pg.evaluate("()=>parseFloat(getComputedStyle(document.querySelector('b')).fontSize)"); pg.evaluate(modos.LETRA, 1.3); pg.wait_for_timeout(300)
-    f1 = pg.evaluate("()=>parseFloat(getComputedStyle(document.querySelector('b')).fontSize)"); b.close()
+    b, pg = abrir.abre(pw); f0 = pg.evaluate("()=>parseFloat(getComputedStyle(document.querySelector('b')).fontSize)"); b.close()
+    b, pg = abrir.abre(pw, letra=1.3); f1 = pg.evaluate("()=>parseFloat(getComputedStyle(document.querySelector('b')).fontSize)"); b.close()
     ok('letra 1,3× aumenta o texto na mesma proporção', abs(f1 - f0 * 1.3) < 0.2, '%.1f → %.1f px' % (f0, f1))
     b, pg = abrir.abre(pw, cenario='bloqueio'); trav = pg.evaluate("()=>!document.getElementById('lockScr').hidden")
-    for k in loja.PIN: pg.click('#pinKb [data-k="%s"]' % k)
+    for k in loja.PIN: dedo.toca_sel(pg, '#pinKb [data-k="%s"]' % k); pg.wait_for_timeout(120)
     pg.wait_for_timeout(2500); ab = pg.evaluate("()=>document.getElementById('lockScr').hidden"); b.close()
     ok('com PIN: o app abre travado e o PIN destrava', trav and ab)
-    b, pg = abrir.abre(pw, cenario='biometria', antes=lambda p: p.add_init_script(modos.BIO)); pg.click('#pinKb .pkBio'); pg.wait_for_timeout(1500)
+    b, pg = abrir.abre(pw, cenario='biometria', antes=lambda p: p.add_init_script(modos.BIO)); dedo.toca_sel(pg, '#pinKb .pkBio'); pg.wait_for_timeout(1500)
     ab = pg.evaluate("()=>document.getElementById('lockScr').hidden"); b.close()
     ok('com biometria: a tecla da digital destrava', ab)
     ok('plantas de teste no repositório (2)', len([f for f in os.listdir(planta.P_APP) if f.endswith('.json')]) == 2)

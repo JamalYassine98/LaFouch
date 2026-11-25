@@ -6,7 +6,7 @@ import abrir, loja, aparelhos
 from playwright.sync_api import sync_playwright
 from PIL import Image, ImageChops
 OUT = '/tmp/argus_p0'; os.makedirs(OUT, exist_ok=True)
-TELAS = [('Início', []), ('Preços › Regras', ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"]),
+TELAS = [('Início', []), ('Preços › Regras', __import__('planta').precos('regras')),
          ('Fornecedores', ["()=>__LF.inicioGo('lotes')"])]
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''))

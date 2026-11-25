@@ -6,14 +6,13 @@ A = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import planta
 from PIL import Image, ImageDraw, ImageFont
 S = '/home/claude/lafouch/work/s435/'
-def setor(k): return "()=>{__LF.inicioGo('prec');setTimeout(()=>{const b=document.querySelector('[data-act=tiAbre][data-id=%s]');b&&b.click()},500)}" % k
 LOTE = [
  ('pedidos-online', 'Pedidos online', ["()=>__LF.inicioGo('ped')"], '46c (+74r)', S + 'switch/esboco_46c_pedidos.jpg'),
  ('ajustes', 'Ajustes', ["()=>window.__argus.aba(4)"], '86 v2', S + 'varredura/titulos/esboco_86_titulos_linhas_escuro.jpg'),
  ('pecas', 'Peças', ["()=>window.__argus.aba(2)"], '48a', S + 'compras/esboco_48a_pecas.jpg'),
  ('compras', 'Compras', ["()=>__LF.inicioGo('comp')"], '51 + 51b', S + 'compras/esboco_51_compras_por_vaga.jpg'),
  ('caixa', 'Caixa', ["()=>__LF.inicioGo('caixa')"], '86 v2 + 104', S + 'semcartao/esboco_104_caixa_sem_cartao.jpg'),
- ('ferramentas', 'Preços › Ferramentas', [setor('ferr')], '66', S + 'titan/esboco_66_ferramentas_titan.jpg'),
+ ('ferramentas', 'Preços › Ferramentas', planta.precos('ferr'), '66', S + 'titan/esboco_66_ferramentas_titan.jpg'),
 ]
 F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 30)
 def folha(id_, nome, ref, img):

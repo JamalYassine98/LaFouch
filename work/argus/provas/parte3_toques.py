@@ -10,7 +10,7 @@ planta.P_APP = '/tmp/argus_plantas_teste'; planta.OBS = '/tmp/argus_obsoletos_te
 from playwright.sync_api import sync_playwright
 R = []; ACHADOS = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
-REG = ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"]
+REG = __import__('planta').precos('regras')
 T_REG = {'nome': 'Preços › Regras', 'passos': REG, 'cenario': 'normal'}
 FALSA = r"""()=>{const b=document.createElement('button');b.type='button';b.textContent='Abrir janela de teste';b.setAttribute('data-act','argusJanela');b.style.cssText='display:block;margin:16px';
  (document.querySelector('.view:not([hidden])')||document.body).prepend(b);

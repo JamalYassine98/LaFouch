@@ -4,7 +4,7 @@
 # Mapa de cobertura: lugar sem planta aprovada nunca passa.
 import os, sys, json, collections
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
-import abrir, planta, sim, perigo
+import abrir, planta, sim, perigo, dedo
 NAV = "(k)=>window.__argus.aba(k)"; NNAV = "()=>window.__argus.nAbas()"   # motor/js/base.js
 def _abre(pw, nav, caminho, porta, cobertura):
     cdp = []; erros = []
@@ -14,11 +14,14 @@ def _abre(pw, nav, caminho, porta, cobertura):
             s = pg.context.new_cdp_session(pg); s.send('Profiler.enable'); s.send('Profiler.startPreciseCoverage', {'callCount': True, 'detailed': False}); cdp.append(s)
     b, pg = abrir.abre(pw, navegador=nav, porta=porta, antes=antes)
     cdp = cdp[0] if cdp else None
+    anda(pg, caminho)
+    return b, pg, cdp, erros
+def anda(pg, caminho):
+    """Refaz um caminho achado: aba da barra ou toque de dedo em cada passo."""
     for tipo, i in caminho:
         if tipo == 'aba': pg.evaluate(NAV, i)
-        else: pg.evaluate(planta.TOCA, i)
+        else: dedo.toque(pg, i)
         pg.wait_for_timeout(950)
-    return b, pg, cdp, erros
 def _junta(cobertura, cdp):
     if cdp is None: return
     r = cdp.send('Profiler.takePreciseCoverage')
@@ -28,8 +31,8 @@ def _junta(cobertura, cdp):
             k = (f['functionName'] or '(anônima)', f['ranges'][0]['startOffset'])
             cobertura[k] = cobertura.get(k, 0) + f['ranges'][0]['count']
 def _lugar(pg):
-    t = pg.evaluate(planta.TITULO); j = pg.evaluate(planta.DEPOIS)
-    return t + (' | janela: ' + j['janela'] if j.get('janela') else '')
+    t = pg.evaluate(planta.TITULO); j = pg.evaluate("()=>{const j=window.__argus.janela();return j&&j.titulo}")
+    return t + (' | janela: ' + j if j else '')
 def explora(pw, profundidade=2, porta=None, max_toques=400, cobertura=True):
     """Devolve {'lugares': {nome: {'caminho', 'nivel'}}, 'erros': [...], 'cobertura': {(função, início): vezes}, 'toques': n}."""
     nav = sim.navegador(pw); cov = {} if cobertura else None

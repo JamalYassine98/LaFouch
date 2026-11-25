@@ -7,7 +7,7 @@ import abrir, familia, explorador, sim
 from playwright.sync_api import sync_playwright
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''), flush=True)
-REG = ["()=>__LF.inicioGo('prec')", "()=>document.querySelector('[data-act=tiAbre][data-id=regras]').click()"]
+REG = __import__('planta').precos('regras')
 PLANTA = r"""()=>{const V=document.querySelector('.view:not([hidden])')||document.body;const col=V.querySelector('.cnt')||V;
  const L=[...V.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().width>=innerWidth*0.6);
  const c=L[0];c.style.setProperty('min-height','40px','important');c.style.setProperty('height','40px','important');c.style.overflow='hidden';           // toque < 44
@@ -52,8 +52,7 @@ with sync_playwright() as pw:
     for tema in ('escuro', 'claro'):
         for n, cam in lug:
             b, pg = abrir.abre(pw, navegador=nav, tema=tema)
-            for tipo, i in cam:
-                pg.evaluate(explorador.NAV if tipo == 'aba' else __import__('planta').TOCA, i); pg.wait_for_timeout(950)
+            explorador.anda(pg, cam)
             d, a = mede(pg, '%s (%s)' % (n, tema)); b.close(); ACH += a
             if tema == 'escuro': T[n] = d
     b, pg = abrir.abre(pw, navegador=nav, reduzir_movimento=True); d, a = mede(pg, 'Início (reduzir movimento)', True); b.close(); ACH += a

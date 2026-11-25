@@ -28,8 +28,37 @@ A.janela=()=>{let j=A.fixos().filter(A.painel).pop();if(!j)return null;
   else{const c=[...j.children].filter(x=>A.vis(x)&&x.getBoundingClientRect().width>=innerWidth*0.6).sort((a,b)=>b.getBoundingClientRect().height-a.getBoundingClientRect().height)[0];if(c){j=c;tipo='meio'}}}   // caixa solta no meio da tela: não é a janela de baixo
  const r=j.getBoundingClientRect(),bts=[...j.querySelectorAll('button,[role=button],a')].filter(A.vis).map(A.nome);
  return {el:j,tipo,top:r.top,titulo:A.txt(j.querySelector('h1,h2,h3,b')||j).slice(0,60),fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}};
-A.tocar=i=>{const e=A.tocaveis()[i];if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});window.__argusAntes={h:document.documentElement.scrollHeight,fixos:A.fixos().length,y:scrollY};e.click();return 1};
-A.depois=()=>{const a=window.__argusAntes||{};const j=A.janela();return {dh:document.documentElement.scrollHeight-(a.h||0),janela:(A.fixos().length>(a.fixos||0)&&j)?j.titulo:null}};
+// O TOQUE (motor/dedo.py põe o dedo): A.alvo rola até o botão, tira o RETRATO de antes e diz onde pôr o dedo (o meio do botão).
+// Se no meio do botão há outra coisa por cima, é ela que o dedo pega — como no celular: volta {coberto}.
+A.alvo=i=>{const e=A.tocaveis()[i];if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();
+ const x=Math.min(innerWidth-2,Math.max(1,r.left+r.width/2)),y=Math.min(innerHeight-2,Math.max(1,r.top+r.height/2)),h=document.elementFromPoint(x,y);
+ window.__argusAntes=A.retrato();window.__argusAntes.alvo=A.estado(e);
+ const toque=navigator.maxTouchPoints>0;if(h&&h!==e&&!e.contains(h))return {coberto:A.nome(h)||h.tagName.toLowerCase(),x,y,toque};return {x,y,toque}};
+// estado de um botão que se vê (escolhido, aberto, marcado)
+A.estado=e=>['aria-pressed','aria-selected','aria-expanded','aria-checked'].map(a=>e.getAttribute(a)||'').join(',')+(e.classList.contains('on')?',on':'')+(e.checked?',marcado':'');
+// caixas soltas por cima da tela que têm botões (menus), fora a janela de baixo e a barra de abas
+A.flutuantes=()=>{const L=[...document.querySelectorAll('body *')].filter(x=>{const c=getComputedStyle(x);if(c.position!=='fixed'&&c.position!=='absolute')return false;if(!A.vis(x)||A.nav(x)||A.painel(x)||x.closest('[data-argus]'))return false;
+ const r=x.getBoundingClientRect();return r.width>=80&&r.height>=40&&r.width<innerWidth*0.95&&[...x.querySelectorAll(A.TOC)].some(A.vis)});return L.filter(x=>!L.some(o=>o!==x&&o.contains(x)))};
+// o RETRATO da tela: nome, estados dos botões, caixas soltas, janela e os textos que se veem
+A.retrato=()=>{const vist={},est={};for(const e of [...document.querySelectorAll(A.TOC+',[role=tab]')].filter(A.vis)){const n=A.nome(e);vist[n]=(vist[n]||0)+1;est[n+'#'+vist[n]]=A.estado(e)}
+ const fx=A.fixos(),tx={};for(const e of document.querySelectorAll('body *')){if(!A.vis(e)||A.nav(e))continue;const t=A.own(e);if(t)tx[t]=fx.some(f=>f.contains(e))}   // tx[texto] = está numa camada presa (aviso)
+ const j=A.janela();return {tit:A.titulo(),est,flut:A.flutuantes().map(A.txt),jan:j?j.titulo:null,tx}};
+// O QUE O TOQUE FEZ: o retrato de agora contra o de antes do toque
+A.depois=()=>{const a=window.__argusAntes;if(!a)return 'não achado';const d=A.retrato();
+ if(d.tit!==a.tit)return 'sai para: '+d.tit;
+ if(d.jan!==null&&d.jan!==a.jan)return 'abre a janela de baixo: '+d.jan;
+ const m=d.flut.filter(t=>!a.flut.includes(t));if(m.length)return 'abre o menu: '+m[0].slice(0,50);
+ const mud=Object.keys(d.est).filter(k=>k in a.est&&a.est[k]!==d.est[k]);
+ if(mud.some(k=>a.est[k].split(',')[2]!==d.est[k].split(',')[2]))return 'abre ali';
+ if(mud.length)return 'troca a escolha';
+ const novos=Object.keys(d.tx).filter(t=>!(t in a.tx));
+ if(novos.length&&novos.every(t=>d.tx[t]))return 'mostra aviso: '+novos[0].slice(0,50);
+ if(novos.length)return 'abre ali';
+ const ae=(a.alvo||'').split(',');if(ae[0]==='true'||ae[1]==='true'||ae[4]==='on')return 'já é a escolha';   // tocar na aba que já está escolhida não muda nada, e está certo
+ return 'nada'};
+// tempo de um toque: A.vigia antes do dedo; A.parou espera a tela parar de mudar (150 ms sem mudança, no máximo 15 s) e dá os ms
+A.vigia=()=>{const st={t0:performance.now()};st.ult=st.t0;st.mo=new MutationObserver(()=>{st.ult=performance.now()});st.mo.observe(document.body,{childList:true,subtree:true,attributes:true,characterData:true});window.__argusVigia=st;return 1};
+A.parou=()=>new Promise(res=>{const st=window.__argusVigia;if(!st)return res(-1);const fim=()=>{const n=performance.now();if(n-st.ult>=150||n-st.t0>15000){st.mo.disconnect();res(Math.round(st.ult-st.t0))}else setTimeout(fim,30)};setTimeout(fim,30)});
 A.altura=i=>{const e=A.tocaveis()[i];if(!e)return -1;return Math.round(A.bloco(e).getBoundingClientRect().height)};
 A.aba=k=>{const b=[...document.querySelectorAll('#mainnav .mn')][k];if(!b)return 0;b.click();return 1};
 A.nAbas=()=>document.querySelectorAll('#mainnav .mn').length;
