@@ -1,2 +1,2 @@
-letras do Android + sinal × destino IMPLEMENTADOS 25/11 (provas todas ok, autoprova 21/21, Android × planta 0) — falta: Parte 7 (site) e Parte 8
+Parte 7a (chão do Site) PRONTA 25/11 — prova 27/27, provas do app ok; próxima: 7b (plantas e conferência do site)
 Argus novo: work/argus/ (LEIA.md)
