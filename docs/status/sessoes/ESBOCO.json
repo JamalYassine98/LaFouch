@@ -1,12 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "regra da base das plantas (dono 10:29)",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md",
-  "work/argus/LEIA.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795613366.945659,
+   "r": "regra da base das plantas guardada"
+  },
   {
    "t": 1795612099.8766797,
    "r": "guardados aprovados 10:07"
@@ -42,10 +42,6 @@
   {
    "t": 1795527687.0897832,
    "r": "Titan 3b: calendário, sem internet e emulador Android rodando; achados 25a (em 0 dias) e 25b (sem internet não avisa)"
-  },
-  {
-   "t": 1795524339.3560474,
-   "r": "Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)"
   }
  ],
  "leu": 1795613145.285153
