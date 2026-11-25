@@ -1,0 +1,18 @@
+--- a/www/style.css	2026-11-25 07:59:02.000000000 -0300
++++ b/www/style.css	2026-11-25 08:02:05.699499167 -0300
+@@ -2871,7 +2871,6 @@
+ /* índice do grupo: uma linha por tela, ícone + nome + frase + › */
+ .nvLista{display:flex;flex-direction:column;margin-top:4px}
+ .nvLista .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+-.nvLista .nvL:last-child{border-bottom:0}
+ .nvLista .nvL:active{opacity:.6}
+ .nvLista .nvIc{flex:none;display:flex;width:22px}
+ /* esboço 37b (dono 20/11 23:23): ícone de linha de lista = cinza, em todo lugar — a cor mora só aqui */
+@@ -3001,7 +3000,6 @@
+ .pgBar .pgN{font-size:16px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+ /* ===== FAMÍLIA INVENTÁRIO (52d e 52b, 22/11/2026): o fim da lista e a tela Parados e sobrando ===== */
+ #invFim{margin-top:32px;border-top:1px solid var(--line2,var(--line))}
+-#invFim .nvL:last-child{border-bottom:1px solid var(--line2,var(--line))}
+ .nvLista .nvL>em{flex:none;font-style:normal;font-size:16px;font-weight:600;color:var(--warn);font-variant-numeric:tabular-nums}
+ .psCard .lcSec:first-child{margin-top:0}
+ .psVz{margin:8px 0 0;padding:8px 0 16px;color:var(--mute);font-size:15px;border-bottom:1px solid var(--line2,var(--line))}

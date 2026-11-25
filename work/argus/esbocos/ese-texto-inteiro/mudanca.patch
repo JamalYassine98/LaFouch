@@ -1,0 +1,11 @@
+--- a/src/97z3-precos.js	2026-11-25 07:59:02.000000000 -0300
++++ b/src/97z3-precos.js	2026-11-25 08:02:05.709503059 -0300
+@@ -96,7 +96,7 @@
+     atacado: atacadoHtml,
+     ferr: function () {
+       return '<section class="nvLista" aria-label="Ferramentas de preço">' + tiLinha('cntCalc', '', 'calc', 'Calculadora de preço', 'antes de comprar: quanto cobrar') +
+-        tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, fornecedor, cupom e mais') + '</section><p class="hint tiVz">Só conta: nada muda até você aceitar.</p>';
++        tiLinha('cntEse', '', 'ese', 'E se…?', 'dólar, fornecedor, cupom, contas ou meta') + '</section><p class="hint tiVz">Só conta: nada muda até você aceitar.</p>';
+     },
+     hist: function () { var h = precosAutoHtml(); return h ? '<div class="cntAuto">' + h + '</div>' : '<div class="hint tiVz">Nenhuma mudança de preço guardada ainda.</div>'; }
+   };
