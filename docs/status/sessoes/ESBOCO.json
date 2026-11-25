@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "corrigir a lição da planta (app hoje ≠ aprovados)",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md"
+ ],
  "ultimas": [
   {
    "t": 1795605245.7403862,
@@ -44,5 +47,5 @@
    "r": "OK do voltar único (v641); lista de erros completa × esboços aprovados: 23 itens em work/s435/lista-erros/PARTE-1..5.md, com ordem para a APP"
   }
  ],
- "leu": 1795605222.9346142
+ "leu": 1795605375.0117683
 }
