@@ -29,8 +29,8 @@ def pagina(pw, aparelho, navegador=None, escuro=None, lingua='pt-BR', reduzir_mo
     b = navegador or sim.navegador(pw, letras=letras)
     c = sim.contexto(b, W, H, toque=toque, dpr=dpr, lingua=lingua, escuro=escuro, sem_trabalhador=True, fuso=aparelhos.FUSO,
                      movimento=None if reduzir_movimento is None else (not reduzir_movimento))
-    c._argus_fora = []   # o que tentou sair para a internet (cortado aqui)
-    c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else (c._argus_fora.append(r.request.url), r.abort()))
+    c._argus_fora = []   # o que tentou sair para a internet (cortado aqui): (endereço, tipo) — tipo 'document' = a página tentou ir para fora
+    c.route('**/*', lambda r: r.continue_() if r.request.url.startswith(('http://localhost', 'http://127.')) else (c._argus_fora.append((r.request.url, r.request.resource_type)), r.abort()))
     for s in (js('base'), relogio(data)) + tuple(scripts): c.add_init_script(s)
     if letra != 1.0:
         def com_letra(r):

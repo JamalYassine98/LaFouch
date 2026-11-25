@@ -19,7 +19,7 @@ with sync_playwright() as pw:
     ok('o site abriu com a loja do Argus (retrato da loja)', e['cards'] == n, '%d peças (loja: %d)' % (e['cards'], n))
     ok('relógio parado em 24/11/2026 15:00', pg.evaluate('()=>new Date().toISOString()').startswith('2026-11-24T18:00'))
     pg.evaluate("()=>scrollTo(0,document.body.scrollHeight)"); pg.wait_for_timeout(1500)
-    fora = pg.context._argus_fora; ok('a internet de fora fica cortada (nada sai do simulador)', len(fora) > 0, '%d pedidos para fora barrados (ex.: %s)' % (len(fora), fora[0][:50] if fora else ''))
+    fora = pg.context._argus_fora; ok('a internet de fora fica cortada (nada sai do simulador)', len(fora) > 0, '%d pedidos para fora barrados (ex.: %s)' % (len(fora), fora[0][0][:50] if fora else ''))
     ok('o site é só claro (o aparelho diz claro)', pg.evaluate("()=>matchMedia('(prefers-color-scheme: light)').matches")); b.close()
     # (3) cada temática acende o tema certo, e "sem" não acende nenhum
     for tm in aparelhos.MODOS['site']['tematica']:

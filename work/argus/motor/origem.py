@@ -11,12 +11,12 @@ def versoes(desde=None, ate='HEAD', limite=200):
     return out if desde else out[-limite:]
 def info(c):
     return subprocess.run(['git', '-C', R, 'show', '-s', '--format=%h · %ad · %s', '--date=format:%d/%m %H:%M', c], capture_output=True, text=True).stdout.strip()
-def tem_diferenca(pw, pl, c, tema='escuro', porta=8838):
+def tem_diferenca(pw, pl, c, tema=None, porta=8838):
     www = esboco.prepara('_origem', base=c); esboco.serve(www, porta)
-    tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+    tela = planta.tela_de(pl); tema = tema or planta.setor(tela)['tema_base']
     b, pg = planta._abre_tela(pw, tela, tema, porta); app = pg.evaluate(planta.COLETA); b.close()
     return bool(compara.compara(pl['temas'][tema]['pecas'], app))
-def nasceu(pw, pl, tema='escuro', desde=None):
+def nasceu(pw, pl, tema=None, desde=None):
     """Devolve (versão onde nasceu, a anterior sem a diferença) ou (None, motivo)."""
     V = ([desde] if desde else []) + versoes(desde)   # a própria versão de partida entra: é a âncora "ainda sem a diferença"
     if len(V) < 2: return None, 'nenhuma versão para procurar'

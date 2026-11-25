@@ -11,13 +11,13 @@ VOLTA = js('voltar')
 def _passa(pg, passos):
     for js in passos: pg.evaluate(js); pg.wait_for_timeout(1000)
 def _abre(pw, nav, tela, porta, extra=()):
-    b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav)
+    b, pg = planta._abre_tela(pw, tela, planta.setor(tela)['tema_base'], porta, navegador=nav)
     for i in extra:
         dedo.toque(pg, i); pg.wait_for_timeout(1000)
     return b, pg
 def confere(pw, pl, porta=None):
     """Grava as ligações do app e compara com as da planta; depois roda as regras de toque. Devolve a lista de problemas."""
-    tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+    tela = planta.tela_de(pl)
     tit0, lig = planta.ligacoes(pw, tela, porta)
     P = []
     def chaves(L):   # o botão é reconhecido pelo que APARECE (o nome), e pela ordem quando o nome se repete — nunca pelo nome do código
@@ -56,24 +56,24 @@ def regras(pw, nav, tela, porta, l, tit0, aprovado=False):
     if faz.startswith('coberto por'): P.append((nome, 'outra coisa está por cima: o dedo pega "%s"' % faz.split(' · ')[0][13:]))
     if faz == 'nada': R.append('não faz nada (botão que não faz nada é falha; linha só de estado não pode ser botão)')
     # regra 16: o sinal tem de bater com o destino
-    if sinal == '›' and not faz.startswith(('sai para', 'não tocado', 'coberto')): R.append('o "›" promete outra tela, mas %s' % faz)
+    if sinal == '›' and not faz.startswith(('sai para', 'abre outra página', 'abre fora', 'não tocado', 'coberto')): R.append('o "›" promete outra tela, mas %s' % faz)
     if sinal in ('⌄', '⌃') and faz != 'abre ali' and not faz.startswith(('não tocado', 'coberto')): R.append('o "⌄" abre ali, mas %s' % faz)
     if faz.startswith('abre tela por cima'): R.append('%s — não existe tela por cima: ou é tela com "‹", ou janela de baixo (regra 16)' % faz)
     if l.get('aba', -1) >= 0 and faz not in ('troca a escolha', 'já é a escolha'): R.append('a aba não troca a vista ali (%s)' % faz)
     if l['nome'].strip() == '+' and not faz.startswith('abre a janela de baixo'): R.append('o "+" redondo abre a janela de baixo (regra 15), mas %s' % faz)
     P += [((APROVADO if aprovado else '') + nome, r) for r in R]
     if faz.startswith('sai para') and not __import__('re').match(r'^(‹|voltar)', l['nome'].strip(), __import__('re').I):   # o próprio botão de voltar não se confere voltando de novo
-        b, pg = _abre(pw, nav, tela, porta); dedo.toque(pg, l['i']); y0 = pg.evaluate('()=>scrollY')   # o toque rola até o botão: é o ponto de onde se saiu
+        b, pg = _abre(pw, nav, tela, porta); y0 = (dedo.toque(pg, l['i']) or {}).get('sy', 0)   # a rolagem de onde se tocou (antes de sair)
         pg.wait_for_timeout(1000); v = pg.evaluate(VOLTA)
         if v: dedo.toca_xy(pg, v['x'], v['y'], v['toque']); como = 'botão ‹'
         else:
-            pg.evaluate('()=>history.back()'); como = 'voltar do aparelho'
+            pg.go_back(wait_until='load', timeout=10000); como = 'voltar do aparelho'   # o voltar do aparelho (no site pode trocar de página)
             if sinal == '›': P.append(((APROVADO if aprovado else '') + nome, 'a tela de destino não tem "‹ voltar" em cima (regra 16)'))
         pg.wait_for_timeout(1100)
         t = pg.evaluate(planta.TITULO); y1 = pg.evaluate('()=>scrollY'); b.close()
         if t != tit0: P.append((nome, 'o voltar (%s) foi para "%s", não para "%s"' % (como, t, tit0)))
         elif abs(y1 - y0) > 60: P.append((nome, 'o voltar não volta ao mesmo ponto (rolagem %d → %d)' % (y0, y1)))
-    elif faz == 'abre ali':
+    elif faz == 'abre ali' and sinal in ('⌄', '⌃'):   # só a dobra (⌄) tem de fechar no 2º toque (regra 16); outro botão que mostra algo ali não
         b, pg = _abre(pw, nav, tela, porta); h0 = pg.evaluate(ALT, l['i'])
         dedo.toque(pg, l['i']); pg.wait_for_timeout(900); h1 = pg.evaluate(ALT, l['i'])
         dedo.toque(pg, l['i']); pg.wait_for_timeout(900); h2 = pg.evaluate(ALT, l['i'])
@@ -119,7 +119,7 @@ VE_CAMPO = r"""()=>{const c=document.activeElement;if(!c||!c.matches('input,text
 def gestos(pw, nav, tela, porta, lig):
     """Rolar com o dedo (a página rola, a barra de baixo fica no lugar, nada rola de lado) e o teclado subindo (o campo e o "Salvar" continuam à vista)."""
     P = []
-    b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav)
+    b, pg = planta._abre_tela(pw, tela, planta.setor(tela)['tema_base'], porta, navegador=nav)
     a = pg.evaluate(ROLA); W, H = pg.viewport_size['width'], pg.viewport_size['height']
     dedo.arrasta(pg, W // 2, int(H * 0.7), int(H * 0.2))   # o dedo arrastando para cima
     pg.wait_for_timeout(700); d = pg.evaluate(DEPOIS_ROLA); b.close()
@@ -128,7 +128,7 @@ def gestos(pw, nav, tela, porta, lig):
     if d['x'] or d['largura'] > W + 1: P.append(('a tela', 'rola de lado (passa da largura: %d de %d px)' % (d['largura'], W)))
     for l in lig:
         if not l['faz'].startswith('abre a janela de baixo'): continue
-        b, pg = planta._abre_tela(pw, tela, 'escuro', porta, navegador=nav); dedo.toque(pg, l['i']); pg.wait_for_timeout(1000)
+        b, pg = planta._abre_tela(pw, tela, planta.setor(tela)['tema_base'], porta, navegador=nav); dedo.toque(pg, l['i']); pg.wait_for_timeout(1000)
         if pg.evaluate(CAMPO):
             pg.set_viewport_size({'width': W, 'height': int(H * 0.55)}); pg.wait_for_timeout(600)   # o teclado do Android ocupa ~45% da tela
             v = pg.evaluate(VE_CAMPO)

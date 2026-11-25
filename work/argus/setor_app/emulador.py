@@ -79,7 +79,7 @@ def letra_igual(pw, destino, plantas_dir):
     out = []; nav = sim.navegador(pw)
     try:
         for pf in sorted(glob.glob(os.path.join(plantas_dir, '*.json'))):
-            pl = json.load(open(pf)); tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            pl = json.load(open(pf)); tela = planta.tela_de(pl)
             for letra in ('1.15', '1.3'):
                 f = os.path.join(destino, 'escuro', '%s-escuro-%s.json' % (pl['id'], letra))
                 if not os.path.exists(f): out.append('%s · letra %s: o Android não trouxe' % (pl['tela'], letra)); continue

@@ -11,7 +11,7 @@ def mao(x):
     if isinstance(x, Mao): return x
     if not hasattr(x, '_argus_mao'):
         s = x.context.new_cdp_session(x)
-        x._argus_mao = Mao(lambda c, a=None: x.evaluate(c, a), lambda m, p: s.send(m, p), x.wait_for_timeout)
+        x._argus_mao = Mao(lambda c, a=None: x.evaluate(c, a), lambda m, p: s.send(m, p), x.wait_for_timeout); x._argus_mao.contexto = x.context
     return x._argus_mao
 def toca_xy(m, x, y, toque=True):
     m = mao(m)
@@ -41,7 +41,12 @@ def arrasta(m, x, y0, y1, passos=12):
     m.envia('Input.dispatchTouchEvent', {'type': 'touchEnd', 'touchPoints': []})
 def faz(m, i, espera=1000):
     """Toca e diz o que o toque fez: sai para · abre a janela de baixo · abre o menu · abre ali · troca a escolha · mostra aviso · nada."""
-    m = mao(m); r = toque(m, i)
+    m = mao(m); c = getattr(m, 'contexto', None); f0 = len(c._argus_fora) if c is not None else 0; p0 = len(c.pages) if c is not None else 0
+    r = toque(m, i)
     if not r: return 'não achado'
-    m.espera(espera); d = m.ev(DEPOIS)
+    m.espera(espera)
+    sai = [u for u, tipo in (c._argus_fora[f0:] if c is not None else []) if tipo == 'document']
+    if sai: return 'abre fora: ' + sai[0].split('/')[2]   # a página (ou uma aba nova) tentou ir para outro lugar (WhatsApp, Instagram, mapa…)
+    if c is not None and len(c.pages) > p0: return 'abre outra página: /' + c.pages[-1].url.split('/', 3)[-1]   # aba nova com outra página do site
+    d = m.ev(DEPOIS)
     return ('coberto por: %s · ' % r['coberto'] + d) if r.get('coberto') else d

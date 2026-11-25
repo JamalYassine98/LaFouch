@@ -63,7 +63,7 @@ def confere(pw, pl, porta=None, temas=None):
     """Abre o app (2× por tema, para achar ruído) e compara com a planta. Devolve {tema: [diferenças]}."""
     out = {}
     for tema in (temas or list(pl['temas'])):
-        tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+        tela = planta.tela_de(pl)
         L = []
         for vez in (1, 2):
             b, pg = planta._abre_tela(pw, tela, tema, porta); L.append(pg.evaluate(planta.COLETA)); v = pg.evaluate(planta.VERSAO); b.close()

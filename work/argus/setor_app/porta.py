@@ -58,7 +58,7 @@ def roda(modo='rapida', so_telas=None):
         # modos, o MESMO achado (mesma regra, mesma peça) também é do aprovado — só o que é novo naquele modo é falha
         base = set()
         for pl in apr:
-            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            tela = planta.tela_de(pl)
             for apar in (APARELHOS if completa else [aparelhos.DONO]):
                 for tema in modos.TEMAS:
                     for f in (modos.LETRAS if completa else [1.0]):
@@ -72,7 +72,7 @@ def roda(modo='rapida', so_telas=None):
                         b.close()
         # outros modos do app: reduzir movimento, sem internet, com PIN e com biometria
         for pl in apr:
-            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            tela = planta.tela_de(pl)
             b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, reduzir_movimento=True)
             fal += ['%s · %s · %s' % (x[1], x[0], x[2]) for x in familia.mede_tela('%s · reduzir movimento' % pl['tela'], pg.evaluate(familia.COLETA), True) if x[0].startswith('mexe')]; b.close(); rodou.add('reduzir movimento')
             b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, sem_internet=True)
@@ -88,7 +88,7 @@ def roda(modo='rapida', so_telas=None):
         # estados (regra 17): o aparelho recusa guardar → o app TEM de avisar, e o aviso é igual em todas as telas
         est = {}
         for pl in apr:
-            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            tela = planta.tela_de(pl)
             b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, scripts=(modos.ERRO_SALVAR,))
             pg.evaluate("()=>{try{__LF.salvarAgora()}catch(e){}}"); pg.wait_for_timeout(1500); d = pg.evaluate(familia.COLETA); b.close(); rodou.add('erro ao salvar')
             if not d['estados']: fal.append('%s · erro ao salvar: o app não avisa nada' % pl['tela'])
@@ -103,7 +103,7 @@ def roda(modo='rapida', so_telas=None):
         # 6 tempo com a loja cheia
         it = []
         for pl in apr:
-            tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': 'cheio'}
+            tela = dict(planta.tela_de(pl), cenario='cheio')
             t = time.time(); b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav); ab = (time.time() - t) * 1000
             n = len(pg.evaluate(planta.TOCAVEIS)); soz = tempo.muda_sozinha(pg); b.close()
             if ab > tempo.ABRIR_MS + 1000 * len(pl['passos']) + 2500: it.append('%s: abrir com a loja cheia levou %d ms' % (pl['tela'], ab))

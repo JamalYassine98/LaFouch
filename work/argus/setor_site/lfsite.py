@@ -31,14 +31,17 @@ def monta(commit):
     c = '/tmp/argus_site_' + commit[:12]
     if not os.path.exists(os.path.join(c, 'index.html')):
         shutil.rmtree(c, ignore_errors=True); os.makedirs(c)
+        if subprocess.run(['git', '-C', CAT, 'cat-file', '-e', commit + '^{commit}'], capture_output=True).returncode:   # o catalogo daqui é raso:
+            subprocess.run(['git', '-C', CAT, 'fetch', '-q', '--deepen=1000', 'origin', 'main'], capture_output=True)  # busca a história (só lê)
         ar = subprocess.run(['git', '-C', CAT, 'archive', commit], capture_output=True)
         if ar.returncode: raise SystemExit('git archive do catalogo falhou: ' + ar.stderr.decode()[:200])
         subprocess.run(['tar', '-x', '-C', c], input=ar.stdout, check=True)
     return c
+def serve(pasta, porta): return esboco.serve(pasta, porta, servidor=os.path.join(A, 'setor_site', 'servidor.py'))   # como o GitHub Pages
 def commit_de(ref='HEAD'): return subprocess.run(['git', '-C', CAT, 'rev-parse', ref], capture_output=True, text=True).stdout.strip()
 def porta_hoje():
     """O site de hoje = o commit atual do catalogo (o que vai subir), servido uma vez por rodada."""
-    if not _SITE: _SITE['porta'] = esboco.serve(monta(commit_de()), 8813)
+    if not _SITE: _SITE['porta'] = serve(monta(commit_de()), 8813)
     return _SITE['porta']
 def _ms(d): return int(__import__('datetime').datetime.fromisoformat(d).timestamp() * 1000)
 def cenario(nome='normal', tematica='sem', data=loja.DATA):

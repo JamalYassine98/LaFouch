@@ -31,11 +31,13 @@ def hoje():
     base = subprocess.run(['git', '-C', R, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
     c = '/tmp/argus_hoje_' + base[:12]
     return os.path.join(c, 'www') if os.path.exists(os.path.join(c, 'www', 'app.js')) else _monta(c, base)
-def serve(www, porta):
+def serve(www, porta, servidor=None):
+    """Serve a pasta na porta (derruba quem estava nela) e só volta quando ela atende. servidor = outro programa de servir
+    (o do site atende como o GitHub Pages: setor_site/servidor.py)."""
     s = socket.socket()
     if s.connect_ex(('127.0.0.1', porta)) == 0:
         s.close(); subprocess.run(['fuser', '-k', '%d/tcp' % porta], capture_output=True); time.sleep(0.5)
-    subprocess.Popen(['python3', '-m', 'http.server', str(porta)], cwd=www, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    subprocess.Popen((['python3', servidor] if servidor else ['python3', '-m', 'http.server']) + [str(porta)], cwd=www, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     for _ in range(100):   # espera o servidor atender (não um tempo fixo)
         s = socket.socket()
         if s.connect_ex(('127.0.0.1', porta)) == 0: s.close(); return porta

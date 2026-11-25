@@ -17,7 +17,8 @@ A.tocaveis=()=>[...document.querySelectorAll(A.TOC)].filter(e=>A.vis(e)&&!A.nav(
 // a linha de uma peça: o maior bloco em volta dela que ainda é uma linha (até 110 px de altura)
 A.linha=e=>{let p=e,best=e;for(let i=0;i<8&&p.parentElement;i++){p=p.parentElement;if(p.getBoundingClientRect().height>110)break;best=p}return best};
 A.bloco=e=>e.closest('section,details,li')||e.parentElement;
-A.titulo=()=>{const h=[...document.querySelectorAll('h1')].find(e=>A.vis(e));const v=(window.__LF&&__LF.S&&__LF.S.view)||'';return (h?A.txt(h):'')+' ['+v+']'};
+A.titulo=()=>{const h=[...document.querySelectorAll('h1')].find(e=>A.vis(e));if(!window.__LF)return decodeURIComponent(location.pathname+location.search);   // no site, a tela é o endereço (o título do destaque muda sozinho)
+ const v=(__LF.S&&__LF.S.view)||'';return (h?A.txt(h):'')+' ['+v+']'};
 A.fixos=()=>[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(x).position==='fixed'&&A.vis(x)&&!A.nav(x)&&!x.closest('[data-argus]'));
 // a janela de baixo aberta (presa embaixo, larga e alta), ou null
 // a janela de baixo é o PAINEL preso embaixo; se o que está preso é a tela inteira (o fundo escurecido), o painel é o de dentro dele
@@ -26,11 +27,16 @@ A.painel=x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r
 A.opaca=x=>{const m=/rgba?\(([^)]+)\)/.exec(getComputedStyle(x).backgroundColor);if(!m)return false;const v=m[1].split(',').map(parseFloat);return v.length<4||v[3]>=0.9};
 A.porCima=()=>A.fixos().filter(x=>{const r=x.getBoundingClientRect();return r.top<=5&&r.height>=innerHeight*0.9&&r.width>=innerWidth*0.9&&A.opaca(x)&&!(window.__LF&&x.closest('.view'))}).map(x=>{const t=[...x.querySelectorAll('h1,h2,h3,b')].find(A.vis);return t?A.txt(t).slice(0,60):'(sem título)'});
 // O SINAL de um botão: "›" (sai para outra tela) ou "⌄"/"⌃" (abre ali) — pelo texto ou pelo desenho da setinha como aparece na tela
-A.sinal=e=>{const t=A.txt(e);if(/›\s*$/.test(t))return '›';if(/[⌄∨]\s*$/.test(t))return '⌄';const r=e.getBoundingClientRect();
- for(const p of [...e.querySelectorAll('svg path,svg polyline')].reverse()){const s=p.closest('svg'),q=s.getBoundingClientRect();if(!A.vis(s)||q.width>28||q.left<r.left+r.width*0.6)continue;
+// o botão de voltar: "‹" (texto ou setinha) ou o nome "voltar"
+A.voltar=e=>A.sinal(e)==='‹'||/^voltar/i.test((e.getAttribute('aria-label')||e.textContent||'').trim());
+A.sinal=e=>{const t=A.txt(e);if(/^\s*‹/.test(t))return '‹';if(/›\s*$/.test(t))return '›';if(/[⌄∨]\s*$/.test(t))return '⌄';
+ const ps=[e,...e.querySelectorAll('*')].flatMap(x=>[getComputedStyle(x,'::after').content,getComputedStyle(x,'::before').content]).join('');   // setinha desenhada pelo CSS
+ if(/›/.test(ps))return '›';if(/[⌄∨]/.test(ps)||(e.hasAttribute('aria-expanded')&&!e.hasAttribute('aria-haspopup')&&t.length>2))return '⌄';   // aria-expanded numa linha com texto = é uma dobra (o botão de menu, só ícone, não)
+ const r=e.getBoundingClientRect();
+ for(const p of [...e.querySelectorAll('svg path,svg polyline')].reverse()){const s=p.closest('svg'),q=s.getBoundingClientRect();if(!A.vis(s)||q.width>28)continue;const fim=q.left>=r.left+r.width*0.6,ini=q.right<=r.left+r.width*0.4+28;if(!fim&&!ini)continue;   // a setinha fica no fim (› ⌄) ou no começo (‹)
   if(p.tagName==='path'&&((p.getAttribute('d')||'').match(/[Mm]/g)||[]).length!==1)continue;let L=0;try{L=p.getTotalLength()}catch(x){};if(!L)continue;
   const M=p.getScreenCTM(),pt=k=>{const a=p.getPointAtLength(L*k);return {x:a.x*M.a+a.y*M.c+M.e,y:a.x*M.b+a.y*M.d+M.f}},a=pt(0),m=pt(.5),b=pt(1),dx=m.x-(a.x+b.x)/2,dy=m.y-(a.y+b.y)/2;
-  if(dx>2&&Math.abs(dx)>Math.abs(dy)*2)return '›';if(Math.abs(dy)>2&&Math.abs(dy)>Math.abs(dx)*2)return dy>0?'⌄':'⌃'}
+  if(dx>2&&Math.abs(dx)>Math.abs(dy)*2&&fim)return '›';if(dx<-2&&Math.abs(dx)>Math.abs(dy)*2&&ini)return '‹';if(Math.abs(dy)>2&&Math.abs(dy)>Math.abs(dx)*2)return dy>0?'⌄':'⌃'}
  return ''};
 A.janela=()=>{const pc=A.fixos().filter(x=>{const r=x.getBoundingClientRect();return r.top<=5&&r.height>=innerHeight*0.9&&A.opaca(x)});let j=A.fixos().filter(x=>A.painel(x)&&!pc.some(o=>o===x||o.contains(x))).pop();if(!j)return null;
  let tipo='baixo';
@@ -38,13 +44,15 @@ A.janela=()=>{const pc=A.fixos().filter(x=>{const r=x.getBoundingClientRect();re
   if(d.length)j=d.sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top)[0];
   else{const c=[...j.children].filter(x=>A.vis(x)&&x.getBoundingClientRect().width>=innerWidth*0.6).sort((a,b)=>b.getBoundingClientRect().height-a.getBoundingClientRect().height)[0];if(c){j=c;tipo='meio'}}}   // caixa solta no meio da tela: não é a janela de baixo
  const r=j.getBoundingClientRect(),bts=[...j.querySelectorAll('button,[role=button],a')].filter(A.vis).map(A.nome);
- return {el:j,tipo,top:r.top,titulo:A.txt(j.querySelector('h1,h2,h3,b')||j).slice(0,60),fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}};
+// volta = a camada tem "‹ voltar" em cima: é outra TELA (regra 16: lugar), não a janela de baixo (tarefa)
+ const volta=[...j.querySelectorAll('button,a,[data-act]')].some(e=>A.vis(e)&&e.getBoundingClientRect().top<r.top+140&&A.voltar(e));
+ return {el:j,tipo,volta,top:r.top,titulo:A.txt(j.querySelector('h1,h2,h3,b')||j).slice(0,60),fechar:bts.filter(t=>/^(×|✕|x|fechar)$/i.test(t)),salvar:bts.some(t=>/^salvar$/i.test(t)),campo:!!j.querySelector('input:not([type=checkbox]):not([type=hidden]),textarea')}};
 // O TOQUE (motor/dedo.py põe o dedo): A.alvo rola até o botão, tira o RETRATO de antes e diz onde pôr o dedo (o meio do botão).
 // Se no meio do botão há outra coisa por cima, é ela que o dedo pega — como no celular: volta {coberto}.
 A.alvo=i=>{const e=A.tocaveis()[i];if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();
  const x=Math.min(innerWidth-2,Math.max(1,r.left+r.width/2)),y=Math.min(innerHeight-2,Math.max(1,r.top+r.height/2)),h=document.elementFromPoint(x,y);
- window.__argusAntes=A.retrato();window.__argusAntes.alvo=A.estado(e);
- const toque=navigator.maxTouchPoints>0;if(h&&h!==e&&!e.contains(h))return {coberto:A.nome(h)||h.tagName.toLowerCase(),x,y,toque};return {x,y,toque}};
+ window.__argusAntes=A.retrato();window.__argusAntes.alvo=A.estado(e);const sy=scrollY;
+ const toque=navigator.maxTouchPoints>0;if(h&&h!==e&&!e.contains(h))return {coberto:A.nome(h)||h.tagName.toLowerCase(),x,y,toque,sy};return {x,y,toque,sy}};   // sy = a rolagem de onde se toca
 // estado de um botão que se vê (escolhido, aberto, marcado)
 A.estado=e=>['aria-pressed','aria-selected','aria-expanded','aria-checked'].map(a=>e.getAttribute(a)||'').join(',')+(e.classList.contains('on')?',on':'')+(e.checked?',marcado':'');
 // caixas soltas por cima da tela que têm botões (menus), fora a janela de baixo e a barra de abas
@@ -53,13 +61,15 @@ A.flutuantes=()=>{const L=[...document.querySelectorAll('body *')].filter(x=>{co
 // o RETRATO da tela: nome, estados dos botões, caixas soltas, janela e os textos que se veem
 A.retrato=()=>{const vist={},est={};for(const e of [...document.querySelectorAll(A.TOC+',[role=tab]')].filter(A.vis)){const n=A.nome(e);vist[n]=(vist[n]||0)+1;est[n+'#'+vist[n]]=A.estado(e)}
  const fx=A.fixos(),tx={};for(const e of document.querySelectorAll('body *')){if(!A.vis(e)||A.nav(e))continue;const t=A.own(e);if(t)tx[t]=fx.some(f=>f.contains(e))}   // tx[texto] = está numa camada presa (aviso)
- const j=A.janela();return {tit:A.titulo(),est,flut:A.flutuantes().map(A.txt),jan:j?j.titulo:null,cima:A.porCima(),tx}};
+ const j=A.janela();return {tit:A.titulo(),est,flut:A.flutuantes().map(A.txt),jan:j&&!j.volta?j.titulo:null,tela:j&&j.volta?j.titulo:null,janTop:j?j.top:0,cima:A.porCima(),tx}};
 // O QUE O TOQUE FEZ: o retrato de agora contra o de antes do toque
 A.depois=()=>{const a=window.__argusAntes;if(!a)return 'não achado';const d=A.retrato();
- const pc=d.cima.filter(t=>!a.cima.includes(t));if(pc.length)return 'abre tela por cima: '+pc[0];
- if(d.tit!==a.tit)return 'sai para: '+d.tit;
- if(d.jan!==null&&d.jan!==a.jan)return 'abre a janela de baixo: '+d.jan;
+ // janela de baixo deixa a tela de trás à vista em cima; o que sobe cobrindo tudo e troca o endereço é outra tela
+ if(d.jan!==null&&d.jan!==a.jan&&d.janTop>innerHeight*0.08)return 'abre a janela de baixo: '+d.jan;   // (antes do endereço: no site, abrir a peça também troca o endereço)
  const m=d.flut.filter(t=>!a.flut.includes(t));if(m.length)return 'abre o menu: '+m[0].slice(0,50);
+ if(d.tit!==a.tit)return 'sai para: '+d.tit;
+ const pc=d.cima.filter(t=>!a.cima.includes(t));if(pc.length)return 'abre tela por cima: '+pc[0];   // camada opaca que cobre tudo sem trocar de tela
+ if(d.jan!==null&&d.jan!==a.jan)return 'abre tela por cima: '+d.jan;
  const mud=Object.keys(d.est).filter(k=>k in a.est&&a.est[k]!==d.est[k]);
  if(mud.some(k=>a.est[k].split(',')[2]!==d.est[k].split(',')[2]))return 'abre ali';
  if(mud.length)return 'troca a escolha';
