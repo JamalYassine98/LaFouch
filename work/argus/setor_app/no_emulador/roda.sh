@@ -4,7 +4,7 @@
 T=$1; APK=android/app/build/outputs/apk/debug/app-debug.apk; OUT=argus_android; mkdir -p $OUT
 A(){ timeout 90 adb "$@"; }
 sleep 45; A wait-for-device; for i in $(seq 1 40); do [ "$(A shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done; sleep 15
-for k in window_animation_scale transition_animation_scale animator_duration_scale; do for i in 1 2 3 4 5; do A shell settings put global $k 0.0 && break; sleep 5; done; done   # animações do sistema desligadas (só depois de ligar)
+# as animações do sistema ficam LIGADAS, como no celular do dono (desligadas, o WebView diz "reduzir movimento" e o app desenha outro jeito)
 A shell wm size 1221x2712; A shell wm density 480
 FUSO=$(python3 -c "import json;print(json.load(open('work/argus/aparelho_dono.json'))['fuso_android_emulado'])")   # o fuso da loja (aparelho_dono.json explica)
 A shell setprop persist.sys.timezone $FUSO; A shell cmd alarm set-timezone $FUSO 2>/dev/null

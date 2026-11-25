@@ -52,7 +52,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
-          disable-animations: false   # o Argus desliga as animações do sistema no roda.sh, depois que o Android terminou de ligar (a ação tentava antes e às vezes caía)
+          disable-animations: false   # animações ligadas, como no celular do dono (desligadas = "reduzir movimento" no WebView)
           script: ARGUS_PLANTAS=${{ inputs.pasta }} bash work/argus/setor_app/no_emulador/roda.sh ${{ matrix.tema }}
       - name: Resultado num ramo git (o download de artefato é bloqueado para a IA)
         if: always()
