@@ -1,11 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "guardar aprovados 10:07 (Roboto no simulador, regras sinal × destino)",
- "arquivos": [
-  "docs/FALTA-APROVAR-15-11.md",
-  "docs/MEMORIA-PROJETO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795612099.8766797,
+   "r": "guardados aprovados 10:07"
+  },
   {
    "t": 1795611520.7655206,
    "r": "esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado"
@@ -41,10 +42,6 @@
   {
    "t": 1795524339.3560474,
    "r": "Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)"
-  },
-  {
-   "t": 1795521078.1838415,
-   "r": "Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b"
   }
  ],
  "leu": 1795612089.3006544
