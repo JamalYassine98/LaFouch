@@ -54,6 +54,11 @@ def ruido(a, b):
     pares, faltam, sobram = _par(a, b)
     rz = [(p['tipo'], p['texto'], tuple(p['caixa'])) for p, q in pares if p != q] + [(p['tipo'], p['texto'], tuple(p['caixa'])) for p in faltam]
     return rz
+def mesma_versao(pecas, de, para):
+    """A versão do app é DADO, não desenho: o número da versão gravado na planta vira o da versão conferida (a planta não
+    precisa ser regravada a cada publicação; uma versão errada na tela continua aparecendo como diferença)."""
+    if not de or not para or de == para: return pecas
+    return [dict(p, texto=p['texto'].replace(de, para)) if p.get('texto') and de in p['texto'] else p for p in pecas]
 def confere(pw, pl, porta=None, temas=None):
     """Abre o app (2× por tema, para achar ruído) e compara com a planta. Devolve {tema: [diferenças]}."""
     out = {}
@@ -61,6 +66,6 @@ def confere(pw, pl, porta=None, temas=None):
         tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
         L = []
         for vez in (1, 2):
-            b, pg = planta._abre_tela(pw, tela, tema, porta); L.append(pg.evaluate(planta.COLETA)); b.close()
-        out[tema] = compara(pl['temas'][tema]['pecas'], L[0], ruido(L[0], L[1]))
+            b, pg = planta._abre_tela(pw, tela, tema, porta); L.append(pg.evaluate(planta.COLETA)); v = pg.evaluate(planta.VERSAO); b.close()
+        out[tema] = compara(mesma_versao(pl['temas'][tema]['pecas'], pl.get('versao_app'), v), L[0], ruido(L[0], L[1]))
     return out

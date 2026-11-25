@@ -59,7 +59,7 @@ json.dump({'tema': TEMA, 'letra': LETRA, 'tela_css': ev("()=>[innerWidth,innerHe
           open(os.path.join(OUT, 'info-%s-%s.json' % (TEMA, LETRA)), 'w'))
 for pl in plantas:
     abre(pl.get('cenario') or 'normal', pl['passos'])
-    r = {'id': pl['id'], 'tela': pl['tela'], 'titulo': ev("()=>window.__argus.titulo()"), 'pecas': ev(js('planta')), 'familia': ev(js('familia'))}
+    r = {'id': pl['id'], 'tela': pl['tela'], 'titulo': ev("()=>window.__argus.titulo()"), 'pecas': ev(js('planta')), 'familia': ev(js('familia')), 'versao': ev(js('versao'))}
     if LETRA == '1.0' and TEMA == 'escuro':   # tempo no Android, com a loja cheia
         r['tempo'] = {'abrir_ms': abre('cheio', pl['passos']), 'toques': [], 'sozinha': tempo.muda_sozinha(MAO)}
         toc = ev(js('tocaveis')) or []

@@ -51,7 +51,7 @@ def compara_tudo(destino, plantas_dir):
                 if letra == '1.0': base = set(); igual = False
                 if letra == '1.0' and tema in pl['temas']:
                     t0 = compara.TOL; compara.TOL = TOL_ANDROID
-                    try: D = compara.compara(pl['temas'][tema]['pecas'], e['pecas'])
+                    try: D = compara.compara(compara.mesma_versao(pl['temas'][tema]['pecas'], pl.get('versao_app'), e.get('versao')), e['pecas'])
                     finally: compara.TOL = t0
                     # no Android as letras do sistema desenham com outra largura: lá vale o que FALTA e o que SOBRA; tamanho e posição ficam como informação
                     ruins = [(a, b) for a, b, *_ in D if b.startswith(('falta', 'sobra', 'desenho', 'cor', 'fundo', 'borda'))]; igual = not ruins

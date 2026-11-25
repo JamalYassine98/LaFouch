@@ -8,20 +8,26 @@ _argv = sys.argv[:]; import kit; sys.argv[:] = _argv      # kit lê sys.argv ao 
 import sim, aparelhos, loja
 from js import js
 def relogio(data=loja.DATA): return js('relogio').replace('__T0__', str(int(datetime.datetime.fromisoformat(data).timestamp() * 1000)))
-_NAVS = {}
+_NAVS = {}; _HOJE = {}
+def porta_hoje():
+    """porta=None = o app de hoje: montado do código do commit atual (motor/esboco.py: hoje), servido uma vez por rodada."""
+    import esboco
+    www = esboco.hoje()
+    if www not in _HOJE: _HOJE.clear(); _HOJE[www] = esboco.serve(www, kit.PA)
+    return _HOJE[www]
 def navegador_de(pw, letras):
     """Um navegador aberto por tipo de letras (o do PC e o do Android), reaproveitado enquanto o Playwright estiver aberto."""
     k = (id(pw), letras)
     if k not in _NAVS or not _NAVS[k].is_connected(): _NAVS[k] = sim.navegador(pw, letras=letras)
     return _NAVS[k]
 def abre(pw, aparelho=aparelhos.DONO, tema='escuro', cenario='normal', sem_internet=False, data=loja.DATA, porta=None, navegador=None, antes=None, reduzir_movimento=None, scripts=(), letra=1.0):
-    """porta=None → o app de hoje (www/ do repositório); porta=N → uma cópia servida em N (ex.: a cópia de um esboço).
+    """porta=None → o app de hoje (montado do código do commit atual); porta=N → uma cópia servida em N (ex.: a cópia de um esboço).
     navegador = um navegador já aberto (para abrir muitas vezes depressa); aí o que volta para fechar é só a aba (contexto).
     scripts = códigos que entram antes do app (ex.: a biometria do setor App).
     letra = a letra do celular (1,15 · 1,3 no app; 1,1 · 1,2 no site): entra logo depois do style.css, antes de o app desenhar."""
     assert tema in aparelhos.MODOS['app']['tema'], 'tema %s não existe no app' % tema
     W, H, dpr, toque = aparelhos.FAIXA[aparelho]
-    if porta is None: kit.serve(os.path.join(R, 'www'), kit.PA); porta = kit.PA
+    if porta is None: porta = porta_hoje()
     letras = 'android' if toque else None   # tela de celular = as letras do Android (aprovado 25/11 10:07)
     if navegador is not None and getattr(navegador, '_letras', None) != letras: navegador = navegador_de(pw, letras)
     b = navegador or sim.navegador(pw, letras=letras)

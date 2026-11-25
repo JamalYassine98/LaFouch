@@ -65,3 +65,6 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - Quando a planta APROVADA faz o mesmo que o app, a regra vira aviso "regra × aprovado (o dono decide)" e não trava (ex.: "Gerenciar grupo ›" do 48a; Instagram que não faz nada).
 - O voltar também é tocado com o dedo (voltar.js só acha o botão "‹"). Só o caminho até a tela (A.aba, planta.precos) usa clique por comando: é preparação, não conferência.
 - Trava: 21 de 21 na autoprova (o sinal, a tela por cima, 4 abas, o "+" e a Roboto incluídos).
+- O app de hoje é MONTADO do código do commit atual (esboco.hoje, uma vez por commit), como o APK e a publicação — não o www/ guardado (que ficava com o número de versão de antes: 5.59.0 × 5.60.0).
+- A versão do app é dado, não desenho (compara.mesma_versao + js/versao.js): o número gravado na planta vira o da versão conferida.
+- Android emulado: Android 16 (api 36, o do celular do dono, com a tabela de fusos nova — o 34 punha o horário de verão antigo do Paraguai e as horas saíam 1 h antes); animações desligadas depois de ligar; letra de tela por software (swiftshader). Antes de cada tela, o armazenamento do app é zerado como num aparelho novo (js/loja_poe.js) — antes a aba escolhida numa tela passava para a próxima.

@@ -47,11 +47,11 @@ jobs:
       - name: Android emulado (Argus)
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 36   # o Android do celular do dono (16) — e a tabela de fusos nova (o Paraguai sem horário de verão desde 2024)
           target: google_apis
           arch: x86_64
           profile: pixel_6
-          emulator-options: -no-window -gpu guest -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
           disable-animations: false   # o Argus desliga as animações do sistema no roda.sh, depois que o Android terminou de ligar (a ação tentava antes e às vezes caía)
           script: ARGUS_PLANTAS=${{ inputs.pasta }} bash work/argus/setor_app/no_emulador/roda.sh ${{ matrix.tema }}
       - name: Resultado num ramo git (o download de artefato é bloqueado para a IA)
