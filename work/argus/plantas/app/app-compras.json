@@ -1,0 +1,6313 @@
+{
+ "id": "app-compras",
+ "tela": "Compras",
+ "passos": [
+  "()=>__LF.inicioGo('comp')"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "claro": {
+   "titulo": "Compras [comp]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      366.3,
+      36,
+      21.7,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      30.4,
+      803.5,
+      28.6,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      104.9,
+      803.5,
+      38.3,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191.4,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      187.3,
+      803.5,
+      32.4,
+      15.9
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      260.6,
+      803.5,
+      44.5,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      342.3,
+      803.5,
+      40,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      24,
+      106,
+      60.5,
+      44
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      6.2,
+      23.2
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Compras",
+     "caixa": [
+      24,
+      146,
+      343,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para comprar · 21 vagas",
+     "caixa": [
+      24,
+      220.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      259.6,
+      359,
+      89.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      286,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      287,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares · Masculino · Metal",
+     "caixa": [
+      92,
+      271.6,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 68 · até US$ 3",
+     "caixa": [
+      92,
+      296.8,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo SL2201",
+     "caixa": [
+      92,
+      317.6,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      289.5,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      349.5,
+      359,
+      89.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      375.9,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      376.9,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      92,
+      361.5,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 87 · até US$ 4,50",
+     "caixa": [
+      92,
+      386.6,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo YS8801",
+     "caixa": [
+      92,
+      407.5,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      379.4,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      439.3,
+      359,
+      89.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      465.8,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      466.8,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares · Feminino · TR90",
+     "caixa": [
+      92,
+      451.3,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 37 · até US$ 3",
+     "caixa": [
+      92,
+      476.5,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo SL2210",
+     "caixa": [
+      92,
+      497.4,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      469.3,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      529.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      546.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      553.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,25",
+     "caixa": [
+      92,
+      542.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      567.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      550.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      601.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      618.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      625.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,50",
+     "caixa": [
+      92,
+      614.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      639.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      622.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      673.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      690.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      691.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,75",
+     "caixa": [
+      92,
+      686.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 18 · 1 pacote",
+     "caixa": [
+      92,
+      711.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      694.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      745.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      762.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      763.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,00",
+     "caixa": [
+      92,
+      758.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 9 · 1 pacote",
+     "caixa": [
+      92,
+      783.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      766.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      817.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      834.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      835.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,25",
+     "caixa": [
+      92,
+      830.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 14 · 1 pacote",
+     "caixa": [
+      92,
+      855.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      838.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      889.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      906.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      907.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,50",
+     "caixa": [
+      92,
+      902.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 4 · 1 pacote",
+     "caixa": [
+      92,
+      927.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      910.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      961.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      978.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      979.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,75",
+     "caixa": [
+      92,
+      974.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 5 · 1 pacote",
+     "caixa": [
+      92,
+      999.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      982.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1033.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1050.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1051.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,00",
+     "caixa": [
+      92,
+      1046.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 28 · 2 pacotes",
+     "caixa": [
+      92,
+      1071.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1054.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1105.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1122.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1129.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,25",
+     "caixa": [
+      92,
+      1118.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1143.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1126.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1177.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1194.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1195.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,50",
+     "caixa": [
+      92,
+      1190.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 6 · 1 pacote",
+     "caixa": [
+      92,
+      1215.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1198.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1249.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1266.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1273.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,75",
+     "caixa": [
+      92,
+      1262.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1287.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1270.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1321.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1338.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1345.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,00",
+     "caixa": [
+      92,
+      1334.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1359.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1342.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1393.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1410.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1417.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,25",
+     "caixa": [
+      92,
+      1406.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1431.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1414.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1465.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1482.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1483.7,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,50",
+     "caixa": [
+      92,
+      1478.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1503.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1486.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1537.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1554.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1561.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,75",
+     "caixa": [
+      92,
+      1550.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1575.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1558.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1609.2,
+      359,
+      72
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1626.7,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1633.7,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +4,00",
+     "caixa": [
+      92,
+      1622.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1647.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1630.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1681.2,
+      359,
+      89.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1707.6,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1708.6,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações · Feminino · Metal",
+     "caixa": [
+      92,
+      1693.2,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 12 · até US$ 2,50",
+     "caixa": [
+      92,
+      1718.4,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo BR44118",
+     "caixa": [
+      92,
+      1739.2,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1711.1,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1771.1,
+      359,
+      89.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1797.5,
+      52,
+      36
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1798.5,
+      50,
+      34
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações · Feminino · Metal",
+     "caixa": [
+      92,
+      1783.1,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 13 · até US$ 2,50",
+     "caixa": [
+      92,
+      1808.3,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "no lugar de YM7790, que vendeu pouco",
+     "caixa": [
+      92,
+      1829.1,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(161, 42, 42)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1801,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedir · 21 vagas sem fechar",
+     "caixa": [
+      24,
+      1903,
+      359,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(148, 61, 111) / 1px rgb(148, 61, 111)",
+     "raio": "16px",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2005,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Fornecedores",
+     "caixa": [
+      24,
+      2018,
+      335.3,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 compra · 1 para conferir",
+     "caixa": [
+      24,
+      2043.1,
+      335.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      2025.5,
+      7.7,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-compras_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Compras [comp]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      366.3,
+      36,
+      21.7,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      30.4,
+      803.5,
+      28.6,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      104.9,
+      803.5,
+      38.3,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191.4,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      187.3,
+      803.5,
+      32.4,
+      15.9
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      260.6,
+      803.5,
+      44.5,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      342.3,
+      803.5,
+      40,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      24,
+      106,
+      60.5,
+      44
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      6.2,
+      23.2
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Compras",
+     "caixa": [
+      24,
+      146,
+      343,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para comprar · 21 vagas",
+     "caixa": [
+      24,
+      220.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      259.6,
+      359,
+      89.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      286,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      287,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares · Masculino · Metal",
+     "caixa": [
+      92,
+      271.6,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 68 · até US$ 3",
+     "caixa": [
+      92,
+      296.8,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo SL2201",
+     "caixa": [
+      92,
+      317.6,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      289.5,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      349.5,
+      359,
+      89.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      375.9,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      376.9,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      92,
+      361.5,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 87 · até US$ 4,50",
+     "caixa": [
+      92,
+      386.6,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo YS8801",
+     "caixa": [
+      92,
+      407.5,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      379.4,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      439.3,
+      359,
+      89.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      465.8,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      466.8,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares · Feminino · TR90",
+     "caixa": [
+      92,
+      451.3,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 37 · até US$ 3",
+     "caixa": [
+      92,
+      476.5,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo SL2210",
+     "caixa": [
+      92,
+      497.4,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      469.3,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      529.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      546.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      553.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,25",
+     "caixa": [
+      92,
+      542.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      567.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      550.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      601.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      618.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      625.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,50",
+     "caixa": [
+      92,
+      614.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      639.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      622.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      673.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      690.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      691.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +0,75",
+     "caixa": [
+      92,
+      686.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 18 · 1 pacote",
+     "caixa": [
+      92,
+      711.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      694.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      745.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      762.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      763.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,00",
+     "caixa": [
+      92,
+      758.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 9 · 1 pacote",
+     "caixa": [
+      92,
+      783.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      766.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      817.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      834.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      835.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,25",
+     "caixa": [
+      92,
+      830.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 14 · 1 pacote",
+     "caixa": [
+      92,
+      855.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      838.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      889.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      906.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      907.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,50",
+     "caixa": [
+      92,
+      902.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 4 · 1 pacote",
+     "caixa": [
+      92,
+      927.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      910.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      961.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      978.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      979.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +1,75",
+     "caixa": [
+      92,
+      974.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 5 · 1 pacote",
+     "caixa": [
+      92,
+      999.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      982.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1033.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1050.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1051.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,00",
+     "caixa": [
+      92,
+      1046.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 28 · 2 pacotes",
+     "caixa": [
+      92,
+      1071.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1054.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1105.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1122.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1129.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,25",
+     "caixa": [
+      92,
+      1118.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1143.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1126.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1177.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1194.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1195.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,50",
+     "caixa": [
+      92,
+      1190.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 6 · 1 pacote",
+     "caixa": [
+      92,
+      1215.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1198.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1249.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1266.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1273.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +2,75",
+     "caixa": [
+      92,
+      1262.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1287.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1270.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1321.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1338.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1345.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,00",
+     "caixa": [
+      92,
+      1334.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1359.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1342.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1393.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1410.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1417.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,25",
+     "caixa": [
+      92,
+      1406.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1431.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1414.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1465.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1482.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1483.7,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,50",
+     "caixa": [
+      92,
+      1478.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1503.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1486.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1537.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1554.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1561.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +3,75",
+     "caixa": [
+      92,
+      1550.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1575.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1558.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1609.2,
+      359,
+      72
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1626.7,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      1633.7,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados · +4,00",
+     "caixa": [
+      92,
+      1622.7,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 24 · 1 pacote",
+     "caixa": [
+      92,
+      1647.9,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1630.2,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1681.2,
+      359,
+      89.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1707.6,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1708.6,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações · Feminino · Metal",
+     "caixa": [
+      92,
+      1693.2,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 12 · até US$ 2,50",
+     "caixa": [
+      92,
+      1718.4,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "estrela · repor o mesmo BR44118",
+     "caixa": [
+      92,
+      1739.2,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1711.1,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1771.1,
+      359,
+      89.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1797.5,
+      52,
+      36
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      25,
+      1798.5,
+      50,
+      34
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações · Feminino · Metal",
+     "caixa": [
+      92,
+      1783.1,
+      267.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "faltam 13 · até US$ 2,50",
+     "caixa": [
+      92,
+      1808.3,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "no lugar de YM7790, que vendeu pouco",
+     "caixa": [
+      92,
+      1829.1,
+      267.3,
+      18.8
+     ],
+     "cor": "rgb(255, 154, 154)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      1801,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedir · 21 vagas sem fechar",
+     "caixa": [
+      24,
+      1903,
+      359,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(148, 61, 111) / 1px rgb(148, 61, 111)",
+     "raio": "16px",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2005,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Fornecedores",
+     "caixa": [
+      24,
+      2018,
+      335.3,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 compra · 1 para conferir",
+     "caixa": [
+      24,
+      2043.1,
+      335.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      375.3,
+      2025.5,
+      7.7,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-compras_escuro.jpg"
+  }
+ },
+ "titulo": "Compras [comp]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Voltar para Peças",
+   "act": "nvVolta",
+   "id": "",
+   "tag": "button",
+   "faz": "sai para: Peças [grp]"
+  },
+  {
+   "i": 2,
+   "nome": "Solares · Masculino · Metal faltam 68 · até US$ 3 estrela · ",
+   "act": "cpVaga",
+   "id": "solar|Masculino|Metal",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Solares · Masculino · Metal"
+  },
+  {
+   "i": 3,
+   "nome": "Solares faltam 87 · até US$ 4,50 estrela · repor o mesmo YS8",
+   "act": "cpVaga",
+   "id": "solar||",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Solares"
+  },
+  {
+   "i": 4,
+   "nome": "Solares · Feminino · TR90 faltam 37 · até US$ 3 estrela · re",
+   "act": "cpVaga",
+   "id": "solar|Feminino|TR90",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Solares · Feminino · TR90"
+  },
+  {
+   "i": 5,
+   "nome": "Pré-graduados · +0,25 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+0.25",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +0,25"
+  },
+  {
+   "i": 6,
+   "nome": "Pré-graduados · +0,50 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+0.50",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +0,50"
+  },
+  {
+   "i": 7,
+   "nome": "Pré-graduados · +0,75 faltam 18 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+0.75",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +0,75"
+  },
+  {
+   "i": 8,
+   "nome": "Pré-graduados · +1,00 faltam 9 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+1.00",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +1,00"
+  },
+  {
+   "i": 9,
+   "nome": "Pré-graduados · +1,25 faltam 14 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+1.25",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +1,25"
+  },
+  {
+   "i": 10,
+   "nome": "Pré-graduados · +1,50 faltam 4 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+1.50",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +1,50"
+  },
+  {
+   "i": 11,
+   "nome": "Pré-graduados · +1,75 faltam 5 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+1.75",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +1,75"
+  },
+  {
+   "i": 12,
+   "nome": "Pré-graduados · +2,00 faltam 28 · 2 pacotes ›",
+   "act": "cpVaga",
+   "id": "pre|g|+2.00",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +2,00"
+  },
+  {
+   "i": 13,
+   "nome": "Pré-graduados · +2,25 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+2.25",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +2,25"
+  },
+  {
+   "i": 14,
+   "nome": "Pré-graduados · +2,50 faltam 6 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+2.50",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +2,50"
+  },
+  {
+   "i": 15,
+   "nome": "Pré-graduados · +2,75 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+2.75",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +2,75"
+  },
+  {
+   "i": 16,
+   "nome": "Pré-graduados · +3,00 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+3.00",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +3,00"
+  },
+  {
+   "i": 17,
+   "nome": "Pré-graduados · +3,25 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+3.25",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +3,25"
+  },
+  {
+   "i": 18,
+   "nome": "Pré-graduados · +3,50 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+3.50",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +3,50"
+  },
+  {
+   "i": 19,
+   "nome": "Pré-graduados · +3,75 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+3.75",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +3,75"
+  },
+  {
+   "i": 20,
+   "nome": "Pré-graduados · +4,00 faltam 24 · 1 pacote ›",
+   "act": "cpVaga",
+   "id": "pre|g|+4.00",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pré-graduados · +4,00"
+  },
+  {
+   "i": 21,
+   "nome": "Armações · Feminino · Metal faltam 12 · até US$ 2,50 estrela",
+   "act": "cpVaga",
+   "id": "sem|Feminino|Metal",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Armações · Feminino · Metal"
+  },
+  {
+   "i": 22,
+   "nome": "Armações · Feminino · Metal faltam 13 · até US$ 2,50 no luga",
+   "act": "cpVaga",
+   "id": "sem||",
+   "tag": "button",
+   "faz": "abre a janela de baixo: No lugar de YM7790"
+  },
+  {
+   "i": 23,
+   "nome": "Pedir · 21 vagas sem fechar",
+   "act": "cpPedir",
+   "id": "",
+   "tag": "button",
+   "faz": "abre a janela de baixo: Pedir"
+  },
+  {
+   "i": 24,
+   "nome": "Fornecedores 1 compra · 1 para conferir ›",
+   "act": "cpForn",
+   "id": "",
+   "tag": "button",
+   "faz": "sai para: Fornecedores [estoque]"
+  }
+ ],
+ "esboco_aprovado": "51 + 51b"
+}
