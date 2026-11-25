@@ -52,4 +52,6 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - Botão que não faz nada é falha (toques.regras); linha só de estado não pode ser botão.
 - Letra grande do jeito do Android (motor/js/letra.js, abrir.abre(letra=…)): os tamanhos do CSS crescem antes de o app desenhar; o app continua descendo a letra quando não cabe. Serve ao app e ao site.
 - O caminho até um setor de Preços mora num lugar só (planta.precos); as 7 cópias do caminho de Regras saíram.
-- Trava (autoprova): linha que só abre com o dedo, aba que troca, menu solto, botão que não faz nada, letra 1,3× que ainda desce — 5 de 5 vistos.
+- Trava (autoprova): linha que só abre com o dedo, aba que troca, menu solto, botão que não faz nada, letra 1,3× que ainda desce, tela que muda sozinha sem parar — 6 de 6 vistos.
+- Tela parada que muda sozinha sem parar (motor/tempo.py: muda_sozinha; base.js: sozinha) = falha "laço", e os tempos de toque daquela tela ficam "não conferidos" (uma causa, um achado). Achado real 25/11: a barra de baixo do app muda 60×/s parada (recado à APP).
+- A letra do simulador × a do Android (setor_app/emulador.py: letra_igual): mesmo texto, mesmo tamanho (até 0,5 px). Diferença achada 25/11: Compras 1,15× — o simulador desenha com Inter e o Android com Roboto (mais estreita), então só no simulador a lista desce um degrau de letra.

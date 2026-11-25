@@ -2,7 +2,8 @@
  "id": "app-ferramentas",
  "tela": "Preços › Ferramentas",
  "passos": [
-  "()=>{__LF.inicioGo('prec');setTimeout(()=>{const b=document.querySelector('[data-act=tiAbre][data-id=ferr]');b&&b.click()},500)}"
+  "()=>__LF.inicioGo('prec')",
+  "()=>document.querySelector('[data-act=tiAbre][data-id=ferr]').click()"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

@@ -6,7 +6,7 @@
 # Se qualquer coisa não for vista, a rodada não vale (nada publica).
 import os, sys, copy
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
-import compara, familia, abrir, esboco, planta, toques
+import compara, familia, abrir, esboco, planta, toques, tempo
 VERSAO_ANTIGA = '93f8886a1'   # APP v641 (24/11): erros conhecidos abaixo
 ERROS_ANTIGOS = [   # (tela, passos, regra que TEM de aparecer)
     ('Despesas', ["()=>__LF.inicioGo('desp')"], '"+" de adicionar não é o redondo'),
@@ -60,6 +60,11 @@ def roda(pw, nav=None, antiga=True):
     # 5 a letra grande deixa o app descer a letra (o 2º degrau de "não cabe" das listas: 14,5 px × 1,3)
     b, pg = abrir.abre(pw, navegador=nav, letra=1.3); pg.evaluate("()=>window.__argus.aba(2)"); pg.wait_for_timeout(900); fs = pg.evaluate(LETRA_CABE); b.close()
     R.append(('letra 1,3×: o app ainda desce a letra quando não cabe', bool(fs) and abs(fs[0] - 16 * 1.3) < 0.3 and abs(fs[1] - 14.5 * 1.3) < 0.3))
+    # 6 laço: a tela parada que muda sozinha sem parar tem de ser vista
+    b, pg = abrir.abre(pw, navegador=nav); pg.goto(pg.url.split('index.html')[0] + 'version.json'); pg.wait_for_function('window.__argus')   # página quieta (sem o app)
+    q = tempo.muda_sozinha(pg)
+    pg.evaluate("()=>{const d=document.createElement('i');document.body.appendChild(d);const f=()=>{d.classList.add('x');requestAnimationFrame(f)};f();return 1}"); r_ = tempo.muda_sozinha(pg); b.close()
+    R.append(('tempo vê: tela que muda sozinha sem parar (laço) · quieta %d, com laço %d' % (q, r_), q <= tempo.SOZINHA_MAX < r_))
     # 3 versão antiga
     if antiga:
         www = esboco.prepara('_versao_antiga', base=VERSAO_ANTIGA); porta = esboco.serve(www, 8839)

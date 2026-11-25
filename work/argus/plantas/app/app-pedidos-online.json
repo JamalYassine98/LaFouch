@@ -1316,7 +1316,7 @@
    "act": "pedf",
    "id": "novo",
    "tag": "button",
-   "faz": "nada"
+   "faz": "já é a escolha"
   },
   {
    "i": 4,
@@ -1324,7 +1324,7 @@
    "act": "pedf",
    "id": "sep",
    "tag": "button",
-   "faz": "nada"
+   "faz": "troca a escolha"
   },
   {
    "i": 5,
@@ -1332,7 +1332,7 @@
    "act": "pedf",
    "id": "ent",
    "tag": "button",
-   "faz": "nada"
+   "faz": "troca a escolha"
   }
  ],
  "esboco_aprovado": "46c (+74r)"

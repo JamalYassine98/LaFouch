@@ -66,9 +66,28 @@ def compara_tudo(destino, plantas_dir):
                 T = e.get('tempo')   # os mesmos limites do simulador (motor/tempo.py), medidos no Android com a loja cheia
                 if T:
                     if T['abrir_ms'] > tempo.ABRIR_MS: out['tempo'].append('%s (Android, loja cheia): abrir levou %d ms (limite %d)' % (pl['tela'], T['abrir_ms'], tempo.ABRIR_MS))
+                    if T.get('sozinha', 0) > tempo.SOZINHA_MAX:
+                        out['tempo'].append('%s (Android, loja cheia): a tela muda sozinha sem parar (%d mudanças em 1 s, parada) — laço; tempos de toque não conferidos' % (pl['tela'], T['sozinha'])); continue
                     for n, ms in T['toques']:
                         if ms >= 15000: out['tempo'].append('%s (Android, loja cheia): toque em "%s": a tela não parou de mudar em 15 s' % (pl['tela'], n[:30]))
                         elif ms > tempo.TOQUE_MS: out['tempo'].append('%s (Android, loja cheia): toque em "%s" levou %d ms (limite %d)' % (pl['tela'], n[:30], ms, tempo.TOQUE_MS))
+    return out
+def letra_igual(pw, destino, plantas_dir):
+    """A letra grande do simulador (motor/js/letra.js) × a do Android de verdade: o mesmo texto tem de ter o mesmo tamanho de letra
+    (até 0,5 px). É a trava de que a imitação continua igual ao celular."""
+    import planta, sim
+    out = []; nav = sim.navegador(pw)
+    try:
+        for pf in sorted(glob.glob(os.path.join(plantas_dir, '*.json'))):
+            pl = json.load(open(pf)); tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
+            for letra in ('1.15', '1.3'):
+                f = os.path.join(destino, 'escuro', '%s-escuro-%s.json' % (pl['id'], letra))
+                if not os.path.exists(f): out.append('%s · letra %s: o Android não trouxe' % (pl['tela'], letra)); continue
+                e = json.load(open(f)); b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, letra=float(letra)); s_ = pg.evaluate(planta.COLETA); b.close()
+                tam = lambda L: {p['texto']: float(p['letra'][0][:-2]) for p in L if p['tipo'] == 'texto' and p['texto'] and p['letra'][0].endswith('px')}
+                a, s2 = tam(e['pecas']), tam(s_)
+                out += ['%s · letra %s: "%s" Android %.1f px, simulador %.1f px' % (pl['tela'], letra, t[:30], a[t], s2[t]) for t in a if t in s2 and abs(a[t] - s2[t]) > 0.5]
+    finally: nav.close()
     return out
 if __name__ == '__main__':
     pasta = sys.argv[1] if len(sys.argv) > 1 else 'work/argus/plantas/app'

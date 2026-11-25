@@ -61,7 +61,7 @@ for pl in plantas:
     abre(pl.get('cenario') or 'normal', pl['passos'])
     r = {'id': pl['id'], 'tela': pl['tela'], 'titulo': ev("()=>window.__argus.titulo()"), 'pecas': ev(js('planta')), 'familia': ev(js('familia'))}
     if LETRA == '1.0' and TEMA == 'escuro':   # tempo no Android, com a loja cheia
-        r['tempo'] = {'abrir_ms': abre('cheio', pl['passos']), 'toques': []}
+        r['tempo'] = {'abrir_ms': abre('cheio', pl['passos']), 'toques': [], 'sozinha': tempo.muda_sozinha(MAO)}
         toc = ev(js('tocaveis')) or []
         for t in toc:
             if perigo.perigoso(t): continue

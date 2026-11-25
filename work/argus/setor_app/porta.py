@@ -103,8 +103,9 @@ def roda(modo='rapida', so_telas=None):
         for pl in apr:
             tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': 'cheio'}
             t = time.time(); b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav); ab = (time.time() - t) * 1000
-            n = len(pg.evaluate(planta.TOCAVEIS)); b.close()
+            n = len(pg.evaluate(planta.TOCAVEIS)); soz = tempo.muda_sozinha(pg); b.close()
             if ab > tempo.ABRIR_MS + 1000 * len(pl['passos']) + 2500: it.append('%s: abrir com a loja cheia levou %d ms' % (pl['tela'], ab))
+            if soz > tempo.SOZINHA_MAX: it.append('%s: a tela muda sozinha sem parar (%d mudanças em 1 s, parada) — laço; tempos de toque não conferidos' % (pl['tela'], soz)); continue
             for i in range(n):
                 l = (pl.get('ligacoes') or [{}] * n)[i] if i < len(pl.get('ligacoes') or []) else {}
                 if l.get('faz', '').startswith('não tocado'): continue
@@ -145,7 +146,9 @@ def roda(modo='rapida', so_telas=None):
         try:
             ref, c = emulador.sobe_versao(); rid = emulador.dispara(pasta, ref); fim = emulador.espera(rid)
             r = emulador.compara_tudo(emulador.busca(), planta.P_APP)
-            ruim = r['comparador'] + r['medidor'] + r['tempo'] + ['não conferido: ' + x for x in r['faltou']]
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as pw: let = emulador.letra_igual(pw, emulador.busca(), planta.P_APP)   # a letra grande do simulador = a do Android
+            ruim = r['comparador'] + r['medidor'] + r['tempo'] + ['letra (Android × simulador): ' + x for x in let] + ['não conferido: ' + x for x in r['faltou']]
             _etapa(E, 'Android emulado (%s)' % fim, 'FALHA' if ruim or fim != 'success' else 'ok', ruim + r['barras'][:1])
         except SystemExit as e: _etapa(E, 'Android emulado', 'FALHA', ['não rodou: %s' % e])
     falhas = [e for e in E if e['estado'] == 'FALHA']
