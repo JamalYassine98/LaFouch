@@ -46,9 +46,9 @@ Ordem: primeiro o App (prioridade do dono), depois o Site.
 - Enquanto uma tela não tem planta aprovada, o Argus mostra "sem planta" para ela.
 
 ## Parte 7 · Setor Site (a porta do site)
-- Modos do site: só claro + TODAS as temáticas · letra do Android 1×, 1,1×, 1,2× · PT e ES · logado e deslogado · cupons (tentando burlar) · carrinho · selos · internet fraca.
+- Modos do site: só claro + TODAS as temáticas e também SEM temática (evento vazio), que é o normal · letra do Android 1×, 1,1×, 1,2× · PT e ES · logado e deslogado · cupons (tentando burlar) · carrinho · selos · internet fraca. (SITE 24/11 21:06: as provas de hoje forçam temática e isso escondeu as camadas transparentes desde 20/11.)
 - Segurança de verdade: as provas da NUVEM rodando no emulador da nuvem (tentativas proibidas têm de ser barradas; na dúvida, trava).
-- Selo no build do site. Plantas do site em lotes, como na Parte 6.
+- Selo no build do site. Plantas do site em lotes, como na Parte 6; a base da 1ª planta do site NÃO é o site no ar (quebrado desde 20/11): é o original de 19/11 (catalogo ef883de) + os aprovados depois dele (SITE 24/11 21:06).
 - Sai: work/fiscal/argus.py, fiscal.py, conhecidos.json, base_visual.json, diferencas-aprovadas.txt, o s430 no papel de porteiro (o Hoje × Proposta dos esboços passa a usar o comparador do motor).
 
 ## Parte 8 · Entrega
