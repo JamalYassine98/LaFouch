@@ -1,7 +1,11 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "regra da base das plantas (dono 10:29)",
+ "arquivos": [
+  "docs/FALTA-APROVAR-15-11.md",
+  "docs/MEMORIA-PROJETO.md",
+  "work/argus/LEIA.md"
+ ],
  "ultimas": [
   {
    "t": 1795612099.8766797,
