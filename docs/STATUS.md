@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| ESBOCO | guardar aprovados 25/11 (traço, E se, Argus toque de dedo, lote 1) | docs/FALTA-APROVAR-15-11.md, docs/MEMORIA-PROJETO.md |
 
 ## Fila
 
