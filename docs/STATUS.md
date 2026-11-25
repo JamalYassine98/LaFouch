@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | esboços explicativos lote 1 (Ajustes, Compras ★, Ferramentas) | work/argus/plantas/lotes |
 
 ## Fila
 
@@ -226,6 +225,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 25/11 07:50 — ESBOCO: esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
@@ -250,4 +250,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 23/11 23:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
 - 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
 - 23/11 16:56 — IDEIAS: 12e aprovado nas 6 datas
-- 23/11 16:54 — IDEIAS: 12e: BF e Halloween levemente clareados

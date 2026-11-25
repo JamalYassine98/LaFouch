@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboços explicativos lote 1 (Ajustes, Compras ★, Ferramentas)",
- "arquivos": [
-  "work/argus/plantas/lotes"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795603813.640164,
+   "r": "esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)"
+  },
   {
    "t": 1795529868.0300615,
    "r": "107 sem internet APROVADO e guardado como molde (sem remendo); cupom (a) da NUVEM conferido com os aprovados (bate; faltam 2 itens)"
@@ -40,10 +42,6 @@
   {
    "t": 1795445311.1576905,
    "r": "23/11 manhã: 88–101 (duas portas, aviso amarelo, Fornecedores, reserva em Pedidos, precificação 93–95, oferta na loja e cupom pela conta 96–98, regras do cupom e datas 97/99, cor oficial 101); recados NUVEM (regras + design dos cartões), SITE (presentes, Argus), APP (só a cor da marca), IDEIAS"
-  },
-  {
-   "t": 1795432383.7368667,
-   "r": "89a v3 (bolinha --ptw); 89b e 74r v3 aprovados; lote 90–92 conferido: já decididos (80/44/87) ou do Estúdio"
   }
  ],
  "leu": 1795600704.3733175
