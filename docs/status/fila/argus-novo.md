@@ -1,2 +1,2 @@
-toque de dedo APROVADO 25/11 08:13 — espera o 'implementar'; depois regravar o lote 1
+toque de dedo IMPLEMENTADO 25/11 (provas 0–6 ok, autoprova 17/17, Android ok); lote 1 regravado — esperando o dono
 Argus novo: work/argus/ (LEIA.md)
