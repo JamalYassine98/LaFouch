@@ -1052,7 +1052,7 @@
     },
     {
      "tipo": "texto",
-     "texto": "5.59.0",
+     "texto": "5.60.0",
      "caixa": [
       316.9,
       627.5,
@@ -2139,7 +2139,7 @@
     },
     {
      "tipo": "texto",
-     "texto": "5.59.0",
+     "texto": "5.60.0",
      "caixa": [
       316.9,
       627.5,
@@ -2184,6 +2184,7 @@
    "foto": "app-ajustes_escuro.jpg"
   }
  },
+ "versao_app": "5.60.0",
  "titulo": "Ajustes [ajustes]",
  "ligacoes": [
   {
@@ -2258,7 +2259,7 @@
   },
   {
    "i": 7,
-   "nome": "Atualização 5.59.0",
+   "nome": "Atualização 5.60.0",
    "act": "",
    "id": "",
    "tag": "button",
