@@ -23,5 +23,7 @@
   407,
   832
  ],
- "fuso": "America/Asuncion"
+ "fuso": "America/Asuncion",
+ "fuso_android_emulado": "Etc/GMT+3",
+ "_fuso": "O Paraguai é UTC−3 o ano todo desde a lei de 2024. O simulador (America/Asuncion) já sabe; a imagem do Android emulado ainda tem a regra antiga (horário de verão) e punha as horas de jun–set 1 h antes — lá vale o mesmo UTC−3 fixo (Etc/GMT+3)."
 }

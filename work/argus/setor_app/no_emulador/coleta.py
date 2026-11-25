@@ -62,7 +62,7 @@ for pl in plantas:
     r = {'id': pl['id'], 'tela': pl['tela'], 'titulo': ev("()=>window.__argus.titulo()"), 'pecas': ev(js('planta')), 'familia': ev(js('familia')), 'versao': ev(js('versao'))}
     if LETRA == '1.0' and TEMA == 'escuro':   # tempo no Android, com a loja cheia
         r['tempo'] = {'abrir_ms': abre('cheio', pl['passos']), 'toques': [], 'sozinha': tempo.muda_sozinha(MAO)}
-        toc = ev(js('tocaveis')) or []
+        toc = (ev(js('tocaveis')) or []) if r['tempo']['sozinha'] <= tempo.SOZINHA_MAX else []   # tela que não para (laço): os toques não conferem nada (uma causa, um achado)
         for t in toc:
             if perigo.perigoso(t): continue
             abre('cheio', pl['passos']); r['tempo']['toques'].append((t['nome'], tempo.toque_ms(MAO, t['i'])))

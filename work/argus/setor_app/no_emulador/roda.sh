@@ -6,7 +6,8 @@ A(){ timeout 90 adb "$@"; }
 sleep 45; A wait-for-device; for i in $(seq 1 40); do [ "$(A shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done; sleep 15
 for k in window_animation_scale transition_animation_scale animator_duration_scale; do for i in 1 2 3 4 5; do A shell settings put global $k 0.0 && break; sleep 5; done; done   # animações do sistema desligadas (só depois de ligar)
 A shell wm size 1221x2712; A shell wm density 480
-A shell setprop persist.sys.timezone America/Asuncion; A shell cmd alarm set-timezone America/Asuncion 2>/dev/null   # o fuso da loja, como no celular do dono
+FUSO=$(python3 -c "import json;print(json.load(open('work/argus/aparelho_dono.json'))['fuso_android_emulado'])")   # o fuso da loja (aparelho_dono.json explica)
+A shell setprop persist.sys.timezone $FUSO; A shell cmd alarm set-timezone $FUSO 2>/dev/null
 for i in $(seq 1 12); do sleep 8; A shell pm list packages >/dev/null 2>&1 && A install -r $APK && break; done
 A shell pm grant com.lafouch.app android.permission.POST_NOTIFICATIONS
 if [ "$T" = escuro ]; then A shell cmd uimode night yes; else A shell cmd uimode night no; fi
