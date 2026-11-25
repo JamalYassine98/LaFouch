@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "esboços: letra Roboto + Argus sinal × destino; Instagram aprovado sem fazer nada",
+ "arquivos": [
+  "work/argus",
+  "docs/FALTA-APROVAR-15-11.md"
+ ],
  "ultimas": [
   {
    "t": 1795611200.9161391,
@@ -44,5 +47,5 @@
    "r": "Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista"
   }
  ],
- "leu": 1795610964.7590492
+ "leu": 1795611344.2595701
 }

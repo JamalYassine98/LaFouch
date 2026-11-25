@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| ESBOCO | esboços: letra Roboto + Argus sinal × destino; Instagram aprovado sem fazer nada | work/argus, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
 
