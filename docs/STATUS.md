@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | esboços: letra Roboto + Argus sinal × destino; Instagram aprovado sem fazer nada | work/argus, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
 
@@ -228,6 +227,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 25/11 09:58 — ESBOCO: esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado
 - 25/11 09:53 — ESBOCO: Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP
 - 25/11 08:16 — ESBOCO: lição das plantas corrigida (dono 08:15)
 - 25/11 08:14 — ESBOCO: guardados os aprovados de 25/11 08:13
@@ -243,7 +243,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 09:45 — ESBOCO: Titan parte 3: explorador + cenários; achados: voltar pelo sino/Dashboard e lentidão com loja cheia (como fazer pronto)
 - 24/11 09:17 — NUVEM: Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono.
 - 24/11 08:51 — ESBOCO: Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b
-- 24/11 08:35 — ESBOCO: Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista
 - 24/11 06:26 — APP: v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez.
 - 24/11 03:47 — NUVEM: Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions).
 - 24/11 03:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada

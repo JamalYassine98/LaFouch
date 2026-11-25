@@ -1,11 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboços: letra Roboto + Argus sinal × destino; Instagram aprovado sem fazer nada",
- "arquivos": [
-  "work/argus",
-  "docs/FALTA-APROVAR-15-11.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795611520.7655206,
+   "r": "esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado"
+  },
   {
    "t": 1795611200.9161391,
    "r": "Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP"
@@ -41,10 +42,6 @@
   {
    "t": 1795521078.1838415,
    "r": "Titan parte 2: medidor de família + prova (12/12 erros reais achados); lista 24a/24b"
-  },
-  {
-   "t": 1795520100.1471057,
-   "r": "Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista"
   }
  ],
  "leu": 1795611344.2595701
