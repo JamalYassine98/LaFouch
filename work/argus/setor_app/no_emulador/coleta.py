@@ -42,6 +42,8 @@ def espera(code, t=40):
     return False
 T0 = int(datetime.datetime.fromisoformat(loja.DATA).timestamp() * 1000)
 cdp('Page.enable')
+# sem internet de fora, como no simulador (o simulador recusa tudo que não é o próprio app): senão o app busca a cotação de verdade e os números mudam
+cdp('Network.enable'); cdp('Network.setBlockedURLs', urls=['*://*.*/*'])   # 'localhost' (o app) não tem ponto no nome e continua passando
 for s in (js('base'), js('relogio').replace('__T0__', str(T0))): cdp('Page.addScriptToEvaluateOnNewDocument', source=s)
 base = ev("()=>location.href.split('#')[0].split('?')[0]")
 def abre(cen, passos):
