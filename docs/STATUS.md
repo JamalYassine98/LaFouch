@@ -36,6 +36,7 @@
 - **10-s1-s2-parte-2-app-depois-do-item-8-publi** — ✅ v566 (19/11) — grava em reservasTok E ainda em reservas/ (o site antigo lê de lá); tirar o de reservas/ junto com o item 11 · APP · pedido 19/11 15:29
 - **100-botao-principal** — decidido 23/11 11:25: continua só contorno (o design fica, só a cor muda)
 - **100-traco-ultima-linha** — aprovado 25/11 08:13 (com traço sempre) — espera o 'implementar' (APP)
+- **101-estudio-e-gerenciar-grupo** — achado do Argus 25/11 — esboço a fazer (Estúdio vira tela com ‹ PEÇAS; Gerenciar grupo sem ›)
 - **101-so-a-cor-oficial** — aprovado 23/11 11:28 — vale para toda implementação (APP avisada)
 - **102-natal-luxo** — superado pelo 103 (23/11 13:25)
 - **103-natal-e-kits** — aprovado 23/11 13:24 · v3 com o cartão de luxo do Natal
