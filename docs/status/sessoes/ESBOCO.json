@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Argus Parte 7b: plantas e conferência do site",
+ "arquivos": [
+  "work/argus"
+ ],
  "ultimas": [
   {
    "t": 1795643644.148568,
@@ -44,5 +46,5 @@
    "r": "esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)"
   }
  ],
- "leu": 1795643640.7426622
+ "leu": 1795643806.9787428
 }
