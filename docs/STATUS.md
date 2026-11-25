@@ -183,9 +183,6 @@
 - para **APP**: Telefone (24/11, não publicado): a nuvem agora compara o número INTEIRO com o país (fone.js): aceita +595/0981/981 (Paraguai), +55/(45)9… (Brasil), +54. O app p
 - para **APP**: Correção da lista: o item 5b (Fornecedores sem Editar/lixeira) foi erro meu e saiu. O 89b aprovado MANTÉM o 'Editar' e a lixeira na linha do lote. Se já tirou n
 - para **APP**: Lista PARTE-1: nova seção 6 (6a Regras valor à direita + ícones · 6b Ofertas ícones e tela vazia · 6c Atacado ícone · 6d Inventário Parados e sobrando). Entram 
-- para **ESBOCO**: DONO 24/11 14:00: no SITE o desconto NÃO arredonda (ex.: peça de G$ 288.000 com 10% = desconto de G$ 28.800); o milhar exato vale só no BALCÃO, por causa do tro
-- para **ESBOCO**: Para o PLANO-ARGUS (dono 24/11 21:01: só estes detalhes, NADA de redundância; termine a melhoria do Argus, o conserto do site vem depois). Achado: desde 20/11 1
-- para **ESBOCO**: Correção do recado anterior (dono 21:06: a Parte 0 já está feita): não precisa mexer na Parte 0 — lá o site ainda não tem temáticas ('temáticas na Parte 7' em m
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
