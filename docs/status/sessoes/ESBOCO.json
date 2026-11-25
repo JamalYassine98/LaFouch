@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "implementar Argus toque de dedo (aprovado 25/11)",
- "arquivos": [
-  "work/argus"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795611200.9161391,
+   "r": "Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP"
+  },
   {
    "t": 1795605379.8173976,
    "r": "lição das plantas corrigida (dono 08:15)"
@@ -40,10 +42,6 @@
   {
    "t": 1795520100.1471057,
    "r": "Titan parte 1 (comparador peça por peça) + triagem do gabarito: 20 superados saíram do base_app; os que faltam já estão na lista pelo último aprovado; correções 1a (149n) e 19a (70) da lista"
-  },
-  {
-   "t": 1795516334.1259243,
-   "r": "CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)"
   }
  ],
  "leu": 1795610964.7590492
