@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "implementar Argus toque de dedo (aprovado 25/11)",
+ "arquivos": [
+  "work/argus"
+ ],
  "ultimas": [
   {
    "t": 1795605379.8173976,
@@ -44,5 +46,5 @@
    "r": "CLAUDE.md com as regras do dono 24/11 no lugar (2, 1b, 12, 18, 21); recado a todas as sessões; resposta à APP sobre o Início (149n)"
   }
  ],
- "leu": 1795605375.0117683
+ "leu": 1795605784.362447
 }
