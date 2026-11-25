@@ -1,5 +1,5 @@
 // ARGUS · as peças que APARECEM numa tela (para a planta e o comparador): texto, caixa, letra, cor, fundo, borda, cantos, desenho do ícone
-()=>{const A=window.__argus,sx=scrollX,sy=scrollY,out=[],n1=v=>Math.round(v*10)/10;
+()=>{window.__argus.parar();const A=window.__argus,sx=scrollX,sy=scrollY,out=[],n1=v=>Math.round(v*10)/10;
  const geo=s=>[...s.querySelectorAll('path,circle,rect,line,polyline,polygon,ellipse')].map(x=>x.tagName.toLowerCase()+':'+['d','cx','cy','r','rx','ry','x','y','x1','y1','x2','y2','width','height','points'].filter(a=>x.hasAttribute(a)).map(a=>a+'='+x.getAttribute(a).replace(/-?\d*\.?\d+/g,m=>String(n1(+m)))).join(',')).join('|');
  for(const e of document.querySelectorAll('body *')){
   if(e.closest('[data-argus]'))continue;const tag=e.tagName.toLowerCase();if(tag==='script'||tag==='style')continue;if(e.closest('svg')&&tag!=='svg')continue;if(!A.vis(e))continue;

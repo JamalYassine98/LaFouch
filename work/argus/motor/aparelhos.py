@@ -16,5 +16,6 @@ FUSO = _dono['fuso']   # o relógio do teste anda no fuso da loja (Paraguai), co
 # Modos de cada setor (dono 24/11 15:34–15:40): nenhuma regra de um lado roda no outro.
 MODOS = {
     'app': {'tema': ['claro', 'escuro'], 'letra': [1.0, 1.15, 1.3]},          # as 3 letras do app (aplicadas na Parte 5)
-    'site': {'tema': ['claro'], 'letra': [1.0, 1.1, 1.2], 'lingua': ['pt-BR', 'es-PY']},  # letra do Android; temáticas na Parte 7
+    'site': {'tema': ['claro'], 'tematica': ['sem', 'natal', 'anonovo-d', 'anonovo-n', 'maes', 'pais', 'halloween', 'bf', 'bf-quase'],
+             'letra': [1.0, 1.1, 1.2], 'lingua': ['pt', 'es']},   # só claro; todas as temáticas e sem (o normal); letra do Android; PT e ES
 }

@@ -39,7 +39,7 @@ def grava(pw, id_, tela, porta=None, aprovacao=None, com_ligacoes=True):
     for tema in aparelhos.MODOS['app']['tema']:
         b, pg = _abre_tela(pw, tela, tema, porta)
         pl['temas'][tema] = {'titulo': pg.evaluate(TITULO), 'pecas': pg.evaluate(COLETA)}; pl['versao_app'] = pg.evaluate(VERSAO)
-        f = '/tmp/argus_foto_%s_%s.jpg' % (id_, tema); pg.screenshot(path='/tmp/_pl.png', full_page=True); b.close()
+        f = '/tmp/argus_foto_%s_%s.jpg' % (id_, tema); pg.evaluate('()=>window.__argus.parar()'); pg.screenshot(path='/tmp/_pl.png', full_page=True); b.close()
         from PIL import Image; Image.open('/tmp/_pl.png').convert('RGB').save(f, quality=82)
         pl['temas'][tema]['_foto'] = f   # a foto fica de lado até salva(): só entra no lugar depois que a planta anterior saiu
     if com_ligacoes: pl['titulo'], pl['ligacoes'] = ligacoes(pw, tela, porta)

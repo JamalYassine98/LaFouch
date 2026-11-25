@@ -3,7 +3,8 @@
 // o nome da tela, a janela de baixo. Mudou aqui, mudou em todas as ferramentas.
 (()=>{if(window.__argus)return;
 const A={};
-A.vis=e=>{if(!e||e.nodeType!==1)return false;const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType===1;p=p.parentElement){const c=getComputedStyle(p);if(c.display==='none'||c.visibility==='hidden'||+c.opacity===0)return false}return true};
+// enfeite vivo da página (data-lfvivo: neve, pétalas da temática — regra do próprio site: só existe na página viva) não é peça da tela
+A.vis=e=>{if(!e||e.nodeType!==1||e.closest('[data-lfvivo]'))return false;const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType===1;p=p.parentElement){const c=getComputedStyle(p);if(c.display==='none'||c.visibility==='hidden'||+c.opacity===0)return false}return true};
 A.own=e=>[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
 A.txt=e=>(e.innerText||e.textContent||'').replace(/\s+/g,' ').trim();
 A.nome=e=>(e.getAttribute('aria-label')||A.txt(e)||e.value||'').replace(/\s+/g,' ').trim().slice(0,60);
@@ -68,6 +69,9 @@ A.depois=()=>{const a=window.__argusAntes;if(!a)return 'não achado';const d=A.r
  const ae=(a.alvo||'').split(',');if(ae[0]==='true'||ae[1]==='true'||ae[4]==='on')return 'já é a escolha';   // tocar na aba que já está escolhida não muda nada, e está certo
  return 'nada'};
 // tempo de um toque: A.vigia antes do dedo; A.parou espera a tela parar de mudar (150 ms sem mudança, no máximo 15 s) e dá os ms
+// PARAR AS ANIMAÇÕES para medir e fotografar: a que acaba vai para o fim (o estado de quem olha a tela), a que repete sem fim
+// (zoom lento do destaque, brilho) fica no começo — assim a mesma tela sai igual toda vez
+A.parar=()=>{for(const a of document.getAnimations()){try{const t=a.effect&&a.effect.getComputedTiming();if(t&&t.iterations===Infinity){a.pause();a.currentTime=0}else a.finish()}catch(e){}}return 1};
 A.vigia=()=>{const st={t0:performance.now()};st.ult=st.t0;st.mo=new MutationObserver(()=>{st.ult=performance.now()});st.mo.observe(document.body,{childList:true,subtree:true,attributes:true,characterData:true});window.__argusVigia=st;return 1};
 // a tela parada muda sozinha? quantas mudanças em ms milissegundos sem ninguém tocar (laço que nunca para = bateria e lentidão)
 A.sozinha=ms=>new Promise(res=>{let n=0;const mo=new MutationObserver(L=>{n+=L.length});mo.observe(document.body,{childList:true,subtree:true,attributes:true,characterData:true});setTimeout(()=>{mo.disconnect();res(n)},ms)});
