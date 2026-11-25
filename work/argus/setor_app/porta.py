@@ -48,6 +48,9 @@ def roda(modo='rapida', so_telas=None):
         _etapa(E, 'toques (ligações e regras)', 'FALHA' if it else 'ok', it)
         # 5 medidor nos modos do app: aparelhos × claro/escuro × 3 letras; onde o app é igual à planta, o achado é do APROVADO
         fal, conf = [], []
+        # o que aparece igual no modo da planta (celular do dono, letra 1×) e o app é igual à planta = está no APROVADO; nos outros
+        # modos, o MESMO achado (mesma regra, mesma peça) também é do aprovado — só o que é novo naquele modo é falha
+        base = set()
         for pl in apr:
             tela = {'nome': pl['tela'], 'passos': pl['passos'], 'cenario': pl['cenario']}
             for apar in (APARELHOS if completa else [aparelhos.DONO]):
@@ -56,7 +59,10 @@ def roda(modo='rapida', so_telas=None):
                         b, pg = planta._abre_tela(pw, tela, tema, None, aparelho=apar, navegador=nav)
                         if f != 1.0: pg.evaluate(modos.LETRA, f); pg.wait_for_timeout(300)
                         for x in familia.mede_tela('%s · %s · %s · letra %s' % (pl['tela'], apar, tema, f), pg.evaluate(familia.COLETA)):
-                            (conf if (pl['id'], tema) in iguais and apar == aparelhos.DONO and f == 1.0 else fal).append('%s · %s · %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else ''))
+                            txt = '%s · %s · %s %s' % (x[1], x[0], x[2], x[3] if len(x) > 3 else ''); k = (pl['id'], tema, x[0], x[2], x[3] if len(x) > 3 else '')
+                            if (pl['id'], tema) in iguais and apar == aparelhos.DONO and f == 1.0: base.add(k); conf.append(txt)
+                            elif k in base: conf.append(txt)
+                            else: fal.append(txt)
                         b.close()
         _etapa(E, 'medidor de família nos modos do app', 'FALHA' if fal else 'ok', fal)
         if conf: _etapa(E, 'regra × aprovado (o dono decide; não trava)', 'aviso', conf)

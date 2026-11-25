@@ -6,7 +6,7 @@
 # Mede o que APARECE (o desenho visível, 1 px). Cada achado diz a regra, a tela e a peça.
 import re, collections
 COLETA = r"""()=>{
- const vw=innerWidth,out={pecas:[],linhas:[],botoes:[],trans:[],vazios:[],paleta:[],secoes:[]};
+ const vw=innerWidth,out={pecas:[],linhas:[],botoes:[],trans:[],vazios:[],paleta:[],secoes:[],zoom:parseFloat(getComputedStyle(document.documentElement).zoom)||1};
  const vis=e=>{const r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(let p=e;p&&p.nodeType==1;p=p.parentElement){const c=getComputedStyle(p);if(c.display=='none'||c.visibility=='hidden'||+c.opacity==0)return false}return true};
  const own=e=>[...e.childNodes].filter(n=>n.nodeType==3).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
  const cv=document.createElement('i');document.body.appendChild(cv);const rgb=v=>{cv.style.color='';cv.style.color=v;return getComputedStyle(cv).color};
@@ -84,8 +84,9 @@ def mede_tela(nome, d, reduzido=False):
         t = b['txt']
         if re.match(r'^\+\s*\S', t) or (t == '+' and b['raio'] < b['h'] / 2 - 1): ad('"+" de adicionar não é o redondo', t, '%.0f×%.0f, cantos %.0f' % (b['w'], b['h'], b['raio']))
         if b in d['botoes'] and b['h'] < 43.5 and b['w'] < 43.5 and t: ad('toque menor que 44 px', t, '%.0f×%.0f' % (b['w'], b['h']))
+    Z = d.get('zoom') or 1   # tela grande: o app aumenta tudo (zoom 1,15 / 1,3 …); o espaço se mede na medida do desenho
     for fim_ant, ini, nm in d['secoes']:
-        g = round(ini - fim_ant)
+        g = round((ini - fim_ant) / Z)
         if g > 0 and min(abs(g - e) for e in ESP) > 1: ad('L3 espaço fora de 8/16/24/32/48', nm, '%d px' % g)
     if reduzido:
         for k in sorted({(x[0], x[1], x[2]) for x in d['trans']}): ad('mexe com "reduzir movimento" ligado', '%s %s' % (k[0], k[1]), k[2])
