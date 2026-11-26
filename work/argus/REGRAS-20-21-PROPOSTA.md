@@ -16,4 +16,6 @@ Por que a ordem muda: o selo vale só para UM commit. Antes, a versão era troca
 
 O que sai junto, se aprovado: work/fiscal/argus.py, fiscal.py, provas.py, selos.py (o JS foi para work/argus/setor_site/js/selos.js), csp.py, conhecidos.json, base_visual.json, diferencas-aprovadas.txt; os medidores do kit que só o Argus antigo usa (mede.js, mede.py, mede_prova.py, alin.js, centro.js, olho.js, sobre.js, revisa) — conferindo antes, rodando, quem ainda usa cada um (regra 12d).
 
+Quem ainda usa (lido em 26/11, a conferir rodando antes de tirar): o kit de esboço (work/kit/kit.py) usa centro.js e sobre.js; o comparador da SITE (work/s430/comparador/compara.py) usa mede.js; work/fiscal/fiscal.py usa mede.py. Esses passam a usar o motor do Argus no mesmo passo em que os antigos saem (nada fica pendurado).
+
 Enquanto o site não tiver plantas aprovadas, a porta do site não dá selo (falha "nenhuma planta do site aprovada"): as plantas do site vão ao dono em lote.
