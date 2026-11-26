@@ -1,12 +1,15 @@
 {
  "nome": "PLANTAS",
- "agora": "",
- "arquivos": [],
+ "agora": "provas no Argus dos bugs do site corrigidos desde 19/11",
+ "arquivos": [
+  "work/argus/setor_site/consertos.py",
+  "work/argus/setor_site/etapas.py"
+ ],
  "ultimas": [
   {
    "t": 1795689877.517647,
    "r": "plano das plantas do site (34 telas, 7 lotes) enviado ao dono"
   }
  ],
- "leu": 1795689634.0025766
+ "leu": 1795691168.4758637
 }
