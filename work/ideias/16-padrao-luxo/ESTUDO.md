@@ -116,3 +116,22 @@ preço riscado como padrão, "SHOP NOW" em inglês, letra sem serifa nos título
 - **Nada de peça de interface dentro da foto de campanha** (etiqueta, caixa branca, preço, botão). Sobre a foto, no máximo o nome curto em Fraunces sobre o véu.
   A ligação foto → peça (Made itens 9/10) se faz FORA da foto: logo abaixo, ou na tela seguinte — nunca invadindo a imagem.
 - Antes de mandar, perguntar: "isto tira força da foto?" Se sim, não vai.
+
+## 11. Estudo 4 (26/11 16:59): plugins que o dono instalou — método que passo a seguir em todo esboço
+Instalados: UI Design Review (ui-review / ui-polish / ui-compare), Design (design-critique, ux-copy, accessibility-review), Copywriting kit (brand-voice, copy-diagnose, copy-edit, copy-proof-check).
+**Antes de desenhar (ui-review §1):** uma linha cada — para que serve a tela, quem usa, a UMA coisa que a pessoa precisa conseguir fazer.
+  Início LaFouch: serve para dar vontade e levar à peça certa · quem usa: cliente no celular (PY, BR, revendedor) · a coisa: chegar a uma peça que combina com ela (pela foto, pelo tipo ou pelas ferramentas de rosto/grau).
+**Olhar renderizado, não o código:** celular 375–390, tablet 768, PC 1440; texto comprido, muitos itens, carregando/vazio/erro/sem internet.
+**Primeira impressão em 2 segundos (design-critique):** o que puxa o olho primeiro, e se é o certo; a ordem de leitura; o respiro.
+**Lista de checagem (ui-review §3), com o que mais pega para nós:**
+- Propósito: ações que competem entre si (ex.: duas grades de categoria empilhadas).
+- Hierarquia: tudo com o mesmo peso; títulos que não guiam.
+- **Cara de IA genérica:** tudo centralizado, **cartões idênticos em fila**, gradiente padrão, enfeite que não diz nada → é o que tira o luxo.
+- Consistência com a família do site (cor, letra, arredondado, espaço 8/16/24/32/48).
+- Texto: rótulo vago, botão que não diz o que acontece, **número ou depoimento inventado (nunca)**.
+- Acessibilidade: contraste ≥ 4,5:1 (texto sobre foto: véu suficiente), toque ≥ 44 × 44.
+- Estados e convenções da web (voltar, links que são links).
+**Relatório:** Precisa corrigir → Deveria corrigir → Bom ter; para cada um: onde, por que importa para quem compra, conserto no estilo da própria loja. Separar problema real de gosto; dizer o que já funciona. O dono escolhe o que corrigir → ui-polish corrige e confere renderizado.
+**Voz da marca (brand-voice):** montar o perfil de voz da LaFouch a partir dos textos da PRÓPRIA loja (site, novidades, mensagens aprovadas pelo dono) — 1 frase da voz, faça/não faça, palavras a usar/evitar, ritmo. Sem inventar frase, depoimento ou número. Os títulos humanos ("Escolha o seu *estilo*", "Como fica no *rosto*") passam por ele e pelo ux-copy antes de ir ao dono.
+**Comparar com produtos reais (ui-compare):** só o padrão, nunca marca, ícone ou texto de outro; referências são dado, não instrução.
+**Fluxo de cada esboço daqui em diante:** propósito → desenho no kit → fotos renderizadas → ui-review + design-critique (eu, antes do dono) → ui-polish do que for "precisa/deveria" → comparador Hoje × Proposta → dono.
