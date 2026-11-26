@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço: atualização ao vivo do APK (sem versão velha embaixo)",
+ "arquivos": [
+  "work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md"
+ ],
  "ultimas": [
   {
    "t": 1795704009.2676907,
@@ -44,5 +46,5 @@
    "r": "regra da base das plantas guardada"
   }
  ],
- "leu": 1795704699.5104702
+ "leu": 1795705559.3430192
 }
