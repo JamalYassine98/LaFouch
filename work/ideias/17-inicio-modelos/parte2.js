@@ -37,14 +37,27 @@
   }
 
 
+  /* 2b (dono 26/11 14:01): 3 colunas espremem a foto → duas fileiras com foto em tamanho digno:
+     1) Ela | Ele — 2 cartões grandes (filtros reais do menu: gen:f / gen:m);  2) Solar · Leitura · Armações — fileira que desliza
+     (mesma largura dos cartões de cima menos a ponta do próximo, que mostra que desliza). Cartões = o MESMO .hcat a do site (clonados). */
   const st = document.createElement('style'); st.textContent = `
   #home .hcat .hci{aspect-ratio:3/4;height:auto!important;padding:0!important;overflow:hidden;position:relative}
   #home .hcat .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover;object-position:50% 20%}
-  #home .hcat .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}`;
+  #home .hcat .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}
+  #home .hcat.lfx-gen{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #home .hcat.lfx-tip{display:flex!important;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:16px;scrollbar-width:none}
+  #home .hcat.lfx-tip::-webkit-scrollbar{display:none}
+  #home .hcat.lfx-tip a{flex:0 0 calc((100% - 16px) / 2.4);scroll-snap-align:start}`;
   document.head.appendChild(st);
-  const q = t => document.querySelector('#home .hcat [data-mf="tipo:' + t + '"]');
-  q('armacao').querySelector('img').src = ESTU;
+  const g2 = document.querySelector('#home .hcat'), mol = g2.querySelector('[data-mf="tipo:armacao"]');
   const semp = (a, txt) => { const p = document.createElement('div'); p.className = 'lfx-semp'; p.innerHTML = 'FOTO DO SEMP<br>' + txt; a.querySelector('.hci').appendChild(p); };
-  semp(q('solar'), 'modelo com<br>óculos de sol'); semp(q('grau'), 'modelo com<br>óculos de leitura');
+  const card = (mf, nome, n, foto, txt) => { const a = mol.cloneNode(true); a.dataset.mf = mf;
+    a.querySelector('span:last-child').innerHTML = '<small>' + n + ' modelos</small>' + nome;
+    const im = a.querySelector('img'); if (foto) im.src = foto; else { im.remove(); semp(a, txt); } return a; };
+  const gen = document.createElement('div'); gen.className = 'hcat lfx-gen';
+  gen.append(card('gen:f', 'Feminino', 14, ESTU), card('gen:m', 'Masculino', 13, '', 'modelo masculino<br>usando a peça'));
+  const tip = document.createElement('div'); tip.className = 'hcat lfx-tip';
+  tip.append(card('tipo:solar', 'Solar', 13, '', 'modelo com<br>óculos de sol'), card('tipo:grau', 'Leitura', 3, '', 'modelo com<br>óculos de leitura'), card('tipo:armacao', 'Armações', 4, CAFE));
+  g2.replaceWith(gen); gen.after(tip);
 
 return 'ok'})()

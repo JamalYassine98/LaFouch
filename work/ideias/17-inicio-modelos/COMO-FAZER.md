@@ -35,3 +35,9 @@ Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: 
 - Como fazer (regra 12): proporção 3:4 numa regra só do .hci das categorias; a imagem da categoria vem do Semp (campanha), não da peça.
 - Designer do kit: nada novo além de "tampado" pelo botão do WhatsApp ao rolar (o WhatsApp já aparece "cortado" hoje — problema do site todo)
   e contraste da capa (falso: mede o texto contra o fundo da página, não contra a foto com o véu).
+
+### 2b (dono 26/11 14:01: "3 colunas espremem as fotos"; "não só mulheres: separar feminino e masculino")
+- Fileira 1: Feminino | Masculino — 2 cartões grandes (filtros reais do menu gen:f / gen:m; contagem conta unissex nos dois).
+- Fileira 2: Solar · Leitura · Armações — desliza para o lado; cartão = (largura − 16)/2,4, a ponta do próximo mostra que desliza.
+- Todos os cartões = o mesmo .hcat a do site (clonado), foto 3:4. Espaço entre as fileiras 16.
+- Novidades e Mais vendidos com Feminino/Masculino: fica para a parte 3.
