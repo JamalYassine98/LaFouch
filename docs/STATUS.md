@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 16 estudo 3: vídeo da Made (início inteiro) | work/ideias/16-padrao-luxo/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -229,6 +228,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 14:59 — IDEIAS: 16 estudo 3 anotado (vídeo da Made guardado); parte 3 esperando o dono
 - 26/11 14:52 — IDEIAS: 17 parte 2c — esperando o dono
 - 26/11 14:50 — IDEIAS: 16 estudo 2 anotado (ESTUDO.md §7–8); 2c esperando o dono
 - 26/11 14:04 — IDEIAS: 17 parte 2b (Feminino/Masculino + tipos deslizando) — esperando o dono
@@ -239,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 13:22 — IDEIAS: 17: conceito do Início com modelos — 2 pranchas HOJE × PROPOSTA
 - 26/11 13:12 — IDEIAS: 16: princípios de elegância do Semp (critério, não regra) + 6 referências do dono guardadas
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
-- 26/11 12:23 — IDEIAS: 15c: prévias no padrão de luxo — esboço pronto (5 pranchas com o WhatsApp)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
