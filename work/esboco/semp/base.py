@@ -38,6 +38,7 @@ IC3 = dict(post='<rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9"
 LN = r"""const I3=""" + json.dumps(IC3) + r""";
  const ICO=k=>'<span class="nvIc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(I3[k]||k)+'</svg></span>';
  const TOPA=(v,t)=>'<button type="button" class="nvVs" style="display:inline-flex"><i aria-hidden="true">‹</i>'+v+'</button><div class="top grpTop"><div><h1>'+t+'</h1></div></div>';
+ const TOPB=(v,t,btns,crumb)=>'<button type="button" class="nvVs" style="display:inline-flex"><i aria-hidden="true">‹</i>'+v+'</button><div class="top"><div><h1>'+t+'</h1>'+(crumb?'<div class="crumb">'+crumb+'</div>':'')+'</div><div style="display:flex;gap:16px">'+btns.map(b=>'<button type="button" class="pl78" aria-label="'+b[1]+'" style="position:relative"><svg viewBox="0 0 24 24" aria-hidden="true">'+b[0]+'</svg>'+(b[2]?'<span style="position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:#d23c3c;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 6px">'+b[2]+'</span>':'')+'</button>').join('')+'</div></div>';
  const LB=(t,first)=>'<div class="lbl tiLb" style="margin:'+(first?'24px':'32px')+' 0 8px">'+t+'</div>';   // 32 px acima do bloco (24 o primeiro), como no 73s
  const LS=h=>'<section class="nvLista">'+h+'</section>';
  const L=(ic,t,s,v,seta)=>'<button type="button" class="nvL">'+(ic?ICO(ic):'')+'<span class="nvTx"><b>'+t+'</b>'+(s?'<small>'+s+'</small>':'')+'</span>'+(v?'<em class="tiV" style="color:var(--mute);font-weight:400;font-size:15px">'+v+'</em>':'')+(seta?'<i aria-hidden="true">'+seta+'</i>':'')+'</button>';
@@ -72,7 +73,7 @@ def proposta(pg, corpo, dados=None):
 def foto_tela(pg, nome, altura=2400):
     """A tela inteira (sem a barra de baixo), na largura dos esboços aprovados (828 px)."""
     pg.add_style_tag(content='#mainnav{display:none!important}'); pg.evaluate('()=>window.__argus.parar()')
-    f = '/tmp/esb_semp_%s.png' % nome; pg.screenshot(path=f, full_page=True)
+    f = '/tmp/esb_semp_%s.png' % nome; pg.screenshot(path=f, full_page=not pg.evaluate('()=>!!window.__esbPorCima'))   # tela que abre por cima: só o que se vê
     im = Image.open(f).convert('RGB'); im = im.resize((828, int(im.height * 828 / im.width)))
     return im.crop((0, 0, 828, min(im.height, altura)))
 def pecas(pg): return pg.evaluate(planta.COLETA)
