@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
+| ESBOCO | Argus antigo sai; regras 20/21 com o Argus novo (dono 06:23) | CLAUDE.md, work/fiscal |
 | SITE | EMERGÊNCIA (dono 25/11 23:43): achar a última versão boa do site e voltar para ela | catalogo/index.html, catalogo/js, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md |
 
 ## Fila

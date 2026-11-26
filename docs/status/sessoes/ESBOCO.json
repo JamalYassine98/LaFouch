@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Argus antigo sai; regras 20/21 com o Argus novo (dono 06:23)",
+ "arquivos": [
+  "CLAUDE.md",
+  "work/fiscal"
+ ],
  "ultimas": [
   {
    "t": 1795672880.6918976,
@@ -44,5 +47,5 @@
    "r": "Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP"
   }
  ],
- "leu": 1795672880.173786
+ "leu": 1795685050.4828808
 }
