@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
+APROVADO 26/11 12:28 — lote 1 gravado como aprovado; as outras 17 telas do mapa (planta = hoje) e o Início (= esboço) o ESBOCO grava em seguida
 Plantas do app: (1) lote 1 — 6 telas iguais ao último aprovado (folhas work/argus/plantas/lotes/lote1_*.jpg); (2) MAPA das 24 telas do app (work/argus/plantas/lotes/mapa_app_1.jpg e _2.jpg, foto de hoje + estado da planta). Para cada tela do mapa o dono diz: 'planta = hoje' (não há aprovado diferente) ou qual aprovado falta nela (aí a planta sai do esboço consolidado). Sem planta aprovada, a porta não dá selo.

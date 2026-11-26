@@ -167,7 +167,7 @@
 - **98-carrinho-simples** — aprovado 23/11 13:37 (v6) — espera o 'implementar'
 - **99-lucro-kit-realista** — 99b v2 aprovado · do 99d v2 só a contagem e 'Kit de Natal na caixa' (aprovado 13:47); janela superada pelo 103 · 99a cancelado (cartão de luxo no 98 v6)
 - **argus-novo** — Partes 0–8 PRONTAS 26/11 — falta só o que depende do dono
-- **argus-plantas-app** — esboço pronto — esperando o dono
+- **argus-plantas-app** — APROVADO 26/11 12:28 — lote 1 gravado como aprovado; as outras 17 telas do mapa (planta = hoje) e o Início (= esboço) o ESBOCO grava em seguida
 - **argus-plantas-site** — plano pronto — esperando o dono
 - **argus-porta-site** — SEM SELO · completa · 2026-11-26 07:13 · 3 falha(s) · 18.0 min · commit bdc439863
 - **argus-regras-20-21** — APROVADO e feito 26/11 06:23
