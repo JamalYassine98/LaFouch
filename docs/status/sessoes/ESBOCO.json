@@ -1,7 +1,10 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Argus Parte 7d (nuvem no emulador)",
+ "arquivos": [
+  "work/argus/setor_nuvem",
+  ".github/workflows/argus-nuvem.yml"
+ ],
  "ultimas": [
   {
    "t": 1795657015.9795077,
@@ -44,5 +47,5 @@
    "r": "guardados os aprovados de 25/11 08:13"
   }
  ],
- "leu": 1795657013.528953
+ "leu": 1795658643.9280267
 }
