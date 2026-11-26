@@ -1,11 +1,12 @@
 {
  "nome": "PLANTAS",
- "agora": "provas no Argus dos bugs do site corrigidos desde 19/11",
- "arquivos": [
-  "work/argus/setor_site/consertos.py",
-  "work/argus/setor_site/etapas.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795696110.3725302,
+   "r": "Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)"
+  },
   {
    "t": 1795689877.517647,
    "r": "plano das plantas do site (34 telas, 7 lotes) enviado ao dono"

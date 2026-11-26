@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| PLANTAS | provas no Argus dos bugs do site corrigidos desde 19/11 | work/argus/setor_site/consertos.py, work/argus/setor_site/etapas.py |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -242,6 +241,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
 - 26/11 09:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
 - 26/11 08:44 — IDEIAS: 15b: prévias só com a foto — esboço pronto (5 pranchas, A × B)
 - 26/11 08:34 — IDEIAS: 15: prévias de link — esboço pronto (5 pranchas), na Fila esperando o dono
@@ -266,4 +266,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 03:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada
 - 24/11 03:40 — NUVEM: Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado.
 - 24/11 00:38 — IDEIAS: temáticas 94+95 enviadas ao SITE para implementar
-- 24/11 00:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
