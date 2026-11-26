@@ -1,5 +1,5 @@
 # ARGUS · os códigos que rodam DENTRO da página (simulador e Android emulado) moram em arquivos .js, num lugar só:
-# motor/js/ (vale para app e site) e setor_app/js/ (só do app). Python e o emulador leem os mesmos arquivos.
+# motor/js/ (vale para app e site), setor_app/js/ (só do app) e setor_site/js/ (só do site). Python e o emulador leem os mesmos arquivos.
 # As linhas de comentário do começo (// …) ficam no arquivo para quem lê, e saem na hora de rodar.
 import os
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

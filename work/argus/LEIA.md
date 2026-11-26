@@ -85,3 +85,11 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - No site a tela é o endereço (o título do destaque muda sozinho). Uma camada que sobe com "‹ voltar" em cima é outra TELA, não janela de baixo (base.js: A.voltar, que também acha a setinha "‹" desenhada). Janela de baixo deixa a tela de trás à vista em cima.
 - Toque que sai do site: "abre fora: wa.me" (a página tentou ir para fora) ou "abre outra página" (aba nova) — antes saía "nada". O voltar do aparelho usa o voltar de verdade (pode trocar de página no site). A rolagem de onde se tocou é a de antes do toque. A dobra (⌄) é que tem de fechar no 2º toque; aria-expanded numa linha com texto também é dobra.
 - Prova: provas/parte7b_site_planta.py — 8/8 (site × própria planta = igual; estrago visto; 19/11 × hoje = 335 diferenças; toques e medidor rodam no site).
+
+## Parte 7c · as conferências próprias do site (25/11)
+- setor_site/etapas.py: busca, carrinho, preços, cupom, compra pela nuvem, idioma e fotos, rede, consulta do Mochi, a página por dentro, girar. Cada resultado é ok / ACHADO / não conferido; uma que quebra vira "não conferido" com o motivo (nunca some).
+- Tudo pelo caminho da cliente: depois de pôr no carrinho, a janela "Adicionado" → "Finalizar compra". O cupom chega pelo link lafouch.com/t/CÓDIGO (a 404 só aceita 4 a 24 letras/números) — o campo do código no carrinho saiu de propósito.
+- A nuvem de teste (setor_site/nuvem.py) dá também o selo do App Check (reCAPTCHA de mentira + troca no Firebase) e anota se cada chamada levou o selo.
+- Internet fraca = a régua do Lighthouse para celular (562,5 ms, 1,47 Mbit/s).
+- Prova: provas/parte7c_site_etapas.py — 11/11 (todas rodam; estragos vistos: português no espanhol, foto quebrada, chamada sem selo, nuvem fora na compra; quebra vira "não conferido").
+- Site de hoje: 66 resultados, 2 ACHADOS — o "+" do carrinho passa o estoque da cor (31 com estoque 5; só a reserva barra depois) e um cupom escrito à mão no aparelho (lf_cup) aparece como desconto sem a nuvem confirmar.
