@@ -38,6 +38,15 @@ JS = r"""([CAFE, ESTU]) => {
   .lfx-ed h2{font:500 28px/1.15 Fraunces,Georgia,serif;color:#2a1f27;margin:10px 0 8px}
   .lfx-ed h2 i{color:#943d6f}
   .lfx-ed p{font:15px/1.5 Inter,system-ui;color:#6b5a66;margin:0 0 16px}
+  #home .hsh{margin-top:40px!important}
+  #home .htr{border-top:1px solid #943d6f2e;border-bottom:1px solid #943d6f2e;padding:14px 0!important;margin:0 0 8px!important}
+  #home .hata{background:linear-gradient(135deg,#562340 0%,#341527 55%,#1f0d17 100%)!important;border:0!important;padding:6px!important;border-radius:16px!important;box-shadow:none!important}
+  #home .hata .hati{display:none!important}
+  #home .hatt{border:1px solid rgba(214,178,116,.6);border-radius:12px;padding:30px 22px!important;text-align:center}
+  #home .hatt small{color:#e9d3a6!important;letter-spacing:.18em!important}
+  #home .hatt h3{color:#fff!important;font-family:Fraunces,Georgia,serif!important}
+  #home .hatt p{color:#d9c3d0!important}
+  #home .hatt button{background:transparent!important;color:#e9d3a6!important;border-color:#e9d3a6!important}
   .lfx-ed a{color:#943d6f;text-decoration:none;font:500 16px Inter,system-ui}
   .lfx-tocar{position:absolute;inset:0;border:2px dashed #943d6f;border-radius:14px;background:#fcf3f8e6;display:flex;align-items:center;justify-content:center;text-align:center;font:600 12px/1.4 Inter;color:#943d6f;padding:8px}`;
   document.head.appendChild(st);
@@ -56,7 +65,7 @@ JS = r"""([CAFE, ESTU]) => {
   const card = document.querySelector('#home .hg .hc'); const ci = card.querySelector('.hci'); ci.style.position='relative';
   const t = document.createElement('div'); t.className='lfx-tocar'; t.innerHTML='AO TOCAR<br>a modelo usando<br>esta peça<br>(foto do Semp)'; ci.appendChild(t);
   // 3) Veja no rosto
-  const hs = [...document.querySelectorAll('#home .hsh')]; const mv = hs.find(e=>/Mais vendidos/.test(e.innerText)); const grade = mv.nextElementSibling;
+  const hs = [...document.querySelectorAll('#home .hsh')]; const nv = hs.find(e=>/Novidades/.test(e.innerText)); const grade = nv.nextElementSibling;
   const ed = document.createElement('section'); ed.className='lfx-ed';
   ed.innerHTML = `<img src="${ESTU}"><div class=tx><div class=lfx-rot>Veja no rosto</div><h2>A armação certa <i>muda</i> o rosto</h2><p>Cada peça com a foto no rosto, para você ver o tamanho e a cor antes de reservar.</p></div>`;
   const lk=document.createElement('a'); lk.href='#vitrine'; lk.textContent='Ver catálogo ›'; ed.querySelector('.tx').appendChild(lk);
@@ -66,18 +75,25 @@ JS = r"""([CAFE, ESTU]) => {
     const L = el.getBoundingClientRect().left; el.style.setProperty('margin-left', (-L)+'px', 'important'); }
   return 'ok ' + W;
 }"""
-sys.path.insert(0, '/home/claude/prev'); from abre import abre
+sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__))); from abre import abre
 with sync_playwright() as p:
     for nome, prop in (('hoje', False), ('proposta', True)):
         b, pg = abre(p)
         if prop: print(pg.evaluate(JS, [CAFE, ESTU])); pg.wait_for_timeout(600)
+        for y in range(0, 12000, 300): pg.evaluate('window.scrollTo(0,%d)' % y); pg.wait_for_timeout(60)
+        pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(800)
+        pg.evaluate("document.querySelectorAll('.rv').forEach(e=>e.classList.add('in')); document.querySelectorAll('body *').forEach(e=>{const c=getComputedStyle(e); if(c.opacity==='0'&&e.offsetHeight>20){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}})"); pg.wait_for_timeout(400)
         pg.screenshot(path='/tmp/%s.png' % nome, full_page=True); b.close()
 H, P = Image.open('/tmp/hoje.png'), Image.open('/tmp/proposta.png')
 def faixa(im, y0, y1): return im.crop((0, y0, im.width, min(y1, im.height)))
-for i, (a0, a1, b0, b1) in enumerate([(0, 1688, 0, 1688), (1500, 4300, 1500, 4700)]):
+for i, (a0, a1, b0, b1) in enumerate([(0, 1266, 0, 1266), (1125, 3225, 1125, 3525)]):
     h, pp = faixa(H, a0, a1), faixa(P, b0, b1); hh = max(h.height, pp.height)
     pr = Image.new('RGB', (h.width * 2 + 60, hh + 80), '#e9e4e8')
     from PIL import ImageDraw, ImageFont; f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 34); d = ImageDraw.Draw(pr)
     d.text((20, 22), 'HOJE', fill='#555', font=f); d.text((h.width + 40, 22), 'PROPOSTA · Início com modelos', fill='#943d6f', font=f)
     pr.paste(h, (20, 70)); pr.paste(pp, (h.width + 40, 70)); pr.thumbnail((1500, 4000)); pr.save('esboco-17-inicio-parte%d.jpg' % (i + 1), quality=86)
 print('pranchas ok', H.size, P.size)
+hh = max(H.height, P.height); pr = Image.new('RGB', (H.width * 2 + 60, hh + 80), '#e9e4e8'); d = ImageDraw.Draw(pr)
+d.text((20, 22), 'HOJE', fill='#555', font=f); d.text((H.width + 40, 22), 'PROPOSTA · página inicial inteira', fill='#943d6f', font=f)
+pr.paste(H, (20, 70)); pr.paste(P, (H.width + 40, 70)); pr.thumbnail((1000, 6000)); pr.save('esboco-17-inicio-pagina-inteira.jpg', quality=84)
+print('página inteira ok', pr.size)
