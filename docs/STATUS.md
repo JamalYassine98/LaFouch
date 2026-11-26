@@ -21,6 +21,7 @@
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
 | ESBOCO | esboço do SEMP no app (parte 1: Marketing › Criar) | work/s435/semp |
+| IDEIAS | 15: prévias de link (WhatsApp) — esboço do padrão novo | work/ideias/15-previas/ |
 | PLANTAS | provas no Argus dos bugs do site corrigidos desde 19/11 | work/argus/setor_site/consertos.py, work/argus/setor_site/etapas.py |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
