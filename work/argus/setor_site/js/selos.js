@@ -1,5 +1,5 @@
 // ARGUS · setor SITE · nada encosta no DESENHO da armação nas fotos dos cartões (prova dos selos, aprovada pelo dono 20/11 11:40;
-// vinda de work/fiscal/selos.py): folga mínima, "Últimas N" vermelho e sem fundo dentro da foto, nada cobrindo nada, nenhum selo de tema.
+// vinda do Argus antigo, work/obsoletos/argus-antigo-26-11/selos.py): folga mínima, "Últimas N" vermelho e sem fundo dentro da foto, nada cobrindo nada, nenhum selo de tema.
 async()=>{const z=parseFloat(getComputedStyle(document.body).zoom)||1,R=e=>e.getBoundingClientRect(),bad=[];let n=0,folga=99;
 for(const im of document.querySelectorAll('#grid .card .ph img.pf, #home .hc .hci img')){const r=R(im);if(!r.width||!im.naturalWidth)continue;const ft=im.closest('.ph,.hci'),cd=im.closest('.card,.hc');
  const ref=(cd.classList.contains('hc')?'Início ':'Catálogo ')+(cd.getAttribute('data-open')||cd.querySelector('[data-fav]').getAttribute('data-fav'));
