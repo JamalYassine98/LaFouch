@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "17 parte 2e (recomendação)",
- "arquivos": [
-  "."
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795717349.261127,
+   "r": "17 parte 2e (recomendação) — esperando o dono"
+  },
   {
    "t": 1795716203.5286937,
    "r": "17 parte 2: 2d recusada; base = 2c (não aprovada)"
@@ -40,10 +42,6 @@
   {
    "t": 1795711672.6124585,
    "r": "16: fundamentos do site estudados e guardados (ESTUDO.md §6)"
-  },
-  {
-   "t": 1795710315.5087736,
-   "r": "17b: capa de tela inteira (texto sobre a foto, tocar abre a peça)"
   }
  ],
  "leu": 1795712518.9726162
