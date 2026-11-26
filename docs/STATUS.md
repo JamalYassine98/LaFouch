@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 17c: página inicial inteira no padrão de luxo | work/ideias/17-inicio-modelos/ |
+| IDEIAS | 17c: página inicial inteira (inspiração Made, identidade La Fouch) | work/ideias/17-inicio-modelos/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
