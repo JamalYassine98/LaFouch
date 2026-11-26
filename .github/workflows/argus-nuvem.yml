@@ -1,0 +1,43 @@
+name: Argus - setor Nuvem (regras do banco no emulador do Firebase + testes das funções)
+
+# 25/11/2026 (Parte 7d do Argus): não toca na nuvem de verdade — o banco é o EMULADOR do Firebase, vazio, dentro do GitHub.
+# 1) as regras (firestore.rules) × a planta da nuvem (work/argus/setor_nuvem/planta_nuvem.json), para cada pessoa e cada ação,
+#    e 4 estragos de propósito que têm de ser vistos; 2) todos os testes das funções (functions/teste-*.js).
+# Chamado só à mão ou pelo Argus (gh api ... dispatches). Fecha por padrão: se algo não roda, o resultado é falha.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nuvem:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - name: Regras do banco no emulador
+        working-directory: work/argus/setor_nuvem
+        run: |
+          npm install --no-audit --no-fund
+          npx firebase emulators:exec --only firestore --project demo-argus "node regras.mjs ../../../firestore.rules $RUNNER_TEMP/regras.json" 2>&1 | tee $RUNNER_TEMP/regras.txt
+          test -s $RUNNER_TEMP/regras.json
+      - name: Testes das funções
+        if: always()
+        working-directory: functions
+        run: |
+          npm install --no-audit --no-fund
+          r=0; for f in teste-*.js; do echo "== $f"; node "$f" > "$RUNNER_TEMP/f-$f.txt" 2>&1; c=$?; cat "$RUNNER_TEMP/f-$f.txt"; echo "$f $c" >> $RUNNER_TEMP/funcoes.txt; [ $c -ne 0 ] && r=1; done; exit $r
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: argus-nuvem
+          path: |
+            ${{ runner.temp }}/regras.json
+            ${{ runner.temp }}/regras.txt
+            ${{ runner.temp }}/funcoes.txt
+            ${{ runner.temp }}/f-*.txt

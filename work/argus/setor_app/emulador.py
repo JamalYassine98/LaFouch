@@ -4,31 +4,11 @@
 #   1,15× e 1,3× → medidor de família (o texto cabe? quebra? corta?) com a letra de verdade do Android
 #   e as barras do APK: a altura útil da tela no Android.
 import os, sys, json, time, subprocess, glob
-A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A)); sys.path.insert(0, os.path.join(A, 'motor'))
-import compara, familia, planta, tempo
-REPO = 'JamalYassine98/LaFouch'; TOL_ANDROID = 2.0
-def gh(*a): return subprocess.run(['gh', 'api'] + list(a), capture_output=True, text=True)
-def sobe_versao():
-    """O emulador testa a MESMA versão que o Argus está conferindo: sobe o commit de agora num ramo só do Argus."""
-    c = subprocess.run(['git', '-C', R, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
-    r = subprocess.run(['git', '-C', R, 'push', '-qf', 'origin', 'HEAD:refs/heads/argus-confere'], capture_output=True, text=True)
-    if r.returncode: raise SystemExit('não consegui subir a versão para o emulador: ' + r.stderr[:200])
-    return 'argus-confere', c
-def dispara(pasta='work/argus/plantas/app', ref='main'):
-    antes = time.time()
-    r = gh('-X', 'POST', 'repos/%s/actions/workflows/argus-android.yml/dispatches' % REPO, '-f', 'ref=%s' % ref, '-f', 'inputs[pasta]=%s' % pasta)
-    if r.returncode: raise SystemExit('não consegui disparar: ' + r.stderr[:200])
-    for i in range(30):
-        time.sleep(10); j = json.loads(gh('repos/%s/actions/workflows/argus-android.yml/runs?per_page=1' % REPO).stdout or '{}')
-        run = (j.get('workflow_runs') or [None])[0]
-        if run and time.mktime(time.strptime(run['created_at'], '%Y-%m-%dT%H:%M:%SZ')) - time.timezone >= antes - 60: return run['id']
-    raise SystemExit('o workflow não começou')
-def espera(run_id, max_min=80):
-    for i in range(max_min * 2):
-        j = json.loads(gh('repos/%s/actions/runs/%d' % (REPO, run_id)).stdout or '{}')
-        if j.get('status') == 'completed': return j.get('conclusion')
-        time.sleep(30)
-    return 'demorou demais'
+A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
+import compara, familia, planta, tempo, github
+TOL_ANDROID = 2.0
+from github import R, REPO, gh, sobe_versao, espera
+def dispara(pasta='work/argus/plantas/app', ref='main'): return github.dispara('argus-android.yml', ref, pasta=pasta)
 def busca(destino='/tmp/argus_android'):
     os.makedirs(destino, exist_ok=True)
     for tema in ('claro', 'escuro'):
