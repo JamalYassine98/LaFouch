@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 18 v6 | work/ideias/18-inicio-inteiro/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -230,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 17:43 — IDEIAS: 18 início inteiro v6 — esperando o dono
 - 26/11 17:35 — IDEIAS: 18 início inteiro v5 — esperando o dono
 - 26/11 17:28 — IDEIAS: 18 início inteiro v4 — esperando o dono
 - 26/11 17:15 — IDEIAS: 18 início inteiro v3 — esperando o dono
@@ -239,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 15:22 — IDEIAS: 17 parte 2e (recomendação) — esperando o dono
 - 26/11 15:03 — IDEIAS: 17 parte 2: 2d recusada; base = 2c (não aprovada)
 - 26/11 15:02 — IDEIAS: 17 parte 2d — esperando o dono; Semp alimentado com o estudo 3
-- 26/11 14:59 — IDEIAS: 16 estudo 3 anotado (vídeo da Made guardado); parte 3 esperando o dono
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP

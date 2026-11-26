@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 v6",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795725785.2035975,
+   "r": "18 início inteiro v6 — esperando o dono"
+  },
   {
    "t": 1795725339.9875052,
    "r": "18 início inteiro v5 — esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795716141.03032,
    "r": "17 parte 2d — esperando o dono; Semp alimentado com o estudo 3"
-  },
-  {
-   "t": 1795715965.635213,
-   "r": "16 estudo 3 anotado (vídeo da Made guardado); parte 3 esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
