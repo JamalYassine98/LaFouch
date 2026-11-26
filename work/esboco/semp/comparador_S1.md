@@ -1,0 +1,1297 @@
+## S1a-criar · escuro · 36 diferenças
+- “Formato” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “uma peça · foto e legenda” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “até 10 fotos · as cores ou várias peças” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “vertical · 15 s” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “WhatsApp · some em 24 h” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “15 s com o giro da peça” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “o texto para você gravar” · falta (está na planta, não está no app)
+- “Começar” · sobra (está no app, não está na planta)
+- “Do Estúdio” · sobra (está no app, não está na planta)
+- “17 peças com foto · em ordem” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “escreva só a ideia · o Semp monta o rest” · sobra (está no app, não está na planta)
+- “Feitos” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Galeria” · sobra (está no app, não está na planta)
+- “fotos do Flow · Usar em” · sobra (está no app, não está na planta)
+- “nenhuma” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- ícone · desenho do ícone diferente
+- ícone · desenho do ícone diferente
+- “Listas de transmissão” · a partir daqui, 4 peças deslocadas +0.0 px (lado) -150.7 px (altura)
+
+## S1b-peca · escuro · 133 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Criar” · sobra (está no app, não está na planta)
+- “Peça” · sobra (está no app, não está na planta)
+- “Passo 1 de 3 · o Semp sugere” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Quadrada AC1050” · sobra (está no app, não está na planta)
+- “últimas 3 · antes do Natal” · sobra (está no app, não está na planta)
+- “G$ 46.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Aviador SL2305” · sobra (está no app, não está na planta)
+- “solar · começa o verão” · sobra (está no app, não está na planta)
+- “G$ 176.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Gatinho SL2265” · sobra (está no app, não está na planta)
+- “solar · presente de Natal” · sobra (está no app, não está na planta)
+- “G$ 139.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Quadrada GR3340” · sobra (está no app, não está na planta)
+- “acetato · presente” · sobra (está no app, não está na planta)
+- “G$ 103.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Redonda AC1055” · sobra (está no app, não está na planta)
+- “rosto quadrado ou longo” · sobra (está no app, não está na planta)
+- “G$ 110.000” · sobra (está no app, não está na planta)
+- “Fica fora: Redonda BR44145 · última unid” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · raio
+- “imagem” · tamanho
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +221.7 px (altura)
+- “caixa” · posição +24.0 px (lado) +150.6 px (altura)
+- “caixa” · posição -157.5 px (lado) +195.6 px (altura)
+- “caixa” · posição +8.0 px (lado) +160.5 px (altura)
+- “›” · posição +353.0 px (lado) +3.6 px (altura)
+- “caixa” · posição -11.0 px (lado) -37.0 px (altura)
+- “imagem” · posição -13.0 px (lado) -37.0 px (altura)
+- “caixa” · posição +8.0 px (lado) -236.5 px (altura)
+- “caixa” · posição +5.0 px (lado) -251.5 px (altura)
+- “caixa” · posição +0.0 px (lado) -866.5 px (altura)
+- “caixa” · posição -1.0 px (lado) -879.5 px (altura)
+
+## S1c-cenario · escuro · 116 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Peça” · sobra (está no app, não está na planta)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Aviador SL2305” · sobra (está no app, não está na planta)
+- “nome sugerido: Margaux” · sobra (está no app, não está na planta)
+- “Entendi assim” · sobra (está no app, não está na planta)
+- “Aviador dourado para dezembro, quando co” · sobra (está no app, não está na planta)
+- “Mostro na rua com luz de fim de tarde, q” · sobra (está no app, não está na planta)
+- “Não é isso” · sobra (está no app, não está na planta)
+- “Passo 2 de 3 · cenários” · sobra (está no app, não está na planta)
+- “Rua de CDE no fim da tarde” · sobra (está no app, não está na planta)
+- “luz quente puxa o dourado da armação” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Terraço com sol de verão” · sobra (está no app, não está na planta)
+- “solar em dezembro: começa o verão” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Presente de Natal” · sobra (está no app, não está na planta)
+- “Natal em 29 dias · caixa e laço discreto” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Vitrine · estúdio bege” · sobra (está no app, não está na planta)
+- “close para o Início e o catálogo” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Modelo” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Amara” · sobra (está no app, não está na planta)
+- “rosto oval médio · frente larga” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +212.4 px (altura)
+- “›” · posição +353.0 px (lado) -52.5 px (altura)
+- “caixa” · posição -11.0 px (lado) +10.3 px (altura)
+- “imagem” · posição -13.0 px (lado) -334.5 px (altura)
+- “caixa” · posição +0.0 px (lado) -612.1 px (altura)
+- “caixa” · posição -1.0 px (lado) -682.1 px (altura)
+
+## S1d-pronto · escuro · 133 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “›” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Pronto” · sobra (está no app, não está na planta)
+- “Margaux · SL2305” · sobra (está no app, não está na planta)
+- “rua de CDE · fim da tarde · Amara” · sobra (está no app, não está na planta)
+- “Passo 3 de 3 · foto com modelo” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Prompt do Flow” · sobra (está no app, não está na planta)
+- “pronto · vai copiado para o Flow” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “Gerar no Flow” · sobra (está no app, não está na planta)
+- “O Flow abre aqui dentro com o prompt e a” · sobra (está no app, não está na planta)
+- “O que sai desta foto” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “4:5 · legenda em ES e PT” · sobra (está no app, não está na planta)
+- “qui 20h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “9:16 · recorte vertical” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “WhatsApp · some em 24 h” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “esta foto + a vitrine do Estúdio” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Roteiro do reel” · sobra (está no app, não está na planta)
+- “15 s · gancho, cenas, peça” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “Post” · tamanho
+- “Post” · borda
+- “Post” · raio
+- “Post” · letra
+- “Story” · tamanho
+- “Story” · borda
+- “Story” · raio
+- “Story” · letra
+- “Status” · tamanho
+- “Status” · borda
+- “Status” · raio
+- “Status” · letra
+- “Carrossel” · tamanho
+- “Carrossel” · borda
+- “Carrossel” · raio
+- “Carrossel” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +212.4 px (altura)
+- “caixa” · posição +24.0 px (lado) +553.8 px (altura)
+- “caixa” · posição -11.0 px (lado) +21.1 px (altura)
+- “imagem” · posição -13.0 px (lado) -334.5 px (altura)
+- “Post” · posição +38.0 px (lado) -71.5 px (altura)
+- “Status” · posição -205.3 px (lado) +66.5 px (altura)
+- “Story” · posição -83.7 px (lado) -2.5 px (altura)
+- “Carrossel” · posição +38.0 px (lado) +85.6 px (altura)
+- “caixa” · posição +0.0 px (lado) -532.2 px (altura)
+- “caixa” · posição -1.0 px (lado) -602.3 px (altura)
+
+## S1e-pronto-foto · escuro · 125 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Pronto” · sobra (está no app, não está na planta)
+- “No quadro entra a foto que você salvou n” · sobra (está no app, não está na planta)
+- “Não é isso” · sobra (está no app, não está na planta)
+- “Usar em” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “4:5 · legenda pronta em ES e PT” · sobra (está no app, não está na planta)
+- “qui 20h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “9:16 · recorte vertical” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “WhatsApp · some em 24 h” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “esta foto + a vitrine do Estúdio” · sobra (está no app, não está na planta)
+- “Fica guardada na Galeria · os horários v” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “Post” · tamanho
+- “Post” · borda
+- “Post” · raio
+- “Post” · letra
+- “Story” · tamanho
+- “Story” · borda
+- “Story” · raio
+- “Story” · letra
+- “Status” · tamanho
+- “Status” · borda
+- “Status” · raio
+- “Status” · letra
+- “Carrossel” · tamanho
+- “Carrossel” · borda
+- “Carrossel” · raio
+- “Carrossel” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +188.3 px (altura)
+- “›” · posição +353.0 px (lado) +215.5 px (altura)
+- “caixa” · posição -11.0 px (lado) +278.3 px (altura)
+- “imagem” · posição +41.5 px (lado) -202.5 px (altura)
+- “Post” · posição +38.0 px (lado) +185.7 px (altura)
+- “Status” · posição -205.3 px (lado) +323.7 px (altura)
+- “Story” · posição -83.7 px (lado) +254.7 px (altura)
+- “Carrossel” · posição +38.0 px (lado) +342.8 px (altura)
+- “caixa” · posição +0.0 px (lado) -344.1 px (altura)
+- “caixa” · posição -1.0 px (lado) -414.1 px (altura)
+
+## S1f-sua-ideia · escuro · 88 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “imagem” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “Criar” · sobra (está no app, não está na planta)
+- “Começar” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Do Estúdio” · sobra (está no app, não está na planta)
+- “17 peças com foto · em ordem” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “escreva só a ideia · o Semp monta o rest” · sobra (está no app, não está na planta)
+- “Feitos” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Galeria” · sobra (está no app, não está na planta)
+- “fotos do Flow · Usar em” · sobra (está no app, não está na planta)
+- “nenhuma” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Listas de transmissão” · sobra (está no app, não está na planta)
+- “nenhum cliente com telefone ainda” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “Escreva do seu jeito. O Semp escolhe a p” · sobra (está no app, não está na planta)
+- “Papai Noel escolhendo óculos de sol para” · sobra (está no app, não está na planta)
+- “Salvar” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “›” · posição +353.0 px (lado) -78.1 px (altura)
+- “caixa” · posição -19.0 px (lado) +65.4 px (altura)
+- “caixa” · posição -24.0 px (lado) -814.1 px (altura)
+- “caixa” · posição +156.5 px (lado) -803.1 px (altura)
+
+## S1a-criar · claro · 36 diferenças
+- “Formato” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “uma peça · foto e legenda” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “até 10 fotos · as cores ou várias peças” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “vertical · 15 s” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “WhatsApp · some em 24 h” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “15 s com o giro da peça” · falta (está na planta, não está no app)
+- ícone · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “o texto para você gravar” · falta (está na planta, não está no app)
+- “Começar” · sobra (está no app, não está na planta)
+- “Do Estúdio” · sobra (está no app, não está na planta)
+- “17 peças com foto · em ordem” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “escreva só a ideia · o Semp monta o rest” · sobra (está no app, não está na planta)
+- “Feitos” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Galeria” · sobra (está no app, não está na planta)
+- “fotos do Flow · Usar em” · sobra (está no app, não está na planta)
+- “nenhuma” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- ícone · desenho do ícone diferente
+- ícone · desenho do ícone diferente
+- “Listas de transmissão” · a partir daqui, 4 peças deslocadas +0.0 px (lado) -150.7 px (altura)
+
+## S1b-peca · claro · 131 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Criar” · sobra (está no app, não está na planta)
+- “Peça” · sobra (está no app, não está na planta)
+- “Passo 1 de 3 · o Semp sugere” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Quadrada AC1050” · sobra (está no app, não está na planta)
+- “últimas 3 · antes do Natal” · sobra (está no app, não está na planta)
+- “G$ 46.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Aviador SL2305” · sobra (está no app, não está na planta)
+- “solar · começa o verão” · sobra (está no app, não está na planta)
+- “G$ 176.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Gatinho SL2265” · sobra (está no app, não está na planta)
+- “solar · presente de Natal” · sobra (está no app, não está na planta)
+- “G$ 139.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “imagem” · sobra (está no app, não está na planta)
+- “Quadrada GR3340” · sobra (está no app, não está na planta)
+- “acetato · presente” · sobra (está no app, não está na planta)
+- “G$ 103.000” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Redonda AC1055” · sobra (está no app, não está na planta)
+- “rosto quadrado ou longo” · sobra (está no app, não está na planta)
+- “G$ 110.000” · sobra (está no app, não está na planta)
+- “Fica fora: Redonda BR44145 · última unid” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · raio
+- “imagem” · tamanho
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +221.7 px (altura)
+- “caixa” · posição +24.0 px (lado) +150.6 px (altura)
+- “caixa” · posição -157.5 px (lado) +195.6 px (altura)
+- “caixa” · posição +8.0 px (lado) +160.5 px (altura)
+- “›” · posição +353.0 px (lado) +3.6 px (altura)
+- “caixa” · posição -11.0 px (lado) -37.0 px (altura)
+- “imagem” · posição -13.0 px (lado) -37.0 px (altura)
+- “caixa” · posição +8.0 px (lado) -236.5 px (altura)
+- “caixa” · posição +5.0 px (lado) -251.5 px (altura)
+- “caixa” · posição +0.0 px (lado) -866.5 px (altura)
+- “caixa” · posição -1.0 px (lado) -879.5 px (altura)
+
+## S1c-cenario · claro · 116 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Peça” · sobra (está no app, não está na planta)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Aviador SL2305” · sobra (está no app, não está na planta)
+- “nome sugerido: Margaux” · sobra (está no app, não está na planta)
+- “Entendi assim” · sobra (está no app, não está na planta)
+- “Aviador dourado para dezembro, quando co” · sobra (está no app, não está na planta)
+- “Mostro na rua com luz de fim de tarde, q” · sobra (está no app, não está na planta)
+- “Não é isso” · sobra (está no app, não está na planta)
+- “Passo 2 de 3 · cenários” · sobra (está no app, não está na planta)
+- “Rua de CDE no fim da tarde” · sobra (está no app, não está na planta)
+- “luz quente puxa o dourado da armação” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Terraço com sol de verão” · sobra (está no app, não está na planta)
+- “solar em dezembro: começa o verão” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Presente de Natal” · sobra (está no app, não está na planta)
+- “Natal em 29 dias · caixa e laço discreto” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Vitrine · estúdio bege” · sobra (está no app, não está na planta)
+- “close para o Início e o catálogo” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “Modelo” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Amara” · sobra (está no app, não está na planta)
+- “rosto oval médio · frente larga” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +212.4 px (altura)
+- “›” · posição +353.0 px (lado) -52.5 px (altura)
+- “caixa” · posição -11.0 px (lado) +10.3 px (altura)
+- “imagem” · posição -13.0 px (lado) -334.5 px (altura)
+- “caixa” · posição +0.0 px (lado) -612.1 px (altura)
+- “caixa” · posição -1.0 px (lado) -682.1 px (altura)
+
+## S1d-pronto · claro · 133 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “›” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Pronto” · sobra (está no app, não está na planta)
+- “Margaux · SL2305” · sobra (está no app, não está na planta)
+- “rua de CDE · fim da tarde · Amara” · sobra (está no app, não está na planta)
+- “Passo 3 de 3 · foto com modelo” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Prompt do Flow” · sobra (está no app, não está na planta)
+- “pronto · vai copiado para o Flow” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “Gerar no Flow” · sobra (está no app, não está na planta)
+- “O Flow abre aqui dentro com o prompt e a” · sobra (está no app, não está na planta)
+- “O que sai desta foto” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “4:5 · legenda em ES e PT” · sobra (está no app, não está na planta)
+- “qui 20h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “9:16 · recorte vertical” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “WhatsApp · some em 24 h” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “esta foto + a vitrine do Estúdio” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Roteiro do reel” · sobra (está no app, não está na planta)
+- “15 s · gancho, cenas, peça” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “Post” · tamanho
+- “Post” · borda
+- “Post” · raio
+- “Post” · letra
+- “Story” · tamanho
+- “Story” · borda
+- “Story” · raio
+- “Story” · letra
+- “Status” · tamanho
+- “Status” · borda
+- “Status” · raio
+- “Status” · letra
+- “Carrossel” · tamanho
+- “Carrossel” · borda
+- “Carrossel” · raio
+- “Carrossel” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +212.4 px (altura)
+- “caixa” · posição +24.0 px (lado) +553.8 px (altura)
+- “caixa” · posição -11.0 px (lado) +21.1 px (altura)
+- “imagem” · posição -13.0 px (lado) -334.5 px (altura)
+- “Post” · posição +38.0 px (lado) -71.5 px (altura)
+- “Status” · posição -205.3 px (lado) +66.5 px (altura)
+- “Story” · posição -83.7 px (lado) -2.5 px (altura)
+- “Carrossel” · posição +38.0 px (lado) +85.6 px (altura)
+- “caixa” · posição +0.0 px (lado) -532.2 px (altura)
+- “caixa” · posição -1.0 px (lado) -602.3 px (altura)
+
+## S1e-pronto-foto · claro · 125 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Por que estas peças” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Versão A” · falta (está na planta, não está no app)
+- “Versão B” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “PT” · falta (está na planta, não está no app)
+- “ES” · falta (está na planta, não está no app)
+- “PT+ES” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “caixa” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino ” · falta (está na planta, não está no app)
+- “Postar agora” · falta (está na planta, não está no app)
+- “Me lembra às 20h” · falta (está na planta, não está no app)
+- “Cenário” · sobra (está no app, não está na planta)
+- “Pronto” · sobra (está no app, não está na planta)
+- “No quadro entra a foto que você salvou n” · sobra (está no app, não está na planta)
+- “Não é isso” · sobra (está no app, não está na planta)
+- “Usar em” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “4:5 · legenda pronta em ES e PT” · sobra (está no app, não está na planta)
+- “qui 20h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “9:16 · recorte vertical” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “WhatsApp · some em 24 h” · sobra (está no app, não está na planta)
+- “sex 12h” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “esta foto + a vitrine do Estúdio” · sobra (está no app, não está na planta)
+- “Fica guardada na Galeria · os horários v” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “imagem” · tamanho
+- “Post” · tamanho
+- “Post” · borda
+- “Post” · raio
+- “Post” · letra
+- “Story” · tamanho
+- “Story” · borda
+- “Story” · raio
+- “Story” · letra
+- “Status” · tamanho
+- “Status” · borda
+- “Status” · raio
+- “Status” · letra
+- “Carrossel” · tamanho
+- “Carrossel” · borda
+- “Carrossel” · raio
+- “Carrossel” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +24.0 px (lado) +188.3 px (altura)
+- “›” · posição +353.0 px (lado) +215.5 px (altura)
+- “caixa” · posição -11.0 px (lado) +278.3 px (altura)
+- “imagem” · posição +41.5 px (lado) -202.5 px (altura)
+- “Post” · posição +38.0 px (lado) +185.7 px (altura)
+- “Status” · posição -205.3 px (lado) +323.7 px (altura)
+- “Story” · posição -83.7 px (lado) +254.7 px (altura)
+- “Carrossel” · posição +38.0 px (lado) +342.8 px (altura)
+- “caixa” · posição +0.0 px (lado) -344.1 px (altura)
+- “caixa” · posição -1.0 px (lado) -414.1 px (altura)
+
+## S1f-sua-ideia · claro · 88 diferenças
+- “Marketing” · falta (está na planta, não está no app)
+- “Marca” · falta (está na planta, não está no app)
+- “La Fouch · PT e ES” · falta (está na planta, não está no app)
+- “Objetivo do mês” · falta (está na planta, não está no app)
+- “Girar o parado” · falta (está na planta, não está no app)
+- “Novos clientes BR” · falta (está na planta, não está no app)
+- “Mais solar” · falta (está na planta, não está no app)
+- “Lançamentos” · falta (está na planta, não está no app)
+- “preço em R$, endereço e “compre aqui e e” · falta (está na planta, não está no app)
+- “Status de hoje” · falta (está na planta, não está no app)
+- “imagem” · falta (está na planta, não está no app)
+- “Óculos solar Ray-Ban de metal masculino” · falta (está na planta, não está no app)
+- “33 vendidas em 30 dias · R$ 51 na moeda ” · falta (está na planta, não está no app)
+- “Criar com um toque” · falta (está na planta, não está no app)
+- “Post” · falta (está na planta, não está no app)
+- “Story” · falta (está na planta, não está no app)
+- “Status” · falta (está na planta, não está no app)
+- “Carrossel” · falta (está na planta, não está no app)
+- “Vídeo” · falta (está na planta, não está no app)
+- “Roteiro” · falta (está na planta, não está no app)
+- “Plano da semana · 0 de 6” · falta (está na planta, não está no app)
+- “Seg · Post · 20h” · falta (está na planta, não está no app)
+- “Peça do objetivo — Óculos solar Ray-Ban ” · falta (está na planta, não está no app)
+- “Ter · Status · 12h” · falta (está na planta, não está no app)
+- “Status do dia — Óculos de leitura Kazwin” · falta (está na planta, não está no app)
+- “Qua · Carrossel · 20h” · falta (está na planta, não está no app)
+- “Carrossel com 4 peças — Óculos solar #13” · falta (está na planta, não está no app)
+- “Qui · Story · 20h” · falta (está na planta, não está no app)
+- “Bastidores / chegada — Óculos solar #14” · falta (está na planta, não está no app)
+- “Sex · Vídeo · 20h” · falta (está na planta, não está no app)
+- “Vídeo de 15 s — Óculos de leitura #15, A” · falta (está na planta, não está no app)
+- “Sáb · Post · 20h” · falta (está na planta, não está no app)
+- “Oferta ou mais vendido — Armação Ray-Ban” · falta (está na planta, não está no app)
+- “Datas que vêm aí” · falta (está na planta, não está no app)
+- “Natal” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “presente: embalagem e combo” · falta (está na planta, não está no app)
+- “em 31 d” · falta (está na planta, não está no app)
+- “Ano Novo” · falta (está na planta, não está no app)
+- “BR/PY” · falta (está na planta, não está no app)
+- “solar para o verão” · falta (está na planta, não está no app)
+- “em 38 d” · falta (está na planta, não está no app)
+- “Listas por perfil” · falta (está na planta, não está no app)
+- “Resultados” · falta (está na planta, não está no app)
+- “Criar” · sobra (está no app, não está na planta)
+- “Começar” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Do Estúdio” · sobra (está no app, não está na planta)
+- “17 peças com foto · em ordem” · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “escreva só a ideia · o Semp monta o rest” · sobra (está no app, não está na planta)
+- “Feitos” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Galeria” · sobra (está no app, não está na planta)
+- “fotos do Flow · Usar em” · sobra (está no app, não está na planta)
+- “nenhuma” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “Listas de transmissão” · sobra (está no app, não está na planta)
+- “nenhum cliente com telefone ainda” · sobra (está no app, não está na planta)
+- “⌄” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “Sua ideia” · sobra (está no app, não está na planta)
+- “Escreva do seu jeito. O Semp escolhe a p” · sobra (está no app, não está na planta)
+- “Papai Noel escolhendo óculos de sol para” · sobra (está no app, não está na planta)
+- “Salvar” · sobra (está no app, não está na planta)
+- “›” · tamanho
+- “›” · cor
+- “›” · borda
+- “›” · raio
+- “›” · letra
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “›” · posição +353.0 px (lado) -78.1 px (altura)
+- “caixa” · posição -19.0 px (lado) +65.4 px (altura)
+- “caixa” · posição -24.0 px (lado) -814.1 px (altura)
+- “caixa” · posição +156.5 px (lado) -803.1 px (altura)
+
+# Medidor de família (Argus) nas propostas
+## S1a-criar · escuro · 0 achados
+## S1b-peca · escuro · 0 achados
+## S1c-cenario · escuro · 0 achados
+## S1d-pronto · escuro · 0 achados
+## S1e-pronto-foto · escuro · 0 achados
+## S1f-sua-ideia · escuro · 0 achados
+## S1a-criar · claro · 0 achados
+## S1b-peca · claro · 0 achados
+## S1c-cenario · claro · 0 achados
+## S1d-pronto · claro · 0 achados
+## S1e-pronto-foto · claro · 0 achados
+## S1f-sua-ideia · claro · 0 achados
