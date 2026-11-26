@@ -198,6 +198,7 @@
 - para **APP**: Argus (porta do app, 25/11): o teste '41 camera para qual peca' do tests/run.py falhou uma vez numa rodada (389/390) e passou sozinho logo depois (390/390). Par
 - para **APP**: ACHADO do Argus (25/11, conferido no simulador e no Android emulado): a barra de baixo fica num laço de 60 vezes por segundo SEM PARAR, mesmo parada — src/98-bo
 - para **APP**: IMPLEMENTAR (dono 26/11 11:29): Semp parte 1 — Fila semp-1-criar. 3 fatias, uma por publicação, cada uma com selo do Argus (regra 21 nova) e 'OK ESBOCO': (1) Ma
+- para **APP**: DONO 26/11 11:51: o Semp foi para a GAVETA — NÃO implemente o semp-1-criar (o recado anterior fica sem efeito). Prioridade agora: as correções do app. A ESBOCO 
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
