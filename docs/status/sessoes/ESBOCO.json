@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Argus Parte 7b: plantas e conferência do site",
- "arquivos": [
-  "work/argus"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795652777.1938527,
+   "r": "Argus Parte 7b: plantas e conferência do site"
+  },
   {
    "t": 1795643644.148568,
    "r": "Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura"
@@ -40,10 +42,6 @@
   {
    "t": 1795604683.790069,
    "r": "esboço Argus toque de dedo + traço da última linha + texto do E se"
-  },
-  {
-   "t": 1795603813.640164,
-   "r": "esboços explicativos das 3 dúvidas do lote 1 (Ajustes, Compras, Ferramentas)"
   }
  ],
  "leu": 1795652774.7618752
