@@ -27,3 +27,15 @@ Dar vontade e levar a cliente à peça que combina com ela · cliente no celular
 - Corrigido: títulos das ferramentas quebravam linha em 2 colunas → cartões largos (L4); texto da peça colado; foto de vídeo com play duplicado; página mais larga que a tela.
 - Fica para o dono: 4 fotos de pessoas antes da primeira peça (capa, 2 ferramentas, Feminino) — se pesar, as ferramentas podem virar foto da peça/ícone grande.
 - Do site de hoje (não deste esboço): "Ver todos ›" e "Prefiro por e-mail" com toque < 44; botão do WhatsApp por cima de conteúdo.
+
+## v2 (dono 26/11 17:08: "muito melhor, mas falta MUITO") — substitui a ordem acima
+Críticas do dono → o que mudou:
+- "Descubra seu grau" com mulher jovem não combina (leitura = 45+) → lugar de foto do Semp: pessoa de 45+ lendo.
+- Só mulheres → Masculino e vídeos com homem e 45+ (lugares de foto do Semp).
+- Armações pequenas demais ("a ideia é vender o produto") → Acabou de chegar com a peça grande (1,25 por tela); Mais pedidos em grade 2 × 2 com peças grandes; Visto na foto com a peça em tamanho de vitrine e "Ver modelo".
+- A escolha Feminino | Masculino nas listas não combinava e repetia → sai; o gênero se escolhe UMA vez (cartões "Escolha o seu *estilo*").
+- Acabou de chegar parecia repetido → cada lista com formato próprio (carrossel grande × grade 2 × 2).
+- Botões repetidos → saem as pílulas e as escolhas de dois lados.
+Ordem v2: capa · selos · Experimente no *rosto* / Descubra seu *grau* · Escolha o seu *estilo* (Feminino | Masculino) · Acabou de *chegar* (carrossel grande) ·
+Visto na *foto* (foto + a peça grande) · Para cada *uso* (Solar "Proteção UV" · Leitura "Para ler de perto" · Armações "Para a sua receita", vitrine que desliza) ·
+Os mais *pedidos* (grade 2 × 2) · Como fica no *rosto* (vídeos: mulher, homem, 45+) · Para lojistas · novidades · rodapé.
