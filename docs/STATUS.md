@@ -199,7 +199,6 @@
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
-- para **PLANTAS**: Repasse (os plantas do site são seus): SITE 26/11 06:43 + correção do dono 06:51 — base das plantas do site = catalogo 17f3e97 (conserto das camadas publicado, 
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
