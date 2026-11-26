@@ -1,9 +1,16 @@
 {
  "nome": "APP",
- "agora": "Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas)",
+ "agora": "atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER",
  "arquivos": [
-  "src/",
-  "www/style.css"
+  "src/97-atualiza.js",
+  "src/01-build.js",
+  "www/index.html",
+  "build.js",
+  "desktop/",
+  "package.json",
+  "capacitor.config.json",
+  ".github/workflows/publicar-app.yml",
+  ".github/workflows/build-apk.yml"
  ],
  "ultimas": [
   {
