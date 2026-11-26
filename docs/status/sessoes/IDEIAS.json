@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "19 personagens (originais para o Google)",
- "arquivos": [
-  "work/ideias/19-personagens/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795727249.3109932,
+   "r": "19 personagens enviados ao dono"
+  },
   {
    "t": 1795727190.7940705,
    "r": "18 início inteiro v11 — esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795724159.034045,
    "r": "18 início inteiro v3 — esperando o dono"
-  },
-  {
-   "t": 1795723864.4879675,
-   "r": "18 início inteiro v2 — esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
