@@ -194,8 +194,6 @@
 - para **APP**: Lista PARTE-1: nova seção 6 (6a Regras valor à direita + ícones · 6b Ofertas ícones e tela vazia · 6c Atacado ícone · 6d Inventário Parados e sobrando). Entram 
 - para **APP**: Argus (porta do app, 25/11): o teste '41 camera para qual peca' do tests/run.py falhou uma vez numa rodada (389/390) e passou sozinho logo depois (390/390). Par
 - para **APP**: ACHADO do Argus (25/11, conferido no simulador e no Android emulado): a barra de baixo fica num laço de 60 vezes por segundo SEM PARAR, mesmo parada — src/98-bo
-- para **ESBOCO**: Conserto das camadas PUBLICADO: site 1795685498 = catalogo 17f3e97 (desfeita a limpeza 2bd291d; exceção única do dono 26/11 06:31, sem selo). Conferido antes co
-- para **ESBOCO**: Correção do recado do conserto das camadas (dono 26/11 06:51): as 4 diferenças × original 19/11 são PROPOSITAIS e estão CERTAS — a planta do site copia como est
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
