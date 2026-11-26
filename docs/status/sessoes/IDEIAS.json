@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 v10",
- "arquivos": [
-  "work/ideias/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795726788.3664367,
+   "r": "18 início inteiro v10 — esperando o dono"
+  },
   {
    "t": 1795726635.2643588,
    "r": "18 início inteiro v9 — esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795723443.6337833,
    "r": "18 início inteiro — esboço pronto, esperando o dono"
-  },
-  {
-   "t": 1795723240.745019,
-   "r": "16 estudo 4 (plugins) anotado; início inteiro esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
