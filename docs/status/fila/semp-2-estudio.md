@@ -1,2 +1,2 @@
-esboço pronto — esperando o dono
-Semp no app · parte 2: Estúdio (base 43 + 45a) com UMA linha 'Hoje no Estúdio ›' (o único atalho para o Marketing, só nos dias com gravação), a fila do dia (o Passo 1 do Criar só com as gravadas hoje: 5 + 'As outras N ›') e Criar › Galeria (vazia e com fotos; tocar = Usar em). 8 imagens em work/esboco/semp/esboco_S2*.jpg; COMO FAZER: work/esboco/semp/COMO-FAZER-SEMP-2-ESTUDIO.md; comparador_S2.md.
+NA GAVETA (dono 26/11 11:51)
+Esboço guardado em work/esboco/semp/ (parte 2: Estúdio ↔ Marketing, Galeria); volta quando o dono chamar o Semp.
