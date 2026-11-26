@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 17 parte 2: + Leitura (grau) | work/ideias/17-inicio-modelos/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -229,6 +228,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 13:59 — IDEIAS: 17 parte 2 com Leitura — esperando o dono
 - 26/11 13:56 — IDEIAS: 17 parte 2 (selos + categorias) esboço pronto — esperando o dono
 - 26/11 13:47 — IDEIAS: 16: fundamentos do site estudados e guardados (ESTUDO.md §6)
 - 26/11 13:25 — IDEIAS: 17b: capa de tela inteira (texto sobre a foto, tocar abre a peça)
@@ -253,4 +253,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
-- 24/11 11:22 — NUVEM: Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total.
