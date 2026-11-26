@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 15c: prévias no padrão de luxo (rosé suave) | work/ideias/15-previas/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -226,6 +225,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 12:23 — IDEIAS: 15c: prévias no padrão de luxo — esboço pronto (5 pranchas com o WhatsApp)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
@@ -250,4 +250,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 06:26 — APP: v641 publicado: voltar único (seta, Android e navegador pelo mesmo voltaUm no 99c; saíram os voltares do 90/94/97u/99b; prova 'um voltar só'). Listas PARTE 1–3 recebidas; próximo: PARTE 1, uma tela por vez.
 - 24/11 03:47 — NUVEM: Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions).
 - 24/11 03:42 — IDEIAS: 12: pasta das temáticas refeita e no main (sem as imagens); SITE avisada
-- 24/11 03:40 — NUVEM: Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado.
