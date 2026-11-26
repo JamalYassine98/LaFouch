@@ -1,29 +1,28 @@
-# IDEIAS 15b · prévias de link só com a foto · esboço pronto — esperando o dono (26/11 08:50)
+# IDEIAS 15c · prévias de link no padrão de luxo · esboço pronto — esperando o dono (26/11 12:30)
 
-**Pedido do dono:** análise rígida das prévias (08:26) → capa de revista no design, fundo livre (08:37) → "capa de revista no preview polui" (08:41) → prévias luxuosas e com a imagem da loja (08:42).
-Estudo: REFERENCIAS.md. A versão de fundo branco com título (15) foi superada e está em work/obsoletos/ideias-15-fundo-branco/.
+Caminho: análise (08:26) → capa de revista polui a prévia (08:41) → o rosé suave de hoje é mais luxuoso que o bege (08:46) → estudo do padrão de luxo (../16-padrao-luxo/ESTUDO.md, 09:38) → "sim" (12:18).
+Superados: 15 (fundo branco + título) em work/obsoletos/ideias-15-fundo-branco/; 15b (bege × vinho) em work/obsoletos/ideias-15b-bege-vinho/.
 
-## Achados de hoje (catalogo 17f3e97, 51 imagens)
-Fundo rosa em degradê (contra o branco aprovado e o rosa reprovado) · no quadradinho do WhatsApp somem o logo e a frase · faixa roxa #8c3a6b (não é a oficial) com "LA FOUCH" em letra comum · peça sem marca · Mochi como capa · textos: "La Fouch"/"LaFouch", pt e es misturados, X ≠ WhatsApp, "Gs." em vez de "G$".
+## Proposta (atmosfera CLARA do padrão)
+- **Fundo:** o rosé suave da prévia de hoje, com a mesma luz diagonal 135° medida nela: #fcf3f8 no alto à esquerda → #f2dce8 embaixo à direita.
+- **Peça:** a foto real em três-quartos do catálogo (dados/f), grande (até 580×250), sobre o rosé (como o rosé é quase branco, a peça mantém o brilho; a armação branca ganha um leve tom rosé).
+- **Logo** do site na cor oficial #943d6f, 92 px, no alto e no centro.
+- **Nenhuma frase na imagem;** tudo dentro do quadrado do meio (x 285–915): o grande e o quadradinho mostram o mesmo.
+- **Textos (aparecem embaixo da imagem no WhatsApp):** um idioma por página, nome da marca igual em todas.
+  - Início pt: "La Fouch · Óculos de sol e de grau" / "Ciudad del Este. Retire na loja ou receba em casa."
+  - Início es: "La Fouch · Lentes de sol y recetados" / "Ciudad del Este. Retirá en la tienda o recibilo en casa."
+  - Categoria: "Óculos de sol femininos · La Fouch" / "Os modelos femininos de sol da loja, com preço e reserva."
+  - Peça: "Óculos de sol quadrado SL2290 · La Fouch" / "Reserve pelo WhatsApp e retire na loja." (o nome do Semp entra quando existir)
+  - Grau: "Descubra o seu grau · La Fouch" / "Em 1 minuto, pelo celular. Depois escolha a armação." (o Mochi fica na página)
 
-## Proposta
-- **Só a foto, nenhuma frase na imagem** (o WhatsApp já mostra o título e a descrição embaixo). Logo pequeno (56 px) embaixo, no centro.
-- Tudo o que importa no quadrado do meio (x 285–915): o grande e o quadradinho mostram o mesmo.
-- **A · estúdio bege** (a "vitrine em estúdio" que o dono gosta): fundo bege com luz no centro e sombra suave; a foto da peça no branco é multiplicada sobre o bege (o branco vira o fundo, a peça fica como foi fotografada). Logo na cor oficial #943d6f.
-- **B · vinho profundo** (o cartão das datas do 12e): logo claro. **Achado:** com as fotos de hoje (JPG no branco) o recorte deixa halo e apaga as peças brancas (SL2265). B só funciona com a peça recortada de verdade (PNG transparente do tratamento do Estúdio).
-- **Início e datas:** a foto de campanha do Semp (modelo usando a peça), de ponta a ponta, sem texto, com o logo pequeno. Até o Semp existir, o Início usa a vitrine A de uma peça.
-- Sem preço na imagem (o WhatsApp guarda a prévia por dias).
-
-Pranchas: esboco-15b-1-peca-AC1050 · 2-sol-feminino · 3-grau · 4-armacao-preta-GR3340 · 5-inicio-e-datas (HOJE × A × B, grande + quadradinho). Gerador: previas2.py.
-Aprovados incluídos: 87 cor oficial, 12e (vinho profundo), vitrine em estúdio bege do Semp (25/11).
+Pranchas esboco-15c-1-inicio-pt · 2-inicio-es · 3-sol-feminino · 4-peca-SL2290 · 5-grau: HOJE × PROPOSTA (grande + quadradinho) e como chega no WhatsApp (prévia grande e pequena). Gerador previas3.py.
+Aprovados incluídos: 87 cor oficial; estudo 16 (atmosfera clara, peça em três-quartos, logo com presença); rosé suave aprovado pelo dono (26/11).
 
 ## Para o dono decidir
-- A (bege) ou B (vinho, depois do recorte do Estúdio)?
-- Nome único nos textos: "La Fouch" (como no logo) ou "LaFouch".
-- Prévias das datas: a foto da campanha da data (Semp) no lugar do Mochi de chapéu?
+- Nome nos textos: "La Fouch" (como no logo, usado aqui) ou "LaFouch".
+- Prévias das datas: a atmosfera PROFUNDA (vinho dos cupons) com a peça recortada do Estúdio, ou a mesma clara?
 
 ## Como fazer (regra 12)
-- Um gerador só para todas as prévias, com o molde escolhido; sai o código das prévias rosas, da faixa roxa e do Mochi (og_mochi.py) no mesmo passo.
-- A peça vem do mesmo arquivo da foto do catálogo; na B, do PNG recortado do Estúdio.
-- Metatags: um idioma por página, nome único, G$; og e twitter iguais.
-- Argus: logo e peça dentro do quadrado do meio · nenhum texto na imagem além do logo · cor do logo = oficial · og/twitter iguais e no idioma da página.
+- Um gerador só para todas as prévias (Início, categorias, peças, grau, datas), com este molde; sai no mesmo passo o código das prévias com frase, da faixa roxa (#8c3a6b) e da composição do Mochi (og_mochi.py / og-mochi.yml).
+- A peça vem da mesma foto do catálogo (dados/f); as metatags vêm do mesmo lugar que os títulos da página (idioma da página, nome único, G$ quando houver preço).
+- Argus: logo e peça dentro do quadrado do meio · nenhum texto na imagem além do logo · logo = #943d6f · fundo dentro da faixa #fcf3f8–#f2dce8 · og e twitter iguais e no idioma da página · imagem < 300 KB (limite relatado do WhatsApp).
