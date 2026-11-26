@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Argus Parte 7c: conferências próprias do site",
- "arquivos": [
-  "work/argus"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795657015.9795077,
+   "r": "Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)"
+  },
   {
    "t": 1795652777.1938527,
    "r": "Argus Parte 7b: plantas e conferência do site"
@@ -40,11 +42,7 @@
   {
    "t": 1795605245.7403862,
    "r": "guardados os aprovados de 25/11 08:13"
-  },
-  {
-   "t": 1795604683.790069,
-   "r": "esboço Argus toque de dedo + traço da última linha + texto do E se"
   }
  ],
- "leu": 1795654713.8908045
+ "leu": 1795657013.528953
 }
