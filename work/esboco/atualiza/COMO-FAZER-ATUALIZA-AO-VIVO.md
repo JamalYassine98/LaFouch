@@ -30,11 +30,31 @@ linha compatível com o Capacitor 6 do projeto, em **modo manual** (sem o servid
   No aparelho ficam no máximo duas: a atual e a reserva recente.
 - **Navegador (PWA):** continua com o sw.js como hoje — nada muda ali.
 
+## PC (Windows) — o mesmo jeito (dono 26/11 12:08: "que funcione para PC também")
+Hoje o PC tem o mesmo problema: o servidor local do desktop/main.js serve o app (raiz) da cópia do **instalador** e o mesmo
+`/*LOADER*/` põe app.js/style.css por cima (mesmo cronômetro de 4 s, mesma volta para a cópia velha). Só a /loja/ já troca inteira
+(desktop/pc-atualiza.js, pasta `lojaupd`).
+- **Um pacote só para os dois:** o PC baixa o **mesmo** `www-<v>.zip` (mesma `soma`) para a pasta de dados do Windows
+  (`userData/app/<v>/`), e o servidor local passa a servir **o app inteiro** (raiz e /loja/) da última versão boa —
+  é a mesma ideia do `lojaupd`, estendida à pasta toda (a parte /loja/ separada sai: vem dentro do mesmo pacote).
+- **Confirmar que abriu (o mesmo lugar do Android):** uma função só no app, `appPronto()`, chamada no fim do primeiro render:
+  no Android chama `CapacitorUpdater.notifyAppReady()`, no PC faz `POST /__pronto` ao servidor local (só da própria janela,
+  como o `origemOk` de hoje). Sem o "pronto" em 10 s, o main.js volta para a versão boa anterior e recarrega.
+- **Limpeza:** no máximo duas pastas (atual + anterior boa); a cópia do instalador fica só como a primeira de todas.
+- **"Atualizar agora":** mesmo botão e mesma janela; no PC recarrega a janela já servindo a pasta nova.
+- **O instalador novo (LaFouch-Setup) continua** só para mudança do Electron; uma vez só agora, para levar este mecanismo:
+```
+gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/dispatches -f ref=main
+```
+- **Trava (Argus):** `node desktop/teste-pc.js` ganha: versão A boa → B sem "pronto" → volta para A; nunca mais de duas pastas;
+  zip com soma errada não instala.
+
 ## Apaga o que substitui (regra 12d), no mesmo passo
 - O carregador `/*LOADER*/` do www/index.html (EMB, `lf_upd`, `tent`, cache `lafouch-upd`) → volta a ser só `<script src="app.js">`.
 - Em src/97-atualiza.js: o download de app.js/style.css para o cache, `lf_upd`/`lf_updok`/`tent` e o cronômetro de 4 s.
 - Limpar uma vez no aparelho: `caches.delete('lafouch-upd')` e as chaves `lf_upd`, `lf_updok`.
-- **Fica:** src/97-atualiza-apk.js e o `APP_NAT` (mudança no Android — câmera, biometria, sons — ainda pede APK novo).
+- No PC: a parte separada da /loja/ (`lojaupd`, buscaLoja) do desktop/pc-atualiza.js — o pacote inteiro a substitui.
+- **Fica:** src/97-atualiza-apk.js, a busca do instalador no PC e o `APP_NAT` (mudança no Android — câmera, biometria, sons — ainda pede APK novo).
 
 ## Uma vez só: APK novo
 O plugin é parte do Android, então precisa **um APK novo** (subir `APP_NAT` para 2: o app de hoje avisa "precisa de um APK novo").
