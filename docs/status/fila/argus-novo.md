@@ -1,2 +1,2 @@
-Parte 7b (plantas e conferência do site) PRONTA 25/11 — 8/8; próxima: 7c (cupons, carrinho, conta, selos, internet fraca, ES)
-Argus novo: work/argus/ (LEIA.md)
+Partes 0–8 PRONTAS 26/11 — falta só o que depende do dono
+Provas todas passando no simulador (0 24/24 · 1 15/15 · 2 19/19 · 3 12/12 · 4 15/15 · 5 11/11 · 6 14/14 · 7a 27/27 · 7b 8/8 · 7c 13/13 · 7d 9/9 (+3 no GitHub) · 7e 17/17 · 8 9/9 · ponte 3/3). Novo: porta do site com selo pelo commit do catalogo; relatório com foto marcada e vídeo MP4; resultado da porta entra sozinho na Fila; conferência 'camadas' (texto que atravessa) — pega o defeito de 25/11 (work/argus/esbocos/camadas-site-25-11.jpg); ponte app × site. Esperando o dono: argus-regras-20-21, argus-plantas-app, argus-plantas-site (depois do conserto do site).
