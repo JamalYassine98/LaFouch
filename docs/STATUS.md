@@ -167,7 +167,7 @@
 - **argus-novo** — Partes 0–8 PRONTAS 26/11 — falta só o que depende do dono
 - **argus-plantas-app** — esboço pronto — esperando o dono
 - **argus-plantas-site** — espera o conserto do site
-- **argus-regras-20-21** — esboço pronto — esperando o dono
+- **argus-regras-20-21** — APROVADO e feito 26/11 06:23
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
 
 ## Recados esperando
