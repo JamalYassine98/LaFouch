@@ -47,6 +47,22 @@ JS = r"""([CAFE, ESTU]) => {
   #home .hatt h3{color:#fff!important;font-family:Fraunces,Georgia,serif!important}
   #home .hatt p{color:#d9c3d0!important}
   #home .hatt button{background:transparent!important;color:#e9d3a6!important;border-color:#e9d3a6!important}
+  #home, #home > *, main .wrap{min-width:0!important}
+  .lfx-vid{max-width:calc(100% + 24px)}
+  #home .lfx-car{max-width:calc(100% + 24px)!important;display:flex!important;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;grid-template-columns:none!important;margin-right:-24px!important;padding-right:24px}
+  #home .lfx-car > *{flex:0 0 46%;scroll-snap-align:start}
+  #home .hcat.lfx-cat a{position:relative;display:block;height:300px;border-radius:16px;overflow:hidden;border:0!important;padding:0!important;background:#2a1f27}
+  #home .hcat.lfx-cat .hci{position:absolute!important;inset:0;height:100%!important;margin:0!important;padding:0!important;background:none!important}
+  #home .hcat.lfx-cat .hci img{width:100%!important;height:100%!important;object-fit:cover!important;max-width:none!important;max-height:none!important}
+  #home .hcat.lfx-cat a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(#1f0d1700,#1f0d17b3)}
+  #home .hcat.lfx-cat a > span:last-child{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;color:#fff!important;font:500 22px Fraunces,Georgia,serif!important;text-align:left}
+  #home .hcat.lfx-cat small{display:block;color:#f6e3ec!important;font:600 11px Inter!important;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  .lfx-semp{position:absolute;inset:0;border:2px dashed #e9d3a6;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;color:#e9d3a6;font:600 12px/1.5 Inter;padding:16px 16px 90px;background:linear-gradient(135deg,#562340,#1f0d17)}
+  .lfx-vid{display:flex;gap:12px;overflow-x:auto;margin-right:-24px;padding-right:24px}
+  .lfx-vid .v{flex:0 0 58%;aspect-ratio:9/16;border-radius:16px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fcf3f8,#f2dce8);border:2px dashed #943d6f66}
+  .lfx-vid .pl{position:absolute;left:50%;top:42%;width:56px;height:56px;margin:-28px;border-radius:50%;border:1.5px solid #943d6f;display:flex;align-items:center;justify-content:center;color:#943d6f;font-size:20px}
+  .lfx-vid .q{position:absolute;left:12px;right:12px;top:58%;text-align:center;font:600 11px/1.5 Inter;color:#943d6f;letter-spacing:.06em}
+  .lfx-vid .tag{position:absolute;left:10px;right:10px;bottom:10px;background:#fff;border-radius:12px;padding:10px 12px;font:500 13px Inter;color:#2a1f27;display:flex;justify-content:space-between}
   .lfx-ed a{color:#943d6f;text-decoration:none;font:500 16px Inter,system-ui}
   .lfx-tocar{position:absolute;inset:0;border:2px dashed #943d6f;border-radius:14px;background:#fcf3f8e6;display:flex;align-items:center;justify-content:center;text-align:center;font:600 12px/1.4 Inter;color:#943d6f;padding:8px}`;
   document.head.appendChild(st);
@@ -70,6 +86,19 @@ JS = r"""([CAFE, ESTU]) => {
   ed.innerHTML = `<img src="${ESTU}"><div class=tx><div class=lfx-rot>Veja no rosto</div><h2>A armação certa <i>muda</i> o rosto</h2><p>Cada peça com a foto no rosto, para você ver o tamanho e a cor antes de reservar.</p></div>`;
   const lk=document.createElement('a'); lk.href='#vitrine'; lk.textContent='Ver catálogo ›'; ed.querySelector('.tx').appendChild(lk);
   grade.after(ed);
+  // 3b) carrosséis: Novidades e Mais vendidos deslizam para o lado (2 peças + a ponta da 3ª)
+  document.querySelectorAll('#home .hg').forEach(g=>g.classList.add('lfx-car'));
+  // 4) categorias: dois cartões altos com a modelo; o nome em Fraunces por cima
+  const cat = document.querySelector('#home .hcat'); cat.classList.add('lfx-cat');
+  const [aSol, aArm] = cat.querySelectorAll('a');
+  aArm.querySelector('img').src = CAFE; aArm.querySelector('img').style.objectPosition = '45% 18%';
+  const ps = document.createElement('div'); ps.className='lfx-semp'; ps.innerHTML='FOTO DO SEMP<br>modelo usando<br>óculos de sol da loja'; aSol.querySelector('.hci').appendChild(ps);
+  // 6) vídeos curtos do Semp, depois de Mais vendidos
+  const mvh = [...document.querySelectorAll('#home .hsh')].find(e=>/Mais vendidos/.test(e.innerText)); const mvg = mvh.nextElementSibling;
+  const vh = mvh.cloneNode(true); vh.querySelector('h2').textContent = 'Em movimento'; const vt = vh.querySelector('a,button,span:not(:first-child)'); if (vt) vt.remove();
+  const vr = document.createElement('div'); vr.className='lfx-vid';
+  vr.innerHTML = [['AC1055','R$ 100'],['BR44145','R$ 115'],['SL2250','R$ 140']].map(([c,pz])=>`<div class=v><div class=pl>▶</div><div class=q>VÍDEO CURTO DO SEMP<br>modelo usando a ${c}</div><div class=tag><span>${c}</span><b>${pz}</b></div></div>`).join('');
+  mvg.after(vh); vh.after(vr);
   const W = document.documentElement.scrollWidth;
   for (const el of [cap, ed]) { el.style.setProperty('width', W+'px', 'important'); el.style.setProperty('margin-left', '0', 'important');
     const L = el.getBoundingClientRect().left; el.style.setProperty('margin-left', (-L)+'px', 'important'); }
@@ -82,7 +111,7 @@ with sync_playwright() as p:
         if prop: print(pg.evaluate(JS, [CAFE, ESTU])); pg.wait_for_timeout(600)
         for y in range(0, 12000, 300): pg.evaluate('window.scrollTo(0,%d)' % y); pg.wait_for_timeout(60)
         pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(800)
-        pg.evaluate("document.querySelectorAll('.rv').forEach(e=>e.classList.add('in')); document.querySelectorAll('body *').forEach(e=>{const c=getComputedStyle(e); if(c.opacity==='0'&&e.offsetHeight>20){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}})"); pg.wait_for_timeout(400)
+        pg.evaluate("document.querySelectorAll('*').forEach(e=>{if(getComputedStyle(e).contentVisibility!='visible')e.style.contentVisibility='visible'}); document.querySelectorAll('.rv').forEach(e=>e.classList.add('in')); document.querySelectorAll('body *').forEach(e=>{const c=getComputedStyle(e); if(c.opacity==='0'&&e.offsetHeight>20){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}})"); pg.wait_for_timeout(400)
         pg.screenshot(path='/tmp/%s.png' % nome, full_page=True); b.close()
 H, P = Image.open('/tmp/hoje.png'), Image.open('/tmp/proposta.png')
 def faixa(im, y0, y1): return im.crop((0, y0, im.width, min(y1, im.height)))

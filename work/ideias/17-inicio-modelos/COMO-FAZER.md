@@ -24,3 +24,13 @@ Pranchas: esboco-17-inicio-parte1 (topo até Novidades) · parte2 (Novidades at�
 - O destaque passa a ter dois tipos de foto da mesma peça (campanha do Semp e vitrine); a campanha, quando existe, ocupa a largura toda; sem ela, fica o cartão de hoje.
 - Cada peça do catálogo ganha a foto "no rosto" (Semp) como segunda imagem; tocar troca a imagem, no mesmo lugar.
 - "Veja no rosto" é um bloco da família de seções do Início, com o fundo rosé suave do padrão, no mesmo arquivo da família.
+
+## Parte 2 de 5 — selos + Compre por categoria (26/11, esboço; esperando o dono)
+Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: parte2.py → parte2.js (inject do kit).
+- Selos: ficam como estão (já são da família).
+- Cartões de categoria: MESMO componente de hoje (cartão branco, arredondado, borda, rótulo Fraunces). Só a imagem muda:
+  a modelo usando a peça, ocupando o topo do cartão em 3:4 (object-fit cover, foco 50% 20%). Solar: espera foto do Semp.
+- Capa (parte 1): peça própria fora do #hdst (o carrossel antigo segue escrevendo nele); sangra só o recuo da coluna da página.
+- Como fazer (regra 12): proporção 3:4 numa regra só do .hci das categorias; a imagem da categoria vem do Semp (campanha), não da peça.
+- Designer do kit: nada novo além de "tampado" pelo botão do WhatsApp ao rolar (o WhatsApp já aparece "cortado" hoje — problema do site todo)
+  e contraste da capa (falso: mede o texto contra o fundo da página, não contra a foto com o véu).
