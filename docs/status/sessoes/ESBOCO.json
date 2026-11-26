@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço atualiza-ao-vivo: PC também",
+ "arquivos": [
+  "work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md"
+ ],
  "ultimas": [
   {
    "t": 1795705636.9323277,
@@ -44,5 +46,5 @@
    "r": "Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado"
   }
  ],
- "leu": 1795705559.3430192
+ "leu": 1795705722.6428072
 }
