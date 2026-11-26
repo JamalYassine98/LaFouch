@@ -1,0 +1,141 @@
+## Início · escuro · letra 1.0 · 42 diferenças
+- “Vendido hoje · 5 venda(s)” · falta (está na planta, não está no app)
+- “Dia, mês e histórico” · falta (está na planta, não está no app)
+- “Pedidos, mensagens, vitrine e modelos” · falta (está na planta, não está no app)
+- “Posts, vídeos, temática, cartões e visit” · falta (está na planta, não está no app)
+- “0 cadastrados” · falta (está na planta, não está no app)
+- “Vendido hoje · 5 vendas” · sobra (está no app, não está na planta)
+- “Dia e mês” · sobra (está no app, não está na planta)
+- “Pedidos e vitrine” · sobra (está no app, não está na planta)
+- “Posts e vídeos” · sobra (está no app, não está na planta)
+- “Nenhum ainda” · sobra (está no app, não está na planta)
+- “›” · cor
+- “›” · cor
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “2 a decidir” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “Orçamentos” · tamanho
+- “›” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -14.0 px (altura)
+- “caixa” · a partir daqui, 5 peças deslocadas +0.0 px (lado) -16.0 px (altura)
+- “caixa” · posição -1.3 px (lado) -18.0 px (altura)
+- “caixa” · posição -0.7 px (lado) -18.0 px (altura)
+- “caixa” · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição -0.7 px (lado) -18.0 px (altura)
+- ícone · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição +0.7 px (lado) -18.0 px (altura)
+- “Preços” · posição +0.0 px (lado) -18.0 px (altura)
+- “Resultados” · posição +0.6 px (lado) -18.0 px (altura)
+- “Site” · posição -0.7 px (lado) -18.0 px (altura)
+- “2 a decidir” · posição +3.3 px (lado) -52.8 px (altura)
+- “caixa” · posição -1.3 px (lado) -46.8 px (altura)
+- “caixa” · posição -0.7 px (lado) -46.8 px (altura)
+- “caixa” · posição +0.0 px (lado) -46.8 px (altura)
+- ícone · posição -0.7 px (lado) -46.8 px (altura)
+- ícone · posição +0.0 px (lado) -46.8 px (altura)
+- ícone · posição +0.7 px (lado) -46.8 px (altura)
+- “Atacado” · posição -0.7 px (lado) -46.8 px (altura)
+- “Clientes” · posição +0.0 px (lado) -46.8 px (altura)
+- “Marketing” · posição +0.6 px (lado) -46.8 px (altura)
+- “Orçamentos” · posição +2.7 px (lado) -81.5 px (altura)
+
+## Início · escuro · letra 1.3 · 44 diferenças
+- “Vendido hoje · 5 venda(s)” · falta (está na planta, não está no app)
+- “Dia, mês e histórico” · falta (está na planta, não está no app)
+- “Pedidos, mensagens, vitrine e modelos” · falta (está na planta, não está no app)
+- “Posts, vídeos, temática, cartões e visit” · falta (está na planta, não está no app)
+- “0 cadastrados” · falta (está na planta, não está no app)
+- “Vendido hoje · 5 vendas” · sobra (está no app, não está na planta)
+- “Dia e mês” · sobra (está no app, não está na planta)
+- “Pedidos e vitrine” · sobra (está no app, não está na planta)
+- “Posts e vídeos” · sobra (está no app, não está na planta)
+- “Nenhum ainda” · sobra (está no app, não está na planta)
+- “›” · cor
+- “›” · cor
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “2 a decidir” · tamanho
+- “2 a decidir” · letra
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “Orçamentos” · tamanho
+- “Orçamentos” · letra
+- “›” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -14.0 px (altura)
+- “caixa” · a partir daqui, 5 peças deslocadas +0.0 px (lado) -16.0 px (altura)
+- “caixa” · posição -1.3 px (lado) -18.0 px (altura)
+- “caixa” · posição -0.7 px (lado) -18.0 px (altura)
+- “caixa” · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição -0.7 px (lado) -18.0 px (altura)
+- ícone · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição +0.7 px (lado) -18.0 px (altura)
+- “Preços” · posição +0.0 px (lado) -18.0 px (altura)
+- “Resultados” · posição +0.6 px (lado) -18.0 px (altura)
+- “Site” · posição -0.6 px (lado) -18.0 px (altura)
+- “2 a decidir” · posição +3.3 px (lado) -85.8 px (altura)
+- “caixa” · posição -1.3 px (lado) -83.2 px (altura)
+- “caixa” · posição -0.7 px (lado) -83.2 px (altura)
+- “caixa” · posição +0.0 px (lado) -83.2 px (altura)
+- ícone · posição -0.7 px (lado) -83.2 px (altura)
+- ícone · posição +0.0 px (lado) -83.2 px (altura)
+- ícone · posição +0.7 px (lado) -83.2 px (altura)
+- “Atacado” · posição -0.7 px (lado) -83.2 px (altura)
+- “Clientes” · posição +0.0 px (lado) -83.2 px (altura)
+- “Marketing” · posição +0.7 px (lado) -83.2 px (altura)
+- “Orçamentos” · posição +2.7 px (lado) -151.0 px (altura)
+
+## Início · claro · letra 1.0 · 42 diferenças
+- “Vendido hoje · 5 venda(s)” · falta (está na planta, não está no app)
+- “Dia, mês e histórico” · falta (está na planta, não está no app)
+- “Pedidos, mensagens, vitrine e modelos” · falta (está na planta, não está no app)
+- “Posts, vídeos, temática, cartões e visit” · falta (está na planta, não está no app)
+- “0 cadastrados” · falta (está na planta, não está no app)
+- “Vendido hoje · 5 vendas” · sobra (está no app, não está na planta)
+- “Dia e mês” · sobra (está no app, não está na planta)
+- “Pedidos e vitrine” · sobra (está no app, não está na planta)
+- “Posts e vídeos” · sobra (está no app, não está na planta)
+- “Nenhum ainda” · sobra (está no app, não está na planta)
+- “›” · cor
+- “›” · cor
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “2 a decidir” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “caixa” · tamanho
+- “Orçamentos” · tamanho
+- “›” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -14.0 px (altura)
+- “caixa” · a partir daqui, 5 peças deslocadas +0.0 px (lado) -16.0 px (altura)
+- “caixa” · posição -1.3 px (lado) -18.0 px (altura)
+- “caixa” · posição -0.7 px (lado) -18.0 px (altura)
+- “caixa” · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição -0.7 px (lado) -18.0 px (altura)
+- ícone · posição +0.0 px (lado) -18.0 px (altura)
+- ícone · posição +0.7 px (lado) -18.0 px (altura)
+- “Preços” · posição +0.0 px (lado) -18.0 px (altura)
+- “Resultados” · posição +0.6 px (lado) -18.0 px (altura)
+- “Site” · posição -0.7 px (lado) -18.0 px (altura)
+- “2 a decidir” · posição +3.3 px (lado) -52.8 px (altura)
+- “caixa” · posição -1.3 px (lado) -46.8 px (altura)
+- “caixa” · posição -0.7 px (lado) -46.8 px (altura)
+- “caixa” · posição +0.0 px (lado) -46.8 px (altura)
+- ícone · posição -0.7 px (lado) -46.8 px (altura)
+- ícone · posição +0.0 px (lado) -46.8 px (altura)
+- ícone · posição +0.7 px (lado) -46.8 px (altura)
+- “Atacado” · posição -0.7 px (lado) -46.8 px (altura)
+- “Clientes” · posição +0.0 px (lado) -46.8 px (altura)
+- “Marketing” · posição +0.6 px (lado) -46.8 px (altura)
+- “Orçamentos” · posição +2.7 px (lado) -81.5 px (altura)
+
+# Medidor de família (Argus) nas propostas
+## Início proposta · escuro · letra 1.0 · 1 achados
+- L1 fora do eixo do bloco · Início proposta · escuro · letra 1.0 · Vendido hoje · 5 vendas G$ 360.000 › · +45 px
+## Início proposta · escuro · letra 1.3 · 1 achados
+- L1 fora do eixo do bloco · Início proposta · escuro · letra 1.3 · Vendido hoje · 5 vendas G$ 360.000 › · +45 px
+## Início proposta · claro · letra 1.0 · 1 achados
+- L1 fora do eixo do bloco · Início proposta · claro · letra 1.0 · Vendido hoje · 5 vendas G$ 360.000 › · +45 px
