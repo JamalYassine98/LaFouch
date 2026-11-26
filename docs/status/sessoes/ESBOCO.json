@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço: consertos do Início (quadrados, venda(s))",
+ "arquivos": [
+  "work/esboco/inicio"
+ ],
  "ultimas": [
   {
    "t": 1795705729.7584064,
@@ -44,5 +46,5 @@
    "r": "Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura"
   }
  ],
- "leu": 1795705722.6428072
+ "leu": 1795706103.705811
 }
