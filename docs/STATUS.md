@@ -167,7 +167,7 @@
 - **99-lucro-kit-realista** — 99b v2 aprovado · do 99d v2 só a contagem e 'Kit de Natal na caixa' (aprovado 13:47); janela superada pelo 103 · 99a cancelado (cartão de luxo no 98 v6)
 - **argus-novo** — Partes 0–8 PRONTAS 26/11 — falta só o que depende do dono
 - **argus-plantas-app** — esboço pronto — esperando o dono
-- **argus-plantas-site** — espera o conserto do site
+- **argus-plantas-site** — plano pronto — esperando o dono
 - **argus-porta-site** — SEM SELO · completa · 2026-11-26 07:13 · 3 falha(s) · 18.0 min · commit bdc439863
 - **argus-regras-20-21** — APROVADO e feito 26/11 06:23
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
