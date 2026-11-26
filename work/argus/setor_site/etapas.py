@@ -161,21 +161,38 @@ def compra(pw, nav, **kw):
 # ---------- 6 espanhol sem português (e fotos que não carregam), nas telas principais ----------
 TELAS = [('Início', ''), ('Catálogo', 'catalogo'), ('Peça', 'catalogo#peca'), ('Carrinho com uma peça', 'catalogo#carrinho'), ('Menu', '#menu')]
 PT = re.compile(r'[ãõçÃÕÇ]|\b(você|óculos|não|carrinho|obrigad[oa]|também|então)\b', re.I)
+def _tela(pw, nav, rota, **kw):
+    """Abre uma das telas principais como a cliente chega nela (rota#ação). Devolve (b, pg, ok)."""
+    b, pg = lfsite.abre(pw, navegador=nav, rota=rota.split('#')[0], **kw)
+    ac = rota.split('#')[1] if '#' in rota else ''
+    if ac == 'peca': ok = peca(pg)
+    elif ac == 'carrinho': ok = peca(pg) and toca(pg, '[data-addm]', 1500) and toca(pg, '[data-cadfin]', 1500)
+    elif ac == 'menu': ok = toca(pg, '#mnb', 800)
+    else: ok = True
+    return b, pg, bool(ok)
 def idioma(pw, nav, **kw):
     out = []
     for nome, rota in TELAS:
-        b, pg = lfsite.abre(pw, navegador=nav, lingua='es', rota=rota.split('#')[0], **kw)
+        b, pg, ok = _tela(pw, nav, rota, lingua='es', **kw)
         try:
-            ac = rota.split('#')[1] if '#' in rota else ''
-            if ac == 'peca': peca(pg)
-            elif ac == 'carrinho': peca(pg) and toca(pg, '[data-addm]', 1500) and toca(pg, '[data-cadfin]', 1500)
-            elif ac == 'menu' and not toca(pg, '#mnb', 800): out.append(('espanhol · Menu', NC, 'não achei o botão do menu')); continue
+            if not ok: out.append(('espanhol · %s' % nome, NC, 'não deu para abrir a tela como a cliente')); continue
             pg.evaluate("()=>{for(const e of document.querySelectorAll('*'))if(e.scrollHeight>e.clientHeight+20)e.scrollTop=e.scrollHeight;scrollTo(0,document.body.scrollHeight)}"); pg.wait_for_timeout(900)
             T = pg.evaluate("()=>{const T=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const e=n.parentElement;if(!e||e.closest('script,style,[lang^=pt],[translate=no]')||!window.__argus.vis(e))continue;const t=n.textContent.trim();if(t)T.push(t)}return T}")
             pt = sorted({t for t in T if PT.search(t)})
             out.append(('espanhol sem português · %s' % nome, ACH if pt else OK, ' | '.join(pt[:5])[:160]))
             im = pg.evaluate("()=>[...document.querySelectorAll('img')].filter(i=>window.__argus.vis(i)&&i.complete&&i.naturalWidth===0&&i.getAttribute('src')).map(i=>i.getAttribute('src').slice(-40))")
             out.append(('fotos carregam · %s' % nome, ACH if im else OK, ', '.join(im[:4])))
+        finally: b.close()
+    return out
+# ---------- 6b camadas: nada aparece através (o defeito de 25/11: o menu e a peça abriam sem fundo por cima da tela) ----------
+def camadas(pw, nav, **kw):
+    out = []
+    for nome, rota in TELAS:
+        b, pg, ok = _tela(pw, nav, rota, **kw)
+        try:
+            if not ok: out.append(('camadas · %s' % nome, NC, 'não deu para abrir a tela como a cliente')); continue
+            x = pg.evaluate('()=>window.__argus.atravessa()')
+            out.append(('camadas · %s: nenhum texto aparece através de outro' % nome, ACH if x else OK, ' | '.join('“%s” por cima de “%s”' % (k['cima'], k['baixo']) for k in x[:3])))
         finally: b.close()
     return out
 # ---------- 7 internet fraca e sem internet ----------
@@ -260,7 +277,7 @@ def girar(pw, nav, **kw):
             out.append(('girar e voltar · %s: a página não rola de lado' % nome, ACH if larga1 or larga2 else OK, ('deitado' if larga1 else '') + (' depois de voltar' if larga2 else '')))
     finally: b.close()
     return out
-TODAS = [('busca', busca), ('carrinho', carrinho), ('preços', precos), ('cupom', cupom), ('compra pela nuvem', compra), ('idioma e fotos', idioma),
+TODAS = [('busca', busca), ('carrinho', carrinho), ('preços', precos), ('cupom', cupom), ('compra pela nuvem', compra), ('idioma e fotos', idioma), ('camadas', camadas),
          ('rede', rede), ('consulta do Mochi', consulta), ('a página por dentro', pagina), ('girar', girar)]
 def roda(pw, nav=None, so=None, **kw):
     """Roda as conferências do site (so = só algumas, pelo nome). Devolve {conferência: [(nome, estado, detalhe)]}; uma que quebra

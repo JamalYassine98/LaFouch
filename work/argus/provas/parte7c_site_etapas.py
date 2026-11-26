@@ -1,5 +1,5 @@
 # ARGUS · prova da Parte 7c (as conferências próprias do SITE: busca, carrinho, preços, cupom, compra pela nuvem, idioma, rede,
-# consulta, a página por dentro, girar). Prova que: (1) todas rodam e nenhuma some; (2) estragos de propósito são vistos —
+# consulta, a página por dentro, girar, camadas). Prova que: (1) todas rodam e nenhuma some; (2) estragos de propósito são vistos —
 # português no espanhol, foto quebrada, chamada à nuvem sem o selo do App Check, nuvem fora do ar na compra; (3) uma conferência
 # que quebra vira "não conferido" com o motivo, nunca "ok".
 import os, sys, json
@@ -23,6 +23,10 @@ with sync_playwright() as pw:
     ok('o cupom passa pelo caminho de verdade (link /t/CÓDIGO) e baixa 10%', tem(res, 'código certo (10%)', etapas.OK))
     ok('as frases de cupom recusado aparecem em PT e ES', sum(1 for x in E if 'cupom recusado' in x[0] and x[1] == etapas.OK) == 2 * len(etapas.MOTIVOS))
     ok('a compra vai inteira pela porta da nuvem e chega à tela de pagar', tem(res, 'aparece a tela de pagar', etapas.OK) and tem(res, 'porta da nuvem', etapas.OK))
+    ok('camadas: o defeito de 25/11 (menu e peça sem fundo) é visto no site de hoje', tem(res, 'camadas · Peça', etapas.ACH) and tem(res, 'camadas · Menu', etapas.ACH))
+    import lfsite
+    r = etapas.roda(pw, nav, so=['camadas'], porta=lfsite.serve(lfsite.monta('ef883de'), 8832))
+    ok('camadas: o site de 19/11 (inteiro) passa', all(x[1] == etapas.OK for x in estados(r)), '; '.join(x[0] for x in estados(r) if x[1] != etapas.OK))
     # (2) estragos de propósito
     r = etapas.roda(pw, nav, so=['idioma e fotos'], scripts=(PT_NO_ES,))
     ok('estrago: português no site em espanhol é visto', tem(r, 'espanhol sem português', etapas.ACH), next((x[2] for x in estados(r) if x[1] == etapas.ACH), '')[:80])
