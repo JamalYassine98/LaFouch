@@ -1080,9 +1080,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 640;
-  var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.59.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_BUILD = 642;
+  var APP_NAT = 2; // 2 (26/11): APK com a atualização ao vivo (CapacitorUpdater). Sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
+  var APP_NOME = '5.61.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // Bibliotecas de terceiros que o app usa de vez em quando VÊM DENTRO do app.js, como texto (o build.js põe aqui o conteúdo de lib/*.js),
   // e só são lidas pelo aparelho na hora do uso (item 35, 20/11/2026):
   //  · a atualização automática só leva app.js e style.css — arquivo solto novo não chega a quem já tem o aplicativo instalado
@@ -7028,6 +7028,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Timestamp de d dias e h horas atrás.
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
+  }
+  // Número com a palavra no singular ou no plural (regra 17: "1 venda", "5 vendas" — nunca "venda(s)"). Um lugar só para todas as telas.
+  function nPl(n, um, varios) {
+    return n + ' ' + (n === 1 ? um : varios || um + 's');
   }
   // Mostra um valor guardado em guaranis.
   var gs = function (n) {
@@ -21586,7 +21590,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ? '<section class="card inFotos" data-act="semfoto" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('est', 20) + '</span><span class="inFotTx"><b>' + (novas ? novas + (novas === 1 ? ' peça nova para fotografar' : ' peças novas para fotografar') : nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto')) + '</b><small>' + (novas ? 'da compra · já estão na fila do Estúdio' : 'todo produto precisa de foto · já estão na fila do Estúdio') + '</small></span><button type="button" class="inFotB" data-act="semfoto" id="btnSemFoto">Fotografar</button></section>'
       : '';
     el.innerHTML = (typeof nvBemVindoHtml === 'function' ? nvBemVindoHtml() : '') + faixa + /* S324 (dono, 15/11/2026): faixa "Recentes" removida do Início */ '' + (typeof temaCardHtml === 'function' ? temaCardHtml() : '') + (typeof guardInicioHtml === 'function' ? guardInicioHtml() : '') + pend + semFoto + (typeof semanaSiteHtml === 'function' ? semanaSiteHtml() : '') +
-      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
+      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + nPl(h.n, 'venda') + '</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
   // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
@@ -28261,8 +28265,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // ===== S334 (15/11/2026, pedido do dono): a atualização do app cuida do APK também =====
   // Quando o dono manda gerar um APK, o build-apk.yml (com a chave FIXA) publica o arquivo LaFouch-<build>.apk na "release" apk do GitHub.
-  // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (número EMB do index.html que veio
-  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
+  // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (versionName do Android,
+  // gravado pelo build-apk.yml), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
   // "Atualização pronta · Toque para instalar" (S335: um botão só, como uma atualização qualquer). Tocar abre o instalador do Android, que sempre pede a confirmação.
   var APK_API = 'https://api.github.com/repos/JamalYassine98/LaFouch/releases/tags/apk';
   var APK = { emb: 0, n: 0, url: '', tam: 0, est: '', msg: '', t: 0, busy: false, avisou: 0 }; // est: '' · tem · baixa · pronto · erro
@@ -28303,7 +28307,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // ----- S337: WINDOWS. O programa do PC (desktop/main.js + pc-atualiza.js) procura e baixa o instalador novo sozinho; a tela só
   // lê o estado (/__pc/estado) e usa o MESMO botão e os mesmos textos do celular. "Instalar" abre o instalador do Windows.
-  var PCX = { on: false, loja: 0 };
+  var PCX = { on: false };
   function pcPede(caminho, post) {
     return fetch('/__pc/' + caminho, post ? { method: 'POST', headers: { 'X-LaFouch': '1' }, cache: 'no-store' } : { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); });
@@ -28312,7 +28316,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!e || e.pc !== true) return;
     var antes = APK.est;
     PCX.on = true;
-    PCX.loja = +e.loja || 0;
     APK.emb = +e.emb || 0; APK.n = +e.n || 0; APK.tam = +e.tam || 0;
     APK.est = APK.n ? String(e.est || '') : '';
     APK.msg = String(e.msg || '');
@@ -28337,9 +28340,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!P || APK.busy || APK.est === 'baixa' || !navigator.onLine) return Promise.resolve('sem');
     APK.busy = true;
     APK.t = Date.now();
-    return fetch('index.html', { cache: 'no-store' }).then(function (r) { return r.text(); })
-      .then(function (t) {
-        APK.emb = +((t.match(/var EMB=(\d+)/) || [])[1]) || 0;
+    // o número do APK instalado = versionName do Android (o build-apk.yml grava o número da versão); com a atualização ao vivo
+    // o index.html em uso é o do pacote baixado, por isso o número vem do próprio Android (CapacitorUpdater.current().native)
+    var CU = updCU();
+    return (CU ? CU.current() : Promise.reject(new Error('sem atualização ao vivo')))
+      .then(function (c) {
+        APK.emb = parseInt(c && c.native, 10) || 0;
         if (!APK.emb) throw new Error('sem número');
         return fetch(APK_API, { cache: 'no-store', headers: { Accept: 'application/vnd.github+json' } });
       })
@@ -28489,14 +28495,28 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     setTimeout(function () { mlConfere().then(ljuBusca); }, 40000);
     setInterval(function () { if (!document.hidden && Date.now() - LJU.t > 4 * 3600 * 1000) ljuBusca(); }, 600000);
   } else window.__lju = { busca: ljuBusca, src: ljuSrc, marca: ljuMarca, estado: LJU, ruim: ljuRuim };
-  // ===== Atualização automática do app: baixa o app novo (app.js + style.css) e troca ao reabrir. =====
-  // O app guarda a cópia nova no cache do aparelho; o carregador do index.html usa a cópia mais nova.
-  // Se a cópia nova não abrir (2 tentativas), o carregador descarta e volta para a que veio no aplicativo.
+  // ===== Atualização ao vivo do app (26/11, work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md): o app INTEIRO troca e vira a base. =====
+  // A cada versão o GitHub Pages publica www-<v>.zip (a pasta www inteira) e o version.json traz zip + soma (sha256) — tools/pacote.js.
+  //  · celular (APK): o plugin CapacitorUpdater baixa o pacote e confere a soma; "Atualizar agora" troca para ele. Se a versão nova
+  //    não disser "pronto" em 10 s, o próprio plugin volta para a ÚLTIMA versão que abriu bem (nunca para a cópia do APK).
+  //  · PC (Windows): o servidor local (desktop/pc-atualiza.js) baixa o MESMO pacote e serve o app inteiro da última pasta boa.
+  //  · navegador (PWA): segue com o sw.js; "Atualizar agora" só recarrega.
+  // "Abriu bem" = appPronto(), UM lugar só, no fim do primeiro desenho (não por tempo). No aparelho ficam no máximo duas versões.
   var UPD_URL = 'https://jamalyassine98.github.io/LaFouch/';
-  var UPD_CACHE = 'lafouch-upd';
   var UPD = { pronta: 0, msg: '', busy: false, nat: false, t: 0, ok: false, ult: 0 };
+  function updCU() { // o plugin da atualização ao vivo (só no APK novo)
+    var C = window.Capacitor;
+    return C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.CapacitorUpdater || null;
+  }
+  function updModo() { return updCU() ? 'apk' : location.hostname === '127.0.0.1' ? 'pc' : 'web'; }
+  // o pacote baixado e ainda não aplicado (ou recém-aplicado): {v, nome, notas, id, usou}
   function updMarca() {
-    try { return JSON.parse(localStorage.getItem('lf_upd') || 'null') || {}; } catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('lf_pacote') || 'null') || {}; } catch (e) { return {}; }
+  }
+  function updGuarda(m) { try { if (m) localStorage.setItem('lf_pacote', JSON.stringify(m)); else localStorage.removeItem('lf_pacote'); } catch (e) {} }
+  function updPc(caminho) { // pedidos ao servidor local do PC (desktop/pc-atualiza.js); o "pronto" mora em /__pronto
+    return fetch(caminho === 'pronto' ? '/__pronto' : '/__pc/' + caminho, { method: 'POST', headers: { 'X-LaFouch': '1' }, cache: 'no-store' })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j && j.erro || 'http ' + r.status); return j; }); });
   }
   function updAviso() {
     var b = document.getElementById('updBar');
@@ -28510,10 +28530,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     b.innerHTML = '<span style="flex:1;font-size:14px"><b>Atualização pronta</b><br><span style="opacity:.75">O app novo já foi baixado.</span></span><button type="button" class="updbtn" data-act="updagora">⬇ Atualizar</button><button type="button" class="pdLink" data-act="updmais" aria-label="Depois">Depois</button>';
   }
-  // Baixa a versão nova. manual = o dono apertou "Buscar atualização".
+  // baixa o pacote da versão v (cada aparelho do seu jeito); devolve o id do pacote no celular
+  function updBaixa(v) {
+    var md = updModo(), n = +v.v;
+    if (md === 'apk') {
+      if (String(v.zip || '').indexOf(UPD_URL) !== 0 || !/^[0-9a-f]{64}$/.test(String(v.soma || ''))) return Promise.reject(new Error('pacote sem endereço ou soma'));
+      return updCU().download({ url: v.zip, version: String(n), checksum: v.soma }).then(function (b) { return b && b.id; });
+    }
+    if (md === 'pc') return updPc('baixa').then(function (e) { if (+e.pronta !== n) throw new Error('pacote não ficou pronto'); return ''; });
+    return navigator.serviceWorker && navigator.serviceWorker.getRegistration
+      ? navigator.serviceWorker.getRegistration().then(function (r) { return r && r.update(); }).then(function () { return ''; }, function () { return ''; })
+      : Promise.resolve('');
+  }
+  // Busca a versão nova. manual = o dono apertou "Buscar atualização".
   function updBusca(manual) {
-    if (UPD.busy || !navigator.onLine || !window.caches) {
-      if (manual) { UPD.msg = !navigator.onLine ? 'Sem internet agora.' : 'Este aparelho não guarda atualizações.'; updRender(); }
+    if (UPD.busy || !navigator.onLine) {
+      if (manual && !navigator.onLine) { UPD.msg = 'Sem internet agora.'; updRender(); }
       return Promise.resolve();
     }
     UPD.busy = true;
@@ -28532,29 +28564,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         UPD.nat = (+v.nat || 1) > APP_NAT;
         if (UPD.nat) return fim('Há uma versão nova, mas ela precisa de um APK novo (pedir ao Claude para gerar).');
         var m = updMarca();
-        if (n <= APP_BUILD || n <= (+m.v || 0)) {
+        if (n <= APP_BUILD || n === +m.ruim || (n <= (+m.v || 0) && !m.usou)) {
           UPD.pronta = n <= APP_BUILD ? 0 : UPD.pronta;
           UPD.ok = n <= APP_BUILD;
           return fim('O app já está na versão mais nova (' + APP_BUILD + ').');
         }
-        return Promise.all([fetch(UPD_URL + 'app.js?v=' + n, { cache: 'no-store' }), fetch(UPD_URL + 'style.css?v=' + n, { cache: 'no-store' })]).then(function (rs) {
-          if (!rs[0].ok || !rs[1].ok) throw new Error('arquivo não veio');
-          return Promise.all([rs[0].text(), rs[1].text()]);
-        }).then(function (t) {
-          // confere se veio inteiro e se é mesmo o app (nunca guarda arquivo cortado)
-          if (t[0].length < 100000 || t[0].slice(-8).indexOf('})();') < 0 || t[0].indexOf('var APP_BUILD = ' + n + ';') < 0 || t[1].length < 1000) throw new Error('arquivo incompleto');
-          return caches.open(UPD_CACHE).then(function (c) {
-            return Promise.all([
-              c.put('/__upd/app.js', new Response(t[0], { headers: { 'Content-Type': 'text/javascript' } })),
-              c.put('/__upd/style.css', new Response(t[1], { headers: { 'Content-Type': 'text/css' } }))
-            ]);
-          }).then(function () {
-            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt, nome: nm }));
-            UPD.pronta = n;
-            updAviso();
-            if (S.view === 'ajustes') updRender(); else render();
-            fim('Atualização ' + n + ' pronta. Toque em "Atualizar agora".');
-          });
+        return updBaixa(v).then(function (id) {
+          updGuarda({ v: n, nome: nm, notas: nt, id: id || '' });
+          UPD.pronta = n;
+          updAviso();
+          if (S.view === 'ajustes') updRender(); else render();
+          fim('Atualização ' + n + ' pronta. Toque em "Atualizar agora".');
         });
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
@@ -28577,22 +28597,27 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div style="text-align:center;padding:14px 0"><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Atualizando…</h2><div class="hint" style="margin:0">Não feche o app</div><div style="height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin:16px 0 4px"><b id="lfUpdPb" style="display:block;height:100%;width:6%;background:var(--accent);border-radius:6px;transition:width 1.3s ease"></b></div></div>');
     setTimeout(function () { var b = document.getElementById('lfUpdPb'); if (b) b.style.width = '100%'; }, 60);
     setTimeout(function () {
-      try { localStorage.setItem('lf_updok', String(v)); sessionStorage.setItem('lf_ni', '1'); } catch (e) {}
-      location.reload();
+      var m = updMarca(), md = updModo();
+      m.usou = 1;
+      updGuarda(m);
+      try { sessionStorage.setItem('lf_ni', '1'); } catch (e) {}
+      var falhou = function (e) { m.usou = 0; updGuarda(m); lfaFecha('lfUpdSh'); lfToast('Não consegui trocar a versão (' + ((e && e.message) || 'erro') + ')', 'erro'); };
+      if (md === 'apk') updCU().set({ id: m.id }).catch(falhou); // o plugin troca e reabre já na versão nova
+      else if (md === 'pc') updPc('usa').then(function () { location.reload(); }, falhou);
+      else location.reload();
     }, 1500);
   };
   // Depois de reabrir já na versão nova: confirma que deu certo.
   function updFeito() {
-    var ok = 0;
-    try { ok = +localStorage.getItem('lf_updok') || 0; } catch (e) {}
-    if (!ok) return;
-    try { localStorage.removeItem('lf_updok'); } catch (e) {}
-    if (ok > APP_BUILD) return;
+    var m = updMarca();
+    if (!m.v || +m.v > APP_BUILD) return;
+    updGuarda(null); // o pacote já é a versão em uso
+    if (!m.usou) return;
     lfaAbre('lfUpdSh',
       '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px"><span style="width:24px;height:24px;display:block">' + ICO.chk + '</span></div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
-  function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
+  function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD && !m.usou ? +m.v : 0); }
   // Troca só o cartão (sem redesenhar Ajustes inteira, o que repetia a animação da tela toda)
   function updRender() {
     var c = document.getElementById('updCard');
@@ -28632,18 +28657,43 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       updBotao75(est, ak, tit, sub) +
       (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
-  // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
-  setTimeout(function () {
+  // A versão abriu bem: o primeiro desenho terminou (UM lugar só, celular e PC). Sem isso em 10 s, volta para a última boa.
+  var UPD_BOAS = 'lf_boas'; // ids dos pacotes que abriram bem no celular (o atual e o anterior)
+  function updLimpa() { // no celular ficam no máximo duas versões: a atual e a reserva recente
+    var CU = updCU();
+    return CU.current().then(function (c) {
+      var id = c && c.bundle && c.bundle.id, boas = [];
+      try { boas = JSON.parse(localStorage.getItem(UPD_BOAS) || '[]'); } catch (e) {}
+      if (id && id !== 'builtin') boas = [id].concat(boas.filter(function (x) { return x !== id; })).slice(0, 2);
+      try { localStorage.setItem(UPD_BOAS, JSON.stringify(boas)); } catch (e) {}
+      return CU.list().then(function (l) {
+        return Promise.all(((l && l.bundles) || []).filter(function (b) { return b.id !== 'builtin' && boas.indexOf(b.id) < 0 && b.id !== updMarca().id; })
+          .map(function (b) { return CU.delete({ id: b.id }).catch(function () {}); }));
+      });
+    }).catch(function () {});
+  }
+  var updProntoFoi = false;
+  function appPronto() {
+    if (updProntoFoi) return;
+    updProntoFoi = true;
+    var md = updModo();
+    if (md === 'apk') updCU().notifyAppReady().then(updLimpa, function () {});
+    else if (md === 'pc') updPc('pronto').catch(function () {});
+    // uma vez: some o mecanismo velho (cópia de app.js/style.css no cache e as marcas dele)
+    try { localStorage.removeItem('lf_upd'); localStorage.removeItem('lf_updok'); } catch (e) {}
+    try { if (window.caches) caches.delete('lafouch-upd'); } catch (e) {}
     var m = updMarca();
-    if (m.v && m.v <= APP_BUILD) { try { localStorage.setItem('lf_upd', JSON.stringify({ v: m.v, tent: 0 })); } catch (e) {} }
+    // trocou para a nova, mas ela não abriu e o aparelho voltou para a última boa: não baixa essa de novo
+    if (m.usou && +m.v > APP_BUILD) { updGuarda({ ruim: +m.v }); try { lfToast('A versão ' + (m.nome || m.v) + ' não abriu; ficou a anterior', 'neutro'); } catch (e) {} return; }
     updFeito();
-    if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); render(); }
-  }, 4000);
+    if (+m.v > APP_BUILD && !m.usou) { UPD.pronta = +m.v; updAviso(); }
+  }
+  aposRender(appPronto);
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { updBusca(false); }, 25000);
     setInterval(function () { if (!document.hidden && Date.now() - UPD.t > 4 * 3600 * 1000) updBusca(false); }, 600000);
   }
-  if (/#test/.test(location.hash)) window.__upd = { busca: updBusca, card: updCard, estado: UPD, marca: updMarca };
+  if (/#test/.test(location.hash)) window.__upd = { busca: updBusca, card: updCard, estado: UPD, marca: updMarca, pronto: appPronto };
   // ===== Brindes (v417): compra de estojos, flanelas, sacolas e cartões entra como DESPESA, sem estoque. =====
   // O app aprende sozinho quanto cada óculos vendido "gasta" de brinde (pelas compras seguintes)
   // e diz quanto separar de cada venda para recomprar. Valores sempre lançados pelo dono.
@@ -37720,9 +37770,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ML.fr = w.querySelector('iframe');
     document.documentElement.classList.add('mlOn');
     // a cópia baixada não deu sinal de vida: marca como ruim e volta para a que veio no APK (o relógio abaixo reabre sozinho)
-    // S337: no Windows a cópia baixada fica com o programa (mesmo endereço); se ela não abrir, avisa o programa para descartar
-    var pcl = PCX.on && PCX.loja;
-    if (bx || pcl) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { if (bx) ljuRuim(); else { PCX.loja = 0; pcPede('loja-ruim', true).catch(function () {}); } mlFecha(); } }, 9000);
+    // (no Windows a loja vem dentro do pacote inteiro do app — desktop/pc-atualiza.js —, sem cópia separada)
+    if (bx) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { ljuRuim(); mlFecha(); } }, 9000);
   }
   function mlFecha() {
     var w = document.getElementById('mlWrap');
@@ -42799,7 +42848,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     halloween: { g: function () { return false; }, rot: '—', p: 0, pp: 0 }
   };
   // 135h: o plural dos dias num lugar só ("1 dia", "N dias"), para o cartão do tema, o Guardião e Preços
-  function nDias(n) { return n + (n === 1 ? ' dia' : ' dias'); }
+  function nDias(n) { return nPl(n, 'dia'); }
   function temaAtual() {
     var t = typeof cupTemaProx === 'function' ? cupTemaProx() : null;
     return t && TEMA_REG[t.tema] ? t : null;

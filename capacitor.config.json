@@ -2,6 +2,20 @@
   "appId": "com.lafouch.app",
   "appName": "LaFouch",
   "webDir": "www",
-  "server": { "androidScheme": "https" },
-  "android": { "backgroundColor": "#0f1216" }
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#0f1216"
+  },
+  "plugins": {
+    "CapacitorUpdater": {
+      "autoUpdate": false,
+      "statsUrl": "",
+      "appReadyTimeout": 10000,
+      "autoDeletePrevious": false,
+      "autoDeleteFailed": true,
+      "resetWhenUpdate": true
+    }
+  }
 }
