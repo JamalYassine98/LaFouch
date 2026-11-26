@@ -95,3 +95,11 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - Lição (ESTUDO §13): inspiração vale para o que o dono apontou, nada além; uma grade de 6 blocos iguais é exatamente o "kit genérico".
 - v10: os selos voltam como estavam; só as 2 ferramentas mudam: 2 blocos rosé claros, conteúdo centralizado, ícone de traço fino desenhado
   para cada uma (provador = cantos de leitura do rosto + rosto de óculos; leitura = óculos sobre linhas de texto), nome Fraunces 18, uma linha.
+
+## v11 (dono 18:01–18:03) — esboco-18-v11-parte1.jpg (só a parte 1 mudou)
+- Análise aprovada: ícones desenhados à mão destoavam; o fundo rosé era a única caixa da página.
+- Ferramentas com os **personagens do "Descubra seu formato"** (ilustração que o site já usa): Provador virtual = a personagem com os cantos de leitura
+  do rosto (vinho) e a armação experimentada; Teste de leitura = o personagem com óculos de leitura e um cartãozinho de texto.
+- **Sem caixa:** dois lados com linha fina em pé no meio; linha fina em cima separa dos selos (um bloco, dois níveis).
+- Próximo, se o dono quiser: personagens novos gerados no Google Flow (mesmo estilo), em vez dos óculos desenhados por cima.
+- Código: estilos duplicados limpos (235 → 87 linhas de CSS).

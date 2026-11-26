@@ -98,107 +98,20 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-mov .play{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#ffffffd9;display:flex;align-items:center;justify-content:center}
 #home .lfx-mov .play:after{content:'';margin-left:4px;border-left:14px solid #943d6f;border-top:9px solid transparent;border-bottom:9px solid transparent}
 #home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
-/* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
-/* ferramentas: 2 blocos rosé claros, conteúdo centralizado (ícone 48 · nome Fraunces 18 · linha 13) */
-#home .lfx-fers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0 0}
-#home .lfx-fer2{display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 8px;background:#f4ebf1;border-radius:18px;text-decoration:none}
-#home .lfx-fer2 svg{width:48px;height:48px;margin-bottom:16px}
+/* ferramentas: sem caixa — dois lados separados por linha fina em pé; linha fina em cima separa dos selos */
+#home .lfx-fers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:24px 0 0;padding-top:24px;border-top:1px solid #efe3ea}
+#home .lfx-fer2{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 8px;text-decoration:none}
+#home .lfx-fer2 + .lfx-fer2{border-left:1px solid #efe3ea}
+#home .lfx-fer2 .fig{position:relative;display:block;width:96px;height:120px;margin-bottom:16px}
+#home .lfx-fer2 .fig img{width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+#home .lfx-fer2 .ocl{position:absolute;left:50%;transform:translateX(-50%)}
+#home .lfx-fer2 .fig > i{position:absolute;width:14px;height:14px;border:2px solid #943d6f}
+#home .lfx-fer2 .c1{left:-4px;top:16px;border-right:0!important;border-bottom:0!important}#home .lfx-fer2 .c2{right:-4px;top:16px;border-left:0!important;border-bottom:0!important}
+#home .lfx-fer2 .c3{left:-4px;bottom:16px;border-right:0!important;border-top:0!important}#home .lfx-fer2 .c4{right:-4px;bottom:16px;border-left:0!important;border-top:0!important}
+#home .lfx-fer2 .txt{position:absolute;right:-12px;bottom:4px;display:flex;flex-direction:column;gap:4px;padding:8px;background:#fff;border-radius:4px;box-shadow:0 2px 8px #2a1f2722}
+#home .lfx-fer2 .txt i{display:block;width:24px;height:2px;background:#9b8a95;border-radius:2px}#home .lfx-fer2 .txt i:last-child{width:16px}
 #home .lfx-fer2 b{font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27;white-space:nowrap}
 #home .lfx-fer2 small{margin-top:4px;font:13px/1.4 Inter,system-ui;color:#6b5a66;white-space:nowrap}
-/* v5: preço embaixo do código (dono 17:32: o preço competia com a peça seguinte) */
-/* CARTÃO DE PEÇA v4 (dono 17:22: "a reclamação está nos cartões dos produtos em si"):
-   sem caixa, sem painel e sem borda — a peça pousa no próprio fundo rosé da página, com uma sombra de apoio suave embaixo (como numa vitrine);
-   linha 1: código em Fraunces 18 à esquerda e preço preto à direita, na mesma linha de base (L2); linha 2: o detalhe (formato/material), cinza;
-   linha 3: as cores em anéis de 12 px. "Última unidade" vira texto pequeno vinho, sem etiqueta sobre a foto. */
-#home .hc{display:grid!important;grid-template-columns:1fr;align-items:start;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important}
-#home .hc .hci{grid-column:1/-1;margin:0 0 16px!important;background:transparent!important;overflow:visible!important;position:relative}
-#home .hc .hci:after{content:'';position:absolute;left:20%;right:20%;bottom:6%;height:12px;background:radial-gradient(closest-side,#2a1f2726,#2a1f2700);z-index:0}
-#home .hc .hci img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-height:none!important;z-index:1;object-fit:contain!important;transform:none!important;mix-blend-mode:multiply;padding:0 0 8px;box-sizing:border-box}
-#home .hc .hn{display:contents!important}
-#home .hc .lfx-cod{grid-column:1;grid-row:2;font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27;min-width:0}
-#home .hc .hds{grid-column:1/-1;grid-row:3;font:13px/1.4 Inter,system-ui!important;letter-spacing:0;color:#6b5a66!important;margin:4px 0 0!important}
-#home .hc .hp{grid-column:1;grid-row:4;padding:8px 0 0!important;font:600 15px/1.2 Inter,system-ui!important;color:#2a1f27;font-variant-numeric:tabular-nums;white-space:nowrap}
-#home .hc .hsw{grid-column:1/-1;grid-row:5;padding:8px 0 0!important;display:flex;gap:8px}
-#home .hc .hsw i{width:12px!important;height:12px!important;border-radius:50%;box-shadow:0 0 0 1px #fbf7fa,0 0 0 2px #d9c6d1}
-#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:6;margin:8px 0 0!important;padding:0!important;background:none!important;font:600 12px/1.3 Inter,system-ui!important;color:#943d6f!important}
-#home .hc .ulin i{display:none}
-/* para lojistas na mesma família (painel rosé, sem caixa) */
-#home .hata{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
-#home .hata .hati{display:grid!important;place-items:center;background:#f4ebf1!important;border-radius:18px;overflow:hidden}#home .hata .hati img{mix-blend-mode:multiply}
-#home .hata .hatt{padding:16px 0 0!important}
-/* peças GRANDES: carrossel de 1,25 por tela (acabou de chegar) e grade 2 × 2 (mais pedidos) */
-#home .hg.lfx-grande{display:flex!important;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
-#home .hg.lfx-grande::-webkit-scrollbar{display:none}
-#home .hg.lfx-grande > *{flex:0 0 calc((100% - 24px) / 1.2)!important;scroll-snap-align:start}
-#home .hg.lfx-grande .hci{aspect-ratio:3/2!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
-#home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
-#home .hg.lfx-grade .hci{aspect-ratio:1/1!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{row-gap:32px;align-items:start!important}
-/* visto na foto: a peça em tamanho de vitrine, abaixo da foto */
-#home .lfx-visto .lfx-pg{margin-top:16px}
-#home .lfx-pg .hci{aspect-ratio:16/9!important;height:auto!important;width:100%!important}
-#home .lfx-pg .vm{margin-top:16px;justify-content:center;width:100%;box-sizing:border-box;height:44px;display:inline-flex;align-items:center;padding:0 24px;border:1px solid #943d6f;border-radius:999px;color:#943d6f;font:500 15px Inter,system-ui;white-space:nowrap}
-/* para cada uso: mosaico de revista */
-#home .lfx-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-#home .lfx-rev .lfx-ft:first-child{grid-column:1/-1;aspect-ratio:4/5}#home .lfx-rev .lfx-ft{aspect-ratio:3/4}
-#home .lfx-rev .lfx-ft:first-child b{font-size:28px}
-/* em movimento */
-#home .lfx-mov{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
-#home .lfx-mov > div{flex:0 0 calc((100% - 32px) / 2.2)}
-#home .lfx-mov .lfx-semp{font-size:12px}
-#home .lfx-mov .lfx-ft{aspect-ratio:9/16}
-#home .lfx-mov .play{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#ffffffd9;display:flex;align-items:center;justify-content:center}
-#home .lfx-mov .play:after{content:'';margin-left:4px;border-left:14px solid #943d6f;border-top:9px solid transparent;border-bottom:9px solid transparent}
-#home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
-/* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
-/* v5: preço embaixo do código (dono 17:32: o preço competia com a peça seguinte) */
-/* CARTÃO DE PEÇA v4 (dono 17:22: "a reclamação está nos cartões dos produtos em si"):
-   sem caixa, sem painel e sem borda — a peça pousa no próprio fundo rosé da página, com uma sombra de apoio suave embaixo (como numa vitrine);
-   linha 1: código em Fraunces 18 à esquerda e preço preto à direita, na mesma linha de base (L2); linha 2: o detalhe (formato/material), cinza;
-   linha 3: as cores em anéis de 12 px. "Última unidade" vira texto pequeno vinho, sem etiqueta sobre a foto. */
-#home .hc{display:grid!important;grid-template-columns:1fr;align-items:start;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important}
-#home .hc .hci{grid-column:1/-1;margin:0 0 16px!important;background:transparent!important;overflow:visible!important;position:relative}
-#home .hc .hci:after{content:'';position:absolute;left:20%;right:20%;bottom:6%;height:12px;background:radial-gradient(closest-side,#2a1f2726,#2a1f2700);z-index:0}
-#home .hc .hci img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-height:none!important;z-index:1;object-fit:contain!important;transform:none!important;mix-blend-mode:multiply;padding:0 0 8px;box-sizing:border-box}
-#home .hc .hn{display:contents!important}
-#home .hc .lfx-cod{grid-column:1;grid-row:2;font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27;min-width:0}
-#home .hc .hds{grid-column:1/-1;grid-row:3;font:13px/1.4 Inter,system-ui!important;letter-spacing:0;color:#6b5a66!important;margin:4px 0 0!important}
-#home .hc .hp{grid-column:1;grid-row:4;padding:8px 0 0!important;font:600 15px/1.2 Inter,system-ui!important;color:#2a1f27;font-variant-numeric:tabular-nums;white-space:nowrap}
-#home .hc .hsw{grid-column:1/-1;grid-row:5;padding:8px 0 0!important;display:flex;gap:8px}
-#home .hc .hsw i{width:12px!important;height:12px!important;border-radius:50%;box-shadow:0 0 0 1px #fbf7fa,0 0 0 2px #d9c6d1}
-#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:6;margin:8px 0 0!important;padding:0!important;background:none!important;font:600 12px/1.3 Inter,system-ui!important;color:#943d6f!important}
-#home .hc .ulin i{display:none}
-/* para lojistas na mesma família (painel rosé, sem caixa) */
-#home .hata{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
-#home .hata .hati{display:grid!important;place-items:center;background:#f4ebf1!important;border-radius:18px;overflow:hidden}#home .hata .hati img{mix-blend-mode:multiply}
-#home .hata .hatt{padding:16px 0 0!important}
-/* peças GRANDES: carrossel de 1,25 por tela (acabou de chegar) e grade 2 × 2 (mais pedidos) */
-#home .hg.lfx-grande{display:flex!important;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
-#home .hg.lfx-grande::-webkit-scrollbar{display:none}
-#home .hg.lfx-grande > *{flex:0 0 calc((100% - 24px) / 1.2)!important;scroll-snap-align:start}
-#home .hg.lfx-grande .hci{aspect-ratio:3/2!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
-#home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
-#home .hg.lfx-grade .hci{aspect-ratio:1/1!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{row-gap:32px;align-items:start!important}
-/* visto na foto: a peça em tamanho de vitrine, abaixo da foto */
-#home .lfx-visto .lfx-pg{margin-top:16px}
-#home .lfx-pg .hci{aspect-ratio:16/9!important;height:auto!important;width:100%!important}
-#home .lfx-pg .vm{margin-top:16px;justify-content:center;width:100%;box-sizing:border-box;height:44px;display:inline-flex;align-items:center;padding:0 24px;border:1px solid #943d6f;border-radius:999px;color:#943d6f;font:500 15px Inter,system-ui;white-space:nowrap}
-/* para cada uso: mosaico de revista */
-#home .lfx-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-#home .lfx-rev .lfx-ft:first-child{grid-column:1/-1;aspect-ratio:4/5}#home .lfx-rev .lfx-ft{aspect-ratio:3/4}
-#home .lfx-rev .lfx-ft:first-child b{font-size:28px}
-/* em movimento */
-#home .lfx-mov{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
-#home .lfx-mov > div{flex:0 0 calc((100% - 32px) / 2.2)}
-#home .lfx-mov .lfx-semp{font-size:12px}
-#home .lfx-mov .lfx-ft{aspect-ratio:9/16}
-#home .lfx-mov .play{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#ffffffd9;display:flex;align-items:center;justify-content:center}
-#home .lfx-mov .play:after{content:'';margin-left:4px;border-left:14px solid #943d6f;border-top:9px solid transparent;border-bottom:9px solid transparent}
-#home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
-/* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 const H = document.getElementById('home'), $ = s => H.querySelector(s), $$ = s => [...H.querySelectorAll(s)];
@@ -251,14 +164,13 @@ $('#hguia').before(mov);
 const hi = $('.hata .hati img'); if (hi) { hi.src = F.loja_lote; hi.style.cssText = 'width:100%;height:100%;object-fit:cover;mix-blend-mode:normal'; $('.hata .hati').style.aspectRatio = '16/9'; }
 /* 8. as duas ferramentas logo abaixo dos selos; a foto combina com quem usa (grau de leitura = 45+) */
 const gu = $('.hgu.hcom');  /* na loja: os mesmos botões do site (provador = upgrade do "qual combina", teste de leitura) */
-/* ferramentas (dono 17:55: a inspiração é SÓ o jeito de mostrar o provador — ícone de leitura do rosto; os selos ficam como estão).
-   Dois blocos claros, ícone de traço fino desenhado para cada ferramenta, nome em Fraunces e uma linha. */
-const icone = {
-  rosto: '<path d="M6 16V10a4 4 0 0 1 4-4h6M42 16V10a4 4 0 0 0-4-4h-6M6 32v6a4 4 0 0 0 4 4h6M42 32v6a4 4 0 0 1-4 4h-6"/><path d="M17 20c0-4 3-7 7-7s7 3 7 7v4c0 5-3 9-7 9s-7-4-7-9z"/><circle cx="20.5" cy="23" r="2.6"/><circle cx="27.5" cy="23" r="2.6"/><path d="M23.1 23h1.8M21.5 29c1.6 1 3.4 1 5 0"/>',
-  leitura: '<path d="M10 34h28M10 39h20M10 29h28"/><circle cx="17" cy="17" r="6"/><circle cx="31" cy="17" r="6"/><path d="M23 17h2M11 17l-3-2M37 17l3-2"/>'
-};
-const ferr = (k, t, s, h) => `<a class=lfx-fer2 href="${h}"><svg viewBox="0 0 48 48" fill="none" stroke="#943d6f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${icone[k]}</svg><b>${t}</b><small>${s}</small></a>`;
-const fer = mk(`<div class=lfx-fers>${ferr('rosto', 'Provador virtual', 'Pela câmera do celular', '#rosto')}${ferr('leitura', 'Teste de leitura', 'Grau para ler de perto', '#grau')}</div>`);
+/* ferramentas com os PERSONAGENS do "Descubra seu formato" (dono 18:03) — a mesma ilustração do site, então fala a língua da loja.
+   Provador: a personagem com os cantos de leitura do rosto (vinho) e a armação experimentada; Teste de leitura: o personagem com óculos de leitura
+   na ponta do nariz, olhando para linhas de texto. Sem caixa: dois lados com uma linha fina no meio, e uma linha fina separando dos selos. */
+const ocl = (y, w, meia) => `<svg class=ocl style="top:${y}%;width:${w}%" viewBox="0 0 100 30" fill="none" stroke="#1f2a4e" stroke-width="3" stroke-linecap="round">${meia ? '<path d="M8 12h30c0 9-6 15-15 15S8 21 8 12zM62 12h30c0 9-6 15-15 15s-15-6-15-15z"/><path d="M38 14c4-3 20-3 24 0"/>' : '<rect x="6" y="4" width="34" height="22" rx="10"/><rect x="60" y="4" width="34" height="22" rx="10"/><path d="M40 13c4-4 16-4 20 0M6 12H0M94 12h6"/>'}</svg>`;
+const fer = mk(`<div class=lfx-fers>
+  <a class=lfx-fer2 href="#rosto"><span class=fig><img src="/media/i/27767c040646.png" alt="">${ocl(39.5, 56, 0)}<i class=c1></i><i class=c2></i><i class=c3></i><i class=c4></i></span><b>Provador virtual</b><small>Pela câmera do celular</small></a>
+  <a class=lfx-fer2 href="#grau"><span class=fig><img src="/media/i/93e9e7f328ca.png" alt="">${ocl(43, 50, 1)}<span class=txt><i></i><i></i><i></i></span></span><b>Teste de leitura</b><small>Grau para ler de perto</small></a></div>`);
 $('.htr').after(fer); $('#hguia').remove(); gu.remove();
 $('.hsh').style.marginTop = '48px';  /* 48 entre o bloco de serviços e o primeiro título */
 const det = n => { const t = n.replace(/^(Armação|Solar|Óculos de leitura)\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
