@@ -43,7 +43,7 @@ with sync_playwright() as pw:
     y = dict(G['inicio'], aprovacao='APROVADOS: **89b**'); ok('aprovação achada na lista viva = aprovada', planta.valida(y) == 'aprovada')
     # 5 ajuste: a anterior vai para obsoletos
     planta.salva(G['inicio']); obs = planta.OBS
-    ok('ajuste: a planta anterior vai para obsoletos', any(n.startswith('hoje-inicio_') for n in os.listdir(obs)) and os.path.exists(planta.caminho('hoje-inicio')))
+    ok('ajuste: a planta anterior vai para obsoletos', any(n.startswith('hoje-inicio_') for n in os.listdir(obs)) and os.path.exists(planta.caminho({'id': 'hoje-inicio'})))
     fotos = [f for f in os.listdir(planta.P_APP) if f.startswith('hoje-inicio_') and f.endswith('.jpg')]
     ok('depois do ajuste, a planta nova tem as duas fotos no lugar', sorted(fotos) == ['hoje-inicio_claro.jpg', 'hoje-inicio_escuro.jpg'], str(fotos))
     planta.salva(e); ok('planta do esboço guardada com as fotos', all(os.path.exists(os.path.join(planta.P_APP, 'demo-iva_%s.jpg' % t)) for t in ('claro', 'escuro')))

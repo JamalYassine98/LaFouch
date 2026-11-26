@@ -78,3 +78,10 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - O mundo parado ganhou o sorteio fixo (Math.random sempre na mesma sequência, js/relogio.js) e o "parar" (base.js: animação que acaba vai ao fim, a que repete fica no começo) antes de medir e fotografar. Enfeite vivo da página (data-lfvivo, regra do próprio site: neve, pétalas) não é peça da tela.
 - abrir.pagina = o que é comum ao app e ao site (aparelho, internet de fora cortada e anotada, base, relógio, letra). A letra grande entra no fim do <head> (ou depois da última folha de estilo, onde o <head> não é escrito, como no app) e também cresce as folhas que chegam depois.
 - Prova: provas/parte7a_site_chao.py — 27/27.
+
+## Parte 7b · plantas e conferência do site com o mesmo motor (25/11)
+- planta.SETORES: o app (claro/escuro, plantas/app) e o site (as 9 temáticas, plantas/site); a tela guardada leva setor e endereço (planta.tela_de: um lugar só para compara, toques, origem, porta, emulador).
+- O servidor da cópia do site atende como o GitHub Pages (setor_site/servidor.py: /catalogo → catalogo.html, 404 → 404.html). O catalogo daqui é raso: a cópia busca a história quando precisa (ef883de).
+- No site a tela é o endereço (o título do destaque muda sozinho). Uma camada que sobe com "‹ voltar" em cima é outra TELA, não janela de baixo (base.js: A.voltar, que também acha a setinha "‹" desenhada). Janela de baixo deixa a tela de trás à vista em cima.
+- Toque que sai do site: "abre fora: wa.me" (a página tentou ir para fora) ou "abre outra página" (aba nova) — antes saía "nada". O voltar do aparelho usa o voltar de verdade (pode trocar de página no site). A rolagem de onde se tocou é a de antes do toque. A dobra (⌄) é que tem de fechar no 2º toque; aria-expanded numa linha com texto também é dobra.
+- Prova: provas/parte7b_site_planta.py — 8/8 (site × própria planta = igual; estrago visto; 19/11 × hoje = 335 diferenças; toques e medidor rodam no site).

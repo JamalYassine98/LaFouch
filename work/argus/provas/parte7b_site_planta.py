@@ -14,7 +14,8 @@ with sync_playwright() as pw:
     # (1) a planta do site: todas as temáticas e as ligações tocadas com o dedo
     pl = planta.grava(pw, 'site-inicio', TELA); planta.salva(pl); pl = json.load(open(planta.caminho(pl)))
     ok('planta do site guardada em plantas/site, com as %d temáticas' % len(pl['temas']), list(pl['temas']) == aparelhos.MODOS['site']['tematica'] and os.path.exists(planta.caminho(pl)))
-    ok('cada temática tem o seu desenho (o título muda)', len({t['titulo'] for t in pl['temas'].values()}) >= 6, ' · '.join(sorted({t['titulo'][:22] for t in pl['temas'].values()}))[:200])
+    txt = {tm: frozenset(p['texto'] for p in t['pecas'] if p['tipo'] == 'texto') for tm, t in pl['temas'].items()}
+    ok('cada temática tem o seu desenho (os textos mudam)', len(set(txt.values())) >= 8, '%d desenhos diferentes em %d temáticas' % (len(set(txt.values())), len(txt)))
     lig = pl['ligacoes']; tipos = {l['faz'].split(':')[0] for l in lig}
     ok('ligações do site tocadas com o dedo (%d botões)' % len(lig), len(lig) >= 10 and {'sai para', 'abre a janela de baixo'} <= tipos, ', '.join(sorted(tipos)))
     # (2) o site de hoje × a própria planta = igual
