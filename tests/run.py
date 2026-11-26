@@ -1971,7 +1971,7 @@ async def main():
 
             # Janela de atualização: confirmar -> atualizando; "Depois" guarda o aviso; abertura com logo no index.html
             pg = await pagina()
-            await pg.evaluate("() => { localStorage.setItem('lf_pacote', JSON.stringify({v: 99999999999, notas: ['Novidade A', 'Novidade B']})); window.__upd.estado.pronta = 99999999999; }")
+            await pg.evaluate("() => { localStorage.setItem('lf_upd', JSON.stringify({v: 99999999999, tent: 0, notas: ['Novidade A', 'Novidade B']})); window.__upd.estado.pronta = 99999999999; }")
             await pg.evaluate("() => document.querySelector('[data-act=updagora]') ? 0 : window.__LF.ACT.updagora()")
             ju1 = await pg.evaluate("() => { const o = document.getElementById('lfUpdSh'); return o ? [o.innerText.indexOf('Novidade B') >= 0, !!o.querySelector('[data-act=updgo]')] : null }")
             await pg.evaluate("() => window.__LF.ACT.updnao()"); await pg.wait_for_timeout(500)
@@ -2262,67 +2262,34 @@ async def main():
             await pg.screenshot(path='/tmp/sons-app.png')
             await pg.close()
 
-            # 26/11 · ATUALIZAÇÃO AO VIVO (work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md): o app INTEIRO troca e vira a base
-            # (1) o mecanismo velho saiu: sem /*LOADER*/, sem cópia de app.js/style.css no cache 'lafouch-upd', sem 'lf_upd', sem cronômetro
-            idx = open(os.path.join(RAIZ, 'www', 'index.html')).read(); appjs = open(os.path.join(RAIZ, 'www', 'app.js')).read()
-            sem_velho = '/*LOADER*/' not in idx and 'var EMB=' not in idx and "caches.open('lafouch-upd')" not in appjs and "setItem('lf_upd'" not in appjs and '/__upd/' not in appjs and "setItem('lf_updok'" not in appjs and '<script src="app.js"></script>' in idx
-            # (2) celular com o plugin (CapacitorUpdater de mentira): "pronto" UMA vez no fim do primeiro desenho; baixa o pacote com a soma;
-            #     "Atualizar agora" troca para ele; versão que não abriu (voltou para a boa) não é baixada de novo; ficam no máximo 2 pacotes
-            FALSO = """(function(){ const L = window.__cu = { pronto: 0, baixou: [], usou: [], apagou: [], atual: 'b641', lista: ['builtin', 'b639', 'b640', 'b641'] };
-              window.Capacitor = { isNativePlatform: () => true, Plugins: { CapacitorUpdater: {
-                notifyAppReady: () => { L.pronto++; return Promise.resolve({}); },
-                download: (o) => { L.baixou.push(o); return Promise.resolve({ id: 'b' + o.version, version: o.version }); },
-                set: (o) => { L.usou.push(o.id); return Promise.resolve(); },
-                current: () => Promise.resolve({ bundle: { id: L.atual }, native: '640' }),
-                list: () => Promise.resolve({ bundles: L.lista.map(id => ({ id })) }),
-                delete: (o) => { L.apagou.push(o.id); L.lista = L.lista.filter(x => x !== o.id); return Promise.resolve(); } } } }; })();"""
-            cctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')
-            await cctx.add_init_script(FALSO)
-            await cctx.add_init_script("try{localStorage.setItem('lf_boas', JSON.stringify(['b640']))}catch(e){}")
-            pg = await pagina(ctx=cctx)
-            await pg.wait_for_timeout(600)
-            await pg.evaluate("() => { const L = window.__LF; L.render(); L.setView('ajustes'); L.render(); }")
-            await pg.wait_for_timeout(300)
-            u1 = await pg.evaluate("() => [window.__cu.pronto, window.__cu.apagou.slice().sort(), JSON.parse(localStorage.getItem('lf_boas'))]")
-            u2 = await pg.evaluate("""async () => { const of = window.fetch, B = window.__LF.APP_BUILD || 0;
-                window.fetch = (u, o) => String(u).indexOf('github.io') < 0 ? of(u, o) : Promise.resolve(new Response(JSON.stringify({ v: 999999, nat: 2, nome: '9.9', notas: ['Nova'], zip: 'https://jamalyassine98.github.io/LaFouch/www-999999.zip', soma: 'a'.repeat(64) })));
-                await window.__upd.busca(true); const d = window.__cu.baixou[0] || {};
-                return [d.url, d.version, d.checksum === 'a'.repeat(64), window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.marca().id]; }""")
-            await pg.evaluate("() => window.__LF.ACT.updgo()"); await pg.wait_for_timeout(1800)
-            u3 = await pg.evaluate("() => [window.__cu.usou, window.__upd.marca().usou]")
-            await pg.close(); await cctx.close()
-            # a versão 999999 não abriu: o plugin voltou para a boa (o app reabre na versão de antes, com a marca 'usou')
-            cctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')
-            await cctx.add_init_script(FALSO)
-            await cctx.add_init_script("try{localStorage.setItem('lf_pacote', JSON.stringify({ v: 999999, nome: '9.9', id: 'b999999', usou: 1 }))}catch(e){}")
-            pg = await pagina(ctx=cctx); await pg.wait_for_timeout(600)
-            u4 = await pg.evaluate("""async () => { const of = window.fetch; const m0 = window.__upd.marca();
-                window.fetch = (u, o) => String(u).indexOf('github.io') < 0 ? of(u, o) : Promise.resolve(new Response(JSON.stringify({ v: 999999, nat: 2, zip: 'https://jamalyassine98.github.io/LaFouch/www-999999.zip', soma: 'a'.repeat(64) })));
-                await window.__upd.busca(true); return [m0.ruim, window.__cu.baixou.length, window.__upd.estado.pronta]; }""")
-            erros_u = pg.erros; await pg.close(); await cctx.close()
+            # Atualização automática: baixa o app novo, guarda no cache, o carregador usa e o botão aparece
+            pg = await pagina()
+            r = await pg.evaluate("""async () => {
+                const grande = '(function () {\\n var APP_BUILD = 999;\\n' + '//x'.repeat(60000) + '\\n window.__rodouNovo = 1;})();\\n';
+                const of = window.fetch;
+                window.fetch = (u, o) => String(u).indexOf('github.io') < 0 ? of(u, o) :
+                    String(u).indexOf('version.json') >= 0 ? Promise.resolve(new Response(JSON.stringify({v: 999, nat: 1}))) :
+                    String(u).indexOf('app.js') >= 0 ? Promise.resolve(new Response(grande)) : Promise.resolve(new Response('body{}'.repeat(400)));
+                await window.__upd.busca(true);
+                const m = window.__upd.marca();
+                const c = await caches.open('lafouch-upd');
+                const a = await c.match('/__upd/app.js');
+                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Atualizar para 999') > 0];
+            }""")
+            ok1 = r == [999, True, 999, True, True] and not pg.erros
+            # carregador: cópia nova (999) roda; cópia que não abre é descartada na 3a vez
+            await pg.reload()
+            await pg.wait_for_timeout(1500)
+            rodou = await pg.evaluate("() => [!!window.__rodouNovo, JSON.parse(localStorage.getItem('lf_upd')).tent]")
+            await pg.evaluate("() => localStorage.setItem('lf_upd', JSON.stringify({v: 999, tent: 2}))")
+            await pg.reload()
+            await pg.wait_for_function('window.__LF', timeout=10000)
+            volta = await pg.evaluate("() => [localStorage.getItem('lf_upd'), !!window.__rodouNovo]")
+            ok = ok1 and rodou == [True, 1] and volta == [None, False]
             total += 1
-            ok = sem_velho and u1 == [1, ['b639'], ['b641', 'b640']] and u2 == ['https://jamalyassine98.github.io/LaFouch/www-999999.zip', '999999', True, 999999, True, 'b999999'] and u3 == [['b999999'], 1] and u4 == [999999, 0, 0] and not erros_u
-            print(('  ok  ' if ok else ' FALHA ') + 'atualização ao vivo: sem o carregador velho; "pronto" 1 vez no 1º desenho; baixa o pacote com a soma; troca; não volta para versão ruim; no máximo 2 pacotes')
-            if not ok: falhas.append('atualização ao vivo'); print('        veio', sem_velho, u1, u2, u3, u4, erros_u)
-
-            # 26/11 · trava da atualização ao vivo, parte 2: o pacote publicado bate com o version.json (zip + soma sha256) e o version.json
-            # de dentro do pacote fica sem zip/soma; o PC (desktop/teste-pc.js): A boa → B sem "pronto" volta para A, soma errada não instala, ≤ 2 pastas
-            import tempfile, shutil, hashlib, zipfile
-            tw = tempfile.mkdtemp(); shutil.copytree(os.path.join(RAIZ, 'www'), os.path.join(tw, 'www'))
-            rp = subprocess.run(['node', os.path.join(RAIZ, 'tools', 'pacote.js')], env=dict(os.environ, LF_WWW=os.path.join(tw, 'www')), capture_output=True, text=True)
-            vj = json.load(open(os.path.join(tw, 'www', 'version.json'))); zn = 'www-%d.zip' % vj['v']; zf = os.path.join(tw, 'www', zn)
-            pac_ok = rp.returncode == 0 and os.path.exists(zf) and vj.get('zip') == 'https://jamalyassine98.github.io/LaFouch/' + zn and vj.get('soma') == hashlib.sha256(open(zf, 'rb').read()).hexdigest()
-            if pac_ok:
-                with zipfile.ZipFile(zf) as z: dentro = json.loads(z.read('version.json')); nomes = set(z.namelist())
-                pac_ok = 'zip' not in dentro and 'soma' not in dentro and {'index.html', 'app.js', 'style.css', 'sw.js'} <= nomes and not any(n.startswith('www-') for n in nomes)
-            subprocess.run(['node', os.path.join(RAIZ, 'tools', 'pacote.js'), '--limpa'], env=dict(os.environ, LF_WWW=os.path.join(tw, 'www')), capture_output=True)
-            pac_limpo = not any(f.endswith('.zip') for f in os.listdir(os.path.join(tw, 'www'))) and 'soma' not in json.load(open(os.path.join(tw, 'www', 'version.json')))
-            shutil.rmtree(tw, ignore_errors=True)
-            rpc = subprocess.run(['node', os.path.join(RAIZ, 'desktop', 'teste-pc.js')], capture_output=True, text=True, timeout=120)
-            total += 1
-            ok = pac_ok and pac_limpo and rpc.returncode == 0
-            print(('  ok  ' if ok else ' FALHA ') + 'pacote da atualização ao vivo: zip + soma batem; no PC volta para a última boa, soma errada não instala, no máximo 2 pastas')
-            if not ok: falhas.append('pacote ao vivo'); print('        veio', pac_ok, pac_limpo, rp.stdout[-200:], rp.stderr[-200:], rpc.stdout[-600:])
+            print(('  ok  ' if ok else ' FALHA ') + 'atualização automática: baixa, usa e volta atrás se não abrir')
+            if not ok: falhas.append('atualização automática'); print('        veio', r, rodou, volta, pg.erros)
+            await pg.close()
 
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
             pg = await pagina()
@@ -5663,15 +5630,14 @@ async def main():
             # APK mais novo na release → baixa sozinho no Wi-Fi e o botão do cartão vira "Atualização pronta" (um botão só); tocar abre o instalador;
             # nos dados móveis espera o toque; arquivo cortado não é oferecido; APK apk_igual ao instalado = nada aparece.
             pg = await pagina()
-            EMBN = int(json.load(open(os.path.join(RAIZ, 'www', 'version.json')))['v'])  # 26/11: o número do APK vem do Android (CapacitorUpdater.current().native)
+            EMBN = int(re.search(r'var EMB=(\d+)', open(os.path.join(RAIZ, 'www', 'index.html')).read()).group(1))
             rel = {'n': EMBN + 1, 'tam': 18500000}
             async def ghapi(route):
                 await route.fulfill(json={'tag_name': 'apk', 'assets': [{'name': 'chave.enc', 'size': 2800, 'browser_download_url': 'https://github.com/JamalYassine98/LaFouch/releases/download/apk/chave.enc'},
                   {'name': 'LaFouch-%d.apk' % rel['n'], 'size': rel['tam'], 'state': 'uploaded', 'browser_download_url': 'https://github.com/JamalYassine98/LaFouch/releases/download/apk/LaFouch-%d.apk' % rel['n']}]}, headers={'access-control-allow-origin': '*'})
             await pg.context.route(re.compile(r'api\.github\.com/repos/JamalYassine98/LaFouch/releases/tags/apk'), ghapi)
-            await pg.evaluate("(n) => { window.__embn = n; }", EMBN)
             got = await pg.evaluate("""async (tam) => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)); const A = window.__apk, log = { baixou: [], instalou: [], tamReal: tam, arq: {} };
-              window.Capacitor = { isNativePlatform: () => true, Plugins: { CapacitorUpdater: { current: async () => ({ native: String(window.__embn) }) }, LfInstall: { instalar: async o => { log.instalou.push(o.nome); return { ok: true }; } }, Filesystem: {
+              window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async o => { log.instalou.push(o.nome); return { ok: true }; } }, Filesystem: {
                 downloadFile: async o => { log.baixou.push(o.url); log.arq[o.path] = log.tamReal; return { path: o.path }; }, stat: async o => { if (!(o.path in log.arq)) throw new Error('não existe'); return { size: log.arq[o.path] }; }, rmdir: async o => { log.arq = {}; } } } };
               const cel = t => Object.defineProperty(navigator, 'connection', { value: { type: t }, configurable: true });
               L.setView('ajustes'); await w(300);
@@ -5687,7 +5653,7 @@ async def main():
               delete window.Capacitor; const semApk = await A.busca(false);
               return [wifi, instala, semBaixarDeNovo, dados, toque, cortado, naoInstala, semApk === 'sem']; }""", rel['tam'])
             rel['n'] = EMBN
-            apk_igual = await pg.evaluate("""async () => { const A = window.__apk; let apagou = 0; window.Capacitor = { isNativePlatform: () => true, Plugins: { CapacitorUpdater: { current: async () => ({ native: String(window.__embn) }) }, LfInstall: { instalar: async () => ({}) }, Filesystem: { downloadFile: async () => ({}), stat: async () => { throw new Error('x'); }, rmdir: async () => { apagou++; } } } };
+            apk_igual = await pg.evaluate("""async () => { const A = window.__apk; let apagou = 0; window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async () => ({}) }, Filesystem: { downloadFile: async () => ({}), stat: async () => { throw new Error('x'); }, rmdir: async () => { apagou++; } } } };
               A.estado.est = ''; const r = await A.busca(true); delete window.Capacitor; return [r === 'em dia', A.linha() === '' && !/apkgo/.test(window.__upd.card()), apagou === 1]; }""")
             # S337: WINDOWS — o programa do PC entrega o estado; a tela usa o mesmo botão único e manda "instalar" com o cabeçalho próprio
             pcs = {'est': 'baixa', 'pedidos': []}
@@ -5976,15 +5942,6 @@ async def main():
             if not ok:
                 falhas.append('um voltar só')
                 for x in vt_ruim: print('        ', x)
-
-            # 24/11 · lista PARTE 1 · 1b: plural de verdade (regra 17) — "1 venda" / "5 vendas", nunca "venda(s)"; função única nPl (src/40)
-            pg = await pagina(fam=True); await pg.wait_for_timeout(300)
-            r = await pg.evaluate("() => { const t = document.querySelector('#v-inicio').innerText; const L = window.__LF; return [/\\(s\\)/.test(t), typeof L.nPl === 'function' ? [L.nPl(1, 'venda'), L.nPl(5, 'venda'), L.nPl(2, 'dia')] : null]; }")
-            total += 1
-            ok = r[0] is False and (r[1] is None or r[1] == ['1 venda', '5 vendas', '2 dias'])
-            print(('  ok  ' if ok else ' FALHA ') + 'Início sem "(s)": plural de verdade (1 venda / 5 vendas)')
-            if not ok: falhas.append('Início sem (s)'); print('        ', r)
-            await pg.close()
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}

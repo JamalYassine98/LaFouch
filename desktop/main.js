@@ -18,8 +18,7 @@ const TIPOS = {
 };
 
 // S337: atualização do modo loja e do instalador (desktop/pc-atualiza.js)
-// 26/11: o app inteiro vem da última versão boa baixada (atualização ao vivo); sem o "pronto" da tela em 10 s, volta e recarrega
-const PC = require('./pc-atualiza').criar({ raiz: RAIZ, dados: app.getPath('userData'), tmp: path.join(os.tmpdir(), 'LaFouch'), recarrega: () => { if (janela) janela.reload(); } });
+const PC = require('./pc-atualiza').criar({ raiz: RAIZ, dados: app.getPath('userData'), tmp: path.join(os.tmpdir(), 'LaFouch') });
 function instalar(arq) {
   // abre o instalador (ele instala por cima) e fecha o app para os arquivos poderem ser trocados
   try { spawn(arq, [], { detached: true, stdio: 'ignore' }).unref(); } catch (e) { return; }
@@ -27,7 +26,7 @@ function instalar(arq) {
   setTimeout(() => app.quit(), 800);
 }
 function atualizaSozinho() {
-  const roda = () => { PC.buscaInstalador().catch(() => {}); }; // o app novo a tela busca sozinha (updBusca → /__pc/baixa)
+  const roda = () => { PC.buscaLoja().catch(() => {}); PC.buscaInstalador().catch(() => {}); };
   setTimeout(roda, 45000);
   setInterval(roda, 4 * 3600 * 1000);
 }
@@ -40,7 +39,7 @@ function servidor() {
       // S337: pedidos da atualização (só da própria janela: outra página aberta no computador não consegue mandar instalar nada)
       const og = req.headers.origin || '', origemOk = (!og || og === 'http://127.0.0.1:' + PORTA) && (req.headers.host || '') === '127.0.0.1:' + PORTA;
       if (PC.atende(req, res, p, origemOk, instalar)) return;
-      const f = PC.arquivo(p); // o app inteiro (raiz e /loja/) vem da última versão boa baixada, senão do instalador
+      const f = PC.arquivo(p); // /loja/ vem da cópia baixada do site quando ela é mais nova que a do instalador
       if (!f) { res.writeHead(403); return res.end(); }
       fs.readFile(f, (e, d) => {
         if (e) { res.writeHead(404); return res.end('Não encontrado'); }

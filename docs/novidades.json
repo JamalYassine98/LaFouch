@@ -1,8 +1,7 @@
 {
- "nome": "5.61.0",
+ "nome": "5.60.0",
  "notas": [
-  "Atualização ao vivo: o app inteiro troca de uma vez e nunca mais volta para uma versão velha (celular e PC). Precisa instalar o aplicativo novo uma vez.",
-  "Plural de verdade: \"Vendido hoje · 5 vendas\"."
+  "Voltar consertado: a seta da tela, o voltar do Android e o do navegador agora fazem o mesmo passo — fecham a janela ou o Estúdio, depois a peça aberta, depois voltam uma tela. No Início, o Android pergunta \"Sair do app?\"."
  ],
- "build": 642
+ "build": 641
 }

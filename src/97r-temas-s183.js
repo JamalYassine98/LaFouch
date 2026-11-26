@@ -17,7 +17,7 @@
     halloween: { g: function () { return false; }, rot: '—', p: 0, pp: 0 }
   };
   // 135h: o plural dos dias num lugar só ("1 dia", "N dias"), para o cartão do tema, o Guardião e Preços
-  function nDias(n) { return nPl(n, 'dia'); }
+  function nDias(n) { return n + (n === 1 ? ' dia' : ' dias'); }
   function temaAtual() {
     var t = typeof cupTemaProx === 'function' ? cupTemaProx() : null;
     return t && TEMA_REG[t.tema] ? t : null;

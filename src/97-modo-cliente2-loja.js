@@ -81,8 +81,9 @@
     ML.fr = w.querySelector('iframe');
     document.documentElement.classList.add('mlOn');
     // a cópia baixada não deu sinal de vida: marca como ruim e volta para a que veio no APK (o relógio abaixo reabre sozinho)
-    // (no Windows a loja vem dentro do pacote inteiro do app — desktop/pc-atualiza.js —, sem cópia separada)
-    if (bx) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { ljuRuim(); mlFecha(); } }, 9000);
+    // S337: no Windows a cópia baixada fica com o programa (mesmo endereço); se ela não abrir, avisa o programa para descartar
+    var pcl = PCX.on && PCX.loja;
+    if (bx || pcl) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { if (bx) ljuRuim(); else { PCX.loja = 0; pcPede('loja-ruim', true).catch(function () {}); } mlFecha(); } }, 9000);
   }
   function mlFecha() {
     var w = document.getElementById('mlWrap');

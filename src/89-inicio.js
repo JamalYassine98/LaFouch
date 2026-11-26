@@ -251,7 +251,7 @@
       ? '<section class="card inFotos" data-act="semfoto" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('est', 20) + '</span><span class="inFotTx"><b>' + (novas ? novas + (novas === 1 ? ' peça nova para fotografar' : ' peças novas para fotografar') : nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto')) + '</b><small>' + (novas ? 'da compra · já estão na fila do Estúdio' : 'todo produto precisa de foto · já estão na fila do Estúdio') + '</small></span><button type="button" class="inFotB" data-act="semfoto" id="btnSemFoto">Fotografar</button></section>'
       : '';
     el.innerHTML = (typeof nvBemVindoHtml === 'function' ? nvBemVindoHtml() : '') + faixa + /* S324 (dono, 15/11/2026): faixa "Recentes" removida do Início */ '' + (typeof temaCardHtml === 'function' ? temaCardHtml() : '') + (typeof guardInicioHtml === 'function' ? guardInicioHtml() : '') + pend + semFoto + (typeof semanaSiteHtml === 'function' ? semanaSiteHtml() : '') +
-      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + nPl(h.n, 'venda') + '</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
+      '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
   // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo

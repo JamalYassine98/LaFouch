@@ -13,7 +13,7 @@
     "appId": "py.lafouch.app",
     "productName": "La Fouch",
     "directories": { "output": "dist" },
-    "files": ["main.js", "pc-atualiza.js", "zip.js", "package.json"],
+    "files": ["main.js", "pc-atualiza.js", "package.json"],
     "extraResources": [{ "from": "../www", "to": "www" }],
     "win": { "target": "nsis", "icon": "icon.png" },
     "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true }
