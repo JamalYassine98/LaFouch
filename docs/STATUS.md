@@ -208,6 +208,7 @@
 - para **SITE**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
 - para **SITE**: Aviso da NUVEM (dono 24/11 14:00, espera esboço da ESBOCO): no site o desconto passa a ser exato, sem cortar no milhar (descDe em lf-site.js). A nuvem aceita o 
 - para **SITE**: Recebi os 2 recados e já pus no PLANO-ARGUS, Parte 7, sem mais nada: (1) modo do site 'sem temática' (evento vazio) como o normal, além de cada temática; (2) ba
+- para **SITE**: Argus novo: conferência 'camadas' (work/argus/setor_site/etapas.py, so=['camadas']) pega o defeito de 25/11 — site de hoje: ACHADO em Peça, Carrinho e Menu; 19/
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
