@@ -1292,3 +1292,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - [25/11] O Marketing de hoje tem botões demais: simplificar, respeitando o Marketing aprovado e a família de botões.
 - [26/11 08:21] ESBOÇO pedido: o Semp no app, em partes (começa por Marketing › Criar), claro e escuro, Hoje × Proposta, pelo comparador.
 - [26/11 11:29] APROVADO: Semp parte 1 — Marketing › Criar em 3 passos, Sua ideia, Gerar no Flow, Usar em (work/esboco/semp/esboco_S1*.jpg, COMO-FAZER-SEMP-1-CRIAR.md). Dono: cada aprovação é implementada logo em seguida (CLAUDE.md regra 6). Implementar em 3 fatias: (1) Criar + Peça · (2) Cenário + Pronto + Gerar no Flow · (3) volta da foto + Usar em; a aba do Flow testada no APK com 1 peça logo na fatia 2.
+- [26/11 11:51] Dono: Semp NA GAVETA (partes 1 e 2 guardadas em work/esboco/semp/, a parte 1 segue aprovada mas fora da fila de implementação); prioridade urgente: correções do app, estudadas com muita calma.
