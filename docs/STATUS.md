@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 16 estudo 2: padrões de luxo (início e categorias) | work/ideias/16-padrao-luxo/ESTUDO.md |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -229,6 +228,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 14:50 — IDEIAS: 16 estudo 2 anotado (ESTUDO.md §7–8); 2c esperando o dono
 - 26/11 14:04 — IDEIAS: 17 parte 2b (Feminino/Masculino + tipos deslizando) — esperando o dono
 - 26/11 13:59 — IDEIAS: 17 parte 2 com Leitura — esperando o dono
 - 26/11 13:56 — IDEIAS: 17 parte 2 (selos + categorias) esboço pronto — esperando o dono
@@ -245,7 +245,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 09:41 — IDEIAS: 16: estudo do padrão de luxo (prancha + ESTUDO.md); 15b fica esperando o novo padrão
 - 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
 - 26/11 09:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
-- 26/11 08:44 — IDEIAS: 15b: prévias só com a foto — esboço pronto (5 pranchas, A × B)
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
 - 26/11 06:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
 - 26/11 03:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
