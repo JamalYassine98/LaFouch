@@ -1,0 +1,14 @@
+ok            autoprova (o Argus ainda enxerga: motor e site)  (26)
+FALHA         conferências do site (86)  (2)
+ok            plantas do site válidas (aprovação na lista viva)
+FALHA         plantas do site aprovadas para conferir  (1)
+ok            comparador (site × planta)
+ok            toques (ligações e regras)
+ok            medidor de família nos modos do site
+ok            todos os modos do site rodaram  (1)
+ok            tempo com a loja cheia
+FALHA         mapa: página do site sem planta aprovada  (59)
+ok            segurança (setor NUVEM: emulador do Firebase + funções)
+
+SEM SELO: 3 etapa(s) com falha
+STATUS: True ok, fila atualizada
