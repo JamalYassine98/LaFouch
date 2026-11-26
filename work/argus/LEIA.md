@@ -124,3 +124,5 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - work/fiscal → work/obsoletos/argus-antigo-26-11 (regra 7: o superado vai para obsoletos). Nada do Argus novo usa ele.
 - CLAUDE.md regras 20 e 21 trocadas pelo texto aprovado (REGRAS-20-21-PROPOSTA.md): versão → commit → porta completa → SELO DADO → selo.py ok → push.
 - Ficam por enquanto (próxima parte, com o dono): os medidores do kit de esboço (work/kit: centro.js, sobre.js, olho.js, alin.js, mede.*), porque o kit.py e esboços de outras sessões ainda os usam rodando — passam para o motor do Argus num passo próprio.
+
+- 26/11 · A.atravessa mede pela caixa das LETRAS (Range dos textos), não pela caixa do elemento: o "‹ voltar" de 44 px com a palavra no meio não conta como encostar no título (falso achado visto no esboço do Semp). Conferido: autoprova ok; site ea1a86f ainda acusa Peça/Carrinho/Menu; 19/11 ok.

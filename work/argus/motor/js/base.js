@@ -28,7 +28,11 @@ A.opaca=x=>{const m=/rgba?\(([^)]+)\)/.exec(getComputedStyle(x).backgroundColor)
 // TEXTO QUE ATRAVESSA (25/11: o site ficou com as camadas transparentes — as cores base sumiram do :root e o menu e a peça abriam
 // por cima da tela sem fundo): dois textos visíveis no mesmo lugar, e nada com fundo entre o de cima e o de baixo = o de baixo
 // aparece através do de cima. Pega camada sem fundo e textos encavalados na mesma camada. Só o que está na tela agora.
-A.atravessa=()=>{const T=[];for(const e of document.querySelectorAll('body *')){if(!A.own(e)||!A.vis(e)||e.closest('svg,[data-argus]'))continue;const r=e.getBoundingClientRect();
+A.atravessa=()=>{const T=[];
+ // a caixa do TEXTO (as letras), não a do elemento: um botão de 44 px com a palavra no meio não "encosta" no título de baixo (26/11)
+ const letras=e=>{let L=1e9,Tp=1e9,R=-1e9,B=-1e9;for(const n of e.childNodes){if(n.nodeType!==3||!n.textContent.trim())continue;const g=document.createRange();g.selectNodeContents(n);for(const q of g.getClientRects()){if(q.width<1||q.height<1)continue;L=Math.min(L,q.left);Tp=Math.min(Tp,q.top);R=Math.max(R,q.right);B=Math.max(B,q.bottom)}}
+  return R>L?{left:L,top:Tp,right:R,bottom:B,width:R-L,height:B-Tp}:null};
+ for(const e of document.querySelectorAll('body *')){if(!A.own(e)||!A.vis(e)||e.closest('svg,[data-argus]'))continue;const r=letras(e);if(!r)continue;
   if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)continue;T.push([e,r])}
  const fundo=x=>{const c=getComputedStyle(x);return A.opaca(x)||(c.backgroundImage&&c.backgroundImage!=='none'&&!/^url\(.*\.svg/.test(c.backgroundImage))||c.backdropFilter&&c.backdropFilter!=='none'};
  const out=[],vistos=new Set();
