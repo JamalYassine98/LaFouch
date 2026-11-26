@@ -71,3 +71,10 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
   **Teste de grau** = cartão de leitura com letras que diminuem (desenhado como imagem). Nome em Fraunces + uma linha embaixo, fora da imagem.
 - Para cada uso: só o nome (Solar · Leitura · Armações), sem linha extra.
 - AC1055 "muito para a direita" — causa: foto de 3/4, a haste puxa a caixa. A normalização agora centraliza pelo **centro de massa** da peça (não pela caixa).
+
+## v7 (dono 17:47) — esboco-18-v7-parte1…5.jpg
+- **Capa sem ocupar a tela / blocos tortos (direita maior):** não era o desenho — era a barra de rolagem do simulador (16 px) entrando na foto.
+  No celular ela não ocupa espaço; o roda.py agora corta essa faixa. A página medida: largura = tela (390), sem sobra.
+- **Fotos 3/4:** todas as peças serão 3/4, então a centralização pelo centro de massa vale para todas, automática, ao subir a foto (não depende da foto).
+- **Ferramentas:** voltam a ser o MESMO cartão-foto da página (harmonia), mas com foto de ação que diz o que é: pessoa de óculos tirando selfie
+  (Provador virtual · No seu rosto) e pessoa apontando a tabela de letras (Teste de grau · Em 1 minuto). 3:4, nome Fraunces 18.

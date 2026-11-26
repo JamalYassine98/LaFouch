@@ -3,7 +3,8 @@ import os, sys, json
 AQ = os.path.dirname(os.path.abspath(__file__)); KIT = os.path.abspath(os.path.join(AQ, '../../kit')); sys.path.insert(0, KIT)
 os.chdir(KIT); import kit
 from playwright.sync_api import sync_playwright
-FORCA = "(()=>{const s=document.createElement('style');s.textContent='*{content-visibility:visible!important}.rv,[data-rv],.reveal{opacity:1!important;transform:none!important}';document.head.appendChild(s);return 1})()"
+# barra de rolagem do simulador escondida: no celular ela não ocupa espaço (sem isso a foto ganha 16 px de faixa à direita)
+FORCA = "(()=>{const s=document.createElement('style');s.textContent='html{scrollbar-width:none}::-webkit-scrollbar{display:none}*{content-visibility:visible!important}.rv,[data-rv],.reveal{opacity:1!important;transform:none!important}';document.head.appendChild(s);return 1})()"
 def abre(pw):
     kit.prep_site(); kit.serve(kit.SITE, kit.PS)
     b, c = kit.ctx(pw); c.add_init_script("localStorage.setItem('lf_lang','pt');try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
@@ -19,7 +20,10 @@ def foto(pg, out, inj=None):
         for x in pg.evaluate(open(os.path.join(KIT, 'olho.js')).read()): av.add(f"{x['r']} {x['ex']}")
         for x in pg.evaluate(open(os.path.join(KIT, 'ecom.js')).read()): av.add(x[:160])
     pg.evaluate('scrollTo(0,0)'); pg.evaluate("document.querySelectorAll('a.wa').forEach(e=>e.style.visibility='hidden')"); pg.wait_for_timeout(400)
-    pg.screenshot(path=out, full_page=True); return sorted(av)
+    pg.screenshot(path=out, full_page=True)
+    from PIL import Image as _I; w = pg.evaluate('document.documentElement.clientWidth') * 2; im = _I.open(out)
+    if im.width > w: im.crop((0, 0, w, im.height)).save(out)  # corta a faixa da barra de rolagem do simulador (não existe no celular)
+    return sorted(av)
 if __name__ == '__main__':
     modo = sys.argv[1]
     with sync_playwright() as pw:
