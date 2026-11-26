@@ -45,3 +45,13 @@ Os mais *pedidos* (grade 2 × 2) · Como fica no *rosto* (vídeos: mulher, homem
 - **Cartão de peça novo (uma família para a página toda):** sem caixa branca nem borda; a peça num painel rosé claro #f4ebf1 arredondado 18
   (o fundo branco da foto some com mix-blend-mode:multiply); embaixo, solto: marca · material (Inter 12, cinza), código em Fraunces 18, cor, preço Inter 600 15 preto;
   "Última unidade" vira etiqueta branca pequena no canto do painel. Vale para Acabou de chegar, Mais pedidos, Visto na foto, Para cada uso, vídeos (código em Fraunces) e Para lojistas.
+
+## v4 (dono 17:17 + 17:22: "a reclamação está nos cartões dos produtos em si e na organização") — esboco-18-v4-parte1…5.jpg (nítidos, tamanho real)
+Estudado com os plugins frontend-design e design-elevation (evitar o "kit de cartões SaaS": caixas iguais, borda, painel em tudo).
+- **Cartão de peça v4 (vitrine):** sem caixa, sem painel, sem borda — a peça pousa no fundo rosé da página com uma sombra de apoio suave (como numa vitrine);
+  linha 1: código em Fraunces 18 e preço preto na MESMA linha de base (L2); linha 2: o detalhe, cinza; linha 3: cores em anéis de 12 px;
+  "Últimas unidades" em texto vinho pequeno embaixo (nada sobre a foto). Imagem presa numa caixa de proporção fixa (3:2 carrossel, 1:1 grade, 16:9 destaque),
+  então todos os cartões de uma fileira têm o preço na mesma altura. "Visto na foto" usa o MESMO cartão + "Ver modelo" largo.
+- **Organização:** ferramentas viram um painel claro com 2 linhas junto dos selos (servem, não disputam com as fotos); Para cada uso = lista em pé com linhas finas
+  (nada cortado na borda); nenhuma peça repete na página; BR44145 fora; Para lojistas com foto de lote de armações (desenho).
+- Código: estilos substituídos apagados no mesmo passo (bloco duplicado e o cartão-foto antigo das ferramentas).
