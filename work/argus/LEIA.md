@@ -126,3 +126,13 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - Ficam por enquanto (próxima parte, com o dono): os medidores do kit de esboço (work/kit: centro.js, sobre.js, olho.js, alin.js, mede.*), porque o kit.py e esboços de outras sessões ainda os usam rodando — passam para o motor do Argus num passo próprio.
 
 - 26/11 · A.atravessa mede pela caixa das LETRAS (Range dos textos), não pela caixa do elemento: o "‹ voltar" de 44 px com a palavra no meio não conta como encostar no título (falso achado visto no esboço do Semp). Conferido: autoprova ok; site ea1a86f ainda acusa Peça/Carrinho/Menu; 19/11 ok.
+## 26/11 · consertos do site que não podem voltar (PLANTAS, dono 08:05: "só quero me certificar de que os bugs estão corrigidos")
+- setor_site/consertos.py: uma conferência por bug do site corrigido depois de 19/11 que ainda não tinha prova — pelo FUNCIONAMENTO, não pelo desenho (vale para o design novo). Entram no fim de etapas.TODAS (a porta roda).
+  · Esc = voltar (d4ab681): Esc fecha os Filtros e fica no catálogo; conta → carrinho → Esc volta à conta. Visto reprovando em 4e9622f.
+  · janela solta (66daaf2): "Abrir a câmera" do formato abre a janela fixa, dentro da tela, com fundo. Visto reprovando em 4b96bd1 (janela em y 4006, transparente).
+  · Destaque sem piscar (c6c8a56): nos primeiros 5 s a 1ª foto não some nem troca (sem temática e Natal). Visto reprovando em 17fc91b (foto crua → nada → enquadrada).
+  · peça por link direto com foto (080cba4) e cartões do "Comece por aqui" com desenho, PT/ES × celular/PC (df28b35): a falha antiga não se repete no simulador (fotos antigas vinham do Firestore; 2ª pintura com a nuvem real) — provadas com estrago.
+- Já tinham prova: versão da página = version.json (df019e5; 66daaf2 reprova), pedido tenta de novo (88f34d3), camadas com fundo (17f3e97).
+- Estragos novos (setor_site/estragos.py): foto da peça escondida, cartão vazio, Esc que não chega, janela solta, Destaque que some 250 ms — todos vistos.
+- Prova 7c: a trava das camadas agora olha o site de antes do conserto (f224c92), porque o de hoje já está consertado; + os consertos (hoje passam, os 3 de antes reprovam, os 5 estragos vistos).
+- Bugs AINDA ABERTOS no site de hoje (17f3e97): o "+" do carrinho passa do estoque da cor (ACHADO do Argus); topo e faixa somem ao rolar e abrir o menu (B4, celular −322 px e PC −290 px; conserto aprovado no 61, espera o implementar) — sem prova na porta até o dono decidir.

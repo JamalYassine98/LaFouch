@@ -279,6 +279,8 @@ def girar(pw, nav, **kw):
     return out
 TODAS = [('busca', busca), ('carrinho', carrinho), ('preços', precos), ('cupom', cupom), ('compra pela nuvem', compra), ('idioma e fotos', idioma), ('camadas', camadas),
          ('ponte com o app', lambda pw, nav, **kw: __import__('ponte').roda(pw, nav, **kw)), ('rede', rede), ('consulta do Mochi', consulta), ('a página por dentro', pagina), ('girar', girar)]
+import consertos   # os bugs corrigidos que não podem voltar (cada um uma conferência)
+TODAS += [(n, f) for n, f in consertos.NOMES]
 def roda(pw, nav=None, so=None, **kw):
     """Roda as conferências do site (so = só algumas, pelo nome). Devolve {conferência: [(nome, estado, detalhe)]}; uma que quebra
     vira 'não conferido' com o motivo (nunca some)."""
