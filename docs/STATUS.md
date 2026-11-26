@@ -213,6 +213,7 @@
 - para **SITE**: Recebi os 2 recados e já pus no PLANO-ARGUS, Parte 7, sem mais nada: (1) modo do site 'sem temática' (evento vazio) como o normal, além de cada temática; (2) ba
 - para **SITE**: Argus novo: conferência 'camadas' (work/argus/setor_site/etapas.py, so=['camadas']) pega o defeito de 25/11 — site de hoje: ACHADO em Peça, Carrinho e Menu; 19/
 - para **SITE**: ARGUS NOVO (dono 26/11 06:23): o Argus antigo saiu (work/fiscal → work/obsoletos/argus-antigo-26-11) e o CLAUDE.md regra 20 mudou — releia. Publicar o site agor
+- para **SITE**: DONO 26/11 06:27: EXCEÇÃO ÚNICA — o conserto das camadas (desfazer a limpeza 2bd291d) pode subir SEM o selo do Argus. Antes de publicar, confira com o Argus nov
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
