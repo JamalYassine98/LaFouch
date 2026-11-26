@@ -30,23 +30,19 @@ const NOME = String(NOV.nome || BUILD);
 if (NOV.build !== BUILD) console.warn('\n*** ATENÇÃO: docs/novidades.json é da versão ' + (NOV.build || '?') + ' e o sw.js está na ' + BUILD + '. Atualize "nome", "build" e "notas" — senão o app continua mostrando ' + NOME + ' ***\n');
 const NOTAS = NOV.notas || [];
 const saida = '(function () {\n' + corpo.replace('__APP_BUILD__', BUILD).replace('__APP_NOME__', NOME).replace('__APP_LIBS__', () => LIBS) + '})();\n';
-const IDX = path.join(__dirname, 'www', 'index.html');
-const idx = fs.readFileSync(IDX, 'utf8');
-const idxNovo = idx.replace(/\/\*LOADER\*\/\(function\(\)\{var EMB=\d+/, '/*LOADER*/(function(){var EMB=' + BUILD);
 const NAT = +((corpo.match(/var APP_NAT = (\d+)/) || [0, 1])[1]);
 const VER = JSON.stringify(Object.assign({ v: BUILD, nat: NAT, nome: NOME }, NOTAS.length ? { notas: NOTAS } : {})) + '\n';
 
 if (process.argv.includes('--check')) {
   const atual = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
   const verAtual = fs.existsSync(path.join(__dirname, 'www', 'version.json')) ? fs.readFileSync(path.join(__dirname, 'www', 'version.json'), 'utf8') : '';
-  if (atual !== saida || idx !== idxNovo || verAtual !== VER) {
+  if (atual !== saida || verAtual !== VER) {
     console.error('www/app.js desatualizado: rode "node build.js"');
     process.exit(1);
   }
   console.log('www/app.js em dia (' + modulos.length + ' módulos)');
 } else {
   fs.writeFileSync(OUT, saida);
-  if (idx !== idxNovo) fs.writeFileSync(IDX, idxNovo);
   fs.writeFileSync(path.join(__dirname, 'www', 'version.json'), VER);
   console.log('www/app.js gerado: ' + modulos.length + ' módulos, ' + saida.split('\n').length + ' linhas');
 }

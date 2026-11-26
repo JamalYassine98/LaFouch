@@ -1,7 +1,7 @@
   // ===== S334 (15/11/2026, pedido do dono): a atualização do app cuida do APK também =====
   // Quando o dono manda gerar um APK, o build-apk.yml (com a chave FIXA) publica o arquivo LaFouch-<build>.apk na "release" apk do GitHub.
-  // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (número EMB do index.html que veio
-  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
+  // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (versionName do Android,
+  // gravado pelo build-apk.yml), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
   // "Atualização pronta · Toque para instalar" (S335: um botão só, como uma atualização qualquer). Tocar abre o instalador do Android, que sempre pede a confirmação.
   var APK_API = 'https://api.github.com/repos/JamalYassine98/LaFouch/releases/tags/apk';
   var APK = { emb: 0, n: 0, url: '', tam: 0, est: '', msg: '', t: 0, busy: false, avisou: 0 }; // est: '' · tem · baixa · pronto · erro
@@ -42,7 +42,7 @@
   }
   // ----- S337: WINDOWS. O programa do PC (desktop/main.js + pc-atualiza.js) procura e baixa o instalador novo sozinho; a tela só
   // lê o estado (/__pc/estado) e usa o MESMO botão e os mesmos textos do celular. "Instalar" abre o instalador do Windows.
-  var PCX = { on: false, loja: 0 };
+  var PCX = { on: false };
   function pcPede(caminho, post) {
     return fetch('/__pc/' + caminho, post ? { method: 'POST', headers: { 'X-LaFouch': '1' }, cache: 'no-store' } : { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); });
@@ -51,7 +51,6 @@
     if (!e || e.pc !== true) return;
     var antes = APK.est;
     PCX.on = true;
-    PCX.loja = +e.loja || 0;
     APK.emb = +e.emb || 0; APK.n = +e.n || 0; APK.tam = +e.tam || 0;
     APK.est = APK.n ? String(e.est || '') : '';
     APK.msg = String(e.msg || '');
@@ -76,9 +75,12 @@
     if (!P || APK.busy || APK.est === 'baixa' || !navigator.onLine) return Promise.resolve('sem');
     APK.busy = true;
     APK.t = Date.now();
-    return fetch('index.html', { cache: 'no-store' }).then(function (r) { return r.text(); })
-      .then(function (t) {
-        APK.emb = +((t.match(/var EMB=(\d+)/) || [])[1]) || 0;
+    // o número do APK instalado = versionName do Android (o build-apk.yml grava o número da versão); com a atualização ao vivo
+    // o index.html em uso é o do pacote baixado, por isso o número vem do próprio Android (CapacitorUpdater.current().native)
+    var CU = updCU();
+    return (CU ? CU.current() : Promise.reject(new Error('sem atualização ao vivo')))
+      .then(function (c) {
+        APK.emb = parseInt(c && c.native, 10) || 0;
         if (!APK.emb) throw new Error('sem número');
         return fetch(APK_API, { cache: 'no-store', headers: { Accept: 'application/vnd.github+json' } });
       })
