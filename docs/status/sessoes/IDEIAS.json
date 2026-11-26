@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 início inteiro + voz da marca",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro/",
-  "work/ideias/16-padrao-luxo/VOZ-LAFOUCH.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795723443.6337833,
+   "r": "18 início inteiro — esboço pronto, esperando o dono"
+  },
   {
    "t": 1795723240.745019,
    "r": "16 estudo 4 (plugins) anotado; início inteiro esperando o dono"
@@ -41,10 +42,6 @@
   {
    "t": 1795712378.3736506,
    "r": "17 parte 2 com Leitura — esperando o dono"
-  },
-  {
-   "t": 1795712183.4263725,
-   "r": "17 parte 2 (selos + categorias) esboço pronto — esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
