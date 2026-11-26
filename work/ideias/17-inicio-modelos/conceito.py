@@ -14,12 +14,23 @@ def b64(p, box=None, w=900):
     if box: im = im.crop(box)
     im.thumbnail((w, 4000)); b = io.BytesIO(); im.save(b, 'JPEG', quality=86)
     return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
-CAFE = b64('semp-cafe-campanha.jpg', (230, 160, 1200, 1373))      # recorte 4:5 com o rosto e a armação
+CAFE = b64('semp-cafe-campanha.jpg', None, 1100)   # foto inteira; o recorte é feito pela capa (cover)
 ESTU = b64('semp-estudio-vitrine.jpg', (0, 0, 896, 1120))
 JS = r"""([CAFE, ESTU]) => {
   const st = document.createElement('style'); st.textContent = `
   #hdst.lfx-camp{border:0!important;border-radius:0!important;width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;margin-right:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
-  .lfx-foto{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+  .lfx-capa{position:relative;overflow:hidden;cursor:pointer;color:#fff}
+  .lfx-capa .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 20%}
+  .lfx-capa .vt{position:absolute;left:0;right:0;top:0;height:38%;background:linear-gradient(#1f0d1799,#1f0d1700)}
+  .lfx-capa .vb{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(#1f0d1700,#1f0d17b3)}
+  .lfx-capa .cima{position:absolute;left:24px;right:24px;top:32px;text-align:center}
+  .lfx-capa .rot{font:600 12px Inter,system-ui;letter-spacing:.18em;text-transform:uppercase;opacity:.92}
+  .lfx-capa h1{font:500 34px/1.1 Fraunces,Georgia,serif;margin:10px 0 0;text-shadow:0 1px 12px #0004}
+  .lfx-capa h1 em{color:#f6e3ec!important}
+  .lfx-capa .baixo{position:absolute;left:24px;right:24px;bottom:28px;text-align:center}
+  .lfx-capa p{font:15px/1.45 Inter,system-ui;margin:0 0 16px;opacity:.95}
+  .lfx-capa .bt{display:inline-block;padding:12px 28px;border:1px solid #fff;border-radius:999px;font:500 15px Inter,system-ui;letter-spacing:.04em}
+  .lfx-capa .pts{display:flex;gap:8px;justify-content:center;margin-top:20px}.lfx-capa .pts i{width:6px;height:6px;border-radius:9px;background:#fff8}.lfx-capa .pts i.on{width:22px;background:#fff}
   .lfx-ed{width:100vw;margin:32px 0 8px calc(50% - 50vw);background:linear-gradient(135deg,#fcf3f8,#f2dce8)}
   .lfx-ed img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
   .lfx-ed .tx{padding:24px 24px 32px;text-align:center}
@@ -30,12 +41,17 @@ JS = r"""([CAFE, ESTU]) => {
   .lfx-ed a{color:#943d6f;text-decoration:none;font:500 16px Inter,system-ui}
   .lfx-tocar{position:absolute;inset:0;border:2px dashed #943d6f;border-radius:14px;background:#fcf3f8e6;display:flex;align-items:center;justify-content:center;text-align:center;font:600 12px/1.4 Inter;color:#943d6f;padding:8px}`;
   document.head.appendChild(st);
-  // 1) destaque da semana com a modelo
-  const d = document.getElementById('hdst'); d.classList.add('lfx-camp');
-  const fig = d.querySelector('.hdi');
-  const foto = document.createElement('img'); foto.className = 'lfx-foto'; foto.src = CAFE; fig.replaceWith(foto);
-  d.querySelector('.hdt h1').innerHTML = 'Armação LaFouch <em>quadrada</em>';
-  d.querySelector('.hpr').remove();
+  // 1) capa de tela inteira (dono 13:23): a foto cobre a tela toda abaixo do topo; o texto fica por cima da foto;
+  //    tocar em qualquer lugar da capa abre a página da peça (data-open, o mesmo do botão "Ver modelo")
+  const d = document.getElementById('hdst'); const cod = d.querySelector('[data-open]').dataset.open;
+  const topH = document.querySelector('.top').getBoundingClientRect().height;
+  const cap = document.createElement('section'); cap.id = 'hdst'; cap.className = 'lfx-capa'; cap.dataset.open = cod;
+  cap.style.height = (innerHeight - topH) + 'px';
+  cap.innerHTML = `<img class=bg src="${CAFE}"><div class=vt></div><div class=vb></div>
+    <div class=cima><div class=rot>Destaque da semana</div><h1>Armação LaFouch <em>quadrada</em></h1></div>
+    <div class=baixo><p>Acetato rosé com detalhe dourado na haste.</p><span class=bt>Ver a peça</span>
+    <div class=pts><i class=on></i><i></i><i></i><i></i></div></div>`;
+  d.replaceWith(cap);
   // 2) catálogo: ao tocar, a modelo usando a peça
   const card = document.querySelector('#home .hg .hc'); const ci = card.querySelector('.hci'); ci.style.position='relative';
   const t = document.createElement('div'); t.className='lfx-tocar'; t.innerHTML='AO TOCAR<br>a modelo usando<br>esta peça<br>(foto do Semp)'; ci.appendChild(t);
@@ -43,10 +59,10 @@ JS = r"""([CAFE, ESTU]) => {
   const hs = [...document.querySelectorAll('#home .hsh')]; const mv = hs.find(e=>/Mais vendidos/.test(e.innerText)); const grade = mv.nextElementSibling;
   const ed = document.createElement('section'); ed.className='lfx-ed';
   ed.innerHTML = `<img src="${ESTU}"><div class=tx><div class=lfx-rot>Veja no rosto</div><h2>A armação certa <i>muda</i> o rosto</h2><p>Cada peça com a foto no rosto, para você ver o tamanho e a cor antes de reservar.</p></div>`;
-  const ver = [...document.querySelectorAll('#hdst a, #hdst button')].find(e=>/catálogo/.test(e.innerText)); if (ver) ed.querySelector('.tx').appendChild(ver.cloneNode(true));
+  const lk=document.createElement('a'); lk.href='#vitrine'; lk.textContent='Ver catálogo ›'; ed.querySelector('.tx').appendChild(lk);
   grade.after(ed);
   const W = document.documentElement.scrollWidth;
-  for (const el of [d, ed]) { el.style.setProperty('width', W+'px', 'important'); el.style.setProperty('margin-left', '0', 'important');
+  for (const el of [cap, ed]) { el.style.setProperty('width', W+'px', 'important'); el.style.setProperty('margin-left', '0', 'important');
     const L = el.getBoundingClientRect().left; el.style.setProperty('margin-left', (-L)+'px', 'important'); }
   return 'ok ' + W;
 }"""
@@ -58,7 +74,7 @@ with sync_playwright() as p:
         pg.screenshot(path='/tmp/%s.png' % nome, full_page=True); b.close()
 H, P = Image.open('/tmp/hoje.png'), Image.open('/tmp/proposta.png')
 def faixa(im, y0, y1): return im.crop((0, y0, im.width, min(y1, im.height)))
-for i, (a0, a1, b0, b1) in enumerate([(0, 1700, 0, 2300), (1500, 4300, 2100, 6300)]):
+for i, (a0, a1, b0, b1) in enumerate([(0, 1688, 0, 1688), (1500, 4300, 1500, 4700)]):
     h, pp = faixa(H, a0, a1), faixa(P, b0, b1); hh = max(h.height, pp.height)
     pr = Image.new('RGB', (h.width * 2 + 60, hh + 80), '#e9e4e8')
     from PIL import ImageDraw, ImageFont; f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 34); d = ImageDraw.Draw(pr)
