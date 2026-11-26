@@ -1,2 +1,2 @@
-Parte 7a (chão do Site) PRONTA 25/11 — prova 27/27, provas do app ok; próxima: 7b (plantas e conferência do site)
+Parte 7b (plantas e conferência do site) PRONTA 25/11 — 8/8; próxima: 7c (cupons, carrinho, conta, selos, internet fraca, ES)
 Argus novo: work/argus/ (LEIA.md)
