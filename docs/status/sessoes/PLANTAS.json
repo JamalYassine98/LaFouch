@@ -1,9 +1,12 @@
 {
  "nome": "PLANTAS",
- "agora": "plantas do site: lista de telas e ordem dos lotes",
- "arquivos": [
-  "work/argus/plantas/lotes/site/PLANO-LOTES-SITE.md"
+ "agora": "",
+ "arquivos": [],
+ "ultimas": [
+  {
+   "t": 1795689877.517647,
+   "r": "plano das plantas do site (34 telas, 7 lotes) enviado ao dono"
+  }
  ],
- "ultimas": [],
  "leu": 1795689634.0025766
 }

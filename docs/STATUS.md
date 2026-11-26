@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| PLANTAS | plantas do site: lista de telas e ordem dos lotes | work/argus/plantas/lotes/site/PLANO-LOTES-SITE.md |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -242,6 +241,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
 - 26/11 06:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
 - 26/11 03:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
 - 25/11 23:19 — ESBOCO: Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12
@@ -266,4 +266,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 24/11 00:37 — IDEIAS: Halloween fica Olhar misterioso; frases ficam para estudo
 - 24/11 00:36 — IDEIAS: aprovado sem enfeite; Noir descartado
 - 23/11 23:44 — APP: v633 (5.52.0) publicada: Parte 2 do plano; próximo: Parte 3 (Peças)
-- 23/11 17:00 — IDEIAS: 12f enfeites + Edição Noir
