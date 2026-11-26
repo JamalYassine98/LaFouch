@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "19 cortes da grade do Flow",
- "arquivos": [
-  "work/ideias/19-personagens-formato/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795729887.247778,
+   "r": "19 grade cortada em 6 casais"
+  },
   {
    "t": 1795727285.2890046,
    "r": "19 personagens enviados ao dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795725339.9875052,
    "r": "18 início inteiro v5 — esperando o dono"
-  },
-  {
-   "t": 1795724885.3494093,
-   "r": "18 início inteiro v4 — esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
