@@ -172,6 +172,7 @@
 - **argus-plantas-site** — plano pronto — esperando o dono
 - **argus-porta-site** — SEM SELO · completa · 2026-11-26 07:13 · 3 falha(s) · 18.0 min · commit bdc439863
 - **argus-regras-20-21** — APROVADO e feito 26/11 06:23
+- **semp-1-criar** — esboço pronto — esperando o dono
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
 
 ## Recados esperando

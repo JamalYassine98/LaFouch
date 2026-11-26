@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono
+Semp no app · parte 1: Marketing › Criar em 3 passos (peça → cenário → pronto, com todos os formatos), Sua ideia, Gerar no Flow (aba integrada) e Usar em. 12 imagens Hoje × Proposta (claro e escuro) em work/esboco/semp/esboco_S1*.jpg; COMO FAZER: work/esboco/semp/COMO-FAZER-SEMP-1-CRIAR.md. Comparador e medidor do Argus: comparador_S1.md (0 achados). Próximas partes: 2 Estúdio ↔ Marketing (fila do dia, Galeria) · 3 Agenda da semana · 4 Marketing simplificado · 5 elenco e nomes.
