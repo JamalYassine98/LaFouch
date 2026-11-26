@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | esboço do SEMP no app (parte 1: Marketing › Criar) | work/s435/semp |
 | PLANTAS | provas no Argus dos bugs do site corrigidos desde 19/11 | work/argus/setor_site/consertos.py, work/argus/setor_site/etapas.py |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
@@ -244,6 +243,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 09:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
 - 26/11 08:44 — IDEIAS: 15b: prévias só com a foto — esboço pronto (5 pranchas, A × B)
 - 26/11 08:34 — IDEIAS: 15: prévias de link — esboço pronto (5 pranchas), na Fila esperando o dono
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
@@ -256,7 +256,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 25/11 14:54 — ESBOCO: Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado
 - 25/11 10:29 — ESBOCO: regra da base das plantas guardada
 - 25/11 10:08 — ESBOCO: guardados aprovados 10:07
-- 25/11 09:58 — ESBOCO: esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
