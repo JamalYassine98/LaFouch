@@ -41,3 +41,9 @@ Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: 
 - Fileira 2: Solar · Leitura · Armações — desliza para o lado; cartão = (largura − 16)/2,4, a ponta do próximo mostra que desliza.
 - Todos os cartões = o mesmo .hcat a do site (clonado), foto 3:4. Espaço entre as fileiras 16.
 - Novidades e Mais vendidos com Feminino/Masculino: fica para a parte 3.
+
+### 2c (dono 26/11 14:51 "Sim" à direção do ESTUDO.md §8) — substitui a 2b
+- Feminino | Masculino = campanha: foto no cartão inteiro (3:4, arredondado 18 do .hcat), sem caixa/faixa/contagem; nome Fraunces 24 branco
+  sobre o véu da capa (40% de baixo). Filtros reais gen:f / gen:m.
+- Solar · Leitura · Armações = os cartões de hoje (a peça limpa), logo abaixo, 16 de espaço. Alterna tipo e tamanho de imagem.
+- Masculino: espera a foto do Semp.

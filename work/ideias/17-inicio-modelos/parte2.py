@@ -47,28 +47,23 @@ LEI = r"""
   }
 """
 P2 = r"""
-  /* 2b (dono 26/11 14:01): 3 colunas espremem a foto → duas fileiras com foto em tamanho digno:
-     1) Ela | Ele — 2 cartões grandes (filtros reais do menu: gen:f / gen:m);  2) Solar · Leitura · Armações — fileira que desliza
-     (mesma largura dos cartões de cima menos a ponta do próximo, que mostra que desliza). Cartões = o MESMO .hcat a do site (clonados). */
+  /* 2c (dono 26/11 14:51, ESTUDO.md §7–8): alterna tipo e tamanho de imagem.
+     1) Feminino | Masculino = CAMPANHA: a foto ocupa o cartão inteiro (3:4, mesmo arredondado do .hcat), sem caixa, sem faixa, sem contagem;
+        nome em Fraunces branco sobre o mesmo véu da capa.
+     2) Solar · Leitura · Armações = VITRINE: os cartões de hoje, com a peça limpa (fotos que já existem). */
   const st = document.createElement('style'); st.textContent = `
-  #home .hcat .hci{aspect-ratio:3/4;height:auto!important;padding:0!important;overflow:hidden;position:relative}
-  #home .hcat .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover;object-position:50% 20%}
-  #home .hcat .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}
-  #home .hcat.lfx-gen{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  #home .hcat.lfx-tip{display:flex!important;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:16px;scrollbar-width:none}
-  #home .hcat.lfx-tip::-webkit-scrollbar{display:none}
-  #home .hcat.lfx-tip a{flex:0 0 calc((100% - 16px) / 2.4);scroll-snap-align:start}`;
+  #home .lfx-gen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
+  #home .lfx-gen a{position:relative;display:block;aspect-ratio:3/4;border-radius:18px;overflow:hidden;text-decoration:none;color:#fff}
+  #home .lfx-gen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  #home .lfx-gen .vb{position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(#1f0d1700,#1f0d17a6)}
+  #home .lfx-gen b{position:absolute;left:16px;right:16px;bottom:16px;text-align:center;font:500 24px/1.2 Fraunces,Georgia,serif}
+  #home .lfx-gen .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}`;
   document.head.appendChild(st);
-  const g2 = document.querySelector('#home .hcat'), mol = g2.querySelector('[data-mf="tipo:armacao"]');
-  const semp = (a, txt) => { const p = document.createElement('div'); p.className = 'lfx-semp'; p.innerHTML = 'FOTO DO SEMP<br>' + txt; a.querySelector('.hci').appendChild(p); };
-  const card = (mf, nome, n, foto, txt) => { const a = mol.cloneNode(true); a.dataset.mf = mf;
-    a.querySelector('span:last-child').innerHTML = '<small>' + n + ' modelos</small>' + nome;
-    const im = a.querySelector('img'); if (foto) im.src = foto; else { im.remove(); semp(a, txt); } return a; };
-  const gen = document.createElement('div'); gen.className = 'hcat lfx-gen';
-  gen.append(card('gen:f', 'Feminino', 14, ESTU), card('gen:m', 'Masculino', 13, '', 'modelo masculino<br>usando a peça'));
-  const tip = document.createElement('div'); tip.className = 'hcat lfx-tip';
-  tip.append(card('tipo:solar', 'Solar', 13, '', 'modelo com<br>óculos de sol'), card('tipo:grau', 'Leitura', 3, '', 'modelo com<br>óculos de leitura'), card('tipo:armacao', 'Armações', 4, CAFE));
-  g2.replaceWith(gen); gen.after(tip);
+  const g2 = document.querySelector('#home .hcat');
+  const gen = document.createElement('div'); gen.className = 'lfx-gen';
+  gen.innerHTML = `<a href="#vitrine" data-mf="gen:f"><img src="${ESTU}" alt=""><div class=vb></div><b>Feminino</b></a>`
+    + `<a href="#vitrine" data-mf="gen:m"><div class=lfx-semp>FOTO DO SEMP<br>modelo masculino<br>usando a peça</div><div class=vb></div><b>Masculino</b></a>`;
+  g2.before(gen);
 """
 def js(partes): return "(()=>{const CAFE=%r, ESTU=%r;\n%s\nreturn 'ok'})()" % (CAFE, ESTU, '\n'.join(partes))
 open(os.path.join(AQ, 'parte1.js'), 'w').write(js([CAPA]))
@@ -81,4 +76,4 @@ print('== HOJE');      roda('site', 'home', o('p2-hoje.png'), o('hoje3.js'), '--
 print('== PROPOSTA');  roda('site', 'home', o('p2-proposta.png'), o('parte2.js'), '--alvo', '.htr')
 print('== PROPOSTA (rolada)'); roda('site', 'home', o('p2-proposta-b.png'), o('parte2.js'), '--alvo', '.lfx-gen')
 roda('prancha', o('esboco-17-parte2-categorias.jpg'), 'Início · parte 2 de 5', 'selos + Compre por categoria',
-     o('p2-hoje.png') + ':Hoje:3 cartões com a peça solta', o('p2-proposta.png') + ':Proposta:Feminino | Masculino', o('p2-proposta-b.png') + ':Proposta (rolando):tipos que deslizam →')
+     o('p2-hoje.png') + ':Hoje:3 cartões com a peça solta', o('p2-proposta.png') + ':Proposta:campanha (Feminino | Masculino)', o('p2-proposta-b.png') + ':Proposta (rolando):depois a vitrine (a peça limpa)')
