@@ -17,8 +17,19 @@ def peca(path, W=900, H=600, larg=0.86):
     im = Image.open('/tmp/kitsite' + path).convert('RGB'); bg = Image.new('RGB', im.size, (255, 255, 255))
     bb = ImageChops.difference(im, bg).convert('L').point(lambda v: 255 if v > 18 else 0).getbbox() or (0, 0, im.width, im.height)
     pc = im.crop(bb); esc = min(W * larg / pc.width, H * 0.80 / pc.height); pc = pc.resize((int(pc.width * esc), int(pc.height * esc)), Image.LANCZOS)
-    cv = Image.new('RGB', (W, H), (255, 255, 255)); cv.paste(pc, ((W - pc.width) // 2, (H - pc.height) // 2))
+    m = ImageChops.difference(pc, Image.new('RGB', pc.size, (255, 255, 255))).convert('L').point(lambda v: 255 if v > 18 else 0)
+    import numpy as _np; a = _np.asarray(m, dtype=float); cx = (a.sum(0) * _np.arange(a.shape[1])).sum() / max(a.sum(), 1)  # centro de massa
+    x = int(W / 2 - cx); x = max(min(x, W - pc.width), 0) if pc.width <= W else (W - pc.width) // 2
+    cv = Image.new('RGB', (W, H), (255, 255, 255)); cv.paste(pc, (x, (H - pc.height) // 2))
     b = io.BytesIO(); cv.save(b, 'JPEG', quality=86); return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
+def carta():
+    from PIL import ImageDraw, ImageFont
+    W, H = 360, 480; im = Image.new('RGB', (W, H), (255, 255, 255)); d = ImageDraw.Draw(im)
+    fn = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'; y = 48
+    for txt, sz in [('E', 72), ('F P', 52), ('T O Z', 38), ('L P E D', 28), ('P E C F D', 20), ('E D F C Z P', 14)]:
+        f = ImageFont.truetype(fn, sz); w = d.textlength(txt, font=f); d.text(((W - w) / 2, y), txt, font=f, fill=(42, 31, 39)); y += sz + 22
+    b = io.BytesIO(); im.save(b, 'PNG'); return 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
+F['carta'] = carta()
 F['cafe'] = b64(os.path.join(I17, 'semp-cafe-campanha.jpg'), 900)
 F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo', 'loja_lote', 'h_barba', 's_celular', 'h_sol_couro']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
 JS = r"""(()=>{const F=__F__, P=__P__, PF=__PF__;
@@ -97,8 +108,18 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
 /* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
 #home .lfx-fer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0 0}
-#home .lfx-fer .lfx-ft{aspect-ratio:1/1}
-#home .lfx-fer .lfx-ft b{font-size:18px}
+#home .lfx-tool{display:block;text-decoration:none}
+#home .lfx-tool .ui{display:grid;place-items:center;aspect-ratio:1/1;border-radius:18px;background:#f4ebf1;overflow:hidden;margin-bottom:16px}
+#home .lfx-tool b{display:block;font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27}
+#home .lfx-tool small{display:block;margin-top:4px;font:13px/1.4 Inter,system-ui;color:#6b5a66}
+/* provador: tela do celular com o rosto, os cantos de leitura facial e a armação desenhada por cima */
+#home .lfx-tool .tel{position:relative;width:44%;aspect-ratio:9/16;border-radius:16px;overflow:hidden;box-shadow:0 0 0 4px #2a1f27,0 8px 24px #2a1f2733}
+#home .lfx-tool .tel img{width:100%;height:100%;object-fit:cover;object-position:68% 20%}
+#home .lfx-tool .tel i{position:absolute;width:16px;height:16px;border:2px solid #fff;opacity:.9}
+#home .lfx-tool .tel .c1{left:14%;top:18%;border-right:0;border-bottom:0}#home .lfx-tool .tel .c2{right:14%;top:18%;border-left:0;border-bottom:0}
+#home .lfx-tool .tel .c3{left:14%;top:44%;border-right:0;border-top:0}#home .lfx-tool .tel .c4{right:14%;top:44%;border-left:0;border-top:0}
+/* teste de grau: cartão de leitura (letras que diminuem) */
+#home .lfx-tool .carta{width:52%;border-radius:8px;box-shadow:0 8px 24px #2a1f2722}
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 const H = document.getElementById('home'), $ = s => H.querySelector(s), $$ = s => [...H.querySelectorAll(s)];
@@ -137,7 +158,7 @@ const visto = mk(`<div class=lfx-visto style="margin:48px 0 0"><div class=hsh><h
 { const cv = cartao(VISTO); cv.querySelector('.hp').textContent = d1.pr || cv.querySelector('.hp').textContent; visto.querySelector('.lfx-pg').append(cv, mk('<span class=vm>Ver modelo</span>')); }
 gNov.after(visto);
 /* 5. para cada uso = capa de revista (dono 17:32): mosaico 1 grande + 2, a foto de quem usa aquele tipo; nome e linha curta por cima, no véu */
-const tipos = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Para cada uso</h2></div><div class=lfx-rev>${ft(F.design, 'Solar', 'Proteção UV', 'tipo:solar')}${ft(F.s_celular, 'Leitura', 'Para ler de perto', 'tipo:grau')}${ft(F.h_sueter, 'Armações', 'Para a sua receita', 'tipo:armacao')}</div></div>`);
+const tipos = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Para cada uso</h2></div><div class=lfx-rev>${ft(F.design, 'Solar', '', 'tipo:solar')}${ft(F.s_celular, 'Leitura', '', 'tipo:grau')}${ft(F.h_sueter, 'Armações', '', 'tipo:armacao')}</div></div>`);
 visto.after(tipos);
 /* 6. os mais pedidos: outro formato (grade 2 × 2 de peças grandes) — não repete o carrossel */
 sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grade');
@@ -151,7 +172,9 @@ $('#hguia').before(mov);
 const hi = $('.hata .hati img'); if (hi) { hi.src = F.loja_lote; hi.style.cssText = 'width:100%;height:100%;object-fit:cover;mix-blend-mode:normal'; $('.hata .hati').style.aspectRatio = '16/9'; }
 /* 8. as duas ferramentas logo abaixo dos selos; a foto combina com quem usa (grau de leitura = 45+) */
 const gu = $('.hgu.hcom');  /* na loja: os mesmos botões do site (provador = upgrade do "qual combina", teste de leitura) */
-const fer = mk(`<div class=lfx-fer>${ft(F.h_barba, 'Provador virtual', 'Pela câmera', '')}${ft(F.s_lendo, 'Teste de grau', 'Em 1 minuto', '')}</div>`);
+const fer = mk(`<div class=lfx-fer>
+  <a class="lfx-tool" href="#rosto"><span class=ui><span class=tel><img src="${F.h_barba}" alt=""><i class=c1></i><i class=c2></i><i class=c3></i><i class=c4></i></span></span><b>Provador virtual</b><small>Veja a peça no seu rosto</small></a>
+  <a class="lfx-tool" href="#grau"><span class=ui><img class=carta src="${F.carta}" alt=""></span><b>Teste de grau</b><small>Descubra em 1 minuto</small></a></div>`);
 $('.htr').after(fer); $('#hguia').remove(); gu.remove();
 $('.hsh').style.marginTop = '48px';  /* 48 entre o bloco de serviços e o primeiro título */
 const det = n => { const t = n.replace(/^(Armação|Solar|Óculos de leitura)\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };

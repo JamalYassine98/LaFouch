@@ -65,3 +65,9 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - **Ferramentas:** 2 cartões-foto quadrados (mesmo componente de campanha) "Provador virtual · Pela câmera" e "Teste de grau · Em 1 minuto".
 - Itálico só na capa, "Escolha o seu *estilo*" e "Como fica no *rosto*". Véu das fotos um pouco mais forte (nome branco legível em foto clara).
 - Código: blocos duplicados e estilos antigos das ferramentas apagados.
+
+## v6 (dono 17:41) — esboco-18-v6-parte1…5.jpg
+- Ferramentas com cara de ferramenta (não confundem com a categoria Leitura): **Provador virtual** = tela de celular com o rosto e os cantos de leitura facial;
+  **Teste de grau** = cartão de leitura com letras que diminuem (desenhado como imagem). Nome em Fraunces + uma linha embaixo, fora da imagem.
+- Para cada uso: só o nome (Solar · Leitura · Armações), sem linha extra.
+- AC1055 "muito para a direita" — causa: foto de 3/4, a haste puxa a caixa. A normalização agora centraliza pelo **centro de massa** da peça (não pela caixa).
