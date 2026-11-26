@@ -93,3 +93,10 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - Internet fraca = a régua do Lighthouse para celular (562,5 ms, 1,47 Mbit/s).
 - Prova: provas/parte7c_site_etapas.py — 11/11 (todas rodam; estragos vistos: português no espanhol, foto quebrada, chamada sem selo, nuvem fora na compra; quebra vira "não conferido").
 - Site de hoje: 66 resultados, 2 ACHADOS — o "+" do carrinho passa o estoque da cor (31 com estoque 5; só a reserva barra depois) e um cupom escrito à mão no aparelho (lf_cup) aparece como desconto sem a nuvem confirmar.
+
+## Parte 7d · a segurança de verdade da nuvem (25/11)
+- setor_nuvem/planta_nuvem.json: quem pode o quê em cada coleção do banco (todos · dono = uid E e-mail · dona do documento; "fechada" = só o servidor). É a regra aprovada como tabela, não cópia do firestore.rules.
+- setor_nuvem/regras.mjs, no emulador do Firebase (GitHub: .github/workflows/argus-nuvem.yml; não toca na nuvem publicada): 49 coleções × 6 pessoas (sem login, cliente, outra cliente, dono, dono falso de e-mail, dono falso de uid) × ler/listar/criar/mudar/apagar + o cadastro da cliente (até 30 campos). Prova a si mesmo com 4 estragos numa cópia das regras (cupons abertos, dono sem e-mail, cliente lê outra, pedido direto no banco).
+- setor_nuvem/porta.py: os testes das funções aqui (o que falta pacote fica "não conferido" e o GitHub confere) + o emulador no GitHub. Fecha por padrão: sem resultado = falha.
+- motor/github.py: um lugar só para subir a versão, disparar, esperar e baixar (o Android do app usa o mesmo).
+- Prova: provas/parte7d_nuvem.py — 9/9 aqui, 12/12 com --github (regras 1558/1558 = planta; 4/4 estragos vistos; 26 testes das funções ok).
