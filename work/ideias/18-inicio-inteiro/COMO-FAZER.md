@@ -84,3 +84,9 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - **Provador virtual** · "Pela câmera do celular" · [Experimentar] — foto: pessoa de óculos fazendo selfie.
 - **Teste de leitura** · "Grau para ler de perto" · [Fazer o teste] — foto: pessoa 45+ lendo de perto. Sai a tabela de letras de consultório
   (sugeria teste de miopia e poderia enganar a cliente: o teste do site é só para leitura).
+
+## v9 (dono 17:55, inspiração: blocos de vantagens da Made, com o provador entre eles) — esboco-18-v9-parte1…5.jpg
+- Selos + ferramentas = UMA grade de serviços 2 × 3, blocos iguais com ícone de traço vinho, nome (Inter 600 14) e uma linha curta que cabe numa linha.
+- As 2 ferramentas vêm primeiro, em bloco branco com borda fina e "›" (tocáveis): Provador virtual · Pela câmera; Teste de leitura · Para ler de perto.
+- Depois: Delivery · Todo o Paraguai; Retirada · Na loja em CDE; Pagamento seguro · PIX ou Banco Familiar; WhatsApp da loja · Dúvidas na hora.
+- Claros, na nossa identidade (a Made usa blocos pretos — não copiado). A fila antiga de selos sai (a grade a substitui).
