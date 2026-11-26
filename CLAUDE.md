@@ -14,7 +14,7 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
 
 ## 2. Como decidir
 5. **Esboço primeiro**, sempre (inclusive conserto de bug).
-6. **Palavras do dono:** ESBOÇO, APROVADO, IMPLEMENTAR, PUBLICAR, PARAR. **"Aprovado"** = só guardar (memória + lista viva + base do esboço). **"Implementar"** = fazer EXATAMENTE o esboço aprovado, nada a mais. Na dúvida se pode implementar: não implementar e perguntar.
+6. **Palavras do dono:** ESBOÇO, APROVADO, IMPLEMENTAR, PUBLICAR, PARAR. **"Aprovado"** = guardar (memória + lista viva + base do esboço) e, logo em seguida, entrar na Fila como "implementar", em fatias pequenas, cada uma com selo do Argus e "OK ESBOCO" (dono 26/11 11:29: "cada aprovação implementada logo em seguida"). **"Implementar"** = fazer EXATAMENTE o esboço aprovado, nada a mais. Na dúvida se pode implementar: não implementar e perguntar.
 6b. **Conserto "por dentro" (aprovado 20/11 08:21):** o que NÃO muda nenhuma tela (segurança, nuvem, erro de lógica) segue do esboço para a implementação sem esperar o "implementar", se passar em todos os testes e na regra 12; o dono confere depois pelo status. Tela, botão, texto ou visual que muda continua esperando o "implementar". Publicar continua igual (regras 20/21; nuvem: o dono ou a automação aprovada).
 7. **Só a última versão:** ajuste de um aprovado substitui o anterior; recusados e superados vão para work/obsoletos/.
 8. **Lista viva:** só acrescentar e marcar o publicado (com a versão); limpar só quando o dono disser "limpar a lista".
