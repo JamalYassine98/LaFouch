@@ -23,3 +23,12 @@ A do estúdio: olhar direto e sério, corte central parado, luz igual e fundo se
 - **Varia de propósito:** guarda o que já usou (poses, cenários, luz) e evita repetir só porque deu certo. O que deu certo vira aprendizado, não fórmula.
 - **Aprende com o dono:** cada foto que o dono aprova ou recusa alimenta o Semp (mesma essência do app: aprender copiando o jeito dele).
 - As fotos de referência são o NÍVEL a alcançar, não modelos para copiar.
+
+## Alimento do Semp (dono 26/11 15:00: "isso também serve de alimento para o Semp")
+Do vídeo da Made (ESTUDO.md §9) — critérios, não molde; o Semp varia e aprende com as aprovações do dono:
+- Cada foto de campanha nasce **ligada a uma peça** (código da peça que a modelo usa) — a foto vende e leva à peça.
+- Pensar em **pares de imagem**: campanha (desejo, ambiente, pessoa) + vitrine (a peça limpa) da mesma peça.
+- Gerar também **vídeo curto em pé** (poucos segundos, gesto natural: pôr/tirar os óculos, virar o rosto), com a peça identificada.
+- Fotos para **Feminino e Masculino** (não só mulheres), e para cada tipo: sol, leitura, armação.
+- **Vantagens contadas em imagem** (ex.: entrega, retirada na loja) com frase curta, no clima da loja.
+- Títulos e frases curtas, humanas, na voz da LaFouch (Fraunces; a palavra que importa em itálico).

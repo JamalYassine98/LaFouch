@@ -37,22 +37,34 @@
   }
 
 
-  /* 2c (dono 26/11 14:51, ESTUDO.md §7–8): alterna tipo e tamanho de imagem.
-     1) Feminino | Masculino = CAMPANHA: a foto ocupa o cartão inteiro (3:4, mesmo arredondado do .hcat), sem caixa, sem faixa, sem contagem;
-        nome em Fraunces branco sobre o mesmo véu da capa.
-     2) Solar · Leitura · Armações = VITRINE: os cartões de hoje, com a peça limpa (fotos que já existem). */
+  /* 2d (dono 26/11 15:00 "refaça a parte 2", aplicando o ESTUDO.md §9):
+     - título humano em Fraunces com a palavra em itálico colorida (como os títulos do site);
+     - Feminino | Masculino = campanha (item 7 da Made), e cada foto leva TAMBÉM à peça que a modelo usa (itens 9/10):
+       etiqueta branca dentro da foto (miniatura + código + preço) que abre a peça; o resto da foto abre a categoria;
+     - Solar · Leitura · Armações = vitrine (os cartões de hoje): alterna campanha ↔ peça. */
   const st = document.createElement('style'); st.textContent = `
   #home .lfx-gen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
-  #home .lfx-gen a{position:relative;display:block;aspect-ratio:3/4;border-radius:18px;overflow:hidden;text-decoration:none;color:#fff}
-  #home .lfx-gen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
-  #home .lfx-gen .vb{position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(#1f0d1700,#1f0d17a6)}
-  #home .lfx-gen b{position:absolute;left:16px;right:16px;bottom:16px;text-align:center;font:500 24px/1.2 Fraunces,Georgia,serif}
-  #home .lfx-gen .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}`;
+  #home .lfx-gen > div{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden}
+  #home .lfx-gen a.cat{position:absolute;inset:0;color:#fff;text-decoration:none}
+  #home .lfx-gen img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  #home .lfx-gen .vb{position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(#1f0d1700,#1f0d17b3)}
+  #home .lfx-gen b{position:absolute;left:8px;right:8px;bottom:72px;text-align:center;font:500 24px/1.2 Fraunces,Georgia,serif}
+  #home .lfx-gen .tag{position:absolute;left:8px;right:8px;bottom:8px;height:48px;display:flex;align-items:center;gap:8px;padding:0 8px;background:#fff;border-radius:12px;cursor:pointer}
+  #home .lfx-gen .tag img{width:32px;height:32px;object-fit:contain;flex:none}
+  #home .lfx-gen .tag span{flex:1;min-width:0;font:12px/1.3 Inter,system-ui;color:#6b5a66}
+  #home .lfx-gen .tag strong{display:block;font:600 12px/1.3 Inter,system-ui;color:#2a1f27}
+  #home .lfx-gen .tag i{font-style:normal;color:#943d6f;font:500 16px Inter,system-ui}
+  #home .lfx-gen .lfx-semp{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding-top:48px;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui}`;
   document.head.appendChild(st);
-  const g2 = document.querySelector('#home .hcat');
+  const g2 = document.querySelector('#home .hcat'), h2 = g2.previousElementSibling && g2.previousElementSibling.querySelector('h2');
+  if (h2) h2.innerHTML = 'Escolha o <em>seu</em> estilo';
+  const preco = c => { const el = [...document.querySelectorAll('#home *')].find(e => e.children.length === 0 && e.textContent.trim() === c);
+    const card = el && el.closest('a,article,.card,[data-open]'); const m = card && card.innerText.match(/R\$\s?[\d.,]+/); return m ? m[0] : ''; };
+  const foto = c => (window.C || []).length ? '' : '';
+  const tag = (c, src) => `<div class=tag data-open="${c}"><img src="${src}" alt=""><span><strong>${c}</strong>${preco(c) || 'Ver a peça'}</span><i>›</i></div>`;
   const gen = document.createElement('div'); gen.className = 'lfx-gen';
-  gen.innerHTML = `<a href="#vitrine" data-mf="gen:f"><img src="${ESTU}" alt=""><div class=vb></div><b>Feminino</b></a>`
-    + `<a href="#vitrine" data-mf="gen:m"><div class=lfx-semp>FOTO DO SEMP<br>modelo masculino<br>usando a peça</div><div class=vb></div><b>Masculino</b></a>`;
+  gen.innerHTML = `<div><a class=cat href="#vitrine" data-mf="gen:f"><img class=bg src="${ESTU}" alt=""><div class=vb></div><b>Feminino</b></a>${tag('AC1055', '/media/i/1e59e39c9c89.jpg')}</div>`
+    + `<div><a class=cat href="#vitrine" data-mf="gen:m"><div class=lfx-semp>FOTO DO SEMP<br>modelo masculino<br>usando a peça</div><div class=vb></div><b>Masculino</b></a>${tag('SL2275', '/media/i/484683019e1e.jpg')}</div>`;
   g2.before(gen);
 
 return 'ok'})()
