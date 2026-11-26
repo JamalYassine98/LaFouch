@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "16: fundamentos do site guardados no estudo",
- "arquivos": [
-  "work/ideias/16-padrao-luxo/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795711672.6124585,
+   "r": "16: fundamentos do site estudados e guardados (ESTUDO.md §6)"
+  },
   {
    "t": 1795710315.5087736,
    "r": "17b: capa de tela inteira (texto sobre a foto, tocar abre a peça)"
@@ -40,10 +42,6 @@
   {
    "t": 1795491526.0155098,
    "r": "temáticas 94+95 enviadas ao SITE para implementar"
-  },
-  {
-   "t": 1795491459.364221,
-   "r": "Halloween fica Olhar misterioso; frases ficam para estudo"
   }
  ],
  "leu": 1795711631.1351755
