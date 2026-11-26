@@ -1,0 +1,3 @@
+# Ícone da conta no menu centralizado (dono 26/11 06:52)
+Causa: a regra base `.dav{…padding:6px 12px}` (o selo de iniciais em pílula) também vale para o círculo do menu (`#drw .dacc .dav`, 42 px, borda 1 px, box-sizing border-box). Sobram 16 px de largura para o ícone de 20 px; ele transborda para a direita e fica 2 px fora do centro (medido: círculo 33–75, ícone 46–66; o certo é 44–64).
+Jeito natural (regra 12): o círculo do menu é uma caixa de tamanho fixo e define a própria caixa inteira — `padding:0` na regra do círculo `#drw .dacc .dav{width:42px;height:42px;padding:0;…}`. Um lugar só; vale para deslogada e logada. Medido depois: ícone 44–64 (centro 54 = centro do círculo).
