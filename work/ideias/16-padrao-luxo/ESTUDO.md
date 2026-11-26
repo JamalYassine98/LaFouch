@@ -141,3 +141,7 @@ Instalados: UI Design Review (ui-review / ui-polish / ui-compare), Design (desig
 - **A peça é a estrela:** loja vende o produto; peça grande (vitrine), nunca miniatura.
 - **Um controle aparece uma vez só** na página (ex.: escolher gênero); repetir botões/pílulas/abas é poluição.
 - **Listas seguidas com formatos diferentes** (carrossel grande × grade), senão parece repetido.
+
+## 13. Lição (dono 26/11 17:58)
+- Quando o dono mostra uma referência para UM ponto, a inspiração vale só para aquele ponto. Não reorganizar o resto por conta própria.
+- Continuar designer em cada pedido: grade de blocos iguais com ícone (6 × "ícone + título + linha") é o kit genérico — evitar.

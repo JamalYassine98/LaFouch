@@ -90,3 +90,8 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - As 2 ferramentas vêm primeiro, em bloco branco com borda fina e "›" (tocáveis): Provador virtual · Pela câmera; Teste de leitura · Para ler de perto.
 - Depois: Delivery · Todo o Paraguai; Retirada · Na loja em CDE; Pagamento seguro · PIX ou Banco Familiar; WhatsApp da loja · Dúvidas na hora.
 - Claros, na nossa identidade (a Made usa blocos pretos — não copiado). A fila antiga de selos sai (a grade a substitui).
+
+## v9 RECUSADA (dono 17:58: "muito pior e genérico"; a inspiração era só o jeito de mostrar o provador, não o resto) → v10
+- Lição (ESTUDO §13): inspiração vale para o que o dono apontou, nada além; uma grade de 6 blocos iguais é exatamente o "kit genérico".
+- v10: os selos voltam como estavam; só as 2 ferramentas mudam: 2 blocos rosé claros, conteúdo centralizado, ícone de traço fino desenhado
+  para cada uma (provador = cantos de leitura do rosto + rosto de óculos; leitura = óculos sobre linhas de texto), nome Fraunces 18, uma linha.
