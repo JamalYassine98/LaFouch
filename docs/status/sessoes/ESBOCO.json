@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço: consertos do Início (quadrados, venda(s))",
- "arquivos": [
-  "work/esboco/inicio"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795706421.5633612,
+   "r": "esboço consertos do Início (quadrados, plural, espaços, ›) na Fila"
+  },
   {
    "t": 1795705729.7584064,
    "r": "atualiza-ao-vivo: seção PC acrescentada; recado ao APP"
@@ -40,10 +42,6 @@
   {
    "t": 1795652777.1938527,
    "r": "Argus Parte 7b: plantas e conferência do site"
-  },
-  {
-   "t": 1795643644.148568,
-   "r": "Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura"
   }
  ],
  "leu": 1795706103.705811
