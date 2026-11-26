@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| SITE | EMERGÊNCIA (dono 25/11 23:43): achar a última versão boa do site e voltar para ela | catalogo/index.html, catalogo/js, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md |
+| SITE | Conserto das camadas: desfazer a limpeza 2bd291d (exceção do dono 26/11 06:31, sem selo) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, www/loja |
 
 ## Fila
 
