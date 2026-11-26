@@ -39,3 +39,14 @@
 8. Fui direto ao esboço antes de estudar: o dono teve de mandar estudar. Estudo primeiro, esboço depois.
 9. Recorte de JPG no branco para fundo escuro: halo e peça branca apagada. Fundo escuro só com recorte real (PNG do Estúdio).
 10. Comparar sempre lado a lado com o que já está no ar e perguntar "o de hoje é melhor em quê?" antes de propor.
+
+## 6. Fundamentos do site — ler ANTES de desenhar (dono 26/11 13:46: "primeiro estude nossos fundamentos")
+Fontes: CLAUDE.md (regras 2, 10–14, 18), docs/ATLAS-SITE.md, docs/DESIGN-SITE-E-APP.md, docs/SITE-COMO-FUNCIONA.md.
+- **Identidade primeiro (13/11):** luxo = mais ar e menos ruído DENTRO da identidade. Não trocar: vinho nas ações (hoje #8d3a69; cor oficial #943d6f aprovada no 87), títulos serifados com a palavra em itálico na cor, cartões brancos arredondados (.card raio 20, borda #efe3ea), fundo rosado #fbf7fa, Mochi, temáticas. O S210 (preto, maiúsculas espaçadas, cartões sem moldura) foi REPROVADO por genérico.
+- **Harmonia:** uma atmosfera só no site, sem blocos escuros; cor forte das temáticas só na faixa/destaque/rodapé.
+- **Botões (não mexer):** "Ver modelo" contorno vinho; "Comprar" degradê vinho; checkout verde; link vinho com "›".
+- **Cartão do catálogo:** formato + código, sem nome do modelo nem cor; preço SEMPRE em preto; oferta = antigo riscado + −N%; fotos, nomes e preços na mesma altura na fileira.
+- **Medidas (regra 14):** duas margens e um eixo por bloco (celular 390: margem 15–16 px; topo 74 px; vitrine 2 col × 159 px) · espaços só 8/16/24/32/48 · texto nunca quebra nem sai · letra ≥ 11 px (PC ≥ 12) · toque ≥ 40 px (ideal 44) · contraste ≥ 4,5 · página NUNCA mais larga que a tela · WhatsApp nunca em cima de botão, preço ou foto · nada clicável cortado, apagado ou encolhido.
+- **Início:** variedade de fotos (a mesma peça não aparece em 4+ blocos); destaque com zoom lento e bolinhas; partes: destaque, selos, categorias, Novidades, Comece por aqui (imagens fixas), atacado, rodapé.
+- **Como esboçar (regra 11):** usar o KIT e as telas reais — `python3 work/kit/kit.py site home saida.png inject.js` (o .js roda na tela real com as classes do site) e `kit.py prancha`; o kit roda o olho.js/ecom.js (cortado, apagado, largura, tampado, toque, letra, fileira torta…) parado e depois de rolar; depois o comparador Hoje × Proposta. A proposta não pode criar falha nova.
+- **Antes de cada passo:** reler o CLAUDE.md e conferir o passo (regra 2).
