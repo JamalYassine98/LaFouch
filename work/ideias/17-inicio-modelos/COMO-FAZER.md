@@ -48,7 +48,7 @@ Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: 
 - Solar · Leitura · Armações = os cartões de hoje (a peça limpa), logo abaixo, 16 de espaço. Alterna tipo e tamanho de imagem.
 - Masculino: espera a foto do Semp.
 
-### 2d (dono 26/11 15:00 "refaça a parte 2", aplicando ESTUDO.md §9) — substitui a 2c
+### 2d — RECUSADA (dono 26/11 15:03: a etiqueta da peça invadindo a foto é ainda menos luxuosa) → work/obsoletos/ideias-17-parte2d-etiqueta/; base atual volta a ser a 2c (não aprovada)
 - Título humano: "Escolha o *seu* estilo" (Fraunces, itálico colorido como os h2 do site) — texto a confirmar com o dono.
 - Feminino | Masculino (campanha): tocar na foto = categoria (gen:f/gen:m); etiqueta branca dentro da foto (8 das bordas, 48 de altura,
   miniatura 32 + código + preço/“Ver a peça” + ›) = abre a peça que a modelo usa (data-open). Nome Fraunces 24 acima da etiqueta.

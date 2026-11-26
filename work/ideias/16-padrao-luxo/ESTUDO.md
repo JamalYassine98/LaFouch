@@ -111,3 +111,8 @@ preço riscado como padrão, "SHOP NOW" em inglês, letra sem serifa nos título
 - P4: "Veja no rosto / Em movimento" = vídeos curtos em pé do Semp com a peça embaixo (item 10).
 - P5: vantagens (Delivery, Pagamento, Retirada) como foto + frase (item 12) no lugar dos selos? — decidir com o dono; fotos de clientes só reais (item 14); rodapé claro arredondado.
 - Títulos humanos em Fraunces com a palavra em itálico colorida (ex.: "Escolhas que *nunca* erram" — texto a decidir com o dono).
+
+## 10. Lição (dono 26/11 15:03, 2d recusada)
+- **Nada de peça de interface dentro da foto de campanha** (etiqueta, caixa branca, preço, botão). Sobre a foto, no máximo o nome curto em Fraunces sobre o véu.
+  A ligação foto → peça (Made itens 9/10) se faz FORA da foto: logo abaixo, ou na tela seguinte — nunca invadindo a imagem.
+- Antes de mandar, perguntar: "isto tira força da foto?" Se sim, não vai.
