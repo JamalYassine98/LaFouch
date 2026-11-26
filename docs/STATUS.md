@@ -178,30 +178,6 @@
 
 ## Recados esperando
 
-- para **APP**: DO DONO (24/11 07:29), vale para sempre: (0) Antes de QUALQUER coisa, releia o CLAUDE.md e confira cada passo contra as regras. (1) Fazer NOVO, não emendar (reg
-- para **APP**: CLAUDE.md mudou (dono 24/11), releia: regra 2 (reler as regras antes de QUALQUER passo), 1b (a sessão de esboço confere ANTES de publicar; publicar só com o OK)
-- para **APP**: Resposta Início 1a: vale (a), o 149n — é o último aprovado sobre o Início e nenhum depois trouxe a legenda de volta. Quadrados só ícone e nome, mesma altura (sa
-- para **APP**: CORREÇÃO da lista, item 19a: NÃO fazer. O último aprovado (70, 22/11 15:48) é 'Início › Marketing direto' e o grupo Marketing sai — o quadro abrir a tela direto
-- para **APP**: Triagem do gabarito feita (work/titan/TRIAGEM-GABARITO.md): 20 itens velhos saíram do base_app (substituídos por aprovados mais novos ou já no app). Os que aind
-- para **APP**: Titan parte 2 pronta (work/titan/LEIA.md): medidor de família acha sozinho os 12 erros reais de hoje. Lista ganhou 24a (linhas fora do 86 em Caixa, Despesas, ja
-- para **APP**: Titan parte 3 (explorador) achou 2 coisas novas: (1) VOLTAR ainda erra entrando pelo sino/Pendências ('Ver preços', 'Completar') e pelo Dashboard (venda do dia)
-- para **APP**: Lista 25a (Titan 3b, calendário): durante a data, Preços › 'O Titan decide hoje' diz 'Black Friday em 0 dias' / 'Natal em 0 dias' / 'Dia das Mães em 0 dias' — n
-- para **APP**: Cupom (a), plano da NUVEM em work/nuvem/PLANO-CUPOM-A-24-11.md. Do APP vou precisar (quando chegar a vez, sem pressa): linha (Econômica/Intermediária/Luxo) publ
-- para **APP**: Correção do meu recado de hoje: NÃO precisa config/site.pxPct — o dono fixou o cupom Próxima compra em 10% sempre (o piso do Titan cobre cupom + taxa). Continua
-- para **APP**: CORREÇÃO (dono 24/11 11:14): só a loja física muda. Não precisa linha em produtos/ nem pxPct. Vou criar a ação 'loja' (só dono) no lugar de 'emitir px': o app m
-- para **APP**: Cupom da LOJA pronto na nuvem (commit acima, NÃO publicado): o 'emitir' tipo 'px' agora exige {tel, venda: <id da venda>, total: <G$ pago>} (+ nome, email, lang
-- para **APP**: Cupom da LOJA atualizado (c6a7064a, não publicado; dono 24/11: sem furos, MESMO e-mail): 'emitir' tipo 'px' exige {email da cliente (obrigatório), venda, total,
-- para **APP**: OK ESBOCO para o 1b (ramo app/lista-erros, 07:22): nPl único no src/40, nDias usa nPl, 'venda(s)' saiu, prova no run.py — jeito natural, nada de remendo. Pode j
-- para **APP**: VIP (dono 24/11 11:47): 'emitir' tipo 'vip' agora exige o e-mail da cliente (motivo 'email' sem ele). Não publicado; vai junto com o cupom da loja.
-- para **APP**: Telefone (24/11, não publicado): a nuvem agora compara o número INTEIRO com o país (fone.js): aceita +595/0981/981 (Paraguai), +55/(45)9… (Brasil), +54. O app p
-- para **APP**: Correção da lista: o item 5b (Fornecedores sem Editar/lixeira) foi erro meu e saiu. O 89b aprovado MANTÉM o 'Editar' e a lixeira na linha do lote. Se já tirou n
-- para **APP**: Lista PARTE-1: nova seção 6 (6a Regras valor à direita + ícones · 6b Ofertas ícones e tela vazia · 6c Atacado ícone · 6d Inventário Parados e sobrando). Entram 
-- para **APP**: Argus (porta do app, 25/11): o teste '41 camera para qual peca' do tests/run.py falhou uma vez numa rodada (389/390) e passou sozinho logo depois (390/390). Par
-- para **APP**: ACHADO do Argus (25/11, conferido no simulador e no Android emulado): a barra de baixo fica num laço de 60 vezes por segundo SEM PARAR, mesmo parada — src/98-bo
-- para **APP**: IMPLEMENTAR (dono 26/11 11:29): Semp parte 1 — Fila semp-1-criar. 3 fatias, uma por publicação, cada uma com selo do Argus (regra 21 nova) e 'OK ESBOCO': (1) Ma
-- para **APP**: DONO 26/11 11:51: o Semp foi para a GAVETA — NÃO implemente o semp-1-criar (o recado anterior fica sem efeito). Prioridade agora: as correções do app. A ESBOCO 
-- para **APP**: Item novo na Fila: atualiza-ao-vivo (URGENTE, pedido do dono 26/11 12:05). O celular dele voltou para a cópia de 15/11 do APK (Guardião) porque a confirmação da
-- para **APP**: atualiza-ao-vivo agora vale também para o PC (dono 12:08): mesmo www-<v>.zip, appPronto() num lugar só (Android: notifyAppReady; PC: POST /__pronto), o servidor
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
