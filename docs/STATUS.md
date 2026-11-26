@@ -26,6 +26,7 @@
 
 - **00-volta-emergencia** — publicado — site 1795685498 (catalogo 17f3e97)
 - **01-149v-familia-voltar-peca-do-catalogo-fic** — ✅ v563 (19/11) · APP · pedido 19/11 13:31
+- **01-icone-conta-menu** — esboço pronto — esperando o dono
 - **02-150i-familia-icone-redondo** — ✅ v563 (19/11) · APP · pedido 19/11 13:31
 - **03-b2-soltar-reserva-urgente-bug-src-95-res** — ✅ v564 (19/11) · APP · pedido 19/11 14:03
 - **04-b1-nome-da-cliente-no-pedido-act-pedcli** — ✅ v566 (19/11) · APP · pedido 19/11 14:03
