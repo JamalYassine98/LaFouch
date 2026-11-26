@@ -28,6 +28,7 @@ Pranchas: esboco-17-inicio-parte1 (topo até Novidades) · parte2 (Novidades at�
 ## Parte 2 de 5 — selos + Compre por categoria (26/11, esboço; esperando o dono)
 Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: parte2.py → parte2.js (inject do kit).
 - Selos: ficam como estão (já são da família).
+- 3 categorias como o site real: Solar · Leitura · Armações (dono 26/11 13:57: "esqueceu dos óculos de grau").
 - Cartões de categoria: MESMO componente de hoje (cartão branco, arredondado, borda, rótulo Fraunces). Só a imagem muda:
   a modelo usando a peça, ocupando o topo do cartão em 3:4 (object-fit cover, foco 50% 20%). Solar: espera foto do Semp.
 - Capa (parte 1): peça própria fora do #hdst (o carrossel antigo segue escrevendo nele); sangra só o recuo da coluna da página.

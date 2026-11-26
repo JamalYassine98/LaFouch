@@ -27,13 +27,24 @@
   cap.style.cssText = `height:${innerHeight - topH}px;margin:${tb - r.top - scrollY}px ${-pr}px 0 ${-pl}px`;  /* sangra só o recuo da coluna da página */
 
 
+  /* o site real mostra 3 categorias na ordem Solar · Leitura · Armações (lf-site.js, CT); o kit veio só com 2 — completa igual ao site */
+  const g = document.querySelector('#home .hcat');
+  if (g && !g.querySelector('[data-mf="tipo:grau"]')) {
+    const arm = g.querySelector('[data-mf="tipo:armacao"]'), le = arm.cloneNode(true);
+    le.dataset.mf = 'tipo:grau'; le.querySelector('img').src = '/media/i/b0ce33cc336d.jpg';
+    le.querySelector('span:last-child').innerHTML = '<small>3 modelos</small>Leitura';
+    g.insertBefore(le, arm); g.style.gridTemplateColumns = 'repeat(3,minmax(0,1fr))';
+  }
+
+
   const st = document.createElement('style'); st.textContent = `
   #home .hcat .hci{aspect-ratio:3/4;height:auto!important;padding:0!important;overflow:hidden;position:relative}
   #home .hcat .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover;object-position:50% 20%}
   #home .hcat .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}`;
   document.head.appendChild(st);
-  const [aSol, aArm] = document.querySelectorAll('#home .hcat a');
-  aArm.querySelector('img').src = ESTU;
-  const ps = document.createElement('div'); ps.className = 'lfx-semp'; ps.innerHTML = 'FOTO DO SEMP<br>modelo usando<br>óculos de sol da loja'; aSol.querySelector('.hci').appendChild(ps);
+  const q = t => document.querySelector('#home .hcat [data-mf="tipo:' + t + '"]');
+  q('armacao').querySelector('img').src = ESTU;
+  const semp = (a, txt) => { const p = document.createElement('div'); p.className = 'lfx-semp'; p.innerHTML = 'FOTO DO SEMP<br>' + txt; a.querySelector('.hci').appendChild(p); };
+  semp(q('solar'), 'modelo com<br>óculos de sol'); semp(q('grau'), 'modelo com<br>óculos de leitura');
 
 return 'ok'})()
