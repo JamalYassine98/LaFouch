@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | esboço atualiza-ao-vivo: PC também | work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -249,6 +248,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
 - 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
 - 26/11 09:41 — IDEIAS: 16: estudo do padrão de luxo (prancha + ESTUDO.md); 15b fica esperando o novo padrão
@@ -263,7 +263,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 25/11 22:36 — ESBOCO: Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)
 - 25/11 21:26 — ESBOCO: Argus Parte 7b: plantas e conferência do site
 - 25/11 18:54 — ESBOCO: Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura
-- 25/11 14:54 — ESBOCO: Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.

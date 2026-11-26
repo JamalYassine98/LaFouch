@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço atualiza-ao-vivo: PC também",
- "arquivos": [
-  "work/esboco/atualiza/COMO-FAZER-ATUALIZA-AO-VIVO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795705729.7584064,
+   "r": "atualiza-ao-vivo: seção PC acrescentada; recado ao APP"
+  },
   {
    "t": 1795705636.9323277,
    "r": "esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP"
@@ -40,10 +42,6 @@
   {
    "t": 1795643644.148568,
    "r": "Argus Parte 7a: chão do setor Site; sorteio parado; mundo parado conferido em toda abertura"
-  },
-  {
-   "t": 1795629283.4535942,
-   "r": "Argus: Roboto no celular, sinal × destino, app de hoje montado do código, Android 16, armazenamento zerado, versão como dado"
   }
  ],
  "leu": 1795705722.6428072
