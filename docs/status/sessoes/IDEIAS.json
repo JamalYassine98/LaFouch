@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "15: prévias só com foto (luxo, imagem da loja)",
+ "arquivos": [
+  "work/ideias/15-previas/"
+ ],
  "ultimas": [
   {
    "t": 1795692884.9472134,
@@ -44,5 +46,5 @@
    "r": "12e aprovado no Natal; feitas as 6 datas (esboco-12e-datas-1/2)"
   }
  ],
- "leu": 1795693046.3226068
+ "leu": 1795693399.5541887
 }
