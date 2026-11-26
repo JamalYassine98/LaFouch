@@ -75,3 +75,39 @@ Direção para a 2c (a esboçar só com o OK do dono):
 - Feminino | Masculino = campanha, foto inteira no cartão arredondado (20), rótulo Fraunces branco sobre véu embaixo, sem faixa e sem contagem.
 - Solar · Leitura · Armações = vitrine: a peça limpa (foto que já existe), cartões pequenos claros — alterna o tipo e o tamanho, e não depende do Semp.
 - 48 entre seções; frase editorial curta só se ajudar.
+
+## 9. Estudo 3 (26/11 14:57): vídeo do dono — página inicial inteira da Made no celular
+Guardado: referencias-do-dono/made-inicio-completo.mp4 (+ -quadros.jpg, 1 quadro/s). Não pedir de novo.
+Sequência (de cima para baixo):
+1. Capa: foto da modelo (metade da tela) + frase curta grande ("Estilo que permanece!") + linha pequena + botão pequeno.
+2. Benefícios em 4 cartõezinhos (frete, parcelas, pix, provador virtual).
+3. Lançamento de coleção: a peça grande sobre fundo claro + nome da coleção em letra editorial enorme; carrossel.
+4. "Escolhas que nunca erram": peças 2 por linha, deslizando; peça em caixa branca sobre fundo cinza-claro, bolinhas de cor, nome, preço; barrinha de página.
+5. Faixa corrida fina com as vantagens.
+6. Foto de campanha grande (grupo) com "Veja todos os modelos" escrito por cima — o cartão inteiro é o link.
+7. **Lançamentos | Mais vendidos** = 2 fotos de campanha arredondadas, nome por cima embaixo, sem caixa (é o que a nossa 2c fez com Feminino | Masculino).
+8. Bloco de texto editorial centralizado: chamada pequena ("Seleção exclusiva") + título de 3 linhas curtas + parágrafo + 1 botão.
+9. **Foto da modelo usando a peça → logo abaixo o cartão dessa mesma peça** (comprar o que está na foto).
+10. **Vídeos curtos em pé, deslizando**, com play; embaixo de cada um a miniatura da peça + nome + preço (vídeo que vende).
+11. "Para cada momento, um estilo": **abas em pílula** (lentes claras / escuras / cosméticas) trocando as peças embaixo.
+12. Vantagens contadas com **foto + título + subtítulo** ("Design atemporal / Estilo que permanece", "Conforto diário / Leve no uso"), não com ícone.
+13. Close editorial da peça com frase curta ("Luz, forma e atitude!").
+14. Fotos de clientes usando (#ElasUsam…), deslizando.
+15. Avaliações deslizando, cada uma ligada à peça comprada.
+16. Rodapé em cartão arredondado.
+**Princípios que tiro dele:**
+- Ritmo constante campanha ↔ peça: nunca dois blocos seguidos do mesmo tipo de imagem.
+- Toda foto de campanha leva a algum lugar (lista ou a própria peça); a foto vende, não enfeita.
+- Listas sempre deslizam de lado (2 por tela + ponta), com indicador de página; a página fica curta.
+- Filtro dentro do bloco por abas em pílula (uma escolha muda as peças ali mesmo).
+- Vantagens viram imagem com frase curta, não lista de ícones.
+- Títulos curtos, humanos ("Escolhas que nunca erram", "Quem usa, aprova") em vez de nomes de seção secos.
+- Muito respiro entre blocos; um bloco = uma ideia.
+**O que NÃO copiar (identidade LaFouch, §6):** blocos escuros (benefícios, faixa corrida e rodapé pretos), fundo cinza (o nosso é o rosé suave),
+preço riscado como padrão, "SHOP NOW" em inglês, letra sem serifa nos títulos (o nosso é Fraunces), avaliações que não sejam reais.
+**Como entra nas 5 partes:**
+- P2 (feita, 2c): Feminino | Masculino como item 7. Pode ganhar o item 9 (a foto leva à peça usada).
+- P3: Novidades e Mais vendidos deslizando, com abas em pílula Feminino | Masculino (item 11 — escolha de dois lados, regra 15); entre as duas listas, uma foto de campanha que leva à peça (item 9).
+- P4: "Veja no rosto / Em movimento" = vídeos curtos em pé do Semp com a peça embaixo (item 10).
+- P5: vantagens (Delivery, Pagamento, Retirada) como foto + frase (item 12) no lugar dos selos? — decidir com o dono; fotos de clientes só reais (item 14); rodapé claro arredondado.
+- Títulos humanos em Fraunces com a palavra em itálico colorida (ex.: "Escolhas que *nunca* erram" — texto a decidir com o dono).
