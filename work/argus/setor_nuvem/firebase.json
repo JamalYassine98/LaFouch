@@ -1,4 +1,4 @@
 {
-  "firestore": { "rules": "../../../firestore.rules" },
-  "emulators": { "firestore": { "port": 8080 }, "ui": { "enabled": false }, "singleProjectMode": false }
+  "_nota": "as regras entram pelo próprio teste (regras.mjs lê o firestore.rules do projeto): o emulador só sobe vazio",
+  "emulators": { "firestore": { "port": 8080 }, "ui": { "enabled": false } }
 }
