@@ -20,7 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| SITE | Conserto das camadas: desfazer a limpeza 2bd291d (exceção do dono 26/11 06:31, sem selo) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, www/loja |
+| SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
 
