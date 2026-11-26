@@ -71,6 +71,7 @@ def mede_tela(nome, d, reduzido=False):
     for fim_ant, ini, nm in d['secoes']:
         g = round((ini - fim_ant) / Z)
         if g > 0 and min(abs(g - e) for e in ESP) > 1: ad('L3 espaço fora de 8/16/24/32/48', nm, '%d px' % g)
+    for x in d.get('atravessa') or []: ad('texto aparece através de outro (camada sem fundo ou textos encavalados)', '“%s” por cima de “%s”' % (x['cima'], x['baixo']))
     if reduzido:
         for k in sorted({(x[0], x[1], x[2]) for x in d['trans']}): ad('mexe com "reduzir movimento" ligado', '%s %s' % (k[0], k[1]), k[2])
     for v in d['vazios']:

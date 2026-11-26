@@ -4,7 +4,7 @@
 # Com --github, roda de verdade o emulador do Firebase no GitHub (uns 3 min) e exige: regras = planta e os 4 estragos vistos.
 import os, sys, re, glob, json, shutil
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_nuvem'))
-import porta, github
+import seguranca as porta, github
 R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''))
 # (1) os testes das funções, aqui

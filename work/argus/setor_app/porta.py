@@ -5,8 +5,8 @@
 # cheia · mapa (lugar sem planta) e código morto (completa) · segurança (provas da NUVEM) · selo.
 import os, sys, json, subprocess, time
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); R = os.path.dirname(os.path.dirname(A))
-sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app'))
-import planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim, migracao, origem, loja, emulador, dedo
+sys.path.insert(0, os.path.join(A, 'motor')); sys.path.insert(0, os.path.join(A, 'setor_app')); sys.path.insert(0, os.path.join(A, 'setor_nuvem'))
+import anota, relatorio, planta, compara, toques, familia, explorador, autoprova, tempo, selo, abrir, aparelhos, modos, sim, migracao, origem, loja, emulador, dedo, seguranca
 APARELHOS = [aparelhos.DONO, 'celular 320', 'celular 430', 'tablet 768', 'PC 1440']
 def _etapa(E, nome, estado, itens=()):
     E.append({'etapa': nome, 'estado': estado, 'itens': list(itens)}); print(('%-14s' % estado) + nome + ('  (%d)' % len(itens) if itens else ''), flush=True)
@@ -38,19 +38,33 @@ def roda(modo='rapida', so_telas=None):
         apr = [x for x, v in P if v == 'aprovada' and (not so_telas or x['tela'] in so_telas)]
         _etapa(E, 'plantas válidas (aprovação na lista viva)', 'FALHA' if inval else 'ok', ['%s: %s' % (x['id'], v) for x, v in P])
         if not apr: _etapa(E, 'plantas aprovadas para conferir', 'FALHA', ['nenhuma planta aprovada ainda (Parte 6)'])
-        iguais = set()
+        iguais, difs = set(), set()
         # 3 comparador
         it = []
         for pl in apr:
             for tema, D in compara.confere(pw, pl).items():
                 it += ['%s (%s): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D]
                 if not D: iguais.add((pl['id'], tema))
+                else: difs.add((pl['id'], tema))
         _etapa(E, 'comparador (app × planta)', 'FALHA' if it else 'ok', it)
+        REL = os.path.join('/tmp/argus/relatorio', 'app'); fotos = []   # relatório: foto marcada de cada tela diferente (hoje × planta)
+        for pl in apr:
+            for tm in [t for (i, t) in sorted(difs) if i == pl['id']][:2]:
+                f, _ = relatorio.tela(pw, pl, tm, REL, navegador=nav)
+                if f: fotos.append(f)
+        if fotos: _etapa(E, 'relatório: fotos marcadas (hoje × planta)', 'aviso', fotos)
         # 4 toques
         it = []
         for pl in apr: it += ['%s: %s %s' % (pl['tela'], a, b) for a, b in toques.confere(pw, pl)]
         av = [x for x in it if toques.APROVADO in x]; it = [x for x in it if toques.APROVADO not in x]
         _etapa(E, 'toques (ligações e regras)', 'FALHA' if it else 'ok', it)
+        vids = []   # relatório: vídeo (MP4) de cada botão que falhou, com o dedo de verdade
+        for pl in apr:
+            for x in it:
+                if not x.startswith(pl['tela'] + ': botão "'): continue
+                v = relatorio.video(pw, pl, x.split('botão "', 1)[1].split('"', 1)[0], REL, navegador=nav)
+                if v and v not in vids: vids.append(v)
+        if vids: _etapa(E, 'relatório: vídeos dos toques que falharam', 'aviso', vids)
         if av: _etapa(E, 'toques: regra × aprovado (o dono decide; não trava)', 'aviso', av)
         # 5 medidor nos modos do app: aparelhos × claro/escuro × 3 letras; onde o app é igual à planta, o achado é do APROVADO
         fal, conf = [], []; rodou = set()
@@ -135,13 +149,12 @@ def roda(modo='rapida', so_telas=None):
             # os dados guardados pela versão publicada abrem iguais na versão nova
             D, velha = migracao.confere(pw)
             _etapa(E, 'dados de hoje abrem na versão nova (desde %s)' % velha[:9], 'FALHA' if D else 'ok', ['%s: %s na publicada → %s na nova' % x for x in D])
-        # 8 segurança: as provas da NUVEM (o Argus só roda)
-        try:
-            out = json.loads(subprocess.run(['python3', os.path.join(R, 'work', 'fiscal', 'regras.py')], capture_output=True, text=True, timeout=120).stdout)
-            ruins = ['%s: %s' % (x['nome'], x['d']) for x in out if not x['ok']]
-            _etapa(E, 'segurança (provas da NUVEM: regras da nuvem)', 'FALHA' if ruins else 'ok', ruins or ['%d provas' % len(out)])
-        except Exception as e: _etapa(E, 'segurança (provas da NUVEM)', 'FALHA', ['a prova não rodou: %s' % str(e)[:80]])
         nav.close()
+    # 8 segurança: o setor NUVEM (na completa também o emulador do Firebase no GitHub) — o mesmo da porta do site
+    try:
+        aqui = seguranca.funcoes_aqui(); gh = seguranca.no_github() if completa else None; F, AV = seguranca.resumo(aqui, gh)
+        _etapa(E, 'segurança (setor NUVEM%s)' % (': emulador do Firebase + funções' if completa else ': funções, aqui'), 'FALHA' if F else 'ok', F + AV)
+    except SystemExit as e: _etapa(E, 'segurança (setor NUVEM)', 'FALHA', ['não rodou: %s' % e])
     pasta = os.path.relpath(planta.P_APP, R) if os.path.abspath(planta.P_APP).startswith(R + os.sep) else None
     if completa and apr and not pasta: _etapa(E, 'Android emulado', 'FALHA', ['não conferido: as plantas não estão no repositório'])
     elif completa and apr:   # 9 o Android emulado (GitHub): a MESMA versão, no tamanho do celular do dono, letras de verdade, claro e escuro
@@ -157,8 +170,10 @@ def roda(modo='rapida', so_telas=None):
     res = {'setor': 'app', 'modo': modo, 'completa': completa, 'commit': selo.commit(), 'falhas': len(falhas), 'autoprova_ok': ok,
            'etapas': E, 'minutos': round((time.time() - t0) / 60, 1), 'resumo': '%d etapas, %d com falha' % (len(E), len(falhas))}
     s = selo.grava('app', res)
+    res['selo'] = bool(s); res['data'] = time.strftime('%Y-%m-%d %H:%M')
     print('\n' + ('SELO DADO: ' + s['commit'][:9] if s else 'SEM SELO: %s' % ('rodada rápida não dá selo' if not completa else '%d etapa(s) com falha' % len(falhas))))
     return res
 if __name__ == '__main__':
     res = roda(sys.argv[1] if len(sys.argv) > 1 else 'rapida')
     os.makedirs('/tmp/argus', exist_ok=True); json.dump(res, open('/tmp/argus/porta_app.json', 'w'), ensure_ascii=False, indent=1)
+    print('STATUS:', *anota.anota(res))   # o resultado entra sozinho na Fila do docs/STATUS.md (motor/anota.py)

@@ -14,6 +14,7 @@ from js import js
 COLETA = js('planta')                                   # as peças que aparecem (motor/js/planta.js)
 TITULO = "()=>window.__argus.titulo()"                  # nome da tela = título + a tela em que o app diz estar (o Início não tem título)
 TOCAVEIS = js('tocaveis')
+ATRAVESSA = "()=>window.__argus.atravessa()"   # texto que aparece através de outro (motor/js/base.js)
 VERSAO = js('versao')   # a versão do app (dado, não desenho)
 import perigo, dedo
 def precos(k):
@@ -40,7 +41,8 @@ def ligacoes(pw, tela, porta):
     for t in L:
         if perigo.perigoso(t): out.append(dict(t, faz='não tocado (perigo)')); continue
         b, pg = _abre_tela(pw, tela, tb, porta, navegador=nav)
-        out.append(dict(t, faz=dedo.faz(pg, t['i']))); b.close()
+        f = dedo.faz(pg, t['i']); x = pg.evaluate(ATRAVESSA) if not f.startswith(('abre fora', 'abre outra página', 'não achado')) else []
+        out.append(dict(t, faz=f, **({'atravessa': x} if x else {}))); b.close()   # texto que aparece através de outro depois do toque
     nav.close(); return tit0, out
 def grava(pw, id_, tela, porta=None, aprovacao=None, com_ligacoes=True, temas=None):
     """tela = {'nome', 'passos', 'cenario'} (+ no site: 'setor': 'site', 'rota') · porta = cópia de esboço (None = o de hoje) ·

@@ -38,4 +38,5 @@
   const k=[...q.children].filter(e=>v2(e)&&e.matches(BLOCO)&&e.getBoundingClientRect().height>=24);if(k.length<2)continue;
   const R=k.map(e=>e.getBoundingClientRect());let pilha=true;for(let i=1;i<R.length;i++)if(R[i].top<R[i-1].bottom-1||Math.abs(R[i].left-R[0].left)>2){pilha=false;break}
   if(!pilha)continue;for(let i=1;i<R.length;i++)out.secoes.push([R[i-1].bottom+sy,R[i].top+sy,(k[i].className&&k[i].className.baseVal===undefined?String(k[i].className):k[i].tagName).slice(0,24)||k[i].tagName])}
+ out.atravessa=A.atravessa();   // texto que aparece através de outro (camada sem fundo ou encavalado)
  return out}

@@ -97,6 +97,22 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 ## Parte 7d · a segurança de verdade da nuvem (25/11)
 - setor_nuvem/planta_nuvem.json: quem pode o quê em cada coleção do banco (todos · dono = uid E e-mail · dona do documento; "fechada" = só o servidor). É a regra aprovada como tabela, não cópia do firestore.rules.
 - setor_nuvem/regras.mjs, no emulador do Firebase (GitHub: .github/workflows/argus-nuvem.yml; não toca na nuvem publicada): 49 coleções × 6 pessoas (sem login, cliente, outra cliente, dono, dono falso de e-mail, dono falso de uid) × ler/listar/criar/mudar/apagar + o cadastro da cliente (até 30 campos). Prova a si mesmo com 4 estragos numa cópia das regras (cupons abertos, dono sem e-mail, cliente lê outra, pedido direto no banco).
-- setor_nuvem/porta.py: os testes das funções aqui (o que falta pacote fica "não conferido" e o GitHub confere) + o emulador no GitHub. Fecha por padrão: sem resultado = falha.
+- setor_nuvem/seguranca.py: os testes das funções aqui (o que falta pacote fica "não conferido" e o GitHub confere) + o emulador no GitHub. Fecha por padrão: sem resultado = falha.
 - motor/github.py: um lugar só para subir a versão, disparar, esperar e baixar (o Android do app usa o mesmo).
 - Prova: provas/parte7d_nuvem.py — 9/9 aqui, 12/12 com --github (regras 1558/1558 = planta; 4/4 estragos vistos; 26 testes das funções ok).
+
+## Parte 7e · a porta do site e o selo por setor (26/11)
+- setor_site/porta.py rapida|completa: autoprova (motor + estragos do site, setor_site/estragos.py) · conferências do site · plantas do site válidas · comparador · toques · medidor nos modos do site · tempo com a loja cheia · mapa (página sem planta, só na completa) · segurança (setor NUVEM) · selo. Só a completa dá selo.
+- Modos do site na completa: cada valor de cada modo roda (28 aberturas por tela): no celular do dono as 9 temáticas; em cada aparelho as 3 letras; o espanhol na letra maior; reduzir movimento. Na rápida: celular do dono, sem temática, 1×, PT.
+- Mapa: cada página .html do site + carrinho, conta e peça; uma planta cobre a própria rota e as que o dono aprovar como iguais ("vale_para").
+- motor/selo.py: o selo vale para o commit do setor — app: o do projeto; site: o do catalogo — e só sem mudança fora dele.
+- A porta do app também usa a segurança do setor NUVEM (setor_nuvem/seguranca.py); nenhuma porta chama o Argus antigo (work/fiscal).
+- Prova: provas/parte7e_porta_site.py — 17/17.
+- O Argus antigo do site e a troca das regras 20/21 esperam o dono: REGRAS-20-21-PROPOSTA.md.
+
+## Parte 8 · relatório, status e camadas (26/11)
+- motor/compara.py: cada diferença traz onde está (5º campo: a caixa da peça).
+- motor/relatorio.py: foto da tela de hoje × planta com cada diferença num quadro numerado; vídeo MP4 do toque que falhou (o dedo de verdade, filmado pelo próprio navegador). As portas geram sozinhas em /tmp/argus/relatorio/<setor>/ e listam no resultado.
+- motor/anota.py: no fim da porta rodada pelo comando, o resultado entra sozinho na Fila do status (tools/status.py fila … argus-porta-app / argus-porta-site), nunca à mão. Limite: rápida 10 min, completa 30 min — passou, aparece no status.
+- TEXTO QUE ATRAVESSA (o defeito do site em 25/11: as cores base sumiram do :root e o menu e a peça abriam sem fundo): base.js A.atravessa — dois textos no mesmo lugar sem nada com fundo entre eles. Entra no medidor (toda tela) e em cada toque (o estado depois do toque fica na ligação). Na autoprova: uma camada sem fundo plantada e um botão que abre outra; os dois têm de ser vistos. Conferido: o site de hoje acusa (peça: “Catálogo” por cima de “Início”; menu por cima do destaque); o de 19/11 e as 5 abas do app (claro e escuro), nada.
+- Prova: provas/parte8_relatorio.py — 9/9.

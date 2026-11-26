@@ -10,10 +10,7 @@ R = []
 def ok(nome, cond, d=''): R.append((nome, bool(cond), d)); print(('ok    ' if cond else 'FALHA ') + nome + (' · ' + d if d else ''))
 def estados(res): return [x for v in res.values() for x in v]
 def tem(res, pedaco, estado): return any(pedaco in x[0] and x[1] == estado for x in estados(res))
-# estragos postos na página antes dela carregar (o site não muda; só esta aba)
-PT_NO_ES = "document.addEventListener('DOMContentLoaded',()=>{const d=document.createElement('div');d.textContent='Você ganhou um presente';d.style.cssText='position:fixed;top:0;left:0;z-index:2147483647;background:#fff;color:#000;font-size:16px';document.body.appendChild(d)})"
-FOTO_QUEBRADA = "document.addEventListener('DOMContentLoaded',()=>{const i=document.createElement('img');i.src='/argus-nao-existe.png';i.style.cssText='position:fixed;top:0;right:0;width:60px;height:60px;z-index:2147483647';document.body.appendChild(i)})"
-SEM_SELO = "(()=>{const f=window.fetch;window.fetch=function(u,o){if(String(u).includes('cloudfunctions.net')&&o&&o.headers){o=Object.assign({},o,{headers:Object.assign({},o.headers)});delete o.headers['X-Firebase-AppCheck']}return f.call(this,u,o)}})()"
+from estragos import PT_NO_ES, FOTO_QUEBRADA, SEM_SELO   # os estragos de propósito ficam num lugar só (setor_site/estragos.py)
 with sync_playwright() as pw:
     nav = sim.navegador(pw)
     # (1) o site de hoje: todas rodam, cada uma devolve só ok / ACHADO / não conferido

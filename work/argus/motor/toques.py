@@ -61,6 +61,7 @@ def regras(pw, nav, tela, porta, l, tit0, aprovado=False):
     if faz.startswith('abre tela por cima'): R.append('%s — não existe tela por cima: ou é tela com "‹", ou janela de baixo (regra 16)' % faz)
     if l.get('aba', -1) >= 0 and faz not in ('troca a escolha', 'já é a escolha'): R.append('a aba não troca a vista ali (%s)' % faz)
     if l['nome'].strip() == '+' and not faz.startswith('abre a janela de baixo'): R.append('o "+" redondo abre a janela de baixo (regra 15), mas %s' % faz)
+    for x in l.get('atravessa') or []: P.append((nome, 'depois do toque, “%s” aparece através de “%s” (camada sem fundo ou textos encavalados)' % (x['baixo'], x['cima'])))
     P += [((APROVADO if aprovado else '') + nome, r) for r in R]
     if faz.startswith('sai para') and not __import__('re').match(r'^(‹|voltar)', l['nome'].strip(), __import__('re').I):   # o próprio botão de voltar não se confere voltando de novo
         b, pg = _abre(pw, nav, tela, porta); y0 = (dedo.toque(pg, l['i']) or {}).get('sy', 0)   # a rolagem de onde se tocou (antes de sair)

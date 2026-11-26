@@ -23,30 +23,31 @@ def _par(pl, ap):
         livres.remove(j); pares.append((p, ap[j]))
     return pares, faltam, [ap[j] for j in livres]
 def compara(pl_pecas, app_pecas, ruido=()):
-    """Devolve a lista de diferenças [(peça, o que, planta, app)] — vazia = igual à planta."""
+    """Devolve a lista de diferenças [(peça, o que, planta, app, onde)] — vazia = igual à planta. onde = a caixa [x, y, l, a] da peça
+    no app (na planta, se ela falta no app): o relatório marca ali."""
     D = []; pares, faltam, sobram = _par(pl_pecas, app_pecas)
     rz = set(ruido)
-    for p in faltam: D.append((_nome(p), 'falta (está na planta, não está no app)', p['caixa'], None))
-    for q in sobram: D.append((_nome(q), 'sobra (está no app, não está na planta)', None, q['caixa']))
+    for p in faltam: D.append((_nome(p), 'falta (está na planta, não está no app)', p['caixa'], None, p['caixa']))
+    for q in sobram: D.append((_nome(q), 'sobra (está no app, não está na planta)', None, q['caixa'], q['caixa']))
     desl = []
     for p, q in pares:
-        if (p['tipo'], p['texto'], tuple(p['caixa'])) in rz: D.append((_nome(p), 'não conferido (muda sozinho no app)', None, None)); continue
+        if (p['tipo'], p['texto'], tuple(p['caixa'])) in rz: D.append((_nome(p), 'não conferido (muda sozinho no app)', None, None, q['caixa'])); continue
         dx, dy = q['caixa'][0] - p['caixa'][0], q['caixa'][1] - p['caixa'][1]
         dw, dh = q['caixa'][2] - p['caixa'][2], q['caixa'][3] - p['caixa'][3]
-        if abs(dw) > TOL or abs(dh) > TOL: D.append((_nome(p), 'tamanho', p['caixa'][2:], q['caixa'][2:]))
-        if abs(dx) > TOL or abs(dy) > TOL: desl.append((p['caixa'][1], _nome(p), round(dx, 1), round(dy, 1)))
+        if abs(dw) > TOL or abs(dh) > TOL: D.append((_nome(p), 'tamanho', p['caixa'][2:], q['caixa'][2:], q['caixa']))
+        if abs(dx) > TOL or abs(dy) > TOL: desl.append((p['caixa'][1], _nome(p), round(dx, 1), round(dy, 1), q['caixa']))
         for c in CAMPOS:
-            if p.get(c) != q.get(c): D.append((_nome(p), c, p.get(c), q.get(c)))
+            if p.get(c) != q.get(c): D.append((_nome(p), c, p.get(c), q.get(c), q['caixa']))
         if p['tipo'] == 'icone':
-            if p['icone']['geo'] != q['icone']['geo']: D.append((_nome(p), 'desenho do ícone diferente', None, None))
-            if p['icone']['traco'] != q['icone']['traco'] or p['icone']['cor'] != q['icone']['cor']: D.append((_nome(p), 'traço/cor do ícone', (p['icone']['traco'], p['icone']['cor']), (q['icone']['traco'], q['icone']['cor'])))
+            if p['icone']['geo'] != q['icone']['geo']: D.append((_nome(p), 'desenho do ícone diferente', None, None, q['caixa']))
+            if p['icone']['traco'] != q['icone']['traco'] or p['icone']['cor'] != q['icone']['cor']: D.append((_nome(p), 'traço/cor do ícone', (p['icone']['traco'], p['icone']['cor']), (q['icone']['traco'], q['icone']['cor']), q['caixa']))
     # cascata: peças em ordem de cima para baixo; um mesmo (dx,dy) que continua até o fim vira UMA diferença
     desl.sort(); k = 0
     while k < len(desl):
-        y0, nm, dx, dy = desl[k]; j = k
+        y0, nm, dx, dy, cx = desl[k]; j = k
         while j + 1 < len(desl) and (desl[j + 1][2], desl[j + 1][3]) == (dx, dy): j += 1
-        if j > k: D.append((nm, 'a partir daqui, %d peças deslocadas %+.1f px (lado) %+.1f px (altura)' % (j - k + 1, dx, dy), None, None))
-        else: D.append((nm, 'posição %+.1f px (lado) %+.1f px (altura)' % (dx, dy), None, None))
+        if j > k: D.append((nm, 'a partir daqui, %d peças deslocadas %+.1f px (lado) %+.1f px (altura)' % (j - k + 1, dx, dy), None, None, cx))
+        else: D.append((nm, 'posição %+.1f px (lado) %+.1f px (altura)' % (dx, dy), None, None, cx))
         k = j + 1
     return D
 def ruido(a, b):

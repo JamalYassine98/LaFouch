@@ -25,6 +25,23 @@ A.fixos=()=>[...document.querySelectorAll('body *')].filter(x=>getComputedStyle(
 A.painel=x=>{const r=x.getBoundingClientRect();return r.bottom>=innerHeight-2&&r.width>=innerWidth*0.6&&r.height>=innerHeight*0.2};
 // TELA POR CIMA: uma camada presa, opaca, que cobre a tela inteira (regra 16: não existe — ou é tela com "‹", ou janela de baixo)
 A.opaca=x=>{const m=/rgba?\(([^)]+)\)/.exec(getComputedStyle(x).backgroundColor);if(!m)return false;const v=m[1].split(',').map(parseFloat);return v.length<4||v[3]>=0.9};
+// TEXTO QUE ATRAVESSA (25/11: o site ficou com as camadas transparentes — as cores base sumiram do :root e o menu e a peça abriam
+// por cima da tela sem fundo): dois textos visíveis no mesmo lugar, e nada com fundo entre o de cima e o de baixo = o de baixo
+// aparece através do de cima. Pega camada sem fundo e textos encavalados na mesma camada. Só o que está na tela agora.
+A.atravessa=()=>{const T=[];for(const e of document.querySelectorAll('body *')){if(!A.own(e)||!A.vis(e)||e.closest('svg,[data-argus]'))continue;const r=e.getBoundingClientRect();
+  if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)continue;T.push([e,r])}
+ const fundo=x=>{const c=getComputedStyle(x);return A.opaca(x)||(c.backgroundImage&&c.backgroundImage!=='none'&&!/^url\(.*\.svg/.test(c.backgroundImage))||c.backdropFilter&&c.backdropFilter!=='none'};
+ const out=[],vistos=new Set();
+ for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const [a,ra]=T[i],[b,rb]=T[j];if(a.contains(b)||b.contains(a))continue;
+  const L=Math.max(ra.left,rb.left),R=Math.min(ra.right,rb.right),C=Math.max(ra.top,rb.top),B=Math.min(ra.bottom,rb.bottom);if(R-L<3||B-C<3)continue;
+  const ar=(R-L)*(B-C);if(ar<40||ar<0.25*Math.min(ra.width*ra.height,rb.width*rb.height))continue;
+  const x=Math.min(innerWidth-1,Math.max(0,(L+R)/2)),y=Math.min(innerHeight-1,Math.max(0,(C+B)/2)),S=document.elementsFromPoint(x,y);
+  const ia=S.findIndex(n=>n===a||a.contains(n)),ib=S.findIndex(n=>n===b||b.contains(n));
+  let cima=a,baixo=b,ic=ia,ix=ib;if(ia<0&&ib<0)continue;if(ia<0||(ib>=0&&ib<ia)){cima=b;baixo=a;ic=ib;ix=ia}
+  if(ix<0)ix=S.length;   // o de baixo nem é achado pelo dedo: confere tudo que está por cima
+  if(S.slice(0,ix).some(n=>!n.contains(baixo)&&!baixo.contains(n)&&fundo(n)))continue;   // algo com fundo cobre o de baixo
+  const k=A.txt(cima).slice(0,30)+' × '+A.txt(baixo).slice(0,30);if(!vistos.has(k)){vistos.add(k);out.push({cima:A.txt(cima).slice(0,40),baixo:A.txt(baixo).slice(0,40),caixa:[L,C+scrollY,R-L,B-C]})}}
+ return out.slice(0,20)};
 A.porCima=()=>A.fixos().filter(x=>{const r=x.getBoundingClientRect();return r.top<=5&&r.height>=innerHeight*0.9&&r.width>=innerWidth*0.9&&A.opaca(x)&&!(window.__LF&&x.closest('.view'))}).map(x=>{const t=[...x.querySelectorAll('h1,h2,h3,b')].find(A.vis);return t?A.txt(t).slice(0,60):'(sem título)'});
 // O SINAL de um botão: "›" (sai para outra tela) ou "⌄"/"⌃" (abre ali) — pelo texto ou pelo desenho da setinha como aparece na tela
 // o botão de voltar: "‹" (texto ou setinha) ou o nome "voltar"

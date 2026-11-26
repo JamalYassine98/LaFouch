@@ -1,10 +1,10 @@
-# ARGUS · setor NUVEM · a porta: a segurança de verdade (a nuvem recusar o que é proibido), sem tocar na nuvem publicada.
+# ARGUS · setor NUVEM · a segurança de verdade (a nuvem recusar o que é proibido), sem tocar na nuvem publicada.
 #   aqui:      os testes das funções (functions/teste-*.js) com o Node daqui — o que precisa de pacote que não há aqui fica para o GitHub
 #   no GitHub: o emulador do Firebase (.github/workflows/argus-nuvem.yml) — as regras do banco × a planta da nuvem, os 4 estragos
 #              de propósito e de novo todos os testes das funções, com os pacotes instalados.
 # Fecha por padrão: o que não rodou é "não conferido" e trava a publicação da nuvem como uma falha.
-# Uso: python3 porta.py            (aqui + GitHub)
-#      python3 porta.py --aqui     (só os testes das funções, aqui)
+# Uso: python3 seguranca.py            (aqui + GitHub)
+#      python3 seguranca.py --aqui     (só os testes das funções, aqui)
 import os, sys, json, glob, subprocess
 A = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, os.path.join(A, 'motor'))
 import github
