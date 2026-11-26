@@ -185,6 +185,7 @@
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
+- para **NUVEM**: Vigia 26/11 16:17: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-25: analise_com_site=6, analise_sem_robo=163, conta_sem_robo=1,
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
@@ -228,28 +229,28 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
-- 26/11 15:22 — IDEIAS: 17 parte 2e (recomendação) — esperando o dono
-- 26/11 15:03 — IDEIAS: 17 parte 2: 2d recusada; base = 2c (não aprovada)
-- 26/11 15:02 — IDEIAS: 17 parte 2d — esperando o dono; Semp alimentado com o estudo 3
-- 26/11 14:59 — IDEIAS: 16 estudo 3 anotado (vídeo da Made guardado); parte 3 esperando o dono
-- 26/11 14:52 — IDEIAS: 17 parte 2c — esperando o dono
-- 26/11 14:50 — IDEIAS: 16 estudo 2 anotado (ESTUDO.md §7–8); 2c esperando o dono
-- 26/11 14:04 — IDEIAS: 17 parte 2b (Feminino/Masculino + tipos deslizando) — esperando o dono
-- 26/11 13:59 — IDEIAS: 17 parte 2 com Leitura — esperando o dono
-- 26/11 13:56 — IDEIAS: 17 parte 2 (selos + categorias) esboço pronto — esperando o dono
-- 26/11 13:47 — IDEIAS: 16: fundamentos do site estudados e guardados (ESTUDO.md §6)
-- 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
-- 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
-- 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
-- 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
-- 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
-- 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
-- 26/11 09:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
-- 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
-- 26/11 06:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
-- 26/11 03:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
-- 25/11 23:19 — ESBOCO: Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12
-- 25/11 22:36 — ESBOCO: Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)
-- 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
-- 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
-- 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
+- 26/11 18:22 — IDEIAS: 17 parte 2e (recomendação) — esperando o dono
+- 26/11 18:03 — IDEIAS: 17 parte 2: 2d recusada; base = 2c (não aprovada)
+- 26/11 18:02 — IDEIAS: 17 parte 2d — esperando o dono; Semp alimentado com o estudo 3
+- 26/11 17:59 — IDEIAS: 16 estudo 3 anotado (vídeo da Made guardado); parte 3 esperando o dono
+- 26/11 17:52 — IDEIAS: 17 parte 2c — esperando o dono
+- 26/11 17:50 — IDEIAS: 16 estudo 2 anotado (ESTUDO.md §7–8); 2c esperando o dono
+- 26/11 17:04 — IDEIAS: 17 parte 2b (Feminino/Masculino + tipos deslizando) — esperando o dono
+- 26/11 16:59 — IDEIAS: 17 parte 2 com Leitura — esperando o dono
+- 26/11 16:56 — IDEIAS: 17 parte 2 (selos + categorias) esboço pronto — esperando o dono
+- 26/11 16:47 — IDEIAS: 16: fundamentos do site estudados e guardados (ESTUDO.md §6)
+- 26/11 15:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
+- 26/11 15:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
+- 26/11 15:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
+- 26/11 15:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
+- 26/11 14:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
+- 26/11 12:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
+- 26/11 12:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
+- 26/11 10:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
+- 26/11 09:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
+- 26/11 06:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
+- 26/11 02:19 — ESBOCO: Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12
+- 26/11 01:36 — ESBOCO: Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)
+- 24/11 14:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
+- 24/11 14:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
+- 24/11 14:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
