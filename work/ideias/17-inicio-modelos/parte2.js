@@ -3,6 +3,7 @@
   const d = document.getElementById('hdst'); const cod = d.querySelector('[data-open]').dataset.open;
   const topH = document.querySelector('.top').getBoundingClientRect().height;
   const st0 = document.createElement('style'); st0.textContent = `
+  #hdst{display:none!important}
   .lfx-capa{position:relative;overflow:hidden;cursor:pointer;color:#fff}
   .lfx-capa .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 20%}
   .lfx-capa .vt{position:absolute;left:0;right:0;top:0;height:36%;background:linear-gradient(#1f0d1788,#1f0d1700)}
@@ -42,7 +43,7 @@
         nome em Fraunces branco sobre o mesmo véu da capa.
      2) Solar · Leitura · Armações = VITRINE: os cartões de hoje, com a peça limpa (fotos que já existem). */
   const st = document.createElement('style'); st.textContent = `
-  #home .lfx-gen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
+  #home .lfx-gen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:24px}
   #home .lfx-gen a{position:relative;display:block;aspect-ratio:3/4;border-radius:18px;overflow:hidden;text-decoration:none;color:#fff}
   #home .lfx-gen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
   #home .lfx-gen .vb{position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(#1f0d1700,#1f0d17a6)}
@@ -50,6 +51,7 @@
   #home .lfx-gen .lfx-semp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fcf3f8,#f2dce8);color:#943d6f;font:600 12px/1.5 Inter,system-ui;padding:16px}`;
   document.head.appendChild(st);
   const g2 = document.querySelector('#home .hcat');
+  const h2 = g2.previousElementSibling && g2.previousElementSibling.querySelector('h2'); if (h2) h2.innerHTML = 'Escolha o <em>seu</em> estilo';
   const gen = document.createElement('div'); gen.className = 'lfx-gen';
   gen.innerHTML = `<a href="#vitrine" data-mf="gen:f"><img src="${ESTU}" alt=""><div class=vb></div><b>Feminino</b></a>`
     + `<a href="#vitrine" data-mf="gen:m"><div class=lfx-semp>FOTO DO SEMP<br>modelo masculino<br>usando a peça</div><div class=vb></div><b>Masculino</b></a>`;

@@ -3,6 +3,7 @@
   const d = document.getElementById('hdst'); const cod = d.querySelector('[data-open]').dataset.open;
   const topH = document.querySelector('.top').getBoundingClientRect().height;
   const st0 = document.createElement('style'); st0.textContent = `
+  #hdst{display:none!important}
   .lfx-capa{position:relative;overflow:hidden;cursor:pointer;color:#fff}
   .lfx-capa .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 20%}
   .lfx-capa .vt{position:absolute;left:0;right:0;top:0;height:36%;background:linear-gradient(#1f0d1788,#1f0d1700)}

@@ -54,3 +54,8 @@ Arquivo: esboco-17-parte2-categorias.jpg (kit real, Hoje × Proposta). Gerador: 
   miniatura 32 + código + preço/“Ver a peça” + ›) = abre a peça que a modelo usa (data-open). Nome Fraunces 24 acima da etiqueta.
 - Solar · Leitura · Armações: os cartões de hoje (vitrine), 16 abaixo.
 - Peças das etiquetas no esboço: AC1055 / SL2275 (peças de teste; na loja, o código vem junto com a foto do Semp).
+
+### 2e — recomendação da IDEIAS (dono 26/11 15:20: "peço o seu estudo e sua recomendação") — base atual, não aprovada
+- = 2c (campanha limpa Feminino | Masculino + vitrine de hoje) + título humano "Escolha o *seu* estilo" + 24 de respiro entre campanha e vitrine.
+- A ligação foto → peça NÃO entra nas categorias (ESTUDO §10): vira bloco próprio na parte 3 (foto grande da modelo e, logo abaixo, o cartão da peça).
+- O salto de luxo que falta aqui é a FOTO: Feminino hoje usa a foto de vitrine (estúdio); precisa de foto de campanha do Semp, e Masculino também.
