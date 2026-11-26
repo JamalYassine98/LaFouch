@@ -23,7 +23,7 @@ def peca(path, W=900, H=600, larg=0.86):
     cv = Image.new('RGB', (W, H), (255, 255, 255)); cv.paste(pc, (x, (H - pc.height) // 2))
     b = io.BytesIO(); cv.save(b, 'JPEG', quality=86); return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
 F['cafe'] = b64(os.path.join(I17, 'semp-cafe-campanha.jpg'), 900)
-F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo', 'loja_lote', 'h_barba', 's_celular', 'h_sol_couro', 't_selfie1', 't_tabela_h']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
+F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo', 'loja_lote', 'h_barba', 's_celular', 'h_sol_couro', 't_selfie1', 't_le_livro']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
 JS = r"""(()=>{const F=__F__, P=__P__, PF=__PF__;
 const css = `
 #hdst{display:none!important}
@@ -100,7 +100,12 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
 /* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
 #home .lfx-fer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0 0}
-#home .lfx-fer .lfx-ft{aspect-ratio:3/4}#home .lfx-fer .lfx-ft b{font-size:18px}
+/* ferramenta = foto de ação + nome + o que faz + botão com o verbo (o botão é o que diz "isto é uma ferramenta") */
+#home .lfx-fe{display:flex;flex-direction:column;text-decoration:none}
+#home .lfx-fe .im{display:block;aspect-ratio:4/3;border-radius:18px;overflow:hidden;margin-bottom:16px}#home .lfx-fe .im img{width:100%;height:100%;object-fit:cover}
+#home .lfx-fe b{font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27}
+#home .lfx-fe small{margin-top:4px;font:13px/1.4 Inter,system-ui;color:#6b5a66}
+#home .lfx-fe .bt{margin-top:16px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #943d6f;border-radius:999px;color:#943d6f;font:500 15px Inter,system-ui}
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 const H = document.getElementById('home'), $ = s => H.querySelector(s), $$ = s => [...H.querySelectorAll(s)];
@@ -153,7 +158,9 @@ $('#hguia').before(mov);
 const hi = $('.hata .hati img'); if (hi) { hi.src = F.loja_lote; hi.style.cssText = 'width:100%;height:100%;object-fit:cover;mix-blend-mode:normal'; $('.hata .hati').style.aspectRatio = '16/9'; }
 /* 8. as duas ferramentas logo abaixo dos selos; a foto combina com quem usa (grau de leitura = 45+) */
 const gu = $('.hgu.hcom');  /* na loja: os mesmos botões do site (provador = upgrade do "qual combina", teste de leitura) */
-const fer = mk(`<div class=lfx-fer>${ft(F.t_selfie1, 'Provador virtual', 'No seu rosto', '')}${ft(F.t_tabela_h, 'Teste de grau', 'Em 1 minuto', '')}</div>`);
+const fer = mk(`<div class=lfx-fer>
+  <a class=lfx-fe href="#rosto"><span class=im><img src="${F.t_selfie1}" alt=""></span><b>Provador virtual</b><small>Pela câmera do celular</small><span class=bt>Experimentar</span></a>
+  <a class=lfx-fe href="#grau"><span class=im><img src="${F.t_le_livro}" alt=""></span><b>Teste de leitura</b><small>Grau para ler de perto</small><span class=bt>Fazer o teste</span></a></div>`);
 $('.htr').after(fer); $('#hguia').remove(); gu.remove();
 $('.hsh').style.marginTop = '48px';  /* 48 entre o bloco de serviços e o primeiro título */
 const det = n => { const t = n.replace(/^(Armação|Solar|Óculos de leitura)\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };

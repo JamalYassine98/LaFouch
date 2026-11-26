@@ -78,3 +78,9 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - **Fotos 3/4:** todas as peças serão 3/4, então a centralização pelo centro de massa vale para todas, automática, ao subir a foto (não depende da foto).
 - **Ferramentas:** voltam a ser o MESMO cartão-foto da página (harmonia), mas com foto de ação que diz o que é: pessoa de óculos tirando selfie
   (Provador virtual · No seu rosto) e pessoa apontando a tabela de letras (Teste de grau · Em 1 minuto). 3:4, nome Fraunces 18.
+
+## v8 (dono 17:52) — esboco-18-v8-parte1…5.jpg
+- Ferramentas = foto de ação + nome + o que faz + **botão com o verbo** (o botão diz "isto é uma ferramenta"; mesma família do "Ver modelo").
+- **Provador virtual** · "Pela câmera do celular" · [Experimentar] — foto: pessoa de óculos fazendo selfie.
+- **Teste de leitura** · "Grau para ler de perto" · [Fazer o teste] — foto: pessoa 45+ lendo de perto. Sai a tabela de letras de consultório
+  (sugeria teste de miopia e poderia enganar a cliente: o teste do site é só para leitura).
