@@ -1,7 +1,9 @@
 {
  "nome": "PLANTAS",
- "agora": "",
- "arquivos": [],
+ "agora": "plantas do site: lista de telas e ordem dos lotes",
+ "arquivos": [
+  "work/argus/plantas/lotes/site/PLANO-LOTES-SITE.md"
+ ],
  "ultimas": [],
  "leu": 1795689634.0025766
 }
