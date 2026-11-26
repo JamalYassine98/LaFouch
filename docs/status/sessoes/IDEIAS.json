@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "16: princípios de elegância do Semp + referências do dono",
+ "arquivos": [
+  "work/ideias/16-padrao-luxo/"
+ ],
  "ultimas": [
   {
    "t": 1795706632.233197,
@@ -44,5 +46,5 @@
    "r": "12e aprovado nas 6 datas"
   }
  ],
- "leu": 1795706422.3698413
+ "leu": 1795709542.5757694
 }
