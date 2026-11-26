@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Argus Parte 7c: conferências próprias do site",
+ "arquivos": [
+  "work/argus"
+ ],
  "ultimas": [
   {
    "t": 1795652777.1938527,
@@ -44,5 +46,5 @@
    "r": "esboço Argus toque de dedo + traço da última linha + texto do E se"
   }
  ],
- "leu": 1795652774.7618752
+ "leu": 1795654713.8908045
 }
