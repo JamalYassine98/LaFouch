@@ -9,10 +9,19 @@ def b64(p, w=800):
     return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
 F = {k: b64(os.path.join(I17, 'desenho', k + '.jpg')) for k in ['grupo', 'lanc', 'maisv', 'retrato', 'video', 'design', 'conforto', 'elas']}
 import re as _re
-_P = {m.group(1): {'foto': m.group(4), 'mat': m.group(3).lower(), 'n': int(m.group(2)), 'cor': m.group(5)} for m in _re.finditer(r"ref:'(\w+)'.*?n:(\d+).*?mat:'([^']*)'.*?foto:'([^']*)'.*?cores:\['([^']*)'", open(os.path.join(AQ, '../../kit/pecas-teste.js')).read())}
+_P = {m.group(1): {'nome': m.group(2), 'n': int(m.group(3)), 'mat': m.group(4).lower(), 'foto': m.group(5), 'cor': m.group(6)} for m in _re.finditer(r"ref:'(\w+)',gen:'\w',nome:'([^']*)'.*?n:(\d+).*?mat:'([^']*)'.*?foto:'([^']*)'.*?cores:\['([^']*)'", open(os.path.join(AQ, '../../kit/pecas-teste.js')).read())}
+from PIL import ImageChops
+def peca(path, W=900, H=600, larg=0.86):
+    '''Normaliza a foto da peça: recorta o branco em volta, centraliza e põe todas na MESMA escala (a peça ocupa 86% da largura).
+    Na loja isto é feito uma vez, ao subir a foto (Titan/catálogo) — um lugar só, vale para todas as telas.'''
+    im = Image.open('/tmp/kitsite' + path).convert('RGB'); bg = Image.new('RGB', im.size, (255, 255, 255))
+    bb = ImageChops.difference(im, bg).convert('L').point(lambda v: 255 if v > 18 else 0).getbbox() or (0, 0, im.width, im.height)
+    pc = im.crop(bb); esc = min(W * larg / pc.width, H * 0.80 / pc.height); pc = pc.resize((int(pc.width * esc), int(pc.height * esc)), Image.LANCZOS)
+    cv = Image.new('RGB', (W, H), (255, 255, 255)); cv.paste(pc, ((W - pc.width) // 2, (H - pc.height) // 2))
+    b = io.BytesIO(); cv.save(b, 'JPEG', quality=86); return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
 F['cafe'] = b64(os.path.join(I17, 'semp-cafe-campanha.jpg'), 900)
-F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo', 'loja_lote']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
-JS = r"""(()=>{const F=__F__, P=__P__;
+F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo', 'loja_lote', 'h_barba', 's_celular', 'h_sol_couro']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
+JS = r"""(()=>{const F=__F__, P=__P__, PF=__PF__;
 const css = `
 #hdst{display:none!important}
 main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que deslizam não podem alargar a coluna (itens flex: min-width 0) */
@@ -31,7 +40,7 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 /* foto de campanha: inteira, arredondada como os cartões, só o nome por cima (ESTUDO §10) */
 .lfx-ft{position:relative;display:block;border-radius:18px;overflow:hidden;color:#fff;text-decoration:none}
 .lfx-ft img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.lfx-ft .vb{position:absolute;left:0;right:0;bottom:0;height:35%;background:linear-gradient(#1f0d1700,#1f0d1799)}
+.lfx-ft .vb{position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(#1f0d1700,#1f0d17b3)}
 .lfx-ft b{position:absolute;left:16px;right:16px;bottom:16px;font:500 20px/1.2 Fraunces,Georgia,serif}
 .lfx-ft small{display:block;font:13px/1.4 Inter,system-ui;opacity:.9;margin-top:4px}
 .lfx-semp{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding:24px 16px;background:linear-gradient(135deg,#c99ab3,#8d5a77);color:#fff;font:600 12px/1.5 Inter,system-ui}
@@ -40,30 +49,31 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 /* visto na foto: a foto e, FORA dela, a peça */
 #home .lfx-visto .lfx-ft{aspect-ratio:4/5}
 #home .lfx-rot{font:600 12px Inter,system-ui;letter-spacing:.16em;text-transform:uppercase;color:#943d6f;text-align:center;margin:0 0 16px}
+/* v5: preço embaixo do código (dono 17:32: o preço competia com a peça seguinte) */
 /* CARTÃO DE PEÇA v4 (dono 17:22: "a reclamação está nos cartões dos produtos em si"):
    sem caixa, sem painel e sem borda — a peça pousa no próprio fundo rosé da página, com uma sombra de apoio suave embaixo (como numa vitrine);
    linha 1: código em Fraunces 18 à esquerda e preço preto à direita, na mesma linha de base (L2); linha 2: o detalhe (formato/material), cinza;
    linha 3: as cores em anéis de 12 px. "Última unidade" vira texto pequeno vinho, sem etiqueta sobre a foto. */
-#home .hc{display:grid!important;grid-template-columns:1fr auto;column-gap:8px;align-items:baseline;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important}
+#home .hc{display:grid!important;grid-template-columns:1fr;align-items:start;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important}
 #home .hc .hci{grid-column:1/-1;margin:0 0 16px!important;background:transparent!important;overflow:visible!important;position:relative}
 #home .hc .hci:after{content:'';position:absolute;left:20%;right:20%;bottom:6%;height:12px;background:radial-gradient(closest-side,#2a1f2726,#2a1f2700);z-index:0}
-#home .hc .hci img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-height:none!important;z-index:1;object-fit:contain!important;transform:none!important;mix-blend-mode:multiply;padding:8px 0 16px;box-sizing:border-box}
+#home .hc .hci img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-height:none!important;z-index:1;object-fit:contain!important;transform:none!important;mix-blend-mode:multiply;padding:0 0 8px;box-sizing:border-box}
 #home .hc .hn{display:contents!important}
 #home .hc .lfx-cod{grid-column:1;grid-row:2;font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27;min-width:0}
 #home .hc .hds{grid-column:1/-1;grid-row:3;font:13px/1.4 Inter,system-ui!important;letter-spacing:0;color:#6b5a66!important;margin:4px 0 0!important}
-#home .hc .hp{grid-column:2;grid-row:2;padding:0!important;font:600 15px/1.2 Inter,system-ui!important;color:#2a1f27;font-variant-numeric:tabular-nums;white-space:nowrap}
-#home .hc .hsw{grid-column:1/-1;grid-row:4;padding:8px 0 0!important;display:flex;gap:8px}
+#home .hc .hp{grid-column:1;grid-row:4;padding:8px 0 0!important;font:600 15px/1.2 Inter,system-ui!important;color:#2a1f27;font-variant-numeric:tabular-nums;white-space:nowrap}
+#home .hc .hsw{grid-column:1/-1;grid-row:5;padding:8px 0 0!important;display:flex;gap:8px}
 #home .hc .hsw i{width:12px!important;height:12px!important;border-radius:50%;box-shadow:0 0 0 1px #fbf7fa,0 0 0 2px #d9c6d1}
-#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:5;margin:8px 0 0!important;padding:0!important;background:none!important;font:600 12px/1.3 Inter,system-ui!important;color:#943d6f!important}
+#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:6;margin:8px 0 0!important;padding:0!important;background:none!important;font:600 12px/1.3 Inter,system-ui!important;color:#943d6f!important}
 #home .hc .ulin i{display:none}
 /* para lojistas na mesma família (painel rosé, sem caixa) */
 #home .hata{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
 #home .hata .hati{display:grid!important;place-items:center;background:#f4ebf1!important;border-radius:18px;overflow:hidden}#home .hata .hati img{mix-blend-mode:multiply}
 #home .hata .hatt{padding:16px 0 0!important}
 /* peças GRANDES: carrossel de 1,25 por tela (acabou de chegar) e grade 2 × 2 (mais pedidos) */
-#home .hg.lfx-grande{display:flex!important;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
+#home .hg.lfx-grande{display:flex!important;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
 #home .hg.lfx-grande::-webkit-scrollbar{display:none}
-#home .hg.lfx-grande > *{flex:0 0 calc((100% - 16px) / 1.25)!important;scroll-snap-align:start}
+#home .hg.lfx-grande > *{flex:0 0 calc((100% - 24px) / 1.2)!important;scroll-snap-align:start}
 #home .hg.lfx-grande .hci{aspect-ratio:3/2!important;height:auto!important;width:100%!important}
 #home .hg.lfx-grade{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
 #home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
@@ -73,13 +83,10 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-visto .lfx-pg{margin-top:16px}
 #home .lfx-pg .hci{aspect-ratio:16/9!important;height:auto!important;width:100%!important}
 #home .lfx-pg .vm{margin-top:16px;justify-content:center;width:100%;box-sizing:border-box;height:44px;display:inline-flex;align-items:center;padding:0 24px;border:1px solid #943d6f;border-radius:999px;color:#943d6f;font:500 15px Inter,system-ui;white-space:nowrap}
-/* para cada uso: vitrine grande que desliza */
-#home .lfx-tipos{display:grid;gap:0}
-#home .lfx-tipos a + a{border-top:1px solid #efe3ea}
-#home .lfx-tipos a{display:flex;align-items:center;gap:16px;text-decoration:none}
-#home .lfx-tipos .im{flex:0 0 144px;aspect-ratio:4/3;padding:8px 8px 16px;box-sizing:border-box;background:radial-gradient(40% 7% at 50% 86%,#2a1f2722,#2a1f2700)}#home .lfx-tipos img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
-#home .lfx-tipos .tx{flex:1;min-width:0}#home .lfx-tipos i{font-style:normal;color:#943d6f;font:400 24px Inter,system-ui}
-#home .lfx-tipos b{display:block;padding:0;font:500 20px/1.2 Fraunces,Georgia,serif;color:#2a1f27}#home .lfx-tipos small{display:block;padding:4px 0 0;font:13px/1.4 Inter,system-ui;color:#6b5a66}
+/* para cada uso: mosaico de revista */
+#home .lfx-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#home .lfx-rev .lfx-ft:first-child{grid-column:1/-1;aspect-ratio:4/5}#home .lfx-rev .lfx-ft{aspect-ratio:3/4}
+#home .lfx-rev .lfx-ft:first-child b{font-size:28px}
 /* em movimento */
 #home .lfx-mov{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
 #home .lfx-mov > div{flex:0 0 calc((100% - 32px) / 2.2)}
@@ -88,17 +95,10 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-mov .play{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#ffffffd9;display:flex;align-items:center;justify-content:center}
 #home .lfx-mov .play:after{content:'';margin-left:4px;border-left:14px solid #943d6f;border-top:9px solid transparent;border-bottom:9px solid transparent}
 #home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
-/* as duas ferramentas: junto dos selos, num painel claro com duas linhas (miniatura, nome, linha curta, ›) — servem, não disputam com as fotos */
-#home .lfx-fer{margin:24px 0 0;background:#f4ebf1;border-radius:18px;padding:0 16px}
-#home .lfx-fer > button.lfx-ft2{display:flex!important;align-items:center;gap:16px;width:100%;min-height:88px;border:0!important;background:none!important;padding:16px 0!important;text-align:left;position:relative}
-#home .lfx-fer > button.lfx-ft2 + button{border-top:1px solid #e6d3de!important}
-#home .lfx-fer .mini{flex:0 0 56px;height:56px;border-radius:16px;background:#ddd center/cover no-repeat}
-#home .lfx-fer .gi,#home .lfx-fer > button > svg{display:none!important}
-#home .lfx-fer .gt{flex:1;min-width:0}
-#home .lfx-fer .gt b{display:block;color:#2a1f27!important;font:500 18px/1.2 Fraunces,Georgia,serif}
-#home .lfx-fer .gt b em{color:#943d6f!important}
-#home .lfx-fer .gt small{display:block;color:#6b5a66!important;font:13px/1.4 Inter,system-ui;margin-top:4px;letter-spacing:0;text-transform:none}
-#home .lfx-fer .seta{color:#943d6f;font:400 24px Inter,system-ui}
+/* as duas ferramentas: 2 cartões-foto quadrados lado a lado, logo abaixo dos selos (mesmo componente de campanha .lfx-ft) */
+#home .lfx-fer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0 0}
+#home .lfx-fer .lfx-ft{aspect-ratio:1/1}
+#home .lfx-fer .lfx-ft b{font-size:18px}
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 const H = document.getElementById('home'), $ = s => H.querySelector(s), $$ = s => [...H.querySelectorAll(s)];
@@ -119,7 +119,7 @@ hc.previousElementSibling.querySelector('h2').innerHTML = 'Escolha o seu <em>est
 hc.replaceWith(mk(`<div class=lfx-gen>${ft(F.lanc, 'Feminino', '', 'gen:f')}${ft(F.h_jaqueta, 'Masculino', '', 'gen:m')}</div>`));
 /* 3. acabou de chegar: a peça GRANDE (1,25 por tela), sem botões extras */
 const [sNov, sMv] = $$('.hsh.hsh1'), [gNov, gMv] = $$('.hg');
-sNov.querySelector('h2').innerHTML = 'Acabou de <em>chegar</em>'; sMv.querySelector('h2').innerHTML = 'Os mais <em>pedidos</em>';
+sNov.querySelector('h2').innerHTML = 'Acabou de chegar'; sMv.querySelector('h2').innerHTML = 'Os mais pedidos';
 sNov.style.marginTop = '48px'; gNov.classList.add('lfx-grande');
 H.querySelectorAll('.hc .ulin').forEach(u => u.closest('.hc').appendChild(u));
 /* nenhuma peça repete na página (dono 17:17); BR44145 fora (o dono não gosta dela) */
@@ -132,14 +132,12 @@ H.querySelectorAll('.hc[data-open="BR44145"],.hc[data-open="' + VISTO + '"],.hc[
 /* 4. visto na foto: foto grande e, logo abaixo e FORA dela, a peça em tamanho de vitrine */
 const dados = c => { const ds = (c.querySelector('.hds') || {}).textContent || '', t = c.innerText, cod = (t.match(/[A-Z]{2}\d{3,5}/) || [''])[0], pr = (t.match(/R\$\s?[\d.,]+/) || [''])[0]; return {ds, cod, pr}; };
 
-const visto = mk(`<div class=lfx-visto style="margin:48px 0 0"><div class=hsh><h2 class=h2>Visto na <em>foto</em></h2></div>${ft(F.retrato, '', '', '')}
+const visto = mk(`<div class=lfx-visto style="margin:48px 0 0"><div class=hsh><h2 class=h2>Visto na foto</h2></div>${ft(F.retrato, '', '', '')}
   <div class=lfx-pg></div></div>`);
 { const cv = cartao(VISTO); cv.querySelector('.hp').textContent = d1.pr || cv.querySelector('.hp').textContent; visto.querySelector('.lfx-pg').append(cv, mk('<span class=vm>Ver modelo</span>')); }
 gNov.after(visto);
-/* 5. para cada uso: Solar · Leitura · Armações como vitrine grande (a peça é a estrela) */
-const tipos = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Para cada <em>uso</em></h2></div><div class=lfx-tipos></div></div>`);
-[['solar', 'Solar', 'Proteção UV'], ['grau', 'Leitura', 'Para ler de perto'], ['armacao', 'Armações', 'Para a sua receita']].forEach(([k, n, sub]) => {
-  tipos.querySelector('.lfx-tipos').appendChild(mk(`<a href="#vitrine" data-mf="tipo:${k}"><span class=im><img src="${P[TIPO[k]].foto}" alt=""></span><span class=tx><b>${n}</b><small>${sub}</small></span><i>›</i></a>`)); });
+/* 5. para cada uso = capa de revista (dono 17:32): mosaico 1 grande + 2, a foto de quem usa aquele tipo; nome e linha curta por cima, no véu */
+const tipos = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Para cada uso</h2></div><div class=lfx-rev>${ft(F.design, 'Solar', 'Proteção UV', 'tipo:solar')}${ft(F.s_celular, 'Leitura', 'Para ler de perto', 'tipo:grau')}${ft(F.h_sueter, 'Armações', 'Para a sua receita', 'tipo:armacao')}</div></div>`);
 visto.after(tipos);
 /* 6. os mais pedidos: outro formato (grade 2 × 2 de peças grandes) — não repete o carrossel */
 sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grade');
@@ -147,20 +145,18 @@ sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grade');
 MAIS.forEach(r => { if (gMv.children.length < 4) gMv.appendChild(cartao(r)); }); /* peças de teste: completa 4, sem repetir */
 /* 7. como fica no rosto: mulheres e homens, de idades diferentes (vídeos do Semp) */
 const mov = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Como fica no <em>rosto</em></h2></div><div class=lfx-mov></div></div>`);
-[[F.maisv, ''], [F.h_sol_branco, ''], [F.elas, ''], [F.h_sueter, '']].forEach(([s, ph], i) => { const c = gNov.children[i % gNov.children.length], q = dados(c);
+[[F.maisv, ''], [F.h_sol_branco, ''], [F.elas, ''], [F.h_sol_couro, '']].forEach(([s, ph], i) => { const c = gNov.children[i % gNov.children.length], q = dados(c);
   mov.querySelector('.lfx-mov').appendChild(mk(`<div><a class=lfx-ft href="#rosto">${s ? `<img src="${s}" alt="">` : `<span class=lfx-semp>FOTO DO SEMP<br>${ph}</span>`}<span class=play></span></a><p><b>${q.cod}</b>${q.pr}</p></div>`)); });
 $('#hguia').before(mov);
 const hi = $('.hata .hati img'); if (hi) { hi.src = F.loja_lote; hi.style.cssText = 'width:100%;height:100%;object-fit:cover;mix-blend-mode:normal'; $('.hata .hati').style.aspectRatio = '16/9'; }
 /* 8. as duas ferramentas logo abaixo dos selos; a foto combina com quem usa (grau de leitura = 45+) */
-const gu = $('.hgu.hcom'), [bGrau, bRosto] = [...gu.children];
-const fer = mk(`<div class=lfx-fer></div>`);
-const ferr = (b, src, ph, t, sub) => { b.classList.add('lfx-ft2'); b.insertAdjacentHTML('afterbegin', `<span class=mini style="background-image:url(${src})"></span>`);
-  b.querySelector('.gt').innerHTML = `<b>${t}</b><small>${sub}</small>`; b.insertAdjacentHTML('beforeend', '<span class=seta>›</span>'); fer.appendChild(b); };
-ferr(bRosto, F.design, '', 'Experimente no <em>rosto</em>', 'Pela câmera do celular');
-ferr(bGrau, F.s_lendo, '', 'Descubra seu <em>grau</em>', 'Teste de leitura em 1 min');
+const gu = $('.hgu.hcom');  /* na loja: os mesmos botões do site (provador = upgrade do "qual combina", teste de leitura) */
+const fer = mk(`<div class=lfx-fer>${ft(F.h_barba, 'Provador virtual', 'Pela câmera', '')}${ft(F.s_lendo, 'Teste de grau', 'Em 1 minuto', '')}</div>`);
 $('.htr').after(fer); $('#hguia').remove(); gu.remove();
 $('.hsh').style.marginTop = '48px';  /* 48 entre o bloco de serviços e o primeiro título */
+const det = n => { const t = n.replace(/^(Armação|Solar|Óculos de leitura)\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
+H.querySelectorAll('.hc').forEach(c => { const r = c.dataset.open; if (PF[r]) c.querySelector('.hci img').src = PF[r]; const d = c.querySelector('.hds'); if (d && P[r]) { d.textContent = det(P[r].nome); d.dataset.f = d.textContent; } });
 /* código num elemento próprio: código e preço na mesma linha de base (L2), em todos os cartões (inclusive os montados acima) */
 H.querySelectorAll('.hc .hn').forEach(hn => { [...hn.childNodes].forEach(n => { if (n.nodeType === 3 && n.textContent.trim()) { const b = document.createElement('span'); b.className = 'lfx-cod'; b.textContent = n.textContent.trim(); n.replaceWith(b); } }); });
 return 'ok'})()"""
-open(os.path.join(AQ, 'proposta.js'), 'w').write(JS.replace('__F__', __import__('json').dumps(F)).replace('__P__', __import__('json').dumps(_P)))
+open(os.path.join(AQ, 'proposta.js'), 'w').write(JS.replace('__F__', __import__('json').dumps(F)).replace('__P__', __import__('json').dumps(_P)).replace('__PF__', __import__('json').dumps({r: peca(p['foto']) for r, p in _P.items()})))

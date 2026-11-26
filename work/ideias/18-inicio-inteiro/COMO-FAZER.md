@@ -55,3 +55,13 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - **Organização:** ferramentas viram um painel claro com 2 linhas junto dos selos (servem, não disputam com as fotos); Para cada uso = lista em pé com linhas finas
   (nada cortado na borda); nenhuma peça repete na página; BR44145 fora; Para lojistas com foto de lote de armações (desenho).
 - Código: estilos substituídos apagados no mesmo passo (bloco duplicado e o cartão-foto antigo das ferramentas).
+
+## v5 (dono 17:32) — esboco-18-v5-parte1…5.jpg
+- **Peças fora do quadro / descentralizadas — causa:** cada foto do catálogo tem margem e posição diferentes. Conserto no jeito natural (regra 12): a foto é
+  normalizada UMA vez ao subir (recorta o branco, centraliza, mesma escala: peça em 86% da largura) — no esboço, função peca() em proposta.py; na loja, no Titan/catálogo.
+- **Preço competia com a peça seguinte:** código, detalhe e preço empilhados à esquerda; carrossel 1,2 por tela com 24 entre cartões.
+- **Linha de detalhe humana:** formato e cor do nome da peça ("Redonda rosa") no lugar de "LaFouch · acetato".
+- **Para cada uso = capa de revista** (o dono acertou: alterna campanha × vitrine): mosaico 1 grande (4:5) + 2 (3:4), foto de quem usa aquele tipo, nome e linha curta no véu.
+- **Ferramentas:** 2 cartões-foto quadrados (mesmo componente de campanha) "Provador virtual · Pela câmera" e "Teste de grau · Em 1 minuto".
+- Itálico só na capa, "Escolha o seu *estilo*" e "Como fica no *rosto*". Véu das fotos um pouco mais forte (nome branco legível em foto clara).
+- Código: blocos duplicados e estilos antigos das ferramentas apagados.
