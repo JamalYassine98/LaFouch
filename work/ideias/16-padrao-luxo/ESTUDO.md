@@ -50,3 +50,28 @@ Fontes: CLAUDE.md (regras 2, 10–14, 18), docs/ATLAS-SITE.md, docs/DESIGN-SITE-
 - **Início:** variedade de fotos (a mesma peça não aparece em 4+ blocos); destaque com zoom lento e bolinhas; partes: destaque, selos, categorias, Novidades, Comece por aqui (imagens fixas), atacado, rodapé.
 - **Como esboçar (regra 11):** usar o KIT e as telas reais — `python3 work/kit/kit.py site home saida.png inject.js` (o .js roda na tela real com as classes do site) e `kit.py prancha`; o kit roda o olho.js/ecom.js (cortado, apagado, largura, tampado, toque, letra, fileira torta…) parado e depois de rolar; depois o comparador Hoje × Proposta. A proposta não pode criar falha nova.
 - **Antes de cada passo:** reler o CLAUDE.md e conferir o passo (regra 2).
+
+## 7. Estudo 2 (26/11, pedido do dono: "estude mais sobre padrões de luxo e anota") — início e categorias
+Fontes: NN/g "Luxury principles in ecommerce design"; Lollypop "editorial thinking in fashion web design";
+pesquisa acadêmica sobre 81 páginas iniciais de luxo (IJRDM 2013); Baymard (luxo); Chanel/Loewe/The Row/COS/Arket/Jacques Marie Mage.
+Princípios (inspiração, não regra rígida — ver PRINCIPIOS-ELEGANCIA-SEMP.md):
+1. **Poucos elementos.** O que mais separa o luxo do comum é o corte de elementos e o palco grande. Cada bloco a menos vale mais que um bloco bonito a mais.
+2. **Uma história dominante por vez.** Sentido antes do produto: a capa diz a ideia, depois vêm os caminhos de compra. Blocos que disputam atenção (novidades + mais vendidos + categorias + selos, todos iguais) fazem cara de estoque.
+3. **Alternar o tipo de imagem.** Foto de campanha (modelo, ambiente) para o desejo; foto de vitrine (a peça limpa) para avaliar. Ritmo: campanha → peça → campanha. Nunca 5 cartões seguidos do mesmo tipo.
+4. **Alternar o tamanho.** Um grande, depois pequenos; tela inteira, depois respiro. O olho descansa no contraste de escala, não na repetição de cartões iguais.
+5. **Imagem domina, moldura some.** No luxo a foto de campanha não fica dentro de caixa com faixa de rótulo; o texto fica curto, sobre a foto (com véu) ou logo abaixo, solto. Caixas brancas com borda são para a peça (vitrine), não para a campanha.
+6. **Linguagem de vitrine, não de estoque.** Nada de "14 modelos" no caminho de entrada: contagem é dado de inventário. Rótulo curto e claro (nome comum: Feminino, Masculino, Solar), no máximo uma frase editorial curta + uma ação direta.
+7. **Categoria pela intenção de quem compra** (para quem, para quê), com hierarquia: primeiro a escolha maior (para ela / para ele), depois o refino (sol, leitura, armação).
+8. **Respiro como sinal de confiança.** Entre seções o espaço maior (48); dentro do bloco, 16/24. Menos coisa por tela.
+9. **Navegação clara continua clara.** Menu, busca, filtros e rótulos simples; a criatividade fica na imagem e no ritmo, nunca em esconder o caminho.
+10. **Celular:** imagem domina, galerias deslizam, nada cobre a peça (botão flutuante nunca em cima de conteúdo).
+
+## 8. Crítica da parte 2b à luz do §7 (para a 2c)
+- 5 cartões iguais seguidos (2 grandes + 3 deslizando), todos foto de modelo em caixa branca com faixa → cara de estoque (erra 2, 3, 4, 5).
+- "14 modelos / 13 modelos" nos cartões de entrada → linguagem de inventário (erra 6).
+- Fotos de campanha presas em caixa com rótulo embaixo → a foto perde força (erra 5).
+- Três lugares "foto do Semp" seguidos: o bloco depende de foto que não existe ainda.
+Direção para a 2c (a esboçar só com o OK do dono):
+- Feminino | Masculino = campanha, foto inteira no cartão arredondado (20), rótulo Fraunces branco sobre véu embaixo, sem faixa e sem contagem.
+- Solar · Leitura · Armações = vitrine: a peça limpa (foto que já existe), cartões pequenos claros — alterna o tipo e o tamanho, e não depende do Semp.
+- 48 entre seções; frase editorial curta só se ajudar.
