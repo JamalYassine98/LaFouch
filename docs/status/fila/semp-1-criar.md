@@ -1,2 +1,2 @@
-IMPLEMENTAR (aprovado 26/11 11:29) · APP · fatia 1 de 3
-Semp parte 1 aprovada. Implementar em 3 fatias, uma publicação cada (selo do Argus + OK ESBOCO): (1) Criar + Passo 1 Peça (sem a linha Galeria) · (2) Passo 2 Cenário + Passo 3 Pronto + Gerar no Flow (aba integrada; testar no APK com 1 peça) · (3) a volta da foto pela galeria + Usar em. COMO FAZER: work/esboco/semp/COMO-FAZER-SEMP-1-CRIAR.md; telas: work/esboco/semp/esboco_S1*.jpg. Modo regras (sem API). Depois do OK ESBOCO de cada fatia, a ESBOCO grava as plantas do Argus dessas telas.
+NA GAVETA (dono 26/11 11:51) — NÃO implementar
+Dono: 'vamos largar o projeto semp por enquanto, guarda na gaveta, e vamos URGENTEMENTE elaborar as correções'. Parte 1 continua aprovada e guardada (work/esboco/semp/), mas sai da fila de implementação até o dono chamar de volta.
