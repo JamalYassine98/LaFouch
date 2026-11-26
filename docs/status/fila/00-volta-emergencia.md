@@ -1,0 +1,2 @@
+nenhuma versão passou — NADA publicado, dono decide
+Pedido do dono 25/11 23:43. Versões do ar de 20/11 13:23 (b81f3b9) até hoje: compra pela nuvem ok (conferida na atual f224c92: só os 2 achados conhecidos), mas TODAS com as camadas transparentes (limpeza 2bd291d apagou as cores base). A única inteira, ef883de (19/11 19:28), FALHA na compra: 0 pedidos pela porta da nuvem (perderia pedidos) e sem selo do App Check. Saída segura proposta: a partir da versão do ar, desfazer só a limpeza 2bd291d. Relatório, fotos e saída do Argus: work/s429/volta-25-11/RELATORIO.md

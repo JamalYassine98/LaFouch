@@ -24,6 +24,7 @@
 
 ## Fila
 
+- **00-volta-emergencia** — nenhuma versão passou — NADA publicado, dono decide
 - **01-149v-familia-voltar-peca-do-catalogo-fic** — ✅ v563 (19/11) · APP · pedido 19/11 13:31
 - **02-150i-familia-icone-redondo** — ✅ v563 (19/11) · APP · pedido 19/11 13:31
 - **03-b2-soltar-reserva-urgente-bug-src-95-res** — ✅ v564 (19/11) · APP · pedido 19/11 14:03
