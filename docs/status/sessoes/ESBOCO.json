@@ -1,11 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Argus antigo sai; regras 20/21 com o Argus novo (dono 06:23)",
- "arquivos": [
-  "CLAUDE.md",
-  "work/fiscal"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795685172.926379,
+   "r": "Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado"
+  },
   {
    "t": 1795672880.6918976,
    "r": "Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono"
@@ -41,10 +42,6 @@
   {
    "t": 1795611520.7655206,
    "r": "esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado"
-  },
-  {
-   "t": 1795611200.9161391,
-   "r": "Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP"
   }
  ],
  "leu": 1795685050.4828808

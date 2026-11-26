@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | Lista PARTE 1 · tela 1: Início (quadrados: legenda 1 linha e altura igual; plural venda/vendas) | src/, www/style.css |
-| ESBOCO | Argus antigo sai; regras 20/21 com o Argus novo (dono 06:23) | CLAUDE.md, work/fiscal |
 | SITE | EMERGÊNCIA (dono 25/11 23:43): achar a última versão boa do site e voltar para ela | catalogo/index.html, catalogo/js, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md |
 
 ## Fila
@@ -237,6 +236,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 06:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
 - 26/11 03:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
 - 25/11 23:19 — ESBOCO: Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12
 - 25/11 22:36 — ESBOCO: Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)
@@ -246,7 +246,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 25/11 10:29 — ESBOCO: regra da base das plantas guardada
 - 25/11 10:08 — ESBOCO: guardados aprovados 10:07
 - 25/11 09:58 — ESBOCO: esboços letra Roboto + sinal × destino; Instagram 'nada' aprovado
-- 25/11 09:53 — ESBOCO: Argus: dedo de verdade, retrato, letra do Android, trava de laço; lote 1 regravado; achado do laço da barra → APP
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
