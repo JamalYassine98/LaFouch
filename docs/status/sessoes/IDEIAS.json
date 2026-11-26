@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "19 boca da mulher corrigida",
- "arquivos": [
-  "work/ideias/19-personagens-formato/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795730985.7648473,
+   "r": "19 boca da mulher corrigida — esperando o dono"
+  },
   {
    "t": 1795730840.5477223,
    "r": "19 bocas coladas — esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795726217.5892437,
    "r": "18 início inteiro v7 — esperando o dono"
-  },
-  {
-   "t": 1795725785.2035975,
-   "r": "18 início inteiro v6 — esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
