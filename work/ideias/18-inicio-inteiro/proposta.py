@@ -9,6 +9,7 @@ def b64(p, w=800):
     return 'data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode()
 F = {k: b64(os.path.join(I17, 'desenho', k + '.jpg')) for k in ['grupo', 'lanc', 'maisv', 'retrato', 'video', 'design', 'conforto', 'elas']}
 F['cafe'] = b64(os.path.join(I17, 'semp-cafe-campanha.jpg'), 900)
+F.update({k: b64(os.path.join(I17, 'desenho/net', k + '.jpg')) for k in ['h_jaqueta', 'h_sol_branco', 'h_sueter', 's_lendo']})  # fotos de desenho (Unsplash) — dono 17:13: homens e 45+ reais
 JS = r"""(()=>{const F=__F__;
 const css = `
 #hdst{display:none!important}
@@ -38,25 +39,39 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 /* visto na foto: a foto e, FORA dela, a peça */
 #home .lfx-visto .lfx-ft{aspect-ratio:4/5}
 #home .lfx-rot{font:600 12px Inter,system-ui;letter-spacing:.16em;text-transform:uppercase;color:#943d6f;text-align:center;margin:0 0 16px}
+/* CARTÃO DE PEÇA (família nova, dono 17:13): sem caixa branca nem borda; a peça num painel rosé claro arredondado (o branco da foto some com multiply);
+   embaixo, solto: marca · material (pequeno), código em Fraunces, cor, preço preto. Vale para listas, "visto na foto" e "para cada uso". */
+#home .hc{background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important}
+#home .hc .hci{margin:0!important;background:#f4ebf1!important;border-radius:18px;overflow:hidden}
+#home .hc .hci img{object-fit:contain!important;transform:none!important;mix-blend-mode:multiply;padding:16px;box-sizing:border-box}
+#home .hc .ulin{top:8px;bottom:auto!important;left:8px!important;right:auto!important;width:auto;padding:4px 8px!important;background:#fff!important;border-radius:999px!important;font:600 12px/1.3 Inter,system-ui!important}
+#home .hc .hn{padding:16px 0 0!important;font:500 18px/1.2 Fraunces,Georgia,serif!important;color:#2a1f27}
+#home .hc .hds{font:12px/1.3 Inter,system-ui!important;letter-spacing:.04em;color:#6b5a66!important;margin:0 0 4px!important}
+#home .hc .hsw{padding:8px 0 0!important}#home .hc .hp{padding:4px 0 0!important;font:600 15px/1.3 Inter,system-ui!important;color:#2a1f27}
+/* para lojistas na mesma família (painel rosé, sem caixa) */
+#home .hata{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+#home .hata .hati{display:grid!important;place-items:center;background:#f4ebf1!important;border-radius:18px;overflow:hidden}#home .hata .hati img{mix-blend-mode:multiply}
+#home .hata .hatt{padding:16px 0 0!important}
 /* peças GRANDES: carrossel de 1,25 por tela (acabou de chegar) e grade 2 × 2 (mais pedidos) */
 #home .hg.lfx-grande{display:flex!important;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
 #home .hg.lfx-grande::-webkit-scrollbar{display:none}
 #home .hg.lfx-grande > *{flex:0 0 calc((100% - 16px) / 1.25)!important;scroll-snap-align:start}
 #home .hg.lfx-grande .hci{aspect-ratio:4/3;height:auto!important}
 #home .hg.lfx-grade{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
-#home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain;padding:8px;box-sizing:border-box}
-#home .hg.lfx-grade .hci{aspect-ratio:1/1;height:auto!important}
+#home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
+#home .hg.lfx-grade .hci{aspect-ratio:4/5;height:auto!important}
+#home .hg.lfx-grade{row-gap:24px}
 /* visto na foto: a peça em tamanho de vitrine, abaixo da foto */
-#home .lfx-visto .lfx-pg{margin-top:16px;background:#fff;border:1px solid #efe3ea;border-radius:18px;overflow:hidden}
-#home .lfx-pg .im{display:block;aspect-ratio:16/9;padding:16px;box-sizing:border-box}#home .lfx-pg .im img{width:100%;height:100%;object-fit:contain}
-#home .lfx-pg .rw{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px;border-top:1px solid #efe3ea}
-#home .lfx-pg small{display:block;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-pg b{display:block;font:600 14px/1.4 Inter,system-ui;color:#2a1f27}#home .lfx-pg span:not(.vm){font:600 14px/1.4 Inter,system-ui;color:#2a1f27}
+#home .lfx-visto .lfx-pg{margin-top:16px}
+#home .lfx-pg .im{display:block;aspect-ratio:16/9;padding:16px;box-sizing:border-box;background:#f4ebf1;border-radius:18px}#home .lfx-pg .im img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+#home .lfx-pg .rw{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0 0}
+#home .lfx-pg small{display:block;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-pg b{display:block;font:500 18px/1.2 Fraunces,Georgia,serif;color:#2a1f27}#home .lfx-pg span:not(.vm){font:600 14px/1.4 Inter,system-ui;color:#2a1f27}
 #home .lfx-pg .vm{height:44px;display:inline-flex;align-items:center;padding:0 24px;border:1px solid #943d6f;border-radius:999px;color:#943d6f;font:500 15px Inter,system-ui;white-space:nowrap}
 /* para cada uso: vitrine grande que desliza */
 #home .lfx-tipos{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
-#home .lfx-tipos a{flex:0 0 calc((100% - 16px) / 1.6);background:#fff;border:1px solid #efe3ea;border-radius:18px;overflow:hidden;text-decoration:none;padding-bottom:16px}
-#home .lfx-tipos .im{display:block;aspect-ratio:4/3;padding:16px;box-sizing:border-box}#home .lfx-tipos img{width:100%;height:100%;object-fit:contain}
-#home .lfx-tipos b{display:block;padding:0 16px;font:500 20px/1.2 Fraunces,Georgia,serif;color:#2a1f27}#home .lfx-tipos small{display:block;padding:4px 16px 0;font:13px/1.4 Inter,system-ui;color:#6b5a66}
+#home .lfx-tipos a{flex:0 0 calc((100% - 16px) / 1.6);text-decoration:none}
+#home .lfx-tipos .im{display:block;aspect-ratio:4/3;padding:16px;box-sizing:border-box;background:#f4ebf1;border-radius:18px;margin-bottom:16px}#home .lfx-tipos img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+#home .lfx-tipos b{display:block;padding:0;font:500 20px/1.2 Fraunces,Georgia,serif;color:#2a1f27}#home .lfx-tipos small{display:block;padding:4px 0 0;font:13px/1.4 Inter,system-ui;color:#6b5a66}
 /* em movimento */
 #home .lfx-mov{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
 #home .lfx-mov > div{flex:0 0 calc((100% - 32px) / 2.2)}
@@ -64,7 +79,7 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .lfx-mov .lfx-ft{aspect-ratio:9/16}
 #home .lfx-mov .play{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#ffffffd9;display:flex;align-items:center;justify-content:center}
 #home .lfx-mov .play:after{content:'';margin-left:4px;border-left:14px solid #943d6f;border-top:9px solid transparent;border-bottom:9px solid transparent}
-#home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font-weight:600}
+#home .lfx-mov p{margin:8px 0 0;font:12px/1.4 Inter,system-ui;color:#6b5a66}#home .lfx-mov p b{display:block;color:#2a1f27;font:500 16px/1.2 Fraunces,Georgia,serif}
 /* as duas ferramentas: foto + nome curto (como Made item 12), botões reais do site */
 #home .lfx-fer{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0 48px}
 #home .lfx-fer > button.lfx-ft2{position:relative;aspect-ratio:16/7;border:0!important;border-radius:18px;overflow:hidden;padding:0!important;background:#2a1f27 center/cover no-repeat;text-align:left;color:#fff}
@@ -100,7 +115,7 @@ cap.style.cssText = `height:${innerHeight - topH}px;margin:${tb - r.top - scroll
 /* 2. escolha o seu estilo: só Feminino | Masculino (uma decisão; a escolha de gênero aparece UMA vez na página) */
 const hc = $('.hcat'), fotoTipo = {}; hc.querySelectorAll('a').forEach(a => { const m = (a.dataset.mf || '').split(':')[1]; fotoTipo[m] = a.querySelector('img').src; });
 hc.previousElementSibling.querySelector('h2').innerHTML = 'Escolha o seu <em>estilo</em>';
-hc.replaceWith(mk(`<div class=lfx-gen>${ft(F.lanc, 'Feminino', '', 'gen:f')}${ft('', 'Masculino', '', 'gen:m')}</div>`));
+hc.replaceWith(mk(`<div class=lfx-gen>${ft(F.lanc, 'Feminino', '', 'gen:f')}${ft(F.h_jaqueta, 'Masculino', '', 'gen:m')}</div>`));
 /* 3. acabou de chegar: a peça GRANDE (1,25 por tela), sem botões extras */
 const [sNov, sMv] = $$('.hsh.hsh1'), [gNov, gMv] = $$('.hg');
 sNov.querySelector('h2').innerHTML = 'Acabou de <em>chegar</em>'; sMv.querySelector('h2').innerHTML = 'Os mais <em>pedidos</em>';
@@ -122,7 +137,7 @@ sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grade');
 for (let i = 0; gMv.children.length < 4 && i < gNov.children.length; i++) gMv.appendChild(gNov.children[gNov.children.length - 1 - i].cloneNode(true)); /* peças de teste: completa 4 */
 /* 7. como fica no rosto: mulheres e homens, de idades diferentes (vídeos do Semp) */
 const mov = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Como fica no <em>rosto</em></h2></div><div class=lfx-mov></div></div>`);
-[[F.maisv, ''], ['', 'homem usando a peça'], [F.elas, ''], ['', 'pessoa de 45+ com óculos de leitura']].forEach(([s, ph], i) => { const c = gNov.children[i % gNov.children.length], q = dados(c);
+[[F.maisv, ''], [F.h_sol_branco, ''], [F.elas, ''], [F.h_sueter, '']].forEach(([s, ph], i) => { const c = gNov.children[i % gNov.children.length], q = dados(c);
   mov.querySelector('.lfx-mov').appendChild(mk(`<div><a class=lfx-ft href="#rosto">${s ? `<img src="${s}" alt="">` : `<span class=lfx-semp>FOTO DO SEMP<br>${ph}</span>`}<span class=play></span></a><p><b>${q.cod}</b>${q.pr}</p></div>`)); });
 $('#hguia').before(mov);
 /* 8. as duas ferramentas logo abaixo dos selos; a foto combina com quem usa (grau de leitura = 45+) */
@@ -131,7 +146,7 @@ const fer = mk(`<div class=lfx-fer></div>`);
 const ferr = (b, src, ph, t, sub) => { b.classList.add('lfx-ft2'); if (src) b.style.backgroundImage = `url(${src})`; else b.insertAdjacentHTML('afterbegin', `<span class=lfx-semp>FOTO DO SEMP<br>${ph}</span>`);
   b.querySelector('.gt').innerHTML = `<b>${t}</b><small>${sub}</small>`; fer.appendChild(b); };
 ferr(bRosto, F.design, '', 'Experimente no <em>rosto</em>', 'Pela câmera do celular');
-ferr(bGrau, '', 'pessoa de 45+ lendo<br>com óculos de leitura', 'Descubra seu <em>grau</em>', 'Teste de leitura em 1 min');
+ferr(bGrau, F.s_lendo, '', 'Descubra seu <em>grau</em>', 'Teste de leitura em 1 min');
 $('.htr').after(fer); $('#hguia').remove(); gu.remove();
 return 'ok'})()"""
 open(os.path.join(AQ, 'proposta.js'), 'w').write(JS.replace('__F__', __import__('json').dumps(F)))

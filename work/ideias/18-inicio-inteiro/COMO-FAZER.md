@@ -39,3 +39,9 @@ Críticas do dono → o que mudou:
 Ordem v2: capa · selos · Experimente no *rosto* / Descubra seu *grau* · Escolha o seu *estilo* (Feminino | Masculino) · Acabou de *chegar* (carrossel grande) ·
 Visto na *foto* (foto + a peça grande) · Para cada *uso* (Solar "Proteção UV" · Leitura "Para ler de perto" · Armações "Para a sua receita", vitrine que desliza) ·
 Os mais *pedidos* (grade 2 × 2) · Como fica no *rosto* (vídeos: mulher, homem, 45+) · Para lojistas · novidades · rodapé.
+
+## v3 (dono 26/11 17:13)
+- Sem "foto do Semp": fotos de desenho de homens e 45+ (Unsplash, em 17-inicio-modelos/desenho/net/) — Masculino, Descubra seu grau (homem 45+ lendo), vídeos.
+- **Cartão de peça novo (uma família para a página toda):** sem caixa branca nem borda; a peça num painel rosé claro #f4ebf1 arredondado 18
+  (o fundo branco da foto some com mix-blend-mode:multiply); embaixo, solto: marca · material (Inter 12, cinza), código em Fraunces 18, cor, preço Inter 600 15 preto;
+  "Última unidade" vira etiqueta branca pequena no canto do painel. Vale para Acabou de chegar, Mais pedidos, Visto na foto, Para cada uso, vídeos (código em Fraunces) e Para lojistas.
