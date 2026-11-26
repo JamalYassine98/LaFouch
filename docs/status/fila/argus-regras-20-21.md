@@ -1,0 +1,2 @@
+esboço pronto — esperando o dono
+Texto novo das regras 20 (site) e 21 (app) do CLAUDE.md com o Argus novo e o selo: work/argus/REGRAS-20-21-PROPOSTA.md. A ordem muda (versão → commit → porta completa → selo → push), porque o selo vale para UM commit. Se aprovado: troca no CLAUDE.md e saem o Argus antigo (work/fiscal/argus.py e companhia) e os medidores do kit que só ele usa (conferidos rodando antes).
