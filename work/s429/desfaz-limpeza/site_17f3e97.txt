@@ -1,0 +1,86 @@
+ok | busca "Armação LaFouch quadrada" | 
+ok | busca "Armação LaFouch redonda" | 
+ok | busca "Armação LaFouch redonda" | 
+ok | busca "Armação LaFouch quadrada" | 
+ok | busca "Armação LaFouch retangular" | 
+ok | busca "Armação LaFouch quadrada" | 
+ok | busca "Óculos de sol LaFouch quadrado" | 
+ok | busca "Óculos de sol LaFouch retangul" | 
+ok | carrinho: comprar põe 1 no carrinho | o carrinho mostra "1"
+ok | carrinho: a peça continua depois de recarregar | 
+ok | carrinho: o "−" não passa de 1 | Seu carrinho · 1 item 1 Carrinho › 2 Entrega › 3 Pagamento G
+ACHADO | carrinho: o "+" para no estoque da cor | 31 itens depois de 30 toques (estoque da cor: 5)
+ok | carrinho: o preço da peça = o total com 1 item | peça R$ 95 · carrinho R$ 95
+ok | carrinho: o "×" tira a peça | o carrinho mostra "0"
+ok | preço: cartão × peça GR3340 | cartão R$ 95 · peça R$ 95
+ok | preço: cartão × peça SL2250 | cartão R$ 140 · peça R$ 140
+ok | preço: cartão × peça SL2255 | cartão R$ 130 · peça R$ 130
+ok | preço: cartão × peça SL2260 | cartão R$ 125 · peça R$ 125
+ok | preço: uma moeda só por tela | R$
+ok | cupom: o código certo (10%) baixa o total | total 95.0 → 85.0
+ok | cupom: o código é conferido pela nuvem | 1 conferência(s)
+ok | cupom: a conferência leva o selo do App Check | 
+ok | cupom recusado "nao" (pt): a frase aparece, na língua dela | Código não encontrado. Confira as letras.
+ok | cupom recusado "usado" (pt): a frase aparece, na língua dela | Este código já foi usado.
+ok | cupom recusado "vencido" (pt): a frase aparece, na língua dela | Este código venceu.
+ok | cupom recusado "cancelado" (pt): a frase aparece, na língua dela | Este código foi cancelado.
+ok | cupom recusado "esgotado" (pt): a frase aparece, na língua dela | Os cupons ERRADO1 acabaram.
+ok | cupom recusado "outro" (pt): a frase aparece, na língua dela | Este código é pessoal, de outro telefone.
+ok | cupom recusado "nao" (es): a frase aparece, na língua dela | Código no encontrado. Revisá las letras.
+ok | cupom recusado "usado" (es): a frase aparece, na língua dela | Este código ya fue usado.
+ok | cupom recusado "vencido" (es): a frase aparece, na língua dela | Este código venció.
+ok | cupom recusado "cancelado" (es): a frase aparece, na língua dela | Este código fue cancelado.
+ok | cupom recusado "esgotado" (es): a frase aparece, na língua dela | Los cupones ERRADO1 se terminaron.
+ok | cupom recusado "outro" (es): a frase aparece, na língua dela | Este código es personal, de otro teléfono.
+ok | cupom sem internet: avisa que não deu para conferir | Não deu para conferir o código agora. Tente de novo.
+ACHADO | cupom forjado no aparelho (90%) não aparece como desconto sem a nuvem confirmar | o carrinho mostra o desconto forjado
+ok | compra: o pedido vai pela porta da nuvem, nunca direto no banco | 2 chamada(s) ao pedido
+ok | compra: se a nuvem cai, o site tenta de novo sozinho (uma vez) | 2 tentativa(s)
+ok | compra: o pedido leva itens e total | brl, cidade, cod, depE, doc, email, end, endE, ent, itens, lang, moeda, nac, nas
+ok | compra: a reserva vai com o login e sem o telefone | 
+ok | compra: toda chamada à nuvem leva o selo do App Check | 
+ok | compra: aparece a tela de pagar | 
+ok | espanhol sem português · Início | 
+ok | fotos carregam · Início | 
+ok | espanhol sem português · Catálogo | 
+ok | fotos carregam · Catálogo | 
+ok | espanhol sem português · Peça | 
+ok | fotos carregam · Peça | 
+ok | espanhol sem português · Carrinho com uma peça | 
+ok | fotos carregam · Carrinho com uma peça | 
+ok | espanhol sem português · Menu | 
+ok | fotos carregam · Menu | 
+ok | camadas · Início: nenhum texto aparece através de outro | 
+ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+ok | camadas · Peça: nenhum texto aparece através de outro | 
+ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+ok | camadas · Menu: nenhum texto aparece através de outro | 
+ok | ponte app × site · SP57765 | 
+ok | ponte app × site · SP58110 | 
+ok | ponte app × site · SP60627 | 
+ok | ponte app × site · SP59002 | 
+ok | ponte app × site · BR44118 | 
+ok | ponte app × site · BR44120 | 
+ok | ponte app × site · BR44133 | 
+ok | ponte app × site · SL2201 | 
+ok | ponte app × site · SL2210 | 
+ok | ponte app × site · YM7721 | 
+ok | ponte app × site · YM7735 | 
+ok | ponte app × site · YM7790 | 
+ok | ponte app × site · YS8801 | 
+ok | ponte app × site · YS8815 | 
+ok | ponte app × site · SP61200 | 
+ok | internet fraca (4G ruim): o primeiro óculos aparece em até 10 s | 8.0 s
+ok | sem internet: a peça abre (com o que já carregou) | 
+ok | consulta com câmera chega ao quadro | teste
+ok | consulta em segundo plano: o Mochi para de falar | 
+ok | consulta sem câmera chega ao quadro | teste
+ok | robots.txt: buscadores leem tudo | 
+ok | robots.txt: robôs de IA e de coleta bloqueados | 
+ok | painel (admin) fora dos buscadores (noindex) | 
+ok | segurança da página (CSP): nada do próprio site é bloqueado | 
+ok | versão da página = version.json | página 1795685498 · arquivo 1795685498
+ok | nada encosta no desenho da armação nas fotos (selos) | 
+ok | girar e voltar · Início: a página não rola de lado | 
+ok | girar e voltar · Peça: a página não rola de lado | 
+ok | girar e voltar · Carrinho: a página não rola de lado | 

@@ -1,0 +1,45 @@
+sem | ok | camadas · Início: nenhum texto aparece através de outro | 
+sem | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+sem | ok | camadas · Peça: nenhum texto aparece através de outro | 
+sem | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+sem | ok | camadas · Menu: nenhum texto aparece através de outro | 
+natal | ok | camadas · Início: nenhum texto aparece através de outro | 
+natal | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+natal | ok | camadas · Peça: nenhum texto aparece através de outro | 
+natal | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+natal | ok | camadas · Menu: nenhum texto aparece através de outro | 
+anonovo-d | ok | camadas · Início: nenhum texto aparece através de outro | 
+anonovo-d | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+anonovo-d | ok | camadas · Peça: nenhum texto aparece através de outro | 
+anonovo-d | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+anonovo-d | ok | camadas · Menu: nenhum texto aparece através de outro | 
+anonovo-n | ok | camadas · Início: nenhum texto aparece através de outro | 
+anonovo-n | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+anonovo-n | ok | camadas · Peça: nenhum texto aparece através de outro | 
+anonovo-n | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+anonovo-n | ok | camadas · Menu: nenhum texto aparece através de outro | 
+maes | ok | camadas · Início: nenhum texto aparece através de outro | 
+maes | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+maes | ok | camadas · Peça: nenhum texto aparece através de outro | 
+maes | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+maes | ok | camadas · Menu: nenhum texto aparece através de outro | 
+pais | ok | camadas · Início: nenhum texto aparece através de outro | 
+pais | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+pais | ok | camadas · Peça: nenhum texto aparece através de outro | 
+pais | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+pais | ok | camadas · Menu: nenhum texto aparece através de outro | 
+halloween | ok | camadas · Início: nenhum texto aparece através de outro | 
+halloween | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+halloween | ok | camadas · Peça: nenhum texto aparece através de outro | 
+halloween | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+halloween | ok | camadas · Menu: nenhum texto aparece através de outro | 
+bf | ok | camadas · Início: nenhum texto aparece através de outro | 
+bf | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+bf | ok | camadas · Peça: nenhum texto aparece através de outro | 
+bf | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+bf | ok | camadas · Menu: nenhum texto aparece através de outro | 
+bf-quase | ok | camadas · Início: nenhum texto aparece através de outro | 
+bf-quase | ok | camadas · Catálogo: nenhum texto aparece através de outro | 
+bf-quase | ok | camadas · Peça: nenhum texto aparece através de outro | 
+bf-quase | ok | camadas · Carrinho com uma peça: nenhum texto aparece através de outro | 
+bf-quase | ok | camadas · Menu: nenhum texto aparece através de outro | 
