@@ -70,16 +70,19 @@ def cenario(nome='normal', tematica='sem', data=loja.DATA):
         if ev.get('quase'): m['aq'] = {'integerValue': str(t - dia)}
         d['cfg']['fields']['evento'] = {'mapValue': {'fields': m}}
     return d
-def abre(pw, aparelho=aparelhos.DONO, tematica='sem', lingua='pt', cenario_='normal', letra=1.0, rota='', data=None, porta=None, navegador=None, reduzir_movimento=None, scripts=(), nuvem=None, logada=False):
+def abre(pw, aparelho=aparelhos.DONO, tematica='sem', lingua='pt', cenario_='normal', letra=1.0, rota='', data=None, porta=None, navegador=None, reduzir_movimento=None, scripts=(), nuvem=None, logada=False, produtos=None):
     """O SITE (só claro). rota = o que vem depois de "/" (ex.: 'catalogo', 'p/AC1050'). data = a hora do teste (anonovo-n: 21:00).
-    nuvem = a nuvem de teste (setor_site/nuvem.py) que responde pelas funções e anota o que o site mandou · logada = a cliente já entrou."""
+    nuvem = a nuvem de teste (setor_site/nuvem.py) que responde pelas funções e anota o que o site mandou · logada = a cliente já entrou ·
+    produtos = documentos do Firestore (produtos/) no lugar do retrato da loja (a ponte app × site)."""
     assert tematica in TEMATICAS, 'temática %s não existe' % tematica
     assert letra in aparelhos.MODOS['site']['letra'], 'letra %s não existe no site' % letra
     if data is None: data = loja.DATA.replace('T15:', 'T21:') if tematica == 'anonovo-n' else loja.DATA
     if porta is None: porta = porta_hoje()
     if logada: import nuvem as _n; scripts = tuple(scripts) + (_n.LOGADA,)
     f, c, pg = abrir.pagina(pw, aparelho, navegador, escuro=False, lingua=LINGUAS[lingua], reduzir_movimento=reduzir_movimento, scripts=scripts, data=data, letra=letra)
-    d = cenario(cenario_, tematica, data); docs = {'documents': d['docs']}; cfg = dict(d['cfg'], name='config/site')
+    d = cenario(cenario_, tematica, data)
+    if produtos is not None: d['docs'] = produtos   # a loja que o APP mandaria (setor_site/ponte.py), no lugar do retrato
+    docs = {'documents': d['docs']}; cfg = dict(d['cfg'], name='config/site')
     c.route('**/dados/inicio.json*', lambda r: r.fulfill(status=200, content_type='application/json', body=json.dumps(d)))
     def nuvem_loja(r):   # Firestore: só as leituras da loja; escrever na nuvem fica cortado (as etapas da Parte 7c respondem por elas)
         u = r.request.url

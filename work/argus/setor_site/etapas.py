@@ -278,7 +278,7 @@ def girar(pw, nav, **kw):
     finally: b.close()
     return out
 TODAS = [('busca', busca), ('carrinho', carrinho), ('preços', precos), ('cupom', cupom), ('compra pela nuvem', compra), ('idioma e fotos', idioma), ('camadas', camadas),
-         ('rede', rede), ('consulta do Mochi', consulta), ('a página por dentro', pagina), ('girar', girar)]
+         ('ponte com o app', lambda pw, nav, **kw: __import__('ponte').roda(pw, nav, **kw)), ('rede', rede), ('consulta do Mochi', consulta), ('a página por dentro', pagina), ('girar', girar)]
 def roda(pw, nav=None, so=None, **kw):
     """Roda as conferências do site (so = só algumas, pelo nome). Devolve {conferência: [(nome, estado, detalhe)]}; uma que quebra
     vira 'não conferido' com o motivo (nunca some)."""
