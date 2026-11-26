@@ -54,6 +54,7 @@
 - **15-previas-de-link** — esboço pronto — esperando o dono
 - **16-padrao-de-luxo** — estudo feito — base para o design de luxo da loja
 - **16-peca-incompleta-nao-vai-ao-site** — ✅ v575 (5.50.0, 20/11) — marca e coleção obrigatórias; 19 peças de teste completas e marcadas · APP · pedido 19/11 23:07
+- **17-inicio-com-modelos** — esboço pronto — esperando o dono
 - **17-urgente-site-inventario-py-566-preso-no** — ✅ FEITO v571 (5.49.1) · APP · pedido 19/11 23:23
 - **18-trava-dos-remendos-no-porteiro** — ✅ feito 20/11 01:20 (porteiro, sem versão do app: só teste) · APP · pedido 20/11 00:40
 - **18-trava-dos-remendos** — na fila — o dono diz 'implementar' pelo prompt de 20/11 00:40 · APP
