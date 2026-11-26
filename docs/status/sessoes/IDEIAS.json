@@ -1,11 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 v2",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro/",
-  "work/ideias/16-padrao-luxo/ESTUDO.md"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795723864.4879675,
+   "r": "18 início inteiro v2 — esperando o dono"
+  },
   {
    "t": 1795723443.6337833,
    "r": "18 início inteiro — esboço pronto, esperando o dono"
@@ -41,10 +42,6 @@
   {
    "t": 1795712641.2848742,
    "r": "17 parte 2b (Feminino/Masculino + tipos deslizando) — esperando o dono"
-  },
-  {
-   "t": 1795712378.3736506,
-   "r": "17 parte 2 com Leitura — esperando o dono"
   }
  ],
  "leu": 1795712518.9726162
