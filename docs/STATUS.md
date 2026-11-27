@@ -229,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 22:53 — IDEIAS: 18 inicio v27: Odeon menor e frase maior (proporcao 5:1)
 - 26/11 22:50 — IDEIAS: 18 inicio v26: nomes proprios por armacao (Margaux/Odeon) e frases humanas do Semp na capa
 - 26/11 22:45 — IDEIAS: 18 inicio v25: lamina 2 da capa com foto de estudio do Flow + Fraunces fina
 - 26/11 22:33 — IDEIAS: 18 inicio v24: lamina 2 da capa (natureza-morta do Semp) + notas da peca encaixando na foto
@@ -238,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 22:18 — IDEIAS: 18 inicio v21: cor oficial #943D6F (CMYK C47 M91 Y29 K8) num lugar so: logo, links, italicos, botoes
 - 26/11 22:11 — IDEIAS: 18 inicio v20: novidades simetrico (48/48) sem margem somada do rodape; titulo numa linha
 - 26/11 22:06 — IDEIAS: 18 inicio v19: novidades sem mancha nem 4o italico, espacos na escala
-- 26/11 22:03 — IDEIAS: 18 inicio v18: lojistas no celular = cartao do PC compacto
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
