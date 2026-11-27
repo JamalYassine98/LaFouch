@@ -230,6 +230,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 08:58 — IDEIAS: ícone do Provador aprovado; Teste de leitura em aberto
 - 27/11 08:55 — IDEIAS: Lucien 3/4 cancelado; ícones das ferramentas: novo pedido ao Flow
 - 27/11 08:50 — IDEIAS: v44 prateleira: serviços só texto, ferramentas com ícones abstratos finos
 - 27/11 08:45 — IDEIAS: v43 ferramentas: no PC folhas pelo conteúdo, centradas
@@ -239,7 +240,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 08:34 — IDEIAS: v40 Lucien: retrato e peça na mesma folha; sem legenda de crédito
 - 27/11 08:30 — IDEIAS: v39 Lucien como página de revista (crédito + peça no papel); aprovação identidade revista e cores do Semp guardada
 - 27/11 08:11 — IDEIAS: v38 Lucien padrão Madë: foto fechada no rosto + página sobe com palco branco grande
-- 27/11 08:07 — IDEIAS: Estudo §27: Madë × v37 (peça grande na ordem, página sobe sobre a foto, foto fechada no rosto)
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
