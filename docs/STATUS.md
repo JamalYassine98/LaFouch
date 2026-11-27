@@ -231,6 +231,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 09:06 — IDEIAS: v46 Feminino|Masculino como guia (sem título, ›, PC 4:5 centrado)
 - 27/11 09:03 — IDEIAS: v45 APROVADO: ícones e bloco de ferramentas
 - 27/11 09:02 — IDEIAS: v45 ícones das ferramentas (provador aprovado; leitura = óculos sobre linhas que encurtam, sem cantos)
 - 27/11 08:58 — IDEIAS: ícone do Provador aprovado; Teste de leitura em aberto
@@ -240,7 +241,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 08:43 — IDEIAS: v42 ferramentas com ícone de traço, separadas dos serviços
 - 27/11 08:39 — IDEIAS: v41 ferramentas em folhas
 - 27/11 08:35 — IDEIAS: v40 APROVADO: retrato e peça na mesma folha (Início)
-- 27/11 08:34 — IDEIAS: v40 Lucien: retrato e peça na mesma folha; sem legenda de crédito
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
