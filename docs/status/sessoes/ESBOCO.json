@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "plano de modularização (dono 10:37) + pausa das implementações",
+ "arquivos": [
+  "work/esboco/modular"
+ ],
  "ultimas": [
   {
    "t": 1795786418.0133321,
@@ -44,5 +46,5 @@
    "r": "Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras"
   }
  ],
- "leu": 1795786333.784916
+ "leu": 1795786660.4077625
 }
