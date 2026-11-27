@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795782389.8314981,
+   "r": "v47 faixa de ferramentas colada embaixo da capa"
+  },
+  {
    "t": 1795781306.4271593,
    "r": "v46 aprovado; ferramentas fora do Início em elaboração"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795779814.524768,
    "r": "v42 ferramentas com ícone de traço, separadas dos serviços"
-  },
-  {
-   "t": 1795779556.738917,
-   "r": "v41 ferramentas em folhas"
   }
  ],
  "leu": 1795779310.039045

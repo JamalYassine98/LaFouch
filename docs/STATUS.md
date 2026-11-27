@@ -232,6 +232,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 09:26 — IDEIAS: v47 faixa de ferramentas colada embaixo da capa
 - 27/11 09:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
 - 27/11 09:06 — IDEIAS: v46 Feminino|Masculino como guia (sem título, ›, PC 4:5 centrado)
 - 27/11 09:03 — IDEIAS: v45 APROVADO: ícones e bloco de ferramentas
@@ -241,7 +242,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 08:50 — IDEIAS: v44 prateleira: serviços só texto, ferramentas com ícones abstratos finos
 - 27/11 08:45 — IDEIAS: v43 ferramentas: no PC folhas pelo conteúdo, centradas
 - 27/11 08:43 — IDEIAS: v42 ferramentas com ícone de traço, separadas dos serviços
-- 27/11 08:39 — IDEIAS: v41 ferramentas em folhas
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
