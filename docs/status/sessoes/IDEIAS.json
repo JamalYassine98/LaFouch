@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 inicio v13: visto na foto num painel + botao lojistas",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795740366.2944958,
+   "r": "18 inicio v13: visto na foto em painel unico alinhado aos oculos + botao lojistas no eixo do texto (PC e celular)"
+  },
   {
    "t": 1795739884.0839496,
    "r": "18 inicio v12: personagens novos do Flow nas ferramentas + versao PC (1440) e celular"
@@ -40,10 +42,6 @@
   {
    "t": 1795726635.2643588,
    "r": "18 início inteiro v9 — esperando o dono"
-  },
-  {
-   "t": 1795726444.1182454,
-   "r": "18 início inteiro v8 — esperando o dono"
   }
  ],
  "leu": 1795739636.0969472
