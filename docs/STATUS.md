@@ -230,6 +230,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 08:45 — IDEIAS: v43 ferramentas: no PC folhas pelo conteúdo, centradas
 - 27/11 08:43 — IDEIAS: v42 ferramentas com ícone de traço, separadas dos serviços
 - 27/11 08:39 — IDEIAS: v41 ferramentas em folhas
 - 27/11 08:35 — IDEIAS: v40 APROVADO: retrato e peça na mesma folha (Início)
@@ -239,7 +240,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 08:07 — IDEIAS: Estudo §27: Madë × v37 (peça grande na ordem, página sobe sobre a foto, foto fechada no rosto)
 - 27/11 07:58 — IDEIAS: v37 Lucien: a peça numa segunda foto em tom de pedra, placa sobre a borda, preço etiqueta
 - 27/11 07:51 — IDEIAS: v35 provisório como base do bloco Lucien; natureza-morta pendente (precisa do PC/Flow)
-- 27/11 07:47 — IDEIAS: v36 Lucien sem caixa: peça recortada, menor, sombra da luz da foto, preço etiqueta
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
