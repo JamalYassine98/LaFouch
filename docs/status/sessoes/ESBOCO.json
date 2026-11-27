@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Titan mercado: tirar o placar (aprovado 10:31)",
+ "arquivos": [
+  "work/esboco/titan"
+ ],
  "ultimas": [
   {
    "t": 1795786009.4613054,
@@ -44,5 +46,5 @@
    "r": "Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado"
   }
  ],
- "leu": 1795785837.7886567
+ "leu": 1795786333.784916
 }
