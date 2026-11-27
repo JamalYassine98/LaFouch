@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795783348.1009207,
+   "r": "v48 aprovado"
+  },
+  {
    "t": 1795783201.8931732,
    "r": "v48 serviços na faixa + WhatsApp sempre no canto"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795780537.9179006,
    "r": "Lucien 3/4 cancelado; ícones das ferramentas: novo pedido ao Flow"
-  },
-  {
-   "t": 1795780225.9719083,
-   "r": "v44 prateleira: serviços só texto, ferramentas com ícones abstratos finos"
   }
  ],
  "leu": 1795779310.039045
