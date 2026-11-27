@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "Titan mercado: tirar o placar (aprovado 10:31)",
- "arquivos": [
-  "work/esboco/titan"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795786418.0133321,
+   "r": "Titan mercado aprovado sem placar; Fila + recado APP"
+  },
   {
    "t": 1795786009.4613054,
    "r": "esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila"
@@ -40,10 +42,6 @@
   {
    "t": 1795694478.3909864,
    "r": "Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras"
-  },
-  {
-   "t": 1795685172.926379,
-   "r": "Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado"
   }
  ],
  "leu": 1795786333.784916
