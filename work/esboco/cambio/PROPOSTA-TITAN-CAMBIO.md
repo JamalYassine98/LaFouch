@@ -69,3 +69,13 @@ tira o ar de luxo, apesar do produto ser de luxo".
   3. **Âncora alta:** ao sugerir preço, o Titan olha para cima (quanto a peça vale no mercado de luxo), não só custo + margem.
   4. O Semp e o Titan combinam: oferta de luxo vira campanha "exclusiva", nunca "liquidação".
 - Decisão do dono pendente: quais marcas/linhas contam como "luxo" (o Titan propõe a lista pelo preço de mercado; o dono confirma).
+
+## v2e — Teto US$ 10/mês: eficiência máxima E qualidade máxima (dono 27/11 10:21)
+Dono: "até 10 dólares de teto, porque tenho medo de você tirar toda a qualidade dos estudos; eu quero eficiência máxima e qualidade máxima".
+- **Eficiência = não desperdiçar** (cache, lote, resumo feito pelo código, não repetir o que já se sabe) — **nunca** cortar profundidade.
+- **Qualidade:** todo ESTUDO e toda LIÇÃO usam o modelo forte (Sonnet), com as buscas que precisar: o estudo semanal do Semp,
+  a lição semanal do Titan (preços + câmbio) e qualquer decisão de preço de luxo. O Haiku fica só no rotineiro (a leitura curta
+  do dia, legenda rápida) e chama o Sonnet sempre que algo foge do normal.
+- **Teto US$ 10/mês travado no servidor**; aviso ao dono em 80% (US$ 8). O que sobrar do teto vai para estudo extra do Semp,
+  nunca para trocar estudo por resumo.
+- Placar de qualidade visível (acertos do Titan; resultado das campanhas do Semp) para o dono ver se o estudo está valendo.

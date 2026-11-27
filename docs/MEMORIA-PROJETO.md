@@ -3846,3 +3846,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 27/11/2026 10:16 DONO: vai usar só a API (não o plano). Custo do cérebro (Titan câmbio+preços e Semp) com eficiência sem perder qualidade: código resume, poucas buscas, cache + lote, Haiku com escalada ao Sonnet, resposta curta → estimativa ~US$ 1–2/mês, teto proposto US$ 3/mês (substitui o teto de US$ 15/5).
 
 - 27/11/2026 10:20 DONO: Semp mais flexível no orçamento (precisa estudar muito o marketing) · Titan protege o ar de luxo ("um produto de super luxo custar 10 dólares em vez de 60 tira o ar de luxo"). Proposta v2d: teto total US$ 5/mês (Titan ~1, Semp até ~4); trilhos de luxo: piso de luxo, oferta discreta (cupom/brinde/evento) no lugar dos degraus visíveis, âncora alta; lista das linhas de luxo a confirmar.
+
+- 27/11/2026 10:21 AUTORIZADO (dono): teto do cérebro (Titan + Semp) = US$ 10/mês, com eficiência máxima E qualidade máxima — estudos e lições sempre no modelo forte (Sonnet), Haiku só no rotineiro com escalada; aviso em 80%; sobra vai para estudo extra do Semp. Substitui os tetos anteriores (15/5/3).
