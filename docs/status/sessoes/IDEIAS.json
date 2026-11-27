@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795783037.3197937,
+   "r": "v47 aprovado"
+  },
+  {
    "t": 1795782389.8314981,
    "r": "v47 faixa de ferramentas colada embaixo da capa"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795779933.486838,
    "r": "v43 ferramentas: no PC folhas pelo conteúdo, centradas"
-  },
-  {
-   "t": 1795779814.524768,
-   "r": "v42 ferramentas com ícone de traço, separadas dos serviços"
   }
  ],
  "leu": 1795779310.039045
