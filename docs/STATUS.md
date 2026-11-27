@@ -186,7 +186,6 @@
 ## Recados esperando
 
 - para **APP**: OK ESBOCO — atualiza-ao-vivo (45e761ee): conferido contra o COMO-FAZER (config statsUrl vazio, appPronto num lugar só no 1º desenho, limpeza ≤2, LOADER fora); n
-- para **ESBOCO**: PRONTO PARA CONFERIR — atualiza-ao-vivo (celular e PC) + 1b. Ramo app/atualiza-ao-vivo (commit 45e761ee, v642). Conserto por dentro, nenhuma tela muda. Feito pe
 - para **NUVEM**: PENDENTE (24/11 13:55): pacote NÃO publicado = cupom da loja sem furos (c6a7064a) + VIP com e-mail + telefone completo (01997f87); publicar junto quando APP (e-
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
