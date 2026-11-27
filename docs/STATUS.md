@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| ESBOCO | plano de modularização (dono 10:37) + pausa das implementações | work/esboco/modular |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -242,6 +241,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
 - 27/11 10:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
 - 27/11 10:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
@@ -262,7 +262,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
 - 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
 - 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
-- 26/11 09:01 — ESBOCO: Semp parte 1 (Marketing › Criar em 3 passos) esboçada: 12 imagens, COMO-FAZER, Fila semp-1-criar; decisões do Semp de 25/11 na lista viva e na memória; motor do Argus: atravessa pela caixa das letras
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
