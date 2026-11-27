@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795785733.5783074,
+   "r": "proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado"
+  },
+  {
    "t": 1795784343.6629007,
    "r": "OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795672880.6918976,
    "r": "Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono"
-  },
-  {
-   "t": 1795659593.6770096,
-   "r": "Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12"
   }
  ],
  "leu": 1795784918.611455
