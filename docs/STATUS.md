@@ -175,6 +175,7 @@
 - **argus-regras-20-21** — APROVADO e feito 26/11 06:23
 - **atualiza-ao-vivo** — implementar — 1º da ordem (dono 26/11 12:28)
 - **inicio-consertos** — APROVADO 26/11 12:28 — implementar logo depois do atualiza-ao-vivo
+- **inicio-feminino-masculino** — aprovado 27/11 09:08 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **inicio-ferramentas-icones** — aprovado 27/11 09:03 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **inicio-peca-no-modelo-folha** — aprovado 27/11 08:34 — conceito do redesenho do Início; implementar quando o redesenho entrar (depois do Semp)
 - **semp-1-criar** — NA GAVETA (dono 26/11 11:51) — NÃO implementar
