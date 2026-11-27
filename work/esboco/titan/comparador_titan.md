@@ -1,0 +1,147 @@
+## Titan fx · escuro · 45 diferenças
+- “Próximos 7 dias: (por volta de G$ 6.562)” · falta (está na planta, não está no app)
+- “deve subir” · falta (está na planta, não está no app)
+- “· certeza alta” · falta (está na planta, não está no app)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “LEITURA DO TITAN · HOJE 07:00” · sobra (está no app, não está na planta)
+- “Semana: · entre G$ 6.470 e G$ 6.560” · sobra (está no app, não está na planta)
+- “deve subir pouco” · sobra (está no app, não está na planta)
+- “POR QUÊ” · sobra (está no app, não está na planta)
+- “!” · sobra (está no app, não está na planta)
+- “O real caiu ontem: o Brasil compra menos” · sobra (está no app, não está na planta)
+- “✓” · sobra (está no app, não está na planta)
+- “Safra entrando: mais dólar na praça nas ” · sobra (está no app, não está na planta)
+- “!” · sobra (está no app, não está na planta)
+- “Fim de mês: empresas compram dólar para ” · sobra (está no app, não está na planta)
+- “PLACAR” · sobra (está no app, não está na planta)
+- “✓” · sobra (está no app, não está na planta)
+- “Acertou semanas · lição da última: o efe” · sobra (está no app, não está na planta)
+- “9 de 12” · sobra (está no app, não está na planta)
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +18.0 px (lado) +41.5 px (altura)
+- “caixa” · posição -165.5 px (lado) +96.2 px (altura)
+- “Dólar · G$ 6.487” · a partir daqui, 2 peças deslocadas +0.0 px (lado) -318.2 px (altura)
+- “caixa” · posição +0.0 px (lado) +85.3 px (altura)
+- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -318.2 px (altura)
+- “caixa” · posição -125.0 px (lado) +141.9 px (altura)
+- ícone · posição +0.0 px (lado) -318.2 px (altura)
+- “▲” · posição +0.0 px (lado) -268.9 px (altura)
+
+## Titan prec · escuro · 15 diferenças
+- “O TITAN DECIDE HOJE · 2” · falta (está na planta, não está no app)
+- “O TITAN DECIDE HOJE · 3” · sobra (está no app, não está na planta)
+- “Oferta discreta · SP57765” · sobra (está no app, não está na planta)
+- “Parada 70 dias · cupom + estojo, preço f” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “10 preços para corrigir” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- ícone · posição +0.0 px (lado) -69.0 px (altura)
+- “nenhuma peça entra pela regra” · posição +0.0 px (lado) +69.0 px (altura)
+- “SETORES” · a partir daqui, 6 peças deslocadas +0.0 px (lado) +69.1 px (altura)
+- “caixa” · a partir daqui, 10 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- “caixa” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.1 px (altura)
+- “calculadora de preço · e se…?” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- “o que mudou, quando e por quê” · posição +0.0 px (lado) +69.1 px (altura)
+
+## Titan fx · claro · 45 diferenças
+- “Próximos 7 dias: (por volta de G$ 6.562)” · falta (está na planta, não está no app)
+- “deve subir” · falta (está na planta, não está no app)
+- “· certeza alta” · falta (está na planta, não está no app)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- “LEITURA DO TITAN · HOJE 07:00” · sobra (está no app, não está na planta)
+- “Semana: · entre G$ 6.470 e G$ 6.560” · sobra (está no app, não está na planta)
+- “deve subir pouco” · sobra (está no app, não está na planta)
+- “POR QUÊ” · sobra (está no app, não está na planta)
+- “!” · sobra (está no app, não está na planta)
+- “O real caiu ontem: o Brasil compra menos” · sobra (está no app, não está na planta)
+- “✓” · sobra (está no app, não está na planta)
+- “Safra entrando: mais dólar na praça nas ” · sobra (está no app, não está na planta)
+- “!” · sobra (está no app, não está na planta)
+- “Fim de mês: empresas compram dólar para ” · sobra (está no app, não está na planta)
+- “PLACAR” · sobra (está no app, não está na planta)
+- “✓” · sobra (está no app, não está na planta)
+- “Acertou semanas · lição da última: o efe” · sobra (está no app, não está na planta)
+- “9 de 12” · sobra (está no app, não está na planta)
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
+- “caixa” · borda
+- “caixa” · raio
+- “caixa” · posição +18.0 px (lado) +41.5 px (altura)
+- “caixa” · posição -165.5 px (lado) +96.2 px (altura)
+- “Dólar · G$ 6.487” · a partir daqui, 2 peças deslocadas +0.0 px (lado) -318.2 px (altura)
+- “caixa” · posição +0.0 px (lado) +85.3 px (altura)
+- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -318.2 px (altura)
+- “caixa” · posição -125.0 px (lado) +141.9 px (altura)
+- ícone · posição +0.0 px (lado) -318.2 px (altura)
+- “▲” · posição +0.0 px (lado) -268.9 px (altura)
+
+## Titan prec · claro · 15 diferenças
+- “O TITAN DECIDE HOJE · 2” · falta (está na planta, não está no app)
+- “O TITAN DECIDE HOJE · 3” · sobra (está no app, não está na planta)
+- “Oferta discreta · SP57765” · sobra (está no app, não está na planta)
+- “Parada 70 dias · cupom + estojo, preço f” · sobra (está no app, não está na planta)
+- “caixa” · sobra (está no app, não está na planta)
+- ícone · sobra (está no app, não está na planta)
+- “›” · sobra (está no app, não está na planta)
+- “10 preços para corrigir” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- ícone · posição +0.0 px (lado) -69.0 px (altura)
+- “nenhuma peça entra pela regra” · posição +0.0 px (lado) +69.0 px (altura)
+- “SETORES” · a partir daqui, 6 peças deslocadas +0.0 px (lado) +69.1 px (altura)
+- “caixa” · a partir daqui, 10 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- “caixa” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.1 px (altura)
+- “calculadora de preço · e se…?” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.0 px (altura)
+- “o que mudou, quando e por quê” · posição +0.0 px (lado) +69.1 px (altura)
+
+# Medidor de família (Argus) nas propostas
+## Titan fx proposta · escuro · 3 achados
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · escuro · go · 38 px
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · escuro · fjCorpo · 10 px
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · escuro · fjMot · 231 px
+## Titan prec proposta · escuro · 2 achados
+- L3 espaço fora de 8/16/24/32/48 · Titan prec proposta · escuro · DIV · 18 px
+- L3 espaço fora de 8/16/24/32/48 · Titan prec proposta · escuro · nvLista tiSe · 73 px
+## Titan fx proposta · claro · 6 achados
+- texto pouco legível sobre o fundo (contraste) · Titan fx proposta · claro · ▲ · 3.64:1 (mínimo 4.5:1)
+- texto pouco legível sobre o fundo (contraste) · Titan fx proposta · claro · ! · 3.64:1 (mínimo 4.5:1)
+- texto pouco legível sobre o fundo (contraste) · Titan fx proposta · claro · ! · 3.64:1 (mínimo 4.5:1)
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · claro · go · 38 px
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · claro · fjCorpo · 10 px
+- L3 espaço fora de 8/16/24/32/48 · Titan fx proposta · claro · fjMot · 231 px
+## Titan prec proposta · claro · 3 achados
+- texto pouco legível sobre o fundo (contraste) · Titan prec proposta · claro · 5 com sugestão · 5 sem custo · 3.25:1 (mínimo 4.5:1)
+- L3 espaço fora de 8/16/24/32/48 · Titan prec proposta · claro · DIV · 18 px
+- L3 espaço fora de 8/16/24/32/48 · Titan prec proposta · claro · nvLista tiSe · 73 px
