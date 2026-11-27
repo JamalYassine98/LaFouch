@@ -1,2 +1,2 @@
-AUTORIZADO custo 27/11 10:08 (teto US$ 15) — esboço das telas a fazer (câmbio + preços com marketing)
-work/esboco/cambio/PROPOSTA-TITAN-CAMBIO.md
+AUTORIZADO 27/11 10:21 — teto US$ 10/mês; esboço das telas (câmbio + preços com trilhos de luxo) depois dos consertos
+work/esboco/cambio/PROPOSTA-TITAN-CAMBIO.md (v2–v2e)

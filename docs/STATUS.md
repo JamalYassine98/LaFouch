@@ -182,7 +182,7 @@
 - **semp-1-criar** — NA GAVETA (dono 26/11 11:51) — NÃO implementar
 - **semp-2-estudio** — NA GAVETA (dono 26/11 11:51)
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
-- **titan-cambio** — AUTORIZADO custo 27/11 10:08 (teto US$ 15) — esboço das telas a fazer (câmbio + preços com marketing)
+- **titan-cambio** — AUTORIZADO 27/11 10:21 — teto US$ 10/mês; esboço das telas (câmbio + preços com trilhos de luxo) depois dos consertos
 
 ## Recados esperando
 
