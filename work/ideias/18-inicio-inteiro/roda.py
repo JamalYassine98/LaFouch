@@ -2,6 +2,7 @@
 import os, sys, json
 AQ = os.path.dirname(os.path.abspath(__file__)); KIT = os.path.abspath(os.path.join(AQ, '../../kit')); sys.path.insert(0, KIT)
 os.chdir(KIT); import kit
+if os.environ.get('LF_PC'): kit.PC[:] = [int(v) for v in os.environ['LF_PC'].split('x')]  # versão de PC (ex.: LF_PC=1440x900)
 from playwright.sync_api import sync_playwright
 # barra de rolagem do simulador escondida: no celular ela não ocupa espaço (sem isso a foto ganha 16 px de faixa à direita)
 FORCA = "(()=>{const s=document.createElement('style');s.textContent='html{scrollbar-width:none}::-webkit-scrollbar{display:none}*{content-visibility:visible!important}.rv,[data-rv],.reveal{opacity:1!important;transform:none!important}';document.head.appendChild(s);return 1})()"

@@ -3832,3 +3832,11 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 26/11 11:51 · dono abriu o app no celular e viu tudo bugado: Semp vai para a gaveta; prioridade = correções do app.
 
 - 26/11/2026 12:28 APROVADO (dono, "aprovado tudo"): (1) ordem: atualiza-ao-vivo (celular e PC) → plantas do app → consertos do Início → os esboços aprovados, um por vez; (2) PLANTAS DO APP: lote 1 (6 telas) e mapa das 24 telas = planta é o app de hoje, exceto o Início, cuja planta é o esboço consertos do Início; (3) consertos do Início (work/esboco/inicio/COMO-FAZER-INICIO.md: quadrados numa linha, plural, espaço 16, › iguais) → implementar logo depois do atualiza-ao-vivo.
+
+### Cor oficial da loja (dono 26/11/2026 22:15, "guarde")
+- CMYK C47 M91 Y29 K8. Na tela (perfil de impressão FOGRA39 → sRGB): **#943D6F**. É a cor de destaque do site inteiro, num lugar só (uma variável).
+- Hoje há três tons convivendo: #943D6F (oficial; usado nos esboços da IDEIAS), #8D3A69 (--ac do site, mais escuro/frio) e #7E4A6E (o PNG do logo, mais acinzentado). Todos devem virar #943D6F.
+
+## INÍCIO — CONCEITO DO REDESENHO APROVADO (IDEIAS, 26–27/11/2026)
+- Tudo o que o dono aprovou (identidade "revista" + sistemas de nome e cor do Semp + cada bloco da página + WhatsApp) está em **work/ideias/18-inicio-inteiro/APROVADOS-INICIO.md**; base do esboço: proposta.py/lamina2.py; o porquê: work/ideias/16-padrao-luxo/ESTUDO.md (§14–§32).
+- Implementar quando o redesenho do Início entrar (depois do Semp), pelos itens da Fila: inicio-peca-no-modelo-folha, inicio-ferramentas-icones, inicio-feminino-masculino, inicio-vitrine-cartao-folha.
