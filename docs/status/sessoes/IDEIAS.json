@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795783790.4924724,
+   "r": "v50 WhatsApp fixo no mesmo lugar em todas as páginas"
+  },
+  {
    "t": 1795783519.7216032,
    "r": "v49 WhatsApp como fica (espaço no fim da página)"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795780956.6783495,
    "r": "v45 ícones das ferramentas (provador aprovado; leitura = óculos sobre linhas que encurtam, sem cantos)"
-  },
-  {
-   "t": 1795780735.1226265,
-   "r": "ícone do Provador aprovado; Teste de leitura em aberto"
   }
  ],
  "leu": 1795779310.039045
