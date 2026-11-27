@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "18 inicio v12: personagens novos + PC e celular",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795739884.0839496,
+   "r": "18 inicio v12: personagens novos do Flow nas ferramentas + versao PC (1440) e celular"
+  },
   {
    "t": 1795730985.7648473,
    "r": "19 boca da mulher corrigida — esperando o dono"
@@ -40,10 +42,6 @@
   {
    "t": 1795726444.1182454,
    "r": "18 início inteiro v8 — esperando o dono"
-  },
-  {
-   "t": 1795726217.5892437,
-   "r": "18 início inteiro v7 — esperando o dono"
   }
  ],
  "leu": 1795739636.0969472

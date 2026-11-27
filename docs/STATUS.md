@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | 18 inicio v12: personagens novos + PC e celular | work/ideias/18-inicio-inteiro |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -230,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 21:38 — IDEIAS: 18 inicio v12: personagens novos do Flow nas ferramentas + versao PC (1440) e celular
 - 26/11 19:09 — IDEIAS: 19 boca da mulher corrigida — esperando o dono
 - 26/11 19:07 — IDEIAS: 19 bocas coladas — esperando o dono
 - 26/11 18:51 — IDEIAS: 19 grade cortada em 6 casais
@@ -239,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 17:59 — IDEIAS: 18 início inteiro v10 — esperando o dono
 - 26/11 17:57 — IDEIAS: 18 início inteiro v9 — esperando o dono
 - 26/11 17:54 — IDEIAS: 18 início inteiro v8 — esperando o dono
-- 26/11 17:50 — IDEIAS: 18 início inteiro v7 — esperando o dono
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
