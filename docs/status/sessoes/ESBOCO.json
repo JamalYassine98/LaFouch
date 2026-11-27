@@ -1,10 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "esboço Titan: câmbio (leitura do dia) + preços (oferta discreta de luxo)",
- "arquivos": [
-  "work/esboco/titan"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795786009.4613054,
+   "r": "esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila"
+  },
   {
    "t": 1795785733.5783074,
    "r": "proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado"
@@ -40,10 +42,6 @@
   {
    "t": 1795685172.926379,
    "r": "Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado"
-  },
-  {
-   "t": 1795672880.6918976,
-   "r": "Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono"
   }
  ],
  "leu": 1795785837.7886567
