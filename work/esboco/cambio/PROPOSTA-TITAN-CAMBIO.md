@@ -37,3 +37,13 @@ O cérebro passa a **aprender**, uma vez por semana (segunda, junto da revisão 
 - As regras fixas viram **trilhos** que o cérebro nunca atravessa (piso, no máximo 10%/semana, cadeado, pré-graduado fixo,
   "vender rápido não sobe o preço" — S374) — mudar um trilho só com o dono.
 - Um cérebro só para Câmbio, Preços e Semp (mesma chave, mesmo teto, mesmas lições guardadas).
+
+## v2c — Três cérebros que conversam + custo menor (dono 27/11 10:10)
+Dono: "Não é um cérebro só, pq eles podem se confundir, eles precisam comunicar entre si" · "15 dólares soa caro".
+- **Três cérebros, cada um com a sua memória e as suas lições:** Titan Câmbio (leitura diária) · Titan Preços (semanal) · Semp (marketing).
+- **Mural entre eles (nuvem):** cada um publica o que achou em frases curtas e lê o dos outros antes de decidir —
+  Câmbio: "dólar deve subir ~1% na semana" → Preços segura a baixa do importado; Semp: "post do aviador sexta" → Preços mede o efeito;
+  Preços: "aviador parado 70 dias" → pede ao Semp uma ação. O dono vê o mural (quem disse o quê, quando).
+- **Custo:** Haiku em tudo no dia a dia; o Sonnet só na lição semanal. Menos buscas (câmbio 3/dia, preços ~10/semana).
+  Estimativa: Câmbio ~US$ 1 · Preços ~US$ 0,50 · Semp ~US$ 1–3 → **~US$ 2–5/mês; teto proposto US$ 5/mês**.
+- O plano de US$ 20 do Claude (chat) não pode ser usado pelo app sozinho: a API é cobrada à parte, pelo uso.
