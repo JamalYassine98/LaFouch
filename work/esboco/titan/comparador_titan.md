@@ -1,8 +1,7 @@
-## Titan fx · escuro · 45 diferenças
+## Titan fx · escuro · 40 diferenças
 - “Próximos 7 dias: (por volta de G$ 6.562)” · falta (está na planta, não está no app)
 - “deve subir” · falta (está na planta, não está no app)
 - “· certeza alta” · falta (está na planta, não está no app)
-- “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
@@ -16,13 +15,12 @@
 - “Safra entrando: mais dólar na praça nas ” · sobra (está no app, não está na planta)
 - “!” · sobra (está no app, não está na planta)
 - “Fim de mês: empresas compram dólar para ” · sobra (está no app, não está na planta)
-- “PLACAR” · sobra (está no app, não está na planta)
-- “✓” · sobra (está no app, não está na planta)
-- “Acertou semanas · lição da última: o efe” · sobra (está no app, não está na planta)
-- “9 de 12” · sobra (está no app, não está na planta)
 - “caixa” · tamanho
 - “caixa” · fundo
 - “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
 - “caixa” · raio
 - “caixa” · tamanho
 - “caixa” · fundo
@@ -32,18 +30,15 @@
 - “caixa” · fundo
 - “caixa” · borda
 - “caixa” · raio
-- “caixa” · tamanho
-- “caixa” · fundo
-- “caixa” · borda
-- “caixa” · raio
-- “caixa” · posição +18.0 px (lado) +41.5 px (altura)
-- “caixa” · posição -165.5 px (lado) +96.2 px (altura)
-- “Dólar · G$ 6.487” · a partir daqui, 2 peças deslocadas +0.0 px (lado) -318.2 px (altura)
-- “caixa” · posição +0.0 px (lado) +85.3 px (altura)
-- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -318.2 px (altura)
-- “caixa” · posição -125.0 px (lado) +141.9 px (altura)
-- ícone · posição +0.0 px (lado) -318.2 px (altura)
-- “▲” · posição +0.0 px (lado) -268.9 px (altura)
+- “caixa” · posição +18.0 px (lado) +126.5 px (altura)
+- “caixa” · posição -40.5 px (lado) -159.8 px (altura)
+- “Dólar · G$ 6.487” · posição +0.0 px (lado) -233.2 px (altura)
+- “Guaranis por dólar (média do mercado)” · posição +0.0 px (lado) -233.3 px (altura)
+- “caixa” · posição +0.0 px (lado) +110.7 px (altura)
+- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -233.3 px (altura)
+- “caixa” · posição -125.0 px (lado) +167.3 px (altura)
+- ícone · posição +0.0 px (lado) -233.3 px (altura)
+- “▲” · posição +0.0 px (lado) -183.9 px (altura)
 
 ## Titan prec · escuro · 15 diferenças
 - “O TITAN DECIDE HOJE · 2” · falta (está na planta, não está no app)
@@ -62,11 +57,10 @@
 - “calculadora de preço · e se…?” · a partir daqui, 4 peças deslocadas +0.0 px (lado) +69.0 px (altura)
 - “o que mudou, quando e por quê” · posição +0.0 px (lado) +69.1 px (altura)
 
-## Titan fx · claro · 45 diferenças
+## Titan fx · claro · 40 diferenças
 - “Próximos 7 dias: (por volta de G$ 6.562)” · falta (está na planta, não está no app)
 - “deve subir” · falta (está na planta, não está no app)
 - “· certeza alta” · falta (está na planta, não está no app)
-- “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
 - “caixa” · sobra (está no app, não está na planta)
@@ -80,13 +74,12 @@
 - “Safra entrando: mais dólar na praça nas ” · sobra (está no app, não está na planta)
 - “!” · sobra (está no app, não está na planta)
 - “Fim de mês: empresas compram dólar para ” · sobra (está no app, não está na planta)
-- “PLACAR” · sobra (está no app, não está na planta)
-- “✓” · sobra (está no app, não está na planta)
-- “Acertou semanas · lição da última: o efe” · sobra (está no app, não está na planta)
-- “9 de 12” · sobra (está no app, não está na planta)
 - “caixa” · tamanho
 - “caixa” · fundo
 - “caixa” · borda
+- “caixa” · raio
+- “caixa” · tamanho
+- “caixa” · fundo
 - “caixa” · raio
 - “caixa” · tamanho
 - “caixa” · fundo
@@ -96,18 +89,15 @@
 - “caixa” · fundo
 - “caixa” · borda
 - “caixa” · raio
-- “caixa” · tamanho
-- “caixa” · fundo
-- “caixa” · borda
-- “caixa” · raio
-- “caixa” · posição +18.0 px (lado) +41.5 px (altura)
-- “caixa” · posição -165.5 px (lado) +96.2 px (altura)
-- “Dólar · G$ 6.487” · a partir daqui, 2 peças deslocadas +0.0 px (lado) -318.2 px (altura)
-- “caixa” · posição +0.0 px (lado) +85.3 px (altura)
-- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -318.2 px (altura)
-- “caixa” · posição -125.0 px (lado) +141.9 px (altura)
-- ícone · posição +0.0 px (lado) -318.2 px (altura)
-- “▲” · posição +0.0 px (lado) -268.9 px (altura)
+- “caixa” · posição +18.0 px (lado) +126.5 px (altura)
+- “caixa” · posição -40.5 px (lado) -159.8 px (altura)
+- “Dólar · G$ 6.487” · posição +0.0 px (lado) -233.2 px (altura)
+- “Guaranis por dólar (média do mercado)” · posição +0.0 px (lado) -233.3 px (altura)
+- “caixa” · posição +0.0 px (lado) +110.7 px (altura)
+- “1 ano” · a partir daqui, 3 peças deslocadas +0.0 px (lado) -233.3 px (altura)
+- “caixa” · posição -125.0 px (lado) +167.3 px (altura)
+- ícone · posição +0.0 px (lado) -233.3 px (altura)
+- “▲” · posição +0.0 px (lado) -183.9 px (altura)
 
 ## Titan prec · claro · 15 diferenças
 - “O TITAN DECIDE HOJE · 2” · falta (está na planta, não está no app)

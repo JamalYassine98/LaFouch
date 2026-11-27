@@ -15,8 +15,7 @@ FX_PROP = r"""()=>{
   '<div class="lbl tiLb">POR QUÊ</div><div class="fjMot">'+
    L(false,'!','O real caiu ontem: o Brasil compra menos e o guaraní perde força')+
    L(true,'✓','Safra entrando: mais dólar na praça nas próximas semanas')+
-   L(false,'!','Fim de mês: empresas compram dólar para pagar fornecedores')+'</div>'+
-  '<div class="lbl tiLb">PLACAR</div><div class="fjMot">'+L(true,'✓','Acertou <b>9 de 12</b> semanas · lição da última: o efeito do real foi maior do que eu esperava')+'</div>');
+   L(false,'!','Fim de mês: empresas compram dólar para pagar fornecedores')+'</div>');
 }"""
 ABRE_PREC = "()=>{__LF.inicioGo('prec')}"
 PREC_PROP = r"""()=>{

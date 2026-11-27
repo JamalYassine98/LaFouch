@@ -1,4 +1,4 @@
-# Titan que aprende o mercado — telas (esboço · ESBOCO · 27/11/2026) — esboco_titan_cambio.jpg · esboco_titan_precos.jpg
+# Titan que aprende o mercado — telas (esboço · ESBOCO · 27/11/2026 · APROVADO 10:31, sem placar) — esboco_titan_cambio.jpg · esboco_titan_precos.jpg
 Base: app real v641 (motor do Argus, loja de teste). Proposta aprovada 27/11 10:23 (work/esboco/cambio/PROPOSTA-TITAN-CAMBIO.md v2–v2e).
 Aprovados incluídos: janela do dólar (S418/126, sem ×), Preços = escritório do Titan (54 + 46b, "O Titan decide hoje"),
 conversa Semp ↔ Titan (20/11 19:35, sem tela nova aqui). Textos da leitura = exemplo (vêm do cérebro).
