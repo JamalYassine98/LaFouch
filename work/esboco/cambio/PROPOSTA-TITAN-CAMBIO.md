@@ -45,8 +45,12 @@ Dono 10:13: "Titan de câmbio e preços é literalmente o Titan" · "o mural já
 - **A conversa entre eles NÃO é tela nova:** é a conversa Semp ↔ Guardião (hoje Titan) já APROVADA como ideia em 20/11 19:35
   (Pendências: "Semp e Titan · para decidir" + "Ver a conversa ⌄"; Histórico: Tudo | Semp | Titan) — esboços em
   work/semp/esboco_semp2_pendencias_* e esboco_semp2_historico_*. O "mural" da v2c antiga sai (era duplicado).
-- **Custo — o mais eficiente:** o trabalho pesado (leitura diária do câmbio com buscas, aprendizado semanal de preços com marketing,
-  as lições) roda como **tarefa agendada no plano Claude do dono** (sem cobrança por uso) e grava o resultado na nuvem; o app só lê.
-  A API paga fica só para o que precisa responder na hora no app (ex.: o Semp escrevendo uma legenda quando o dono toca),
-  com Haiku e **teto US$ 5/mês** (estimativa real: bem abaixo disso).
-  Cuidado: as tarefas agendadas usam o mesmo limite de uso do plano do dono.
+- **Custo — só a API, com eficiência sem perder qualidade (dono 27/11 10:16: "não pretendo manter o plano e sim usar sua API"):**
+  1. **O código faz a conta, o cérebro pensa:** a nuvem busca de graça as fontes fixas (La Moneda, referência oficial) e resume
+     vendas/estoque/posts em números; o cérebro recebe só o resumo, nunca a base inteira.
+  2. **Poucas buscas:** só notícias, 2 por dia no câmbio e ~5 por semana em preços (a busca é o item mais caro).
+  3. **Instruções e lições em cache** (lidas quase de graça a cada dia) e **lote** para o que não é urgente (leitura do dia,
+     aprendizado da semana: metade do preço).
+  4. **Haiku no dia a dia; o Sonnet só** na lição semanal ou quando o Haiku marcar algo fora do normal (escalada).
+  5. **Resposta curta e organizada** (campos, não redação).
+  Estimativa: Titan câmbio ~US$ 0,70 · Titan preços ~US$ 0,30 · Semp ~US$ 0,20 → **~US$ 1–2/mês; teto US$ 3/mês** travado no servidor.

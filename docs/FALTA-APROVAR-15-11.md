@@ -1321,3 +1321,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 27/11 09:56 — RESUMO de tudo o que foi aprovado no Início: work/ideias/18-inicio-inteiro/APROVADOS-INICIO.md (dono: "guardar TUDO que está aprovado").
 
 - 27/11/2026 10:08 AUTORIZADO (dono, regra 23): cérebro do Titan (Claude pela API, chave só nos segredos do servidor) para o Semp + a leitura diária do câmbio + o aprendizado semanal de preços com marketing (work/esboco/cambio/PROPOSTA-TITAN-CAMBIO.md v2/v2b). Estimativa US$ 4–12/mês; teto sugerido US$ 15/mês travado no servidor. Condição do dono: Titan mais inteligente no aprendizado dos preços, junto com o marketing.
+
+- 27/11/2026 10:16 DONO: vai usar só a API (não o plano). Custo do cérebro (Titan câmbio+preços e Semp) com eficiência sem perder qualidade: código resume, poucas buscas, cache + lote, Haiku com escalada ao Sonnet, resposta curta → estimativa ~US$ 1–2/mês, teto proposto US$ 3/mês (substitui o teto de US$ 15/5).
