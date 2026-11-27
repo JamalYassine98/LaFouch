@@ -1,31 +1,26 @@
-# Titan mais inteligente na Casa de câmbio — proposta (ESBOCO · 27/11/2026, pedido do dono 09:54)
+# Titan como IA que aprende o mercado do câmbio — proposta v2 (ESBOCO · 27/11/2026 10:02)
+Dono: "a ideia é fazer o titan como uma IA que também aprende o mercado, para ter uma pequena ideia das mudanças do câmbio".
+(v1 — só estatística da série — recusada: work/obsoletos/PROPOSTA-TITAN-CAMBIO-v1-27-11.md)
 
-## Como é hoje (src/97-cambio-aba.js · fxPrevisao)
-- A previsão de 7 dias é uma **reta das últimas 2 semanas (70%) + quanto o dólar está acima/abaixo da média (30%)**.
-- A "certeza" sai do quanto a reta se encaixa (R²) — isso mede o passado, **não** se a previsão acerta.
-- Os dados só entram **quando o app está aberto** (S.fxHist / La Moneda): dias sem abrir = buracos na série.
-- Ninguém confere depois se a previsão acertou.
+## Como funciona
+1. **Lê o mercado todo dia (nuvem, de manhã):** o cérebro do Titan (Claude, pela API — o mesmo cérebro já aprovado para o Semp,
+   chave só nos segredos do servidor) busca na internet o que mexe no guaraní: notícias do Banco Central do Paraguai, o real e o
+   Brasil, o dólar no mundo e os juros dos EUA, soja e exportações, fim de mês/aguinaldo — e junta com a cotação da casa (La Moneda).
+2. **Raciocina e escreve:** devolve em linguagem simples: tendência da semana (sobe / cai / estável), faixa provável, os 2–3 motivos
+   ("o real caiu forte ontem", "safra entrando = mais dólar na praça") e o quanto confia.
+3. **Aprende com o próprio acerto:** cada previsão fica guardada; 7 dias depois o Titan compara com o que aconteceu e escreve uma
+   **lição** ("subestimei o efeito do real"). As lições e o placar entram na leitura do dia seguinte — é assim que ele vai
+   conhecendo o mercado de Ciudad del Este/Asunción com o tempo.
+4. **Na tela:** a janela do dólar mostra a leitura do dia do Titan, os motivos, a faixa e o placar ("acertou 9 de 12").
+   O selo (bom momento / esperar / disparando) passa a usar essa leitura.
 
-## Verdade importante
-Câmbio de curto prazo é quase um "passeio aleatório": nenhum método prevê subida/descida de 7 dias com acerto muito alto.
-Ganho real vem de: série completa, **medir o próprio acerto**, mostrar **faixa** em vez de chute e falar "sem tendência" quando não há.
+## Honestidade
+É "uma pequena ideia", como o dono disse: o Titan mostra o placar sempre e diz quando não vê tendência.
 
-## Proposta (em 4 fatias)
-1. **Série sem buracos (nuvem):** a nuvem guarda a cotação da casa (La Moneda) de hora em hora, mais a referência oficial e o dólar
-   no mundo e o real (que puxam o guaraní). Precisa de uma **rodada agendada** → só com autorização do dono (regra 23; cabe no grátis).
-2. **Titan se confere:** cada previsão fica guardada; 7 dias depois ele compara com o que aconteceu. Placar visível:
-   "acertou 9 de 12 nas últimas semanas". Abaixo de 55% de acerto ele diz **"sem tendência clara"** em vez de chutar.
-3. **Faixa no lugar de seta:** "na próxima semana, entre G$ 7.760 e G$ 7.840 (8 em cada 10 vezes)", tirada das variações reais
-   do próprio histórico. Mais útil para decidir quanto trocar.
-4. **Vários sinais com peso que se ajusta sozinho:** tendência, volta à média, calendário (fim de mês, dezembro, safra — só se o
-   histórico mostrar que valem), o real e o dólar no mundo. O peso de cada sinal sobe ou desce conforme o acerto dele (fatia 2).
-   O selo continua (bom momento / esperar / está disparando), agora com o placar ao lado. Sugestão de trocar **em partes** quando
-   a faixa for larga.
-- Fora por enquanto: IA lendo notícias (custo e não supera os sinais simples de forma confiável).
+## Custo (precisa de autorização — regra 23)
+Uma leitura por dia com poucas buscas: estimativa de poucos dólares por mês (Haiku no dia a dia; o placar decide se vale mais).
+Teto mensal travado no servidor, como no Semp. Nada roda antes do "autorizo".
 
 ## Regra 12
-Sai a reta+R² (fxReta, a "certeza" por R²) no mesmo passo; um lugar só para a previsão (fxPrevisao) servindo selo, janela e gráfico.
-Trava no Argus: previsão guardada e conferida; sem tendência abaixo de 55%; faixa calculada do histórico.
-
-## Próximo passo
-Dono escolhe → esboço da tela (Hoje × Proposta) da janela do dólar com placar e faixa → implementar.
+A previsão passa a ter UM lugar (a leitura do Titan guardada na nuvem); sai a reta+R² (fxReta/fxPrevisao) no mesmo passo.
+Trava no Argus: leitura guardada e conferida após 7 dias; sem leitura = "Titan ainda lendo o mercado"; teto de gasto respeitado.
