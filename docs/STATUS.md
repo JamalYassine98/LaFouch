@@ -232,6 +232,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 09:55 — IDEIAS: v51 Acabou de chegar: cartão de peça em folha, nome do Semp + cor · preço
 - 27/11 09:49 — IDEIAS: v50 WhatsApp fixo no mesmo lugar em todas as páginas
 - 27/11 09:45 — IDEIAS: v49 WhatsApp como fica (espaço no fim da página)
 - 27/11 09:42 — IDEIAS: v48 aprovado
@@ -241,7 +242,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 09:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
 - 27/11 09:06 — IDEIAS: v46 Feminino|Masculino como guia (sem título, ›, PC 4:5 centrado)
 - 27/11 09:03 — IDEIAS: v45 APROVADO: ícones e bloco de ferramentas
-- 27/11 09:02 — IDEIAS: v45 ícones das ferramentas (provador aprovado; leitura = óculos sobre linhas que encurtam, sem cantos)
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
