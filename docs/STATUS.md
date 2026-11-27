@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
 - 27/11 09:55 — IDEIAS: v51 Acabou de chegar: cartão de peça em folha, nome do Semp + cor · preço
 - 27/11 09:49 — IDEIAS: v50 WhatsApp fixo no mesmo lugar em todas as páginas
 - 27/11 09:45 — IDEIAS: v49 WhatsApp como fica (espaço no fim da página)
@@ -255,7 +256,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 06:26 — ESBOCO: Argus antigo eliminado (para obsoletos), regras 20/21 trocadas, SITE avisado
 - 26/11 03:01 — ESBOCO: Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono
 - 25/11 23:19 — ESBOCO: Argus Parte 7d pronta: regras do banco no emulador do Firebase 1558/1558 = planta da nuvem, 4/4 estragos vistos, 26 testes das funções ok; prova 12/12
-- 25/11 22:36 — ESBOCO: Argus Parte 7c pronta: 10 conferências do site, prova 11/11; site de hoje 2 achados (+ passa o estoque; cupom forjado no aparelho aparece)
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
 - 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
