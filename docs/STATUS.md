@@ -229,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 22:33 — IDEIAS: 18 inicio v24: lamina 2 da capa (natureza-morta do Semp) + notas da peca encaixando na foto
 - 26/11 22:27 — IDEIAS: 18 inicio v23: capa do celular ocupa a tela exata (correcao do zoom da letra) + frase equilibrada
 - 26/11 22:24 — IDEIAS: 18 inicio v22 APROVADO: capa com o nome do modelo (Margaux); nomes das pecas pelo Semp no cadastro
 - 26/11 22:20 — IDEIAS: 18 inicio v21 APROVADO (cor oficial #943D6F num lugar so); pendente: originais dos 6 personagens e o diptico do Visto na foto
@@ -238,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 22:03 — IDEIAS: 18 inicio v18: lojistas no celular = cartao do PC compacto
 - 26/11 22:00 — IDEIAS: 18 inicio v17: lojistas no celular quadrado, veu mais firme
 - 26/11 21:59 — IDEIAS: 18 inicio v16: lojistas no celular com texto embaixo como a familia (PC v15 aprovado)
-- 26/11 21:55 — IDEIAS: 18 inicio v15: para lojistas como cartao de campanha largo (vitrine), um rotulo so
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
