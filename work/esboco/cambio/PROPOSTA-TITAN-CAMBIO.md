@@ -38,12 +38,15 @@ O cérebro passa a **aprender**, uma vez por semana (segunda, junto da revisão 
   "vender rápido não sobe o preço" — S374) — mudar um trilho só com o dono.
 - Um cérebro só para Câmbio, Preços e Semp (mesma chave, mesmo teto, mesmas lições guardadas).
 
-## v2c — Três cérebros que conversam + custo menor (dono 27/11 10:10)
-Dono: "Não é um cérebro só, pq eles podem se confundir, eles precisam comunicar entre si" · "15 dólares soa caro".
-- **Três cérebros, cada um com a sua memória e as suas lições:** Titan Câmbio (leitura diária) · Titan Preços (semanal) · Semp (marketing).
-- **Mural entre eles (nuvem):** cada um publica o que achou em frases curtas e lê o dos outros antes de decidir —
-  Câmbio: "dólar deve subir ~1% na semana" → Preços segura a baixa do importado; Semp: "post do aviador sexta" → Preços mede o efeito;
-  Preços: "aviador parado 70 dias" → pede ao Semp uma ação. O dono vê o mural (quem disse o quê, quando).
-- **Custo:** Haiku em tudo no dia a dia; o Sonnet só na lição semanal. Menos buscas (câmbio 3/dia, preços ~10/semana).
-  Estimativa: Câmbio ~US$ 1 · Preços ~US$ 0,50 · Semp ~US$ 1–3 → **~US$ 2–5/mês; teto proposto US$ 5/mês**.
-- O plano de US$ 20 do Claude (chat) não pode ser usado pelo app sozinho: a API é cobrada à parte, pelo uso.
+## v2c (corrigida 27/11 10:13) — dois cérebros: o Titan e o Semp, conversando pelo que JÁ foi aprovado
+Dono 10:13: "Titan de câmbio e preços é literalmente o Titan" · "o mural já tem esboços — cuidado com coisa duplicada" ·
+"o plano de 20 dólares cobre… 5 dólares soa razoável, mas podemos ser extremamente eficientes".
+- **Dois cérebros:** o **Titan** (câmbio + preços — uma memória, um aprendizado) e o **Semp** (marketing), cada um com as suas lições.
+- **A conversa entre eles NÃO é tela nova:** é a conversa Semp ↔ Guardião (hoje Titan) já APROVADA como ideia em 20/11 19:35
+  (Pendências: "Semp e Titan · para decidir" + "Ver a conversa ⌄"; Histórico: Tudo | Semp | Titan) — esboços em
+  work/semp/esboco_semp2_pendencias_* e esboco_semp2_historico_*. O "mural" da v2c antiga sai (era duplicado).
+- **Custo — o mais eficiente:** o trabalho pesado (leitura diária do câmbio com buscas, aprendizado semanal de preços com marketing,
+  as lições) roda como **tarefa agendada no plano Claude do dono** (sem cobrança por uso) e grava o resultado na nuvem; o app só lê.
+  A API paga fica só para o que precisa responder na hora no app (ex.: o Semp escrevendo uma legenda quando o dono toca),
+  com Haiku e **teto US$ 5/mês** (estimativa real: bem abaixo disso).
+  Cuidado: as tarefas agendadas usam o mesmo limite de uso do plano do dono.
