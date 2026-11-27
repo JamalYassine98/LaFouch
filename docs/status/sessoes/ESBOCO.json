@@ -1,7 +1,9 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço Titan: câmbio (leitura do dia) + preços (oferta discreta de luxo)",
+ "arquivos": [
+  "work/esboco/titan"
+ ],
  "ultimas": [
   {
    "t": 1795785733.5783074,
@@ -44,5 +46,5 @@
    "r": "Argus partes 7e e 8 prontas (porta do site, selo por setor, relatório foto+vídeo, status automático, camadas, ponte app×site); provas todas ok; regras 20/21 e plantas esperando o dono"
   }
  ],
- "leu": 1795784918.611455
+ "leu": 1795785837.7886567
 }
