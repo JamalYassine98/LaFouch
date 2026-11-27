@@ -24,3 +24,16 @@ Teto mensal travado no servidor, como no Semp. Nada roda antes do "autorizo".
 ## Regra 12
 A previsão passa a ter UM lugar (a leitura do Titan guardada na nuvem); sai a reta+R² (fxReta/fxPrevisao) no mesmo passo.
 Trava no Argus: leitura guardada e conferida após 7 dias; sem leitura = "Titan ainda lendo o mercado"; teto de gasto respeitado.
+
+## v2b — Preços e marketing aprendendo juntos (dono 27/11 10:08: "o Titan pode ser ainda mais inteligente no aprendizado dos preços? Pq marketing e preço andam juntos")
+Hoje (src/97-preco-auto.js) o preço segue regras fixas (degraus de oferta 60/75/90/120 dias, piso, 10% por semana, cadeado).
+O cérebro passa a **aprender**, uma vez por semana (segunda, junto da revisão que já existe):
+1. **Com as suas vendas:** quanto cada família/modelo vende em cada faixa de preço, quanto tempo fica parado, o que vende junto.
+2. **Com o marketing:** o efeito de cada post/status/vídeo do Semp, cupom e evento nas vendas daquela peça nos dias seguintes.
+3. **Com o câmbio:** a leitura do dia do Titan (custo em dólar → margem em guaraní) — o mesmo cérebro, uma leitura só.
+4. **Com o mercado:** preços de referência da mesma peça na internet (Paraguai/Brasil), quando achar.
+5. **Propõe em par:** preço + ação de marketing ("−5% no aviador + post do Semp na sexta"), com o motivo; guarda como
+   experimento e, na semana seguinte, mede o resultado → **lição** + placar ("das 6 propostas, 4 venderam mais").
+- As regras fixas viram **trilhos** que o cérebro nunca atravessa (piso, no máximo 10%/semana, cadeado, pré-graduado fixo,
+  "vender rápido não sobe o preço" — S374) — mudar um trilho só com o dono.
+- Um cérebro só para Câmbio, Preços e Semp (mesma chave, mesmo teto, mesmas lições guardadas).

@@ -3840,3 +3840,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 ## INÍCIO — CONCEITO DO REDESENHO APROVADO (IDEIAS, 26–27/11/2026)
 - Tudo o que o dono aprovou (identidade "revista" + sistemas de nome e cor do Semp + cada bloco da página + WhatsApp) está em **work/ideias/18-inicio-inteiro/APROVADOS-INICIO.md**; base do esboço: proposta.py/lamina2.py; o porquê: work/ideias/16-padrao-luxo/ESTUDO.md (§14–§32).
 - Implementar quando o redesenho do Início entrar (depois do Semp), pelos itens da Fila: inicio-peca-no-modelo-folha, inicio-ferramentas-icones, inicio-feminino-masculino, inicio-vitrine-cartao-folha.
+
+- 27/11/2026 10:08 AUTORIZADO (dono, regra 23): cérebro do Titan (Claude pela API, chave só nos segredos do servidor) para o Semp + a leitura diária do câmbio + o aprendizado semanal de preços com marketing (work/esboco/cambio/PROPOSTA-TITAN-CAMBIO.md v2/v2b). Estimativa US$ 4–12/mês; teto sugerido US$ 15/mês travado no servidor. Condição do dono: Titan mais inteligente no aprendizado dos preços, junto com o marketing.
