@@ -229,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 07:47 — IDEIAS: v36 Lucien sem caixa: peça recortada, menor, sombra da luz da foto, preço etiqueta
 - 27/11 07:41 — IDEIAS: v35 Visto na foto → título Lucien + frase; PC cartão à direita
 - 27/11 07:03 — IDEIAS: v34 Visto na foto: sem frase e sem botão (cartão é o link); PC composição centrada; ESTUDO §24
 - 26/11 23:56 — IDEIAS: v33 Visto na foto: modelo com a SL2290 real do catálogo (Flow), cartão centrado na linha dos óculos no PC
@@ -238,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 23:00 — IDEIAS: 18 inicio v29: PC da lamina 2 com nome e frase sobre cada peca, mesma linha de base
 - 26/11 22:57 — IDEIAS: 18 inicio v28: Odeon 144 + frase Inter leve 28 'Presenca que dispensa palco.' (metodo do Semp aprovado)
 - 26/11 22:53 — IDEIAS: 18 inicio v27: Odeon menor e frase maior (proporcao 5:1)
-- 26/11 22:50 — IDEIAS: 18 inicio v26: nomes proprios por armacao (Margaux/Odeon) e frases humanas do Semp na capa
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
