@@ -1,2 +1,2 @@
-APROVADO 27/11 10:31 — implementar (APP) depois do titan-cerebro-nuvem e dos consertos na frente; selo do Argus + OK ESBOCO
+PAUSADO pelo dono 27/11 10:37 (antes vem o plano de modularização)
 work/esboco/titan/COMO-FAZER-TITAN-MERCADO.md · esboco_titan_cambio.jpg · esboco_titan_precos.jpg

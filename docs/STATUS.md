@@ -183,7 +183,7 @@
 - **semp-1-criar** — NA GAVETA (dono 26/11 11:51) — NÃO implementar
 - **semp-2-estudio** — NA GAVETA (dono 26/11 11:51)
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
-- **titan-cambio** — APROVADO 27/11 10:31 — implementar (APP) depois do titan-cerebro-nuvem e dos consertos na frente; selo do Argus + OK ESBOCO
+- **titan-cambio** — PAUSADO pelo dono 27/11 10:37 (antes vem o plano de modularização)
 - **titan-cerebro-nuvem** — PAUSADO pelo dono 27/11 10:37 (antes vem o plano de modularização)
 
 ## Recados esperando
