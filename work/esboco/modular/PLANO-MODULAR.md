@@ -34,6 +34,7 @@ src/atualiza/    ao vivo · loja · apk
   **Prova:** as plantas antes e depois precisam sair IGUAIS (pixel e ligações) — se não, a parte volta.
 - **Depois** de modularizado, os aprovados entram limpos, cada um na sua pasta: consertos do Início, atualização ao vivo, Titan, Semp.
 
-## Custo e cuidado
+## Custo e cuidado (dono 27/11 10:40: "tome muito cuidado para não quebrar o código ou deletar nossos dados")
+- Nenhuma parte toca os dados da loja (nuvem, aparelho, firestore.rules): só move código; antes de cada parte, cópia (ramo + tag) para voltar em 1 comando.
 Cada parte é "por dentro" (6b) mas grande: o dono autoriza parte a parte. Estimativa: P0 = 1 sessão curta de máquina;
 cada família = 1 parte. O que mais economiza crédito: P0 primeiro (o Argus pega o erro sozinho, sem ida e volta).
