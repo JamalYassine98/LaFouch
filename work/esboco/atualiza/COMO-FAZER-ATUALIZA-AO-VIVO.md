@@ -36,7 +36,7 @@ Hoje o PC tem o mesmo problema: o servidor local do desktop/main.js serve o app 
 (desktop/pc-atualiza.js, pasta `lojaupd`).
 - **Um pacote só para os dois:** o PC baixa o **mesmo** `www-<v>.zip` (mesma `soma`) para a pasta de dados do Windows
   (`userData/app/<v>/`), e o servidor local passa a servir **o app inteiro** (raiz e /loja/) da última versão boa —
-  é a mesma ideia do `lojaupd`, estendida à pasta toda (a parte /loja/ separada sai: vem dentro do mesmo pacote).
+  é a mesma ideia do `lojaupd`, estendida à pasta toda. **A /loja/ continua trocando sozinha quando o SITE publica** (correção 27/11, dúvida do APP): no PC vale o mesmo src/97-atualiza-loja.js do Android — uma regra só para os dois; o pacote traz a /loja/ do dia como base.
 - **Confirmar que abriu (o mesmo lugar do Android):** uma função só no app, `appPronto()`, chamada no fim do primeiro render:
   no Android chama `CapacitorUpdater.notifyAppReady()`, no PC faz `POST /__pronto` ao servidor local (só da própria janela,
   como o `origemOk` de hoje). Sem o "pronto" em 10 s, o main.js volta para a versão boa anterior e recarrega.
@@ -53,7 +53,7 @@ gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/
 - O carregador `/*LOADER*/` do www/index.html (EMB, `lf_upd`, `tent`, cache `lafouch-upd`) → volta a ser só `<script src="app.js">`.
 - Em src/97-atualiza.js: o download de app.js/style.css para o cache, `lf_upd`/`lf_updok`/`tent` e o cronômetro de 4 s.
 - Limpar uma vez no aparelho: `caches.delete('lafouch-upd')` e as chaves `lf_upd`, `lf_updok`.
-- No PC: a parte separada da /loja/ (`lojaupd`, buscaLoja) do desktop/pc-atualiza.js — o pacote inteiro a substitui.
+- No PC: o `lojaupd`/buscaLoja do desktop/pc-atualiza.js — a /loja/ passa a ser atualizada pelo mesmo src/97-atualiza-loja.js do Android.
 - **Fica:** src/97-atualiza-apk.js, a busca do instalador no PC e o `APP_NAT` (mudança no Android — câmera, biometria, sons — ainda pede APK novo).
 
 ## Uma vez só: APK novo

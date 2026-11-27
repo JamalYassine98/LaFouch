@@ -16,7 +16,21 @@ SESSÕES: APP (APP · implementa, S436) · SITE (SITE · implementa, S429) · NU
 Cada comando: git fetch + rebase antes; commit + push depois (tenta de novo se der conflito).\nSe não der para juntar ou enviar, PARA com 'PAROU:' e sai com código 2 (nunca fica pela metade nem em silêncio).
 O 'fim' é BARRADO se houver recado para a sessão que ela não leu, ou se um arquivo dela estiver marcado por outra."""
 import sys,os,glob,time,json,subprocess
-RAIZ=os.environ.get('LF_RAIZ','/home/claude/lafouch');D=os.path.join(RAIZ,'docs','status');GIT=os.environ.get('LF_GIT','1')=='1'
+RAIZ=os.environ.get('LF_RAIZ','/home/claude/lafouch');GIT=os.environ.get('LF_GIT','1')=='1'
+def _raiz_do_status(r):
+  """O status mora no main e só no main (conserto 26/11, recado APP 13:24: rodado num ramo, o rebase+push HEAD:main publicou o
+  commit do ramo). Fora do main, o comando trabalha numa cópia de trabalho própria do main (<raiz>-status), e o ramo nunca é tocado."""
+  if not GIT: return r
+  ramo=subprocess.run(['git','-C',r,'rev-parse','--abbrev-ref','HEAD'],capture_output=True,text=True).stdout.strip()
+  if ramo=='main': return r
+  wt=r.rstrip('/')+'-status'
+  if not os.path.isdir(os.path.join(wt,'docs')):
+    subprocess.run(['git','-C',r,'fetch','-q','origin','main'],capture_output=True)
+    subprocess.run(['git','-C',r,'worktree','prune'],capture_output=True)
+    if subprocess.run(['git','-C',r,'worktree','add','-q','-B','lf-status',wt,'origin/main'],capture_output=True).returncode:
+      sys.exit('PAROU: não consegui abrir a cópia do main para o status (%s).'%wt)
+  return wt
+RAIZ=_raiz_do_status(RAIZ);D=os.path.join(RAIZ,'docs','status')
 def git(*a):
   if GIT: return subprocess.run(['git','-C',RAIZ]+list(a),capture_output=True,text=True)
 class Para(Exception): pass

@@ -99,4 +99,6 @@ def roda(pw, nav=None, antiga=True):
             d = pg.evaluate(familia.COLETA); b.close()
             R.append(('versão antiga (v641) reprovada em %s: %s' % (tela, regra), any(regra in x[0] for x in familia.mede_tela(tela, d))))
     if proprio: nav.close()
+    import subprocess   # trava 26/11: o status rodado num ramo (a porta anota no fim) nunca publica o ramo no main
+    R.append(('status no ramo não publica o ramo', subprocess.run(['python3', os.path.join(os.path.dirname(os.path.dirname(A)), 'tools', 'prova_status_ramo.py')], capture_output=True).returncode == 0))
     return all(v for _, v in R), R
