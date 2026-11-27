@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795742877.766689,
+   "r": "18 inicio v23: capa do celular ocupa a tela exata (correcao do zoom da letra) + frase equilibrada"
+  },
+  {
    "t": 1795742657.8342133,
    "r": "18 inicio v22 APROVADO: capa com o nome do modelo (Margaux); nomes das pecas pelo Semp no cadastro"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795740947.2065215,
    "r": "18 inicio v15: para lojistas como cartao de campanha largo (vitrine), um rotulo so"
-  },
-  {
-   "t": 1795740633.454173,
-   "r": "18 inicio v14: lojistas metade e metade no eixo central + uma linha so antes do rodape"
   }
  ],
  "leu": 1795739636.0969472
