@@ -229,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 08:07 — IDEIAS: Estudo §27: Madë × v37 (peça grande na ordem, página sobe sobre a foto, foto fechada no rosto)
 - 27/11 07:58 — IDEIAS: v37 Lucien: a peça numa segunda foto em tom de pedra, placa sobre a borda, preço etiqueta
 - 27/11 07:51 — IDEIAS: v35 provisório como base do bloco Lucien; natureza-morta pendente (precisa do PC/Flow)
 - 27/11 07:47 — IDEIAS: v36 Lucien sem caixa: peça recortada, menor, sombra da luz da foto, preço etiqueta
@@ -238,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 23:05 — IDEIAS: 18 inicio: lamina 2 da capa APROVADA (v31 PC, v28 celular); pendente: diptico/encaixe do Visto na foto e originais dos 6 personagens
 - 26/11 23:04 — IDEIAS: 18 inicio v31: frase na linha de base do nome e em tom secundario
 - 26/11 23:02 — IDEIAS: 18 inicio v30: lamina 2 PC com a dupla da v28 no vazio de cima a esquerda
-- 26/11 23:00 — IDEIAS: 18 inicio v29: PC da lamina 2 com nome e frase sobre cada peca, mesma linha de base
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
