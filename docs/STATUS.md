@@ -232,6 +232,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 27/11 09:40 — IDEIAS: v48 serviços na faixa + WhatsApp sempre no canto
 - 27/11 09:37 — IDEIAS: v47 aprovado
 - 27/11 09:26 — IDEIAS: v47 faixa de ferramentas colada embaixo da capa
 - 27/11 09:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
@@ -241,7 +242,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 08:58 — IDEIAS: ícone do Provador aprovado; Teste de leitura em aberto
 - 27/11 08:55 — IDEIAS: Lucien 3/4 cancelado; ícones das ferramentas: novo pedido ao Flow
 - 27/11 08:50 — IDEIAS: v44 prateleira: serviços só texto, ferramentas com ícones abstratos finos
-- 27/11 08:45 — IDEIAS: v43 ferramentas: no PC folhas pelo conteúdo, centradas
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP

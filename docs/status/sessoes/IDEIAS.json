@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795783201.8931732,
+   "r": "v48 serviços na faixa + WhatsApp sempre no canto"
+  },
+  {
    "t": 1795783037.3197937,
    "r": "v47 aprovado"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795780225.9719083,
    "r": "v44 prateleira: serviços só texto, ferramentas com ícones abstratos finos"
-  },
-  {
-   "t": 1795779933.486838,
-   "r": "v43 ferramentas: no PC folhas pelo conteúdo, centradas"
   }
  ],
  "leu": 1795779310.039045
