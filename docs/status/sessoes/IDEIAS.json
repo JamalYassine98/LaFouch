@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795744844.1118917,
+   "r": "18 inicio v29: PC da lamina 2 com nome e frase sobre cada peca, mesma linha de base"
+  },
+  {
    "t": 1795744659.9215102,
    "r": "18 inicio v28: Odeon 144 + frase Inter leve 28 'Presenca que dispensa palco.' (metodo do Semp aprovado)"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795742330.7934334,
    "r": "18 inicio v21: cor oficial #943D6F (CMYK C47 M91 Y29 K8) num lugar so: logo, links, italicos, botoes"
-  },
-  {
-   "t": 1795741917.5508828,
-   "r": "18 inicio v20: novidades simetrico (48/48) sem margem somada do rodape; titulo numa linha"
   }
  ],
  "leu": 1795739636.0969472

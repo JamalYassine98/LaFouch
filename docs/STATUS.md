@@ -229,6 +229,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 26/11 23:00 — IDEIAS: 18 inicio v29: PC da lamina 2 com nome e frase sobre cada peca, mesma linha de base
 - 26/11 22:57 — IDEIAS: 18 inicio v28: Odeon 144 + frase Inter leve 28 'Presenca que dispensa palco.' (metodo do Semp aprovado)
 - 26/11 22:53 — IDEIAS: 18 inicio v27: Odeon menor e frase maior (proporcao 5:1)
 - 26/11 22:50 — IDEIAS: 18 inicio v26: nomes proprios por armacao (Margaux/Odeon) e frases humanas do Semp na capa
@@ -238,7 +239,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 22:24 — IDEIAS: 18 inicio v22 APROVADO: capa com o nome do modelo (Margaux); nomes das pecas pelo Semp no cadastro
 - 26/11 22:20 — IDEIAS: 18 inicio v21 APROVADO (cor oficial #943D6F num lugar so); pendente: originais dos 6 personagens e o diptico do Visto na foto
 - 26/11 22:18 — IDEIAS: 18 inicio v21: cor oficial #943D6F (CMYK C47 M91 Y29 K8) num lugar so: logo, links, italicos, botoes
-- 26/11 22:11 — IDEIAS: 18 inicio v20: novidades simetrico (48/48) sem margem somada do rodape; titulo numa linha
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
