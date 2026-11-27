@@ -178,6 +178,7 @@
 - **inicio-feminino-masculino** — aprovado 27/11 09:08 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **inicio-ferramentas-icones** — aprovado 27/11 09:42 (v48: faixa com ferramentas + serviços; WhatsApp sempre no canto) — implementar com o redesenho (depois do Semp)
 - **inicio-peca-no-modelo-folha** — aprovado 27/11 08:34 — conceito do redesenho do Início; implementar quando o redesenho entrar (depois do Semp)
+- **inicio-vitrine-cartao-folha** — aprovado 27/11 09:56 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **semp-1-criar** — NA GAVETA (dono 26/11 11:51) — NÃO implementar
 - **semp-2-estudio** — NA GAVETA (dono 26/11 11:51)
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
