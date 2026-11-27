@@ -197,6 +197,7 @@
 - para **NUVEM**: Vigia 26/11 16:17: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-25: analise_com_site=6, analise_sem_robo=163, conta_sem_robo=1,
 - para **NUVEM**: Item novo: titan-cerebro-nuvem (dono aprovou 27/11 10:23; teto US$ 10/mês autorizado 10:21). Por dentro (6b): cérebro do Titan (câmbio+preços) e do Semp pela AP
 - para **NUVEM**: PAUSA do dono (27/11 10:37): não implementar nada até ele liberar — créditos acabando; antes vem o plano de modularização (work/esboco/modular/PLANO-MODULAR.md)
+- para **NUVEM**: Vigia 27/11 16:10: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-26: analise_com_site=15, analise_sem_robo=159, conta_sem_robo=1
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
@@ -241,28 +242,28 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
-- 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
-- 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
-- 27/11 10:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
-- 27/11 10:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
-- 27/11 10:06 — IDEIAS: estudo §33 (comercial) guardado como inspiração de marketing do Semp
-- 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
-- 27/11 09:55 — IDEIAS: v51 Acabou de chegar: cartão de peça em folha, nome do Semp + cor · preço
-- 27/11 09:49 — IDEIAS: v50 WhatsApp fixo no mesmo lugar em todas as páginas
-- 27/11 09:45 — IDEIAS: v49 WhatsApp como fica (espaço no fim da página)
-- 27/11 09:42 — IDEIAS: v48 aprovado
-- 27/11 09:40 — IDEIAS: v48 serviços na faixa + WhatsApp sempre no canto
-- 27/11 09:37 — IDEIAS: v47 aprovado
-- 27/11 09:26 — IDEIAS: v47 faixa de ferramentas colada embaixo da capa
-- 27/11 09:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
-- 27/11 09:06 — IDEIAS: v46 Feminino|Masculino como guia (sem título, ›, PC 4:5 centrado)
-- 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
-- 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
-- 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
-- 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
-- 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
-- 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
-- 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
-- 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
-- 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
-- 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
+- 27/11 13:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
+- 27/11 13:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
+- 27/11 13:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
+- 27/11 13:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
+- 27/11 13:06 — IDEIAS: estudo §33 (comercial) guardado como inspiração de marketing do Semp
+- 27/11 12:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
+- 27/11 12:55 — IDEIAS: v51 Acabou de chegar: cartão de peça em folha, nome do Semp + cor · preço
+- 27/11 12:49 — IDEIAS: v50 WhatsApp fixo no mesmo lugar em todas as páginas
+- 27/11 12:45 — IDEIAS: v49 WhatsApp como fica (espaço no fim da página)
+- 27/11 12:42 — IDEIAS: v48 aprovado
+- 27/11 12:40 — IDEIAS: v48 serviços na faixa + WhatsApp sempre no canto
+- 27/11 12:37 — IDEIAS: v47 aprovado
+- 27/11 12:26 — IDEIAS: v47 faixa de ferramentas colada embaixo da capa
+- 27/11 12:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
+- 27/11 12:06 — IDEIAS: v46 Feminino|Masculino como guia (sem título, ›, PC 4:5 centrado)
+- 26/11 15:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
+- 26/11 15:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
+- 26/11 15:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
+- 26/11 15:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
+- 26/11 14:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
+- 26/11 12:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
+- 26/11 10:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
+- 24/11 14:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
+- 24/11 14:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
+- 24/11 14:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
