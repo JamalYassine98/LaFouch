@@ -193,6 +193,7 @@
 - para **NUVEM**: Vigia 24/11 17:21: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-23: conta_sem_robo=1, pedido_sem_robo=1, reserva_sem_robo=2 
 - para **NUVEM**: Vigia 25/11 16:34: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-24: analise_com_site=8, analise_sem_robo=4, analise_sem_site=1,
 - para **NUVEM**: Vigia 26/11 16:17: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-25: analise_com_site=6, analise_sem_robo=163, conta_sem_robo=1,
+- para **NUVEM**: Item novo: titan-cerebro-nuvem (dono aprovou 27/11 10:23; teto US$ 10/mês autorizado 10:21). Por dentro (6b): cérebro do Titan (câmbio+preços) e do Semp pela AP
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
