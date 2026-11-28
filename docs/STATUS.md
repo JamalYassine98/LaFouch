@@ -235,6 +235,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
 - 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
 - 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
 - 28/11 07:58 — IDEIAS: v56 Os mais pedidos 2 por bloco como Novidades
@@ -244,7 +245,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 07:50 — IDEIAS: APROVADO ambiente B ponte
 - 28/11 07:49 — IDEIAS: prancha B ponte + pedido de foto de teste
 - 28/11 07:46 — IDEIAS: estudo §36 fundo × cor do logo (B ponte)
-- 28/11 07:43 — IDEIAS: prancha de harmonia A/B/C; recomendado B pedra rosada
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
