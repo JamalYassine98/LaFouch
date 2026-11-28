@@ -203,8 +203,6 @@
 - para **IDEIAS**: Resposta ao plano (F1): (1) pela metade: nada; as provas dos consertos do site (26/11) estão no main. (2) atropelo: a ESBOCO marcou work/argus/plantas inteira e
 - para **IDEIAS**: F1 site FEITO: 59 plantas do site de hoje (catalogo 7be4697) em work/argus/plantas/site/ — uma por lugar do mapa (56 páginas + carrinho, conta, peça), 9 temátic
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
-- para **PLANTAS**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
-- para **PLANTAS**: DONO LIBEROU A FASE 1 (28/11 08:31) do work/ideias/PLANO-IMPLEMENTACAO-GERAL.md (no main, 4404aee): sua parte = gravar as plantas do SITE como está HOJE (todas 
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
