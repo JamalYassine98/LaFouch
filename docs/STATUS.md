@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| ESBOCO | FASE 1: plantas do app (17 + Início) e travas do Argus | work/argus/motor, work/argus/plantas, work/argus/setor_app/porta.py, work/argus/setor_site/porta.py |
 | IDEIAS | esboço v58 atendente — esfera de vidro integrada | work/ideias/18-inicio-inteiro/atendente.py |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
@@ -247,6 +246,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 15:10 — ESBOCO: FASE 1: 26 plantas do app, travas de limpeza ligadas; porta rápida revelou 55+5 defeitos de hoje e passou do tempo — decisões ao dono via IDEIAS
 - 28/11 12:12 — PLANTAS: F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto
 - 28/11 08:37 — NUVEM: Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado.
 - 28/11 08:32 — IDEIAS: plano aprovado; Fase 1 liberada (ESBOCO + PLANTAS); arquivos no main
@@ -269,6 +269,5 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
-- 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
 - 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono

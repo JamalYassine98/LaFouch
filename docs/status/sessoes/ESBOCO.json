@@ -1,13 +1,12 @@
 {
  "nome": "ESBOCO",
- "agora": "FASE 1: plantas do app (17 + Início) e travas do Argus",
- "arquivos": [
-  "work/argus/motor",
-  "work/argus/plantas",
-  "work/argus/setor_app/porta.py",
-  "work/argus/setor_site/porta.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795889405.4584033,
+   "r": "FASE 1: 26 plantas do app, travas de limpeza ligadas; porta rápida revelou 55+5 defeitos de hoje e passou do tempo — decisões ao dono via IDEIAS"
+  },
   {
    "t": 1795786723.4203842,
    "r": "plano de modularização; Fila de implementação pausada (dono 10:37)"
@@ -43,10 +42,6 @@
   {
    "t": 1795705636.9323277,
    "r": "esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP"
-  },
-  {
-   "t": 1795704009.2676907,
-   "r": "Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada"
   }
  ],
  "leu": 1795873348.9288764
