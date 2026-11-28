@@ -235,6 +235,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 08:08 — IDEIAS: site incluído no plano modular; fragmentação máxima
 - 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
 - 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
 - 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
@@ -244,7 +245,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 07:51 — IDEIAS: v54 capa sem botão: convite discreto, as duas lâminas iguais
 - 28/11 07:50 — IDEIAS: APROVADO ambiente B ponte
 - 28/11 07:49 — IDEIAS: prancha B ponte + pedido de foto de teste
-- 28/11 07:46 — IDEIAS: estudo §36 fundo × cor do logo (B ponte)
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP

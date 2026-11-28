@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795864131.8949292,
+   "r": "site incluído no plano modular; fragmentação máxima"
+  },
+  {
    "t": 1795863902.1132314,
    "r": "achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795862960.5706542,
    "r": "prancha B ponte + pedido de foto de teste"
-  },
-  {
-   "t": 1795862786.6221087,
-   "r": "estudo §36 fundo × cor do logo (B ponte)"
   }
  ],
  "leu": 1795857314.2716722
