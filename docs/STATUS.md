@@ -194,6 +194,7 @@
 
 ## Recados esperando
 
+- para **APP**: Nuvem do TESTE pronta (28/11 18:07, item 32): lafouch-teste com as 26 funções (no teste e-mail/mídia não saem: viram saidas/) e regras = loja + relatorios/ (cri
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **ESBOCO**: Fase 3 (NUVEM liberada pelo dono 28/11 17:25), parte 1 feita (não publicada): firestore.teste.rules/storage.teste.rules são GERADOS por tools/regras-teste.py do
 - para **ESBOCO**: Argus completo no ramo app/atualiza-ao-vivo (410571b8 = v642 reaplicado, desfaz o revert): tests/run.py ok e plantas válidas ok (26), mas a etapa 'comparador' Q
