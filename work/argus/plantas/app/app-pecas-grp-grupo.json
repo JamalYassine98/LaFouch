@@ -3,7 +3,7 @@
  "tela": "Peças · grp] › Grupo",
  "passos": [
   "()=>window.__argus.aba(2)",
-  "()=>{if(!window.__argus.tocaNome(\"Gerenciar grupo \\u203a\",0))throw new Error('planta: não achei '+\"Gerenciar grupo \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Gerenciar grupo ›\",0))throw new Error('planta: não achei '+\"Gerenciar grupo ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

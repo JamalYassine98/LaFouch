@@ -3,7 +3,7 @@
  "tela": "Despesas",
  "passos": [
   "()=>window.__argus.aba(3)",
-  "()=>{if(!window.__argus.tocaNome(\"Despesas Contas do m\\u00eas e imprevistos \\u203a\",0))throw new Error('planta: não achei '+\"Despesas Contas do m\\u00eas e imprevistos \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Despesas Contas do mês e imprevistos ›\",0))throw new Error('planta: não achei '+\"Despesas Contas do mês e imprevistos ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

@@ -53,9 +53,12 @@ def roda(modo='rapida', so_telas=None):
                 f, _ = relatorio.tela(pw, pl, tm, REL, navegador=nav)
                 if f: fotos.append(f)
         if fotos: _etapa(E, 'relatório: fotos marcadas (hoje × planta)', 'aviso', fotos)
-        # 4 toques
+        # 4 toques — na RÁPIDA (a cada passo): as telas que o comparador achou diferentes + 3 outras que giram por dia (todas
+        # passam em ~9 dias); na COMPLETA, todas (28/11: com as 26 plantas a rápida não cabia nos 10 min)
+        dia = int(time.time() // 86400); giro = [pl for k, pl in enumerate(apr) if (k - dia * 3) % len(apr) < 3] if apr else []
+        apr_t = apr if completa else [pl for pl in apr if any(i == pl['id'] for i, _ in difs)] + [pl for pl in giro if not any(i == pl['id'] for i, _ in difs)]
         it = []
-        for pl in apr: it += ['%s: %s %s' % (pl['tela'], a, b) for a, b in toques.confere(pw, pl)]
+        for pl in apr_t: it += ['%s: %s %s' % (pl['tela'], a, b) for a, b in toques.confere(pw, pl)]
         av = [x for x in it if toques.APROVADO in x]; it = [x for x in it if toques.APROVADO not in x]
         _etapa(E, 'toques (ligações e regras)', 'FALHA' if it else 'ok', it)
         vids = []   # relatório: vídeo (MP4) de cada botão que falhou, com o dedo de verdade
@@ -71,7 +74,7 @@ def roda(modo='rapida', so_telas=None):
         # o que aparece igual no modo da planta (celular do dono, letra 1×) e o app é igual à planta = está no APROVADO; nos outros
         # modos, o MESMO achado (mesma regra, mesma peça) também é do aprovado — só o que é novo naquele modo é falha
         base = set()
-        for pl in apr:
+        for pl in apr_t:
             tela = planta.tela_de(pl)
             for apar in (APARELHOS if completa else [aparelhos.DONO]):
                 for tema in modos.TEMAS:
@@ -85,7 +88,7 @@ def roda(modo='rapida', so_telas=None):
                             else: fal.append(txt)
                         b.close()
         # outros modos do app: reduzir movimento, sem internet, com PIN e com biometria
-        for pl in apr:
+        for pl in apr_t:
             tela = planta.tela_de(pl)
             b, pg = planta._abre_tela(pw, tela, 'escuro', None, navegador=nav, reduzir_movimento=True)
             fal += ['%s · %s · %s' % (x[1], x[0], x[2]) for x in familia.mede_tela('%s · reduzir movimento' % pl['tela'], pg.evaluate(familia.COLETA), True) if x[0].startswith('mexe')]; b.close(); rodou.add('reduzir movimento')

@@ -3,7 +3,7 @@
  "tela": "Catálogo · vendas] › Ler haste",
  "passos": [
   "()=>window.__argus.aba(1)",
-  "()=>{if(!window.__argus.tocaNome(\"Buscar com a c\\u00e2mera\",0))throw new Error('planta: não achei '+\"Buscar com a c\\u00e2mera\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Buscar com a câmera\",0))throw new Error('planta: não achei '+\"Buscar com a câmera\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

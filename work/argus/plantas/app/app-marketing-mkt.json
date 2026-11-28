@@ -3,7 +3,7 @@
  "tela": "Marketing",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Grupo Marketing: Marketing \\u00b7 Tem\\u00e1tica \\u00b7 Cart\\u00f5es \\u00b7 Analisador\",0))throw new Error('planta: não achei '+\"Grupo Marketing: Marketing \\u00b7 Tem\\u00e1tica \\u00b7 Cart\\u00f5es \\u00b7 Analisador\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Grupo Marketing: Marketing · Temática · Cartões · Analisador\",0))throw new Error('planta: não achei '+\"Grupo Marketing: Marketing · Temática · Cartões · Analisador\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

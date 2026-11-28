@@ -15,7 +15,7 @@ def passos_de(pw, caminho):
         for tipo, i in caminho:
             if tipo == 'aba': js = '()=>window.__argus.aba(%d)' % i
             else:
-                n, k = pg.evaluate("(i)=>{const L=window.__argus.tocaveis(),e=L[i],n=window.__argus.nome(e);return [n,L.slice(0,i).filter(x=>window.__argus.nome(x)===n).length]}", i)
+                n, k = pg.evaluate("(i)=>{const A=window.__argus,L=A.tocaveis(),n=A.chaveNome(A.nome(L[i]));return [n,L.slice(0,i).filter(x=>A.chaveNome(A.nome(x))===n).length]}", i)
                 js = "()=>{if(!window.__argus.tocaNome(%s,%d))throw new Error('planta: não achei '+%s)}" % (json.dumps(n), k, json.dumps(n))
             pg.evaluate(js); pg.wait_for_timeout(950); P.append(js)
     finally: b.close()

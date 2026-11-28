@@ -3,7 +3,7 @@
  "tela": "Dashboard",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Vendido hoje \\u00b7 5 venda(s) G$ 360.000 \\u203a\",0))throw new Error('planta: não achei '+\"Vendido hoje \\u00b7 5 venda(s) G$ 360.000 \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Vendido hoje · # venda(s) G$ # ›\",0))throw new Error('planta: não achei '+\"Vendido hoje · # venda(s) G$ # ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

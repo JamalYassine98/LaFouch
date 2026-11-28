@@ -3,7 +3,7 @@
  "tela": "Pendências",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Pend\\u00eancias\",0))throw new Error('planta: não achei '+\"Pend\\u00eancias\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Pendências\",0))throw new Error('planta: não achei '+\"Pendências\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

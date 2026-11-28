@@ -3,7 +3,7 @@
  "tela": "Atacado",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Atacado Or\\u00e7amentos\",0))throw new Error('planta: não achei '+\"Atacado Or\\u00e7amentos\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Atacado Orçamentos\",0))throw new Error('planta: não achei '+\"Atacado Orçamentos\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

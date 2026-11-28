@@ -3,7 +3,7 @@
  "tela": "Resultados",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Grupo Resultados: Dashboard \\u00b7 Hist\\u00f3rico\",0))throw new Error('planta: não achei '+\"Grupo Resultados: Dashboard \\u00b7 Hist\\u00f3rico\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Grupo Resultados: Dashboard · Histórico\",0))throw new Error('planta: não achei '+\"Grupo Resultados: Dashboard · Histórico\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

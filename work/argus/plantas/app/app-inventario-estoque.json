@@ -3,7 +3,7 @@
  "tela": "Inventário",
  "passos": [
   "()=>window.__argus.aba(2)",
-  "()=>{if(!window.__argus.tocaNome(\"Invent\\u00e1rio Cadastro, estoque e pre\\u00e7o de cada pe\\u00e7a \\u203a\",0))throw new Error('planta: não achei '+\"Invent\\u00e1rio Cadastro, estoque e pre\\u00e7o de cada pe\\u00e7a \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Inventário Cadastro, estoque e preço de cada peça ›\",0))throw new Error('planta: não achei '+\"Inventário Cadastro, estoque e preço de cada peça ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

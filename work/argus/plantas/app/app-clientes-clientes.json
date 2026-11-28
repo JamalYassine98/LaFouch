@@ -3,7 +3,7 @@
  "tela": "Clientes",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Clientes 0 cadastrados\",0))throw new Error('planta: não achei '+\"Clientes 0 cadastrados\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Clientes # cadastrados\",0))throw new Error('planta: não achei '+\"Clientes # cadastrados\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

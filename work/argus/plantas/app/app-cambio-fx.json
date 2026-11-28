@@ -3,7 +3,7 @@
  "tela": "Câmbio",
  "passos": [
   "()=>window.__argus.aba(3)",
-  "()=>{if(!window.__argus.tocaNome(\"C\\u00e2mbio Cota\\u00e7\\u00f5es e trocas \\u203a\",0))throw new Error('planta: não achei '+\"C\\u00e2mbio Cota\\u00e7\\u00f5es e trocas \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Câmbio Cotações e trocas ›\",0))throw new Error('planta: não achei '+\"Câmbio Cotações e trocas ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

@@ -3,7 +3,7 @@
  "tela": "Preços",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Pre\\u00e7os 2 a decidir\",0))throw new Error('planta: não achei '+\"Pre\\u00e7os 2 a decidir\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Preços # a decidir\",0))throw new Error('planta: não achei '+\"Preços # a decidir\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

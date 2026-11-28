@@ -3,7 +3,7 @@
  "tela": "Site",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Grupo Site: Resumo \\u00b7 Pedidos \\u00b7 Mensagens \\u00b7 Vitrine \\u00b7 Modelos\",0))throw new Error('planta: não achei '+\"Grupo Site: Resumo \\u00b7 Pedidos \\u00b7 Mensagens \\u00b7 Vitrine \\u00b7 Modelos\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Grupo Site: Resumo · Pedidos · Mensagens · Vitrine · Modelos\",0))throw new Error('planta: não achei '+\"Grupo Site: Resumo · Pedidos · Mensagens · Vitrine · Modelos\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",

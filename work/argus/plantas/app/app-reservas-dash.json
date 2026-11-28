@@ -3,7 +3,7 @@
  "tela": "Reservas",
  "passos": [
   "()=>window.__argus.aba(3)",
-  "()=>{if(!window.__argus.tocaNome(\"Reservas Livre e separado \\u203a\",0))throw new Error('planta: não achei '+\"Reservas Livre e separado \\u203a\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Reservas Livre e separado ›\",0))throw new Error('planta: não achei '+\"Reservas Livre e separado ›\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",
