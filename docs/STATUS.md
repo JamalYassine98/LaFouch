@@ -191,6 +191,7 @@
 
 ## Recados esperando
 
+- para **APP**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **NUVEM**: PAUSA (dono 27/11): nada implementar/publicar até ele liberar; plano: work/esboco/modular/PLANO-MODULAR.md (P0 primeiro, com o dono). Guardado: pacote não publi
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
