@@ -20,6 +20,7 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
+| ESBOCO | FASE 1: plantas do app (17 + Início) e travas do Argus | work/argus/motor, work/argus/plantas, work/argus/setor_app/porta.py, work/argus/setor_site/porta.py |
 | PLANTAS | Fase 1: plantas do site como está hoje | work/argus/plantas/site/, work/argus/plantas/lotes/site/ |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
