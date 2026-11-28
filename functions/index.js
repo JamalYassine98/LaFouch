@@ -18,6 +18,7 @@ const fsx = () => admin.firestore();
 
 // A região da função precisa ser a MESMA do banco Firestore (Firebase > Firestore > Dados > Local).
 const REGIAO = 'southamerica-east1';
+const Ambiente = require('./ambiente'); // loja real × projeto de teste (um lugar só)
 const FUSO = 'America/Asuncion';
 
 // ---------- Peças comuns das portas (20/11/2026, regra 12: cada uma num lugar só; antes estavam copiadas porta a porta) ----------
@@ -177,8 +178,8 @@ exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: RE
 // ---------- Reserva de estoque (site e app) ----------
 // Só funciona se config/site tiver reserva = true (interruptor do dono). Desligada, responde {ok:true, off:true}
 // e o site segue vendendo como antes.
-// o projeto de teste (lafouch-teste) tem outro usuário dono
-const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
+// o dono de cada projeto (loja ou teste) mora em ambiente.js
+const DONO_UID = Ambiente.DONO_UID;
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
 // 22/11 (aprovado 15:20): reserva que parece abuso fica marcada em suspeitas/<pedido> para o TITAN avisar o dono (suspeita.js)
@@ -306,6 +307,8 @@ const GH_APP_KEY = defineSecret('GH_APP_KEY');
 
 exports.midia = post('midia', { cors: true, maxInstances: 5, memory: '512MiB', timeoutSeconds: 120, secrets: [GH_APP_ID, GH_APP_KEY] }, async (req, res, b) => {
   if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+  // 28/11: fora da loja real a mídia não vai para o GitHub da loja — só fica registrada em saidas/
+  if (!Ambiente.SAIDA_FORA) return res.json(Object.assign({ ok: true, teste: true }, await Ambiente.registraSaida(fsx(), 'midia', { acao: b.acao, caminho: b.caminho })));
   return res.json(await Midia.executa(b, { appId: GH_APP_ID.value(), chave: GH_APP_KEY.value() }, fetch));
 });
 
@@ -320,6 +323,8 @@ const RESEND_KEY = defineSecret('RESEND_KEY');
 const EMAIL_DE = 'La Fouch <nao-responda@lafouch.com>', EMAIL_RESPONDER = 'lafouch.eyewear@gmail.com';
 function emailResend(op) {
   const o = op || {};
+  // 28/11: fora da loja real (projeto de teste, emulador) o e-mail não sai — vira um registro em saidas/ (ambiente.js)
+  if (!Ambiente.SAIDA_FORA) return async (m) => { await Ambiente.registraSaida(fsx(), 'email', { para: m && m.to, assunto: m && m.subject }); };
   let chave = '';
   try { chave = RESEND_KEY.value() || ''; } catch (e) {}
   if (!chave) return o.semChave === 'erro' ? async () => { throw new Error('sem RESEND_KEY'); } : null;
@@ -582,8 +587,8 @@ exports.login = post('login', { cors: true, maxInstances: 3, secrets: [RESEND_KE
 
 // ---------- S2 (19/11/2026): conta da cliente sem mostrar o e-mail ao público ----------
 // "entrar": nome de usuário antigo + senha → a função acha o e-mail e faz o login por dentro.
-// A chave abaixo é a chave PÚBLICA do Firebase (a mesma que está no site); não é segredo.
-const FB_CHAVE_PUBLICA = 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc';
+// A chave é a chave PÚBLICA do Firebase do projeto em que a função roda (ambiente.js); não é segredo.
+const FB_CHAVE_PUBLICA = Ambiente.CHAVE_PUBLICA;
 async function entraFirebase(email, senha) {
   const r = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + FB_CHAVE_PUBLICA, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: senha, returnSecureToken: true }) });

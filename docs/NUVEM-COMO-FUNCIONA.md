@@ -7,6 +7,9 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow
 - Regras: `firestore.teste.rules` e `storage.teste.rules` são GERADAS por `python3 tools/regras-teste.py` a partir do `firestore.rules`
   (mesmas regras, dono do teste, + só a área `relatorios/` — o app de teste só cria; ninguém lê pelo celular). Nunca editar à mão;
   `functions/teste-regras-teste.js` falha se ficarem diferentes. Publicar no teste usa `firebase.teste.json` (a loja real segue com `firebase.json`).
+- Modo teste (`functions/ambiente.js`, um lugar só): pelo GCLOUD_PROJECT sabe se é a loja (lafouch-2f6bd) ou o teste; dono, chave pública e
+  "pode falar com o mundo" moram lá. Fora da loja real, e-mail (Resend) e mídia (GitHub) não saem: viram registro em `saidas/` (só o servidor grava).
+  Prova: `teste-ambiente.js` (com travas: nenhuma cópia do dono/chave no index.js; envio externo novo só passando pelo ambiente).
 
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
