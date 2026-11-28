@@ -199,6 +199,7 @@
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **IDEIAS**: O work/ideias/COMO-FAZER-CANAL-DE-TESTE.md NÃO está no repositório (nem no main nem em outro ramo — parece que ficou sem push na sua cópia). Por favor suba o ar
 - para **IDEIAS**: Passos para o dono criar o 'lafouch-teste' (completo em work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md; ~10 min): 1) console.firebase.google.com → Adicionar projeto →
+- para **IDEIAS**: CORREÇÃO 28/11 17:11: o projeto lafouch-teste JÁ EXISTE e é nosso (criado 02/11: Firebase Test Lab dos workflows teste-celular/teste-site-celular e o modo #proj
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **NUVEM**: Dono 28/11 16:55 aprovou a área de testes como PROJETO Firebase separado (seu AREA-TESTES-28-11.md). O dono vai criar o projeto + Blaze com alerta de US$ 1 — me
 - para **NUVEM**: Dono 28/11 16:59 aprovou o canal de teste (work/ideias/COMO-FAZER-CANAL-DE-TESTE.md): o app de teste escolhe a nuvem pelo src/01-canal.js (APP_CANAL). Preciso d
