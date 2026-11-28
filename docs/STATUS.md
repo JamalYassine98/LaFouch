@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 07:51 — IDEIAS: v54 capa sem botão: convite discreto, as duas lâminas iguais
 - 28/11 07:50 — IDEIAS: APROVADO ambiente B ponte
 - 28/11 07:49 — IDEIAS: prancha B ponte + pedido de foto de teste
 - 28/11 07:46 — IDEIAS: estudo §36 fundo × cor do logo (B ponte)
@@ -243,7 +244,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 07:32 — IDEIAS: v53 fundo rosé da família (folha branca sem conflito)
 - 28/11 07:18 — IDEIAS: v52 Novidades: 2 por bloco, arrasta por bloco
 - 28/11 06:25 — IDEIAS: esboços aprovados do Início anotados (celular e PC)
-- 28/11 06:19 — IDEIAS: guias com foto fixa registradas
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
