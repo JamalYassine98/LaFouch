@@ -1,7 +1,13 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Fase 3 parte 3: leitor dos relatórios/saídas do teste (só sessões)",
+ "arquivos": [
+  ".github/workflows/ler-teste.yml",
+  "tools/le-teste.py",
+  "tools/relatorios.py",
+  "functions/teste-le-teste.js",
+  ".gitignore"
+ ],
  "ultimas": [
   {
    "t": 1795897853.2900565,
@@ -44,5 +50,5 @@
    "r": "Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue."
   }
  ],
- "leu": 1795897852.768453
+ "leu": 1795898443.3316798
 }
