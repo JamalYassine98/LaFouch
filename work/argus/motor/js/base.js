@@ -107,6 +107,8 @@ A.vigia=()=>{const st={t0:performance.now()};st.ult=st.t0;st.mo=new MutationObse
 // a tela parada muda sozinha? quantas mudanças em ms milissegundos sem ninguém tocar (laço que nunca para = bateria e lentidão)
 A.sozinha=ms=>new Promise(res=>{let n=0;const mo=new MutationObserver(L=>{n+=L.length});mo.observe(document.body,{childList:true,subtree:true,attributes:true,characterData:true});setTimeout(()=>{mo.disconnect();res(n)},ms)});
 A.parou=()=>new Promise(res=>{const st=window.__argusVigia;if(!st)return res(-1);const fim=()=>{const n=performance.now();if(n-st.ult>=150||n-st.t0>15000){st.mo.disconnect();res(Math.round(st.ult-st.t0))}else setTimeout(fim,30)};setTimeout(fim,30)});
+// Passo de planta por NOME (estável: não depende da posição na lista; 28/11, plantas do lote 2). k = qual das iguais (0 = primeira).
+A.tocaNome=(n,k=0)=>{const e=A.tocaveis().filter(x=>A.nome(x)===n)[k];if(!e)return false;e.scrollIntoView({block:'center',behavior:'instant'});e.click();return true};
 A.altura=i=>{const e=A.tocaveis()[i];if(!e)return -1;return Math.round(A.bloco(e).getBoundingClientRect().height)};
 A.aba=k=>{const b=[...document.querySelectorAll('#mainnav .mn')][k];if(!b)return 0;b.click();return 1};
 A.nAbas=()=>document.querySelectorAll('#mainnav .mn').length;

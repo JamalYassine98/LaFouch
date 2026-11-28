@@ -101,4 +101,10 @@ def roda(pw, nav=None, antiga=True):
     if proprio: nav.close()
     import subprocess   # trava 26/11: o status rodado num ramo (a porta anota no fim) nunca publica o ramo no main
     R.append(('status no ramo não publica o ramo', subprocess.run(['python3', os.path.join(os.path.dirname(os.path.dirname(A)), 'tools', 'prova_status_ramo.py')], capture_output=True).returncode == 0))
+    import copy, limpeza   # trava 28/11: cada tipo de piora da limpeza é pego
+    M = limpeza.mede(); B = copy.deepcopy(M); f = next(iter(M['important']))
+    M['duplas']['ACT.provaArgus'] = ['src/a.js:1', 'src/b.js:2']; M['important'][f] += 1; M['arquivos'].append('src/98z-s999.js')
+    M['assuntos']['ultimas-unidades'].append('src/x.js'); M['assuntos_css']['.ulin'] += 1; M['frases']['Frase de prova do Argus'] = ['src/a.js', 'src/b.js']
+    P = limpeza.compara(M, B)
+    R.append(('limpeza pega as 6 pioras plantadas', len(P) >= 7 and limpeza.compara(B, B) == []))
     return all(v for _, v in R), R

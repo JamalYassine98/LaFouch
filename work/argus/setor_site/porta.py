@@ -117,6 +117,11 @@ def roda(modo='rapida'):
             _etapa(E, 'mapa: página do site sem planta aprovada', 'FALHA' if sem else 'ok', sem)
         else: _etapa(E, 'mapa do site', 'não rodou', ['só na rodada completa'])
         nav.close()
+    # 7b limpeza (FASE 1, 28/11): função/ação 2×, "!important", arquivo fora de família, cor/px soltos, UMA REGRA SÓ POR ASSUNTO — nada pode piorar
+    import limpeza
+    try:
+        P, rl, mel = limpeza.confere(); _etapa(E, 'limpeza: nada pode piorar', 'FALHA' if P else 'ok', P + ['hoje: ' + ', '.join('%s %d' % kv for kv in rl.items()) + (' (melhorou: a foto desceu)' if mel and not P else '')])
+    except Exception as e: _etapa(E, 'limpeza: nada pode piorar', 'FALHA', ['não rodou: %s' % e])
     # 8 segurança: o setor NUVEM (na completa também o emulador do Firebase no GitHub)
     try:
         aqui = seguranca.funcoes_aqui(); gh = seguranca.no_github() if completa else None; F, AV = seguranca.resumo(aqui, gh)
