@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| IDEIAS | esboço v58 atendente — esfera de vidro integrada | work/ideias/18-inicio-inteiro/atendente.py |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -241,6 +240,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 16:51 — IDEIAS: Atendente de IA APROVADO (v94: botão em camadas v93 + troca de foco + conversa) → Fila 31-atendente-ia; recados da Fase 1 lidos e resumidos em work/ideias/RECADOS-FASE1-28-11.md (decisões levadas ao dono)
 - 28/11 15:10 — ESBOCO: FASE 1: 26 plantas do app, travas de limpeza ligadas; porta rápida revelou 55+5 defeitos de hoje e passou do tempo — decisões ao dono via IDEIAS
 - 28/11 12:12 — PLANTAS: F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto
 - 28/11 08:37 — NUVEM: Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado.
@@ -253,7 +253,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
 - 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
 - 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
-- 28/11 07:58 — IDEIAS: v56 Os mais pedidos 2 por bloco como Novidades
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP

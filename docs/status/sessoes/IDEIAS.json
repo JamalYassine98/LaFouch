@@ -1,10 +1,12 @@
 {
  "nome": "IDEIAS",
- "agora": "esboço v58 atendente — esfera de vidro integrada",
- "arquivos": [
-  "work/ideias/18-inicio-inteiro/atendente.py"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795895486.8027997,
+   "r": "Atendente de IA APROVADO (v94: botão em camadas v93 + troca de foco + conversa) → Fila 31-atendente-ia; recados da Fase 1 lidos e resumidos em work/ideias/RECADOS-FASE1-28-11.md (decisões levadas ao dono)"
+  },
   {
    "t": 1795865551.486028,
    "r": "plano aprovado; Fase 1 liberada (ESBOCO + PLANTAS); arquivos no main"
@@ -40,10 +42,6 @@
   {
    "t": 1795863628.0994575,
    "r": "v56 aprovado; estudo §37 últimas unidades"
-  },
-  {
-   "t": 1795863480.5751433,
-   "r": "v56 Os mais pedidos 2 por bloco como Novidades"
   }
  ],
  "leu": 1795895458.8041046
