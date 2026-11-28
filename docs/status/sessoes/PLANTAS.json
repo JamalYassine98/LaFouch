@@ -1,11 +1,12 @@
 {
  "nome": "PLANTAS",
- "agora": "Fase 1: plantas do site como está hoje",
- "arquivos": [
-  "work/argus/plantas/site/",
-  "work/argus/plantas/lotes/site/"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795878748.9647899,
+   "r": "F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto"
+  },
   {
    "t": 1795696110.3725302,
    "r": "Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)"
