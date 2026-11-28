@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795857363.1858137,
+   "r": "regra: fotos fixas no Fem|Masc e na capa (sem troca automática)"
+  },
+  {
    "t": 1795856224.9885275,
    "r": "Meta como ajudante no atendimento/Semp/Titan registrado; resumo para o dono passar ao Meta"
   },
@@ -38,11 +42,7 @@
   {
    "t": 1795783037.3197937,
    "r": "v47 aprovado"
-  },
-  {
-   "t": 1795782389.8314981,
-   "r": "v47 faixa de ferramentas colada embaixo da capa"
   }
  ],
- "leu": 1795855074.0917053
+ "leu": 1795857314.2716722
 }
