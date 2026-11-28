@@ -1,16 +1,11 @@
 {
  "nome": "APP",
- "agora": "atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER",
+ "agora": "Canal de teste · fatia 1: src/01-canal.js + build com variante (LF_CANAL); version.json pelo canal — ramo app/atualiza-ao-vivo",
  "arquivos": [
-  "src/97-atualiza.js",
-  "src/01-build.js",
-  "www/index.html",
+  "src/01-canal.js",
   "build.js",
-  "desktop/",
-  "package.json",
-  "capacitor.config.json",
-  ".github/workflows/publicar-app.yml",
-  ".github/workflows/build-apk.yml"
+  "src/97-atualiza.js",
+  "tests/run.py"
  ],
  "ultimas": [
   {

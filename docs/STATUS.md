@@ -19,7 +19,7 @@
 
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
-| APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
+| APP | Canal de teste · fatia 1: src/01-canal.js + build com variante (LF_CANAL); version.json pelo canal — ramo app/atualiza-ao-vivo | src/01-canal.js, build.js, src/97-atualiza.js, tests/run.py |
 | ESBOCO | Argus: plantas Início/Dashboard do ramo da APP + comparador marca FALHA | work/argus/motor/planta.py, work/argus/motor/esboco.py, work/argus/plantas |
 | NUVEM | Fase 3 parte 4: configuração sem chave do lafouch-teste + publicar no teste pelo GitHub | tools/configura-publicar-nuvem.sh, .github/workflows/publicar-nuvem.yml, tools/teste-projeto.json, docs/PUBLICAR-NUVEM-GITHUB.md, functions/teste-publicar-teste.js |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
