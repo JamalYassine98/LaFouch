@@ -174,6 +174,7 @@
 - **argus-porta-site** — SEM SELO · completa · 2026-11-26 07:13 · 3 falha(s) · 18.0 min · commit bdc439863
 - **argus-regras-20-21** — APROVADO e feito 26/11 06:23
 - **atualiza-ao-vivo** — implementar — 1º da ordem (dono 26/11 12:28)
+- **celular-de-testes** — ideia aprovada 28/11 08:22 — entra no plano de implementação (logo depois do P0)
 - **inicio-consertos** — PAUSADO pelo dono 27/11 10:37 (antes vem o plano de modularização)
 - **inicio-feminino-masculino** — aprovado 27/11 09:08 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **inicio-ferramentas-icones** — aprovado 27/11 09:42 (v48: faixa com ferramentas + serviços; WhatsApp sempre no canto) — implementar com o redesenho (depois do Semp)
