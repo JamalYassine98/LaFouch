@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 06:19 — IDEIAS: guias com foto fixa registradas
 - 28/11 06:17 — IDEIAS: lógica das imagens da capa e do guia registrada
 - 28/11 06:16 — IDEIAS: regra: fotos fixas no Fem|Masc e na capa (sem troca automática)
 - 28/11 05:57 — IDEIAS: Meta como ajudante no atendimento/Semp/Titan registrado; resumo para o dono passar ao Meta
@@ -249,7 +250,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 09:49 — IDEIAS: v50 WhatsApp fixo no mesmo lugar em todas as páginas
 - 27/11 09:45 — IDEIAS: v49 WhatsApp como fica (espaço no fim da página)
 - 27/11 09:42 — IDEIAS: v48 aprovado
-- 27/11 09:40 — IDEIAS: v48 serviços na faixa + WhatsApp sempre no canto
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
