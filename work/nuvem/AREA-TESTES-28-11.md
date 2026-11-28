@@ -34,3 +34,4 @@
 ## O que o dono faz (uma vez)
 1. Criar o projeto "lafouch-teste" no console do Firebase e ligar o Blaze (com alerta de US$ 1).
 2. Gerar duas contas de serviço (publicar e só-leitura) e guardar nos segredos do GitHub — a NUVEM passa o passo a passo.
+- (dono 28/11 17:20) As regras do Firestore do lafouch-teste hoje são uma cópia ANTIGA (02/11), diferente do firestore.rules real. Fase 3: trocar pelas reais montadas + bloco dos relatórios, com a prova de igualdade.
