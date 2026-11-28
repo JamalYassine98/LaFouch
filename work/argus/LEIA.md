@@ -136,3 +136,9 @@ Porteiro do site e do app: um motor só, dois setores. Plano: PLANO-ARGUS.md · 
 - Estragos novos (setor_site/estragos.py): foto da peça escondida, cartão vazio, Esc que não chega, janela solta, Destaque que some 250 ms — todos vistos.
 - Prova 7c: a trava das camadas agora olha o site de antes do conserto (f224c92), porque o de hoje já está consertado; + os consertos (hoje passam, os 3 de antes reprovam, os 5 estragos vistos).
 - Bugs AINDA ABERTOS no site de hoje (17f3e97): o "+" do carrinho passa do estoque da cor (ACHADO do Argus); topo e faixa somem ao rolar e abrir o menu (B4, celular −322 px e PC −290 px; conserto aprovado no 61, espera o implementar) — sem prova na porta até o dono decidir.
+
+## 28/11 · FASE 1 · plantas do SITE como está hoje (PLANTAS, dono 08:31)
+- 59 plantas em work/argus/plantas/site/ — uma por lugar do mapa da porta (as 56 páginas .html + carrinho, conta e peça; a peça AC1050 vale para o molde "p/<peça>"), site de hoje = catalogo 7be4697 (versão 1795685498). Gravadas pelo motor: celular do dono nas 9 temáticas + as ligações (dedo). Tablet, PC, 3 letras e espanhol: medidor da porta.
+- Ficam PENDENTES (sem aprovação): o dono aprova o fim da fase; aí cada planta recebe o trecho da linha de aprovação (campo 'aprovacao') e a porta passa a conferir. O mapa já fica coberto (nenhuma página sem planta).
+- Gravar de novo / folhas: work/argus/plantas/lotes/site/grava_site.py <parte> <partes> | folhas (folhas em plantas/lotes/site/folhas/, uma por planta com as 9 temáticas).
+- Visto ao gravar (é o site de hoje, entra assim na planta): no Ano Novo noite o ícone da conta some do topo; o ⚡/emoji da faixa sai como quadrado no simulador (falta a fonte de emoji na máquina, não é o site).

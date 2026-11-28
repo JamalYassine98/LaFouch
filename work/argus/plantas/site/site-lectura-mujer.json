@@ -1,0 +1,9039 @@
+{
+ "id": "site-lectura-mujer",
+ "tela": "lectura-mujer",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      77
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      27.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      15.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      77,
+      407,
+      755
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      99.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      97.5,
+      39,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      129,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      138,
+      52,
+      17
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      138,
+      6,
+      17
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      173.1,
+      43,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      173.1,
+      65,
+      44
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      173.1,
+      72,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      173.1,
+      57,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      231.1,
+      375,
+      66
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      244.1,
+      58,
+      40
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      246.6,
+      161,
+      13
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      261.6,
+      161,
+      20
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      247.6,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      311.1,
+      375,
+      128
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      463.1,
+      375,
+      487.1
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(107, 90, 102)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      492.1,
+      343,
+      36
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      530.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      558.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      586.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      616.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "0px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      663.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      696.7,
+      33,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      725,
+      44,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      753.2,
+      65,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      781.5,
+      47,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      809.7,
+      53,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      663.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      696.7,
+      125,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      725,
+      110,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      753.2,
+      109,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      862,
+      375,
+      88.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(107, 90, 102)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      877,
+      343,
+      18
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      878,
+      43,
+      15
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      878,
+      68,
+      15
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      913,
+      343,
+      17.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      914,
+      63,
+      14
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      914,
+      40,
+      14
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎄 Natal La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(31, 92, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(179, 38, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(179, 38, 58)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(228, 220, 205) / 1px rgb(228, 220, 205)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "rgb(20, 67, 42)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      525.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      563.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      591.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      619.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      649.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "0px rgb(255, 255, 255) / 1px rgb(255, 255, 255)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      729.7,
+      33,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      758,
+      44,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      786.2,
+      65,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      814.5,
+      47,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      842.7,
+      53,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      729.7,
+      125,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      758,
+      110,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      786.2,
+      109,
+      16
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      895,
+      375,
+      88.3
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      910,
+      343,
+      18
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      911,
+      43,
+      15
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      911,
+      68,
+      15
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      946,
+      343,
+      17.3
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      947,
+      63,
+      14
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      947,
+      40,
+      14
+     ],
+     "cor": "rgb(214, 228, 218)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 112, 62)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(236, 231, 222) / 1px rgb(236, 231, 222)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      488.1
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "2px rgb(217, 189, 132) / 0px rgb(119, 115, 107)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      527.1,
+      343,
+      36
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      565.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      593.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      621.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      651.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "0px rgb(168, 133, 74) / 1px rgb(168, 133, 74)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      698.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      731.7,
+      33,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      760,
+      44,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      788.2,
+      65,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      816.5,
+      47,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      844.7,
+      53,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      698.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      731.7,
+      125,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      760,
+      110,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      788.2,
+      109,
+      16
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      897,
+      375,
+      88.3
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "1px rgb(236, 231, 222) / 0px rgb(119, 115, 107)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      912,
+      343,
+      18
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      913,
+      43,
+      15
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      913,
+      68,
+      15
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      948,
+      343,
+      17.3
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      949,
+      63,
+      14
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      949,
+      40,
+      14
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(15, 24, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(22, 33, 58)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 112, 62)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(141, 112, 62)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 233, 240) / 1px rgb(230, 233, 240)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      525.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      563.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      591.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      619.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      649.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "0px rgb(168, 133, 74) / 1px rgb(168, 133, 74)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      729.7,
+      33,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      758,
+      44,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      786.2,
+      65,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      814.5,
+      47,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      842.7,
+      53,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      729.7,
+      125,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      758,
+      110,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      786.2,
+      109,
+      16
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      895,
+      375,
+      88.3
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      910,
+      343,
+      18
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      911,
+      43,
+      15
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      911,
+      68,
+      15
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      946,
+      343,
+      17.3
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      947,
+      63,
+      14
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      947,
+      40,
+      14
+     ],
+     "cor": "rgb(191, 198, 214)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      127
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🌷 Dia das Mães La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      50
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(142, 47, 85)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      77.5,
+      21,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      65.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(184, 67, 111)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      127,
+      407,
+      705
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      149.5,
+      15,
+      15
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(184, 67, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      147.5,
+      39,
+      19
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      179,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      188,
+      52,
+      17
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      188,
+      6,
+      17
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      223.1,
+      43,
+      44
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      223.1,
+      65,
+      44
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      223.1,
+      72,
+      44
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      223.1,
+      57,
+      44
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      281.1,
+      375,
+      66
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(240, 223, 230) / 1px rgb(240, 223, 230)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      294.1,
+      58,
+      40
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      296.6,
+      161,
+      13
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      311.6,
+      161,
+      20
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      297.6,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      361.1,
+      375,
+      128
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      513.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "rgb(110, 34, 69)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      541.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      579.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      607.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      635.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      665.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "0px rgb(184, 67, 111) / 1px rgb(184, 67, 111)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      712.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      745.7,
+      33,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      774,
+      44,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      802.2,
+      65,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      830.5,
+      47,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      858.7,
+      53,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      712.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      745.7,
+      125,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      774,
+      110,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      802.2,
+      109,
+      16
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      911,
+      375,
+      88.3
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      926,
+      343,
+      18
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      927,
+      43,
+      15
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      927,
+      68,
+      15
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      962,
+      343,
+      17.3
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      963,
+      63,
+      14
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      963,
+      40,
+      14
+     ],
+     "cor": "rgb(243, 219, 229)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dia dos Pais La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(30, 47, 77)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(176, 122, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(144, 100, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(144, 100, 48)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(144, 100, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(144, 100, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(144, 100, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(223, 229, 238) / 1px rgb(223, 229, 238)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      525.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      563.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      591.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      619.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      649.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "0px rgb(176, 122, 58) / 1px rgb(176, 122, 58)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      729.7,
+      33,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      758,
+      44,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      786.2,
+      65,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      814.5,
+      47,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      842.7,
+      53,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      729.7,
+      125,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      758,
+      110,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      786.2,
+      109,
+      16
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      895,
+      375,
+      88.3
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      910,
+      343,
+      18
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      911,
+      43,
+      15
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      911,
+      68,
+      15
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      946,
+      343,
+      17.3
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      947,
+      63,
+      14
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      947,
+      40,
+      14
+     ],
+     "cor": "rgb(201, 211, 226)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎃 Semana de Halloween na La Fouch",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 177, 92)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(217, 101, 26)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(174, 81, 21)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(174, 81, 21)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(174, 81, 21)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(174, 81, 21)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(174, 81, 21)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(233, 223, 238) / 1px rgb(233, 223, 238)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      525.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      563.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      591.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      619.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      649.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "0px rgb(255, 255, 255) / 1px rgb(255, 255, 255)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      729.7,
+      33,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      758,
+      44,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      786.2,
+      65,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      814.5,
+      47,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      842.7,
+      53,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      729.7,
+      125,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      758,
+      110,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      786.2,
+      109,
+      16
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      895,
+      375,
+      88.3
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      910,
+      343,
+      18
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      911,
+      43,
+      15
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      911,
+      68,
+      15
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      946,
+      343,
+      17.3
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      947,
+      63,
+      14
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      947,
+      40,
+      14
+     ],
+     "cor": "rgb(217, 203, 224)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(10, 10, 10)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY · ofertas em toda a loja",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(225, 29, 72)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(17, 17, 17)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(243, 243, 243)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(212, 27, 68)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(212, 27, 68)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(212, 27, 68)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(212, 27, 68)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(212, 27, 68)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(226, 226, 226) / 1px rgb(226, 226, 226)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      486.1
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "rgb(10, 10, 10)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      525.1,
+      343,
+      36
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      563.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      591.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      619.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      649.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "0px rgb(255, 255, 255) / 1px rgb(255, 255, 255)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      729.7,
+      33,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      758,
+      44,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      786.2,
+      65,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      814.5,
+      47,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      842.7,
+      53,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      696.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      729.7,
+      125,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      758,
+      110,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      786.2,
+      109,
+      16
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      895,
+      375,
+      88.3
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "1px rgba(255, 255, 255, 0.133) / 0px rgba(255, 255, 255, 0.133)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      910,
+      343,
+      18
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      911,
+      43,
+      15
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      911,
+      68,
+      15
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      946,
+      343,
+      17.3
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      947,
+      63,
+      14
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      947,
+      40,
+      14
+     ],
+     "cor": "rgb(189, 189, 189)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/grau-feminino",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY começa em 2 d 23 h 59 min",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      16,
+      133.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      37,
+      131.5,
+      39,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      16,
+      163,
+      89.2,
+      28.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Filtros",
+     "caixa": [
+      339,
+      172,
+      52,
+      17
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      385,
+      172,
+      6,
+      17
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Todos",
+     "caixa": [
+      16,
+      207.1,
+      43,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      76,
+      207.1,
+      65,
+      44
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      158,
+      207.1,
+      72,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      247,
+      207.1,
+      57,
+      44
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      265.1,
+      375,
+      66
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      278.1,
+      58,
+      40
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1 MINUTO · COM VOZ",
+     "caixa": [
+      101,
+      280.6,
+      161,
+      13
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "10.5px",
+      "700",
+      "Inter",
+      "1.365px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não sabe o seu grau?",
+     "caixa": [
+      101,
+      295.6,
+      161,
+      20
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      281.6,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.",
+     "caixa": [
+      16,
+      345.1,
+      375,
+      128
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      497.1,
+      375,
+      487.1
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(107, 90, 102)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      32,
+      526.1,
+      343,
+      36
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "24px",
+      "400",
+      "Fraunces",
+      "0.24px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tudo em óculos · Ciudad del Este",
+     "caixa": [
+      32,
+      564.1,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Galeria Jebai Center, 3° piso, torre A, n°2242",
+     "caixa": [
+      32,
+      592.3,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Segunda a sábado, das 7h30 às 15h",
+     "caixa": [
+      32,
+      620.6,
+      343,
+      20.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Como chegar ›",
+     "caixa": [
+      155,
+      650.8,
+      97,
+      18.9
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "0px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Comprar",
+     "caixa": [
+      32,
+      697.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      32,
+      730.7,
+      33,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Leitura",
+     "caixa": [
+      32,
+      759,
+      44,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      32,
+      787.2,
+      65,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      32,
+      815.5,
+      47,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      32,
+      843.7,
+      53,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      213.5,
+      697.7,
+      161.5,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      213.5,
+      730.7,
+      125,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      213.5,
+      759,
+      110,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      213.5,
+      787.2,
+      109,
+      16
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      896,
+      375,
+      88.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(107, 90, 102)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· · © 2026 La Fouch",
+     "caixa": [
+      32,
+      911,
+      343,
+      18
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      90,
+      912,
+      43,
+      15
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      142,
+      912,
+      68,
+      15
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Protegido pelo reCAPTCHA do Google · ·",
+     "caixa": [
+      32,
+      947,
+      343,
+      17.3
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Privacidade",
+     "caixa": [
+      256.5,
+      948,
+      63,
+      14
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos",
+     "caixa": [
+      328.5,
+      948,
+      40,
+      14
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11.5px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-lectura-mujer_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "lectura-mujer",
+ "versao_app": "",
+ "titulo": "/grau-feminino",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Menu",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 1,
+   "nome": "La Fouch, tudo em óculos",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 2,
+   "nome": "Buscar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre o menu: Busque pelo nome ou pelo código da peça. OU VEJA P"
+  },
+  {
+   "i": 3,
+   "nome": "Abrir o carrinho",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Seu carrinho"
+  },
+  {
+   "i": 4,
+   "nome": "Minha conta",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌃",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Iniciar sessão"
+  },
+  {
+   "i": 5,
+   "nome": "Início",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "‹",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 6,
+   "nome": "Filtros ›",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 7,
+   "nome": "Todos",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /grau"
+  },
+  {
+   "i": 8,
+   "nome": "Feminino",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "já é a escolha"
+  },
+  {
+   "i": 9,
+   "nome": "Masculino",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /grau-masculino"
+  },
+  {
+   "i": 10,
+   "nome": "Unissex",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /grau-unissex"
+  },
+  {
+   "i": 11,
+   "nome": "1 MINUTO · COM VOZ Não sabe o seu grau? ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: /descubra-o-grau"
+  },
+  {
+   "i": 12,
+   "nome": "Como chegar ›",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "abre a janela de baixo: La Fouch"
+  },
+  {
+   "i": 13,
+   "nome": "Solar",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /sol"
+  },
+  {
+   "i": 14,
+   "nome": "Leitura",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /grau"
+  },
+  {
+   "i": 15,
+   "nome": "Armações",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /armacoes"
+  },
+  {
+   "i": 16,
+   "nome": "Ofertas",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /ofertas"
+  },
+  {
+   "i": 17,
+   "nome": "Atacado",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /atacado"
+  },
+  {
+   "i": 18,
+   "nome": "Dúvidas frequentes",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /como-comprar"
+  },
+  {
+   "i": 19,
+   "nome": "Dicas e cuidados",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /como-comprar"
+  },
+  {
+   "i": 20,
+   "nome": "Entre em contato",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /como-comprar"
+  },
+  {
+   "i": 21,
+   "nome": "Termos",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não achado"
+  },
+  {
+   "i": 22,
+   "nome": "Privacidade",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não achado"
+  },
+  {
+   "i": 23,
+   "nome": "Privacidade",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre fora: policies.google.com"
+  },
+  {
+   "i": 24,
+   "nome": "Termos",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre fora: policies.google.com"
+  }
+ ],
+ "site_commit": "7be4697"
+}

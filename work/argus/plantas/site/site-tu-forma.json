@@ -1,0 +1,11025 @@
+{
+ "id": "site-tu-forma",
+ "tela": "tu-forma",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      77
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      27.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      15.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      77,
+      407,
+      755
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      107.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      105,
+      41,
+      20
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      139,
+      375,
+      29.9
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      174.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      213.4,
+      375,
+      138
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      230.4,
+      96,
+      104
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.959765 0.930471 0.947059)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      248.4,
+      68,
+      68
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      267.4,
+      30,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      236.5,
+      231,
+      14
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      254.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      298.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      298.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      377.4,
+      375,
+      28
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      417.4,
+      375,
+      499
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      418.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      430.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      435.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      435.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      438.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      461.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      442.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      501.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      513.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      518.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      518.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      521.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      544.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      525.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      584.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      596.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      601.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      601.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      604.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      627.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      608.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      667.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      679.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      684.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      684.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      687.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      710.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      691.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      750.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      762.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      767.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      767.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      770.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      793.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      774.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      845.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      850.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      850.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      853.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      876.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      857.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎄 Natal La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(31, 92, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(179, 38, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(179, 38, 58)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "1px rgb(228, 220, 205) / 1px rgb(228, 220, 205)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.973176 0.923412 0.930471)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(179, 38, 58)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(228, 220, 205) / 1px rgb(228, 220, 205)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "color(srgb 0.985098 0.957451 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(29, 43, 34)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(93, 107, 98)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(168, 133, 74)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "1px rgb(236, 231, 222) / 1px rgb(236, 231, 222)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.969294 0.956941 0.936118)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(168, 133, 74)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(236, 231, 222) / 1px rgb(236, 231, 222)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(119, 115, 107)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(15, 24, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(22, 33, 58)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(168, 133, 74)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "1px rgb(230, 233, 240) / 1px rgb(230, 233, 240)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.969294 0.956941 0.936118)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(168, 133, 74)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 233, 240) / 1px rgb(230, 233, 240)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "color(srgb 0.982941 0.976078 0.96451)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 115, 133)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      127
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🌷 Dia das Mães La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      50
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(142, 47, 85)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      77.5,
+      21,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      65.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(184, 67, 111)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      127,
+      407,
+      705
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      157.5,
+      15,
+      15
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(184, 67, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      155,
+      41,
+      20
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      189,
+      375,
+      29.9
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      224.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      263.4,
+      375,
+      138
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "1px rgb(240, 223, 230) / 1px rgb(240, 223, 230)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      280.4,
+      96,
+      104
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.974941 0.933647 0.949176)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      298.4,
+      68,
+      68
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      317.4,
+      30,
+      30
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(184, 67, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      286.5,
+      231,
+      14
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      304.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      348.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      348.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      427.4,
+      375,
+      28
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      467.4,
+      375,
+      499
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(240, 223, 230) / 1px rgb(240, 223, 230)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      468.4,
+      373,
+      83
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      480.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      485.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      485.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      488.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      511.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      492.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      551.4,
+      373,
+      83
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      563.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      568.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      568.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      571.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      594.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      575.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      634.4,
+      373,
+      83
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      646.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      651.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      651.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      654.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      677.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      658.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      717.4,
+      373,
+      83
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      729.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      734.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      734.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      737.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      760.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      741.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      800.4,
+      373,
+      83
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      812.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      817.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      817.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      820.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      843.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      824.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      895.4,
+      64,
+      58
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "color(srgb 0.986078 0.963137 0.971765)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      900.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      900.4,
+      26,
+      48
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(58, 26, 40)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      903.1,
+      245,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      926.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(122, 90, 104)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      907.9,
+      8,
+      33
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dia dos Pais La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(30, 47, 77)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(176, 122, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(176, 122, 58)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "1px rgb(223, 229, 238) / 1px rgb(223, 229, 238)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.972118 0.953059 0.930471)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(176, 122, 58)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(223, 229, 238) / 1px rgb(223, 229, 238)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "color(srgb 0.98451 0.973922 0.961373)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(20, 35, 61)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(92, 106, 128)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎃 Semana de Halloween na La Fouch",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 177, 92)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(217, 101, 26)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(217, 101, 26)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "1px rgb(233, 223, 238) / 1px rgb(233, 223, 238)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.986588 0.945647 0.919177)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(217, 101, 26)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(233, 223, 238) / 1px rgb(233, 223, 238)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "color(srgb 0.992549 0.969804 0.955098)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(110, 90, 118)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(10, 10, 10)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY · ofertas em toda a loja",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(225, 29, 72)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(17, 17, 17)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(243, 243, 243)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(225, 29, 72)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "1px rgb(226, 226, 226) / 1px rgb(226, 226, 226)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.989412 0.920235 0.935412)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(225, 29, 72)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(226, 226, 226) / 1px rgb(226, 226, 226)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "color(srgb 0.994118 0.955686 0.964118)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(17, 17, 17)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(102, 102, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/formato",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY começa em 2 d 23 h 59 min",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      18,
+      141.5,
+      15,
+      15
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M15 5l-7 7 7 7",
+      "traco": "2.8px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      39,
+      139,
+      41,
+      20
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seu formato de rosto",
+     "caixa": [
+      16,
+      173,
+      375,
+      29.9
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "26px",
+      "600",
+      "Fraunces",
+      "-0.26px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Veja quais armações valorizam o seu rosto.",
+     "caixa": [
+      16,
+      208.9,
+      375,
+      22.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      247.4,
+      375,
+      138
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      264.4,
+      96,
+      104
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.959765 0.930471 0.947059)",
+     "borda": "",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      47,
+      282.4,
+      68,
+      68
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      66,
+      301.4,
+      30,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(141, 58, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "PELA CÂMERA · 1 MIN",
+     "caixa": [
+      143,
+      270.5,
+      231,
+      14
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "1.54px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Descubra o seu formato",
+     "caixa": [
+      143,
+      288.5,
+      231,
+      22.8
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "19px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191,
+      332.8,
+      18,
+      18
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z|circle:cx=12,cy=13.2,r=3.6",
+      "traco": "1.9px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Abrir a câmera",
+     "caixa": [
+      217,
+      332.3,
+      109,
+      19
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha o seu formato",
+     "caixa": [
+      16,
+      411.4,
+      375,
+      28
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "600",
+      "Fraunces",
+      "-0.22px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      451.4,
+      375,
+      499
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(239, 227, 234) / 1px rgb(239, 227, 234)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      452.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      464.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      469.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oval",
+     "caixa": [
+      109,
+      472.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: quase qualquer formato",
+     "caixa": [
+      109,
+      495.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      476.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      535.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      547.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      552.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Redondo",
+     "caixa": [
+      109,
+      555.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: retangulares ou angulares",
+     "caixa": [
+      109,
+      578.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      559.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      618.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      630.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      635.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quadrado",
+     "caixa": [
+      109,
+      638.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: arredondadas ou ovais",
+     "caixa": [
+      109,
+      661.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      642.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      701.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      713.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      718.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Alongado",
+     "caixa": [
+      109,
+      721.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: grandes e largas",
+     "caixa": [
+      109,
+      744.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      725.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      17,
+      784.4,
+      373,
+      83
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      796.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      801.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Coração",
+     "caixa": [
+      109,
+      804.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: aviador ou leves",
+     "caixa": [
+      109,
+      827.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      808.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      31,
+      879.4,
+      64,
+      58
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "color(srgb 0.977647 0.961373 0.970588)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      36,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      64,
+      884.4,
+      26,
+      48
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(42, 31, 39)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Diamante",
+     "caixa": [
+      109,
+      887.1,
+      245,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "600",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Combina: gatinho ou ovais",
+     "caixa": [
+      109,
+      910.1,
+      245,
+      19.5
+     ],
+     "cor": "rgb(107, 90, 102)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      368,
+      891.9,
+      8,
+      33
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-tu-forma_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "tu-forma",
+ "versao_app": "",
+ "titulo": "/formato",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Menu",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 1,
+   "nome": "La Fouch, tudo em óculos",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 2,
+   "nome": "Buscar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre o menu: Busque pelo nome ou pelo código da peça. OU VEJA P"
+  },
+  {
+   "i": 3,
+   "nome": "Abrir o carrinho",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Seu carrinho"
+  },
+  {
+   "i": 4,
+   "nome": "Minha conta",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌃",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Iniciar sessão"
+  },
+  {
+   "i": 5,
+   "nome": "Início",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "‹",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 6,
+   "nome": "Abrir a câmera",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Descubra seu tipo de rosto"
+  },
+  {
+   "i": 7,
+   "nome": "Oval Combina: quase qualquer formato ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: /catalogo"
+  },
+  {
+   "i": 8,
+   "nome": "Redondo Combina: retangulares ou angulares ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 9,
+   "nome": "Quadrado Combina: arredondadas ou ovais ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 10,
+   "nome": "Alongado Combina: grandes e largas ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 11,
+   "nome": "Coração Combina: aviador ou leves ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 12,
+   "nome": "Diamante Combina: gatinho ou ovais ›",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "nada"
+  }
+ ],
+ "site_commit": "7be4697"
+}

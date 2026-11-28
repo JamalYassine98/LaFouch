@@ -1,0 +1,9418 @@
+{
+ "id": "site-privacidade",
+ "tela": "privacidade",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/privacidade",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizada em 1º de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esta página explica quais dados o site guarda, para que servem e como pedir a exclusão. Responsável: (Jamal Ali Yassine).",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      293.3,
+      189.3,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch",
+     "caixa": [
+      116.3,
+      242.1,
+      65.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quais dados coletamos",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nome, usuário, e-mail e senha (a senha é guardada de forma protegida pelo Google Firebase; nós não a vemos). Se você entrar com o Google, recebemos seu nome e e-mail.",
+     "caixa": [
+      37.2,
+      343,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Conta:",
+     "caixa": [
+      37.2,
+      346,
+      47,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nacionalidade, documento (RUC, CPF ou DNI), data de nascimento, WhatsApp, cidade e, se você informar, endereço.",
+     "caixa": [
+      37.2,
+      453.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cadastro:",
+     "caixa": [
+      37.2,
+      456.4,
+      69.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "os modelos que você reservou, o valor, a forma de pagamento e o que você enviar.",
+     "caixa": [
+      37.2,
+      537.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pedidos:",
+     "caixa": [
+      37.2,
+      540.4,
+      62.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "comprovante de pagamento",
+     "caixa": [
+      37.2,
+      566.8,
+      307.4,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a câmera é usada só no seu aparelho para identificar o formato do rosto.",
+     "caixa": [
+      37.2,
+      621.3,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Guia \"Qual combina com seu rosto\":",
+     "caixa": [
+      37.2,
+      624.3,
+      255.4,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A imagem não é enviada nem guardada por nós.",
+     "caixa": [
+      37.2,
+      677.1,
+      339.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que você escreve em \"Entre em contato\" ou no pedido de orçamento de atacado (nome, e-mail, telefone, país e a mensagem), para a loja responder.",
+     "caixa": [
+      37.2,
+      731.7,
+      351.8,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mensagens:",
+     "caixa": [
+      37.2,
+      734.7,
+      87.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contamos, sem nome, e-mail, telefone ou endereço, quais modelos foram vistos, salvos ou colocados no carrinho, o que foi buscado, se o teste de leitura ou o guia do rosto foram usados, o idioma e se o acesso foi pelo celular ou computador. Serve só para melhorar o catálogo e não identifica você.",
+     "caixa": [
+      37.2,
+      842,
+      351.8,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Estatísticas anônimas:",
+     "caixa": [
+      37.2,
+      845,
+      162.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "a proteção contra robôs (Google reCAPTCHA) analisa o uso do navegador para separar pessoas de programas automáticos.",
+     "caixa": [
+      37.2,
+      1031.6,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dados técnicos:",
+     "caixa": [
+      37.2,
+      1034.6,
+      114.9,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para que usamos",
+     "caixa": [
+      18,
+      1145.9,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Registrar e atender os seus pedidos e reservas, e confirmar pagamentos.",
+     "caixa": [
+      37.2,
+      1188.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar em contato pelo WhatsApp sobre o pedido, a entrega ou a retirada.",
+     "caixa": [
+      37.2,
+      1245.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Proteger o site contra fraude e spam.",
+     "caixa": [
+      37.2,
+      1303.5,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não vendemos seus dados e não os usamos para propaganda de terceiros.",
+     "caixa": [
+      18,
+      1345.9,
+      371,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Com quem os dados ficam",
+     "caixa": [
+      18,
+      1433.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "guarda a conta, os pedidos e protege o site. Também guarda, em área fechada e acessível só à loja, uma cópia dos cadastros de clientes e dos registros de venda usados nos aparelhos da loja, para que fiquem iguais em todos eles.",
+     "caixa": [
+      37.2,
+      1476.2,
+      351.8,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Google (Firebase e reCAPTCHA):",
+     "caixa": [
+      37.2,
+      1479.2,
+      237.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "hospeda o site (as páginas públicas e as fotos do catálogo; não os seus dados).",
+     "caixa": [
+      37.2,
+      1639.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "GitHub Pages:",
+     "caixa": [
+      37.2,
+      1642.4,
+      103.1,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "usado quando você escolhe falar com a loja.",
+     "caixa": [
+      37.2,
+      1723.3,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "WhatsApp:",
+     "caixa": [
+      37.2,
+      1726.3,
+      78.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Por quanto tempo",
+     "caixa": [
+      18,
+      1811.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Enquanto a sua conta existir e, depois, pelo prazo necessário para cumprir obrigações legais e resolver problemas com pedidos.",
+     "caixa": [
+      18,
+      1853.7,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seus direitos",
+     "caixa": [
+      18,
+      1968.1,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você também pode sozinho(a), em . O cadastro e o acesso são apagados. Os dados de pedidos já pagos continuam guardados pela loja (recibo, controle de estoque e obrigações fiscais), e pedidos aguardando pagamento são cancelados.",
+     "caixa": [
+      18,
+      2010.5,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir a sua conta",
+     "caixa": [
+      160.8,
+      2013.5,
+      134.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Minha conta › Excluir minha conta",
+     "caixa": [
+      44.5,
+      2039.8,
+      243.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode pedir para ver, corrigir ou a sua conta e os seus dados. Fale com a loja pelo WhatsApp ou pessoalmente: Galeria Jebai Center, 3º piso, torre A, n° 2242, Ciudad del Este (segunda a sábado, das 7h30 às 15h).",
+     "caixa": [
+      18,
+      2184.8,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "excluir",
+     "caixa": [
+      276.7,
+      2187.8,
+      48.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "+595 983 642 241",
+     "caixa": [
+      95.6,
+      2240.6,
+      128.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2371.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-privacidade_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "privacidade",
+ "versao_app": "",
+ "titulo": "/privacidade",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "← La Fouch",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não achado"
+  },
+  {
+   "i": 1,
+   "nome": "Português",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "já é a escolha"
+  },
+  {
+   "i": 2,
+   "nome": "Español",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 3,
+   "nome": "+595 983 642 241",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre fora: wa.me"
+  }
+ ],
+ "site_commit": "7be4697"
+}

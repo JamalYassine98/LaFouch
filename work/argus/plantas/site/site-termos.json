@@ -1,0 +1,10256 @@
+{
+ "id": "site-termos",
+ "tela": "termos",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/termos",
+   "pecas": [
+    {
+     "tipo": "texto",
+     "texto": "← La Fouch",
+     "caixa": [
+      18,
+      33,
+      74.5,
+      23.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Português",
+     "caixa": [
+      213.6,
+      28,
+      91.5,
+      33.1
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "1px rgb(141, 58, 105) / 1px rgb(141, 58, 105)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Español",
+     "caixa": [
+      313.1,
+      28,
+      75.9,
+      33.1
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 216, 225) / 1px rgb(230, 216, 225)",
+     "raio": "999px",
+     "letra": [
+      "14px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Termos e Condições",
+     "caixa": [
+      18,
+      85.1,
+      371,
+      36
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · Ciudad del Este, Paraguai · Atualizados em 13 de novembro de 2026",
+     "caixa": [
+      18,
+      124.1,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao criar uma conta ou fazer um pagamento no site , você aceita estes termos e a .",
+     "caixa": [
+      18,
+      186.3,
+      371,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "lafouch.com",
+     "caixa": [
+      18,
+      215.7,
+      89.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.7,
+      357.3,
+      45.4
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1. A loja e o site",
+     "caixa": [
+      18,
+      300.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.",
+     "caixa": [
+      18,
+      343,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2. Pedido e reserva",
+     "caixa": [
+      18,
+      483.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ao pedir, as peças ficam separadas para você.",
+     "caixa": [
+      37.2,
+      526.2,
+      351.8,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).",
+     "caixa": [
+      37.2,
+      557.4,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A peça fica reservada até a retirada ou a entrega, por no máximo , ou até o cancelamento do pedido.",
+     "caixa": [
+      37.2,
+      641.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "180 dias",
+     "caixa": [
+      148.3,
+      670.7,
+      61.5,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de cancelamento, . O cliente pode falar com a loja para analisar o caso.",
+     "caixa": [
+      37.2,
+      725.3,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "não há devolução do valor pago",
+     "caixa": [
+      37.2,
+      728.3,
+      342.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3. Preços e moeda",
+     "caixa": [
+      18,
+      839.7,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter — nunca a mais.",
+     "caixa": [
+      18,
+      882,
+      371,
+      158.3
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "alguns centavos (ou guaranis) a menos",
+     "caixa": [
+      18,
+      990.6,
+      354,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4. Pagamento",
+     "caixa": [
+      18,
+      1075.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "(em reais) ou (em guaranis, por alias), na hora do pedido.",
+     "caixa": [
+      37.2,
+      1118,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "PIX",
+     "caixa": [
+      37.2,
+      1121,
+      25.3,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "transferência Banco Familiar (Paraguay)",
+     "caixa": [
+      37.2,
+      1121,
+      333.8,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.",
+     "caixa": [
+      37.2,
+      1201.9,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.",
+     "caixa": [
+      37.2,
+      1285.9,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Toda venda tem . Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.",
+     "caixa": [
+      37.2,
+      1343.5,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "factura electrónica",
+     "caixa": [
+      155.2,
+      1346.5,
+      135.2,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5. Retirada e entrega",
+     "caixa": [
+      18,
+      1457.8,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também : você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.",
+     "caixa": [
+      18,
+      1500.2,
+      371,
+      184.7
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "delivery por transportadora",
+     "caixa": [
+      18,
+      1529.6,
+      370.5,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6. Troca, devolução e garantia",
+     "caixa": [
+      18,
+      1720.2,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há devolução.",
+     "caixa": [
+      37.2,
+      1765.5,
+      132.7,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.",
+     "caixa": [
+      37.2,
+      1793.7,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Não há garantia.",
+     "caixa": [
+      37.2,
+      1880.7,
+      118,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7. Óculos de leitura e armações",
+     "caixa": [
+      18,
+      1939.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.",
+     "caixa": [
+      18,
+      1981.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8. Cupons e descontos",
+     "caixa": [
+      18,
+      2122.4,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vale , dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.",
+     "caixa": [
+      37.2,
+      2164.8,
+      351.8,
+      79.2
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "um cupom por pedido",
+     "caixa": [
+      72.1,
+      2167.8,
+      156.8,
+      19
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O desconto nunca deixa o pedido abaixo do valor mínimo da loja.",
+     "caixa": [
+      37.2,
+      2248.8,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.",
+     "caixa": [
+      37.2,
+      2306.4,
+      351.8,
+      52.8
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9. Atacado",
+     "caixa": [
+      18,
+      2394.3,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "O atacado é para grandes volumes. Com uma liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.",
+     "caixa": [
+      18,
+      2436.7,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "conta atacadista",
+     "caixa": [
+      18,
+      2439.7,
+      367.9,
+      45.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10. Opiniões",
+     "caixa": [
+      18,
+      2577.5,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.",
+     "caixa": [
+      18,
+      2619.9,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "11. Conta e dados",
+     "caixa": [
+      18,
+      2760.6,
+      371,
+      26.4
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "22px",
+      "700",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a .",
+     "caixa": [
+      18,
+      2803,
+      371,
+      105.6
+     ],
+     "cor": "rgb(36, 26, 33)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Política de Privacidade",
+     "caixa": [
+      103.6,
+      2885.2,
+      161.9,
+      19
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Em caso de diferença entre as versões, vale a versão em português.",
+     "caixa": [
+      18,
+      2936.6,
+      371,
+      46.2
+     ],
+     "cor": "rgb(107, 90, 101)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-termos_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "termos",
+ "versao_app": "",
+ "titulo": "/termos",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "← La Fouch",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não achado"
+  },
+  {
+   "i": 1,
+   "nome": "Português",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "já é a escolha",
+   "atravessa": [
+    {
+     "cima": "lafouch.com",
+     "baixo": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.671875,
+      89.6875,
+      19
+     ]
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "nome": "Español",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha",
+   "atravessa": [
+    {
+     "cima": "lafouch.com",
+     "baixo": "Política de Privacidad",
+     "caixa": [
+      18,
+      242.671875,
+      89.6875,
+      19
+     ]
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "nome": "Política de Privacidade",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ao criar uma conta ou fazer um pagamento no site lafouch.com · nada",
+   "atravessa": [
+    {
+     "cima": "lafouch.com",
+     "baixo": "Política de Privacidade",
+     "caixa": [
+      18,
+      215.671875,
+      89.6875,
+      19
+     ]
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "nome": "Política de Privacidade",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não achado"
+  }
+ ],
+ "site_commit": "7be4697"
+}
