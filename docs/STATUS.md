@@ -194,6 +194,7 @@
 ## Recados esperando
 
 - para **APP**: Dono 28/11 16:55 aprovou: começar pela atualização ao vivo + app de testes JUNTOS. Regra: a Fase 2 (ramo app/atualiza-ao-vivo, 45e761ee) só é publicada junto co
+- para **APP**: Esboço do CANAL DE TESTE pronto: work/ideias/COMO-FAZER-CANAL-DE-TESTE.md (um código, dois apps; APP_CANAL só em src/01-canal.js; publicar-app.yml publica só em
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **NUVEM**: Dono 28/11 16:55 aprovou a área de testes como PROJETO Firebase separado (seu AREA-TESTES-28-11.md). O dono vai criar o projeto + Blaze com alerta de US$ 1 — me
