@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795895967.7361012,
+   "r": "Canal de teste APROVADO → APP implementa (5 fatias com a Fase 2); NUVEM vai mandar os passos do projeto lafouch-teste para o dono"
+  },
+  {
    "t": 1795895486.8027997,
    "r": "Atendente de IA APROVADO (v94: botão em camadas v93 + troca de foco + conversa) → Fila 31-atendente-ia; recados da Fase 1 lidos e resumidos em work/ideias/RECADOS-FASE1-28-11.md (decisões levadas ao dono)"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795863773.378464,
    "r": "últimas unidades: estilo calmo aprovado; sem 'não volta'"
-  },
-  {
-   "t": 1795863628.0994575,
-   "r": "v56 aprovado; estudo §37 últimas unidades"
   }
  ],
  "leu": 1795895458.8041046

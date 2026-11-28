@@ -249,6 +249,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 16:59 — IDEIAS: Canal de teste APROVADO → APP implementa (5 fatias com a Fase 2); NUVEM vai mandar os passos do projeto lafouch-teste para o dono
 - 28/11 16:51 — IDEIAS: Atendente de IA APROVADO (v94: botão em camadas v93 + troca de foco + conversa) → Fila 31-atendente-ia; recados da Fase 1 lidos e resumidos em work/ideias/RECADOS-FASE1-28-11.md (decisões levadas ao dono)
 - 28/11 15:10 — ESBOCO: FASE 1: 26 plantas do app, travas de limpeza ligadas; porta rápida revelou 55+5 defeitos de hoje e passou do tempo — decisões ao dono via IDEIAS
 - 28/11 12:12 — PLANTAS: F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto
@@ -261,7 +262,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 08:08 — IDEIAS: site incluído no plano modular; fragmentação máxima
 - 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
 - 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
-- 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
