@@ -5,7 +5,7 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow
 
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
-  `nuvem/pacote-cupom-24-11` (tag `nuvem-pacote-cupom-24-11`). O `functions/` do main voltou a ser exatamente o que está publicado
+  `nuvem/pacote-cupom-24-11`. O `functions/` do main voltou a ser exatamente o que está publicado
   (último deploy: 4bbadb03, aviso da reserva suspeita). As notas abaixo sobre o pacote valem para o ramo.
 
 ## Estado em 24/11/2026 (estudo da NUVEM)
