@@ -21,7 +21,6 @@
 |---|---|---|
 | APP | Canal de teste · fatia 1: src/01-canal.js + build com variante (LF_CANAL); version.json pelo canal — ramo app/atualiza-ao-vivo | src/01-canal.js, build.js, src/97-atualiza.js, tests/run.py |
 | ESBOCO | Argus: plantas Início/Dashboard do ramo da APP + comparador marca FALHA | work/argus/motor/planta.py, work/argus/motor/esboco.py, work/argus/plantas |
-| NUVEM | Fase 3 parte 4: configuração sem chave do lafouch-teste + publicar no teste pelo GitHub | tools/configura-publicar-nuvem.sh, .github/workflows/publicar-nuvem.yml, tools/teste-projeto.json, docs/PUBLICAR-NUVEM-GITHUB.md, functions/teste-publicar-teste.js |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -246,6 +245,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 18:13 — NUVEM: Fase 3 parte 4 feita: lafouch-teste configurado sem chave (github-publica + github-le), regras do teste (Firestore+Storage) e funções publicadas no teste pelo GitHub (run 46189656938, Deploy complete). Leitor tools/relatorios.py testado no teste real. Loja real intocada.
 - 28/11 17:47 — IDEIAS: Subiu o COMO-FAZER-CANAL-DE-TESTE.md no main (bf835f8) + recado à APP; NUVEM: parte do dono no lafouch-teste concluída (projeto já existia), espera a Fase 3
 - 28/11 17:43 — NUVEM: Fase 3 parte 3 feita (não publicada): tools/le-teste.py + ler-teste.yml (só quando chamado, conta só-leitura do teste) + tools/relatorios.py para as sessões; leituras em work/relatorios/ (fora do repo); prova teste-le-teste.js; 28/28 provas ok. Falta parte 4 (conta sem chave no teste + 1ª publicação).
 - 28/11 17:30 — NUVEM: Fase 3 partes 1 (regras do teste geradas + relatórios) e 2 (ambiente.js: no teste nada sai para fora). 27/27 testes ok. Nada publicado.
@@ -270,4 +270,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 10:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
 - 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
-- 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
