@@ -6,11 +6,11 @@
 const { Falha } = require('./falha');
 const ERROS_MAX = 5; // telefone errado 5 vezes → espera
 const TRAVA_MS = 60 * 60 * 1000; // 1 hora
-// 24/11: confere o número INTEIRO, com o país (antes: os 6 últimos dígitos). A regra mora em fone.js.
-const { fone } = require('./fone');
+const so = (t) => String(t || '').replace(/\D/g, '');
+// confere os 6 últimos dígitos (o código do país pode vir ou não)
 function mesmoTel(doPedido, informado) {
-  const a = fone(doPedido), b = fone(informado);
-  return !!a && a === b;
+  const a = so(doPedido), b = so(informado);
+  return a.length >= 6 && b.length >= 6 && a.slice(-6) === b.slice(-6);
 }
 const pidOk = (pid) => /^[A-Za-z0-9_-]{4,40}$/.test(String(pid || ''));
 

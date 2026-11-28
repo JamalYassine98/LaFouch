@@ -148,8 +148,8 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
   await teste('S6: estranho digita o telefone de uma VIP → NÃO vê VIP nem ganha a reserva de 3 h; a VIP logada ganha', async () => {
     const crypto = require('crypto');
     dados.set('config/site', { ativo: true, reserva: true }); dados.set('estoque/SL1', { res: {} });
-    dados.set('compradores/t595981000111', { vip: 1 });
-    dados.set('compradores/e' + crypto.createHash('sha256').update('cliente@exemplo.com').digest('hex').slice(0, 32), { tel: '595981000111' });
+    dados.set('compradores/t981000111', { vip: 1 });
+    dados.set('compradores/e' + crypto.createHash('sha256').update('cliente@exemplo.com').digest('hex').slice(0, 32), { tel: '981000111' });
     const a = await chama({ acao: 'reservar', pedido: 'PVIP1', itens: it, tel: '0981000111' });
     assert.ok(a.ok && !a.vip, JSON.stringify(a));
     await chama({ acao: 'cancelar', pedido: 'PVIP1', itens: it });

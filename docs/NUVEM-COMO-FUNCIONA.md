@@ -3,6 +3,11 @@
 Atualizado em 20/11/2026 pela sessão NUVEM · implementa (estado e pendências: 24/11). Quem mexe aqui é só a NUVEM (CLAUDE.md 1b).
 Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow; o dono pode rodar no PC).
 
+## PAUSA do dono (27/11 10:37) — guardado 28/11
+- O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
+  `nuvem/pacote-cupom-24-11` (tag `nuvem-pacote-cupom-24-11`). O `functions/` do main voltou a ser exatamente o que está publicado
+  (último deploy: 4bbadb03, aviso da reserva suspeita). As notas abaixo sobre o pacote valem para o ramo.
+
 ## Estado em 24/11/2026 (estudo da NUVEM)
 - **Telefone completo (24/11, não publicado):** `fone.js` é a regra única — o número inteiro com o país (595…/55…/54…); cupons,
   compradores, VIP, limite de pedido por telefone e o token de entrega usam ela (antes: 9 ou 6 últimos dígitos, BR e PY podiam coincidir).

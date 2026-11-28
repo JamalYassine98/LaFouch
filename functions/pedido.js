@@ -15,7 +15,6 @@ const CHAVES = {
   avise: ['tipo', 'ref', 'nome', 'tel', 'pais', 'ts'],
 };
 const TEXTO = { nome: 80, tel: 30, email: 200, doc: 30, obsC: 200, endE: 300, refE: 200, depE: 80, cidade: 80, cod: 12, lang: 4, moeda: 4, rosto: 40, pais: 4, nac: 4, nasc: 12, end: 300, ent: 10, pag: 10, cup: 24 };
-const { fone } = require('./fone');
 const so = (t) => String(t || '').replace(/\D/g, '');
 
 // confere o documento: devolve o tipo, ou lança Falha('formato')
@@ -48,8 +47,8 @@ async function entrega(db, b, agora, ipk) {
     if (tipo === 'comp' && p.pago) throw new Falha('pago', 409);
   }
   if ((await db.conta(tipo + '_r' + ipk, agora)) > LIMITE[tipo]) throw new Falha('espera', 429);
-  const tel = fone(doc.tel); // 24/11: o número inteiro, com o país
-  if (tipo === 'pedido' && tel && (await db.conta('pedido_t' + tel, agora)) > LIMITE.tel) throw new Falha('espera', 429);
+  const tel = so(doc.tel).slice(-9);
+  if (tipo === 'pedido' && tel.length >= 6 && (await db.conta('pedido_t' + tel, agora)) > LIMITE.tel) throw new Falha('espera', 429);
   await db.cria(id, Object.assign({}, doc, tipo === 'pedido' ? {} : { tipo }), tipo);
   return { ok: true };
 }
