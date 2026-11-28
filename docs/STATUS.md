@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| NUVEM | Fase 3 parte 2: modo teste (nada sai para fora no lafouch-teste) | functions/ambiente.js, functions/index.js, functions/teste-ambiente.js |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -257,6 +256,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 17:30 — NUVEM: Fase 3 partes 1 (regras do teste geradas + relatórios) e 2 (ambiente.js: no teste nada sai para fora). 27/27 testes ok. Nada publicado.
 - 28/11 17:24 — NUVEM: Dono preparou o lafouch-teste (já existia; não excluído): Blaze, alerta US$ 1, Storage US-EAST1, Anônimo. Regras reais publicadas = firestore.rules (conferido). Nada implementado (pausa).
 - 28/11 17:06 — NUVEM: Passos do projeto lafouch-teste mandados à IDEIAS (work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md). Nada implementado (pausa).
 - 28/11 16:59 — IDEIAS: Canal de teste APROVADO → APP implementa (5 fatias com a Fase 2); NUVEM vai mandar os passos do projeto lafouch-teste para o dono
@@ -281,4 +281,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
-- 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
