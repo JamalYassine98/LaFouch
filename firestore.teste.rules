@@ -1,0 +1,112 @@
+// GERADO por tools/regras-teste.py a partir do firestore.rules — NÃO EDITAR À MÃO.
+// Projeto lafouch-teste: as MESMAS regras da loja, com o dono do teste, + só a área de relatórios.
+rules_version = '2';
+// Regras do Firestore da La Fouch (cópia oficial no projeto desde 12/11/2026).
+// Publicar: copiar TUDO e colar em Firebase › Firestore › Regras › Publicar
+// (ou: npx firebase-tools deploy --only firestore:rules). O porteiro confere este arquivo com o que o site envia.
+// Coleções sem "match" aqui (mensagens, inscricoes, voltas, analise, codigos, avaliacoes…) ficam FECHADAS:
+// só as funções do Firebase (servidor) leem e gravam nelas.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function dono() {
+      return request.auth != null
+        && request.auth.uid == 'uvYpqxPJZjTsSE9SACouW0nZH4d2'
+        && request.auth.token.email == 'jamalaliyassine@gmail.com';
+    }
+    match /produtos/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    match /fotos/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    // S409 (17/11/2026): piso de cada peça para o presente especial — o app grava; só o app e o servidor leem (o piso NUNCA vai para o site)
+    match /pisos/{d} {
+      allow read, write: if dono();
+    }
+    match /config/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    match /estoque/{d} {
+      allow read: if true;
+    }
+    // S191 Conta Atacadista/Mayorista: só o dono (app) lê e escreve; o site passa pela função "atacado"
+    match /atacadoContas/{d} { allow read, write: if dono(); }
+    match /atacadoPrecos/{d} { allow read, write: if dono(); }
+    match /atacadoPedidos/{d} { allow read, write: if dono(); }
+    match /atacadoAvisos/{d} { allow read, delete: if dono(); }
+    // S206 lotes de atacado: o dono cria/edita no app; a separação de 30 min só a função escreve (o dono pode ler)
+    match /atacadoLotes/{d} { allow read, write: if dono(); }
+    match /atacadoSep/{d} { allow read: if dono(); }
+    match /temaEnvios/{d} { allow read: if dono(); }
+    // S181 modo loja: o tablet (dono) grava o chamado; a função avisarChama apita o celular do vendedor
+    match /lojaChama/{d} { allow create, read: if dono(); }
+    // S197 PIX automático: o app (dono) registra a espera da venda da loja e lê os PIX sem par; a função escreve com o admin
+    match /pixEspera/{d} { allow read, write: if dono(); }
+    match /pixSemPar/{d} { allow read, delete: if dono(); }
+    match /pixVistos/{d} { allow read: if dono(); }
+    // S3 (20/11/2026): o site entrega pedido, comprovante, cancelamento e avise-me pela função "pedido" (formato e limite lá);
+    // ninguém cria direto aqui. pedidoIds/ e limite/ não têm "match": ficam fechadas, só o servidor usa.
+    match /pedidos/{d} {
+      allow read, delete: if dono();
+    }
+    match /mov/{d} {
+      allow read, create: if dono();
+    }
+    match /reservas/{d} {
+      allow get: if true;
+      allow create, update: if dono();
+    }
+    // S1 (19/11/2026): token de entrega e dados do pagamento de cada pedido — só o dono (app) e o servidor.
+    // A cliente recebe o token pela função "reserva" (acao "token"), mostrando o telefone do pedido.
+    match /reservasTok/{d} {
+      allow read, write: if dono();
+    }
+    // App Check (20/11/2026): contagem por dia de quem chega às portas com selo, sem selo ou com selo falso — só o dono lê; só o servidor grava
+    match /seloDia/{d} {
+      allow read: if dono();
+    }
+    // 22/11: reserva que parece abuso (a nuvem grava; o TITAN mostra ao dono, que apaga o aviso depois de resolver)
+    match /suspeitas/{d} {
+      allow read, delete: if dono();
+    }
+    // S2: contaTent (tentativas de login por nome) não tem "match": fica fechada, só o servidor usa.
+    match /backups/{d} {
+      allow read, write: if dono();
+    }
+    match /dispositivos/{t} {
+      allow read, write: if dono();
+    }
+    // S3 (20/11/2026): as visitas por peça ficam só na análise (função "analise"); vistas/ não recebe mais nada — o dono apaga o que sobrou
+    match /vistas/{id} {
+      allow read, delete: if dono();
+    }
+    match /clientes/{uid} {
+      // 12/11: a leitura separada da gravação (antes o "get" dependia de request.resource, que não existe na leitura)
+      allow get: if (request.auth != null && request.auth.uid == uid) || dono();
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().size() <= 30;
+    }
+    // S2 (20/11, parte 3): usuarios/ (nome de usuário → e-mail) não tem mais "match": fica FECHADA.
+    // Só a função "conta" lê (entrar com nome de usuário antigo); o site não lê nem cria mais.
+    // TESTE (28/11/2026): relatório de erro do app "LaFouch Teste" — só criar; leitura só pelas sessões (conta só-leitura)
+    match /relatorios/{id} {
+      allow create: if request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'anonymous'
+        && id.matches('^' + request.auth.uid + '_' + string(math.floor(request.time.toMillis() / 3600000)) + '_(1?[0-9])$')
+        && request.resource.data.keys().hasOnly(['canal', 'v', 'tela', 'acao', 'erro', 'pilha', 'aparelho', 'ts', 'foto'])
+        && request.resource.data.keys().hasAll(['canal', 'v', 'tela', 'erro', 'ts'])
+        && request.resource.data.canal == 'teste'
+        && request.resource.data.v is string && request.resource.data.v.size() <= 20
+        && request.resource.data.tela is string && request.resource.data.tela.size() <= 60
+        && request.resource.data.get('acao', '') is string && request.resource.data.get('acao', '').size() <= 80
+        && request.resource.data.erro is string && request.resource.data.erro.size() <= 500
+        && request.resource.data.get('pilha', '') is string && request.resource.data.get('pilha', '').size() <= 4000
+        && request.resource.data.get('aparelho', '') is string && request.resource.data.get('aparelho', '').size() <= 120
+        && request.resource.data.ts == request.time
+        && request.resource.data.get('foto', false) is bool;
+    }
+  }
+}

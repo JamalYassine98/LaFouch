@@ -1,0 +1,15 @@
+rules_version = '2';
+// GERADO por tools/regras-teste.py — NÃO EDITAR À MÃO. Projeto lafouch-teste: tudo fechado, menos a foto da tela do
+// relatório (o app de teste só CRIA; ninguém lê pelo celular; até 400 KB, só JPEG; mesmo nome do relatório).
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /relatorios/{uid}/{arq} {
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider == 'anonymous'
+        && arq.matches('^' + uid + '_[0-9]{6,7}_(1?[0-9])[.]jpg$')
+        && request.resource.size < 400 * 1024
+        && request.resource.contentType == 'image/jpeg';
+    }
+  }
+}

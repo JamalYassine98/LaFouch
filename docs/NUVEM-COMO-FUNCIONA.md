@@ -3,6 +3,11 @@
 Atualizado em 20/11/2026 pela sessão NUVEM · implementa (estado e pendências: 24/11). Quem mexe aqui é só a NUVEM (CLAUDE.md 1b).
 Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow; o dono pode rodar no PC).
 
+## Projeto de TESTE lafouch-teste (Fase 3, liberada pelo dono 28/11 17:25)
+- Regras: `firestore.teste.rules` e `storage.teste.rules` são GERADAS por `python3 tools/regras-teste.py` a partir do `firestore.rules`
+  (mesmas regras, dono do teste, + só a área `relatorios/` — o app de teste só cria; ninguém lê pelo celular). Nunca editar à mão;
+  `functions/teste-regras-teste.js` falha se ficarem diferentes. Publicar no teste usa `firebase.teste.json` (a loja real segue com `firebase.json`).
+
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
   `nuvem/pacote-cupom-24-11`. O `functions/` do main voltou a ser exatamente o que está publicado
