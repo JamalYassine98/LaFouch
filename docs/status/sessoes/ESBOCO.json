@@ -1,7 +1,11 @@
 {
  "nome": "ESBOCO",
- "agora": "",
- "arquivos": [],
+ "agora": "Argus: plantas Início/Dashboard do ramo da APP + comparador marca FALHA",
+ "arquivos": [
+  "work/argus/motor/planta.py",
+  "work/argus/motor/esboco.py",
+  "work/argus/plantas"
+ ],
  "ultimas": [
   {
    "t": 1795889405.4584033,
@@ -44,5 +48,5 @@
    "r": "esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP"
   }
  ],
- "leu": 1795873348.9288764
+ "leu": 1795898879.5233934
 }
