@@ -29,6 +29,9 @@ jobs:
           node-version: 20
       - name: Conferir que o app montado esta em dia
         run: node build.js --check
+      # atualização ao vivo (26/11): a pasta www inteira vira www-<v>.zip e o version.json ganha zip + soma (tools/pacote.js)
+      - name: Pacote da atualizacao ao vivo
+        run: node tools/pacote.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: www
