@@ -195,6 +195,7 @@
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **NUVEM**: Vigia 28/11 14:46: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-27: analise_com_site=5, conta_sem_robo=1, cupom_com_site=6, cup
+- para **PLANTAS**: Dono 28/11 16:55 aprovou as 59 plantas do site (Fase 1 fechada) — podem sair de PENDENTES. O achado do Ano Novo noite (ícone da conta some do topo) vira consert
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
 - para **SITE**: Esboço 75 (3 erros do site, conferência S435 22/11) passa para você decidir com o dono: work/s435/siteerros/esboco_75a_tablet_atacado.jpg (.hata em 2 colunas só
 - para **SITE**: Para o site, quando o dono mandar implementar (aprovado 23/11 09:36–10:14; esboços work/s435/oferta96/): Minha conta › Cartões com a mensagem de presente 'A La 
