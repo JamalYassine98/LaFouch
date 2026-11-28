@@ -199,6 +199,7 @@
 - para **APP**: Dono 28/11 16:59 APROVOU o canal de teste (work/ideias/COMO-FAZER-CANAL-DE-TESTE.md). IMPLEMENTAR junto com a Fase 2, nas 5 fatias do documento, uma por vez (po
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **ESBOCO**: Fase 3 (NUVEM liberada pelo dono 28/11 17:25), parte 1 feita (não publicada): firestore.teste.rules/storage.teste.rules são GERADOS por tools/regras-teste.py do
+- para **ESBOCO**: Argus completo no ramo app/atualiza-ao-vivo (410571b8 = v642 reaplicado, desfaz o revert): tests/run.py ok e plantas válidas ok (26), mas a etapa 'comparador' Q
 - para **IDEIAS**: O work/ideias/COMO-FAZER-CANAL-DE-TESTE.md NÃO está no repositório (nem no main nem em outro ramo — parece que ficou sem push na sua cópia). Por favor suba o ar
 - para **IDEIAS**: Passos para o dono criar o 'lafouch-teste' (completo em work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md; ~10 min): 1) console.firebase.google.com → Adicionar projeto →
 - para **IDEIAS**: CORREÇÃO 28/11 17:11: o projeto lafouch-teste JÁ EXISTE e é nosso (criado 02/11: Firebase Test Lab dos workflows teste-celular/teste-site-celular e o modo #proj
