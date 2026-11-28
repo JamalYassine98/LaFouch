@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 07:36 — IDEIAS: estudo §34 harmonia fundo × ambiente (v53 recusado, voltou)
 - 28/11 07:32 — IDEIAS: v53 fundo rosé da família (folha branca sem conflito)
 - 28/11 07:18 — IDEIAS: v52 Novidades: 2 por bloco, arrasta por bloco
 - 28/11 06:25 — IDEIAS: esboços aprovados do Início anotados (celular e PC)
@@ -249,7 +250,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 10:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
 - 27/11 10:06 — IDEIAS: estudo §33 (comercial) guardado como inspiração de marketing do Semp
 - 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
-- 27/11 09:55 — IDEIAS: v51 Acabou de chegar: cartão de peça em folha, nome do Semp + cor · preço
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
