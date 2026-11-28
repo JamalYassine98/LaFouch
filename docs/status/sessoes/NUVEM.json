@@ -1,14 +1,12 @@
 {
  "nome": "NUVEM",
- "agora": "Fase 3 parte 3: leitor dos relatórios/saídas do teste (só sessões)",
- "arquivos": [
-  ".github/workflows/ler-teste.yml",
-  "tools/le-teste.py",
-  "tools/relatorios.py",
-  "functions/teste-le-teste.js",
-  ".gitignore"
- ],
+ "agora": "",
+ "arquivos": [],
  "ultimas": [
+  {
+   "t": 1795898600.7128,
+   "r": "Fase 3 parte 3 feita (não publicada): tools/le-teste.py + ler-teste.yml (só quando chamado, conta só-leitura do teste) + tools/relatorios.py para as sessões; leituras em work/relatorios/ (fora do repo); prova teste-le-teste.js; 28/28 provas ok. Falta parte 4 (conta sem chave no teste + 1ª publicação)."
+  },
   {
    "t": 1795897853.2900565,
    "r": "Fase 3 partes 1 (regras do teste geradas + relatórios) e 2 (ambiente.js: no teste nada sai para fora). 27/27 testes ok. Nada publicado."
@@ -44,10 +42,6 @@
   {
    "t": 1795530157.566391,
    "r": "Cupom da loja (dono 24/11): emitir px só dentro da regra (≥150 mil, telefone, um por vez, 10%, 7+90 dias); site intocado. 25/25 testes ok (11 provas novas). NÃO publicado: espera a APP mandar venda/total."
-  },
-  {
-   "t": 1795527646.120042,
-   "r": "Pagamento: upay descartada (ueno em resolução); dono solicitou o Bancard vPOS 2.0 com documentos preenchidos. Próximo da NUVEM: plano da integração quando a Bancard aprovar; cupom (a) segue."
   }
  ],
  "leu": 1795898443.3316798

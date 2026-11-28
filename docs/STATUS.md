@@ -20,7 +20,6 @@
 | Sessão | Agora | Arquivos marcados |
 |---|---|---|
 | APP | atualiza-ao-vivo (celular e PC): pacote inteiro www-<v>.zip, appPronto no 1º desenho, sai o LOADER | src/97-atualiza.js, src/01-build.js, www/index.html, build.js, desktop/, package.json, capacitor.config.json, .github/workflows/publicar-app.yml, .github/workflows/build-apk.yml |
-| NUVEM | Fase 3 parte 3: leitor dos relatórios/saídas do teste (só sessões) | .github/workflows/ler-teste.yml, tools/le-teste.py, tools/relatorios.py, functions/teste-le-teste.js, .gitignore |
 | SITE | Ícone da conta no menu centralizado (aprovado e implementar, dono 26/11 06:55) | catalogo/index.html, catalogo/version.json, docs/SITE-COMO-FUNCIONA.md, docs/FALTA-APROVAR-15-11.md |
 
 ## Fila
@@ -258,6 +257,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 17:43 — NUVEM: Fase 3 parte 3 feita (não publicada): tools/le-teste.py + ler-teste.yml (só quando chamado, conta só-leitura do teste) + tools/relatorios.py para as sessões; leituras em work/relatorios/ (fora do repo); prova teste-le-teste.js; 28/28 provas ok. Falta parte 4 (conta sem chave no teste + 1ª publicação).
 - 28/11 17:30 — NUVEM: Fase 3 partes 1 (regras do teste geradas + relatórios) e 2 (ambiente.js: no teste nada sai para fora). 27/27 testes ok. Nada publicado.
 - 28/11 17:24 — NUVEM: Dono preparou o lafouch-teste (já existia; não excluído): Blaze, alerta US$ 1, Storage US-EAST1, Anônimo. Regras reais publicadas = firestore.rules (conferido). Nada implementado (pausa).
 - 28/11 17:06 — NUVEM: Passos do projeto lafouch-teste mandados à IDEIAS (work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md). Nada implementado (pausa).
@@ -282,4 +282,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
-- 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
