@@ -101,6 +101,9 @@ def roda(pw, nav=None, antiga=True):
     if proprio: nav.close()
     import subprocess   # trava 26/11: o status rodado num ramo (a porta anota no fim) nunca publica o ramo no main
     R.append(('status no ramo não publica o ramo', subprocess.run(['python3', os.path.join(os.path.dirname(os.path.dirname(A)), 'tools', 'prova_status_ramo.py')], capture_output=True).returncode == 0))
+    import planta as _pl   # trava 28/11 (tarde): a tela que não abre pelos passos é FALHA, não exceção
+    _m = _pl.abre_ok(pw, {'tela': 'prova', 'passos': ["()=>{if(!window.__argus.tocaNome('Botão que não existe',0))throw new Error('planta: não achei Botão que não existe')}"], 'cenario': 'normal'})
+    R.append(('tela que não abre vira FALHA (não quebra)', bool(_m) and 'não achei' in _m))
     import limpeza   # trava 28/11: cada tipo de piora da limpeza é pego
     M = limpeza.mede(); B = copy.deepcopy(M); f = next(iter(M['important']))
     M['duplas']['ACT.provaArgus'] = ['src/a.js:1', 'src/b.js:2']; M['important'][f] += 1; M['arquivos'].append('src/98z-s999.js')

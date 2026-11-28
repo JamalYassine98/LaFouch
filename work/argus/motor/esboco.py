@@ -28,7 +28,8 @@ def _monta(c, base, patch=None):
 def hoje():
     """O app de HOJE montado do código (src/) do commit atual, como o APK e a publicação montam — não o www/ guardado, que pode
     estar com o número de versão de antes. Montado uma vez por commit."""
-    base = subprocess.run(['git', '-C', R, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
+    # ARGUS_COMMIT = conferir/gravar o app de outro commit (ex.: o ramo da APP antes de publicar), sem trocar de ramo aqui
+    base = subprocess.run(['git', '-C', R, 'rev-parse', os.environ.get('ARGUS_COMMIT') or 'HEAD'], capture_output=True, text=True).stdout.strip()
     c = '/tmp/argus_hoje_' + base[:12]
     return os.path.join(c, 'www') if os.path.exists(os.path.join(c, 'www', 'app.js')) else _monta(c, base)
 def serve(www, porta, servidor=None):

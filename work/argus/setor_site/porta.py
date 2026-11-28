@@ -55,8 +55,9 @@ def roda(modo='rapida'):
         _etapa(E, 'plantas do site válidas (aprovação na lista viva)', 'FALHA' if inval else 'ok', ['%s: %s' % (x['id'], v) for x, v in P])
         if not apr: _etapa(E, 'plantas do site aprovadas para conferir', 'FALHA', ['nenhuma planta do site aprovada ainda (lotes do site)'])
         iguais, difs = set(), set()
-        # 3 comparador: todas as temáticas na completa; sem temática na rápida
-        it = []
+        # 3 comparador: todas as temáticas na completa; sem temática na rápida — antes, a tela precisa ABRIR pelos passos da planta
+        it = []; nao = [(pl, planta.abre_ok(pw, pl)) for pl in apr]
+        it += ['%s: %s' % (pl['tela'], m) for pl, m in nao if m]; apr = [pl for pl, m in nao if not m]
         for pl in apr:
             for tm, D in compara.confere(pw, pl, temas=None if completa else ['sem']).items():
                 it += ['%s (%s): %s %s' % (pl['tela'], tm, a, b) for a, b, *_ in D]

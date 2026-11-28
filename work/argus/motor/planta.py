@@ -32,8 +32,20 @@ def _abre_tela(pw, tela, tema, porta, aparelho=aparelhos.DONO, navegador=None, *
     if tela.get('setor') == 'site':
         b, pg = _site().abre(pw, aparelho=aparelho, tematica=tema, cenario_=tela['cenario'], rota=tela.get('rota', ''), porta=porta, navegador=navegador, **kw)
     else: b, pg = abrir.abre(pw, aparelho=aparelho, tema=tema, cenario=tela['cenario'], porta=porta, navegador=navegador, **kw)
-    for p in tela['passos']: pg.evaluate(p); pg.wait_for_timeout(1000)
+    for k, p in enumerate(tela['passos'], 1):
+        try: pg.evaluate(p)
+        except Exception as e:   # a tela não chega onde a planta diz: é FALHA da tela (quem chama decide), nunca um erro que derruba a rodada
+            b.close(); raise NaoAbre('não abre como na planta (passo %d de %d): %s' % (k, len(tela['passos']), str(e).split('\n')[0].replace('Page.evaluate: ', '').replace('Error: ', '')[:160]))
+        pg.wait_for_timeout(1000)
     pg.wait_for_timeout(500); return b, pg
+class NaoAbre(Exception):
+    """A tela da planta não pôde ser aberta pelos passos dela (ex.: um botão do caminho mudou de nome)."""
+def abre_ok(pw, pl, porta=None):
+    """None se a tela da planta abre pelos passos; senão a frase do problema. A porta usa antes das etapas (28/11: o comparador
+    quebrava com exceção em 'planta: não achei …' em vez de marcar FALHA)."""
+    tela = tela_de(pl)
+    try: b, pg = _abre_tela(pw, tela, setor(tela)['tema_base'], porta); b.close(); return None
+    except NaoAbre as e: return str(e)
 def ligacoes(pw, tela, porta):
     """Toca com o dedo em cada botão da tela (reabrindo a tela antes de cada toque) e anota o que acontece."""
     import sim; nav = sim.navegador(pw)

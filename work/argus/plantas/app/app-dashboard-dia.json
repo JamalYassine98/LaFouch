@@ -3,7 +3,7 @@
  "tela": "Dashboard",
  "passos": [
   "()=>window.__argus.aba(0)",
-  "()=>{if(!window.__argus.tocaNome(\"Vendido hoje · # venda(s) G$ # ›\",0))throw new Error('planta: não achei '+\"Vendido hoje · # venda(s) G$ # ›\")}"
+  "()=>{if(!window.__argus.tocaNome(\"Vendido hoje \\u00b7 # vendas G$ # \\u203a\",0))throw new Error('planta: não achei '+\"Vendido hoje \\u00b7 # vendas G$ # \\u203a\")}"
  ],
  "cenario": "normal",
  "data": "2026-11-24T15:00:00-03:00",
@@ -3699,7 +3699,7 @@
    "foto": "app-dashboard-dia_escuro.jpg"
   }
  },
- "versao_app": "5.60.0",
+ "versao_app": "5.61.0",
  "titulo": "Dashboard [dia]",
  "ligacoes": [
   {
@@ -3793,5 +3793,6 @@
    "faz": "sai para: Histórico [hist]"
   }
  ],
- "lugar_mapa": "Dashboard [dia]"
+ "lugar_mapa": "Dashboard [dia]",
+ "commit": "410571b8be176f09db37a02438f0f322ab1a38da"
 }

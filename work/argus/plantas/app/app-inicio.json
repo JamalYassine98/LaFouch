@@ -497,11 +497,11 @@
     },
     {
      "tipo": "texto",
-     "texto": "Vendido hoje · 5 venda(s)",
+     "texto": "Vendido hoje · 5 vendas",
      "caixa": [
       95,
       289,
-      134.7,
+      126.4,
       17.4
      ],
      "cor": "rgb(31, 26, 34)",
@@ -1538,11 +1538,11 @@
     },
     {
      "tipo": "texto",
-     "texto": "Vendido hoje · 5 venda(s)",
+     "texto": "Vendido hoje · 5 vendas",
      "caixa": [
       95,
       289,
-      134.7,
+      126.4,
       17.4
      ],
      "cor": "rgb(231, 237, 245)",
@@ -2092,7 +2092,7 @@
    "foto": "app-inicio_escuro.jpg"
   }
  },
- "versao_app": "5.60.0",
+ "versao_app": "5.61.0",
  "titulo": " [inicio]",
  "ligacoes": [
   {
@@ -2117,7 +2117,7 @@
   },
   {
    "i": 2,
-   "nome": "Vendido hoje · 5 venda(s) G$ 360.000 ›",
+   "nome": "Vendido hoje · 5 vendas G$ 360.000 ›",
    "act": "inicio",
    "id": "hoje",
    "tag": "div",
@@ -2186,5 +2186,6 @@
    "faz": "sai para: Atacado [ata]"
   }
  ],
- "lugar_mapa": " [inicio]"
+ "lugar_mapa": " [inicio]",
+ "commit": "410571b8be176f09db37a02438f0f322ab1a38da"
 }

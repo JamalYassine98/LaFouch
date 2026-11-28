@@ -39,8 +39,9 @@ def roda(modo='rapida', so_telas=None):
         _etapa(E, 'plantas válidas (aprovação na lista viva)', 'FALHA' if inval else 'ok', ['%s: %s' % (x['id'], v) for x, v in P])
         if not apr: _etapa(E, 'plantas aprovadas para conferir', 'FALHA', ['nenhuma planta aprovada ainda (Parte 6)'])
         iguais, difs = set(), set()
-        # 3 comparador
-        it = []
+        # 3 comparador — antes, cada tela precisa ABRIR pelos passos da planta; a que não abre é FALHA dela e sai das outras etapas
+        it = []; nao = [(pl, planta.abre_ok(pw, pl)) for pl in apr]
+        it += ['%s: %s' % (pl['tela'], m) for pl, m in nao if m]; apr = [pl for pl, m in nao if not m]
         for pl in apr:
             for tema, D in compara.confere(pw, pl).items():
                 it += ['%s (%s): %s %s' % (pl['tela'], tema, a, b) for a, b, *_ in D]
