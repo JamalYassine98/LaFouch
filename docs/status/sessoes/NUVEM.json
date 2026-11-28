@@ -1,7 +1,14 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Fase 3 parte 1: regras do lafouch-teste montadas das reais + área de relatórios",
+ "arquivos": [
+  "tools/regras-teste.py",
+  "firestore.teste.rules",
+  "storage.teste.rules",
+  "firebase.teste.json",
+  "functions/teste-regras-teste.js",
+  "docs/NUVEM-COMO-FUNCIONA.md"
+ ],
  "ultimas": [
   {
    "t": 1795897488.5961215,
@@ -44,5 +51,5 @@
    "r": "Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono."
   }
  ],
- "leu": 1795897488.0882814
+ "leu": 1795897543.392002
 }
