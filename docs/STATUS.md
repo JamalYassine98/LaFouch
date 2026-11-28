@@ -180,6 +180,7 @@
 - **inicio-peca-no-modelo-folha** — aprovado 27/11 08:34 — conceito do redesenho do Início; implementar quando o redesenho entrar (depois do Semp)
 - **inicio-vitrine-cartao-folha** — aprovado 27/11 09:56 — conceito do redesenho do Início; implementar com o redesenho (depois do Semp)
 - **modularizacao** — APROVADO como caminho 27/11 10:40 — começa amanhã pelo P0 (com o dono); nada de implementar hoje
+- **motores-semp-titan** — direção aprovada 28/11 05:47 — entra no plano de modularização (antes do titan-cerebro-nuvem)
 - **semp-1-criar** — NA GAVETA (dono 26/11 11:51) — NÃO implementar
 - **semp-2-estudio** — NA GAVETA (dono 26/11 11:51)
 - **site-desconto-exato** — esboço a fazer — depois do Argus (dono 24/11 21:01: o conserto do site vem depois)
