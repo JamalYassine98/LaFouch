@@ -37,3 +37,14 @@ Este é um CONCEITO do redesenho do Início: implementar quando o redesenho entr
 
 ## Pendências que dependem do Flow
 Par de fotos Feminino | Masculino (mesma luz, óculos como estrela, nada nas mãos) · foto do Lucien em resolução cheia · 6 casais dos formatos de rosto (se ainda forem usados) · campanha feminina para outro bloco.
+
+## Regras de imagem (dono 28/11 06:15)
+- Feminino | Masculino: foto FIXA — nunca troca de modelo sozinha.
+- Capa: é capa de revista DE UM PRODUTO — a foto acompanha a peça que ela vende (a modelo usa exatamente aquela peça, e o toque leva a ela). A imagem muda quando muda o produto da capa (decisão de campanha, Semp/dono), nunca sozinha nem trocando os óculos de forma independente da peça.
+- A lógica (dono 28/11 06:17): imagem ligada a um produto acompanha o produto; imagem de guia não está ligada a produto nenhum, então não troca.
+- GUIAS — foto FIXA, nunca muda (dono 28/11 06:18): Feminino | Masculino · Para cada uso (Solar, Leitura, Armações) · Para lojistas · faixa das ferramentas e serviços · cartões de ajuda/guias fora do Início ("Comece por aqui" etc.).
+- LIGADOS A UMA PEÇA — a imagem acompanha a peça: capa (cada lâmina, a sua peça) · bloco do Lucien (retrato + peça) · Como fica no rosto (vídeo de cada peça) · Acabou de chegar e Os mais pedidos (foto de cada peça; a lista muda quando chegam peças).
+| Ambiente da casa (B ponte) | — | 28/11 07:50 | Fundo FIXO papel #F4EEEC · pedra #E9DFDC (fundo das fotos do Semp) · tinta #2A1F27 · vinho #943D6F só em ação. As fotos são feitas para casar com ele (ESTUDO §34–36). |
+| Novidades (era "Acabou de chegar") | v52 | 28/11 07:31 | 2 peças por bloco (PC 4); o cliente arrasta um bloco inteiro de cada vez (a armação sempre inteira); pontinhos mostram o bloco. |
+| Capa sem botão | v54 | 28/11 07:52 | A capa inteira leva à peça; "Ver a peça" vira convite discreto (letra fina + linha fina), igual nas duas lâminas. |
+| Os mais pedidos | v56 | 28/11 08:00 | Mesma vitrine das Novidades (2 por bloco, arrasta por bloco); cartões da mesma altura; 'Últimas N unidades' discreto. |

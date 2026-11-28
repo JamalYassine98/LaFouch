@@ -46,7 +46,8 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 .lfx-capa h1 em{color:#f6e3ec!important}
 .lfx-capa .baixo{position:absolute;left:16px;right:16px;bottom:32px;text-align:center}
 .lfx-capa p{font:15px/1.5 Inter,system-ui;margin:0 0 16px;text-wrap:balance}  /* quebra em linhas equilibradas: nenhuma palavra sozinha na última linha */
-.lfx-capa .bt{display:inline-block;padding:12px 24px;border:1px solid #fff;border-radius:999px;font:500 15px Inter,system-ui}
+.lfx-capa{cursor:pointer}  /* v54 (dono 28/11 07:50): a capa INTEIRA leva à peça */
+.lfx-capa .bt{display:inline-block;padding:12px 0 4px;border:0;border-bottom:1px solid currentColor;border-radius:0;font:400 15px/1 Inter,system-ui;letter-spacing:.02em}  /* convite discreto de revista: letra fina + linha fina embaixo (sai a pílula de botão); área de toque é a capa toda */
 .lfx-capa .pts{display:flex;gap:16px;justify-content:center;margin-top:16px}.lfx-capa .pts i{width:8px;height:8px;border-radius:8px;background:#fff8}.lfx-capa .pts i.on{width:24px;background:#fff}
 /* foto de campanha: inteira, arredondada como os cartões, só o nome por cima (ESTUDO §10) */
 .lfx-ft{position:relative;display:block;border-radius:18px;overflow:hidden;color:#fff;text-decoration:none}
@@ -88,7 +89,10 @@ main > .wrap{min-width:0;max-width:100%}#home{min-width:0}  /* as fileiras que d
 #home .hc .hp{grid-column:1;grid-row:3;padding:8px 0 0!important;font:400 14px/1.2 Inter,system-ui!important;color:#2a1f27;font-variant-numeric:tabular-nums;white-space:nowrap}
 #home .hc .hsw{grid-column:1/-1;grid-row:4;padding:8px 0 0!important;display:flex;gap:8px}
 #home .hc .hsw i{width:12px!important;height:12px!important;border-radius:50%;box-shadow:0 0 0 1px #fff,0 0 0 2px #d9c6d1}
-#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:6;margin:8px 0 0!important;padding:0!important;background:none!important;font:600 12px/1.3 Inter,system-ui!important;color:var(--ac)!important}
+/* v55 (dono 28/11 07:55): aviso discreto — tom secundário, letra normal; texto completo "Últimas N unidades" (dono 07:58: o que pesava era o estilo, não as palavras); a linha é RESERVADA em todo cartão, então a fileira fica sempre reta */
+#home .hc{grid-template-rows:auto auto auto auto 1.3em}
+#home .hc .ulin{position:static!important;grid-column:1/-1;grid-row:5;margin:4px 0 0!important;padding:0!important;background:none!important;font:400 12px/1.3 Inter,system-ui!important;color:#6b5a66!important}
+#home .hc .hsw{grid-row:4}
 #home .hc .ulin i{display:none}
 /* uma linha só entre o bloco de novidades e o rodapé: o rodapé já começa com a linha dele, então a de baixo das novidades sai */
 html.v5 body section.hnews.hn2{border-bottom:0!important}
@@ -100,14 +104,16 @@ html.v5 body section.hnews.hn2 .nlk{margin-top:16px!important}
 /* v20: o bloco de novidades já traz os 48 dele embaixo; o rodapé não soma outra margem (42) por cima — 48 em cima e 48 embaixo, simétrico */
 html.v5 body section.hnews.hn2 + .lfft{margin-top:0!important}  /* botão dentro de bloco de texto: começa na margem do texto (um eixo por bloco, L1) */
 /* peças GRANDES: carrossel de 1,25 por tela (acabou de chegar) e grade 2 × 2 (mais pedidos) */
-#home .hg.lfx-grande{display:flex!important;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-16px;padding-right:16px}
+/* NOVIDADES (v52, dono 28/11 07:17): 2 peças por bloco (PC: 4) e o cliente arrasta UM BLOCO de cada vez; pontinhos dizem em que bloco está.
+   Um número só (--n = peças por bloco) decide a largura, o encaixe e os pontinhos. */
+#home .hg.lfx-grande{--n:2;display:grid!important;grid-auto-flow:column;grid-auto-columns:calc((100% - (var(--n) - 1) * 16px) / var(--n));grid-template-columns:none!important;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 #home .hg.lfx-grande::-webkit-scrollbar{display:none}
-#home .hg.lfx-grande > *{flex:0 0 calc((100% - 24px) / 1.2)!important;scroll-snap-align:start}
-#home .hg.lfx-grande .hci{aspect-ratio:3/2!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
-#home .hg.lfx-grande .hci img,#home .hg.lfx-grade .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
-#home .hg.lfx-grade .hci{aspect-ratio:1/1!important;height:auto!important;width:100%!important}
-#home .hg.lfx-grade{row-gap:32px;align-items:start!important}
+#home .hg.lfx-grande > *{scroll-snap-align:none}
+#home .hg.lfx-grande > :nth-child(2n+1){scroll-snap-align:start;scroll-snap-stop:always}
+#home .hg.lfx-grande .hci{aspect-ratio:1/1!important;height:auto!important;width:100%!important}
+#home .lfx-pts{display:flex;justify-content:center;gap:8px;margin-top:16px}
+#home .lfx-pts i{width:6px;height:6px;border-radius:50%;background:#2a1f2733;transition:background .3s ease}#home .lfx-pts i.on{background:var(--ac)}
+#home .hg.lfx-grande .hci img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
 /* visto na foto: a peça em tamanho de vitrine, abaixo da foto */
 /* para cada uso: mosaico de revista */
 #home .lfx-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -155,9 +161,8 @@ html body a.wa:not(#lfx){z-index:2147483000!important;top:auto!important;bottom:
 .lfx-capa .cima{top:48px}.lfx-capa h1{font-size:48px}.lfx-capa .baixo{bottom:48px}.lfx-capa p{font-size:16px}
 #home .lfx-gen{grid-template-columns:repeat(2,minmax(0,440px));justify-content:center;gap:24px}#home .lfx-gen .lfx-ft{aspect-ratio:4/5}  /* v46: retrato 4:5, o par centrado (cabeça inteira; antes o 4:3 cortava a cabeça e cada foto tinha meia página) */
 #home .lfx-ft b{left:24px;right:24px;bottom:24px;font-size:24px}
-#home .hg.lfx-grande{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;overflow:visible;margin-right:0;padding-right:0}
-#home .hg.lfx-grande > *{flex:none!important}
-#home .hg.lfx-grande > :nth-child(n+5){display:none!important}  /* uma fileira de 4, sem peça sobrando sozinha */
+#home .hg.lfx-grande{--n:4;gap:24px;grid-auto-columns:calc((100% - 3 * 24px) / 4)}  /* PC: 4 por bloco, mesmo arrastar por bloco */
+#home .hg.lfx-grande > :nth-child(2n+1){scroll-snap-align:none}#home .hg.lfx-grande > :nth-child(4n+1){scroll-snap-align:start;scroll-snap-stop:always}
 #home .hg.lfx-grande .hci{aspect-ratio:4/3!important}
 /* PC (v40): a mesma folha deitada — o retrato sangra na metade esquerda, a peça e o nome no branco da direita, no meio da altura. */
 #home .lfx-vf{display:grid;grid-template-columns:1fr 1fr;align-items:center}
@@ -166,7 +171,6 @@ html body a.wa:not(#lfx){z-index:2147483000!important;top:auto!important;bottom:
 #home .lfx-vf .pag2 h2{margin-top:32px!important;font-size:64px!important}#home .lfx-vf .pag2 .frase{font-size:24px}
 #home .lfx-rev{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 #home .lfx-rev .lfx-ft:first-child{grid-column:auto;aspect-ratio:3/4}#home .lfx-rev .lfx-ft:first-child b{font-size:24px}
-#home .hg.lfx-grade{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:24px}
 #home .lfx-mov{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;overflow:visible;margin-right:0;padding-right:0}
 #home .lfx-mov > div{flex:none}
 html body .lfx-fers{grid-template-columns:repeat(2,minmax(0,360px));justify-content:center;padding:32px 0 16px}
@@ -201,7 +205,7 @@ hc.previousElementSibling.remove();
 hc.replaceWith(mk(`<div class=lfx-gen>${ft(F.lanc, 'Feminino ›', '', 'gen:f')}${ft(F.h_jaqueta, 'Masculino ›', '', 'gen:m')}</div>`));
 /* 3. acabou de chegar: a peça GRANDE (1,25 por tela), sem botões extras */
 const [sNov, sMv] = $$('.hsh.hsh1'), [gNov, gMv] = $$('.hg');
-sNov.querySelector('h2').innerHTML = 'Acabou de chegar'; sMv.querySelector('h2').innerHTML = 'Os mais pedidos';
+sNov.querySelector('h2').innerHTML = 'Novidades';  /* dono 28/11 07:17 */ sMv.querySelector('h2').innerHTML = 'Os mais pedidos';
 sNov.style.marginTop = '48px'; gNov.classList.add('lfx-grande');
 H.querySelectorAll('.hc .ulin').forEach(u => u.closest('.hc').appendChild(u));
 /* nenhuma peça repete na página (dono 17:17); BR44145 fora (o dono não gosta dela) */
@@ -224,7 +228,7 @@ gNov.after(visto);
 const tipos = mk(`<div style="margin-top:48px"><div class=hsh><h2 class=h2>Para cada uso</h2></div><div class=lfx-rev>${ft(F.design, 'Solar', '', 'tipo:solar')}${ft(F.s_celular, 'Leitura', '', 'tipo:grau')}${ft(F.h_sueter, 'Armações', '', 'tipo:armacao')}</div></div>`);
 visto.after(tipos);
 /* 6. os mais pedidos: outro formato (grade 2 × 2 de peças grandes) — não repete o carrossel */
-sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grade');
+sMv.style.marginTop = '48px'; gMv.classList.add('lfx-grande');  /* v56 (dono 28/11 07:57): Os mais pedidos = mesma vitrine das Novidades — 2 por bloco, arrasta por bloco (a regra mora num lugar só: .lfx-grande) */
 { const o = gMv.children[0], ul = o.querySelector('.ulin'), nc = cartao(o.dataset.open); nc.querySelector('.hp').textContent = o.querySelector('.hp').textContent; if (ul) nc.appendChild(ul); o.replaceWith(nc); }  /* o 1º cartão também sai do mesmo molde */
 MAIS.forEach(r => { if (gMv.children.length < 4) gMv.appendChild(cartao(r)); }); /* peças de teste: completa 4, sem repetir */
 /* 7. como fica no rosto: mulheres e homens, de idades diferentes (vídeos do Semp) */
@@ -258,6 +262,11 @@ H.querySelectorAll('.hc .hn').forEach(hn => { [...hn.childNodes].forEach(n => { 
   H.querySelectorAll('.hc[data-open]').forEach(c => { const n = SEMP[c.dataset.open]; if (!n) return; const k = c.querySelector('.lfx-cod'), p = c.querySelector('.hp');
     if (k) k.textContent = n[0]; if (p && !p.dataset.cor) { p.textContent = n[1] + ' · ' + p.textContent; p.dataset.cor = 1; }
     const sw = c.querySelector('.hsw'); if (sw && sw.children.length < 2) sw.remove(); }); }
+/* pontinhos dos blocos de cada vitrine (Novidades, Os mais pedidos): quantos blocos = peças ÷ --n (lido do CSS, um lugar só) */
+document.querySelectorAll('#home .hg.lfx-grande').forEach(g => { const pts = document.createElement('div'); pts.className = 'lfx-pts'; g.after(pts);
+  const monta = () => { const n = +getComputedStyle(g).getPropertyValue('--n') || 2, q = Math.ceil(g.children.length / n); pts.innerHTML = q > 1 ? '<i></i>'.repeat(q) : ''; marca(); };  /* um bloco só: sem pontinho */
+  const marca = () => { const i = Math.round(g.scrollLeft / g.clientWidth); [...pts.children].forEach((e, j) => e.classList.toggle('on', j === i)); };
+  g.addEventListener('scroll', marca, { passive: true }); addEventListener('resize', monta); monta(); });
 { const em = document.querySelector('.hnews h2 em'); if (em) em.replaceWith(em.textContent); }  /* itálico só na capa e em rosto */
 return 'ok'})()"""
 open(os.path.join(AQ, 'proposta.js'), 'w').write(JS.replace('__F__', __import__('json').dumps(F)).replace('__P__', __import__('json').dumps(_P)).replace('__PF__', __import__('json').dumps({r: peca(p['foto']) for r, p in _P.items()})))

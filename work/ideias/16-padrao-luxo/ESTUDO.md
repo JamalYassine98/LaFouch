@@ -322,3 +322,54 @@ Correções do dono (27/11 08:16):
 - Divisão certa: o bloco nasce COLADO a outro (borda com borda, mesma largura, sem vão) e continua o que está acima — como a faixa da Madë embaixo da capa: a capa termina e a faixa começa, e o olho lê uma peça só.
 - Método: antes de transformar uma correção do dono em regra, perguntar "qual é a causa?" e guardar a causa, não o sintoma.
 - (dono 27/11 09:46) **Elemento fixo não muda de lugar entre páginas.** O WhatsApp (e todo botão flutuante) fica no mesmo ponto em todas as telas; se algo precisa daquele canto, é o outro elemento que se ajeita. Corrige a regra antiga "WhatsApp nunca em cima de botão, preço ou foto": vale para quando a rolagem PARA (espaço no fim da página), não para o instante em que o conteúdo passa por baixo.
+
+## §33 Comercial de referência (dono 27/11 10:00): Nocte, Black Friday 2x1 — referencias-do-dono/comercial-nocte-*.{mp4,png}
+Reel de 8 s, mesma armação em três cores de lente. Por que funciona:
+1. **Uma peça, cada cor = um momento do dia** (naranja: a luz do fim da tarde; rojo: a noite, antes de dormir; amarillo: olhos cansados de tela). A variação de cor vira motivo de compra, não só opção.
+2. **Cada cena abre com uma pergunta sobre a dor de quem assiste**, em segunda pessoa e no espanhol local (voseo): "¿La luz ya molesta?", "¿Apagás y seguís a mil?", "¿Ojos cansados?". Fala com a pessoa, não da peça.
+3. **O nome da cor em uma palavra, grande** (NARANJA, ROJO, AMARILLO) — o mesmo princípio do nosso sistema de cores do Semp.
+4. **Luz e cenário combinam com o momento** (pôr do sol, quarto escuro, mesa de dia); mãos manuseando a peça; cortes de 1–2 s.
+5. **Uma cena com as três cores lado a lado** = a escolha à vista; a oferta (2X1) fica fixa no canto o tempo todo, sem gritar.
+Para a LaFouch (inspiração, nunca cópia): o Semp monta reels "uma peça, seus momentos" com os NOSSOS nomes de cor (Âmbar, Ônix, Cristal…), perguntas humanas no espanhol do cliente e a tipografia da casa (Fraunces); oferta só em evento (Black Friday de CDE), discreta. Não copiar: a fonte genérica em caixa-alta e o cinza de catálogo.
+- (dono 27/11 10:05) **Escopo do §33: inspiração e ideias de MARKETING para o Semp (reels, posts, anúncios) — não é para redesenhar blocos do site.**
+- (dono 28/11 07:31) **Duas cores QUASE iguais brigam.** Fundo #fbf7fa × folha #fff: a diferença mínima parece branco sujo, não escolha. Ou é igual, ou é claramente diferente: fundo = rosé da família (#f6eff3), folha = branco.
+
+## §34 Harmonia: o fundo nasce do AMBIENTE, e o ambiente nasce do fundo (dono 28/11 07:36)
+O erro do v53: troquei UMA cor (o fundo) e deixei o resto como estava. Harmonia não é uma cor certa, é um SISTEMA em que tudo vem da mesma família de tom e de luz.
+Medido hoje (cor média/mediana): fundo da página #FBF7FA (rosa frio, quase branco) · foto de estúdio das peças #FFFFFF (branco puro, neutro) · parede da foto do Lucien ~#E2E0DB (cinza quente) · natureza-morta da lâmina 2 (Odéon, APROVADA, "o fundo precisa ser harmônico") ~#ECDDDE (rosé pó, quente). São quatro temperaturas diferentes — por isso nada conversa.
+Princípios:
+1. **Um tom da casa, tirado do que o dono já amou:** o ambiente da lâmina 2 (rosé pó quente). Dele saem 3 passos: PAPEL (o fundo da página, o mais claro), PEDRA (o fundo de estúdio das peças, um passo abaixo) e TINTA (#2a1f27, texto). Vinho #943D6F só em ação.
+2. **A peça é fotografada no tom da casa, não no branco:** o Semp gera a foto de vitrine com o fundo PEDRA. Assim a peça pousa na página sem caixa branca — some o conflito cartão × fundo, porque são da mesma família.
+3. **As capas e campanhas são dirigidas para o mesmo tom:** cenários de reboco, pedra, linho, madeira clara, com luz quente e suave; nada de cenário frio (cinza azulado, preto) ao lado de outro quente. O prompt do Semp leva a paleta, e todas as fotos recebem o mesmo tratamento de cor.
+4. **Uma temperatura só na página inteira:** tudo quente e suave. Contraste vem do VALOR (claro × escuro: papel × tinta), não de misturar temperaturas.
+5. As marcas fortes fazem assim: a Lindberg usa um neutro quente na página toda; a Jacques Marie Mage, areia; a Madë é toda fria (cinza claro + branco) — cada uma escolhe UMA família e não sai dela.
+
+## §35 Nossas referências, olhadas pela HARMONIA fundo × ambiente (dono 28/11 07:38) — referencias-do-dono/
+Decisão do dono: **o fundo da página é FIXO** (o tom da casa não muda) e **as revistas que o Semp cria "casam" com esse ambiente**, não o contrário.
+O que cada referência ensina:
+- **Madë — Évora (lançamento):** a natureza-morta foi fotografada sobre o MESMO tom da página (off-white quente ~#F9F7F3). A foto não tem borda: ela se funde no site. É o "casar" levado ao máximo.
+- **Madë — Orion e topo com modelo:** a página é cinza claro (#F0F0F0) com o painel branco da peça, e as fotos de modelo têm parede cinza/oliva fria ou fundo branco — fotos da mesma família fria da página. Tudo frio, tudo junto.
+- **Madë — Black (evento):** no evento, o AMBIENTE inteiro troca (tudo preto, peças em âmbar) — e troca junto: capa, faixa e cartazes. Evento é uma "edição especial" com ambiente próprio, por tempo limitado; o resto do ano volta ao tom da casa.
+- **Madë — Barcelona:** close quente (pele, dourado, tartaruga) sobre fundo quente. Mesmo um close fechado obedece à temperatura.
+- **Mylan:** marrom e creme quentes em tudo.
+- **Nossas fotos do Semp (café, estúdio bege) e a capa aprovada:** todas QUENTES (madeira, creme, bege, luz de tarde). Já nascemos quentes — o fundo da casa tem que ser quente para casar com elas. O rosa FRIO do fundo de hoje é que destoa.
+- **Lindberg (neutro quente) e Jacques Marie Mage (areia):** uma família só, da página às fotos.
+Regras para o guia:
+1. **Ambiente da casa = fundo fixo + família de tom quente e suave** (papel → pedra → tinta). Não muda com a peça nem com a semana.
+2. **Toda foto do Semp é pedida PARA esse ambiente:** a paleta da casa vai no prompt (paredes, mesa, tecido, luz), e a foto de vitrine usa o fundo "pedra". Teste: pôr a foto em cima do fundo da página — se aparecer uma borda de cor, ela não casou.
+3. **Melhor caso = sem borda:** natureza-morta ou vitrine fotografada sobre o próprio tom da página (como a Évora): a peça parece pousada no site.
+4. **Evento = edição especial:** muda o ambiente INTEIRO e de uma vez (capa, faixa, cartazes), com data para voltar; nunca uma peça "do evento" solta num ambiente da casa.
+5. **Contraste por valor, nunca por temperatura:** escuro × claro dentro da mesma família quente; o vinho fica para ação.
+- (28/11) Prancha de tons (work/ideias/18-inicio-inteiro/prancha-harmonia-A/B/C.jpg). RECOMENDAÇÃO: **B · Pedra rosada** — papel #F3EEEA · pedra #E7DED7 · tinta #2A1F27 (vinho #943D6F só em ação). Por quê: as fotos que já temos são quentes (pele, linho, madeira, parede de calcário); o rosé puro (A) fica doce e briga com o calcário/âmbar; o linho (C) apaga a assinatura rosé da marca. B é pedra quente com um sopro de rosé: casa com todas e guarda a identidade. A natureza-morta da lâmina 2 é mais rosada que B: o Semp refaz as próximas no tom B.
+
+## §36 Fundo × cor do logo (dono 28/11 07:46)
+- Prática das casas de luxo: a cor da marca é ASSINATURA, rara e reconhecível (Hermès laranja, Tiffany azul, Cartier vermelho — na caixa, no detalhe, no botão); o site é um NEUTRO. Nenhuma pinta o fundo com a cor da marca: isso gasta a assinatura e vira "site rosa" (o dono já reprovou o rosa forte).
+- Mas o neutro não é qualquer um: ele carrega o SUBTOM da marca, para que logo e fundo pareçam da mesma casa. Regra 60–30–10: neutro da casa 60% · fotos 30% · vinho 10% (logo, ação, kit).
+- Medida: logo #943D6F = matiz ~326° (ameixa/magenta). O B da prancha (#F3EEEA) tem matiz ~27° (pêssego): quente como as fotos, mas puxa para o laranja, longe do logo. Ajuste recomendado = "B ponte": mesmo valor e calor, subtom deslocado para perto do logo (~10–15°): papel #F4EEEC · pedra #E9DFDC · tinta #2A1F27. Fica quente (casa com as fotos) e com o mesmo sangue do vinho.
+- Capas e campanhas: o Semp dirige cenários quentes neutros (calcário, linho, madeira clara) com um toque do subtom — nunca o vinho no cenário inteiro; o vinho aparece no máximo como detalhe (um objeto, uma flor, um tecido).
+
+## §37 "Últimas unidades" é luxo? (pesquisa, dono 28/11 08:00)
+- Escassez combina com luxo (o valor do luxo vem da raridade): sinais de escassez aumentam o valor percebido e a avaliação da marca; prateleira quase vazia é lida como sinal de luxo, mas só quando o estoque está MUITO baixo (meio vazio não tem efeito).
+- No luxo, a escassez POR QUANTIDADE funciona melhor que a por tempo (contagem regressiva, "só hoje").
+- O que é de loja comum é a URGÊNCIA (contador, piscar, vermelho, "corra!"), e mensagens de estoque baixo podem sair pela culatra.
+- Para a LaFouch (corrigido pelo dono 28/11 08:02): o aviso já é verdadeiro e já segue as regras do sistema (o número real, pelas regras de estoque que existem) — nada a mudar nisso. APROVADO: estilo calmo — informação, não alarme (tom secundário, sem cor de alerta, sem contador). NÃO usar "não volta": às vezes a peça volta, o mercado é difícil de prever.

@@ -25,7 +25,7 @@ const st=document.createElement('style'); st.textContent=`
 }`; document.head.appendChild(st);
 const c=document.getElementById('lfxcapa'); c.classList.add('l2');
 c.querySelector('.cima').innerHTML='<h1>Odéon</h1><span class=frase>Presença que dispensa palco.</span>';
-const b=c.querySelector('.baixo'); b.querySelector('p').remove(); b.querySelector('.bt').remove();
+const b=c.querySelector('.baixo'); b.querySelector('p').remove();  /* v54: o convite "Ver a peça" fica — as duas lâminas iguais */
 c.querySelectorAll('.pts i').forEach((e,i)=>e.classList.toggle('on',i==1));
 return 'ok'})()"""
 open(os.path.join(AQ, 'lamina2.js'), 'w').write(open(os.path.join(AQ, 'proposta.js')).read() + ';\n' + JS.replace('__PC__', PC).replace('__CEL__', CEL).replace('__FON__', FON))

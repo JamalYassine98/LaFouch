@@ -38,3 +38,7 @@ src/atualiza/    ao vivo · loja · apk
 - Nenhuma parte toca os dados da loja (nuvem, aparelho, firestore.rules): só move código; antes de cada parte, cópia (ramo + tag) para voltar em 1 comando.
 Cada parte é "por dentro" (6b) mas grande: o dono autoriza parte a parte. Estimativa: P0 = 1 sessão curta de máquina;
 cada família = 1 parte. O que mais economiza crédito: P0 primeiro (o Argus pega o erro sozinho, sem ida e volta).
+
+## Acréscimo do dono (28/11 08:06–08:08, via IDEIAS)
+- **O SITE entra no mesmo plano** (www/loja: loja.html, lf-site.js), com as mesmas fotos (plantas) e as mesmas travas do Argus. Achado de exemplo: "Últimas unidades" com o limiar em 2 lugares diferentes (96-loja-online: até 3 × 97-marketing: até 2) e o estilo .ulin escrito 3 vezes no loja.html (S239/S240/S429).
+- **EXTREMAMENTE fragmentado, com muita calma:** a limpeza do dia 19 que bugou tudo (e obrigou a voltar semanas) foi feita de uma vez. Agora: fatias MÍNIMAS (uma regra ou um bloco de estilo por vez), cada fatia com as plantas antes/depois iguais, seu próprio commit e volta de 1 comando; nada de duas fatias juntas.

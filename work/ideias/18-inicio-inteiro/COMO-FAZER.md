@@ -288,3 +288,19 @@ Estudado com os plugins frontend-design e design-elevation (evitar o "kit de car
 - Cada peça numa folha branca (radius 18, padding 16/24): a foto de estúdio é branca → vira o papel; saem o multiply e a sombra desenhada embaixo (flutuava sem chão).
 - Texto pelo sistema aprovado: nome do Semp (Fraunces 18) + "Cor · preço" (Inter 14) — a mesma linha do bloco do Lucien. Sai a descrição técnica ("Redonda rosa"); bolinhas de cor só com 2+ cores.
 - Nomes/cores PROVISÓRIOS (produtos de teste): Céleste·Rosé, Bastien·Ônix, Clémence·Cristal, Sabine·Ouro, Marceau·Grafite, Juliette·Ônix, Élise·Ametista, Colette·Pérola, Rémy·Ônix, Inès·Conhaque.
+
+## ANOTADO (dono 28/11 06:22) — esboco-18-ANOTADO-celular.jpg e -pc.jpg: a página inteira com cada ponto aprovado apontando para o seu bloco (anota.py).
+
+## v52 — "Novidades" (era "Acabou de chegar"), 2 peças por bloco e arrastar um bloco de cada vez (dono 28/11 07:17)
+- Um número só, --n (celular 2, PC 4), decide a largura das peças, o encaixe (scroll-snap no 1º de cada bloco, scroll-snap-stop) e a quantidade de pontinhos. Pontinhos embaixo mostram o bloco atual. Sai o carrossel de 1,2 por tela e, no PC, a fileira fixa de 4 que escondia as outras peças.
+
+## v53 — fundo da página = rosé da família #f6eff3 (dono 28/11 07:31: "fundo rosé com cartão branco em conflito")
+- Causa: #fbf7fa (fundo) e #fff (folha) eram QUASE iguais — diferença de ~2% parece sujeira/erro, não escolha. Agora o fundo é o rosé aprovado da família (marca a 8%), num lugar só (--bg): a folha branca vira papel sobre a mesa rosé, em todas as folhas (vitrine, Lucien).
+- v53 NÃO aprovado (dono 07:36: o rosé novo não harmoniza com o cartão branco; quer estudo de harmonia fundo × ambiente das fotos) → obsoletos; --bg voltou ao de antes.
+
+## v54 — capa sem botão (dono 28/11 07:50): a capa inteira leva à peça; 'Ver a peça' vira convite de revista (Inter 400 15, linha fina embaixo, sem pílula), igual nas duas lâminas.
+
+## v55 — Os mais pedidos (dono 28/11 07:55): grade PARADA (2×2 celular, 4 PC) para contrastar com o arrastar das Novidades; linha de aviso reservada em todo cartão (fileira sempre reta); aviso discreto 'Últimas N' em tom secundário, letra 400 12.
+
+## v56 — Os mais pedidos igual às Novidades (dono 07:57 'grade 1 por 2'): .lfx-grade sai; o bloco usa a MESMA vitrine .lfx-grande (2 por bloco, PC 4, arrasta por bloco, pontinhos; sem pontinho quando há 1 bloco só). Mantidos do v55: linha de aviso reservada e 'Últimas N' discreto. v55 → obsoletos.
+- v56 ajuste (07:58): volta o texto completo 'Últimas 3 unidades', com o estilo discreto.
