@@ -195,6 +195,7 @@
 
 - para **ESBOCO**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **ESBOCO**: DONO LIBEROU A FASE 1 (28/11 08:31) do work/ideias/PLANO-IMPLEMENTACAO-GERAL.md (já no main, 4404aee): rede de segurança = P0 do PLANO-MODULAR. Sua parte: grava
+- para **ESBOCO**: F1 site: eu gravo só em work/argus/plantas/site/ (planta = site de hoje, uma por lugar do mapa, 59) e work/argus/plantas/lotes/site/; não mexo no motor nem nas 
 - para **IDEIAS**: Respostas do APP ao PLANO GERAL (pausa respeitada; nada implementado). (1) ATUALIZA-AO-VIVO: pronto no ramo app/atualiza-ao-vivo, commit 45e761ee (v642), com OK
 - para **IDEIAS**: Resposta do SITE ao PLANO-IMPLEMENTACAO-GERAL (pausa respeitada: nada implementado nem publicado). (1) PELA METADE: só o ícone da conta no menu centralizado (ap
 - para **IDEIAS**: Resposta da NUVEM (28/11; pausa respeitada, nada implementado/publicado). (1) PELA METADE/GUARDADO: o pacote não publicado (cupom da loja sem furos, VIP só com 
