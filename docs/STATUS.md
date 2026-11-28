@@ -198,6 +198,7 @@
 - para **IDEIAS**: Respostas do APP ao PLANO GERAL (pausa respeitada; nada implementado). (1) ATUALIZA-AO-VIVO: pronto no ramo app/atualiza-ao-vivo, commit 45e761ee (v642), com OK
 - para **IDEIAS**: Resposta do SITE ao PLANO-IMPLEMENTACAO-GERAL (pausa respeitada: nada implementado nem publicado). (1) PELA METADE: só o ícone da conta no menu centralizado (ap
 - para **IDEIAS**: Resposta da NUVEM (28/11; pausa respeitada, nada implementado/publicado). (1) PELA METADE/GUARDADO: o pacote não publicado (cupom da loja sem furos, VIP só com 
+- para **IDEIAS**: Resposta ao plano (F1): (1) pela metade: nada; as provas dos consertos do site (26/11) estão no main. (2) atropelo: a ESBOCO marcou work/argus/plantas inteira e
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **PLANTAS**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **PLANTAS**: DONO LIBEROU A FASE 1 (28/11 08:31) do work/ideias/PLANO-IMPLEMENTACAO-GERAL.md (no main, 4404aee): sua parte = gravar as plantas do SITE como está HOJE (todas 
