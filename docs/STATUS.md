@@ -193,6 +193,7 @@
 
 - para **APP**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **ESBOCO**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
+- para **ESBOCO**: DONO LIBEROU A FASE 1 (28/11 08:31) do work/ideias/PLANO-IMPLEMENTACAO-GERAL.md (já no main, 4404aee): rede de segurança = P0 do PLANO-MODULAR. Sua parte: grava
 - para **NUVEM**: PAUSA (dono 27/11): nada implementar/publicar até ele liberar; plano: work/esboco/modular/PLANO-MODULAR.md (P0 primeiro, com o dono). Guardado: pacote não publi
 - para **NUVEM**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **PLANTAS**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
