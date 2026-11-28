@@ -22,25 +22,27 @@ function dbFake(compras) {
     cli: async (tel) => cli[tel] || null, cliMuda: async (tel, o) => { cli[tel] = Object.assign(cli[tel] || {}, o); },
     indMais: async (tel) => { cli[tel] = cli[tel] || {}; cli[tel].ind = (cli[tel].ind || 0) + 1; return cli[tel].ind; },
     vips: async () => Object.keys(cli).filter((t) => cli[t].vip).map((t) => Object.assign({ tel: t }, cli[t])),
+    vez: (() => { const v = {}; let q = Promise.resolve(); return (k, fn) => { const p = q.then(async () => { const o = await fn(v[k] ? JSON.parse(JSON.stringify(v[k])) : null); if (o && o.grava) v[k] = o.grava; return (o && o.r) || {}; }); q = p.catch(() => {}); return p; }; })(),
+    lojaAviso: async () => Object.values(m).filter((c) => c.aviso === 'pend'),
     contaPaga: async (tel, pid) => { cnt[tel] = cnt[tel] || []; if (cnt[tel].includes(pid)) return null; cnt[tel].push(pid); return cnt[tel].length; },
   };
 }
 (async () => {
   const T0 = Date.UTC(2026, 10, 12, 12), D = 864e5, env = [], envia = async (x) => { env.push(x); };
   const ult = () => env[env.length - 1];
-  const db = dbFake(['981999888']);
+  const db = dbFake(['595981999888']);
   // S409: não existe mais cupom de boas-vindas
   let r = await C.boasVindas(db, envia, { email: 'Ana@Gmail.com', tel: '+595 981 123 456', lang: 'es' }, T0);
   ok(!r.ok && r.motivo === 'fim' && env.length === 0 && !Object.values(db.m).length, 'boas-vindas: acabou (nenhum cupom, nenhum e-mail)');
   r = await C.boasVindas(db, envia, { email: 'x@y.com', antigo: true }, T0); ok(!r.ok, 'boas-vindas: nenhum jeito de pedir o cupom antigo');
   // usar no site (cartão avulso do dono, 1 uso)
-  const av0 = (await C.emitir(db, { tipo: 'px', pct: 10, tel: '0981123456' }, T0)).cod;
-  r = await C.ver(db, { cod: av0.toLowerCase(), tel: '0981123456' }, 'ip1', T0); ok(r.ok && r.cupom.pct === 10, 'confere o código (minúscula também vale)');
-  let e = ''; try { await C.usar(db, { cod: av0, tel: '0981123456', total: 200000, desc: 50000, pid: 'P1' }, 'ip1', T0); } catch (x) { e = x.motivo; } ok(e === 'desc', 'desconto maior que o % é recusado');
+  const av0 = (await C.emitir(db, { tipo: 'px', tel: '0981123456', email: 'ana@gmail.com', venda: 'V0', total: 150000 }, T0 - 8 * D)).cod;
+  r = await C.ver(db, { cod: av0.toLowerCase(), tel: '0981123456', email: 'ana@gmail.com' }, 'ip1', T0); ok(r.ok && r.cupom.pct === 10, 'confere o código (minúscula também vale)');
+  let e = ''; try { await C.usar(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com', total: 200000, desc: 50000, pid: 'P1' }, 'ip1', T0); } catch (x) { e = x.motivo; } ok(e === 'desc', 'desconto maior que o % é recusado');
   r = await C.usar(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com', total: 245000, desc: 24000, pid: 'P1' }, 'ip1', T0);
   ok(r.ok && db.m[av0].usos[0].st === 'res', 'usa: fica reservado até o pagamento');
-  r = await C.ver(db, { cod: av0, tel: '0981123456' }, 'ip1', T0 + 1000); ok(!r.ok && r.motivo === 'usado', 'código de 1 uso não vale de novo');
-  await C.libera(db, { pid: 'P1' }, T0 + 2000); r = await C.ver(db, { cod: av0, tel: '0981123456' }, 'ip1', T0 + 3000); ok(r.ok, 'pedido cancelado: o código volta a valer');
+  r = await C.ver(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com' }, 'ip1', T0 + 1000); ok(!r.ok && r.motivo === 'usado', 'código de 1 uso não vale de novo');
+  await C.libera(db, { pid: 'P1' }, T0 + 2000); r = await C.ver(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com' }, 'ip1', T0 + 3000); ok(r.ok, 'pedido cancelado: o código volta a valer');
 
   // ---- 1ª compra: nada no pagamento; cartão de 10% só na ENTREGA ----
   await C.usar(db, { cod: av0, tel: '0981123456', email: 'ana@gmail.com', total: 245000, desc: 24000, pid: 'P2' }, 'ip1', T0 + 4000);
@@ -60,7 +62,7 @@ function dbFake(compras) {
 
   // ---- ESCADA (S409): 1ª indicação = cartão NOVO de 10% (o de 10% da compra não cresce) ----
   const indica = async (i, t) => { const tel = '09830000' + String(i).padStart(2, '0'); await C.usar(db, { cod: am, tel, email: 'i' + i + '@x.com', total: 150000, desc: 15000, pid: 'I' + i }, 'ipI' + i, t); return C.confirma(db, envia, { pid: 'I' + i }, t + 10); };
-  const meusPx = () => Object.values(db.m).filter((c) => c.tel === '981123456' && (c.tipo === 'px' || c.tipo === 'pe'));
+  const meusPx = () => Object.values(db.m).filter((c) => c.tel === '595981123456' && (c.tipo === 'px' || c.tipo === 'pe'));
   r = await indica(1, T0 + 17 * D);
   let L = meusPx(), c1 = L.find((c) => c.de === 'ind:1');
   ok(db.m[px].pct === 10 && c1 && c1.pct === 10 && c1.st === 'fila', '1ª indicação: cartão de 10% SEPARADO, guardado (um presente por vez); o cartão que ela tinha NÃO cresce');
@@ -87,9 +89,9 @@ function dbFake(compras) {
   // presente especial: só no site, nunca no caixa; o desconto precisa deixar uma peça paga
   db.m[c9.cod].st = 'ativo';
   r = await C.usar(db, { cod: c9.cod, tel: '0981123456', total: 200000, desc: 95000, pid: 'G0' }, 'ipG', T0 + 60 * D, true); ok(!r.ok && r.motivo === 'site', 'presente especial não vale no caixa da loja');
-  e = ''; try { await C.usar(db, { cod: c9.cod, tel: '0981123456', total: 95000, desc: 95000, pid: 'G1' }, 'ipG', T0 + 60 * D); } catch (x) { e = x.motivo; } ok(e === 'desc', 'BURLA: presente especial sem peça paga (desconto = carrinho inteiro) é recusado');
-  r = await C.usar(db, { cod: c9.cod, tel: '0981123456', total: 195000, desc: 95000, pid: 'G2' }, 'ipG', T0 + 60 * D); ok(r.ok, 'presente especial com uma peça paga: reservado');
-  r = await C.ver(db, { cod: c9.cod, tel: '0981123456' }, 'ipG', T0 + 60 * D + 9); ok(!r.ok && r.motivo === 'usado', 'BURLA: o mesmo presente em outro pedido aberto: não vale');
+  e = ''; try { await C.usar(db, { cod: c9.cod, tel: '0981123456', email: 'ana@gmail.com', total: 95000, desc: 95000, pid: 'G1' }, 'ipG', T0 + 60 * D); } catch (x) { e = x.motivo; } ok(e === 'desc', 'BURLA: presente especial sem peça paga (desconto = carrinho inteiro) é recusado');
+  r = await C.usar(db, { cod: c9.cod, tel: '0981123456', email: 'ana@gmail.com', total: 195000, desc: 95000, pid: 'G2' }, 'ipG', T0 + 60 * D); ok(r.ok, 'presente especial com uma peça paga: reservado');
+  r = await C.ver(db, { cod: c9.cod, tel: '0981123456', email: 'ana@gmail.com' }, 'ipG', T0 + 60 * D + 9); ok(!r.ok && r.motivo === 'usado', 'BURLA: o mesmo presente em outro pedido aberto: não vale');
 
   // ---- evento: sem código à vista, botão na temática ----
   r = await C.emitir(db, { tipo: 'ev', cod: 'navidad10', pct: 10, max: 2, ini: T0, fim: T0 + 30 * D, tema: 'natal' }, T0); ok(r.ok && r.cod === 'NAVIDAD10', 'cupom do evento com código escolhido (interno)');
@@ -104,19 +106,22 @@ function dbFake(compras) {
   r = await C.ver(db, { cod: am, tel: '0985000222' }, 'ipY', T0 + 1); ok(!r.ok && r.motivo === 'nao', 'robô (30+ erros na hora) recebe só "não encontrado"');
 
   // ---- VIP (S409): 20%, status para sempre, e-mail 68b na primeira vez, aniversário ----
-  r = await C.emitir(db, { tipo: 'vip', tel: '0986', nome: 'Carlos Benítez', email: 'vip@x.com', fim: T0 + 180 * D, nasc: '5/3' }, T0, envia);
+  r = await C.emitir(db, { tipo: 'vip', tel: '0986111222', nome: 'Carlos Benítez', email: 'vip@x.com', fim: T0 + 180 * D, nasc: '5/3' }, T0, envia);
   let v = db.m[r.cod];
-  ok(r.ok && v.pct === 20 && v.max === 1 && db.cliM['0986'].vip === T0 && db.cliM['0986'].nasc === '05/03' && /Você agora é Cliente VIP/.test(ult().subject) && /Reserva de 3 horas/.test(ult().html) && !/24 horas/.test(ult().html), '68b: VIP padrão 20%, status, e-mail "Você agora é Cliente VIP" com a reserva de 3 horas');
-  r = await C.emitir(db, { tipo: 'vip', tel: '0986', nome: 'Carlos', email: 'vip@x.com', max: 3 }, T0 + D, envia);
-  ok(db.cliM['0986'].vip === T0 && /Um cartão VIP para você/.test(ult().subject) && /em 3 compras/.test(ult().html), 'segundo cartão VIP: o status continua desde a 1ª vez; e-mail simples');
+  ok(r.ok && v.pct === 20 && v.max === 1 && db.cliM['595986111222'].vip === T0 && db.cliM['595986111222'].nasc === '05/03' && /Você agora é Cliente VIP/.test(ult().subject) && /Reserva de 3 horas/.test(ult().html) && !/24 horas/.test(ult().html), '68b: VIP padrão 20%, status, e-mail "Você agora é Cliente VIP" com a reserva de 3 horas');
+  r = await C.emitir(db, { tipo: 'vip', tel: '0986111222', nome: 'Carlos', email: 'vip@x.com', max: 3 }, T0 + D, envia);
+  ok(db.cliM['595986111222'].vip === T0 && /Um cartão VIP para você/.test(ult().subject) && /em 3 compras/.test(ult().html), 'segundo cartão VIP: o status continua desde a 1ª vez; e-mail simples');
   const na = env.length;
   r = await C.diario(db, envia, Date.UTC(2027, 2, 5, 15)); ok(r.aniversarios === 1 && /Feliz aniversário/.test(ult().subject) && /FELIZ ANIVERSÁRIO/.test(ult().html) && /34px 34px/.test(ult().html), '67b: no aniversário o VIP recebe 10% por 30 dias (cartão preto com confete)');
   const ca = Object.values(db.m).find((c) => c.tipo === 'ani'); ok(ca && ca.pct === 10 && ca.fim - ca.ts === 30 * D && ca.st === 'ativo', 'cartão de aniversário: 10%, 30 dias, fora da fila');
   r = await C.diario(db, envia, Date.UTC(2027, 2, 5, 20)); ok(r.aniversarios === 0, 'aniversário: uma vez por ano');
   db.cliM['555'] = { nasc: '05/03', nome: 'Sem VIP', email: 'n@x.com' }; r = await C.diario(db, envia, Date.UTC(2028, 2, 5, 15)); ok(!Object.values(db.m).some((c) => c.tipo === 'ani' && c.tel === '555'), 'quem não é VIP não recebe presente de aniversário');
   mm = await C.meus(db, 'vip@x.com', T0 + 2 * D); ok(mm.vip === T0, 'Minha conta recebe o status VIP');
-  r = await C.emitir(db, { tipo: 'px', pct: 20, tel: '0986222', nome: 'Maria González', email: 'agrado@x.com' }, T0, envia);
-  ok(r.enviou && /Um presente da La Fouch/.test(ult().subject) && ult().html.indexOf('>' + r.cod + '<') < 0, '61g: cartão avulso do dono vai por e-mail, sem o código à vista');
+  const n61 = env.length;
+  r = await C.emitir(db, { tipo: 'px', pct: 20, tel: '0986222', nome: 'Maria González', email: 'agrado@x.com', venda: 'V61g', total: 180000 }, T0, envia);
+  ok(r.ok && r.cupom.pct === 10 && env.length === n61, 'loja (24/11): sempre 10%, mesmo pedindo outro %; nenhum e-mail no dia da venda');
+  await C.avisaLoja(db, envia, T0 + 7 * D);
+  ok(env.length === n61 + 1 && /Um presente da La Fouch/.test(ult().subject) && ult().to === 'agrado@x.com' && ult().html.indexOf('>' + r.cod + '<') < 0, '61g: o e-mail do cartão da loja sai no dia em que começa a valer, sem o código à vista');
   ok(/Tu compra llegó/.test(C.mailPresente(Object.assign({}, db.m[px], { tipo: 'px', de: '' }), true).subject) && /alguien especial/.test(C.mailConvite(db.m[am], true).html) && /sorpresa/.test(C.mailIndicou(c1, true, 1).html), 'e-mails em espanhol');
 
   // pedido cancelado antes de pagar
@@ -127,8 +132,8 @@ function dbFake(compras) {
   // dois pedidos no mesmo segundo com um cupom de 1 uso → só um leva (transação)
   let fila = Promise.resolve();
   db.trans = (k, fn) => { const p = fila.then(async () => { const c = JSON.parse(JSON.stringify(db.m[k] || null)); let w = null; const r2 = await fn(c, (o) => { w = o; }); if (w) Object.assign(db.m[k], w); return r2; }); fila = p.catch(() => {}); return p; };
-  const u1 = await C.emitir(db, { tipo: 'px', tel: '0983444555', email: '' }, T0), cu = u1.cupom.cod;
-  const [ra, rb] = await Promise.all([C.usar(db, { cod: cu, tel: '0983444555', total: 200000, desc: 20000, pid: 'Q1' }, 'ipQ', T0 + 1), C.usar(db, { cod: cu, tel: '0983444555', total: 200000, desc: 20000, pid: 'Q2' }, 'ipQ', T0 + 1)]);
+  const u1 = await C.emitir(db, { tipo: 'px', tel: '0983444555', email: 'q@x.com', venda: 'VQ', total: 200000 }, T0 - 8 * D), cu = u1.cupom.cod;
+  const [ra, rb] = await Promise.all([C.usar(db, { cod: cu, tel: '0983444555', email: 'q@x.com', total: 200000, desc: 20000, pid: 'Q1' }, 'ipQ', T0 + 1), C.usar(db, { cod: cu, tel: '0983444555', email: 'q@x.com', total: 200000, desc: 20000, pid: 'Q2' }, 'ipQ', T0 + 1)]);
   ok([ra, rb].filter((x) => x.ok).length === 1 && db.m[cu].usos.length === 1, 'BURLA (duas abas): cupom de 1 uso vale só para um pedido');
   const tv = {}; db.trava = async (k) => { if (tv[k]) return false; tv[k] = 1; return true; }; db.criaSe = async (k, o) => { if (db.m[k]) return false; db.m[k] = JSON.parse(JSON.stringify(o)); return true; }; db.espera = 5;
   const [p1, p2] = await Promise.all([C.proxima(db, { pid: 'Z1', tel: '0986111222', email: 'z@x.com' }, T0), C.proxima(db, { pid: 'Z1', tel: '0986111222', email: 'z@x.com' }, T0)]);
@@ -137,6 +142,48 @@ function dbFake(compras) {
   const nz = env.length;
   const [e1, e2] = await Promise.all([C.entregue(db, envia, { pid: 'Z1' }, T0 + D), C.entregue(db, envia, { pid: 'Z1' }, T0 + D)]);
   ok([e1, e2].filter((x) => !x.fora).length === 1 && env.length === nz + 1, 'marcar entregue em 2 aparelhos juntos = 1 presente e 1 e-mail');
+  // ---- 24/11: Próxima compra da LOJA (o dono escolhe dar, só dentro da regra; dono do cartão = o e-mail do cadastro) ----
+  const dbL = dbFake([]), L0 = T0 + 400 * D, EM = 'lu@x.com', envL = [], enviaL = async (x) => { envL.push(x); };
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', email: EM, venda: 'L1', total: 149999 }, L0); ok(!r.ok && r.motivo === 'min' && r.min === 150000, 'loja: venda abaixo de G$ 150.000 não ganha');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', email: '', venda: 'L1', total: 300000 }, L0); ok(!r.ok && r.motivo === 'email', 'loja: só com o e-mail da cliente no cadastro');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', email: 'nao-e-email', venda: 'L1', total: 300000 }, L0); ok(!r.ok && r.motivo === 'email', 'loja: e-mail inválido não vale');
+  e = ''; try { await C.emitir(dbL, { tipo: 'px', email: EM, total: 300000 }, L0); } catch (x) { e = x.motivo; } ok(e === 'venda', 'loja: sem a venda não nasce (nada à mão fora da regra)');
+  r = await C.emitir(dbL, { tipo: 'px', tel: '0985000111', email: 'LU@X.com', venda: 'L1', total: 150000 }, L0);
+  const cl = dbL.m[r.cod]; ok(r.ok && cl.pct === 10 && cl.ini === L0 + 7 * D && cl.fim === L0 + 97 * D && cl.max === 1 && cl.email === EM, 'loja: 10%, começa em 7 dias, vale 90, preso ao e-mail');
+  // duas chamadas juntas (dois toques, dois aparelhos, internet repetindo) = um cartão só
+  const [d1, d2] = await Promise.all([C.emitir(dbL, { tipo: 'px', email: EM, venda: 'L1', total: 150000 }, L0 + 1), C.emitir(dbL, { tipo: 'px', email: EM, venda: 'L1', total: 150000 }, L0 + 1)]);
+  ok(d1.ok && d2.ok && d1.cod === cl.cod && d2.cod === cl.cod && Object.keys(dbL.m).length === 1, 'BURLA: a mesma venda repetida/junta = um cartão só');
+  const [x1, x2] = await Promise.all([C.emitir(dbL, { tipo: 'px', email: 'ze@x.com', venda: 'L5', total: 300000 }, L0), C.emitir(dbL, { tipo: 'px', email: 'ze@x.com', venda: 'L6', total: 300000 }, L0)]);
+  ok([x1, x2].filter((x) => x.ok).length === 1 && [x1, x2].some((x) => !x.ok && (x.motivo === 'tem' || x.motivo === 'tente')) && Object.values(dbL.m).filter((c) => c.email === 'ze@x.com').length === 1, 'BURLA: duas vendas no mesmo segundo para a mesma cliente = um cartão só');
+  r = await C.emitir(dbL, { tipo: 'px', email: EM, venda: 'L2', total: 500000 }, L0 + 2 * D); ok(!r.ok && r.motivo === 'tem' && r.fim === cl.fim, 'loja: um por vez — com um sem usar, não nasce outro');
+  // no site: só a conta do MESMO e-mail (login confirmado); antes de 7 dias não vale
+  r = await C.ver(dbL, { cod: cl.cod, email: EM }, 'ipL', L0 + 6 * D); ok(!r.ok && r.motivo === 'cedo', 'loja: antes de 7 dias não vale');
+  r = await C.ver(dbL, { cod: cl.cod, email: EM }, 'ipL', L0 + 8 * D); ok(r.ok, 'site: a conta do mesmo e-mail usa');
+  r = await C.ver(dbL, { cod: cl.cod, email: '' }, 'ipL', L0 + 8 * D); ok(!r.ok && r.motivo === 'conta', 'site: sem entrar na conta não usa (pede o login)');
+  r = await C.ver(dbL, { cod: cl.cod, email: 'outra@x.com', tel: '0985000111' }, 'ipL', L0 + 8 * D); ok(!r.ok && r.motivo === 'outro', 'BURLA: outra conta, mesmo sabendo o telefone, não usa');
+  for (const k of ['a', 'b', 'c']) await C.ver(dbL, { cod: cl.cod, email: k + '@z.com' }, 'ipL', L0 + 8 * D);
+  ok(dbL.av.some((a) => a.t === 'trava' && a.cod === cl.cod), 'BURLA: 4 contas diferentes tentando o mesmo cartão = aviso ao dono');
+  r = await C.usar(dbL, { cod: cl.cod, tel: '0985000111', total: 200000, desc: 20000, pid: 'caixa:1' }, 'ipL', L0 + 8 * D, true); ok(r.ok, 'caixa: a cliente usa no balcão (o dono confere pessoalmente)');
+  // e-mail no dia em que começa: uma vez só; se falhar, tenta de novo no outro dia e avisa o dono
+  const dbE = dbFake([]); let quebra = true; const enviaE = async (x) => { if (quebra) throw new Error('rede'); envL.push(x); };
+  r = await C.emitir(dbE, { tipo: 'px', email: 'e@x.com', venda: 'E1', total: 150000 }, L0); const ce = r.cod;
+  let a1 = await C.avisaLoja(dbE, enviaE, L0 + 6 * D); ok(a1.enviados === 0 && dbE.m[ce].aviso === 'pend', 'e-mail: antes de começar a valer não sai');
+  a1 = await C.avisaLoja(dbE, enviaE, L0 + 7 * D); ok(a1.falhas === 1 && dbE.m[ce].aviso === 'pend' && dbE.av.some((a) => a.t === 'email'), 'e-mail: se o envio falha, fica pendente e o dono é avisado');
+  quebra = false; const ne = envL.length;
+  a1 = await C.avisaLoja(dbE, enviaE, L0 + 8 * D); ok(a1.enviados === 1 && envL.length === ne + 1 && dbE.m[ce].aviso === 'env', 'e-mail: no dia seguinte sai');
+  a1 = await C.avisaLoja(dbE, enviaE, L0 + 9 * D); ok(a1.enviados === 0 && envL.length === ne + 1, 'e-mail: nunca sai duas vezes');
+  // venda desfeita: o cartão que ela gerou é cancelado; se já foi usado, fica e o dono é avisado
+  r = await C.emitir(dbE, { tipo: 'px', email: 'd@x.com', venda: 'E2', total: 150000 }, L0); const cd = r.cod;
+  r = await C.lojaDesfaz(dbE, { venda: 'E2' }, L0 + D); ok(r.cancelado && dbE.m[cd].st === 'canc', 'venda desfeita: o cartão é cancelado');
+  r = await C.ver(dbE, { cod: cd, email: 'd@x.com' }, 'ipE', L0 + 8 * D); ok(!r.ok && r.motivo === 'cancelado', 'venda desfeita: o cartão não vale mais');
+  r = await C.emitir(dbE, { tipo: 'px', email: 'd@x.com', venda: 'E3', total: 150000 }, L0 + 2 * D); ok(r.ok, 'venda desfeita: a cliente pode ganhar de novo numa venda nova');
+  await C.usar(dbE, { cod: r.cod, total: 200000, desc: 20000, pid: 'caixa:2' }, 'ipE', L0 + 10 * D, true);
+  const r3 = await C.lojaDesfaz(dbE, { venda: 'E3' }, L0 + 11 * D); ok(r3.usado && dbE.m[r.cod].st !== 'canc' && dbE.av.some((a) => a.t === 'desfeita'), 'venda desfeita com cartão já usado: não mexe e avisa o dono');
+  r = await C.emitir(dbL, { tipo: 'px', email: EM, venda: 'L3', total: 200000 }, L0 + 98 * D); ok(r.ok && r.cod !== cl.cod, 'loja: o anterior foi usado/venceu, pode ganhar de novo');
+  r = await C.emitir(dbL, { tipo: 'vip', tel: '0985777', nome: 'Sem Email' }, L0); ok(!r.ok && r.motivo === 'email' && !Object.values(dbL.m).some((c) => c.tipo === 'vip'), 'VIP (24/11): só com o e-mail da cliente');
+  ok(C.PADRAO.px.dias === 120, 'site intocado: a Próxima compra do site continua com 120 dias');
+  const idxSrc = require('fs').readFileSync(__dirname + '/index.js', 'utf8');
+  ok(/email: t && t\.email && t\.email_verified === true \? t\.email : ''/.test(idxSrc) && !/Cupom\.ver\(cupDb, b,/.test(idxSrc) && !/Cupom\.usar\(cupDb, b, ipk, agora, false\)/.test(idxSrc), 'TRAVA: no site o e-mail do cupom vem só do login confirmado, nunca do que foi digitado');
   console.log(falhas ? falhas + ' FALHA(S)' : 'cupom: tudo ok');
   process.exit(falhas ? 1 : 0);
 })();
