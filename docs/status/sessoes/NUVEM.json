@@ -44,5 +44,5 @@
    "r": "Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions)."
   }
  ],
- "leu": 1795897162.333246
+ "leu": 1795897464.25806
 }
