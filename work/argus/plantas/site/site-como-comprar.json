@@ -1,0 +1,3308 @@
+{
+ "id": "site-como-comprar",
+ "tela": "como-comprar",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      77
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      27.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      15.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      27,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      77,
+      407,
+      755
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      87,
+      49,
+      22.5
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      115.5,
+      327,
+      45
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      182.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(42, 31, 39)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      183.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      202.3,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      252,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      270.8,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      320.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      339.3,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎄 Natal La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(31, 92, 58)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(179, 38, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(29, 43, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "rgb(247, 242, 234)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "1px rgb(228, 220, 205) / 0px rgb(29, 43, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(29, 43, 34)",
+     "fundo": "",
+     "borda": "0px rgb(29, 43, 34) / 1px rgb(228, 220, 205)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(179, 38, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(31, 29, 26)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(31, 29, 26)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "1px rgb(236, 231, 222) / 0px rgb(31, 29, 26)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(31, 29, 26)",
+     "fundo": "",
+     "borda": "0px rgb(31, 29, 26) / 1px rgb(236, 231, 222)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(22, 33, 58)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "✨ Ano Novo · comece 2027 com um novo olhar",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(227, 200, 143)",
+     "fundo": "rgb(15, 24, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(168, 133, 74)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(22, 33, 58)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "1px rgb(230, 233, 240) / 0px rgb(22, 33, 58)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(22, 33, 58)",
+     "fundo": "",
+     "borda": "0px rgb(22, 33, 58) / 1px rgb(230, 233, 240)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(168, 133, 74)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      127
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🌷 Dia das Mães La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      50
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(142, 47, 85)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      77.5,
+      21,
+      21
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      65.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(184, 67, 111)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      77,
+      22,
+      22
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(58, 26, 40)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      127,
+      407,
+      705
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "rgb(252, 245, 247)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      137,
+      49,
+      22.5
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      165.5,
+      327,
+      45
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      232.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "1px rgb(240, 223, 230) / 0px rgb(58, 26, 40)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      233.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      252.3,
+      8,
+      30
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      302,
+      327,
+      68.5
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      320.8,
+      8,
+      30
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      370.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(58, 26, 40)",
+     "fundo": "",
+     "borda": "0px rgb(58, 26, 40) / 1px rgb(240, 223, 230)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      389.3,
+      8,
+      30
+     ],
+     "cor": "rgb(184, 67, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dia dos Pais La Fouch · presentes com retirada no mesmo dia",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(30, 47, 77)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(176, 122, 58)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(20, 35, 61)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "rgb(243, 245, 248)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "1px rgb(223, 229, 238) / 0px rgb(20, 35, 61)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(20, 35, 61)",
+     "fundo": "",
+     "borda": "0px rgb(20, 35, 61) / 1px rgb(223, 229, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(176, 122, 58)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "🎃 Semana de Halloween na La Fouch",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 177, 92)",
+     "fundo": "rgb(42, 21, 48)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(217, 101, 26)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 21, 48)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "rgb(247, 242, 249)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "1px rgb(233, 223, 238) / 0px rgb(42, 21, 48)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 21, 48)",
+     "fundo": "",
+     "borda": "0px rgb(42, 21, 48) / 1px rgb(233, 223, 238)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(217, 101, 26)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(10, 10, 10)",
+     "borda": "0px rgba(255, 255, 255, 0.1) / 1px rgba(255, 255, 255, 0.1)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY · ofertas em toda a loja",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(255, 255, 255)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(225, 29, 72)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(17, 17, 17)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "rgb(243, 243, 243)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "1px rgb(226, 226, 226) / 0px rgb(17, 17, 17)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(17, 17, 17)",
+     "fundo": "",
+     "borda": "0px rgb(17, 17, 17) / 1px rgb(226, 226, 226)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(225, 29, 72)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/como-comprar",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      111
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "⚡ BLACK FRIDAY começa em 2 d 23 h 59 min",
+     "caixa": [
+      0,
+      0,
+      407,
+      34
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      26,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 8h16M4 16h16",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      311.5,
+      61.5,
+      21,
+      21
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-3.5-3.5",
+      "traco": "2px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      359,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6|circle:cx=9.5,cy=20,r=1.4|circle:cx=17,cy=20,r=1.4",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "0",
+     "caixa": [
+      376.8,
+      49.3,
+      21,
+      21
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(141, 58, 105)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "11px",
+      "800",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      76,
+      61,
+      22,
+      22
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=4|path:d=M4 21c1-4 4-6 8-6s7 2 8 6",
+      "traco": "1.8px",
+      "cor": "rgb(42, 31, 39)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      111,
+      407,
+      721
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(251, 247, 250)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹ Início",
+     "caixa": [
+      40,
+      121,
+      49,
+      22.5
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajuda",
+     "caixa": [
+      40,
+      149.5,
+      327,
+      45
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "500",
+      "Fraunces",
+      "-0.3px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      40,
+      216.5,
+      327,
+      206.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "1px rgb(239, 227, 234) / 0px rgb(42, 31, 39)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dúvidas frequentes",
+     "caixa": [
+      40,
+      217.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      236.3,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dicas e cuidados",
+     "caixa": [
+      40,
+      286,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      304.8,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entre em contato",
+     "caixa": [
+      40,
+      354.5,
+      327,
+      68.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "0px rgb(42, 31, 39) / 1px rgb(239, 227, 234)",
+     "raio": "",
+     "letra": [
+      "21px",
+      "500",
+      "Fraunces",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      359,
+      373.3,
+      8,
+      30
+     ],
+     "cor": "rgb(141, 58, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "500",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-como-comprar_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "como-comprar",
+ "versao_app": "",
+ "titulo": "/como-comprar",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Menu",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "nada"
+  },
+  {
+   "i": 1,
+   "nome": "La Fouch, tudo em óculos",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 2,
+   "nome": "Buscar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre o menu: Busque pelo nome ou pelo código da peça. OU VEJA P"
+  },
+  {
+   "i": 3,
+   "nome": "Abrir o carrinho",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Seu carrinho"
+  },
+  {
+   "i": 4,
+   "nome": "Minha conta",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌃",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Iniciar sessão"
+  },
+  {
+   "i": 5,
+   "nome": "‹ Início",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "‹",
+   "aba": -1,
+   "faz": "sai para: /"
+  },
+  {
+   "i": 6,
+   "nome": "Dúvidas frequentes ›",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "mostra aviso: ‹ Ajuda"
+  },
+  {
+   "i": 7,
+   "nome": "Dicas e cuidados ›",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "mostra aviso: ‹ Ajuda"
+  },
+  {
+   "i": 8,
+   "nome": "Entre em contato ›",
+   "act": "",
+   "id": "",
+   "tag": "a",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "mostra aviso: ‹ Ajuda"
+  }
+ ],
+ "site_commit": "7be4697"
+}

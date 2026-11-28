@@ -1,0 +1,1424 @@
+{
+ "id": "site-admin",
+ "tela": "Painel (admin)",
+ "passos": [],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": null,
+ "temas": {
+  "sem": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_sem.jpg"
+  },
+  "natal": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_natal.jpg"
+  },
+  "anonovo-d": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_anonovo-d.jpg"
+  },
+  "anonovo-n": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_anonovo-n.jpg"
+  },
+  "maes": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_maes.jpg"
+  },
+  "pais": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_pais.jpg"
+  },
+  "halloween": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_halloween.jpg"
+  },
+  "bf": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_bf.jpg"
+  },
+  "bf-quase": {
+   "titulo": "/admin",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      40,
+      375,
+      293
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(230, 213, 223) / 1px rgb(230, 213, 223)",
+     "raio": "22px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Painel La Fouch",
+     "caixa": [
+      39,
+      63,
+      329,
+      43.5
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "30px",
+      "400",
+      "GFS Baskerville",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Entrar",
+     "caixa": [
+      39,
+      116.5,
+      329,
+      26.1
+     ],
+     "cor": "rgb(42, 31, 39)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sem senha: use o celular com a biometria.",
+     "caixa": [
+      39,
+      148.6,
+      329,
+      18.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "🔐 Entrar com o celular",
+     "caixa": [
+      39,
+      179.4,
+      329,
+      48
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "",
+     "borda": "",
+     "raio": "99px",
+     "letra": [
+      "15px",
+      "600",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Neste computador ainda não entrou? Use o celular uma vez e ele fica conhecido.",
+     "caixa": [
+      39,
+      239.4,
+      329,
+      37.7
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Usar e-mail e senha",
+     "caixa": [
+      142.8,
+      283.1,
+      121.5,
+      26.8
+     ],
+     "cor": "rgb(122, 103, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Inter",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "site-admin_bf-quase.jpg"
+  }
+ },
+ "setor": "site",
+ "rota": "admin",
+ "versao_app": "",
+ "titulo": "/admin",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "🔐 Entrar com o celular",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "mostra aviso: Não deu para entrar com o celular. Tente de novo o"
+  },
+  {
+   "i": 1,
+   "nome": "Usar e-mail e senha",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  }
+ ],
+ "site_commit": "7be4697"
+}
