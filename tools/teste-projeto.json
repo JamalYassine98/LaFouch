@@ -1,7 +1,7 @@
 {
   "_": "Projeto de TESTE (Fase 3, 28/11). Preenchido pela parte 4 (tools/configura-teste.sh): acesso sem chave, só deste repositório.",
   "projeto": "lafouch-teste",
-  "provedor": "",
-  "conta_publica": "",
-  "conta_le": ""
+  "provedor": "projects/518966776962/locations/global/workloadIdentityPools/github/providers/lafouch",
+  "conta_publica": "github-publica@lafouch-teste.iam.gserviceaccount.com",
+  "conta_le": "github-le@lafouch-teste.iam.gserviceaccount.com"
 }

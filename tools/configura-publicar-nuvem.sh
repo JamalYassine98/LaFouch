@@ -23,7 +23,9 @@ gcloud config set project "$P" >/dev/null
 N=$(gcloud projects describe "$P" --format='value(projectNumber)') || { echo "ERRO: não achei o projeto $P"; exit 1; }
 echo "Projeto $P (número $N)"
 FALHOU=0
-papel() { gcloud projects add-iam-policy-binding "$P" --member="serviceAccount:$1" --role="$2" --condition=None -q >/dev/null && echo "ok  papel $2 → ${1%%@*}" || { echo "ERRO no papel $2"; FALHOU=1; }; }
+# conta recém-criada leva 1–2 min para existir em todo o Google: todo passo que usa uma conta tenta de novo (um lugar só)
+tenta() { for T in 1 2 3 4 5 6; do "$@" >/dev/null 2>&1 && return 0; [ "$T" = 6 ] || { echo "…  esperando o Google ficar pronto (tentativa $T de 6)"; sleep 20; }; done; return 1; }
+papel() { tenta gcloud projects add-iam-policy-binding "$P" --member="serviceAccount:$1" --role="$2" --condition=None -q && echo "ok  papel $2 → ${1%%@*}" || { echo "ERRO no papel $2"; FALHOU=1; }; }
 conta() { gcloud iam service-accounts describe "$1@$P.iam.gserviceaccount.com" >/dev/null 2>&1 \
   || gcloud iam service-accounts create "$1" --display-name="$2" >/dev/null; echo "ok  conta $1"; }
 
@@ -64,15 +66,11 @@ gcloud iam workload-identity-pools providers describe lafouch --location=global 
        --attribute-condition="assertion.repository=='$REPO' && assertion.ref=='refs/heads/main'" >/dev/null
 echo "ok  ponte só para $REPO no ramo main"
 
-# conta recém-criada pode levar 1–2 min para existir em todo o Google: tenta de novo algumas vezes
 liga() {
-  for T in 1 2 3 4 5 6; do
-    gcloud iam service-accounts add-iam-policy-binding "$1@$P.iam.gserviceaccount.com" --role=roles/iam.workloadIdentityUser \
-      --member="principalSet://iam.googleapis.com/projects/$N/locations/global/workloadIdentityPools/github/attribute.repository/$REPO" -q >/dev/null 2>&1 \
-      && { echo "ok  o GitHub (só esse repositório) pode usar a conta $1"; return 0; }
-    echo "…  esperando a conta $1 ficar pronta (tentativa $T de 6)"; sleep 20
-  done
-  echo "ERRO: não deu para ligar o GitHub à conta $1. Mande a foto desta tela para a sessão NUVEM."; exit 1
+  tenta gcloud iam service-accounts add-iam-policy-binding "$1@$P.iam.gserviceaccount.com" --role=roles/iam.workloadIdentityUser \
+    --member="principalSet://iam.googleapis.com/projects/$N/locations/global/workloadIdentityPools/github/attribute.repository/$REPO" -q \
+    && echo "ok  o GitHub (só esse repositório) pode usar a conta $1" \
+    || { echo "ERRO: não deu para ligar o GitHub à conta $1. Mande a foto desta tela para a sessão NUVEM."; exit 1; }
 }
 liga github-publica
 [ "$ONDE" = teste ] && liga github-le
