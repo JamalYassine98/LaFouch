@@ -1,13 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "Fase 3 parte 1: regras do lafouch-teste montadas das reais + área de relatórios",
+ "agora": "Fase 3 parte 2: modo teste (nada sai para fora no lafouch-teste)",
  "arquivos": [
-  "tools/regras-teste.py",
-  "firestore.teste.rules",
-  "storage.teste.rules",
-  "firebase.teste.json",
-  "functions/teste-regras-teste.js",
-  "docs/NUVEM-COMO-FUNCIONA.md"
+  "functions/ambiente.js",
+  "functions/index.js",
+  "functions/teste-ambiente.js"
  ],
  "ultimas": [
   {
