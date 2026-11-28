@@ -52,7 +52,16 @@ if [ "$ONDE" = teste ]; then
   for S in RESEND_KEY GH_APP_ID GH_APP_KEY PIX_ROBO; do
     gcloud secrets describe "$S" >/dev/null 2>&1 || printf 'teste-sem-envio' | gcloud secrets create "$S" --data-file=- --replication-policy=automatic >/dev/null
     echo "ok  segredo de mentira $S"
+    # as funções rodam com a conta padrão do Compute: ela lê o segredo (sem isto o deploy tenta dar o acesso e é barrado)
+    tenta gcloud secrets add-iam-policy-binding "$S" --member="serviceAccount:$N-compute@developer.gserviceaccount.com" \
+      --role=roles/secretmanager.secretAccessor --condition=None -q && echo "ok  funções leem $S" || { echo "ERRO no acesso a $S"; FALHOU=1; }
   done
+  # o que o 1º deploy faria sozinho com poder de dono (no projeto real foi o dono quem publicou a 1ª vez): gatilhos e agenda
+  tenta gcloud beta services identity create --service=pubsub.googleapis.com -q
+  tenta gcloud beta services identity create --service=eventarc.googleapis.com -q
+  papel "service-$N@gcp-sa-pubsub.iam.gserviceaccount.com" roles/iam.serviceAccountTokenCreator
+  papel "service-$N@gcp-sa-eventarc.iam.gserviceaccount.com" roles/eventarc.serviceAgent
+  for R in roles/run.invoker roles/eventarc.eventReceiver; do papel "$N-compute@developer.gserviceaccount.com" "$R"; done
 fi
 [ "$FALHOU" = 1 ] && { echo "ERRO: algum papel não foi dado. Mande a foto desta tela para a sessão NUVEM."; exit 1; }
 
