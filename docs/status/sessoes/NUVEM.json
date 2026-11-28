@@ -44,5 +44,5 @@
    "r": "Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan."
   }
  ],
- "leu": 1795854813.6206522
+ "leu": 1795865792.1672606
 }
