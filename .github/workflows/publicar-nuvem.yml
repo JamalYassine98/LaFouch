@@ -13,6 +13,12 @@ on:
         default: functions
         type: choice
         options: [functions, regras, tudo, limpeza, app, info]
+      onde:
+        description: 'Onde (teste = lafouch-teste, Fase 3; só functions, regras ou tudo)'
+        required: true
+        default: loja
+        type: choice
+        options: [loja, teste]
 
 permissions:
   contents: read
@@ -36,15 +42,34 @@ jobs:
         run: |
           npm install --no-audit --no-fund
           for f in teste-*.js; do echo "== $f"; node "$f" || exit 1; done
+      - name: Qual projeto (loja real ou teste)
+        id: alvo
+        env:
+          ONDE: ${{ inputs.onde }}
+          O_QUE: ${{ inputs.o_que }}
+        run: |
+          if [ "$ONDE" = teste ]; then
+            case "$O_QUE" in functions|regras|tudo) ;; *) echo "no teste só functions, regras ou tudo"; exit 1;; esac
+            python3 tools/regras-teste.py --conferir   # as regras do teste são as da loja + relatórios, nunca outra coisa
+            P=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['provedor'])")
+            C=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['conta_publica'])")
+            [ "$C" = github-publica@lafouch-teste.iam.gserviceaccount.com ] || { echo "publicação do teste ainda não configurada (tools/teste-projeto.json)"; exit 1; }
+            echo "proj=lafouch-teste" >> "$GITHUB_OUTPUT"; echo "config=firebase.teste.json" >> "$GITHUB_OUTPUT"; echo "regras=firestore:rules,storage" >> "$GITHUB_OUTPUT"
+          else
+            P=projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
+            C=github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+            echo "proj=lafouch-2f6bd" >> "$GITHUB_OUTPUT"; echo "config=firebase.json" >> "$GITHUB_OUTPUT"; echo "regras=firestore:rules" >> "$GITHUB_OUTPUT"
+          fi
+          echo "provedor=$P" >> "$GITHUB_OUTPUT"; echo "conta=$C" >> "$GITHUB_OUTPUT"
       - uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/462328668572/locations/global/workloadIdentityPools/github/providers/lafouch
-          service_account: github-publica@lafouch-2f6bd.iam.gserviceaccount.com
+          workload_identity_provider: ${{ steps.alvo.outputs.provedor }}
+          service_account: ${{ steps.alvo.outputs.conta }}
       - name: Rodar a limpeza diária agora (só com o_que=limpeza)
-        if: inputs.o_que == 'limpeza'
+        if: inputs.o_que == 'limpeza' && inputs.onde != 'teste'
         run: gcloud scheduler jobs run firebase-schedule-limpeza-southamerica-east1 --location=southamerica-east1 --project=lafouch-2f6bd
       - name: Só ler informações do projeto (o_que=info; não muda nada)
-        if: inputs.o_que == 'info'
+        if: inputs.o_que == 'info' && inputs.onde != 'teste'
         run: |
           echo "== buckets do Storage"; gcloud storage buckets list --project=lafouch-2f6bd --format='table(name,location,storageClass)' || echo "sem permissão para listar"
           echo "== plano de cobrança"; gcloud billing projects describe lafouch-2f6bd --format='value(billingEnabled)' || echo "sem permissão"
@@ -55,14 +80,18 @@ jobs:
         if: inputs.o_que != 'limpeza' && inputs.o_que != 'info'
         env:
           O_QUE: ${{ inputs.o_que }}
+          PROJ: ${{ steps.alvo.outputs.proj }}
+          CONFIG: ${{ steps.alvo.outputs.config }}
+          REGRAS: ${{ steps.alvo.outputs.regras }}
         run: |
           case "$O_QUE" in
             functions) A=functions ;;
-            regras) A=firestore:rules ;;
+            regras) A=$REGRAS ;;
             app) A=hosting ;; # hospedagem parte 1 (20/11): o app (www/) também no Firebase Hosting, em paralelo ao GitHub Pages
-            *) A=functions,firestore:rules ;;
+            *) A=functions,$REGRAS ;;
           esac
           # sem --force: se o Firebase quiser APAGAR alguma função, ele para (em vez de apagar sozinho)
-          npx --yes firebase-tools deploy --only "$A" --project lafouch-2f6bd --non-interactive
-      - name: Conferir a nuvem no ar (tools/sonda-nuvem.sh)
+          npx --yes firebase-tools deploy --only "$A" --config "$CONFIG" --project "$PROJ" --non-interactive
+      - name: Conferir a nuvem no ar (tools/sonda-nuvem.sh; só a loja real)
+        if: inputs.onde != 'teste'
         run: sleep 20 && bash tools/sonda-nuvem.sh

@@ -14,11 +14,18 @@ cd ~/LaFouch && git pull && bash tools/configura-publicar-nuvem.sh
 ```
 O script é seguro para rodar de novo; no fim ele escreve "PRONTO".
 
+**Projeto de teste (Fase 3, 28/11):** o mesmo script com `teste` — cria também a conta `github-le` (só lê, para `tools/relatorios.py`),
+os segredos de mentira (no teste nada sai para fora) e liga os serviços das funções. O número que ele mostra vai em `tools/teste-projeto.json`.
+```
+cd ~/LaFouch && git pull && bash tools/configura-publicar-nuvem.sh teste
+```
+
 ## Como a NUVEM publica depois
 ```
 gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/publicar-nuvem.yml/dispatches -f ref=main -f inputs[o_que]=functions
 ```
-(`o_que`: `functions`, `regras` ou `tudo`). A NUVEM acompanha a rodada e confere a nuvem depois, como antes.
+(`o_que`: `functions`, `regras` ou `tudo`; `inputs[onde]=teste` publica no lafouch-teste com `firebase.teste.json` — regras do Firestore e do Storage;
+sem sonda e sem limpeza, que são só da loja). A NUVEM acompanha a rodada e confere a nuvem depois, como antes.
 
 ## Desligar (se um dia quiser)
 ```

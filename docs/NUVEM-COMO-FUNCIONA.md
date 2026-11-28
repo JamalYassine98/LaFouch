@@ -14,6 +14,8 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow
   `github-le` do teste (só leitura, sem chave; dados em `tools/teste-projeto.json`, preenchido na parte 4) os `relatorios/` (com fotos do Storage)
   e as `saidas/`; baixa em `work/relatorios/<data-hora>/` (fora do repositório) e mostra o RESUMO.md. `tools/le-teste.py` só conhece o lafouch-teste.
   Prova: `teste-le-teste.js` (travas: só consulta, só o teste, nenhuma chave, nada gravado no repositório).
+- Publicar no teste: `bash tools/configura-publicar-nuvem.sh teste` (uma vez, pelo dono) e depois `publicar-nuvem.yml` com `onde=teste`
+  (o passo "Qual projeto" é o único lugar que escolhe projeto, ponte e conta; loja é o padrão e não mudou). Prova: `teste-publicar-teste.js`.
 
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
