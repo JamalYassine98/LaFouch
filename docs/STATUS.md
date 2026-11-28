@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 07:43 — IDEIAS: prancha de harmonia A/B/C; recomendado B pedra rosada
 - 28/11 07:39 — IDEIAS: estudo §35 referências × harmonia; fundo fixo
 - 28/11 07:36 — IDEIAS: estudo §34 harmonia fundo × ambiente (v53 recusado, voltou)
 - 28/11 07:32 — IDEIAS: v53 fundo rosé da família (folha branca sem conflito)
@@ -243,7 +244,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 06:17 — IDEIAS: lógica das imagens da capa e do guia registrada
 - 28/11 06:16 — IDEIAS: regra: fotos fixas no Fem|Masc e na capa (sem troca automática)
 - 28/11 05:57 — IDEIAS: Meta como ajudante no atendimento/Semp/Titan registrado; resumo para o dono passar ao Meta
-- 28/11 05:48 — IDEIAS: dois motores (Claude + Meta) registrados para o plano de modularização
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
