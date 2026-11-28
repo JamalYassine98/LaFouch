@@ -1,4 +1,6 @@
-# Passos para o dono criar o projeto "lafouch-teste" (NUVEM · 28/11/2026)
+# Passos para o dono preparar o projeto "lafouch-teste" (NUVEM · 28/11/2026)
+**CORREÇÃO 17:11: o projeto lafouch-teste JÁ EXISTE e é nosso (criado em 02/11: Firebase Test Lab dos celulares reais e o modo
+#projteste do app). NÃO EXCLUIR. O passo 1 sai; o dono só confere os passos 2 a 6 nele.**
 Nome do projeto: **lafouch-teste** (o .firebaserc já espera esse ID no alias "teste"). Leva ~10 min, tudo pelo celular ou PC.
 Não copie nenhum dado, não crie chaves, não cadastre apps — isso a NUVEM faz depois, sem chave guardada.
 
