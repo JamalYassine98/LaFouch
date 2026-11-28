@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795898879.905168,
+   "r": "Subiu o COMO-FAZER-CANAL-DE-TESTE.md no main (bf835f8) + recado à APP; NUVEM: parte do dono no lafouch-teste concluída (projeto já existia), espera a Fase 3"
+  },
+  {
    "t": 1795895967.7361012,
    "r": "Canal de teste APROVADO → APP implementa (5 fatias com a Fase 2); NUVEM vai mandar os passos do projeto lafouch-teste para o dono"
   },
@@ -38,10 +42,6 @@
   {
    "t": 1795863902.1132314,
    "r": "achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)"
-  },
-  {
-   "t": 1795863773.378464,
-   "r": "últimas unidades: estilo calmo aprovado; sem 'não volta'"
   }
  ],
  "leu": 1795898857.9252489

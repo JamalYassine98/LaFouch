@@ -249,6 +249,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 17:47 — IDEIAS: Subiu o COMO-FAZER-CANAL-DE-TESTE.md no main (bf835f8) + recado à APP; NUVEM: parte do dono no lafouch-teste concluída (projeto já existia), espera a Fase 3
 - 28/11 17:43 — NUVEM: Fase 3 parte 3 feita (não publicada): tools/le-teste.py + ler-teste.yml (só quando chamado, conta só-leitura do teste) + tools/relatorios.py para as sessões; leituras em work/relatorios/ (fora do repo); prova teste-le-teste.js; 28/28 provas ok. Falta parte 4 (conta sem chave no teste + 1ª publicação).
 - 28/11 17:30 — NUVEM: Fase 3 partes 1 (regras do teste geradas + relatórios) e 2 (ambiente.js: no teste nada sai para fora). 27/27 testes ok. Nada publicado.
 - 28/11 17:24 — NUVEM: Dono preparou o lafouch-teste (já existia; não excluído): Blaze, alerta US$ 1, Storage US-EAST1, Anônimo. Regras reais publicadas = firestore.rules (conferido). Nada implementado (pausa).
@@ -265,7 +266,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 08:10 — IDEIAS: Margaux existe na loja (falta cadastro)
 - 28/11 08:08 — IDEIAS: site incluído no plano modular; fragmentação máxima
 - 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
-- 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
