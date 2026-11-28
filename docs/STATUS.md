@@ -78,7 +78,7 @@
 - **31-atendente-ia** — aprovado 28/11 16:46 — implementar (SITE, depois da modularização; fatias pequenas, Argus + OK ESBOCO)
 - **31-urgente-camera-branca-ao-gravar-a-volta** — ✅ v584 (5.50.9, 20/11) — falta o dono testar no celular real · APP
 - **31-visitas-num-lugar-so** — ✅ completo: APP v583 lê da análise · regras fecham vistas/ (20:08) · SITE tirou o vistaEnvia (v1795225493)
-- **32-ao-vivo-e-teste** — aprovado 28/11 16:55 — em preparação (IDEIAS faz o esboço do canal de teste; APP rebase+selo; NUVEM passos do projeto de teste)
+- **32-ao-vivo-e-teste** — esboço do canal pronto — esperando o dono (work/ideias/COMO-FAZER-CANAL-DE-TESTE.md)
 - **32-esc-filtros-carrinho-voltar-internet-fraca** — ✅ FECHADO pelo dono 21/11 11:13: Esc/voltar e carrinho no ar; internet fraca encerrada (31 s → ~14 s no 4G fraco). Partes restantes do plano guardadas, sem fila.
 - **32-urgente-camera-desfocada-ao-gravar** — ✅ v585 (5.50.10, 20/11) — falta o dono testar no celular real · APP
 - **33-urgente-giro-no-celular-real** — ✅ v586 (5.50.11, 20/11) — falta o dono testar no celular real
