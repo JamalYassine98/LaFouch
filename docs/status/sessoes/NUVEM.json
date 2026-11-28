@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795896383.535611,
+   "r": "Passos do projeto lafouch-teste mandados à IDEIAS (work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md). Nada implementado (pausa)."
+  },
+  {
    "t": 1795865846.794674,
    "r": "Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado."
   },
@@ -38,11 +42,7 @@
   {
    "t": 1795502859.114919,
    "r": "Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions)."
-  },
-  {
-   "t": 1795502431.922189,
-   "r": "Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado."
   }
  ],
- "leu": 1795896336.7718446
+ "leu": 1795896383.1023242
 }
