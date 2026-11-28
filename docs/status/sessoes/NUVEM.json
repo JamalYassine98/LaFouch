@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795897488.5961215,
+   "r": "Dono preparou o lafouch-teste (já existia; não excluído): Blaze, alerta US$ 1, Storage US-EAST1, Anônimo. Regras reais publicadas = firestore.rules (conferido). Nada implementado (pausa)."
+  },
+  {
    "t": 1795896383.535611,
    "r": "Passos do projeto lafouch-teste mandados à IDEIAS (work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md). Nada implementado (pausa)."
   },
@@ -38,11 +42,7 @@
   {
    "t": 1795522630.1460133,
    "r": "Estudo do pagamento por pedido (upay) em work/nuvem/ESTUDO-PAGAMENTO-UPAY-24-11.md: risco do Pix por valor, solução (cobrança própria por pedido + aviso assinado), tarifas públicas, plano da nuvem, 6 perguntas para a upay. Esperando o dono."
-  },
-  {
-   "t": 1795502859.114919,
-   "r": "Reserva suspeita parte 2 (aprovado 24/11 03:45): avisarSuspeita manda UM aviso urgente quando suspeitas/<pedido> nasce; avisaUrgente num lugar só (também o pedido fora da regra). 25/25 arquivos de teste ok (2 provas novas na suspeita, 1 nas portas). Commit 4bbadb03 no main; ESPERA o dono publicar (firebase deploy --only functions)."
   }
  ],
- "leu": 1795897485.636068
+ "leu": 1795897488.0882814
 }

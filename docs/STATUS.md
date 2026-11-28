@@ -255,6 +255,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 17:24 — NUVEM: Dono preparou o lafouch-teste (já existia; não excluído): Blaze, alerta US$ 1, Storage US-EAST1, Anônimo. Regras reais publicadas = firestore.rules (conferido). Nada implementado (pausa).
 - 28/11 17:06 — NUVEM: Passos do projeto lafouch-teste mandados à IDEIAS (work/nuvem/PASSOS-CRIAR-LAFOUCH-TESTE.md). Nada implementado (pausa).
 - 28/11 16:59 — IDEIAS: Canal de teste APROVADO → APP implementa (5 fatias com a Fase 2); NUVEM vai mandar os passos do projeto lafouch-teste para o dono
 - 28/11 16:51 — IDEIAS: Atendente de IA APROVADO (v94: botão em camadas v93 + troca de foco + conversa) → Fila 31-atendente-ia; recados da Fase 1 lidos e resumidos em work/ideias/RECADOS-FASE1-28-11.md (decisões levadas ao dono)
@@ -279,4 +280,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
 - 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
-- 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
