@@ -19,6 +19,10 @@ on:
         default: loja
         type: choice
         options: [loja, teste]
+      ramo:
+        description: 'Ramo a publicar (outro que não o main só no teste)'
+        required: true
+        default: main
 
 permissions:
   contents: read
@@ -33,7 +37,12 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     steps:
+      - name: Loja real só publica o main
+        if: inputs.onde != 'teste' && inputs.ramo != 'main'
+        run: echo "a loja real só publica o main"; exit 1
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ramo }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22

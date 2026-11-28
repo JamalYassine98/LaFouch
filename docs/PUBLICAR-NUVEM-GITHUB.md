@@ -24,7 +24,7 @@ cd ~/LaFouch && git pull && bash tools/configura-publicar-nuvem.sh teste
 ```
 gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/publicar-nuvem.yml/dispatches -f ref=main -f inputs[o_que]=functions
 ```
-(`o_que`: `functions`, `regras` ou `tudo`; `inputs[onde]=teste` publica no lafouch-teste com `firebase.teste.json` — regras do Firestore e do Storage;
+(`o_que`: `functions`, `regras` ou `tudo`; `inputs[ramo]=<ramo>` só com onde=teste (a loja só publica o main); `inputs[onde]=teste` publica no lafouch-teste com `firebase.teste.json` — regras do Firestore e do Storage;
 sem sonda e sem limpeza, que são só da loja). A NUVEM acompanha a rodada e confere a nuvem depois, como antes.
 
 ## Desligar (se um dia quiser)

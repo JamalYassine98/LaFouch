@@ -9,6 +9,7 @@ const sh = fs.readFileSync(path.join(R, 'tools/configura-publicar-nuvem.sh'), 'u
 const cfg = JSON.parse(fs.readFileSync(path.join(R, 'tools/teste-projeto.json'), 'utf8'));
 ok(/default: loja/.test(wf) && /P=projects\/462328668572\/locations\/global\/workloadIdentityPools\/github\/providers\/lafouch/.test(wf) && /C=github-publica@lafouch-2f6bd\.iam\.gserviceaccount\.com/.test(wf), 'loja real continua o padrão, com a mesma ponte e a mesma conta');
 ok(/if: github\.ref == 'refs\/heads\/main'/.test(wf) && wf.indexOf('teste-*.js') < wf.indexOf('google-github-actions/auth'), 'só no main e só depois de todas as provas da nuvem');
+ok(/if: inputs\.onde != 'teste' && inputs\.ramo != 'main'\n\s+run: [^\n]*exit 1/.test(wf) && wf.indexOf('Loja real só publica o main') < wf.indexOf('actions/checkout'), 'TRAVA: outro ramo só no teste; a loja real só publica o main');
 ok(!/--force/.test(wf.replace(/#.*$/gm, '')), 'TRAVA: sem --force (nunca apaga função sozinho)');
 ok(/tools\/regras-teste\.py --conferir/.test(wf) && /config=firebase\.teste\.json/.test(wf) && /functions\|regras\|tudo\) ;;/.test(wf), 'teste: confere as regras geradas, usa firebase.teste.json e só publica funções/regras');
 ok(/name: Conferir a nuvem[^\n]*\n\s+if: inputs\.onde != 'teste'/.test(wf) && /o_que == 'limpeza' && inputs\.onde != 'teste'/.test(wf), 'sonda e limpeza só na loja real');
