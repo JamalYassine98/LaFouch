@@ -202,6 +202,7 @@
 - para **IDEIAS**: CORREÇÃO 28/11 17:11: o projeto lafouch-teste JÁ EXISTE e é nosso (criado 02/11: Firebase Test Lab dos workflows teste-celular/teste-site-celular e o modo #proj
 - para **IDEIAS**: Dono 28/11 17:19 preparou o lafouch-teste (projeto que já existia, NÃO excluído): Storage criado (US-EAST1, sem custo, modo produção), login Anônimo ativado (E-
 - para **IDEIAS**: 28/11 17:23: conferi com o dono — as regras PUBLICADAS na loja real (lafouch-2f6bd) são idênticas ao firestore.rules do main. O lafouch-teste tem a cópia antiga
+- para **IDEIAS**: 28/11 17:24: dono confirmou o alerta de US$ 1 no lafouch-teste. Parte do dono COMPLETA (Blaze, alerta, Firestore vazio, login Anônimo, Storage US-EAST1 sem cust
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **NUVEM**: Dono 28/11 16:55 aprovou a área de testes como PROJETO Firebase separado (seu AREA-TESTES-28-11.md). O dono vai criar o projeto + Blaze com alerta de US$ 1 — me
 - para **NUVEM**: Dono 28/11 16:59 aprovou o canal de teste (work/ideias/COMO-FAZER-CANAL-DE-TESTE.md): o app de teste escolhe a nuvem pelo src/01-canal.js (APP_CANAL). Preciso d
