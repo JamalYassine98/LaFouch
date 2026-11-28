@@ -1,3 +1,6 @@
 node_modules
 android
 desktop/dist
+
+# leituras do projeto de teste (tools/relatorios.py) — nunca no repositório
+work/relatorios/

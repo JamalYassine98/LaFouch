@@ -1,0 +1,49 @@
+name: Ler o projeto de teste
+
+# 28/11/2026 (NUVEM, Fase 3 parte 3; dono: "Ta liberado"). Só LÊ o projeto lafouch-teste — relatórios de erro (com foto)
+# e a lista de envios que não saíram (saidas/) — com a conta github-le (só leitura, sem chave guardada).
+# Nunca toca na loja real. Chamado pelas sessões com: python3 tools/relatorios.py
+on:
+  workflow_dispatch:
+    inputs:
+      dias:
+        description: 'Quantos dias para trás'
+        default: '2'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ler-teste
+  cancel-in-progress: false
+
+jobs:
+  ler:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Conta do teste
+        id: conta
+        run: |
+          P=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['provedor'])")
+          C=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['conta_le'])")
+          case "$C" in *@lafouch-teste.iam.gserviceaccount.com) ;; *) echo "conta de leitura do teste ainda não configurada (parte 4)"; exit 1;; esac
+          echo "provedor=$P" >> "$GITHUB_OUTPUT"; echo "conta=$C" >> "$GITHUB_OUTPUT"
+      - uses: google-github-actions/auth@v2
+        id: auth
+        with:
+          workload_identity_provider: ${{ steps.conta.outputs.provedor }}
+          service_account: ${{ steps.conta.outputs.conta }}
+          token_format: access_token
+      - name: Ler
+        env:
+          GOOGLE_TOKEN: ${{ steps.auth.outputs.access_token }}
+          DIAS: ${{ inputs.dias }}
+        run: python3 tools/le-teste.py --dias "$DIAS" --saida "$RUNNER_TEMP/teste"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leitura-teste
+          path: ${{ runner.temp }}/teste
+          retention-days: 3

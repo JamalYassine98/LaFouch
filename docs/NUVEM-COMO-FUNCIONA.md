@@ -10,6 +10,10 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow
 - Modo teste (`functions/ambiente.js`, um lugar só): pelo GCLOUD_PROJECT sabe se é a loja (lafouch-2f6bd) ou o teste; dono, chave pública e
   "pode falar com o mundo" moram lá. Fora da loja real, e-mail (Resend) e mídia (GitHub) não saem: viram registro em `saidas/` (só o servidor grava).
   Prova: `teste-ambiente.js` (com travas: nenhuma cópia do dono/chave no index.js; envio externo novo só passando pelo ambiente).
+- Leitor (só sessões): `python3 tools/relatorios.py [dias]` roda `.github/workflows/ler-teste.yml` (só quando chamado), que lê com a conta
+  `github-le` do teste (só leitura, sem chave; dados em `tools/teste-projeto.json`, preenchido na parte 4) os `relatorios/` (com fotos do Storage)
+  e as `saidas/`; baixa em `work/relatorios/<data-hora>/` (fora do repositório) e mostra o RESUMO.md. `tools/le-teste.py` só conhece o lafouch-teste.
+  Prova: `teste-le-teste.js` (travas: só consulta, só o teste, nenhuma chave, nada gravado no repositório).
 
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo
