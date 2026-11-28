@@ -233,6 +233,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
 - 27/11 10:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
@@ -257,4 +258,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
 - 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
-- 24/11 11:40 — NUVEM: Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado.
