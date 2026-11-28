@@ -4,34 +4,37 @@
   python3 tools/relatorios.py [dias]     → roda o workflow ler-teste.yml, espera e baixa em work/relatorios/<data-hora>/
 Nada fica no repositório (work/relatorios/ está no .gitignore). Só lê o projeto lafouch-teste.
 """
-import json, os, subprocess, sys, time
+import io, json, os, subprocess, sys, time, zipfile
 
 REPO = 'JamalYassine98/LaFouch'
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def gh(*a):
-    return subprocess.run(['gh', *a], check=True, capture_output=True, text=True).stdout
+    """Só a API REST do GitHub (gh api): funciona nas sessões, que não têm o GraphQL."""
+    return subprocess.run(['gh', 'api', *a], check=True, capture_output=True).stdout
 
 
-def ultima_rodada():
-    r = json.loads(gh('run', 'list', '-R', REPO, '-w', 'ler-teste.yml', '-L', '1', '--json', 'databaseId,createdAt') or '[]')
-    return r[0] if r else None
+def rodadas():
+    return json.loads(gh('repos/%s/actions/workflows/ler-teste.yml/runs?per_page=1' % REPO))['workflow_runs']
 
 
 def principal(dias):
-    antes = ultima_rodada()
-    gh('workflow', 'run', 'ler-teste.yml', '-R', REPO, '-f', 'dias=%s' % dias)
-    for _ in range(60):
+    antes = [r['id'] for r in rodadas()]
+    gh('-X', 'POST', 'repos/%s/actions/workflows/ler-teste.yml/dispatches' % REPO, '-f', 'ref=main', '-f', 'inputs[dias]=%s' % dias)
+    r = None
+    for _ in range(120):
         time.sleep(5)
-        r = ultima_rodada()
-        if r and (not antes or r['databaseId'] != antes['databaseId']): break
-    else:
-        raise SystemExit('a rodada não apareceu')
-    rid = str(r['databaseId'])
-    subprocess.run(['gh', 'run', 'watch', rid, '-R', REPO, '--exit-status'], check=True, capture_output=True)
+        lista = rodadas()
+        if lista and lista[0]['id'] not in antes:
+            r = lista[0]
+            if r['status'] == 'completed': break
+    if not r or r['status'] != 'completed': raise SystemExit('a rodada não terminou em 10 min')
+    if r['conclusion'] != 'success': raise SystemExit('a leitura falhou: ' + r['html_url'])
+    art = [x for x in json.loads(gh('repos/%s/actions/runs/%s/artifacts' % (REPO, r['id'])))['artifacts'] if x['name'] == 'leitura-teste'][0]
     pasta = os.path.join(RAIZ, 'work', 'relatorios', time.strftime('%Y%m%d-%H%M'))
-    gh('run', 'download', rid, '-R', REPO, '-n', 'leitura-teste', '-D', pasta)
+    os.makedirs(pasta, exist_ok=True)
+    zipfile.ZipFile(io.BytesIO(gh('repos/%s/actions/artifacts/%s/zip' % (REPO, art['id'])))).extractall(pasta)
     print(open(os.path.join(pasta, 'RESUMO.md'), encoding='utf-8').read())
     print('guardado em', os.path.relpath(pasta, RAIZ))
 
