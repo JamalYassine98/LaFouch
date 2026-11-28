@@ -19,6 +19,8 @@ Para publicar, veja docs/PUBLICAR-NUVEM-GITHUB.md (a NUVEM publica pelo workflow
 - Pacote do cupom NO TESTE (dono 28/11 18:17): ramo `nuvem/pacote-teste` (= pacote sobre o main, com o modo teste) publicado só no lafouch-teste
   (`publicar-nuvem.yml` com `ramo=` — outro ramo só no teste). Prova na nuvem do teste: workflow `teste-cupom.yml` → `tools/teste-cupom/cupom.js`
   (emite, tenta burlar, simula o dia 7, roda o diário e confere saidas/; apaga tudo no fim). Loja real: só com OK ESBOCO e ordem do dono.
+- Configurar o teste sem o dono: depois da última rodada no Cloud Shell (18:25), a conta de publicação do TESTE ajusta as permissões do próprio
+  teste; a NUVEM roda `configurar-teste.yml`. Na loja real, nada mudou (lá só o dono).
 
 ## PAUSA do dono (27/11 10:37) — guardado 28/11
 - O pacote NÃO publicado (cupom da loja sem furos, VIP só com e-mail, telefone completo com o país) saiu do main e está no ramo

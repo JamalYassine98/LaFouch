@@ -26,5 +26,9 @@ ok(!/private_key|BEGIN [A-Z ]*KEY|keys create/.test(sh + wf + JSON.stringify(cfg
 const tc = fs.readFileSync(path.join(R, 'tools/teste-cupom/cupom.js'), 'utf8'), tcw = fs.readFileSync(path.join(R, '.github/workflows/teste-cupom.yml'), 'utf8');
 ok(!/lafouch-2f6bd/.test(tc + tcw) && /const PROJ = 'lafouch-teste'/.test(tc) && /if \(!P\.TESTE\) throw/.test(tc) && /workflow_dispatch/.test(tcw) && !/schedule:/.test(tcw), 'TRAVA: a prova do cupom só roda no projeto de teste, só quando chamada');
 ok(/Limpeza/.test(tc) && /deleteUser/.test(tc) && /cupomMes/.test(tc), 'a prova do cupom apaga o que criou e devolve o teto do mês');
+const cw = fs.readFileSync(path.join(R, '.github/workflows/configurar-teste.yml'), 'utf8');
+ok(/configura-publicar-nuvem\.sh teste$/m.test(cw) && !/lafouch-2f6bd/.test(cw) && /workflow_dispatch/.test(cw) && !/schedule:/.test(cw), 'TRAVA: o GitHub só configura o projeto de TESTE');
+const iAdm = sh.indexOf('roles/resourcemanager.projectIamAdmin');
+ok(iAdm > 0 && sh.lastIndexOf('if [ "$ONDE" = teste ]; then', iAdm) > sh.lastIndexOf('fi', iAdm) && (sh.match(/projectIamAdmin/g) || []).length === 1, 'TRAVA: poder de ajustar permissões só no teste (nunca na loja real)');
 console.log(falhas ? falhas + ' FALHA(S)' : 'publicar-teste: tudo ok');
 process.exit(falhas ? 1 : 0);

@@ -1,0 +1,36 @@
+name: Configurar o projeto de teste
+
+# 28/11/2026 (NUVEM; dono 18:25: não rodar mais o Cloud Shell a cada ajuste). Roda tools/configura-publicar-nuvem.sh teste pelo GitHub,
+# com a conta de publicação DO TESTE (sem chave guardada). Só o lafouch-teste: a loja real continua só pelo dono.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: nuvem-teste
+  cancel-in-progress: false
+
+jobs:
+  configurar:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Conta do teste
+        id: conta
+        run: |
+          P=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['provedor'])")
+          C=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['conta_publica'])")
+          [ "$C" = github-publica@lafouch-teste.iam.gserviceaccount.com ] || { echo "conta do teste não configurada"; exit 1; }
+          echo "provedor=$P" >> "$GITHUB_OUTPUT"; echo "conta=$C" >> "$GITHUB_OUTPUT"
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ steps.conta.outputs.provedor }}
+          service_account: ${{ steps.conta.outputs.conta }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Configurar (só teste)
+        run: bash tools/configura-publicar-nuvem.sh teste

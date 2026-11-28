@@ -41,6 +41,12 @@ for R in roles/cloudfunctions.admin roles/run.admin roles/iam.serviceAccountUser
          roles/cloudscheduler.admin roles/eventarc.admin roles/firebaserules.admin roles/firebase.developAdmin \
          roles/serviceusage.serviceUsageConsumer; do papel "$SA" "$R"; done
 [ "$ONDE" = teste ] && papel "$SA" roles/firebasestorage.admin   # no teste o GitHub publica também as regras do Storage
+# só no TESTE (dono 28/11 18:25: "como faço para não precisar rodar no Cloud Shell?"): a conta de publicação ajusta as permissões do
+# próprio projeto de teste, então a NUVEM roda este script pelo GitHub (configurar-teste.yml). Na loja real, nunca.
+if [ "$ONDE" = teste ]; then
+  for R in roles/resourcemanager.projectIamAdmin roles/iam.serviceAccountAdmin roles/serviceusage.serviceUsageAdmin roles/secretmanager.admin \
+           roles/iam.workloadIdentityPoolAdmin roles/datastore.owner roles/firebaseauth.admin; do papel "$SA" "$R"; done
+fi
 
 if [ "$ONDE" = teste ]; then
   conta github-le "GitHub lê o projeto de teste (relatórios)"
