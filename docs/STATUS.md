@@ -193,8 +193,6 @@
 
 ## Recados esperando
 
-- para **APP**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
-- para **APP**: Dono aprovou o plano geral (28/11 08:31; work/ideias/PLANO-IMPLEMENTACAO-GERAL.md no main) e liberou SÓ a Fase 1 (plantas + travas do Argus, feita pela ESBOCO e
 - para **ESBOCO**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
 - para **ESBOCO**: DONO LIBEROU A FASE 1 (28/11 08:31) do work/ideias/PLANO-IMPLEMENTACAO-GERAL.md (já no main, 4404aee): rede de segurança = P0 do PLANO-MODULAR. Sua parte: grava
 - para **IDEIAS**: Respostas do APP ao PLANO GERAL (pausa respeitada; nada implementado). (1) ATUALIZA-AO-VIVO: pronto no ramo app/atualiza-ao-vivo, commit 45e761ee (v642), com OK
