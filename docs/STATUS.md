@@ -201,6 +201,7 @@
 - para **IDEIAS**: Resposta da NUVEM (28/11; pausa respeitada, nada implementado/publicado). (1) PELA METADE/GUARDADO: o pacote não publicado (cupom da loja sem furos, VIP só com 
 - para **IDEIAS**: Resposta ao plano (F1): (1) pela metade: nada; as provas dos consertos do site (26/11) estão no main. (2) atropelo: a ESBOCO marcou work/argus/plantas inteira e
 - para **IDEIAS**: F1 site FEITO: 59 plantas do site de hoje (catalogo 7be4697) em work/argus/plantas/site/ — uma por lugar do mapa (56 páginas + carrinho, conta, peça), 9 temátic
+- para **IDEIAS**: FASE 1 (ESBOCO) — resultado em work/argus/relatorios/FASE1-RESULTADO-28-11.md. Feito: 26 plantas do app aprovadas (20 novas incl. Início, como estão hoje); trav
 - para **NUVEM**: PAUSA (dono 27/11; plano geral aprovado 28/11, só Fase 1 liberada, não é minha). Guardado: ramo nuvem/pacote-cupom-24-11. Minha fase: 3 (área de testes, propost
 - para **NUVEM**: Vigia 28/11 14:46: portas: ok (38 conferências) erros das funções (24 h): nenhum selo de 2026-11-27: analise_com_site=5, conta_sem_robo=1, cupom_com_site=6, cup
 - para **SITE**: Respostas (ESBOCO, 22/11 20:45). 1) Esboços do SITE: os 61b curva-made, 65 efeito-do-evento, 66 seleção-da-data, 67 para-presente e 72 pc-estilo-made são da ses
@@ -249,28 +250,28 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
-- 28/11 15:12 — PLANTAS: F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto
-- 28/11 11:37 — NUVEM: Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado.
-- 28/11 11:32 — IDEIAS: plano aprovado; Fase 1 liberada (ESBOCO + PLANTAS); arquivos no main
-- 28/11 11:25 — IDEIAS: plano de implementação geral (rascunho) + recados a todas as sessões
-- 28/11 11:22 — IDEIAS: celular de testes aprovado
-- 28/11 11:21 — IDEIAS: regras do Semp para peça esgotada (guia e capa)
-- 28/11 11:10 — IDEIAS: Margaux existe na loja (falta cadastro)
-- 28/11 11:08 — IDEIAS: site incluído no plano modular; fragmentação máxima
-- 28/11 11:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
-- 28/11 11:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
-- 28/11 11:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
-- 28/11 10:58 — IDEIAS: v56 Os mais pedidos 2 por bloco como Novidades
-- 28/11 08:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
-- 27/11 13:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
-- 27/11 13:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
-- 27/11 13:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
-- 27/11 13:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
-- 27/11 12:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
-- 26/11 15:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
-- 26/11 15:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
-- 26/11 15:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
-- 26/11 15:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
-- 26/11 14:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
-- 26/11 12:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
-- 26/11 10:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
+- 28/11 12:12 — PLANTAS: F1: 59 plantas do site de hoje gravadas (pendentes do dono), folhas, mapa coberto
+- 28/11 08:37 — NUVEM: Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado.
+- 28/11 08:32 — IDEIAS: plano aprovado; Fase 1 liberada (ESBOCO + PLANTAS); arquivos no main
+- 28/11 08:25 — IDEIAS: plano de implementação geral (rascunho) + recados a todas as sessões
+- 28/11 08:22 — IDEIAS: celular de testes aprovado
+- 28/11 08:21 — IDEIAS: regras do Semp para peça esgotada (guia e capa)
+- 28/11 08:10 — IDEIAS: Margaux existe na loja (falta cadastro)
+- 28/11 08:08 — IDEIAS: site incluído no plano modular; fragmentação máxima
+- 28/11 08:05 — IDEIAS: achado: últimas unidades duplicado (limiar 3×2, estilo em 3 camadas)
+- 28/11 08:02 — IDEIAS: últimas unidades: estilo calmo aprovado; sem 'não volta'
+- 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
+- 28/11 07:58 — IDEIAS: v56 Os mais pedidos 2 por bloco como Novidades
+- 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
+- 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
+- 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
+- 27/11 10:26 — ESBOCO: esboço Titan mercado (câmbio + preços luxo) pronto; item da nuvem na Fila
+- 27/11 10:22 — ESBOCO: proposta Titan (câmbio+preços, luxo) e Semp: cérebro pela API, teto US$ 10/mês autorizado
+- 27/11 09:59 — ESBOCO: OK ESBOCO atualiza-ao-vivo; status não publica mais ramos (trava); proposta Titan câmbio
+- 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
+- 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
+- 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
+- 26/11 12:07 — ESBOCO: esboço atualiza-ao-vivo (causa do 'voltou versões' + como fazer) na Fila; recado ao APP
+- 26/11 11:40 — ESBOCO: Semp parte 1 aprovada → Fila implementar (3 fatias) + recado à APP; regra 6 nova no CLAUDE.md; parte 2 (Estúdio ↔ Marketing, Galeria) esboçada
+- 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
+- 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
