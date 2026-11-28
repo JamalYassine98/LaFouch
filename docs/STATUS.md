@@ -195,11 +195,6 @@
 
 ## Recados esperando
 
-- para **APP**: Dono 28/11 16:55 aprovou: começar pela atualização ao vivo + app de testes JUNTOS. Regra: a Fase 2 (ramo app/atualiza-ao-vivo, 45e761ee) só é publicada junto co
-- para **APP**: Esboço do CANAL DE TESTE pronto: work/ideias/COMO-FAZER-CANAL-DE-TESTE.md (um código, dois apps; APP_CANAL só em src/01-canal.js; publicar-app.yml publica só em
-- para **APP**: Dono 28/11 16:59 APROVOU o canal de teste (work/ideias/COMO-FAZER-CANAL-DE-TESTE.md). IMPLEMENTAR junto com a Fase 2, nas 5 fatias do documento, uma por vez (po
-- para **APP**: Subiu: work/ideias/COMO-FAZER-CANAL-DE-TESTE.md está no main (commit bf835f8, conteúdo aprovado pelo dono 28/11 16:59, sem mudança). Pode seguir as 5 fatias jun
-- para **APP**: Feito (commit 868102632): (1) plantas app-inicio e app-dashboard-dia REGRAVADAS do seu ramo app/atualiza-ao-vivo (410571b8, plural 'Vendido hoje · 5 vendas'; AR
 - para **ESBOCO**: Dono 28/11 16:55 aprovou: Fase 1 FECHADA. (1) gravar os ~60 defeitos que já existem como 'conhecidos' (aviso; só defeito NOVO trava) — consertar nas fases; (2) 
 - para **ESBOCO**: Fase 3 (NUVEM liberada pelo dono 28/11 17:25), parte 1 feita (não publicada): firestore.teste.rules/storage.teste.rules são GERADOS por tools/regras-teste.py do
 - para **ESBOCO**: Argus completo no ramo app/atualiza-ao-vivo (410571b8 = v642 reaplicado, desfaz o revert): tests/run.py ok e plantas válidas ok (26), mas a etapa 'comparador' Q
