@@ -241,6 +241,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 08:25 — IDEIAS: plano de implementação geral (rascunho) + recados a todas as sessões
 - 28/11 08:22 — IDEIAS: celular de testes aprovado
 - 28/11 08:21 — IDEIAS: regras do Semp para peça esgotada (guia e capa)
 - 28/11 08:10 — IDEIAS: Margaux existe na loja (falta cadastro)
@@ -250,7 +251,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 28/11 08:00 — IDEIAS: v56 aprovado; estudo §37 últimas unidades
 - 28/11 07:58 — IDEIAS: v56 Os mais pedidos 2 por bloco como Novidades
 - 28/11 07:55 — IDEIAS: v55 Os mais pedidos
-- 28/11 07:53 — IDEIAS: v54 aprovado (capa sem botão); v52 Novidades aprovado
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
 - 27/11 10:33 — ESBOCO: Titan mercado aprovado sem placar; Fila + recado APP
