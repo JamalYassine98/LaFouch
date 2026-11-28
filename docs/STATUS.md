@@ -234,6 +234,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 05:57 — IDEIAS: Meta como ajudante no atendimento/Semp/Titan registrado; resumo para o dono passar ao Meta
 - 28/11 05:48 — IDEIAS: dois motores (Claude + Meta) registrados para o plano de modularização
 - 28/11 05:33 — NUVEM: Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar.
 - 27/11 10:38 — ESBOCO: plano de modularização; Fila de implementação pausada (dono 10:37)
@@ -249,7 +250,6 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 27/11 09:40 — IDEIAS: v48 serviços na faixa + WhatsApp sempre no canto
 - 27/11 09:37 — IDEIAS: v47 aprovado
 - 27/11 09:26 — IDEIAS: v47 faixa de ferramentas colada embaixo da capa
-- 27/11 09:08 — IDEIAS: v46 aprovado; ferramentas fora do Início em elaboração
 - 26/11 12:29 — ESBOCO: aprovações 12:28 registradas (lista viva, memória, plantas lote 1 aprovadas, Fila, recado APP)
 - 26/11 12:20 — ESBOCO: esboço consertos do Início (quadrados, plural, espaços, ›) na Fila
 - 26/11 12:08 — ESBOCO: atualiza-ao-vivo: seção PC acrescentada; recado ao APP
