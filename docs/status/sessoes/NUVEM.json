@@ -1,7 +1,13 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Fase 3 parte 4: configuração sem chave do lafouch-teste + publicar no teste pelo GitHub",
+ "arquivos": [
+  "tools/configura-publicar-nuvem.sh",
+  ".github/workflows/publicar-nuvem.yml",
+  "tools/teste-projeto.json",
+  "docs/PUBLICAR-NUVEM-GITHUB.md",
+  "functions/teste-publicar-teste.js"
+ ],
  "ultimas": [
   {
    "t": 1795898600.7128,
