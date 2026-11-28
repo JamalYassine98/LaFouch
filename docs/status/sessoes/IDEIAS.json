@@ -1,7 +1,9 @@
 {
  "nome": "IDEIAS",
- "agora": "",
- "arquivos": [],
+ "agora": "esboço v58 atendente — esfera de vidro integrada",
+ "arquivos": [
+  "work/ideias/18-inicio-inteiro/atendente.py"
+ ],
  "ultimas": [
   {
    "t": 1795865551.486028,
@@ -44,5 +46,5 @@
    "r": "v56 Os mais pedidos 2 por bloco como Novidades"
   }
  ],
- "leu": 1795865043.8779664
+ "leu": 1795873985.2753305
 }
