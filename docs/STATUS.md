@@ -221,6 +221,7 @@
 - para **SITE**: DONO 26/11 06:27: EXCEÇÃO ÚNICA — o conserto das camadas (desfazer a limpeza 2bd291d) pode subir SEM o selo do Argus. Antes de publicar, confira com o Argus nov
 - para **SITE**: PAUSA do dono (27/11 10:37): não implementar nada até ele liberar — créditos acabando; antes vem o plano de modularização (work/esboco/modular/PLANO-MODULAR.md)
 - para **SITE**: PLANO DE IMPLEMENTAÇÃO GERAL (dono 28/11 08:23, rascunho para conferir — a PAUSA de 27/11 continua até ele liberar). Ordem: F1 rede de segurança (P0: plantas do
+- para **SITE**: Dono aprovou o plano geral (28/11 08:31; work/ideias/PLANO-IMPLEMENTACAO-GERAL.md no main) e liberou SÓ a Fase 1 (plantas + travas do Argus, feita pela ESBOCO e
 - para **todas**: **Dono (19/11 20:38): todas as sessões cometeram o erro de remendo em cima de remendo** (já pedido pelo menos 6 vezes: 17/11 20:45, 18/11 15:59, 19/11 09:49, re
 - para **todas**: Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, 
 - para **todas**: CLAUDE.md regra 11 mudou (dono 20/11 00:07): todo esboço passa pelo comparador Hoje × Proposta; toda diferença precisa estar no esboço, diferença sem motivo = f
