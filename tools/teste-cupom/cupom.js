@@ -13,8 +13,14 @@ const B = 'https://southamerica-east1-' + PROJ + '.cloudfunctions.net';
 process.env.GCLOUD_PROJECT = PROJ;
 const P = require('../../functions/ambiente.js'); // dono e chave pública do TESTE vêm do mesmo lugar que as funções usam
 if (!P.TESTE) throw new Error('não é o projeto de teste');
-admin.initializeApp({ projectId: PROJ, serviceAccountId: 'github-publica@' + PROJ + '.iam.gserviceaccount.com' });
-const db = admin.firestore(), auth = admin.auth();
+// a conta entra pelo GitHub (Workload Identity): o firebase-admin não lê esse tipo de credencial, então recebe só o token de acesso
+// (google-auth-library lê); o Firestore usa o cliente do Google direto, como tools/teste-compra/compra.js
+const { GoogleAuth } = require('google-auth-library');
+const { Firestore } = require('@google-cloud/firestore');
+const gauth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
+admin.initializeApp({ projectId: PROJ, serviceAccountId: 'github-publica@' + PROJ + '.iam.gserviceaccount.com',
+  credential: { getAccessToken: async () => ({ access_token: await gauth.getAccessToken(), expires_in: 1800 }) } });
+const db = new Firestore({ projectId: PROJ }), auth = admin.auth();
 
 let falhas = 0;
 const ok = (c, t, extra) => { console.log((c ? '  ok     ' : '  FALHA  ') + t + (extra ? '  ' + JSON.stringify(extra).slice(0, 200) : '')); if (!c) falhas++; return c; };
