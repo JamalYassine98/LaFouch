@@ -1,0 +1,42 @@
+name: Prova do cupom no projeto de teste
+
+# 28/11/2026 (NUVEM; dono 18:17: "Sim" — provar o pacote do cupom só no lafouch-teste). Faz o que o app e o site fazem, tenta burlar
+# (tools/teste-cupom/cupom.js) e no fim apaga o que criou. Só no projeto de TESTE, só quando chamado, sem chave guardada.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: teste-cupom
+  cancel-in-progress: false
+
+jobs:
+  cupom:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Conta do teste
+        id: conta
+        run: |
+          P=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['provedor'])")
+          C=$(python3 -c "import json;print(json.load(open('tools/teste-projeto.json'))['conta_publica'])")
+          [ "$C" = github-publica@lafouch-teste.iam.gserviceaccount.com ] || { echo "conta do teste não configurada"; exit 1; }
+          echo "provedor=$P" >> "$GITHUB_OUTPUT"; echo "conta=$C" >> "$GITHUB_OUTPUT"
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ steps.conta.outputs.provedor }}
+          service_account: ${{ steps.conta.outputs.conta }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Instalar
+        working-directory: functions
+        run: npm install --no-audit --no-fund
+      - name: Provar o cupom (e limpar)
+        run: NODE_PATH=functions/node_modules node tools/teste-cupom/cupom.js

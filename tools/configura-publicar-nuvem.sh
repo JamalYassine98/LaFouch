@@ -62,6 +62,9 @@ if [ "$ONDE" = teste ]; then
   papel "service-$N@gcp-sa-pubsub.iam.gserviceaccount.com" roles/iam.serviceAccountTokenCreator
   papel "service-$N@gcp-sa-eventarc.iam.gserviceaccount.com" roles/eventarc.serviceAgent
   for R in roles/run.invoker roles/eventarc.eventReceiver; do papel "$N-compute@developer.gserviceaccount.com" "$R"; done
+  # provas na nuvem do teste (tools/teste-cupom): a conta de publicação assina o login de mentira do dono DO TESTE — só neste projeto
+  tenta gcloud iam service-accounts add-iam-policy-binding "$SA" --member="serviceAccount:$SA" --role=roles/iam.serviceAccountTokenCreator -q \
+    && echo "ok  github-publica assina logins de prova (só no teste)" || { echo "ERRO na assinatura de prova"; FALHOU=1; }
 fi
 [ "$FALHOU" = 1 ] && { echo "ERRO: algum papel não foi dado. Mande a foto desta tela para a sessão NUVEM."; exit 1; }
 
