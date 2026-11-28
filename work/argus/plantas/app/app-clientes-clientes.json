@@ -1,0 +1,1073 @@
+{
+ "id": "app-clientes-clientes",
+ "tela": "Clientes",
+ "passos": [
+  "()=>window.__argus.aba(0)",
+  "()=>{if(!window.__argus.tocaNome(\"Clientes 0 cadastrados\",0))throw new Error('planta: não achei '+\"Clientes 0 cadastrados\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Clientes [clientes]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Clientes",
+     "caixa": [
+      24,
+      123.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quem compra na loja e no atacado.",
+     "caixa": [
+      24,
+      166,
+      359,
+      19.6
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      118,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgba(148, 61, 111, 0.35) / 1px rgba(148, 61, 111, 0.35)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      130,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 5v14M5 12h14",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      203.6,
+      359,
+      50
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px color(srgb 0.278431 0.333333 0.411765 / 0.14) / 1px color(srgb 0.278431 0.333333 0.411765 / 0.14)",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      218.6,
+      20,
+      20
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Nome, telefone ou documento",
+     "caixa": [
+      69,
+      204.6,
+      299,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      161.5,
+      319.6,
+      84,
+      84
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=3.5|path:d=M5 20c0.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5",
+      "traco": "1.2px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum cliente ainda",
+     "caixa": [
+      120.4,
+      417.6,
+      166.2,
+      24.6
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.",
+     "caixa": [
+      63.5,
+      448.2,
+      280,
+      60.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-clientes-clientes_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Clientes [clientes]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Clientes",
+     "caixa": [
+      24,
+      123.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Quem compra na loja e no atacado.",
+     "caixa": [
+      24,
+      166,
+      359,
+      19.6
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      118,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgba(191, 139, 169, 0.38) / 1px rgba(191, 139, 169, 0.38)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      130,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 5v14M5 12h14",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      203.6,
+      359,
+      50
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px color(srgb 0.796078 0.835294 0.882353 / 0.14) / 1px color(srgb 0.796078 0.835294 0.882353 / 0.14)",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39,
+      218.6,
+      20,
+      20
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Nome, telefone ou documento",
+     "caixa": [
+      69,
+      204.6,
+      299,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      161.5,
+      319.6,
+      84,
+      84
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=12,cy=8,r=3.5|path:d=M5 20c0.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5",
+      "traco": "1.2px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nenhum cliente ainda",
+     "caixa": [
+      120.4,
+      417.6,
+      166.2,
+      24.6
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "17px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.",
+     "caixa": [
+      63.5,
+      448.2,
+      280,
+      60.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-clientes-clientes_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Clientes [clientes]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Novo cliente",
+   "act": "clinovo",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  }
+ ],
+ "lugar_mapa": "Clientes [clientes]"
+}

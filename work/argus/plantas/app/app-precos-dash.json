@@ -1,0 +1,2317 @@
+{
+ "id": "app-precos-dash",
+ "tela": "Preços",
+ "passos": [
+  "()=>window.__argus.aba(0)",
+  "()=>{if(!window.__argus.tocaNome(\"Pre\\u00e7os 2 a decidir\",0))throw new Error('planta: não achei '+\"Pre\\u00e7os 2 a decidir\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Preços [dash]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Preços",
+     "caixa": [
+      24,
+      118,
+      73,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      112,
+      44,
+      44
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      124,
+      20,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 3.5v8|path:d=M6.6 6.8a7.5 7.5 0 1 0 10.8 0",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "O TITAN DECIDE HOJE · 2",
+     "caixa": [
+      24,
+      176.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      213.6,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      236.6,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 12V4h8l10 10-8 8z|circle:cx=7.5,cy=8.5,r=1.5",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 preços para corrigir",
+     "caixa": [
+      62,
+      225.6,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5 com sugestão · 5 sem custo",
+     "caixa": [
+      62,
+      250.8,
+      299,
+      18.8
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      233.1,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      305.6,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2,x=3.5,y=5,width=17,height=15|path:d=M3.5 10h17M8 3v4M16 3v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Natal em 7 dias",
+     "caixa": [
+      62,
+      294.6,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nenhuma peça entra pela regra",
+     "caixa": [
+      62,
+      319.8,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      302.1,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "SETORES",
+     "caixa": [
+      24,
+      386.6,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      424,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      447,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 7h14M5 12h14M5 17h9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Regras",
+     "caixa": [
+      62,
+      436,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contas, taxas, meta e cotação da loja",
+     "caixa": [
+      62,
+      461.2,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      443.5,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      493.1,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      516.1,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M19 5L5 19|circle:cx=7,cy=7,r=2.5|circle:cx=17,cy=17,r=2.5",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      62,
+      505.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nenhuma no ar · automático desligado",
+     "caixa": [
+      62,
+      530.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      512.6,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      562.1,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      585.1,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1,x=3,y=12,width=8,height=8|rect:rx=1,x=13,y=12,width=8,height=8|rect:rx=1,x=8,y=3.5,width=8,height=8",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      62,
+      574.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 tabelas · margens do Titan",
+     "caixa": [
+      62,
+      599.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      581.6,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      631.1,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      654.1,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2,x=5,y=3,width=14,height=18|path:d=M8 7h8M8 11h0M12 11h0M16 11h0M8 15h0M12 15h0M16 15h0M8 18h0M12 18h4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ferramentas",
+     "caixa": [
+      62,
+      643.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "calculadora de preço · e se…?",
+     "caixa": [
+      62,
+      668.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      650.6,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      723.2,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Histórico",
+     "caixa": [
+      62,
+      712.2,
+      299,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que mudou, quando e por quê",
+     "caixa": [
+      62,
+      737.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      719.7,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-precos-dash_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Preços [dash]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Preços",
+     "caixa": [
+      24,
+      118,
+      73,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      112,
+      44,
+      44
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      124,
+      20,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 3.5v8|path:d=M6.6 6.8a7.5 7.5 0 1 0 10.8 0",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "O TITAN DECIDE HOJE · 2",
+     "caixa": [
+      24,
+      176.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      213.6,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      236.6,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 12V4h8l10 10-8 8z|circle:cx=7.5,cy=8.5,r=1.5",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 preços para corrigir",
+     "caixa": [
+      62,
+      225.6,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5 com sugestão · 5 sem custo",
+     "caixa": [
+      62,
+      250.8,
+      299,
+      18.8
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      233.1,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      305.6,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2,x=3.5,y=5,width=17,height=15|path:d=M3.5 10h17M8 3v4M16 3v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Natal em 7 dias",
+     "caixa": [
+      62,
+      294.6,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nenhuma peça entra pela regra",
+     "caixa": [
+      62,
+      319.8,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      302.1,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "SETORES",
+     "caixa": [
+      24,
+      386.6,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      424,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      447,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 7h14M5 12h14M5 17h9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Regras",
+     "caixa": [
+      62,
+      436,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "contas, taxas, meta e cotação da loja",
+     "caixa": [
+      62,
+      461.2,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      443.5,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      493.1,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      516.1,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M19 5L5 19|circle:cx=7,cy=7,r=2.5|circle:cx=17,cy=17,r=2.5",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ofertas",
+     "caixa": [
+      62,
+      505.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "nenhuma no ar · automático desligado",
+     "caixa": [
+      62,
+      530.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      512.6,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      562.1,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      585.1,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1,x=3,y=12,width=8,height=8|rect:rx=1,x=13,y=12,width=8,height=8|rect:rx=1,x=8,y=3.5,width=8,height=8",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Atacado",
+     "caixa": [
+      62,
+      574.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 tabelas · margens do Titan",
+     "caixa": [
+      62,
+      599.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      581.6,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      631.1,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      654.1,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2,x=5,y=3,width=14,height=18|path:d=M8 7h8M8 11h0M12 11h0M16 11h0M8 15h0M12 15h0M16 15h0M8 18h0M12 18h4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ferramentas",
+     "caixa": [
+      62,
+      643.1,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "calculadora de preço · e se…?",
+     "caixa": [
+      62,
+      668.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      650.6,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      24,
+      723.2,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Histórico",
+     "caixa": [
+      62,
+      712.2,
+      299,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "o que mudou, quando e por quê",
+     "caixa": [
+      62,
+      737.3,
+      299,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      719.7,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-precos-dash_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Preços [dash]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Preço automático · desligado",
+   "act": "ligaAbre",
+   "id": "prec",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Preço automático"
+  },
+  {
+   "i": 2,
+   "nome": "10 preços para corrigir 5 com sugestão · 5 sem custo ›",
+   "act": "tiAbre",
+   "id": "corr",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Preços para corrigir [dash]"
+  },
+  {
+   "i": 3,
+   "nome": "Natal em 7 dias nenhuma peça entra pela regra ›",
+   "act": "temaVer",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Natal"
+  },
+  {
+   "i": 4,
+   "nome": "Regras contas, taxas, meta e cotação da loja ›",
+   "act": "tiAbre",
+   "id": "regras",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Regras [dash]"
+  },
+  {
+   "i": 5,
+   "nome": "Ofertas nenhuma no ar · automático desligado ›",
+   "act": "tiAbre",
+   "id": "ofertas",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Ofertas [dash]"
+  },
+  {
+   "i": 6,
+   "nome": "Atacado 7 tabelas · margens do Titan ›",
+   "act": "tiAbre",
+   "id": "atacado",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Atacado [dash]"
+  },
+  {
+   "i": 7,
+   "nome": "Ferramentas calculadora de preço · e se…? ›",
+   "act": "tiAbre",
+   "id": "ferr",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Ferramentas [dash]"
+  },
+  {
+   "i": 8,
+   "nome": "Histórico o que mudou, quando e por quê ›",
+   "act": "tiAbre",
+   "id": "hist",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Histórico [dash]"
+  }
+ ],
+ "lugar_mapa": "Preços [dash]"
+}

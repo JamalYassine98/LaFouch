@@ -1,0 +1,3075 @@
+{
+ "id": "app-marketing-mkt",
+ "tela": "Marketing",
+ "passos": [
+  "()=>window.__argus.aba(0)",
+  "()=>{if(!window.__argus.tocaNome(\"Grupo Marketing: Marketing \\u00b7 Tem\\u00e1tica \\u00b7 Cart\\u00f5es \\u00b7 Analisador\",0))throw new Error('planta: não achei '+\"Grupo Marketing: Marketing \\u00b7 Tem\\u00e1tica \\u00b7 Cart\\u00f5es \\u00b7 Analisador\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Marketing [mkt]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marketing",
+     "caixa": [
+      24,
+      106,
+      94.2,
+      44
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      4.8,
+      23.2
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marketing",
+     "caixa": [
+      24,
+      146,
+      343,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marca",
+     "caixa": [
+      24,
+      212.2,
+      359,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · PT e ES",
+     "caixa": [
+      24,
+      237.4,
+      359,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Objetivo do mês",
+     "caixa": [
+      24,
+      302.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Girar o parado",
+     "caixa": [
+      24,
+      327.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Novos clientes BR",
+     "caixa": [
+      208.5,
+      327.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "color(srgb 0.966431 0.939137 0.954823)",
+     "borda": "1px rgb(148, 61, 111) / 1px rgb(148, 61, 111)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais solar",
+     "caixa": [
+      24,
+      385.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lançamentos",
+     "caixa": [
+      208.5,
+      385.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "preço em R$, endereço e “compre aqui e economize” · sugerido pelos seus números",
+     "caixa": [
+      24,
+      437.6,
+      359,
+      34.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status de hoje",
+     "caixa": [
+      24,
+      488.4,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      24,
+      513.8,
+      359,
+      96.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      35,
+      546.9,
+      44,
+      30
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "6px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      37,
+      546.9,
+      40,
+      30
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      89,
+      523.8,
+      207,
+      39.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "33 vendidas em 30 dias · R$ 51 na moeda do cliente",
+     "caixa": [
+      89,
+      566.3,
+      268.5,
+      34.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Criar com um toque",
+     "caixa": [
+      24,
+      626.1,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Post",
+     "caixa": [
+      24,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Story",
+     "caixa": [
+      145.7,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status",
+     "caixa": [
+      267.3,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Carrossel",
+     "caixa": [
+      24,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vídeo",
+     "caixa": [
+      145.7,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Roteiro",
+     "caixa": [
+      267.3,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Plano da semana · 0 de 6",
+     "caixa": [
+      24,
+      761.5,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seg · Post · 20h",
+     "caixa": [
+      58,
+      792.8,
+      99.2,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peça do objetivo — Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      58,
+      811.1,
+      325,
+      17.4
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ter · Status · 12h",
+     "caixa": [
+      58,
+      844.5,
+      107.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status do dia — Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      58,
+      862.8,
+      325,
+      34.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Qua · Carrossel · 20h",
+     "caixa": [
+      58,
+      913.6,
+      131.5,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Carrossel com 4 peças — Óculos solar #13, Óculos de leitura de plástico feminino…",
+     "caixa": [
+      58,
+      931.9,
+      325,
+      34.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Qui · Story · 20h",
+     "caixa": [
+      58,
+      982.7,
+      100.9,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Bastidores / chegada — Óculos solar #14",
+     "caixa": [
+      58,
+      1001,
+      325,
+      17.4
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sex · Vídeo · 20h",
+     "caixa": [
+      58,
+      1034.4,
+      105.9,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vídeo de 15 s — Óculos de leitura #15, Armação Gucci de metal feminino…",
+     "caixa": [
+      58,
+      1052.7,
+      325,
+      34.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sáb · Post · 20h",
+     "caixa": [
+      58,
+      1103.5,
+      99,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oferta ou mais vendido — Armação Ray-Ban de metal masculino",
+     "caixa": [
+      58,
+      1121.8,
+      325,
+      34.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Datas que vêm aí",
+     "caixa": [
+      24,
+      1176.5,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Natal",
+     "caixa": [
+      24,
+      1201.9,
+      300.4,
+      37.7
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "BR/PY",
+     "caixa": [
+      60.7,
+      1204.9,
+      34.6,
+      14
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "presente: embalagem e combo",
+     "caixa": [
+      24,
+      1222.2,
+      300.4,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "em 31 d",
+     "caixa": [
+      332.4,
+      1210.6,
+      50.6,
+      20.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ano Novo",
+     "caixa": [
+      24,
+      1247.6,
+      300.4,
+      37.7
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "BR/PY",
+     "caixa": [
+      88.3,
+      1250.6,
+      34.6,
+      14
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "solar para o verão",
+     "caixa": [
+      24,
+      1267.9,
+      300.4,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "em 38 d",
+     "caixa": [
+      332.4,
+      1256.3,
+      50.6,
+      20.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1307.3,
+      359,
+      115
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      25,
+      1308.3,
+      357,
+      57
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(217, 208, 216)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Listas por perfil",
+     "caixa": [
+      25,
+      1308.3,
+      357,
+      56
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Resultados",
+     "caixa": [
+      25,
+      1365.3,
+      357,
+      56
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-marketing-mkt_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Marketing [mkt]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marketing",
+     "caixa": [
+      24,
+      106,
+      94.2,
+      44
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      4.8,
+      23.2
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marketing",
+     "caixa": [
+      24,
+      146,
+      343,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Marca",
+     "caixa": [
+      24,
+      212.2,
+      359,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "La Fouch · PT e ES",
+     "caixa": [
+      24,
+      237.4,
+      359,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Objetivo do mês",
+     "caixa": [
+      24,
+      302.2,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Girar o parado",
+     "caixa": [
+      24,
+      327.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Novos clientes BR",
+     "caixa": [
+      208.5,
+      327.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "color(srgb 0.139294 0.137412 0.168471)",
+     "borda": "1px rgb(191, 139, 169) / 1px rgb(191, 139, 169)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais solar",
+     "caixa": [
+      24,
+      385.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lançamentos",
+     "caixa": [
+      208.5,
+      385.6,
+      174.5,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "14px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "preço em R$, endereço e “compre aqui e economize” · sugerido pelos seus números",
+     "caixa": [
+      24,
+      437.6,
+      359,
+      34.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status de hoje",
+     "caixa": [
+      24,
+      488.4,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      24,
+      513.8,
+      359,
+      96.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      35,
+      546.9,
+      44,
+      30
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "6px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      37,
+      546.9,
+      40,
+      30
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      89,
+      523.8,
+      207,
+      39.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "33 vendidas em 30 dias · R$ 51 na moeda do cliente",
+     "caixa": [
+      89,
+      566.3,
+      268.5,
+      34.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Criar com um toque",
+     "caixa": [
+      24,
+      626.1,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Post",
+     "caixa": [
+      24,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Story",
+     "caixa": [
+      145.7,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status",
+     "caixa": [
+      267.3,
+      651.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Carrossel",
+     "caixa": [
+      24,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vídeo",
+     "caixa": [
+      145.7,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Roteiro",
+     "caixa": [
+      267.3,
+      701.5,
+      115.7,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "14px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Plano da semana · 0 de 6",
+     "caixa": [
+      24,
+      761.5,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Seg · Post · 20h",
+     "caixa": [
+      58,
+      792.8,
+      99.2,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peça do objetivo — Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      58,
+      811.1,
+      325,
+      17.4
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ter · Status · 12h",
+     "caixa": [
+      58,
+      844.5,
+      107.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Status do dia — Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      58,
+      862.8,
+      325,
+      34.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Qua · Carrossel · 20h",
+     "caixa": [
+      58,
+      913.6,
+      131.5,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Carrossel com 4 peças — Óculos solar #13, Óculos de leitura de plástico feminino…",
+     "caixa": [
+      58,
+      931.9,
+      325,
+      34.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Qui · Story · 20h",
+     "caixa": [
+      58,
+      982.7,
+      100.9,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Bastidores / chegada — Óculos solar #14",
+     "caixa": [
+      58,
+      1001,
+      325,
+      17.4
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sex · Vídeo · 20h",
+     "caixa": [
+      58,
+      1034.4,
+      105.9,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vídeo de 15 s — Óculos de leitura #15, Armação Gucci de metal feminino…",
+     "caixa": [
+      58,
+      1052.7,
+      325,
+      34.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Sáb · Post · 20h",
+     "caixa": [
+      58,
+      1103.5,
+      99,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oferta ou mais vendido — Armação Ray-Ban de metal masculino",
+     "caixa": [
+      58,
+      1121.8,
+      325,
+      34.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Datas que vêm aí",
+     "caixa": [
+      24,
+      1176.5,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Natal",
+     "caixa": [
+      24,
+      1201.9,
+      300.4,
+      37.7
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "BR/PY",
+     "caixa": [
+      60.7,
+      1204.9,
+      34.6,
+      14
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "presente: embalagem e combo",
+     "caixa": [
+      24,
+      1222.2,
+      300.4,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "em 31 d",
+     "caixa": [
+      332.4,
+      1210.6,
+      50.6,
+      20.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ano Novo",
+     "caixa": [
+      24,
+      1247.6,
+      300.4,
+      37.7
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "BR/PY",
+     "caixa": [
+      88.3,
+      1250.6,
+      34.6,
+      14
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "solar para o verão",
+     "caixa": [
+      24,
+      1267.9,
+      300.4,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "em 38 d",
+     "caixa": [
+      332.4,
+      1256.3,
+      50.6,
+      20.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1307.3,
+      359,
+      115
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "16px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      25,
+      1308.3,
+      357,
+      57
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(42, 52, 65)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Listas por perfil",
+     "caixa": [
+      25,
+      1308.3,
+      357,
+      56
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Resultados",
+     "caixa": [
+      25,
+      1365.3,
+      357,
+      56
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-marketing-mkt_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Marketing [mkt]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Voltar para Marketing",
+   "act": "nvVolta",
+   "id": "",
+   "tag": "button",
+   "sinal": "‹",
+   "aba": -1,
+   "faz": "sai para: Marketing [grp]"
+  },
+  {
+   "i": 2,
+   "nome": "Marca La Fouch · PT e ES",
+   "act": "mkMarca",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Marca"
+  },
+  {
+   "i": 3,
+   "nome": "Girar o parado",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 4,
+   "nome": "Novos clientes BR",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 5,
+   "nome": "Mais solar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 6,
+   "nome": "Lançamentos",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 7,
+   "nome": "Óculos solar Ray-Ban de metal masculino 33 vendidas em 30 di",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Status"
+  },
+  {
+   "i": 8,
+   "nome": "Post",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Post"
+  },
+  {
+   "i": 9,
+   "nome": "Story",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Story"
+  },
+  {
+   "i": 10,
+   "nome": "Status",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Status"
+  },
+  {
+   "i": 11,
+   "nome": "Carrossel",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Carrossel"
+  },
+  {
+   "i": 12,
+   "nome": "Vídeo",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Vídeo"
+  },
+  {
+   "i": 13,
+   "nome": "Roteiro",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Roteiro de vídeo"
+  },
+  {
+   "i": 14,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 15,
+   "nome": "Seg · Post · 20h Peça do objetivo — Óculos solar Ray-Ban de ",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Post"
+  },
+  {
+   "i": 16,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 17,
+   "nome": "Ter · Status · 12h Status do dia — Óculos de leitura Kazwini",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Status"
+  },
+  {
+   "i": 18,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 19,
+   "nome": "Qua · Carrossel · 20h Carrossel com 4 peças — Óculos solar #",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Carrossel"
+  },
+  {
+   "i": 20,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 21,
+   "nome": "Qui · Story · 20h Bastidores / chegada — Óculos solar #14",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Story"
+  },
+  {
+   "i": 22,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 23,
+   "nome": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos de leitura #15, Arm",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Vídeo"
+  },
+  {
+   "i": 24,
+   "nome": "Feito",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 25,
+   "nome": "Sáb · Post · 20h Oferta ou mais vendido — Armação Ray-Ban de",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Post"
+  },
+  {
+   "i": 26,
+   "nome": "Listas por perfil",
+   "act": "",
+   "id": "",
+   "tag": "summary",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 27,
+   "nome": "Resultados",
+   "act": "",
+   "id": "",
+   "tag": "summary",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "nada"
+  }
+ ],
+ "lugar_mapa": "Marketing [mkt]"
+}

@@ -1,0 +1,3797 @@
+{
+ "id": "app-dashboard-dia",
+ "tela": "Dashboard",
+ "passos": [
+  "()=>window.__argus.aba(0)",
+  "()=>{if(!window.__argus.tocaNome(\"Vendido hoje \\u00b7 5 venda(s) G$ 360.000 \\u203a\",0))throw new Error('planta: não achei '+\"Vendido hoje \\u00b7 5 venda(s) G$ 360.000 \\u203a\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Dashboard [dia]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dashboard",
+     "caixa": [
+      24,
+      118,
+      118.8,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Hoje",
+     "caixa": [
+      338.6,
+      112,
+      44.4,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      379.4,
+      127.1,
+      3.6,
+      14
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Terça-feira, 24 de novembro",
+     "caixa": [
+      24,
+      154.2,
+      359,
+      19.6
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Hoje",
+     "caixa": [
+      24,
+      223.8,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      243.1,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendido",
+     "caixa": [
+      24,
+      256.1,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 360.000",
+     "caixa": [
+      253.1,
+      264.5,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6 peça(s) em 5 venda(s)",
+     "caixa": [
+      24,
+      279.9,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      312,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre",
+     "caixa": [
+      24,
+      325,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      253.1,
+      333.4,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(20, 128, 63)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "depois de separar tudo",
+     "caixa": [
+      24,
+      348.8,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      380.9,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contas do dia",
+     "caixa": [
+      24,
+      393.9,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 140.000",
+     "caixa": [
+      253.1,
+      402.2,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1/30 de G$ 4.200.000 por mês",
+     "caixa": [
+      24,
+      417.6,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Gastos extras",
+     "caixa": [
+      24,
+      462.8,
+      284.2,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 0",
+     "caixa": [
+      318.2,
+      471.1,
+      42.8,
+      25.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "imprevistos e melhorias",
+     "caixa": [
+      24,
+      486.5,
+      284.2,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendas do dia",
+     "caixa": [
+      24,
+      563.6,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      595,
+      359,
+      70.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8815 C2 · Verde",
+     "caixa": [
+      24,
+      608.8,
+      261.4,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2010 · 24/11 às 01:34 · Solares",
+     "caixa": [
+      24,
+      632.5,
+      261.4,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "R$ 50,04",
+     "caixa": [
+      295.4,
+      608,
+      65.6,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "≈ G$ 60.000",
+     "caixa": [
+      295.4,
+      633.2,
+      65.6,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      615.7,
+      12,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      679.3,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8815 C2 · Verde",
+     "caixa": [
+      24,
+      692.3,
+      254.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2009 · 24/11 às 01:29 · Solares",
+     "caixa": [
+      24,
+      716.1,
+      254.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      288.1,
+      701.7,
+      72.9,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      699.3,
+      12,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      762.2,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8801 C1 · Preto",
+     "caixa": [
+      24,
+      775.2,
+      254.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2012 · 24/11 às 01:20 · Solares",
+     "caixa": [
+      24,
+      799,
+      254.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      288.1,
+      784.6,
+      72.9,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      782.2,
+      12,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      845.1,
+      359,
+      68.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2× SL2210 C1 · Preto",
+     "caixa": [
+      24,
+      858.1,
+      245.1,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2013 · 24/11 às 01:14 · Solares",
+     "caixa": [
+      24,
+      881.8,
+      245.1,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 120.000",
+     "caixa": [
+      279.1,
+      867.4,
+      81.9,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      865,
+      12,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      928,
+      359,
+      70.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8801 C4 · Marrom",
+     "caixa": [
+      24,
+      941.7,
+      261.4,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2011 · 24/11 às 01:03 · Solares",
+     "caixa": [
+      24,
+      965.4,
+      261.4,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$ 9,01",
+     "caixa": [
+      295.4,
+      941,
+      65.6,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "≈ G$ 60.000",
+     "caixa": [
+      295.4,
+      966.2,
+      65.6,
+      18.1
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      948.6,
+      12,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Fechamento do dia",
+     "caixa": [
+      24,
+      1022.3,
+      359,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1055.7,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendido",
+     "caixa": [
+      24,
+      1066.7,
+      52.8,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 360.000",
+     "caixa": [
+      307.4,
+      1066.7,
+      75.6,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1099.7,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Reposição separada",
+     "caixa": [
+      24,
+      1110.7,
+      131.2,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 116.982",
+     "caixa": [
+      307.4,
+      1110.7,
+      75.6,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1143.7,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contas separadas",
+     "caixa": [
+      24,
+      1154.7,
+      116.7,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 69.000",
+     "caixa": [
+      315.7,
+      1154.7,
+      67.3,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1187.7,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Colchão separado",
+     "caixa": [
+      24,
+      1198.7,
+      116.7,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 14.040",
+     "caixa": [
+      315.7,
+      1198.7,
+      67.3,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1231.7,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Caixa de melhorias",
+     "caixa": [
+      24,
+      1242.7,
+      123,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 6.000",
+     "caixa": [
+      324,
+      1242.7,
+      59,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1275.8,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre",
+     "caixa": [
+      24,
+      1286.8,
+      66.3,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      307.4,
+      1286.8,
+      75.6,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1319.8,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Gastos extras (imprevistos e melhorias)",
+     "caixa": [
+      24,
+      1330.8,
+      256.5,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "−G$ 0",
+     "caixa": [
+      344.8,
+      1330.8,
+      38.2,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1363.8,
+      359,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre depois dos gastos extras",
+     "caixa": [
+      24,
+      1375.8,
+      234.3,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      307.4,
+      1375.8,
+      75.6,
+      21
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dias anteriores no Histórico ›",
+     "caixa": [
+      99.8,
+      1455.8,
+      207.3,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-dashboard-dia_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Dashboard [dia]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dashboard",
+     "caixa": [
+      24,
+      118,
+      118.8,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Hoje",
+     "caixa": [
+      338.6,
+      112,
+      44.4,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      379.4,
+      127.1,
+      3.6,
+      14
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Terça-feira, 24 de novembro",
+     "caixa": [
+      24,
+      154.2,
+      359,
+      19.6
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Hoje",
+     "caixa": [
+      24,
+      223.8,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      243.1,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendido",
+     "caixa": [
+      24,
+      256.1,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 360.000",
+     "caixa": [
+      253.1,
+      264.5,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "6 peça(s) em 5 venda(s)",
+     "caixa": [
+      24,
+      279.9,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      312,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre",
+     "caixa": [
+      24,
+      325,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      253.1,
+      333.4,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(95, 211, 154)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "depois de separar tudo",
+     "caixa": [
+      24,
+      348.8,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      380.9,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contas do dia",
+     "caixa": [
+      24,
+      393.9,
+      219.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 140.000",
+     "caixa": [
+      253.1,
+      402.2,
+      107.9,
+      25.2
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1/30 de G$ 4.200.000 por mês",
+     "caixa": [
+      24,
+      417.6,
+      219.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Gastos extras",
+     "caixa": [
+      24,
+      462.8,
+      284.2,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 0",
+     "caixa": [
+      318.2,
+      471.1,
+      42.8,
+      25.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "21px",
+      "700",
+      "Segoe UI",
+      "-0.21px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "imprevistos e melhorias",
+     "caixa": [
+      24,
+      486.5,
+      284.2,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendas do dia",
+     "caixa": [
+      24,
+      563.6,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      595,
+      359,
+      70.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8815 C2 · Verde",
+     "caixa": [
+      24,
+      608.8,
+      261.4,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2010 · 24/11 às 01:34 · Solares",
+     "caixa": [
+      24,
+      632.5,
+      261.4,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "R$ 50,04",
+     "caixa": [
+      295.4,
+      608,
+      65.6,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "≈ G$ 60.000",
+     "caixa": [
+      295.4,
+      633.2,
+      65.6,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      615.7,
+      12,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      679.3,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8815 C2 · Verde",
+     "caixa": [
+      24,
+      692.3,
+      254.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2009 · 24/11 às 01:29 · Solares",
+     "caixa": [
+      24,
+      716.1,
+      254.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      288.1,
+      701.7,
+      72.9,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      699.3,
+      12,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      762.2,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8801 C1 · Preto",
+     "caixa": [
+      24,
+      775.2,
+      254.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2012 · 24/11 às 01:20 · Solares",
+     "caixa": [
+      24,
+      799,
+      254.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      288.1,
+      784.6,
+      72.9,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      782.2,
+      12,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      845.1,
+      359,
+      68.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2× SL2210 C1 · Preto",
+     "caixa": [
+      24,
+      858.1,
+      245.1,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2013 · 24/11 às 01:14 · Solares",
+     "caixa": [
+      24,
+      881.8,
+      245.1,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 120.000",
+     "caixa": [
+      279.1,
+      867.4,
+      81.9,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      865,
+      12,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      928,
+      359,
+      70.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "1× YS8801 C4 · Marrom",
+     "caixa": [
+      24,
+      941.7,
+      261.4,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "V-2011 · 24/11 às 01:03 · Solares",
+     "caixa": [
+      24,
+      965.4,
+      261.4,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$ 9,01",
+     "caixa": [
+      295.4,
+      941,
+      65.6,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "≈ G$ 60.000",
+     "caixa": [
+      295.4,
+      966.2,
+      65.6,
+      18.1
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "-0.15px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "⌄",
+     "caixa": [
+      371,
+      948.6,
+      12,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Fechamento do dia",
+     "caixa": [
+      24,
+      1022.3,
+      359,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1055.7,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vendido",
+     "caixa": [
+      24,
+      1066.7,
+      52.8,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 360.000",
+     "caixa": [
+      307.4,
+      1066.7,
+      75.6,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1099.7,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Reposição separada",
+     "caixa": [
+      24,
+      1110.7,
+      131.2,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 116.982",
+     "caixa": [
+      307.4,
+      1110.7,
+      75.6,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1143.7,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contas separadas",
+     "caixa": [
+      24,
+      1154.7,
+      116.7,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 69.000",
+     "caixa": [
+      315.7,
+      1154.7,
+      67.3,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1187.7,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Colchão separado",
+     "caixa": [
+      24,
+      1198.7,
+      116.7,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 14.040",
+     "caixa": [
+      315.7,
+      1198.7,
+      67.3,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1231.7,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Caixa de melhorias",
+     "caixa": [
+      24,
+      1242.7,
+      123,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 6.000",
+     "caixa": [
+      324,
+      1242.7,
+      59,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1275.8,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre",
+     "caixa": [
+      24,
+      1286.8,
+      66.3,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      307.4,
+      1286.8,
+      75.6,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1319.8,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Gastos extras (imprevistos e melhorias)",
+     "caixa": [
+      24,
+      1330.8,
+      256.5,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "−G$ 0",
+     "caixa": [
+      344.8,
+      1330.8,
+      38.2,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1363.8,
+      359,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lucro livre depois dos gastos extras",
+     "caixa": [
+      24,
+      1375.8,
+      234.3,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 151.578",
+     "caixa": [
+      307.4,
+      1375.8,
+      75.6,
+      21
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14.5px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dias anteriores no Histórico ›",
+     "caixa": [
+      99.8,
+      1455.8,
+      207.3,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "15px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-dashboard-dia_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Dashboard [dia]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Hoje ›",
+   "act": "dPer",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Hoje"
+  },
+  {
+   "i": 2,
+   "nome": "Contas do dia G$ 140.000 1/30 de G$ 4.200.000 por mês",
+   "act": "view",
+   "id": "desp",
+   "tag": "div",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Despesas [desp]"
+  },
+  {
+   "i": 3,
+   "nome": "1× YS8815 C2 · Verde V-2010 · 24/11 às 01:34 · Solares R$ 50",
+   "act": "hopen",
+   "id": "V-2010",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 4,
+   "nome": "1× YS8815 C2 · Verde V-2009 · 24/11 às 01:29 · Solares G$ 60",
+   "act": "hopen",
+   "id": "V-2009",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 5,
+   "nome": "1× YS8801 C1 · Preto V-2012 · 24/11 às 01:20 · Solares G$ 60",
+   "act": "hopen",
+   "id": "V-2012",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 6,
+   "nome": "2× SL2210 C1 · Preto V-2013 · 24/11 às 01:14 · Solares G$ 12",
+   "act": "hopen",
+   "id": "V-2013",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 7,
+   "nome": "1× YS8801 C4 · Marrom V-2011 · 24/11 às 01:03 · Solares US$ ",
+   "act": "hopen",
+   "id": "V-2011",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 8,
+   "nome": "Dias anteriores no Histórico ›",
+   "act": "view",
+   "id": "hist",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "sai para: Histórico [hist]"
+  }
+ ],
+ "lugar_mapa": "Dashboard [dia]"
+}

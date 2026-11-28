@@ -1,0 +1,6911 @@
+{
+ "id": "app-inventario-estoque",
+ "tela": "Inventário",
+ "passos": [
+  "()=>window.__argus.aba(2)",
+  "()=>{if(!window.__argus.tocaNome(\"Invent\\u00e1rio Cadastro, estoque e pre\\u00e7o de cada pe\\u00e7a \\u203a\",0))throw new Error('planta: não achei '+\"Invent\\u00e1rio Cadastro, estoque e pre\\u00e7o de cada pe\\u00e7a \\u203a\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Inventário [estoque]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191.4,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      24,
+      106,
+      56.9,
+      44
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      4.8,
+      23.2
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Inventário",
+     "caixa": [
+      24,
+      151.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "16 referências · US$ 113 a custo",
+     "caixa": [
+      24,
+      194,
+      359,
+      19.6
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      146,
+      44,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.121569 0.101961 0.133333 / 0.28) / 1px color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+     "raio": "999px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      158,
+      20,
+      20
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 5v14M5 12h14",
+      "traco": "1.6px",
+      "cor": "rgb(31, 26, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      263.6,
+      359,
+      54
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "rgb(244, 241, 244)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      40,
+      280.6,
+      20,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Peça, código, cor…",
+     "caixa": [
+      68,
+      264.6,
+      256,
+      52
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      341,
+      277.6,
+      26,
+      26
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3|path:d=M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "470 peças · Todos",
+     "caixa": [
+      24,
+      340.1,
+      105.5,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      327.6,
+      44,
+      44
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      339.6,
+      20,
+      20
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 7h10M18 7h2M4 17h4M12 17h8|circle:cx=16,cy=7,r=2|circle:cx=10,cy=17,r=2",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      383.6,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      88.8,
+      448.3,
+      44,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.4px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lote Kazwini",
+     "caixa": [
+      33,
+      552.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      577.8,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      605.2,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      607,
+      12,
+      12
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "343 em estoque",
+     "caixa": [
+      33,
+      629.5,
+      93.7,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      383.6,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      552.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2 modelos",
+     "caixa": [
+      218.5,
+      599.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "26 em estoque",
+     "caixa": [
+      218.5,
+      621,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      669.3,
+      173.5,
+      338.7
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      33,
+      837.8,
+      155.5,
+      65.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SP58110",
+     "caixa": [
+      33,
+      907.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      928.5,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      955.9,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      957.7,
+      12,
+      12
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      33,
+      980.2,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      669.3,
+      173.5,
+      338.7
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de plástico feminino",
+     "caixa": [
+      218.5,
+      837.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SP60627",
+     "caixa": [
+      218.5,
+      885.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      218.5,
+      906.7,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      934.1,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      290.1,
+      935.9,
+      12,
+      12
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 em estoque",
+     "caixa": [
+      218.5,
+      958.4,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1020,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura #15",
+     "caixa": [
+      33,
+      1188.5,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      1214.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      1241.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      1243.5,
+      12,
+      12
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12 em estoque",
+     "caixa": [
+      33,
+      1266,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1020,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Gucci de metal feminino",
+     "caixa": [
+      218.5,
+      1188.5,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44118",
+     "caixa": [
+      218.5,
+      1236,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1257.4,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1284.8,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1285.8,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      218.5,
+      1309.1,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1348.9,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Ray-Ban de metal masculino",
+     "caixa": [
+      33,
+      1517.4,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44120",
+     "caixa": [
+      33,
+      1564.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      1586.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1613.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      1614.7,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8 em estoque",
+     "caixa": [
+      33,
+      1638,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1348.9,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Armani de acetato feminino",
+     "caixa": [
+      218.5,
+      1517.4,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44133",
+     "caixa": [
+      218.5,
+      1564.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1586.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1613.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1614.7,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5 em estoque",
+     "caixa": [
+      218.5,
+      1638,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1677.9,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #10",
+     "caixa": [
+      33,
+      1846.4,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      1872.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1899.5,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      1900.5,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 em estoque",
+     "caixa": [
+      33,
+      1923.8,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1677.9,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #11",
+     "caixa": [
+      218.5,
+      1846.4,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1872.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1899.5,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1900.5,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 em estoque",
+     "caixa": [
+      218.5,
+      1923.8,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1963.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #12",
+     "caixa": [
+      33,
+      2132.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      2157.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      2185.3,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2186.3,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3 em estoque",
+     "caixa": [
+      33,
+      2209.6,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1963.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      218.5,
+      2132.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SL2201",
+     "caixa": [
+      218.5,
+      2179.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      218.5,
+      2201,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2228.4,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      2229.4,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 em estoque",
+     "caixa": [
+      218.5,
+      2252.7,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2292.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Kazwini de tr90 feminino",
+     "caixa": [
+      33,
+      2461.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SL2210",
+     "caixa": [
+      33,
+      2508.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      33,
+      2530,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2557.3,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2558.3,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8 em estoque",
+     "caixa": [
+      33,
+      2581.6,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      2292.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #13",
+     "caixa": [
+      218.5,
+      2461.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      218.5,
+      2486.8,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2514.2,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      2515.2,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      218.5,
+      2538.5,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2621.5,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2630.5,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2630.5,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #14",
+     "caixa": [
+      33,
+      2790,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      33,
+      2815.7,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2843.1,
+      65.6,
+      16
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2844.1,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4 em estoque",
+     "caixa": [
+      33,
+      2867.4,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "some do catálogo · baixo, repor",
+     "caixa": [
+      24,
+      2909.3,
+      359,
+      25.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esgotado",
+     "caixa": [
+      24,
+      2909.3,
+      70.7,
+      25.4
+     ],
+     "cor": "rgb(161, 42, 42)",
+     "fundo": "rgb(251, 227, 227)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2",
+     "caixa": [
+      202.8,
+      2909.3,
+      26.8,
+      25.4
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "rgb(253, 240, 210)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2966.7,
+      359,
+      139.1
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2967.7,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Parados e sobrando",
+     "caixa": [
+      24,
+      2979.7,
+      278.5,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nada sem vender há 60+ dias",
+     "caixa": [
+      24,
+      3004.8,
+      278.5,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$ 0",
+     "caixa": [
+      318.5,
+      2990.1,
+      42.5,
+      23.2
+     ],
+     "cor": "rgb(183, 121, 31)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      2987.2,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      3036.7,
+      359,
+      69
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "0px rgb(31, 26, 34) / 1px rgb(230, 223, 229)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contar o estoque",
+     "caixa": [
+      24,
+      3048.7,
+      337,
+      23.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3 dos mais valiosos sem conferir há 10+ dias",
+     "caixa": [
+      24,
+      3073.9,
+      337,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      3056.2,
+      6,
+      29
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-inventario-estoque_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Inventário [estoque]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      113.1,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      191.4,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      24,
+      106,
+      56.9,
+      44
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "‹",
+     "caixa": [
+      24,
+      115.4,
+      4.8,
+      23.2
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Inventário",
+     "caixa": [
+      24,
+      151.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "16 referências · US$ 113 a custo",
+     "caixa": [
+      24,
+      194,
+      359,
+      19.6
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      146,
+      44,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px color(srgb 0.905882 0.929412 0.960784 / 0.28) / 1px color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+     "raio": "999px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      158,
+      20,
+      20
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M12 5v14M5 12h14",
+      "traco": "1.6px",
+      "cor": "rgb(231, 237, 245)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      263.6,
+      359,
+      54
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "rgb(15, 18, 22)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      40,
+      280.6,
+      20,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Peça, código, cor…",
+     "caixa": [
+      68,
+      264.6,
+      256,
+      52
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      341,
+      277.6,
+      26,
+      26
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3|path:d=M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "470 peças · Todos",
+     "caixa": [
+      24,
+      340.1,
+      105.5,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      327.6,
+      44,
+      44
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      339.6,
+      20,
+      20
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 7h10M18 7h2M4 17h4M12 17h8|circle:cx=16,cy=7,r=2|circle:cx=10,cy=17,r=2",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      383.6,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      88.8,
+      448.3,
+      44,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.4px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lote Kazwini",
+     "caixa": [
+      33,
+      552.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      577.8,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      605.2,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      607,
+      12,
+      12
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "343 em estoque",
+     "caixa": [
+      33,
+      629.5,
+      93.7,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      383.6,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      392.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      552.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2 modelos",
+     "caixa": [
+      218.5,
+      599.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "26 em estoque",
+     "caixa": [
+      218.5,
+      621,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      669.3,
+      173.5,
+      338.7
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      33,
+      837.8,
+      155.5,
+      65.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SP58110",
+     "caixa": [
+      33,
+      907.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      928.5,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      955.9,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      957.7,
+      12,
+      12
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      33,
+      980.2,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      669.3,
+      173.5,
+      338.7
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      678.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de plástico feminino",
+     "caixa": [
+      218.5,
+      837.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SP60627",
+     "caixa": [
+      218.5,
+      885.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      218.5,
+      906.7,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      934.1,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      290.1,
+      935.9,
+      12,
+      12
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 em estoque",
+     "caixa": [
+      218.5,
+      958.4,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1020,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura #15",
+     "caixa": [
+      33,
+      1188.5,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Pré-graduados",
+     "caixa": [
+      33,
+      1214.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      1241.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      104.6,
+      1243.5,
+      12,
+      12
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 12.5l4.5 4.5L19 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12 em estoque",
+     "caixa": [
+      33,
+      1266,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1020,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1029,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Gucci de metal feminino",
+     "caixa": [
+      218.5,
+      1188.5,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44118",
+     "caixa": [
+      218.5,
+      1236,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1257.4,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1284.8,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1285.8,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      218.5,
+      1309.1,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1348.9,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Ray-Ban de metal masculino",
+     "caixa": [
+      33,
+      1517.4,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44120",
+     "caixa": [
+      33,
+      1564.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      1586.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1613.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      1614.7,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8 em estoque",
+     "caixa": [
+      33,
+      1638,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1348.9,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1357.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Armani de acetato feminino",
+     "caixa": [
+      218.5,
+      1517.4,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código BR44133",
+     "caixa": [
+      218.5,
+      1564.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1586.3,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1613.7,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1614.7,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "5 em estoque",
+     "caixa": [
+      218.5,
+      1638,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1677.9,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #10",
+     "caixa": [
+      33,
+      1846.4,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      1872.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1899.5,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      1900.5,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 em estoque",
+     "caixa": [
+      33,
+      1923.8,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1677.9,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1686.9,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #11",
+     "caixa": [
+      218.5,
+      1846.4,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      218.5,
+      1872.1,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1899.5,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      1900.5,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "7 em estoque",
+     "caixa": [
+      218.5,
+      1923.8,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1963.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #12",
+     "caixa": [
+      33,
+      2132.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armações",
+     "caixa": [
+      33,
+      2157.9,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      2185.3,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2186.3,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3 em estoque",
+     "caixa": [
+      33,
+      2209.6,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1963.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1972.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      218.5,
+      2132.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SL2201",
+     "caixa": [
+      218.5,
+      2179.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      218.5,
+      2201,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2228.4,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      2229.4,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "10 em estoque",
+     "caixa": [
+      218.5,
+      2252.7,
+      86.3,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2292.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Kazwini de tr90 feminino",
+     "caixa": [
+      33,
+      2461.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Código SL2210",
+     "caixa": [
+      33,
+      2508.6,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      33,
+      2530,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2557.3,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2558.3,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "8 em estoque",
+     "caixa": [
+      33,
+      2581.6,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      2292.6,
+      173.5,
+      316.9
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2301.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #13",
+     "caixa": [
+      218.5,
+      2461.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      218.5,
+      2486.8,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2514.2,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      290.1,
+      2515.2,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "9 em estoque",
+     "caixa": [
+      218.5,
+      2538.5,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2621.5,
+      173.5,
+      273.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2630.5,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2630.5,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #14",
+     "caixa": [
+      33,
+      2790,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solares",
+     "caixa": [
+      33,
+      2815.7,
+      155.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2843.1,
+      65.6,
+      16
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "800",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "!",
+     "caixa": [
+      104.6,
+      2844.1,
+      3.3,
+      14
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "4 em estoque",
+     "caixa": [
+      33,
+      2867.4,
+      78.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "13px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "some do catálogo · baixo, repor",
+     "caixa": [
+      24,
+      2909.3,
+      359,
+      25.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Esgotado",
+     "caixa": [
+      24,
+      2909.3,
+      70.7,
+      25.4
+     ],
+     "cor": "rgb(255, 154, 154)",
+     "fundo": "rgb(58, 21, 21)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "2",
+     "caixa": [
+      202.8,
+      2909.3,
+      26.8,
+      25.4
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "rgb(51, 39, 13)",
+     "borda": "",
+     "raio": "999px",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2966.7,
+      359,
+      139.1
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2967.7,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Parados e sobrando",
+     "caixa": [
+      24,
+      2979.7,
+      278.5,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Nada sem vender há 60+ dias",
+     "caixa": [
+      24,
+      3004.8,
+      278.5,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$ 0",
+     "caixa": [
+      318.5,
+      2990.1,
+      42.5,
+      23.2
+     ],
+     "cor": "rgb(233, 194, 122)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      2987.2,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      3036.7,
+      359,
+      69
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "0px rgb(231, 237, 245) / 1px rgb(34, 42, 53)",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Contar o estoque",
+     "caixa": [
+      24,
+      3048.7,
+      337,
+      23.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "500",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "3 dos mais valiosos sem conferir há 10+ dias",
+     "caixa": [
+      24,
+      3073.9,
+      337,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "›",
+     "caixa": [
+      377,
+      3056.2,
+      6,
+      29
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "20px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-inventario-estoque_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Inventário [estoque]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "sai para: Pendências [notif]"
+  },
+  {
+   "i": 1,
+   "nome": "Voltar para Peças",
+   "act": "nvVolta",
+   "id": "",
+   "tag": "button",
+   "sinal": "‹",
+   "aba": -1,
+   "faz": "sai para: Peças [grp]"
+  },
+  {
+   "i": 2,
+   "nome": "Adicionar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre tela por cima: Adicionar"
+  },
+  {
+   "i": 3,
+   "nome": "Buscar com a câmera",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Ler haste"
+  },
+  {
+   "i": 4,
+   "nome": "Filtros e ordem",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre a janela de baixo: Filtros do inventário"
+  },
+  {
+   "i": 5,
+   "nome": "Lote Kazwini Pré-graduados G$ 25.000 343 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali",
+   "atravessa": [
+    {
+     "cima": "De onde vem o preço G$ 25.000",
+     "baixo": "− IVA da venda (10%)",
+     "caixa": [
+      24,
+      994.203125,
+      131.140625,
+      9.3125
+     ]
+    },
+    {
+     "cima": "G$ 25.000",
+     "baixo": "− G$ 2.273",
+     "caixa": [
+      314.5,
+      994.203125,
+      43,
+      9.3125
+     ]
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "nome": "Óculos de leitura de acetato unissex 2 modelos 26 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 7,
+   "nome": "Óculos de leitura Kazwini de acetato masculino Código SP5811",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 8,
+   "nome": "Óculos de leitura de plástico feminino Código SP60627 Pré-gr",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 9,
+   "nome": "Óculos de leitura #15 Pré-graduados G$ 25.000 12 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 10,
+   "nome": "Armação Gucci de metal feminino Código BR44118 Armações G$ 4",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 11,
+   "nome": "Armação Ray-Ban de metal masculino Código BR44120 Armações G",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 12,
+   "nome": "Armação Armani de acetato feminino Código BR44133 Armações G",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 13,
+   "nome": "Armação #10 Armações G$ 45.000! 7 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 14,
+   "nome": "Armação #11 Armações G$ 45.000! 7 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 15,
+   "nome": "Armação #12 Armações G$ 45.000! 3 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 16,
+   "nome": "Óculos solar Ray-Ban de metal masculino Código SL2201 Solare",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 17,
+   "nome": "Óculos solar Kazwini de tr90 feminino Código SL2210 Solares ",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 18,
+   "nome": "Óculos solar #13 Solares G$ 60.000! 9 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 19,
+   "nome": "Óculos solar #14 Solares G$ 60.000! 4 em estoque",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "abre ali"
+  },
+  {
+   "i": 20,
+   "nome": "Parados e sobrando Nada sem vender há 60+ dias US$ 0 ›",
+   "act": "invParSob",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "não tocado (perigo)"
+  },
+  {
+   "i": 21,
+   "nome": "Contar o estoque 3 dos mais valiosos sem conferir há 10+ dia",
+   "act": "contTroca",
+   "id": "",
+   "tag": "button",
+   "sinal": "›",
+   "aba": -1,
+   "faz": "abre ali"
+  }
+ ],
+ "lugar_mapa": "Inventário [estoque]"
+}

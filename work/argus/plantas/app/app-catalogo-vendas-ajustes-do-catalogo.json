@@ -1,0 +1,7015 @@
+{
+ "id": "app-catalogo-vendas-ajustes-do-catalogo",
+ "tela": "Catálogo · vendas] › Ajustes do catálogo",
+ "passos": [
+  "()=>window.__argus.aba(1)",
+  "()=>{if(!window.__argus.tocaNome(\"Ajustes do cat\\u00e1logo\",0))throw new Error('planta: não achei '+\"Ajustes do cat\\u00e1logo\")}"
+ ],
+ "cenario": "normal",
+ "data": "2026-11-24T15:00:00-03:00",
+ "aparelho": "Xiaomi 13T (dono)",
+ "aprovacao": "26/11/2026 12:28 APROVADO (dono, \"aprovado tudo\")",
+ "temas": {
+  "claro": {
+   "titulo": "Catálogo [vendas]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "1px rgb(230, 223, 229) / 1px rgb(230, 223, 229)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "1px rgb(217, 208, 216) / 0px rgb(31, 26, 34)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      112,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(148, 61, 111)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Catálogo",
+     "caixa": [
+      24,
+      123.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha a peça e venda.",
+     "caixa": [
+      24,
+      166,
+      359,
+      19.6
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      118,
+      44,
+      44
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      130,
+      20,
+      20
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2.5,x=4,y=3,width=16,height=18|path:d=M10 18h4",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      219.6,
+      359,
+      54
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "rgb(244, 241, 244)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      40,
+      236.6,
+      20,
+      20
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Peça, código, cor…",
+     "caixa": [
+      68,
+      220.6,
+      256,
+      52
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      341,
+      233.6,
+      26,
+      26
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3|path:d=M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "peças",
+     "caixa": [
+      24,
+      298.6,
+      59.9,
+      15
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "470",
+     "caixa": [
+      24,
+      297.6,
+      21.9,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· Varejo · G$",
+     "caixa": [
+      91.9,
+      296.1,
+      179.1,
+      18.8
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      287,
+      283.6,
+      44,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      298,
+      294.6,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 7h10M18 7h2M4 17h4M12 17h8|circle:cx=16,cy=7,r=2.2|circle:cx=10,cy=17,r=2.2",
+      "traco": "1.6px",
+      "cor": "rgb(31, 26, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      283.6,
+      44,
+      44
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      350,
+      294.6,
+      22,
+      22
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=18,cy=5.5,r=2.5|circle:cx=6,cy=12,r=2.5|circle:cx=18,cy=18.5,r=2.5|path:d=M8.2 10.8l7.6-4M8.2 13.2l7.6 4",
+      "traco": "1.6px",
+      "cor": "rgb(31, 26, 34)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      353.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      82.8,
+      412.3,
+      56,
+      56
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.4px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lote Kazwini",
+     "caixa": [
+      33,
+      522.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      547.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      353.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      522.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      569.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      612.3,
+      173.5,
+      268.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      33,
+      780.8,
+      155.5,
+      65.3
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      850.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      612.3,
+      173.5,
+      268.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      780.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      828.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      892.8,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de plástico feminino",
+     "caixa": [
+      33,
+      1061.3,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      1108.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      892.8,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura #15",
+     "caixa": [
+      218.5,
+      1061.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      1087.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1151.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Gucci de metal feminino",
+     "caixa": [
+      33,
+      1320.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1367.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1151.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Ray-Ban de metal masculino",
+     "caixa": [
+      218.5,
+      1320.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1367.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1410.3,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Armani de acetato feminino",
+     "caixa": [
+      33,
+      1578.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1626.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1410.3,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #10",
+     "caixa": [
+      218.5,
+      1578.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1604.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1669.1,
+      173.5,
+      225
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #11",
+     "caixa": [
+      33,
+      1837.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1863.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1669.1,
+      173.5,
+      225
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #12",
+     "caixa": [
+      218.5,
+      1837.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1863.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1906.1,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      33,
+      2074.6,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2122.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1906.1,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Kazwini de tr90 feminino",
+     "caixa": [
+      218.5,
+      2074.6,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2122.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2164.8,
+      173.5,
+      225
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #13",
+     "caixa": [
+      33,
+      2333.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2359.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      2164.8,
+      173.5,
+      225
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #14",
+     "caixa": [
+      218.5,
+      2333.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2359.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      832
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      282.4,
+      407,
+      549.6
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "22px 22px 0px 0px",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      181.5,
+      294.4,
+      44,
+      5
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(217, 208, 216)",
+     "borda": "",
+     "raio": "3px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes do catálogo",
+     "caixa": [
+      16,
+      312.5,
+      160.5,
+      26.1
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Limpar",
+     "caixa": [
+      343.1,
+      309.4,
+      47.9,
+      32.3
+     ],
+     "cor": "rgb(148, 61, 111)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Moeda",
+     "caixa": [
+      16,
+      347.7,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      371,
+      375,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "color(srgb 0.121569 0.101961 0.133333 / 0.04)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      19,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "9px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$",
+     "caixa": [
+      19,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "500",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "R$",
+     "caixa": [
+      142,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$",
+     "caixa": [
+      265,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ver como",
+     "caixa": [
+      16,
+      446.3,
+      73.5,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      147.5,
+      435,
+      125.5,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      158.5,
+      446,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 15l4.5-4.5 3 3L17 7M12.5 7H17v4.5",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais vendidos",
+     "caixa": [
+      181.5,
+      446,
+      80.5,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      281,
+      431,
+      110,
+      48
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "color(srgb 0.121569 0.101961 0.133333 / 0.04)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      284,
+      434,
+      52,
+      42
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "9px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      301,
+      442.9,
+      18,
+      18
+     ],
+     "cor": "rgb(31, 26, 34)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1.5,x=4,y=4,width=7,height=7|rect:rx=1.5,x=13,y=4,width=7,height=7|rect:rx=1.5,x=4,y=13,width=7,height=7|rect:rx=1.5,x=13,y=13,width=7,height=7",
+      "traco": "1.6px",
+      "cor": "rgb(31, 26, 34)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      353,
+      442.9,
+      18,
+      18
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M9 6h11M9 12h11M9 18h11M4 6h0M4 12h0M4 18h0",
+      "traco": "1.6px",
+      "cor": "rgb(107, 100, 114)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tipo",
+     "caixa": [
+      16,
+      491,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      50.7,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2 8h6.5l-0.5 4a2 2 0 0 1-2 1.8H4.5a2 2 0 0 1-2-1.8zM11.5 8H18l-0.5 4a2 2 0 0 1-2 1.8h-1.5a2 2 0 0 1-2-1.8z|path:d=M8.5 9h3",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      73.7,
+      525.4,
+      28.6,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      178.9,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=5.5,cy=10.5,r=3.6|circle:cx=14.5,cy=10.5,r=3.6|path:d=M9.1 10h1.8",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Grau",
+     "caixa": [
+      201.9,
+      525.4,
+      26.2,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      293.7,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1.6,x=1.8,y=7.5,width=7,height=6|rect:rx=1.6,x=11.2,y=7.5,width=7,height=6|path:d=M8.8 9.3h2.4",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação",
+     "caixa": [
+      316.7,
+      525.4,
+      50.6,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para quem",
+     "caixa": [
+      16,
+      566.4,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39.3,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=10,cy=7,r=4|path:d=M10 11v7M7 15h6",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      62.3,
+      600.8,
+      51.4,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      163.1,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=8,cy=12,r=4.2|path:d=M11 9l6-6M12.5 3H17v4.5",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      186.1,
+      600.8,
+      57.7,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      297.1,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=7,cy=8,r=2.6|circle:cx=13.5,cy=8,r=2.6|path:d=M2.5 16c0.6-2.6 2.4-4 4.5-4s3.9 1.4 4.5 4M10 16c0.6-2.6 2.2-4 3.5-4 2 0 3.8 1.4 4.3 4",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      320.1,
+      600.8,
+      43.8,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Preço até",
+     "caixa": [
+      16,
+      641.8,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      32,
+      676.2,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=10,cy=10,r=7|path:d=M10 6.5v7",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "50 mil",
+     "caixa": [
+      55,
+      676.2,
+      34.2,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      111.3,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "100 mil",
+     "caixa": [
+      135.3,
+      676.2,
+      41.2,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      206.5,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "150 mil",
+     "caixa": [
+      230.5,
+      676.2,
+      41.2,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      301.8,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais",
+     "caixa": [
+      332.8,
+      676.2,
+      27.2,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Situação",
+     "caixa": [
+      16,
+      717.2,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      47.6,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 3h6.5L17 10.5 10.5 17 3 9.5z|circle:cx=6.8,cy=6.8,r=1.2",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oferta",
+     "caixa": [
+      70.6,
+      751.5,
+      34.9,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      165.7,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M10 2.5l1.8 4.7 4.7 1.8-4.7 1.8L10 15.5l-1.8-4.7L3.5 9l4.7-1.8z",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Novidade",
+     "caixa": [
+      188.7,
+      751.5,
+      52.6,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "rgb(240, 235, 240)",
+     "borda": "1px rgb(217, 208, 216) / 1px rgb(217, 208, 216)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      290,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 2.5h10M5 17.5h10M6 2.5c0 4 3 5 4 7.5 1-2.5 4-3.5 4-7.5M6 17.5c0-4 3-5 4-7.5 1 2.5 4 3.5 4 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(71, 85, 105)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Encalhada",
+     "caixa": [
+      313,
+      751.5,
+      57.9,
+      18.1
+     ],
+     "cor": "rgb(71, 85, 105)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "peças",
+     "caixa": [
+      16,
+      796.6,
+      375,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "470",
+     "caixa": [
+      175.8,
+      796.6,
+      20.2,
+      17.4
+     ],
+     "cor": "rgb(107, 100, 114)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-catalogo-vendas-ajustes-do-catalogo_claro.jpg"
+  },
+  "escuro": {
+   "titulo": "Catálogo [vendas]",
+   "pecas": [
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      41,
+      44,
+      44
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "1px rgb(34, 42, 53) / 1px rgb(34, 42, 53)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      53,
+      20,
+      20
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "12",
+     "caixa": [
+      365.4,
+      36,
+      22.6,
+      20
+     ],
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(221, 51, 51)",
+     "borda": "",
+     "raio": "10px",
+     "letra": [
+      "11px",
+      "700",
+      "system-ui",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      162.1,
+      38,
+      82.8,
+      52
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      765,
+      407,
+      67
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "1px rgb(42, 52, 65) / 0px rgb(231, 237, 245)",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      33.7,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Início",
+     "caixa": [
+      31.2,
+      803.5,
+      27.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      112,
+      775.4,
+      24.2,
+      24.2
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4",
+      "traco": "1.6px",
+      "cor": "rgb(191, 139, 169)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Vender",
+     "caixa": [
+      106.6,
+      803.5,
+      35,
+      15.9
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      192.5,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "path:d=M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Peças",
+     "caixa": [
+      188.4,
+      803.5,
+      30.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      271.9,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "rect:rx=2,x=3,y=6,width=18,height=13|path:d=M3 10h18M16 15h2",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Dinheiro",
+     "caixa": [
+      262.3,
+      803.5,
+      41.1,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351.3,
+      778.5,
+      22,
+      22
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true,
+     "icone": {
+      "geo": "circle:cx=12,cy=12,r=3|path:d=M19 12a7 7 0 0 0-0.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-0.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l0.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c0.1-0.40.1-0.80.1-1.2z",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes",
+     "caixa": [
+      343.7,
+      803.5,
+      37.2,
+      15.9
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "11px",
+      "600",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": true
+    },
+    {
+     "tipo": "texto",
+     "texto": "Catálogo",
+     "caixa": [
+      24,
+      123.9,
+      299,
+      32.2
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "28px",
+      "500",
+      "Fraunces",
+      "-0.28px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Escolha a peça e venda.",
+     "caixa": [
+      24,
+      166,
+      359,
+      19.6
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      118,
+      44,
+      44
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      351,
+      130,
+      20,
+      20
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=2.5,x=4,y=3,width=16,height=18|path:d=M10 18h4",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      219.6,
+      359,
+      54
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "rgb(15, 18, 22)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "18px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      40,
+      236.6,
+      20,
+      20
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=11,cy=11,r=7|path:d=M20 20l-4-4",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "campo",
+     "texto": "Peça, código, cor…",
+     "caixa": [
+      68,
+      220.6,
+      256,
+      52
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "16px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      341,
+      233.6,
+      26,
+      26
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3|path:d=M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "peças",
+     "caixa": [
+      24,
+      298.6,
+      59.9,
+      15
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "470",
+     "caixa": [
+      24,
+      297.6,
+      21.9,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "· Varejo · G$",
+     "caixa": [
+      91.9,
+      296.1,
+      179.1,
+      18.8
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "13px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      287,
+      283.6,
+      44,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      298,
+      294.6,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M4 7h10M18 7h2M4 17h4M12 17h8|circle:cx=16,cy=7,r=2.2|circle:cx=10,cy=17,r=2.2",
+      "traco": "1.6px",
+      "cor": "rgb(231, 237, 245)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      339,
+      283.6,
+      44,
+      44
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "50%",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      350,
+      294.6,
+      22,
+      22
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=18,cy=5.5,r=2.5|circle:cx=6,cy=12,r=2.5|circle:cx=18,cy=18.5,r=2.5|path:d=M8.2 10.8l7.6-4M8.2 13.2l7.6 4",
+      "traco": "1.6px",
+      "cor": "rgb(231, 237, 245)"
+     }
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      353.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      82.8,
+      412.3,
+      56,
+      56
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z|path:d=M3.5 7.5 12 12l8.5-4.5M12 12v9",
+      "traco": "1.4px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Lote Kazwini",
+     "caixa": [
+      33,
+      522.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      547.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      353.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      362.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      522.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      569.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      612.3,
+      173.5,
+      268.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura Kazwini de acetato masculino",
+     "caixa": [
+      33,
+      780.8,
+      155.5,
+      65.3
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      850.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      612.3,
+      173.5,
+      268.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      621.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de acetato unissex",
+     "caixa": [
+      218.5,
+      780.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      828.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      892.8,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura de plástico feminino",
+     "caixa": [
+      33,
+      1061.3,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      33,
+      1108.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      892.8,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      901.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos de leitura #15",
+     "caixa": [
+      218.5,
+      1061.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 25.000",
+     "caixa": [
+      218.5,
+      1087.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1151.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Gucci de metal feminino",
+     "caixa": [
+      33,
+      1320.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1367.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1151.6,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1160.6,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Ray-Ban de metal masculino",
+     "caixa": [
+      218.5,
+      1320.1,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1367.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1410.3,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação Armani de acetato feminino",
+     "caixa": [
+      33,
+      1578.8,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1626.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1410.3,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1419.3,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #10",
+     "caixa": [
+      218.5,
+      1578.8,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1604.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1669.1,
+      173.5,
+      225
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #11",
+     "caixa": [
+      33,
+      1837.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      33,
+      1863.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1669.1,
+      173.5,
+      225
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1678.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação #12",
+     "caixa": [
+      218.5,
+      1837.6,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 45.000",
+     "caixa": [
+      218.5,
+      1863.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      1906.1,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Ray-Ban de metal masculino",
+     "caixa": [
+      33,
+      2074.6,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2122.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      1906.1,
+      173.5,
+      246.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      1915.1,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar Kazwini de tr90 feminino",
+     "caixa": [
+      218.5,
+      2074.6,
+      155.5,
+      43.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2122.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      24,
+      2164.8,
+      173.5,
+      225
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      33,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      33,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #13",
+     "caixa": [
+      33,
+      2333.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      33,
+      2359.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      209.5,
+      2164.8,
+      173.5,
+      225
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(255, 255, 255)",
+     "borda": "",
+     "raio": "8px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "imagem",
+     "texto": "",
+     "caixa": [
+      218.5,
+      2173.8,
+      155.5,
+      155.5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Óculos solar #14",
+     "caixa": [
+      218.5,
+      2333.3,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$ 60.000",
+     "caixa": [
+      218.5,
+      2359.1,
+      155.5,
+      21.8
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "15px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      0,
+      407,
+      832
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(0, 0, 0)",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      0,
+      282.4,
+      407,
+      549.6
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "",
+     "raio": "22px 22px 0px 0px",
+     "letra": null,
+     "fixo": true
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      181.5,
+      294.4,
+      44,
+      5
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(42, 52, 65)",
+     "borda": "",
+     "raio": "3px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ajustes do catálogo",
+     "caixa": [
+      16,
+      312.5,
+      160.5,
+      26.1
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "18px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Limpar",
+     "caixa": [
+      343.1,
+      309.4,
+      47.9,
+      32.3
+     ],
+     "cor": "rgb(191, 139, 169)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "14px",
+      "700",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Moeda",
+     "caixa": [
+      16,
+      347.7,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      371,
+      375,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "color(srgb 0.905882 0.929412 0.960784 / 0.04)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      19,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "",
+     "raio": "9px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "G$",
+     "caixa": [
+      19,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "500",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "R$",
+     "caixa": [
+      142,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "US$",
+     "caixa": [
+      265,
+      374,
+      123,
+      42
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "9px",
+     "letra": [
+      "14px",
+      "400",
+      "Segoe UI",
+      "0.2px",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Ver como",
+     "caixa": [
+      16,
+      446.3,
+      73.5,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      147.5,
+      435,
+      125.5,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      158.5,
+      446,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 15l4.5-4.5 3 3L17 7M12.5 7H17v4.5",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais vendidos",
+     "caixa": [
+      181.5,
+      446,
+      80.5,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      281,
+      431,
+      110,
+      48
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "color(srgb 0.905882 0.929412 0.960784 / 0.04)",
+     "borda": "",
+     "raio": "12px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      284,
+      434,
+      52,
+      42
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "rgb(22, 26, 32)",
+     "borda": "",
+     "raio": "9px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      301,
+      442.9,
+      18,
+      18
+     ],
+     "cor": "rgb(231, 237, 245)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1.5,x=4,y=4,width=7,height=7|rect:rx=1.5,x=13,y=4,width=7,height=7|rect:rx=1.5,x=4,y=13,width=7,height=7|rect:rx=1.5,x=13,y=13,width=7,height=7",
+      "traco": "1.6px",
+      "cor": "rgb(231, 237, 245)"
+     }
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      353,
+      442.9,
+      18,
+      18
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M9 6h11M9 12h11M9 18h11M4 6h0M4 12h0M4 18h0",
+      "traco": "1.6px",
+      "cor": "rgb(139, 155, 176)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Tipo",
+     "caixa": [
+      16,
+      491,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      50.7,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M2 8h6.5l-0.5 4a2 2 0 0 1-2 1.8H4.5a2 2 0 0 1-2-1.8zM11.5 8H18l-0.5 4a2 2 0 0 1-2 1.8h-1.5a2 2 0 0 1-2-1.8z|path:d=M8.5 9h3",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Solar",
+     "caixa": [
+      73.7,
+      525.4,
+      28.6,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      178.9,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=5.5,cy=10.5,r=3.6|circle:cx=14.5,cy=10.5,r=3.6|path:d=M9.1 10h1.8",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Grau",
+     "caixa": [
+      201.9,
+      525.4,
+      26.2,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      514.4,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      293.7,
+      525.4,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "rect:rx=1.6,x=1.8,y=7.5,width=7,height=6|rect:rx=1.6,x=11.2,y=7.5,width=7,height=6|path:d=M8.8 9.3h2.4",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Armação",
+     "caixa": [
+      316.7,
+      525.4,
+      50.6,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Para quem",
+     "caixa": [
+      16,
+      566.4,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      39.3,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=10,cy=7,r=4|path:d=M10 11v7M7 15h6",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Feminino",
+     "caixa": [
+      62.3,
+      600.8,
+      51.4,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      163.1,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=8,cy=12,r=4.2|path:d=M11 9l6-6M12.5 3H17v4.5",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Masculino",
+     "caixa": [
+      186.1,
+      600.8,
+      57.7,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      589.8,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      297.1,
+      600.8,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=7,cy=8,r=2.6|circle:cx=13.5,cy=8,r=2.6|path:d=M2.5 16c0.6-2.6 2.4-4 4.5-4s3.9 1.4 4.5 4M10 16c0.6-2.6 2.2-4 3.5-4 2 0 3.8 1.4 4.3 4",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Unissex",
+     "caixa": [
+      320.1,
+      600.8,
+      43.8,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Preço até",
+     "caixa": [
+      16,
+      641.8,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      32,
+      676.2,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "circle:cx=10,cy=10,r=7|path:d=M10 6.5v7",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "50 mil",
+     "caixa": [
+      55,
+      676.2,
+      34.2,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      111.3,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "100 mil",
+     "caixa": [
+      135.3,
+      676.2,
+      41.2,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      206.5,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "150 mil",
+     "caixa": [
+      230.5,
+      676.2,
+      41.2,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      301.8,
+      665.2,
+      89.3,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Mais",
+     "caixa": [
+      332.8,
+      676.2,
+      27.2,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "Situação",
+     "caixa": [
+      16,
+      717.2,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "600",
+      "Segoe UI",
+      "1.68px",
+      "uppercase"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      16,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      47.6,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M3 3h6.5L17 10.5 10.5 17 3 9.5z|circle:cx=6.8,cy=6.8,r=1.2",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Oferta",
+     "caixa": [
+      70.6,
+      751.5,
+      34.9,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      143,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      165.7,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M10 2.5l1.8 4.7 4.7 1.8-4.7 1.8L10 15.5l-1.8-4.7L3.5 9l4.7-1.8z",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Novidade",
+     "caixa": [
+      188.7,
+      751.5,
+      52.6,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "caixa",
+     "texto": "",
+     "caixa": [
+      270,
+      740.6,
+      121,
+      40
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "rgb(30, 36, 46)",
+     "borda": "1px rgb(42, 52, 65) / 1px rgb(42, 52, 65)",
+     "raio": "10px",
+     "letra": null,
+     "fixo": false
+    },
+    {
+     "tipo": "icone",
+     "texto": "",
+     "caixa": [
+      290,
+      751.6,
+      18,
+      18
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": null,
+     "fixo": false,
+     "icone": {
+      "geo": "path:d=M5 2.5h10M5 17.5h10M6 2.5c0 4 3 5 4 7.5 1-2.5 4-3.5 4-7.5M6 17.5c0-4 3-5 4-7.5 1 2.5 4 3.5 4 7.5",
+      "traco": "1.6px",
+      "cor": "rgb(203, 213, 225)"
+     }
+    },
+    {
+     "tipo": "texto",
+     "texto": "Encalhada",
+     "caixa": [
+      313,
+      751.5,
+      57.9,
+      18.1
+     ],
+     "cor": "rgb(203, 213, 225)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12.5px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "peças",
+     "caixa": [
+      16,
+      796.6,
+      375,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    },
+    {
+     "tipo": "texto",
+     "texto": "470",
+     "caixa": [
+      175.8,
+      796.6,
+      20.2,
+      17.4
+     ],
+     "cor": "rgb(139, 155, 176)",
+     "fundo": "",
+     "borda": "",
+     "raio": "",
+     "letra": [
+      "12px",
+      "400",
+      "Segoe UI",
+      "normal",
+      "none"
+     ],
+     "fixo": false
+    }
+   ],
+   "foto": "app-catalogo-vendas-ajustes-do-catalogo_escuro.jpg"
+  }
+ },
+ "versao_app": "5.60.0",
+ "titulo": "Catálogo [vendas]",
+ "ligacoes": [
+  {
+   "i": 0,
+   "nome": "Pendências",
+   "act": "view",
+   "id": "notif",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: div · nada"
+  },
+  {
+   "i": 1,
+   "nome": "Modo cliente (iPad da loja)",
+   "act": "mcLiga",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: div · nada"
+  },
+  {
+   "i": 2,
+   "nome": "Buscar com a câmera",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: div · nada"
+  },
+  {
+   "i": 3,
+   "nome": "Ajustes do catálogo",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 4,
+   "nome": "Compartilhar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 5,
+   "nome": "Lote Kazwini G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: VER COMO Mais vendidos · nada"
+  },
+  {
+   "i": 6,
+   "nome": "Óculos de leitura de acetato unissex G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: div · nada"
+  },
+  {
+   "i": 7,
+   "nome": "Óculos de leitura Kazwini de acetato masculino G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Oferta · troca a escolha"
+  },
+  {
+   "i": 8,
+   "nome": "Óculos de leitura de acetato unissex G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Encalhada · troca a escolha"
+  },
+  {
+   "i": 9,
+   "nome": "Óculos de leitura de plástico feminino G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 10,
+   "nome": "Óculos de leitura #15 G$ 25.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 11,
+   "nome": "Armação Gucci de metal feminino G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 12,
+   "nome": "Armação Ray-Ban de metal masculino G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 13,
+   "nome": "Armação Armani de acetato feminino G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 14,
+   "nome": "Armação #10 G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 15,
+   "nome": "Armação #11 G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 16,
+   "nome": "Armação #12 G$ 45.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 17,
+   "nome": "Óculos solar Ray-Ban de metal masculino G$ 60.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 18,
+   "nome": "Óculos solar Kazwini de tr90 feminino G$ 60.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 19,
+   "nome": "Óculos solar #13 G$ 60.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 20,
+   "nome": "Óculos solar #14 G$ 60.000",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "coberto por: Ajustes do catálogo · nada"
+  },
+  {
+   "i": 21,
+   "nome": "Limpar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "não tocado (perigo)"
+  },
+  {
+   "i": 22,
+   "nome": "G$",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "já é a escolha"
+  },
+  {
+   "i": 23,
+   "nome": "R$",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 24,
+   "nome": "US$",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 25,
+   "nome": "Mais vendidos",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 26,
+   "nome": "Cartões",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "já é a escolha"
+  },
+  {
+   "i": 27,
+   "nome": "Lista",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 28,
+   "nome": "Solar",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 29,
+   "nome": "Grau",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 30,
+   "nome": "Armação",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 31,
+   "nome": "Feminino",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 32,
+   "nome": "Masculino",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 33,
+   "nome": "Unissex",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 34,
+   "nome": "50 mil",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 35,
+   "nome": "100 mil",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 36,
+   "nome": "150 mil",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 37,
+   "nome": "Mais",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 38,
+   "nome": "Oferta",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 39,
+   "nome": "Novidade",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "⌄",
+   "aba": -1,
+   "faz": "troca a escolha"
+  },
+  {
+   "i": 40,
+   "nome": "Encalhada",
+   "act": "",
+   "id": "",
+   "tag": "button",
+   "sinal": "",
+   "aba": -1,
+   "faz": "troca a escolha"
+  }
+ ],
+ "lugar_mapa": "Catálogo [vendas] | janela: Ajustes do catálogo"
+}

@@ -28,7 +28,8 @@ if __name__ == '__main__':
         if os.path.exists(CACHE): X = json.load(open(CACHE))
         else: X = explorador.explora(pw, profundidade=2, max_toques=300, cobertura=False)['lugares']; json.dump(X, open(CACHE, 'w'), ensure_ascii=False, indent=1)
         print(len(X), 'lugares', flush=True); feitas = 0; LIM = int(os.environ.get('LOTE2_MAX', '99'))
-        for nome, v in X.items():
+        ALVO = [n for n, e, _ in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mapa_app.json'))) if e == 'sem planta']
+        for nome, v in ((n, X[n]) for n in ALVO):
             if feitas >= LIM: break
             chave = nome.split('[')[1].split(']')[0] if '[' in nome else ''
             tela = nome.split(' [')[0].strip() or ('Início' if chave == 'inicio' else chave.capitalize())
