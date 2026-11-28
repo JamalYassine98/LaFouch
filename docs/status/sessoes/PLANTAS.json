@@ -1,7 +1,10 @@
 {
  "nome": "PLANTAS",
- "agora": "",
- "arquivos": [],
+ "agora": "Fase 1: plantas do site como está hoje",
+ "arquivos": [
+  "work/argus/plantas/site/",
+  "work/argus/plantas/lotes/site/"
+ ],
  "ultimas": [
   {
    "t": 1795696110.3725302,
@@ -12,5 +15,5 @@
    "r": "plano das plantas do site (34 telas, 7 lotes) enviado ao dono"
   }
  ],
- "leu": 1795691168.4758637
+ "leu": 1795865737.0279987
 }
