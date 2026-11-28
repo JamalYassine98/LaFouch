@@ -4,6 +4,10 @@
  "arquivos": [],
  "ultimas": [
   {
+   "t": 1795865846.794674,
+   "r": "Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado."
+  },
+  {
    "t": 1795854813.9806042,
    "r": "Pausa do dono: pacote não publicado movido para o ramo nuvem/pacote-cupom-24-11; functions/ do main igual ao publicado (testes ok). Nenhum dado tocado. Parado até o dono liberar."
   },
@@ -38,11 +42,7 @@
   {
    "t": 1795502431.922189,
    "r": "Estudo do departamento: docs/NUVEM-COMO-FUNCIONA.md com estado de 24/11 e pendências (1 notificação da reserva suspeita, 2 cupom a/b, 3 App Check). 25 testes da nuvem ok (portas precisa npm install). Nada publicado."
-  },
-  {
-   "t": 1795371928.9013982,
-   "r": "Reserva suspeita parte 1 publicada 03ff0f79 (funções + regras; run ok + sonda ok): suspeita.js grava suspeitas/<pedido> (5+ iguais ou 3+ reservas abertas da rede na hora), regras só dono lê/apaga, limpeza. 25/25 arquivos de teste ok (8 novos). Formato mandado ao APP; notificação liga depois do aviso no Titan."
   }
  ],
- "leu": 1795865792.1672606
+ "leu": 1795865846.3655484
 }

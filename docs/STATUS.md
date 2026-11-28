@@ -247,6 +247,7 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 
 ## Últimas mudanças (todas as sessões, mais nova em cima)
 
+- 28/11 08:37 — NUVEM: Respondi à IDEIAS: guardado no ramo, proposta da área de testes (projeto Firebase separado), atropelos. Nada implementado/publicado.
 - 28/11 08:32 — IDEIAS: plano aprovado; Fase 1 liberada (ESBOCO + PLANTAS); arquivos no main
 - 28/11 08:25 — IDEIAS: plano de implementação geral (rascunho) + recados a todas as sessões
 - 28/11 08:22 — IDEIAS: celular de testes aprovado
@@ -271,4 +272,3 @@ Histórico antigo (até 19/11 23:50): docs/status/historico-antigo.md
 - 26/11 09:28 — PLANTAS: Argus · site: 5 provas novas dos bugs corrigidos desde 19/11 (Esc = voltar, janela solta, Destaque sem piscar, link direto com foto, cartões com desenho); prova 7c 26/26, 7e 17/17; abertos: + do carrinho passa o estoque, topo some ao rolar e abrir o menu (B4)
 - 26/11 07:44 — PLANTAS: plano das plantas do site (34 telas, 7 lotes) enviado ao dono
 - 24/11 11:51 — NUVEM: Telefone completo com o país (fone.js) no lugar dos 9/6 últimos dígitos; 26/26 arquivos de teste ok (teste-fone novo com trava). Pacote do cupom + telefone NÃO publicado: espera APP/SITE + OK ESBOCO.
-- 24/11 11:48 — NUVEM: VIP só com e-mail (dono 24/11). Testes 25/25 ok. Não publicado.
