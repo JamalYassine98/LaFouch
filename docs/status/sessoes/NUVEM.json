@@ -1,7 +1,10 @@
 {
  "nome": "NUVEM",
- "agora": "",
- "arquivos": [],
+ "agora": "Pacote do cupom no projeto de TESTE (dono 18:17: só no lafouch-teste)",
+ "arquivos": [
+  ".github/workflows/publicar-nuvem.yml",
+  "functions/teste-publicar-teste.js"
+ ],
  "ultimas": [
   {
    "t": 1795900389.1004171,
@@ -44,5 +47,5 @@
    "r": "Cupom sem furos (dono 24/11): loja = e-mail obrigatório e dono, um por vez em transação, e-mail no 7º dia sem duplicar, venda desfeita cancela; site = cartão pessoal só da conta do mesmo e-mail confirmado. 25/25 arquivos ok (75 provas no cupom). NÃO publicado."
   }
  ],
- "leu": 1795900607.2678175
+ "leu": 1795900680.655755
 }
